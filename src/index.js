@@ -5,16 +5,19 @@ import "./index.css";
 import store from "./app/store";
 import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
-import { BeltCalculator } from "./features/belt_calculator/BeltCalculator";
+import BeltCalculator from "./features/belt_calculator/BeltCalculator";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { QueryParamProvider } from "use-query-params";
+import Nav from "./nav";
+import { initFirebase } from "./features/db";
 
+// Render
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
         <QueryParamProvider ReactRouterRoute={Route}>
-          {/* This will appear on all pages */}
+          <Nav />
           <Switch>
             <Route exact path="/">
               landing :)

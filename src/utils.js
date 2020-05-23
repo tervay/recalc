@@ -4,6 +4,8 @@ import { useRef } from "react";
 import isEqual from "lodash/isEqual";
 
 export const QtyTranscoderMiddleware = (store) => (next) => (action) => {
+  if (!action.payload) return next(action);
+
   const newAction = {
     ...action,
     payload: Object.fromEntries(
@@ -15,9 +17,9 @@ export const QtyTranscoderMiddleware = (store) => (next) => (action) => {
 
   let result = next(newAction);
   const newResult = {
-    ...action,
+    ...result,
     payload: Object.fromEntries(
-      Object.entries(action.payload).map(([k, v]) => {
+      Object.entries(result).map(([k, v]) => {
         if (v.hasOwnProperty("unit") && v.hasOwnProperty("magnitude")) {
           return [k, DictToQty(v)];
         } else {
@@ -69,3 +71,10 @@ export const useDeepCompare = (value) => {
   }
   return ref.current;
 };
+
+export function isLocalhost() {
+  return (
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+  );
+}

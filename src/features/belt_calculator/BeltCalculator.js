@@ -6,7 +6,7 @@ import { QtyParam, useDeepCompare } from "../../utils";
 import Qty from "js-quantities";
 import { QtyInput, QtyOutput } from "../QtyInputs";
 
-export function BeltCalculator() {
+export default function BeltCalculator() {
   // Prepare inputs
   const dispatch = useDispatch();
   const [query, setQuery] = useQueryParams({
