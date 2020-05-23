@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signIn, signOut, tellFirestoreAboutUser } from "./slice";
+import { signIn, signOut } from "./slice";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { isLocalhost } from "../../utils";
-import { firebaseAuth, googleProvider } from "../db";
+import db, { firebaseAuth } from "../db";
 
 const localhostClientId =
   "411934684683-agkmu38ndl2ovnsrocpcr2b1opmc7ap0.apps.googleusercontent.com";
@@ -16,22 +16,29 @@ const testId =
 export default function Auth() {
   const dispatch = useDispatch();
   function onSuccess(resp) {
-    const id = resp.tokenId;
-    dispatch(signIn({ id }));
-    // dispatch(tellFirestoreAboutUser());
-    const credential = firebaseAuth.GoogleAuthProvider.credential(
-        resp.tokenId
-    );
-    firebaseAuth().signInWithCredential(credential).then((r) => {
-        console.log('yay')
-        console.log(r);
-    }).catch((err) => {
+    const credential = firebaseAuth.GoogleAuthProvider.credential(resp.tokenId);
+    firebaseAuth()
+      .signInWithCredential(credential)
+      .then((r) => {
+        dispatch(signIn({ id: r.user.uid }));
+        const userRef = db.collection("users").doc(r.user.uid);
+        userRef.get().then((snapshot) => {
+          if (!snapshot.exists) {
+            userRef.set({ id: r.user.uid });
+          }
+        });
+      })
+      .catch((err) => {
         console.log(err);
-    });
+      });
   }
 
   function onLogoutSuccess() {
     dispatch(signOut());
+    firebaseAuth()
+      .signOut()
+      .then((r) => console.log("Signout success"))
+      .catch((e) => console.log("signout failed"));
   }
 
   const signedIn = useSelector((state) => state.auth.signedIn);
@@ -42,7 +49,6 @@ export default function Auth() {
         clientId={isLocalhost() ? localhostClientId : prodClientId}
         onSuccess={onSuccess}
         onFailure={(r) => console.log("Login failed", r)}
-        cookiePolicy={"single_host_origin"}
       />
     );
   } else {

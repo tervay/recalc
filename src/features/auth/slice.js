@@ -16,17 +16,8 @@ export const authSlice = createSlice({
       state.signedIn = false;
       state.id = null;
     },
-    tellFirestoreAboutUser: (state, action) => {
-      const userRef = db.collection("users").doc(state.id);
-      userRef.get().then((snapshot) => {
-        if (!snapshot.exists) {
-          console.log("Creating new user in firebase");
-          userRef.set({ id: state.id });
-        }
-      });
-    },
   },
 });
 
-export const { signIn, signOut, tellFirestoreAboutUser } = authSlice.actions;
+export const { signIn, signOut } = authSlice.actions;
 export default authSlice.reducer;
