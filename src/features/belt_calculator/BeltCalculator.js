@@ -22,11 +22,12 @@ export default function BeltCalculator() {
   // Prepare inputs
   const dispatch = useDispatch();
   const [query, setQuery] = useQueryParams({
+    pitch: withDefault(QtyParam, Qty(3, "mm")),
     desiredCenter: withDefault(QtyParam, Qty(5, "in")),
     p1Teeth: withDefault(NumberParam, 24),
     p2Teeth: withDefault(NumberParam, 18),
   });
-  const { desiredCenter, p1Teeth, p2Teeth } = query;
+  const { pitch, desiredCenter, p1Teeth, p2Teeth } = query;
 
   // Prepare outputs
   const closestSmaller = useSelector((s) => s.beltCalculator.closestSmaller);
@@ -37,6 +38,7 @@ export default function BeltCalculator() {
   // Update
   useEffect(() => {
     const state = {
+      pitch,
       p1Teeth,
       p2Teeth,
       desiredCenter,
@@ -44,13 +46,21 @@ export default function BeltCalculator() {
 
     dispatch(teethToPitchDiameterReducer(state));
     dispatch(calculateClosestSizesReducer(state));
-  }, [p1Teeth, p2Teeth, desiredCenter]);
+  }, [pitch, p1Teeth, p2Teeth, desiredCenter]);
 
   return (
     <div>
       <Hero title="Belt Calculator" />
       <div className="columns">
         <div className="column">
+          <QtyInput
+            label="Tooth Pitch"
+            name="pitch"
+            qty={pitch}
+            setQuery={setQuery}
+            choices={["mm", "in"]}
+          />
+
           <NumberInQtyOut
             label={"Teeth / PD"}
             input={

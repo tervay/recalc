@@ -3,7 +3,7 @@ import Qty from "js-quantities";
 
 export function QtyInputCore(props) {
   // Prepare inputs
-  const [unit, setUnit] = useState(props.initialUnit || props.choices[0]);
+  const [unit, setUnit] = useState(props.qty._units || props.choices[0]);
   const [magnitude, setMagnitude] = useState(props.qty.scalar);
 
   // Update

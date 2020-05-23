@@ -10,7 +10,7 @@ export function teethToPitchDiameter(state, action) {
 export function calculateClosestSizes(state, action) {
   state = teethToPitchDiameter(state, action);
 
-  const p = Qty(3, "mm");
+  const p = DictToQty(action.payload.pitch);
   const D = state.p1PitchDiameter;
   const d = state.p2PitchDiameter;
   const desiredCenter = DictToQty(action.payload.desiredCenter);
