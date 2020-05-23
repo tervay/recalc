@@ -27,7 +27,7 @@ export const QtyTranscoderMiddleware = (store) => (next) => (action) => {
     ),
   };
 
-  return result;
+  return newResult;
 };
 
 export function QtyToDict(qty, unit = null) {

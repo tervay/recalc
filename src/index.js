@@ -5,7 +5,7 @@ import "./index.css";
 import store from "./app/store";
 import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
-import { BeltCalculator } from "./features/counter/BeltCalculator";
+import { BeltCalculator } from "./features/belt_calculator/BeltCalculator";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { QueryParamProvider } from "use-query-params";
 

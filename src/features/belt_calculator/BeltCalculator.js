@@ -62,6 +62,7 @@ export function BeltCalculator() {
           qty={closestSmaller.distance}
           choices={["in", "mm"]}
           precision={3}
+          redIf={() => closestSmaller.distance.scalar === 0}
         />
       </div>
     </div>

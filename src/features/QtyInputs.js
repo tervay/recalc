@@ -53,6 +53,17 @@ export function QtyOutput(props) {
   // Prepare inputs
   const [unit, setUnit] = useState(props.initialUnit || props.choices[0]);
 
+  let inputClasses = "input input-right";
+  let selectClasses = "select";
+  if (props.redIf && props.redIf()) {
+      inputClasses += " is-danger";
+      selectClasses += " is-danger";
+  } else if (props.greenIf && props.greenIf()) {
+      inputClasses += " is-success";
+      selectClasses += " is-success";
+  }
+
+
   return (
     <div className="field is-horizontal">
       <div className="field-label is-normal">
@@ -63,12 +74,12 @@ export function QtyOutput(props) {
           <p className="control">
             <input
               disabled
-              className="input input-right"
+              className={inputClasses}
               value={String(props.qty.to(unit).scalar.toFixed(props.precision))}
             />
           </p>
           <p className="control">
-            <span className="select">
+            <span className={selectClasses}>
               <select
                 defaultValue={unit}
                 onChange={(e) => {
