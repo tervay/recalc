@@ -26,7 +26,7 @@ export default function BeltCalculator() {
     desiredCenter: withDefault(QtyParam, Qty(5, "in")),
     p1Teeth: withDefault(NumberParam, 24),
     p2Teeth: withDefault(NumberParam, 18),
-    centerAdd: withDefault(QtyParam, Qty(0, "mm")),
+    centerAdd: withDefault(QtyParam, Qty(0, "in")),
   });
   const { pitch, desiredCenter, p1Teeth, p2Teeth, centerAdd } = query;
 
