@@ -1,10 +1,18 @@
 import Qty from "js-quantities";
 import { QtyToDict, DictToQty } from "../../utils";
 
+export function teethToPitchDiameter(state, action) {
+  state.p1PitchDiameter = Qty((action.payload.p1Teeth * 3) / Math.PI, "mm");
+  state.p2PitchDiameter = Qty((action.payload.p2Teeth * 3) / Math.PI, "mm");
+  return state;
+}
+
 export function calculateClosestSizes(state, action) {
+  state = teethToPitchDiameter(state, action);
+
   const p = Qty(3, "mm");
-  const D = DictToQty(action.payload.p1PitchDiameter);
-  const d = DictToQty(action.payload.p2PitchDiameter);
+  const D = state.p1PitchDiameter;
+  const d = state.p2PitchDiameter;
   const desiredCenter = DictToQty(action.payload.desiredCenter);
 
   const start = 20;
