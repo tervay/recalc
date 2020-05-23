@@ -1,18 +1,33 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import store from './app/store';
-import { Provider } from 'react-redux';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "bulma/css/bulma.min.css";
+import "./index.css";
+import store from "./app/store";
+import { Provider } from "react-redux";
+import * as serviceWorker from "./serviceWorker";
+import { BeltCalculator } from "./features/counter/BeltCalculator";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { QueryParamProvider } from "use-query-params";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <QueryParamProvider ReactRouterRoute={Route}>
+          {/* This will appear on all pages */}
+          <Switch>
+            <Route exact path="/">
+              landing :)
+            </Route>
+            <Route path="/belts">
+              <BeltCalculator />
+            </Route>
+          </Switch>
+        </QueryParamProvider>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

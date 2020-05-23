@@ -1,8 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import counterReducer from "../features/counter/slice";
+import { QtyTranscoderMiddleware } from "../utils";
 
 export default configureStore({
   reducer: {
-    counter: counterReducer,
+    beltCalculator: counterReducer,
   },
+  middleware: [QtyTranscoderMiddleware],
 });

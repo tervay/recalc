@@ -1,0 +1,84 @@
+import Qty from "js-quantities";
+import { QtyToDict, DictToQty } from "../../utils";
+
+export function calculateClosestSizes(state, action) {
+  const p = Qty(3, "mm");
+  const D = DictToQty(action.payload.p1PitchDiameter);
+  const d = DictToQty(action.payload.p2PitchDiameter);
+  const desiredCenter = DictToQty(action.payload.desiredCenter);
+
+  const start = 20;
+  const end = 210;
+  const step = 5;
+  const maxAllowed = 200;
+
+  let results = {};
+  for (let i = start; i <= end; i += step) {
+    const NB = i;
+    const L = p.mul(NB);
+
+    const t1 = L.sub(Qty(1.57).mul(D.add(d))).div(4);
+    const t2 = t1.mul(t1);
+    const t3 = D.sub(d).mul(D.sub(d)).div(8);
+
+    const inSqrt = t2.sub(t3).to("in^2").scalar;
+    if (inSqrt < 0) {
+      continue;
+    }
+    const sqrt = Qty(Math.sqrt(inSqrt), "in");
+    const C = t1.add(sqrt).to("in");
+    results[i] = {
+      centerDistance: C,
+      toothCount: i,
+      beltLength: L,
+    };
+  }
+
+  let closestSmallerSize = 0,
+    closestLargerSize = 0;
+  Object.keys(results).forEach((i) => {
+    i = Number(i);
+    const centerDistance = results[i].centerDistance;
+    if (centerDistance.baseScalar <= desiredCenter.baseScalar) {
+      if (closestSmallerSize === 0) {
+        closestSmallerSize = i;
+      } else {
+        const currError = centerDistance.sub(desiredCenter);
+        const prevError = results[closestSmallerSize].centerDistance.sub(
+          desiredCenter
+        );
+        if (-currError.baseScalar < -prevError.baseScalar) {
+          closestSmallerSize = i;
+        }
+      }
+    }
+  });
+
+  if (closestSmallerSize > maxAllowed) {
+    closestSmallerSize = 0;
+  }
+
+  closestLargerSize = closestSmallerSize === 0 ? 0 : closestSmallerSize + step;
+
+  state.closestSmaller =
+    closestSmallerSize !== 0
+      ? {
+          teeth: closestSmallerSize,
+          distance: results[closestSmallerSize].centerDistance,
+        }
+      : {
+          teeth: 0,
+          distance: Qty(0, "in"),
+        };
+
+  state.closestLarger =
+    closestLargerSize !== 0
+      ? {
+          teeth: closestLargerSize,
+          distance: results[closestLargerSize].centerDistance,
+        }
+      : {
+          teeth: 0,
+          distance: Qty(0, "in"),
+        };
+}
