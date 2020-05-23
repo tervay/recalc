@@ -20,7 +20,7 @@ export function QtyInput(props) {
       </div>
       <div className="field-body">
         <div className="field has-addons">
-          <p className="control">
+          <p className="control is-expanded">
             <input
               className="input input-right"
               value={magnitude}
@@ -56,13 +56,12 @@ export function QtyOutput(props) {
   let inputClasses = "input input-right";
   let selectClasses = "select";
   if (props.redIf && props.redIf()) {
-      inputClasses += " is-danger";
-      selectClasses += " is-danger";
+    inputClasses += " is-danger";
+    selectClasses += " is-danger";
   } else if (props.greenIf && props.greenIf()) {
-      inputClasses += " is-success";
-      selectClasses += " is-success";
+    inputClasses += " is-success";
+    selectClasses += " is-success";
   }
-
 
   return (
     <div className="field is-horizontal">
@@ -71,7 +70,7 @@ export function QtyOutput(props) {
       </div>
       <div className="field-body">
         <div className="field has-addons">
-          <p className="control">
+          <p className="control is-expanded">
             <input
               disabled
               className={inputClasses}

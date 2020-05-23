@@ -8,7 +8,7 @@ import * as serviceWorker from "./serviceWorker";
 import BeltCalculator from "./features/belt_calculator/BeltCalculator";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { QueryParamProvider } from "use-query-params";
-import Nav from "./nav";
+import Nav from "./features/common/nav";
 import { initFirebase } from "./features/db";
 
 // Render
@@ -18,14 +18,18 @@ ReactDOM.render(
       <BrowserRouter>
         <QueryParamProvider ReactRouterRoute={Route}>
           <Nav />
-          <Switch>
-            <Route exact path="/">
-              landing :)
-            </Route>
-            <Route path="/belts">
-              <BeltCalculator />
-            </Route>
-          </Switch>
+          <section className="section">
+            <div className="container">
+              <Switch>
+                <Route exact path="/">
+                  landing :)
+                </Route>
+                <Route path="/belts">
+                  <BeltCalculator />
+                </Route>
+              </Switch>
+            </div>
+          </section>
         </QueryParamProvider>
       </BrowserRouter>
     </Provider>
