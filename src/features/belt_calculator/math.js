@@ -14,6 +14,7 @@ export function calculateClosestSizes(state, action) {
   const D = state.p1PitchDiameter;
   const d = state.p2PitchDiameter;
   const desiredCenter = DictToQty(action.payload.desiredCenter);
+  const centerAdd = DictToQty(action.payload.centerAdd);
 
   const start = 20;
   const end = 210;
@@ -72,7 +73,7 @@ export function calculateClosestSizes(state, action) {
     closestSmallerSize !== 0
       ? {
           teeth: closestSmallerSize,
-          distance: results[closestSmallerSize].centerDistance,
+          distance: results[closestSmallerSize].centerDistance.add(centerAdd),
         }
       : {
           teeth: 0,
@@ -83,7 +84,7 @@ export function calculateClosestSizes(state, action) {
     closestLargerSize !== 0
       ? {
           teeth: closestLargerSize,
-          distance: results[closestLargerSize].centerDistance,
+          distance: results[closestLargerSize].centerDistance.add(centerAdd),
         }
       : {
           teeth: 0,

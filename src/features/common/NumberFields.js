@@ -7,15 +7,31 @@ export function NumberInputCore(props) {
 
   // Update
   useEffect(() => {
-    props.setQuery({
-      [props.name]: Number(magnitude === "." ? 0 : magnitude),
-    });
+    let val = NaN;
+    switch (magnitude) {
+      case ".":
+        val = 0;
+        break;
+      case "-":
+        val = 0;
+        break;
+      default:
+        val = Number(magnitude);
+        break;
+    }
+
+    if (val !== NaN) {
+      props.setQuery({
+        [props.name]: val,
+      });
+    }
   }, [magnitude]);
 
   return (
     <div className="field has-addons">
       <p className="control is-expanded">
         <input
+          type="number"
           className="input input-right"
           value={magnitude}
           onChange={(e) => {
@@ -53,6 +69,7 @@ export function NumberOutputCore(props) {
     <div className="field has-addons">
       <p className="control is-expanded">
         <input
+          type="number"
           disabled
           className={inputClasses}
           value={String(props.number.toFixed(props.precision))}

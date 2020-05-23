@@ -8,15 +8,31 @@ export function QtyInputCore(props) {
 
   // Update
   useEffect(() => {
-    props.setQuery({
-      [props.name]: Qty(Number(magnitude === "." ? 0 : magnitude), unit),
-    });
+    let val = NaN;
+    switch (magnitude) {
+      case ".":
+        val = 0;
+        break;
+      case "-":
+        val = 0;
+        break;
+      default:
+        val = Number(magnitude);
+        break;
+    }
+
+    if (val !== NaN) {
+      props.setQuery({
+        [props.name]: Qty(val, unit),
+      });
+    }
   }, [magnitude, unit]);
 
   return (
     <div className="field has-addons">
       <p className="control is-expanded">
         <input
+          type="number"
           className="input input-right"
           value={magnitude}
           onChange={(e) => {

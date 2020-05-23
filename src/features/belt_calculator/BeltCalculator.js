@@ -26,8 +26,9 @@ export default function BeltCalculator() {
     desiredCenter: withDefault(QtyParam, Qty(5, "in")),
     p1Teeth: withDefault(NumberParam, 24),
     p2Teeth: withDefault(NumberParam, 18),
+    centerAdd: withDefault(QtyParam, Qty(0, "mm")),
   });
-  const { pitch, desiredCenter, p1Teeth, p2Teeth } = query;
+  const { pitch, desiredCenter, p1Teeth, p2Teeth, centerAdd } = query;
 
   // Prepare outputs
   const closestSmaller = useSelector((s) => s.beltCalculator.closestSmaller);
@@ -42,11 +43,12 @@ export default function BeltCalculator() {
       p1Teeth,
       p2Teeth,
       desiredCenter,
+      centerAdd,
     };
 
     dispatch(teethToPitchDiameterReducer(state));
     dispatch(calculateClosestSizesReducer(state));
-  }, [pitch, p1Teeth, p2Teeth, desiredCenter]);
+  }, [pitch, p1Teeth, p2Teeth, desiredCenter, centerAdd]);
 
   return (
     <div>
@@ -107,6 +109,14 @@ export default function BeltCalculator() {
             label="Desired Center"
             name="desiredCenter"
             qty={desiredCenter}
+            setQuery={setQuery}
+            choices={["in", "mm"]}
+          />
+
+          <QtyInput
+            label="Center Add"
+            name="centerAdd"
+            qty={centerAdd}
             setQuery={setQuery}
             choices={["in", "mm"]}
           />
