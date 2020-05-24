@@ -1,5 +1,6 @@
 import Qty from "js-quantities";
 import React, { useEffect, useState } from "react";
+import { PrepInputState } from "../../utils";
 
 export function QtyInputCore(props) {
   // Prepare inputs
@@ -8,29 +9,18 @@ export function QtyInputCore(props) {
 
   // Update
   useEffect(() => {
-    let val = NaN;
-    switch (magnitude) {
-      case ".":
-        val = 0;
-        break;
-      case "-":
-        val = 0;
-        break;
-      default:
-        val = Number(magnitude);
-        break;
-    }
-
-    if (val !== NaN) {
+    const { valid, value } = PrepInputState(magnitude, props.allowsZero);
+    if (valid) {
       props.setQuery({
-        [props.name]: Qty(val, unit),
+        [props.name]: Qty(value, unit),
       });
     }
   }, [magnitude, unit]);
 
+  const { valid, value } = PrepInputState(magnitude, props.allowsZero);
   let inputClasses = "input input-right";
   let selectClasses = "select";
-  if (props.redIf && props.redIf()) {
+  if ((props.redIf && props.redIf()) || !valid) {
     inputClasses += " is-danger";
     selectClasses += " is-danger";
   } else if (props.greenIf && props.greenIf()) {

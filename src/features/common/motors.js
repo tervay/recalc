@@ -1,6 +1,7 @@
 import Qty from "js-quantities";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
+import { PrepInputState } from "../../utils";
 import { MotorDictToObj } from "./params";
 
 export const motorMap = _.keyBy(
@@ -73,25 +74,32 @@ export default function MotorSelect(props) {
 
   // Update
   useEffect(() => {
-    let val = NaN;
-    switch (quantity) {
-      case ".":
-        val = 0;
-        break;
-      case "-":
-        val = 0;
-        break;
-      default:
-        val = Number(quantity);
-        break;
-    }
-
-    if (val !== NaN && motorName !== undefined) {
+    const { valid, value } = PrepInputState(
+      quantity,
+      props.allowsZero,
+      () => motorName !== undefined
+    );
+    if (valid) {
       props.setQuery({
-        [props.name]: MotorDictToObj(motorName, val),
+        [props.name]: MotorDictToObj(motorName, value),
       });
     }
   }, [motorName, quantity]);
+
+  const { valid, value } = PrepInputState(
+    quantity,
+    props.allowsZero,
+    () => motorName !== undefined
+  );
+  let inputClasses = "input input-right";
+  let selectClasses = "select";
+  if ((props.redIf && props.redIf()) || !valid) {
+    inputClasses += " is-danger";
+    selectClasses += " is-danger";
+  } else if (props.greenIf && props.greenIf()) {
+    inputClasses += " is-success";
+    selectClasses += " is-success";
+  }
 
   return (
     <div className="field is-horizontal">
@@ -103,7 +111,7 @@ export default function MotorSelect(props) {
           <p className="control is-expanded">
             <input
               type="number"
-              className="input input-right"
+              className={inputClasses}
               value={quantity}
               onChange={(e) => {
                 setQuantity(e.target.value);
@@ -111,7 +119,7 @@ export default function MotorSelect(props) {
             />
           </p>
           <p className="control">
-            <span className="select">
+            <span className={selectClasses}>
               <select
                 defaultValue={motorName}
                 onChange={(e) => {

@@ -1,37 +1,33 @@
 import React, { useEffect, useState } from "react";
-
+import { PrepInputState } from "../../utils";
 export function NumberInputCore(props) {
   // Prepare inputs
   const [magnitude, setMagnitude] = useState(props.number);
 
   // Update
   useEffect(() => {
-    let val = NaN;
-    switch (magnitude) {
-      case ".":
-        val = 0;
-        break;
-      case "-":
-        val = 0;
-        break;
-      default:
-        val = Number(magnitude);
-        break;
-    }
-
-    if (val !== NaN) {
+    const { valid, value } = PrepInputState(magnitude, props.allowsZero);
+    if (valid) {
       props.setQuery({
-        [props.name]: val,
+        [props.name]: value,
       });
     }
   }, [magnitude]);
+
+  const { valid, value } = PrepInputState(magnitude, props.allowsZero);
+  let inputClasses = "input input-right";
+  if ((props.redIf && props.redIf()) || !valid) {
+    inputClasses += " is-danger";
+  } else if (props.greenIf && props.greenIf()) {
+    inputClasses += " is-success";
+  }
 
   return (
     <div className="field has-addons">
       <p className="control is-expanded">
         <input
           type="number"
-          className="input input-right"
+          className={inputClasses}
           value={magnitude}
           onChange={(e) => {
             setMagnitude(e.target.value);

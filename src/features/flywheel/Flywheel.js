@@ -76,7 +76,7 @@ export default function Flywheel() {
             label="Windup Time"
             qty={windupTime}
             choices={["s"]}
-            precision={2}
+            precision={3}
           />
         </div>
         <div className="column">graph soon</div>
