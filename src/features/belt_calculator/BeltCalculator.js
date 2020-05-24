@@ -114,6 +114,7 @@ export default function BeltCalculator() {
             qty={centerAdd}
             setQuery={setQuery}
             choices={["in", "mm"]}
+            allowsZero
           />
 
           <QtyOutput

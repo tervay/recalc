@@ -1,4 +1,4 @@
-import "bulma/css/bulma.min.css";
+// import "bulma/css/bulma.min.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
@@ -8,7 +8,7 @@ import store from "./app/store";
 import BeltCalculator from "./features/belt_calculator/BeltCalculator";
 import Nav from "./features/common/nav";
 import Flywheel from "./features/flywheel/Flywheel";
-import "./index.css";
+import "./index.scss";
 import * as serviceWorker from "./serviceWorker";
 
 // Render
