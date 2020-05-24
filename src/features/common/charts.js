@@ -1,4 +1,7 @@
-import _ from "lodash";
+import { defaults } from "react-chartjs-2";
+import styles from "../../index.scss";
+
+defaults.global.defaultFontFamily = styles.font_family;
 
 export default function makeLineOptions(title, xTitle, yTitle) {
   return {

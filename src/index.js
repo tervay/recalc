@@ -10,6 +10,7 @@ import Nav from "./features/common/nav";
 import Flywheel from "./features/flywheel/Flywheel";
 import "./index.scss";
 import * as serviceWorker from "./serviceWorker";
+import Landing from "./features/landing/Landing";
 
 // Render
 ReactDOM.render(
@@ -22,7 +23,7 @@ ReactDOM.render(
             <div className="container">
               <Switch>
                 <Route exact path="/">
-                  landing :)
+                  <Landing />
                 </Route>
                 <Route path="/belts">
                   <BeltCalculator />

@@ -7,7 +7,8 @@ export default function Nav() {
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
         <Link to="/" className="navbar-item">
-          <img src="/icon.png" width="32" height="32" />
+          <img src="/favicon.png" width="32" height="32" />
+          <div>ReCalc</div>
         </Link>
 
         <Auth />
