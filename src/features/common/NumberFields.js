@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import Qty from "js-quantities";
+import React, { useEffect, useState } from "react";
 
 export function NumberInputCore(props) {
   // Prepare inputs

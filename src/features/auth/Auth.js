@@ -1,9 +1,9 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { signIn, signOut } from "./slice";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
+import { useDispatch, useSelector } from "react-redux";
 import { isLocalhost } from "../../utils";
 import db, { firebaseAuth } from "../db";
+import { signIn, signOut } from "./slice";
 
 const localhostClientId =
   "411934684683-agkmu38ndl2ovnsrocpcr2b1opmc7ap0.apps.googleusercontent.com";

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
 import Qty from "js-quantities";
+import React, { useEffect, useState } from "react";
 
 export function QtyInputCore(props) {
   // Prepare inputs
-  const [unit, setUnit] = useState(props.qty._units || props.choices[0]);
+  const [unit, setUnit] = useState(props.qty.units() || props.choices[0]);
   const [magnitude, setMagnitude] = useState(props.qty.scalar);
 
   // Update
@@ -28,12 +28,22 @@ export function QtyInputCore(props) {
     }
   }, [magnitude, unit]);
 
+  let inputClasses = "input input-right";
+  let selectClasses = "select";
+  if (props.redIf && props.redIf()) {
+    inputClasses += " is-danger";
+    selectClasses += " is-danger";
+  } else if (props.greenIf && props.greenIf()) {
+    inputClasses += " is-success";
+    selectClasses += " is-success";
+  }
+
   return (
     <div className="field has-addons">
       <p className="control is-expanded">
         <input
           type="number"
-          className="input input-right"
+          className={inputClasses}
           value={magnitude}
           onChange={(e) => {
             setMagnitude(e.target.value);
@@ -41,7 +51,7 @@ export function QtyInputCore(props) {
         />
       </p>
       <p className="control">
-        <span className="select">
+        <span className="select" className={selectClasses}>
           <select
             defaultValue={unit}
             onChange={(e) => {
@@ -84,7 +94,6 @@ export function QtyOutputCore(props) {
     inputClasses += " is-success";
     selectClasses += " is-success";
   }
-
   return (
     <div className="field has-addons">
       <p className="control is-expanded">

@@ -1,6 +1,4 @@
 import React from "react";
-import { QtyOutput } from "../common/QtyFields";
-import { NumberInput } from "../common/NumberFields";
 
 export default function NumberInQtyOut(props) {
   return (

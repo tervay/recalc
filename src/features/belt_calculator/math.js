@@ -1,5 +1,5 @@
 import Qty from "js-quantities";
-import { QtyToDict, DictToQty } from "../../utils";
+import { DictToQty } from "../common/params";
 
 export function teethToPitchDiameter(state, action) {
   state.p1PitchDiameter = Qty((action.payload.p1Teeth * 3) / Math.PI, "mm");

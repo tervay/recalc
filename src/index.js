@@ -1,15 +1,15 @@
+import "bulma/css/bulma.min.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import "bulma/css/bulma.min.css";
-import "./index.css";
-import store from "./app/store";
 import { Provider } from "react-redux";
-import * as serviceWorker from "./serviceWorker";
-import BeltCalculator from "./features/belt_calculator/BeltCalculator";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { QueryParamProvider } from "use-query-params";
+import store from "./app/store";
+import BeltCalculator from "./features/belt_calculator/BeltCalculator";
 import Nav from "./features/common/nav";
-import { initFirebase } from "./features/db";
+import Flywheel from "./features/flywheel/Flywheel";
+import "./index.css";
+import * as serviceWorker from "./serviceWorker";
 
 // Render
 ReactDOM.render(
@@ -26,6 +26,9 @@ ReactDOM.render(
                 </Route>
                 <Route path="/belts">
                   <BeltCalculator />
+                </Route>
+                <Route path="/flywheel">
+                  <Flywheel />
                 </Route>
               </Switch>
             </div>

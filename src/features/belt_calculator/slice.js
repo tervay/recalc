@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { calculateClosestSizes, teethToPitchDiameter } from "./math";
 import Qty from "js-quantities";
+import { calculateClosestSizes, teethToPitchDiameter } from "./math";
 
 export const beltCalculatorSlice = createSlice({
   name: "beltCalculator",

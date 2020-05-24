@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import db from "../db";
 
 export const authSlice = createSlice({
   name: "auth",

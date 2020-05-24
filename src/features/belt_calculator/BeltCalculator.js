@@ -1,22 +1,17 @@
+import Qty from "js-quantities";
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { NumberParam, useQueryParams, withDefault } from "use-query-params";
+import Hero from "../common/hero";
+import { NumberInputCore, NumberOutput } from "../common/NumberFields";
+import { QtyParam } from "../common/params";
+import { QtyInput, QtyOutput, QtyOutputCore } from "../common/QtyFields";
+import CheatSheet from "./CheatSheet";
+import NumberInQtyOut from "./NumberInQtyOut";
 import {
   calculateClosestSizesReducer,
   teethToPitchDiameterReducer,
 } from "./slice";
-import { useQueryParams, withDefault, NumberParam } from "use-query-params";
-import { QtyParam } from "../../utils";
-import Qty from "js-quantities";
-import {
-  QtyInput,
-  QtyOutput,
-  QtyInputCore,
-  QtyOutputCore,
-} from "../common/QtyFields";
-import { NumberOutput, NumberInputCore } from "../common/NumberFields";
-import Hero from "../common/hero";
-import CheatSheet from "./CheatSheet";
-import NumberInQtyOut from "./NumberInQtyOut";
 
 export default function BeltCalculator() {
   // Prepare inputs
