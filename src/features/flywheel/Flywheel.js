@@ -1,5 +1,5 @@
 import Qty from "js-quantities";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NumberParam, useQueryParams, withDefault } from "use-query-params";
 import Hero from "../common/hero";
@@ -11,7 +11,12 @@ import {
   QtyParam,
   useDeepCompare,
 } from "../common/params";
-import { calculateWindupTimeReducer } from "./slice";
+import {
+  calculateWindupTimeReducer,
+  generateWindupTimeChartReducer,
+} from "./slice";
+import makeLineOptions from "../common/charts";
+import { Line } from "react-chartjs-2";
 
 export default function Flywheel() {
   // Prepare inputs
@@ -23,15 +28,22 @@ export default function Flywheel() {
     radius: withDefault(QtyParam, Qty(2, "in")),
     weight: withDefault(QtyParam, Qty(5, "lb")),
   });
+  const chart = useRef(null);
 
   // Prepare outputs
   const windupTime = useSelector((s) => s.flywheel.windupTime);
+  const windupTimeChart = useSelector((s) => s.flywheel.windupTimeChart);
 
   // Update
   useEffect(() => {
     dispatch(calculateWindupTimeReducer(query));
+    dispatch(generateWindupTimeChartReducer(query));
+    if (chart.current && chart.current.chartInstance) {
+      chart.current.chartInstance.update();
+    }
   }, useDeepCompare([{ ...query }]));
 
+  console.log(windupTimeChart);
   return (
     <div>
       <Hero title="Flywheel Calculator" />
@@ -79,7 +91,22 @@ export default function Flywheel() {
             precision={3}
           />
         </div>
-        <div className="column">graph soon</div>
+        <div className="column">
+          <Line
+            data={{
+              datasets: [
+                {
+                  data: windupTimeChart.data,
+                  cubicInterpolationMode: "monotone",
+                  fill: false,
+                  borderColor: "rgb(255, 0, 0)",
+                },
+              ],
+            }}
+            options={windupTimeChart.options}
+            ref={chart}
+          />
+        </div>
       </div>
     </div>
   );

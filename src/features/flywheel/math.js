@@ -30,11 +30,8 @@ export function CalculateWindupTime(state, action) {
   const t3 = t1.div(t2);
   const t4 = Qty(1).sub(w.div(motor.freeSpeed.div(action.payload.ratio)));
   if (t4.scalar <= 0) {
-    state.windupTime = Qty(0, "s");
+    return Qty(0, "s");
   } else {
-    state.windupTime = t3
-      .mul(Math.log(t4.scalar))
-      .mul(Qty(1, "rad^-1"))
-      .to("s");
+    return t3.mul(Math.log(t4.scalar)).mul(Qty(1, "rad^-1")).to("s");
   }
 }
