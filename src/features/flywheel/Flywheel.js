@@ -1,14 +1,22 @@
 import Qty from "js-quantities";
 import React, { useEffect, useRef } from "react";
-import { Line } from "react-chartjs-2";
+import { Line } from "../../rcjs/index";
 import { useDispatch, useSelector } from "react-redux";
 import { NumberParam, useQueryParams, withDefault } from "use-query-params";
 import styles from "../../index.scss";
 import Hero from "../common/hero";
 import { NumberInput, QtyInput, QtyOutput } from "../common/io";
 import MotorSelect from "../common/motors";
-import { MotorDictToObj, MotorParam, QtyParam, useDeepCompare } from "../common/params";
-import { calculateWindupTimeReducer, generateWindupTimeChartReducer } from "./slice";
+import {
+  MotorDictToObj,
+  MotorParam,
+  QtyParam,
+  useDeepCompare,
+} from "../common/params";
+import {
+  calculateWindupTimeReducer,
+  generateWindupTimeChartReducer,
+} from "./slice";
 
 export default function Flywheel() {
   // Prepare inputs

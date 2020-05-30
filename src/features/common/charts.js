@@ -1,4 +1,4 @@
-import { defaults } from "react-chartjs-2";
+import { defaults } from "../../rcjs/index";
 import styles from "../../index.scss";
 
 defaults.global.defaultFontFamily = styles.font_family;
