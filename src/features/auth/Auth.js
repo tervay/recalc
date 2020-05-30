@@ -10,8 +10,9 @@ const localhostClientId =
 const prodClientId =
   "411934684683-034ssgvppgghiv9iipftsjo4bogtthtk.apps.googleusercontent.com";
 
-const testId =
-  "411934684683-2hfqodehpc51pplgg21l26uslatrm3oc.apps.googleusercontent.com";
+export function IsSignedIn() {
+  return useSelector((s) => s.auth.signedIn);
+}
 
 export default function Auth() {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ export default function Auth() {
         clientId={isLocalhost() ? localhostClientId : prodClientId}
         onSuccess={onSuccess}
         onFailure={(r) => console.log("Login failed", r)}
+        isSignedIn={true}
       />
     );
   } else {

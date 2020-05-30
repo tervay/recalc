@@ -10,7 +10,6 @@ export default function Nav() {
           <img src="/favicon.png" width="32" height="32" />
           <div>ReCalc</div>
         </Link>
-
         <Auth />
       </div>
       <div className="navbar-menu">

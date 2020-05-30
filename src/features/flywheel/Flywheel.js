@@ -45,7 +45,7 @@ export default function Flywheel() {
 
   return (
     <div>
-      <Hero title="Flywheel Calculator" />
+      <Hero title="Flywheel Calculator" getInputs={() => query} />
       <div className="columns">
         <div className="column">
           <MotorSelect name="motor" setQuery={setQuery} motor={query.motor} />
