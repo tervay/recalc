@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { IsSignedIn } from "../../auth/Auth";
-import db from "../../db";
-import { GetUser } from "../../auth/Auth";
 import * as firebase from "firebase/app";
+import React, { useState } from "react";
+import { GetUser, IsSignedIn } from "../../auth/Auth";
+import db from "../../db";
 
 function save(user, query) {
   const userRef = db.collection("users").doc(user);
