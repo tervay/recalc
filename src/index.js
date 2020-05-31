@@ -1,18 +1,21 @@
 // import "bulma/css/bulma.min.css";
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { QueryParamProvider } from "use-query-params";
 import store from "./app/store";
-import BeltCalculator, {
-  BeltCalcUrl,
-} from "./features/belt_calculator/BeltCalculator";
+import { BeltCalcUrl } from "./features/belt_calculator/BeltCalculator";
 import Nav from "./features/common/nav";
-import Flywheel, { FlywheelUrl } from "./features/flywheel/Flywheel";
-import Landing from "./features/landing/Landing";
+import { FlywheelUrl } from "./features/flywheel/Flywheel";
 import "./index.scss";
 import * as serviceWorker from "./serviceWorker";
+
+const Flywheel = lazy(() => import("./features/flywheel/Flywheel"));
+const Landing = lazy(() => import("./features/landing/Landing"));
+const BeltCalculator = lazy(() =>
+  import("./features/belt_calculator/BeltCalculator")
+);
 
 // Render
 ReactDOM.render(
@@ -23,17 +26,13 @@ ReactDOM.render(
           <Nav />
           <section className="section">
             <div className="container">
-              <Switch>
-                <Route exact path="/">
-                  <Landing />
-                </Route>
-                <Route path={BeltCalcUrl}>
-                  <BeltCalculator />
-                </Route>
-                <Route path={FlywheelUrl}>
-                  <Flywheel />
-                </Route>
-              </Switch>
+              <Suspense fallback={<div>Loading...</div>}>
+                <Switch>
+                  <Route exact path="/" component={Landing} />
+                  <Route path={BeltCalcUrl} component={BeltCalculator} />
+                  <Route path={FlywheelUrl} component={Flywheel} />
+                </Switch>
+              </Suspense>
             </div>
           </section>
         </QueryParamProvider>
