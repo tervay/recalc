@@ -14,6 +14,10 @@ export function IsSignedIn() {
   return useSelector((s) => s.auth.signedIn);
 }
 
+export function GetUser() {
+  return useSelector((s) => s.auth.id);
+}
+
 export default function Auth() {
   const dispatch = useDispatch();
   function onSuccess(resp) {

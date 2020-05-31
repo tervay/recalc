@@ -2,7 +2,12 @@ import Qty from "js-quantities";
 import React, { useEffect, useRef } from "react";
 import { Line } from "../../rcjs/index";
 import { useDispatch, useSelector } from "react-redux";
-import { NumberParam, useQueryParams, withDefault } from "use-query-params";
+import {
+  NumberParam,
+  useQueryParams,
+  withDefault,
+  encodeQueryParams,
+} from "use-query-params";
 import styles from "../../index.scss";
 import Hero from "../common/hero";
 import { NumberInput, QtyInput, QtyOutput } from "../common/io";
@@ -17,6 +22,7 @@ import {
   calculateWindupTimeReducer,
   generateWindupTimeChartReducer,
 } from "./slice";
+import { stringify } from "query-string";
 
 export default function Flywheel() {
   // Prepare inputs
@@ -45,7 +51,21 @@ export default function Flywheel() {
 
   return (
     <div>
-      <Hero title="Flywheel Calculator" getInputs={() => query} />
+      <Hero
+        title="Flywheel Calculator"
+        query={stringify(
+          encodeQueryParams(
+            {
+              motor: MotorParam,
+              ratio: NumberParam,
+              targetSpeed: QtyParam,
+              radius: QtyParam,
+              weight: QtyParam,
+            },
+            query
+          )
+        )}
+      />
       <div className="columns">
         <div className="column">
           <MotorSelect name="motor" setQuery={setQuery} motor={query.motor} />
