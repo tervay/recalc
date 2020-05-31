@@ -24,6 +24,8 @@ import {
   generateWindupTimeChartReducer,
 } from "./slice";
 
+export const FlywheelUrl = "/flywheel";
+
 export default function Flywheel() {
   // Prepare inputs
   const dispatch = useDispatch();
@@ -65,6 +67,7 @@ export default function Flywheel() {
             query
           )
         )}
+        url={FlywheelUrl}
       />
       <div className="columns">
         <div className="column">

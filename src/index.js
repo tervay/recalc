@@ -5,12 +5,14 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { QueryParamProvider } from "use-query-params";
 import store from "./app/store";
-import BeltCalculator from "./features/belt_calculator/BeltCalculator";
+import BeltCalculator, {
+  BeltCalcUrl,
+} from "./features/belt_calculator/BeltCalculator";
 import Nav from "./features/common/nav";
-import Flywheel from "./features/flywheel/Flywheel";
+import Flywheel, { FlywheelUrl } from "./features/flywheel/Flywheel";
+import Landing from "./features/landing/Landing";
 import "./index.scss";
 import * as serviceWorker from "./serviceWorker";
-import Landing from "./features/landing/Landing";
 
 // Render
 ReactDOM.render(
@@ -25,10 +27,10 @@ ReactDOM.render(
                 <Route exact path="/">
                   <Landing />
                 </Route>
-                <Route path="/belts">
+                <Route path={BeltCalcUrl}>
                   <BeltCalculator />
                 </Route>
-                <Route path="/flywheel">
+                <Route path={FlywheelUrl}>
                   <Flywheel />
                 </Route>
               </Switch>

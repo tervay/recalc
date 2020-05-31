@@ -3,13 +3,10 @@ import React, { useState } from "react";
 import { GetUser, IsSignedIn } from "../../auth/Auth";
 import db from "../../db";
 
-function save(user, query) {
+function save(user, name, url, query) {
   const userRef = db.collection("users").doc(user);
   userRef.update({
-    configs: firebase.firestore.FieldValue.arrayUnion({
-      name: "foo",
-      query: query,
-    }),
+    configs: firebase.firestore.FieldValue.arrayUnion({ name, url, query }),
   });
 }
 
@@ -19,6 +16,7 @@ function SaveModal(props) {
     modalClasses += " is-active";
   }
   const user = GetUser();
+  const [configName, setConfigName] = useState("");
 
   return (
     <div className={modalClasses}>
@@ -32,12 +30,27 @@ function SaveModal(props) {
             onClick={(e) => props.setActive(false)}
           />
         </header>
-        <section className="modal-card-body">content</section>
+        <section className="modal-card-body">
+          <div className="field">
+            <label className="label">Config name</label>
+            <div className="control">
+              <input
+                className="input"
+                type="text"
+                placeholder="e.g. 2020 Elevator"
+                value={configName}
+                onChange={(e) => {
+                  setConfigName(e.target.value);
+                }}
+              />
+            </div>
+          </div>
+        </section>
         <footer className="modal-card-foot">
           <button
             className="button is-success"
             onClick={(e) => {
-              save(user, props.query);
+              save(user, configName, props.url, props.query);
               props.setActive(false);
             }}
           >
@@ -68,6 +81,7 @@ export default function SaveButton(props) {
         isActive={modalActive}
         setActive={setModalActive}
         query={props.query}
+        url={props.url}
       />
     </div>
   );

@@ -8,7 +8,7 @@ export default function Hero(props) {
         <div className="container">
           <h1 className="title">{props.title}</h1>
           <h2 className="subtitle">{props.subtitle || ""}</h2>
-          <SaveButton query={props.query} />
+          <SaveButton query={props.query} url={props.url} />
         </div>
       </div>
     </section>

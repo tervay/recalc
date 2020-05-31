@@ -1,7 +1,13 @@
 import Qty from "js-quantities";
+import { stringify } from "query-string";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NumberParam, useQueryParams, withDefault } from "use-query-params";
+import {
+  encodeQueryParams,
+  NumberParam,
+  useQueryParams,
+  withDefault,
+} from "use-query-params";
 import Hero from "../common/hero";
 import { NumberInputCore, NumberOutput } from "../common/NumberFields";
 import { QtyParam } from "../common/params";
@@ -13,6 +19,7 @@ import {
   teethToPitchDiameterReducer,
 } from "./slice";
 
+export const BeltCalcUrl = "/belts";
 export default function BeltCalculator() {
   // Prepare inputs
   const dispatch = useDispatch();
@@ -47,7 +54,22 @@ export default function BeltCalculator() {
 
   return (
     <div>
-      <Hero title="Belt Calculator" />
+      <Hero
+        title="Belt Calculator"
+        query={stringify(
+          encodeQueryParams(
+            {
+              pitch: QtyParam,
+              desiredCenter: QtyParam,
+              p1Teeth: NumberParam,
+              p2Teeth: NumberParam,
+              centerAdd: QtyParam,
+            },
+            query
+          )
+        )}
+        url={BeltCalcUrl}
+      />
       <div className="columns">
         <div className="column">
           <QtyInput
