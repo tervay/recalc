@@ -6,7 +6,7 @@ import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import * as serviceWorker from "serviceWorker";
-
+import * as belts from "calculators/belts/config";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -16,7 +16,7 @@ ReactDOM.render(
           <Suspense fallback={<div>Loading...</div>}>
             <Switch>
               <Route exact path="/" component={Landing} />
-              {/* <Route path={BeltCalcUrl} component={BeltCalculator} /> */}
+              <Route path={belts.URL} component={belts.Component} />
               <Route path={flywheel.URL} component={flywheel.Component} />
             </Switch>
           </Suspense>
