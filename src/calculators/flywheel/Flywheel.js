@@ -1,13 +1,16 @@
+import {
+  calculateWindupTime,
+  generateChartData,
+} from "calculators/flywheel/math";
+import { LabeledMotorInput } from "common/components/io/inputs/MotorInput";
+import { LabeledNumberInput } from "common/components/io/inputs/NumberInput";
+import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
+import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
+import { makeDataObj, makeLineOptions } from "common/tooling/charts";
+import { motorMap } from "common/tooling/motors";
 import Qty from "js-quantities";
+import { Line } from "lib/react-chart-js";
 import React, { useEffect, useState } from "react";
-import { LabeledMotorInput } from "../../common/components/io/inputs/MotorInput";
-import { LabeledNumberInput } from "../../common/components/io/inputs/NumberInput";
-import { LabeledQtyInput } from "../../common/components/io/inputs/QtyInput";
-import { LabeledQtyOutput } from "../../common/components/io/outputs/QtyOutput";
-import { makeDataObj, makeLineOptions } from "../../common/tooling/charts";
-import { motorMap } from "../../common/tooling/motors";
-import { Line } from "../../lib/react-chart-js";
-import { calculateWindupTime, generateChartData } from "./math";
 
 export default function Flywheel(props) {
   // Inputs

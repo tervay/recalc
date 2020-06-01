@@ -1,1 +1,1 @@
-export { default } from "./Flywheel";
+export { default } from "calculators/flywheel/Flywheel";

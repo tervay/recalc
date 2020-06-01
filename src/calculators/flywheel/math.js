@@ -1,5 +1,4 @@
 import Qty from "js-quantities";
-import { prettyNum } from "../../common/tooling/io";
 
 /**
  *

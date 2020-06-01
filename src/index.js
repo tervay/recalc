@@ -1,11 +1,11 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Flywheel from "./calculators/flywheel";
-import Landing from "./common/components/landing";
-import Nav from "./common/components/nav";
-import "./index.scss";
-import * as serviceWorker from "./serviceWorker";
+import Flywheel from "calculators/flywheel";
+import Landing from "common/components/landing";
+import Nav from "common/components/nav";
+import "index.scss";
+import * as serviceWorker from "serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>

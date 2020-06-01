@@ -1,5 +1,5 @@
-import styles from "../../index.scss";
-import { defaults } from "../../lib/react-chart-js";
+import styles from "index.scss";
+import { defaults } from "lib/react-chart-js";
 
 defaults.global.defaultFontFamily = styles.font_family;
 

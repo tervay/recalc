@@ -1,7 +1,7 @@
+import { UnlabeledTypedNumberInput } from "common/components/io/inputs/TypedNumberInput";
+import { cleanNumberInput } from "common/tooling/io";
 import Qty from "js-quantities";
 import React, { useEffect, useState } from "react";
-import { cleanNumberInput } from "../../../tooling/io";
-import { UnlabeledTypedNumberInput } from "./TypedNumberInput";
 
 export function UnlabeledQtyInput(props) {
   const [qty, setQty] = props.stateHook;

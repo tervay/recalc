@@ -1,7 +1,7 @@
+import { UnlabeledTypedNumberInput } from "common/components/io/inputs/TypedNumberInput";
+import { cleanNumberInput } from "common/tooling/io";
+import { motorMap } from "common/tooling/motors";
 import React, { useEffect, useState } from "react";
-import { cleanNumberInput } from "../../../tooling/io";
-import { UnlabeledTypedNumberInput } from "./TypedNumberInput";
-import { motorMap } from "../../../tooling/motors";
 
 export function UnlabeledMotorInput(props) {
   const [motor, setMotor] = props.stateHook;
