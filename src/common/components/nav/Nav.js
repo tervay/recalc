@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Auth from "../auth/Auth";
 
 export default function Nav() {
   return (
@@ -10,7 +9,7 @@ export default function Nav() {
           <img src="/favicon.png" width="32" height="32" />
           <div>ReCalc</div>
         </Link>
-        <Auth />
+        {/* <Auth /> */}
       </div>
       <div className="navbar-menu">
         <div className="navbar-start">

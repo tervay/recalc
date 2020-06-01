@@ -1,43 +1,28 @@
-// import "bulma/css/bulma.min.css";
-import React, { lazy, Suspense } from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { QueryParamProvider } from "use-query-params";
-import store from "./app/store";
-import { BeltCalcUrl } from "./features/belt_calculator/BeltCalculator";
-import Nav from "./features/common/nav";
-import { FlywheelUrl } from "./features/flywheel/Flywheel";
+import Flywheel from "./calculators/flywheel";
+import Landing from "./common/components/landing";
+import Nav from "./common/components/nav";
 import "./index.scss";
 import * as serviceWorker from "./serviceWorker";
 
-const Flywheel = lazy(() => import("./features/flywheel/Flywheel"));
-const Landing = lazy(() => import("./features/landing/Landing"));
-const BeltCalculator = lazy(() =>
-  import("./features/belt_calculator/BeltCalculator")
-);
-
-// Render
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <QueryParamProvider ReactRouterRoute={Route}>
-          <Nav />
-          <section className="section">
-            <div className="container">
-              <Suspense fallback={<div>Loading...</div>}>
-                <Switch>
-                  <Route exact path="/" component={Landing} />
-                  <Route path={BeltCalcUrl} component={BeltCalculator} />
-                  <Route path={FlywheelUrl} component={Flywheel} />
-                </Switch>
-              </Suspense>
-            </div>
-          </section>
-        </QueryParamProvider>
-      </BrowserRouter>
-    </Provider>
+    <BrowserRouter>
+      <Nav />
+      <section className="section">
+        <div className="container">
+          <Suspense fallback={<div>Loading...</div>}>
+            <Switch>
+              <Route exact path="/" component={Landing} />
+              {/* <Route path={BeltCalcUrl} component={BeltCalculator} /> */}
+              <Route path="/flywheel" component={Flywheel} />
+            </Switch>
+          </Suspense>
+        </div>
+      </section>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

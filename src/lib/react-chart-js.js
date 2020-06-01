@@ -5,11 +5,11 @@ https://github.com/jerairrest/react-chartjs-2
 Modified to fix bug with updated datasets from Redux
 */
 
-import React from "react";
-import PropTypes from "prop-types";
 import Chart from "chart.js";
 import isEqual from "lodash/isEqual";
 import keyBy from "lodash/keyBy";
+import PropTypes from "prop-types";
+import React from "react";
 
 const NODE_ENV =
   typeof process !== "undefined" && process.env && process.env.NODE_ENV;

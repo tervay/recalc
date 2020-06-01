@@ -1,26 +1,22 @@
 {
-  "name": "recalc-redux",
+  "name": "recalc",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@reduxjs/toolkit": "^1.3.6",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "bulma": "^0.8.2",
     "chart.js": "^2.9.3",
-    "firebase": "^7.14.5",
+    "firebase": "^7.14.6",
     "js-quantities": "^1.7.5",
     "lodash": "^4.17.15",
     "node-sass": "^4.14.1",
-    "query-string": "^6.12.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-google-login": "^5.1.20",
-    "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
-    "use-query-params": "^1.1.3"
+    "react-scripts": "3.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -44,13 +40,7 @@
     ]
   },
   "devDependencies": {
-    "husky": "^4.2.5",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn pretty-quick --staged"
-    }
   }
 }
