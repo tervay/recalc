@@ -1,4 +1,5 @@
 import Qty from "js-quantities";
+import { prettyNum } from "../../common/tooling/io";
 
 /**
  *
@@ -38,4 +39,60 @@ export function calculateWindupTime(
   } else {
     return t3.mul(Math.log(t4.scalar)).mul(Qty(1, "rad^-1")).to("s");
   }
+}
+
+/**
+ *
+ * @param {Qty} weight
+ * @param {Qty} radius
+ * @param {Qty} motorFreeSpeed
+ * @param {Qty} motorStallTorque
+ * @param {Qty} motorStallCurrent
+ * @param {Qty} motorResistance
+ * @param {number} motorQuantity
+ * @param {number} ratio
+ * @param {Qty} targetSpeed
+ */
+export function generateChartData(
+  weight,
+  radius,
+  motorFreeSpeed,
+  motorStallTorque,
+  motorStallCurrent,
+  motorResistance,
+  motorQuantity,
+  currentRatio,
+  targetSpeed
+) {
+  const start = 0.25 * currentRatio;
+  const end = 4.0 * currentRatio;
+  const n = 100;
+  const step = (end - start) / n;
+
+  function getTimeForRatio(ratio) {
+    return calculateWindupTime(
+      weight,
+      radius,
+      motorFreeSpeed,
+      motorStallTorque,
+      motorStallCurrent,
+      motorResistance,
+      motorQuantity,
+      ratio,
+      targetSpeed
+    );
+  }
+
+  let data = [];
+  for (let i = start; i < end; i += step) {
+    const t = getTimeForRatio(i);
+    if (t.scalar !== 0) {
+      data.push({
+        x: i,
+        y: t.scalar.toFixed(4),
+      });
+    }
+  }
+
+  return data;
 }

@@ -8,14 +8,14 @@ export function UnlabeledQtyOutput(props) {
     setQty(qty.to(unit));
   }, [unit]);
 
+  const value = props.precision
+    ? qty.to(unit).scalar.toFixed(props.precision)
+    : qty.to(unit).scalar;
+
   return (
     <div className="field has-addons">
       <p className="control is-expanded">
-        <input
-          disabled
-          className="input input-right"
-          value={qty.to(unit).scalar}
-        />
+        <input disabled className="input input-right" value={value} />
       </p>
       <p className="control">
         <span className="select" className="select">

@@ -4,8 +4,10 @@ import { LabeledMotorInput } from "../../common/components/io/inputs/MotorInput"
 import { LabeledNumberInput } from "../../common/components/io/inputs/NumberInput";
 import { LabeledQtyInput } from "../../common/components/io/inputs/QtyInput";
 import { LabeledQtyOutput } from "../../common/components/io/outputs/QtyOutput";
+import { makeDataObj, makeLineOptions } from "../../common/tooling/charts";
 import { motorMap } from "../../common/tooling/motors";
-import { calculateWindupTime } from "./math";
+import { Line } from "../../lib/react-chart-js";
+import { calculateWindupTime, generateChartData } from "./math";
 
 export default function Flywheel(props) {
   // Inputs
@@ -20,6 +22,7 @@ export default function Flywheel(props) {
 
   // Outputs
   const [windupTime, setWindupTime] = useState(Qty(0, "s"));
+  const [chartData, setChartData] = useState(makeDataObj([]));
 
   useEffect(() => {
     setWindupTime(
@@ -35,6 +38,22 @@ export default function Flywheel(props) {
         targetSpeed
       )
     );
+
+    setChartData(
+      makeDataObj([
+        generateChartData(
+          weight,
+          radius,
+          motor.data.freeSpeed,
+          motor.data.stallTorque,
+          motor.data.stallCurrent,
+          motor.data.resistance,
+          motor.number,
+          ratio,
+          targetSpeed
+        ),
+      ])
+    );
   }, [motor, ratio, radius, targetSpeed, weight]);
 
   return (
@@ -43,7 +62,7 @@ export default function Flywheel(props) {
         <LabeledMotorInput
           label={"Motors"}
           stateHook={[motor, setMotor]}
-          choices={["Falcon 500", "CIM"]}
+          choices={Object.keys(motorMap)}
         />
         <LabeledNumberInput stateHook={[ratio, setRatio]} label="Ratio" />
         <LabeledQtyInput
@@ -65,9 +84,15 @@ export default function Flywheel(props) {
           stateHook={[windupTime, setWindupTime]}
           choices={["s"]}
           label={"Windup Time"}
+          precision={3}
         />
       </div>
-      <div className="column">Chart</div>
+      <div className="column">
+        <Line
+          data={chartData}
+          options={makeLineOptions("Ratio vs Windup Time", "Ratio", "Time (s)")}
+        />
+      </div>
     </div>
   );
 }
