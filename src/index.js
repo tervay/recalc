@@ -1,3 +1,4 @@
+import * as belts from "calculators/belts/config";
 import * as flywheel from "calculators/flywheel/config";
 import Landing from "common/components/landing";
 import Nav from "common/components/nav";
@@ -6,7 +7,7 @@ import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import * as serviceWorker from "serviceWorker";
-import * as belts from "calculators/belts/config";
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>

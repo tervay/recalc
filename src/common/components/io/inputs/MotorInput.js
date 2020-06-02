@@ -5,12 +5,12 @@ import React, { useEffect, useState } from "react";
 
 export function UnlabeledMotorInput(props) {
   const [motor, setMotor] = props.stateHook;
-  const [magnitude, setMagnitude] = useState(motor.number);
+  const [magnitude, setMagnitude] = useState(motor.quantity);
   const [unit, setUnit] = useState(motor.data.name);
 
   useEffect(() => {
     setMotor({
-      number: cleanNumberInput(magnitude),
+      quantity: cleanNumberInput(magnitude),
       data: motorMap[unit],
     });
   }, [magnitude, unit]);
