@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SignInOutButton from "auth/SignInOutButton";
 
 export default function Nav() {
   return (
@@ -9,7 +10,7 @@ export default function Nav() {
           <img src="/favicon.png" width="32" height="32" />
           <div className="nav-title">ReCalc</div>
         </Link>
-        {/* <Auth /> */}
+        <SignInOutButton />
       </div>
       <div className="navbar-menu">
         <div className="navbar-start">
