@@ -16,7 +16,7 @@ export default function SignInOutButton() {
       .then((r) => {
         AuthStore.update(s => {
           s.isSignedIn = true;
-          s.id = r.user.id;
+          s.id = r.user.uid;
         })
         const userRef = db.collection("users").doc(r.user.uid);
         userRef.get().then((snapshot) => {
@@ -40,6 +40,8 @@ export default function SignInOutButton() {
       .then((r) => console.log("Signout success"))
       .catch((e) => console.log("signout failed"));
   }
+
+  console.log(isSignedIn, id);
   if (!isSignedIn) {
     return (
       <GoogleLogin
@@ -51,13 +53,10 @@ export default function SignInOutButton() {
     );
   } else {
     return (
-      <>
       <GoogleLogout
         clientId={getClientId()}
         onLogoutSuccess={onLogoutSuccess}
       />
-      <div>{id}</div>
-      </>
     );
   }
 }
