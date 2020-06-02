@@ -1,15 +1,18 @@
-import AuthRedirect from "auth/AuthRedirect";
 import store from "auth/store";
 import * as belts from "calculators/belts/config";
 import * as flywheel from "calculators/flywheel/config";
 import Landing from "common/components/landing";
 import Nav from "common/components/nav";
 import "index.scss";
-import React, { Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "redux-zero/react";
 import * as serviceWorker from "serviceWorker";
+
+const Belts = lazy(() => import("calculators/belts/Belts"));
+const Flywheel = lazy(() => import("calculators/flywheel/Flywheel"));
+const AuthRedirect = lazy(() => import("auth/AuthRedirect"));
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,8 +24,8 @@ ReactDOM.render(
             <Suspense fallback={<div>Loading...</div>}>
               <Switch>
                 <Route exact path="/" component={Landing} />
-                <Route path={belts.URL} component={belts.Component} />
-                <Route path={flywheel.URL} component={flywheel.Component} />
+                <Route path={belts.URL} component={Belts} />
+                <Route path={flywheel.URL} component={Flywheel} />
                 <Route path={"/auth"} component={AuthRedirect} />
               </Switch>
             </Suspense>

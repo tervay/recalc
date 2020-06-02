@@ -1,7 +1,7 @@
 import Qty from "js-quantities";
-import _ from "lodash";
+import keyBy from "lodash/keyBy";
 
-export const motorMap = _.keyBy(
+export const motorMap = keyBy(
   [
     {
       name: "Falcon 500",
