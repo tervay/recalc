@@ -1,6 +1,6 @@
-import {Store} from "pullstate";
+import createStore from "redux-zero";
 
-export const AuthStore = new Store({
-  id: undefined,
-  isSignedIn: false
-});
+const initialState = { isSignedIn: false, id: null };
+const store = createStore(initialState);
+
+export default store;

@@ -1,3 +1,5 @@
+import AuthRedirect from "auth/AuthRedirect";
+import store from "auth/store";
 import * as belts from "calculators/belts/config";
 import * as flywheel from "calculators/flywheel/config";
 import Landing from "common/components/landing";
@@ -6,25 +8,28 @@ import "index.scss";
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Provider } from "redux-zero/react";
 import * as serviceWorker from "serviceWorker";
-
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Nav />
-      <section className="section">
-        <div className="container">
-          <Suspense fallback={<div>Loading...</div>}>
-            <Switch>
-              <Route exact path="/" component={Landing} />
-              <Route path={belts.URL} component={belts.Component} />
-              <Route path={flywheel.URL} component={flywheel.Component} />
-            </Switch>
-          </Suspense>
-        </div>
-      </section>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Nav />
+        <section className="section">
+          <div className="container">
+            <Suspense fallback={<div>Loading...</div>}>
+              <Switch>
+                <Route exact path="/" component={Landing} />
+                <Route path={belts.URL} component={belts.Component} />
+                <Route path={flywheel.URL} component={flywheel.Component} />
+                <Route path={"/auth"} component={AuthRedirect} />
+              </Switch>
+            </Suspense>
+          </div>
+        </section>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
