@@ -11,6 +11,10 @@ export default function Landing() {
         <div class="column is-one-third">
           <Tile to="/belts" title="Belt Calculator" />
         </div>
+        <div class="column is-one-third">
+          <Tile to="/pneumatics" title="Pneumatics Calculator" />
+        </div>
+
         {/* <div class="column">Third column</div>
         <div class="column">Fourth column</div> */}
       </div>

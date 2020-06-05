@@ -1,6 +1,7 @@
 import store from "auth/store";
 import * as belts from "calculators/belts/config";
 import * as flywheel from "calculators/flywheel/config";
+import * as pneumatics from "calculators/pneumatics/config";
 import Landing from "common/components/landing";
 import Nav from "common/components/nav";
 import "index.scss";
@@ -12,6 +13,7 @@ import * as serviceWorker from "serviceWorker";
 
 const Belts = lazy(() => import("calculators/belts/Belts"));
 const Flywheel = lazy(() => import("calculators/flywheel/Flywheel"));
+const Pneumatics = lazy(() => import("calculators/pneumatics/Pneumatics"));
 const AuthRedirect = lazy(() => import("auth/AuthRedirect"));
 
 ReactDOM.render(
@@ -26,6 +28,7 @@ ReactDOM.render(
                 <Route exact path="/" component={Landing} />
                 <Route path={belts.URL} component={Belts} />
                 <Route path={flywheel.URL} component={Flywheel} />
+                <Route path={pneumatics.URL} component={Pneumatics} />
                 <Route path={"/auth"} component={AuthRedirect} />
               </Switch>
             </Suspense>

@@ -12,6 +12,7 @@ export function UnlabeledTypedNumberInput(props) {
           className="input input-right"
           value={magnitude}
           onChange={(e) => setMagnitude(e.target.value)}
+          style={{ minWidth: "5em" }}
         />
       </p>
       <p className="control">
