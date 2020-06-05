@@ -15,21 +15,47 @@ import {
   QtyParam,
   QueryableParamHolder,
   stateToQueryString,
+  queryStringToDefaults,
 } from "common/tooling/query-strings";
 import Qty from "js-quantities";
 import { Line } from "lib/react-chart-js";
 import React, { useEffect, useState } from "react";
 
-export default function Flywheel(props) {
+export default function Flywheel() {
+  // Parse URL params
+  const {
+    motor: motor_,
+    ratio: ratio_,
+    radius: radius_,
+    targetSpeed: targetSpeed_,
+    weight: weight_,
+  } = queryStringToDefaults(
+    window.location.search,
+    {
+      motor: MotorParam,
+      ratio: NumberParam,
+      radius: QtyParam,
+      targetSpeed: QtyParam,
+      weight: QtyParam,
+    },
+    {
+      motor: {
+        quantity: 1,
+        data: motorMap["Falcon 500"],
+      },
+      ratio: 1,
+      radius: Qty(2, "in"),
+      targetSpeed: Qty(2000, "rpm"),
+      weight: Qty(5, "lb"),
+    }
+  );
+
   // Inputs
-  const [motor, setMotor] = useState({
-    quantity: 1,
-    data: motorMap["Falcon 500"],
-  });
-  const [ratio, setRatio] = useState(1);
-  const [radius, setRadius] = useState(Qty(2, "in"));
-  const [targetSpeed, setTargetSpeed] = useState(Qty(2000, "rpm"));
-  const [weight, setWeight] = useState(Qty(5, "lb"));
+  const [motor, setMotor] = useState(motor_);
+  const [ratio, setRatio] = useState(ratio_);
+  const [radius, setRadius] = useState(radius_);
+  const [targetSpeed, setTargetSpeed] = useState(targetSpeed_);
+  const [weight, setWeight] = useState(weight_);
 
   // Outputs
   const [windupTime, setWindupTime] = useState(Qty(0, "s"));

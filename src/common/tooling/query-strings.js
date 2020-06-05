@@ -1,5 +1,5 @@
 import Qty from "js-quantities";
-import { stringify } from "query-string";
+import { parse, stringify } from "query-string";
 import {
   decodeObject,
   encodeObject,
@@ -15,7 +15,7 @@ function QtyToDict(qty) {
 }
 
 function DictToQty(dict) {
-  return Qty(dict.s, dict.u);
+  return Qty(Number(dict.s), dict.u);
 }
 
 function MotorToDict(motor) {
@@ -27,7 +27,7 @@ function MotorToDict(motor) {
 
 function DictToMotor(dict) {
   return {
-    quantity: dict.quantity,
+    quantity: Number(dict.quantity),
     data: motorMap[dict.name],
   };
 }
@@ -71,6 +71,20 @@ export function stateToQueryString(queryableParamHolders) {
 export function buildUrlForCurrentPage(queryString) {
   const base = window.location.origin + window.location.pathname;
   return `${base}?${queryString}`;
+}
+
+export function queryStringToDefaults(query, queryParams, defaults) {
+  // console.log(query, queryParams);
+  const strings = parse(query);
+
+  let state = {};
+  Object.keys(strings).forEach((k) => {
+    Object.assign(defaults, { [k]: queryParams[k].decode(strings[k]) });
+  });
+
+  console.log(defaults);
+
+  return defaults;
 }
 
 export { NumberParam } from "use-query-params";

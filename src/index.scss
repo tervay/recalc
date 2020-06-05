@@ -20,11 +20,14 @@ $font_family: "Quicksand", sans-serif, -apple-system, BlinkMacSystemFont,
 @import "../node_modules/bulma/sass/components/navbar.sass";
 @import "../node_modules/bulma/sass/components/card.sass";
 @import "../node_modules/bulma/sass/components/media.sass";
+@import "../node_modules/bulma/sass/components/modal.sass";
 @import "../node_modules/bulma/sass/elements/button.sass";
 @import "../node_modules/bulma/sass/elements/container.sass";
 @import "../node_modules/bulma/sass/elements/title.sass";
 @import "../node_modules/bulma/sass/elements/table.sass";
 @import "../node_modules/bulma/sass/elements/image.sass";
+@import "../node_modules/bulma/sass/elements/other.sass";
+
 @import "../node_modules/bulma/sass/form/shared.sass";
 @import "../node_modules/bulma/sass/form/tools.sass";
 @import "../node_modules/bulma/sass/form/input-textarea.sass";
@@ -32,7 +35,6 @@ $font_family: "Quicksand", sans-serif, -apple-system, BlinkMacSystemFont,
 @import "../node_modules/bulma/sass/grid/columns.sass";
 @import "../node_modules/bulma/sass/layout/hero.sass";
 @import "../node_modules/bulma/sass/layout/section.sass";
-
 
 body {
   margin: 0;

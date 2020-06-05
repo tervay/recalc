@@ -9,6 +9,7 @@ import {
   QtyParam,
   QueryableParamHolder,
   stateToQueryString,
+  queryStringToDefaults,
 } from "common/tooling/query-strings";
 import Qty from "js-quantities";
 import React, { useEffect, useMemo, useState } from "react";
@@ -16,12 +17,37 @@ import CheatSheet from "./CheatSheet";
 import { calculateClosestCenters, teethToPD } from "./math";
 
 export default function Belts() {
+  // Parse URL params
+  const {
+    pitch: pitch_,
+    p1Teeth: p1Teeth_,
+    p2Teeth: p2Teeth_,
+    desiredCenter: desiredCenter_,
+    extraCenter: extraCenter_,
+  } = queryStringToDefaults(
+    window.location.search,
+    {
+      pitch: QtyParam,
+      p1Teeth: NumberParam,
+      p2Teeth: NumberParam,
+      desiredCenter: QtyParam,
+      extraCenter: QtyParam,
+    },
+    {
+      pitch: Qty(3, "mm"),
+      p1Teeth: 24,
+      p2Teeth: 16,
+      desiredCenter: Qty(5, "in"),
+      extraCenter: Qty(0, "in"),
+    }
+  );
+
   // Inputs
-  const [pitch, setPitch] = useState(Qty(3, "mm"));
-  const [p1Teeth, setP1Teeth] = useState(24);
-  const [p2Teeth, setP2Teeth] = useState(16);
-  const [desiredCenter, setDesiredCenter] = useState(Qty(5, "in"));
-  const [extraCenter, setExtraCenter] = useState(Qty(0, "in"));
+  const [pitch, setPitch] = useState(pitch_);
+  const [p1Teeth, setP1Teeth] = useState(p1Teeth_);
+  const [p2Teeth, setP2Teeth] = useState(p2Teeth_);
+  const [desiredCenter, setDesiredCenter] = useState(desiredCenter_);
+  const [extraCenter, setExtraCenter] = useState(extraCenter_);
 
   // Outputs
   const [p1Pitch, setP1Pitch] = useState(teethToPD(p1Teeth, pitch, "in"));
