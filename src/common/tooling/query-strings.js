@@ -7,6 +7,7 @@ import {
   encodeObject,
   encodeQueryParams,
   encodeBoolean,
+  decodeBoolean,
 } from "use-query-params";
 import { motorMap } from "./motors";
 
@@ -48,13 +49,16 @@ export const PistonParam = {
   encode: (piston) => {
     const a = encodeArray(
       Object.keys(piston).map((k) => {
-        if (k instanceof Object) {
+        if (piston[k] instanceof Object) {
           return encodeObject({
             name: k,
             value: QtyParam.encode(piston[k]).replace("_", "|"),
           });
         } else {
-          return encodeBoolean(piston[k]);
+          return encodeObject({
+            name: "enabled",
+            value: encodeBoolean(piston[k])
+          });
         }
       })
     );
@@ -62,14 +66,18 @@ export const PistonParam = {
   },
   decode: (str) => {
     const obj = decodeArray(str);
-    return Object.assign(
+    const s = Object.assign(
       ...obj.map((s) => {
         const d = decodeObject(s);
+        if (d.name === "enabled") {
+          return { [d.name]: decodeBoolean(d.value) }
+        }
         return {
           [d.name]: QtyParam.decode(d.value.replace("|", "_")),
         };
       })
     );
+    return s;
   },
 };
 

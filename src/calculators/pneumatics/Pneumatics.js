@@ -78,6 +78,7 @@ export default function Pneumatics() {
                 new QueryableParamHolder({ p1 }, PistonParam),
                 new QueryableParamHolder({ p2 }, PistonParam),
                 new QueryableParamHolder({ p3 }, PistonParam),
+                new QueryableParamHolder({ volume }, QtyParam)
               ]);
             }}
           />
