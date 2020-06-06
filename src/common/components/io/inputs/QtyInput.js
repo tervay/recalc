@@ -25,7 +25,9 @@ export function LabeledQtyInput(props) {
   return (
     <div className="field is-horizontal">
       <div className="field-label is-normal">
-        <label className="label">{props.label}</label>
+        <label className="label">
+          <span data-tooltip={props.abbr}>{props.label}</span>
+        </label>
       </div>
       <div className="field-body">
         <UnlabeledQtyInput {...props} />

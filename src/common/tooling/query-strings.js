@@ -10,6 +10,7 @@ import {
   decodeBoolean,
 } from "use-query-params";
 import { motorMap } from "./motors";
+import { compressorMap } from "./compressors";
 
 function QtyToDict(qty) {
   return {
@@ -36,6 +37,25 @@ function DictToMotor(dict) {
   };
 }
 
+function CompressorToDict(compressor) {
+  return {
+    name: compressor.name,
+  };
+}
+
+function DictToCompressor(dict) {
+  return compressorMap[dict.name];
+}
+
+export const CompressorParam = {
+  encode: (compressor) => {
+    return encodeObject(CompressorToDict(compressor));
+  },
+  decode: (str) => {
+    return DictToCompressor(decodeObject(str));
+  },
+};
+
 export const QtyParam = {
   encode: (qty) => {
     return encodeObject(QtyToDict(qty));
@@ -57,7 +77,7 @@ export const PistonParam = {
         } else {
           return encodeObject({
             name: "enabled",
-            value: encodeBoolean(piston[k])
+            value: encodeBoolean(piston[k]),
           });
         }
       })
@@ -70,7 +90,7 @@ export const PistonParam = {
       ...obj.map((s) => {
         const d = decodeObject(s);
         if (d.name === "enabled") {
-          return { [d.name]: decodeBoolean(d.value) }
+          return { [d.name]: decodeBoolean(d.value) };
         }
         return {
           [d.name]: QtyParam.decode(d.value.replace("|", "_")),

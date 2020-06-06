@@ -11,7 +11,12 @@ export default function TabularInput(props) {
               if (h instanceof Array) {
                 return (
                   <th key={h[0]}>
-                    <abbr title={h[1]}>{h[0]}</abbr>
+                    <span
+                      data-tooltip={h[1]}
+                      className="has-tooltip-left has-tooltip-multiline has-tooltip-text-left"
+                    >
+                      {h[0]}
+                    </span>
                   </th>
                 );
               } else {

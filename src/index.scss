@@ -36,6 +36,8 @@ $font_family: "Quicksand", sans-serif, -apple-system, BlinkMacSystemFont,
 @import "../node_modules/bulma/sass/layout/hero.sass";
 @import "../node_modules/bulma/sass/layout/section.sass";
 
+@import "../node_modules/@creativebulma/bulma-tooltip/dist/bulma-tooltip.min.css";
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;

@@ -1,9 +1,12 @@
 import Heading from "common/components/calc-heading/Heading";
+import CompressorInput from "common/components/io/inputs/CompressorInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
-import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
 import TabularInput from "common/components/io/inputs/TabularInput";
+import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
 import { makeDataObj, makeLineOptions } from "common/tooling/charts";
+import { compressorMap } from "common/tooling/compressors";
 import {
+  CompressorParam,
   PistonParam,
   QtyParam,
   QueryableParamHolder,
@@ -16,13 +19,20 @@ import React, { useEffect, useState } from "react";
 import { generatePressureTimeline } from "./math";
 
 export default function Pneumatics() {
-  const { p1: p1_, p2: p2_, p3: p3_, volume: volume_ } = queryStringToDefaults(
+  const {
+    p1: p1_,
+    p2: p2_,
+    p3: p3_,
+    volume: volume_,
+    compressor: compressor_,
+  } = queryStringToDefaults(
     window.location.search,
     {
       p1: PistonParam,
       p2: PistonParam,
       p3: PistonParam,
       volume: QtyParam,
+      compressor: CompressorParam,
     },
     {
       p1: {
@@ -53,6 +63,7 @@ export default function Pneumatics() {
         period: Qty(5, "s"),
       },
       volume: Qty(1200, "ml"),
+      compressor: compressorMap["VIAIR 90C"],
     }
   );
 
@@ -60,16 +71,18 @@ export default function Pneumatics() {
   const [p2, setP2] = useState(p2_);
   const [p3, setP3] = useState(p3_);
   const [volume, setVolume] = useState(volume_);
+  const [compressor, setCompressor] = useState(compressor_);
 
   const [graphData, setGraphData] = useState(makeDataObj([]));
   const [dutyCycle, setDutyCycle] = useState(0);
   // const [recommendedTanks, setRecommendedTanks] = useState(getRecommendedTanks([p1, p2, p3]))
 
   useEffect(() => {
+    console.log("updated");
     const {
       timeline: timeline_,
       dutyCycle: dutyCycle_,
-    } = generatePressureTimeline([p1, p2, p3], volume);
+    } = generatePressureTimeline([p1, p2, p3], volume, compressor);
     setGraphData(makeDataObj([timeline_]));
     setDutyCycle(dutyCycle_.toFixed(1));
 
@@ -77,7 +90,7 @@ export default function Pneumatics() {
 
     // Kinda slow :(
     // setRecommendedTanks(getRecommendedTanks([p1, p2, p3]));
-  }, [p1, p2, p3, volume]);
+  }, [p1, p2, p3, volume, compressor]);
 
   return (
     <>
@@ -91,6 +104,7 @@ export default function Pneumatics() {
                 new QueryableParamHolder({ p2 }, PistonParam),
                 new QueryableParamHolder({ p3 }, PistonParam),
                 new QueryableParamHolder({ volume }, QtyParam),
+                new QueryableParamHolder({ compressor }, CompressorParam),
               ]);
             }}
           />
@@ -128,7 +142,9 @@ export default function Pneumatics() {
             stateHook={[volume, setVolume]}
             choices={["ml", "in^3"]}
             label={"Tank Volume"}
+            abbr={"KOP tank volume is 590 mL"}
           />
+          <CompressorInput stateHook={[compressor, setCompressor]} />
           <LabeledNumberOutput
             label={"Compressor Duty Cycle"}
             stateHook={[dutyCycle, setDutyCycle]}

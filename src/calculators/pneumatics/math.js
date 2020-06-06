@@ -1,7 +1,8 @@
 import Qty from "js-quantities";
 import { clampQty } from "common/tooling/quantities";
+import { compressorMap } from "common/tooling/compressors";
 
-export function generatePressureTimeline(pistons, volume) {
+export function generatePressureTimeline(pistons, volume, compressor) {
   const pressures = [{ x: 0, y: Qty(115, "psi") }];
   const duration = Qty(2 * 60 + 30, "s");
   const dt = Qty(1, "s");
@@ -37,7 +38,12 @@ export function generatePressureTimeline(pistons, volume) {
       timeCompressorActive += dt.scalar;
     }
 
-    const newPressureDelta = getCompressorWork(prevPressure, dt, compressorOn)
+    const newPressureDelta = getCompressorWork(
+      compressor,
+      prevPressure,
+      dt,
+      compressorOn
+    )
       .sub(totalCylWork)
       .div(volume);
 
@@ -84,12 +90,12 @@ function getCylinderWork(piston, isFiring) {
     .mul(isFiring ? 1 : 0);
 }
 
-function getCompressorWork(pressure, dt, compressorOn) {
+function getCompressorWork(compressor, pressure, dt, compressorOn) {
   if (!compressorOn) return Qty(0, "J");
 
-  return getCompressorFlowRate(pressure).mul(Qty(1, "atm")).mul(dt);
+  return getCompressorFlowRate(compressor, pressure).mul(Qty(1, "atm")).mul(dt);
 }
 
-function getCompressorFlowRate(pressure) {
-  return Qty(0.3 / 60, "ft^3/s");
+function getCompressorFlowRate(compressor, pressure) {
+  return compressor.cfmFn(pressure);
 }
