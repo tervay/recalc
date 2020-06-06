@@ -62,7 +62,6 @@ export default function Flywheel() {
   const [chartData, setChartData] = useState(makeDataObj([]));
 
   useEffect(() => {
-    console.log(motor);
     setWindupTime(
       calculateWindupTime(
         weight,
