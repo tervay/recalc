@@ -4,12 +4,20 @@ import { UnlabeledQtyInput } from "./QtyInput";
 export default function TabularInput(props) {
   return (
     <div className="table-container">
-      <table className="table is-narrow">
+      <table className="table is-narrow center-table">
         <thead>
           <tr>
-            {props.headers.map((h) => (
-              <th key={h}>{h}</th>
-            ))}
+            {props.headers.map((h) => {
+              if (h instanceof Array) {
+                return (
+                  <th key={h[0]}>
+                    <abbr title={h[1]}>{h[0]}</abbr>
+                  </th>
+                );
+              } else {
+                return <th key={h}>{h}</th>;
+              }
+            })}
           </tr>
         </thead>
         <tbody>

@@ -61,10 +61,13 @@ export default function Pneumatics() {
   const [volume, setVolume] = useState(volume_);
 
   const [graphData, setGraphData] = useState(makeDataObj([]));
+  // const [recommendedTanks, setRecommendedTanks] = useState(getRecommendedTanks([p1, p2, p3]))
 
   useEffect(() => {
-    console.log("update");
     setGraphData(makeDataObj([generatePressureTimeline([p1, p2, p3], volume)]));
+
+    // Kinda slow :(
+    // setRecommendedTanks(getRecommendedTanks([p1, p2, p3]));
   }, [p1, p2, p3, volume]);
 
   return (
@@ -78,7 +81,7 @@ export default function Pneumatics() {
                 new QueryableParamHolder({ p1 }, PistonParam),
                 new QueryableParamHolder({ p2 }, PistonParam),
                 new QueryableParamHolder({ p3 }, PistonParam),
-                new QueryableParamHolder({ volume }, QtyParam)
+                new QueryableParamHolder({ volume }, QtyParam),
               ]);
             }}
           />
@@ -91,7 +94,10 @@ export default function Pneumatics() {
               "Stroke Length",
               "Push Pressure",
               "Pull Pressure",
-              "Actuation Period",
+              [
+                "Actuation Period",
+                "An actuation is considered to be both a push and a pull",
+              ],
             ]}
             inputs={[
               [p1, setP1],
@@ -123,6 +129,10 @@ export default function Pneumatics() {
               true
             )}
           />
+          {/* <LabeledNumberOutput
+            label={"Recommended # of tanks"}
+            stateHook={[recommendedTanks, setRecommendedTanks]}
+          /> */}
         </div>
       </div>
     </>

@@ -34,6 +34,22 @@ export function generatePressureTimeline(pistons, volume) {
   return pressures.map(({ x, y }) => ({ x, y: y.to("psi").scalar }));
 }
 
+export function getRecommendedTanks(pistons) {
+  const step = 600;
+  let val = step;
+  while (true) {
+    const timeline = generatePressureTimeline(pistons, Qty(val, "ml"));
+    const minPressure = timeline.reduce((prev, curr) =>
+      prev.y < curr.y ? prev : curr
+    );
+    if (minPressure.y < 20) {
+      val += step;
+    } else {
+      return val / step;
+    }
+  }
+}
+
 function getCylinderWork(piston, isFiring) {
   const t1 = piston.diameter
     .mul(piston.diameter)
