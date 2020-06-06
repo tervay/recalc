@@ -18,7 +18,12 @@ export function makeDataObj(data) {
   };
 }
 
-export function makeLineOptions(title, xTitle, yTitle) {
+export function makeLineOptions(
+  title,
+  xTitle,
+  yTitle,
+  maintainAspectRatio = false
+) {
   return {
     elements: {
       line: {
@@ -35,7 +40,7 @@ export function makeLineOptions(title, xTitle, yTitle) {
     legend: {
       display: false,
     },
-    maintainAspectRatio: false,
+    maintainAspectRatio: maintainAspectRatio,
     responsive: true,
     scales: {
       xAxes: [

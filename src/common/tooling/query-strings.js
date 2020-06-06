@@ -1,9 +1,12 @@
 import Qty from "js-quantities";
 import { parse, stringify } from "query-string";
 import {
+  decodeArray,
   decodeObject,
+  encodeArray,
   encodeObject,
   encodeQueryParams,
+  encodeBoolean,
 } from "use-query-params";
 import { motorMap } from "./motors";
 
@@ -38,6 +41,35 @@ export const QtyParam = {
   },
   decode: (str) => {
     return DictToQty(decodeObject(str));
+  },
+};
+
+export const PistonParam = {
+  encode: (piston) => {
+    const a = encodeArray(
+      Object.keys(piston).map((k) => {
+        if (k instanceof Object) {
+          return encodeObject({
+            name: k,
+            value: QtyParam.encode(piston[k]).replace("_", "|"),
+          });
+        } else {
+          return encodeBoolean(piston[k]);
+        }
+      })
+    );
+    return a;
+  },
+  decode: (str) => {
+    const obj = decodeArray(str);
+    return Object.assign(
+      ...obj.map((s) => {
+        const d = decodeObject(s);
+        return {
+          [d.name]: QtyParam.decode(d.value.replace("|", "_")),
+        };
+      })
+    );
   },
 };
 
@@ -81,8 +113,6 @@ export function queryStringToDefaults(query, queryParams, defaults) {
   Object.keys(strings).forEach((k) => {
     Object.assign(defaults, { [k]: queryParams[k].decode(strings[k]) });
   });
-
-  console.log(defaults);
 
   return defaults;
 }

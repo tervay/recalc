@@ -10,12 +10,12 @@ export function SaveButton(props) {
   return (
     <>
       <button
-        class="button is-primary"
+        className="button is-primary"
         disabled={disabled}
         onClick={props.onClick}
       >
-        <span class="icon is-small">
-          <i class="fas fa-save"></i>
+        <span className="icon is-small">
+          <i className="fas fa-save"></i>
         </span>
         <span>Save</span>
       </button>
