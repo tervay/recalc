@@ -17,12 +17,8 @@ export default function Tile(props) {
           </figure>
         </div>
         <div class="card-content">
-          <div class="media">
-            <div class="media-content">
-              <p class="title is-4">{props.title}</p>
-              <p class="subtitle is-6">{props.subtitle}</p>
-            </div>
-          </div>
+          <p class="title is-4">{props.title}</p>
+          <p class="subtitle is-6">{props.subtitle}</p>
         </div>
       </div>
     </Link>
