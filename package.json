@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.2.1",
     "bulma": "^0.8.2",
     "chart.js": "^2.9.3",
+    "express": "^4.17.1",
     "firebase-auth-lite": "^0.8.2",
     "firebase-firestore-lite": "^0.7.1",
     "js-quantities": "^1.7.5",
@@ -28,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start-prod": "node express.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -49,5 +51,8 @@
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",
     "source-map-explorer": "^2.4.2"
+  },
+  "engines": {
+    "node": "10.x"
   }
 }
