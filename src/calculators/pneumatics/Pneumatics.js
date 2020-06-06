@@ -1,19 +1,18 @@
 import Heading from "common/components/calc-heading/Heading";
+import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import TabularInput from "common/components/io/inputs/TabularInput";
-import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
+import { makeDataObj, makeLineOptions } from "common/tooling/charts";
 import {
   PistonParam,
+  QtyParam,
   QueryableParamHolder,
   queryStringToDefaults,
   stateToQueryString,
-  QtyParam,
 } from "common/tooling/query-strings";
 import Qty from "js-quantities";
+import { Line } from "lib/react-chart-js";
 import React, { useEffect, useState } from "react";
 import { generatePressureTimeline } from "./math";
-import { makeDataObj, makeLineOptions } from "common/tooling/charts";
-import { Line } from "lib/react-chart-js";
-import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 
 export default function Pneumatics() {
   const { p1: p1_, p2: p2_, p3: p3_, volume: volume_ } = queryStringToDefaults(
@@ -111,7 +110,7 @@ export default function Pneumatics() {
           />
           <LabeledQtyInput
             stateHook={[volume, setVolume]}
-            choices={["ml"]}
+            choices={["ml", "in^3"]}
             label={"Tank Volume"}
           />
           <Line
