@@ -2,13 +2,16 @@ import Qty from "js-quantities";
 import { clampQty } from "common/tooling/quantities";
 
 export function generatePressureTimeline(pistons, volume) {
-  const pressures = [{ x: 0, y: Qty(125, "psi") }];
+  const pressures = [{ x: 0, y: Qty(115, "psi") }];
   const duration = Qty(2 * 60 + 30, "s");
   const dt = Qty(1, "s");
   let t = 0;
   const timeToFire = pistons.map((piston) => Qty(piston.period));
+  let timeCompressorActive = 0;
 
   if (volume.scalar == 0) return [];
+
+  let compressorOn = false;
 
   while (t < duration.scalar) {
     let totalCylWork = Qty(0, "J");
@@ -22,16 +25,32 @@ export function generatePressureTimeline(pistons, volume) {
       totalCylWork = totalCylWork.add(getCylinderWork(p, isFiring));
     });
 
-    const newPressureDelta = getCompressorWork(dt)
+    const prevPressure = pressures[pressures.length - 1].y;
+
+    if (compressorOn && prevPressure.to("psi").scalar >= 115) {
+      compressorOn = false;
+    } else if (!compressorOn && prevPressure.to("psi").scalar <= 95) {
+      compressorOn = true;
+    }
+
+    if (compressorOn) {
+      timeCompressorActive += dt.scalar;
+    }
+
+    const newPressureDelta = getCompressorWork(prevPressure, dt, compressorOn)
       .sub(totalCylWork)
       .div(volume);
-    const newPressure = pressures[pressures.length - 1].y.add(newPressureDelta);
 
-    pressures.push({ x: t, y: clampQty(newPressure.to("psi"), 0, 125, false) });
+    const newPressure = prevPressure.add(newPressureDelta);
+
+    pressures.push({ x: t, y: clampQty(newPressure.to("psi"), 0, 115, false) });
     t += dt.scalar;
   }
 
-  return pressures.map(({ x, y }) => ({ x, y: y.to("psi").scalar }));
+  return {
+    timeline: pressures.map(({ x, y }) => ({ x, y: y.to("psi").scalar })),
+    dutyCycle: (timeCompressorActive / duration.scalar) * 100,
+  };
 }
 
 export function getRecommendedTanks(pistons) {
@@ -65,8 +84,10 @@ function getCylinderWork(piston, isFiring) {
     .mul(isFiring ? 1 : 0);
 }
 
-function getCompressorWork(dt) {
-  return getCompressorFlowRate(null).mul(Qty(1, "atm")).mul(dt);
+function getCompressorWork(pressure, dt, compressorOn) {
+  if (!compressorOn) return Qty(0, "J");
+
+  return getCompressorFlowRate(pressure).mul(Qty(1, "atm")).mul(dt);
 }
 
 function getCompressorFlowRate(pressure) {

@@ -1,5 +1,6 @@
 import Heading from "common/components/calc-heading/Heading";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
+import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
 import TabularInput from "common/components/io/inputs/TabularInput";
 import { makeDataObj, makeLineOptions } from "common/tooling/charts";
 import {
@@ -61,10 +62,18 @@ export default function Pneumatics() {
   const [volume, setVolume] = useState(volume_);
 
   const [graphData, setGraphData] = useState(makeDataObj([]));
+  const [dutyCycle, setDutyCycle] = useState(0);
   // const [recommendedTanks, setRecommendedTanks] = useState(getRecommendedTanks([p1, p2, p3]))
 
   useEffect(() => {
-    setGraphData(makeDataObj([generatePressureTimeline([p1, p2, p3], volume)]));
+    const {
+      timeline: timeline_,
+      dutyCycle: dutyCycle_,
+    } = generatePressureTimeline([p1, p2, p3], volume);
+    setGraphData(makeDataObj([timeline_]));
+    setDutyCycle(dutyCycle_.toFixed(1));
+
+    // setGraphData(makeDataObj([generatePressureTimeline([p1, p2, p3], volume)]));
 
     // Kinda slow :(
     // setRecommendedTanks(getRecommendedTanks([p1, p2, p3]));
@@ -120,6 +129,10 @@ export default function Pneumatics() {
             choices={["ml", "in^3"]}
             label={"Tank Volume"}
           />
+          <LabeledNumberOutput
+            label={"Compressor Duty Cycle"}
+            stateHook={[dutyCycle, setDutyCycle]}
+          />
           <Line
             data={graphData}
             options={makeLineOptions(
@@ -129,10 +142,6 @@ export default function Pneumatics() {
               true
             )}
           />
-          {/* <LabeledNumberOutput
-            label={"Recommended # of tanks"}
-            stateHook={[recommendedTanks, setRecommendedTanks]}
-          /> */}
         </div>
       </div>
     </>
