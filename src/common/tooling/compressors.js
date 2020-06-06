@@ -46,6 +46,16 @@ export const compressorMap = keyBy(
       ],
     },
     {
+      name: "Thomas 215",
+      polynomialTerms: [
+        9.7147435897435586e-001,
+        -1.1098662911161936e-002,
+        2.6789529914485079e-005,
+        5.0974488474554119e-007,
+        -3.4236596736626707e-009
+      ]
+    },
+    {
       name: "AndyMark 1.1 Pump",
       polynomialTerms: [
         1.1000553758298031,

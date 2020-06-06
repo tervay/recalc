@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "redux-zero/react";
-import db from "db";
-import { SaveModal } from "./SaveModal";
 
 export function SaveButton(props) {
   const isSignedIn = useSelector(({ isSignedIn, id }) => isSignedIn);
@@ -17,7 +15,7 @@ export function SaveButton(props) {
         <span className="icon is-small">
           <i className="fas fa-save"></i>
         </span>
-        <span>Save</span>
+        <span>Save (not yet working)</span>
       </button>
     </>
   );
