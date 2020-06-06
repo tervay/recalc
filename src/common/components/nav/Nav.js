@@ -4,7 +4,11 @@ import SignInOutButton from "auth/SignInOutButton";
 
 export default function Nav() {
   return (
-    <nav className="navbar" role="navigation" aria-label="main navigation">
+    <nav
+      className="navbar has-shadow"
+      role="navigation"
+      aria-label="main navigation"
+    >
       <div className="navbar-brand">
         <Link to="/" className="navbar-item">
           <img src="/favicon.png" width="32" height="32" />

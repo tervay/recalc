@@ -14,16 +14,9 @@ import * as serviceWorker from "serviceWorker";
 const Belts = lazy(() => import("calculators/belts/Belts"));
 const Flywheel = lazy(() => import("calculators/flywheel/Flywheel"));
 const Pneumatics = lazy(() => import("calculators/pneumatics/Pneumatics"));
+const About = lazy(() => import("common/components/about/About"));
 const AuthRedirect = lazy(() => import("auth/AuthRedirect"));
 
-// if (
-//   window.location.protocol !== "https:" &&
-//   window.location.hostname !== "localhost"
-// ) {
-//   window.location.replace(
-//     `https:${window.location.href.substring(window.location.protocol.length)}`
-//   );
-// } else {
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
@@ -38,6 +31,7 @@ ReactDOM.render(
                 <Route path={flywheel.URL} component={Flywheel} />
                 <Route path={pneumatics.URL} component={Pneumatics} />
                 <Route path={"/auth"} component={AuthRedirect} />
+                <Route path={"/about"} component={About} />
               </Switch>
             </Suspense>
           </div>
@@ -47,7 +41,6 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
-
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
