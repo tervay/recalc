@@ -16,6 +16,15 @@ const Flywheel = lazy(() => import("calculators/flywheel/Flywheel"));
 const Pneumatics = lazy(() => import("calculators/pneumatics/Pneumatics"));
 const AuthRedirect = lazy(() => import("auth/AuthRedirect"));
 
+if (
+  window.location.protocol !== "https:" &&
+  window.location.hostname !== "localhost"
+) {
+  window.location.replace(
+    `https:${window.location.href.substring(window.location.protocol.length)}`
+  );
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
