@@ -1,6 +1,7 @@
 import React from "react";
 import Tile from "common/components/landing/Tile";
 import { IMAGE as flywheelImage } from "calculators/flywheel/config";
+import {IMAGE as beltImage} from "calculators/belts/config"
 
 export default function Landing() {
   return (
@@ -14,7 +15,7 @@ export default function Landing() {
           />
         </div>
         <div class="column is-one-third">
-          <Tile to="/belts" title="Belt Calculator" />
+          <Tile to="/belts" title="Belt Calculator" image={beltImage}/>
         </div>
         <div class="column is-one-third">
           <Tile to="/pneumatics" title="Pneumatics Calculator" />
