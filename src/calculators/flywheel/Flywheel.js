@@ -142,8 +142,8 @@ export default function Flywheel() {
           <Line
             data={chartData}
             options={makeLineOptions(
-              "System Pressure Over Time",
-              "Pressure (PSI)",
+              "Ratio vs Windup Time",
+              "Ratio",
               "Time (s)"
             )}
           />

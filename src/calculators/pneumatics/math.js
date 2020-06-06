@@ -8,6 +8,8 @@ export function generatePressureTimeline(pistons, volume) {
   let t = 0;
   const timeToFire = pistons.map((piston) => Qty(piston.period));
 
+  if (volume.scalar == 0) return [];
+
   while (t < duration.scalar) {
     let totalCylWork = Qty(0, "J");
     pistons.forEach((p, i) => {
