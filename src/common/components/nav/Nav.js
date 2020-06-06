@@ -8,7 +8,7 @@ export default function Nav() {
       <div className="navbar-brand">
         <Link to="/" className="navbar-item">
           <img src="/favicon.png" width="32" height="32" />
-          <div className="nav-title">ReCalc</div>
+          <div className="nav-title">ReCalc (Alpha)</div>
         </Link>
         <SignInOutButton />
       </div>
