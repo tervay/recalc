@@ -16,38 +16,37 @@ const Flywheel = lazy(() => import("calculators/flywheel/Flywheel"));
 const Pneumatics = lazy(() => import("calculators/pneumatics/Pneumatics"));
 const AuthRedirect = lazy(() => import("auth/AuthRedirect"));
 
-if (
-  window.location.protocol !== "https:" &&
-  window.location.hostname !== "localhost"
-) {
-  window.location.replace(
-    `https:${window.location.href.substring(window.location.protocol.length)}`
-  );
-} else {
-  ReactDOM.render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <BrowserRouter>
-          <Nav />
-          <section className="section">
-            <div className="container">
-              <Suspense fallback={<div>Loading...</div>}>
-                <Switch>
-                  <Route exact path="/" component={Landing} />
-                  <Route path={belts.URL} component={Belts} />
-                  <Route path={flywheel.URL} component={Flywheel} />
-                  <Route path={pneumatics.URL} component={Pneumatics} />
-                  <Route path={"/auth"} component={AuthRedirect} />
-                </Switch>
-              </Suspense>
-            </div>
-          </section>
-        </BrowserRouter>
-      </Provider>
-    </React.StrictMode>,
-    document.getElementById("root")
-  );
-}
+// if (
+//   window.location.protocol !== "https:" &&
+//   window.location.hostname !== "localhost"
+// ) {
+//   window.location.replace(
+//     `https:${window.location.href.substring(window.location.protocol.length)}`
+//   );
+// } else {
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Nav />
+        <section className="section">
+          <div className="container">
+            <Suspense fallback={<div>Loading...</div>}>
+              <Switch>
+                <Route exact path="/" component={Landing} />
+                <Route path={belts.URL} component={Belts} />
+                <Route path={flywheel.URL} component={Flywheel} />
+                <Route path={pneumatics.URL} component={Pneumatics} />
+                <Route path={"/auth"} component={AuthRedirect} />
+              </Switch>
+            </Suspense>
+          </div>
+        </section>
+      </BrowserRouter>
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
 
 
 // If you want your app to work offline and load faster, you can change
