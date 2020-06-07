@@ -3,7 +3,8 @@ import firebaseConfig from "db/key";
 import Firestore from 'firebase-firestore-lite'
 
 export const auth = new Auth({
-  apiKey: firebaseConfig.apiKey
+  apiKey: firebaseConfig.apiKey,
+  redirectUri: window.location.origin + "/auth"
 });
 
 export const db = new Firestore({ projectId: firebaseConfig.projectId, auth })

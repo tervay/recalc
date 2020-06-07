@@ -5,7 +5,6 @@ import { useSelector } from "redux-zero/react";
 
 export default function SignInOutButton() {
   const isSignedIn = useSelector(({ isSignedIn }) => isSignedIn);
-  const id = useSelector(({ id }) => id);
 
   if (!isSignedIn) {
     return (
