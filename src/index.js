@@ -1,7 +1,8 @@
 import store from "auth/store";
-import * as belts from "calculators/belts/config";
-import * as flywheel from "calculators/flywheel/config";
-import * as pneumatics from "calculators/pneumatics/config";
+import { URL as beltsURL } from "calculators/belts/config";
+import { URL as flywheelURL } from "calculators/flywheel/config";
+import { URL as linearURL } from "calculators/linear_mech/config";
+import { URL as pneumaticsURL } from "calculators/pneumatics/config";
 import Landing from "common/components/landing";
 import Nav from "common/components/nav";
 import "index.scss";
@@ -11,6 +12,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "redux-zero/react";
 import * as serviceWorker from "serviceWorker";
 
+const LinearMech = lazy(() => import("calculators/linear_mech/LinearMech"));
 const Belts = lazy(() => import("calculators/belts/Belts"));
 const Flywheel = lazy(() => import("calculators/flywheel/Flywheel"));
 const Pneumatics = lazy(() => import("calculators/pneumatics/Pneumatics"));
@@ -27,9 +29,10 @@ ReactDOM.render(
             <Suspense fallback={<div>Loading...</div>}>
               <Switch>
                 <Route exact path="/" component={Landing} />
-                <Route path={belts.URL} component={Belts} />
-                <Route path={flywheel.URL} component={Flywheel} />
-                <Route path={pneumatics.URL} component={Pneumatics} />
+                <Route path={beltsURL} component={Belts} />
+                <Route path={flywheelURL} component={Flywheel} />
+                <Route path={pneumaticsURL} component={Pneumatics} />
+                <Route path={linearURL} component={LinearMech} />
                 <Route path={"/auth"} component={AuthRedirect} />
                 <Route path={"/about"} component={About} />
               </Switch>
