@@ -2,6 +2,10 @@ import Qty from "js-quantities";
 import { RatioDictToNumber } from "common/tooling/io";
 
 export function CalculateUnloadedSpeed(motor, spoolDiameter, ratio) {
+  if (RatioDictToNumber(ratio) === 0 || motor.quantity === 0) {
+    return Qty(0, "ft/s");
+  }
+
   return motor.data.freeSpeed
     .div(RatioDictToNumber(ratio))
     .mul(spoolDiameter.div(2))
@@ -15,11 +19,22 @@ export function CalculateLoadedSpeed(
   ratio,
   efficiency
 ) {
+  const stallDragLoad = CalculateStallDragLoad(
+    motor,
+    spoolDiameter,
+    ratio,
+    efficiency
+  );
+
+  if (RatioDictToNumber(ratio) === 0 || stallDragLoad.scalar === 0) {
+    return Qty(0, "ft/s");
+  }
+
   const t1 = motor.data.freeSpeed
     .div(RatioDictToNumber(ratio))
     .mul(Qty(360, "degree"))
     .div(Qty(60, "s"))
-    .div(CalculateStallDragLoad(motor, spoolDiameter, ratio, efficiency))
+    .div(stallDragLoad)
     .mul(load)
     .mul(-1);
 
@@ -40,6 +55,9 @@ export function CalculateStallDragLoad(
   ratio,
   efficiency
 ) {
+  if (spoolDiameter.scalar === 0) {
+    return Qty(0, "lb");
+  }
   return motor.data.stallTorque
     .mul(motor.quantity)
     .mul(RatioDictToNumber(ratio))
@@ -49,11 +67,16 @@ export function CalculateStallDragLoad(
 }
 
 export function CalculateTimeToGoal(travelDistance, loadedSpeed) {
-  if (loadedSpeed.baseScalar === 0) return Qty(0, "s");
+  if (loadedSpeed.baseScalar === 0) {
+    return Qty(0, "s");
+  }
   return travelDistance.div(loadedSpeed);
 }
 
 export function calculateCurrentDraw(motor, spoolDiameter, load, ratio) {
+  if (RatioDictToNumber(ratio) === 0 || motor.quantity === 0) {
+    return Qty(0, "A");
+  }
   const stallCurrent = motor.data.stallCurrent.mul(motor.quantity);
   const freeCurrent = motor.data.freeCurrent.mul(motor.quantity);
   const stallTorque = motor.data.stallTorque.mul(motor.quantity);

@@ -39,6 +39,7 @@ export default function About() {
             one of the most impactful design calculators in FRC
           </a>
         </li>
+        <li>JackTervay, for the renders on the landing</li>
       </ul>
       <p>
         And of course all the people who found bugs and offered feedback &
