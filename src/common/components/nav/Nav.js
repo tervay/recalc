@@ -4,12 +4,8 @@ import SignInOutButton from "auth/SignInOutButton";
 
 export default function Nav() {
   return (
-    <nav
-      className="navbar has-shadow"
-      role="navigation"
-      aria-label="main navigation"
-    >
-      <div className="navbar-brand">
+    <nav class="navbar level has-shadow">
+      <div class="level-item has-text-centered">
         <Link to="/" className="navbar-item">
           <img
             src="/icons/onyx/sliders.svg"
@@ -22,14 +18,18 @@ export default function Nav() {
           />
           <div className="nav-title">ReCalc (Alpha)</div>
         </Link>
-        <SignInOutButton />
       </div>
-      <div className="navbar-menu">
-        <div className="navbar-start">
-          <div className="navbar-item">
-            <div className="buttons"></div>
-          </div>
-        </div>
+
+      <div class="level-item has-text-centered is-hidden-mobile"></div>
+      <div class="level-item has-text-centered is-hidden-mobile"></div>
+      <div class="level-item has-text-centered is-hidden-mobile"></div>
+      <div class="level-item has-text-centered is-hidden-mobile"></div>
+      <div class="level-item has-text-centered is-hidden-mobile"></div>
+      <div class="level-item has-text-centered is-hidden-mobile"></div>
+      <div class="level-item has-text-centered is-hidden-mobile"></div>
+
+      <div class="level-item has-text-centered">
+        <SignInOutButton />
       </div>
     </nav>
   );
