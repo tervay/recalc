@@ -4,8 +4,8 @@ import SignInOutButton from "auth/SignInOutButton";
 
 export default function Nav() {
   return (
-    <nav class="navbar level has-shadow">
-      <div class="level-item has-text-centered">
+    <nav className="navbar level has-shadow">
+      <div className="level-item has-text-centered">
         <Link to="/" className="navbar-item">
           <img
             src="/icons/onyx/sliders.svg"
@@ -16,19 +16,19 @@ export default function Nav() {
               this.src = "/icons/onyx/sliders_512.png";
             }}
           />
-          <div className="nav-title">ReCalc (Alpha)</div>
+          <div className="nav-title"><b>ReCalc (Alpha)</b></div>
         </Link>
       </div>
 
-      <div class="level-item has-text-centered is-hidden-mobile"></div>
-      <div class="level-item has-text-centered is-hidden-mobile"></div>
-      <div class="level-item has-text-centered is-hidden-mobile"></div>
-      <div class="level-item has-text-centered is-hidden-mobile"></div>
-      <div class="level-item has-text-centered is-hidden-mobile"></div>
-      <div class="level-item has-text-centered is-hidden-mobile"></div>
-      <div class="level-item has-text-centered is-hidden-mobile"></div>
+      <div className="level-item has-text-centered is-hidden-mobile"></div>
+      <div className="level-item has-text-centered is-hidden-mobile"></div>
+      <div className="level-item has-text-centered is-hidden-mobile"></div>
+      <div className="level-item has-text-centered is-hidden-mobile"></div>
+      <div className="level-item has-text-centered is-hidden-mobile"></div>
+      <div className="level-item has-text-centered is-hidden-mobile"></div>
+      <div className="level-item has-text-centered is-hidden-mobile"></div>
 
-      <div class="level-item has-text-centered">
+      <div className="level-item has-text-centered">
         <SignInOutButton />
       </div>
     </nav>
