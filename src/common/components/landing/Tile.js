@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 export default function Tile(props) {
   return (
     <Link to={props.to}>
-      <div class="card">
-        <div class="card-image">
-          <figure class="image is-4by3">
+      <div className="card">
+        <div className="card-image">
+          <figure className="image is-4by3">
             <img
               src={
                 props.image ||
@@ -16,9 +16,9 @@ export default function Tile(props) {
             />
           </figure>
         </div>
-        <div class="card-content">
-          <p class="title is-4">{props.title}</p>
-          <p class="subtitle is-6">{props.subtitle}</p>
+        <div className="card-content">
+          <p className="title is-4">{props.title}</p>
+          <p className="subtitle is-6">{props.subtitle}</p>
         </div>
       </div>
     </Link>

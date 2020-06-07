@@ -11,7 +11,15 @@ export default function Nav() {
     >
       <div className="navbar-brand">
         <Link to="/" className="navbar-item">
-          <img src="/favicon.png" width="32" height="32" />
+          <img
+            src="/icons/onyx/sliders.svg"
+            width="32"
+            height="32"
+            onError={() => {
+              this.onError = null;
+              this.src = "/icons/onyx/sliders_512.png";
+            }}
+          />
           <div className="nav-title">ReCalc (Alpha)</div>
         </Link>
         <SignInOutButton />

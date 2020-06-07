@@ -38,9 +38,9 @@ export default function Landing() {
 
         <div className="column is-narrow">
           <Link to="/about">
-            <div class="card">
-              <div class="card-content">
-                <p class="title">About</p>
+            <div className="card">
+              <div className="card-content">
+                <p className="title">About</p>
               </div>
             </div>
           </Link>
