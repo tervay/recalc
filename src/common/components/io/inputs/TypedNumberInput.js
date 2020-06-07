@@ -35,7 +35,7 @@ export function LabeledTypedNumberInput(props) {
   return (
     <div className="field is-horizontal">
       <div className="field-label is-normal">
-        <label className="label">{props.label}</label>
+        <label className={"label " + props.labelClasses}>{props.label}</label>
       </div>
       <div className="field-body">
         <UnlabeledTypedNumberInput {...props} />

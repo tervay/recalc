@@ -74,3 +74,9 @@ nav {
   text-align: center !important;
   vertical-align: middle !important;
 }
+
+@media screen and (min-width: 769px), print {
+  .wide-label .field-label {
+    flex-grow: 2; /* overwrites previous value of 1 */
+  }
+}

@@ -4,18 +4,20 @@ import {
 } from "calculators/flywheel/math";
 import Heading from "common/components/calc-heading/Heading";
 import { LabeledMotorInput } from "common/components/io/inputs/MotorInput";
-import { LabeledNumberInput } from "common/components/io/inputs/NumberInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
+import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 import { makeDataObj, makeLineOptions } from "common/tooling/charts";
+import { RatioDictToNumber } from "common/tooling/io";
 import { motorMap } from "common/tooling/motors";
 import {
   MotorParam,
-  NumberParam,
   QtyParam,
   QueryableParamHolder,
-  stateToQueryString,
   queryStringToDefaults,
+  RatioParam,
+  RATIO_REDUCTION,
+  stateToQueryString,
 } from "common/tooling/query-strings";
 import Qty from "js-quantities";
 import { Line } from "lib/react-chart-js";
@@ -33,7 +35,7 @@ export default function Flywheel() {
     window.location.search,
     {
       motor: MotorParam,
-      ratio: NumberParam,
+      ratio: RatioParam,
       radius: QtyParam,
       targetSpeed: QtyParam,
       weight: QtyParam,
@@ -43,7 +45,10 @@ export default function Flywheel() {
         quantity: 1,
         data: motorMap["Falcon 500"],
       },
-      ratio: 1,
+      ratio: {
+        amount: 1,
+        type: RATIO_REDUCTION,
+      },
       radius: Qty(2, "in"),
       targetSpeed: Qty(2000, "rpm"),
       weight: Qty(5, "lb"),
@@ -71,7 +76,7 @@ export default function Flywheel() {
         motor.data.stallCurrent,
         motor.data.resistance,
         motor.quantity,
-        ratio,
+        RatioDictToNumber(ratio),
         targetSpeed
       )
     );
@@ -86,7 +91,7 @@ export default function Flywheel() {
           motor.data.stallCurrent,
           motor.data.resistance,
           motor.quantity,
-          ratio,
+          RatioDictToNumber(ratio),
           targetSpeed
         ),
       ])
@@ -100,7 +105,7 @@ export default function Flywheel() {
         getQuery={() => {
           return stateToQueryString([
             new QueryableParamHolder({ motor }, MotorParam),
-            new QueryableParamHolder({ ratio }, NumberParam),
+            new QueryableParamHolder({ ratio }, RatioParam),
             new QueryableParamHolder({ radius }, QtyParam),
             new QueryableParamHolder({ targetSpeed }, QtyParam),
             new QueryableParamHolder({ weight }, QtyParam),
@@ -114,11 +119,12 @@ export default function Flywheel() {
             stateHook={[motor, setMotor]}
             choices={Object.keys(motorMap)}
           />
-          <LabeledNumberInput stateHook={[ratio, setRatio]} label="Ratio" />
+          <LabeledRatioInput label="Ratio" stateHook={[ratio, setRatio]} />
           <LabeledQtyInput
             stateHook={[targetSpeed, setTargetSpeed]}
             choices={["rpm"]}
-            label={"Target Speed"}
+            label={"Target Flywheel Speed"}
+            wideLabel={true}
           />
           <LabeledQtyInput
             stateHook={[radius, setRadius]}

@@ -12,17 +12,6 @@ import {
 import { motorMap } from "./motors";
 import { compressorMap } from "./compressors";
 
-function QtyToDict(qty) {
-  return {
-    s: qty.scalar,
-    u: qty.units(),
-  };
-}
-
-function DictToQty(dict) {
-  return Qty(Number(dict.s), dict.u);
-}
-
 function MotorToDict(motor) {
   return {
     name: motor.data.name,
@@ -36,6 +25,11 @@ function DictToMotor(dict) {
     data: motorMap[dict.name],
   };
 }
+
+export const MotorParam = {
+  encode: (motor) => encodeObject(MotorToDict(motor)),
+  decode: (str) => DictToMotor(decodeObject(str)),
+};
 
 function CompressorToDict(compressor) {
   return {
@@ -55,6 +49,17 @@ export const CompressorParam = {
     return DictToCompressor(decodeObject(str));
   },
 };
+
+function QtyToDict(qty) {
+  return {
+    s: qty.scalar,
+    u: qty.units(),
+  };
+}
+
+function DictToQty(dict) {
+  return Qty(Number(dict.s), dict.u);
+}
 
 export const QtyParam = {
   encode: (qty) => {
@@ -101,9 +106,24 @@ export const PistonParam = {
   },
 };
 
-export const MotorParam = {
-  encode: (motor) => encodeObject(MotorToDict(motor)),
-  decode: (str) => DictToMotor(decodeObject(str)),
+function RatioToDict(ratio) {
+  return ratio;
+}
+
+function DictToRatio(ratio) {
+  return ratio;
+}
+
+export const RATIO_REDUCTION = "reduction";
+export const RATIO_STEPUP = "step-up";
+
+export const RatioParam = {
+  encode: (ratio) => {
+    return encodeObject(ratio);
+  },
+  decode: (str) => {
+    return decodeObject(str);
+  },
 };
 
 export class QueryableParamHolder {

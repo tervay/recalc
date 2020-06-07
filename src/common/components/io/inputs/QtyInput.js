@@ -23,7 +23,9 @@ export function UnlabeledQtyInput(props) {
 
 export function LabeledQtyInput(props) {
   return (
-    <div className="field is-horizontal">
+    <div
+      className={"field is-horizontal" + (props.wideLabel ? " wide-label" : "")}
+    >
       <div className="field-label is-normal">
         <label className="label">
           <span data-tooltip={props.abbr}>{props.label}</span>
