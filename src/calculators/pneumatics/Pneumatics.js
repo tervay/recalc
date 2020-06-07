@@ -78,7 +78,6 @@ export default function Pneumatics() {
   // const [recommendedTanks, setRecommendedTanks] = useState(getRecommendedTanks([p1, p2, p3]))
 
   useEffect(() => {
-    console.log("updated");
     const {
       timeline: timeline_,
       dutyCycle: dutyCycle_,

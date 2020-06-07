@@ -10,7 +10,7 @@ export function generatePressureTimeline(pistons, volume, compressor) {
   const timeToFire = pistons.map((piston) => Qty(piston.period));
   let timeCompressorActive = 0;
 
-  if (volume.scalar == 0) return [];
+  if (volume.scalar == 0) return { timeline: [], dutyCycle: 0 };
 
   let compressorOn = false;
 
@@ -18,6 +18,7 @@ export function generatePressureTimeline(pistons, volume, compressor) {
     let totalCylWork = Qty(0, "J");
     pistons.forEach((p, i) => {
       if (!p.enabled) return;
+      if (p.period.scalar === 0) return;
       timeToFire[i] = timeToFire[i].sub(dt);
       const isFiring = timeToFire[i].scalar < 0;
       if (isFiring) {
