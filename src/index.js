@@ -1,8 +1,17 @@
 import store from "auth/store";
-import { URL as beltsURL } from "calculators/belts/config";
-import { URL as flywheelURL } from "calculators/flywheel/config";
-import { URL as linearURL } from "calculators/linear_mech/config";
-import { URL as pneumaticsURL } from "calculators/pneumatics/config";
+import { URL as beltsURL, TITLE as beltsTitle } from "calculators/belts/config";
+import {
+  URL as flywheelURL,
+  TITLE as flywheelTitle,
+} from "calculators/flywheel/config";
+import {
+  URL as linearURL,
+  TITLE as linearTitle,
+} from "calculators/linear_mech/config";
+import {
+  URL as pneumaticsURL,
+  TITLE as pneumaticsTitle,
+} from "calculators/pneumatics/config";
 import Landing from "common/components/landing";
 import Nav from "common/components/nav";
 import "index.scss";
@@ -29,12 +38,30 @@ ReactDOM.render(
             <Suspense fallback={<div>Loading...</div>}>
               <Switch>
                 <Route exact path="/" component={Landing} />
-                <Route path={beltsURL} component={Belts} />
-                <Route path={flywheelURL} component={Flywheel} />
-                <Route path={pneumaticsURL} component={Pneumatics} />
-                <Route path={linearURL} component={LinearMech} />
+                
+                <Route
+                  path={beltsURL}
+                  render={(p) => <Belts {...p} title={beltsTitle} />}
+                />
+                <Route
+                  path={flywheelURL}
+                  render={(p) => <Flywheel {...p} title={flywheelTitle} />}
+                />
+                <Route
+                  path={pneumaticsURL}
+                  render={(p) => <Pneumatics {...p} title={pneumaticsTitle} />}
+                />
+                <Route
+                  path={linearURL}
+                  render={(p) => <LinearMech {...p} title={linearTitle} />}
+                />
+
+                <Route
+                  path={"/about"}
+                  render={(p) => <About {...p} title={"About"} />}
+                />
+
                 <Route path={"/auth"} component={AuthRedirect} />
-                <Route path={"/about"} component={About} />
               </Switch>
             </Suspense>
           </div>

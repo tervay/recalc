@@ -23,7 +23,10 @@ import Qty from "js-quantities";
 import { Line } from "lib/react-chart-js";
 import React, { useEffect, useState } from "react";
 
-export default function Flywheel() {
+import { setTitle } from "common/tooling/routing";
+export default function Flywheel(props) {
+  setTitle(props.title);
+
   // Parse URL params
   const {
     motor: motor_,

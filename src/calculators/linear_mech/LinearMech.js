@@ -24,7 +24,10 @@ import {
 } from "./math";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 
-export default function LinearMech() {
+import { setTitle } from "common/tooling/routing";
+export default function LinearMech(props) {
+  setTitle(props.title);
+
   const {
     motor: motor_,
     travelDistance: travelDistance_,

@@ -18,7 +18,10 @@ import { Line } from "lib/react-chart-js";
 import React, { useEffect, useState } from "react";
 import { generatePressureTimeline } from "./math";
 
-export default function Pneumatics() {
+import { setTitle } from "common/tooling/routing";
+export default function Pneumatics(props) {
+  setTitle(props.title);
+
   const {
     p1: p1_,
     p2: p2_,

@@ -15,8 +15,11 @@ import Qty from "js-quantities";
 import React, { useEffect, useMemo, useState } from "react";
 import CheatSheet from "./CheatSheet";
 import { calculateClosestCenters, teethToPD } from "./math";
+import { setTitle } from "common/tooling/routing";
 
-export default function Belts() {
+export default function Belts(props) {
+  setTitle(props.title);
+
   // Parse URL params
   const {
     pitch: pitch_,

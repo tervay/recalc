@@ -1,6 +1,8 @@
 import React from "react";
+import { setTitle } from "common/tooling/routing";
 
-export default function About() {
+export default function About(props) {
+  setTitle(props.title);
   return (
     <div className="content">
       <h2 className="title is-2">ReCalc</h2>

@@ -8,8 +8,11 @@ import { URL as beltsURL } from "calculators/belts/config";
 import { URL as flywheelURL } from "calculators/flywheel/config";
 import { URL as linearURL } from "calculators/linear_mech/config";
 import { URL as pneumaticsURL } from "calculators/pneumatics/config";
+import { setTitle } from "common/tooling/routing";
 
 export default function Landing() {
+  setTitle(null);
+
   return (
     <div>
       <div className="columns">
