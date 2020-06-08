@@ -16,7 +16,9 @@ export default function Nav() {
               this.src = "/icons/onyx/sliders_512.png";
             }}
           />
-          <div className="nav-title"><b>ReCalc (Alpha)</b></div>
+          <div className="nav-title">
+            <b>ReCalc (Alpha)</b>
+          </div>
         </Link>
       </div>
 

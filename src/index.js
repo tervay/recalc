@@ -38,7 +38,7 @@ ReactDOM.render(
             <Suspense fallback={<div>Loading...</div>}>
               <Switch>
                 <Route exact path="/" component={Landing} />
-                
+
                 <Route
                   path={beltsURL}
                   render={(p) => <Belts {...p} title={beltsTitle} />}
