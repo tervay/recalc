@@ -28,7 +28,8 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
-    "build": "CI=false react-scripts build",
+    "build": "react-scripts build",
+    "build-ci": "CI=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start-prod": "node express.js"
