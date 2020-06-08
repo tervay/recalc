@@ -1,18 +1,28 @@
+import propTypes from "prop-types";
 import React from "react";
 
 export default function MultiInputLine(props) {
   return (
-    <div class="field is-horizontal">
-      <div class="field-label is-normal">
-        <label class="label">{props.label}</label>
+    <div className="field is-horizontal">
+      <div className="field-label is-normal">
+        <label className="label">{props.label}</label>
       </div>
-      <div class="field-body">
+      <div className="field-body">
         <div className="columns">
           {props.children.map((c) => {
-            return <div className="column">{c}</div>;
+            return (
+              <div className="column" key={c}>
+                {c}
+              </div>
+            );
           })}
         </div>
       </div>
     </div>
   );
 }
+
+MultiInputLine.propTypes = {
+  label: propTypes.string,
+  children: propTypes.array,
+};

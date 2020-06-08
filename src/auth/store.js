@@ -5,9 +5,9 @@ import { bindActions } from "redux-zero/utils";
 const initialState = { isSignedIn: false, id: null };
 const store = createStore(initialState);
 
-const actions = (store) => ({
-  signIn: (state, id) => ({ isSignedIn: true, id }),
-  signOut: (state) => ({ isSignedIn: false, id: null }),
+const actions = () => ({
+  signIn: (_, id) => ({ isSignedIn: true, id }),
+  signOut: () => ({ isSignedIn: false, id: null }),
 });
 
 const boundActions = bindActions(actions, store);

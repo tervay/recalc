@@ -1,20 +1,21 @@
+import "index.scss";
+
 import store from "auth/store";
-import { URL as beltsURL, TITLE as beltsTitle } from "calculators/belts/config";
+import { TITLE as beltsTitle, URL as beltsURL } from "calculators/belts/config";
 import {
-  URL as flywheelURL,
   TITLE as flywheelTitle,
+  URL as flywheelURL,
 } from "calculators/flywheel/config";
 import {
-  URL as linearURL,
   TITLE as linearTitle,
+  URL as linearURL,
 } from "calculators/linear_mech/config";
 import {
-  URL as pneumaticsURL,
   TITLE as pneumaticsTitle,
+  URL as pneumaticsURL,
 } from "calculators/pneumatics/config";
 import Landing from "common/components/landing";
 import Nav from "common/components/nav";
-import "index.scss";
 import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";

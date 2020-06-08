@@ -1,5 +1,5 @@
-import Qty from "js-quantities";
 import { RatioDictToNumber } from "common/tooling/io";
+import Qty from "js-quantities";
 
 export function CalculateUnloadedSpeed(motor, spoolDiameter, ratio) {
   if (RatioDictToNumber(ratio) === 0 || motor.quantity === 0) {

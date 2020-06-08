@@ -1,7 +1,8 @@
+import propTypes from "prop-types";
 import React from "react";
 
 export function UnlabeledNumberOutput(props) {
-  const [value, setValue] = props.stateHook;
+  const value = props.stateHook[0];
 
   return (
     <div className="field has-addons">
@@ -17,6 +18,10 @@ export function UnlabeledNumberOutput(props) {
   );
 }
 
+UnlabeledNumberOutput.propTypes = {
+  stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
+};
+
 export function LabeledNumberOutput(props) {
   return (
     <div className="field is-horizontal">
@@ -29,3 +34,8 @@ export function LabeledNumberOutput(props) {
     </div>
   );
 }
+
+LabeledNumberOutput.propTypes = {
+  stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
+  label: propTypes.string,
+};

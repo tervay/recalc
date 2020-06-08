@@ -8,14 +8,16 @@ import {
   NumberParam,
   QtyParam,
   QueryableParamHolder,
-  stateToQueryString,
   queryStringToDefaults,
+  stateToQueryString,
 } from "common/tooling/query-strings";
+import { setTitle } from "common/tooling/routing";
 import Qty from "js-quantities";
+import PropTypes from "prop-types";
 import React, { useEffect, useMemo, useState } from "react";
+
 import CheatSheet from "./CheatSheet";
 import { calculateClosestCenters, teethToPD } from "./math";
-import { setTitle } from "common/tooling/routing";
 
 export default function Belts(props) {
   setTitle(props.title);
@@ -172,3 +174,7 @@ export default function Belts(props) {
     </>
   );
 }
+
+Belts.propTypes = {
+  title: PropTypes.string.isRequired,
+};

@@ -1,12 +1,13 @@
 import ShareButton from "common/components/calc-heading/ShareButton";
 import { SaveButton } from "db/SaveButton";
 import { SaveModal } from "db/SaveModal";
+import propTypes from "prop-types";
 import React, { useState } from "react";
 import { useSelector } from "redux-zero/react";
 
 export default function Heading(props) {
   const [modalActive, setModalActive] = useState(false);
-  const id = useSelector(({ isSignedIn, id }) => id);
+  const id = useSelector(({ id }) => id);
 
   return (
     <section className="hero">
@@ -20,7 +21,7 @@ export default function Heading(props) {
               <ShareButton getQuery={props.getQuery} />
             </p>
             <p className="control">
-              <SaveButton onClick={(e) => setModalActive(true)} />
+              <SaveButton onClick={() => setModalActive(true)} />
             </p>
           </div>
           <SaveModal
@@ -35,3 +36,9 @@ export default function Heading(props) {
     </section>
   );
 }
+
+Heading.propTypes = {
+  title: propTypes.string.isRequired,
+  subtitle: propTypes.string.isRequired,
+  getQuery: propTypes.func.isRequired,
+};

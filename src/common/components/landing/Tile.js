@@ -1,3 +1,4 @@
+import propTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -24,3 +25,10 @@ export default function Tile(props) {
     </Link>
   );
 }
+
+Tile.propTypes = {
+  to: propTypes.string,
+  image: propTypes.string,
+  title: propTypes.string,
+  subtitle: propTypes.string,
+};

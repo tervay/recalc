@@ -1,4 +1,5 @@
 import { buildUrlForCurrentPage } from "common/tooling/query-strings";
+import propTypes from "prop-types";
 import React from "react";
 
 export default function ShareButton(props) {
@@ -16,3 +17,7 @@ export default function ShareButton(props) {
     </button>
   );
 }
+
+ShareButton.propTypes = {
+  getQuery: propTypes.func.isRequired,
+};

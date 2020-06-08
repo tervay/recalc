@@ -1,30 +1,32 @@
-import React, { useState, useEffect } from "react";
-import {
-  queryStringToDefaults,
-  MotorParam,
-  QtyParam,
-  RatioParam,
-  NumberParam,
-  RATIO_REDUCTION,
-  stateToQueryString,
-  QueryableParamHolder,
-} from "common/tooling/query-strings";
-import { motorMap } from "common/tooling/motors";
-import Qty from "js-quantities";
 import Heading from "common/components/calc-heading/Heading";
 import { LabeledMotorInput } from "common/components/io/inputs/MotorInput";
+import { LabeledNumberInput } from "common/components/io/inputs/NumberInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
-import { LabeledNumberInput } from "common/components/io/inputs/NumberInput";
+import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
+import { motorMap } from "common/tooling/motors";
 import {
-  CalculateUnloadedSpeed,
+  MotorParam,
+  NumberParam,
+  QtyParam,
+  QueryableParamHolder,
+  queryStringToDefaults,
+  RATIO_REDUCTION,
+  RatioParam,
+  stateToQueryString,
+} from "common/tooling/query-strings";
+import { setTitle } from "common/tooling/routing";
+import Qty from "js-quantities";
+import propTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+
+import {
+  calculateCurrentDraw,
   CalculateLoadedSpeed,
   CalculateTimeToGoal,
-  calculateCurrentDraw,
+  CalculateUnloadedSpeed,
 } from "./math";
-import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 
-import { setTitle } from "common/tooling/routing";
 export default function LinearMech(props) {
   setTitle(props.title);
 
@@ -167,3 +169,7 @@ export default function LinearMech(props) {
     </>
   );
 }
+
+LinearMech.propTypes = {
+  title: propTypes.string.isRequired,
+};

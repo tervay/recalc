@@ -1,4 +1,5 @@
 import { compressorMap } from "common/tooling/compressors";
+import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
 export default function CompressorInput(props) {
@@ -31,3 +32,7 @@ export default function CompressorInput(props) {
     </div>
   );
 }
+
+CompressorInput.propTypes = {
+  stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
+};

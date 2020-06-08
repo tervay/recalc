@@ -1,5 +1,6 @@
-import React, { useState } from "react";
 import { save } from "db";
+import propTypes from "prop-types";
+import React, { useState } from "react";
 
 export function SaveModal(props) {
   let modalClasses = "modal";
@@ -17,7 +18,7 @@ export function SaveModal(props) {
           <button
             className="delete"
             aria-label="close"
-            onClick={(e) => props.setActive(false)}
+            onClick={() => props.setActive(false)}
           />
         </header>
         <section className="modal-card-body">
@@ -39,7 +40,7 @@ export function SaveModal(props) {
         <footer className="modal-card-foot">
           <button
             className="button is-success"
-            onClick={(e) => {
+            onClick={() => {
               save(props.user, configName, props.url, props.query);
               props.setActive(false);
             }}
@@ -51,3 +52,11 @@ export function SaveModal(props) {
     </div>
   );
 }
+
+SaveModal.propTypes = {
+  user: propTypes.string,
+  url: propTypes.string,
+  query: propTypes.string,
+  setActive: propTypes.func,
+  isActive: propTypes.bool,
+};

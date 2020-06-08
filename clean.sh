@@ -1,0 +1,1 @@
+npx prettier src/ --write && npx eslint src/ --fix

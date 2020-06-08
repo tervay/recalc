@@ -61,7 +61,7 @@ export default function CheatSheet() {
               <td>{pulley.width} mm</td>
               <td>{pulley.teeth}T</td>
               <td>{pulley.bore}</td>
-              <td>{pulley.pd}"</td>
+              <td>{pulley.pd}&quot;</td>
             </tr>
           );
         })}

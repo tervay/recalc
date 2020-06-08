@@ -2,15 +2,16 @@ import Qty from "js-quantities";
 import { parse, stringify } from "query-string";
 import {
   decodeArray,
+  decodeBoolean,
   decodeObject,
   encodeArray,
+  encodeBoolean,
   encodeObject,
   encodeQueryParams,
-  encodeBoolean,
-  decodeBoolean,
 } from "use-query-params";
-import { motorMap } from "./motors";
+
 import { compressorMap } from "./compressors";
+import { motorMap } from "./motors";
 
 function MotorToDict(motor) {
   return {
@@ -106,14 +107,6 @@ export const PistonParam = {
   },
 };
 
-function RatioToDict(ratio) {
-  return ratio;
-}
-
-function DictToRatio(ratio) {
-  return ratio;
-}
-
 export const RATIO_REDUCTION = "reduction";
 export const RATIO_STEPUP = "step-up";
 
@@ -157,7 +150,6 @@ export function queryStringToDefaults(query, queryParams, defaults) {
   // console.log(query, queryParams);
   const strings = parse(query);
 
-  let state = {};
   Object.keys(strings).forEach((k) => {
     Object.assign(defaults, { [k]: queryParams[k].decode(strings[k]) });
   });

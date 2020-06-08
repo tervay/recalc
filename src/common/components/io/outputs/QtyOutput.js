@@ -1,3 +1,4 @@
+import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
 export function UnlabeledQtyOutput(props) {
@@ -18,7 +19,7 @@ export function UnlabeledQtyOutput(props) {
         <input disabled className="input input-right" value={value} />
       </p>
       <p className="control">
-        <span className="select" className="select">
+        <span className="select">
           <select defaultValue={unit} onChange={(e) => setUnit(e.target.value)}>
             {props.choices.map((c) => (
               <option key={c}>{c}</option>
@@ -29,6 +30,12 @@ export function UnlabeledQtyOutput(props) {
     </div>
   );
 }
+
+UnlabeledQtyOutput.propTypes = {
+  stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
+  choices: propTypes.arrayOf(propTypes.string),
+  precision: propTypes.number,
+};
 
 export function LabeledQtyOutput(props) {
   return (
@@ -42,3 +49,10 @@ export function LabeledQtyOutput(props) {
     </div>
   );
 }
+
+LabeledQtyOutput.propTypes = {
+  stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
+  choices: propTypes.arrayOf(propTypes.string),
+  precision: propTypes.number,
+  label: propTypes.string,
+};

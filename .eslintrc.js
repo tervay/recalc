@@ -12,8 +12,10 @@ module.exports = {
     ecmaVersion: 11,
     sourceType: "module",
   },
-  plugins: ["react", "prettier"],
-  rules: {},
+  plugins: ["react", "prettier", "simple-import-sort"],
+  rules: {
+    "simple-import-sort/sort": "error"
+  },
   settings: {
     react: {
       version: "detect",

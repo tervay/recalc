@@ -1,3 +1,4 @@
+import propTypes from "prop-types";
 import React from "react";
 
 export function UnlabeledNumberInput(props) {
@@ -17,6 +18,10 @@ export function UnlabeledNumberInput(props) {
   );
 }
 
+UnlabeledNumberInput.propTypes = {
+  stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
+};
+
 export function LabeledNumberInput(props) {
   return (
     <div className="field is-horizontal">
@@ -29,3 +34,8 @@ export function LabeledNumberInput(props) {
     </div>
   );
 }
+
+LabeledNumberInput.propTypes = {
+  stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
+  label: propTypes.string,
+};

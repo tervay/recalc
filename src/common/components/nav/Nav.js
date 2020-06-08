@@ -1,6 +1,6 @@
+import SignInOutButton from "auth/SignInOutButton";
 import React from "react";
 import { Link } from "react-router-dom";
-import SignInOutButton from "auth/SignInOutButton";
 
 export default function Nav() {
   return (

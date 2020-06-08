@@ -1,4 +1,6 @@
+import propTypes from "prop-types";
 import React from "react";
+
 import { UnlabeledQtyInput } from "./QtyInput";
 
 export default function TabularInput(props) {
@@ -38,7 +40,7 @@ export default function TabularInput(props) {
                           <input
                             type="checkbox"
                             checked={input[k]}
-                            onChange={(e) => {
+                            onChange={() => {
                               setInput({
                                 ...input,
                                 [k]: !input[k],
@@ -75,3 +77,10 @@ export default function TabularInput(props) {
     </div>
   );
 }
+
+TabularInput.propTypes = {
+  headers: propTypes.arrayOf(propTypes.string),
+  inputs: propTypes.arrayOf(propTypes.arrayOf(propTypes.any, propTypes.func)),
+  labels: propTypes.arrayOf(propTypes.string),
+  choices: propTypes.arrayOf(propTypes.arrayOf(propTypes.string)),
+};

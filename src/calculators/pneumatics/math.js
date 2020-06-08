@@ -1,6 +1,5 @@
-import Qty from "js-quantities";
 import { clampQty } from "common/tooling/quantities";
-import { compressorMap } from "common/tooling/compressors";
+import Qty from "js-quantities";
 
 export function generatePressureTimeline(pistons, volume, compressor) {
   const pressures = [{ x: 0, y: Qty(115, "psi") }];
@@ -60,21 +59,22 @@ export function generatePressureTimeline(pistons, volume, compressor) {
   };
 }
 
-export function getRecommendedTanks(pistons) {
-  const step = 600;
-  let val = step;
-  while (true) {
-    const timeline = generatePressureTimeline(pistons, Qty(val, "ml"));
-    const minPressure = timeline.reduce((prev, curr) =>
-      prev.y < curr.y ? prev : curr
-    );
-    if (minPressure.y < 20) {
-      val += step;
-    } else {
-      return val / step;
-    }
-  }
-}
+// export function getRecommendedTanks(pistons) {
+//   const step = 600;
+//   let val = step;
+
+//   while (true) {
+//     const timeline = generatePressureTimeline(pistons, Qty(val, "ml"));
+//     const minPressure = timeline.reduce((prev, curr) =>
+//       prev.y < curr.y ? prev : curr
+//     );
+//     if (minPressure.y < 20) {
+//       val += step;
+//     } else {
+//       return val / step;
+//     }
+//   }
+// }
 
 function getCylinderWork(piston, isFiring) {
   const t1 = piston.diameter

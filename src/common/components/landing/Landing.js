@@ -1,14 +1,14 @@
-import React from "react";
-import Tile from "common/components/landing/Tile";
-import { IMAGE as flywheelImage } from "calculators/flywheel/config";
-import { IMAGE as beltImage } from "calculators/belts/config";
-import { Link } from "react-router-dom";
-
-import { URL as beltsURL } from "calculators/belts/config";
-import { URL as flywheelURL } from "calculators/flywheel/config";
+import { IMAGE as beltImage, URL as beltsURL } from "calculators/belts/config";
+import {
+  IMAGE as flywheelImage,
+  URL as flywheelURL,
+} from "calculators/flywheel/config";
 import { URL as linearURL } from "calculators/linear_mech/config";
 import { URL as pneumaticsURL } from "calculators/pneumatics/config";
+import Tile from "common/components/landing/Tile";
 import { setTitle } from "common/tooling/routing";
+import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Landing() {
   setTitle(null);

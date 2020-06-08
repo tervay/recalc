@@ -1,8 +1,10 @@
-import React from "react";
 import { setTitle } from "common/tooling/routing";
+import propTypes from "prop-types";
+import React from "react";
 
 export default function About(props) {
   setTitle(props.title);
+
   return (
     <div className="content">
       <h2 className="title is-2">ReCalc</h2>
@@ -57,7 +59,7 @@ export default function About(props) {
       </p>
 
       <h3 className="title is-3">What information does ReCalc collect?</h3>
-      <p>Signing in with Google means we "collect" two things:</p>
+      <p>Signing in with Google means we &ldquo;collect&rdquo; two things:</p>
       <ol>
         <li>Your email address</li>
         <li>A unique identifier attached to your account</li>
@@ -65,11 +67,11 @@ export default function About(props) {
       </ol>
       <p>
         Your email is not linked in any way to any other information in our
-        database. The only reason we "collect" an email is since Google tells us
-        which emails have logged in. Our database has no way of knowing which
-        email corresponds to which ID, nor which email corresponds to which
-        calculator configurations - they are only linked for a brief time
-        locally in your browser upon signing in. The unique identifier is
+        database. The only reason we &ldquo;collect&rdquo; an email is since
+        Google tells us which emails have logged in. Our database has no way of
+        knowing which email corresponds to which ID, nor which email corresponds
+        to which calculator configurations - they are only linked for a brief
+        time locally in your browser upon signing in. The unique identifier is
         created by Google upon your first login and is not the same identifier
         as other websites that you log into with Google.
       </p>
@@ -80,10 +82,11 @@ export default function About(props) {
 
       <h3 className="title is-3">How accurate are the calculators?</h3>
       <p>
-        The math behind them is sound "in theory," but of course, everything
-        works in theory. There are lots of variables that go into a robot, and
-        the results of the calculator may not be perfect. If you believe there
-        to be any error in the calculators (major or minor), please feel free to{" "}
+        The math behind them is sound &ldquo;in theory,&rdquo; but of course,
+        everything works in theory. There are lots of variables that go into a
+        robot, and the results of the calculator may not be perfect. If you
+        believe there to be any error in the calculators (major or minor),
+        please feel free to{" "}
         <a href="https://www.chiefdelphi.com/u/jtrv/">shoot me a PM on CD</a> or{" "}
         <a href="https://github.com/tervay/recalc/issues">
           open an issue on GitHub.
@@ -104,3 +107,7 @@ export default function About(props) {
     </div>
   );
 }
+
+About.propTypes = {
+  title: propTypes.string.isRequired,
+};

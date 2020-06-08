@@ -1,8 +1,9 @@
+import propTypes from "prop-types";
 import React from "react";
 import { useSelector } from "redux-zero/react";
 
 export function SaveButton(props) {
-  const isSignedIn = useSelector(({ isSignedIn, id }) => isSignedIn);
+  const isSignedIn = useSelector(({ isSignedIn }) => isSignedIn);
   const disabled = !isSignedIn;
 
   return (
@@ -20,3 +21,7 @@ export function SaveButton(props) {
     </>
   );
 }
+
+SaveButton.propTypes = {
+  onClick: propTypes.func,
+};

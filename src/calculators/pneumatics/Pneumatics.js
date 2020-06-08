@@ -13,12 +13,14 @@ import {
   queryStringToDefaults,
   stateToQueryString,
 } from "common/tooling/query-strings";
+import { setTitle } from "common/tooling/routing";
 import Qty from "js-quantities";
 import { Line } from "lib/react-chart-js";
+import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+
 import { generatePressureTimeline } from "./math";
 
-import { setTitle } from "common/tooling/routing";
 export default function Pneumatics(props) {
   setTitle(props.title);
 
@@ -165,3 +167,7 @@ export default function Pneumatics(props) {
     </>
   );
 }
+
+Pneumatics.propTypes = {
+  title: propTypes.string.isRequired,
+};

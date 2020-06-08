@@ -1,3 +1,4 @@
+import propTypes from "prop-types";
 import React from "react";
 
 export function UnlabeledTypedNumberInput(props) {
@@ -43,3 +44,17 @@ export function LabeledTypedNumberInput(props) {
     </div>
   );
 }
+
+UnlabeledTypedNumberInput.propTypes = {
+  magnitudeStateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
+  selectStateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
+  choices: propTypes.arrayOf(propTypes.string),
+};
+
+LabeledTypedNumberInput.propTypes = {
+  magnitudeStateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
+  selectStateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
+  choices: propTypes.arrayOf(propTypes.string),
+  label: propTypes.string,
+  labelClasses: propTypes.string,
+};

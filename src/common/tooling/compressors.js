@@ -1,5 +1,5 @@
-import keyBy from "lodash/keyBy";
 import Qty from "js-quantities";
+import keyBy from "lodash/keyBy";
 
 // https://arachnoid.com/polysolve/
 export const compressorMap = keyBy(

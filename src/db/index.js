@@ -1,5 +1,5 @@
-import Auth from "firebase-auth-lite";
 import firebaseConfig from "db/key";
+import Auth from "firebase-auth-lite";
 import Firestore from "firebase-firestore-lite";
 
 export const auth = new Auth({
@@ -11,6 +11,8 @@ export const db = new Firestore({ projectId: firebaseConfig.projectId, auth });
 
 export function save(user, name, url, query) {
   const userRef = db.reference(`users/${user}`);
+
+  /* eslint-disable no-unused-vars */
   const res = userRef
     .get()
     .then((r) => {

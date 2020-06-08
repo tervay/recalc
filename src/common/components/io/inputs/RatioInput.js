@@ -1,8 +1,8 @@
 import { UnlabeledTypedNumberInput } from "common/components/io/inputs/TypedNumberInput";
 import { cleanNumberInput } from "common/tooling/io";
-import { motorMap } from "common/tooling/motors";
+import { RATIO_REDUCTION, RATIO_STEPUP } from "common/tooling/query-strings";
+import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { RATIO_STEPUP, RATIO_REDUCTION } from "common/tooling/query-strings";
 
 export function UnlabeledRatioInput(props) {
   const [ratio, setRatio] = props.stateHook;
@@ -25,6 +25,10 @@ export function UnlabeledRatioInput(props) {
   );
 }
 
+UnlabeledRatioInput.propTypes = {
+  stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
+};
+
 export function LabeledRatioInput(props) {
   return (
     <div className="field is-horizontal">
@@ -37,3 +41,8 @@ export function LabeledRatioInput(props) {
     </div>
   );
 }
+
+LabeledRatioInput.propTypes = {
+  stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
+  label: propTypes.string,
+};

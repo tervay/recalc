@@ -73,7 +73,7 @@ export function calculateClosestCenters(
   }
   closestLargerSize =
     closestSmallerSize === 0 ||
-    !results.hasOwnProperty(closestSmallerSize + beltToothIncrement)
+    !(closestSmallerSize + beltToothIncrement in results)
       ? 0
       : closestSmallerSize + beltToothIncrement;
 

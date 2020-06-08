@@ -1,6 +1,7 @@
 import { UnlabeledTypedNumberInput } from "common/components/io/inputs/TypedNumberInput";
 import { cleanNumberInput } from "common/tooling/io";
 import Qty from "js-quantities";
+import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
 export function UnlabeledQtyInput(props) {
@@ -21,6 +22,11 @@ export function UnlabeledQtyInput(props) {
   );
 }
 
+UnlabeledQtyInput.propTypes = {
+  stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
+  choices: propTypes.arrayOf(propTypes.string),
+};
+
 export function LabeledQtyInput(props) {
   return (
     <div
@@ -37,3 +43,11 @@ export function LabeledQtyInput(props) {
     </div>
   );
 }
+
+LabeledQtyInput.propTypes = {
+  stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
+  label: propTypes.string,
+  choices: propTypes.arrayOf(propTypes.string),
+  abbr: propTypes.string,
+  wideLabel: propTypes.bool,
+};
