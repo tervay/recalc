@@ -4,7 +4,11 @@ module.exports = {
     es2020: true,
     node: true,
   },
-  extends: ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended"],
+  extends: [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+  ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -14,7 +18,7 @@ module.exports = {
   },
   plugins: ["react", "prettier", "simple-import-sort"],
   rules: {
-    "simple-import-sort/sort": "error"
+    "simple-import-sort/sort": "error",
   },
   settings: {
     react: {
