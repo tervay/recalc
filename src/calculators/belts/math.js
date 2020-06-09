@@ -1,5 +1,11 @@
 import Qty from "js-quantities";
 
+/**
+ *
+ * @param {number} teeth
+ * @param {Qty} pitch
+ * @param {string} unit
+ */
 export function teethToPD(teeth, pitch, unit = undefined) {
   return pitch
     .mul(teeth)
@@ -7,6 +13,17 @@ export function teethToPD(teeth, pitch, unit = undefined) {
     .to(unit || pitch.units());
 }
 
+/**
+ *
+ * @param {Qty} pitch
+ * @param {Qty} p1PitchDiameter
+ * @param {Qty} p2PitchDiameter
+ * @param {Qty} desiredCenter
+ * @param {Qty} extraCenter
+ * @param {number} minBeltToothCount
+ * @param {number} maxBeltToothCount
+ * @param {number} beltToothIncrement
+ */
 export function calculateClosestCenters(
   pitch,
   p1PitchDiameter,
