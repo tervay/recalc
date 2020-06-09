@@ -146,13 +146,23 @@ export function buildUrlForCurrentPage(queryString) {
   return `${base}?${queryString}`;
 }
 
-export function queryStringToDefaults(query, queryParams, defaults) {
-  // console.log(query, queryParams);
+export function queryStringToDefaults(
+  query,
+  queryParams,
+  defaults,
+  conversionFn
+) {
   const strings = parse(query);
 
-  Object.keys(strings).forEach((k) => {
-    Object.assign(defaults, { [k]: queryParams[k].decode(strings[k]) });
-  });
+  if (conversionFn === undefined) {
+    Object.keys(strings).forEach((k) => {
+      if (k !== "version") {
+        Object.assign(defaults, { [k]: queryParams[k].decode(strings[k]) });
+      }
+    });
+  } else {
+    Object.assign(defaults, conversionFn(strings, queryParams));
+  }
 
   return defaults;
 }

@@ -17,7 +17,9 @@ import PropTypes from "prop-types";
 import React, { useEffect, useMemo, useState } from "react";
 
 import CheatSheet from "./CheatSheet";
+import { VERSION as version } from "./config";
 import { calculateClosestCenters, teethToPD } from "./math";
+import { beltVersionManager } from "./versions";
 
 export default function Belts(props) {
   setTitle(props.title);
@@ -44,7 +46,8 @@ export default function Belts(props) {
       p2Teeth: 16,
       desiredCenter: Qty(5, "in"),
       extraCenter: Qty(0, "in"),
-    }
+    },
+    beltVersionManager
   );
 
   // Inputs
@@ -98,6 +101,7 @@ export default function Belts(props) {
             new QueryableParamHolder({ p2Teeth }, NumberParam),
             new QueryableParamHolder({ desiredCenter }, QtyParam),
             new QueryableParamHolder({ extraCenter }, QtyParam),
+            new QueryableParamHolder({ version }, NumberParam),
           ]);
         }}
       />
