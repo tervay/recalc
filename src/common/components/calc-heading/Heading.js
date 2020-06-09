@@ -39,6 +39,6 @@ export default function Heading(props) {
 
 Heading.propTypes = {
   title: propTypes.string.isRequired,
-  subtitle: propTypes.string.isRequired,
+  subtitle: propTypes.string,
   getQuery: propTypes.func.isRequired,
 };

@@ -1,6 +1,6 @@
 import { auth } from "db";
 import React from "react";
-import GoogleButton from "react-google-button";
+import GoogleButton from "react-google-button/dist/react-google-button";
 import { useSelector } from "redux-zero/react";
 
 export default function SignInOutButton() {

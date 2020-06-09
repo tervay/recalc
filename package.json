@@ -30,7 +30,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build-ci": "CI=false react-scripts build",
-    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!your-module-name)/\"",
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!firebase-firestore-lite)/\"",
     "eject": "react-scripts eject",
     "start-prod": "node express.js"
   },
@@ -60,6 +60,6 @@
     "source-map-explorer": "^2.4.2"
   },
   "engines": {
-    "node": "10.x"
+    "node": "14.x"
   }
 }

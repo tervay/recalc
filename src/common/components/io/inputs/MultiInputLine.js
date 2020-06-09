@@ -11,7 +11,7 @@ export default function MultiInputLine(props) {
         <div className="columns">
           {props.children.map((c) => {
             return (
-              <div className="column" key={c}>
+              <div className="column" key={c.props.label}>
                 {c}
               </div>
             );
