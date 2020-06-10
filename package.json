@@ -27,6 +27,7 @@
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "coverage": "npm run test -- --coverage --watchAll=false",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build-ci": "CI=false react-scripts build",
@@ -65,5 +66,10 @@
   },
   "engines": {
     "node": "14.x"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/!(.test).js"
+    ]
   }
 }
