@@ -12,11 +12,10 @@ import {
   stateToQueryString,
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
-import Qty from "js-quantities";
 import React, { useEffect, useMemo, useState } from "react";
 
 import CheatSheet from "./CheatSheet";
-import { TITLE as title, VERSION as version } from "./config";
+import { initialState, TITLE as title, VERSION as version } from "./config";
 import { calculateClosestCenters, teethToPD } from "./math";
 import { beltVersionManager } from "./versions";
 
@@ -39,13 +38,7 @@ export default function Belts() {
       desiredCenter: QtyParam,
       extraCenter: QtyParam,
     },
-    {
-      pitch: Qty(3, "mm"),
-      p1Teeth: 24,
-      p2Teeth: 16,
-      desiredCenter: Qty(5, "in"),
-      extraCenter: Qty(0, "in"),
-    },
+    initialState,
     beltVersionManager
   );
 
@@ -111,16 +104,22 @@ export default function Belts() {
             label={"Pitch"}
             stateHook={[pitch, setPitch]}
             choices={["mm"]}
+            inputId={"pitch-input"}
+            selectId={"pitch-select"}
           />
           <LabeledQtyInput
             label="Desired Center"
             stateHook={[desiredCenter, setDesiredCenter]}
             choices={["in", "mm", "cm"]}
+            inputId={"desired-center-input"}
+            selectId={"desired-center-select"}
           />
           <LabeledQtyInput
             label="Extra Center"
             stateHook={[extraCenter, setExtraCenter]}
             choices={["in", "mm", "cm"]}
+            inputId={"extra-center-input"}
+            selectId={"extra-center-select"}
           />
           <MultiInputLine label={"Pulley 1"}>
             <LabeledNumberInput

@@ -18,6 +18,8 @@ export function UnlabeledQtyInput(props) {
       magnitudeStateHook={[magnitude, setMagnitude]}
       selectStateHook={[unit, setUnit]}
       choices={props.choices}
+      inputId={props.inputId}
+      selectId={props.selectId}
     />
   );
 }
@@ -25,6 +27,8 @@ export function UnlabeledQtyInput(props) {
 UnlabeledQtyInput.propTypes = {
   stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
   choices: propTypes.arrayOf(propTypes.string),
+  inputId: propTypes.string,
+  selectId: propTypes.string,
 };
 
 export function LabeledQtyInput(props) {
@@ -50,4 +54,6 @@ LabeledQtyInput.propTypes = {
   choices: propTypes.arrayOf(propTypes.string),
   abbr: propTypes.string,
   wideLabel: propTypes.bool,
+  inputId: propTypes.string,
+  selectId: propTypes.string,
 };

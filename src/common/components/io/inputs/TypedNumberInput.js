@@ -1,26 +1,23 @@
 import propTypes from "prop-types";
 import React from "react";
 
+import { UnlabeledNumberInput } from "./NumberInput";
+
 export function UnlabeledTypedNumberInput(props) {
   const [magnitude, setMagnitude] = props.magnitudeStateHook;
   const [select, setSelect] = props.selectStateHook;
 
   return (
-    <div className="field has-addons">
-      <p className="control is-expanded">
-        <input
-          type="number"
-          className="input input-right"
-          value={magnitude}
-          onChange={(e) => setMagnitude(e.target.value)}
-          style={{ minWidth: "5em" }}
-        />
-      </p>
+    <UnlabeledNumberInput
+      stateHook={[magnitude, setMagnitude]}
+      inputId={props.inputId}
+    >
       <p className="control">
         <span className="select">
           <select
-            defaultValue={select}
+            value={select}
             onChange={(e) => setSelect(e.target.value)}
+            id={props.selectId}
           >
             {props.choices.map((c) => (
               <option key={c}>{c}</option>
@@ -28,7 +25,7 @@ export function UnlabeledTypedNumberInput(props) {
           </select>
         </span>
       </p>
-    </div>
+    </UnlabeledNumberInput>
   );
 }
 
@@ -49,6 +46,8 @@ UnlabeledTypedNumberInput.propTypes = {
   magnitudeStateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
   selectStateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
   choices: propTypes.arrayOf(propTypes.string),
+  inputId: propTypes.string,
+  selectId: propTypes.string,
 };
 
 LabeledTypedNumberInput.propTypes = {
@@ -57,4 +56,6 @@ LabeledTypedNumberInput.propTypes = {
   choices: propTypes.arrayOf(propTypes.string),
   label: propTypes.string,
   labelClasses: propTypes.string,
+  inputId: propTypes.string,
+  selectId: propTypes.string,
 };
