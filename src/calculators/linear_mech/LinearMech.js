@@ -17,18 +17,19 @@ import {
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
 import Qty from "js-quantities";
-import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
+import { TITLE as title, VERSION as version } from "./config";
 import {
   calculateCurrentDraw,
   CalculateLoadedSpeed,
   CalculateTimeToGoal,
   CalculateUnloadedSpeed,
 } from "./math";
+import { linearVersionManager } from "./versions";
 
-export default function LinearMech(props) {
-  setTitle(props.title);
+export default function LinearMech() {
+  setTitle(title);
 
   const {
     motor: motor_,
@@ -60,7 +61,8 @@ export default function LinearMech(props) {
         type: RATIO_REDUCTION,
       },
       efficiency: 100,
-    }
+    },
+    linearVersionManager
   );
 
   // inputs
@@ -96,7 +98,8 @@ export default function LinearMech(props) {
   return (
     <>
       <Heading
-        title="Linear mechanism calculator"
+        title={title}
+        subtitle={`V${version}`}
         getQuery={() => {
           return stateToQueryString([
             new QueryableParamHolder({ motor }, MotorParam),
@@ -105,6 +108,7 @@ export default function LinearMech(props) {
             new QueryableParamHolder({ load }, QtyParam),
             new QueryableParamHolder({ ratio }, RatioParam),
             new QueryableParamHolder({ efficiency }, NumberParam),
+            new QueryableParamHolder({ version }, NumberParam),
           ]);
         }}
       />
@@ -169,7 +173,3 @@ export default function LinearMech(props) {
     </>
   );
 }
-
-LinearMech.propTypes = {
-  title: propTypes.string.isRequired,
-};

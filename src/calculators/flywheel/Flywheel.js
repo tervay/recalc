@@ -12,6 +12,7 @@ import { RatioDictToNumber } from "common/tooling/io";
 import { motorMap } from "common/tooling/motors";
 import {
   MotorParam,
+  NumberParam,
   QtyParam,
   QueryableParamHolder,
   queryStringToDefaults,
@@ -22,11 +23,13 @@ import {
 import { setTitle } from "common/tooling/routing";
 import Qty from "js-quantities";
 import { Line } from "lib/react-chart-js";
-import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
-export default function Flywheel(props) {
-  setTitle(props.title);
+import { TITLE as title, VERSION as version } from "./config";
+import { flywheelVersionManager } from "./versions";
+
+export default function Flywheel() {
+  setTitle(title);
 
   // Parse URL params
   const {
@@ -56,7 +59,8 @@ export default function Flywheel(props) {
       radius: Qty(2, "in"),
       targetSpeed: Qty(2000, "rpm"),
       weight: Qty(5, "lb"),
-    }
+    },
+    flywheelVersionManager
   );
 
   // Inputs
@@ -105,7 +109,8 @@ export default function Flywheel(props) {
   return (
     <>
       <Heading
-        title="Flywheel calculator"
+        title={title}
+        subtitle={`V${version}`}
         getQuery={() => {
           return stateToQueryString([
             new QueryableParamHolder({ motor }, MotorParam),
@@ -113,6 +118,7 @@ export default function Flywheel(props) {
             new QueryableParamHolder({ radius }, QtyParam),
             new QueryableParamHolder({ targetSpeed }, QtyParam),
             new QueryableParamHolder({ weight }, QtyParam),
+            new QueryableParamHolder({ version }, NumberParam),
           ]);
         }}
       />
@@ -161,7 +167,3 @@ export default function Flywheel(props) {
     </>
   );
 }
-
-Flywheel.propTypes = {
-  title: propTypes.string.isRequired,
-};

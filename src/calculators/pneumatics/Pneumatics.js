@@ -7,6 +7,7 @@ import { makeDataObj, makeLineOptions } from "common/tooling/charts";
 import { compressorMap } from "common/tooling/compressors";
 import {
   CompressorParam,
+  NumberParam,
   PistonParam,
   QtyParam,
   QueryableParamHolder,
@@ -19,10 +20,12 @@ import { Line } from "lib/react-chart-js";
 import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
+import { TITLE as title, VERSION as version } from "./config";
 import { generatePressureTimeline } from "./math";
+import { pneumaticsVersionManager } from "./versions";
 
-export default function Pneumatics(props) {
-  setTitle(props.title);
+export default function Pneumatics() {
+  setTitle(title);
 
   const {
     p1: p1_,
@@ -69,7 +72,8 @@ export default function Pneumatics(props) {
       },
       volume: Qty(1200, "ml"),
       compressor: compressorMap["VIAIR 90C"],
-    }
+    },
+    pneumaticsVersionManager
   );
 
   const [p1, setP1] = useState(p1_);
@@ -101,7 +105,8 @@ export default function Pneumatics(props) {
       <div className="columns">
         <div className="column">
           <Heading
-            title="Pneumatics calculator"
+            title={title}
+            subtitle={`V${version}`}
             getQuery={() => {
               return stateToQueryString([
                 new QueryableParamHolder({ p1 }, PistonParam),
@@ -109,6 +114,7 @@ export default function Pneumatics(props) {
                 new QueryableParamHolder({ p3 }, PistonParam),
                 new QueryableParamHolder({ volume }, QtyParam),
                 new QueryableParamHolder({ compressor }, CompressorParam),
+                new QueryableParamHolder({ version }, NumberParam),
               ]);
             }}
           />

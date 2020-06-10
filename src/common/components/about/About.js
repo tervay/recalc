@@ -1,9 +1,8 @@
 import { setTitle } from "common/tooling/routing";
-import propTypes from "prop-types";
 import React from "react";
 
-export default function About(props) {
-  setTitle(props.title);
+export default function About() {
+  setTitle("About");
 
   return (
     <div className="content">
@@ -107,7 +106,3 @@ export default function About(props) {
     </div>
   );
 }
-
-About.propTypes = {
-  title: propTypes.string.isRequired,
-};

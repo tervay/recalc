@@ -13,16 +13,15 @@ import {
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
 import Qty from "js-quantities";
-import PropTypes from "prop-types";
 import React, { useEffect, useMemo, useState } from "react";
 
 import CheatSheet from "./CheatSheet";
-import { VERSION as version } from "./config";
+import { TITLE as title, VERSION as version } from "./config";
 import { calculateClosestCenters, teethToPD } from "./math";
 import { beltVersionManager } from "./versions";
 
-export default function Belts(props) {
-  setTitle(props.title);
+export default function Belts() {
+  setTitle(title);
 
   // Parse URL params
   const {
@@ -93,7 +92,8 @@ export default function Belts(props) {
   return (
     <>
       <Heading
-        title="Belt calculator"
+        title={title}
+        subtitle={`V${version}`}
         getQuery={() => {
           return stateToQueryString([
             new QueryableParamHolder({ pitch }, QtyParam),
@@ -178,7 +178,3 @@ export default function Belts(props) {
     </>
   );
 }
-
-Belts.propTypes = {
-  title: PropTypes.string.isRequired,
-};
