@@ -1,4 +1,5 @@
 import { IMAGE as beltImage, URL as beltsURL } from "calculators/belts/config";
+import { URL as chainsURL } from "calculators/chains/config";
 import {
   IMAGE as flywheelImage,
   URL as flywheelURL,
@@ -34,6 +35,9 @@ export default function Landing() {
       <div className="columns">
         <div className="column is-one-third">
           <Tile to={linearURL} title="Linear Mechanism Calculator" />
+        </div>
+        <div className="column is-one-third">
+          <Tile to={chainsURL} title="Chain Calculator" />
         </div>
 
         <div className="column is-narrow">
