@@ -2,6 +2,7 @@ import "index.scss";
 
 import store from "auth/store";
 import { URL as beltsURL } from "calculators/belts/config";
+import { URL as chainsURL } from "calculators/chains/config";
 import { URL as flywheelURL } from "calculators/flywheel/config";
 import { URL as linearURL } from "calculators/linear_mech/config";
 import { URL as pneumaticsURL } from "calculators/pneumatics/config";
@@ -16,6 +17,7 @@ const Belts = lazy(() => import("calculators/belts/Belts"));
 const Flywheel = lazy(() => import("calculators/flywheel/Flywheel"));
 const Pneumatics = lazy(() => import("calculators/pneumatics/Pneumatics"));
 const About = lazy(() => import("common/components/about/About"));
+const Chains = lazy(() => import("calculators/chains/Chains"));
 const AuthRedirect = lazy(() => import("auth/AuthRedirect"));
 
 export default function App() {
@@ -33,6 +35,7 @@ export default function App() {
                 <Route path={flywheelURL} component={Flywheel} />
                 <Route path={pneumaticsURL} component={Pneumatics} />
                 <Route path={linearURL} component={LinearMech} />
+                <Route path={chainsURL} component={Chains} />
 
                 <Route path={"/about"} component={About} />
 
