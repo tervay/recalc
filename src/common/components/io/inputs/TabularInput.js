@@ -83,4 +83,5 @@ TabularInput.propTypes = {
   inputs: propTypes.arrayOf(propTypes.arrayOf(propTypes.any, propTypes.func)),
   labels: propTypes.arrayOf(propTypes.string),
   choices: propTypes.arrayOf(propTypes.arrayOf(propTypes.string)),
+  inputKeys: propTypes.arrayOf(propTypes.string),
 };

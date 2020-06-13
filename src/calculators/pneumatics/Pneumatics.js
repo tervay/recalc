@@ -148,12 +148,13 @@ export default function Pneumatics() {
             ]}
             labels={["P1", "P2", "P3"]}
             inputKeys={[
-              "enabled", "diameter",
+              "enabled",
+              "diameter",
               "rodDiameter",
               "strokeLength",
               "pushPressure",
               "pullPressure",
-              "period"
+              "period",
             ]}
           />
           <LabeledQtyInput

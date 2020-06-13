@@ -16,11 +16,20 @@ export function UnlabeledQtyOutput(props) {
   return (
     <div className="field has-addons">
       <p className="control is-expanded">
-        <input disabled className="input input-right" value={value} />
+        <input
+          disabled
+          className="input input-right"
+          value={value}
+          id={props.inputId}
+        />
       </p>
       <p className="control">
         <span className="select">
-          <select defaultValue={unit} onChange={(e) => setUnit(e.target.value)}>
+          <select
+            value={unit}
+            onChange={(e) => setUnit(e.target.value)}
+            id={props.selectId}
+          >
             {props.choices.map((c) => (
               <option key={c}>{c}</option>
             ))}
@@ -35,6 +44,8 @@ UnlabeledQtyOutput.propTypes = {
   stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
   choices: propTypes.arrayOf(propTypes.string),
   precision: propTypes.number,
+  inputId: propTypes.string,
+  selectId: propTypes.string,
 };
 
 export function LabeledQtyOutput(props) {
@@ -55,4 +66,6 @@ LabeledQtyOutput.propTypes = {
   choices: propTypes.arrayOf(propTypes.string),
   precision: propTypes.number,
   label: propTypes.string,
+  inputId: propTypes.string,
+  selectId: propTypes.string,
 };

@@ -53,20 +53,18 @@ export default function Belts() {
   const [p1Pitch, setP1Pitch] = useState(teethToPD(p1Teeth, pitch, "in"));
   const [p2Pitch, setP2Pitch] = useState(teethToPD(p2Teeth, pitch, "in"));
 
-  const results = useMemo(
-    () =>
-      calculateClosestCenters(
-        pitch,
-        p1Pitch,
-        p2Pitch,
-        desiredCenter,
-        extraCenter,
-        15,
-        200,
-        5
-      ),
-    [pitch, p1Teeth, p2Teeth, desiredCenter, extraCenter]
-  );
+  const results = useMemo(() => {
+    return calculateClosestCenters(
+      pitch,
+      teethToPD(p1Teeth, pitch),
+      teethToPD(p2Teeth, pitch),
+      desiredCenter,
+      extraCenter,
+      15,
+      200,
+      5
+    );
+  }, [pitch, p1Teeth, p2Teeth, desiredCenter, extraCenter]);
 
   const [smallerCenter, setSmallerCenter] = useState(results.smaller.distance);
   const [smallerTeeth, setSmallerTeeth] = useState(results.smaller.teeth);
@@ -74,8 +72,8 @@ export default function Belts() {
   const [largerTeeth, setLargerTeeth] = useState(results.larger.teeth);
 
   useEffect(() => {
-    setP1Pitch(teethToPD(p1Teeth, pitch, p1Pitch.units()));
-    setP2Pitch(teethToPD(p2Teeth, pitch, p2Pitch.units()));
+    setP1Pitch(teethToPD(p1Teeth, pitch));
+    setP2Pitch(teethToPD(p2Teeth, pitch));
     setSmallerCenter(results.smaller.distance);
     setSmallerTeeth(results.smaller.teeth);
     setLargerCenter(results.larger.distance);
@@ -125,24 +123,30 @@ export default function Belts() {
             <LabeledNumberInput
               stateHook={[p1Teeth, setP1Teeth]}
               label="Teeth"
+              inputId="p1Teeth-input"
             />
             <LabeledQtyOutput
               label="PD"
               stateHook={[p1Pitch, setP1Pitch]}
               choices={["in", "mm", "cm"]}
               precision={4}
+              inputId="p1Pitch-input"
+              selectId="p1Pitch-select"
             />
           </MultiInputLine>
           <MultiInputLine label={"Pulley 2"}>
             <LabeledNumberInput
               stateHook={[p2Teeth, setP2Teeth]}
               label="Teeth"
+              inputId="p2Teeth-input"
             />
             <LabeledQtyOutput
               label="PD"
               stateHook={[p2Pitch, setP2Pitch]}
               choices={["in", "mm", "cm"]}
               precision={4}
+              inputId="p2Pitch-input"
+              selectId="p2Pitch-select"
             />
           </MultiInputLine>
           <MultiInputLine label="Smaller">
@@ -151,10 +155,13 @@ export default function Belts() {
               label="Center"
               choices={["in", "mm", "cm"]}
               precision={4}
+              inputId="smaller-input"
+              selectId="smaller-select"
             />
             <LabeledNumberOutput
               stateHook={[smallerTeeth, setSmallerTeeth]}
               label="Teeth"
+              inputId="smaller-output"
             />
           </MultiInputLine>
           <MultiInputLine label="Larger">
@@ -163,10 +170,13 @@ export default function Belts() {
               label="Center"
               choices={["in", "mm", "cm"]}
               precision={4}
+              inputId="larger-input"
+              selectId="larger-select"
             />
             <LabeledNumberOutput
               stateHook={[largerTeeth, setLargerTeeth]}
               label="Teeth"
+              inputId="larger-output"
             />
           </MultiInputLine>
         </div>

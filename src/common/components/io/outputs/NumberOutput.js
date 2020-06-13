@@ -12,6 +12,7 @@ export function UnlabeledNumberOutput(props) {
           disabled
           className="input input-right"
           value={value}
+          id={props.inputId}
         />
       </p>
     </div>
@@ -20,6 +21,7 @@ export function UnlabeledNumberOutput(props) {
 
 UnlabeledNumberOutput.propTypes = {
   stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
+  inputId: propTypes.string,
 };
 
 export function LabeledNumberOutput(props) {
@@ -38,4 +40,5 @@ export function LabeledNumberOutput(props) {
 LabeledNumberOutput.propTypes = {
   stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
   label: propTypes.string,
+  inputId: propTypes.string,
 };
