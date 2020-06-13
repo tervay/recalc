@@ -89,3 +89,8 @@ input[type="checkbox"] {
   height: auto;
   width: auto;
 }
+
+input[type="number"],
+input:disabled {
+  min-width: 5em;
+}

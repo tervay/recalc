@@ -7,6 +7,10 @@ import Qty from "js-quantities";
  * @param {string} unit
  */
 export function teethToPD(teeth, chain, unit = undefined) {
+  if (teeth === 0 || teeth === "0") {
+    return Qty(0, unit || chainPitch.units());
+  }
+
   const chainPitch = chainTypeToPitch(chain);
   return chainPitch
     .div(Math.sin(Qty(Math.PI).div(teeth)))
@@ -49,6 +53,19 @@ export function calculateClosestCenters(
   desiredCenter,
   extraCenter
 ) {
+  if (desiredCenter.scalar === 0) {
+    return {
+      smaller: {
+        teeth: 0,
+        distance: Qty(0, "in"),
+      },
+      larger: {
+        teeth: 0,
+        distance: Qty(0, "in"),
+      },
+    };
+  }
+
   const c0 = desiredCenter;
   const z1 = p1Teeth;
   const z2 = p2Teeth;

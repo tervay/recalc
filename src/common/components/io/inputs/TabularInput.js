@@ -32,7 +32,7 @@ export default function TabularInput(props) {
             return (
               <tr key={`${i}`}>
                 <td>{props.labels[i]}</td>
-                {Object.keys(input).map((k, j) => {
+                {props.inputKeys.map((k, j) => {
                   if (k === "enabled") {
                     return (
                       <td key={`${i}_${k}_${props.labels[i]}`}>

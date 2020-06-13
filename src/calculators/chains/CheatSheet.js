@@ -98,7 +98,13 @@ export default function CheatSheet() {
           {data.map((pulley) => {
             return (
               <tr
-                key={pulley.vendor + pulley.teeth + pulley.bore + pulley.type}
+                key={
+                  pulley.vendor +
+                  pulley.teeth +
+                  pulley.bore +
+                  pulley.type +
+                  pulley.chain
+                }
               >
                 <td>{pulley.vendor}</td>
                 <td>{pulley.chain}</td>

@@ -23,6 +23,10 @@ export function calculateWindupTime(
   ratio,
   targetSpeed
 ) {
+  if (motorQuantity === 0) {
+    return Qty(0, "s");
+  }
+
   ratio = ratio === "0" || ratio === 0 ? 1 : ratio;
 
   const J = Qty(0.5).mul(weight).mul(radius).mul(radius).div(ratio).div(ratio);

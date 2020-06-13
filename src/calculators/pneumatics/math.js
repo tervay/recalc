@@ -2,15 +2,16 @@ import { clampQty } from "common/tooling/quantities";
 import Qty from "js-quantities";
 
 export function generatePressureTimeline(pistons, volume, compressor) {
+  if (volume.scalar == 0) {
+    return { timeline: [], dutyCycle: 0 };
+  }
+
   const pressures = [{ x: 0, y: Qty(115, "psi") }];
   const duration = Qty(2 * 60 + 30, "s");
   const dt = Qty(1, "s");
   let t = 0;
   const timeToFire = pistons.map((piston) => Qty(piston.period));
   let timeCompressorActive = 0;
-
-  if (volume.scalar == 0) return { timeline: [], dutyCycle: 0 };
-
   let compressorOn = false;
 
   while (t < duration.scalar) {
