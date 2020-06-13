@@ -67,8 +67,8 @@ export function calculateClosestCenters(
   }
 
   const c0 = desiredCenter;
-  const z1 = p1Teeth;
-  const z2 = p2Teeth;
+  const z1 = Number(p1Teeth);
+  const z2 = Number(p2Teeth);
   const p = chainTypeToPitch(chain);
 
   const t1 = Qty(2).mul(c0.div(p));
