@@ -84,3 +84,8 @@ nav {
     flex-grow: 2; /* overwrites previous value of 1 */
   }
 }
+
+input[type="checkbox"] {
+  height: auto;
+  width: auto;
+}
