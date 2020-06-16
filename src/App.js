@@ -6,6 +6,7 @@ import { URL as chainsURL } from "calculators/chains/config";
 import { URL as flywheelURL } from "calculators/flywheel/config";
 import { URL as linearURL } from "calculators/linear_mech/config";
 import { URL as pneumaticsURL } from "calculators/pneumatics/config";
+import Spot from "calculators/spot/Spot";
 import Landing from "common/components/landing";
 import Nav from "common/components/nav";
 import React, { lazy, Suspense } from "react";
@@ -38,6 +39,8 @@ export default function App() {
                 <Route path={chainsURL} component={Chains} />
 
                 <Route path={"/about"} component={About} />
+
+                <Route path={"/spot"} component={Spot} />
 
                 <Route path={"/auth"} component={AuthRedirect} />
               </Switch>
