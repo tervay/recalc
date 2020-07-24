@@ -1,16 +1,16 @@
 import firebaseConfig from "db/key";
 import Auth from "firebase-auth-lite";
-import Firestore from "firebase-firestore-lite";
+import { Database } from "firebase-firestore-lite";
 
 export const auth = new Auth({
   apiKey: firebaseConfig.apiKey,
   redirectUri: window.location.origin + "/auth",
 });
 
-export const db = new Firestore({ projectId: firebaseConfig.projectId, auth });
+export const db = new Database({ projectId: firebaseConfig.projectId, auth });
 
 export function save(user, name, url, query) {
-  const userRef = db.reference(`users/${user}`);
+  const userRef = db.ref(`users/${user}`);
 
   /* eslint-disable no-unused-vars */
   const res = userRef
