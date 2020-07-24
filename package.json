@@ -31,7 +31,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build-ci": "CI=false react-scripts build",
-    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!firebase-firestore-lite)/\"",
+    "test": "react-scripts test --runInBand --transformIgnorePatterns \"node_modules/(?!firebase-firestore-lite)/\"",
     "eject": "react-scripts eject",
     "start-prod": "node express.js"
   },
