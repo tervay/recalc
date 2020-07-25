@@ -1,3 +1,24 @@
+# ReCalc
+
+This is a collaboration focused mechanical design calculator, primarily for FRC.
+
+Basic dev commands:
+
+### `npx pretty-quick` / `npx eslint . --fix`
+
+Runs linting & fixes style problems.
+
+### `npm run analyze`
+
+Analyzes bundle sizes to see which packages are causing bundles to increase in size.
+
+### `npm run coverage`
+
+Creates a code coverage report at `coverage/`.
+
+----
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
