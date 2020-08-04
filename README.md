@@ -16,8 +16,7 @@ Analyzes bundle sizes to see which packages are causing bundles to increase in s
 
 Creates a code coverage report at `coverage/`.
 
-----
-
+---
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
