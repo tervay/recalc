@@ -8,13 +8,20 @@ export default function Tile(props) {
       <div className="card">
         <div className="card-image">
           <figure className="image is-4by3">
-            <img
-              src={
-                props.image ||
-                "https://bulma.io/images/placeholders/1280x960.png"
-              }
-              alt="Placeholder image"
-            />
+            <picture>
+              {props.image && (
+                <>
+                  <source type="image/webp" srcSet={props.image + ".webp"} />
+                  <source type="image/png" srcSet={props.image + ".png"} />
+                </>
+              )}
+              <img
+                src={
+                  (props.image ||
+                    "https://bulma.io/images/placeholders/1280x960") + ".png"
+                }
+              />
+            </picture>
           </figure>
         </div>
         <div className="card-content">

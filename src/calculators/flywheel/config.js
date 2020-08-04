@@ -1,5 +1,5 @@
 export const URL = "/flywheel";
-export const IMAGE = "/media/Flywheel.png";
+export const IMAGE = "/media/Flywheel";
 export const TITLE = "Flywheel Calculator";
 export const VERSION = 1;
 

@@ -34,7 +34,7 @@
     "build-ci": "CI=false react-scripts build",
     "test": "react-scripts test --runInBand --transformIgnorePatterns \"node_modules/(?!firebase-firestore-lite)/\"",
     "eject": "react-scripts eject",
-    "start-prod": "node express.js"
+    "start-prod": "node src/dev/express.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -60,6 +60,8 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-simple-import-sort": "^5.0.3",
+    "imagemin": "^7.0.1",
+    "imagemin-webp": "^6.0.0",
     "jest-each": "^26.1.0",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",

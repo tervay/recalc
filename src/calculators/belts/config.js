@@ -1,7 +1,7 @@
 import Qty from "js-quantities";
 
 export const URL = "/belts";
-export const IMAGE = "/media/Belts.png";
+export const IMAGE = "/media/Belts";
 export const TITLE = "Belt Calculator";
 export const VERSION = 1;
 
