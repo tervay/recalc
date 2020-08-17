@@ -14,7 +14,7 @@ app.use(
 );
 
 app.get("*", function (req, res) {
-  res.sendFile("index.html", { root: path.join(__dirname, "build/") });
+  res.sendFile("index.html", { root: path.join(__dirname, "../../build/") });
 });
 
 app.listen(process.env.PORT || 5000);
