@@ -78,6 +78,14 @@ export default function About() {
         Your information is securely stored in a{" "}
         <a href="https://firebase.google.com/">Firestore database.</a>
       </p>
+      <p>
+        ReCalc also uses{" "}
+        <a href="https://github.com/zgoat/goatcounter">open-source analytics</a>{" "}
+        to track basic usage information, such as operating system, browser
+        version, screen size, country of origin, and referral site (such as a
+        link from Google search). This analytics script is GDPR-compliant and is
+        commonly blocked by ad-blockers anyway.
+      </p>
 
       <h3 className="title is-3">How accurate are the calculators?</h3>
       <p>
