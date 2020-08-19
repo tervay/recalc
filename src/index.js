@@ -6,10 +6,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "serviceWorker";
 
-Sentry.init({
-  dsn:
-    "https://cd2f25eaeebc44b59f21145d88c63849@o429649.ingest.sentry.io/5376660",
-});
+if (
+  !(
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+  )
+) {
+  Sentry.init({
+    dsn:
+      "https://cd2f25eaeebc44b59f21145d88c63849@o429649.ingest.sentry.io/5376660",
+  });
+}
 
 ReactDOM.render(
   <React.StrictMode>
