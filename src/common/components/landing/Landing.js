@@ -18,45 +18,58 @@ export default function Landing() {
   setTitle(null);
 
   return (
-    <div>
-      <div className="columns">
-        <div className="column is-one-third">
-          <Tile
-            to={flywheelURL}
-            title="Flywheel Calculator"
-            image={flywheelImage}
-          />
+    <>
+      <section className="hero">
+        <div className="hero-body">
+          <div className="container">
+            <h1 className="title">ReCalc</h1>
+            <h2 className="subtitle">
+              A collaboration focused mechanical design calculator
+            </h2>
+          </div>
         </div>
-        <div className="column is-one-third">
-          <Tile to={beltsURL} title="Belt Calculator" image={beltImage} />
-        </div>
-        <div className="column is-one-third">
-          <Tile
-            to={pneumaticsURL}
-            title="Pneumatics Calculator"
-            image={pneumaticsImage}
-          />
-        </div>
-      </div>
+      </section>
 
-      <div className="columns">
-        <div className="column is-one-third">
-          <Tile to={linearURL} title="Linear Mechanism Calculator" />
-        </div>
-        <div className="column is-one-third">
-          <Tile to={chainsURL} title="Chain Calculator" />
+      <div>
+        <div className="columns">
+          <div className="column is-one-third">
+            <Tile
+              to={flywheelURL}
+              title="Flywheel Calculator"
+              image={flywheelImage}
+            />
+          </div>
+          <div className="column is-one-third">
+            <Tile to={beltsURL} title="Belt Calculator" image={beltImage} />
+          </div>
+          <div className="column is-one-third">
+            <Tile
+              to={pneumaticsURL}
+              title="Pneumatics Calculator"
+              image={pneumaticsImage}
+            />
+          </div>
         </div>
 
-        <div className="column is-narrow">
-          <Link to="/about">
-            <div className="card">
-              <div className="card-content">
-                <p className="title">About</p>
+        <div className="columns">
+          <div className="column is-one-third">
+            <Tile to={linearURL} title="Linear Mechanism Calculator" />
+          </div>
+          <div className="column is-one-third">
+            <Tile to={chainsURL} title="Chain Calculator" />
+          </div>
+
+          <div className="column is-narrow">
+            <Link to="/about">
+              <div className="card">
+                <div className="card-content">
+                  <p className="title">About</p>
+                </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

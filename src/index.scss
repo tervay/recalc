@@ -94,3 +94,17 @@ input[type="number"],
 input:disabled {
   min-width: 5em;
 }
+
+.navbar {
+  margin-bottom: 0 !important;
+}
+
+a.navbar-item:hover,
+a.navbar-item:active,
+a.navbar-item:focus {
+  background-color: $primary;
+}
+
+.hero-body {
+  padding-top: 0;
+}

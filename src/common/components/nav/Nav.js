@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Nav() {
   return (
-    <nav className="navbar level has-shadow">
+    <nav className="navbar level is-primary">
       <div className="level-item has-text-centered">
         <Link to="/" className="navbar-item">
           <img
@@ -22,13 +22,7 @@ export default function Nav() {
         </Link>
       </div>
 
-      <div className="level-item has-text-centered is-hidden-mobile"></div>
-      <div className="level-item has-text-centered is-hidden-mobile"></div>
-      <div className="level-item has-text-centered is-hidden-mobile"></div>
-      <div className="level-item has-text-centered is-hidden-mobile"></div>
-      <div className="level-item has-text-centered is-hidden-mobile"></div>
-      <div className="level-item has-text-centered is-hidden-mobile"></div>
-      <div className="level-item has-text-centered is-hidden-mobile"></div>
+      <div className="level-item has-text-centered is-hidden-mobile" />
 
       <div className="level-item has-text-centered">
         <SignInOutButton />
