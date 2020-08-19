@@ -5,7 +5,10 @@ import {
   URL as flywheelURL,
 } from "calculators/flywheel/config";
 import { URL as linearURL } from "calculators/linear_mech/config";
-import { URL as pneumaticsURL } from "calculators/pneumatics/config";
+import {
+  IMAGE as pneumaticsImage,
+  URL as pneumaticsURL,
+} from "calculators/pneumatics/config";
 import Tile from "common/components/landing/Tile";
 import { setTitle } from "common/tooling/routing";
 import React from "react";
@@ -28,7 +31,11 @@ export default function Landing() {
           <Tile to={beltsURL} title="Belt Calculator" image={beltImage} />
         </div>
         <div className="column is-one-third">
-          <Tile to={pneumaticsURL} title="Pneumatics Calculator" />
+          <Tile
+            to={pneumaticsURL}
+            title="Pneumatics Calculator"
+            image={pneumaticsImage}
+          />
         </div>
       </div>
 
