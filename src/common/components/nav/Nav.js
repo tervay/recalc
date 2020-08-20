@@ -1,8 +1,12 @@
 import SignInOutButton from "auth/SignInOutButton";
+import { URL as profileURL } from "common/components/profile";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "redux-zero/react";
 
 export default function Nav() {
+  const isSignedIn = useSelector(({ isSignedIn }) => isSignedIn);
+
   return (
     <nav className="navbar level is-primary">
       <div className="level-item has-text-centered">
@@ -23,8 +27,13 @@ export default function Nav() {
       </div>
 
       <div className="level-item has-text-centered is-hidden-mobile" />
-
       <div className="level-item has-text-centered">
+        {isSignedIn && (
+          <Link to={profileURL}>
+            <button className="button mr-4">Profile</button>
+          </Link>
+        )}
+
         <SignInOutButton />
       </div>
     </nav>

@@ -4,6 +4,8 @@ $aqua: #7ad3c1;
 $onyx: #353842;
 
 $primary: $aqua;
+$primary-light: #fff;
+
 $font_family: "Quicksand", sans-serif, -apple-system, BlinkMacSystemFont,
   "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
   "Droid Sans", "Helvetica Neue", sans-serif;
@@ -42,6 +44,8 @@ $font_family: "Quicksand", sans-serif, -apple-system, BlinkMacSystemFont,
 
 @import "../node_modules/bulma/sass/layout/hero.sass";
 @import "../node_modules/bulma/sass/layout/section.sass";
+
+@import "../node_modules/bulma/sass/helpers/_all.sass";
 
 @import "../node_modules/@creativebulma/bulma-tooltip/dist/bulma-tooltip.min.css";
 

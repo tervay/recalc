@@ -58,7 +58,9 @@ export default function Landing() {
           <div className="column is-one-third">
             <Tile to={chainsURL} title="Chain Calculator" />
           </div>
+        </div>
 
+        <div className="columns">
           <div className="column is-narrow">
             <Link to="/about">
               <div className="card">

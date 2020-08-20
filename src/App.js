@@ -9,6 +9,7 @@ import { URL as pneumaticsURL } from "calculators/pneumatics/config";
 import Spot from "calculators/spot/Spot";
 import Landing from "common/components/landing";
 import Nav from "common/components/nav";
+import { URL as profileURL } from "common/components/profile";
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "redux-zero/react";
@@ -20,6 +21,7 @@ const Pneumatics = lazy(() => import("calculators/pneumatics/Pneumatics"));
 const About = lazy(() => import("common/components/about/About"));
 const Chains = lazy(() => import("calculators/chains/Chains"));
 const AuthRedirect = lazy(() => import("auth/AuthRedirect"));
+const Profile = lazy(() => import("common/components/profile/Profile"));
 
 export default function App() {
   return (
@@ -37,6 +39,8 @@ export default function App() {
                 <Route path={pneumaticsURL} component={Pneumatics} />
                 <Route path={linearURL} component={LinearMech} />
                 <Route path={chainsURL} component={Chains} />
+
+                <Route path={profileURL} component={Profile} />
 
                 <Route path={"/about"} component={About} />
 

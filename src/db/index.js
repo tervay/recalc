@@ -21,13 +21,13 @@ export function save(user, name, url, query) {
     })
     .catch((e) => {
       // User not found. Creating
-      userRef.set({
+      return userRef.set({
         id: user,
         configs: [],
       });
-      return userRef;
     })
     .then((r) => {
+      console.log(r, typeof r);
       // Append new object to configs
       const newConfigs = r.configs;
       newConfigs.push({ name, url, query });
