@@ -4,7 +4,7 @@ This is a collaboration focused mechanical design calculator, primarily for FRC.
 
 ### Color palette
 
-https://coolors.co/7ad3c1-353842-121110-13151c-5e5f61
+![](https://i.imgur.com/fqPW1Qe.png)
 
 ### Basic dev commands:
 
