@@ -29,4 +29,8 @@
 		<loc>https://reca.lc/about</loc>
 		<priority>0.5</priority>
 	</url>
+	<url>
+		<loc>https://reca.lc/profile</loc>
+		<priority>0.5</priority>
+	</url>
 </urlset>
