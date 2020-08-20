@@ -38,7 +38,6 @@
     "build": "react-scripts build && npm run compress",
     "build-ci": "CI=false react-scripts build",
     "test": "react-scripts test --runInBand --transformIgnorePatterns \"node_modules/(?!firebase-firestore-lite)/\"",
-    "eject": "react-scripts eject",
     "start-prod": "node src/dev/express.js"
   },
   "eslintConfig": {
