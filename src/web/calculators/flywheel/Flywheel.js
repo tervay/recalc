@@ -1,7 +1,3 @@
-import {
-  calculateWindupTime,
-  generateChartData,
-} from "calculators/flywheel/math";
 import Heading from "common/components/calc-heading/Heading";
 import { LabeledMotorInput } from "common/components/io/inputs/MotorInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
@@ -24,6 +20,10 @@ import { setTitle } from "common/tooling/routing";
 import Qty from "js-quantities";
 import { Line } from "lib/react-chart-js";
 import React, { useEffect, useState } from "react";
+import {
+  calculateWindupTime,
+  generateChartData,
+} from "web/calculators/flywheel/math";
 
 import { TITLE as title, VERSION as version } from "./config";
 import { flywheelVersionManager } from "./versions";

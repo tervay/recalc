@@ -1,8 +1,8 @@
-import SignInOutButton from "auth/SignInOutButton";
-import { URL as profileURL } from "common/components/profile";
+import SignInOutButton from "common/components/nav/SignInOutButton";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "redux-zero/react";
+import { URL as profileURL } from "web/profile";
 
 export default function Nav() {
   const isSignedIn = useSelector(({ isSignedIn }) => isSignedIn);

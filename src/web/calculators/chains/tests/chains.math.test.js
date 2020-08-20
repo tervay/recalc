@@ -1,6 +1,6 @@
 import each from "jest-each";
 
-import { teethToPD } from "./math";
+import { teethToPD } from "../math";
 
 each([
   [32, "#25", 2.551],

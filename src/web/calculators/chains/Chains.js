@@ -1,4 +1,5 @@
 import Heading from "common/components/calc-heading/Heading";
+import ChainInput from "common/components/io/inputs/ChainInput";
 import MultiInputLine from "common/components/io/inputs/MultiInputLine";
 import { LabeledNumberInput } from "common/components/io/inputs/NumberInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
@@ -13,18 +14,19 @@ import {
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
 import React, { useEffect, useMemo, useState } from "react";
+import { StringParam } from "use-query-params";
 
 import CheatSheet from "./CheatSheet";
-import { initialState, TITLE as title, VERSION as version } from "./config";
+import chains from "./index";
 import { calculateClosestCenters, teethToPD } from "./math";
-import { beltVersionManager } from "./versions";
+import { chainVersionManager } from "./versions";
 
-export default function Belts() {
-  setTitle(title);
+export default function Chains() {
+  setTitle(chains.title);
 
   // Parse URL params
   const {
-    pitch: pitch_,
+    chain: chain_,
     p1Teeth: p1Teeth_,
     p2Teeth: p2Teeth_,
     desiredCenter: desiredCenter_,
@@ -32,39 +34,38 @@ export default function Belts() {
   } = queryStringToDefaults(
     window.location.search,
     {
-      pitch: QtyParam,
+      chain: StringParam,
       p1Teeth: NumberParam,
       p2Teeth: NumberParam,
       desiredCenter: QtyParam,
       extraCenter: QtyParam,
     },
-    initialState,
-    beltVersionManager
+    chains.initialState,
+    chainVersionManager
   );
 
   // Inputs
-  const [pitch, setPitch] = useState(pitch_);
+  const [chain, setChain] = useState(chain_);
   const [p1Teeth, setP1Teeth] = useState(p1Teeth_);
   const [p2Teeth, setP2Teeth] = useState(p2Teeth_);
   const [desiredCenter, setDesiredCenter] = useState(desiredCenter_);
   const [extraCenter, setExtraCenter] = useState(extraCenter_);
 
   // Outputs
-  const [p1Pitch, setP1Pitch] = useState(teethToPD(p1Teeth, pitch, "in"));
-  const [p2Pitch, setP2Pitch] = useState(teethToPD(p2Teeth, pitch, "in"));
+  const [p1Pitch, setP1Pitch] = useState(teethToPD(p1Teeth, chain, "in"));
+  const [p2Pitch, setP2Pitch] = useState(teethToPD(p2Teeth, chain, "in"));
 
-  const results = useMemo(() => {
-    return calculateClosestCenters(
-      pitch,
-      teethToPD(p1Teeth, pitch),
-      teethToPD(p2Teeth, pitch),
-      desiredCenter,
-      extraCenter,
-      15,
-      200,
-      5
-    );
-  }, [pitch, p1Teeth, p2Teeth, desiredCenter, extraCenter]);
+  const results = useMemo(
+    () =>
+      calculateClosestCenters(
+        chain,
+        p1Teeth,
+        p2Teeth,
+        desiredCenter,
+        extraCenter
+      ),
+    [chain, p1Teeth, p2Teeth, desiredCenter, extraCenter]
+  );
 
   const [smallerCenter, setSmallerCenter] = useState(results.smaller.distance);
   const [smallerTeeth, setSmallerTeeth] = useState(results.smaller.teeth);
@@ -72,39 +73,33 @@ export default function Belts() {
   const [largerTeeth, setLargerTeeth] = useState(results.larger.teeth);
 
   useEffect(() => {
-    setP1Pitch(teethToPD(p1Teeth, pitch));
-    setP2Pitch(teethToPD(p2Teeth, pitch));
+    setP1Pitch(teethToPD(p1Teeth, chain, p1Pitch.units()));
+    setP2Pitch(teethToPD(p2Teeth, chain, p2Pitch.units()));
     setSmallerCenter(results.smaller.distance);
     setSmallerTeeth(results.smaller.teeth);
     setLargerCenter(results.larger.distance);
     setLargerTeeth(results.larger.teeth);
-  }, [pitch, p1Teeth, p2Teeth, desiredCenter, extraCenter]);
+  }, [chain, p1Teeth, p2Teeth, desiredCenter, extraCenter]);
 
   return (
     <>
       <Heading
-        title={title}
-        subtitle={`V${version}`}
+        title={chains.initialState}
+        subtitle={`V${chains.version}`}
         getQuery={() => {
           return stateToQueryString([
-            new QueryableParamHolder({ pitch }, QtyParam),
+            new QueryableParamHolder({ chain }, StringParam),
             new QueryableParamHolder({ p1Teeth }, NumberParam),
             new QueryableParamHolder({ p2Teeth }, NumberParam),
             new QueryableParamHolder({ desiredCenter }, QtyParam),
             new QueryableParamHolder({ extraCenter }, QtyParam),
-            new QueryableParamHolder({ version }, NumberParam),
+            new QueryableParamHolder({ version: chains.version }, NumberParam),
           ]);
         }}
       />
       <div className="columns">
         <div className="column">
-          <LabeledQtyInput
-            label={"Pitch"}
-            stateHook={[pitch, setPitch]}
-            choices={["mm"]}
-            inputId={"pitch-input"}
-            selectId={"pitch-select"}
-          />
+          <ChainInput stateHook={[chain, setChain]} />
           <LabeledQtyInput
             label="Desired Center"
             stateHook={[desiredCenter, setDesiredCenter]}
@@ -123,30 +118,24 @@ export default function Belts() {
             <LabeledNumberInput
               stateHook={[p1Teeth, setP1Teeth]}
               label="Teeth"
-              inputId="p1Teeth-input"
             />
             <LabeledQtyOutput
               label="PD"
               stateHook={[p1Pitch, setP1Pitch]}
               choices={["in", "mm", "cm"]}
               precision={4}
-              inputId="p1Pitch-input"
-              selectId="p1Pitch-select"
             />
           </MultiInputLine>
           <MultiInputLine label={"Pulley 2"}>
             <LabeledNumberInput
               stateHook={[p2Teeth, setP2Teeth]}
               label="Teeth"
-              inputId="p2Teeth-input"
             />
             <LabeledQtyOutput
               label="PD"
               stateHook={[p2Pitch, setP2Pitch]}
               choices={["in", "mm", "cm"]}
               precision={4}
-              inputId="p2Pitch-input"
-              selectId="p2Pitch-select"
             />
           </MultiInputLine>
           <MultiInputLine label="Smaller">
@@ -155,13 +144,10 @@ export default function Belts() {
               label="Center"
               choices={["in", "mm", "cm"]}
               precision={4}
-              inputId="smaller-input"
-              selectId="smaller-select"
             />
             <LabeledNumberOutput
               stateHook={[smallerTeeth, setSmallerTeeth]}
-              label="Teeth"
-              inputId="smaller-output"
+              label="Links"
             />
           </MultiInputLine>
           <MultiInputLine label="Larger">
@@ -170,13 +156,10 @@ export default function Belts() {
               label="Center"
               choices={["in", "mm", "cm"]}
               precision={4}
-              inputId="larger-input"
-              selectId="larger-select"
             />
             <LabeledNumberOutput
               stateHook={[largerTeeth, setLargerTeeth]}
-              label="Teeth"
-              inputId="larger-output"
+              label="Links"
             />
           </MultiInputLine>
         </div>

@@ -1,27 +1,25 @@
 import "index.scss";
 
-import store from "auth/store";
-import { URL as beltsURL } from "calculators/belts/config";
-import { URL as chainsURL } from "calculators/chains/config";
-import { URL as flywheelURL } from "calculators/flywheel/config";
-import { URL as linearURL } from "calculators/linear_mech/config";
-import { URL as pneumaticsURL } from "calculators/pneumatics/config";
-import Spot from "calculators/spot/Spot";
-import Landing from "common/components/landing";
-import Nav from "common/components/nav";
-import { URL as profileURL } from "common/components/profile";
+import Nav from "common/components/nav/Nav";
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "redux-zero/react";
+import store from "web/auth/store";
+import belts from "web/calculators/belts";
+import chains from "web/calculators/chains";
+import { URL as flywheelURL } from "web/calculators/flywheel/config";
+import { URL as linearURL } from "web/calculators/linear_mech/config";
+import { URL as pneumaticsURL } from "web/calculators/pneumatics/config";
+import Spot from "web/calculators/spot/Spot";
+import Landing from "web/landing";
+import { URL as profileURL } from "web/profile";
 
-const LinearMech = lazy(() => import("calculators/linear_mech/LinearMech"));
-const Belts = lazy(() => import("calculators/belts/Belts"));
-const Flywheel = lazy(() => import("calculators/flywheel/Flywheel"));
-const Pneumatics = lazy(() => import("calculators/pneumatics/Pneumatics"));
-const About = lazy(() => import("common/components/about/About"));
-const Chains = lazy(() => import("calculators/chains/Chains"));
-const AuthRedirect = lazy(() => import("auth/AuthRedirect"));
-const Profile = lazy(() => import("common/components/profile/Profile"));
+const LinearMech = lazy(() => import("web/calculators/linear_mech/LinearMech"));
+const Flywheel = lazy(() => import("web/calculators/flywheel/Flywheel"));
+const Pneumatics = lazy(() => import("web/calculators/pneumatics/Pneumatics"));
+const About = lazy(() => import("web/about/About"));
+const AuthRedirect = lazy(() => import("web/auth/AuthRedirect"));
+const Profile = lazy(() => import("web/profile/Profile"));
 
 export default function App() {
   return (
@@ -34,11 +32,11 @@ export default function App() {
               <Switch>
                 <Route exact path="/" component={Landing} />
 
-                <Route path={beltsURL} component={Belts} />
+                <Route path={belts.url} component={belts.component} />
                 <Route path={flywheelURL} component={Flywheel} />
                 <Route path={pneumaticsURL} component={Pneumatics} />
                 <Route path={linearURL} component={LinearMech} />
-                <Route path={chainsURL} component={Chains} />
+                <Route path={chains.url} component={chains.component} />
 
                 <Route path={profileURL} component={Profile} />
 

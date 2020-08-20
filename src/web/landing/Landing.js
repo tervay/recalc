@@ -1,18 +1,18 @@
-import { IMAGE as beltImage, URL as beltsURL } from "calculators/belts/config";
-import { URL as chainsURL } from "calculators/chains/config";
-import {
-  IMAGE as flywheelImage,
-  URL as flywheelURL,
-} from "calculators/flywheel/config";
-import { URL as linearURL } from "calculators/linear_mech/config";
-import {
-  IMAGE as pneumaticsImage,
-  URL as pneumaticsURL,
-} from "calculators/pneumatics/config";
-import Tile from "common/components/landing/Tile";
 import { setTitle } from "common/tooling/routing";
 import React from "react";
 import { Link } from "react-router-dom";
+import belts from "web/calculators/belts";
+import chains from "web/calculators/chains";
+import {
+  IMAGE as flywheelImage,
+  URL as flywheelURL,
+} from "web/calculators/flywheel/config";
+import { URL as linearURL } from "web/calculators/linear_mech/config";
+import {
+  IMAGE as pneumaticsImage,
+  URL as pneumaticsURL,
+} from "web/calculators/pneumatics/config";
+import Tile from "web/landing/Tile";
 
 export default function Landing() {
   setTitle(null);
@@ -40,7 +40,7 @@ export default function Landing() {
             />
           </div>
           <div className="column is-one-third">
-            <Tile to={beltsURL} title="Belt Calculator" image={beltImage} />
+            <Tile to={belts.url} title={belts.title} image={belts.image} />
           </div>
           <div className="column is-one-third">
             <Tile
@@ -56,7 +56,7 @@ export default function Landing() {
             <Tile to={linearURL} title="Linear Mechanism Calculator" />
           </div>
           <div className="column is-one-third">
-            <Tile to={chainsURL} title="Chain Calculator" />
+            <Tile to={chains.url} title={chains.title} />
           </div>
         </div>
 

@@ -3,10 +3,10 @@ import Adapter from "enzyme-adapter-react-16";
 import each from "jest-each";
 import React from "react";
 import { TestingProvider } from "tests/TestStoreProvider";
+import belts from "web/calculators/belts";
+import { teethToPD } from "web/calculators/belts/math";
 
-import Belts from "./Belts";
-import { initialState } from "./config";
-import { teethToPD } from "./math";
+import Belts from "../Belts";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -22,14 +22,14 @@ function setFieldTo(cls, val) {
 
 describe("Initial render", () => {
   each([
-    ["#pitch-input", initialState.pitch.scalar],
-    ["#pitch-select", initialState.pitch.units()],
-    ["#desired-center-input", initialState.desiredCenter.scalar],
-    ["#desired-center-select", initialState.desiredCenter.units()],
-    ["#extra-center-input", initialState.extraCenter.scalar],
-    ["#extra-center-select", initialState.extraCenter.units()],
-    ["#p1Teeth-input", initialState.p1Teeth],
-    ["#p2Teeth-input", initialState.p2Teeth],
+    ["#pitch-input", belts.initialState.pitch.scalar],
+    ["#pitch-select", belts.initialState.pitch.units()],
+    ["#desired-center-input", belts.initialState.desiredCenter.scalar],
+    ["#desired-center-select", belts.initialState.desiredCenter.units()],
+    ["#extra-center-input", belts.initialState.extraCenter.scalar],
+    ["#extra-center-select", belts.initialState.extraCenter.units()],
+    ["#p1Teeth-input", belts.initialState.p1Teeth],
+    ["#p2Teeth-input", belts.initialState.p2Teeth],
   ]).test("shows initial state in HTML input fields", (id, expectedVal) => {
     expect(wrapper.find(id).first().props().value).toBe(expectedVal);
   });
@@ -38,12 +38,12 @@ describe("Initial render", () => {
     [
       "#p1Pitch-input",
       "#p1Pitch-select",
-      teethToPD(initialState.p1Teeth, initialState.pitch).to("in"),
+      teethToPD(belts.initialState.p1Teeth, belts.initialState.pitch).to("in"),
     ],
     [
       "#p2Pitch-input",
       "#p2Pitch-select",
-      teethToPD(initialState.p2Teeth, initialState.pitch).to("in"),
+      teethToPD(belts.initialState.p2Teeth, belts.initialState.pitch).to("in"),
     ],
   ]).test(
     "correctly shows initial pulley PD for teeth input",

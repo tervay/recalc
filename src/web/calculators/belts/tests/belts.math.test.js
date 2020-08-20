@@ -1,7 +1,7 @@
 import each from "jest-each";
 import Qty from "js-quantities";
 
-import { calculateClosestCenters, teethToPD } from "./math";
+import { calculateClosestCenters, teethToPD } from "../math";
 
 const mm = (s) => Qty(s, "mm");
 const inch = (s) => Qty(s, "in");
