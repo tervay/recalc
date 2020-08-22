@@ -20,6 +20,7 @@ export default function Tile(props) {
                   (props.image ||
                     "https://bulma.io/images/placeholders/1280x960") + ".png"
                 }
+                alt={props.title}
               />
             </picture>
           </figure>

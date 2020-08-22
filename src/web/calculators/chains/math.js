@@ -8,7 +8,7 @@ import Qty from "js-quantities";
  */
 export function teethToPD(teeth, chain, unit = undefined) {
   if (teeth === 0 || teeth === "0") {
-    return Qty(0, unit || chainPitch.units());
+    return Qty(0, unit || chain.units());
   }
 
   const chainPitch = chainTypeToPitch(chain);

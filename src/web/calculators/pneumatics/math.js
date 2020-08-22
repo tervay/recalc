@@ -2,7 +2,7 @@ import { clampQty } from "common/tooling/quantities";
 import Qty from "js-quantities";
 
 export function generatePressureTimeline(pistons, volume, compressor) {
-  if (volume.scalar == 0) {
+  if (volume.scalar === 0) {
     return { timeline: [], dutyCycle: 0 };
   }
 

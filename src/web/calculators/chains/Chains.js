@@ -84,7 +84,7 @@ export default function Chains() {
   return (
     <>
       <Heading
-        title={chains.initialState}
+        title={chains.title}
         subtitle={`V${chains.version}`}
         getQuery={() => {
           return stateToQueryString([

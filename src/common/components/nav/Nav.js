@@ -19,6 +19,7 @@ export default function Nav() {
               this.onError = null;
               this.src = "/icons/onyx/sliders_512.png";
             }}
+            alt="ReCalc logo"
           />
           <div className="nav-title">
             <b>ReCalc (Alpha)</b>
