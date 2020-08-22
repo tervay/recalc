@@ -10,20 +10,23 @@ export default function Heading(props) {
   const id = useSelector(({ id }) => id);
 
   return (
-    <section className="hero">
-      <div className="hero-body">
-        <div className="container">
-          <h1 className="title">{props.title}</h1>
-          {props.subtitle && <h2 className="subtitle">{props.subtitle}</h2>}
+    <nav className="level is-mobile">
+      <div className="level-item has-text-centered">
+        <div>
+          <p className="title">{props.title}</p>
+          <p className="heading">{props.subtitle}</p>
+        </div>
+      </div>
 
-          <div className="field has-addons">
-            <p className="control">
-              <ShareButton getQuery={props.getQuery} />
-            </p>
-            <p className="control">
-              <SaveButton onClick={() => setModalActive(true)} />
-            </p>
-          </div>
+      <div className="level-item has-text-centered">
+        <div className="field has-addons">
+          <p className="control">
+            <ShareButton getQuery={props.getQuery} />
+          </p>
+          <p className="control">
+            <SaveButton onClick={() => setModalActive(true)} />
+          </p>
+
           <SaveModal
             isActive={modalActive}
             setActive={setModalActive}
@@ -33,7 +36,7 @@ export default function Heading(props) {
           />
         </div>
       </div>
-    </section>
+    </nav>
   );
 }
 

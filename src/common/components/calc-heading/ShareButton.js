@@ -5,7 +5,7 @@ import React from "react";
 export default function ShareButton(props) {
   return (
     <button
-      className="button is-primary"
+      className="button is-primary has-text-white"
       onClick={() =>
         navigator.clipboard.writeText(buildUrlForCurrentPage(props.getQuery()))
       }

@@ -9,14 +9,14 @@ export function SaveButton(props) {
   return (
     <>
       <button
-        className="button is-primary"
+        className="button is-primary has-text-white"
         disabled={disabled}
         onClick={props.onClick}
       >
         <span className="icon is-small">
-          <i className="fas fa-save"></i>
+          <i className="fas fa-save" />
         </span>
-        <span>Save (not yet working)</span>
+        <span>Save*</span>
       </button>
     </>
   );

@@ -12,12 +12,12 @@ export default function Nav() {
       <div className="level-item has-text-centered">
         <Link to="/" className="navbar-item">
           <img
-            src="/icons/onyx/sliders.svg"
+            src="/icons/white/sliders.svg"
             width="32"
             height="32"
             onError={() => {
               this.onError = null;
-              this.src = "/icons/onyx/sliders_512.png";
+              this.src = "/icons/white/sliders_512.png";
             }}
             alt="ReCalc logo"
           />
@@ -31,7 +31,9 @@ export default function Nav() {
       <div className="level-item has-text-centered">
         {isSignedIn && (
           <Link to={profileURL}>
-            <button className="button mr-4">Profile</button>
+            <button className="button mr-4 is-outlined has-background-primary has-text-white">
+              Profile
+            </button>
           </Link>
         )}
 
