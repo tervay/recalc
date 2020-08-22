@@ -1,10 +1,10 @@
 import "index.scss";
 
 import Nav from "common/components/nav/Nav";
+import store from "common/services/store";
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "redux-zero/react";
-import store from "web/auth/store";
 import belts from "web/calculators/belts";
 import chains from "web/calculators/chains";
 import { URL as flywheelURL } from "web/calculators/flywheel/config";

@@ -1,4 +1,4 @@
-import { auth } from "db";
+import auth from "common/services/auth";
 import React from "react";
 import { Redirect } from "react-router-dom";
 

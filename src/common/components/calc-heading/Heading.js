@@ -1,6 +1,6 @@
+import { SaveButton } from "common/components/calc-heading/SaveButton";
+import { SaveModal } from "common/components/calc-heading/SaveModal";
 import ShareButton from "common/components/calc-heading/ShareButton";
-import { SaveButton } from "db/SaveButton";
-import { SaveModal } from "db/SaveModal";
 import propTypes from "prop-types";
 import React, { useState } from "react";
 import { useSelector } from "redux-zero/react";

@@ -1,13 +1,8 @@
-import firebaseConfig from "db/key";
-import Auth from "firebase-auth-lite";
+import auth from "common/services/auth";
+import key from "common/services/gkey";
 import { Database } from "firebase-firestore-lite";
 
-export const auth = new Auth({
-  apiKey: firebaseConfig.apiKey,
-  redirectUri: window.location.origin + "/auth",
-});
-
-export const db = new Database({ projectId: firebaseConfig.projectId, auth });
+const db = new Database({ projectId: key.projectId, auth });
 
 export function save(user, name, url, query) {
   const userRef = db.ref(`users/${user}`);
@@ -39,3 +34,5 @@ export function save(user, name, url, query) {
       console.log("updated state: ", r);
     });
 }
+
+export default db;

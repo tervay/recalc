@@ -1,4 +1,4 @@
-import { auth } from "db";
+import auth from "common/services/auth";
 import React from "react";
 import GoogleButton from "react-google-button/dist/react-google-button";
 import { useSelector } from "redux-zero/react";
