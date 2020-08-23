@@ -13,8 +13,10 @@ export default function Heading(props) {
     <nav className="level is-mobile">
       <div className="level-item has-text-centered">
         <div>
-          <p className="title">{props.title}</p>
-          <p className="heading">{props.subtitle}</p>
+          <p className="title">
+            {props.title}{" "}
+            <span className="tag is-primary">{props.subtitle}</span>
+          </p>
         </div>
       </div>
 
