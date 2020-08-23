@@ -32,4 +32,9 @@ export function save(user, name, url, query) {
     });
 }
 
+export function getCalculators(user, cb) {
+  const userRef = db.ref(`users/${user}`);
+  userRef.get().then((r) => cb(r.configs));
+}
+
 export default db;
