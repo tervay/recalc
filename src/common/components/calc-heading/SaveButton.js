@@ -16,7 +16,7 @@ export function SaveButton(props) {
         <span className="icon is-small">
           <i className="fas fa-save" />
         </span>
-        <span>Save*</span>
+        <span>Save</span>
       </button>
     </>
   );

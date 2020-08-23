@@ -13,4 +13,6 @@ if (
   };
 }
 
+console.log(key);
+
 export default key;

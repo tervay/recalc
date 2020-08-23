@@ -10,7 +10,7 @@ export default function Heading(props) {
   const id = useSelector(({ id }) => id);
 
   return (
-    <nav className="level is-mobile">
+    <nav className="level">
       <div className="level-item has-text-centered">
         <div>
           <p className="title">
