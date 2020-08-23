@@ -1,21 +1,51 @@
 import styles from "index.scss";
 import { defaults } from "lib/react-chart-js";
 
+import { uuid } from "./util";
+
 defaults.global.defaultFontFamily = styles.font_family;
 
 /**
  *
- * @param {{x: number, y: number}[]} data
+ * @param {{x: number, y: number, color: string}[]} data
  */
 export function makeDataObj(data) {
+  const chartColors = styles.chart_colors.split(", ");
   return {
-    datasets: data.map((d) => ({
+    datasets: data.map((d, indx) => ({
       data: d,
       cubicInterpolationMode: "monotone",
       fill: false,
-      borderColor: styles.primary,
+      borderColor: chartColors[indx],
+      key: uuid(),
     })),
   };
+}
+
+export function horizontalMarker(at, from, to) {
+  return [
+    {
+      x: from,
+      y: at,
+    },
+    {
+      x: to,
+      y: at,
+    },
+  ];
+}
+
+export function verticalMarker(at, from, to) {
+  return [
+    {
+      x: at,
+      y: from,
+    },
+    {
+      x: at,
+      y: to,
+    },
+  ];
 }
 
 export function makeLineOptions(

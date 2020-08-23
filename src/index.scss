@@ -4,6 +4,9 @@ $shaker: #0072bb;
 
 $primary: $shaker;
 $secondary: white;
+$accent: #204b57;
+
+$chart_colors: ($primary, #fc7a57, #59cd90);
 
 $font_family: "Quicksand", sans-serif, -apple-system, BlinkMacSystemFont,
   "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
@@ -12,6 +15,7 @@ $font_family: "Quicksand", sans-serif, -apple-system, BlinkMacSystemFont,
 :export {
   primary: $primary;
   font_family: $font_family;
+  chart_colors: $chart_colors;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap");

@@ -3,7 +3,12 @@ import { LabeledMotorInput } from "common/components/io/inputs/MotorInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
-import { makeDataObj, makeLineOptions } from "common/tooling/charts";
+import {
+  horizontalMarker,
+  makeDataObj,
+  makeLineOptions,
+  verticalMarker,
+} from "common/tooling/charts";
 import { RatioDictToNumber } from "common/tooling/io";
 import { motorMap } from "common/tooling/motors";
 import {
@@ -19,6 +24,7 @@ import {
 import { setTitle } from "common/tooling/routing";
 import Qty from "js-quantities";
 import { Line } from "lib/react-chart-js";
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import {
   calculateWindupTime,
@@ -75,34 +81,49 @@ export default function Flywheel() {
   const [chartData, setChartData] = useState(makeDataObj([]));
 
   useEffect(() => {
-    setWindupTime(
-      calculateWindupTime(
-        weight,
-        radius,
-        motor.data.freeSpeed,
-        motor.data.stallTorque,
-        motor.data.stallCurrent,
-        motor.data.resistance,
-        motor.quantity,
-        RatioDictToNumber(ratio),
-        targetSpeed
-      )
+    const newWindupTime = calculateWindupTime(
+      weight,
+      radius,
+      motor.data.freeSpeed,
+      motor.data.stallTorque,
+      motor.data.stallCurrent,
+      motor.data.resistance,
+      motor.quantity,
+      RatioDictToNumber(ratio),
+      targetSpeed
     );
 
+    setWindupTime(newWindupTime);
+
+    const chartData = generateChartData(
+      weight,
+      radius,
+      motor.data.freeSpeed,
+      motor.data.stallTorque,
+      motor.data.stallCurrent,
+      motor.data.resistance,
+      motor.quantity,
+      RatioDictToNumber(ratio),
+      targetSpeed
+    );
+
+    const currentRatioMarkers = horizontalMarker(
+      newWindupTime.to("s").scalar,
+      0,
+      RatioDictToNumber(ratio)
+    ).concat(
+      verticalMarker(RatioDictToNumber(ratio), 0, newWindupTime.to("s").scalar)
+    );
+
+    const optimalRatioTime = _.minBy(chartData, (o) => o.y);
+    const optimalRatioMarkers = horizontalMarker(
+      optimalRatioTime.y,
+      0,
+      optimalRatioTime.x
+    ).concat(verticalMarker(optimalRatioTime.x, 0, optimalRatioTime.y));
+
     setChartData(
-      makeDataObj([
-        generateChartData(
-          weight,
-          radius,
-          motor.data.freeSpeed,
-          motor.data.stallTorque,
-          motor.data.stallCurrent,
-          motor.data.resistance,
-          motor.quantity,
-          RatioDictToNumber(ratio),
-          targetSpeed
-        ),
-      ])
+      makeDataObj([chartData, currentRatioMarkers, optimalRatioMarkers])
     );
   }, [motor, ratio, radius, targetSpeed, weight]);
 
