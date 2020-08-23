@@ -18,7 +18,6 @@ const LinearMech = lazy(() => import("web/calculators/linear_mech/LinearMech"));
 const Flywheel = lazy(() => import("web/calculators/flywheel/Flywheel"));
 const Pneumatics = lazy(() => import("web/calculators/pneumatics/Pneumatics"));
 const About = lazy(() => import("web/about/About"));
-const AuthRedirect = lazy(() => import("web/auth/AuthRedirect"));
 const Profile = lazy(() => import("web/profile/Profile"));
 
 export default function App() {
@@ -43,8 +42,6 @@ export default function App() {
                 <Route path={"/about"} component={About} />
 
                 <Route path={"/spot"} component={Spot} />
-
-                <Route path={"/auth"} component={AuthRedirect} />
               </Switch>
             </Suspense>
           </div>

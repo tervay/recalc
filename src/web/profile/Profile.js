@@ -9,7 +9,9 @@ export default function Profile() {
   const [calcs, setCalcs] = useState([]);
 
   useEffect(() => {
-    getCalculators(user, setCalcs);
+    if (user !== null) {
+      getCalculators(user, setCalcs);
+    }
   }, [isSignedIn, user]);
 
   if (!isSignedIn) {
@@ -20,13 +22,9 @@ export default function Profile() {
     <>
       {calcs.map((c) => {
         const createdDate = new Date(c.created);
-        const modifiedDate = new Date(c.modified);
+        // const modifiedDate = new Date(c.modified);
 
         return (
-          // <div>
-          //   <a href={`${c.url}/${c.query}`}>test</a>
-          // </div>
-
           <nav className="level" key={c.created}>
             <div className="level-item">
               <div>

@@ -1,4 +1,8 @@
-import auth from "common/services/auth";
+// import auth from "common/services/auth";
+import "firebase/auth";
+
+import provider from "common/services/gauth";
+import firebase from "firebase";
 import React from "react";
 import GoogleButton from "react-google-button/dist/react-google-button";
 import { useSelector } from "redux-zero/react";
@@ -10,7 +14,8 @@ export default function SignInOutButton() {
     return (
       <GoogleButton
         onClick={() => {
-          auth.signInWithProvider("google.com");
+          // auth.signInWithProvider("google.com");
+          firebase.auth().signInWithRedirect(provider);
         }}
       />
     );
@@ -18,7 +23,8 @@ export default function SignInOutButton() {
     return (
       <GoogleButton
         onClick={() => {
-          auth.signOut();
+          // auth.signOut();
+          firebase.auth().signOut();
         }}
         label="Sign Out"
       />

@@ -1,40 +1,44 @@
-import auth from "common/services/auth";
-import key from "common/services/gkey";
-import { getDate } from "common/tooling/util";
-import { Database } from "firebase-firestore-lite";
+import firebase from "common/services/firebase";
 
-const db = new Database({ projectId: key.projectId, auth });
-console.dir(db);
+import { getDate } from "../tooling/util";
+
+const db = firebase.firestore();
+
+export function maybeInitializeUserData(user) {
+  const ref = db.collection("users").doc(user);
+  ref.get().then((doc) => {
+    if (!doc.exists) {
+      ref.set({
+        id: user,
+        configs: [],
+      });
+    }
+  });
+}
 
 export function save(user, name, url, query) {
-  const userRef = db.ref(`users/${user}`);
+  const ref = db.collection("users").doc(user);
 
-  /* eslint-disable no-unused-vars */
-  const res = userRef
-    .get()
-    .then((r) => {
-      // Append new object to configs
-
-      const newConfigs = r.configs;
-      newConfigs.push({
-        name,
-        url,
-        query,
-        created: getDate(),
-        modified: getDate(),
+  ref.get().then((doc) => {
+    if (doc.exists) {
+      ref.update({
+        configs: firebase.firestore.FieldValue.arrayUnion({
+          name,
+          url,
+          query,
+          created: getDate(),
+          modified: getDate(),
+        }),
       });
-      return userRef.update({
-        configs: newConfigs,
-      });
-    })
-    .then((r) => {
-      console.log("updated state: ", r);
-    });
+    }
+  });
 }
 
 export function getCalculators(user, cb) {
-  const userRef = db.ref(`users/${user}`);
-  userRef.get().then((r) => cb(r.configs));
+  const ref = db.collection("users").doc(user);
+  ref.get().then((doc) => {
+    if (doc.exists) {
+      cb(doc.data().configs);
+    }
+  });
 }
-
-export default db;
