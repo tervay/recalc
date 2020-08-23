@@ -2,13 +2,10 @@
 
 This is a collaboration focused mechanical design calculator, primarily for FRC.
 
-### Color palette
-
-![](https://i.imgur.com/fqPW1Qe.png)
 
 ### Basic dev commands:
 
-`npx pretty-quick` / `npx eslint . --fix`
+`./clean.sh`
 
 Runs linting & fixes style problems.
 

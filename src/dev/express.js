@@ -1,9 +1,26 @@
 const express = require("express");
 const path = require("path");
-const sslRedirect = require("heroku-ssl-redirect");
 const expressStaticGzip = require("express-static-gzip");
 
+const sslRedirect = (env, status) => {
+  env = env || ["production"];
+  status = status || 302;
+
+  return (req, res, next) => {
+    if (env.indexOf(process.env.NODE_ENV) >= 0) {
+      if (req.headers["x-forwarded-proto"] !== "https") {
+        res.redirect(status, "https://" + req.hostname + req.originalUrl);
+      } else {
+        next();
+      }
+    } else {
+      next();
+    }
+  };
+};
+
 const app = express();
+
 app.use(sslRedirect());
 
 app.use(
