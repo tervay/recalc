@@ -29,7 +29,7 @@ export default function Profile() {
             <div className="level-item">
               <div>
                 <p>
-                  <a href={`${c.url}/${c.query}`}>{c.name}</a>
+                  <a href={`${c.url}?${c.query}`}>{c.name}</a>
                 </p>
               </div>
             </div>
