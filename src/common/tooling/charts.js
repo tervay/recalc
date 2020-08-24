@@ -1,7 +1,7 @@
 import styles from "index.scss";
 import { defaults } from "lib/react-chart-js";
 
-import { uuid } from "./util";
+import {isLocalhost, uuid} from "./util";
 
 defaults.global.defaultFontFamily = styles.font_family;
 
@@ -10,7 +10,15 @@ defaults.global.defaultFontFamily = styles.font_family;
  * @param {{x: number, y: number, color: string}[]} data
  */
 export function makeDataObj(data) {
-  const chartColors = styles.chart_colors.split(", ");
+  let chartColors;
+  // build compress removes the space
+  // idk how to fix ?? 🤔
+  if (isLocalhost()) {
+    chartColors = styles.chart_colors.split(", ")
+  } else {
+    chartColors = styles.chart_colors.split(",")
+  }
+  
   return {
     datasets: data.map((d, indx) => ({
       data: d,
