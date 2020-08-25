@@ -4,7 +4,7 @@ import { LabeledNumberInput } from "common/components/io/inputs/NumberInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
-import { motorMap } from "common/tooling/motors";
+import { Motor } from "common/tooling/motors";
 import {
   MotorParam,
   NumberParam,
@@ -49,10 +49,7 @@ export default function LinearMech() {
       efficiency: NumberParam,
     },
     {
-      motor: {
-        quantity: 1,
-        data: motorMap["Falcon 500"],
-      },
+      motor: Motor.of(1, "Falcon 500"),
       travelDistance: Qty(40, "in"),
       spoolDiameter: Qty(1, "in"),
       load: Qty(120, "lb"),
@@ -118,7 +115,7 @@ export default function LinearMech() {
           <LabeledMotorInput
             label="Motors"
             stateHook={[motor, setMotor]}
-            choices={Object.keys(motorMap)}
+            choices={Motor.choices}
           />
           <LabeledQtyInput
             label="Travel distance"

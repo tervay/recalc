@@ -1,4 +1,4 @@
-import Enzyme, { mount } from "enzyme";
+import { mount } from "enzyme";
 import each from "jest-each";
 import React from "react";
 import { TestingProvider } from "tests/TestStoreProvider";

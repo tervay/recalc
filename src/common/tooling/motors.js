@@ -1,7 +1,73 @@
 import Qty from "js-quantities";
 import keyBy from "lodash/keyBy";
+import { decodeObject, encodeObject } from "use-query-params";
 
-export const motorMap = keyBy(
+export class Motor {
+  constructor(
+    quantity,
+    name,
+    freeSpeed,
+    stallTorque,
+    stallCurrent,
+    freeCurrent
+  ) {
+    this.quantity = quantity;
+    this.name = name;
+    this.freeSpeed = freeSpeed;
+    this.stallTorque = stallTorque;
+    this.stallCurrent = stallCurrent;
+    this.freeCurrent = freeCurrent;
+    this.power = freeSpeed
+      .div(2)
+      .mul((2 * Math.PI) / 60)
+      .mul(stallTorque)
+      .div(2);
+    this.resistance = Qty(12, "V").div(stallCurrent);
+  }
+
+  static of(quantity, name) {
+    return Motor.fromDict({ quantity, name });
+  }
+
+  static get choices() {
+    return Object.keys(motorMap);
+  }
+
+  toDict() {
+    return {
+      quantity: this.quantity,
+      name: this.name,
+    };
+  }
+
+  static fromDict(dict) {
+    return new Motor(
+      dict.quantity,
+      dict.name,
+      motorMap[dict.name].freeSpeed,
+      motorMap[dict.name].stallTorque,
+      motorMap[dict.name].stallCurrent,
+      motorMap[dict.name].freeCurrent
+    );
+  }
+
+  static encode(motor) {
+    return encodeObject(motor.toDict());
+  }
+
+  static decode(string) {
+    return Motor.fromDict(decodeObject(string));
+  }
+
+  static getParam() {
+    return {
+      encode: Motor.encode,
+      decode: Motor.decode,
+    };
+  }
+}
+
+const motorMap = keyBy(
   [
     {
       name: "Falcon 500",
@@ -52,14 +118,6 @@ export const motorMap = keyBy(
       stallCurrent: Qty(53, "A"),
       freeCurrent: Qty(1.8, "A"),
     },
-  ].map((m) => ({
-    ...m,
-    power: m.freeSpeed
-      .div(2)
-      .mul((2 * Math.PI) / 60)
-      .mul(m.stallTorque)
-      .div(2),
-    resistance: Qty(12, "V").div(m.stallCurrent),
-  })),
+  ],
   "name"
 );

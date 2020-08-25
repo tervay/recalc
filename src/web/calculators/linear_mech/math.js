@@ -6,7 +6,7 @@ export function CalculateUnloadedSpeed(motor, spoolDiameter, ratio) {
     return Qty(0, "ft/s");
   }
 
-  return motor.data.freeSpeed
+  return motor.freeSpeed
     .div(RatioDictToNumber(ratio))
     .mul(spoolDiameter.div(2))
     .mul(Qty(1, "rad^-1"));
@@ -30,7 +30,7 @@ export function CalculateLoadedSpeed(
     return Qty(0, "ft/s");
   }
 
-  const t1 = motor.data.freeSpeed
+  const t1 = motor.freeSpeed
     .div(RatioDictToNumber(ratio))
     .mul(Qty(360, "degree"))
     .div(Qty(60, "s"))
@@ -38,7 +38,7 @@ export function CalculateLoadedSpeed(
     .mul(load)
     .mul(-1);
 
-  const t2 = motor.data.freeSpeed
+  const t2 = motor.freeSpeed
     .div(RatioDictToNumber(ratio))
     .mul(Qty(360, "degree"))
     .div(Qty(60, "s"));
@@ -58,7 +58,7 @@ export function CalculateStallDragLoad(
   if (spoolDiameter.scalar === 0) {
     return Qty(0, "lb");
   }
-  return motor.data.stallTorque
+  return motor.stallTorque
     .mul(motor.quantity)
     .mul(RatioDictToNumber(ratio))
     .mul(efficiency / 100)
@@ -77,9 +77,9 @@ export function calculateCurrentDraw(motor, spoolDiameter, load, ratio) {
   if (RatioDictToNumber(ratio) === 0 || motor.quantity === 0) {
     return Qty(0, "A");
   }
-  const stallCurrent = motor.data.stallCurrent.mul(motor.quantity);
-  const freeCurrent = motor.data.freeCurrent.mul(motor.quantity);
-  const stallTorque = motor.data.stallTorque.mul(motor.quantity);
+  const stallCurrent = motor.stallCurrent.mul(motor.quantity);
+  const freeCurrent = motor.freeCurrent.mul(motor.quantity);
+  const stallTorque = motor.stallTorque.mul(motor.quantity);
 
   const t4 = stallCurrent.sub(freeCurrent).div(stallTorque);
 

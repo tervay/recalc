@@ -10,7 +10,7 @@ import {
   verticalMarker,
 } from "common/tooling/charts";
 import { RatioDictToNumber } from "common/tooling/io";
-import { motorMap } from "common/tooling/motors";
+import { Motor } from "common/tooling/motors";
 import {
   MotorParam,
   NumberParam,
@@ -54,10 +54,7 @@ export default function Flywheel() {
       weight: QtyParam,
     },
     {
-      motor: {
-        quantity: 1,
-        data: motorMap["Falcon 500"],
-      },
+      motor: Motor.of(1, "Falcon 500"),
       ratio: {
         amount: 1,
         type: RATIO_REDUCTION,
@@ -84,10 +81,10 @@ export default function Flywheel() {
     const newWindupTime = calculateWindupTime(
       weight,
       radius,
-      motor.data.freeSpeed,
-      motor.data.stallTorque,
-      motor.data.stallCurrent,
-      motor.data.resistance,
+      motor.freeSpeed,
+      motor.stallTorque,
+      motor.stallCurrent,
+      motor.resistance,
       motor.quantity,
       RatioDictToNumber(ratio),
       targetSpeed
@@ -98,10 +95,10 @@ export default function Flywheel() {
     const chartData = generateChartData(
       weight,
       radius,
-      motor.data.freeSpeed,
-      motor.data.stallTorque,
-      motor.data.stallCurrent,
-      motor.data.resistance,
+      motor.freeSpeed,
+      motor.stallTorque,
+      motor.stallCurrent,
+      motor.resistance,
       motor.quantity,
       RatioDictToNumber(ratio),
       targetSpeed
@@ -148,7 +145,7 @@ export default function Flywheel() {
           <LabeledMotorInput
             label={"Motors"}
             stateHook={[motor, setMotor]}
-            choices={Object.keys(motorMap)}
+            choices={Motor.choices}
           />
           <LabeledRatioInput label="Ratio" stateHook={[ratio, setRatio]} />
           <LabeledQtyInput

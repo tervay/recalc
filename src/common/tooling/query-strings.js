@@ -11,26 +11,9 @@ import {
 } from "use-query-params";
 
 import { compressorMap } from "./compressors";
-import { motorMap } from "./motors";
+import { Motor } from "./motors";
 
-function MotorToDict(motor) {
-  return {
-    name: motor.data.name,
-    quantity: motor.quantity,
-  };
-}
-
-function DictToMotor(dict) {
-  return {
-    quantity: Number(dict.quantity),
-    data: motorMap[dict.name],
-  };
-}
-
-export const MotorParam = {
-  encode: (motor) => encodeObject(MotorToDict(motor)),
-  decode: (str) => DictToMotor(decodeObject(str)),
-};
+export const MotorParam = Motor.getParam();
 
 function CompressorToDict(compressor) {
   return {

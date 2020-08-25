@@ -1,19 +1,16 @@
 import { UnlabeledTypedNumberInput } from "common/components/io/inputs/TypedNumberInput";
 import { cleanNumberInput } from "common/tooling/io";
-import { motorMap } from "common/tooling/motors";
+import { Motor } from "common/tooling/motors";
 import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
 export function UnlabeledMotorInput(props) {
   const [motor, setMotor] = props.stateHook;
   const [magnitude, setMagnitude] = useState(motor.quantity);
-  const [unit, setUnit] = useState(motor.data.name);
+  const [unit, setUnit] = useState(motor.name);
 
   useEffect(() => {
-    setMotor({
-      quantity: cleanNumberInput(magnitude),
-      data: motorMap[unit],
-    });
+    setMotor(Motor.of(cleanNumberInput(magnitude), unit));
   }, [magnitude, unit]);
 
   return (
