@@ -2,7 +2,6 @@
 
 This is a collaboration focused mechanical design calculator, primarily for FRC.
 
-
 ### Basic dev commands:
 
 `./clean.sh`
