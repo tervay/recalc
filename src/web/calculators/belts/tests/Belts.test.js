@@ -1,5 +1,4 @@
 import Enzyme, { mount } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
 import each from "jest-each";
 import React from "react";
 import { TestingProvider } from "tests/TestStoreProvider";
@@ -7,8 +6,6 @@ import belts from "web/calculators/belts";
 import { teethToPD } from "web/calculators/belts/math";
 
 import Belts from "../Belts";
-
-Enzyme.configure({ adapter: new Adapter() });
 
 const wrapper = mount(
   <TestingProvider>

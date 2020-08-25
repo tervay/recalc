@@ -21,6 +21,8 @@ export function UnlabeledMotorInput(props) {
       magnitudeStateHook={[magnitude, setMagnitude]}
       selectStateHook={[unit, setUnit]}
       choices={props.choices}
+      inputId={props.inputId}
+      selectId={props.selectId}
     />
   );
 }
@@ -28,6 +30,8 @@ export function UnlabeledMotorInput(props) {
 UnlabeledMotorInput.propTypes = {
   stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
   choices: propTypes.arrayOf(propTypes.string),
+  inputId: propTypes.string,
+  selectId: propTypes.string,
 };
 
 export function LabeledMotorInput(props) {
@@ -47,4 +51,6 @@ LabeledMotorInput.propTypes = {
   stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
   choices: propTypes.arrayOf(propTypes.string),
   label: propTypes.string,
+  inputId: propTypes.string,
+  selectId: propTypes.string,
 };
