@@ -10,7 +10,7 @@ export function UnlabeledMotorInput(props) {
   const [unit, setUnit] = useState(motor.name);
 
   useEffect(() => {
-    setMotor(Motor.of(cleanNumberInput(magnitude), unit));
+    setMotor(new Motor(cleanNumberInput(magnitude), unit));
   }, [magnitude, unit]);
 
   return (

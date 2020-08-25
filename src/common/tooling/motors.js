@@ -3,30 +3,21 @@ import keyBy from "lodash/keyBy";
 import { decodeObject, encodeObject } from "use-query-params";
 
 export class Motor {
-  constructor(
-    quantity,
-    name,
-    freeSpeed,
-    stallTorque,
-    stallCurrent,
-    freeCurrent
-  ) {
+  constructor(quantity, name, data) {
     this.quantity = quantity;
     this.name = name;
-    this.freeSpeed = freeSpeed;
-    this.stallTorque = stallTorque;
-    this.stallCurrent = stallCurrent;
-    this.freeCurrent = freeCurrent;
-    this.power = freeSpeed
+
+    data = data || motorMap[name];
+    this.freeSpeed = data.freeSpeed;
+    this.stallTorque = data.stallTorque;
+    this.stallCurrent = data.stallCurrent;
+    this.freeCurrent = data.freeCurrent;
+    this.power = this.freeSpeed
       .div(2)
       .mul((2 * Math.PI) / 60)
-      .mul(stallTorque)
+      .mul(this.stallTorque)
       .div(2);
-    this.resistance = Qty(12, "V").div(stallCurrent);
-  }
-
-  static of(quantity, name) {
-    return Motor.fromDict({ quantity, name });
+    this.resistance = Qty(12, "V").div(this.stallCurrent);
   }
 
   static get choices() {
@@ -41,14 +32,7 @@ export class Motor {
   }
 
   static fromDict(dict) {
-    return new Motor(
-      dict.quantity,
-      dict.name,
-      motorMap[dict.name].freeSpeed,
-      motorMap[dict.name].stallTorque,
-      motorMap[dict.name].stallCurrent,
-      motorMap[dict.name].freeCurrent
-    );
+    return new Motor(dict.quantity, dict.name);
   }
 
   static encode(motor) {

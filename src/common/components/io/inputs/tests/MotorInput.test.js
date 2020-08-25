@@ -7,7 +7,7 @@ import { UnlabeledMotorInput } from "../MotorInput";
 
 describe("UnlabeledMotorInput test", () => {
   test("updates state hook on change event", () => {
-    let foo = Motor.fromDict({ name: "Falcon 500", quantity: 1 });
+    let foo = new Motor(1, "Falcon 500");
     let setFoo = (n) => {
       foo = n;
     };

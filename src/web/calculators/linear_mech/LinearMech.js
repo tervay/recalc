@@ -49,7 +49,7 @@ export default function LinearMech() {
       efficiency: NumberParam,
     },
     {
-      motor: Motor.of(1, "Falcon 500"),
+      motor: new Motor(1, "Falcon 500"),
       travelDistance: Qty(40, "in"),
       spoolDiameter: Qty(1, "in"),
       load: Qty(120, "lb"),

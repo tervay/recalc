@@ -54,7 +54,7 @@ export default function Flywheel() {
       weight: QtyParam,
     },
     {
-      motor: Motor.of(1, "Falcon 500"),
+      motor: new Motor(1, "Falcon 500"),
       ratio: {
         amount: 1,
         type: RATIO_REDUCTION,
