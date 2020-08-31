@@ -173,7 +173,8 @@ export default function Pneumatics() {
             options={makeLineOptions(
               "System Pressure Over Time",
               "Time (s)",
-              "Pressure (PSI)",
+              ["Pressure (PSI)"],
+              1,
               true
             )}
           />

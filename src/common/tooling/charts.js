@@ -7,9 +7,10 @@ defaults.global.defaultFontFamily = styles.font_family;
 
 /**
  *
- * @param {{x: number, y: number, color: string}[]} data
+ * @param {{x: Number, y: Number}[]} data
+ * @param {Number} numCharts
  */
-export function makeDataObj(data) {
+export function makeDataObj(data, numCharts = 1) {
   let chartColors;
   // build compress removes the space
   // idk how to fix ?? 🤔
@@ -26,6 +27,7 @@ export function makeDataObj(data) {
       fill: false,
       borderColor: chartColors[indx],
       key: uuid(),
+      yAxisID: indx < numCharts ? String(indx) : undefined,
     })),
   };
 }
@@ -59,7 +61,8 @@ export function verticalMarker(at, from, to) {
 export function makeLineOptions(
   title,
   xTitle,
-  yTitle,
+  yTitles,
+  numCharts = 1,
   maintainAspectRatio = false
 ) {
   return {
@@ -76,7 +79,7 @@ export function makeLineOptions(
       text: title,
     },
     legend: {
-      display: false,
+      display: true,
     },
     maintainAspectRatio: maintainAspectRatio,
     responsive: true,
@@ -94,17 +97,20 @@ export function makeLineOptions(
           },
         },
       ],
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true,
-          },
-          scaleLabel: {
-            display: true,
-            labelString: yTitle,
-          },
+      yAxes: [...Array(numCharts).keys()].map((k) => ({
+        ticks: {
+          beginAtZero: true,
         },
-      ],
+        scaleLabel: {
+          display: true,
+          labelString: yTitles[k],
+        },
+        id: String(k),
+        position: ["left", "right", "left"][k],
+        gridLines: {
+          drawOnChartArea: k === 0, // only want the grid lines for one axis to show up
+        },
+      })),
     },
   };
 }

@@ -4,6 +4,7 @@ import { LabeledNumberInput } from "common/components/io/inputs/NumberInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
+import { makeDataObj, makeLineOptions } from "common/tooling/charts";
 import { Motor } from "common/tooling/motors";
 import {
   MotorParam,
@@ -11,7 +12,6 @@ import {
   QtyParam,
   QueryableParamHolder,
   queryStringToDefaults,
-  RATIO_REDUCTION,
   RatioParam,
   stateToQueryString,
 } from "common/tooling/query-strings";
@@ -19,17 +19,21 @@ import { setTitle } from "common/tooling/routing";
 import Qty from "js-quantities";
 import React, { useEffect, useState } from "react";
 
-import { TITLE as title, VERSION as version } from "./config";
+import { RatioDictToNumber } from "../../../common/tooling/io";
+import { Line } from "../../../lib/react-chart-js";
+import linear from "./index";
 import {
   calculateCurrentDraw,
   CalculateLoadedSpeed,
   CalculateTimeToGoal,
   CalculateUnloadedSpeed,
+  generateCurrentDrawChartData,
+  generateTimeToGoalChartData,
 } from "./math";
 import { linearVersionManager } from "./versions";
 
 export default function LinearMech() {
-  setTitle(title);
+  setTitle(linear.title);
 
   const {
     motor: motor_,
@@ -48,17 +52,7 @@ export default function LinearMech() {
       ratio: RatioParam,
       efficiency: NumberParam,
     },
-    {
-      motor: new Motor(1, "Falcon 500"),
-      travelDistance: Qty(40, "in"),
-      spoolDiameter: Qty(1, "in"),
-      load: Qty(120, "lb"),
-      ratio: {
-        amount: 2,
-        type: RATIO_REDUCTION,
-      },
-      efficiency: 100,
-    },
+    linear.initialState,
     linearVersionManager
   );
 
@@ -75,28 +69,52 @@ export default function LinearMech() {
   const [loadedSpeed, setLoadedSpeed] = useState(Qty(0, "ft/s"));
   const [timeToGoal, setTimeToGoal] = useState(Qty(0, "s"));
   const [currentDraw, setCurrentDraw] = useState(Qty(0, "A"));
+  const [chartData, setChartData] = useState(makeDataObj([]));
 
   useEffect(() => {
-    setUnloadedSpeed(CalculateUnloadedSpeed(motor, spoolDiameter, ratio));
+    setUnloadedSpeed(
+      CalculateUnloadedSpeed(motor, spoolDiameter, RatioDictToNumber(ratio))
+    );
 
     const loadedSpeed_ = CalculateLoadedSpeed(
       motor,
       spoolDiameter,
       load,
-      ratio,
+      RatioDictToNumber(ratio),
       efficiency
     );
     setLoadedSpeed(loadedSpeed_);
     setTimeToGoal(CalculateTimeToGoal(travelDistance, loadedSpeed_));
 
-    setCurrentDraw(calculateCurrentDraw(motor, spoolDiameter, load, ratio));
+    const timeToGoalChartData = generateTimeToGoalChartData(
+      motor,
+      travelDistance,
+      spoolDiameter,
+      load,
+      RatioDictToNumber(ratio),
+      efficiency
+    );
+
+    const currentDrawChartData = generateCurrentDrawChartData(
+      motor,
+      travelDistance,
+      spoolDiameter,
+      load,
+      RatioDictToNumber(ratio)
+    );
+
+    setChartData(makeDataObj([timeToGoalChartData, currentDrawChartData], 2));
+
+    setCurrentDraw(
+      calculateCurrentDraw(motor, spoolDiameter, load, RatioDictToNumber(ratio))
+    );
   }, [motor, travelDistance, spoolDiameter, load, ratio, efficiency]);
 
   return (
     <>
       <Heading
-        title={title}
-        subtitle={`V${version}`}
+        title={linear.title}
+        subtitle={`V${linear.version}`}
         getQuery={() => {
           return stateToQueryString([
             new QueryableParamHolder({ motor }, MotorParam),
@@ -105,7 +123,7 @@ export default function LinearMech() {
             new QueryableParamHolder({ load }, QtyParam),
             new QueryableParamHolder({ ratio }, RatioParam),
             new QueryableParamHolder({ efficiency }, NumberParam),
-            new QueryableParamHolder({ version }, NumberParam),
+            new QueryableParamHolder({ version: linear.version }, NumberParam),
           ]);
         }}
       />
@@ -165,7 +183,17 @@ export default function LinearMech() {
             precision={3}
           />
         </div>
-        <div className="column">chart</div>
+        <div className="column">
+          <Line
+            data={chartData}
+            options={makeLineOptions(
+              "Ratio vs Time to Goal",
+              "Ratio",
+              ["Time (s)", "Current (A)"],
+              2
+            )}
+          />
+        </div>
       </div>
     </>
   );

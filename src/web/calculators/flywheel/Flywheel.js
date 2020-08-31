@@ -120,7 +120,7 @@ export default function Flywheel() {
     ).concat(verticalMarker(optimalRatioTime.x, 0, optimalRatioTime.y));
 
     setChartData(
-      makeDataObj([chartData, currentRatioMarkers, optimalRatioMarkers])
+      makeDataObj([chartData, currentRatioMarkers, optimalRatioMarkers], 1)
     );
   }, [motor, ratio, radius, targetSpeed, weight]);
 
@@ -177,7 +177,8 @@ export default function Flywheel() {
             options={makeLineOptions(
               "Ratio vs Windup Time",
               "Ratio",
-              "Time (s)"
+              ["Time (s)"],
+              1
             )}
           />
         </div>

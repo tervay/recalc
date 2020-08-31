@@ -7,7 +7,7 @@ import {
   IMAGE as flywheelImage,
   URL as flywheelURL,
 } from "web/calculators/flywheel/config";
-import { URL as linearURL } from "web/calculators/linear_mech/config";
+import linear from "web/calculators/linear_mech";
 import {
   IMAGE as pneumaticsImage,
   URL as pneumaticsURL,
@@ -53,7 +53,7 @@ export default function Landing() {
 
         <div className="columns">
           <div className="column is-one-third">
-            <Tile to={linearURL} title="Linear Mechanism Calculator" />
+            <Tile to={linear.url} title={linear.title} />
           </div>
           <div className="column is-one-third">
             <Tile to={chains.url} title={chains.title} />
