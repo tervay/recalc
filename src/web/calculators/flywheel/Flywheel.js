@@ -9,7 +9,7 @@ import {
   makeLineOptions,
   verticalMarker,
 } from "common/tooling/charts";
-import { Motor } from "common/tooling/Motor";
+import Motor from "common/tooling/Motor";
 import {
   MotorParam,
   NumberParam,

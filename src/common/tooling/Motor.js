@@ -2,7 +2,7 @@ import Qty from "js-quantities";
 import keyBy from "lodash/keyBy";
 import { decodeObject, encodeObject } from "use-query-params";
 
-export class Motor {
+export default class Motor {
   constructor(quantity, name, data) {
     this.quantity = quantity;
     this.name = name;

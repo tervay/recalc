@@ -1,5 +1,5 @@
 import { compressorMap } from "common/tooling/compressors";
-import { Motor } from "common/tooling/Motor";
+import Motor from "common/tooling/Motor";
 import Ratio from "common/tooling/Ratio";
 import Qty from "js-quantities";
 import { parse, stringify } from "query-string";

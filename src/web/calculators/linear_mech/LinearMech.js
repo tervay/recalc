@@ -5,7 +5,7 @@ import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 import { makeDataObj, makeLineOptions } from "common/tooling/charts";
-import { Motor } from "common/tooling/Motor";
+import Motor from "common/tooling/Motor";
 import {
   MotorParam,
   NumberParam,
