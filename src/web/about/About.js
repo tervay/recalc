@@ -1,5 +1,6 @@
 import { setTitle } from "common/tooling/routing";
 import React from "react";
+import { Link } from "react-router-dom";
 import version from "version";
 
 export default function About() {
@@ -109,15 +110,17 @@ export default function About() {
       </p>
       <p>Pull requests / issues / suggestions are welcome!</p>
 
+      <a href={"https://github.com/tervay/recalc/releases/tag/v" + version}>
+        <div className="tags has-addons">
+          <span className="tag">Version</span>
+          <span className="tag is-primary">{version}</span>
+        </div>
+      </a>
+
       <h3 className="title is-3">Disclaimer</h3>
       <p>
         This site is not in any way affiliated or endorsed by FIRST nor Google.
       </p>
-
-      <div className="tags has-addons">
-        <span className="tag">Version</span>
-        <span className="tag is-primary">{version}</span>
-      </div>
     </div>
   );
 }
