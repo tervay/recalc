@@ -1,8 +1,7 @@
+import { Motor } from "common/tooling/Motor";
+import Ratio from "common/tooling/Ratio";
 import Qty from "js-quantities";
 import { lazy } from "react";
-
-import { Motor } from "../../../common/tooling/motors";
-import { RATIO_REDUCTION } from "../../../common/tooling/query-strings";
 
 export default {
   url: "/linear",
@@ -13,10 +12,7 @@ export default {
     travelDistance: Qty(40, "in"),
     spoolDiameter: Qty(1, "in"),
     load: Qty(120, "lb"),
-    ratio: {
-      amount: 2,
-      type: RATIO_REDUCTION,
-    },
+    ratio: new Ratio(2, Ratio.REDUCTION),
     efficiency: 100,
   },
   component: lazy(() => import("web/calculators/linear_mech/LinearMech")),

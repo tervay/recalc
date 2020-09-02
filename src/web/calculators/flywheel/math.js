@@ -1,3 +1,4 @@
+import Ratio from "common/tooling/Ratio";
 import Qty from "js-quantities";
 
 /**
@@ -9,7 +10,7 @@ import Qty from "js-quantities";
  * @param {Qty} motorStallCurrent
  * @param {Qty} motorResistance
  * @param {number} motorQuantity
- * @param {number} ratio
+ * @param {Ratio} ratio
  * @param {Qty} targetSpeed
  */
 export function calculateWindupTime(
@@ -27,9 +28,12 @@ export function calculateWindupTime(
     return Qty(0, "s");
   }
 
-  ratio = ratio === "0" || ratio === 0 ? 1 : ratio;
-
-  const J = Qty(0.5).mul(weight).mul(radius).mul(radius).div(ratio).div(ratio);
+  const J = Qty(0.5)
+    .mul(weight)
+    .mul(radius)
+    .mul(radius)
+    .div(ratio.asNumber())
+    .div(ratio.asNumber());
   const R = motorResistance;
   const kT = motorStallTorque.div(motorStallCurrent).mul(motorQuantity);
   const kE = Qty(kT.scalar, "V*s/rad"); // valid for DC + BLDC motors
@@ -38,7 +42,7 @@ export function calculateWindupTime(
   const t1 = Qty(-1).mul(J).mul(R);
   const t2 = kT.mul(kE);
   const t3 = t1.div(t2);
-  const t4 = Qty(1).sub(w.div(motorFreeSpeed.div(ratio)));
+  const t4 = Qty(1).sub(w.div(motorFreeSpeed.div(ratio.asNumber())));
   if (t4.scalar <= 0) {
     return Qty(0, "s");
   } else {
@@ -55,7 +59,7 @@ export function calculateWindupTime(
  * @param {Qty} motorStallCurrent
  * @param {Qty} motorResistance
  * @param {number} motorQuantity
- * @param {number} ratio
+ * @param {Ratio} currentRatio
  * @param {Qty} targetSpeed
  */
 export function generateChartData(
@@ -69,13 +73,13 @@ export function generateChartData(
   currentRatio,
   targetSpeed
 ) {
-  const start = 0.25 * currentRatio;
-  const end = 4.0 * currentRatio;
+  const start = 0.25 * currentRatio.asNumber();
+  const end = 4.0 * currentRatio.asNumber();
   const n = 100;
   const step = (end - start) / n;
 
-  function getTimeForRatio(ratio) {
-    return calculateWindupTime(
+  const getTimeForRatio = (ratio) =>
+    calculateWindupTime(
       weight,
       radius,
       motorFreeSpeed,
@@ -86,11 +90,10 @@ export function generateChartData(
       ratio,
       targetSpeed
     );
-  }
 
   let data = [];
   for (let i = start; i < end; i += step) {
-    const t = getTimeForRatio(i);
+    const t = getTimeForRatio(new Ratio(i, currentRatio.ratioType));
     if (t.scalar !== 0) {
       data.push({
         x: i,

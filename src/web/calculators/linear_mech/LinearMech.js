@@ -5,7 +5,7 @@ import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 import { makeDataObj, makeLineOptions } from "common/tooling/charts";
-import { Motor } from "common/tooling/motors";
+import { Motor } from "common/tooling/Motor";
 import {
   MotorParam,
   NumberParam,
@@ -17,10 +17,9 @@ import {
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
 import Qty from "js-quantities";
+import { Line } from "lib/react-chart-js";
 import React, { useEffect, useState } from "react";
 
-import { RatioDictToNumber } from "../../../common/tooling/io";
-import { Line } from "../../../lib/react-chart-js";
 import linear from "./index";
 import {
   calculateCurrentDraw,
@@ -72,15 +71,13 @@ export default function LinearMech() {
   const [chartData, setChartData] = useState(makeDataObj([]));
 
   useEffect(() => {
-    setUnloadedSpeed(
-      CalculateUnloadedSpeed(motor, spoolDiameter, RatioDictToNumber(ratio))
-    );
+    setUnloadedSpeed(CalculateUnloadedSpeed(motor, spoolDiameter, ratio));
 
     const loadedSpeed_ = CalculateLoadedSpeed(
       motor,
       spoolDiameter,
       load,
-      RatioDictToNumber(ratio),
+      ratio,
       efficiency
     );
     setLoadedSpeed(loadedSpeed_);
@@ -91,7 +88,7 @@ export default function LinearMech() {
       travelDistance,
       spoolDiameter,
       load,
-      RatioDictToNumber(ratio),
+      ratio,
       efficiency
     );
 
@@ -100,14 +97,12 @@ export default function LinearMech() {
       travelDistance,
       spoolDiameter,
       load,
-      RatioDictToNumber(ratio)
+      ratio
     );
 
     setChartData(makeDataObj([timeToGoalChartData, currentDrawChartData], 2));
 
-    setCurrentDraw(
-      calculateCurrentDraw(motor, spoolDiameter, load, RatioDictToNumber(ratio))
-    );
+    setCurrentDraw(calculateCurrentDraw(motor, spoolDiameter, load, ratio));
   }, [motor, travelDistance, spoolDiameter, load, ratio, efficiency]);
 
   return (

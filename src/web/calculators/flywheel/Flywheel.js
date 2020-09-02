@@ -9,18 +9,17 @@ import {
   makeLineOptions,
   verticalMarker,
 } from "common/tooling/charts";
-import { RatioDictToNumber } from "common/tooling/io";
-import { Motor } from "common/tooling/motors";
+import { Motor } from "common/tooling/Motor";
 import {
   MotorParam,
   NumberParam,
   QtyParam,
   QueryableParamHolder,
   queryStringToDefaults,
-  RATIO_REDUCTION,
   RatioParam,
   stateToQueryString,
 } from "common/tooling/query-strings";
+import Ratio from "common/tooling/Ratio";
 import { setTitle } from "common/tooling/routing";
 import Qty from "js-quantities";
 import { Line } from "lib/react-chart-js";
@@ -55,10 +54,7 @@ export default function Flywheel() {
     },
     {
       motor: new Motor(1, "Falcon 500"),
-      ratio: {
-        amount: 1,
-        type: RATIO_REDUCTION,
-      },
+      ratio: new Ratio(1, Ratio.REDUCTION),
       radius: Qty(2, "in"),
       targetSpeed: Qty(2000, "rpm"),
       weight: Qty(5, "lb"),
@@ -86,7 +82,7 @@ export default function Flywheel() {
       motor.stallCurrent,
       motor.resistance,
       motor.quantity,
-      RatioDictToNumber(ratio),
+      ratio,
       targetSpeed
     );
 
@@ -100,17 +96,15 @@ export default function Flywheel() {
       motor.stallCurrent,
       motor.resistance,
       motor.quantity,
-      RatioDictToNumber(ratio),
+      ratio,
       targetSpeed
     );
 
     const currentRatioMarkers = horizontalMarker(
       newWindupTime.to("s").scalar,
       0,
-      RatioDictToNumber(ratio)
-    ).concat(
-      verticalMarker(RatioDictToNumber(ratio), 0, newWindupTime.to("s").scalar)
-    );
+      ratio.asNumber()
+    ).concat(verticalMarker(ratio.asNumber(), 0, newWindupTime.to("s").scalar));
 
     const optimalRatioTime = _.minBy(chartData, (o) => o.y);
     const optimalRatioMarkers = horizontalMarker(

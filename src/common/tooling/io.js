@@ -1,5 +1,3 @@
-import { RATIO_STEPUP } from "./query-strings";
-
 export function cleanNumberInput(value) {
   let val = NaN;
   switch (value) {
@@ -15,12 +13,4 @@ export function cleanNumberInput(value) {
   }
 
   return val;
-}
-
-export function RatioDictToNumber(ratio) {
-  if (ratio.type === RATIO_STEPUP && ratio.amount !== 0) {
-    return 1 / ratio.amount;
-  } else {
-    return ratio.amount;
-  }
 }

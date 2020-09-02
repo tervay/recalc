@@ -2,7 +2,7 @@ import { mount } from "enzyme";
 import React from "react";
 import { TestingProvider } from "tests/TestStoreProvider";
 
-import { Motor } from "../../../../tooling/motors";
+import { Motor } from "../../../../tooling/Motor";
 import { UnlabeledMotorInput } from "../MotorInput";
 
 describe("UnlabeledMotorInput test", () => {

@@ -1,26 +1,27 @@
 import { UnlabeledTypedNumberInput } from "common/components/io/inputs/TypedNumberInput";
 import { cleanNumberInput } from "common/tooling/io";
-import { RATIO_REDUCTION, RATIO_STEPUP } from "common/tooling/query-strings";
+import Ratio from "common/tooling/Ratio";
 import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
 export function UnlabeledRatioInput(props) {
   const [ratio, setRatio] = props.stateHook;
-  const [amount, setAmount] = useState(ratio.amount);
-  const [type, setType] = useState(ratio.type);
+  const [amount, setAmount] = useState(ratio.magnitude);
+  const [type, setType] = useState(ratio.ratioType);
 
   useEffect(() => {
     setRatio({
       amount: cleanNumberInput(amount),
       type: type,
     });
+    setRatio(new Ratio(cleanNumberInput(amount), type));
   }, [amount, type]);
 
   return (
     <UnlabeledTypedNumberInput
       magnitudeStateHook={[amount, setAmount]}
       selectStateHook={[type, setType]}
-      choices={[RATIO_STEPUP, RATIO_REDUCTION]}
+      choices={[Ratio.REDUCTION, Ratio.STEP_UP]}
     />
   );
 }

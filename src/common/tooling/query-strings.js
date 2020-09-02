@@ -1,3 +1,6 @@
+import { compressorMap } from "common/tooling/compressors";
+import { Motor } from "common/tooling/Motor";
+import Ratio from "common/tooling/Ratio";
 import Qty from "js-quantities";
 import { parse, stringify } from "query-string";
 import {
@@ -9,11 +12,6 @@ import {
   encodeObject,
   encodeQueryParams,
 } from "use-query-params";
-
-import { compressorMap } from "./compressors";
-import { Motor } from "./motors";
-
-export const MotorParam = Motor.getParam();
 
 function CompressorToDict(compressor) {
   return {
@@ -90,18 +88,6 @@ export const PistonParam = {
   },
 };
 
-export const RATIO_REDUCTION = "reduction";
-export const RATIO_STEPUP = "step-up";
-
-export const RatioParam = {
-  encode: (ratio) => {
-    return encodeObject(ratio);
-  },
-  decode: (str) => {
-    return decodeObject(str);
-  },
-};
-
 export class QueryableParamHolder {
   constructor(state, paramType) {
     this.paramType = paramType;
@@ -150,4 +136,6 @@ export function queryStringToDefaults(
   return defaults;
 }
 
+export const MotorParam = Motor.getParam();
+export const RatioParam = Ratio.getParam();
 export { NumberParam } from "use-query-params";
