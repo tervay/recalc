@@ -1,5 +1,6 @@
 import { setTitle } from "common/tooling/routing";
 import React from "react";
+import version from "version";
 
 export default function About() {
   setTitle("About");
@@ -7,6 +8,7 @@ export default function About() {
   return (
     <div className="content">
       <h2 className="title is-2">ReCalc</h2>
+
       <h3 className="title is-3">About</h3>
       <p>
         ReCalc is a mechanical design calculator, focused on ease of
@@ -111,6 +113,11 @@ export default function About() {
       <p>
         This site is not in any way affiliated or endorsed by FIRST nor Google.
       </p>
+
+      <div className="tags has-addons">
+        <span className="tag">Version</span>
+        <span className="tag is-primary">{version}</span>
+      </div>
     </div>
   );
 }
