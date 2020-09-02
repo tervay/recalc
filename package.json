@@ -37,7 +37,9 @@
     "build": "react-scripts build && npm run compress",
     "build-ci": "CI=false react-scripts build",
     "test": "react-scripts test --runInBand",
-    "start-prod": "node src/dev/express.js"
+    "start-prod": "node src/dev/express.js",
+    "version": "node bump.js --v && git add src/",
+    "postversion": "git push && git push --tags"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -68,7 +70,9 @@
     "jest-each": "^26.1.0",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",
-    "source-map-explorer": "^2.4.2"
+    "prompts": "^2.3.2",
+    "source-map-explorer": "^2.4.2",
+    "yargs": "^15.4.1"
   },
   "engines": {
     "node": "14.x"
