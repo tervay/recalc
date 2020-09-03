@@ -1,6 +1,6 @@
-import { compressorMap } from "common/tooling/compressors";
-import Motor from "common/tooling/Motor";
-import Ratio from "common/tooling/Ratio";
+import { compressorMap } from "common/models/compressors";
+import Motor from "common/models/Motor";
+import Ratio from "common/models/Ratio";
 import Qty from "js-quantities";
 import { parse, stringify } from "query-string";
 import {
@@ -54,7 +54,7 @@ export const QtyParam = {
 
 export const PistonParam = {
   encode: (piston) => {
-    const a = encodeArray(
+    return encodeArray(
       Object.keys(piston).map((k) => {
         if (piston[k] instanceof Object) {
           return encodeObject({
@@ -69,11 +69,10 @@ export const PistonParam = {
         }
       })
     );
-    return a;
   },
   decode: (str) => {
     const obj = decodeArray(str);
-    const s = Object.assign(
+    return Object.assign(
       ...obj.map((s) => {
         const d = decodeObject(s);
         if (d.name === "enabled") {
@@ -84,7 +83,6 @@ export const PistonParam = {
         };
       })
     );
-    return s;
   },
 };
 

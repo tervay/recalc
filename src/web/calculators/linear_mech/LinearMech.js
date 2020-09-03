@@ -4,8 +4,8 @@ import { LabeledNumberInput } from "common/components/io/inputs/NumberInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
-import { makeDataObj, makeLineOptions } from "common/tooling/charts";
-import Motor from "common/tooling/Motor";
+import Motor from "common/models/Motor";
+import { ChartBuilder, YAxisBuilder } from "common/tooling/charts";
 import {
   MotorParam,
   NumberParam,
@@ -68,7 +68,10 @@ export default function LinearMech() {
   const [loadedSpeed, setLoadedSpeed] = useState(Qty(0, "ft/s"));
   const [timeToGoal, setTimeToGoal] = useState(Qty(0, "s"));
   const [currentDraw, setCurrentDraw] = useState(Qty(0, "A"));
-  const [chartData, setChartData] = useState(makeDataObj([]));
+  const [chartData, setChartData] = useState(ChartBuilder.defaultData());
+  const [chartOptions, setChartOptions] = useState(
+    ChartBuilder.defaultOptions()
+  );
 
   useEffect(() => {
     setUnloadedSpeed(CalculateUnloadedSpeed(motor, spoolDiameter, ratio));
@@ -100,7 +103,31 @@ export default function LinearMech() {
       ratio
     );
 
-    setChartData(makeDataObj([timeToGoalChartData, currentDrawChartData], 2));
+    const cb = new ChartBuilder()
+      .setXTitle("Ratio")
+      .setTitle("Ratio vs Time to Goal (s) / Current (A)")
+      .setLegendEnabled(true)
+      .addYBuilder(
+        new YAxisBuilder()
+          .setTitleAndId("Time (s)")
+          .setDisplayAxis(true)
+          .setDraw(true)
+          .setPosition("left")
+          .setData(timeToGoalChartData)
+          .setColor(YAxisBuilder.chartColor(0))
+      )
+      .addYBuilder(
+        new YAxisBuilder()
+          .setTitleAndId("Current (A)")
+          .setDisplayAxis(true)
+          .setDraw(false)
+          .setPosition("right")
+          .setData(currentDrawChartData)
+          .setColor(YAxisBuilder.chartColor(1))
+      );
+
+    setChartData(cb.buildData());
+    setChartOptions(cb.buildOptions());
 
     setCurrentDraw(calculateCurrentDraw(motor, spoolDiameter, load, ratio));
   }, [motor, travelDistance, spoolDiameter, load, ratio, efficiency]);
@@ -179,15 +206,7 @@ export default function LinearMech() {
           />
         </div>
         <div className="column">
-          <Line
-            data={chartData}
-            options={makeLineOptions(
-              "Ratio vs Time to Goal",
-              "Ratio",
-              ["Time (s)", "Current (A)"],
-              2
-            )}
-          />
+          <Line data={chartData} options={chartOptions} />
         </div>
       </div>
     </>

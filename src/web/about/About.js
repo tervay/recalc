@@ -109,7 +109,7 @@ export default function About() {
       </p>
       <p>Pull requests / issues / suggestions are welcome!</p>
 
-      <a href={"https://github.com/tervay/recalc/releases/tag/v" + version}>
+      <a href={"https://github.com/tervay/recalc/tree/v" + version}>
         <div className="tags has-addons">
           <span className="tag">Version</span>
           <span className="tag is-primary">{version}</span>

@@ -1,6 +1,6 @@
 import { UnlabeledTypedNumberInput } from "common/components/io/inputs/TypedNumberInput";
+import Ratio from "common/models/Ratio";
 import { cleanNumberInput } from "common/tooling/io";
-import Ratio from "common/tooling/Ratio";
 import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 

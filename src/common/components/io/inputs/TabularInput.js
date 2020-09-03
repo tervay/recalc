@@ -79,7 +79,9 @@ export default function TabularInput(props) {
 }
 
 TabularInput.propTypes = {
-  headers: propTypes.arrayOf(propTypes.string),
+  headers: propTypes.arrayOf(
+    propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)])
+  ),
   inputs: propTypes.arrayOf(propTypes.arrayOf(propTypes.any, propTypes.func)),
   labels: propTypes.arrayOf(propTypes.string),
   choices: propTypes.arrayOf(propTypes.arrayOf(propTypes.string)),

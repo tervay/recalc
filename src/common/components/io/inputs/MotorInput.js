@@ -1,6 +1,6 @@
 import { UnlabeledTypedNumberInput } from "common/components/io/inputs/TypedNumberInput";
+import Motor from "common/models/Motor";
 import { cleanNumberInput } from "common/tooling/io";
-import Motor from "common/tooling/Motor";
 import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 

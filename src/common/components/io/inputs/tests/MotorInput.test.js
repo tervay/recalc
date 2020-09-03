@@ -1,4 +1,4 @@
-import Motor from "common/tooling/Motor";
+import Motor from "common/models/Motor";
 import { mount } from "enzyme";
 import React from "react";
 import { TestingProvider } from "tests/TestStoreProvider";

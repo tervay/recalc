@@ -1,4 +1,4 @@
-import Ratio from "common/tooling/Ratio";
+import Ratio from "common/models/Ratio";
 import Qty from "js-quantities";
 
 export function generateTimeToGoalChartData(

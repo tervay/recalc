@@ -3,12 +3,13 @@ import { LabeledMotorInput } from "common/components/io/inputs/MotorInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
+import Motor from "common/models/Motor";
+import Ratio from "common/models/Ratio";
 import {
   ChartBuilder,
   MarkerBuilder,
   YAxisBuilder,
 } from "common/tooling/charts";
-import Motor from "common/tooling/Motor";
 import {
   MotorParam,
   NumberParam,
@@ -18,7 +19,6 @@ import {
   RatioParam,
   stateToQueryString,
 } from "common/tooling/query-strings";
-import Ratio from "common/tooling/Ratio";
 import { setTitle } from "common/tooling/routing";
 import Qty from "js-quantities";
 import { Line } from "lib/react-chart-js";
@@ -134,6 +134,8 @@ export default function Flywheel() {
           ]
         : [];
 
+    const reduce = (m) => _.reduce(m, (sum, n) => sum.concat(n.build()), []);
+
     const cb = new ChartBuilder()
       .setXTitle("Ratio")
       .setLegendEnabled(false)
@@ -144,39 +146,24 @@ export default function Flywheel() {
           .setDisplayAxis(false)
           .setDraw(false)
           .setId("Windup Time")
-          .setColor("#ff0000")
-          .setData(
-            _.reduce(
-              currentRatioMarkers,
-              (sum, n) => {
-                return sum.concat(n.build());
-              },
-              []
-            )
-          )
+          .setColor(YAxisBuilder.chartColor(1))
+          .setData(reduce(currentRatioMarkers))
       )
       .addYBuilder(
         new YAxisBuilder()
           .setTitleAndId("Optimal Ratio")
           .setDisplayAxis(false)
           .setDraw(false)
-          .setColor("#0000FF")
+          .setColor(YAxisBuilder.chartColor(2))
           .setId("Windup Time")
-          .setData(
-            _.reduce(
-              optimalRatioMarkers,
-              (sum, n) => {
-                return sum.concat(n.build());
-              },
-              []
-            )
-          )
+          .setData(reduce(optimalRatioMarkers))
       )
       .addYBuilder(
         new YAxisBuilder()
-          .setTitleAndId("Windup Time")
+          .setTitleAndId("Windup Time (s)")
+          .setId("Windup Time")
           .setData(chartData)
-          .setColor("#228B22")
+          .setColor(YAxisBuilder.chartColor(0))
           .setPosition("left")
       );
 
