@@ -4,10 +4,9 @@ import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 import {
-  horizontalMarker,
-  makeDataObj,
-  makeLineOptions,
-  verticalMarker,
+  ChartBuilder,
+  MarkerBuilder,
+  YAxisBuilder,
 } from "common/tooling/charts";
 import Motor from "common/tooling/Motor";
 import {
@@ -71,7 +70,11 @@ export default function Flywheel() {
 
   // Outputs
   const [windupTime, setWindupTime] = useState(Qty(0, "s"));
-  const [chartData, setChartData] = useState(makeDataObj([]));
+
+  const [chartData, setChartData] = useState(ChartBuilder.defaultData());
+  const [chartOptions, setChartOptions] = useState(
+    ChartBuilder.defaultOptions()
+  );
 
   useEffect(() => {
     const newWindupTime = calculateWindupTime(
@@ -100,22 +103,85 @@ export default function Flywheel() {
       targetSpeed
     );
 
-    const currentRatioMarkers = horizontalMarker(
-      newWindupTime.to("s").scalar,
-      0,
-      ratio.asNumber()
-    ).concat(verticalMarker(ratio.asNumber(), 0, newWindupTime.to("s").scalar));
+    const currentRatioMarkers = [
+      new MarkerBuilder()
+        .vertical()
+        .at(ratio.asNumber())
+        .from(0)
+        .to(newWindupTime.scalar),
+      new MarkerBuilder()
+        .horizontal()
+        .at(newWindupTime.scalar)
+        .from(0)
+        .to(ratio.asNumber()),
+    ];
 
     const optimalRatioTime = _.minBy(chartData, (o) => o.y);
-    const optimalRatioMarkers = horizontalMarker(
-      optimalRatioTime.y,
-      0,
-      optimalRatioTime.x
-    ).concat(verticalMarker(optimalRatioTime.x, 0, optimalRatioTime.y));
 
-    setChartData(
-      makeDataObj([chartData, currentRatioMarkers, optimalRatioMarkers], 1)
-    );
+    const optimalRatioMarkers =
+      optimalRatioTime !== undefined
+        ? [
+            new MarkerBuilder()
+              .horizontal()
+              .at(optimalRatioTime.y)
+              .from(0)
+              .to(optimalRatioTime.x),
+            new MarkerBuilder()
+              .vertical()
+              .at(optimalRatioTime.x)
+              .from(0)
+              .to(optimalRatioTime.y),
+          ]
+        : [];
+
+    const cb = new ChartBuilder()
+      .setXTitle("Ratio")
+      .setLegendEnabled(false)
+      .setTitle("Ratio vs Windup Time")
+      .addYBuilder(
+        new YAxisBuilder()
+          .setTitleAndId("Current Ratio")
+          .setDisplayAxis(false)
+          .setDraw(false)
+          .setId("Windup Time")
+          .setColor("#ff0000")
+          .setData(
+            _.reduce(
+              currentRatioMarkers,
+              (sum, n) => {
+                return sum.concat(n.build());
+              },
+              []
+            )
+          )
+      )
+      .addYBuilder(
+        new YAxisBuilder()
+          .setTitleAndId("Optimal Ratio")
+          .setDisplayAxis(false)
+          .setDraw(false)
+          .setColor("#0000FF")
+          .setId("Windup Time")
+          .setData(
+            _.reduce(
+              optimalRatioMarkers,
+              (sum, n) => {
+                return sum.concat(n.build());
+              },
+              []
+            )
+          )
+      )
+      .addYBuilder(
+        new YAxisBuilder()
+          .setTitleAndId("Windup Time")
+          .setData(chartData)
+          .setColor("#228B22")
+          .setPosition("left")
+      );
+
+    setChartOptions(cb.buildOptions());
+    setChartData(cb.buildData());
   }, [motor, ratio, radius, targetSpeed, weight]);
 
   return (
@@ -166,15 +232,7 @@ export default function Flywheel() {
           />
         </div>
         <div className="column">
-          <Line
-            data={chartData}
-            options={makeLineOptions(
-              "Ratio vs Windup Time",
-              "Ratio",
-              ["Time (s)"],
-              1
-            )}
-          />
+          <Line data={chartData} options={chartOptions} />
         </div>
       </div>
     </>

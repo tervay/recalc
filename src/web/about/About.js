@@ -1,6 +1,5 @@
 import { setTitle } from "common/tooling/routing";
 import React from "react";
-import { Link } from "react-router-dom";
 import version from "version";
 
 export default function About() {

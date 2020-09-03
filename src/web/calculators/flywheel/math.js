@@ -24,7 +24,7 @@ export function calculateWindupTime(
   ratio,
   targetSpeed
 ) {
-  if (motorQuantity === 0) {
+  if (motorQuantity === 0 || ratio.asNumber() === 0) {
     return Qty(0, "s");
   }
 
