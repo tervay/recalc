@@ -235,7 +235,7 @@ export class ChartBuilder {
       legend: {
         display: false,
       },
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
       responsive: true,
       scales: {
         xAxes: [
