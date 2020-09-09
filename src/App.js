@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "redux-zero/react";
 import belts from "web/calculators/belts";
 import chains from "web/calculators/chains";
+import dslogs from "web/calculators/dslogs";
 import { URL as flywheelURL } from "web/calculators/flywheel/config";
 import linear from "web/calculators/linear_mech";
 import { URL as pneumaticsURL } from "web/calculators/pneumatics/config";
@@ -37,6 +38,8 @@ export default function App() {
                 <Route path={chains.url} component={chains.component} />
 
                 <Route path={profileURL} component={Profile} />
+
+                <Route path={dslogs.url} component={dslogs.component} />
 
                 <Route path={"/about"} component={About} />
 
