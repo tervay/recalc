@@ -96,6 +96,7 @@ export class DSLogParser {
     }
 
     const ret = [];
+    /*eslint no-constant-condition: ["error", { "checkLoops": false }]*/
     while (true) {
       const r = this.readRecordV3();
       if (r === null) {

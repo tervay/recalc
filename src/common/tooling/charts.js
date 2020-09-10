@@ -1,6 +1,7 @@
 import { isLocalhost } from "common/tooling/util";
 import styles from "index.scss";
 import { defaults } from "lib/react-chart-js";
+import _ from "lodash";
 
 defaults.global.defaultFontFamily = styles.font_family;
 const chartColors = styles.chart_colors.split(isLocalhost() ? ", " : ",");
@@ -174,6 +175,11 @@ export class ChartBuilder {
     return this;
   }
 
+  setPerformanceModeOn(performanceMode) {
+    this._performanceMode = performanceMode;
+    return this;
+  }
+
   buildData() {
     return {
       datasets: this._yBuilders.map((yb) => yb.buildData()),
@@ -181,7 +187,20 @@ export class ChartBuilder {
   }
 
   buildOptions() {
-    return {
+    let defaultOptions = {};
+    if (this._performanceMode) {
+      defaultOptions = _.merge(defaultOptions, {
+        animation: {
+          duration: 0,
+        },
+        hover: {
+          animationDuration: 0,
+        },
+        responsiveAnimationDuration: 0,
+      });
+    }
+
+    const generatedOptions = {
       elements: {
         line: {
           tension: 0,
@@ -219,6 +238,8 @@ export class ChartBuilder {
         yAxes: this._yBuilders.map((yb) => yb.buildOptions()),
       },
     };
+
+    return _.merge(defaultOptions, generatedOptions);
   }
 
   static defaultData() {
