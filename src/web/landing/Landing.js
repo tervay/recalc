@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import belts from "web/calculators/belts";
 import chains from "web/calculators/chains";
+import dslogs from "web/calculators/dslogs";
 import {
   IMAGE as flywheelImage,
   URL as flywheelURL,
@@ -57,6 +58,9 @@ export default function Landing() {
           </div>
           <div className="column is-one-third">
             <Tile to={chains.url} title={chains.title} />
+          </div>
+          <div className="column is-one-third">
+            <Tile to={dslogs.url} title={dslogs.title} />
           </div>
         </div>
 
