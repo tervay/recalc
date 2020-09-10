@@ -104,6 +104,7 @@ export default function LinearMech() {
     );
 
     const cb = new ChartBuilder()
+      .setXAxisType("linear")
       .setXTitle("Ratio")
       .setTitle("Ratio vs Time to Goal (s) / Current (A)")
       .setLegendEnabled(true)

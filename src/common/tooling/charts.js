@@ -169,6 +169,11 @@ export class ChartBuilder {
     return this;
   }
 
+  setXAxisType(axisType) {
+    this._axisType = axisType;
+    return this;
+  }
+
   buildData() {
     return {
       datasets: this._yBuilders.map((yb) => yb.buildData()),
@@ -197,7 +202,7 @@ export class ChartBuilder {
       scales: {
         xAxes: [
           {
-            type: "linear",
+            type: this._axisType,
             position: "bottom",
             scaleLabel: {
               display: true,
@@ -205,6 +210,9 @@ export class ChartBuilder {
             },
             ticks: {
               beginAtZero: true,
+            },
+            time: {
+              unit: "second",
             },
           },
         ],

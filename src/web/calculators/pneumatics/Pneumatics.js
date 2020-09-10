@@ -97,6 +97,7 @@ export default function Pneumatics() {
     // setGraphData(makeDataObj([timeline_]));
 
     const cb = new ChartBuilder()
+      .setXAxisType("linear")
       .setXTitle("Time (s)")
       .setTitle("System Pressure Over Time")
       .setLegendEnabled(false)

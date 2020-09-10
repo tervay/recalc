@@ -23,12 +23,10 @@ export default function DSLogs() {
       return;
     }
 
-    console.log({ displayedRecords });
-    const startTime = moment(displayedRecords[0].time);
-
     const cb = new ChartBuilder()
       .setTitle("Title")
       .setXTitle("X")
+      .setXAxisType("time")
       .setMaintainAspectRatio(true)
       .setResponsive(true)
       .addYBuilder(
@@ -39,7 +37,7 @@ export default function DSLogs() {
           .setColor(YAxisBuilder.chartColor(0))
           .setData(
             displayedRecords.map((r) => ({
-              x: moment(r.time).diff(startTime, "s"),
+              x: moment(r.time).toDate(),
               y: r.voltage,
             }))
           )
@@ -51,7 +49,7 @@ export default function DSLogs() {
           .setColor(YAxisBuilder.chartColor(1))
           .setData(
             displayedRecords.map((r) => ({
-              x: moment(r.time).diff(startTime, "s"),
+              x: moment(r.time).toDate(),
               y: r.pdpVoltage,
             }))
           )

@@ -137,6 +137,7 @@ export default function Flywheel() {
     const reduce = (m) => _.reduce(m, (sum, n) => sum.concat(n.build()), []);
 
     const cb = new ChartBuilder()
+      .setXAxisType("linear")
       .setXTitle("Ratio")
       .setLegendEnabled(false)
       .setTitle("Ratio vs Windup Time")
