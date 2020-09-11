@@ -10,9 +10,9 @@ import { DSLogParser } from "web/calculators/dslogs/parser";
 export default function DSLogs() {
   const [records, setRecords] = useState([]);
   const [displayedRecords, setDisplayedRecords] = useState(records);
-  const [start, setStart] = useState(1);
-  const [end, setEnd] = useState(5);
-  const [precision, setPrecision] = useState(1);
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(1000);
+  const [precision, setPrecision] = useState(3);
 
   const [errors, setErrors] = useState([]);
   const [filename, setFilename] = useState("example.dslog");
@@ -20,6 +20,7 @@ export default function DSLogs() {
   const [chartOptions, setChartOptions] = useState(
     ChartBuilder.defaultOptions()
   );
+  const [useAbsoluteTime, setUseAbsoluteTime] = useState(false);
 
   useEffect(() => {
     setDisplayedRecords(records.slice(start, end));
@@ -27,11 +28,12 @@ export default function DSLogs() {
       return;
     }
 
+    const firstTime = moment(records[0].time);
     const cb = new ChartBuilder()
       .setPerformanceModeOn(true)
       .setTitle("Title")
-      .setXTitle("X")
-      .setXAxisType("time")
+      .setXTitle(useAbsoluteTime ? "Time" : "Seconds since log start")
+      .setXAxisType(useAbsoluteTime ? "time" : "linear")
       .setMaintainAspectRatio(true)
       .setResponsive(true)
       .addYBuilder(
@@ -43,7 +45,9 @@ export default function DSLogs() {
           .setData(
             decimate(
               displayedRecords.map((r) => ({
-                x: moment(r.time).toDate(),
+                x: useAbsoluteTime
+                  ? moment(r.time).toDate()
+                  : moment(r.time).diff(firstTime, "s"),
                 y: r.voltage,
               })),
               precision
@@ -58,7 +62,9 @@ export default function DSLogs() {
           .setData(
             decimate(
               displayedRecords.map((r) => ({
-                x: moment(r.time).toDate(),
+                x: useAbsoluteTime
+                  ? moment(r.time).toDate()
+                  : moment(r.time).diff(firstTime, "s"),
                 y: r.pdpVoltage,
               })),
               precision
@@ -71,7 +77,14 @@ export default function DSLogs() {
 
     setChartOptions(cb.buildOptions());
     setChartData(cb.buildData());
-  }, [start, end, JSON.stringify(displayedRecords), precision, filename]);
+  }, [
+    start,
+    end,
+    JSON.stringify(displayedRecords),
+    precision,
+    filename,
+    useAbsoluteTime,
+  ]);
 
   // File input
   const onDrop = useCallback((acceptedFiles) => {
@@ -122,7 +135,6 @@ export default function DSLogs() {
               <span className="file-label">Choose a file…</span>
             </span>
             <span className="file-name">{filename}</span>
-            <span className="file-name">{records.length} records parsed</span>
           </label>
         </div>
 
@@ -146,8 +158,39 @@ export default function DSLogs() {
           inputId={"precision"}
           delay={750}
         />
+
+        <div className="field">
+          <div className="control">
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                onChange={(e) => setUseAbsoluteTime(e.target.checked)}
+              />
+              &nbsp;Use absolute time on X axis
+            </label>
+          </div>
+        </div>
       </div>
       <div>
+        <nav className="level">
+          <div className="level-item has-text-centered">
+            <div>
+              <p className="heading">Records</p>
+              <p className="title">{records.length}</p>
+            </div>
+          </div>
+          <div className="level-item has-text-centered">
+            <div>
+              <p className="heading">Log Date</p>
+              <p className="title">
+                {records.length > 0
+                  ? moment(records[0].time).format("ddd, MMM D YYYY")
+                  : "Unknown"}
+              </p>
+            </div>
+          </div>
+        </nav>
+
         <Line data={chartData} options={chartOptions} />
       </div>
     </>
