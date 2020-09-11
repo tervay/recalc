@@ -1,3 +1,5 @@
+import "chartjs-plugin-zoom";
+
 import { isLocalhost } from "common/tooling/util";
 import styles from "index.scss";
 import { defaults } from "lib/react-chart-js";
@@ -206,6 +208,7 @@ export class ChartBuilder {
     }
 
     const generatedOptions = {
+      plugins: ChartBuilder.getPlugins(),
       elements: {
         line: {
           tension: 0,
@@ -255,6 +258,7 @@ export class ChartBuilder {
 
   static defaultOptions() {
     return {
+      plugins: ChartBuilder.getPlugins(),
       elements: {
         line: {
           tension: 0,
@@ -285,6 +289,32 @@ export class ChartBuilder {
           },
         ],
         yAxes: [],
+      },
+    };
+  }
+
+  static getPlugins() {
+    return {
+      zoom: {
+        // Container for pan options
+        pan: {
+          // Boolean to enable panning
+          enabled: true,
+
+          // Panning directions. Remove the appropriate direction to disable
+          // Eg. 'y' would only allow panning in the y direction
+          mode: "xy",
+        },
+
+        // Container for zoom options
+        zoom: {
+          // Boolean to enable zooming
+          enabled: true,
+
+          // Zooming directions. Remove the appropriate direction to disable
+          // Eg. 'y' would only allow zooming in the y direction
+          mode: "xy",
+        },
       },
     };
   }

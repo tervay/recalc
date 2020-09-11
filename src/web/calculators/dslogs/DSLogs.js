@@ -19,6 +19,8 @@ export default function DSLogs() {
 
   const [errors, setErrors] = useState([]);
   const [filename, setFilename] = useState("example.dslog");
+
+  const chartRef = React.createRef();
   const [chartData, setChartData] = useState(ChartBuilder.defaultData());
   const [chartOptions, setChartOptions] = useState(
     ChartBuilder.defaultOptions()
@@ -127,8 +129,8 @@ export default function DSLogs() {
           delay={750}
         />
 
-        <div className="field">
-          <div className="control">
+        <div className="field is-grouped">
+          <p className="control is-expanded">
             <label className="checkbox">
               <input
                 type="checkbox"
@@ -136,7 +138,17 @@ export default function DSLogs() {
               />
               &nbsp;Use absolute time on X axis
             </label>
-          </div>
+          </p>
+          <p className="control">
+            <button
+              className="button is-info"
+              onClick={() => {
+                chartRef.current.chartInstance.resetZoom();
+              }}
+            >
+              Reset zoom/pan
+            </button>
+          </p>
         </div>
       </div>
       <div>
@@ -162,7 +174,7 @@ export default function DSLogs() {
         <ChartChooser stateHook={[plotted, setPlotted]} />
         <br />
 
-        <Line data={chartData} options={chartOptions} />
+        <Line data={chartData} ref={chartRef} options={chartOptions} />
       </div>
     </>
   );
