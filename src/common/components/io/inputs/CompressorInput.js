@@ -1,4 +1,4 @@
-import { compressorMap } from "common/models/compressors";
+import { compressorMap } from "common/models/Compressor";
 import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 

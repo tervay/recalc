@@ -1,11 +1,26 @@
 import Qty from "js-quantities";
 import keyBy from "lodash/keyBy";
 
+export default class Compressor {
+  constructor(name, data) {
+    this.name = name;
+
+    data = data || compressorMap[name];
+    this.polynomialTerms = data.polynomialTerms;
+    this.cfmFn = data.cfmFn;
+    this.weight = data.weight;
+  }
+
+  static getAllCompressors() {
+    return Object.keys(compressorMap).map((n) => new Compressor(n));
+  }
+}
+
 // https://arachnoid.com/polysolve/
 export const compressorMap = keyBy(
   [
     {
-      name: "VIAIR 90C",
+      name: "VIAIR 90C (13.8v)",
       polynomialTerms: [
         1.028775899000915,
         -5.7527883797306306e-2,
@@ -16,9 +31,26 @@ export const compressorMap = keyBy(
         9.5115238899234617e-11,
         -1.9226989003510868e-13,
       ],
+      weight: Qty(2.4, "lb"),
     },
     {
-      name: "VIAIR 98C",
+      name: "VIAIR 90C (12v)",
+      polynomialTerms: [
+        8.8001641245124484e-1,
+        -9.2561708953846578e-2,
+        9.3363727966984424e-3,
+        -5.3475924547875537e-4,
+        1.7900877917868134e-5,
+        -3.6803453142496926e-7,
+        4.7202652228560132e-9,
+        -3.6819367698723339e-11,
+        1.5971519675914118e-13,
+        -2.9523135523161451e-16,
+      ],
+      weight: Qty(2.4, "lb"),
+    },
+    {
+      name: "VIAIR 98C (13.8v)",
       polynomialTerms: [
         1.5290962141329794,
         -1.0444408183706086e-1,
@@ -29,9 +61,10 @@ export const compressorMap = keyBy(
         3.1153255282454044e-10,
         -7.0519447446252718e-13,
       ],
+      weight: Qty(2.55, "lb"),
     },
     {
-      name: "VIAIR 100C",
+      name: "VIAIR 100C (13.8v)",
       polynomialTerms: [
         1.2699831837167064,
         -1.0510222684149573e-1,
@@ -45,9 +78,10 @@ export const compressorMap = keyBy(
         -4.2759755191085514e-15,
         7.1247088649929401e-18,
       ],
+      weight: Qty(3.55, "lb"),
     },
     {
-      name: "Thomas 215",
+      name: "Thomas 215 (12v)",
       polynomialTerms: [
         9.7201595617973491e-1,
         -1.1502357703902167e-2,
@@ -57,9 +91,10 @@ export const compressorMap = keyBy(
         -2.8965229804550191e-10,
         9.4599243172975252e-13,
       ],
+      weight: Qty(3, "lb"),
     },
     {
-      name: "AndyMark 1.1 Pump",
+      name: "AndyMark 1.1 Pump (12v)",
       polynomialTerms: [
         1.1000553758298031,
         -1.0218124342727576e-1,
@@ -71,6 +106,7 @@ export const compressorMap = keyBy(
         -8.0610818682159146e-12,
         1.6773769109154779e-14,
       ],
+      weight: Qty(3.37, "lb"),
     },
   ].map((c) => ({
     ...c,

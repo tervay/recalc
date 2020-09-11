@@ -13,7 +13,9 @@ import {
   IMAGE as pneumaticsImage,
   URL as pneumaticsURL,
 } from "web/calculators/pneumatics/config";
+import compressors from "web/compressors";
 import Tile from "web/landing/Tile";
+import motors from "web/motors";
 
 export default function Landing() {
   setTitle(null);
@@ -70,6 +72,24 @@ export default function Landing() {
               <div className="card">
                 <div className="card-content">
                   <p className="title">About</p>
+                </div>
+              </div>
+            </Link>
+          </div>{" "}
+          <div className="column is-narrow">
+            <Link to={motors.url}>
+              <div className="card">
+                <div className="card-content">
+                  <p className="title">{motors.title}</p>
+                </div>
+              </div>
+            </Link>
+          </div>{" "}
+          <div className="column is-narrow">
+            <Link to={compressors.url}>
+              <div className="card">
+                <div className="card-content">
+                  <p className="title">{compressors.title}</p>
                 </div>
               </div>
             </Link>

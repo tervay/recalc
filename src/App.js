@@ -13,7 +13,9 @@ import { URL as flywheelURL } from "web/calculators/flywheel/config";
 import linear from "web/calculators/linear_mech";
 import { URL as pneumaticsURL } from "web/calculators/pneumatics/config";
 import Spot from "web/calculators/spot/Spot";
+import compressors from "web/compressors";
 import Landing from "web/landing";
+import motors from "web/motors";
 import { URL as profileURL } from "web/profile";
 
 const Flywheel = lazy(() => import("web/calculators/flywheel/Flywheel"));
@@ -31,17 +33,20 @@ export default function App() {
             <Suspense fallback={<div>Loading...</div>}>
               <Switch>
                 <Route exact path="/" component={Landing} />
-
                 <Route path={belts.url} component={belts.component} />
                 <Route path={flywheelURL} component={Flywheel} />
                 <Route path={pneumaticsURL} component={Pneumatics} />
                 <Route path={linear.url} component={linear.component} />
                 <Route path={chains.url} component={chains.component} />
 
-                <Route path={profileURL} component={Profile} />
-
                 <Route path={dslogs.url} component={dslogs.component} />
+                <Route path={motors.url} component={motors.component} />
+                <Route
+                  path={compressors.url}
+                  component={compressors.component}
+                />
 
+                <Route path={profileURL} component={Profile} />
                 <Route path={"/about"} component={About} />
 
                 <Route path={"/spot"} component={Spot} />

@@ -1,4 +1,4 @@
-import { compressorMap } from "common/models/compressors";
+import { compressorMap } from "common/models/Compressor";
 import Motor from "common/models/Motor";
 import Ratio from "common/models/Ratio";
 import Qty from "js-quantities";

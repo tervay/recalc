@@ -3,7 +3,7 @@ import CompressorInput from "common/components/io/inputs/CompressorInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import TabularInput from "common/components/io/inputs/TabularInput";
 import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
-import { compressorMap } from "common/models/compressors";
+import { compressorMap } from "common/models/Compressor";
 import { ChartBuilder, YAxisBuilder } from "common/tooling/charts";
 import {
   CompressorParam,
@@ -70,7 +70,7 @@ export default function Pneumatics() {
         period: Qty(5, "s"),
       },
       volume: Qty(1200, "ml"),
-      compressor: compressorMap["VIAIR 90C"],
+      compressor: compressorMap["VIAIR 90C (12v)"],
     },
     pneumaticsVersionManager
   );
