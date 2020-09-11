@@ -1,4 +1,5 @@
 import "index.scss";
+import "chartjs-plugin-zoom";
 
 import Nav from "common/components/nav/Nav";
 import store from "common/services/store";

@@ -1,5 +1,3 @@
-import "chartjs-plugin-zoom";
-
 import { isLocalhost } from "common/tooling/util";
 import styles from "index.scss";
 import { defaults } from "lib/react-chart-js";
@@ -106,6 +104,26 @@ export class YAxisBuilder {
     return this;
   }
 
+  setBeginAtZero(beginAtZero) {
+    this._beginAtZero = beginAtZero;
+    return this;
+  }
+
+  setMinTicks(minTicks) {
+    this._minTicks = minTicks;
+    return this;
+  }
+
+  setMaxTicks(maxTicks) {
+    this._maxTicks = maxTicks;
+    return this;
+  }
+
+  setDontBuildOptions(dontBuildOptions) {
+    this._dontBuildOptions = dontBuildOptions;
+    return this;
+  }
+
   buildData() {
     return {
       data: this._data,
@@ -118,11 +136,25 @@ export class YAxisBuilder {
   }
 
   buildOptions() {
+    if (this._dontBuildOptions) {
+      return {};
+    }
+
+    let ticks;
+    if (this._minTicks !== undefined && this._maxTicks !== undefined) {
+      ticks = {
+        min: this._minTicks,
+        max: this._maxTicks,
+      };
+    } else {
+      ticks = {
+        beginAtZero: this._beginAtZero,
+      };
+    }
+
     return {
       display: this._displayAxis === undefined ? true : this._displayAxis,
-      ticks: {
-        beginAtZero: true,
-      },
+      ticks: ticks,
       scaleLabel: {
         display: true,
         labelString: this._title,
@@ -243,7 +275,9 @@ export class ChartBuilder {
             },
           },
         ],
-        yAxes: this._yBuilders.map((yb) => yb.buildOptions()),
+        yAxes: this._yBuilders
+          .map((yb) => yb.buildOptions())
+          .filter((o) => Object.keys(o).length > 0),
       },
     };
 

@@ -107,6 +107,7 @@ export default function Pneumatics() {
           .setTitleAndId("Pressure (PSI)")
           .setPosition("left")
           .setData(timeline_)
+          .setBeginAtZero(true)
           .setColor(YAxisBuilder.chartColor(0))
       );
 
