@@ -68,6 +68,7 @@ export function ChartChooser(props) {
         options={options}
         onChange={setSelected}
         defaultValue={selected}
+        placeholder={"Select data..."}
       />
     </div>
   );
