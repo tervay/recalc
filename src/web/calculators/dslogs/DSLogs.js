@@ -1,10 +1,13 @@
 import { LabeledPatientNumberInput } from "common/components/io/inputs/PatientNumberInput";
-import { ChartBuilder, YAxisBuilder } from "common/tooling/charts";
+import { ChartBuilder } from "common/tooling/charts";
 import { Line } from "lib/react-chart-js";
 import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { decimate } from "web/calculators/dslogs/dataUtils";
+import {
+  ChartChooser,
+  getChartBuilder,
+} from "web/calculators/dslogs/chartbuilder";
 import { DSLogParser } from "web/calculators/dslogs/parser";
 
 export default function DSLogs() {
@@ -21,6 +24,7 @@ export default function DSLogs() {
     ChartBuilder.defaultOptions()
   );
   const [useAbsoluteTime, setUseAbsoluteTime] = useState(false);
+  const [plotted, setPlotted] = useState(null);
 
   useEffect(() => {
     setDisplayedRecords(records.slice(start, end));
@@ -28,55 +32,18 @@ export default function DSLogs() {
       return;
     }
 
-    const firstTime = moment(records[0].time);
-    const cb = new ChartBuilder()
-      .setPerformanceModeOn(true)
-      .setTitle("Title")
-      .setXTitle(useAbsoluteTime ? "Time" : "Seconds since log start")
-      .setXAxisType(useAbsoluteTime ? "time" : "linear")
-      .setMaintainAspectRatio(true)
-      .setResponsive(true)
-      .addYBuilder(
-        new YAxisBuilder()
-          .setTitleAndId("Voltage")
-          .setDisplayAxis(true)
-          .setDraw(true)
-          .setColor(YAxisBuilder.chartColor(0))
-          .setData(
-            decimate(
-              displayedRecords.map((r) => ({
-                x: useAbsoluteTime
-                  ? moment(r.time).toDate()
-                  : moment(r.time).diff(firstTime, "s"),
-                y: r.voltage,
-              })),
-              precision
-            )
-          )
-          .setPosition("left")
-      )
-      .addYBuilder(
-        new YAxisBuilder()
-          .setTitleAndId("PDP Voltage")
-          .setColor(YAxisBuilder.chartColor(1))
-          .setData(
-            decimate(
-              displayedRecords.map((r) => ({
-                x: useAbsoluteTime
-                  ? moment(r.time).toDate()
-                  : moment(r.time).diff(firstTime, "s"),
-                y: r.pdpVoltage,
-              })),
-              precision
-            )
-          )
-          .setDisplayAxis(true)
-          .setDraw(false)
-          .setPosition("right")
-      );
+    const cb = getChartBuilder({
+      records,
+      displayedRecords,
+      useAbsoluteTime,
+      precision,
+      plotted,
+    });
 
-    setChartOptions(cb.buildOptions());
-    setChartData(cb.buildData());
+    if (plotted !== null && plotted.length > 0) {
+      setChartOptions(cb.buildOptions());
+      setChartData(cb.buildData());
+    }
   }, [
     start,
     end,
@@ -84,6 +51,7 @@ export default function DSLogs() {
     precision,
     filename,
     useAbsoluteTime,
+    JSON.stringify(plotted),
   ]);
 
   // File input
@@ -190,6 +158,9 @@ export default function DSLogs() {
             </div>
           </div>
         </nav>
+
+        <ChartChooser stateHook={[plotted, setPlotted]} />
+        <br />
 
         <Line data={chartData} options={chartOptions} />
       </div>
