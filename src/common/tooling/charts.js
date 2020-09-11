@@ -180,6 +180,11 @@ export class ChartBuilder {
     return this;
   }
 
+  setXStartAtZero(xStartAtZero) {
+    this._xStartAtZero = xStartAtZero;
+    return this;
+  }
+
   buildData() {
     return {
       datasets: this._yBuilders.map((yb) => yb.buildData()),
@@ -228,7 +233,7 @@ export class ChartBuilder {
               labelString: this._xTitle,
             },
             ticks: {
-              beginAtZero: true,
+              beginAtZero: this._xStartAtZero,
             },
             time: {
               unit: "second",

@@ -9,13 +9,8 @@ const options = [
   {
     value: "voltage",
     label: "Voltage",
-    getYBuilder: ({
-      records,
-      displayedRecords,
-      useAbsoluteTime,
-      precision,
-    }) => {
-      return new YAxisBuilder()
+    getYBuilder: ({ records, displayedRecords, useAbsoluteTime, precision }) =>
+      new YAxisBuilder()
         .setTitleAndId("Voltage")
         .setDisplayAxis(true)
         .setDraw(true)
@@ -25,14 +20,13 @@ const options = [
             displayedRecords.map((r) => ({
               x: useAbsoluteTime
                 ? moment(r.time).toDate()
-                : moment(r.time).diff(moment(records[0].time), "s"),
+                : moment(r.time).diff(moment(records[0].time), "ms") / 1000.0,
               y: r.voltage,
             })),
             precision
           )
         )
-        .setPosition("left");
-    },
+        .setPosition("left"),
   },
   {
     value: "pdpVoltage",
@@ -46,7 +40,7 @@ const options = [
             displayedRecords.map((r) => ({
               x: useAbsoluteTime
                 ? moment(r.time).toDate()
-                : moment(r.time).diff(moment(records[0].time), "s"),
+                : moment(r.time).diff(moment(records[0].time), "ms") / 1000.0,
               y: r.pdpVoltage,
             })),
             precision
@@ -91,7 +85,8 @@ export function getChartBuilder({
     .setXTitle(useAbsoluteTime ? "Time" : "Seconds since log start")
     .setXAxisType(useAbsoluteTime ? "time" : "linear")
     .setMaintainAspectRatio(true)
-    .setResponsive(true);
+    .setResponsive(true)
+    .setXStartAtZero(!!useAbsoluteTime);
 
   if (plotted !== null) {
     plotted.forEach(({ getYBuilder }) => {
