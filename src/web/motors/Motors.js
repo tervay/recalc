@@ -68,6 +68,74 @@ export default function Motors() {
   return (
     <>
       <Table columns={columns} data={data} />
+      <section className="section">
+        <div className="container">
+          <div className="title">Explaining these numbers</div>
+          <p>
+            VEX has a great introduction to DC motors specs{" "}
+            <a href={"https://motors.vex.com/introduction"}>here</a>.
+          </p>
+          <br />
+          <br />
+          <div className="title">
+            <a href={"https://en.wikipedia.org/wiki/Stall_torque"}>
+              Stall torque
+            </a>
+          </div>
+          <p>
+            How much torque (rotational force) the motor outputs when the shaft
+            is locked to zero RPM (which is known as stall).
+          </p>
+          <br />
+          <br />
+          <div className="title">Stall current</div>
+          <p>
+            How much current the motor draws when at stall. Note that there are
+            further limitations on current draw implemented in the FRC control
+            system, such as PDP breakers or software-implemented current limits.
+          </p>
+          <br />
+          <br />
+          <div className="title">Free Current</div>
+          <p>
+            How much current the motor draws when spinning freely at maximum RPM
+            under no external load.
+          </p>
+          <br />
+          <br />
+          <div className="title">
+            <a href={"https://en.wikipedia.org/wiki/Work_(physics)"}>Work</a>
+          </div>
+          <p>
+            How much energy is required to exert a force across a distance. This
+            is measured in joules.
+          </p>
+          <br />
+          <br />
+          <div className="title">
+            <a href={"https://en.wikipedia.org/wiki/Power_(physics)"}>Power</a>
+          </div>
+          <p>
+            How quickly an amount of work can be applied by the motor. Power is
+            equal to work divided by time. The maximum power of a DC motor is
+            generally found at half of the motor&apos;s maximum RPM.
+          </p>
+          <br />
+          <br />
+          <div className="title">
+            <a href={"https://en.wikipedia.org/wiki/Power_(physics)"}>
+              Resistance
+            </a>
+          </div>
+          <p>
+            Generally a metric not used in robot design, but is useful to know
+            when calculating other properties of the motor. Generally, a lower
+            internal resistance will result in a motor that draws less current
+            for a given amount of power compared to one with a higher internal
+            resistance.
+          </p>
+        </div>
+      </section>
     </>
   );
 }

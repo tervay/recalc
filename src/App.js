@@ -14,6 +14,7 @@ import linear from "web/calculators/linear_mech";
 import { URL as pneumaticsURL } from "web/calculators/pneumatics/config";
 import Spot from "web/calculators/spot/Spot";
 import compressors from "web/compressors";
+import filaments from "web/filaments";
 import Landing from "web/landing";
 import motors from "web/motors";
 import { URL as profileURL } from "web/profile";
@@ -45,6 +46,7 @@ export default function App() {
                   path={compressors.url}
                   component={compressors.component}
                 />
+                <Route path={filaments.url} component={filaments.component} />
 
                 <Route path={profileURL} component={Profile} />
                 <Route path={"/about"} component={About} />

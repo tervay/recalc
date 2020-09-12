@@ -14,6 +14,7 @@ import {
   URL as pneumaticsURL,
 } from "web/calculators/pneumatics/config";
 import compressors from "web/compressors";
+import filaments from "web/filaments";
 import Tile from "web/landing/Tile";
 import motors from "web/motors";
 
@@ -67,16 +68,7 @@ export default function Landing() {
         </div>
 
         <div className="columns">
-          <div className="column is-narrow">
-            <Link to="/about">
-              <div className="card">
-                <div className="card-content">
-                  <p className="title">About</p>
-                </div>
-              </div>
-            </Link>
-          </div>{" "}
-          <div className="column is-narrow">
+          <div className="column is-one-third">
             <Link to={motors.url}>
               <div className="card">
                 <div className="card-content">
@@ -84,8 +76,8 @@ export default function Landing() {
                 </div>
               </div>
             </Link>
-          </div>{" "}
-          <div className="column is-narrow">
+          </div>
+          <div className="column is-one-third">
             <Link to={compressors.url}>
               <div className="card">
                 <div className="card-content">
@@ -94,6 +86,27 @@ export default function Landing() {
               </div>
             </Link>
           </div>
+          <div className="column is-one-third">
+            <Link to={filaments.url}>
+              <div className="card">
+                <div className="card-content">
+                  <p className="title">{filaments.title}</p>
+                </div>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div className={"columns"}>
+        <div className="column is-narrow">
+          <Link to="/about">
+            <div className="card">
+              <div className="card-content">
+                <p className="title">About</p>
+              </div>
+            </div>
+          </Link>
         </div>
       </div>
     </>
