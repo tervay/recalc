@@ -18,7 +18,7 @@ export default function Table({ columns, data }) {
   );
 
   return (
-    <>
+    <div className={"table-container"}>
       <table
         {...getTableProps()}
         className={"table has-text-centered is-fullwidth is-hoverable"}
@@ -64,7 +64,7 @@ export default function Table({ columns, data }) {
           })}
         </tbody>
       </table>
-    </>
+    </div>
   );
 }
 
