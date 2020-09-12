@@ -37,7 +37,7 @@ export default function Nav() {
           </Link>
         )}
 
-        <SignInOutButton />
+        {/*<SignInOutButton />*/}
       </div>
     </nav>
   );
