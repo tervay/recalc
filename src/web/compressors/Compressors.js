@@ -12,7 +12,7 @@ export default function Compressors() {
   const data = React.useMemo(
     () =>
       Compressor.getAllCompressors().map((c) => ({
-        name: c.name,
+        link: <a href={c.url}>{c.name}</a>,
         weight: c.weight.to("lb").scalar.toFixed(2),
         cfmZero: c.cfmFn(Qty(0, "psi")).to("ft3/min").scalar.toFixed(2),
         cfmFourty: c.cfmFn(Qty(40, "psi")).to("ft3/min").scalar.toFixed(2),
@@ -25,26 +25,26 @@ export default function Compressors() {
     () => [
       {
         Header: "Name",
-        accessor: "name",
+        accessor: "link",
       },
       {
         Header: "Weight (lb)",
         accessor: "weight",
       },
       {
-        Header: "CFM at 0psi (ft^3/min)",
+        Header: "CFM at 0psi (ft³/min)",
         accessor: "cfmZero",
       },
       {
-        Header: "CFM at 40psi (ft^3/min)",
+        Header: "CFM at 40psi (ft³/min)",
         accessor: "cfmFourty",
       },
       {
-        Header: "CFM at 80psi (ft^3/min)",
+        Header: "CFM at 80psi (ft³/min)",
         accessor: "cfmEighty",
       },
       {
-        Header: "CFM at 110psi (ft^3/min)",
+        Header: "CFM at 110psi (ft³/min)",
         accessor: "cfmOneTen",
       },
     ],

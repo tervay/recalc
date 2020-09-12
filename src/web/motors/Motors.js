@@ -11,7 +11,7 @@ export default function Motors() {
   const data = React.useMemo(
     () =>
       Motor.getAllMotors().map((m) => ({
-        name: m.name,
+        link: <a href={m.url}>{m.name}</a>,
         freeSpeed: m.freeSpeed.to("rpm").scalar,
         freeCurrent: m.freeCurrent.to("A").scalar.toFixed(1),
         stallTorque: m.stallTorque.to("N m").scalar.toFixed(2),
@@ -27,7 +27,7 @@ export default function Motors() {
     () => [
       {
         Header: "Name",
-        accessor: "name",
+        accessor: "link",
       },
       {
         Header: "Free Speed (RPM)",
@@ -50,7 +50,7 @@ export default function Motors() {
         accessor: "power",
       },
       {
-        Header: "Resistance (ohm)",
+        Header: "Resistance (Ω)",
         accessor: "resistance",
       },
       {

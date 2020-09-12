@@ -8,6 +8,7 @@ export default class Motor {
     this.name = name;
 
     data = data || motorMap[name];
+    this.url = data.url;
     this.freeSpeed = data.freeSpeed;
     this.stallTorque = data.stallTorque;
     this.stallCurrent = data.stallCurrent;
@@ -67,6 +68,7 @@ const motorMap = keyBy(
       stallCurrent: Qty(257, "A"),
       freeCurrent: Qty(1.5, "A"),
       weight: Qty(1.1, "lb"),
+      url: "https://www.vexrobotics.com/217-6515.html",
     },
     {
       name: "NEO",
@@ -75,6 +77,7 @@ const motorMap = keyBy(
       stallCurrent: Qty(105, "A"),
       freeCurrent: Qty(1.8, "A"),
       weight: Qty(0.94, "lb"),
+      url: "https://www.revrobotics.com/rev-21-1650/",
     },
     {
       name: "775pro",
@@ -83,6 +86,7 @@ const motorMap = keyBy(
       stallCurrent: Qty(134, "A"),
       freeCurrent: Qty(0.7, "A"),
       weight: Qty(0.8, "lb"),
+      url: "https://www.vexrobotics.com/775pro.html",
     },
     {
       name: "NEO 550",
@@ -91,6 +95,7 @@ const motorMap = keyBy(
       stallCurrent: Qty(100, "A"),
       freeCurrent: Qty(1.4, "A"),
       weight: Qty(0.31, "lb"),
+      url: "https://www.revrobotics.com/rev-21-1651/",
     },
     {
       name: "CIM",
@@ -99,6 +104,7 @@ const motorMap = keyBy(
       stallCurrent: Qty(131, "A"),
       freeCurrent: Qty(2.7, "A"),
       weight: Qty(2.82, "lb"),
+      url: "https://www.vexrobotics.com/217-2000.html",
     },
     {
       name: "MiniCIM",
@@ -107,6 +113,7 @@ const motorMap = keyBy(
       stallCurrent: Qty(89, "A"),
       freeCurrent: Qty(3, "A"),
       weight: Qty(2.16, "lb"),
+      url: "https://www.vexrobotics.com/217-3371.html",
     },
     {
       name: "BAG",
@@ -115,6 +122,7 @@ const motorMap = keyBy(
       stallCurrent: Qty(53, "A"),
       freeCurrent: Qty(1.8, "A"),
       weight: Qty(0.71, "lb"),
+      url: "https://www.vexrobotics.com/217-3351.html",
     },
     {
       name: "AM-9015",
@@ -123,6 +131,7 @@ const motorMap = keyBy(
       stallCurrent: Qty(63.8, "A"),
       freeCurrent: Qty(1.2, "A"),
       weight: Qty(0.5, "lb"),
+      url: "https://www.andymark.com/products/9015-motor",
     },
     {
       name: "NeveRest",
@@ -131,6 +140,7 @@ const motorMap = keyBy(
       stallCurrent: Qty(11.5, "A"),
       freeCurrent: Qty(0.4, "A"),
       weight: Qty(0.587, "lb"),
+      url: "https://www.andymark.com/products/neverest-series-motor-only",
     },
     {
       name: "Snowblower",
@@ -139,6 +149,7 @@ const motorMap = keyBy(
       stallCurrent: Qty(24, "A"),
       freeCurrent: Qty(5, "A"),
       weight: Qty(1.1, "lb"),
+      url: "https://www.andymark.com/products/snow-blower-motor-with-hex-shaft",
     },
     {
       name: "775 RedLine",
@@ -147,6 +158,7 @@ const motorMap = keyBy(
       stallCurrent: Qty(130, "A"),
       freeCurrent: Qty(3.8, "A"),
       weight: Qty(0.806, "lb"),
+      url: "https://www.andymark.com/products/andymark-775-redline-motor-v2",
     },
   ],
   "name"

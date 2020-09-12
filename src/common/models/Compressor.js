@@ -6,6 +6,7 @@ export default class Compressor {
     this.name = name;
 
     data = data || compressorMap[name];
+    this.url = data.url;
     this.polynomialTerms = data.polynomialTerms;
     this.cfmFn = data.cfmFn;
     this.weight = data.weight;
@@ -32,6 +33,7 @@ export const compressorMap = keyBy(
         -1.9226989003510868e-13,
       ],
       weight: Qty(2.4, "lb"),
+      url: "https://www.viaircorp.com/c-models/90c",
     },
     {
       name: "VIAIR 90C (12v)",
@@ -48,37 +50,39 @@ export const compressorMap = keyBy(
         -2.9523135523161451e-16,
       ],
       weight: Qty(2.4, "lb"),
+      url: "https://www.andymark.com/products/air-compressor",
     },
     {
-      name: "VIAIR 98C (13.8v)",
+      name: "VIAIR 250C-IG (13.8v)",
       polynomialTerms: [
-        1.5290962141329794,
-        -1.0444408183706086e-1,
-        7.4168022321358714e-3,
-        -2.6774782437871171e-4,
-        5.2041066623268536e-6,
-        -5.5844520145620615e-8,
-        3.1153255282454044e-10,
-        -7.0519447446252718e-13,
+        8.7851258587447223e-1,
+        -7.7771400516363351e-3,
+        2.156877989213954e-4,
+        -6.5489638941219998e-6,
+        1.0439398798015048e-7,
+        -8.8858794462022626e-10,
+        3.8667910589819109e-12,
+        -6.7837971389097611e-15,
       ],
-      weight: Qty(2.55, "lb"),
+      weight: Qty(6.75, "lb"),
+      url: "https://www.viaircorp.com/ig-series/250c-ig",
     },
     {
-      name: "VIAIR 100C (13.8v)",
+      name: "VIAIR 330C-IG (13.8v)",
       polynomialTerms: [
-        1.2699831837167064,
-        -1.0510222684149573e-1,
-        1.2718200634610849e-2,
-        -8.6558295885784083e-4,
-        3.5192753602375948e-5,
-        -9.0545856386928364e-7,
-        1.5137949647972197e-8,
-        -1.6407249582723472e-10,
-        1.1116305860953271e-12,
-        -4.2759755191085514e-15,
-        7.1247088649929401e-18,
+        1.0603349164862783,
+        -8.5804324746025082e-4,
+        -9.2961664827623746e-4,
+        5.1060182930086459e-5,
+        -1.4878766864032407e-6,
+        2.5796023536549022e-8,
+        -2.6946319395156391e-10,
+        1.6542383679978623e-12,
+        -5.483826112406666e-15,
+        7.565053407050096e-18,
       ],
-      weight: Qty(3.55, "lb"),
+      weight: Qty(8.25, "lb"),
+      url: "https://www.viaircorp.com/ig-series/330c-ig",
     },
     {
       name: "Thomas 215 (12v)",
@@ -92,6 +96,23 @@ export const compressorMap = keyBy(
         9.4599243172975252e-13,
       ],
       weight: Qty(3, "lb"),
+      url:
+        "https://www.gardnerdenver.com/en-us/thomas/wob-l-piston-pumps-compressors/215-series",
+    },
+    {
+      name: "Thomas 405 (12v)",
+      polynomialTerms: [
+        7.9156519950759152e-1,
+        -1.2850558757606143e-2,
+        1.3409368118814985e-3,
+        -6.6177541835089058e-5,
+        1.318724862014595e-6,
+        -1.1603506789785263e-8,
+        3.7663398701015387e-11,
+      ],
+      weight: Qty(4.3, "lb"),
+      url:
+        "https://www.gardnerdenver.com/en-us/thomas/wob-l-piston-pumps-compressors/405-series",
     },
     {
       name: "AndyMark 1.1 Pump (12v)",
@@ -107,6 +128,7 @@ export const compressorMap = keyBy(
         1.6773769109154779e-14,
       ],
       weight: Qty(3.37, "lb"),
+      url: "https://www.andymark.com/products/1-1-pump-12v",
     },
   ].map((c) => ({
     ...c,
