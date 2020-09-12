@@ -18,6 +18,11 @@ export default function Compressors() {
         cfmFourty: c.cfmFn(Qty(40, "psi")).to("ft3/min").scalar.toFixed(2),
         cfmEighty: c.cfmFn(Qty(80, "psi")).to("ft3/min").scalar.toFixed(2),
         cfmOneTen: c.cfmFn(Qty(110, "psi")).to("ft3/min").scalar.toFixed(2),
+        cfmPerLb: c
+          .cfmFn(Qty(110, "psi"))
+          .div(c.weight)
+          .to("ft3/min*lb")
+          .scalar.toFixed(3),
       })),
     []
   );
@@ -46,6 +51,10 @@ export default function Compressors() {
       {
         Header: "CFM at 110psi (ft³/min)",
         accessor: "cfmOneTen",
+      },
+      {
+        Header: "CFM/lb (110 psi)",
+        accessor: "cfmPerLb",
       },
     ],
     []
