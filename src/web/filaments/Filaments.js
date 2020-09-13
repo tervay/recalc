@@ -98,11 +98,7 @@ export default function Compressors() {
             </a>
           </div>
           <p>
-            How much pressure a material can take being pulled apart before
-            permanently plastically deforming. In these metrics, they are pulled
-            alongside the printed filament lines. A higher tensile strength
-            means the material can stretch more than another with a lower
-            tensile strength.
+            The maximum stress that a material can withstand before it breaks.
           </p>
           <br />
           <br />
@@ -125,6 +121,20 @@ export default function Compressors() {
           <p>
             How much energy is absorbed by the part when struck by a heavy
             pendulum.
+          </p>
+          <br />
+          <br />
+          <div className="title">
+            <a href={"https://en.wikipedia.org/wiki/Deformation_(engineering)"}>
+              Elastic vs Plastic Deformation
+            </a>
+          </div>
+          <p>
+            Imagine you are pulling on a rubber band. For the most part, the
+            rubber band will return to its original shape after you release it.
+            This is known as elastic deformation. However, if you pull on it too
+            hard, it will break - and is then unable to return to its original
+            shape. This is known as plastic deformation.
           </p>
         </div>
       </section>
