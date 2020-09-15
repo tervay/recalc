@@ -1,6 +1,6 @@
 import Table from "common/components/Table";
 import Motor from "common/models/Motor";
-import { qtyMax, qtyMin } from "common/tooling/math";
+import { qtyMax } from "common/tooling/math";
 import { setTitle } from "common/tooling/routing";
 import Qty from "js-quantities";
 import React from "react";

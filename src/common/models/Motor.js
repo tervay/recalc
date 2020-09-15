@@ -1,7 +1,6 @@
 import { fit } from "common/tooling/math";
 import Qty from "js-quantities";
 import keyBy from "lodash/keyBy";
-import regression from "regression";
 import { decodeObject, encodeObject } from "use-query-params";
 
 export default class Motor {
