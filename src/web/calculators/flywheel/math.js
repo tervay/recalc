@@ -43,6 +43,7 @@ export function calculateWindupTime(
   const t2 = kT.mul(kE);
   const t3 = t1.div(t2);
   const t4 = Qty(1).sub(w.div(motorFreeSpeed.div(ratio.asNumber())));
+
   if (t4.scalar <= 0) {
     return Qty(0, "s");
   } else {
@@ -74,8 +75,11 @@ export function generateChartData(
   targetSpeed
 ) {
   const start = 0.25 * currentRatio.asNumber();
-  const end = 4.0 * currentRatio.asNumber();
-  const n = 100;
+  const end = Math.max(
+    4.0 * currentRatio.asNumber(),
+    currentRatio.magnitude * 2
+  );
+  const n = 200;
   const step = (end - start) / n;
 
   const getTimeForRatio = (ratio) =>
@@ -93,7 +97,7 @@ export function generateChartData(
 
   let data = [];
   for (let i = start; i < end; i += step) {
-    const t = getTimeForRatio(new Ratio(i, currentRatio.ratioType));
+    const t = getTimeForRatio(new Ratio(i, Ratio.REDUCTION));
     if (t.scalar !== 0) {
       data.push({
         x: i,

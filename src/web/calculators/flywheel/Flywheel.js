@@ -22,7 +22,8 @@ import {
 import { setTitle } from "common/tooling/routing";
 import Qty from "js-quantities";
 import { Line } from "lib/react-chart-js";
-import _ from "lodash";
+import minBy from "lodash/minBy";
+import reduce from "lodash/reduce";
 import React, { useEffect, useState } from "react";
 import {
   calculateWindupTime,
@@ -112,8 +113,7 @@ export default function Flywheel() {
         .to(ratio.asNumber()),
     ];
 
-    const optimalRatioTime = _.minBy(chartData, (o) => o.y);
-
+    const optimalRatioTime = minBy(chartData, (o) => o.y);
     const optimalRatioMarkers =
       optimalRatioTime !== undefined
         ? [
@@ -130,7 +130,7 @@ export default function Flywheel() {
           ]
         : [];
 
-    const reduce = (m) => _.reduce(m, (sum, n) => sum.concat(n.build()), []);
+    const reducer = (m) => reduce(m, (sum, n) => sum.concat(n.build()), []);
 
     const cb = new ChartBuilder()
       .setXAxisType("linear")
@@ -144,7 +144,7 @@ export default function Flywheel() {
           .setDraw(false)
           .setId("Windup Time")
           .setColor(YAxisBuilder.chartColor(1))
-          .setData(reduce(currentRatioMarkers))
+          .setData(reducer(currentRatioMarkers))
       )
       .addYBuilder(
         new YAxisBuilder()
@@ -153,7 +153,7 @@ export default function Flywheel() {
           .setDraw(false)
           .setColor(YAxisBuilder.chartColor(2))
           .setId("Windup Time")
-          .setData(reduce(optimalRatioMarkers))
+          .setData(reducer(optimalRatioMarkers))
       )
       .addYBuilder(
         new YAxisBuilder()
@@ -166,7 +166,9 @@ export default function Flywheel() {
 
     setChartOptions(cb.buildOptions());
     setChartData(cb.buildData());
-    setOptimalRatio(optimalRatioTime.x.toFixed(3));
+    if (optimalRatioTime !== undefined) {
+      setOptimalRatio(optimalRatioTime.x.toFixed(3));
+    }
   }, [motor, ratio, radius, targetSpeed, weight]);
 
   return (
