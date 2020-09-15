@@ -1,5 +1,7 @@
+import { fit } from "common/tooling/math";
 import Qty from "js-quantities";
 import keyBy from "lodash/keyBy";
+import regression from "regression";
 import { decodeObject, encodeObject } from "use-query-params";
 
 export default class Motor {
@@ -14,14 +16,39 @@ export default class Motor {
     this.stallCurrent = data.stallCurrent;
     this.freeCurrent = data.freeCurrent;
     this.weight = data.weight;
-    this.power = this.freeSpeed
-      .div(2)
-      .mul((2 * Math.PI) / 60)
-      .mul(this.stallTorque)
-      .div(2)
-      .mul(Qty(1, "1/rpm"))
-      .mul(Qty(1, "1/s"));
+
+    this.kV = this.freeSpeed.div(Qty(12, "V"));
+    this.kT = this.stallTorque.div(this.stallCurrent.sub(this.freeCurrent));
+
+    this.maxPower = this.getPower(
+      this.stallCurrent.div(2),
+      this.freeSpeed.div(2)
+    );
     this.resistance = Qty(12, "V").div(this.stallCurrent);
+  }
+
+  getRPM(current) {
+    if (current.gt(this.stallCurrent)) {
+      return Qty(-1, "rpm");
+    }
+
+    return Qty(
+      fit(
+        [this.stallCurrent.to("A").scalar, 0],
+        [this.freeCurrent.to("A").scalar, this.freeSpeed.to("rpm").scalar]
+      )(current.to("A").scalar),
+      "rpm"
+    );
+  }
+
+  getPower(current) {
+    const rpm = this.getRPM(current);
+    if (rpm.to("rpm").scalar === -1) {
+      return Qty(-1, "W");
+    }
+
+    const torque = this.kT.mul(current);
+    return rpm.mul(torque).mul(Qty(1, "1/rad")).to("W");
   }
 
   static get choices() {
