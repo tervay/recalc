@@ -9,7 +9,7 @@ import { Provider } from "redux-zero/react";
 import belts from "web/calculators/belts";
 import chains from "web/calculators/chains";
 import dslogs from "web/calculators/dslogs";
-import { URL as flywheelURL } from "web/calculators/flywheel/config";
+import flywheel from "web/calculators/flywheel";
 import linear from "web/calculators/linear_mech";
 import { URL as pneumaticsURL } from "web/calculators/pneumatics/config";
 import Spot from "web/calculators/spot/Spot";
@@ -19,7 +19,6 @@ import Landing from "web/landing";
 import motors from "web/motors";
 import { URL as profileURL } from "web/profile";
 
-const Flywheel = lazy(() => import("web/calculators/flywheel/Flywheel"));
 const Pneumatics = lazy(() => import("web/calculators/pneumatics/Pneumatics"));
 const About = lazy(() => import("web/about/About"));
 const Profile = lazy(() => import("web/profile/Profile"));
@@ -35,7 +34,7 @@ export default function App() {
               <Switch>
                 <Route exact path="/" component={Landing} />
                 <Route path={belts.url} component={belts.component} />
-                <Route path={flywheelURL} component={Flywheel} />
+                <Route path={flywheel.url} component={flywheel.component} />
                 <Route path={pneumaticsURL} component={Pneumatics} />
                 <Route path={linear.url} component={linear.component} />
                 <Route path={chains.url} component={chains.component} />

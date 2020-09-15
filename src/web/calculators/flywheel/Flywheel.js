@@ -29,11 +29,12 @@ import {
   generateChartData,
 } from "web/calculators/flywheel/math";
 
-import { TITLE as title, VERSION as version } from "./config";
+import { LabeledNumberOutput } from "../../../common/components/io/outputs/NumberOutput";
+import flywheel from "./index";
 import { flywheelVersionManager } from "./versions";
 
 export default function Flywheel() {
-  setTitle(title);
+  setTitle(flywheel.title);
 
   // Parse URL params
   const {
@@ -51,13 +52,7 @@ export default function Flywheel() {
       targetSpeed: QtyParam,
       weight: QtyParam,
     },
-    {
-      motor: new Motor(1, "Falcon 500"),
-      ratio: new Ratio(1, Ratio.REDUCTION),
-      radius: Qty(2, "in"),
-      targetSpeed: Qty(2000, "rpm"),
-      weight: Qty(5, "lb"),
-    },
+    flywheel.initialState,
     flywheelVersionManager
   );
 
@@ -70,6 +65,7 @@ export default function Flywheel() {
 
   // Outputs
   const [windupTime, setWindupTime] = useState(Qty(0, "s"));
+  const [optimalRatio, setOptimalRatio] = useState(new Ratio(1));
 
   const [chartData, setChartData] = useState(ChartBuilder.defaultData());
   const [chartOptions, setChartOptions] = useState(
@@ -170,13 +166,14 @@ export default function Flywheel() {
 
     setChartOptions(cb.buildOptions());
     setChartData(cb.buildData());
+    setOptimalRatio(optimalRatioTime.x.toFixed(3));
   }, [motor, ratio, radius, targetSpeed, weight]);
 
   return (
     <>
       <Heading
-        title={title}
-        subtitle={`V${version}`}
+        title={flywheel.title}
+        subtitle={`V${flywheel.version}`}
         getQuery={() => {
           return stateToQueryString([
             new QueryableParamHolder({ motor }, MotorParam),
@@ -184,7 +181,10 @@ export default function Flywheel() {
             new QueryableParamHolder({ radius }, QtyParam),
             new QueryableParamHolder({ targetSpeed }, QtyParam),
             new QueryableParamHolder({ weight }, QtyParam),
-            new QueryableParamHolder({ version }, NumberParam),
+            new QueryableParamHolder(
+              { version: flywheel.version },
+              NumberParam
+            ),
           ]);
         }}
       />
@@ -217,6 +217,10 @@ export default function Flywheel() {
             choices={["s"]}
             label={"Windup Time"}
             precision={3}
+          />
+          <LabeledNumberOutput
+            stateHook={[optimalRatio, setOptimalRatio]}
+            label={"Optimal Ratio"}
           />
         </div>
         <div className="column">

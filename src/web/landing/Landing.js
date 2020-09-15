@@ -4,10 +4,7 @@ import { Link } from "react-router-dom";
 import belts from "web/calculators/belts";
 import chains from "web/calculators/chains";
 import dslogs from "web/calculators/dslogs";
-import {
-  IMAGE as flywheelImage,
-  URL as flywheelURL,
-} from "web/calculators/flywheel/config";
+import flywheel from "web/calculators/flywheel";
 import linear from "web/calculators/linear_mech";
 import {
   IMAGE as pneumaticsImage,
@@ -38,9 +35,9 @@ export default function Landing() {
         <div className="columns">
           <div className="column is-one-third">
             <Tile
-              to={flywheelURL}
-              title="Flywheel Calculator"
-              image={flywheelImage}
+              to={flywheel.url}
+              title={flywheel.title}
+              image={flywheel.image}
             />
           </div>
           <div className="column is-one-third">
