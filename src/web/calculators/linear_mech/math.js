@@ -27,7 +27,7 @@ export function generateTimeToGoalChartData(
     if (t.scalar >= 0) {
       data.push({
         x: i,
-        y: t.scalar.toFixed(4),
+        y: t.to("s").scalar.toFixed(4),
       });
     }
   }
