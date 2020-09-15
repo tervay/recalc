@@ -1,4 +1,3 @@
-import SignInOutButton from "common/components/nav/SignInOutButton";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "redux-zero/react";

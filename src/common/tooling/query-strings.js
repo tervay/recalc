@@ -4,11 +4,7 @@ import Ratio from "common/models/Ratio";
 import Qty from "js-quantities";
 import { parse, stringify } from "query-string";
 import {
-  decodeArray,
-  decodeBoolean,
   decodeObject,
-  encodeArray,
-  encodeBoolean,
   encodeObject,
   encodeQueryParams,
 } from "use-query-params";
@@ -32,14 +28,14 @@ export const CompressorParam = {
   },
 };
 
-function QtyToDict(qty) {
+export function QtyToDict(qty) {
   return {
     s: qty.scalar,
     u: qty.units(),
   };
 }
 
-function DictToQty(dict) {
+export function DictToQty(dict) {
   return Qty(Number(dict.s), dict.u);
 }
 
@@ -49,40 +45,6 @@ export const QtyParam = {
   },
   decode: (str) => {
     return DictToQty(decodeObject(str));
-  },
-};
-
-export const PistonParam = {
-  encode: (piston) => {
-    return encodeArray(
-      Object.keys(piston).map((k) => {
-        if (piston[k] instanceof Object) {
-          return encodeObject({
-            name: k,
-            value: QtyParam.encode(piston[k]).replace("_", "|"),
-          });
-        } else {
-          return encodeObject({
-            name: "enabled",
-            value: encodeBoolean(piston[k]),
-          });
-        }
-      })
-    );
-  },
-  decode: (str) => {
-    const obj = decodeArray(str);
-    return Object.assign(
-      ...obj.map((s) => {
-        const d = decodeObject(s);
-        if (d.name === "enabled") {
-          return { [d.name]: decodeBoolean(d.value) };
-        }
-        return {
-          [d.name]: QtyParam.decode(d.value.replace("|", "_")),
-        };
-      })
-    );
   },
 };
 

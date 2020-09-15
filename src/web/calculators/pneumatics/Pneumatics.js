@@ -3,11 +3,11 @@ import CompressorInput from "common/components/io/inputs/CompressorInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import TabularInput from "common/components/io/inputs/TabularInput";
 import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
+import Piston from "common/models/Piston";
 import { ChartBuilder, YAxisBuilder } from "common/tooling/charts";
 import {
   CompressorParam,
   NumberParam,
-  PistonParam,
   QtyParam,
   QueryableParamHolder,
   queryStringToDefaults,
@@ -33,9 +33,9 @@ export default function Pneumatics() {
   } = queryStringToDefaults(
     window.location.search,
     {
-      p1: PistonParam,
-      p2: PistonParam,
-      p3: PistonParam,
+      p1: Piston.getParam(),
+      p2: Piston.getParam(),
+      p3: Piston.getParam(),
       volume: QtyParam,
       compressor: CompressorParam,
     },
@@ -99,9 +99,9 @@ export default function Pneumatics() {
             subtitle={`V${pneumatics.version}`}
             getQuery={() => {
               return stateToQueryString([
-                new QueryableParamHolder({ p1 }, PistonParam),
-                new QueryableParamHolder({ p2 }, PistonParam),
-                new QueryableParamHolder({ p3 }, PistonParam),
+                new QueryableParamHolder({ p1 }, Piston.getParam()),
+                new QueryableParamHolder({ p2 }, Piston.getParam()),
+                new QueryableParamHolder({ p3 }, Piston.getParam()),
                 new QueryableParamHolder({ volume }, QtyParam),
                 new QueryableParamHolder({ compressor }, CompressorParam),
                 new QueryableParamHolder(
@@ -115,7 +115,7 @@ export default function Pneumatics() {
             headers={[
               "",
               "Enabled",
-              "Diameter",
+              "Bore",
               "Rod Diameter",
               "Stroke Length",
               "Push Pressure",
@@ -142,7 +142,7 @@ export default function Pneumatics() {
             labels={["P1", "P2", "P3"]}
             inputKeys={[
               "enabled",
-              "diameter",
+              "bore",
               "rodDiameter",
               "strokeLength",
               "pushPressure",

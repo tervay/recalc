@@ -78,12 +78,12 @@ export function generatePressureTimeline(pistons, volume, compressor) {
 // }
 
 function getCylinderWork(piston, isFiring) {
-  const t1 = piston.diameter
-    .mul(piston.diameter)
+  const t1 = piston.bore
+    .mul(piston.bore)
     .mul(Math.PI / 4)
     .mul(piston.pushPressure);
-  const t2 = piston.diameter
-    .mul(piston.diameter)
+  const t2 = piston.bore
+    .mul(piston.bore)
     .sub(piston.rodDiameter.mul(piston.rodDiameter));
   const t3 = t2.mul(Math.PI / 4).mul(piston.pullPressure);
   return t1

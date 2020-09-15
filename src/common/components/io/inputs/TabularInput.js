@@ -1,6 +1,7 @@
 import propTypes from "prop-types";
 import React from "react";
 
+import Piston from "../../../models/Piston";
 import { UnlabeledQtyInput } from "./QtyInput";
 
 export default function TabularInput(props) {
@@ -41,10 +42,12 @@ export default function TabularInput(props) {
                             type="checkbox"
                             checked={input[k]}
                             onChange={() => {
-                              setInput({
-                                ...input,
-                                [k]: !input[k],
-                              });
+                              setInput(
+                                new Piston({
+                                  ...input,
+                                  [k]: !input[k],
+                                })
+                              );
                             }}
                           />
                         </label>
@@ -57,10 +60,12 @@ export default function TabularInput(props) {
                           stateHook={[
                             input[k],
                             (v) => {
-                              setInput({
-                                ...input,
-                                [k]: v,
-                              });
+                              setInput(
+                                new Piston({
+                                  ...input,
+                                  [k]: v,
+                                })
+                              );
                             },
                           ]}
                           choices={props.choices[j]}
