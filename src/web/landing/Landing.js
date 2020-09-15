@@ -6,10 +6,7 @@ import chains from "web/calculators/chains";
 import dslogs from "web/calculators/dslogs";
 import flywheel from "web/calculators/flywheel";
 import linear from "web/calculators/linear_mech";
-import {
-  IMAGE as pneumaticsImage,
-  URL as pneumaticsURL,
-} from "web/calculators/pneumatics/config";
+import pneumatics from "web/calculators/pneumatics";
 import compressors from "web/compressors";
 import filaments from "web/filaments";
 import Tile from "web/landing/Tile";
@@ -45,9 +42,9 @@ export default function Landing() {
           </div>
           <div className="column is-one-third">
             <Tile
-              to={pneumaticsURL}
-              title="Pneumatics Calculator"
-              image={pneumaticsImage}
+              to={pneumatics.url}
+              title={pneumatics.title}
+              image={pneumatics.image}
             />
           </div>
         </div>

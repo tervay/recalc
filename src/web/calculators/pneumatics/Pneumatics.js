@@ -3,7 +3,6 @@ import CompressorInput from "common/components/io/inputs/CompressorInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import TabularInput from "common/components/io/inputs/TabularInput";
 import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
-import { compressorMap } from "common/models/Compressor";
 import { ChartBuilder, YAxisBuilder } from "common/tooling/charts";
 import {
   CompressorParam,
@@ -15,16 +14,15 @@ import {
   stateToQueryString,
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
-import Qty from "js-quantities";
 import { Line } from "lib/react-chart-js";
 import React, { useEffect, useState } from "react";
 
-import { TITLE as title, VERSION as version } from "./config";
+import pneumatics from "./index";
 import { generatePressureTimeline } from "./math";
 import { pneumaticsVersionManager } from "./versions";
 
 export default function Pneumatics() {
-  setTitle(title);
+  setTitle(pneumatics.title);
 
   const {
     p1: p1_,
@@ -41,37 +39,7 @@ export default function Pneumatics() {
       volume: QtyParam,
       compressor: CompressorParam,
     },
-    {
-      p1: {
-        enabled: true,
-        diameter: Qty(1.5, "in"),
-        rodDiameter: Qty(0.375, "in"),
-        strokeLength: Qty(12, "in"),
-        pushPressure: Qty(40, "psi"),
-        pullPressure: Qty(15, "psi"),
-        period: Qty(10, "s"),
-      },
-      p2: {
-        enabled: false,
-        diameter: Qty(1.5, "in"),
-        rodDiameter: Qty(0.375, "in"),
-        strokeLength: Qty(12, "in"),
-        pushPressure: Qty(40, "psi"),
-        pullPressure: Qty(15, "psi"),
-        period: Qty(8, "s"),
-      },
-      p3: {
-        enabled: false,
-        diameter: Qty(1.5, "in"),
-        rodDiameter: Qty(0.375, "in"),
-        strokeLength: Qty(12, "in"),
-        pushPressure: Qty(40, "psi"),
-        pullPressure: Qty(15, "psi"),
-        period: Qty(5, "s"),
-      },
-      volume: Qty(1200, "ml"),
-      compressor: compressorMap["VIAIR 90C (12v)"],
-    },
+    pneumatics.initialState,
     pneumaticsVersionManager
   );
 
@@ -127,8 +95,8 @@ export default function Pneumatics() {
       <div className="columns">
         <div className="column">
           <Heading
-            title={title}
-            subtitle={`V${version}`}
+            title={pneumatics.title}
+            subtitle={`V${pneumatics.version}`}
             getQuery={() => {
               return stateToQueryString([
                 new QueryableParamHolder({ p1 }, PistonParam),
@@ -136,7 +104,10 @@ export default function Pneumatics() {
                 new QueryableParamHolder({ p3 }, PistonParam),
                 new QueryableParamHolder({ volume }, QtyParam),
                 new QueryableParamHolder({ compressor }, CompressorParam),
-                new QueryableParamHolder({ version }, NumberParam),
+                new QueryableParamHolder(
+                  { version: pneumatics.version },
+                  NumberParam
+                ),
               ]);
             }}
           />

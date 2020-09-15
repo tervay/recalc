@@ -11,7 +11,7 @@ import chains from "web/calculators/chains";
 import dslogs from "web/calculators/dslogs";
 import flywheel from "web/calculators/flywheel";
 import linear from "web/calculators/linear_mech";
-import { URL as pneumaticsURL } from "web/calculators/pneumatics/config";
+import pneumatics from "web/calculators/pneumatics";
 import Spot from "web/calculators/spot/Spot";
 import compressors from "web/compressors";
 import filaments from "web/filaments";
@@ -19,7 +19,6 @@ import Landing from "web/landing";
 import motors from "web/motors";
 import { URL as profileURL } from "web/profile";
 
-const Pneumatics = lazy(() => import("web/calculators/pneumatics/Pneumatics"));
 const About = lazy(() => import("web/about/About"));
 const Profile = lazy(() => import("web/profile/Profile"));
 
@@ -35,7 +34,7 @@ export default function App() {
                 <Route exact path="/" component={Landing} />
                 <Route path={belts.url} component={belts.component} />
                 <Route path={flywheel.url} component={flywheel.component} />
-                <Route path={pneumaticsURL} component={Pneumatics} />
+                <Route path={pneumatics.url} component={pneumatics.component} />
                 <Route path={linear.url} component={linear.component} />
                 <Route path={chains.url} component={chains.component} />
 
