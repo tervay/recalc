@@ -8,7 +8,6 @@ import Piston from "common/models/Piston";
 import Qty from "common/models/Qty";
 import { ChartBuilder, YAxisBuilder } from "common/tooling/charts";
 import {
-  NumberParam,
   QueryableParamHolder,
   queryStringToDefaults,
   stateToQueryString,
@@ -16,6 +15,7 @@ import {
 import { setTitle } from "common/tooling/routing";
 import { Line } from "lib/react-chart-js";
 import React, { useEffect, useState } from "react";
+import { NumberParam } from "use-query-params";
 
 import pneumatics from "./index";
 import { generatePressureTimeline } from "./math";
@@ -62,7 +62,6 @@ export default function Pneumatics() {
       timeline: timeline_,
       dutyCycle: dutyCycle_,
     } = generatePressureTimeline([p1, p2, p3], volume, compressor);
-    // setGraphData(makeDataObj([timeline_]));
 
     const cb = new ChartBuilder()
       .setXAxisType("linear")

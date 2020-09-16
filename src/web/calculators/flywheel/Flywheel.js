@@ -13,11 +13,8 @@ import {
   YAxisBuilder,
 } from "common/tooling/charts";
 import {
-  MotorParam,
-  NumberParam,
   QueryableParamHolder,
   queryStringToDefaults,
-  RatioParam,
   stateToQueryString,
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
@@ -25,6 +22,7 @@ import { Line } from "lib/react-chart-js";
 import minBy from "lodash/minBy";
 import reduce from "lodash/reduce";
 import React, { useEffect, useState } from "react";
+import { NumberParam } from "use-query-params";
 import {
   calculateWindupTime,
   generateChartData,
@@ -46,8 +44,8 @@ export default function Flywheel() {
   } = queryStringToDefaults(
     window.location.search,
     {
-      motor: MotorParam,
-      ratio: RatioParam,
+      motor: Motor.getParam(),
+      ratio: Ratio.getParam(),
       radius: Qty.getParam(),
       targetSpeed: Qty.getParam(),
       weight: Qty.getParam(),
@@ -177,8 +175,8 @@ export default function Flywheel() {
         subtitle={`V${flywheel.version}`}
         getQuery={() => {
           return stateToQueryString([
-            new QueryableParamHolder({ motor }, MotorParam),
-            new QueryableParamHolder({ ratio }, RatioParam),
+            new QueryableParamHolder({ motor }, Motor.getParam()),
+            new QueryableParamHolder({ ratio }, Ratio.getParam()),
             new QueryableParamHolder({ radius }, Qty.getParam()),
             new QueryableParamHolder({ targetSpeed }, Qty.getParam()),
             new QueryableParamHolder({ weight }, Qty.getParam()),

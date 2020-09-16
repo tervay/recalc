@@ -1,5 +1,3 @@
-import Motor from "common/models/Motor";
-import Ratio from "common/models/Ratio";
 import { parse, stringify } from "query-string";
 import { encodeQueryParams } from "use-query-params";
 
@@ -50,7 +48,3 @@ export function queryStringToDefaults(
 
   return defaults;
 }
-
-export const MotorParam = Motor.getParam();
-export const RatioParam = Ratio.getParam();
-export { NumberParam } from "use-query-params";

@@ -6,18 +6,17 @@ import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 import Motor from "common/models/Motor";
 import Qty from "common/models/Qty";
+import Ratio from "common/models/Ratio";
 import { ChartBuilder, YAxisBuilder } from "common/tooling/charts";
 import {
-  MotorParam,
-  NumberParam,
   QueryableParamHolder,
   queryStringToDefaults,
-  RatioParam,
   stateToQueryString,
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
 import { Line } from "lib/react-chart-js";
 import React, { useEffect, useState } from "react";
+import { NumberParam } from "use-query-params";
 
 import linear from "./index";
 import {
@@ -43,11 +42,11 @@ export default function LinearMech() {
   } = queryStringToDefaults(
     window.location.search,
     {
-      motor: MotorParam,
+      motor: Motor.getParam(),
       travelDistance: Qty.getParam(),
       spoolDiameter: Qty.getParam(),
       load: Qty.getParam(),
-      ratio: RatioParam,
+      ratio: Ratio.getParam(),
       efficiency: NumberParam,
     },
     linear.initialState,
@@ -139,11 +138,11 @@ export default function LinearMech() {
         subtitle={`V${linear.version}`}
         getQuery={() => {
           return stateToQueryString([
-            new QueryableParamHolder({ motor }, MotorParam),
+            new QueryableParamHolder({ motor }, Motor.getParam()),
             new QueryableParamHolder({ travelDistance }, Qty.getParam()),
             new QueryableParamHolder({ spoolDiameter }, Qty.getParam()),
             new QueryableParamHolder({ load }, Qty.getParam()),
-            new QueryableParamHolder({ ratio }, RatioParam),
+            new QueryableParamHolder({ ratio }, Ratio.getParam()),
             new QueryableParamHolder({ efficiency }, NumberParam),
             new QueryableParamHolder({ version: linear.version }, NumberParam),
           ]);

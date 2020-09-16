@@ -7,14 +7,13 @@ import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 import Qty from "common/models/Qty";
 import {
-  NumberParam,
   QueryableParamHolder,
   queryStringToDefaults,
   stateToQueryString,
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
 import React, { useEffect, useMemo, useState } from "react";
-import { StringParam } from "use-query-params";
+import { NumberParam, StringParam } from "use-query-params";
 
 import CheatSheet from "./CheatSheet";
 import chains from "./index";
