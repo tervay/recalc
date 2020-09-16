@@ -142,7 +142,7 @@ export const compressorMap = keyBy(
       const scalar = c.polynomialTerms.reduce(
         (prev, curr, i) => prev + curr * Math.pow(pressureScalar, i)
       );
-      return new Qty(scalar / 60, "ft^3/s");
+      return new Qty(scalar, "ft^3/min");
     },
   })),
   "name"

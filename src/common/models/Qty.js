@@ -39,7 +39,7 @@ export default class Qty extends Model {
 
         const jsQtyResult = this.innerQty[fName](qty_.innerQty);
         if (jsQtyResult.constructor.name === "Qty") {
-          return new Qty(jsQtyResult.scalar, jsQtyResult.units());
+          return Qty.simplify(new Qty(jsQtyResult.scalar, jsQtyResult.units()));
         } else {
           return jsQtyResult;
         }
@@ -47,9 +47,38 @@ export default class Qty extends Model {
     });
   }
 
+  static simplify(qty) {
+    const allowedUnits = [
+      "ft3/min",
+      "lb",
+      "psi",
+      "rpm",
+      "N*m",
+      "A",
+      "W",
+      "W/lb",
+      "ohm",
+      "N*m/A",
+      "rpm/V",
+      "g/m3",
+      "kJ/m2",
+      "ft/s",
+      "mL",
+    ];
+
+    let returnValue = qty;
+    allowedUnits.forEach((unit) => {
+      if (qty.innerQty.isCompatible(JSQty(1, unit))) {
+        returnValue = qty.to(unit);
+      }
+    });
+
+    return returnValue;
+  }
+
   to(units) {
-    const casted = this.innerQty.to(units);
-    return new Qty(casted.scalar, casted.units());
+    this.innerQty = this.innerQty.to(units);
+    return this;
   }
 
   units() {
@@ -62,10 +91,6 @@ export default class Qty extends Model {
 
   get baseScalar() {
     return this.innerQty.baseScalar;
-  }
-
-  static simplifyJsQty(jsQty) {
-    return jsQty;
   }
 
   toDict() {
