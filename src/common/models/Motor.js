@@ -1,21 +1,12 @@
+import Model from "common/tooling/abc/Model";
 import { fit } from "common/tooling/math";
 import Qty from "js-quantities";
 import keyBy from "lodash/keyBy";
-import { decodeObject, encodeObject } from "use-query-params";
 
-export default class Motor {
-  constructor(quantity, name, data) {
+export default class Motor extends Model {
+  constructor(quantity, name) {
+    super(name, motorMap);
     this.quantity = quantity;
-    this.name = name;
-
-    data = data || motorMap[name];
-    this.url = data.url;
-    this.freeSpeed = data.freeSpeed;
-    this.stallTorque = data.stallTorque;
-    this.stallCurrent = data.stallCurrent;
-    this.freeCurrent = data.freeCurrent;
-    this.weight = data.weight;
-
     this.kV = this.freeSpeed.div(Qty(12, "V"));
     this.kT = this.stallTorque.div(this.stallCurrent.sub(this.freeCurrent));
 
@@ -50,10 +41,6 @@ export default class Motor {
     return rpm.mul(torque).mul(Qty(1, "1/rad")).to("W");
   }
 
-  static get choices() {
-    return Object.keys(motorMap);
-  }
-
   toDict() {
     return {
       quantity: this.quantity,
@@ -65,19 +52,8 @@ export default class Motor {
     return new Motor(dict.quantity, dict.name);
   }
 
-  static encode(motor) {
-    return encodeObject(motor.toDict());
-  }
-
-  static decode(string) {
-    return Motor.fromDict(decodeObject(string));
-  }
-
-  static getParam() {
-    return {
-      encode: Motor.encode,
-      decode: Motor.decode,
-    };
+  static get choices() {
+    return Object.keys(motorMap);
   }
 
   static getAllMotors() {

@@ -1,4 +1,3 @@
-import { compressorMap } from "common/models/Compressor";
 import Motor from "common/models/Motor";
 import Ratio from "common/models/Ratio";
 import Qty from "js-quantities";
@@ -8,25 +7,6 @@ import {
   encodeObject,
   encodeQueryParams,
 } from "use-query-params";
-
-function CompressorToDict(compressor) {
-  return {
-    name: compressor.name,
-  };
-}
-
-function DictToCompressor(dict) {
-  return compressorMap[dict.name];
-}
-
-export const CompressorParam = {
-  encode: (compressor) => {
-    return encodeObject(CompressorToDict(compressor));
-  },
-  decode: (str) => {
-    return DictToCompressor(decodeObject(str));
-  },
-};
 
 export function QtyToDict(qty) {
   return {

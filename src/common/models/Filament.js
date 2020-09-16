@@ -1,18 +1,10 @@
+import Model from "common/tooling/abc/Model";
 import Qty from "js-quantities";
 import keyBy from "lodash/keyBy";
 
-export default class Filament {
-  constructor(name, data) {
-    this.name = name;
-
-    data = data || filamentMap[name];
-    this.material = data.material;
-    this.density = data.density;
-    this.youngsModulus = data.youngsModulus;
-    this.tensileStrength = data.tensileStrength;
-    this.bendingStrength = data.bendingStrength;
-    this.charpy = data.charpy;
-    this.sources = data.sources;
+export default class Filament extends Model {
+  constructor(name) {
+    super(name, filamentMap);
   }
 
   static getAllFilaments() {

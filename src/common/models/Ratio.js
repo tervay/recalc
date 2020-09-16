@@ -1,6 +1,6 @@
-import { decodeObject, encodeObject } from "use-query-params";
+import Model from "common/tooling/abc/Model";
 
-export default class Ratio {
+export default class Ratio extends Model {
   static get REDUCTION() {
     return "Reduction";
   }
@@ -9,6 +9,7 @@ export default class Ratio {
   }
 
   constructor(magnitude, ratioType) {
+    super();
     this.magnitude = magnitude;
     this.ratioType = ratioType || Ratio.REDUCTION;
 
@@ -38,20 +39,5 @@ export default class Ratio {
 
   static fromDict(dict) {
     return new Ratio(dict.magnitude, dict.ratioType);
-  }
-
-  static encode(ratio) {
-    return encodeObject(ratio.toDict());
-  }
-
-  static decode(string) {
-    return Ratio.fromDict(decodeObject(string));
-  }
-
-  static getParam() {
-    return {
-      encode: Ratio.encode,
-      decode: Ratio.decode,
-    };
   }
 }

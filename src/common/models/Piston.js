@@ -1,7 +1,7 @@
+import Model from "common/tooling/abc/Model";
 import { DictToQty, QtyToDict } from "common/tooling/query-strings";
-import { decodeJson, encodeJson } from "use-query-params";
 
-export default class Piston {
+export default class Piston extends Model {
   constructor({
     enabled,
     bore,
@@ -11,6 +11,7 @@ export default class Piston {
     pushPressure,
     period,
   }) {
+    super();
     this.enabled = enabled;
     this.bore = bore;
     this.rodDiameter = rodDiameter;
@@ -37,56 +38,25 @@ export default class Piston {
   toDict() {
     return {
       enabled: this.enabled,
-      bore: this.bore,
-      rodDiameter: this.rodDiameter,
-      strokeLength: this.strokeLength,
-      pullPressure: this.pullPressure,
-      pushPressure: this.pushPressure,
-      period: this.period,
+      bore: QtyToDict(this.bore),
+      rodDiameter: QtyToDict(this.rodDiameter),
+      strokeLength: QtyToDict(this.strokeLength),
+      pullPressure: QtyToDict(this.pullPressure),
+      pushPressure: QtyToDict(this.pushPressure),
+      period: QtyToDict(this.period),
     };
   }
 
   static fromDict(dict) {
-    return new Piston(dict);
-  }
-
-  static encode(piston) {
-    const dict = piston.toDict();
-    [
-      "bore",
-      "rodDiameter",
-      "strokeLength",
-      "pullPressure",
-      "pushPressure",
-      "period",
-    ].forEach((k) => {
-      dict[k] = QtyToDict(dict[k]);
+    console.log(dict);
+    return new Piston({
+      enabled: dict.enabled,
+      bore: DictToQty(dict.bore),
+      rodDiameter: DictToQty(dict.rodDiameter),
+      strokeLength: DictToQty(dict.strokeLength),
+      pullPressure: DictToQty(dict.pullPressure),
+      pushPressure: DictToQty(dict.pushPressure),
+      period: DictToQty(dict.period),
     });
-
-    return encodeJson(dict);
-  }
-
-  static decode(string) {
-    const decoded = decodeJson(string);
-
-    [
-      "bore",
-      "rodDiameter",
-      "strokeLength",
-      "pullPressure",
-      "pushPressure",
-      "period",
-    ].forEach((k) => {
-      decoded[k] = DictToQty(decoded[k]);
-    });
-
-    return new Piston(decoded);
-  }
-
-  static getParam() {
-    return {
-      encode: Piston.encode,
-      decode: Piston.decode,
-    };
   }
 }

@@ -1,15 +1,20 @@
+import Model from "common/tooling/abc/Model";
 import Qty from "js-quantities";
 import keyBy from "lodash/keyBy";
 
-export default class Compressor {
-  constructor(name, data) {
-    this.name = name;
+export default class Compressor extends Model {
+  constructor(name) {
+    super(name, compressorMap);
+  }
 
-    data = data || compressorMap[name];
-    this.url = data.url;
-    this.polynomialTerms = data.polynomialTerms;
-    this.cfmFn = data.cfmFn;
-    this.weight = data.weight;
+  toDict() {
+    return {
+      name: this.name,
+    };
+  }
+
+  static fromDict(dict) {
+    return new Compressor(dict.name);
   }
 
   static getAllCompressors() {

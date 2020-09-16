@@ -1,4 +1,4 @@
-import { compressorMap } from "common/models/Compressor";
+import Compressor, { compressorMap } from "common/models/Compressor";
 import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
@@ -7,7 +7,7 @@ export default function CompressorInput(props) {
   const [compressorName, setCompressorName] = useState(compressor.name);
 
   useEffect(() => {
-    setCompressor(compressorMap[compressorName]);
+    setCompressor(new Compressor(compressorName));
   }, [compressorName]);
 
   return (
