@@ -1,6 +1,6 @@
 import { UnlabeledTypedNumberInput } from "common/components/io/inputs/TypedNumberInput";
+import Qty from "common/models/Qty";
 import { cleanNumberInput } from "common/tooling/io";
-import Qty from "js-quantities";
 import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
@@ -10,7 +10,7 @@ export function UnlabeledQtyInput(props) {
   const [unit, setUnit] = useState(qty.units());
 
   useEffect(() => {
-    setQty(Qty(cleanNumberInput(magnitude), unit));
+    setQty(new Qty(cleanNumberInput(magnitude), unit));
   }, [magnitude, unit]);
 
   return (

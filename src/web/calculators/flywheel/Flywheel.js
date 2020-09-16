@@ -2,8 +2,10 @@ import Heading from "common/components/calc-heading/Heading";
 import { LabeledMotorInput } from "common/components/io/inputs/MotorInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
+import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 import Motor from "common/models/Motor";
+import Qty from "common/models/Qty";
 import Ratio from "common/models/Ratio";
 import {
   ChartBuilder,
@@ -13,14 +15,12 @@ import {
 import {
   MotorParam,
   NumberParam,
-  QtyParam,
   QueryableParamHolder,
   queryStringToDefaults,
   RatioParam,
   stateToQueryString,
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
-import Qty from "js-quantities";
 import { Line } from "lib/react-chart-js";
 import minBy from "lodash/minBy";
 import reduce from "lodash/reduce";
@@ -30,7 +30,6 @@ import {
   generateChartData,
 } from "web/calculators/flywheel/math";
 
-import { LabeledNumberOutput } from "../../../common/components/io/outputs/NumberOutput";
 import flywheel from "./index";
 import { flywheelVersionManager } from "./versions";
 
@@ -49,9 +48,9 @@ export default function Flywheel() {
     {
       motor: MotorParam,
       ratio: RatioParam,
-      radius: QtyParam,
-      targetSpeed: QtyParam,
-      weight: QtyParam,
+      radius: Qty.getParam(),
+      targetSpeed: Qty.getParam(),
+      weight: Qty.getParam(),
     },
     flywheel.initialState,
     flywheelVersionManager
@@ -65,7 +64,7 @@ export default function Flywheel() {
   const [weight, setWeight] = useState(weight_);
 
   // Outputs
-  const [windupTime, setWindupTime] = useState(Qty(0, "s"));
+  const [windupTime, setWindupTime] = useState(new Qty(0, "s"));
   const [optimalRatio, setOptimalRatio] = useState(new Ratio(1));
 
   const [chartData, setChartData] = useState(ChartBuilder.defaultData());
@@ -180,9 +179,9 @@ export default function Flywheel() {
           return stateToQueryString([
             new QueryableParamHolder({ motor }, MotorParam),
             new QueryableParamHolder({ ratio }, RatioParam),
-            new QueryableParamHolder({ radius }, QtyParam),
-            new QueryableParamHolder({ targetSpeed }, QtyParam),
-            new QueryableParamHolder({ weight }, QtyParam),
+            new QueryableParamHolder({ radius }, Qty.getParam()),
+            new QueryableParamHolder({ targetSpeed }, Qty.getParam()),
+            new QueryableParamHolder({ weight }, Qty.getParam()),
             new QueryableParamHolder(
               { version: flywheel.version },
               NumberParam

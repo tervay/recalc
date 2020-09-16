@@ -1,32 +1,7 @@
 import Motor from "common/models/Motor";
 import Ratio from "common/models/Ratio";
-import Qty from "js-quantities";
 import { parse, stringify } from "query-string";
-import {
-  decodeObject,
-  encodeObject,
-  encodeQueryParams,
-} from "use-query-params";
-
-export function QtyToDict(qty) {
-  return {
-    s: qty.scalar,
-    u: qty.units(),
-  };
-}
-
-export function DictToQty(dict) {
-  return Qty(Number(dict.s), dict.u);
-}
-
-export const QtyParam = {
-  encode: (qty) => {
-    return encodeObject(QtyToDict(qty));
-  },
-  decode: (str) => {
-    return DictToQty(decodeObject(str));
-  },
-};
+import { encodeQueryParams } from "use-query-params";
 
 export class QueryableParamHolder {
   constructor(state, paramType) {

@@ -1,10 +1,10 @@
+import Qty from "common/models/Qty";
 import each from "jest-each";
-import Qty from "js-quantities";
 
 import { calculateClosestCenters, teethToPD } from "../math";
 
-const mm = (s) => Qty(s, "mm");
-const inch = (s) => Qty(s, "in");
+const mm = (s) => new Qty(s, "mm");
+const inch = (s) => new Qty(s, "in");
 
 each([
   // Vex pulleys

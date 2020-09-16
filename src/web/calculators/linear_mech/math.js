@@ -1,5 +1,5 @@
+import Qty from "common/models/Qty";
 import Ratio from "common/models/Ratio";
-import Qty from "js-quantities";
 
 export function generateTimeToGoalChartData(
   motor,
@@ -67,13 +67,13 @@ export function generateCurrentDrawChartData(
 
 export function CalculateUnloadedSpeed(motor, spoolDiameter, ratio) {
   if (ratio.asNumber() === 0 || motor.quantity === 0) {
-    return Qty(0, "ft/s");
+    return new Qty(0, "ft/s");
   }
 
   return motor.freeSpeed
     .div(ratio.asNumber())
     .mul(spoolDiameter.div(2))
-    .mul(Qty(1, "rad^-1"));
+    .mul(new Qty(1, "rad^-1"));
 }
 
 export function CalculateLoadedSpeed(
@@ -91,25 +91,29 @@ export function CalculateLoadedSpeed(
   );
 
   if (ratio.asNumber() === 0 || stallDragLoad.scalar === 0) {
-    return Qty(0, "ft/s");
+    return new Qty(0, "ft/s");
   }
 
   const t1 = motor.freeSpeed
     .div(ratio.asNumber())
-    .mul(Qty(360, "degree"))
-    .div(Qty(60, "s"))
+    .mul(new Qty(360, "degree"))
+    .div(new Qty(60, "s"))
     .div(stallDragLoad)
     .mul(load)
     .mul(-1);
 
   const t2 = motor.freeSpeed
     .div(ratio.asNumber())
-    .mul(Qty(360, "degree"))
-    .div(Qty(60, "s"));
+    .mul(new Qty(360, "degree"))
+    .div(new Qty(60, "s"));
 
   const t3 = spoolDiameter.mul(Math.PI);
 
-  const t4 = t1.add(t2).mul(t3).div(Qty(360, "degree")).mul(Qty(1, "rpm^-1"));
+  const t4 = t1
+    .add(t2)
+    .mul(t3)
+    .div(new Qty(360, "degree"))
+    .mul(new Qty(1, "rpm^-1"));
   return t4;
 }
 
@@ -120,26 +124,26 @@ export function CalculateStallDragLoad(
   efficiency
 ) {
   if (spoolDiameter.scalar === 0) {
-    return Qty(0, "lb");
+    return new Qty(0, "lb");
   }
   return motor.stallTorque
     .mul(motor.quantity)
     .mul(ratio.asNumber())
     .mul(efficiency / 100)
     .div(spoolDiameter.div(2))
-    .div(Qty(9.81, "m*s^-2"));
+    .div(new Qty(9.81, "m*s^-2"));
 }
 
 export function CalculateTimeToGoal(travelDistance, loadedSpeed) {
   if (loadedSpeed.baseScalar === 0) {
-    return Qty(0, "s");
+    return new Qty(0, "s");
   }
   return travelDistance.div(loadedSpeed);
 }
 
 export function calculateCurrentDraw(motor, spoolDiameter, load, ratio) {
   if (ratio.asNumber() === 0 || motor.quantity === 0) {
-    return Qty(0, "A");
+    return new Qty(0, "A");
   }
   const stallCurrent = motor.stallCurrent.mul(motor.quantity);
   const freeCurrent = motor.freeCurrent.mul(motor.quantity);
@@ -148,7 +152,7 @@ export function calculateCurrentDraw(motor, spoolDiameter, load, ratio) {
   const t4 = stallCurrent.sub(freeCurrent).div(stallTorque);
 
   const t5 = load.div(ratio.asNumber()).mul(spoolDiameter).div(2);
-  const t6 = t4.mul(t5).mul(Qty(9.81, "m/s^2"));
+  const t6 = t4.mul(t5).mul(new Qty(9.81, "m/s^2"));
 
   const totalCurrentDraw = t6.add(freeCurrent);
   return totalCurrentDraw.div(motor.quantity);

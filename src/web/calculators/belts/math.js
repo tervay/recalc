@@ -1,4 +1,4 @@
-import Qty from "js-quantities";
+import Qty from "common/models/Qty";
 
 /**
  *
@@ -43,9 +43,9 @@ export function calculateClosestCenters(
     const NB = i;
     const L = pitch.mul(NB);
 
-    const t1 = L.sub(Qty(1.57).mul(p1PitchDiameter.add(p2PitchDiameter))).div(
-      4
-    );
+    const t1 = L.sub(
+      new Qty(1.57).mul(p1PitchDiameter.add(p2PitchDiameter))
+    ).div(4);
     const t2 = t1.mul(t1);
     const t3 = p1PitchDiameter
       .sub(p2PitchDiameter)
@@ -56,7 +56,7 @@ export function calculateClosestCenters(
     if (inSqrt < 0) {
       continue;
     }
-    const sqrt = Qty(Math.sqrt(inSqrt), "in");
+    const sqrt = new Qty(Math.sqrt(inSqrt), "in");
     const C = t1.add(sqrt).to("in");
     results[i] = {
       centerDistance: C,
@@ -67,6 +67,7 @@ export function calculateClosestCenters(
 
   let closestSmallerSize = 0,
     closestLargerSize = 0;
+
   Object.keys(results).forEach((i) => {
     i = Number(i);
     const centerDistance = results[i].centerDistance;
@@ -105,7 +106,7 @@ export function calculateClosestCenters(
           }
         : {
             teeth: 0,
-            distance: Qty(0, "in"),
+            distance: new Qty(0, "in"),
           },
     larger:
       closestLargerSize !== 0
@@ -117,7 +118,7 @@ export function calculateClosestCenters(
           }
         : {
             teeth: 0,
-            distance: Qty(0, "in"),
+            distance: new Qty(0, "in"),
           },
   };
 }

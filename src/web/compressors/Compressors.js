@@ -1,7 +1,7 @@
 import Table from "common/components/Table";
 import Compressor from "common/models/Compressor";
+import Qty from "common/models/Qty";
 import { setTitle } from "common/tooling/routing";
-import Qty from "js-quantities";
 import React from "react";
 
 import compressorConfig from "./index";
@@ -14,12 +14,12 @@ export default function Compressors() {
       Compressor.getAllCompressors().map((c) => ({
         link: <a href={c.url}>{c.name}</a>,
         weight: c.weight.to("lb").scalar.toFixed(2),
-        cfmZero: c.cfmFn(Qty(0, "psi")).to("ft3/min").scalar.toFixed(2),
-        cfmFourty: c.cfmFn(Qty(40, "psi")).to("ft3/min").scalar.toFixed(2),
-        cfmEighty: c.cfmFn(Qty(80, "psi")).to("ft3/min").scalar.toFixed(2),
-        cfmOneTen: c.cfmFn(Qty(110, "psi")).to("ft3/min").scalar.toFixed(2),
+        cfmZero: c.cfmFn(new Qty(0, "psi")).to("ft3/min").scalar.toFixed(2),
+        cfmFourty: c.cfmFn(new Qty(40, "psi")).to("ft3/min").scalar.toFixed(2),
+        cfmEighty: c.cfmFn(new Qty(80, "psi")).to("ft3/min").scalar.toFixed(2),
+        cfmOneTen: c.cfmFn(new Qty(110, "psi")).to("ft3/min").scalar.toFixed(2),
         cfmPerLb: c
-          .cfmFn(Qty(110, "psi"))
+          .cfmFn(new Qty(110, "psi"))
           .div(c.weight)
           .to("ft3/min*lb")
           .scalar.toFixed(3),

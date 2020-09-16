@@ -1,5 +1,5 @@
+import Qty from "common/models/Qty";
 import Model from "common/tooling/abc/Model";
-import Qty from "js-quantities";
 import keyBy from "lodash/keyBy";
 
 export default class Compressor extends Model {
@@ -37,7 +37,7 @@ export const compressorMap = keyBy(
         9.5115238899234617e-11,
         -1.9226989003510868e-13,
       ],
-      weight: Qty(2.4, "lb"),
+      weight: new Qty(2.4, "lb"),
       url: "https://www.viaircorp.com/c-models/90c",
     },
     {
@@ -54,7 +54,7 @@ export const compressorMap = keyBy(
         1.5971519675914118e-13,
         -2.9523135523161451e-16,
       ],
-      weight: Qty(2.4, "lb"),
+      weight: new Qty(2.4, "lb"),
       url: "https://www.andymark.com/products/air-compressor",
     },
     {
@@ -69,7 +69,7 @@ export const compressorMap = keyBy(
         3.8667910589819109e-12,
         -6.7837971389097611e-15,
       ],
-      weight: Qty(6.75, "lb"),
+      weight: new Qty(6.75, "lb"),
       url: "https://www.viaircorp.com/ig-series/250c-ig",
     },
     {
@@ -86,7 +86,7 @@ export const compressorMap = keyBy(
         -5.483826112406666e-15,
         7.565053407050096e-18,
       ],
-      weight: Qty(8.25, "lb"),
+      weight: new Qty(8.25, "lb"),
       url: "https://www.viaircorp.com/ig-series/330c-ig",
     },
     {
@@ -100,7 +100,7 @@ export const compressorMap = keyBy(
         -2.8965229804550191e-10,
         9.4599243172975252e-13,
       ],
-      weight: Qty(3, "lb"),
+      weight: new Qty(3, "lb"),
       url:
         "https://www.gardnerdenver.com/en-us/thomas/wob-l-piston-pumps-compressors/215-series",
     },
@@ -115,7 +115,7 @@ export const compressorMap = keyBy(
         -1.1603506789785263e-8,
         3.7663398701015387e-11,
       ],
-      weight: Qty(4.3, "lb"),
+      weight: new Qty(4.3, "lb"),
       url:
         "https://www.gardnerdenver.com/en-us/thomas/wob-l-piston-pumps-compressors/405-series",
     },
@@ -132,7 +132,7 @@ export const compressorMap = keyBy(
         -8.0610818682159146e-12,
         1.6773769109154779e-14,
       ],
-      weight: Qty(3.37, "lb"),
+      weight: new Qty(3.37, "lb"),
       url: "https://www.andymark.com/products/1-1-pump-12v",
     },
   ].map((c) => ({
@@ -142,7 +142,7 @@ export const compressorMap = keyBy(
       const scalar = c.polynomialTerms.reduce(
         (prev, curr, i) => prev + curr * Math.pow(pressureScalar, i)
       );
-      return Qty(scalar / 60, "ft^3/s");
+      return new Qty(scalar / 60, "ft^3/s");
     },
   })),
   "name"

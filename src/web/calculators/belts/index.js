@@ -1,4 +1,4 @@
-import Qty from "js-quantities";
+import Qty from "common/models/Qty";
 import { lazy } from "react";
 
 export default {
@@ -7,11 +7,11 @@ export default {
   title: "Belt Calculator",
   version: 1,
   initialState: {
-    pitch: Qty(3, "mm"),
+    pitch: new Qty(3, "mm"),
     p1Teeth: 24,
     p2Teeth: 16,
-    desiredCenter: Qty(5, "in"),
-    extraCenter: Qty(0, "in"),
+    desiredCenter: new Qty(5, "in"),
+    extraCenter: new Qty(0, "in"),
   },
   component: lazy(() => import("web/calculators/belts/Belts")),
 };

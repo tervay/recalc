@@ -1,8 +1,8 @@
 import Table from "common/components/Table";
 import Motor from "common/models/Motor";
+import Qty from "common/models/Qty";
 import { qtyMax } from "common/tooling/math";
 import { setTitle } from "common/tooling/routing";
-import Qty from "js-quantities";
 import React from "react";
 
 import motorsConfig from "./index";
@@ -19,9 +19,9 @@ export default function Motors() {
           return p.scalar <= 0 ? "-" : p.scalar.toFixed(0);
         };
 
-        const power1 = m.getPower(Qty(currents[0], "A"));
-        const power2 = m.getPower(Qty(currents[1], "A"));
-        const power3 = m.getPower(Qty(currents[2], "A"));
+        const power1 = m.getPower(new Qty(currents[0], "A"));
+        const power2 = m.getPower(new Qty(currents[1], "A"));
+        const power3 = m.getPower(new Qty(currents[2], "A"));
         let numerator;
 
         // If, at any of 20/30/40A, the motor blows up, then
@@ -29,13 +29,13 @@ export default function Motors() {
           // For power:weight ratio, consider the max power it can achieve
           numerator = qtyMax(
             m.maxPower,
-            m.getPower(Qty(currents[0], "A")),
-            m.getPower(Qty(currents[1], "A")),
-            m.getPower(Qty(currents[2], "A"))
+            m.getPower(new Qty(currents[0], "A")),
+            m.getPower(new Qty(currents[1], "A")),
+            m.getPower(new Qty(currents[2], "A"))
           );
         } else {
           // Otherwise, consider the max power it can achieve at 40A
-          numerator = m.getPower(Qty(currents[2], "A"));
+          numerator = m.getPower(new Qty(currents[2], "A"));
         }
 
         return {

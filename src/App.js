@@ -12,7 +12,6 @@ import dslogs from "web/calculators/dslogs";
 import flywheel from "web/calculators/flywheel";
 import linear from "web/calculators/linear_mech";
 import pneumatics from "web/calculators/pneumatics";
-import Spot from "web/calculators/spot/Spot";
 import compressors from "web/compressors";
 import filaments from "web/filaments";
 import Landing from "web/landing";
@@ -48,8 +47,6 @@ export default function App() {
 
                 <Route path={profileURL} component={Profile} />
                 <Route path={"/about"} component={About} />
-
-                <Route path={"/spot"} component={Spot} />
               </Switch>
             </Suspense>
           </div>

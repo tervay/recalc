@@ -5,18 +5,17 @@ import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 import Motor from "common/models/Motor";
+import Qty from "common/models/Qty";
 import { ChartBuilder, YAxisBuilder } from "common/tooling/charts";
 import {
   MotorParam,
   NumberParam,
-  QtyParam,
   QueryableParamHolder,
   queryStringToDefaults,
   RatioParam,
   stateToQueryString,
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
-import Qty from "js-quantities";
 import { Line } from "lib/react-chart-js";
 import React, { useEffect, useState } from "react";
 
@@ -45,9 +44,9 @@ export default function LinearMech() {
     window.location.search,
     {
       motor: MotorParam,
-      travelDistance: QtyParam,
-      spoolDiameter: QtyParam,
-      load: QtyParam,
+      travelDistance: Qty.getParam(),
+      spoolDiameter: Qty.getParam(),
+      load: Qty.getParam(),
       ratio: RatioParam,
       efficiency: NumberParam,
     },
@@ -64,10 +63,10 @@ export default function LinearMech() {
   const [efficiency, setEfficiency] = useState(efficiency_);
 
   // Outputs
-  const [unloadedSpeed, setUnloadedSpeed] = useState(Qty(0, "ft/s"));
-  const [loadedSpeed, setLoadedSpeed] = useState(Qty(0, "ft/s"));
-  const [timeToGoal, setTimeToGoal] = useState(Qty(0, "s"));
-  const [currentDraw, setCurrentDraw] = useState(Qty(0, "A"));
+  const [unloadedSpeed, setUnloadedSpeed] = useState(new Qty(0, "ft/s"));
+  const [loadedSpeed, setLoadedSpeed] = useState(new Qty(0, "ft/s"));
+  const [timeToGoal, setTimeToGoal] = useState(new Qty(0, "s"));
+  const [currentDraw, setCurrentDraw] = useState(new Qty(0, "A"));
   const [chartData, setChartData] = useState(ChartBuilder.defaultData());
   const [chartOptions, setChartOptions] = useState(
     ChartBuilder.defaultOptions()
@@ -141,9 +140,9 @@ export default function LinearMech() {
         getQuery={() => {
           return stateToQueryString([
             new QueryableParamHolder({ motor }, MotorParam),
-            new QueryableParamHolder({ travelDistance }, QtyParam),
-            new QueryableParamHolder({ spoolDiameter }, QtyParam),
-            new QueryableParamHolder({ load }, QtyParam),
+            new QueryableParamHolder({ travelDistance }, Qty.getParam()),
+            new QueryableParamHolder({ spoolDiameter }, Qty.getParam()),
+            new QueryableParamHolder({ load }, Qty.getParam()),
             new QueryableParamHolder({ ratio }, RatioParam),
             new QueryableParamHolder({ efficiency }, NumberParam),
             new QueryableParamHolder({ version: linear.version }, NumberParam),
