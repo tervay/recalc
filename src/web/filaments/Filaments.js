@@ -73,63 +73,58 @@ export default function Compressors() {
       <section className="section">
         <div className="container">
           <div className="title">Explaining these numbers</div>
-          <p>
+          <p className={"block"}>
             Imagine the printed part subject being a rectangular prism printed
             with filament lines in parallel with the long direction of the
             prism.
           </p>
-          <br />
-          <br />
+
           <div className="title">
             <a href={"https://en.wikipedia.org/wiki/Young%27s_modulus"}>
               Young&apos;s Modulus
             </a>
           </div>
-          <p>
+          <p className={"block"}>
             Essentially a measure of how stiff a material is. The higher the
             Young&apos;s Modulus, the stiffer the material is. See{" "}
             <a href={"https://www.youtube.com/watch?v=DLE-ieOVFjI"}>here</a>.
           </p>
-          <br />
-          <br />
+
           <div className="title">
             <a href={"https://en.wikipedia.org/wiki/Ultimate_tensile_strength"}>
               Tensile Strength
             </a>
           </div>
-          <p>
+          <p className={"block"}>
             The maximum stress that a material can withstand before it breaks.
           </p>
-          <br />
-          <br />
+
           <div className="title">
             <a href={"https://en.wikipedia.org/wiki/Flexural_strength"}>
               Flexural Strength
             </a>
           </div>
-          <p>
+          <p className={"block"}>
             How much stress a print can maintain before plastically deforming
             when attempting to bend the part the long way down the middle.
           </p>
-          <br />
-          <br />
+
           <div className="title">
             <a href={"https://en.wikipedia.org/wiki/Charpy_impact_test"}>
               Charpy impact strength
             </a>
           </div>
-          <p>
+          <p className={"block"}>
             How much energy is absorbed by the part when struck by a heavy
             pendulum.
           </p>
-          <br />
-          <br />
+
           <div className="title">
             <a href={"https://en.wikipedia.org/wiki/Deformation_(engineering)"}>
               Elastic vs Plastic Deformation
             </a>
           </div>
-          <p>
+          <p className={"block"}>
             Imagine you are pulling on a rubber band. For the most part, the
             rubber band will return to its original shape after you release it.
             This is known as elastic deformation. However, if you pull on it too

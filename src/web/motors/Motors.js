@@ -122,12 +122,11 @@ export default function Motors() {
       <section className="section">
         <div className="container">
           <div className="title">Explaining these numbers</div>
-          <p>
+          <p className={"block"}>
             VEX has a great introduction to DC motors specs{" "}
             <a href={"https://motors.vex.com/introduction"}>here</a>.
           </p>
-          <br />
-          <p>
+          <p className={"block"}>
             For calculating peak power at currents, I found the slope of the
             line representing the relationship between RPM and current. Using
             this, I found the RPM the motor would be spinning at if drawing the
@@ -137,64 +136,51 @@ export default function Motors() {
             max theoretical power of the motor, or the peak power at 50A,
             whichever was lower (since not all motors can survive 50A).
           </p>
-          <br />
-          <p>
+          <p className={"block"}>
             All motors except for the Falcon 500 have 0.25 lbs added to their
             weight to represent the weight of a speed controller.
           </p>
-          <br />
-          <br />
           <div className="title">
             <a href={"https://en.wikipedia.org/wiki/Stall_torque"}>
               Stall torque
             </a>
           </div>
-          <p>
+          <p className={"block"}>
             How much torque (rotational force) the motor outputs when the shaft
             is locked to zero RPM (which is known as stall).
           </p>
-          <br />
-          <br />
           <div className="title">Stall current</div>
-          <p>
+          <p className={"block"}>
             How much current the motor draws when at stall. Note that there are
             further limitations on current draw implemented in the FRC control
             system, such as PDP breakers or software-implemented current limits.
           </p>
-          <br />
-          <br />
           <div className="title">Free Current</div>
-          <p>
+          <p className={"block"}>
             How much current the motor draws when spinning freely at maximum RPM
             under no external load.
           </p>
-          <br />
-          <br />
           <div className="title">
             <a href={"https://en.wikipedia.org/wiki/Work_(physics)"}>Work</a>
           </div>
-          <p>
+          <p className={"block"}>
             How much energy is required to exert a force across a distance. This
             is measured in joules.
           </p>
-          <br />
-          <br />
           <div className="title">
             <a href={"https://en.wikipedia.org/wiki/Power_(physics)"}>Power</a>
           </div>
-          <p>
+          <p className={"block"}>
             How quickly an amount of work can be applied by the motor. Power is
             equal to work divided by time. The maximum power of a DC motor is
             generally found at half of the motor&apos;s maximum RPM.
           </p>{" "}
-          <br />
-          <br />
           <div className="title">
             <a href={"https://en.wikipedia.org/wiki/Motor_constants"}>
               Torque constant (kT) & Velocity constant (kV)
             </a>
           </div>
-          <p>
+          <p className={"block"}>
             These are constants that are intrinsic to the physical construction
             of the motor. <code>kT</code> defines the relationship between
             current applied and torque output. It can be used to calculate the
@@ -203,14 +189,12 @@ export default function Motors() {
             inverse of <code>kT</code>, and can also be defined as the RPM of
             the motor per volt applied.
           </p>
-          <br />
-          <br />
           <div className="title">
             <a href={"https://en.wikipedia.org/wiki/Power_(physics)"}>
               Resistance
             </a>
           </div>
-          <p>
+          <p className={"block"}>
             Generally a metric not used in robot design, but is useful to know
             when calculating other properties of the motor. Generally, a lower
             internal resistance will result in a motor that draws less current
