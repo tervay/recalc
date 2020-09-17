@@ -124,15 +124,23 @@ export default function Motors() {
           <div className="title">Explaining these numbers</div>
           <p>
             VEX has a great introduction to DC motors specs{" "}
-            <a href={"https://motors.vex.com/introduction"}>here</a>. For
-            calculating peak power at currents, I found the slope of the line
-            representing the relationship between RPM and current. Using this, I
-            found the RPM the motor would be spinning at if drawing the given
-            current at 12 volts. Then, since{" "}
+            <a href={"https://motors.vex.com/introduction"}>here</a>.
+          </p>
+          <br />
+          <p>
+            For calculating peak power at currents, I found the slope of the
+            line representing the relationship between RPM and current. Using
+            this, I found the RPM the motor would be spinning at if drawing the
+            given current at 12 volts. Then, since{" "}
             <code>power = kT * current * rpm</code>, we can easily find the
             power generated. As for the power:weight ratio, I used either the
             max theoretical power of the motor, or the peak power at 50A,
             whichever was lower (since not all motors can survive 50A).
+          </p>
+          <br />
+          <p>
+            All motors except for the Falcon 500 have 0.25 lbs added to their
+            weight to represent the weight of a speed controller.
           </p>
           <br />
           <br />

@@ -14,6 +14,9 @@ export default class Motor extends Model {
     this.quantity = quantity;
     this.kV = this.freeSpeed.div(new Measurement(12, "V"));
     this.kT = this.stallTorque.div(this.stallCurrent.sub(this.freeCurrent));
+    if (this.name !== "Falcon 500") {
+      this.weight = this.weight.add(new Measurement(0.25, "lbs"));
+    }
 
     this.maxPower = this.getPower(
       this.stallCurrent.div(2),
