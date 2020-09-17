@@ -161,6 +161,23 @@ export default function Chains() {
               label="Links"
             />
           </MultiInputLine>
+          <br />
+          <article className="message is-warning">
+            <div className="message-header">
+              <p>Warning</p>
+            </div>
+            <div className="message-body">
+              VEX has listed the pitch diameter for their #25 chain hex bore &
+              1/2&quot; ID sprockets to be slightly less than the formula for a
+              sprocket&apos;s pitch diameter. However, their pitch diameters for
+              their #25 chain plate sprockets are in agreement with the formula.
+              We have published the pitch diameters according to the formula for
+              the former group of sprockets. You can view VEX&apos;s numbers{" "}
+              <a href="https://content.vexrobotics.com/vexpro/pdf/VEXpro-%2325HubSprockets-20171130.PDF">
+                on their site.
+              </a>
+            </div>
+          </article>
         </div>
         <div className="column">
           <CheatSheet />
