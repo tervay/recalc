@@ -1,7 +1,17 @@
-import Qty from "common/models/Qty";
+import Measurement from "common/models/Measurement";
 import Model from "common/tooling/abc/Model";
 
 export default class Piston extends Model {
+  /**
+   *
+   * @param {bool} enabled - Whether the piston is enabled or not
+   * @param {Measurement} bore - Diameter of the piston bore
+   * @param {Measurement} rodDiameter - Diameter of the actuating rod of the piston
+   * @param {Measurement} strokeLength - How much the piston extends
+   * @param {Measurement} pullPressure - Working pressure of pull action
+   * @param {Measurement} pushPressure - Working pressure of push action
+   * @param {Measurement} period - How often the piston actuates
+   */
   constructor({
     enabled,
     bore,
@@ -21,12 +31,22 @@ export default class Piston extends Model {
     this.period = period;
   }
 
+  /**
+   *
+   * @param {Measurement} pressure - how much pressure is in the system at time of actuation
+   * @returns {Measurement} How much force the pushing action exerts
+   */
   getPushForce(pressure) {
     const boreRadius = this.bore.div(2);
     const boreArea = boreRadius.mul(boreRadius).mul(Math.PI);
     return boreArea.mul(pressure);
   }
 
+  /**
+   *
+   * @param {Measurement} pressure - how much pressure is in the system at time of actuation
+   * @returns {Measurement} How much force the pulling action exerts
+   */
   getPullForce(pressure) {
     const boreRadius = this.bore.div(2);
     const boreArea = boreRadius.mul(boreRadius).mul(Math.PI);
@@ -50,12 +70,12 @@ export default class Piston extends Model {
   static fromDict(dict) {
     return new Piston({
       enabled: dict.enabled,
-      bore: Qty.fromDict(dict.bore),
-      rodDiameter: Qty.fromDict(dict.rodDiameter),
-      strokeLength: Qty.fromDict(dict.strokeLength),
-      pullPressure: Qty.fromDict(dict.pullPressure),
-      pushPressure: Qty.fromDict(dict.pushPressure),
-      period: Qty.fromDict(dict.period),
+      bore: Measurement.fromDict(dict.bore),
+      rodDiameter: Measurement.fromDict(dict.rodDiameter),
+      strokeLength: Measurement.fromDict(dict.strokeLength),
+      pullPressure: Measurement.fromDict(dict.pullPressure),
+      pushPressure: Measurement.fromDict(dict.pushPressure),
+      period: Measurement.fromDict(dict.period),
     });
   }
 }

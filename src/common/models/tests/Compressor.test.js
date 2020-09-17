@@ -1,5 +1,5 @@
 import Compressor, { compressorMap } from "common/models/Compressor";
-import Qty from "common/models/Qty";
+import Measurement from "common/models/Measurement";
 import each from "jest-each";
 
 const allCompressorNames = [
@@ -17,8 +17,10 @@ function makeSureFieldsAreCorrect(compressor, compressorName) {
   expect(compressor.weight.scalar).toBe(
     compressorMap[compressorName].weight.scalar
   );
-  expect(compressor.cfmFn(new Qty(0, "psi")).scalar).toBeLessThan(1.1001);
-  expect(compressor.cfmFn(new Qty(0, "psi")).scalar).toBeGreaterThan(0);
+  expect(compressor.cfmFn(new Measurement(0, "psi")).scalar).toBeLessThan(
+    1.1001
+  );
+  expect(compressor.cfmFn(new Measurement(0, "psi")).scalar).toBeGreaterThan(0);
   expect(compressor.polynomialTerms.length).toBeGreaterThan(0);
   expect(compressor.url.length).toBeGreaterThan(0);
 }

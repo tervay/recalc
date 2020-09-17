@@ -1,9 +1,9 @@
-import Qty from "common/models/Qty";
+import Measurement from "common/models/Measurement";
 
 export function clampQty(qty, min, max, minMaxAreQtys) {
   if (!minMaxAreQtys) {
-    min = new Qty(min, qty.units());
-    max = new Qty(max, qty.units());
+    min = new Measurement(min, qty.units());
+    max = new Measurement(max, qty.units());
   }
 
   if (qty.lt(min)) return min;

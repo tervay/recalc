@@ -4,8 +4,8 @@ import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
+import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
-import Qty from "common/models/Qty";
 import Ratio from "common/models/Ratio";
 import {
   ChartBuilder,
@@ -46,9 +46,9 @@ export default function Flywheel() {
     {
       motor: Motor.getParam(),
       ratio: Ratio.getParam(),
-      radius: Qty.getParam(),
-      targetSpeed: Qty.getParam(),
-      weight: Qty.getParam(),
+      radius: Measurement.getParam(),
+      targetSpeed: Measurement.getParam(),
+      weight: Measurement.getParam(),
     },
     flywheel.initialState,
     flywheelVersionManager
@@ -62,7 +62,7 @@ export default function Flywheel() {
   const [weight, setWeight] = useState(weight_);
 
   // Outputs
-  const [windupTime, setWindupTime] = useState(new Qty(0, "s"));
+  const [windupTime, setWindupTime] = useState(new Measurement(0, "s"));
   const [optimalRatio, setOptimalRatio] = useState(new Ratio(1));
 
   const [chartData, setChartData] = useState(ChartBuilder.defaultData());
@@ -177,9 +177,9 @@ export default function Flywheel() {
           return stateToQueryString([
             new QueryableParamHolder({ motor }, Motor.getParam()),
             new QueryableParamHolder({ ratio }, Ratio.getParam()),
-            new QueryableParamHolder({ radius }, Qty.getParam()),
-            new QueryableParamHolder({ targetSpeed }, Qty.getParam()),
-            new QueryableParamHolder({ weight }, Qty.getParam()),
+            new QueryableParamHolder({ radius }, Measurement.getParam()),
+            new QueryableParamHolder({ targetSpeed }, Measurement.getParam()),
+            new QueryableParamHolder({ weight }, Measurement.getParam()),
             new QueryableParamHolder(
               { version: flywheel.version },
               NumberParam

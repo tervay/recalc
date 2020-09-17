@@ -1,7 +1,7 @@
 import Table from "common/components/Table";
+import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
-import Qty from "common/models/Qty";
-import { qtyMax } from "common/tooling/math";
+import { measurementMax } from "common/tooling/math";
 import { setTitle } from "common/tooling/routing";
 import React from "react";
 
@@ -19,39 +19,39 @@ export default function Motors() {
           return p.scalar <= 0 ? "-" : p.scalar.toFixed(0);
         };
 
-        const power1 = m.getPower(new Qty(currents[0], "A"));
-        const power2 = m.getPower(new Qty(currents[1], "A"));
-        const power3 = m.getPower(new Qty(currents[2], "A"));
+        const power1 = m.getPower(new Measurement(currents[0], "A"));
+        const power2 = m.getPower(new Measurement(currents[1], "A"));
+        const power3 = m.getPower(new Measurement(currents[2], "A"));
         let numerator;
 
         // If, at any of 20/30/40A, the motor blows up, then
         if ([power1, power2, power3].some((element) => element.scalar <= 0)) {
           // For power:weight ratio, consider the max power it can achieve
-          numerator = qtyMax(
+          numerator = measurementMax(
             m.maxPower,
-            m.getPower(new Qty(currents[0], "A")),
-            m.getPower(new Qty(currents[1], "A")),
-            m.getPower(new Qty(currents[2], "A"))
+            m.getPower(new Measurement(currents[0], "A")),
+            m.getPower(new Measurement(currents[1], "A")),
+            m.getPower(new Measurement(currents[2], "A"))
           );
         } else {
           // Otherwise, consider the max power it can achieve at 40A
-          numerator = m.getPower(new Qty(currents[2], "A"));
+          numerator = m.getPower(new Measurement(currents[2], "A"));
         }
 
         return {
           link: <a href={m.url}>{m.name}</a>,
-          freeSpeed: m.freeSpeed.to("rpm").scalar,
-          freeCurrent: m.freeCurrent.to("A").scalar.toFixed(1),
-          stallTorque: m.stallTorque.to("N m").scalar.toFixed(2),
-          stallCurrent: m.stallCurrent.to("A").scalar,
-          kt: m.kT.to("N*m/A").scalar.toFixed(4),
-          kv: m.kV.to("rpm/V").scalar.toFixed(1),
+          freeSpeed: m.freeSpeed.scalar,
+          freeCurrent: m.freeCurrent.scalar.toFixed(1),
+          stallTorque: m.stallTorque.scalar.toFixed(2),
+          stallCurrent: m.stallCurrent.scalar,
+          kt: m.kT.scalar.toFixed(4),
+          kv: m.kV.scalar.toFixed(1),
           powerAt10A: powerToString(power1),
           powerAt20A: powerToString(power2),
           powerAt40A: powerToString(power3),
-          resistance: m.resistance.to("ohm").scalar.toFixed(3),
-          weight: m.weight.to("lb").scalar.toFixed(2),
-          powerToWeight: numerator.div(m.weight).to("W/lb").scalar.toFixed(2),
+          resistance: m.resistance.scalar.toFixed(3),
+          weight: m.weight.scalar.toFixed(2),
+          powerToWeight: numerator.div(m.weight).scalar.toFixed(2),
         };
       }),
     []

@@ -1,4 +1,4 @@
-import Qty from "common/models/Qty";
+import Measurement from "common/models/Measurement";
 import { lazy } from "react";
 
 export default {
@@ -9,8 +9,8 @@ export default {
     chain: "#25",
     p1Teeth: 36,
     p2Teeth: 16,
-    desiredCenter: new Qty(5, "in"),
-    extraCenter: new Qty(0, "in"),
+    desiredCenter: new Measurement(5, "in"),
+    extraCenter: new Measurement(0, "in"),
   },
   component: lazy(() => import("web/calculators/chains/Chains")),
 };

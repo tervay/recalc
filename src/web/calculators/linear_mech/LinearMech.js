@@ -4,8 +4,8 @@ import { LabeledNumberInput } from "common/components/io/inputs/NumberInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
+import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
-import Qty from "common/models/Qty";
 import Ratio from "common/models/Ratio";
 import { ChartBuilder, YAxisBuilder } from "common/tooling/charts";
 import {
@@ -43,9 +43,9 @@ export default function LinearMech() {
     window.location.search,
     {
       motor: Motor.getParam(),
-      travelDistance: Qty.getParam(),
-      spoolDiameter: Qty.getParam(),
-      load: Qty.getParam(),
+      travelDistance: Measurement.getParam(),
+      spoolDiameter: Measurement.getParam(),
+      load: Measurement.getParam(),
       ratio: Ratio.getParam(),
       efficiency: NumberParam,
     },
@@ -62,10 +62,12 @@ export default function LinearMech() {
   const [efficiency, setEfficiency] = useState(efficiency_);
 
   // Outputs
-  const [unloadedSpeed, setUnloadedSpeed] = useState(new Qty(0, "ft/s"));
-  const [loadedSpeed, setLoadedSpeed] = useState(new Qty(0, "ft/s"));
-  const [timeToGoal, setTimeToGoal] = useState(new Qty(0, "s"));
-  const [currentDraw, setCurrentDraw] = useState(new Qty(0, "A"));
+  const [unloadedSpeed, setUnloadedSpeed] = useState(
+    new Measurement(0, "ft/s")
+  );
+  const [loadedSpeed, setLoadedSpeed] = useState(new Measurement(0, "ft/s"));
+  const [timeToGoal, setTimeToGoal] = useState(new Measurement(0, "s"));
+  const [currentDraw, setCurrentDraw] = useState(new Measurement(0, "A"));
   const [chartData, setChartData] = useState(ChartBuilder.defaultData());
   const [chartOptions, setChartOptions] = useState(
     ChartBuilder.defaultOptions()
@@ -139,9 +141,12 @@ export default function LinearMech() {
         getQuery={() => {
           return stateToQueryString([
             new QueryableParamHolder({ motor }, Motor.getParam()),
-            new QueryableParamHolder({ travelDistance }, Qty.getParam()),
-            new QueryableParamHolder({ spoolDiameter }, Qty.getParam()),
-            new QueryableParamHolder({ load }, Qty.getParam()),
+            new QueryableParamHolder(
+              { travelDistance },
+              Measurement.getParam()
+            ),
+            new QueryableParamHolder({ spoolDiameter }, Measurement.getParam()),
+            new QueryableParamHolder({ load }, Measurement.getParam()),
             new QueryableParamHolder({ ratio }, Ratio.getParam()),
             new QueryableParamHolder({ efficiency }, NumberParam),
             new QueryableParamHolder({ version: linear.version }, NumberParam),

@@ -1,17 +1,17 @@
-import Qty from "common/models/Qty";
+import Measurement from "common/models/Measurement";
 import Ratio from "common/models/Ratio";
 
 /**
  *
- * @param {Qty} weight
- * @param {Qty} radius
- * @param {Qty} motorFreeSpeed
- * @param {Qty} motorStallTorque
- * @param {Qty} motorStallCurrent
- * @param {Qty} motorResistance
+ * @param {Measurement} weight
+ * @param {Measurement} radius
+ * @param {Measurement} motorFreeSpeed
+ * @param {Measurement} motorStallTorque
+ * @param {Measurement} motorStallCurrent
+ * @param {Measurement} motorResistance
  * @param {number} motorQuantity
  * @param {Ratio} ratio
- * @param {Qty} targetSpeed
+ * @param {Measurement} targetSpeed
  */
 export function calculateWindupTime(
   weight,
@@ -25,10 +25,10 @@ export function calculateWindupTime(
   targetSpeed
 ) {
   if (motorQuantity === 0 || ratio.asNumber() === 0) {
-    return new Qty(0, "s");
+    return new Measurement(0, "s");
   }
 
-  const J = new Qty(0.5)
+  const J = new Measurement(0.5)
     .mul(weight)
     .mul(radius)
     .mul(radius)
@@ -36,32 +36,37 @@ export function calculateWindupTime(
     .div(ratio.asNumber());
   const R = motorResistance;
   const kT = motorStallTorque.div(motorStallCurrent).mul(motorQuantity);
-  const kE = new Qty(kT.scalar, "V*s/rad"); // valid for DC + BLDC motors
+  const kE = new Measurement(kT.scalar, "V*s/rad"); // valid for DC + BLDC motors
   const w = targetSpeed;
 
-  const t1 = new Qty(-1).mul(J).mul(R);
+  const t1 = new Measurement(-1).mul(J).mul(R);
   const t2 = kT.mul(kE);
   const t3 = t1.div(t2);
-  const t4 = new Qty(1).sub(w.div(motorFreeSpeed.div(ratio.asNumber())));
+  const t4 = new Measurement(1).sub(
+    w.div(motorFreeSpeed.div(ratio.asNumber()))
+  );
 
   if (t4.scalar <= 0) {
-    return new Qty(0, "s");
+    return new Measurement(0, "s");
   } else {
-    return t3.mul(Math.log(t4.scalar)).mul(new Qty(1, "rad^-1")).to("s");
+    return t3
+      .mul(Math.log(t4.scalar))
+      .mul(new Measurement(1, "rad^-1"))
+      .to("s");
   }
 }
 
 /**
  *
- * @param {Qty} weight
- * @param {Qty} radius
- * @param {Qty} motorFreeSpeed
- * @param {Qty} motorStallTorque
- * @param {Qty} motorStallCurrent
- * @param {Qty} motorResistance
+ * @param {Measurement} weight
+ * @param {Measurement} radius
+ * @param {Measurement} motorFreeSpeed
+ * @param {Measurement} motorStallTorque
+ * @param {Measurement} motorStallCurrent
+ * @param {Measurement} motorResistance
  * @param {number} motorQuantity
  * @param {Ratio} currentRatio
- * @param {Qty} targetSpeed
+ * @param {Measurement} targetSpeed
  */
 export function generateChartData(
   weight,

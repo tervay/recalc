@@ -20,6 +20,10 @@ export default class Model {
     throw new NotImplementedError("All models must implement fromDict!");
   }
 
+  /**
+   *
+   * @returns {{encode: (function(Model): string), decode: (function(string): Model)}}
+   */
   static getParam() {
     return {
       encode: (model) => encodeJson(model.toDict()),

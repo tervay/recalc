@@ -12,6 +12,7 @@ export class QueryableParamHolder {
 /**
  *
  * @param {QueryableParamHolder[]} queryableParamHolders
+ * @return {string}
  */
 export function stateToQueryString(queryableParamHolders) {
   const queryParams = Object.assign(
@@ -23,6 +24,11 @@ export function stateToQueryString(queryableParamHolders) {
   return stringify(encodeQueryParams(queryParams, queryValues));
 }
 
+/**
+ *
+ * @param {string} queryString
+ * @returns {string}
+ */
 export function buildUrlForCurrentPage(queryString) {
   const base = window.location.origin + window.location.pathname;
   return `${base}?${queryString}`;

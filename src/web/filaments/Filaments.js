@@ -13,7 +13,7 @@ export default function Compressors() {
       Filament.getAllFilaments().map((f) => ({
         name: f.name,
         material: f.material,
-        density: f.density.to("g/cm3").scalar.toFixed(2),
+        density: f.density.scalar.toFixed(2),
         youngsModulus: f.youngsModulus.to("MPa").scalar.toFixed(0),
         tensileStrength: f.tensileStrength.to("MPa").scalar.toFixed(1),
         bendingStrength:

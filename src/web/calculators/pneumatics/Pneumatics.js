@@ -4,8 +4,8 @@ import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import TabularInput from "common/components/io/inputs/TabularInput";
 import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
 import Compressor from "common/models/Compressor";
+import Measurement from "common/models/Measurement";
 import Piston from "common/models/Piston";
-import Qty from "common/models/Qty";
 import { ChartBuilder, YAxisBuilder } from "common/tooling/charts";
 import {
   QueryableParamHolder,
@@ -36,7 +36,7 @@ export default function Pneumatics() {
       p1: Piston.getParam(),
       p2: Piston.getParam(),
       p3: Piston.getParam(),
-      volume: Qty.getParam(),
+      volume: Measurement.getParam(),
       compressor: Compressor.getParam(),
     },
     pneumatics.initialState,
@@ -101,7 +101,7 @@ export default function Pneumatics() {
                 new QueryableParamHolder({ p1 }, Piston.getParam()),
                 new QueryableParamHolder({ p2 }, Piston.getParam()),
                 new QueryableParamHolder({ p3 }, Piston.getParam()),
-                new QueryableParamHolder({ volume }, Qty.getParam()),
+                new QueryableParamHolder({ volume }, Measurement.getParam()),
                 new QueryableParamHolder({ compressor }, Compressor.getParam()),
                 new QueryableParamHolder(
                   { version: pneumatics.version },

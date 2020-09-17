@@ -1,9 +1,9 @@
-import Qty from "common/models/Qty";
+import Measurement from "common/models/Measurement";
 
 /**
  *
  * @param {number} teeth
- * @param {Qty} pitch
+ * @param {Measurement} pitch
  * @param {string} unit
  */
 export function teethToPD(teeth, pitch, unit = undefined) {
@@ -15,11 +15,11 @@ export function teethToPD(teeth, pitch, unit = undefined) {
 
 /**
  *
- * @param {Qty} pitch
- * @param {Qty} p1PitchDiameter
- * @param {Qty} p2PitchDiameter
- * @param {Qty} desiredCenter
- * @param {Qty} extraCenter
+ * @param {Measurement} pitch
+ * @param {Measurement} p1PitchDiameter
+ * @param {Measurement} p2PitchDiameter
+ * @param {Measurement} desiredCenter
+ * @param {Measurement} extraCenter
  * @param {number} minBeltToothCount
  * @param {number} maxBeltToothCount
  * @param {number} beltToothIncrement
@@ -44,7 +44,7 @@ export function calculateClosestCenters(
     const L = pitch.mul(NB);
 
     const t1 = L.sub(
-      new Qty(1.57).mul(p1PitchDiameter.add(p2PitchDiameter))
+      new Measurement(1.57).mul(p1PitchDiameter.add(p2PitchDiameter))
     ).div(4);
     const t2 = t1.mul(t1);
     const t3 = p1PitchDiameter
@@ -56,7 +56,7 @@ export function calculateClosestCenters(
     if (inSqrt < 0) {
       continue;
     }
-    const sqrt = new Qty(Math.sqrt(inSqrt), "in");
+    const sqrt = new Measurement(Math.sqrt(inSqrt), "in");
     const C = t1.add(sqrt).to("in");
     results[i] = {
       centerDistance: C,
@@ -106,7 +106,7 @@ export function calculateClosestCenters(
           }
         : {
             teeth: 0,
-            distance: new Qty(0, "in"),
+            distance: new Measurement(0, "in"),
           },
     larger:
       closestLargerSize !== 0
@@ -118,7 +118,7 @@ export function calculateClosestCenters(
           }
         : {
             teeth: 0,
-            distance: new Qty(0, "in"),
+            distance: new Measurement(0, "in"),
           },
   };
 }

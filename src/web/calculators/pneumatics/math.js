@@ -1,4 +1,4 @@
-import Qty from "common/models/Qty";
+import Measurement from "common/models/Measurement";
 import { clampQty } from "common/tooling/quantities";
 
 export function generatePressureTimeline(pistons, volume, compressor) {
@@ -6,16 +6,16 @@ export function generatePressureTimeline(pistons, volume, compressor) {
     return { timeline: [], dutyCycle: 0 };
   }
 
-  const pressures = [{ x: 0, y: new Qty(115, "psi") }];
-  const duration = new Qty(2 * 60 + 30, "s");
-  const dt = new Qty(1, "s");
+  const pressures = [{ x: 0, y: new Measurement(115, "psi") }];
+  const duration = new Measurement(2 * 60 + 30, "s");
+  const dt = new Measurement(1, "s");
   let t = 0;
   const timeToFire = pistons.map((piston) => piston.period.copy());
   let timeCompressorActive = 0;
   let compressorOn = false;
 
   while (t < duration.scalar) {
-    let totalCylWork = new Qty(0, "J");
+    let totalCylWork = new Measurement(0, "J");
     pistons.forEach((p, i) => {
       if (!p.enabled) return;
       if (p.period.scalar === 0) return;
@@ -93,10 +93,10 @@ function getCylinderWork(piston, isFiring) {
 }
 
 function getCompressorWork(compressor, pressure, dt, compressorOn) {
-  if (!compressorOn) return new Qty(0, "J");
+  if (!compressorOn) return new Measurement(0, "J");
 
   return getCompressorFlowRate(compressor, pressure)
-    .mul(new Qty(1, "atm"))
+    .mul(new Measurement(1, "atm"))
     .mul(dt);
 }
 

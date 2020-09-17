@@ -1,14 +1,14 @@
-import Qty from "common/models/Qty";
+import Measurement from "common/models/Measurement";
 
 /**
  *
  * @param {number} teeth
- * @param {Qty} chain
+ * @param {Measurement} chain
  * @param {string} unit
  */
 export function teethToPD(teeth, chain, unit = undefined) {
   if (teeth === 0 || teeth === "0") {
-    return new Qty(0, unit || chain.units());
+    return new Measurement(0, unit || chain.units());
   }
 
   const chainPitch = chainTypeToPitch(chain);
@@ -18,7 +18,7 @@ export function teethToPD(teeth, chain, unit = undefined) {
 }
 
 export function chainTypeToPitch(t) {
-  return new Qty(
+  return new Measurement(
     {
       "#25": 0.25,
       "#35": 0.375,
@@ -35,7 +35,7 @@ function calculateCenterDistance(chainPitch, p1Teeth, p2Teeth, numLinks) {
   const t1_ = 2 * numLinks - N - n;
   const t2_ = t1_ * t1_ - 0.81 * (N - n) * (N - n);
   const c = (P.to("in").scalar / 8) * (t1_ + Math.sqrt(t2_));
-  return new Qty(c, "in");
+  return new Measurement(c, "in");
 }
 
 /**
@@ -43,8 +43,8 @@ function calculateCenterDistance(chainPitch, p1Teeth, p2Teeth, numLinks) {
  * @param {string} chain
  * @param {number} p1Teeth
  * @param {number} p2Teeth
- * @param {Qty} desiredCenter
- * @param {Qty} extraCenter
+ * @param {Measurement} desiredCenter
+ * @param {Measurement} extraCenter
  */
 export function calculateClosestCenters(
   chain,
@@ -57,11 +57,11 @@ export function calculateClosestCenters(
     return {
       smaller: {
         teeth: 0,
-        distance: new Qty(0, "in"),
+        distance: new Measurement(0, "in"),
       },
       larger: {
         teeth: 0,
-        distance: new Qty(0, "in"),
+        distance: new Measurement(0, "in"),
       },
     };
   }

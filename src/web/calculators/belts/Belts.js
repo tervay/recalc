@@ -4,7 +4,7 @@ import { LabeledNumberInput } from "common/components/io/inputs/NumberInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
-import Qty from "common/models/Qty";
+import Measurement from "common/models/Measurement";
 import {
   QueryableParamHolder,
   queryStringToDefaults,
@@ -32,11 +32,11 @@ export default function Belts() {
   } = queryStringToDefaults(
     window.location.search,
     {
-      pitch: Qty.getParam(),
+      pitch: Measurement.getParam(),
       p1Teeth: NumberParam,
       p2Teeth: NumberParam,
-      desiredCenter: Qty.getParam(),
-      extraCenter: Qty.getParam(),
+      desiredCenter: Measurement.getParam(),
+      extraCenter: Measurement.getParam(),
     },
     belts.initialState,
     beltVersionManager
@@ -87,11 +87,11 @@ export default function Belts() {
         subtitle={`V${belts.version}`}
         getQuery={() => {
           return stateToQueryString([
-            new QueryableParamHolder({ pitch }, Qty.getParam()),
+            new QueryableParamHolder({ pitch }, Measurement.getParam()),
             new QueryableParamHolder({ p1Teeth }, NumberParam),
             new QueryableParamHolder({ p2Teeth }, NumberParam),
-            new QueryableParamHolder({ desiredCenter }, Qty.getParam()),
-            new QueryableParamHolder({ extraCenter }, Qty.getParam()),
+            new QueryableParamHolder({ desiredCenter }, Measurement.getParam()),
+            new QueryableParamHolder({ extraCenter }, Measurement.getParam()),
             new QueryableParamHolder({ version: belts.version }, NumberParam),
           ]);
         }}

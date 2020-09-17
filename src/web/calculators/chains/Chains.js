@@ -5,7 +5,7 @@ import { LabeledNumberInput } from "common/components/io/inputs/NumberInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
-import Qty from "common/models/Qty";
+import Measurement from "common/models/Measurement";
 import {
   QueryableParamHolder,
   queryStringToDefaults,
@@ -36,8 +36,8 @@ export default function Chains() {
       chain: StringParam,
       p1Teeth: NumberParam,
       p2Teeth: NumberParam,
-      desiredCenter: Qty.getParam(),
-      extraCenter: Qty.getParam(),
+      desiredCenter: Measurement.getParam(),
+      extraCenter: Measurement.getParam(),
     },
     chains.initialState,
     chainVersionManager
@@ -90,8 +90,8 @@ export default function Chains() {
             new QueryableParamHolder({ chain }, StringParam),
             new QueryableParamHolder({ p1Teeth }, NumberParam),
             new QueryableParamHolder({ p2Teeth }, NumberParam),
-            new QueryableParamHolder({ desiredCenter }, Qty.getParam()),
-            new QueryableParamHolder({ extraCenter }, Qty.getParam()),
+            new QueryableParamHolder({ desiredCenter }, Measurement.getParam()),
+            new QueryableParamHolder({ extraCenter }, Measurement.getParam()),
             new QueryableParamHolder({ version: chains.version }, NumberParam),
           ]);
         }}

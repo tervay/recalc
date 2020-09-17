@@ -11,3 +11,10 @@ export class NotImplementedError extends RecalcError {
     this.name = "NotImplementedError";
   }
 }
+
+export class ArgumentError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "ArgumentError";
+  }
+}

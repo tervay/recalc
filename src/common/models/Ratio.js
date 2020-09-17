@@ -8,6 +8,11 @@ export default class Ratio extends Model {
     return "Step-up";
   }
 
+  /**
+   *
+   * @param {number} magnitude - Magnitude of the ratio
+   * @param {string} ratioType - Either "Reduction" or "Step-up"
+   */
   constructor(magnitude, ratioType) {
     super();
     this.magnitude = magnitude;
@@ -22,6 +27,10 @@ export default class Ratio extends Model {
     }
   }
 
+  /**
+   *
+   * @returns {number} Returns the ratio as a X:1 reduction number
+   */
   asNumber() {
     if (this.magnitude === 0 || this.ratioType === Ratio.REDUCTION) {
       return this.magnitude;
