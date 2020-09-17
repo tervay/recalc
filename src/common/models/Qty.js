@@ -38,7 +38,7 @@ export default class Qty extends Model {
         }
 
         const jsQtyResult = this.innerQty[fName](qty_.innerQty);
-        if (jsQtyResult.constructor.name === "Qty") {
+        if (jsQtyResult.constructor === JSQty) {
           return Qty.simplify(new Qty(jsQtyResult.scalar, jsQtyResult.units()));
         } else {
           return jsQtyResult;
