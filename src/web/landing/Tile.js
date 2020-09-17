@@ -6,9 +6,9 @@ export default function Tile(props) {
   return (
     <Link to={props.to}>
       <div className={"box"}>
-        <article className="media">
-          <figure className="media-left">
-            <figure className="image is-128x128">
+        <div className="columns">
+          <div className="column is-one-quarter">
+            <figure className="image is-4by3">
               <picture>
                 {props.image && (
                   <>
@@ -19,21 +19,20 @@ export default function Tile(props) {
                 <img
                   src={
                     (props.image ||
-                      "https://bulma.io/images/placeholders/128x128") + ".png"
+                      "https://bulma.io/images/placeholders/1280x960") + ".png"
                   }
                   alt={props.title}
                 />
               </picture>
             </figure>
-          </figure>
-          <div className="media-content">
-            <div className="content">
-              <p>
-                <strong className={"title"}>{props.title}</strong>
-              </p>
-            </div>
           </div>
-        </article>
+          <div
+            className="column subtitle"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            {props.title}
+          </div>
+        </div>
       </div>
     </Link>
   );

@@ -1,6 +1,5 @@
 import { setTitle } from "common/tooling/routing";
 import React from "react";
-import { Link } from "react-router-dom";
 import belts from "web/calculators/belts";
 import chains from "web/calculators/chains";
 import dslogs from "web/calculators/dslogs";
@@ -30,77 +29,61 @@ export default function Landing() {
 
       <div>
         <div className="columns">
-          <div className="column is-one-third">
+          <div className="column">
+            <Tile to={belts.url} title={belts.title} image={belts.image} />
+          </div>
+
+          <div className="column">
+            <Tile to={chains.url} title={chains.title} />
+          </div>
+        </div>
+
+        <div className={"columns"}>
+          <div className="column">
             <Tile
               to={flywheel.url}
               title={flywheel.title}
               image={flywheel.image}
             />
           </div>
-          <div className="column is-one-third">
-            <Tile to={belts.url} title={belts.title} image={belts.image} />
+
+          <div className="column">
+            <Tile to={linear.url} title={linear.title} />
           </div>
-          <div className="column is-one-third">
+        </div>
+
+        <div className="columns">
+          <div className="column">
             <Tile
               to={pneumatics.url}
               title={pneumatics.title}
               image={pneumatics.image}
             />
           </div>
-        </div>
 
-        <div className="columns">
-          <div className="column is-one-third">
-            <Tile to={linear.url} title={linear.title} />
-          </div>
-          <div className="column is-one-third">
-            <Tile to={chains.url} title={chains.title} />
-          </div>
-          <div className="column is-one-third">
+          <div className="column">
             <Tile to={dslogs.url} title={dslogs.title} />
           </div>
         </div>
 
         <div className="columns">
-          <div className="column is-one-third">
-            <Link to={motors.url}>
-              <div className="card">
-                <div className="card-content">
-                  <p className="title">{motors.title}</p>
-                </div>
-              </div>
-            </Link>
+          <div className="column">
+            <Tile to={compressors.url} title={compressors.title} />
           </div>
-          <div className="column is-one-third">
-            <Link to={compressors.url}>
-              <div className="card">
-                <div className="card-content">
-                  <p className="title">{compressors.title}</p>
-                </div>
-              </div>
-            </Link>
-          </div>
-          <div className="column is-one-third">
-            <Link to={filaments.url}>
-              <div className="card">
-                <div className="card-content">
-                  <p className="title">{filaments.title}</p>
-                </div>
-              </div>
-            </Link>
+
+          <div className="column">
+            <Tile to={motors.url} title={motors.title} />
           </div>
         </div>
-      </div>
 
-      <div className={"columns"}>
-        <div className="column is-narrow">
-          <Link to="/about">
-            <div className="card">
-              <div className="card-content">
-                <p className="title">About</p>
-              </div>
-            </div>
-          </Link>
+        <div className="columns">
+          <div className="column">
+            <Tile to={filaments.url} title={filaments.title} />
+          </div>
+
+          <div className="column">
+            <Tile to={"/about"} title={"About"} />
+          </div>
         </div>
       </div>
     </>
