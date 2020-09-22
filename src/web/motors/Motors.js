@@ -1,3 +1,4 @@
+import Heading2 from "common/components/calc-heading/Heading2";
 import Table from "common/components/Table";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
@@ -118,6 +119,7 @@ export default function Motors() {
 
   return (
     <>
+      <Heading2 title={motorsConfig.title} image={motorsConfig.image} />
       <Table columns={columns} data={data} />
       <section className="section">
         <div className="container">

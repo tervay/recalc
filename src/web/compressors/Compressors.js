@@ -1,3 +1,4 @@
+import Heading2 from "common/components/calc-heading/Heading2";
 import Table from "common/components/Table";
 import Compressor from "common/models/Compressor";
 import Measurement from "common/models/Measurement";
@@ -74,6 +75,7 @@ export default function Compressors() {
 
   return (
     <>
+      <Heading2 image={compressorConfig.image} title={compressorConfig.title} />
       <Table columns={columns} data={data} />
     </>
   );

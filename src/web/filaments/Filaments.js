@@ -1,3 +1,4 @@
+import Heading2 from "common/components/calc-heading/Heading2";
 import Table from "common/components/Table";
 import Filament from "common/models/Filament";
 import { setTitle } from "common/tooling/routing";
@@ -69,6 +70,7 @@ export default function Compressors() {
 
   return (
     <>
+      <Heading2 title={filamentConfig.title} image={filamentConfig.image} />
       <Table columns={columns} data={data} />
       <section className="section">
         <div className="container">
