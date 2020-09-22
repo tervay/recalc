@@ -68,7 +68,11 @@ export default function Landing() {
 
         <div className="columns">
           <div className="column">
-            <Tile to={compressors.url} title={compressors.title} />
+            <Tile
+              to={compressors.url}
+              title={compressors.title}
+              image={compressors.image}
+            />
           </div>
 
           <div className="column">
@@ -78,7 +82,11 @@ export default function Landing() {
 
         <div className="columns">
           <div className="column">
-            <Tile to={filaments.url} title={filaments.title} />
+            <Tile
+              to={filaments.url}
+              title={filaments.title}
+              image={filaments.image}
+            />
           </div>
 
           <div className="column">
