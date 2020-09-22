@@ -43,15 +43,15 @@ export default function Belts() {
   );
 
   // Inputs
-  const [pitch, setPitch] = useState(pitch_);
+  const [pitch, setPitch] = useState(pitch_.to("mm"));
   const [p1Teeth, setP1Teeth] = useState(p1Teeth_);
   const [p2Teeth, setP2Teeth] = useState(p2Teeth_);
   const [desiredCenter, setDesiredCenter] = useState(desiredCenter_);
   const [extraCenter, setExtraCenter] = useState(extraCenter_);
 
   // Outputs
-  const [p1Pitch, setP1Pitch] = useState(teethToPD(p1Teeth, pitch, "in"));
-  const [p2Pitch, setP2Pitch] = useState(teethToPD(p2Teeth, pitch, "in"));
+  const [p1Pitch, setP1Pitch] = useState(teethToPD(p1Teeth, pitch).to("in"));
+  const [p2Pitch, setP2Pitch] = useState(teethToPD(p2Teeth, pitch).to("in"));
 
   const results = useMemo(() => {
     return calculateClosestCenters(

@@ -6,6 +6,7 @@ import store from "common/services/store";
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "redux-zero/react";
+import Error404 from "web/404";
 import belts from "web/calculators/belts";
 import chains from "web/calculators/chains";
 import dslogs from "web/calculators/dslogs";
@@ -28,7 +29,11 @@ export default function App() {
         <Nav />
         <section className="section">
           <div className="container">
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense
+              fallback={
+                <progress className="progress is-small is-primary" max="100" />
+              }
+            >
               <Switch>
                 <Route exact path="/" component={Landing} />
                 <Route path={belts.url} component={belts.component} />
@@ -47,6 +52,7 @@ export default function App() {
 
                 <Route path={profileURL} component={Profile} />
                 <Route path={"/about"} component={About} />
+                <Route component={Error404} />
               </Switch>
             </Suspense>
           </div>

@@ -79,3 +79,9 @@ export default class Piston extends Model {
     });
   }
 }
+
+export class PistonList extends Model {
+  constructor() {
+    super();
+  }
+}

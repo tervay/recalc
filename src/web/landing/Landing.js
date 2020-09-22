@@ -72,7 +72,7 @@ export default function Landing() {
           </div>
 
           <div className="column">
-            <Tile to={motors.url} title={motors.title} />
+            <Tile to={motors.url} title={motors.title} image={motors.image} />
           </div>
         </div>
 
