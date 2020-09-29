@@ -7,6 +7,7 @@ import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "redux-zero/react";
 import Error404 from "web/404";
+import articles from "web/articles";
 import belts from "web/calculators/belts";
 import chains from "web/calculators/chains";
 import dslogs from "web/calculators/dslogs";
@@ -49,6 +50,8 @@ export default function App() {
                   component={compressors.component}
                 />
                 <Route path={filaments.url} component={filaments.component} />
+
+                <Route path={articles.url} component={articles.component} />
 
                 <Route path={profileURL} component={Profile} />
                 <Route path={"/about"} component={About} />

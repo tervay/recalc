@@ -83,9 +83,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  font-family: $font_family !important;
+*,
+body,
+button,
+input,
+select,
+textarea {
+  font-family: $font_family;
 }
+
+@import "../node_modules/katex/dist/katex.min.css";
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
