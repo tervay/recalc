@@ -19,18 +19,18 @@ export default function Articles() {
     wretch(`/raw_articles/${id}.md`)
       .get()
       .text((md) => {
-        if (md.startsWith("<!DOCTYPE")) {
+        if (md.startsWith("<!DOCTYPE") || md.startsWith("<!doctype")) {
           setErr(true);
         }
 
         let rendered = renderer.render(md);
 
         // Ok this is bad I'm sorry
-        [...Array(6).keys()].forEach((n) => {
-          const tag = `<h${n}>`;
-          const replaced = `<h${n} class="title is-${n}">`;
-          rendered = rendered.replaceAll(tag, replaced);
-        });
+        // [...Array(6).keys()].forEach((n) => {
+        //   const tag = `<h${n}>`;
+        //   const replaced = `<h${n} class="title is-${n}">`;
+        //   rendered = rendered.replaceAll(tag, replaced);
+        // });
 
         setContent(rendered);
       });
@@ -40,7 +40,12 @@ export default function Articles() {
     return <Error404 />;
   }
 
-  return <div dangerouslySetInnerHTML={{ __html: content }} />;
+  return (
+    <div
+      className={"md-article"}
+      dangerouslySetInnerHTML={{ __html: content }}
+    />
+  );
 }
 
 Articles.propTypes = {
