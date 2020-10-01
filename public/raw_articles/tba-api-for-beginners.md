@@ -1,12 +1,14 @@
-# Using the TBA API
+[//]: <author> (Justin Tervay)
+[//]: <title> (TBA API For Beginners)
+[//]: <updated> (09/30/2020)
 
-Author: Justin Tervay
+[[toc]]
 
 ## How does TBA serve data?
 
 TheBlueAlliance stores their data in a database, such as [Google Cloud Datastore](https://cloud.google.com/datastore). However, databases themselves are typically heavily secured, so that bad actors can't intentionally edit the database and corrupt the data (and break the site). So instead, TBA exposes special URLs that return raw data, just like how specific URLs return a webpage. The data format that data is returned in is called [JSON](https://en.wikipedia.org/wiki/JSON) - a widely standardized format that many programming languages can understand.
 
-You can view an example of a JSON response here: https://www.thebluealliance.com/api/v3/status
+You can view an example of a JSON response here: [https://www.thebluealliance.com/api/v3/status](https://www.thebluealliance.com/api/v3/status)
 
 However, you'll see an error:
 
@@ -22,7 +24,7 @@ Don't worry about the error right now - we'll fix it in our upcoming code.
 
 Let's stick to the basics here. We'll use Python here since it's very easy to utilize. If you already have a Python environment set up, you're free to skip ahead.
 
-We'll use the [PyCharm educational IDE](https://www.jetbrains.com/pycharm-edu/), since it's a great way for new Python programmers to learn.
+We'll use the [PyCharm educational IDE](https://www.jetbrains.com/pycharm-edu/), since it's a great way for new Python programmers to learn. There is both an educational and a regular version of PyCharm, so feel free to grab whichever one you would prefer. The educational version has some simpler UIs and easier-to-navigate options, as well as coming with a Python version in the installer.
 
 When installing, you'll come across this menu screen:
 
@@ -65,6 +67,10 @@ And you should see a console output the message:
 Hi, PyCharm
 ```
 
+## A quick note on Python
+
+As much as I would love to teach you the basics of Python syntax, it's out of scope of what this guide is intended for. There are tons and tons of resources for learning the basics of Python, and it's a very easy language to learn. If you aren't familiar with Python at all, you're free to continue, but I won't be explaining every aspect of the code (such as iterating through dictionaries and lists).
+
 ## Installing a third-party library
 
 While it's possible to get data from a web API with the Python standard library, it's a lot easier with third-party libraries. My personal favorite and recommended library is [tbapy](https://github.com/frc1418/tbapy). In order to install it, follow these steps:
@@ -79,7 +85,7 @@ While it's possible to get data from a web API with the Python standard library,
 
 ## Getting a TBA API Key
 
-You'll want to get a Read API Key from here: https://www.thebluealliance.com/account
+You'll want to get a Read API Key from here: [https://www.thebluealliance.com/account](https://www.thebluealliance.com/account)
 
 Copy the value under `X-TBA-Auth-Key` - that's your API key (and what the error earlier was complaining about you not having!).
 
@@ -134,9 +140,9 @@ Now we can much more easily see the JSON blob representing team 2791.
 
 ## How much is in the API?
 
-A lot! You can see the full API documentation here: https://www.thebluealliance.com/apidocs/v3
+A lot! You can see the full API documentation here: [https://www.thebluealliance.com/apidocs/v3](https://www.thebluealliance.com/apidocs/v3)
 
-And the `tbapy` documentation here: https://github.com/frc1418/tbapy#retrieval-functions
+And the `tbapy` documentation here: [https://github.com/frc1418/tbapy#retrieval-functions](https://github.com/frc1418/tbapy#retrieval-functions)
 
 So, lets look at the `tbapy` API docs and explain what those function arguments mean.
 
@@ -265,7 +271,6 @@ We're nearly there! Now we just need to calculate an average of the `'total'` fi
 
 ![enter image description here](https://i.imgur.com/sVKLqpl.png)
 
+Now here's the issue - we're including out of district events! 2168 is a New England team that participated in the 2019 Springside Chestnut Hill FMA event, where they didn't earn any district points. As a challenge to the reader, try calculating the average district points that 2168 earned at each New England (NE) event in 2019. Your answer should be `116.67`.
 
-----------------
-
-\<work in progress>
+Hint: Check the `if` statement on line 11. :)

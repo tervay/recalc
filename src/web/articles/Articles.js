@@ -1,5 +1,4 @@
-import md from "markdown-it";
-import mk from "markdown-it-katex";
+import { parseHeaders, render } from "common/tooling/md";
 import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -7,11 +6,11 @@ import Error404 from "web/404";
 import wretch from "wretch";
 
 export default function Articles() {
-  const renderer = md();
-  renderer.use(mk);
-
   const [content, setContent] = useState("");
   const [err, setErr] = useState(false);
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [updated, setUpdated] = useState("");
 
   const { id } = useParams();
 
@@ -23,15 +22,12 @@ export default function Articles() {
           setErr(true);
         }
 
-        let rendered = renderer.render(md);
+        let headers = parseHeaders(md);
+        setTitle(headers.title);
+        setAuthor(headers.author);
+        setUpdated(headers.updated);
 
-        // Ok this is bad I'm sorry
-        // [...Array(6).keys()].forEach((n) => {
-        //   const tag = `<h${n}>`;
-        //   const replaced = `<h${n} class="title is-${n}">`;
-        //   rendered = rendered.replaceAll(tag, replaced);
-        // });
-
+        let rendered = render(md);
         setContent(rendered);
       });
   }, []);
@@ -41,10 +37,23 @@ export default function Articles() {
   }
 
   return (
-    <div
-      className={"md-article"}
-      dangerouslySetInnerHTML={{ __html: content }}
-    />
+    <>
+      <section className="hero is-primary">
+        <div className="hero-body">
+          <div className="container">
+            <h1 className="title">{title}</h1>
+            <h2 className="subtitle">by {author}</h2>
+            <h2 className="subtitle" style={{ marginTop: "-1.25rem" }}>
+              Last updated {updated}
+            </h2>
+          </div>
+        </div>
+      </section>
+      <div
+        className={"content"}
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    </>
   );
 }
 

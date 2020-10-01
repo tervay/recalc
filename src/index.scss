@@ -47,6 +47,7 @@ $font_family: "Quicksand", sans-serif, -apple-system, BlinkMacSystemFont,
 @import "../node_modules/bulma/sass/components/modal.sass";
 @import "../node_modules/bulma/sass/components/level.sass";
 @import "../node_modules/bulma/sass/components/message.sass";
+@import "../node_modules/bulma/sass/components/menu.sass";
 
 @import "../node_modules/bulma/sass/elements/button.sass";
 @import "../node_modules/bulma/sass/elements/box.sass";
@@ -143,10 +144,6 @@ a.navbar-item:focus {
   background-color: $primary;
 }
 
-.hero-body {
-  padding-top: 0;
-}
-
 .bg-image {
   /* Add the blur effect */
   filter: blur(3px);
@@ -186,5 +183,13 @@ $headings: h1, h2, h3, h4, h5, h6, h7;
   img {
     display: block;
     margin: 0 auto;
+  }
+}
+
+.content {
+  img {
+    display: block;
+    margin: 0 auto;
+    padding: 1em;
   }
 }
