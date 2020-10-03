@@ -1,12 +1,12 @@
 [//]: <author> (Andrew Schreiber)
-[//]: <title> (TBA API For Beginners)
+[//]: <title> (TBA Bulk Data using Big Query)
 [//]: <updated> (10/01/2020)
 
 [[toc]]
 
 ## Accessing Bulk TBA Data
 
-As you may have noticed, accessing the TBA API is pretty easy if you need to see one team or one event but what if you wanted to see something else, like how often Team 254 has Red Bumpers. For stuff like that TBA has an mirror of their data to a publicly queryable data set available at https://thebluealliance.com/bigquery.
+As you may have noticed, accessing the TBA API is pretty easy if you need to see one team or one event but what if you wanted to see something else, like how often Team 254 has Red Bumpers. For stuff like that TBA has an mirror of their data to a publicly queryable data set available at [https://thebluealliance.com/bigquery](https://thebluealliance.com/bigquery).
 
 Simply put, it's a database that you can ask questions. If you're familiar with querying other databases using SQL it should feel fairly similar. 
 
