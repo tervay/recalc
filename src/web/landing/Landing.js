@@ -1,5 +1,6 @@
 import { setTitle } from "common/tooling/routing";
 import React from "react";
+import arm from "web/calculators/arm";
 import belts from "web/calculators/belts";
 import chains from "web/calculators/chains";
 import dslogs from "web/calculators/dslogs";
@@ -52,31 +53,30 @@ export default function Landing() {
           </div>
         </div>
 
-        <div className="columns">
-          <div className="column">
+        <div className={"columns"}>
+          <div className={"column"}>
+            <Tile to={arm.url} title={arm.title} />
+          </div>
+          <div className={"column"}>
             <Tile
               to={pneumatics.url}
               title={pneumatics.title}
               image={pneumatics.image}
             />
           </div>
-
-          <div className="column">
-            <Tile to={dslogs.url} title={dslogs.title} />
-          </div>
         </div>
 
         <div className="columns">
+          <div className="column">
+            <Tile to={dslogs.url} title={dslogs.title} />
+          </div>
+
           <div className="column">
             <Tile
               to={compressors.url}
               title={compressors.title}
               image={compressors.image}
             />
-          </div>
-
-          <div className="column">
-            <Tile to={motors.url} title={motors.title} image={motors.image} />
           </div>
         </div>
 
@@ -90,8 +90,16 @@ export default function Landing() {
           </div>
 
           <div className="column">
+            <Tile to={motors.url} title={motors.title} image={motors.image} />
+          </div>
+        </div>
+
+        <div className="columns">
+          <div className="column">
             <Tile to={"/about"} title={"About"} />
           </div>
+
+          <div className="column" />
         </div>
       </div>
     </>

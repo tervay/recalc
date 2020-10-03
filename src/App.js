@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "redux-zero/react";
 import Error404 from "web/404";
 import articles from "web/articles";
+import arm from "web/calculators/arm";
 import belts from "web/calculators/belts";
 import chains from "web/calculators/chains";
 import dslogs from "web/calculators/dslogs";
@@ -42,6 +43,7 @@ export default function App() {
                 <Route path={pneumatics.url} component={pneumatics.component} />
                 <Route path={linear.url} component={linear.component} />
                 <Route path={chains.url} component={chains.component} />
+                <Route path={arm.url} component={arm.component} />
 
                 <Route path={dslogs.url} component={dslogs.component} />
                 <Route path={motors.url} component={motors.component} />
