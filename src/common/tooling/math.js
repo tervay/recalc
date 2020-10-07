@@ -1,3 +1,4 @@
+import Measurement from "common/models/Measurement";
 import maxBy from "lodash/maxBy";
 import minBy from "lodash/minBy";
 
@@ -29,3 +30,13 @@ export function measurementMin() {
 export function measurementMax() {
   return maxBy(arguments, (q) => q.scalar);
 }
+
+export const CIRCLE_RIGHT = new Measurement(0, "deg");
+export const CIRCLE_UP = new Measurement(90, "deg");
+export const CIRCLE_LEFT = new Measurement(180, "deg");
+export const CIRCLE_DOWN = new Measurement(270, "deg");
+
+export const CIRCLE_UP_RIGHT = new Measurement(45, "deg");
+export const CIRCLE_UP_LEFT = new Measurement(135, "deg");
+export const CIRCLE_DOWN_RIGHT = new Measurement(225, "deg");
+export const CIRCLE_DOWN_LEFT = new Measurement(315, "deg");

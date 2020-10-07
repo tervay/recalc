@@ -1,5 +1,6 @@
 import Heading from "common/components/calc-heading/Heading";
 import { LabeledMotorInput } from "common/components/io/inputs/MotorInput";
+import { LabeledPatientNumberInput } from "common/components/io/inputs/PatientNumberInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
@@ -17,7 +18,7 @@ import React, { useEffect, useState } from "react";
 import { NumberParam } from "use-query-params";
 
 import arm from "./index";
-import { calculateTimeToGoalJVN } from "./math";
+import { calculateState } from "./math";
 
 export default function Arm() {
   setTitle(arm.title);
@@ -26,17 +27,21 @@ export default function Arm() {
   const {
     motor: motor_,
     ratio: ratio_,
-    armLength: armLength_,
-    armLoad: armLoad_,
-    angleChange: angleChange_,
+    comLength: comLength_,
+    armMass: armMass_,
+    startAngle: startAngle_,
+    endAngle: endAngle_,
+    iterationLimit: iterationLimit_,
   } = queryStringToDefaults(
     window.location.search,
     {
       motor: Motor.getParam(),
       ratio: Ratio.getParam(),
       armLength: Measurement.getParam(),
-      armLoad: Measurement.getParam(),
-      angleChange: Measurement.getParam(),
+      armMass: Measurement.getParam(),
+      startAngle: Measurement.getParam(),
+      endAngle: Measurement.getParam(),
+      iterationLimit: NumberParam,
     },
     arm.initialState,
     defaultAssignment
@@ -45,18 +50,41 @@ export default function Arm() {
   // Inputs
   const [motor, setMotor] = useState(motor_);
   const [ratio, setRatio] = useState(ratio_);
-  const [armLength, setArmLength] = useState(armLength_);
-  const [armLoad, setArmLoad] = useState(armLoad_);
-  const [angleChange, setAngleChange] = useState(angleChange_);
+  const [comLength, setComLength] = useState(comLength_);
+  const [armMass, setArmMass] = useState(armMass_);
+  const [startAngle, setStartAngle] = useState(startAngle_);
+  const [endAngle, setEndAngle] = useState(endAngle_);
+  const [iterationLimit, setIterationLimit] = useState(iterationLimit_);
 
   // Outputs
   const [timeToGoal, setTimeToGoal] = useState(new Measurement(0, "s"));
+  // const [debug, setDebug] = useState("");
 
   useEffect(() => {
-    setTimeToGoal(
-      calculateTimeToGoalJVN(motor, ratio, armLength, armLoad, angleChange)
+    const states = calculateState(
+      motor,
+      ratio,
+      comLength,
+      armMass,
+      startAngle,
+      endAngle,
+      iterationLimit
     );
-  }, [motor, ratio, armLength, armLoad, angleChange]);
+    // setDebug(
+    //   states
+    //     .map(
+    //       (s) =>
+    //         `${s.t.format()}\n${s.p.format("deg")}\n${s.v.format(
+    //           "rpm"
+    //         )}\n${s.a.format(
+    //           "rpm/s"
+    //         )}\ngrav: ${s.gt.format()}\ngb: ${s.gb.format()}\n${s.c.format()}`
+    //     )
+    //     .join("\n-----------\n")
+    // );
+
+    setTimeToGoal(states[states.length - 1].t);
+  }, [motor, ratio, comLength, armMass, startAngle, endAngle, iterationLimit]);
 
   return (
     <>
@@ -68,8 +96,11 @@ export default function Arm() {
             new QueryableParamHolder({ version: arm.version }, NumberParam),
             new QueryableParamHolder({ motor }, Motor.getParam()),
             new QueryableParamHolder({ ratio }, Ratio.getParam()),
-            new QueryableParamHolder({ armLength }, Measurement.getParam()),
-            new QueryableParamHolder({ armLoad }, Measurement.getParam()),
+            new QueryableParamHolder(
+              { armLength: comLength },
+              Measurement.getParam()
+            ),
+            new QueryableParamHolder({ armMass }, Measurement.getParam()),
           ]);
         }}
       />
@@ -82,19 +113,29 @@ export default function Arm() {
           />
           <LabeledRatioInput stateHook={[ratio, setRatio]} label={"Ratio"} />
           <LabeledQtyInput
-            stateHook={[armLength, setArmLength]}
-            label={"Arm Length"}
+            stateHook={[comLength, setComLength]}
+            label={"CoM Distance"}
             choices={["in", "ft", "cm", "m"]}
           />
           <LabeledQtyInput
-            stateHook={[armLoad, setArmLoad]}
-            label={"Arm Load"}
-            choices={["lbf"]}
+            stateHook={[armMass, setArmMass]}
+            label={"Arm Mass"}
+            choices={["lb", "kg"]}
           />
           <LabeledQtyInput
-            stateHook={[angleChange, setAngleChange]}
-            label={"Angle Change"}
-            choices={["deg"]}
+            stateHook={[startAngle, setStartAngle]}
+            label={"Start Angle"}
+            choices={["deg", "rad"]}
+          />{" "}
+          <LabeledQtyInput
+            stateHook={[endAngle, setEndAngle]}
+            label={"End Angle"}
+            choices={["deg", "rad"]}
+          />
+          <LabeledPatientNumberInput
+            stateHook={[iterationLimit, setIterationLimit]}
+            label={"Iteration Limit"}
+            delay={0.4}
           />
           <LabeledQtyOutput
             stateHook={[timeToGoal, setTimeToGoal]}
@@ -104,15 +145,33 @@ export default function Arm() {
           />
         </div>
         <div className="column">
-          <article className="message is-warning">
+          <article className="message is-danger">
             <div className="message-header">
               <p>Note</p>
             </div>
             <div className="message-body">
-              This arm calculator currently does not account for gravity pulling
-              down on the arm.
+              Performance is a bit slow. Expect fixes soon. <br />
             </div>
           </article>
+          <article className="message is-info">
+            <div className="message-header">
+              <p>Note</p>
+            </div>
+            <div className="message-body">
+              The angles follow the unit circle; i.e.: <br />
+              Upright = 90° <br />
+              Parallel to ground = 0° (right) or 180° (left)
+              <br />
+              <br />
+              For the time being, this is only accurate for arms moving against
+              gravity and starting angle is less than ending angle.
+              <br />
+              <br />
+              If you get a result of 0s for time to goal, try increasing
+              iteration limit.
+            </div>
+          </article>
+          {/*<pre>{debug}</pre>*/}
         </div>
       </div>
     </>

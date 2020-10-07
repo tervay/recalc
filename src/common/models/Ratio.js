@@ -13,10 +13,10 @@ export default class Ratio extends Model {
    * @param {number} magnitude - Magnitude of the ratio
    * @param {string} ratioType - Either "Reduction" or "Step-up"
    */
-  constructor(magnitude, ratioType) {
+  constructor(magnitude, ratioType = Ratio.REDUCTION) {
     super();
     this.magnitude = magnitude;
-    this.ratioType = ratioType || Ratio.REDUCTION;
+    this.ratioType = ratioType;
 
     if (
       ratioType !== undefined &&

@@ -11,6 +11,10 @@ export default class Measurement extends Model {
     return new Measurement(qty.scalar, qty.units());
   }
 
+  static get GRAVITY() {
+    return new Measurement(9.81, "m/s^2");
+  }
+
   /**
    *
    * @param {number} magnitude - Magnitude of the measurement
@@ -137,5 +141,31 @@ export default class Measurement extends Model {
    */
   copy() {
     return new Measurement(this.innerQty.scalar, this.innerQty.units());
+  }
+
+  format() {
+    return this.innerQty.format(...arguments);
+  }
+
+  toBase() {
+    return new Measurement(
+      this.innerQty.baseScalar,
+      this.innerQty.toBase().units()
+    );
+  }
+
+  clamp(floor, ceiling) {
+    if (this.lt(floor)) {
+      return floor;
+    }
+    if (this.gt(ceiling)) {
+      return ceiling;
+    }
+    return this;
+  }
+
+  inverse() {
+    const inverseQty = this.innerQty.inverse();
+    return new Measurement(inverseQty.scalar, inverseQty.units());
   }
 }

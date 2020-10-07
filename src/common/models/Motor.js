@@ -44,6 +44,13 @@ export default class Motor extends Model {
     );
   }
 
+  getTorque(rpm) {
+    return new Measurement(
+      fit([0, this.stallTorque.scalar], [this.freeSpeed.scalar, 0])(rpm.scalar),
+      "J"
+    );
+  }
+
   /**
    *
    * @param {Measurement} current - The current draw of the motor
