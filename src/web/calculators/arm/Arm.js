@@ -16,9 +16,11 @@ import { setTitle } from "common/tooling/routing";
 import { defaultAssignment } from "common/tooling/versions";
 import React, { useEffect, useState } from "react";
 import { NumberParam } from "use-query-params";
+import worker from "workerize-loader!./math"; // eslint-disable-line import/no-webpack-loader-syntax
 
 import arm from "./index";
-import { calculateState } from "./math";
+
+let instance = worker();
 
 export default function Arm() {
   setTitle(arm.title);
@@ -61,29 +63,32 @@ export default function Arm() {
   // const [debug, setDebug] = useState("");
 
   useEffect(() => {
-    const states = calculateState(
-      motor,
-      ratio,
-      comLength,
-      armMass,
-      startAngle,
-      endAngle,
-      iterationLimit
-    );
-    // setDebug(
-    //   states
-    //     .map(
-    //       (s) =>
-    //         `${s.t.format()}\n${s.p.format("deg")}\n${s.v.format(
-    //           "rpm"
-    //         )}\n${s.a.format(
-    //           "rpm/s"
-    //         )}\ngrav: ${s.gt.format()}\ngb: ${s.gb.format()}\n${s.c.format()}`
-    //     )
-    //     .join("\n-----------\n")
-    // );
+    // // setDebug(
+    // //   states
+    // //     .map(
+    // //       (s) =>
+    // //         `${s.t.format()}\n${s.p.format("deg")}\n${s.v.format(
+    // //           "rpm"
+    // //         )}\n${s.a.format(
+    // //           "rpm/s"
+    // //         )}\ngrav: ${s.gt.format()}\ngb: ${s.gb.format()}\n${s.c.format()}`
+    // //     )
+    // //     .join("\n-----------\n")
+    // // );
 
-    setTimeToGoal(states[states.length - 1].t);
+    instance
+      .calculateState(
+        motor.toDict(),
+        ratio.toDict(),
+        comLength.toDict(),
+        armMass.toDict(),
+        startAngle.toDict(),
+        endAngle.toDict(),
+        iterationLimit
+      )
+      .then((result) => {
+        setTimeToGoal(Measurement.fromDict(result[result.length - 1].t));
+      });
   }, [motor, ratio, comLength, armMass, startAngle, endAngle, iterationLimit]);
 
   return (
