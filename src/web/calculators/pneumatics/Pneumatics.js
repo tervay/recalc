@@ -131,9 +131,9 @@ export default function Pneumatics() {
             ]}
             choices={[
               [],
-              ["in", "cm"],
-              ["in", "cm"],
-              ["in", "cm"],
+              ["in", "mm", "cm"],
+              ["in", "mm", "cm"],
+              ["in", "mm", "cm"],
               ["psi"],
               ["psi"],
               ["s"],
