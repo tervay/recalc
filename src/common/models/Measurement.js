@@ -12,7 +12,7 @@ export default class Measurement extends Model {
   }
 
   static get GRAVITY() {
-    return new Measurement(9.81, "m/s^2");
+    return new Measurement(-9.81, "m/s^2");
   }
 
   /**
@@ -167,5 +167,17 @@ export default class Measurement extends Model {
   inverse() {
     const inverseQty = this.innerQty.inverse();
     return new Measurement(inverseQty.scalar, inverseQty.units());
+  }
+
+  abs() {
+    return new Measurement(Math.abs(this.scalar), this.units());
+  }
+
+  sign() {
+    return Math.sign(this.scalar);
+  }
+
+  negate() {
+    return new Measurement(-this.scalar, this.units());
   }
 }

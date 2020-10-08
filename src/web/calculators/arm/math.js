@@ -1,7 +1,5 @@
 import Measurement from "common/models/Measurement";
-
-import Motor from "../../../common/models/Motor";
-import Ratio from "../../../common/models/Ratio";
+import { receiveFromMain } from "common/tooling/util";
 
 /**
  *
@@ -86,21 +84,24 @@ export function calculateArmInertia(comLength, armMass) {
  * @param {Measurement} endAngle
  * @param {Number} iterationLimit
  */
-export function calculateState(
+export function calculateState({
   motor,
   ratio,
   comLength,
   armMass,
   startAngle,
   endAngle,
-  iterationLimit
-) {
-  motor = Motor.fromDict(motor);
-  ratio = Ratio.fromDict(ratio);
-  comLength = Measurement.fromDict(comLength);
-  armMass = Measurement.fromDict(armMass);
-  startAngle = Measurement.fromDict(startAngle);
-  endAngle = Measurement.fromDict(endAngle);
+  iterationLimit,
+}) {
+  ({
+    motor,
+    ratio,
+    comLength,
+    armMass,
+    startAngle,
+    endAngle,
+    iterationLimit,
+  } = receiveFromMain(...arguments));
 
   let states = [];
   let currentAngle = startAngle;
@@ -131,7 +132,8 @@ export function calculateState(
 
   let n = 0;
 
-  while (currentAngle.baseScalar < endAngle.baseScalar) {
+  const sign = endAngle.sub(startAngle).sign();
+  while (currentAngle.baseScalar * sign < endAngle.baseScalar * sign) {
     // gearbox torque - gravity torque = inertia * angular accel
     // angular accel = (gearbox - gravity) / inertia
     const inertia = calculateArmInertia(comLength, armMass);
@@ -144,10 +146,11 @@ export function calculateState(
     const gearboxTorque = motor
       .getTorque(Measurement.fromDict(states[states.length - 1].v))
       .mul(motor.quantity)
-      .mul(ratio.asNumber());
+      .mul(ratio.asNumber())
+      .mul(sign);
 
     const currentAccel = gearboxTorque
-      .sub(gravitationalTorque)
+      .add(gravitationalTorque)
       .div(inertia)
       .mul(new Measurement(1, "rad"));
 
@@ -155,7 +158,7 @@ export function calculateState(
     currentAngle = currentAngle.add(currentVelocity.mul(timeDelta));
     currentVelocity = currentVelocity
       .add(currentAccel.mul(timeDelta))
-      .clamp(new Measurement(0, "rpm"), gearboxMaxSpeed);
+      .clamp(gearboxMaxSpeed.negate(), gearboxMaxSpeed);
 
     const currentDraw = motor.kT
       .inverse()
@@ -187,5 +190,6 @@ export function calculateState(
       break;
     }
   }
+
   return states;
 }

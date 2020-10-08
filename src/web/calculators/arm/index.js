@@ -16,7 +16,7 @@ export default {
     armMass: new Measurement(10, "lb"),
     startAngle: CIRCLE_RIGHT.to("deg"),
     endAngle: CIRCLE_UP.to("deg"),
-    iterationLimit: 1000,
+    iterationLimit: 1000000,
   },
   component: lazy(() => import("web/calculators/arm/Arm")),
 };

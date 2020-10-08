@@ -15,10 +15,14 @@ export function UnlabeledQtyOutput(props) {
 
   return (
     <div className="field has-addons">
-      <p className="control is-expanded">
+      <p
+        className={
+          "control is-expanded" + (props.isLoading ? " is-loading" : "")
+        }
+      >
         <input
           disabled
-          className="input input-right"
+          className={"input input-right"}
           value={value}
           id={props.inputId}
         />
@@ -46,6 +50,7 @@ UnlabeledQtyOutput.propTypes = {
   precision: propTypes.number,
   inputId: propTypes.string,
   selectId: propTypes.string,
+  isLoading: propTypes.bool,
 };
 
 export function LabeledQtyOutput(props) {
@@ -68,4 +73,5 @@ LabeledQtyOutput.propTypes = {
   label: propTypes.string,
   inputId: propTypes.string,
   selectId: propTypes.string,
+  isLoading: propTypes.bool,
 };

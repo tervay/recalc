@@ -15,12 +15,12 @@ const kg = (n) => new Measurement(n, "kg");
 const Nm = (n) => new Measurement(n, "N m");
 
 each([
-  [m(0.1524), kg(4.53592), CIRCLE_LEFT, Nm(-6.781399980480002)],
-  [m(0.1524), kg(4.53592), CIRCLE_RIGHT, Nm(6.781399980480002)],
-  [m(0.5), kg(10), CIRCLE_RIGHT, Nm(49.05)],
+  [m(0.1524), kg(4.53592), CIRCLE_LEFT, Nm(6.781399980480002)],
+  [m(0.1524), kg(4.53592), CIRCLE_RIGHT, Nm(-6.781399980480002)],
+  [m(0.5), kg(10), CIRCLE_RIGHT, Nm(-49.05)],
   [m(0.5), kg(10), CIRCLE_UP, Nm(0)],
-  [m(0.5), kg(10), CIRCLE_UP_RIGHT, Nm(34.68358)],
-  [m(0.5), kg(10), CIRCLE_UP_LEFT, Nm(-34.68358)],
+  [m(0.5), kg(10), CIRCLE_UP_RIGHT, Nm(-34.68358)],
+  [m(0.5), kg(10), CIRCLE_UP_LEFT, Nm(34.68358)],
 ]).test(
   "calculateArmTorque returns correct values",
   (comLength, armMass, angle, expectedValue) => {

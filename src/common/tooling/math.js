@@ -40,3 +40,14 @@ export const CIRCLE_UP_RIGHT = new Measurement(45, "deg");
 export const CIRCLE_UP_LEFT = new Measurement(135, "deg");
 export const CIRCLE_DOWN_RIGHT = new Measurement(225, "deg");
 export const CIRCLE_DOWN_LEFT = new Measurement(315, "deg");
+
+/**
+ * @param {Measurement} angle
+ */
+export function cleanAngleInput(angle) {
+  if (angle.to("rad").scalar >= 90) {
+    angle = angle.sub(new Measurement(90, "rad"));
+  }
+
+  return angle;
+}

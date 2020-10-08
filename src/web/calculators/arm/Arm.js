@@ -7,16 +7,19 @@ import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
 import Ratio from "common/models/Ratio";
+import { cleanAngleInput } from "common/tooling/math";
 import {
   QueryableParamHolder,
   queryStringToDefaults,
   stateToQueryString,
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
+import { sendToWorker } from "common/tooling/util";
 import { defaultAssignment } from "common/tooling/versions";
 import React, { useEffect, useState } from "react";
 import { NumberParam } from "use-query-params";
-import worker from "workerize-loader!./math"; // eslint-disable-line import/no-webpack-loader-syntax
+/* eslint import/no-webpack-loader-syntax: off */
+import worker from "workerize-loader!./math";
 
 import arm from "./index";
 
@@ -60,35 +63,28 @@ export default function Arm() {
 
   // Outputs
   const [timeToGoal, setTimeToGoal] = useState(new Measurement(0, "s"));
+  const [timeIsCalculating, setTimeIsCalculating] = useState(true);
   // const [debug, setDebug] = useState("");
 
   useEffect(() => {
-    // // setDebug(
-    // //   states
-    // //     .map(
-    // //       (s) =>
-    // //         `${s.t.format()}\n${s.p.format("deg")}\n${s.v.format(
-    // //           "rpm"
-    // //         )}\n${s.a.format(
-    // //           "rpm/s"
-    // //         )}\ngrav: ${s.gt.format()}\ngb: ${s.gb.format()}\n${s.c.format()}`
-    // //     )
-    // //     .join("\n-----------\n")
-    // // );
-
     instance
       .calculateState(
-        motor.toDict(),
-        ratio.toDict(),
-        comLength.toDict(),
-        armMass.toDict(),
-        startAngle.toDict(),
-        endAngle.toDict(),
-        iterationLimit
+        sendToWorker({
+          motor,
+          ratio,
+          comLength,
+          armMass,
+          startAngle: cleanAngleInput(startAngle),
+          endAngle: cleanAngleInput(endAngle),
+          iterationLimit,
+        })
       )
       .then((result) => {
         setTimeToGoal(Measurement.fromDict(result[result.length - 1].t));
+        setTimeIsCalculating(false);
       });
+
+    setTimeIsCalculating(true);
   }, [motor, ratio, comLength, armMass, startAngle, endAngle, iterationLimit]);
 
   return (
@@ -147,17 +143,10 @@ export default function Arm() {
             label={"Time to goal"}
             choices={["s"]}
             precision={3}
+            isLoading={timeIsCalculating}
           />
         </div>
         <div className="column">
-          <article className="message is-danger">
-            <div className="message-header">
-              <p>Note</p>
-            </div>
-            <div className="message-body">
-              Performance is a bit slow. Expect fixes soon. <br />
-            </div>
-          </article>
           <article className="message is-info">
             <div className="message-header">
               <p>Note</p>
@@ -165,11 +154,15 @@ export default function Arm() {
             <div className="message-body">
               The angles follow the unit circle; i.e.: <br />
               Upright = 90° <br />
-              Parallel to ground = 0° (right) or 180° (left)
+              Parallel to ground = 0° (right) or 180° (left) <br />
+              Downwards = -90° or 270°
               <br />
               <br />
-              For the time being, this is only accurate for arms moving against
-              gravity and starting angle is less than ending angle.
+              For example: <br />
+              3/4 of a full rotation: start angle of 0°, end angle of 270°.
+              <br />
+              1/4 of a rotation downwards: start angle of 60°, end angle of
+              -30°.
               <br />
               <br />
               If you get a result of 0s for time to goal, try increasing
