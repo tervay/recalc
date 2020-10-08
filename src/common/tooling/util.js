@@ -26,10 +26,19 @@ export const uuid = () =>
 
 export const constructors = [Motor, Ratio, Measurement];
 
+const isObject = (v) => v !== null && typeof v === "object";
+
 export const sendToWorker = (args) => {
   return Object.keys(args).reduce((acc, key) => {
     if (constructors.indexOf(args[key].constructor) === -1) {
-      return { ...acc, [key]: args[key] };
+      if (isObject(args[key])) {
+        return {
+          ...acc,
+          [key]: sendToWorker(args[key]),
+        };
+      } else {
+        return { ...acc, [key]: args[key] };
+      }
     }
 
     let val = args[key].toDict();
@@ -42,15 +51,17 @@ export const sendToWorker = (args) => {
 };
 
 export const receiveFromMain = (args) => {
-  const isObject = (v) => v !== null && typeof v === "object";
-
   return Object.keys(args).reduce((acc, key) => {
     if (!isObject(args[key])) {
       return { ...acc, [key]: args[key] };
     }
 
     const dict = args[key];
-    const cls = constructors[dict.constructorId];
-    return { ...acc, [key]: cls.fromDict(dict) };
+    if ("constructorId" in dict) {
+      const cls = constructors[dict.constructorId];
+      return { ...acc, [key]: cls.fromDict(dict) };
+    } else {
+      return { ...acc, [key]: receiveFromMain(dict) };
+    }
   }, {});
 };

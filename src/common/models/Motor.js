@@ -48,7 +48,7 @@ export default class Motor extends Model {
     return new Measurement(
       fit([0, this.stallTorque.scalar], [this.freeSpeed.scalar, 0])(rpm.scalar),
       "J"
-    );
+    ).mul(this.quantity);
   }
 
   /**
@@ -63,7 +63,17 @@ export default class Motor extends Model {
     }
 
     const torque = this.kT.mul(current);
-    return rpm.mul(torque).mul(new Measurement(1, "1/rad"));
+    return rpm.mul(torque).mul(new Measurement(1, "1/rad")).mul(this.quantity);
+  }
+
+  getCurrent(rpm) {
+    return new Measurement(
+      fit(
+        [0, this.stallCurrent.to("A").scalar],
+        [this.freeSpeed.to("rpm").scalar, this.freeCurrent.to("A").scalar]
+      )(rpm.scalar),
+      "A"
+    );
   }
 
   toDict() {

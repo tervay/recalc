@@ -7,6 +7,7 @@ import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
 import Ratio from "common/models/Ratio";
+import { ChartBuilder, YAxisBuilder } from "common/tooling/charts";
 import { cleanAngleInput } from "common/tooling/math";
 import {
   QueryableParamHolder,
@@ -14,14 +15,16 @@ import {
   stateToQueryString,
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
-import { sendToWorker } from "common/tooling/util";
+import { receiveFromMain, sendToWorker } from "common/tooling/util";
 import { defaultAssignment } from "common/tooling/versions";
+import { Line } from "lib/react-chart-js";
 import React, { useEffect, useState } from "react";
 import { NumberParam } from "use-query-params";
 /* eslint import/no-webpack-loader-syntax: off */
 import worker from "workerize-loader!./math";
 
 import arm from "./index";
+import { buildDataForAccessorVsTime } from "./math";
 
 let instance = worker();
 
@@ -66,6 +69,14 @@ export default function Arm() {
   const [timeIsCalculating, setTimeIsCalculating] = useState(true);
   // const [debug, setDebug] = useState("");
 
+  const [rawChartData, setRawChartData] = useState([]);
+  const [currentDrawData, setCurrentDrawData] = useState(
+    ChartBuilder.defaultData()
+  );
+  const [currentDrawOptions, setCurrentDrawOptions] = useState(
+    ChartBuilder.defaultOptions()
+  );
+
   useEffect(() => {
     instance
       .calculateState(
@@ -80,12 +91,38 @@ export default function Arm() {
         })
       )
       .then((result) => {
-        setTimeToGoal(Measurement.fromDict(result[result.length - 1].t));
+        console.log({ result });
+        result = result.map((r) => receiveFromMain(r));
+        setTimeToGoal(result[result.length - 1].t);
         setTimeIsCalculating(false);
+
+        setRawChartData(
+          buildDataForAccessorVsTime(result, (s) => s.c.scalar, false)
+        );
       });
 
     setTimeIsCalculating(true);
   }, [motor, ratio, comLength, armMass, startAngle, endAngle, iterationLimit]);
+
+  useEffect(() => {
+    const cb = new ChartBuilder()
+      .setXAxisType("linear")
+      .setXTitle("Time (s)")
+      .setTitle("Current Draw")
+      .setLegendEnabled(false)
+      .setMaintainAspectRatio(true)
+      .addYBuilder(
+        new YAxisBuilder()
+          .setTitleAndId("Current")
+          .setPosition("left")
+          .setData(rawChartData)
+          .setBeginAtZero(true)
+          .setColor(YAxisBuilder.chartColor(0))
+      );
+
+    setCurrentDrawData(cb.buildData());
+    setCurrentDrawOptions(cb.buildOptions());
+  }, [JSON.stringify(rawChartData)]);
 
   return (
     <>
@@ -170,6 +207,7 @@ export default function Arm() {
             </div>
           </article>
           {/*<pre>{debug}</pre>*/}
+          <Line data={currentDrawData} options={currentDrawOptions} />
         </div>
       </div>
     </>

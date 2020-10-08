@@ -11,12 +11,12 @@ export default {
   version: 1,
   initialState: {
     motor: new Motor(2, "Falcon 500"),
-    ratio: new Ratio(5, Ratio.REDUCTION),
-    comLength: new Measurement(6, "in"),
-    armMass: new Measurement(10, "lb"),
+    ratio: new Ratio(100, Ratio.REDUCTION),
+    comLength: new Measurement(20, "in"),
+    armMass: new Measurement(15, "lb"),
     startAngle: CIRCLE_RIGHT.to("deg"),
     endAngle: CIRCLE_UP.to("deg"),
-    iterationLimit: 1000000,
+    iterationLimit: 10000,
   },
   component: lazy(() => import("web/calculators/arm/Arm")),
 };

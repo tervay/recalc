@@ -1,5 +1,5 @@
 import Measurement from "common/models/Measurement";
-import { receiveFromMain } from "common/tooling/util";
+import { receiveFromMain, sendToWorker } from "common/tooling/util";
 
 /**
  *
@@ -74,6 +74,14 @@ export function calculateArmInertia(comLength, armMass) {
   return armMass.mul(comLength).mul(comLength);
 }
 
+function gbToMotor(torque, velocity, acceleration, ratio) {
+  return {
+    t: torque.div(ratio),
+    v: velocity.mul(ratio),
+    a: acceleration.mul(ratio),
+  };
+}
+
 /**
  *
  * @param {Motor} motor
@@ -104,19 +112,8 @@ export function calculateState({
   } = receiveFromMain(...arguments));
 
   let states = [];
-  let currentAngle = startAngle;
-  let currentVelocity = new Measurement(0, "rad/s");
+  let currentArmAngle = startAngle;
   let currentTime = new Measurement(0, "s");
-
-  states.push({
-    a: new Measurement(0, "rad/s^2").toDict(),
-    v: new Measurement(0, "rad/s").toDict(),
-    p: startAngle.toDict(),
-    t: new Measurement(0, "s").toDict(),
-    gt: new Measurement(0, "N m").toDict(),
-    gb: new Measurement(0, "N m").toDict(),
-    c: new Measurement(0, "A").toDict(),
-  });
 
   if (
     motor.quantity === 0 ||
@@ -124,72 +121,92 @@ export function calculateState({
     comLength.scalar === 0 ||
     armMass.scalar === 0
   ) {
-    return states;
+    return states.map((s) => sendToWorker(s));
   }
 
   const timeDelta = new Measurement(0.0005, "s");
-  const gearboxMaxSpeed = motor.freeSpeed.div(ratio.asNumber());
 
   let n = 0;
 
   const sign = endAngle.sub(startAngle).sign();
-  while (currentAngle.baseScalar * sign < endAngle.baseScalar * sign) {
-    // gearbox torque - gravity torque = inertia * angular accel
-    // angular accel = (gearbox - gravity) / inertia
+
+  const baseState = {
+    t: new Measurement(0, "s"),
+    p: new Measurement(0, "rad"),
+    gt: new Measurement(0, "N m"),
+    c: new Measurement(0, "A"),
+    gb: {
+      a: new Measurement(0, "rad/s^2"),
+      v: new Measurement(0, "rad/s"),
+      t: motor.stallTorque.mul(motor.quantity).mul(ratio.asNumber()),
+    },
+    m: {
+      a: new Measurement(0, "rad/s^2"),
+      v: new Measurement(0, "rad/s"),
+      t: motor.stallTorque.mul(motor.quantity),
+    },
+  };
+
+  let prevState = baseState;
+
+  let currentState;
+
+  while (currentArmAngle.baseScalar * sign < endAngle.baseScalar * sign) {
+    currentState = {
+      gb: {},
+      m: {},
+    };
+
+    currentTime = currentTime.add(timeDelta);
     const inertia = calculateArmInertia(comLength, armMass);
     const gravitationalTorque = calculateArmTorque(
       comLength,
       armMass,
-      currentAngle
+      currentArmAngle
     );
 
-    const gearboxTorque = motor
-      .getTorque(Measurement.fromDict(states[states.length - 1].v))
-      .mul(motor.quantity)
-      .mul(ratio.asNumber())
-      .mul(sign);
+    currentState.t = currentTime;
+    currentState.gt = gravitationalTorque;
 
-    const currentAccel = gearboxTorque
+    // Calc m changes
+    currentState.m.v = prevState.m.v
+      .add(prevState.gb.a.mul(timeDelta).mul(ratio.asNumber()))
+      .clamp(motor.freeSpeed.negate(), motor.freeSpeed);
+    currentState.m.t = motor.getTorque(currentState.m.v);
+
+    // Calc gb changes
+    currentState.gb.t = currentState.m.t.mul(ratio.asNumber());
+    currentState.gb.v = currentState.m.v.div(ratio.asNumber());
+    currentState.gb.a = currentState.gb.t
       .add(gravitationalTorque)
       .div(inertia)
-      .mul(new Measurement(1, "rad"));
+      .mul("rad");
 
-    currentTime = currentTime.add(timeDelta);
-    currentAngle = currentAngle.add(currentVelocity.mul(timeDelta));
-    currentVelocity = currentVelocity
-      .add(currentAccel.mul(timeDelta))
-      .clamp(gearboxMaxSpeed.negate(), gearboxMaxSpeed);
+    // Current
+    currentState.c = motor.getCurrent(currentState.m.v);
+    currentState.p = prevState.p.add(currentState.gb.v.mul(timeDelta));
+    currentArmAngle = currentState.p;
 
-    const currentDraw = motor.kT
-      .inverse()
-      .mul(motor.getTorque(currentVelocity.div(ratio.asNumber())));
-
-    states.push({
-      a: currentAccel.toDict(),
-      v: currentVelocity.toDict(),
-      t: currentTime.toDict(),
-      p: currentAngle.toDict(),
-      gt: gravitationalTorque.toDict(),
-      gb: gearboxTorque.toDict(),
-      c: currentDraw.toDict(),
-    });
+    states.push(currentState);
+    prevState = currentState;
 
     n++;
     if (n > iterationLimit) {
-      states = [
-        {
-          a: new Measurement(0, "rad/s^2").toDict(),
-          v: new Measurement(0, "rad/s").toDict(),
-          p: startAngle.toDict(),
-          t: new Measurement(0, "s").toDict(),
-          gt: new Measurement(0, "N m").toDict(),
-          gb: new Measurement(0, "N m").toDict(),
-          c: new Measurement(0, "A").toDict(),
-        },
-      ];
+      states = [baseState];
       break;
     }
   }
 
-  return states;
+  return states.map((s) => sendToWorker(s));
+}
+
+export function buildDataForAccessorVsTime(states, accessor, includeZeros) {
+  return states.map((s) => {
+    if (accessor(s) !== 0 || includeZeros) {
+      return {
+        y: accessor(s),
+        x: s.t.scalar,
+      };
+    }
+  });
 }
