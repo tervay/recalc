@@ -20,6 +20,7 @@ module.exports = {
   plugins: ["react", "prettier", "simple-import-sort"],
   rules: {
     "simple-import-sort/sort": "error",
+    "react-hooks/exhaustive-deps": "off",
   },
   settings: {
     react: {

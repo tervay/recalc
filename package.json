@@ -73,7 +73,7 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "^26.0.7",
+    "@types/jest": "^26.0.19",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^6.6.0",
@@ -83,12 +83,12 @@
     "eslint-plugin-simple-import-sort": "^5.0.3",
     "imagemin": "^7.0.1",
     "imagemin-webp": "^6.0.0",
-    "jest-each": "^26.1.0",
-    "prettier": "^2.0.5",
-    "pretty-quick": "^2.0.1",
-    "prompts": "^2.3.2",
-    "source-map-explorer": "^2.4.2",
-    "yargs": "^15.4.1"
+    "jest-each": "^26.6.2",
+    "prettier": "^2.2.1",
+    "pretty-quick": "^3.1.0",
+    "prompts": "^2.4.0",
+    "source-map-explorer": "^2.5.1",
+    "yargs": "^16.2.0"
   },
   "engines": {
     "node": "14.x"
