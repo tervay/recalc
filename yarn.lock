@@ -2621,6 +2621,11 @@ argparse@^1.0.7:
   dependencies:
     sprintf-js "~1.0.2"
 
+argparse@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/argparse/-/argparse-2.0.1.tgz#246f50f3ca78a3240f6c997e8a9bd1eac49e4b38"
+  integrity sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==
+
 aria-query@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/aria-query/-/aria-query-3.0.0.tgz#65b3fcc1ca1155a8c9ae64d6eee297f15d5133cc"
@@ -5121,10 +5126,15 @@ entities@^1.1.1, entities@~1.1.1:
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
   integrity sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==
 
-entities@^2.0.0, entities@~2.0.0:
+entities@^2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/entities/-/entities-2.0.3.tgz#5c487e5742ab93c15abb5da22759b8590ec03b7f"
   integrity sha512-MyoZ0jgnLvB2X3Lg5HqpFmn1kybDiIfEQmKzTb5apr51Rb+T3KdmMiqa70T+bhGnyv7bQ6WMj2QMHpGMmlrUYQ==
+
+entities@~2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/entities/-/entities-2.1.0.tgz#992d3129cf7df6870b96c57858c249a120f8b8b5"
+  integrity sha512-hCx1oky9PFrJ611mf0ifBLBRW8lUUVRlFolb5gWRfIELabBlbp9xZvrqZLZAs+NxFnbfQoeGd8wDkygjg7U85w==
 
 enzyme-adapter-react-16@^1.15.2:
   version "1.15.5"
@@ -8880,10 +8890,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-markdown-it-anchor@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/markdown-it-anchor/-/markdown-it-anchor-6.0.0.tgz#2ec2554fa4d065f2d1ca2422a50c14c10cf67c2a"
-  integrity sha512-WOcIGhG1M1W94VV5cmSZAMSKi2vqCxpLAqQZ0wSO9RzQ9Rbls7ecjRVXp5DIPoXrNy9bjv9K7M0nYqNk60ctxQ==
+markdown-it-anchor@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/markdown-it-anchor/-/markdown-it-anchor-6.0.1.tgz#f54b78757d0b61455faf8ced775b39498bd6d6f9"
+  integrity sha512-8qX4r5R6AtXla9HKCouEQ40inw69O5jR4VUXlZySsBLxIXlsJ3Yi9JV6JWPU4ZdA8jWTGDDJjJYNLwQ0W4jCag==
 
 markdown-it-katex@^2.0.3:
   version "2.0.3"
@@ -8892,18 +8902,18 @@ markdown-it-katex@^2.0.3:
   dependencies:
     katex "^0.6.0"
 
-markdown-it-toc-done-right@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/markdown-it-toc-done-right/-/markdown-it-toc-done-right-4.1.0.tgz#0f73ed531dda427c43c27716a2fc2208daa90605"
-  integrity sha512-UhD2Oj6cZV3ycYPoelt4hTkwKIK3zbPP1wjjdpCq7UGtWQOFalDFDv1s2zBYV6aR2gMs/X8kpJcOYsQmUbiXDw==
+markdown-it-toc-done-right@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/markdown-it-toc-done-right/-/markdown-it-toc-done-right-4.2.0.tgz#3ccdce22d5022ffae7b991d07261b1b1de5459d0"
+  integrity sha512-UB/IbzjWazwTlNAX0pvWNlJS8NKsOQ4syrXZQ/C72j+jirrsjVRT627lCaylrKJFBQWfRsPmIVQie8x38DEhAQ==
 
-markdown-it@^11.0.1:
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-11.0.1.tgz#b54f15ec2a2193efa66dda1eb4173baea08993d6"
-  integrity sha512-aU1TzmBKcWNNYvH9pjq6u92BML+Hz3h5S/QpfTFwiQF852pLT+9qHsrhM9JYipkOXZxGn+sGH8oyJE9FD9WezQ==
+markdown-it@^12.0.3:
+  version "12.0.3"
+  resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-12.0.3.tgz#8d1e47daf1d716d63610495eb93f6665573e4abe"
+  integrity sha512-M57RsMv+QQmJHz1yCu0gTJRMx/LlxRPtrrw+2kb/CpDVK/graCmWO0qfNnz/SE1FCNdyq3pkMMZ+itTnyT/YGA==
   dependencies:
-    argparse "^1.0.7"
-    entities "~2.0.0"
+    argparse "^2.0.1"
+    entities "~2.1.0"
     linkify-it "^3.0.1"
     mdurl "^1.0.1"
     uc.micro "^1.0.5"
