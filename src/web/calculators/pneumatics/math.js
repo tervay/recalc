@@ -92,7 +92,7 @@ function getCylinderWork(piston, isFiring) {
     .mul(isFiring ? 1 : 0);
 }
 
-function getCompressorWork(compressor, pressure, dt, compressorOn) {
+export function getCompressorWork(compressor, pressure, dt, compressorOn) {
   if (!compressorOn) return new Measurement(0, "J");
 
   return getCompressorFlowRate(compressor, pressure)

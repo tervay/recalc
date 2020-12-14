@@ -36,6 +36,12 @@ export default function Compressors() {
           .div(c.weight)
           .to("ft3/min*lb")
           .scalar.toFixed(3),
+        timeToFill: c
+          .timeToFillmLToPSI(
+            new Measurement(2000, "mL"),
+            new Measurement(110, "psi")
+          )
+          .scalar.toFixed(0),
       })),
     []
   );
@@ -68,6 +74,10 @@ export default function Compressors() {
       {
         Header: "CFM/lb (110 psi)",
         accessor: "cfmPerLb",
+      },
+      {
+        Header: "Time to fill 2000mL to 110psi (s)",
+        accessor: "timeToFill",
       },
     ],
     []

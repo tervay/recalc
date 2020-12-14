@@ -1,6 +1,7 @@
 import Measurement from "common/models/Measurement";
 import Model from "common/tooling/abc/Model";
 import keyBy from "lodash/keyBy";
+import { getCompressorWork } from "web/calculators/pneumatics/math";
 
 export default class Compressor extends Model {
   /**
@@ -9,6 +10,26 @@ export default class Compressor extends Model {
    */
   constructor(name) {
     super(name, compressorMap);
+  }
+
+  timeToFillmLToPSI(mL, psi) {
+    let currentPsi = new Measurement(0, "psi");
+    let currentTime = new Measurement(0, "s");
+    const timeIncrement = new Measurement(1, "s");
+
+    while (currentPsi.lte(psi)) {
+      const compressorWork = getCompressorWork(
+        this,
+        currentPsi,
+        timeIncrement,
+        true
+      );
+      const pressureDelta = compressorWork.div(mL);
+      currentPsi = currentPsi.add(pressureDelta);
+      currentTime = currentTime.add(timeIncrement);
+    }
+
+    return currentTime;
   }
 
   toDict() {
