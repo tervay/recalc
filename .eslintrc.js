@@ -9,6 +9,8 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:prettier/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -21,6 +23,9 @@ module.exports = {
   rules: {
     "simple-import-sort/sort": "error",
     "react-hooks/exhaustive-deps": "off",
+    "no-unused-vars": "warn",
+    "import/no-webpack-loader-syntax": "off",
+    "import/no-unresolved": "off",
   },
   settings: {
     react: {
