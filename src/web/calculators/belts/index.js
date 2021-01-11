@@ -12,6 +12,8 @@ export default {
     p2Teeth: 16,
     desiredCenter: new Measurement(5, "in"),
     extraCenter: new Measurement(0, "in"),
+    toothIncrement: 5,
+    toothMax: 250,
   },
   component: lazy(() => import("web/calculators/belts/Belts")),
 };

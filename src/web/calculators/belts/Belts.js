@@ -29,6 +29,8 @@ export default function Belts() {
     p2Teeth: p2Teeth_,
     desiredCenter: desiredCenter_,
     extraCenter: extraCenter_,
+    toothIncrement: toothIncrement_,
+    toothMax: toothMax_,
   } = queryStringToDefaults(
     window.location.search,
     {
@@ -37,6 +39,8 @@ export default function Belts() {
       p2Teeth: NumberParam,
       desiredCenter: Measurement.getParam(),
       extraCenter: Measurement.getParam(),
+      toothIncrement: NumberParam,
+      toothMax: NumberParam
     },
     belts.initialState,
     beltVersionManager
@@ -48,6 +52,8 @@ export default function Belts() {
   const [p2Teeth, setP2Teeth] = useState(p2Teeth_);
   const [desiredCenter, setDesiredCenter] = useState(desiredCenter_);
   const [extraCenter, setExtraCenter] = useState(extraCenter_);
+  const [toothIncrement, setToothIncrement] = useState(toothIncrement_);
+  const [toothMax, setToothMax] = useState(toothMax_);
 
   // Outputs
   const [p1Pitch, setP1Pitch] = useState(teethToPD(p1Teeth, pitch).to("in"));
@@ -60,11 +66,11 @@ export default function Belts() {
       teethToPD(p2Teeth, pitch),
       desiredCenter,
       extraCenter,
-      15,
-      200,
-      5
+      toothIncrement * Math.ceil(15 / toothIncrement),
+      Number(toothMax),
+      Number(toothIncrement),
     );
-  }, [pitch, p1Teeth, p2Teeth, desiredCenter, extraCenter]);
+  }, [pitch, p1Teeth, p2Teeth, desiredCenter, extraCenter, toothIncrement, toothMax]);
 
   const [smallerCenter, setSmallerCenter] = useState(results.smaller.distance);
   const [smallerTeeth, setSmallerTeeth] = useState(results.smaller.teeth);
@@ -78,7 +84,7 @@ export default function Belts() {
     setSmallerTeeth(results.smaller.teeth);
     setLargerCenter(results.larger.distance);
     setLargerTeeth(results.larger.teeth);
-  }, [pitch, p1Teeth, p2Teeth, desiredCenter, extraCenter]);
+  }, [pitch, p1Teeth, p2Teeth, desiredCenter, extraCenter, toothIncrement, toothMax]);
 
   return (
     <>
@@ -90,6 +96,8 @@ export default function Belts() {
             new QueryableParamHolder({ pitch }, Measurement.getParam()),
             new QueryableParamHolder({ p1Teeth }, NumberParam),
             new QueryableParamHolder({ p2Teeth }, NumberParam),
+            new QueryableParamHolder({ toothIncrement }, NumberParam),
+            new QueryableParamHolder({ toothMax }, NumberParam),
             new QueryableParamHolder({ desiredCenter }, Measurement.getParam()),
             new QueryableParamHolder({ extraCenter }, Measurement.getParam()),
             new QueryableParamHolder({ version: belts.version }, NumberParam),
@@ -179,6 +187,17 @@ export default function Belts() {
               inputId="larger-output"
             />
           </MultiInputLine>
+          <LabeledNumberInput
+            stateHook={[toothIncrement, setToothIncrement]}
+            label="Belt tooth increment"
+            inputId="tooth-increment"
+          />
+          <LabeledNumberInput
+            stateHook={[toothMax, setToothMax]}
+            label="Belt tooth maximum"
+            inputId="tooth-increment"
+          />
+
         </div>
         <div className="column">
           <CheatSheet />
