@@ -3,31 +3,32 @@ import React from "react";
 import { teethToPD } from "./math";
 
 export default function CheatSheet() {
-  const Pulley = (vendor, chain, teeth, bore) => {
+  const Pulley = (vendor, chain, teeth, bore, wrong = false) => {
     return {
       vendor,
       chain,
       teeth,
       bore,
       pd: teethToPD(teeth, chain).to("in").scalar.toFixed(3),
+      wrong,
     };
   };
 
   const data = [
-    Pulley("VEXPro, WCP, AndyMark", "#25", 16, '3/8" Hex'),
-    Pulley("VEXPro, WCP", "#25", 18, '3/8" Hex'),
-    Pulley("VEXPro, WCP", "#25", 22, '3/8" Hex'),
+    Pulley("VEXPro, WCP, AndyMark", "#25", 16, '3/8" Hex', true),
+    Pulley("VEXPro, WCP", "#25", 18, '3/8" Hex', true),
+    Pulley("VEXPro, WCP", "#25", 22, '3/8" Hex', true),
     Pulley("AndyMark", "#25", 24, '3/8" Hex'),
 
-    Pulley("VEXPro, WCP, AndyMark", "#25", 16, '1/2" Hex'),
+    Pulley("VEXPro, WCP, AndyMark", "#25", 16, '1/2" Hex', true),
     Pulley("AndyMark", "#25", 17, '1/2" Hex'),
-    Pulley("VEXPro, WCP, AndyMark", "#25", 18, '1/2" Hex'),
-    Pulley("VEXPro, WCP, AndyMark", "#25", 22, '1/2" Hex'),
+    Pulley("VEXPro, WCP, AndyMark", "#25", 18, '1/2" Hex', true),
+    Pulley("VEXPro, WCP, AndyMark", "#25", 22, '1/2" Hex', true),
     Pulley("AndyMark", "#25", 24, '1/2" Hex'),
 
-    Pulley("VEXPro, WCP, AndyMark", "#25", 16, '1/2" ID'),
+    Pulley("VEXPro, WCP, AndyMark", "#25", 16, '1/2" ID', true),
     Pulley("AndyMark", "#25", 18, '1/2" ID'),
-    Pulley("VEXPro, WCP, AndyMark", "#25", 22, '1/2" ID'),
+    Pulley("VEXPro, WCP, AndyMark", "#25", 22, '1/2" ID', true),
     Pulley("AndyMark", "#25", 24, '1/2" ID'),
 
     Pulley("VEXPro, WCP, AndyMark", "#25", 32, '1-1/8" Bearing Bore'),
@@ -80,6 +81,11 @@ export default function CheatSheet() {
         </thead>
         <tbody>
           {data.map((pulley) => {
+            let pdText = <>{pulley.pd}&quot;</>;
+            if (pulley.wrong) {
+              pdText = <i>{pdText}</i>;
+            }
+
             return (
               <tr
                 key={
@@ -94,7 +100,7 @@ export default function CheatSheet() {
                 <td>{pulley.chain}</td>
                 <td>{pulley.teeth}T</td>
                 <td>{pulley.bore}</td>
-                <td>{pulley.pd}&quot;</td>
+                <td>{pdText}</td>
               </tr>
             );
           })}

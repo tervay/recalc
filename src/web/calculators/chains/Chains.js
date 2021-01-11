@@ -175,7 +175,9 @@ export default function Chains() {
               the former group of sprockets. You can view VEX&apos;s numbers{" "}
               <a href="https://content.vexrobotics.com/vexpro/pdf/VEXpro-%2325HubSprockets-20171130.PDF">
                 on their site.
-              </a>
+              </a>{" "}
+              We have italicized the contradicting pitch diameters on the table
+              to the right.
             </div>
           </article>
         </div>
