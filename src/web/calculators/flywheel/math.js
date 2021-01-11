@@ -2,6 +2,7 @@ import Measurement from "common/models/Measurement";
 import Ratio from "common/models/Ratio";
 
 /**
+ * 
  *
  * @param {Measurement} weight
  * @param {Measurement} radius
@@ -14,6 +15,55 @@ import Ratio from "common/models/Ratio";
  * @param {Measurement} targetSpeed
  */
 export function calculateWindupTime(
+
+  weight,
+  radius,
+  motorFreeSpeed,
+  motorStallTorque,
+  motorStallCurrent,
+  motorResistance,
+  motorQuantity,
+  ratio,
+  targetSpeed
+) {
+
+  if (motorQuantity === 0 || ratio.asNumber() === 0) {
+    return new Measurement(0, "s");
+  }
+
+  const moi = weight.mul(radius).mul(radius).mul(-0.5);
+  const c24 = moi;
+  const c23 = motorFreeSpeed.div(ratio.asNumber());
+  const d23 = c23;
+
+  const f12 = targetSpeed;
+
+  const toBeLogged = c23.sub(f12).div(c23);
+  const logged = Math.log(toBeLogged.baseScalar);
+  if (isNaN(logged)) {
+    return new Measurement(0, "s")
+  }
+
+  const endDiv = motorStallTorque.mul(motorQuantity);
+
+  return c24.mul(d23).div(endDiv).mul(logged).div(new Measurement(1, "rad"));
+}
+
+
+/**
+ * 
+ *
+ * @param {Measurement} weight
+ * @param {Measurement} radius
+ * @param {Measurement} motorFreeSpeed
+ * @param {Measurement} motorStallTorque
+ * @param {Measurement} motorStallCurrent
+ * @param {Measurement} motorResistance
+ * @param {number} motorQuantity
+ * @param {Ratio} ratio
+ * @param {Measurement} targetSpeed
+ */
+export function calculateWindupTime2(
   weight,
   radius,
   motorFreeSpeed,
