@@ -1,20 +1,30 @@
-import "index.scss";
-
 import * as Sentry from "@sentry/react";
+import { Integrations } from "@sentry/tracing";
 import App from "App";
+import "index.scss";
 import React from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "serviceWorker";
 
+
 if (
   !(
     window.location.hostname === "localhost" ||
-    window.location.hostname === "127.0.0.1"
+    window.location.hostname === "127.0.0.1" ||
+    window.location.protocol === "file:"
   )
 ) {
   Sentry.init({
     dsn:
-      "https://cd2f25eaeebc44b59f21145d88c63849@o429649.ingest.sentry.io/5376660",
+      "https://ce7fda8f8fb743a7b733e26823d626c7@o96005.ingest.sentry.io/5588486",
+    autoSessionTracking: true,
+    integrations: [
+      new Integrations.BrowserTracing(),
+    ],
+
+    // We recommend adjusting this value in production, or using tracesSampler
+    // for finer control
+    tracesSampleRate: 1.0,
   });
 }
 
