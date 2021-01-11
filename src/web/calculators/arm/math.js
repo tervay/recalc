@@ -74,6 +74,7 @@ export function calculateArmInertia(comLength, armMass) {
   return armMass.mul(comLength).mul(comLength);
 }
 
+// eslint-disable-next-line no-unused-vars
 function gbToMotor(torque, velocity, acceleration, ratio) {
   return {
     t: torque.div(ratio),

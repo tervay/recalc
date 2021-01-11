@@ -93,8 +93,13 @@ export default function Arm() {
       .then((result) => {
         console.log({ result });
         result = result.map((r) => receiveFromMain(r));
-        setTimeToGoal(result[result.length - 1].t);
         setTimeIsCalculating(false);
+
+        if (result.length > 0) {
+          setTimeToGoal(result[result.length - 1].t);
+        } else {
+          setTimeToGoal(new Measurement(0, "s"));
+        }
 
         setRawChartData(
           buildDataForAccessorVsTime(result, (s) => s.c.scalar, false)

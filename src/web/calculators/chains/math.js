@@ -7,7 +7,13 @@ import Measurement from "common/models/Measurement";
  * @param {string} unit
  */
 export function teethToPD(teeth, chain, unit = undefined) {
-  if (teeth === 0 || teeth === "0") {
+  if (
+    teeth === 0 ||
+    teeth === "0" ||
+    teeth === undefined ||
+    teeth === null ||
+    teeth.toString().length === 0
+  ) {
     return new Measurement(0, unit || chain.units());
   }
 
