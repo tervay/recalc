@@ -1,11 +1,11 @@
+import "index.scss";
+
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
 import App from "App";
-import "index.scss";
 import React from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "serviceWorker";
-
 
 if (
   !(
@@ -18,9 +18,7 @@ if (
     dsn:
       "https://ce7fda8f8fb743a7b733e26823d626c7@o96005.ingest.sentry.io/5588486",
     autoSessionTracking: true,
-    integrations: [
-      new Integrations.BrowserTracing(),
-    ],
+    integrations: [new Integrations.BrowserTracing()],
 
     // We recommend adjusting this value in production, or using tracesSampler
     // for finer control

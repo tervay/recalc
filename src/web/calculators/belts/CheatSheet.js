@@ -1,39 +1,234 @@
+import Measurement from "common/models/Measurement";
 import React from "react";
+import { teethToPD } from "web/calculators/belts/math";
+
+const WCP_HTD =
+  "https://www.wcproducts.com/belts-chain-gears/belts-pulleys/htd-timing-pulleys-896";
+const WCP_GT2 =
+  "https://www.wcproducts.com/belts-chain-gears/belts-pulleys/gt2-timing-pulleys";
+const WCP_HTD_VERSA =
+  "https://www.wcproducts.com/belts-chain-gears/belts-pulleys/htd-versa-pulleys-896";
+
+const VEX_HTD = "https://www.vexrobotics.com/htdpulleys.html";
+const VEX_GT2 = "https://www.vexrobotics.com/gt2pulleys.html";
+const VEX_HTD_VERSA = "https://www.vexrobotics.com/htdversapulley.html";
 
 export default function CheatSheet() {
-  const Pulley = (vendor, type, pitch, width, teeth, bore, pd) => {
+  const Pulley = (vendors, type, pitch, width, teeth, bore) => {
     return {
-      vendor,
+      vendors,
       type,
       pitch,
       width,
       teeth,
       bore,
-      pd,
+      pd: teethToPD(teeth, new Measurement(pitch, "mm"), "in"),
     };
+  };
+  const Vendor = (name, url = null) => {
+    return { name, url };
   };
 
   const data = [
-    Pulley("VEXPro, WCP", "GT2", 3, 9, 12, "RS550", 0.451),
-    Pulley("VEXPro, WCP", "GT2", 3, 9, 12, "RS775", 0.451),
-    Pulley("VEXPro, WCP", "GT2", 3, 9, 12, "BAG", 0.451),
-    Pulley("VEXPro, WCP", "GT2", 3, 9, 16, "Falcon", 0.601),
-    Pulley("VEXPro, WCP", "GT2", 3, 9, 24, '1/2" Hex', 0.902),
-    Pulley("VEXPro, WCP", "GT2", 3, 9, 36, '1/2" Hex', 1.353),
-    Pulley("VEXPro, WCP", "GT2", 3, 9, 48, '1/2" Hex', 1.805),
-    Pulley("VEXPro, WCP", "GT2", 3, 9, 60, '1/2" Hex', 2.256),
-    Pulley("VEXPro, WCP", "HTD", 5, "9, 15", 18, '1/2" Hex', 1.26),
-    Pulley("VEXPro, WCP", "HTD", 5, "9, 15", 24, '1/2" Hex', 1.654),
-    Pulley("VEXPro, WCP", "HTD", 5, "9, 15", 30, '1/2" Hex', 2.008),
-    Pulley("VEXPro, WCP", "HTD", 5, "9, 15", 36, '1/2" Hex', 2.256),
-    Pulley("WCP", "HTD", 5, "9, 15", 12, "CIM (8mm)", 0.752),
-    Pulley("AndyMark", "HTD", 5, 9, 24, '1/2" Hex', 1.504),
-    Pulley("AndyMark", "HTD", 5, 9, 24, '3/8" Hex', 1.504),
-    Pulley("AndyMark", "HTD", 5, 9, 24, "6mm", 1.504),
-    Pulley("AndyMark", "HTD", 5, 9, 30, "CIM (8mm)", 1.91),
-    Pulley("AndyMark", "HTD", 5, 15, 39, '1/2" Hex', 2.44),
-    Pulley("AndyMark", "HTD", 5, 15, 39, '1/2" Round', 2.44),
-    Pulley("AndyMark", "HTD", 5, 15, 42, '0.95"', 2.632),
+    Pulley([Vendor("VEXPro", VEX_GT2)], "GT2", 3, 9, 12, "RS550", 0.451),
+    Pulley(
+      [Vendor("VEXPro", VEX_GT2), Vendor("WCP", WCP_GT2)],
+      "GT2",
+      3,
+      9,
+      12,
+      "RS775"
+    ),
+    Pulley(
+      [Vendor("VEXPro", VEX_GT2), Vendor("WCP", WCP_GT2)],
+      "GT2",
+      3,
+      9,
+      12,
+      "BAG"
+    ),
+    Pulley(
+      [Vendor("VEXPro", VEX_GT2), Vendor("WCP", WCP_GT2)],
+      "GT2",
+      3,
+      9,
+      16,
+      "Falcon"
+    ),
+    Pulley(
+      [Vendor("VEXPro", VEX_GT2), Vendor("WCP", WCP_GT2)],
+      "GT2",
+      3,
+      9,
+      24,
+      '1/2" Hex'
+    ),
+    Pulley(
+      [Vendor("VEXPro", VEX_GT2), Vendor("WCP", WCP_GT2)],
+      "GT2",
+      3,
+      9,
+      36,
+      '1/2" Hex'
+    ),
+    Pulley(
+      [Vendor("VEXPro", VEX_GT2), Vendor("WCP", WCP_GT2)],
+      "GT2",
+      3,
+      9,
+      48,
+      '1/2" Hex'
+    ),
+    Pulley(
+      [Vendor("VEXPro", VEX_GT2), Vendor("WCP", WCP_GT2)],
+      "GT2",
+      3,
+      9,
+      60,
+      '1/2" Hex'
+    ),
+    Pulley(
+      [Vendor("VEXPro", VEX_HTD), Vendor("WCP", WCP_HTD)],
+      "HTD",
+      5,
+      "9, 15",
+      18,
+      '1/2" Hex'
+    ),
+    Pulley(
+      [Vendor("VEXPro", VEX_HTD), Vendor("WCP", WCP_HTD)],
+      "HTD",
+      5,
+      "9, 15",
+      24,
+      '1/2" Hex'
+    ),
+    Pulley(
+      [Vendor("VEXPro", VEX_HTD), Vendor("WCP", WCP_HTD)],
+      "HTD",
+      5,
+      "9, 15",
+      30,
+      '1/2" Hex'
+    ),
+    Pulley(
+      [Vendor("VEXPro", VEX_HTD), Vendor("WCP", WCP_HTD)],
+      "HTD",
+      5,
+      "9, 15",
+      36,
+      '1/2" Hex'
+    ),
+    Pulley(
+      [Vendor("VEXPro", VEX_HTD_VERSA), Vendor("WCP", WCP_HTD_VERSA)],
+      "HTD",
+      5,
+      "7, 18",
+      42,
+      "VersaKey"
+    ),
+    Pulley(
+      [Vendor("VEXPro", VEX_HTD_VERSA), Vendor("WCP", WCP_HTD_VERSA)],
+      "HTD",
+      5,
+      "7, 18",
+      60,
+      "VersaKey"
+    ),
+
+    Pulley([Vendor("WCP", WCP_HTD)], "HTD", 5, "9, 15", 12, "CIM (8mm)"),
+    Pulley(
+      [
+        Vendor(
+          "AndyMark",
+          "https://www.andymark.com/products/12-tooth-5mm-htd-cim-bore-pulley-with-flanges"
+        ),
+      ],
+      "HTD",
+      5,
+      9,
+      12,
+      "CIM (8mm)"
+    ),
+    Pulley(
+      [
+        Vendor(
+          "AndyMark",
+          "https://www.andymark.com/products/24t-htd-pulley-1-2-in-hex-bore"
+        ),
+      ],
+      "HTD",
+      5,
+      9,
+      24,
+      '1/2" Hex'
+    ),
+    Pulley([Vendor("AndyMark")], "HTD", 5, 9, 24, '3/8" Hex'),
+    Pulley(
+      [
+        Vendor(
+          "AndyMark",
+          "https://www.andymark.com/products/24t-htd-pulley-6mm-bore"
+        ),
+      ],
+      "HTD",
+      5,
+      9,
+      24,
+      "6mm"
+    ),
+    Pulley(
+      [
+        Vendor(
+          "AndyMark",
+          "https://www.andymark.com/products/30-tooth-htd-pulley"
+        ),
+      ],
+      "HTD",
+      5,
+      9,
+      30,
+      "CIM (8mm)"
+    ),
+    Pulley(
+      [
+        Vendor(
+          "AndyMark",
+          "https://www.andymark.com/products/39-tooth-htd-plastic-drive-pulley-kit-with-hex-hub"
+        ),
+      ],
+      "HTD",
+      5,
+      15,
+      39,
+      '1/2" Hex'
+    ),
+    Pulley(
+      [
+        Vendor(
+          "AndyMark",
+          "https://www.andymark.com/products/39-tooth-htd-plastic-drive-pulley-kit"
+        ),
+      ],
+      "HTD",
+      5,
+      15,
+      39,
+      '1/2" Round'
+    ),
+    Pulley(
+      [
+        Vendor(
+          "AndyMark",
+          "https://www.andymark.com/products/42-tooth-htd-pulley"
+        ),
+      ],
+      "HTD",
+      5,
+      15,
+      42,
+      '0.95"'
+    ),
   ];
 
   return (
@@ -54,14 +249,29 @@ export default function CheatSheet() {
       <tbody>
         {data.map((pulley) => {
           return (
-            <tr key={pulley.vendor + pulley.teeth + pulley.bore + pulley.type}>
-              <td>{pulley.vendor}</td>
+            <tr
+              key={
+                pulley.vendors[0].name +
+                pulley.teeth +
+                pulley.bore +
+                pulley.type
+              }
+            >
+              <td>
+                {pulley.vendors
+                  .map((v) => (
+                    <a key={v.name} href={v.url}>
+                      {v.name}
+                    </a>
+                  ))
+                  .reduce((prev, curr) => [prev, ", ", curr])}
+              </td>
               <td>{pulley.type}</td>
               <td>{pulley.pitch} mm</td>
               <td>{pulley.width} mm</td>
               <td>{pulley.teeth}T</td>
               <td>{pulley.bore}</td>
-              <td>{pulley.pd}&quot;</td>
+              <td>{pulley.pd.scalar.toFixed(3)}&quot;</td>
             </tr>
           );
         })}
