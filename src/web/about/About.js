@@ -51,7 +51,7 @@ export default function About() {
         suggestions.
       </p>
 
-      <h3 className="title is-3">Why do you have a sign in button?</h3>
+      {/* <h3 className="title is-3">Why do you have a sign in button?</h3>
       <p>
         Signing in allows you to save calculator configurations to your account
         with a specific name, so that you can come back and reference them
@@ -87,7 +87,7 @@ export default function About() {
         version, screen size, country of origin, and referral site (such as a
         link from Google search). This analytics script is GDPR-compliant and is
         commonly blocked by ad-blockers anyway.
-      </p>
+      </p> */}
 
       <h3 className="title is-3">How accurate are the calculators?</h3>
       <p>
