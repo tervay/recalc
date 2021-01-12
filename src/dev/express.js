@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const expressStaticGzip = require("express-static-gzip");
+const compression = require("compression");
 
 const sslRedirect = (env, status) => {
   env = env || ["production"];
@@ -22,13 +22,7 @@ const sslRedirect = (env, status) => {
 const app = express();
 
 app.use(sslRedirect());
-
-app.use(
-  expressStaticGzip(path.join(__dirname, "../../build"), {
-    enableBrotli: true,
-    orderPreference: ["br", "gz"],
-  })
-);
+app.use(compression());
 
 app.get("*", function (req, res) {
   res.sendFile("index.html", { root: path.join(__dirname, "../../build/") });
