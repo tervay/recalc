@@ -180,7 +180,11 @@ export default function LinearMech() {
             stateHook={[load, setLoad]}
             choices={["lb", "kg", "g"]}
           />
-          <LabeledRatioInput inputId="ratio" label="Ratio" stateHook={[ratio, setRatio]} />
+          <LabeledRatioInput
+            inputId="ratio"
+            label="Ratio"
+            stateHook={[ratio, setRatio]}
+          />
           <LabeledNumberInput
             inputId="efficiency"
             label="Efficiency (%)"

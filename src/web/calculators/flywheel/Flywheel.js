@@ -195,7 +195,11 @@ export default function Flywheel() {
             stateHook={[motor, setMotor]}
             choices={Motor.choices}
           />
-          <LabeledRatioInput label="Ratio" inputId="ratio" stateHook={[ratio, setRatio]} />
+          <LabeledRatioInput
+            label="Ratio"
+            inputId="ratio"
+            stateHook={[ratio, setRatio]}
+          />
           <LabeledQtyInput
             inputId="targetRpm"
             stateHook={[targetSpeed, setTargetSpeed]}

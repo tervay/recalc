@@ -1,7 +1,7 @@
 import { UnlabeledTypedNumberInput } from "common/components/io/inputs/TypedNumberInput";
+import { toolTipForIds } from "common/components/tooltips";
 import Motor from "common/models/Motor";
 import { cleanNumberInput } from "common/tooling/io";
-import { toolTipForIds } from "common/components/tooltips";
 import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
@@ -36,7 +36,10 @@ export function LabeledMotorInput(props) {
   return (
     <div className="field is-horizontal">
       <div className="field-label is-normal">
-      <span className="has-tooltip-right"  data-tooltip={toolTipForIds(props.inputId, props.label)}>
+        <span
+          className="has-tooltip-right"
+          data-tooltip={toolTipForIds(props.inputId, props.label)}
+        >
           <label className="label">{props.label}</label>
         </span>
       </div>

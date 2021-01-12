@@ -150,12 +150,16 @@ export default function Arm() {
       <div className="columns">
         <div className="column is-half">
           <LabeledMotorInput
-          inputId="motors"
+            inputId="motors"
             stateHook={[motor, setMotor]}
             label={"Motor"}
             choices={Motor.getAllMotors().map((m) => m.name)}
           />
-          <LabeledRatioInput inputId="ratio" stateHook={[ratio, setRatio]} label={"Ratio"} />
+          <LabeledRatioInput
+            inputId="ratio"
+            stateHook={[ratio, setRatio]}
+            label={"Ratio"}
+          />
           <LabeledQtyInput
             inputId="comLength"
             stateHook={[comLength, setComLength]}

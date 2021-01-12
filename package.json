@@ -50,6 +50,7 @@
     "compress": "npm run compress-gz && npm run compress-br",
     "compress-br": "npx gzipper c --brotli --exclude png,ico,webp,gz,br ./build",
     "compress-gz": "npx gzipper c --level 9 --exclude png,ico,webp,gz,br ./build",
+    "format": "npx prettier . --write && npx eslint src/ --fix",
     "start": "react-scripts start",
     "build": "react-scripts build && npm run compress",
     "build-ci": "CI=false react-scripts build",
