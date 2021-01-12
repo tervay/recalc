@@ -190,28 +190,33 @@ export default function Flywheel() {
       <div className="columns">
         <div className="column">
           <LabeledMotorInput
+            inputId="motors"
             label={"Motors"}
             stateHook={[motor, setMotor]}
             choices={Motor.choices}
           />
-          <LabeledRatioInput label="Ratio" stateHook={[ratio, setRatio]} />
+          <LabeledRatioInput label="Ratio" inputId="ratio" stateHook={[ratio, setRatio]} />
           <LabeledQtyInput
+            inputId="targetRpm"
             stateHook={[targetSpeed, setTargetSpeed]}
             choices={["rpm"]}
             label={"Target Flywheel Speed"}
             wideLabel={true}
           />
           <LabeledQtyInput
+            inputId="radius"
             stateHook={[radius, setRadius]}
             choices={["in", "cm"]}
             label={"Radius"}
           />
           <LabeledQtyInput
+            inputId="weight"
             stateHook={[weight, setWeight]}
             choices={["lb", "kg", "g"]}
             label={"Weight"}
           />
           <LabeledQtyOutput
+            inputId="windupTime"
             stateHook={[windupTime, setWindupTime]}
             choices={["s"]}
             label={"Windup Time"}

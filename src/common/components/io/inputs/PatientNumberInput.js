@@ -1,5 +1,6 @@
 import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import { toolTipForIds } from "common/components/tooltips";
 
 export function UnlabeledPatientNumberInput(props) {
   const [value, setValue] = props.stateHook;
@@ -37,7 +38,9 @@ export function LabeledPatientNumberInput(props) {
   return (
     <div className="field is-horizontal">
       <div className="field-label is-normal">
-        <label className="label">{props.label}</label>
+      <span className="has-tooltip-right"  data-tooltip={toolTipForIds(props.inputId, props.label)}>
+          <label className="label">{props.label}</label>
+        </span>
       </div>
       <div className="field-body">
         <UnlabeledPatientNumberInput {...props} />

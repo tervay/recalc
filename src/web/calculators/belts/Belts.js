@@ -195,7 +195,7 @@ export default function Belts() {
           <LabeledNumberInput
             stateHook={[toothMax, setToothMax]}
             label="Belt tooth maximum"
-            inputId="tooth-increment"
+            inputId="tooth-max"
           />
 
         </div>

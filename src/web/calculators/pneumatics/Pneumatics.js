@@ -150,6 +150,7 @@ export default function Pneumatics() {
             ]}
           />
           <LabeledQtyInput
+            inputId="tankVolume"
             stateHook={[volume, setVolume]}
             choices={["ml", "in^3"]}
             label={"Tank Volume"}
