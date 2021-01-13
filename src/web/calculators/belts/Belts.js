@@ -40,7 +40,7 @@ export default function Belts() {
       desiredCenter: Measurement.getParam(),
       extraCenter: Measurement.getParam(),
       toothIncrement: NumberParam,
-      toothMax: NumberParam
+      toothMax: NumberParam,
     },
     belts.initialState,
     beltVersionManager
@@ -68,9 +68,17 @@ export default function Belts() {
       extraCenter,
       toothIncrement * Math.ceil(15 / toothIncrement),
       Number(toothMax),
-      Number(toothIncrement),
+      Number(toothIncrement)
     );
-  }, [pitch, p1Teeth, p2Teeth, desiredCenter, extraCenter, toothIncrement, toothMax]);
+  }, [
+    pitch,
+    p1Teeth,
+    p2Teeth,
+    desiredCenter,
+    extraCenter,
+    toothIncrement,
+    toothMax,
+  ]);
 
   const [smallerCenter, setSmallerCenter] = useState(results.smaller.distance);
   const [smallerTeeth, setSmallerTeeth] = useState(results.smaller.teeth);
@@ -84,7 +92,15 @@ export default function Belts() {
     setSmallerTeeth(results.smaller.teeth);
     setLargerCenter(results.larger.distance);
     setLargerTeeth(results.larger.teeth);
-  }, [pitch, p1Teeth, p2Teeth, desiredCenter, extraCenter, toothIncrement, toothMax]);
+  }, [
+    pitch,
+    p1Teeth,
+    p2Teeth,
+    desiredCenter,
+    extraCenter,
+    toothIncrement,
+    toothMax,
+  ]);
 
   return (
     <>
@@ -195,9 +211,8 @@ export default function Belts() {
           <LabeledNumberInput
             stateHook={[toothMax, setToothMax]}
             label="Belt tooth maximum"
-            inputId="tooth-increment"
+            inputId="tooth-max"
           />
-
         </div>
         <div className="column">
           <CheatSheet />

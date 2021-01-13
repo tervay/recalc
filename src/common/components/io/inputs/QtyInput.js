@@ -1,4 +1,5 @@
 import { UnlabeledTypedNumberInput } from "common/components/io/inputs/TypedNumberInput";
+import { toolTipForIds } from "common/components/tooltips";
 import Measurement from "common/models/Measurement";
 import { cleanNumberInput } from "common/tooling/io";
 import propTypes from "prop-types";
@@ -38,7 +39,12 @@ export function LabeledQtyInput(props) {
     >
       <div className="field-label is-normal">
         <label className="label">
-          <span data-tooltip={props.abbr}>{props.label}</span>
+          <span
+            className="has-tooltip-right"
+            data-tooltip={toolTipForIds(props.inputId, props.abbr, props.label)}
+          >
+            {props.label}
+          </span>
         </label>
       </div>
       <div className="field-body">

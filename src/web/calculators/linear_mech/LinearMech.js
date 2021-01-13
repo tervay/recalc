@@ -157,27 +157,36 @@ export default function LinearMech() {
       <div className="columns">
         <div className="column">
           <LabeledMotorInput
+            inputId="motors"
             label="Motors"
             stateHook={[motor, setMotor]}
             choices={Motor.choices}
           />
           <LabeledQtyInput
+            inputId="travelDistance"
             label="Travel distance"
             stateHook={[travelDistance, setTravelDistance]}
             choices={["in", "ft", "cm", "m"]}
           />
           <LabeledQtyInput
+            inputId="spoolDiameter"
             label="Spool diameter"
             stateHook={[spoolDiameter, setSpoolDiameter]}
             choices={["in", "cm"]}
           />
           <LabeledQtyInput
+            inputId="linearMechanismLoad"
             label="Load"
             stateHook={[load, setLoad]}
             choices={["lb", "kg", "g"]}
           />
-          <LabeledRatioInput label="Ratio" stateHook={[ratio, setRatio]} />
+          <LabeledRatioInput
+            inputId="ratio"
+            label="Ratio"
+            stateHook={[ratio, setRatio]}
+          />
           <LabeledNumberInput
+            inputId="efficiency"
             label="Efficiency (%)"
             stateHook={[efficiency, setEfficiency]}
           />

@@ -150,32 +150,42 @@ export default function Arm() {
       <div className="columns">
         <div className="column is-half">
           <LabeledMotorInput
+            inputId="motors"
             stateHook={[motor, setMotor]}
             label={"Motor"}
             choices={Motor.getAllMotors().map((m) => m.name)}
           />
-          <LabeledRatioInput stateHook={[ratio, setRatio]} label={"Ratio"} />
+          <LabeledRatioInput
+            inputId="ratio"
+            stateHook={[ratio, setRatio]}
+            label={"Ratio"}
+          />
           <LabeledQtyInput
+            inputId="comLength"
             stateHook={[comLength, setComLength]}
             label={"CoM Distance"}
             choices={["in", "ft", "cm", "m"]}
           />
           <LabeledQtyInput
+            inputId="weight"
             stateHook={[armMass, setArmMass]}
             label={"Arm Mass"}
             choices={["lb", "kg"]}
           />
           <LabeledQtyInput
+            inputId="startAngle"
             stateHook={[startAngle, setStartAngle]}
             label={"Start Angle"}
             choices={["deg", "rad"]}
           />{" "}
           <LabeledQtyInput
+            inputId="endAngle"
             stateHook={[endAngle, setEndAngle]}
             label={"End Angle"}
             choices={["deg", "rad"]}
           />
           <LabeledPatientNumberInput
+            inputId="iterationLimit"
             stateHook={[iterationLimit, setIterationLimit]}
             label={"Iteration Limit"}
             delay={0.4}
