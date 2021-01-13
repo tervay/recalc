@@ -31,12 +31,14 @@ export function LabeledNumberInput(props) {
   return (
     <div className="field is-horizontal">
       <div className="field-label is-normal">
-        <span
-          className="has-tooltip-right"
-          data-tooltip={toolTipForIds(props.inputId, props.label)}
-        >
-          <label className="label">{props.label}</label>
-        </span>
+        <label className="label">
+          <span
+            className="has-tooltip-right"
+            data-tooltip={toolTipForIds(props.inputId, props.label)}
+          >
+            {props.label}
+          </span>
+        </label>
       </div>
       <div className="field-body">
         <UnlabeledNumberInput {...props} />
