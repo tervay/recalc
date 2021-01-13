@@ -1,6 +1,6 @@
 {
   "name": "recalc",
-  "version": "0.13.3",
+  "version": "0.14.0",
   "license": "MIT",
   "dependencies": {
     "@creativebulma/bulma-tooltip": "^1.2.0",
@@ -54,6 +54,7 @@
     "dev:coverage": "npm run travis:test -- --coverage --watchAll=false",
     "dev:analyze": "source-map-explorer 'build/static/js/*.js'",
     "dev:bump": "node bump.js",
+    "dev:format": "npx prettier . --write && npx eslint src/ --fix",
     "travis:build": "CI=false react-scripts build",
     "travis:test": "react-scripts test --runInBand",
     "heroku:build": "react-scripts build",

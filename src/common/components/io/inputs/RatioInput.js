@@ -1,4 +1,5 @@
 import { UnlabeledTypedNumberInput } from "common/components/io/inputs/TypedNumberInput";
+import { toolTipForIds } from "common/components/tooltips";
 import Ratio from "common/models/Ratio";
 import { cleanNumberInput } from "common/tooling/io";
 import propTypes from "prop-types";
@@ -34,7 +35,14 @@ export function LabeledRatioInput(props) {
   return (
     <div className="field is-horizontal">
       <div className="field-label is-normal">
-        <label className="label">{props.label}</label>
+        <label className="label">
+          <span
+            className="has-tooltip-right"
+            data-tooltip={toolTipForIds(props.inputId, props.label)}
+          >
+            {props.label}
+          </span>
+        </label>
       </div>
       <div className="field-body">
         <UnlabeledRatioInput {...props} />
@@ -46,4 +54,5 @@ export function LabeledRatioInput(props) {
 LabeledRatioInput.propTypes = {
   stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
   label: propTypes.string,
+  inputId: propTypes.string,
 };
