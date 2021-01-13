@@ -15,7 +15,7 @@
     "chart.js": "^2.9.3",
     "chartjs-plugin-zoom": "^0.7.7",
     "express": "^4.17.1",
-    "express-static-gzip": "^2.0.7",
+    "express-static-gzip": "^2.1.1",
     "firebase": "^7.19.0",
     "gzipper": "^4.0.1",
     "js-quantities": "^1.7.5",
@@ -45,19 +45,20 @@
     "wretch": "^1.7.2"
   },
   "scripts": {
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "coverage": "npm run test -- --coverage --watchAll=false",
-    "compress": "npm run compress-gz && npm run compress-br",
-    "compress-br": "npx gzipper c --brotli --exclude png,ico,webp,gz,br ./build",
-    "compress-gz": "npx gzipper c --level 9 --exclude png,ico,webp,gz,br ./build",
-    "format": "npx prettier . --write && npx eslint src/ --fix",
-    "start": "react-scripts start",
-    "build": "react-scripts build && npm run compress",
-    "build-ci": "CI=false react-scripts build",
-    "test": "react-scripts test --runInBand",
-    "start-prod": "node src/dev/express.js",
+    "--------------------- These are required": "---------------------",
+    "build": "npm run heroku:build",
     "version": "node bump.js --v && git add src/",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "--------------------- Cleaned up scripts are below": "---------------------",
+    "dev:start": "react-scripts start",
+    "dev:coverage": "npm run travis:test -- --coverage --watchAll=false",
+    "dev:analyze": "source-map-explorer 'build/static/js/*.js'",
+    "dev:bump": "node bump.js",
+    "dev:format": "npx prettier . --write && npx eslint src/ --fix",
+    "travis:build": "CI=false react-scripts build",
+    "travis:test": "react-scripts test --runInBand",
+    "heroku:build": "react-scripts build",
+    "heroku:start": "node src/dev/express.js"
   },
   "eslintConfig": {
     "extends": "react-app"
