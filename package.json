@@ -52,12 +52,13 @@
     "--------------------- Cleaned up scripts are below": "---------------------",
     "dev:start": "react-scripts start",
     "dev:coverage": "npm run travis:test -- --coverage --watchAll=false",
+    "dev:compress": "npx gzipper c --brotli --exclude png,ico,webp,gz,br ./build && npx gzipper c --level 9 --exclude png,ico,webp,gz,br ./build",
     "dev:analyze": "source-map-explorer 'build/static/js/*.js'",
     "dev:bump": "node bump.js",
     "dev:format": "npx prettier . --write && npx eslint src/ --fix",
     "travis:build": "CI=false react-scripts build",
     "travis:test": "react-scripts test --runInBand",
-    "heroku:build": "react-scripts build",
+    "heroku:build": "react-scripts build && npm run dev:compress",
     "heroku:start": "node src/dev/express.js"
   },
   "eslintConfig": {
