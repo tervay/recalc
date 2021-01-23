@@ -229,6 +229,54 @@ export default function CheatSheet() {
       42,
       '0.95"'
     ),
+    Pulley(
+      [Vendor("REV", "https://www.revrobotics.com/rev-41-1668/")],
+      "GT2",
+      3,
+      15,
+      12,
+      "5mm Hex"
+    ),
+    Pulley(
+      [Vendor("REV", "https://www.revrobotics.com/rev-45-1823/")],
+      "GT2",
+      3,
+      5,
+      24,
+      "5mm Hex, 16mm Bolt Circle"
+    ),
+    Pulley(
+      [Vendor("REV", "https://www.revrobotics.com/rev-45-1823/")],
+      "GT2",
+      3,
+      5,
+      30,
+      "5mm Hex, 16mm Bolt Circle"
+    ),
+    Pulley(
+      [Vendor("REV", "https://www.revrobotics.com/rev-45-1823/")],
+      "GT2",
+      3,
+      5,
+      36,
+      "5mm Hex, 16mm Bolt Circle"
+    ),
+    Pulley(
+      [Vendor("REV", "https://www.revrobotics.com/rev-45-1823/")],
+      "GT2",
+      3,
+      5,
+      48,
+      "5mm Hex, 16mm Bolt Circle"
+    ),
+    Pulley(
+      [Vendor("REV", "https://www.revrobotics.com/rev-45-1823/")],
+      "GT2",
+      3,
+      5,
+      60,
+      "5mm Hex, 16mm Bolt Circle"
+    ),
   ];
 
   return (
