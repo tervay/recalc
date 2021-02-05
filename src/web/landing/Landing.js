@@ -28,80 +28,84 @@ export default function Landing() {
         </div>
       </section>
 
-      <div>
-        <div className="columns">
-          <div className="column">
-            <Tile to={belts.url} title={belts.title} image={belts.image} />
+      <section className="section">
+        <h1 className="title">Calculators</h1>
+        <div className="subtitle">
+          <div className="columns">
+            <div className="column">
+              <Tile to={belts.url} title={belts.title} image={belts.image} />
+            </div>
+
+            <div className="column">
+              <Tile to={chains.url} title={chains.title} />
+            </div>
           </div>
 
-          <div className="column">
-            <Tile to={chains.url} title={chains.title} />
+          <div className={"columns"}>
+            <div className="column">
+              <Tile
+                to={flywheel.url}
+                title={flywheel.title}
+                image={flywheel.image}
+              />
+            </div>
+
+            <div className="column">
+              <Tile to={linear.url} title={linear.title} />
+            </div>
+          </div>
+
+          <div className={"columns"}>
+            <div className={"column"}>
+              <Tile to={arm.url} title={arm.title} />
+            </div>
+            <div className={"column"}>
+              <Tile
+                to={pneumatics.url}
+                title={pneumatics.title}
+                image={pneumatics.image}
+              />
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className={"columns"}>
-          <div className="column">
-            <Tile
-              to={flywheel.url}
-              title={flywheel.title}
-              image={flywheel.image}
-            />
-          </div>
+      <section className="section">
+        <h1 className="title">Information</h1>
+        <div className="subtitle">
+          <div className="columns">
+            <div className="column">
+              <Tile
+                to={filaments.url}
+                title={filaments.title}
+                image={filaments.image}
+              />
+            </div>
 
-          <div className="column">
-            <Tile to={linear.url} title={linear.title} />
-          </div>
-        </div>
-
-        <div className={"columns"}>
-          <div className={"column"}>
-            <Tile to={arm.url} title={arm.title} />
-          </div>
-          <div className={"column"}>
-            <Tile
-              to={pneumatics.url}
-              title={pneumatics.title}
-              image={pneumatics.image}
-            />
-          </div>
-        </div>
-
-        <div className="columns">
-          <div className="column">
-            <Tile to={dslogs.url} title={dslogs.title} />
-          </div>
-
-          <div className="column">
-            <Tile
-              to={compressors.url}
-              title={compressors.title}
-              image={compressors.image}
-            />
+            <div className="column">
+              <Tile to={motors.url} title={motors.title} image={motors.image} />
+            </div>
+            <div className="column">
+              <Tile
+                to={compressors.url}
+                title={compressors.title}
+                image={compressors.image}
+              />
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className="columns">
-          <div className="column">
-            <Tile
-              to={filaments.url}
-              title={filaments.title}
-              image={filaments.image}
-            />
-          </div>
-
-          <div className="column">
-            <Tile to={motors.url} title={motors.title} image={motors.image} />
+      <section className="section">
+        <h1 className="title">Utilities</h1>
+        <div className="subtitle">
+          <div className="columns">
+            <div className="column is-half">
+              <Tile to={dslogs.url} title={dslogs.title} />
+            </div>
           </div>
         </div>
-
-        <div className="columns">
-          <div className="column">
-            <Tile to={"/about"} title={"About"} />
-          </div>
-
-          <div className="column" />
-        </div>
-      </div>
+      </section>
     </>
   );
 }
