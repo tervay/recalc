@@ -1,4 +1,5 @@
 import Measurement from "common/models/Measurement";
+import Rules from "common/models/Rules";
 import Model from "common/tooling/abc/Model";
 import { fit } from "common/tooling/math";
 import keyBy from "lodash/keyBy";
@@ -95,6 +96,15 @@ export default class Motor extends Model {
     return Object.keys(motorMap).map((n) => new Motor(1, n));
   }
 }
+
+export const motorRules = new Rules();
+motorRules.addRule(
+  // Current -> torque
+  (m) => m.current !== undefined && m.torque === undefined,
+  (m) => {
+    m.torque = m.motor.kT.mul(m.current);
+  }
+)
 
 const motorMap = keyBy(
   [
