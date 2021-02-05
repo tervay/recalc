@@ -8,7 +8,7 @@ export default {
   title: "Linear Mechanism Calculator",
   version: 1,
   initialState: {
-    motor: new Motor(1, "Falcon 500"),
+    motor: Motor.Falcon500s(1),
     travelDistance: new Measurement(40, "in"),
     spoolDiameter: new Measurement(1, "in"),
     load: new Measurement(120, "lb"),

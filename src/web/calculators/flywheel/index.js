@@ -9,7 +9,7 @@ export default {
   title: "Flywheel Calculator",
   version: 1,
   initialState: {
-    motor: new Motor(1, "Falcon 500"),
+    motor: Motor.Falcon500s(1),
     ratio: new Ratio(1, Ratio.REDUCTION),
     radius: new Measurement(2, "in"),
     targetSpeed: new Measurement(2000, "rpm"),

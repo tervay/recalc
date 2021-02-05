@@ -10,7 +10,7 @@ export default {
   title: "Arm Calculator",
   version: 1,
   initialState: {
-    motor: new Motor(2, "Falcon 500"),
+    motor: Motor.Falcon500s(2),
     ratio: new Ratio(100, Ratio.REDUCTION),
     comLength: new Measurement(20, "in"),
     armMass: new Measurement(15, "lb"),
