@@ -180,4 +180,16 @@ export default class Measurement extends Model {
   negate() {
     return new Measurement(-this.scalar, this.units());
   }
+
+  removeRad() {
+    return this.div(new Measurement(1, "rad"));
+  }
+
+  static min(m1, m2) {
+    return m1.lt(m2) ? m1 : m2;
+  }
+
+  static max(m1, m2) {
+    return m1.gt(m2) ? m1 : m2;
+  }
 }

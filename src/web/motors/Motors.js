@@ -1,17 +1,61 @@
 import Heading2 from "common/components/calc-heading/Heading2";
 import Table from "common/components/Table";
 import Measurement from "common/models/Measurement";
-import Motor from "common/models/Motor";
+import Motor, {
+  motorRules,
+  MotorState,
+  nominalVoltage,
+} from "common/models/Motor";
 import { measurementMax } from "common/tooling/math";
 import { setTitle } from "common/tooling/routing";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import motorsConfig from "./index";
+
+const _default = () => new Measurement(0, "W");
+const _defaultArray = () => [_default(), _default(), _default()];
+
+const currents = [
+  new Measurement(30, "A"),
+  new Measurement(40, "A"),
+  new Measurement(50, "A"),
+];
 
 export default function Motors() {
   setTitle(motorsConfig.title);
 
-  const currents = [30, 40, 50];
+  const [dataTbl, setDataTbl] = useState({
+    "Falcon 500": _defaultArray(),
+    NEO: _defaultArray(),
+    "775pro": _defaultArray(),
+    "NEO 550": _defaultArray(),
+    CIM: _defaultArray(),
+    MiniCIM: _defaultArray(),
+    BAG: _defaultArray(),
+    "AM-9015": _defaultArray(),
+    NeveRest: _defaultArray(),
+    Snowblower: _defaultArray(),
+    "775 RedLine": _defaultArray(),
+  });
+
+  useEffect(() => {
+    Motor.getAllMotors().map((m) => {
+      let arr = dataTbl[m.name];
+      for (let i = 0; i < 3; i++) {
+        const ms = new MotorState(m, currents[i], {
+          current: currents[i],
+          voltage: nominalVoltage,
+        });
+        motorRules.solve(ms);
+        arr[i] = ms.power;
+      }
+
+      setDataTbl((dt) => ({
+        ...dt,
+        [m.name]: arr,
+      }));
+    });
+  }, []);
 
   const data = React.useMemo(
     () =>
@@ -20,9 +64,10 @@ export default function Motors() {
           return p.scalar <= 0 ? "-" : p.scalar.toFixed(0);
         };
 
-        const power1 = m.getPower(new Measurement(currents[0], "A"));
-        const power2 = m.getPower(new Measurement(currents[1], "A"));
-        const power3 = m.getPower(new Measurement(currents[2], "A"));
+        const power1 = dataTbl[m.name][0];
+        const power2 = dataTbl[m.name][1];
+        const power3 = dataTbl[m.name][2];
+
         let numerator;
 
         // If, at any of 20/30/40A, the motor blows up, then
@@ -30,13 +75,13 @@ export default function Motors() {
           // For power:weight ratio, consider the max power it can achieve
           numerator = measurementMax(
             m.maxPower,
-            m.getPower(new Measurement(currents[0], "A")),
-            m.getPower(new Measurement(currents[1], "A")),
-            m.getPower(new Measurement(currents[2], "A"))
+            m.getPower(currents[0]),
+            m.getPower(currents[1]),
+            m.getPower(currents[2])
           );
         } else {
           // Otherwise, consider the max power it can achieve at 40A
-          numerator = m.getPower(new Measurement(currents[2], "A"));
+          numerator = m.getPower(currents[2]);
         }
 
         return {
@@ -55,7 +100,7 @@ export default function Motors() {
           powerToWeight: numerator.div(m.weight).scalar.toFixed(2),
         };
       }),
-    []
+    [JSON.stringify(dataTbl)]
   );
   const columns = React.useMemo(
     () => [
@@ -86,15 +131,15 @@ export default function Motors() {
         accessor: "freeCurrent",
       },
       {
-        Header: `Peak power at ${currents[0]}A (W)`,
+        Header: `Peak power at ${currents[0].format()} (W)`,
         accessor: "powerAt10A",
       },
       {
-        Header: `Peak power at ${currents[1]}A (W)`,
+        Header: `Peak power at ${currents[1].format()} (W)`,
         accessor: "powerAt20A",
       },
       {
-        Header: `Peak power at ${currents[2]}A (W)`,
+        Header: `Peak power at ${currents[2].format()} (W)`,
         accessor: "powerAt40A",
       },
       {
