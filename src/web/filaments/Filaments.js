@@ -129,9 +129,17 @@ export default function Compressors() {
           <p className={"block"}>
             Imagine you are pulling on a rubber band. For the most part, the
             rubber band will return to its original shape after you release it.
-            This is known as elastic deformation. However, if you pull on it too
-            hard, it will break - and is then unable to return to its original
-            shape. This is known as plastic deformation.
+            This is known as elastic deformation.
+          </p>
+          <p className={"block"}>
+            Now suppose you pull a bit harder. It doesn&apos;t break, but you
+            stretch it far enough such that it doesn&apos;t return to its
+            original state, and is now permanently deformed. This is known as
+            plastic deformation.
+          </p>
+          <p className={"block"}>
+            Suppose you pull even harder. Now, the rubber band snaps. This is
+            known as a <i>fracture.</i>
           </p>
         </div>
       </section>
