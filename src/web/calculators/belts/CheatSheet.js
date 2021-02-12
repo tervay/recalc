@@ -30,7 +30,7 @@ export default function CheatSheet() {
   };
 
   const data = [
-    Pulley([Vendor("VEXPro", VEX_GT2)], "GT2", 3, 9, 12, "RS550", 0.451),
+    Pulley([Vendor("VEXPro", VEX_GT2)], "GT2", 3, 9, 12, "RS550"),
     Pulley(
       [Vendor("VEXPro", VEX_GT2), Vendor("WCP", WCP_GT2)],
       "GT2",
@@ -135,8 +135,7 @@ export default function CheatSheet() {
       60,
       "VersaKey"
     ),
-
-    Pulley([Vendor("WCP", WCP_HTD)], "HTD", 5, "9, 15", 12, "CIM (8mm)"),
+    Pulley([Vendor("WCP", WCP_HTD)], "HTD", 5, "9, 15", 12, "NEO/CIM (8mm)"),
     Pulley(
       [
         Vendor(
@@ -148,7 +147,7 @@ export default function CheatSheet() {
       5,
       9,
       12,
-      "CIM (8mm)"
+      "NEO/CIM (8mm)"
     ),
     Pulley(
       [
@@ -188,7 +187,7 @@ export default function CheatSheet() {
       5,
       9,
       30,
-      "CIM (8mm)"
+      "NEO/CIM (8mm)"
     ),
     Pulley(
       [
@@ -228,6 +227,22 @@ export default function CheatSheet() {
       15,
       42,
       '0.95"'
+    ),
+    Pulley(
+      [Vendor("REV", "https://www.revrobotics.com/neo-pinions/")],
+      "GT2",
+      3,
+      21.4,
+      16,
+      "NEO/CIM (8mm)"
+    ),
+    Pulley(
+      [Vendor("REV", "https://www.revrobotics.com/550-motor-pinions/")],
+      "GT2",
+      3,
+      11.9,
+      12,
+      "RS550"
     ),
     Pulley(
       [Vendor("REV", "https://www.revrobotics.com/rev-41-1668/")],

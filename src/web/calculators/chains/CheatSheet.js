@@ -15,6 +15,7 @@ export default function CheatSheet() {
   };
 
   const data = [
+    Pulley("REV", "#25", 10, "NEO/CIM (8mm)"),
     Pulley("VEXPro, WCP, AndyMark", "#25", 16, '3/8" Hex', true),
     Pulley("VEXPro, WCP", "#25", 18, '3/8" Hex', true),
     Pulley("VEXPro, WCP", "#25", 22, '3/8" Hex', true),
