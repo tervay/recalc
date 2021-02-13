@@ -52,6 +52,7 @@ export default function Flywheel() {
       radius: Measurement.getParam(),
       targetSpeed: Measurement.getParam(),
       weight: Measurement.getParam(),
+      momentOfInertia: Measurement.getParam(),
       useCustomMOI: BooleanParam,
     },
     flywheel.initialState,
@@ -194,6 +195,11 @@ export default function Flywheel() {
             new QueryableParamHolder({ radius }, Measurement.getParam()),
             new QueryableParamHolder({ targetSpeed }, Measurement.getParam()),
             new QueryableParamHolder({ weight }, Measurement.getParam()),
+            new QueryableParamHolder(
+              { momentOfInertia },
+              Measurement.getParam()
+            ),
+            new QueryableParamHolder({ useCustomMOI }, BooleanParam),
             new QueryableParamHolder(
               { version: flywheel.version },
               NumberParam
