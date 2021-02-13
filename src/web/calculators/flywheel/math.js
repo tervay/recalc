@@ -4,23 +4,17 @@ import Ratio from "common/models/Ratio";
 /**
  *
  *
- * @param {Measurement} weight
- * @param {Measurement} radius
+ * @param {Measurement} momentOfInertia
  * @param {Measurement} motorFreeSpeed
  * @param {Measurement} motorStallTorque
- * @param {Measurement} motorStallCurrent
- * @param {Measurement} motorResistance
  * @param {number} motorQuantity
  * @param {Ratio} ratio
  * @param {Measurement} targetSpeed
  */
 export function calculateWindupTime(
-  weight,
-  radius,
+  momentOfInertia,
   motorFreeSpeed,
   motorStallTorque,
-  motorStallCurrent,
-  motorResistance,
   motorQuantity,
   ratio,
   targetSpeed
@@ -29,7 +23,7 @@ export function calculateWindupTime(
     return new Measurement(0, "s");
   }
 
-  const moi = weight.mul(radius).mul(radius).mul(-0.5);
+  const moi = momentOfInertia.mul(-1);
   const c24 = moi;
   const c23 = motorFreeSpeed.div(ratio.asNumber());
   const d23 = c23;
@@ -105,23 +99,17 @@ export function calculateWindupTime2(
 
 /**
  *
- * @param {Measurement} weight
- * @param {Measurement} radius
+ * @param {Measurement} momentOfInertia
  * @param {Measurement} motorFreeSpeed
  * @param {Measurement} motorStallTorque
- * @param {Measurement} motorStallCurrent
- * @param {Measurement} motorResistance
  * @param {number} motorQuantity
  * @param {Ratio} currentRatio
  * @param {Measurement} targetSpeed
  */
 export function generateChartData(
-  weight,
-  radius,
+  momentOfInertia,
   motorFreeSpeed,
   motorStallTorque,
-  motorStallCurrent,
-  motorResistance,
   motorQuantity,
   currentRatio,
   targetSpeed
@@ -136,12 +124,9 @@ export function generateChartData(
 
   const getTimeForRatio = (ratio) =>
     calculateWindupTime(
-      weight,
-      radius,
+      momentOfInertia,
       motorFreeSpeed,
       motorStallTorque,
-      motorStallCurrent,
-      motorResistance,
       motorQuantity,
       ratio,
       targetSpeed

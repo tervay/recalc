@@ -11,6 +11,7 @@ export function UnlabeledTypedNumberInput(props) {
     <UnlabeledNumberInput
       stateHook={[magnitude, setMagnitude]}
       inputId={props.inputId}
+      disabled={props.disabled}
     >
       <p className="control">
         <span className="select">
@@ -18,6 +19,7 @@ export function UnlabeledTypedNumberInput(props) {
             value={select}
             onChange={(e) => setSelect(e.target.value)}
             id={props.selectId}
+            disabled={props.disabled}
           >
             {props.choices.map((c) => (
               <option key={c}>{c}</option>
@@ -48,6 +50,7 @@ UnlabeledTypedNumberInput.propTypes = {
   choices: propTypes.arrayOf(propTypes.string),
   inputId: propTypes.string,
   selectId: propTypes.string,
+  disabled: propTypes.bool,
 };
 
 LabeledTypedNumberInput.propTypes = {

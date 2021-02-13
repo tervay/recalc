@@ -14,6 +14,7 @@ export function UnlabeledNumberInput(props) {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           id={props.inputId}
+          disabled={props.disabled}
         />
       </p>
       {props.children}
@@ -25,6 +26,7 @@ UnlabeledNumberInput.propTypes = {
   stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
   inputId: propTypes.string,
   children: propTypes.any,
+  disabled: propTypes.bool,
 };
 
 export function LabeledNumberInput(props) {

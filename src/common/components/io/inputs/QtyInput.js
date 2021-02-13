@@ -10,6 +10,13 @@ export function UnlabeledQtyInput(props) {
   const [magnitude, setMagnitude] = useState(qty.scalar);
   const [unit, setUnit] = useState(qty.units());
 
+  if (
+    props.disabled &&
+    props.stateHook[0].scalar.toString() !== magnitude.toString()
+  ) {
+    setMagnitude(props.stateHook[0].scalar);
+  }
+
   useEffect(() => {
     setQty(new Measurement(cleanNumberInput(magnitude), unit));
   }, [magnitude, unit]);
@@ -21,6 +28,7 @@ export function UnlabeledQtyInput(props) {
       choices={props.choices}
       inputId={props.inputId}
       selectId={props.selectId}
+      disabled={props.disabled}
     />
   );
 }
@@ -30,6 +38,7 @@ UnlabeledQtyInput.propTypes = {
   choices: propTypes.arrayOf(propTypes.string),
   inputId: propTypes.string,
   selectId: propTypes.string,
+  disabled: propTypes.bool,
 };
 
 export function LabeledQtyInput(props) {
@@ -62,4 +71,5 @@ LabeledQtyInput.propTypes = {
   wideLabel: propTypes.bool,
   inputId: propTypes.string,
   selectId: propTypes.string,
+  disabled: propTypes.bool,
 };

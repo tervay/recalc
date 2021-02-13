@@ -14,6 +14,8 @@ export default {
     radius: new Measurement(2, "in"),
     targetSpeed: new Measurement(2000, "rpm"),
     weight: new Measurement(5, "lb"),
+    momentOfInertia: new Measurement(10, "lb in^2"),
+    useCustomMOI: false,
   },
   component: lazy(() => import("web/calculators/flywheel/Flywheel")),
 };

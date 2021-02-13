@@ -1,5 +1,6 @@
 import Heading from "common/components/calc-heading/Heading";
 import { LabeledMotorInput } from "common/components/io/inputs/MotorInput";
+import MultiInputLine from "common/components/io/inputs/MultiInputLine";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
@@ -22,7 +23,7 @@ import { Line } from "lib/react-chart-js";
 import minBy from "lodash/minBy";
 import reduce from "lodash/reduce";
 import React, { useEffect, useState } from "react";
-import { NumberParam } from "use-query-params";
+import { BooleanParam, NumberParam } from "use-query-params";
 import {
   calculateWindupTime,
   generateChartData,
@@ -41,6 +42,8 @@ export default function Flywheel() {
     radius: radius_,
     targetSpeed: targetSpeed_,
     weight: weight_,
+    momentOfInertia: momentOfInertia_,
+    useCustomMOI: useCustomMOI_,
   } = queryStringToDefaults(
     window.location.search,
     {
@@ -49,6 +52,7 @@ export default function Flywheel() {
       radius: Measurement.getParam(),
       targetSpeed: Measurement.getParam(),
       weight: Measurement.getParam(),
+      useCustomMOI: BooleanParam,
     },
     flywheel.initialState,
     flywheelVersionManager
@@ -60,6 +64,8 @@ export default function Flywheel() {
   const [radius, setRadius] = useState(radius_);
   const [targetSpeed, setTargetSpeed] = useState(targetSpeed_);
   const [weight, setWeight] = useState(weight_);
+  const [momentOfInertia, setMomentOfInertia] = useState(momentOfInertia_);
+  const [useCustomMOI, setUseCustomMOI] = useState(useCustomMOI_);
 
   // Outputs
   const [windupTime, setWindupTime] = useState(new Measurement(0, "s"));
@@ -71,13 +77,16 @@ export default function Flywheel() {
   );
 
   useEffect(() => {
+    if (!useCustomMOI) {
+      setMomentOfInertia(weight.mul(radius).mul(radius).mul(0.5));
+    }
+  }, [useCustomMOI, radius, weight]);
+
+  useEffect(() => {
     const newWindupTime = calculateWindupTime(
-      weight,
-      radius,
+      momentOfInertia,
       motor.freeSpeed,
       motor.stallTorque,
-      motor.stallCurrent,
-      motor.resistance,
       motor.quantity,
       ratio,
       targetSpeed
@@ -85,13 +94,10 @@ export default function Flywheel() {
 
     setWindupTime(newWindupTime);
 
-    const chartData = generateChartData(
-      weight,
-      radius,
+    const data = generateChartData(
+      momentOfInertia,
       motor.freeSpeed,
       motor.stallTorque,
-      motor.stallCurrent,
-      motor.resistance,
       motor.quantity,
       ratio,
       targetSpeed
@@ -110,7 +116,7 @@ export default function Flywheel() {
         .to(ratio.asNumber()),
     ];
 
-    const optimalRatioTime = minBy(chartData, (o) => o.y);
+    const optimalRatioTime = minBy(data, (o) => o.y);
     const optimalRatioMarkers =
       optimalRatioTime !== undefined
         ? [
@@ -156,7 +162,7 @@ export default function Flywheel() {
         new YAxisBuilder()
           .setTitleAndId("Windup Time (s)")
           .setId("Windup Time")
-          .setData(chartData)
+          .setData(data)
           .setColor(YAxisBuilder.chartColor(0))
           .setPosition("left")
       );
@@ -166,7 +172,15 @@ export default function Flywheel() {
     if (optimalRatioTime !== undefined) {
       setOptimalRatio(optimalRatioTime.x.toFixed(3));
     }
-  }, [motor, ratio, radius, targetSpeed, weight]);
+  }, [
+    motor,
+    ratio,
+    radius,
+    targetSpeed,
+    weight,
+    momentOfInertia,
+    useCustomMOI,
+  ]);
 
   return (
     <>
@@ -212,13 +226,36 @@ export default function Flywheel() {
             stateHook={[radius, setRadius]}
             choices={["in", "cm"]}
             label={"Radius"}
+            disabled={useCustomMOI}
           />
           <LabeledQtyInput
             inputId="weight"
             stateHook={[weight, setWeight]}
             choices={["lb", "kg", "g"]}
             label={"Weight"}
+            disabled={useCustomMOI}
           />
+
+          <MultiInputLine label="MOI">
+            <LabeledQtyInput
+              inputId="moi"
+              stateHook={[momentOfInertia, setMomentOfInertia]}
+              choices={["lb in^2", "kg m^2"]}
+              label={""}
+              disabled={!useCustomMOI}
+            />
+            <div label="CustomMOI">
+              <label className="checkbox">
+                <input
+                  type="checkbox"
+                  checked={useCustomMOI}
+                  onChange={(e) => setUseCustomMOI(e.target.checked)}
+                />
+                Use custom MOI
+              </label>
+            </div>
+          </MultiInputLine>
+
           <LabeledQtyOutput
             inputId="windupTime"
             stateHook={[windupTime, setWindupTime]}
