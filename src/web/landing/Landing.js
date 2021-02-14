@@ -6,6 +6,7 @@ import chains from "web/calculators/chains";
 import dslogs from "web/calculators/dslogs";
 import flywheel from "web/calculators/flywheel";
 import linear from "web/calculators/linear_mech";
+import gearload from "web/calculators/load";
 import pneumatics from "web/calculators/pneumatics";
 import compressors from "web/compressors";
 import filaments from "web/filaments";
@@ -66,6 +67,13 @@ export default function Landing() {
                 image={pneumatics.image}
               />
             </div>
+          </div>
+
+          <div className={"columns"}>
+            <div className={"column"}>
+              <Tile to={gearload.url} title={gearload.title} />
+            </div>
+            <div className={"column"}></div>
           </div>
         </div>
       </section>

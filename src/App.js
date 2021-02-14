@@ -14,6 +14,7 @@ import chains from "web/calculators/chains";
 import dslogs from "web/calculators/dslogs";
 import flywheel from "web/calculators/flywheel";
 import linear from "web/calculators/linear_mech";
+import gearload from "web/calculators/load";
 import pneumatics from "web/calculators/pneumatics";
 import compressors from "web/compressors";
 import filaments from "web/filaments";
@@ -44,6 +45,7 @@ export default function App() {
                 <Route path={linear.url} component={linear.component} />
                 <Route path={chains.url} component={chains.component} />
                 <Route path={arm.url} component={arm.component} />
+                <Route path={gearload.url} component={gearload.component} />
 
                 <Route path={dslogs.url} component={dslogs.component} />
                 <Route path={motors.url} component={motors.component} />

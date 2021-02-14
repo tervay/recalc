@@ -2,7 +2,9 @@ import propTypes from "prop-types";
 import React from "react";
 
 export function UnlabeledNumberOutput(props) {
-  const value = props.stateHook[0];
+  const value = props.precision
+    ? props.stateHook[0].toFixed(props.precision)
+    : props.stateHook[0];
 
   return (
     <div className="field has-addons">
@@ -22,6 +24,7 @@ export function UnlabeledNumberOutput(props) {
 UnlabeledNumberOutput.propTypes = {
   stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
   inputId: propTypes.string,
+  precision: propTypes.number,
 };
 
 export function LabeledNumberOutput(props) {
@@ -41,4 +44,5 @@ LabeledNumberOutput.propTypes = {
   stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
   label: propTypes.string,
   inputId: propTypes.string,
+  precision: propTypes.number,
 };
