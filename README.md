@@ -4,14 +4,10 @@ This is a collaboration focused mechanical design calculator, primarily for FRC.
 
 ### Basic dev commands:
 
-`./clean.sh`
+`yarn dev:start` - start server
 
-Runs linting & fixes style problems.
+`yarn travis:test` - run tests
 
-`yarn run analyze`
+`yarn heroku:start` - start server in prod mode
 
-Analyzes bundle sizes to see which packages are causing bundles to increase in size.
-
-`yarn run coverage`
-
-Creates a code coverage report at `coverage/`.
+`yarn dev:bump` - bump version and push
