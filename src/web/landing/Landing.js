@@ -52,7 +52,7 @@ export default function Landing() {
             </div>
 
             <div className="column">
-              <Tile to={linear.url} title={linear.title} />
+              <Tile to={linear.url} title={linear.title} image={linear.image} />
             </div>
           </div>
 

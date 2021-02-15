@@ -6,6 +6,7 @@ import { lazy } from "react";
 export default {
   url: "/linear",
   title: "Linear Mechanism Calculator",
+  image: "/media/Elevator",
   version: 1,
   initialState: {
     motor: Motor.Falcon500s(1),
