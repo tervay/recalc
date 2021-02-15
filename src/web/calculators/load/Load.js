@@ -5,11 +5,13 @@ import MultiInputLine from "common/components/io/inputs/MultiInputLine";
 import { LabeledNumberInput } from "common/components/io/inputs/NumberInput";
 import PressureAngleInput from "common/components/io/inputs/PressureAngleInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
+import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 import Material from "common/models/Material";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
+import Ratio from "common/models/Ratio";
 import {
   QueryableParamHolder,
   queryStringToDefaults,
@@ -36,6 +38,7 @@ export default function Load() {
 
   const {
     motor: motor_,
+    planetaryRatio: planetaryRatio_,
     currentLimit: currentLimit_,
     diametralPitch: diametralPitch_,
     pressureAngle: pressureAngle_,
@@ -49,6 +52,7 @@ export default function Load() {
     window.location.search,
     {
       motor: Motor.getParam(),
+      planetaryRatio: Ratio.getParam(),
       currentLimit: Measurement.getParam(),
       diametralPitch: Measurement.getParam(),
       pressureAngle: StringParam,
@@ -65,6 +69,7 @@ export default function Load() {
 
   // Inputs
   const [motor, setMotor] = useState(motor_);
+  const [planetaryRatio, setPlanetaryRatio] = useState(planetaryRatio_);
   const [currentLimit, setCurrentLimit] = useState(currentLimit_);
   const [diametralPitch, setDiametralPitch] = useState(diametralPitch_);
   const [pressureAngle, setPressureAngle] = useState(pressureAngle_);
@@ -97,6 +102,7 @@ export default function Load() {
   useEffect(() => {
     const state = calculateState(
       motor,
+      planetaryRatio,
       currentLimit,
       diametralPitch,
       pressureAngleMeas,
@@ -114,6 +120,7 @@ export default function Load() {
     setGearStallLoad(state.gear.stallForce);
   }, [
     motor,
+    planetaryRatio,
     currentLimit,
     diametralPitch,
     pressureAngle,
@@ -150,12 +157,16 @@ export default function Load() {
         }}
       />
       <div className="columns">
-        <div className="column is-two-thirds">
+        <div className="column">
           <LabeledMotorInput
             inputId="motors"
             stateHook={[motor, setMotor]}
             label={"Motor"}
             choices={Motor.getAllMotors().map((m) => m.name)}
+          />
+          <LabeledRatioInput
+            label="Planetary Ratio"
+            stateHook={[planetaryRatio, setPlanetaryRatio]}
           />
           <LabeledQtyInput
             inputId="currentLimit"
@@ -252,6 +263,12 @@ export default function Load() {
               This calculator assumes the pinion is attached directly to the
               motor output shaft, and that each motor has a pinion together
               driving a single gear.
+              <br />
+              <br />
+              For the planetary ratio, it assumes only a single motor is driving
+              each planetary, and the number of planetaries is equal to the
+              number of motors. The pinion is attached to the planetary output
+              shaft.
             </div>
           </article>
         </div>

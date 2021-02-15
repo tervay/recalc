@@ -26,6 +26,7 @@ export function calculateSafeToothLoad(
 
 export function calculateState(
   motor,
+  planetaryRatio,
   currentLimit,
   diametralPitch,
   pressureAngle,
@@ -54,7 +55,8 @@ export function calculateState(
     currentLimit.scalar === 0 ||
     pinionWidth.scalar === 0 ||
     gearWidth.scalar === 0 ||
-    ms.torque.scalar === 0
+    ms.torque.scalar === 0 ||
+    planetaryRatio.magnitude === 0
   ) {
     return {
       pinion: {
@@ -76,13 +78,11 @@ export function calculateState(
     pressureAngle
   );
 
-  const pinionAxleTorque = ms.torque;
+  const pinionAxleTorque = ms.torque.mul(planetaryRatio.asNumber());
   const pinionPitchRadius = diametralPitch.div(pinionTeeth).inverse().div(2);
   const pinionOutputForce = pinionAxleTorque.div(pinionPitchRadius);
-  // const pinionAxleSafeTorque = pinionSafeToothLoad.mul(pinionPitchRadius);
 
   const stallForceOnPinion = pinionOutputForce;
-  // const pinionFOS = pinionSafeToothLoad.div(stallForceOnPinion);
 
   const gearInputForce = pinionOutputForce;
   const gearPitchRadius = diametralPitch.div(gearTeeth).inverse().div(2);
@@ -98,7 +98,6 @@ export function calculateState(
     diametralPitch,
     pressureAngle
   );
-  // const gearFOS = gearSafeToothLoad.div(stallForceOnGear);
 
   return {
     pinion: {

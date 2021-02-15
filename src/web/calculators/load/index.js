@@ -1,6 +1,7 @@
 import Material from "common/models/Material";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
+import Ratio from "common/models/Ratio";
 import { lazy } from "react";
 
 export default {
@@ -9,6 +10,7 @@ export default {
   version: 1,
   initialState: {
     motor: Motor.Falcon500s(2),
+    planetaryRatio: new Ratio(1, Ratio.REDUCTION),
     currentLimit: new Measurement(60, "A"),
     diametralPitch: new Measurement(20, "1/in"),
     pressureAngle: "14.5°",
