@@ -14,8 +14,10 @@ import { setTitle } from "common/tooling/routing";
 import React, { useEffect, useMemo, useState } from "react";
 import { NumberParam } from "use-query-params";
 
+import beltData from "./beltData.json";
 import CheatSheet from "./CheatSheet";
 import belts from "./index";
+import LinkGenerator from "./linkGenerator";
 import { calculateClosestCenters, teethToPD } from "./math";
 import { beltVersionManager } from "./versions";
 
@@ -212,6 +214,12 @@ export default function Belts() {
             stateHook={[toothMax, setToothMax]}
             label="Belt tooth maximum"
             inputId="tooth-max"
+          />
+          <LinkGenerator
+            smallBelt={smallerTeeth}
+            largeBelt={largerTeeth}
+            pitch={pitch}
+            data={beltData}
           />
         </div>
         <div className="column">
