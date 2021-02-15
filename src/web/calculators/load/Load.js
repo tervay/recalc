@@ -153,6 +153,20 @@ export default function Load() {
         getQuery={() => {
           return stateToQueryString([
             new QueryableParamHolder({ version: load.version }, NumberParam),
+            new QueryableParamHolder({ motor }, Motor.getParam()),
+            new QueryableParamHolder({ planetaryRatio }, Ratio.getParam()),
+            new QueryableParamHolder({ currentLimit }, Measurement.getParam()),
+            new QueryableParamHolder(
+              { diametralPitch },
+              Measurement.getParam()
+            ),
+            new QueryableParamHolder({ pressureAngle }, StringParam),
+            new QueryableParamHolder({ pinionTeeth }, NumberParam),
+            new QueryableParamHolder({ pinionMaterial }, Material.getParam()),
+            new QueryableParamHolder({ gearTeeth }, NumberParam),
+            new QueryableParamHolder({ gearMaterial }, Material.getParam()),
+            new QueryableParamHolder({ pinionWidth }, Measurement.getParam()),
+            new QueryableParamHolder({ gearWidth }, Measurement.getParam()),
           ]);
         }}
       />
