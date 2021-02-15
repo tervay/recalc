@@ -1,159 +1,134 @@
 [
-    {
-        "type": "GT2",
-        "pitch": 3,
-        "teeth": [
-            16
-        ],
-        "width": 9,
-        "bore": "Falcon",
-        "vendors": [
-            {
-                "name": "VEXPro",
-                "url": "https://www.vexrobotics.com/gt2pulleys.html"
-            },
-            {
-                "name": "WCP",
-                "url": "https://www.wcproducts.com/belts-chain-gears/belts-pulleys/gt2-timing-pulleys"
-            }
-        ]
-    },
-    {
-        "type": "GT2",
-        "pitch": 3,
-        "teeth": [
-            12
-        ],
-        "width": 9,
-        "bore": "RS550",
-        "vendors": [
-            {
-                "name": "VEXPro",
-                "url": "https://www.vexrobotics.com/gt2pulleys.html"
-            },
-            {
-                "name": "WCP",
-                "url": "https://www.wcproducts.com/belts-chain-gears/belts-pulleys/gt2-timing-pulleys"
-            }
-        ]
-    },
-    {
-        "type": "GT2",
-        "pitch": 3,
-        "teeth": [
-            12
-        ],
-        "width": 9,
-        "bore": "RS775",
-        "vendors": [
-            {
-                "name": "VEXPro",
-                "url": "https://www.vexrobotics.com/gt2pulleys.html"
-            },
-            {
-                "name": "WCP",
-                "url": "https://www.wcproducts.com/belts-chain-gears/belts-pulleys/gt2-timing-pulleys"
-            }
-        ]
-    },
-    {
-        "type": "GT2",
-        "pitch": 3,
-        "teeth": [
-            12
-        ],
-        "width": 9,
-        "bore": "BAG",
-        "vendors": [
-            {
-                "name": "VEXPro",
-                "url": "https://www.vexrobotics.com/gt2pulleys.html"
-            },
-            {
-                "name": "WCP",
-                "url": "https://www.wcproducts.com/belts-chain-gears/belts-pulleys/gt2-timing-pulleys"
-            }
-        ]
-    },
-    {
-        "type": "GT2",
-        "pitch": 3,
-        "teeth": [
-            24,
-            36,
-            48,
-            60
-        ],
-        "width": 9,
-        "bore": "1/2\" Hex",
-        "vendors": [
-            {
-                "name": "VEXPro",
-                "url": "https://www.vexrobotics.com/gt2pulleys.html"
-            },
-            {
-                "name": "WCP",
-                "url": "https://www.wcproducts.com/belts-chain-gears/belts-pulleys/gt2-timing-pulleys"
-            }
-        ]
-    },
-    {
-        "type": "HTD",
-        "pitch": 5,
-        "width": 9,
-        "teeth": [
-            18,
-            24,
-            30,
-            36
-        ],
-        "bore": "1/2\" Hex",
-        "vendors": [
-            {
-                "name": "VEXPro",
-                "url": "https://www.vexrobotics.com/htdpulleys.html"
-            },
-            {
-                "name": "WCP",
-                "url": "https://www.wcproducts.com/belts-chain-gears/htd-timing-pulleys"
-            }
-        ]
-    },
-    {
-        "type": "HTD",
-        "pitch": 5,
-        "width": 15,
-        "teeth": [
-            18,
-            24,
-            30,
-            36
-        ],
-        "bore": "1/2\" Hex",
-        "vendors": [
-            {
-                "name": "VEXPro",
-                "url": "https://www.vexrobotics.com/htdpulleys.html"
-            },
-            {
-                "name": "WCP",
-                "url": "https://www.wcproducts.com/belts-chain-gears/htd-timing-pulleys"
-            }
-        ]
-    },
-    {
-        "type": "HTD",
-        "pitch": 5,
-        "width": 9,
-        "teeth": [
-            12
-        ],
-        "bore": "8mm (CIM/NEO)",
-        "vendors": [
-            {
-                "name": "WCP",
-                "url": "https://www.wcproducts.com/belts-chain-gears/htd-timing-pulleys"
-            }
-        ]
-    }
+  {
+    "type": "GT2",
+    "pitch": 3,
+    "teeth": [16],
+    "width": 9,
+    "bore": "Falcon",
+    "vendors": [
+      {
+        "name": "VEXPro",
+        "url": "https://www.vexrobotics.com/gt2pulleys.html"
+      },
+      {
+        "name": "WCP",
+        "url": "https://www.wcproducts.com/belts-chain-gears/belts-pulleys/gt2-timing-pulleys"
+      }
+    ]
+  },
+  {
+    "type": "GT2",
+    "pitch": 3,
+    "teeth": [12],
+    "width": 9,
+    "bore": "RS550",
+    "vendors": [
+      {
+        "name": "VEXPro",
+        "url": "https://www.vexrobotics.com/gt2pulleys.html"
+      },
+      {
+        "name": "WCP",
+        "url": "https://www.wcproducts.com/belts-chain-gears/belts-pulleys/gt2-timing-pulleys"
+      }
+    ]
+  },
+  {
+    "type": "GT2",
+    "pitch": 3,
+    "teeth": [12],
+    "width": 9,
+    "bore": "RS775",
+    "vendors": [
+      {
+        "name": "VEXPro",
+        "url": "https://www.vexrobotics.com/gt2pulleys.html"
+      },
+      {
+        "name": "WCP",
+        "url": "https://www.wcproducts.com/belts-chain-gears/belts-pulleys/gt2-timing-pulleys"
+      }
+    ]
+  },
+  {
+    "type": "GT2",
+    "pitch": 3,
+    "teeth": [12],
+    "width": 9,
+    "bore": "BAG",
+    "vendors": [
+      {
+        "name": "VEXPro",
+        "url": "https://www.vexrobotics.com/gt2pulleys.html"
+      },
+      {
+        "name": "WCP",
+        "url": "https://www.wcproducts.com/belts-chain-gears/belts-pulleys/gt2-timing-pulleys"
+      }
+    ]
+  },
+  {
+    "type": "GT2",
+    "pitch": 3,
+    "teeth": [24, 36, 48, 60],
+    "width": 9,
+    "bore": "1/2\" Hex",
+    "vendors": [
+      {
+        "name": "VEXPro",
+        "url": "https://www.vexrobotics.com/gt2pulleys.html"
+      },
+      {
+        "name": "WCP",
+        "url": "https://www.wcproducts.com/belts-chain-gears/belts-pulleys/gt2-timing-pulleys"
+      }
+    ]
+  },
+  {
+    "type": "HTD",
+    "pitch": 5,
+    "width": 9,
+    "teeth": [18, 24, 30, 36],
+    "bore": "1/2\" Hex",
+    "vendors": [
+      {
+        "name": "VEXPro",
+        "url": "https://www.vexrobotics.com/htdpulleys.html"
+      },
+      {
+        "name": "WCP",
+        "url": "https://www.wcproducts.com/belts-chain-gears/htd-timing-pulleys"
+      }
+    ]
+  },
+  {
+    "type": "HTD",
+    "pitch": 5,
+    "width": 15,
+    "teeth": [18, 24, 30, 36],
+    "bore": "1/2\" Hex",
+    "vendors": [
+      {
+        "name": "VEXPro",
+        "url": "https://www.vexrobotics.com/htdpulleys.html"
+      },
+      {
+        "name": "WCP",
+        "url": "https://www.wcproducts.com/belts-chain-gears/htd-timing-pulleys"
+      }
+    ]
+  },
+  {
+    "type": "HTD",
+    "pitch": 5,
+    "width": 9,
+    "teeth": [12],
+    "bore": "8mm (CIM/NEO)",
+    "vendors": [
+      {
+        "name": "WCP",
+        "url": "https://www.wcproducts.com/belts-chain-gears/htd-timing-pulleys"
+      }
+    ]
+  }
 ]
