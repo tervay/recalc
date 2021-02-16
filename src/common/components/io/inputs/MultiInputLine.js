@@ -8,10 +8,15 @@ export default function MultiInputLine(props) {
         <label className="label">{props.label}</label>
       </div>
       <div className="field-body">
-        <div className="columns">
+        <div className="columns is-vcentered">
           {props.children.map((c) => {
             return (
-              <div className="column" key={c.props.label}>
+              <div
+                className={
+                  "column " + (c.props.className ? c.props.className : "")
+                }
+                key={c.props.label}
+              >
                 {c}
               </div>
             );

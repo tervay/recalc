@@ -65,28 +65,32 @@ function AvailableToHtml(props) {
         </tr>
 
         {tabulate(props.largeAvailable)}
-        <tr>
-          <th>
-            <a href={MakeVBeltGuysLink(props.largeBelt, props.pitch, 9)}>
-              VBeltGuys
-            </a>
-          </th>
-          <td></td>
-          <td>{props.pitch.format()}</td>
-          <td>{props.largeBelt}</td>
-          <td>9mm</td>
-        </tr>
-        <tr>
-          <th>
-            <a href={MakeVBeltGuysLink(props.largeBelt, props.pitch, 15)}>
-              VBeltGuys
-            </a>
-          </th>
-          <td></td>
-          <td>{props.pitch.format()}</td>
-          <td>{props.largeBelt}</td>
-          <td>15mm</td>
-        </tr>
+        {props.largeBelt != 0 && (
+          <>
+            <tr>
+              <th>
+                <a href={MakeVBeltGuysLink(props.largeBelt, props.pitch, 9)}>
+                  VBeltGuys
+                </a>
+              </th>
+              <td></td>
+              <td>{props.pitch.format()}</td>
+              <td>{props.largeBelt}</td>
+              <td>9mm</td>
+            </tr>
+            <tr>
+              <th>
+                <a href={MakeVBeltGuysLink(props.largeBelt, props.pitch, 15)}>
+                  VBeltGuys
+                </a>
+              </th>
+              <td></td>
+              <td>{props.pitch.format()}</td>
+              <td>{props.largeBelt}</td>
+              <td>15mm</td>
+            </tr>
+          </>
+        )}
       </tbody>
     </table>
   );

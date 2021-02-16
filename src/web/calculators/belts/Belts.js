@@ -1,4 +1,5 @@
 import Heading from "common/components/calc-heading/Heading";
+import BooleanInput from "common/components/io/inputs/BooleanInput";
 import MultiInputLine from "common/components/io/inputs/MultiInputLine";
 import { LabeledNumberInput } from "common/components/io/inputs/NumberInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
@@ -12,13 +13,17 @@ import {
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
 import React, { useEffect, useMemo, useState } from "react";
-import { NumberParam } from "use-query-params";
+import { BooleanParam, NumberParam } from "use-query-params";
 
 import beltData from "./beltData.json";
 import CheatSheet from "./CheatSheet";
 import belts from "./index";
 import LinkGenerator from "./linkGenerator";
-import { calculateClosestCenters, teethToPD } from "./math";
+import {
+  calculateCenterGivenSpecificBelt,
+  calculateClosestCenters,
+  teethToPD,
+} from "./math";
 import { beltVersionManager } from "./versions";
 
 export default function Belts() {
@@ -33,6 +38,8 @@ export default function Belts() {
     extraCenter: extraCenter_,
     toothIncrement: toothIncrement_,
     toothMax: toothMax_,
+    useCustomBelt: useCustomBelt_,
+    customBeltTeeth: customBeltTeeth_,
   } = queryStringToDefaults(
     window.location.search,
     {
@@ -43,6 +50,8 @@ export default function Belts() {
       extraCenter: Measurement.getParam(),
       toothIncrement: NumberParam,
       toothMax: NumberParam,
+      useCustomBelt: BooleanParam,
+      customBeltTeeth: NumberParam,
     },
     belts.initialState,
     beltVersionManager
@@ -56,12 +65,23 @@ export default function Belts() {
   const [extraCenter, setExtraCenter] = useState(extraCenter_);
   const [toothIncrement, setToothIncrement] = useState(toothIncrement_);
   const [toothMax, setToothMax] = useState(toothMax_);
+  const [useCustomBelt, setUseCustomBelt] = useState(useCustomBelt_);
+  const [customBeltTeeth, setCustomBeltTeeth] = useState(customBeltTeeth_);
 
   // Outputs
   const [p1Pitch, setP1Pitch] = useState(teethToPD(p1Teeth, pitch).to("in"));
   const [p2Pitch, setP2Pitch] = useState(teethToPD(p2Teeth, pitch).to("in"));
 
   const results = useMemo(() => {
+    if (useCustomBelt) {
+      return calculateCenterGivenSpecificBelt(
+        pitch,
+        teethToPD(p1Teeth, pitch),
+        teethToPD(p2Teeth, pitch),
+        Number(customBeltTeeth)
+      );
+    }
+
     return calculateClosestCenters(
       pitch,
       teethToPD(p1Teeth, pitch),
@@ -80,6 +100,8 @@ export default function Belts() {
     extraCenter,
     toothIncrement,
     toothMax,
+    useCustomBelt,
+    customBeltTeeth,
   ]);
 
   const [smallerCenter, setSmallerCenter] = useState(results.smaller.distance);
@@ -102,6 +124,8 @@ export default function Belts() {
     extraCenter,
     toothIncrement,
     toothMax,
+    useCustomBelt,
+    customBeltTeeth,
   ]);
 
   return (
@@ -119,6 +143,8 @@ export default function Belts() {
             new QueryableParamHolder({ desiredCenter }, Measurement.getParam()),
             new QueryableParamHolder({ extraCenter }, Measurement.getParam()),
             new QueryableParamHolder({ version: belts.version }, NumberParam),
+            new QueryableParamHolder({ useCustomBelt }, BooleanParam),
+            new QueryableParamHolder({ customBeltTeeth }, NumberParam),
           ]);
         }}
       />
@@ -209,12 +235,26 @@ export default function Belts() {
             stateHook={[toothIncrement, setToothIncrement]}
             label="Belt tooth increment"
             inputId="tooth-increment"
+            disabled={useCustomBelt}
           />
           <LabeledNumberInput
             stateHook={[toothMax, setToothMax]}
             label="Belt tooth maximum"
             inputId="tooth-max"
+            disabled={useCustomBelt}
           />
+          <MultiInputLine label="Specific Belt">
+            <BooleanInput
+              stateHook={[useCustomBelt, setUseCustomBelt]}
+              label=" Enable"
+            />
+            <LabeledNumberInput
+              stateHook={[customBeltTeeth, setCustomBeltTeeth]}
+              label="Belt Teeth"
+              className="is-two-thirds"
+              disabled={!useCustomBelt}
+            />
+          </MultiInputLine>
           <LinkGenerator
             smallBelt={smallerTeeth}
             largeBelt={largerTeeth}

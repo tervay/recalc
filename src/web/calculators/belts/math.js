@@ -13,6 +13,28 @@ export function teethToPD(teeth, pitch, unit = undefined) {
     .to(unit || pitch.units());
 }
 
+function calculateDistance(pitch, p1PitchDiameter, p2PitchDiameter, beltTeeth) {
+  const NB = beltTeeth;
+  const L = pitch.mul(NB);
+
+  const t1 = L.sub(
+    new Measurement(1.57).mul(p1PitchDiameter.add(p2PitchDiameter))
+  ).div(4);
+  const t2 = t1.mul(t1);
+  const t3 = p1PitchDiameter
+    .sub(p2PitchDiameter)
+    .mul(p1PitchDiameter.sub(p2PitchDiameter))
+    .div(8);
+
+  const inSqrt = t2.sub(t3).to("in^2").scalar;
+  if (inSqrt < 0) {
+    return new Measurement(0, "in");
+  }
+  const sqrt = new Measurement(Math.sqrt(inSqrt), "in");
+  const C = t1.add(sqrt).to("in");
+  return C;
+}
+
 /**
  *
  * @param {Measurement} pitch
@@ -120,5 +142,28 @@ export function calculateClosestCenters(
             teeth: 0,
             distance: new Measurement(0, "in"),
           },
+  };
+}
+
+export function calculateCenterGivenSpecificBelt(
+  pitch,
+  p1PitchDiameter,
+  p2PitchDiameter,
+  beltTeeth
+) {
+  return {
+    smaller: {
+      teeth: beltTeeth,
+      distance: calculateDistance(
+        pitch,
+        p1PitchDiameter,
+        p2PitchDiameter,
+        beltTeeth
+      ),
+    },
+    larger: {
+      teeth: 0,
+      distance: new Measurement(0, "in"),
+    },
   };
 }

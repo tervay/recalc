@@ -53,4 +53,5 @@ LabeledNumberInput.propTypes = {
   stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
   label: propTypes.string,
   inputId: propTypes.string,
+  disabled: propTypes.bool,
 };
