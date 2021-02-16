@@ -495,7 +495,7 @@
     "url": "https://www.wcproducts.com/belts-chain-gears/belts-pulleys/gt2-timing-belts-and-pulleys/gt2-timing-pulleys"
   },
   {
-    "vendor": "Rev",
+    "vendor": "REV",
     "teeth": 105,
     "width": "9mm",
     "pitch": "3mm",
@@ -504,7 +504,7 @@
     "url": "https://www.revrobotics.com/rev-41-1799/"
   },
   {
-    "vendor": "Rev",
+    "vendor": "REV",
     "teeth": 120,
     "width": "9mm",
     "pitch": "3mm",
@@ -513,7 +513,7 @@
     "url": "https://www.revrobotics.com/rev-41-1800/"
   },
   {
-    "vendor": "Rev",
+    "vendor": "REV",
     "teeth": 145,
     "width": "9mm",
     "pitch": "3mm",
@@ -522,7 +522,7 @@
     "url": "https://www.revrobotics.com/rev-41-1801/"
   },
   {
-    "vendor": "Rev",
+    "vendor": "REV",
     "teeth": 210,
     "width": "9mm",
     "pitch": "3mm",
@@ -531,7 +531,7 @@
     "url": "https://www.revrobotics.com/rev-41-1802/"
   },
   {
-    "vendor": "Rev",
+    "vendor": "REV",
     "teeth": 270,
     "width": "9mm",
     "pitch": "3mm",
@@ -540,7 +540,7 @@
     "url": "https://www.revrobotics.com/rev-41-1803/"
   },
   {
-    "vendor": "Rev",
+    "vendor": "REV",
     "teeth": 55,
     "width": "9mm",
     "pitch": "3mm",
@@ -549,7 +549,7 @@
     "url": "https://www.revrobotics.com/rev-41-1797/"
   },
   {
-    "vendor": "Rev",
+    "vendor": "REV",
     "teeth": 85,
     "width": "9mm",
     "pitch": "3mm",
@@ -711,7 +711,7 @@
     "url": "https://www.andymark.com/products/timing-belt-151-tooth-gates-5mm-htd-15mm-wide"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 45,
     "width": "9mm",
     "pitch": "3mm",
@@ -720,7 +720,7 @@
     "url": "https://www.vexrobotics.com/gt2-timingbelts.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 50,
     "width": "9mm",
     "pitch": "3mm",
@@ -729,7 +729,7 @@
     "url": "https://www.vexrobotics.com/gt2-timingbelts.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 55,
     "width": "9mm",
     "pitch": "3mm",
@@ -738,7 +738,7 @@
     "url": "https://www.vexrobotics.com/gt2-timingbelts.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 60,
     "width": "9mm",
     "pitch": "3mm",
@@ -747,7 +747,7 @@
     "url": "https://www.vexrobotics.com/gt2-timingbelts.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 70,
     "width": "9mm",
     "pitch": "3mm",
@@ -756,7 +756,7 @@
     "url": "https://www.vexrobotics.com/gt2-timingbelts.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 85,
     "width": "9mm",
     "pitch": "3mm",
@@ -765,7 +765,7 @@
     "url": "https://www.vexrobotics.com/gt2-timingbelts.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 90,
     "width": "9mm",
     "pitch": "3mm",
@@ -774,7 +774,7 @@
     "url": "https://www.vexrobotics.com/gt2-timingbelts.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 100,
     "width": "9mm",
     "pitch": "3mm",
@@ -783,7 +783,7 @@
     "url": "https://www.vexrobotics.com/gt2-timingbelts.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 105,
     "width": "9mm",
     "pitch": "3mm",
@@ -792,7 +792,7 @@
     "url": "https://www.vexrobotics.com/gt2-timingbelts.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 110,
     "width": "9mm",
     "pitch": "3mm",
@@ -801,7 +801,7 @@
     "url": "https://www.vexrobotics.com/gt2-timingbelts.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 115,
     "width": "9mm",
     "pitch": "3mm",
@@ -810,7 +810,7 @@
     "url": "https://www.vexrobotics.com/gt2-timingbelts.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 120,
     "width": "9mm",
     "pitch": "3mm",
@@ -819,7 +819,7 @@
     "url": "https://www.vexrobotics.com/gt2-timingbelts.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 125,
     "width": "9mm",
     "pitch": "3mm",
@@ -828,7 +828,7 @@
     "url": "https://www.vexrobotics.com/gt2-timingbelts.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 140,
     "width": "9mm",
     "pitch": "3mm",
@@ -837,7 +837,7 @@
     "url": "https://www.vexrobotics.com/gt2-timingbelts.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 180,
     "width": "9mm",
     "pitch": "3mm",
@@ -846,7 +846,7 @@
     "url": "https://www.vexrobotics.com/gt2-timingbelts.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 60,
     "width": "15mm",
     "pitch": "5mm",
@@ -855,7 +855,7 @@
     "url": "https://www.vexrobotics.com/htdbelts15.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 70,
     "width": "15mm",
     "pitch": "5mm",
@@ -864,7 +864,7 @@
     "url": "https://www.vexrobotics.com/htdbelts15.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 80,
     "width": "15mm",
     "pitch": "5mm",
@@ -873,7 +873,7 @@
     "url": "https://www.vexrobotics.com/htdbelts15.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 90,
     "width": "15mm",
     "pitch": "5mm",
@@ -882,7 +882,7 @@
     "url": "https://www.vexrobotics.com/htdbelts15.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 100,
     "width": "15mm",
     "pitch": "5mm",
@@ -891,7 +891,7 @@
     "url": "https://www.vexrobotics.com/htdbelts15.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 104,
     "width": "15mm",
     "pitch": "5mm",
@@ -900,7 +900,7 @@
     "url": "https://www.vexrobotics.com/htdbelts15.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 110,
     "width": "15mm",
     "pitch": "5mm",
@@ -909,7 +909,7 @@
     "url": "https://www.vexrobotics.com/htdbelts15.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 120,
     "width": "15mm",
     "pitch": "5mm",
@@ -918,7 +918,7 @@
     "url": "https://www.vexrobotics.com/htdbelts15.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 130,
     "width": "15mm",
     "pitch": "5mm",
@@ -927,7 +927,7 @@
     "url": "https://www.vexrobotics.com/htdbelts15.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 140,
     "width": "15mm",
     "pitch": "5mm",
@@ -936,7 +936,7 @@
     "url": "https://www.vexrobotics.com/htdbelts15.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 150,
     "width": "15mm",
     "pitch": "5mm",
@@ -945,7 +945,7 @@
     "url": "https://www.vexrobotics.com/htdbelts15.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 160,
     "width": "15mm",
     "pitch": "5mm",
@@ -954,7 +954,7 @@
     "url": "https://www.vexrobotics.com/htdbelts15.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 170,
     "width": "15mm",
     "pitch": "5mm",
@@ -963,7 +963,7 @@
     "url": "https://www.vexrobotics.com/htdbelts15.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 180,
     "width": "15mm",
     "pitch": "5mm",
@@ -972,7 +972,7 @@
     "url": "https://www.vexrobotics.com/htdbelts15.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 200,
     "width": "15mm",
     "pitch": "5mm",
@@ -981,7 +981,7 @@
     "url": "https://www.vexrobotics.com/htdbelts15.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 225,
     "width": "15mm",
     "pitch": "5mm",
@@ -990,7 +990,7 @@
     "url": "https://www.vexrobotics.com/htdbelts15.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 250,
     "width": "15mm",
     "pitch": "5mm",
@@ -999,7 +999,7 @@
     "url": "https://www.vexrobotics.com/htdbelts15.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 60,
     "width": "9mm",
     "pitch": "5mm",
@@ -1008,7 +1008,7 @@
     "url": "https://www.vexrobotics.com/htdbelts9.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 70,
     "width": "9mm",
     "pitch": "5mm",
@@ -1017,7 +1017,7 @@
     "url": "https://www.vexrobotics.com/htdbelts9.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 80,
     "width": "9mm",
     "pitch": "5mm",
@@ -1026,7 +1026,7 @@
     "url": "https://www.vexrobotics.com/htdbelts9.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 90,
     "width": "9mm",
     "pitch": "5mm",
@@ -1035,7 +1035,7 @@
     "url": "https://www.vexrobotics.com/htdbelts9.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 100,
     "width": "9mm",
     "pitch": "5mm",
@@ -1044,7 +1044,7 @@
     "url": "https://www.vexrobotics.com/htdbelts9.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 104,
     "width": "9mm",
     "pitch": "5mm",
@@ -1053,7 +1053,7 @@
     "url": "https://www.vexrobotics.com/htdbelts9.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 110,
     "width": "9mm",
     "pitch": "5mm",
@@ -1062,7 +1062,7 @@
     "url": "https://www.vexrobotics.com/htdbelts9.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 120,
     "width": "9mm",
     "pitch": "5mm",
@@ -1071,7 +1071,7 @@
     "url": "https://www.vexrobotics.com/htdbelts9.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 130,
     "width": "9mm",
     "pitch": "5mm",
@@ -1080,7 +1080,7 @@
     "url": "https://www.vexrobotics.com/htdbelts9.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 140,
     "width": "9mm",
     "pitch": "5mm",
@@ -1089,7 +1089,7 @@
     "url": "https://www.vexrobotics.com/htdbelts9.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 150,
     "width": "9mm",
     "pitch": "5mm",
@@ -1098,7 +1098,7 @@
     "url": "https://www.vexrobotics.com/htdbelts9.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 160,
     "width": "9mm",
     "pitch": "5mm",
@@ -1107,7 +1107,7 @@
     "url": "https://www.vexrobotics.com/htdbelts9.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 170,
     "width": "9mm",
     "pitch": "5mm",
@@ -1116,7 +1116,7 @@
     "url": "https://www.vexrobotics.com/htdbelts9.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 180,
     "width": "9mm",
     "pitch": "5mm",
@@ -1125,7 +1125,7 @@
     "url": "https://www.vexrobotics.com/htdbelts9.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 200,
     "width": "9mm",
     "pitch": "5mm",
@@ -1134,7 +1134,7 @@
     "url": "https://www.vexrobotics.com/htdbelts9.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 225,
     "width": "9mm",
     "pitch": "5mm",
@@ -1143,7 +1143,7 @@
     "url": "https://www.vexrobotics.com/htdbelts9.html"
   },
   {
-    "vendor": "Vex",
+    "vendor": "VEXpro",
     "teeth": 250,
     "width": "9mm",
     "pitch": "5mm",

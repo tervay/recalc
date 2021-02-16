@@ -30,9 +30,9 @@ export default function CheatSheet() {
   };
 
   const data = [
-    Pulley([Vendor("VEXPro", VEX_GT2)], "GT2", 3, 9, 12, "RS550"),
+    Pulley([Vendor("VEXpro", VEX_GT2)], "GT2", 3, 9, 12, "RS550"),
     Pulley(
-      [Vendor("VEXPro", VEX_GT2), Vendor("WCP", WCP_GT2)],
+      [Vendor("VEXpro", VEX_GT2), Vendor("WCP", WCP_GT2)],
       "GT2",
       3,
       9,
@@ -40,7 +40,7 @@ export default function CheatSheet() {
       "RS775"
     ),
     Pulley(
-      [Vendor("VEXPro", VEX_GT2), Vendor("WCP", WCP_GT2)],
+      [Vendor("VEXpro", VEX_GT2), Vendor("WCP", WCP_GT2)],
       "GT2",
       3,
       9,
@@ -48,7 +48,7 @@ export default function CheatSheet() {
       "BAG"
     ),
     Pulley(
-      [Vendor("VEXPro", VEX_GT2), Vendor("WCP", WCP_GT2)],
+      [Vendor("VEXpro", VEX_GT2), Vendor("WCP", WCP_GT2)],
       "GT2",
       3,
       9,
@@ -56,7 +56,7 @@ export default function CheatSheet() {
       "Falcon"
     ),
     Pulley(
-      [Vendor("VEXPro", VEX_GT2), Vendor("WCP", WCP_GT2)],
+      [Vendor("VEXpro", VEX_GT2), Vendor("WCP", WCP_GT2)],
       "GT2",
       3,
       9,
@@ -64,7 +64,7 @@ export default function CheatSheet() {
       '1/2" Hex'
     ),
     Pulley(
-      [Vendor("VEXPro", VEX_GT2), Vendor("WCP", WCP_GT2)],
+      [Vendor("VEXpro", VEX_GT2), Vendor("WCP", WCP_GT2)],
       "GT2",
       3,
       9,
@@ -72,7 +72,7 @@ export default function CheatSheet() {
       '1/2" Hex'
     ),
     Pulley(
-      [Vendor("VEXPro", VEX_GT2), Vendor("WCP", WCP_GT2)],
+      [Vendor("VEXpro", VEX_GT2), Vendor("WCP", WCP_GT2)],
       "GT2",
       3,
       9,
@@ -80,7 +80,7 @@ export default function CheatSheet() {
       '1/2" Hex'
     ),
     Pulley(
-      [Vendor("VEXPro", VEX_GT2), Vendor("WCP", WCP_GT2)],
+      [Vendor("VEXpro", VEX_GT2), Vendor("WCP", WCP_GT2)],
       "GT2",
       3,
       9,
@@ -88,7 +88,7 @@ export default function CheatSheet() {
       '1/2" Hex'
     ),
     Pulley(
-      [Vendor("VEXPro", VEX_HTD), Vendor("WCP", WCP_HTD)],
+      [Vendor("VEXpro", VEX_HTD), Vendor("WCP", WCP_HTD)],
       "HTD",
       5,
       "9, 15",
@@ -96,7 +96,7 @@ export default function CheatSheet() {
       '1/2" Hex'
     ),
     Pulley(
-      [Vendor("VEXPro", VEX_HTD), Vendor("WCP", WCP_HTD)],
+      [Vendor("VEXpro", VEX_HTD), Vendor("WCP", WCP_HTD)],
       "HTD",
       5,
       "9, 15",
@@ -104,7 +104,7 @@ export default function CheatSheet() {
       '1/2" Hex'
     ),
     Pulley(
-      [Vendor("VEXPro", VEX_HTD), Vendor("WCP", WCP_HTD)],
+      [Vendor("VEXpro", VEX_HTD), Vendor("WCP", WCP_HTD)],
       "HTD",
       5,
       "9, 15",
@@ -112,7 +112,7 @@ export default function CheatSheet() {
       '1/2" Hex'
     ),
     Pulley(
-      [Vendor("VEXPro", VEX_HTD), Vendor("WCP", WCP_HTD)],
+      [Vendor("VEXpro", VEX_HTD), Vendor("WCP", WCP_HTD)],
       "HTD",
       5,
       "9, 15",
@@ -120,7 +120,7 @@ export default function CheatSheet() {
       '1/2" Hex'
     ),
     Pulley(
-      [Vendor("VEXPro", VEX_HTD_VERSA), Vendor("WCP", WCP_HTD_VERSA)],
+      [Vendor("VEXpro", VEX_HTD_VERSA), Vendor("WCP", WCP_HTD_VERSA)],
       "HTD",
       5,
       "7, 18",
@@ -128,7 +128,7 @@ export default function CheatSheet() {
       "VersaKey"
     ),
     Pulley(
-      [Vendor("VEXPro", VEX_HTD_VERSA), Vendor("WCP", WCP_HTD_VERSA)],
+      [Vendor("VEXpro", VEX_HTD_VERSA), Vendor("WCP", WCP_HTD_VERSA)],
       "HTD",
       5,
       "7, 18",
