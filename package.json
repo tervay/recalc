@@ -4,8 +4,8 @@
   "license": "MIT",
   "dependencies": {
     "@creativebulma/bulma-tooltip": "^1.2.0",
-    "@sentry/react": "^5.29.2",
-    "@sentry/tracing": "^5.29.2",
+    "@sentry/react": "^6.1.0",
+    "@sentry/tracing": "^6.1.0",
     "@testing-library/jest-dom": "^5.11.1",
     "@testing-library/react": "^10.4.7",
     "@testing-library/user-event": "^12.0.14",
@@ -92,7 +92,7 @@
     "prettier": "^2.2.1",
     "pretty-quick": "^3.1.0",
     "prompts": "^2.4.0",
-    "source-map-explorer": "^2.5.1",
+    "source-map-explorer": "^2.5.2",
     "yargs": "^16.2.0"
   },
   "engines": {
