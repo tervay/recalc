@@ -251,7 +251,7 @@ export default function Belts() {
             <LabeledNumberInput
               stateHook={[customBeltTeeth, setCustomBeltTeeth]}
               label="Belt Teeth"
-              className="is-two-thirds"
+              className="is-9"
               disabled={!useCustomBelt}
             />
           </MultiInputLine>

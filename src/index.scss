@@ -198,3 +198,8 @@ $headings: h1, h2, h3, h4, h5, h6, h7;
 .control.is-loading::after {
   right: 4em;
 }
+
+label.checkbox {
+  padding-top: 6px;
+  line-height: 1.5;
+}

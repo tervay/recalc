@@ -8,20 +8,9 @@ export default function MultiInputLine(props) {
         <label className="label">{props.label}</label>
       </div>
       <div className="field-body">
-        <div className="columns is-vcentered">
-          {props.children.map((c) => {
-            return (
-              <div
-                className={
-                  "column " + (c.props.className ? c.props.className : "")
-                }
-                key={c.props.label}
-              >
-                {c}
-              </div>
-            );
-          })}
-        </div>
+        {props.children.map((c) => {
+          return <React.Fragment key={c.props.label}>{c}</React.Fragment>;
+        })}
       </div>
     </div>
   );

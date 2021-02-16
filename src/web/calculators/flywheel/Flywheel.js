@@ -256,7 +256,7 @@ export default function Flywheel() {
                   type="checkbox"
                   checked={useCustomMOI}
                   onChange={(e) => setUseCustomMOI(e.target.checked)}
-                />
+                />{" "}
                 Use custom MOI
               </label>
             </div>
