@@ -56,6 +56,23 @@ export function calculateClosestCenters(
   maxBeltToothCount,
   beltToothIncrement
 ) {
+  if (
+    minBeltToothCount <= 0 ||
+    maxBeltToothCount <= 0 ||
+    beltToothIncrement <= 0
+  ) {
+    return {
+      smaller: {
+        teeth: 0,
+        distance: new Measurement(0, "in"),
+      },
+      larger: {
+        teeth: 0,
+        distance: new Measurement(0, "in"),
+      },
+    };
+  }
+
   let results = {};
   for (
     let i = minBeltToothCount;
