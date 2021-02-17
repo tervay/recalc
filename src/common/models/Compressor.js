@@ -160,6 +160,21 @@ export const compressorMap = keyBy(
       weight: new Measurement(3.37, "lb"),
       url: "https://www.andymark.com/products/1-1-pump-12v",
     },
+    {
+      name: "CP26 (12v)",
+      polynomialTerms: [
+        9.2000000009785154e-1,
+        -1.6195243167434085e-2,
+        -1.1275301161506545e-3,
+        8.1419712526638522e-5,
+        -2.1104241746372474e-6,
+        2.7078174716511402e-8,
+        -1.7253457457816692e-10,
+        4.3547341530076844e-13,
+      ],
+      weight: new Measurement(5.8, "lb"),
+      url: "https://partstospray.com/cp26forroboticsmax092cfmmax130psi.aspx",
+    },
   ].map((c) => ({
     ...c,
     cfmFn: (p) => {
