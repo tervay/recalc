@@ -96,8 +96,10 @@ export default function Motors() {
           powerAt20A: powerToString(power2),
           powerAt40A: powerToString(power3),
           resistance: m.resistance.scalar.toFixed(3),
-          weight: m.weight.scalar.toFixed(2),
-          powerToWeight: numerator.div(m.weight).scalar.toFixed(2),
+          weight: m.weight.add(new Measurement(0.25, "lb")).scalar.toFixed(2),
+          powerToWeight: numerator
+            .div(m.weight.add(new Measurement(0.25, "lb")))
+            .scalar.toFixed(2),
         };
       }),
     [JSON.stringify(dataTbl)]
