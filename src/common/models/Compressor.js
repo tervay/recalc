@@ -45,10 +45,38 @@ export default class Compressor extends Model {
   static getAllCompressors() {
     return Object.keys(compressorMap).map((n) => new Compressor(n));
   }
+
+  static VIAIR_90C_13_8V() {
+    return new Compressor("VIAIR 90C (13.8v)");
+  }
+
+  static VIAIR_90C_12V() {
+    return new Compressor("VIAIR 90C (12v)");
+  }
+
+  static VIAIR_250C_IG_13_8V() {
+    return new Compressor("VIAIR 250C-IG (13.8v)");
+  }
+
+  static VIAIR_330C_IG_13_8V() {
+    return new Compressor("VIAIR 330C-IG (13.8v)");
+  }
+
+  static THOMAS_215_12V() {
+    return new Compressor("Thomas 215 (12v)");
+  }
+
+  static THOMAS_405_12V() {
+    return new Compressor("Thomas 405 (12v)");
+  }
+
+  static ANDYMARK_1_1_PUMP_12V() {
+    return new Compressor("AndyMark 1.1 Pump (12v)");
+  }
 }
 
 // https://arachnoid.com/polysolve/
-export const compressorMap = keyBy(
+const compressorMap = keyBy(
   [
     {
       name: "VIAIR 90C (13.8v)",
