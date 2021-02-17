@@ -78,6 +78,7 @@ export default class Measurement extends Model {
       time: "s",
       mass: "lbs",
       length: "in",
+      area: "in^2",
       angular_velocity: "rpm",
       energy: "J",
       current: "A",
@@ -122,6 +123,10 @@ export default class Measurement extends Model {
    */
   get baseScalar() {
     return this.innerQty.baseScalar;
+  }
+
+  kind() {
+    return this.innerQty.kind();
   }
 
   toDict() {
