@@ -123,7 +123,7 @@ export default function Load() {
     planetaryRatio,
     currentLimit,
     diametralPitch,
-    pressureAngle,
+    pressureAngleMeas,
     pinionTeeth,
     pinionMaterial,
     gearTeeth,
@@ -132,6 +132,7 @@ export default function Load() {
     gearWidth,
   ]);
 
+  
   useEffect(() => {
     setPressureAngleMeas(
       new Measurement(parseFloat(pressureAngle.slice(0, -1)), "deg")
