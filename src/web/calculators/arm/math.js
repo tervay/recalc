@@ -1,5 +1,6 @@
 import Measurement from "common/models/Measurement";
 import { receiveFromMain, sendToWorker } from "common/tooling/util";
+import Motor, { MotorState, nominalVoltage } from "common/models/Motor";
 
 /**
  *
@@ -173,7 +174,12 @@ export function calculateState({
     currentState.m.v = prevState.m.v
       .add(prevState.gb.a.mul(timeDelta).mul(ratio.asNumber()))
       .clamp(motor.freeSpeed.negate(), motor.freeSpeed);
-    currentState.m.t = motor.getTorque(currentState.m.v);
+
+    // currentState.m.t = motor.getTorque(currentState.m.v);
+    currentState.m.t = new MotorState(motor, new Measurement(500, "A"), {
+      voltage: nominalVoltage,
+      rpm: currentState.m.v,
+    }).solve().torque;
 
     // Calc gb changes
     currentState.gb.t = currentState.m.t.mul(ratio.asNumber());
@@ -184,7 +190,11 @@ export function calculateState({
       .mul("rad");
 
     // Current
-    currentState.c = motor.getCurrent(currentState.m.v);
+    // currentState.c = motor.getCurrent(currentState.m.v);
+    currentState.c = new MotorState(motor, new Measurement(500, "A"), {
+      voltage: nominalVoltage,
+      rpm: currentState.m.v,
+    }).solve().current;
     currentState.p = prevState.p.add(currentState.gb.v.mul(timeDelta));
     currentArmAngle = currentState.p;
 
