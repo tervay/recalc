@@ -1,5 +1,6 @@
 import Motor, { MotorState } from "common/models/Motor";
 import Measurement from "common/models/Measurement";
+import { isSet } from "lodash";
 
 describe("Motor tests", () => {
   test("getAllMotors returns all Motor instances", () => {
@@ -189,7 +190,7 @@ describe("Motor tests", () => {
         resistance: new Measurement(12 / 130, "V / A"),
       },
     ],
-  ])("(%#) Fields are properly set from motorMap", (motor, data) => {
+  ])("(%s) Fields are properly set from motorMap", (motor, data) => {
     expect(motor).toMatchObject({
       url: data.url,
       name: data.name,
@@ -207,9 +208,128 @@ describe("Motor tests", () => {
   });
 });
 
+const isSetsEqual = (a, b) =>
+  a.size === b.size && [...a].every((value) => b.has(value));
 
-describe("Motor state solver tests", () => {
-    test.each([])("(%#) Basic state solves terminate with correct answer", () => {
-        
-    })
+const factorial = (n) => (!(n > 1) ? 1 : factorial(n - 1) * n);
+
+function GenerateObjectKeyCombinations(obj, n) {
+  function k_combinations(set, k) {
+    var i, j, combs, head, tailcombs;
+    if (k > set.length || k <= 0) {
+      return [];
+    }
+    if (k == set.length) {
+      return [set];
+    }
+    if (k == 1) {
+      combs = [];
+      for (i = 0; i < set.length; i++) {
+        combs.push([set[i]]);
+      }
+      return combs;
+    }
+    combs = [];
+    for (i = 0; i < set.length - k + 1; i++) {
+      head = set.slice(i, i + 1);
+      tailcombs = k_combinations(set.slice(i + 1), k - 1);
+      for (j = 0; j < tailcombs.length; j++) {
+        combs.push(head.concat(tailcombs[j]));
+      }
+    }
+    return combs;
+  }
+
+  const props = Object.keys(obj);
+  const combos = k_combinations(props, n);
+  let ret = [];
+  let seen = [];
+
+  combos.forEach((c) => {
+    const set = new Set(c);
+    if (
+      set.size < c.length ||
+      seen.some((s) => {
+        return isSetsEqual(new Set(s), set);
+      })
+    ) {
+      return;
+    }
+
+    ret.push(c);
+    seen.push(c);
+  });
+
+  return ret.map((c) => {
+    let newObj = {};
+    c.forEach((prop) => {
+      newObj[prop] = obj[prop];
+    });
+    return newObj;
+  });
+}
+
+test.each([
+  [{ a: 1, b: 2, c: 3, d: 4 }, 1],
+  [{ a: 1, b: 2, c: 3, d: 4 }, 2],
+  [{ a: 1, b: 2, c: 3, d: 4 }, 3],
+  [{ a: 1, b: 2, c: 3, d: 4 }, 4],
+  [{ a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 }, 1],
+  [{ a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 }, 2],
+  [{ a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 }, 3],
+  [{ a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 }, 4],
+  [{ a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 }, 5],
+  [{ a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 }, 6],
+])("(%#) Generate combinations works properly", (obj, n) => {
+  const combos = GenerateObjectKeyCombinations(obj, n);
+  const props = Object.keys(obj).length;
+  expect(combos).toHaveLength(
+    factorial(props) / (factorial(n) * factorial(props - n))
+  );
+});
+
+const motor = {
+  voltage: new Measurement(12, "V"),
+  rpm: new Measurement(6380 / 2, "rpm"),
+  current: new Measurement((257 - 1.5) / 2, "A"),
+  torque: new Measurement(4.69 / 2, "N * m"),
+  power: new Measurement(783, "W"),
+};
+
+const combos = GenerateObjectKeyCombinations(motor, 3);
+
+describe.each(combos)("(%p) MotorState combinations", (incompleteState) => {
+  test("Terminates and completes state with high current limit", () => {
+    const ms = new MotorState(
+      Motor.Falcon500s(1),
+      new Measurement(500, "A"),
+      incompleteState
+    ).solve();
+
+    expect(ms.solved).toBeTruthy();
+    expect(ms).toMatchObject({
+      voltage: expect.toBeCloseToMeasurement(motor.voltage, 1),
+      rpm: expect.toBeCloseToMeasurement(motor.rpm, -2),
+      current: expect.toBeCloseToMeasurement(motor.current, -1),
+      torque: expect.toBeCloseToMeasurement(motor.torque, 1),
+      power: expect.toBeCloseToMeasurement(motor.power, -2),
+    });
+  });
+
+  test("Terminates and completes state with moderate current limit", () => {
+    const currentLimit = new Measurement(40, "A");
+    const ms = new MotorState(
+      Motor.Falcon500s(1),
+      currentLimit,
+      incompleteState
+    ).solve();
+
+    expect(ms.solved).toBeTruthy();
+    expect(ms.didLimitCurrent).toBeTruthy();
+
+    expect(ms.voltage).toBeGreaterThanMeasurement(new Measurement(0, "V"));
+    expect(ms.voltage).toBeLessThanOrEqualMeasurement(new Measurement(12, "V"));
+    expect(ms.current).toBeGreaterThanMeasurement(new Measurement(0, "A"));
+    expect(ms.current).toBeLessThanOrEqualMeasurement(currentLimit);
+  });
 });

@@ -197,4 +197,8 @@ export default class Measurement extends Model {
   static max(m1, m2) {
     return m1.gt(m2) ? m1 : m2;
   }
+
+  toString() {
+    return this.format();
+  }
 }

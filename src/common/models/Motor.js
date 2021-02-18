@@ -205,6 +205,7 @@ export class MotorState {
     this.torque = state.torque;
     this.power = state.power;
     this.voltage = state.voltage;
+    this.solved = false;
     this.didLimitTorque = false;
     this.didLimitCurrent = false;
     this.didLimitVoltage = false;
@@ -235,8 +236,11 @@ motorRules.addRule(
     m.torque !== undefined &&
     m.rpm !== undefined &&
     m.voltage !== undefined &&
-    m.power !== undefined,
-  () => {},
+    m.power !== undefined &&
+    m.solved === false,
+  (m) => {
+    m.solved = true;
+  },
   true,
   1
 );
@@ -244,14 +248,14 @@ motorRules.addRule(
   "Current -> torque",
   (m) => m.current !== undefined && m.torque === undefined,
   (m) => {
-    m.torque = m.motor.kT.mul(m.current.sub(new Measurement(1, "A")));
+    m.torque = m.motor.kT.mul(m.current.sub(m.motor.freeCurrent));
   }
 );
 motorRules.addRule(
   "Torque -> current",
   (m) => m.torque !== undefined && m.current === undefined,
   (m) => {
-    m.current = m.torque.div(m.motor.kT);
+    m.current = m.motor.freeCurrent.add(m.torque.div(m.motor.kT));
   }
 );
 motorRules.addRule(
@@ -321,6 +325,7 @@ motorRules.addRule(
     m.power = undefined;
     m.didLimitCurrent = false;
     m.didLimitTorque = false;
+    m.didLimitVoltage = true;
   },
   false,
   3
@@ -328,11 +333,20 @@ motorRules.addRule(
 
 motorRules.addRule(
   "Given voltage and current, calculate rpm",
-  (m) => m.current !== undefined && m.voltage !== undefined,
+  (m) =>
+    m.current !== undefined && m.voltage !== undefined && m.rpm === undefined,
   (m) => {
     // V = IR + w * kE ; solve for w
     // V - IR = w * kE
     // w = (V - IR) / kE
     m.rpm = m.voltage.sub(m.current.mul(m.motor.resistance)).mul(m.motor.kV);
+  }
+);
+
+motorRules.addRule(
+  "Given torque and power, calculate rpm",
+  (m) => m.torque !== undefined && m.power !== undefined && m.rpm === undefined,
+  (m) => {
+    m.rpm = m.power.div(m.torque).mul(new Measurement(1, "rad"));
   }
 );
