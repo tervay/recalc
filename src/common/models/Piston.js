@@ -1,6 +1,6 @@
 import Measurement from "common/models/Measurement";
-import Model from "common/tooling/Model";
 import { ArgumentError } from "common/tooling/errors";
+import Model from "common/tooling/Model";
 
 export default class Piston extends Model {
   /**

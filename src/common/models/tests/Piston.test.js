@@ -1,5 +1,5 @@
-import Piston from "common/models/Piston";
 import Measurement from "common/models/Measurement";
+import Piston from "common/models/Piston";
 
 const p = new Piston({
   enabled: true,

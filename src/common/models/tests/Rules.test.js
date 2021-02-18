@@ -55,7 +55,7 @@ test("Terminates with basic counter", () => {
     },
     {
       conditionFn: jest.fn((s) => s.counter == 5),
-      modifyFn: jest.fn((s) => {}),
+      modifyFn: jest.fn(() => {}),
     },
   ];
 
@@ -97,7 +97,7 @@ test("Terminates with odd priorities", () => {
     },
     {
       conditionFn: jest.fn((s) => s.counter == 5),
-      modifyFn: jest.fn((s) => {}),
+      modifyFn: jest.fn(() => {}),
     },
   ];
 
