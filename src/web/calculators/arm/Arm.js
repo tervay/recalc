@@ -157,6 +157,10 @@ export default function Arm() {
               Measurement.getParam()
             ),
             new QueryableParamHolder({ armMass }, Measurement.getParam()),
+            new QueryableParamHolder({ currentLimit }, Measurement.getParam()),
+            new QueryableParamHolder({ startAngle }, Measurement.getParam()),
+            new QueryableParamHolder({ endAngle }, Measurement.getParam()),
+            new QueryableParamHolder({ iterationLimit }, NumberParam),
           ]);
         }}
       />
