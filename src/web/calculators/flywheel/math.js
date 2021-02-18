@@ -23,22 +23,19 @@ export function calculateWindupTime(
     return new Measurement(0, "s");
   }
 
-  const moi = momentOfInertia.mul(-1);
-  const c24 = moi;
-  const c23 = motorFreeSpeed.div(ratio.asNumber());
-  const d23 = c23;
-
-  const f12 = targetSpeed;
-
-  const toBeLogged = c23.sub(f12).div(c23);
+  const maxRpm = motorFreeSpeed.div(ratio.asNumber());
+  const toBeLogged = maxRpm.sub(targetSpeed).div(maxRpm);
   const logged = Math.log(toBeLogged.baseScalar);
   if (isNaN(logged)) {
     return new Measurement(0, "s");
   }
 
-  const endDiv = motorStallTorque.mul(motorQuantity);
-
-  return c24.mul(d23).div(endDiv).mul(logged).div(new Measurement(1, "rad"));
+  return momentOfInertia
+    .mul(-1)
+    .mul(maxRpm)
+    .div(motorStallTorque.mul(motorQuantity))
+    .mul(logged)
+    .div(new Measurement(1, "rad"));
 }
 
 /**

@@ -1,4 +1,5 @@
 import Measurement from "common/models/Measurement";
+import { MotorState, nominalVoltage } from "common/models/Motor";
 import { receiveFromMain, sendToWorker } from "common/tooling/util";
 
 /**
@@ -89,6 +90,7 @@ function gbToMotor(torque, velocity, acceleration, ratio) {
  * @param {Ratio} ratio
  * @param {Measurement} comLength
  * @param {Measurement} armMass
+ * @param {Measurement} currentLimit
  * @param {Measurement} startAngle
  * @param {Measurement} endAngle
  * @param {Number} iterationLimit
@@ -98,6 +100,7 @@ export function calculateState({
   ratio,
   comLength,
   armMass,
+  currentLimit,
   startAngle,
   endAngle,
   iterationLimit,
@@ -107,6 +110,7 @@ export function calculateState({
     ratio,
     comLength,
     armMass,
+    currentLimit,
     startAngle,
     endAngle,
     iterationLimit,
@@ -120,7 +124,8 @@ export function calculateState({
     motor.quantity === 0 ||
     ratio.asNumber() === 0 ||
     comLength.scalar === 0 ||
-    armMass.scalar === 0
+    armMass.scalar === 0 ||
+    currentLimit.scalar === 0
   ) {
     return states.map((s) => sendToWorker(s));
   }
@@ -173,7 +178,12 @@ export function calculateState({
     currentState.m.v = prevState.m.v
       .add(prevState.gb.a.mul(timeDelta).mul(ratio.asNumber()))
       .clamp(motor.freeSpeed.negate(), motor.freeSpeed);
-    currentState.m.t = motor.getTorque(currentState.m.v);
+
+    // currentState.m.t = motor.getTorque(currentState.m.v);
+    currentState.m.t = new MotorState(motor, currentLimit, {
+      voltage: nominalVoltage,
+      rpm: currentState.m.v,
+    }).solve().torque;
 
     // Calc gb changes
     currentState.gb.t = currentState.m.t.mul(ratio.asNumber());
@@ -184,7 +194,11 @@ export function calculateState({
       .mul("rad");
 
     // Current
-    currentState.c = motor.getCurrent(currentState.m.v);
+    // currentState.c = motor.getCurrent(currentState.m.v);
+    currentState.c = new MotorState(motor, currentLimit, {
+      voltage: nominalVoltage,
+      rpm: currentState.m.v,
+    }).solve().current;
     currentState.p = prevState.p.add(currentState.gb.v.mul(timeDelta));
     currentArmAngle = currentState.p;
 
