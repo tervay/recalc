@@ -51,5 +51,5 @@ export function cleanAngleInput(angle) {
     angle = angle.sub(new Measurement(90, "rad"));
   }
 
-  return angle.to(prevUnits)
+  return angle.to(prevUnits);
 }

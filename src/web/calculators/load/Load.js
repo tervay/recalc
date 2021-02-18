@@ -132,7 +132,6 @@ export default function Load() {
     gearWidth,
   ]);
 
-  
   useEffect(() => {
     setPressureAngleMeas(
       new Measurement(parseFloat(pressureAngle.slice(0, -1)), "deg")

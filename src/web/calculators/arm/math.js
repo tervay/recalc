@@ -1,6 +1,6 @@
 import Measurement from "common/models/Measurement";
+import { MotorState, nominalVoltage } from "common/models/Motor";
 import { receiveFromMain, sendToWorker } from "common/tooling/util";
-import Motor, { MotorState, nominalVoltage } from "common/models/Motor";
 
 /**
  *
