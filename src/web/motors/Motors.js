@@ -1,11 +1,7 @@
 import Heading2 from "common/components/calc-heading/Heading2";
 import Table from "common/components/Table";
 import Measurement from "common/models/Measurement";
-import Motor, {
-  motorRules,
-  MotorState,
-  nominalVoltage,
-} from "common/models/Motor";
+import Motor, { MotorState, nominalVoltage } from "common/models/Motor";
 import { measurementMax } from "common/tooling/math";
 import { setTitle } from "common/tooling/routing";
 import React, { useEffect, useState } from "react";
@@ -42,12 +38,10 @@ export default function Motors() {
     Motor.getAllMotors().map((m) => {
       let arr = dataTbl[m.name];
       for (let i = 0; i < 3; i++) {
-        const ms = new MotorState(m, currents[i], {
+        arr[i] = new MotorState(m, currents[i], {
           current: currents[i],
           voltage: nominalVoltage,
-        });
-        motorRules.solve(ms);
-        arr[i] = ms.power;
+        }).solve().power;
       }
 
       setDataTbl((dt) => ({
@@ -75,13 +69,31 @@ export default function Motors() {
           // For power:weight ratio, consider the max power it can achieve
           numerator = measurementMax(
             m.maxPower,
-            m.getPower(currents[0]),
-            m.getPower(currents[1]),
-            m.getPower(currents[2])
+            // m.getPower(currents[0]),
+            new MotorState(m, currents[0], {
+              current: currents[0],
+              voltage: nominalVoltage,
+            }).solve().power,
+            new MotorState(m, currents[1], {
+              current: currents[1],
+              voltage: nominalVoltage,
+            }).solve().power,
+            new MotorState(m, currents[2], {
+              current: currents[2],
+              voltage: nominalVoltage,
+            }).solve().power
           );
         } else {
           // Otherwise, consider the max power it can achieve at 40A
-          numerator = m.getPower(currents[2]);
+          numerator = new MotorState(m, currents[2], {
+            current: currents[2],
+            voltage: nominalVoltage,
+          }).solve().power;
+        }
+
+        let weightToUse = m.weight;
+        if (m.name !== "Falcon 500") {
+          weightToUse = weightToUse.add(new Measurement(0.25, "lb"));
         }
 
         return {
@@ -96,8 +108,8 @@ export default function Motors() {
           powerAt20A: powerToString(power2),
           powerAt40A: powerToString(power3),
           resistance: m.resistance.scalar.toFixed(3),
-          weight: m.weight.scalar.toFixed(2),
-          powerToWeight: numerator.div(m.weight).scalar.toFixed(2),
+          weight: weightToUse.scalar.toFixed(2),
+          powerToWeight: numerator.div(weightToUse).scalar.toFixed(2),
         };
       }),
     [JSON.stringify(dataTbl)]

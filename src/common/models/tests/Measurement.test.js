@@ -1,102 +1,285 @@
 import Measurement from "common/models/Measurement";
-import each from "jest-each";
 import Qty from "js-quantities";
 
-test("All constructors function properly", () => {
-  const m = new Measurement(1, "in");
-  expect(m.scalar).toBe(1);
-  expect(m.units()).toBe("in");
-
-  const m2 = Measurement.fromQty(Qty(1, "in"));
-  expect(m2.scalar).toBe(1);
-  expect(m.units()).toBe("in");
-
-  const m3 = new Measurement(1);
-  expect(m3.scalar).toBe(1);
-  expect(m3.units()).toBe("");
+test("Constructor accepts magnitude and units", () => {
+  const m = new Measurement(1, "lbs");
+  expect(m.units()).toEqual("lbs");
+  expect(m.scalar).toEqual(1);
 });
 
-each([
+test.each([
   [
-    [2791, "lbs"],
-    [
-      [1265.976, "kg"],
-      [1265976, "g"],
-      [44655.99, "oz"],
-    ],
+    [5, "milliOhm"],
+    [0.005, "Ohm"],
   ],
   [
-    [340, "s"],
-    [
-      [0.0944444, "hr"],
-      [5.666664, "min"],
-      [0.0039352, "day"],
-    ],
+    [3, "min"],
+    [180, "s"],
   ],
   [
-    [20, "in"],
-    [
-      [508, "mm"],
-      [0.000315657, "mi"],
-      [0.508, "m"],
-    ],
-  ],
-  [[694, "rpm"], [[72.675501, "rad/sec"]]],
-  [
-    [5254, "J"],
-    [
-      [1.459444, "W*hr"],
-      [1.25573575526, "kilocal"],
-      [5254, "N*m"],
-    ],
+    [1, "kg"],
+    [2.204, "lbs"],
   ],
   [
-    [6328, "W"],
-    [
-      [8.485988, "hp"],
-      [28 * 226, "V*A"],
-    ],
+    [14, "oz"],
+    [0.875, "lbs"],
   ],
   [
-    [3538, "psi"],
-    [
-      [24.39365, "MPa"],
-      [240.746607453386, "atm"],
-      [243.936500002, "bar"],
-    ],
+    [5, "m"],
+    [196.85, "in"],
   ],
-  [[401, "N*m/V"], [[401, "N*m/V"]]],
-]).test(
-  "Constructor properly simplifies units",
-  ([simplifiedMag, simplifiedUnits], unsimplifiedExpressions) => {
-    unsimplifiedExpressions.forEach(([magnitude, units]) => {
-      // console.log(magnitude, units);
-      const m = new Measurement(magnitude, units);
-      expect(m.scalar).toBeCloseTo(simplifiedMag);
-      expect(m.units()).toBe(simplifiedUnits);
+  [
+    [30, "rad/s"],
+    [286.48, "rpm"],
+  ],
+  [
+    [15, "N m"],
+    [15, "J"],
+  ],
+  [
+    [200, "C / s"],
+    [200, "A"],
+  ],
+  [
+    [100, "W / V"],
+    [100, "A"],
+  ],
+  [
+    [25, "A Ohm"],
+    [25, "V"],
+  ],
+  [
+    [10, "A V"],
+    [10, "W"],
+  ],
+  [
+    [5, "atm"],
+    [73.48, "psi"],
+  ],
+  [
+    [10, "lb / m3"],
+    [0.004536, "g/cm3"],
+  ],
+  [
+    [10, "m^2"],
+    [15500.03, "in2"],
+  ],
+])(
+  "(%#) Simplify returns simplified jsQty",
+  ([complexMagnitude, complexUnits], [simpleMagnitude, simpleUnits]) => {
+    const complexMeasurement = new Qty(complexMagnitude, complexUnits);
+    const simplified = Measurement.simplify(complexMeasurement);
+
+    expect(simplified.units()).toEqual(simpleUnits);
+    expect(simplified.scalar).toBeCloseTo(simpleMagnitude);
+  }
+);
+
+describe("Math functions map to inner Qty functions", () => {
+  test("Has math functions with non-empty functions", () => {
+    const m = new Measurement(1, "in");
+    const regex = /\(\) => \{\}/;
+    expect(m).toMatchObject({
+      add: expect.not.stringMatching(regex),
+      sub: expect.not.stringMatching(regex),
+      mul: expect.not.stringMatching(regex),
+      div: expect.not.stringMatching(regex),
+      eq: expect.not.stringMatching(regex),
+      lt: expect.not.stringMatching(regex),
+      lte: expect.not.stringMatching(regex),
+      gt: expect.not.stringMatching(regex),
+      gte: expect.not.stringMatching(regex),
     });
-  }
-);
+  });
 
-each([
+  test.each([
+    [
+      new Measurement(1, "in"),
+      new Measurement(3, "in"),
+      new Measurement(4, "in"),
+    ],
+    [
+      new Measurement(3, "oz"),
+      new Measurement(10, "kg"),
+      new Measurement(22.23, "lb"),
+    ],
+  ])("(%#) Add", (a, b, result) => {
+    expect(a.add(b)).toBeCloseToMeasurement(result);
+  });
+
+  test.each([
+    [
+      new Measurement(5, "kg"),
+      new Measurement(2, "kg"),
+      new Measurement(3, "kg"),
+    ],
+    [
+      new Measurement(15, "J"),
+      new Measurement(8, "N m"),
+      new Measurement(7, "J"),
+    ],
+  ])("(%#) Sub", (a, b, result) => {
+    expect(a.sub(b)).toBeCloseToMeasurement(result);
+  });
+
+  test.each([
+    [
+      new Measurement(5, "m"),
+      new Measurement(3, "ft"),
+      new Measurement(7086.614, "in^2"),
+    ],
+    [
+      new Measurement(5, "A"),
+      new Measurement(3, "V"),
+      new Measurement(15, "W"),
+    ],
+  ])("(%#) Mul", (a, b, result) => {
+    expect(a.mul(b)).toBeCloseToMeasurement(result);
+  });
+
+  test.each([
+    [
+      new Measurement(20, "W"),
+      new Measurement(5, "A"),
+      new Measurement(4, "V"),
+    ],
+    [new Measurement(10, "ft"), new Measurement(5, "ft"), new Measurement(2)],
+  ])("(%#) Div", (a, b, result) => {
+    expect(a.div(b)).toBeCloseToMeasurement(result);
+  });
+
+  test.each([
+    [new Measurement(5, "in"), new Measurement(5, "in")],
+    [new Measurement(5, "cm"), new Measurement(0.05, "m")],
+  ])("(%#) Eq", (a, b) => {
+    expect(a).toEqualMeasurement(b);
+  });
+
+  test.each([
+    [new Measurement(5, "in"), new Measurement(10, "in")],
+    [new Measurement(10, "m"), new Measurement(10000, "cm")],
+  ])("(%#) lt", (a, b) => {
+    expect(a).toBeLessThanMeasurement(b);
+  });
+
+  test.each([
+    [new Measurement(5, "in"), new Measurement(10, "in")],
+    [new Measurement(5, "in"), new Measurement(5, "in")],
+    [new Measurement(10, "m"), new Measurement(10000, "cm")],
+    [new Measurement(10, "m"), new Measurement(1000, "cm")],
+  ])("(%#) lte", (a, b) => {
+    expect(a).toBeLessThanOrEqualMeasurement(b);
+  });
+
+  test.each([
+    [new Measurement(5, "in"), new Measurement(10, "in")],
+    [new Measurement(10, "m"), new Measurement(10000, "cm")],
+  ])("(%#) gt", (a, b) => {
+    expect(b).toBeGreaterThanMeasurement(a);
+  });
+
+  test.each([
+    [new Measurement(5, "in"), new Measurement(10, "in")],
+    [new Measurement(5, "in"), new Measurement(5, "in")],
+    [new Measurement(10, "m"), new Measurement(10000, "cm")],
+    [new Measurement(10, "m"), new Measurement(1000, "cm")],
+  ])("(%#) gte", (a, b) => {
+    expect(b).toBeGreaterThanOrEqualMeasurement(a);
+  });
+});
+
+test("toDict() serializes correctly", () => {
+  const m = new Measurement(1, "in");
+  expect(m.toDict()).toEqual({ s: 1, u: "in" });
+});
+
+test("fromDict() parses correctly", () => {
+  const d = { s: 1, u: "in" };
+  expect(Measurement.fromDict(d)).toEqualMeasurement(new Measurement(1, "in"));
+});
+
+test("copy() returns an equal, new instance", () => {
+  const m1 = new Measurement(1, "in");
+  const m2 = m1;
+  const copy = m1.copy();
+
+  expect(m1).toBe(m2);
+  expect(m1).not.toBe(copy);
+  expect(m1).toEqualMeasurement(copy);
+});
+
+test.each([
   [
-    [2791, "lbs"],
-    [5254, "kg"],
-    [14374.0873, "lbs"],
+    new Measurement(1, "in"),
+    new Measurement(5, "ft"),
+    new Measurement(10, "yd"),
+    new Measurement(5, "ft"),
   ],
   [
-    [340, "min"],
-    [6328, "hr"],
-    [22801200, "s"],
+    new Measurement(15, "ft"),
+    new Measurement(5, "ft"),
+    new Measurement(20, "ft"),
+    new Measurement(15, "ft"),
   ],
-]).test(
-  "Properly adds 2 Measurement instances",
-  ([mag1, units1], [mag2, units2], [mag3, units3]) => {
-    const m1 = new Measurement(mag1, units1);
-    const m2 = new Measurement(mag2, units2);
-    const result = m1.add(m2);
+  [
+    new Measurement(10, "A"),
+    new Measurement(25, "A"),
+    new Measurement(20, "A"),
+    new Measurement(20, "A"),
+  ],
+])("(%#) clamp() works correctly", (min, measurement, max, expected) => {
+  expect(measurement.clamp(min, max)).toEqualMeasurement(expected);
+});
 
-    expect(result.scalar).toBeCloseTo(mag3);
-    expect(result.units()).toBe(units3);
-  }
-);
+test("inverse() works correctly", () => {
+  expect(new Measurement(5, "in/s").inverse()).toEqualMeasurement(
+    new Measurement(0.2, "s/in")
+  );
+
+  expect(() => new Measurement(0, "A/V").inverse()).toThrowError(
+    "Divide by zero"
+  );
+});
+
+test.each([
+  [new Measurement(-5, "A"), new Measurement(5, "A")],
+  [new Measurement(0, "ft"), new Measurement(0, "ft")],
+  [new Measurement(20, "V"), new Measurement(20, "V")],
+])("(%#) abs() works correctly", (measurement, expected) => {
+  expect(measurement.abs()).toEqualMeasurement(expected);
+});
+
+test.each([
+  [new Measurement(-5, "ft"), -1],
+  [new Measurement(0, "V"), 0],
+  [new Measurement(10, "Ohm"), 1],
+])("(%#) sign() works correctly", (measurement, expected) => {
+  expect(measurement.sign()).toEqual(expected);
+});
+
+test.each([
+  [new Measurement(-5, "A"), new Measurement(5, "A")],
+  [new Measurement(0, "ft"), new Measurement(0, "ft")],
+  [new Measurement(20, "V"), new Measurement(-20, "V")],
+])("(%#) negate() works correctly", (measurement, expected) => {
+  expect(measurement.negate()).toEqualMeasurement(expected);
+});
+
+test.each([
+  [new Measurement(5, "A"), new Measurement(5, "A/rad")],
+  [new Measurement(0, "rad rpm"), new Measurement(0, "rpm")],
+])("(%#) removeRad() works correctly", (measurement, expected) => {
+  expect(measurement.removeRad()).toEqualMeasurement(expected);
+});
+
+test("Measurement.min() works correctly", () => {
+  expect(
+    Measurement.min(new Measurement(5, "A"), new Measurement(10, "A"))
+  ).toEqualMeasurement(new Measurement(5, "A"));
+});
+
+test("Measurement.max() works correctly", () => {
+  expect(
+    Measurement.max(new Measurement(5, "A"), new Measurement(10, "A"))
+  ).toEqualMeasurement(new Measurement(10, "A"));
+});

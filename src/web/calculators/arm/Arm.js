@@ -37,6 +37,7 @@ export default function Arm() {
     ratio: ratio_,
     comLength: comLength_,
     armMass: armMass_,
+    currentLimit: currentLimit_,
     startAngle: startAngle_,
     endAngle: endAngle_,
     iterationLimit: iterationLimit_,
@@ -47,6 +48,7 @@ export default function Arm() {
       ratio: Ratio.getParam(),
       armLength: Measurement.getParam(),
       armMass: Measurement.getParam(),
+      currentLimit: Measurement.getParam(),
       startAngle: Measurement.getParam(),
       endAngle: Measurement.getParam(),
       iterationLimit: NumberParam,
@@ -60,6 +62,7 @@ export default function Arm() {
   const [ratio, setRatio] = useState(ratio_);
   const [comLength, setComLength] = useState(comLength_);
   const [armMass, setArmMass] = useState(armMass_);
+  const [currentLimit, setCurrentLimit] = useState(currentLimit_);
   const [startAngle, setStartAngle] = useState(startAngle_);
   const [endAngle, setEndAngle] = useState(endAngle_);
   const [iterationLimit, setIterationLimit] = useState(iterationLimit_);
@@ -85,6 +88,7 @@ export default function Arm() {
           ratio,
           comLength,
           armMass,
+          currentLimit,
           startAngle: cleanAngleInput(startAngle),
           endAngle: cleanAngleInput(endAngle),
           iterationLimit,
@@ -107,7 +111,16 @@ export default function Arm() {
       });
 
     setTimeIsCalculating(true);
-  }, [motor, ratio, comLength, armMass, startAngle, endAngle, iterationLimit]);
+  }, [
+    motor,
+    ratio,
+    comLength,
+    armMass,
+    currentLimit,
+    startAngle,
+    endAngle,
+    iterationLimit,
+  ]);
 
   useEffect(() => {
     const cb = new ChartBuilder()
@@ -144,6 +157,10 @@ export default function Arm() {
               Measurement.getParam()
             ),
             new QueryableParamHolder({ armMass }, Measurement.getParam()),
+            new QueryableParamHolder({ currentLimit }, Measurement.getParam()),
+            new QueryableParamHolder({ startAngle }, Measurement.getParam()),
+            new QueryableParamHolder({ endAngle }, Measurement.getParam()),
+            new QueryableParamHolder({ iterationLimit }, NumberParam),
           ]);
         }}
       />
@@ -171,6 +188,12 @@ export default function Arm() {
             stateHook={[armMass, setArmMass]}
             label={"Arm Mass"}
             choices={["lb", "kg"]}
+          />
+          <LabeledQtyInput
+            stateHook={[currentLimit, setCurrentLimit]}
+            inputId="currentLimit"
+            label="Current Limit"
+            choices={["A"]}
           />
           <LabeledQtyInput
             inputId="startAngle"
@@ -219,6 +242,9 @@ export default function Arm() {
               <br />
               If you get a result of 0s for time to goal, try increasing
               iteration limit.
+              <br />
+              <br />
+              This accounts for acceleration, but not deceleration.
             </div>
           </article>
           {/*<pre>{debug}</pre>*/}

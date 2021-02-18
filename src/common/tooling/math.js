@@ -45,9 +45,11 @@ export const CIRCLE_DOWN_LEFT = new Measurement(315, "deg");
  * @param {Measurement} angle
  */
 export function cleanAngleInput(angle) {
+  const prevUnits = angle.units();
+
   if (angle.to("rad").scalar >= 90) {
     angle = angle.sub(new Measurement(90, "rad"));
   }
 
-  return angle;
+  return angle.to(prevUnits);
 }

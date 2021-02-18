@@ -14,6 +14,7 @@ export default {
     ratio: new Ratio(100, Ratio.REDUCTION),
     comLength: new Measurement(20, "in"),
     armMass: new Measurement(15, "lb"),
+    currentLimit: new Measurement(40, "A"),
     startAngle: CIRCLE_RIGHT.to("deg"),
     endAngle: CIRCLE_UP.to("deg"),
     iterationLimit: 10000,

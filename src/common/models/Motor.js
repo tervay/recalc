@@ -1,10 +1,10 @@
 import Measurement from "common/models/Measurement";
 import Rules from "common/models/Rules";
 import Model from "common/tooling/abc/Model";
-import { fit } from "common/tooling/math";
 import keyBy from "lodash/keyBy";
 
 export const nominalVoltage = new Measurement(12, "V");
+const highCurrentLimit = new Measurement(1000, "A");
 
 export default class Motor extends Model {
   /**
@@ -17,14 +17,12 @@ export default class Motor extends Model {
     this.quantity = quantity;
     this.kV = this.freeSpeed.div(nominalVoltage);
     this.kT = this.stallTorque.div(this.stallCurrent.sub(this.freeCurrent));
-    if (this.name !== "Falcon 500") {
-      this.weight = this.weight.add(new Measurement(0.25, "lbs"));
-    }
+    this.maxPower = new MotorState(this, highCurrentLimit, {
+      voltage: nominalVoltage,
+      rpm: this.freeSpeed.div(2),
+      torque: this.stallTorque.div(2),
+    }).solve().power;
 
-    this.maxPower = this.getPower(
-      this.stallCurrent.div(2),
-      this.freeSpeed.div(2)
-    );
     this.resistance = nominalVoltage.div(this.stallCurrent);
   }
 
@@ -52,8 +50,8 @@ export default class Motor extends Model {
     return new Motor(quantity, "BAG");
   }
 
-  static Redlines(quantity) {
-    return new Motor(quantity, "775 Redline");
+  static _775RedLines(quantity) {
+    return new Motor(quantity, "775 RedLine");
   }
 
   static _775pros(quantity) {
@@ -70,57 +68,6 @@ export default class Motor extends Model {
 
   static Snowblowers(quantity) {
     return new Motor(quantity, "Snowblower");
-  }
-
-  /**
-   *
-   * @param {Measurement} current - The current draw of the motor
-   * @returns {Measurement} the rpm of the motor, at the specific current draw, assuming 12v
-   */
-  getRPM(current) {
-    if (current.gt(this.stallCurrent)) {
-      return new Measurement(-1, "rpm");
-    }
-
-    return new Measurement(
-      fit(
-        [this.stallCurrent.to("A").scalar, 0],
-        [this.freeCurrent.to("A").scalar, this.freeSpeed.to("rpm").scalar]
-      )(current.to("A").scalar),
-      "rpm"
-    );
-  }
-
-  getTorque(rpm) {
-    return new Measurement(
-      fit([0, this.stallTorque.scalar], [this.freeSpeed.scalar, 0])(rpm.scalar),
-      "J"
-    ).mul(this.quantity);
-  }
-
-  /**
-   *
-   * @param {Measurement} current - The current draw of the motor
-   * @returns {Measurement} The power of the motor, at the specific current draw, assuming 12v
-   */
-  getPower(current) {
-    const rpm = this.getRPM(current);
-    if (rpm.to("rpm").scalar === -1) {
-      return new Measurement(-1, "W");
-    }
-
-    const torque = this.kT.mul(current);
-    return rpm.mul(torque).mul(new Measurement(1, "1/rad")).mul(this.quantity);
-  }
-
-  getCurrent(rpm) {
-    return new Measurement(
-      fit(
-        [0, this.stallCurrent.to("A").scalar],
-        [this.freeSpeed.to("rpm").scalar, this.freeCurrent.to("A").scalar]
-      )(rpm.scalar),
-      "A"
-    );
   }
 
   toDict() {
@@ -140,21 +87,6 @@ export default class Motor extends Model {
 
   static getAllMotors() {
     return Object.keys(motorMap).map((n) => new Motor(1, n));
-  }
-}
-
-export class MotorState {
-  constructor(motor, currentLimit, state) {
-    this.motor = motor;
-    this.currentLimit = currentLimit;
-    this.rpm = state.rpm;
-    this.current = state.current;
-    this.torque = state.torque;
-    this.power = state.power;
-    this.voltage = state.voltage;
-    this.didLimitTorque = false;
-    this.didLimitCurrent = false;
-    this.didLimitVoltage = false;
   }
 }
 
@@ -263,6 +195,27 @@ const motorMap = keyBy(
   "name"
 );
 
+export class MotorState {
+  constructor(motor, currentLimit, state) {
+    this.motor = motor;
+    this.currentLimit = currentLimit;
+    this.rpm = state.rpm;
+    this.current = state.current;
+    this.torque = state.torque;
+    this.power = state.power;
+    this.voltage = state.voltage;
+    this.solved = false;
+    this.didLimitTorque = false;
+    this.didLimitCurrent = false;
+    this.didLimitVoltage = false;
+  }
+
+  solve() {
+    motorRules.solve(this);
+    return this;
+  }
+}
+
 /**
  *
  * kV = 1 / kE = 1 / kT
@@ -282,8 +235,11 @@ motorRules.addRule(
     m.torque !== undefined &&
     m.rpm !== undefined &&
     m.voltage !== undefined &&
-    m.power !== undefined,
-  () => {},
+    m.power !== undefined &&
+    m.solved === false,
+  (m) => {
+    m.solved = true;
+  },
   true,
   1
 );
@@ -291,14 +247,14 @@ motorRules.addRule(
   "Current -> torque",
   (m) => m.current !== undefined && m.torque === undefined,
   (m) => {
-    m.torque = m.motor.kT.mul(m.current.sub(new Measurement(1, "A")));
+    m.torque = m.motor.kT.mul(m.current.sub(m.motor.freeCurrent));
   }
 );
 motorRules.addRule(
   "Torque -> current",
   (m) => m.torque !== undefined && m.current === undefined,
   (m) => {
-    m.current = m.torque.div(m.motor.kT);
+    m.current = m.motor.freeCurrent.add(m.torque.div(m.motor.kT));
   }
 );
 motorRules.addRule(
@@ -368,6 +324,7 @@ motorRules.addRule(
     m.power = undefined;
     m.didLimitCurrent = false;
     m.didLimitTorque = false;
+    m.didLimitVoltage = true;
   },
   false,
   3
@@ -375,11 +332,20 @@ motorRules.addRule(
 
 motorRules.addRule(
   "Given voltage and current, calculate rpm",
-  (m) => m.current !== undefined && m.voltage !== undefined,
+  (m) =>
+    m.current !== undefined && m.voltage !== undefined && m.rpm === undefined,
   (m) => {
     // V = IR + w * kE ; solve for w
     // V - IR = w * kE
     // w = (V - IR) / kE
     m.rpm = m.voltage.sub(m.current.mul(m.motor.resistance)).mul(m.motor.kV);
+  }
+);
+
+motorRules.addRule(
+  "Given torque and power, calculate rpm",
+  (m) => m.torque !== undefined && m.power !== undefined && m.rpm === undefined,
+  (m) => {
+    m.rpm = m.power.div(m.torque).mul(new Measurement(1, "rad"));
   }
 );

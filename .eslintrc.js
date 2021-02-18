@@ -21,7 +21,8 @@ module.exports = {
   },
   plugins: ["react", "prettier", "simple-import-sort"],
   rules: {
-    "simple-import-sort/sort": "error",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
     "react-hooks/exhaustive-deps": "off",
     "no-unused-vars": "warn",
     "import/no-webpack-loader-syntax": "off",

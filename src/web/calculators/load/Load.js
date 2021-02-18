@@ -123,7 +123,7 @@ export default function Load() {
     planetaryRatio,
     currentLimit,
     diametralPitch,
-    pressureAngle,
+    pressureAngleMeas,
     pinionTeeth,
     pinionMaterial,
     gearTeeth,

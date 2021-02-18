@@ -1,4 +1,4 @@
-import Compressor, { compressorMap } from "common/models/Compressor";
+import Compressor from "common/models/Compressor";
 import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
@@ -22,8 +22,8 @@ export default function CompressorInput(props) {
               defaultValue={compressorName}
               onChange={(e) => setCompressorName(e.target.value)}
             >
-              {Object.keys(compressorMap).map((c) => (
-                <option key={c}>{c}</option>
+              {Compressor.getAllCompressors().map((c) => (
+                <option key={c.name}>{c.name}</option>
               ))}
             </select>
           </span>
