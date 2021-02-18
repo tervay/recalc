@@ -4,7 +4,7 @@ import Measurement from "common/models/Measurement";
 test("getAllCompressors returns all compressor instances", () => {
   const allCompressors = Compressor.getAllCompressors();
 
-  expect(allCompressors).toHaveLength(7);
+  expect(allCompressors).toHaveLength(8);
   allCompressors.forEach((c) => {
     expect(c).toBeInstanceOf(Compressor);
   });
@@ -51,6 +51,12 @@ test.each([
     Compressor.ANDYMARK_1_1_PUMP_12V(),
     {
       weight: new Measurement(3.37, "lb"),
+    },
+  ],
+  [
+    Compressor.CP26(),
+    {
+      weight: new Measurement(5.8, "lb"),
     },
   ],
 ])("(%#) Fields are properly set from compressorMap", (compressor, data) => {

@@ -73,6 +73,10 @@ export default class Compressor extends Model {
   static ANDYMARK_1_1_PUMP_12V() {
     return new Compressor("AndyMark 1.1 Pump (12v)");
   }
+
+  static CP26() {
+    return new Compressor("CP26 (12v)");
+  }
 }
 
 // https://arachnoid.com/polysolve/
