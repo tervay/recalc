@@ -90,6 +90,7 @@ function gbToMotor(torque, velocity, acceleration, ratio) {
  * @param {Ratio} ratio
  * @param {Measurement} comLength
  * @param {Measurement} armMass
+ * @param {Measurement} currentLimit
  * @param {Measurement} startAngle
  * @param {Measurement} endAngle
  * @param {Number} iterationLimit
@@ -99,6 +100,7 @@ export function calculateState({
   ratio,
   comLength,
   armMass,
+  currentLimit,
   startAngle,
   endAngle,
   iterationLimit,
@@ -108,6 +110,7 @@ export function calculateState({
     ratio,
     comLength,
     armMass,
+    currentLimit,
     startAngle,
     endAngle,
     iterationLimit,
@@ -121,7 +124,8 @@ export function calculateState({
     motor.quantity === 0 ||
     ratio.asNumber() === 0 ||
     comLength.scalar === 0 ||
-    armMass.scalar === 0
+    armMass.scalar === 0 ||
+    currentLimit.scalar === 0
   ) {
     return states.map((s) => sendToWorker(s));
   }
@@ -176,7 +180,7 @@ export function calculateState({
       .clamp(motor.freeSpeed.negate(), motor.freeSpeed);
 
     // currentState.m.t = motor.getTorque(currentState.m.v);
-    currentState.m.t = new MotorState(motor, new Measurement(500, "A"), {
+    currentState.m.t = new MotorState(motor, currentLimit, {
       voltage: nominalVoltage,
       rpm: currentState.m.v,
     }).solve().torque;
@@ -191,7 +195,7 @@ export function calculateState({
 
     // Current
     // currentState.c = motor.getCurrent(currentState.m.v);
-    currentState.c = new MotorState(motor, new Measurement(500, "A"), {
+    currentState.c = new MotorState(motor, currentLimit, {
       voltage: nominalVoltage,
       rpm: currentState.m.v,
     }).solve().current;
