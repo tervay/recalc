@@ -1,4 +1,4 @@
-import Model from "common/tooling/abc/Model";
+import Model from "common/tooling/Model";
 
 export default class Ratio extends Model {
   static get REDUCTION() {

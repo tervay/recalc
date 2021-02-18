@@ -1,4 +1,4 @@
-import Model from "common/tooling/abc/Model";
+import Model from "common/tooling/Model";
 import keyBy from "lodash/keyBy";
 
 import Measurement from "./Measurement";

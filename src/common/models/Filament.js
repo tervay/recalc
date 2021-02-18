@@ -1,5 +1,5 @@
 import Measurement from "common/models/Measurement";
-import Model from "common/tooling/abc/Model";
+import Model from "common/tooling/Model";
 import keyBy from "lodash/keyBy";
 
 export default class Filament extends Model {
