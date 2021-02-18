@@ -86,6 +86,7 @@ export default class Measurement extends Model {
       power: "W",
       pressure: "psi",
       density: "g/cm3",
+      force: "N",
     };
 
     return qty.kind() in preferred ? qty.to(preferred[qty.kind()]) : qty;

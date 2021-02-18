@@ -18,11 +18,11 @@ export default class Rules {
     this.rules.sort((a, b) => b.priority - a.priority);
   }
 
-  solve(source) {
+  solve(source, iterationLimit = 100) {
     let runLoop = true;
     let i = 0;
 
-    while (runLoop && i <= 100) {
+    while (runLoop && i <= iterationLimit) {
       let runForEach = true;
       // console.log('-----');
       this.rules.forEach((rule) => {

@@ -1,5 +1,6 @@
 import Measurement from "common/models/Measurement";
 import Model from "common/tooling/abc/Model";
+import { ArgumentError } from "common/tooling/errors";
 
 export default class Piston extends Model {
   /**
@@ -29,6 +30,20 @@ export default class Piston extends Model {
     this.pullPressure = pullPressure;
     this.pushPressure = pushPressure;
     this.period = period;
+
+    if (
+      [
+        enabled,
+        bore,
+        rodDiameter,
+        strokeLength,
+        pullPressure,
+        pushPressure,
+        period,
+      ].some((p) => p === undefined)
+    ) {
+      throw new ArgumentError("Provided undefined for a parameter to Piston!");
+    }
   }
 
   /**
@@ -77,11 +92,5 @@ export default class Piston extends Model {
       pushPressure: Measurement.fromDict(dict.pushPressure),
       period: Measurement.fromDict(dict.period),
     });
-  }
-}
-
-export class PistonList extends Model {
-  constructor() {
-    super();
   }
 }
