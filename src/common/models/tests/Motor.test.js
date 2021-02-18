@@ -1,6 +1,5 @@
-import Motor, { MotorState } from "common/models/Motor";
 import Measurement from "common/models/Measurement";
-import { isSet } from "lodash";
+import Motor, { MotorState } from "common/models/Motor";
 
 describe("Motor tests", () => {
   test("getAllMotors returns all Motor instances", () => {
