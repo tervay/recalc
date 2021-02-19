@@ -34,7 +34,7 @@
     "react-dropzone": "^11.1.0",
     "react-google-button": "^0.7.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "4.0.2",
     "react-select": "^4.1.0",
     "react-table": "^7.5.0",
     "redux-zero": "^5.1.7",
