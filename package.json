@@ -16,7 +16,7 @@
     "chartjs-plugin-zoom": "^0.7.7",
     "express": "^4.17.1",
     "express-static-gzip": "^2.1.1",
-    "firebase": "^8.2.7",
+    "firebase": "^8.2.8",
     "gzipper": "^4.4.0",
     "js-quantities": "^1.7.6",
     "katex": "^0.12.0",
