@@ -8,7 +8,7 @@
     "@sentry/tracing": "^6.2.0",
     "@testing-library/jest-dom": "^5.11.1",
     "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.0.14",
+    "@testing-library/user-event": "^12.7.2",
     "bitstring": "^1.0.0",
     "buffer": "^6.0.3",
     "bulma": "^0.9.0",
