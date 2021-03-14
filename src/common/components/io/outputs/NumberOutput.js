@@ -1,3 +1,4 @@
+import { toolTipForIds } from "common/components/tooltips";
 import propTypes from "prop-types";
 import React from "react";
 
@@ -31,7 +32,14 @@ export function LabeledNumberOutput(props) {
   return (
     <div className="field is-horizontal">
       <div className="field-label is-normal">
-        <label className="label">{props.label}</label>
+        <label className="label">
+          <span
+            className="has-tooltip-right"
+            data-tooltip={toolTipForIds(props.inputId, props.label)}
+          >
+            {props.label}
+          </span>
+        </label>
       </div>
       <div className="field-body">
         <UnlabeledNumberOutput {...props} />

@@ -22,6 +22,7 @@ import LinkGenerator from "./linkGenerator";
 import {
   calculateCenterGivenSpecificBelt,
   calculateClosestCenters,
+  calculateTeethInMesh,
   teethToPD,
 } from "./math";
 import { beltVersionManager } from "./versions";
@@ -109,6 +110,10 @@ export default function Belts() {
   const [largerCenter, setLargerCenter] = useState(results.larger.distance);
   const [largerTeeth, setLargerTeeth] = useState(results.larger.teeth);
 
+  const [smallerMesh, setSmallerMesh] = useState(
+    calculateTeethInMesh(p1Pitch, p2Pitch, p1Teeth, p2Teeth, smallerCenter)
+  );
+
   useEffect(() => {
     setP1Pitch(teethToPD(p1Teeth, pitch));
     setP2Pitch(teethToPD(p2Teeth, pitch));
@@ -127,6 +132,12 @@ export default function Belts() {
     useCustomBelt,
     customBeltTeeth,
   ]);
+
+  useEffect(() => {
+    setSmallerMesh(
+      calculateTeethInMesh(p1Pitch, p2Pitch, p1Teeth, p2Teeth, smallerCenter)
+    );
+  }, [p1Pitch, p2Pitch, p1Teeth, p2Teeth, smallerCenter]);
 
   return (
     <>
@@ -231,6 +242,12 @@ export default function Belts() {
               inputId="larger-output"
             />
           </MultiInputLine>
+          <LabeledNumberOutput
+            stateHook={[smallerMesh, setSmallerMesh]}
+            label="Teeth in mesh"
+            inputId="tooth-mesh"
+            precision={1}
+          />
           <LabeledNumberInput
             stateHook={[toothIncrement, setToothIncrement]}
             label="Belt tooth increment"

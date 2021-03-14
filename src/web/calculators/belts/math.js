@@ -184,3 +184,21 @@ export function calculateCenterGivenSpecificBelt(
     },
   };
 }
+
+export function calculateTeethInMesh(
+  p1PitchDiameter,
+  p2PitchDiameter,
+  p1Teeth,
+  p2Teeth,
+  realDistance
+) {
+  if (realDistance.scalar <= 0) {
+    return 0;
+  }
+
+  const D = Measurement.max(p1PitchDiameter, p2PitchDiameter);
+  const d = Measurement.min(p1PitchDiameter, p2PitchDiameter);
+  const C = realDistance;
+  const Ng = Math.min(p1Teeth, p2Teeth);
+  return new Measurement(0.5).sub(D.sub(d).div(C.mul(6))).mul(Ng).scalar;
+}

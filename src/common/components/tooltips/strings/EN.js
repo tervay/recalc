@@ -24,4 +24,6 @@ export default {
     "How much the system you are lifting weighs, don't forget to include the weight of the system.",
   efficiency: "How efficient your gearing is.",
   tankVolume: "The volume of the tank you're using. KOP tank volume is 590mL.",
+  "tooth-mesh":
+    "How many teeth are engaged with the belt on the smaller pulley.",
 };
