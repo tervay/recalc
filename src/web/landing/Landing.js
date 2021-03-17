@@ -71,7 +71,11 @@ export default function Landing() {
 
           <div className={"columns"}>
             <div className={"column"}>
-              <Tile to={gearload.url} title={gearload.title} />
+              <Tile
+                to={gearload.url}
+                title={gearload.title}
+                image={gearload.image}
+              />
             </div>
             <div className={"column"}></div>
           </div>

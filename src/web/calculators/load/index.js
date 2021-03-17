@@ -7,6 +7,7 @@ import { lazy } from "react";
 export default {
   url: "/gearload",
   title: "Gear Load Calculator",
+  image: "/media/Gears",
   version: 1,
   initialState: {
     motor: Motor.Falcon500s(2),
