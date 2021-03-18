@@ -78,7 +78,7 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "^26.0.19",
+    "@types/jest": "^26.0.21",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-import": "^2.22.1",
