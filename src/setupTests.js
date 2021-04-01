@@ -146,3 +146,15 @@ expect.extend({
         );
   },
 });
+
+function useStateMock(x) {
+  let val = x;
+  return [
+    val,
+    jest.fn().mockImplementation((v) => {
+      val = v;
+    }),
+  ];
+}
+
+global.useStateMock = useStateMock;

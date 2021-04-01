@@ -25,4 +25,3 @@ This is a collaboration focused mechanical design calculator, primarily for FRC.
 `yarn heroku:build` - build & compress
 
 `yarn heroku:start` - start server in prod mode
-

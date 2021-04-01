@@ -7,11 +7,12 @@ export default function BooleanInput(props) {
   return (
     <label className="checkbox">
       <input
+        id={props.inputId}
         type="checkbox"
         defaultChecked={value}
-        onChange={(e) => setValue(e.target.checked)}
+        onClick={(e) => setValue(e.target.checked)}
       />
-      {props.label}
+      <span>{props.label}</span>
     </label>
   );
 }
@@ -19,4 +20,5 @@ export default function BooleanInput(props) {
 BooleanInput.propTypes = {
   stateHook: propTypes.array,
   label: propTypes.string,
+  inputId: propTypes.string,
 };
