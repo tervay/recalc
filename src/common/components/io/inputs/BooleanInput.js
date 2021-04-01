@@ -8,8 +8,8 @@ export default function BooleanInput(props) {
     <label className="checkbox">
       <input
         type="checkbox"
-        checked={value}
-        onClick={(e) => setValue(e.target.checked)}
+        defaultChecked={value}
+        onChange={(e) => setValue(e.target.checked)}
       />
       {props.label}
     </label>
