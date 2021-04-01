@@ -4,7 +4,7 @@
   "license": "MIT",
   "dependencies": {
     "@creativebulma/bulma-tooltip": "^1.2.0",
-    "@sentry/react": "^6.2.3",
+    "@sentry/react": "^6.2.5",
     "@sentry/tracing": "^6.2.4",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
