@@ -1,6 +1,7 @@
 import { toolTipForIds } from "common/components/tooltips";
 import propTypes from "prop-types";
 import React from "react";
+import { uuid } from "common/tooling/util";
 
 export function UnlabeledNumberInput(props) {
   const [value, setValue] = props.stateHook;
@@ -30,10 +31,12 @@ UnlabeledNumberInput.propTypes = {
 };
 
 export function LabeledNumberInput(props) {
+  props = { ...props, inputId: props.inputId || uuid() };
+
   return (
     <div className="field is-horizontal">
       <div className="field-label is-normal">
-        <label className="label">
+        <label className="label" htmlFor={props.inputId}>
           <span
             className="has-tooltip-right"
             data-tooltip={toolTipForIds(props.inputId, props.label)}
