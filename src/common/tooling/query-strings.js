@@ -44,7 +44,7 @@ export function queryStringToDefaults(
 
   if (conversionFn === undefined) {
     Object.keys(strings).forEach((k) => {
-      if (k !== "version") {
+      if (k !== "version" && k in queryParams) {
         Object.assign(defaults, { [k]: queryParams[k].decode(strings[k]) });
       }
     });

@@ -81,4 +81,21 @@ describe("queryStringToDefaults", () => {
       );
     }
   );
+
+  test("Works with no conversion function and extra params provided", () => {
+    const result = queryStringToDefaults(
+      '?pitch=%7B"s"%3A3%2C"u"%3A"mm"%7D&foo=%7B"s"%3A25%2C"u"%3A"kg"%7D',
+      {
+        pitch: Measurement.getParam(),
+      },
+      {
+        pitch: new Measurement(5, "mm"),
+      }
+    );
+
+    expect(Object.keys(result)).toHaveLength(1);
+    expect(result).toMatchObject({
+      pitch: expect.toEqualMeasurement(new Measurement(3, "mm")),
+    });
+  });
 });
