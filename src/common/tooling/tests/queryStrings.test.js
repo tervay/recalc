@@ -1,7 +1,11 @@
 import Measurement from "common/models/Measurement";
 import { BooleanParam, NumberParam, StringParam } from "serialize-query-params";
 
-import { queryStringToDefaults } from "../query-strings";
+import {
+  QueryableParamHolder,
+  queryStringToDefaults,
+  stateToQueryString,
+} from "../query-strings";
 
 describe("queryStringToDefaults", () => {
   test.each([
@@ -97,5 +101,33 @@ describe("queryStringToDefaults", () => {
     expect(result).toMatchObject({
       pitch: expect.toEqualMeasurement(new Measurement(3, "mm")),
     });
+  });
+});
+
+describe("stateToQueryString", () => {
+  test.each([
+    {
+      qphs: [
+        new QueryableParamHolder({ foo: 2 }, NumberParam),
+        new QueryableParamHolder({ bar: true }, BooleanParam),
+        new QueryableParamHolder(
+          { baz: new Measurement(5, "ft") },
+          Measurement.getParam()
+        ),
+      ],
+      expected: "bar=1&baz=%7B%22s%22%3A60%2C%22u%22%3A%22in%22%7D&foo=2",
+    },
+    {
+      qphs: [
+        new QueryableParamHolder(
+          { foo: new Measurement(5, "N * m / s^2") },
+          Measurement.getParam()
+        ),
+        new QueryableParamHolder({ bar: false }, BooleanParam),
+      ],
+      expected: "bar=0&foo=%7B%22s%22%3A5%2C%22u%22%3A%22N%2Am%2Fs2%22%7D",
+    },
+  ])("works", ({ qphs, expected }) => {
+    expect(stateToQueryString(qphs)).toEqual(expected);
   });
 });
