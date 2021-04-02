@@ -38,7 +38,7 @@ export default function Landing() {
             </div>
 
             <div className="column">
-              <Tile to={chains.url} title={chains.title} />
+              <Tile to={chains.url} title={chains.title} image={chains.image} />
             </div>
           </div>
 
@@ -103,6 +103,12 @@ export default function Landing() {
                 title={compressors.title}
                 image={compressors.image}
               />
+            </div>
+          </div>
+
+          <div className="columns">
+            <div className="column is-one-third">
+              <Tile to="/about" title="About ReCalc" />
             </div>
           </div>
         </div>

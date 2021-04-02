@@ -1,5 +1,6 @@
 import Measurement from "common/models/Measurement";
 import { BooleanParam, NumberParam, StringParam } from "serialize-query-params";
+
 import { queryStringToDefaults } from "../query-strings";
 
 describe("queryStringToDefaults", () => {

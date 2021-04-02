@@ -3,6 +3,7 @@ import { lazy } from "react";
 
 export default {
   url: "/chains",
+  image: "/media/Chain",
   title: "Chain Calculator",
   version: 1,
   initialState: {
