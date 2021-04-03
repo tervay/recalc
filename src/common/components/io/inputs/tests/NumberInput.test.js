@@ -1,6 +1,7 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import { renderHook } from "@testing-library/react-hooks";
 import userEvent from "@testing-library/user-event";
-import React from "react";
+import React, { useState } from "react";
 
 import { LabeledNumberInput } from "../NumberInput";
 
@@ -57,22 +58,21 @@ describe("Labeled number input", () => {
     expect(screen.getByLabelText("Label")).toBeEnabled();
   });
 
-  test("state hook is called on user typing", async () => {
-    const [x, setX] = useStateMock(1);
+  test("state hook is called on user typing", () => {
+    const { result } = renderHook(() => useState(1));
+
     render(
       <LabeledNumberInput
-        stateHook={[x, setX]}
+        stateHook={result.current}
         disabled={false}
         label="Labelx"
       />
     );
 
     userEvent.clear(screen.getByLabelText("Labelx"));
-    expect(setX).toHaveBeenCalledTimes(1);
-    expect(setX).toHaveBeenCalledWith("");
+    expect(result.current[0]).toEqual("");
 
-    userEvent.type(screen.getByLabelText("Labelx"), "5");
-    expect(setX).toHaveBeenCalledTimes(2);
-    expect(setX).toHaveBeenLastCalledWith("5");
+    userEvent.type(screen.getByLabelText("Labelx"), "56");
+    expect(result.current[0]).toEqual("56");
   });
 });
