@@ -1,5 +1,5 @@
 import { isLocalhost } from "common/tooling/util";
-import styles from "index.scss";
+import styles from "exports.module.scss";
 import { defaults } from "lib/react-chart-js";
 import _ from "lodash";
 

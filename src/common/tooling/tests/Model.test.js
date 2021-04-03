@@ -35,7 +35,7 @@ describe("Invalid model", () => {
 });
 
 describe("Valid model", () => {
-  const toDictFn = jest.fn((m) => ({ a: m.a, b: m.b }));
+  const toDictFn = jest.fn().mockImplementation((m) => ({ a: m.a, b: m.b }));
   const fromDictFn = jest.fn((obj) => new ValidModel(obj.a, obj.b));
 
   class ValidModel extends Model {
@@ -45,6 +45,10 @@ describe("Valid model", () => {
       this.b = b;
     }
     toDict() {
+      console.log({
+        this: this,
+        fn: toDictFn,
+      });
       return toDictFn(this);
     }
 

@@ -1,6 +1,6 @@
 import { ChartBuilder, YAxisBuilder } from "common/tooling/charts";
 import { isLocalhost } from "common/tooling/util";
-import styles from "index.scss";
+import styles from "exports.module.scss";
 import moment from "moment";
 import propTypes from "prop-types";
 import React from "react";
