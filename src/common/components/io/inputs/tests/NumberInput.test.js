@@ -57,18 +57,22 @@ describe("Labeled number input", () => {
     expect(screen.getByLabelText("Label")).toBeEnabled();
   });
 
-  test("state hook is called on user typing", () => {
+  test("state hook is called on user typing", async () => {
     const [x, setX] = useStateMock(1);
     render(
       <LabeledNumberInput
         stateHook={[x, setX]}
         disabled={false}
-        label="Label"
+        label="Labelx"
       />
     );
 
-    // userEvent.type(screen.getByLabelText("Label"), "{backspace}5");
-    // expect(screen.getByLabelText("Label")).toHaveValue(5);
-    // expect(setX).toHaveBeenCalledTimes(2);
+    userEvent.clear(screen.getByLabelText("Labelx"));
+    expect(setX).toHaveBeenCalledTimes(1);
+    expect(setX).toHaveBeenCalledWith("");
+
+    userEvent.type(screen.getByLabelText("Labelx"), "5");
+    expect(setX).toHaveBeenCalledTimes(2);
+    expect(setX).toHaveBeenLastCalledWith("5");
   });
 });

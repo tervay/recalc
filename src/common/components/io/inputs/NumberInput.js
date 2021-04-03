@@ -1,7 +1,7 @@
 import { toolTipForIds } from "common/components/tooltips";
 import { uuid } from "common/tooling/util";
 import propTypes from "prop-types";
-import React from "react";
+import React, { useEffect } from "react";
 
 export function UnlabeledNumberInput(props) {
   const [value, setValue] = props.stateHook;
