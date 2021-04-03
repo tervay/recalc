@@ -1,0 +1,40 @@
+@charset "utf-8";
+
+$shaker: #0072bb;
+
+$primary: $shaker;
+$secondary: white;
+$accent: #204b57;
+
+$chart_colors: ($primary, #fc7a57, #59cd90, #2f195f, #832232, #011936);
+
+$pdp_colors: (
+  #5fad56,
+  #f2c14e,
+  #f78154,
+  #4d9078,
+  #b4436c,
+  #006ba6,
+  #0496ff,
+  #8f2d56,
+  #2b2d42,
+  #92dce5,
+  #c2aff0,
+  #c04cfd,
+  #496f5d,
+  #a2a77f,
+  #ff2e00,
+  #444554
+);
+
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@450;625&display=swap");
+$font_family: "Quicksand", sans-serif, -apple-system, BlinkMacSystemFont,
+  "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+  "Droid Sans", "Helvetica Neue", sans-serif;
+
+:export {
+  primary: $primary;
+  font_family: $font_family;
+  chart_colors: $chart_colors;
+  pdp_colors: $pdp_colors;
+}
