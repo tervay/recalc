@@ -90,6 +90,7 @@ export default class Motor extends Model {
   }
 }
 
+// Motor performance data taken from https://motors.vex.com/.
 const motorMap = keyBy(
   [
     {
@@ -103,10 +104,10 @@ const motorMap = keyBy(
     },
     {
       name: "NEO",
-      freeSpeed: new Measurement(5676, "rpm"),
-      stallTorque: new Measurement(2.6, "N*m"),
-      stallCurrent: new Measurement(105, "A"),
-      freeCurrent: new Measurement(1.8, "A"),
+      freeSpeed: new Measurement(5880, "rpm"),
+      stallTorque: new Measurement(3.36, "N*m"),
+      stallCurrent: new Measurement(166, "A"),
+      freeCurrent: new Measurement(1.3, "A"),
       weight: new Measurement(0.94, "lb"),
       url: "https://www.revrobotics.com/rev-21-1650/",
     },
@@ -121,10 +122,10 @@ const motorMap = keyBy(
     },
     {
       name: "NEO 550",
-      freeSpeed: new Measurement(11000, "rpm"),
-      stallTorque: new Measurement(0.97, "N*m"),
-      stallCurrent: new Measurement(100, "A"),
-      freeCurrent: new Measurement(1.4, "A"),
+      freeSpeed: new Measurement(11710, "rpm"),
+      stallTorque: new Measurement(1.08, "N*m"),
+      stallCurrent: new Measurement(111, "A"),
+      freeCurrent: new Measurement(1.1, "A"),
       weight: new Measurement(0.31, "lb"),
       url: "https://www.revrobotics.com/rev-21-1651/",
     },
@@ -157,22 +158,23 @@ const motorMap = keyBy(
     },
     {
       name: "AM-9015",
-      freeSpeed: new Measurement(16000, "rpm"),
-      stallTorque: new Measurement(0.428, "N*m"),
-      stallCurrent: new Measurement(63.8, "A"),
-      freeCurrent: new Measurement(1.2, "A"),
+      freeSpeed: new Measurement(14270, "rpm"),
+      stallTorque: new Measurement(0.36, "N*m"),
+      stallCurrent: new Measurement(71, "A"),
+      freeCurrent: new Measurement(3.7, "A"),
       weight: new Measurement(0.5, "lb"),
       url: "https://www.andymark.com/products/9015-motor",
     },
     {
       name: "NeveRest",
-      freeSpeed: new Measurement(6600, "rpm"),
-      stallTorque: new Measurement(0.06178858, "N*m"),
-      stallCurrent: new Measurement(11.5, "A"),
-      freeCurrent: new Measurement(0.4, "A"),
+      freeSpeed: new Measurement(5480, "rpm"),
+      stallTorque: new Measurement(0.173, "N*m"),
+      stallCurrent: new Measurement(9.8, "A"),
+      freeCurrent: new Measurement(0.355, "A"),
       weight: new Measurement(0.587, "lb"),
       url: "https://www.andymark.com/products/neverest-series-motor-only",
     },
+    // No vex testing data exists for this motor so manufacturer specs are used.
     {
       name: "Snowblower",
       freeSpeed: new Measurement(100, "rpm"),
@@ -184,10 +186,10 @@ const motorMap = keyBy(
     },
     {
       name: "775 RedLine",
-      freeSpeed: new Measurement(21020, "rpm"),
-      stallTorque: new Measurement(0.7, "N*m"),
-      stallCurrent: new Measurement(130, "A"),
-      freeCurrent: new Measurement(3.8, "A"),
+      freeSpeed: new Measurement(19500, "rpm"),
+      stallTorque: new Measurement(0.64, "N*m"),
+      stallCurrent: new Measurement(122, "A"),
+      freeCurrent: new Measurement(2.6, "A"),
       weight: new Measurement(0.806, "lb"),
       url: "https://www.andymark.com/products/andymark-775-redline-motor-v2",
     },
