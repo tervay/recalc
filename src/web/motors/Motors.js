@@ -181,23 +181,13 @@ export default function Motors() {
       <section className="section">
         <div className="container">
           <div className="title">Explaining these numbers</div>
-          <p className={"block"}>
-            VEX has a great introduction to DC motors specs{" "}
+          <p className="block">
+            All the data comes directly from or is derived from experimental
+            motor data <a href="https://motors.vex.com/">published by VEX</a> as
+            of April 4th, 2021. All motors except for the Falcon 500 have 0.25
+            lbs added to their weight to represent the weight of a speed
+            controller. VEX has a great introduction to DC motors specs{" "}
             <a href={"https://motors.vex.com/introduction"}>here</a>.
-          </p>
-          <p className={"block"}>
-            For calculating peak power at currents, I found the slope of the
-            line representing the relationship between RPM and current. Using
-            this, I found the RPM the motor would be spinning at if drawing the
-            given current at 12 volts. Then, since{" "}
-            <code>power = kT * current * rpm</code>, we can easily find the
-            power generated. As for the power:weight ratio, I used either the
-            max theoretical power of the motor, or the peak power at 50A,
-            whichever was lower (since not all motors can survive 50A).
-          </p>
-          <p className={"block"}>
-            All motors except for the Falcon 500 have 0.25 lbs added to their
-            weight to represent the weight of a speed controller.
           </p>
           <div className="title">
             <a href={"https://en.wikipedia.org/wiki/Stall_torque"}>

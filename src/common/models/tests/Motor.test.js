@@ -11,7 +11,7 @@ describe("Motor tests", () => {
     });
   });
 
-    test.each([
+  test.each([
     [
       Motor.Falcon500s(1),
       {
