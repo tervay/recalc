@@ -7,9 +7,11 @@ import { LabeledNumberInput } from "../NumberInput";
 
 describe("Labeled number input", () => {
   test("Renders", () => {
+    const { result } = renderHook(() => useState(1));
+
     render(
       <LabeledNumberInput
-        stateHook={useStateMock(1)}
+        stateHook={result.current}
         inputId="input"
         disabled={false}
         label="Label"
@@ -19,9 +21,11 @@ describe("Labeled number input", () => {
 
   describe("Input has initial value", () => {
     test("of 1", () => {
+      const { result } = renderHook(() => useState(1));
+
       render(
         <LabeledNumberInput
-          stateHook={useStateMock(1)}
+          stateHook={result.current}
           disabled={false}
           label="Label"
         />
@@ -29,9 +33,11 @@ describe("Labeled number input", () => {
       expect(screen.getByLabelText("Label")).toHaveValue(1);
     });
     test("of 2", () => {
+      const { result } = renderHook(() => useState(2));
+
       render(
         <LabeledNumberInput
-          stateHook={useStateMock(2)}
+          stateHook={result.current}
           disabled={false}
           label="Label"
         />
@@ -41,9 +47,10 @@ describe("Labeled number input", () => {
   });
 
   test("Disabled option disables input field", () => {
+    const { result } = renderHook(() => useState(2));
     render(
       <LabeledNumberInput
-        stateHook={useStateMock(2)}
+        stateHook={result.current}
         disabled={true}
         label="Label"
       />
@@ -53,7 +60,8 @@ describe("Labeled number input", () => {
   });
 
   test("Lack of disabled option has field enabled", () => {
-    render(<LabeledNumberInput stateHook={useStateMock(2)} label="Label" />);
+    const { result } = renderHook(() => useState(2));
+    render(<LabeledNumberInput stateHook={result.current} label="Label" />);
 
     expect(screen.getByLabelText("Label")).toBeEnabled();
   });

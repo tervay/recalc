@@ -33,7 +33,5 @@ module.exports = {
       version: "detect",
     },
   },
-  globals: {
-    useStateMock: "readonly",
-  },
+  globals: {},
 };
