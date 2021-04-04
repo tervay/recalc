@@ -1,6 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-// import userEvent from "@testing-library/user-event";
+import userEvent from "@testing-library/user-event";
 import Motor from "common/models/Motor";
 import React, { useState } from "react";
 
@@ -59,6 +59,48 @@ describe("Labeled motor input", () => {
 
       expect(screen.getByLabelText("Label")).toHaveValue(3);
       expect(screen.getByTestId("motorSelect")).toHaveValue("775pro");
+    });
+  });
+
+  describe("Changing field changes state hook", () => {
+    test("Number input", () => {
+      const { result } = renderHook(() => useState(Motor.Falcon500s(1)));
+      render(
+        <LabeledMotorInput
+          stateHook={result.current}
+          choices={Motor.choices}
+          inputId="motorInput"
+          selectId="motorSelect"
+          label="Label"
+        />
+      );
+
+      userEvent.clear(screen.getByLabelText("Label"));
+      expect(result.current[0]).toEqualMotor(Motor.Falcon500s(0));
+
+      userEvent.type(screen.getByLabelText("Label"), "4");
+      expect(screen.getByLabelText("Label")).toHaveValue(4);
+      expect(result.current[0]).toEqualMotor(Motor.Falcon500s(4));
+    });
+
+    test("Motor select", () => {
+      const { result } = renderHook(() => useState(Motor.Falcon500s(1)));
+      render(
+        <LabeledMotorInput
+          stateHook={result.current}
+          choices={Motor.choices}
+          inputId="motorInput"
+          selectId="motorSelect"
+          label="Label"
+        />
+      );
+
+      fireEvent.change(screen.getByTestId("motorSelect"), {
+        target: { value: "NEO" },
+      });
+
+      expect(screen.getByTestId("motorSelect")).toHaveValue("NEO");
+      expect(result.current[0]).toEqualMotor(Motor.NEOs(1));
     });
   });
 });

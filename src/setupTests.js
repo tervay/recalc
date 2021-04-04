@@ -5,6 +5,7 @@
 import "@testing-library/jest-dom/extend-expect";
 
 import Measurement from "common/models/Measurement";
+import Motor from "common/models/Motor";
 
 function generateFailure(msg) {
   return {
@@ -20,21 +21,43 @@ function generateSuccess(msg) {
   };
 }
 
+function validateInstanceOf(obj, cls) {
+  if (!(obj instanceof cls)) {
+    return generateFailure(`Expected ${obj} to be an instanceof ${cls}`);
+  } else {
+    return generateSuccess(`Expected ${obj} not to be an instanceof ${cls}`);
+  }
+}
+
 function validateMeasurementInstances(received, measurement) {
-  if (!(received instanceof Measurement)) {
-    return generateFailure(
-      `Expected ${received.toString()} to be an instanceof Measurement`
-    );
+  const validateReceived = validateInstanceOf(received, Measurement);
+  if (!validateReceived.pass) {
+    return validateReceived;
   }
-  if (!(measurement instanceof Measurement)) {
-    return generateFailure(
-      `Expected ${measurement.toString()} to be an instanceof Measurement`
-    );
+
+  const validateMeasurement = validateInstanceOf(measurement, Measurement);
+  if (!validateMeasurement.pass) {
+    return validateMeasurement;
   }
+
   if (received.kind() !== measurement.kind()) {
     return generateFailure(
       `Expected ${received.format()} to be the same units as ${measurement.format()}`
     );
+  }
+
+  return null;
+}
+
+function validateMotorInstance(received, motor) {
+  const validateReceived = validateInstanceOf(received, Motor);
+  if (!validateReceived.pass) {
+    return validateReceived;
+  }
+
+  const validateMotor = validateInstanceOf(motor, Motor);
+  if (!validateMotor.pass) {
+    return validateMotor;
   }
 
   return null;
@@ -143,6 +166,20 @@ expect.extend({
         )
       : generateFailure(
           `Expected ${received.format()} to be a Measurement close to ${measurement.format()}`
+        );
+  },
+  toEqualMotor(received, motor) {
+    const validatedMotors = validateMotorInstance(received, motor);
+    if (validatedMotors !== null) {
+      return validatedMotors;
+    }
+
+    return received.eq(motor)
+      ? generateSuccess(
+          `Expected ${received.toString()} not to be a Motor equal to ${motor.toString()}`
+        )
+      : generateFailure(
+          `Expected ${received.toString()} to be a Motor equal to ${motor.toString()}`
         );
   },
 });

@@ -88,6 +88,25 @@ export default class Motor extends Model {
   static getAllMotors() {
     return Object.keys(motorMap).map((n) => new Motor(1, n));
   }
+
+  eq(motor) {
+    if (!(motor instanceof Motor)) {
+      return false;
+    }
+
+    return (
+      this.quantity === motor.quantity &&
+      this.name === motor.name &&
+      // Verify that we did not ever somehow reach a state
+      // where we set quantity and name but leave old motor
+      // specs around.
+      this.freeSpeed === motor.freeSpeed
+    );
+  }
+
+  toString() {
+    return `[${this.quantity} × ${this.name}]`;
+  }
 }
 
 // Motor performance data taken from https://motors.vex.com/.
