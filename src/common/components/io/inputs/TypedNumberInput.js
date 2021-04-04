@@ -19,6 +19,7 @@ export function UnlabeledTypedNumberInput(props) {
             value={select}
             onChange={(e) => setSelect(e.target.value)}
             id={props.selectId}
+            data-testid={props.selectId}
             disabled={props.disabled}
           >
             {props.choices.map((c) => (
