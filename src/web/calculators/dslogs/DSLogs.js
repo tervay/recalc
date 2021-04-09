@@ -1,13 +1,7 @@
 import { LabeledPatientNumberInput } from "common/components/io/inputs/PatientNumberInput";
-import { ChartBuilder } from "common/tooling/charts";
-import { Line } from "lib/react-chart-js";
 import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import {
-  ChartChooser,
-  getChartBuilder,
-} from "web/calculators/dslogs/chartbuilder";
 import { DSLogParser } from "web/calculators/dslogs/parser";
 
 export default function DSLogs() {
@@ -21,10 +15,8 @@ export default function DSLogs() {
   const [filename, setFilename] = useState("example.dslog");
 
   const chartRef = React.createRef();
-  const [chartData, setChartData] = useState(ChartBuilder.defaultData());
-  const [chartOptions, setChartOptions] = useState(
-    ChartBuilder.defaultOptions()
-  );
+  const [chartData, setChartData] = useState([]);
+  const [chartOptions, setChartOptions] = useState({});
   const [useAbsoluteTime, setUseAbsoluteTime] = useState(false);
   const [plotted, setPlotted] = useState(null);
 
@@ -34,18 +26,18 @@ export default function DSLogs() {
       return;
     }
 
-    const cb = getChartBuilder({
-      records,
-      displayedRecords,
-      useAbsoluteTime,
-      precision,
-      plotted,
-    });
+    // const cb = getChartBuilder({
+    //   records,
+    //   displayedRecords,
+    //   useAbsoluteTime,
+    //   precision,
+    //   plotted,
+    // });
 
-    if (plotted !== null && plotted.length > 0) {
-      setChartOptions(cb.buildOptions());
-      setChartData(cb.buildData());
-    }
+    // if (plotted !== null && plotted.length > 0) {
+    //   setChartOptions(cb.buildOptions());
+    //   setChartData(cb.buildData());
+    // }
   }, [
     start,
     end,
@@ -171,10 +163,10 @@ export default function DSLogs() {
           </div>
         </nav>
 
-        <ChartChooser stateHook={[plotted, setPlotted]} />
+        {/* <ChartChooser stateHook={[plotted, setPlotted]} /> */}
         <br />
 
-        <Line data={chartData} ref={chartRef} options={chartOptions} />
+        {/* <Line data={chartData} ref={chartRef} options={chartOptions} /> */}
       </div>
     </>
   );

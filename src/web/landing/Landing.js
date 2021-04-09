@@ -114,7 +114,7 @@ export default function Landing() {
         </div>
       </section>
 
-      <section className="section">
+      {/* <section className="section">
         <h1 className="title">Utilities</h1>
         <div className="subtitle">
           <div className="columns">
@@ -123,7 +123,7 @@ export default function Landing() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }
