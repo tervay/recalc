@@ -4010,12 +4010,17 @@ chart.js@^3.0.2:
   resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-3.0.2.tgz#5893b0548714445b5190cbda9ac307357a56a0c7"
   integrity sha512-DR0GmFSlxcFJp/w//ZmbxSduAkH/AqwxoiZxK97KHnWZf6gvsKWS3160WvNMMHYvzW9OXqGWjPjVh1Qu+xDabg==
 
-chartjs-plugin-zoom@^0.7.7:
-  version "0.7.7"
-  resolved "https://registry.yarnpkg.com/chartjs-plugin-zoom/-/chartjs-plugin-zoom-0.7.7.tgz#b25989bd6183cc51d5bb9293c20b4b7942555584"
-  integrity sha512-8fOHPPiZTT2+K0w278TQWYs/DtPg06s1OpTqdXxPpdfH7QQbl6Io/WuE1FjPehDWVCxpe3tSTts+dPbxgq2Z5g==
+chartjs-plugin-zoom@1.0.0-beta.1:
+  version "1.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/chartjs-plugin-zoom/-/chartjs-plugin-zoom-1.0.0-beta.1.tgz#c6cfdb64c21eb16c33ec8e4fe8ff7d1532657dcf"
+  integrity sha512-Yh0yByBLX8laTfy/6WDrKEQ6c9tbDHB87v3d5rlUx0cH3CHUiHojtklU4qH74FyzxamDaJVkEzra1YgfkPgtyg==
   dependencies:
     hammerjs "^2.0.8"
+
+chartjs-react@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/chartjs-react/-/chartjs-react-3.3.1.tgz#a82f68fda8405cefc0556bd5dad39abe7550b57b"
+  integrity sha512-kqOHLQBkBm0kPrckAcft5FXv3EgmDZWhC5fm49l9sRu2+VGzfknct9bg3cKt+DBmC6XKtw3qpSnOJAn2vXjBsg==
 
 check-types@^11.1.1:
   version "11.1.2"

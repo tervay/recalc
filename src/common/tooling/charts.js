@@ -1,9 +1,9 @@
 import { isLocalhost } from "common/tooling/util";
 import styles from "exports.module.scss";
-import { defaults } from "lib/react-chart-js";
+// import { defaults } from "lib/react-chart-js";
 import _ from "lodash";
 
-defaults.global.defaultFontFamily = styles.font_family;
+// defaults.global.defaultFontFamily = styles.font_family;
 const chartColors = styles.chart_colors.split(isLocalhost() ? ", " : ",");
 
 export class MarkerBuilder {

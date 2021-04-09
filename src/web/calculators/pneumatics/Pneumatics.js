@@ -13,7 +13,7 @@ import {
   stateToQueryString,
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
-import { Line } from "lib/react-chart-js";
+// import { Line } from "lib/react-chart-js";
 import React, { useEffect, useState } from "react";
 import { NumberParam } from "use-query-params";
 
@@ -161,7 +161,7 @@ export default function Pneumatics() {
             label={"Compressor Duty Cycle"}
             stateHook={[dutyCycle, setDutyCycle]}
           />
-          <Line data={chartData} options={chartOptions} />
+          {/* <Line data={chartData} options={chartOptions} /> */}
         </div>
       </div>
     </>

@@ -1,6 +1,6 @@
 import { LabeledPatientNumberInput } from "common/components/io/inputs/PatientNumberInput";
 import { ChartBuilder } from "common/tooling/charts";
-import { Line } from "lib/react-chart-js";
+// import { Line } from "lib/react-chart-js";
 import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
@@ -174,7 +174,7 @@ export default function DSLogs() {
         <ChartChooser stateHook={[plotted, setPlotted]} />
         <br />
 
-        <Line data={chartData} ref={chartRef} options={chartOptions} />
+        {/* <Line data={chartData} ref={chartRef} options={chartOptions} /> */}
       </div>
     </>
   );

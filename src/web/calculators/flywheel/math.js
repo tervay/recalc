@@ -135,7 +135,7 @@ export function generateChartData(
     if (t.scalar !== 0) {
       data.push({
         x: i,
-        y: t.scalar.toFixed(4),
+        y: Number(t.scalar.toFixed(4)),
       });
     }
   }

@@ -17,7 +17,6 @@ import {
 import { setTitle } from "common/tooling/routing";
 import { receiveFromMain, sendToWorker } from "common/tooling/util";
 import { defaultAssignment } from "common/tooling/versions";
-import { Line } from "lib/react-chart-js";
 import React, { useEffect, useState } from "react";
 import { NumberParam } from "use-query-params";
 /* eslint import/no-webpack-loader-syntax: off */
@@ -122,25 +121,25 @@ export default function Arm() {
     iterationLimit,
   ]);
 
-  useEffect(() => {
-    const cb = new ChartBuilder()
-      .setXAxisType("linear")
-      .setXTitle("Time (s)")
-      .setTitle("Current Draw")
-      .setLegendEnabled(false)
-      .setMaintainAspectRatio(true)
-      .addYBuilder(
-        new YAxisBuilder()
-          .setTitleAndId("Current")
-          .setPosition("left")
-          .setData(rawChartData)
-          .setBeginAtZero(true)
-          .setColor(YAxisBuilder.chartColor(0))
-      );
+  // useEffect(() => {
+  //   const cb = new ChartBuilder()
+  //     .setXAxisType("linear")
+  //     .setXTitle("Time (s)")
+  //     .setTitle("Current Draw")
+  //     .setLegendEnabled(false)
+  //     .setMaintainAspectRatio(true)
+  //     .addYBuilder(
+  //       new YAxisBuilder()
+  //         .setTitleAndId("Current")
+  //         .setPosition("left")
+  //         .setData(rawChartData)
+  //         .setBeginAtZero(true)
+  //         .setColor(YAxisBuilder.chartColor(0))
+  //     );
 
-    setCurrentDrawData(cb.buildData());
-    setCurrentDrawOptions(cb.buildOptions());
-  }, [JSON.stringify(rawChartData)]);
+  //   setCurrentDrawData(cb.buildData());
+  //   setCurrentDrawOptions(cb.buildOptions());
+  // }, [JSON.stringify(rawChartData)]);
 
   return (
     <>
@@ -248,7 +247,7 @@ export default function Arm() {
             </div>
           </article>
           {/*<pre>{debug}</pre>*/}
-          <Line data={currentDrawData} options={currentDrawOptions} />
+          {/* <Line data={currentDrawData} options={currentDrawOptions} /> */}
         </div>
       </div>
     </>
