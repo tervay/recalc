@@ -7,7 +7,7 @@ import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
 import Ratio from "common/models/Ratio";
-import { ChartBuilder, YAxisBuilder } from "common/tooling/charts";
+import { Graph } from "common/tooling/graph";
 import { cleanAngleInput } from "common/tooling/math";
 import {
   QueryableParamHolder,
@@ -17,12 +17,12 @@ import {
 import { setTitle } from "common/tooling/routing";
 import { receiveFromMain, sendToWorker } from "common/tooling/util";
 import { defaultAssignment } from "common/tooling/versions";
-import { Line } from "lib/react-chart-js";
 import React, { useEffect, useState } from "react";
 import { NumberParam } from "use-query-params";
 /* eslint import/no-webpack-loader-syntax: off */
 import worker from "workerize-loader!./math";
 
+import { ArmGraphConfig } from "./armGraph";
 import arm from "./index";
 import { buildDataForAccessorVsTime } from "./math";
 
@@ -70,15 +70,8 @@ export default function Arm() {
   // Outputs
   const [timeToGoal, setTimeToGoal] = useState(new Measurement(0, "s"));
   const [timeIsCalculating, setTimeIsCalculating] = useState(true);
-  // const [debug, setDebug] = useState("");
 
   const [rawChartData, setRawChartData] = useState([]);
-  const [currentDrawData, setCurrentDrawData] = useState(
-    ChartBuilder.defaultData()
-  );
-  const [currentDrawOptions, setCurrentDrawOptions] = useState(
-    ChartBuilder.defaultOptions()
-  );
 
   useEffect(() => {
     instance
@@ -95,18 +88,17 @@ export default function Arm() {
         })
       )
       .then((result) => {
-        console.log({ result });
         result = result.map((r) => receiveFromMain(r));
         setTimeIsCalculating(false);
 
         if (result.length > 0) {
-          setTimeToGoal(result[result.length - 1].t);
+          setTimeToGoal(result[result.length - 1].time);
         } else {
           setTimeToGoal(new Measurement(0, "s"));
         }
 
         setRawChartData(
-          buildDataForAccessorVsTime(result, (s) => s.c.scalar, false)
+          buildDataForAccessorVsTime(result, (s) => s.current.scalar, false)
         );
       });
 
@@ -121,26 +113,6 @@ export default function Arm() {
     endAngle,
     iterationLimit,
   ]);
-
-  useEffect(() => {
-    const cb = new ChartBuilder()
-      .setXAxisType("linear")
-      .setXTitle("Time (s)")
-      .setTitle("Current Draw")
-      .setLegendEnabled(false)
-      .setMaintainAspectRatio(true)
-      .addYBuilder(
-        new YAxisBuilder()
-          .setTitleAndId("Current")
-          .setPosition("left")
-          .setData(rawChartData)
-          .setBeginAtZero(true)
-          .setColor(YAxisBuilder.chartColor(0))
-      );
-
-    setCurrentDrawData(cb.buildData());
-    setCurrentDrawOptions(cb.buildOptions());
-  }, [JSON.stringify(rawChartData)]);
 
   return (
     <>
@@ -247,8 +219,20 @@ export default function Arm() {
               This accounts for acceleration, but not deceleration.
             </div>
           </article>
-          {/*<pre>{debug}</pre>*/}
-          <Line data={currentDrawData} options={currentDrawOptions} />
+          <Graph
+            type="line"
+            options={ArmGraphConfig.options()}
+            data={{
+              datasets: [
+                ArmGraphConfig.dataset({
+                  label: "Current Draw (A)",
+                  colorIndex: 0,
+                  data: rawChartData,
+                  id: "y",
+                }),
+              ],
+            }}
+          />
         </div>
       </div>
     </>

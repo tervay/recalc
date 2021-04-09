@@ -6,19 +6,19 @@ import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
 import Compressor from "common/models/Compressor";
 import Measurement from "common/models/Measurement";
 import Piston from "common/models/Piston";
-import { ChartBuilder, YAxisBuilder } from "common/tooling/charts";
+import { Graph } from "common/tooling/graph";
 import {
   QueryableParamHolder,
   queryStringToDefaults,
   stateToQueryString,
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
-import { Line } from "lib/react-chart-js";
 import React, { useEffect, useState } from "react";
 import { NumberParam } from "use-query-params";
 
 import pneumatics from "./index";
 import { generatePressureTimeline } from "./math";
+import { PneumaticGraphConfig } from "./pneumaticGraphConfig";
 import { pneumaticsVersionManager } from "./versions";
 
 export default function Pneumatics() {
@@ -49,10 +49,7 @@ export default function Pneumatics() {
   const [volume, setVolume] = useState(volume_);
   const [compressor, setCompressor] = useState(compressor_);
 
-  const [chartData, setChartData] = useState(ChartBuilder.defaultData());
-  const [chartOptions, setChartOptions] = useState(
-    ChartBuilder.defaultOptions()
-  );
+  const [chartData, setChartData] = useState([]);
 
   const [dutyCycle, setDutyCycle] = useState(0);
   // const [recommendedTanks, setRecommendedTanks] = useState(getRecommendedTanks([p1, p2, p3]))
@@ -62,29 +59,9 @@ export default function Pneumatics() {
       timeline: timeline_,
       dutyCycle: dutyCycle_,
     } = generatePressureTimeline([p1, p2, p3], volume, compressor);
-
-    const cb = new ChartBuilder()
-      .setXAxisType("linear")
-      .setXTitle("Time (s)")
-      .setTitle("System Pressure Over Time")
-      .setLegendEnabled(false)
-      .setMaintainAspectRatio(true)
-      .addYBuilder(
-        new YAxisBuilder()
-          .setTitleAndId("Pressure (PSI)")
-          .setPosition("left")
-          .setData(timeline_)
-          .setBeginAtZero(true)
-          .setColor(YAxisBuilder.chartColor(0))
-      );
-
-    setChartData(cb.buildData());
-    setChartOptions(cb.buildOptions());
+    setChartData(timeline_);
 
     setDutyCycle(dutyCycle_.toFixed(1));
-
-    // setGraphData(makeDataObj([generatePressureTimeline([p1, p2, p3], volume)]));
-
     // Kinda slow :(
     // setRecommendedTanks(getRecommendedTanks([p1, p2, p3]));
   }, [p1, p2, p3, volume, compressor]);
@@ -161,7 +138,20 @@ export default function Pneumatics() {
             label={"Compressor Duty Cycle"}
             stateHook={[dutyCycle, setDutyCycle]}
           />
-          <Line data={chartData} options={chartOptions} />
+          <Graph
+            options={PneumaticGraphConfig.options()}
+            type="line"
+            data={{
+              datasets: [
+                PneumaticGraphConfig.dataset({
+                  label: "System Pressure (psi)",
+                  data: chartData,
+                  colorIndex: 0,
+                  id: "y",
+                }),
+              ],
+            }}
+          />
         </div>
       </div>
     </>

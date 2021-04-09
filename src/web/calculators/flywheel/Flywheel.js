@@ -8,20 +8,13 @@ import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
 import Ratio from "common/models/Ratio";
-import {
-  ChartBuilder,
-  MarkerBuilder,
-  YAxisBuilder,
-} from "common/tooling/charts";
+import { Graph } from "common/tooling/graph";
 import {
   QueryableParamHolder,
   queryStringToDefaults,
   stateToQueryString,
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
-import { Line } from "lib/react-chart-js";
-import minBy from "lodash/minBy";
-import reduce from "lodash/reduce";
 import React, { useEffect, useState } from "react";
 import { BooleanParam, NumberParam } from "use-query-params";
 import {
@@ -29,6 +22,7 @@ import {
   generateChartData,
 } from "web/calculators/flywheel/math";
 
+import { FlywheelConfig } from "./flywheelGraph";
 import flywheel from "./index";
 import { flywheelVersionManager } from "./versions";
 
@@ -72,10 +66,7 @@ export default function Flywheel() {
   const [windupTime, setWindupTime] = useState(new Measurement(0, "s"));
   const [optimalRatio, setOptimalRatio] = useState(new Ratio(1));
 
-  const [chartData, setChartData] = useState(ChartBuilder.defaultData());
-  const [chartOptions, setChartOptions] = useState(
-    ChartBuilder.defaultOptions()
-  );
+  const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
     if (!useCustomMOI) {
@@ -104,75 +95,7 @@ export default function Flywheel() {
       targetSpeed
     );
 
-    const currentRatioMarkers = [
-      new MarkerBuilder()
-        .vertical()
-        .at(ratio.asNumber())
-        .from(0)
-        .to(newWindupTime.scalar),
-      new MarkerBuilder()
-        .horizontal()
-        .at(newWindupTime.scalar)
-        .from(0)
-        .to(ratio.asNumber()),
-    ];
-
-    const optimalRatioTime = minBy(data, (o) => o.y);
-    const optimalRatioMarkers =
-      optimalRatioTime !== undefined
-        ? [
-            new MarkerBuilder()
-              .horizontal()
-              .at(optimalRatioTime.y)
-              .from(0)
-              .to(optimalRatioTime.x),
-            new MarkerBuilder()
-              .vertical()
-              .at(optimalRatioTime.x)
-              .from(0)
-              .to(optimalRatioTime.y),
-          ]
-        : [];
-
-    const reducer = (m) => reduce(m, (sum, n) => sum.concat(n.build()), []);
-
-    const cb = new ChartBuilder()
-      .setXAxisType("linear")
-      .setXTitle("Ratio")
-      .setLegendEnabled(false)
-      .setTitle("Ratio vs Windup Time")
-      .addYBuilder(
-        new YAxisBuilder()
-          .setTitleAndId("Current Ratio")
-          .setDisplayAxis(false)
-          .setDraw(false)
-          .setId("Windup Time")
-          .setColor(YAxisBuilder.chartColor(1))
-          .setData(reducer(currentRatioMarkers))
-      )
-      .addYBuilder(
-        new YAxisBuilder()
-          .setTitleAndId("Optimal Ratio")
-          .setDisplayAxis(false)
-          .setDraw(false)
-          .setColor(YAxisBuilder.chartColor(2))
-          .setId("Windup Time")
-          .setData(reducer(optimalRatioMarkers))
-      )
-      .addYBuilder(
-        new YAxisBuilder()
-          .setTitleAndId("Windup Time (s)")
-          .setId("Windup Time")
-          .setData(data)
-          .setColor(YAxisBuilder.chartColor(0))
-          .setPosition("left")
-      );
-
-    setChartOptions(cb.buildOptions());
-    setChartData(cb.buildData());
-    if (optimalRatioTime !== undefined) {
-      setOptimalRatio(optimalRatioTime.x.toFixed(3));
-    }
+    setChartData(data);
   }, [
     motor,
     ratio,
@@ -275,7 +198,21 @@ export default function Flywheel() {
           />
         </div>
         <div className="column">
-          <Line data={chartData} options={chartOptions} />
+          <Graph
+            type="line"
+            data={{
+              labels: ["Lbaels"],
+              datasets: [
+                FlywheelConfig.dataset({
+                  data: chartData,
+                  label: "Data",
+                  colorIndex: 0,
+                  id: "y",
+                }),
+              ],
+            }}
+            options={FlywheelConfig.options()}
+          />
         </div>
       </div>
     </>

@@ -7,18 +7,18 @@ import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
 import Ratio from "common/models/Ratio";
-import { ChartBuilder, YAxisBuilder } from "common/tooling/charts";
+import { Graph } from "common/tooling/graph";
 import {
   QueryableParamHolder,
   queryStringToDefaults,
   stateToQueryString,
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
-import { Line } from "lib/react-chart-js";
 import React, { useEffect, useState } from "react";
 import { NumberParam } from "use-query-params";
 
 import linear from "./index";
+import { LinearMechGraphConfig } from "./linearMechGraph";
 import {
   calculateCurrentDraw,
   CalculateLoadedSpeed,
@@ -67,11 +67,9 @@ export default function LinearMech() {
   );
   const [loadedSpeed, setLoadedSpeed] = useState(new Measurement(0, "ft/s"));
   const [timeToGoal, setTimeToGoal] = useState(new Measurement(0, "s"));
+  const [timeToGoalChartData, setTimeToGoalChartData] = useState([]);
   const [currentDraw, setCurrentDraw] = useState(new Measurement(0, "A"));
-  const [chartData, setChartData] = useState(ChartBuilder.defaultData());
-  const [chartOptions, setChartOptions] = useState(
-    ChartBuilder.defaultOptions()
-  );
+  const [currentDrawChartData, setCurrentDrawChartData] = useState([]);
 
   useEffect(() => {
     setUnloadedSpeed(CalculateUnloadedSpeed(motor, spoolDiameter, ratio));
@@ -86,49 +84,26 @@ export default function LinearMech() {
     setLoadedSpeed(loadedSpeed_);
     setTimeToGoal(CalculateTimeToGoal(travelDistance, loadedSpeed_));
 
-    const timeToGoalChartData = generateTimeToGoalChartData(
-      motor,
-      travelDistance,
-      spoolDiameter,
-      load,
-      ratio,
-      efficiency
-    );
-
-    const currentDrawChartData = generateCurrentDrawChartData(
-      motor,
-      travelDistance,
-      spoolDiameter,
-      load,
-      ratio
-    );
-
-    const cb = new ChartBuilder()
-      .setXAxisType("linear")
-      .setXTitle("Ratio")
-      .setTitle("Ratio vs Time to Goal (s) / Current (A)")
-      .setLegendEnabled(true)
-      .addYBuilder(
-        new YAxisBuilder()
-          .setTitleAndId("Time (s)")
-          .setDisplayAxis(true)
-          .setDraw(true)
-          .setPosition("left")
-          .setData(timeToGoalChartData)
-          .setColor(YAxisBuilder.chartColor(0))
+    setTimeToGoalChartData(
+      generateTimeToGoalChartData(
+        motor,
+        travelDistance,
+        spoolDiameter,
+        load,
+        ratio,
+        efficiency
       )
-      .addYBuilder(
-        new YAxisBuilder()
-          .setTitleAndId("Current (A)")
-          .setDisplayAxis(true)
-          .setDraw(false)
-          .setPosition("right")
-          .setData(currentDrawChartData)
-          .setColor(YAxisBuilder.chartColor(1))
-      );
+    );
 
-    setChartData(cb.buildData());
-    setChartOptions(cb.buildOptions());
+    setCurrentDrawChartData(
+      generateCurrentDrawChartData(
+        motor,
+        travelDistance,
+        spoolDiameter,
+        load,
+        ratio
+      )
+    );
 
     setCurrentDraw(calculateCurrentDraw(motor, spoolDiameter, load, ratio));
   }, [motor, travelDistance, spoolDiameter, load, ratio, efficiency]);
@@ -219,7 +194,26 @@ export default function LinearMech() {
           />
         </div>
         <div className="column">
-          <Line data={chartData} options={chartOptions} />
+          <Graph
+            options={LinearMechGraphConfig.options()}
+            type="line"
+            data={{
+              datasets: [
+                LinearMechGraphConfig.dataset({
+                  colorIndex: 0,
+                  data: timeToGoalChartData,
+                  id: "y1",
+                  label: "Time To Goal (s)",
+                }),
+                LinearMechGraphConfig.dataset({
+                  colorIndex: 1,
+                  data: currentDrawChartData,
+                  id: "y2",
+                  label: "Current (A)",
+                }),
+              ],
+            }}
+          />
         </div>
       </div>
     </>
