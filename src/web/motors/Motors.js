@@ -239,7 +239,11 @@ export default function Motors() {
             the motor per volt applied.
           </p>
           <div className="title">
-            <a href={"https://en.wikipedia.org/wiki/Power_(physics)"}>
+            <a
+              href={
+                "https://en.wikipedia.org/wiki/Electrical_resistance_and_conductance"
+              }
+            >
               Resistance
             </a>
           </div>
