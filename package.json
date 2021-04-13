@@ -17,7 +17,7 @@
     "chartjs-react": "^3.3.1",
     "express": "^4.17.1",
     "express-static-gzip": "^2.1.1",
-    "firebase": "^8.3.3",
+    "firebase": "^8.4.1",
     "gzipper": "^4.4.0",
     "js-quantities": "^1.7.6",
     "katex": "^0.13.2",
