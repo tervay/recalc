@@ -22,7 +22,7 @@
     "js-quantities": "^1.7.6",
     "katex": "^0.13.2",
     "lodash": "^4.17.21",
-    "markdown-it": "^12.0.4",
+    "markdown-it": "^12.0.5",
     "markdown-it-anchor": "^7.1.0",
     "markdown-it-katex": "^2.0.3",
     "markdown-it-toc-done-right": "^4.2.0",
