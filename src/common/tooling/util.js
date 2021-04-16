@@ -1,14 +1,17 @@
-/**
- *
- * @returns {boolean}
- */
+import { isObjectLike } from "lodash";
 import Measurement from "../models/Measurement";
 import Motor from "../models/Motor";
 import Ratio from "../models/Ratio";
 
-export const isLocalhost = () =>
-  window.location.hostname === "localhost" ||
-  window.location.hostname === "127.0.0.1";
+/**
+ *
+ * @returns {boolean}
+ */
+export const isLocalhost = (hostname = window.location.hostname) =>
+  ["localhost", "127.0.0.1", "0.0.0.0", "[::1]", ""].includes(hostname) ||
+  hostname.startsWith("192.168.") ||
+  hostname.startsWith("10.0.") ||
+  hostname.endsWith(".local");
 
 /**
  *
@@ -26,12 +29,10 @@ export const uuid = () =>
 
 export const constructors = [Motor, Ratio, Measurement];
 
-const isObject = (v) => v !== null && typeof v === "object";
-
 export const sendToWorker = (args) => {
   return Object.keys(args).reduce((acc, key) => {
     if (constructors.indexOf(args[key].constructor) === -1) {
-      if (isObject(args[key])) {
+      if (isObjectLike(args[key])) {
         return {
           ...acc,
           [key]: sendToWorker(args[key]),
@@ -52,7 +53,7 @@ export const sendToWorker = (args) => {
 
 export const receiveFromMain = (args) => {
   return Object.keys(args).reduce((acc, key) => {
-    if (!isObject(args[key])) {
+    if (!isObjectLike(args[key])) {
       return { ...acc, [key]: args[key] };
     }
 

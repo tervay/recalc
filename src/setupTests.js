@@ -6,6 +6,7 @@ import "@testing-library/jest-dom/extend-expect";
 
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
+import Ratio from "common/models/Ratio";
 
 function generateFailure(msg) {
   return {
@@ -56,6 +57,20 @@ function validateMotorInstance(received, motor) {
   }
 
   const validateMotor = validateInstanceOf(motor, Motor);
+  if (!validateMotor.pass) {
+    return validateMotor;
+  }
+
+  return null;
+}
+
+function validateRatioInstance(received, ratio) {
+  const validateReceived = validateInstanceOf(received, Ratio);
+  if (!validateReceived.pass) {
+    return validateReceived;
+  }
+
+  const validateMotor = validateInstanceOf(ratio, Ratio);
   if (!validateMotor.pass) {
     return validateMotor;
   }
@@ -180,6 +195,20 @@ expect.extend({
         )
       : generateFailure(
           `Expected ${received.toString()} to be a Motor equal to ${motor.toString()}`
+        );
+  },
+  toEqualRatio(received, ratio) {
+    const validatedRatios = validateRatioInstance(received, ratio);
+    if (validatedRatios !== null) {
+      return validatedRatios;
+    }
+
+    return received.eq(ratio)
+      ? generateSuccess(
+          `Expected ${received.toString()} not to be a Ratio equal to ${ratio.toString()}`
+        )
+      : generateFailure(
+          `Expected ${received.toString()} to be a Ratio equal to ${ratio.toString()}`
         );
   },
 });

@@ -49,4 +49,14 @@ export default class Ratio extends Model {
   static fromDict(dict) {
     return new Ratio(dict.magnitude, dict.ratioType);
   }
+
+  eq(other) {
+    if (!(other instanceof Ratio)) {
+      return false;
+    }
+
+    return (
+      other.magnitude === this.magnitude && other.ratioType === this.ratioType
+    );
+  }
 }
