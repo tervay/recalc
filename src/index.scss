@@ -47,14 +47,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-*,
-body,
-button,
-input,
-select,
-textarea {
-  font-family: $font_family;
-}
+// *,
+// body,
+// button,
+// input,
+// select,
+// textarea {
+//   font-family: $font_family;
+// }
 
 @import "../node_modules/katex/dist/katex.min.css";
 
@@ -73,7 +73,7 @@ nav {
 
 .nav-title {
   padding-left: 6px;
-  color: $secondary;
+  color: white;
 }
 
 .center-table th {
@@ -165,4 +165,25 @@ $headings: h1, h2, h3, h4, h5, h6, h7;
 label.checkbox {
   padding-top: 6px;
   line-height: 1.5;
+}
+
+.box {
+  background-color: $g1;
+}
+.box:hover {
+  background-color: $g2;
+}
+
+.recalc-box {
+  background-color: $g1;
+  border-radius: $box-radius;
+  color: $box-color;
+  padding: 1rem;
+  border: 1px solid $g1_5;
+  margin: 0.25rem;
+}
+
+.recalc-box:hover {
+  background-color: $g2;
+  border: 1px solid $g3;
 }

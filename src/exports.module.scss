@@ -1,11 +1,67 @@
 @charset "utf-8";
 
-$shaker: #0072bb;
+// $shaker: #0072bb;
+// $primary: $shaker;
+// $secondary: white;
+// $accent: #204b57;
 
-$primary: $shaker;
-$secondary: white;
-$accent: #204b57;
+/* Colors: https://refactoringui.com/previews/building-your-color-palette/ */
+$c1: #e8f6ff;
+$c5: #006eb6;
+$c9: #002f4f;
 
+$c3: mix($c1, $c5, 50%);
+$c7: mix($c5, $c9, 50%);
+
+$c2: mix($c1, $c3, 50%);
+$c4: mix($c3, $c5, 50%);
+$c6: mix($c5, $c7, 50%);
+$c8: mix($c7, $c9, 50%);
+
+/* Greys */
+$g1: #fbfbfc;
+$g9: #050507;
+$g5: mix($g1, $g9, 50%);
+
+$g3: mix($g1, $g5, 50%);
+$g7: mix($g5, $g9, 50%);
+
+$g2: mix($g1, $g3, 50%);
+$g4: mix($g3, $g5, 50%);
+$g6: mix($g5, $g7, 50%);
+$g8: mix($g7, $g9, 50%);
+
+$g1_5: mix($g1, $g2, 50%);
+
+$unused: red;
+
+/* Bulma vars */
+$primary: $c5;
+
+$black: $g9;
+$black-bis: $g8;
+$black-ter: $g7;
+
+$grey-darker: $g6;
+$grey-dark: $g5;
+$grey: $g4;
+$grey-light: $g3;
+$grey-lighter: $g2;
+$grey-lightest: $g1;
+
+$white-ter: $g1_5;
+$white-bis: $g1;
+$white: white;
+
+$text-strong: $g9;
+$text-light: $g5;
+$subtitle-color: $g7;
+
+$box-shadow: 0 0.5em 0.5em -0.3em rgba($black, 0.1);
+
+$input-disabled-background-color: $g1_5;
+
+/* Component colors */
 $chart_colors: ($primary, #fc7a57, #59cd90, #2f195f, #832232, #011936);
 
 $pdp_colors: (
@@ -23,18 +79,38 @@ $pdp_colors: (
   #c04cfd,
   #496f5d,
   #a2a77f,
-  #ff2e00,
+  #ff2e,
   #444554
 );
 
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@450;625&display=swap");
-$font_family: "Quicksand", sans-serif, -apple-system, BlinkMacSystemFont,
+$family-sans-serif: "Quicksand", sans-serif, -apple-system, BlinkMacSystemFont,
   "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
   "Droid Sans", "Helvetica Neue", sans-serif;
 
 :export {
   primary: $primary;
-  font_family: $font_family;
+  font_family: $family-sans-serif;
   chart_colors: $chart_colors;
   pdp_colors: $pdp_colors;
+
+  c1: $c1;
+  c2: $c2;
+  c3: $c3;
+  c4: $c4;
+  c5: $c5;
+  c6: $c6;
+  c7: $c7;
+  c8: $c8;
+  c9: $c9;
+
+  g1: $g1;
+  g2: $g2;
+  g3: $g3;
+  g4: $g4;
+  g5: $g5;
+  g6: $g6;
+  g7: $g7;
+  g8: $g8;
+  g9: $g9;
 }

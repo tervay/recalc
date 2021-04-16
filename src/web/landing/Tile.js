@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function Tile(props) {
   return (
     <Link to={props.to}>
-      <div className={"box"}>
+      <div className={"recalc-box"}>
         <div className="columns">
           <div className="column is-one-quarter">
             <figure className="image is-4by3">
