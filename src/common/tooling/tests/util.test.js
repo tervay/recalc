@@ -2,13 +2,7 @@ import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
 import Ratio from "common/models/Ratio";
 
-import {
-  getDate,
-  isLocalhost,
-  receiveFromMain,
-  sendToWorker,
-  uuid,
-} from "../util";
+import { getDate, isLocalhost, objectify, unobjectify, uuid } from "../util";
 
 describe("util", () => {
   test.each([
@@ -127,8 +121,8 @@ describe("util", () => {
         },
       },
     ],
-  ])("sendToWorker", (obj, expected) => {
-    expect(sendToWorker(obj)).toMatchObject(expected);
+  ])("objectify", (obj, expected) => {
+    expect(objectify(obj)).toMatchObject(expected);
   });
 
   test.each([
@@ -193,7 +187,7 @@ describe("util", () => {
       [{ m: [{ constructorId: 2, s: 1, u: "in" }] }],
       [{ m: [expect.toEqualMeasurement(new Measurement(1, "in"))] }],
     ],
-  ])("receiveFromMain", (obj, expected) => {
-    expect(receiveFromMain(obj)).toMatchObject(expected);
+  ])("unobjectify", (obj, expected) => {
+    expect(unobjectify(obj)).toMatchObject(expected);
   });
 });

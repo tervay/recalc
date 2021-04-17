@@ -24,7 +24,7 @@ module.exports = {
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "react-hooks/exhaustive-deps": "off",
-    "no-unused-vars": "warn",
+    "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
     "import/no-webpack-loader-syntax": "off",
     "import/no-unresolved": "off",
   },

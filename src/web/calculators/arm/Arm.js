@@ -15,14 +15,14 @@ import {
   stateToQueryString,
 } from "common/tooling/query-strings";
 import { setTitle } from "common/tooling/routing";
-import { receiveFromMain, sendToWorker } from "common/tooling/util";
+import { objectify, unobjectify } from "common/tooling/util";
 import { defaultAssignment } from "common/tooling/versions";
 import React, { useEffect, useState } from "react";
 import { NumberParam } from "use-query-params";
 /* eslint import/no-webpack-loader-syntax: off */
 import worker from "workerize-loader!./math";
 
-import { ArmGraphConfig } from "./armGraph";
+import { ArmGraphConfig } from "./ArmGraphConfig";
 import arm from "./index";
 import { buildDataForAccessorVsTime } from "./math";
 
@@ -76,7 +76,7 @@ export default function Arm() {
   useEffect(() => {
     instance
       .calculateState(
-        sendToWorker({
+        objectify({
           motor,
           ratio,
           comLength,
@@ -88,7 +88,7 @@ export default function Arm() {
         })
       )
       .then((result) => {
-        result = result.map((r) => receiveFromMain(r));
+        result = result.map((r) => unobjectify(r));
         setTimeIsCalculating(false);
 
         if (result.length > 0) {

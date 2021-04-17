@@ -1,6 +1,6 @@
 import Measurement from "common/models/Measurement";
 import { MotorState, nominalVoltage } from "common/models/Motor";
-import { receiveFromMain, sendToWorker } from "common/tooling/util";
+import { objectify, unobjectify } from "common/tooling/util";
 
 /**
  *
@@ -84,7 +84,7 @@ export function calculateState({
     startAngle,
     endAngle,
     iterationLimit,
-  } = receiveFromMain(...arguments));
+  } = unobjectify(...arguments));
 
   if (
     motor.quantity === 0 ||
@@ -152,7 +152,7 @@ export function calculateState({
     }
   }
 
-  return states.map((s) => sendToWorker(s));
+  return states.map((s) => objectify(s));
 }
 
 export function buildDataForAccessorVsTime(states, accessor, includeZeros) {

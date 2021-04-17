@@ -8,11 +8,11 @@ import {
   CIRCLE_UP_LEFT,
   CIRCLE_UP_RIGHT,
 } from "common/tooling/math";
-import { receiveFromMain, sendToWorker } from "common/tooling/util";
+import { objectify, unobjectify } from "common/tooling/util";
 
 import {
-  calculateArmTorque,
   calculateArmInertia,
+  calculateArmTorque,
   calculateState,
 } from "../math";
 
@@ -60,7 +60,7 @@ describe("arm math", () => {
       iterationLimit: 10000,
     };
 
-    const result = receiveFromMain(calculateState(sendToWorker(params)));
+    const result = unobjectify(calculateState(objectify(params)));
     expect(result).toHaveLength(591);
 
     expect(Object.keys(result[0])).toHaveLength(3);

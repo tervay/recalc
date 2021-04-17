@@ -1,7 +1,8 @@
-import { isObjectLike } from "lodash";
-import Measurement from "../models/Measurement";
 import Motor from "common/models/Motor";
 import Ratio from "common/models/Ratio";
+import { isObjectLike } from "lodash";
+
+import Measurement from "../models/Measurement";
 import Model from "./Model";
 
 /**
@@ -30,19 +31,19 @@ export const uuid = () =>
 
 export const constructors = [Motor, Ratio, Measurement];
 
-export const sendToWorker = (obj) => {
+export const objectify = (obj) => {
   if (obj instanceof Model) {
     return {
       ...obj.toDict(),
       constructorId: constructors.indexOf(obj.constructor),
     };
   } else if (Array.isArray(obj)) {
-    return obj.map((a) => sendToWorker(a));
+    return obj.map((a) => objectify(a));
   } else if (isObjectLike(obj)) {
     return Object.keys(obj).reduce((acc, key) => {
       return {
         ...acc,
-        [key]: sendToWorker(obj[key]),
+        [key]: objectify(obj[key]),
       };
     }, {});
   } else {
@@ -50,16 +51,16 @@ export const sendToWorker = (obj) => {
   }
 };
 
-export const receiveFromMain = (obj) => {
-  if (obj.hasOwnProperty("constructorId")) {
+export const unobjectify = (obj) => {
+  if (Object.prototype.hasOwnProperty.call(obj, "constructorId")) {
     return constructors[obj.constructorId].fromDict(obj);
   } else if (Array.isArray(obj)) {
-    return obj.map((a) => receiveFromMain(a));
+    return obj.map((a) => unobjectify(a));
   } else if (isObjectLike(obj)) {
     return Object.keys(obj).reduce((acc, key) => {
       return {
         ...acc,
-        [key]: receiveFromMain(obj[key]),
+        [key]: unobjectify(obj[key]),
       };
     }, {});
   } else {
