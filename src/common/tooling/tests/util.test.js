@@ -60,6 +60,24 @@ describe("util", () => {
   test.each([
     [{ foo: "bar" }, { foo: "bar" }],
     [
+      [1, 2, 3],
+      [1, 2, 3],
+    ],
+    [
+      [
+        { a: 1, b: 2 },
+        { c: 3, d: 4 },
+      ],
+      [
+        { a: 1, b: 2 },
+        { c: 3, d: 4 },
+      ],
+    ],
+    [
+      [{ m: [new Measurement(1, "in")] }],
+      [{ m: [{ constructorId: 2, s: 1, u: "in" }] }],
+    ],
+    [
       { m: new Measurement(5, "in") },
       {
         m: {
@@ -170,6 +188,10 @@ describe("util", () => {
         },
         outer: expect.toEqualMeasurement(new Measurement(12, "psi")),
       },
+    ],
+    [
+      [{ m: [{ constructorId: 2, s: 1, u: "in" }] }],
+      [{ m: [expect.toEqualMeasurement(new Measurement(1, "in"))] }],
     ],
   ])("receiveFromMain", (obj, expected) => {
     expect(receiveFromMain(obj)).toMatchObject(expected);

@@ -202,4 +202,8 @@ export default class Measurement extends Model {
   toString() {
     return this.format();
   }
+
+  forcePositive() {
+    return new Measurement(Math.max(0, this.scalar), this.units());
+  }
 }

@@ -1,7 +1,8 @@
 import { isObjectLike } from "lodash";
 import Measurement from "../models/Measurement";
-import Motor from "../models/Motor";
-import Ratio from "../models/Ratio";
+import Motor from "common/models/Motor";
+import Ratio from "common/models/Ratio";
+import Model from "./Model";
 
 /**
  *
@@ -29,40 +30,39 @@ export const uuid = () =>
 
 export const constructors = [Motor, Ratio, Measurement];
 
-export const sendToWorker = (args) => {
-  return Object.keys(args).reduce((acc, key) => {
-    if (constructors.indexOf(args[key].constructor) === -1) {
-      if (isObjectLike(args[key])) {
-        return {
-          ...acc,
-          [key]: sendToWorker(args[key]),
-        };
-      } else {
-        return { ...acc, [key]: args[key] };
-      }
-    }
-
-    let val = args[key].toDict();
-    val["constructorId"] = constructors.indexOf(args[key].constructor);
+export const sendToWorker = (obj) => {
+  if (obj instanceof Model) {
     return {
-      ...acc,
-      [key]: val,
+      ...obj.toDict(),
+      constructorId: constructors.indexOf(obj.constructor),
     };
-  }, {});
+  } else if (Array.isArray(obj)) {
+    return obj.map((a) => sendToWorker(a));
+  } else if (isObjectLike(obj)) {
+    return Object.keys(obj).reduce((acc, key) => {
+      return {
+        ...acc,
+        [key]: sendToWorker(obj[key]),
+      };
+    }, {});
+  } else {
+    return obj;
+  }
 };
 
-export const receiveFromMain = (args) => {
-  return Object.keys(args).reduce((acc, key) => {
-    if (!isObjectLike(args[key])) {
-      return { ...acc, [key]: args[key] };
-    }
-
-    const dict = args[key];
-    if ("constructorId" in dict) {
-      const cls = constructors[dict.constructorId];
-      return { ...acc, [key]: cls.fromDict(dict) };
-    } else {
-      return { ...acc, [key]: receiveFromMain(dict) };
-    }
-  }, {});
+export const receiveFromMain = (obj) => {
+  if (obj.hasOwnProperty("constructorId")) {
+    return constructors[obj.constructorId].fromDict(obj);
+  } else if (Array.isArray(obj)) {
+    return obj.map((a) => receiveFromMain(a));
+  } else if (isObjectLike(obj)) {
+    return Object.keys(obj).reduce((acc, key) => {
+      return {
+        ...acc,
+        [key]: receiveFromMain(obj[key]),
+      };
+    }, {});
+  } else {
+    return obj;
+  }
 };

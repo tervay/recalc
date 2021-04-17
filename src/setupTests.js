@@ -174,6 +174,8 @@ expect.extend({
       return validatedMeasurements;
     }
 
+    received = received.to(measurement);
+
     return Math.pow(10, -precision) / 2 >
       Math.abs(measurement.scalar - received.scalar)
       ? generateSuccess(

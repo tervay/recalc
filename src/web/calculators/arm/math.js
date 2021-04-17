@@ -44,16 +44,6 @@ export function calculateTimeToGoalJVN(
 
 /**
  *
- * @param {Measurement} armLength
- * @param {Measurement} startingAngle
- * @param {Measurement} endingAngle
- */
-export function calculateTravelDistance(armLength, startingAngle, endingAngle) {
-  return endingAngle.sub(startingAngle).mul(armLength);
-}
-
-/**
- *
  * @param {Measurement} comLength
  * @param {Measurement} armMass
  * @param {Measurement} currentAngle
@@ -73,15 +63,6 @@ export function calculateArmTorque(comLength, armMass, currentAngle) {
  */
 export function calculateArmInertia(comLength, armMass) {
   return armMass.mul(comLength).mul(comLength);
-}
-
-// eslint-disable-next-line no-unused-vars
-function gbToMotor(torque, velocity, acceleration, ratio) {
-  return {
-    t: torque.div(ratio),
-    v: velocity.mul(ratio),
-    a: acceleration.mul(ratio),
-  };
 }
 
 export function calculateState({
@@ -125,6 +106,7 @@ export function calculateState({
 
   while (currentArmAngle.baseScalar < endAngle.baseScalar) {
     n++;
+
     currentTime = currentTime.add(timeDelta);
     const inertia = calculateArmInertia(comLength, armMass);
     const gravitationalTorque = calculateArmTorque(
@@ -144,13 +126,17 @@ export function calculateState({
       .add(gravitationalTorque)
       .mul(new Measurement(1, "rad"));
 
-    if (netArmTorque.removeRad().lte(new Measurement(0, "J"))) {
+    if (netArmTorque.removeRad().lt(new Measurement(0, "J"))) {
+      if (currentMotorRpm.eq(motor.freeSpeed)) {
+        console.log("system too fast");
+      }
       return [];
     }
 
     const armAngularAccel = netArmTorque.div(inertia);
     currentArmRpm = currentArmRpm.add(armAngularAccel.mul(timeDelta));
     currentArmAngle = currentArmAngle.add(currentArmRpm.mul(timeDelta));
+
     currentMotorRpm = currentArmRpm
       .mul(ratio.asNumber())
       .clamp(motor.freeSpeed.negate(), motor.freeSpeed);
