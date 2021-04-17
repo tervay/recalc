@@ -59,7 +59,7 @@
     "dev:bump": "node bump.js",
     "dev:format": "npx prettier . --write && npx eslint src/ --fix",
     "travis:build": "CI=false react-scripts build",
-    "travis:test": "react-scripts test --runInBand",
+    "travis:test": "TZ=America/New_York react-scripts test --runInBand",
     "heroku:build": "react-scripts build && npm run dev:compress",
     "heroku:start": "node src/dev/express.js"
   },
