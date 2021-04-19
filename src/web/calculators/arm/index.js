@@ -1,13 +1,15 @@
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
+import PageConfig from "common/models/PageConfig.js";
 import Ratio from "common/models/Ratio";
 import { CIRCLE_RIGHT, CIRCLE_UP } from "common/tooling/math";
 import { lazy } from "react";
 
-export default {
+export default new PageConfig({
   url: "/arm",
   // image: "/media/Belts",
   title: "Arm Calculator",
+  description: "Mechanical arm design calculator",
   version: 1,
   initialState: {
     motor: Motor.Falcon500s(2),
@@ -20,4 +22,4 @@ export default {
     iterationLimit: 10000,
   },
   component: lazy(() => import("web/calculators/arm/Arm")),
-};
+});

@@ -1,11 +1,13 @@
 import Compressor from "common/models/Compressor";
 import Measurement from "common/models/Measurement";
+import PageConfig from "common/models/PageConfig.js";
 import Piston from "common/models/Piston";
 import { lazy } from "react";
 
-export default {
+export default new PageConfig({
   url: "/pneumatics",
   title: "Pneumatics Calculator",
+  description: "Pneumatic system calculator",
   version: 1,
   image: "media/Pneumatics",
   initialState: {
@@ -40,4 +42,4 @@ export default {
     compressor: new Compressor("VIAIR 90C (12v)"),
   },
   component: lazy(() => import("web/calculators/pneumatics/Pneumatics")),
-};
+});

@@ -1,11 +1,13 @@
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
+import PageConfig from "common/models/PageConfig.js";
 import Ratio from "common/models/Ratio";
 import { lazy } from "react";
 
-export default {
+export default new PageConfig({
   url: "/linear",
   title: "Linear Mechanism Calculator",
+  description: "Linear mechanism / continuous elevator calculator",
   image: "/media/Elevator",
   version: 1,
   initialState: {
@@ -17,4 +19,4 @@ export default {
     efficiency: 100,
   },
   component: lazy(() => import("web/calculators/linear_mech/LinearMech")),
-};
+});

@@ -1,12 +1,14 @@
 import Material from "common/models/Material";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
+import PageConfig from "common/models/PageConfig.js";
 import Ratio from "common/models/Ratio";
 import { lazy } from "react";
 
-export default {
+export default new PageConfig({
   url: "/gearload",
   title: "Gear Load Calculator",
+  description: "Gear shock & sustain load calculator",
   image: "/media/Gears",
   version: 1,
   initialState: {
@@ -23,4 +25,4 @@ export default {
     gearMaterial: Material.Aluminum7075_T6(),
   },
   component: lazy(() => import("web/calculators/load/Load")),
-};
+});

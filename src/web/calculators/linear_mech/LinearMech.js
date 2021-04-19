@@ -4,6 +4,7 @@ import { LabeledNumberInput } from "common/components/io/inputs/NumberInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
+import Metadata from "common/components/Metadata";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
 import Ratio from "common/models/Ratio";
@@ -13,11 +14,10 @@ import {
   queryStringToDefaults,
   stateToQueryString,
 } from "common/tooling/query-strings";
-import { setTitle } from "common/tooling/routing";
 import React, { useEffect, useState } from "react";
 import { NumberParam } from "use-query-params";
 
-import linear from "./index";
+import config from "./index";
 import { LinearMechGraphConfig } from "./linearMechGraph";
 import {
   calculateCurrentDraw,
@@ -30,8 +30,6 @@ import {
 import { linearVersionManager } from "./versions";
 
 export default function LinearMech() {
-  setTitle(linear.title);
-
   const {
     motor: motor_,
     travelDistance: travelDistance_,
@@ -49,7 +47,7 @@ export default function LinearMech() {
       ratio: Ratio.getParam(),
       efficiency: NumberParam,
     },
-    linear.initialState,
+    config.initialState,
     linearVersionManager
   );
 
@@ -110,9 +108,10 @@ export default function LinearMech() {
 
   return (
     <>
+      <Metadata config={config} />
       <Heading
-        title={linear.title}
-        subtitle={`V${linear.version}`}
+        title={config.title}
+        subtitle={`V${config.version}`}
         getQuery={() => {
           return stateToQueryString([
             new QueryableParamHolder({ motor }, Motor.getParam()),
@@ -124,7 +123,7 @@ export default function LinearMech() {
             new QueryableParamHolder({ load }, Measurement.getParam()),
             new QueryableParamHolder({ ratio }, Ratio.getParam()),
             new QueryableParamHolder({ efficiency }, NumberParam),
-            new QueryableParamHolder({ version: linear.version }, NumberParam),
+            new QueryableParamHolder({ version: config.version }, NumberParam),
           ]);
         }}
       />

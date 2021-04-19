@@ -3,6 +3,7 @@ import CompressorInput from "common/components/io/inputs/CompressorInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import TabularInput from "common/components/io/inputs/TabularInput";
 import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
+import Metadata from "common/components/Metadata";
 import Compressor from "common/models/Compressor";
 import Measurement from "common/models/Measurement";
 import Piston from "common/models/Piston";
@@ -12,18 +13,15 @@ import {
   queryStringToDefaults,
   stateToQueryString,
 } from "common/tooling/query-strings";
-import { setTitle } from "common/tooling/routing";
 import React, { useEffect, useState } from "react";
 import { NumberParam } from "use-query-params";
 
-import pneumatics from "./index";
+import config from "./index";
 import { generatePressureTimeline } from "./math";
 import { PneumaticGraphConfig } from "./pneumaticGraphConfig";
 import { pneumaticsVersionManager } from "./versions";
 
 export default function Pneumatics() {
-  setTitle(pneumatics.title);
-
   const {
     p1: p1_,
     p2: p2_,
@@ -39,7 +37,7 @@ export default function Pneumatics() {
       volume: Measurement.getParam(),
       compressor: Compressor.getParam(),
     },
-    pneumatics.initialState,
+    config.initialState,
     pneumaticsVersionManager
   );
 
@@ -68,11 +66,12 @@ export default function Pneumatics() {
 
   return (
     <>
+      <Metadata config={config} />
       <div className="columns">
         <div className="column">
           <Heading
-            title={pneumatics.title}
-            subtitle={`V${pneumatics.version}`}
+            title={config.title}
+            subtitle={`V${config.version}`}
             getQuery={() => {
               return stateToQueryString([
                 new QueryableParamHolder({ p1 }, Piston.getParam()),
@@ -81,7 +80,7 @@ export default function Pneumatics() {
                 new QueryableParamHolder({ volume }, Measurement.getParam()),
                 new QueryableParamHolder({ compressor }, Compressor.getParam()),
                 new QueryableParamHolder(
-                  { version: pneumatics.version },
+                  { version: config.version },
                   NumberParam
                 ),
               ]);

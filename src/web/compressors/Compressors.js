@@ -1,15 +1,13 @@
 import Heading2 from "common/components/calc-heading/Heading2";
+import Metadata from "common/components/Metadata";
 import Table from "common/components/Table";
 import Compressor from "common/models/Compressor";
 import Measurement from "common/models/Measurement";
-import { setTitle } from "common/tooling/routing";
 import React from "react";
 
-import compressorConfig from "./index";
+import config from "./index";
 
 export default function Compressors() {
-  setTitle(compressorConfig.title);
-
   const data = React.useMemo(
     () =>
       Compressor.getAllCompressors().map((c) => ({
@@ -85,7 +83,8 @@ export default function Compressors() {
 
   return (
     <>
-      <Heading2 image={compressorConfig.image} title={compressorConfig.title} />
+      <Metadata config={config} />
+      <Heading2 image={config.image} title={config.title} />
       <Table columns={columns} data={data} />
     </>
   );

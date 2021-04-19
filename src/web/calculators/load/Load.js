@@ -8,6 +8,7 @@ import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
+import Metadata from "common/components/Metadata";
 import Material from "common/models/Material";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
@@ -17,12 +18,11 @@ import {
   queryStringToDefaults,
   stateToQueryString,
 } from "common/tooling/query-strings";
-import { setTitle } from "common/tooling/routing";
 import { defaultAssignment } from "common/tooling/versions";
 import React, { useEffect, useState } from "react";
 import { NumberParam, StringParam } from "use-query-params";
 
-import load from "./index";
+import config from "./index";
 import { calculateState } from "./math";
 
 function calculateFOS(safeLoad, stallLoad) {
@@ -34,8 +34,6 @@ function calculateFOS(safeLoad, stallLoad) {
 }
 
 export default function Load() {
-  setTitle(load.title);
-
   const {
     motor: motor_,
     planetaryRatio: planetaryRatio_,
@@ -63,7 +61,7 @@ export default function Load() {
       pinionMaterial: Material.getParam(),
       gearMaterial: Material.getParam(),
     },
-    load.initialState,
+    config.initialState,
     defaultAssignment
   );
 
@@ -147,12 +145,13 @@ export default function Load() {
 
   return (
     <>
+      <Metadata config={config} />
       <Heading
-        title={load.title}
-        subtitle={`V${load.version}`}
+        title={config.title}
+        subtitle={`V${config.version}`}
         getQuery={() => {
           return stateToQueryString([
-            new QueryableParamHolder({ version: load.version }, NumberParam),
+            new QueryableParamHolder({ version: config.version }, NumberParam),
             new QueryableParamHolder({ motor }, Motor.getParam()),
             new QueryableParamHolder({ planetaryRatio }, Ratio.getParam()),
             new QueryableParamHolder({ currentLimit }, Measurement.getParam()),

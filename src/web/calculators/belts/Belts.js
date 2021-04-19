@@ -5,19 +5,19 @@ import { LabeledNumberInput } from "common/components/io/inputs/NumberInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
+import Metadata from "common/components/Metadata";
 import Measurement from "common/models/Measurement";
 import {
   QueryableParamHolder,
   queryStringToDefaults,
   stateToQueryString,
 } from "common/tooling/query-strings";
-import { setTitle } from "common/tooling/routing";
 import React, { useEffect, useMemo, useState } from "react";
 import { BooleanParam, NumberParam } from "use-query-params";
 
 import beltData from "./beltData.json";
 import CheatSheet from "./CheatSheet";
-import belts from "./index";
+import config from "./index";
 import LinkGenerator from "./linkGenerator";
 import {
   calculateCenterGivenSpecificBelt,
@@ -28,8 +28,6 @@ import {
 import { beltVersionManager } from "./versions";
 
 export default function Belts() {
-  setTitle(belts.title);
-
   // Parse URL params
   const {
     pitch: pitch_,
@@ -54,7 +52,7 @@ export default function Belts() {
       useCustomBelt: BooleanParam,
       customBeltTeeth: NumberParam,
     },
-    belts.initialState,
+    config.initialState,
     beltVersionManager
   );
 
@@ -141,9 +139,10 @@ export default function Belts() {
 
   return (
     <>
+      <Metadata config={config} />
       <Heading
-        title={belts.title}
-        subtitle={`V${belts.version}`}
+        title={config.title}
+        subtitle={`V${config.version}`}
         getQuery={() => {
           return stateToQueryString([
             new QueryableParamHolder({ pitch }, Measurement.getParam()),
@@ -153,7 +152,7 @@ export default function Belts() {
             new QueryableParamHolder({ toothMax }, NumberParam),
             new QueryableParamHolder({ desiredCenter }, Measurement.getParam()),
             new QueryableParamHolder({ extraCenter }, Measurement.getParam()),
-            new QueryableParamHolder({ version: belts.version }, NumberParam),
+            new QueryableParamHolder({ version: config.version }, NumberParam),
             new QueryableParamHolder({ useCustomBelt }, BooleanParam),
             new QueryableParamHolder({ customBeltTeeth }, NumberParam),
           ]);

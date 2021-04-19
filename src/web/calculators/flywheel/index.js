@@ -1,12 +1,14 @@
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
+import PageConfig from "common/models/PageConfig.js";
 import Ratio from "common/models/Ratio";
 import { lazy } from "react";
 
-export default {
+export default new PageConfig({
   url: "/flywheel",
   image: "/media/Flywheel",
   title: "Flywheel Calculator",
+  description: "Flywheel windup calculator",
   version: 1,
   initialState: {
     motor: Motor.Falcon500s(1),
@@ -18,4 +20,4 @@ export default {
     useCustomMOI: false,
   },
   component: lazy(() => import("web/calculators/flywheel/Flywheel")),
-};
+});

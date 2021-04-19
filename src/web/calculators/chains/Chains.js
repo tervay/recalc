@@ -5,24 +5,22 @@ import { LabeledNumberInput } from "common/components/io/inputs/NumberInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
+import Metadata from "common/components/Metadata";
 import Measurement from "common/models/Measurement";
 import {
   QueryableParamHolder,
   queryStringToDefaults,
   stateToQueryString,
 } from "common/tooling/query-strings";
-import { setTitle } from "common/tooling/routing";
 import React, { useEffect, useMemo, useState } from "react";
 import { NumberParam, StringParam } from "use-query-params";
 
 import CheatSheet from "./CheatSheet";
-import chains from "./index";
+import config from "./index";
 import { calculateClosestCenters, teethToPD } from "./math";
 import { chainVersionManager } from "./versions";
 
 export default function Chains() {
-  setTitle(chains.title);
-
   // Parse URL params
   const {
     chain: chain_,
@@ -39,7 +37,7 @@ export default function Chains() {
       desiredCenter: Measurement.getParam(),
       extraCenter: Measurement.getParam(),
     },
-    chains.initialState,
+    config.initialState,
     chainVersionManager
   );
 
@@ -82,9 +80,10 @@ export default function Chains() {
 
   return (
     <>
+      <Metadata config={config} />
       <Heading
-        title={chains.title}
-        subtitle={`V${chains.version}`}
+        title={config.title}
+        subtitle={`V${config.version}`}
         getQuery={() => {
           return stateToQueryString([
             new QueryableParamHolder({ chain }, StringParam),
@@ -92,7 +91,7 @@ export default function Chains() {
             new QueryableParamHolder({ p2Teeth }, NumberParam),
             new QueryableParamHolder({ desiredCenter }, Measurement.getParam()),
             new QueryableParamHolder({ extraCenter }, Measurement.getParam()),
-            new QueryableParamHolder({ version: chains.version }, NumberParam),
+            new QueryableParamHolder({ version: config.version }, NumberParam),
           ]);
         }}
       />

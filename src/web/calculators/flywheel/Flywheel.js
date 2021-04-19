@@ -5,6 +5,7 @@ import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
+import Metadata from "common/components/Metadata";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
 import Ratio from "common/models/Ratio";
@@ -14,7 +15,6 @@ import {
   queryStringToDefaults,
   stateToQueryString,
 } from "common/tooling/query-strings";
-import { setTitle } from "common/tooling/routing";
 import React, { useEffect, useState } from "react";
 import { BooleanParam, NumberParam } from "use-query-params";
 import {
@@ -23,12 +23,10 @@ import {
 } from "web/calculators/flywheel/math";
 
 import { FlywheelConfig } from "./flywheelGraph";
-import flywheel from "./index";
+import config from "./index";
 import { flywheelVersionManager } from "./versions";
 
 export default function Flywheel() {
-  setTitle(flywheel.title);
-
   // Parse URL params
   const {
     motor: motor_,
@@ -49,7 +47,7 @@ export default function Flywheel() {
       momentOfInertia: Measurement.getParam(),
       useCustomMOI: BooleanParam,
     },
-    flywheel.initialState,
+    config.initialState,
     flywheelVersionManager
   );
 
@@ -108,9 +106,10 @@ export default function Flywheel() {
 
   return (
     <>
+      <Metadata config={config} />
       <Heading
-        title={flywheel.title}
-        subtitle={`V${flywheel.version}`}
+        title={config.title}
+        subtitle={`V${config.version}`}
         getQuery={() => {
           return stateToQueryString([
             new QueryableParamHolder({ motor }, Motor.getParam()),
@@ -123,10 +122,7 @@ export default function Flywheel() {
               Measurement.getParam()
             ),
             new QueryableParamHolder({ useCustomMOI }, BooleanParam),
-            new QueryableParamHolder(
-              { version: flywheel.version },
-              NumberParam
-            ),
+            new QueryableParamHolder({ version: config.version }, NumberParam),
           ]);
         }}
       />

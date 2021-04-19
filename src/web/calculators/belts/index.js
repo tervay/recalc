@@ -1,10 +1,12 @@
 import Measurement from "common/models/Measurement";
+import PageConfig from "common/models/PageConfig.js";
 import { lazy } from "react";
 
-export default {
+export default new PageConfig({
   url: "/belts",
   image: "/media/Belts",
   title: "Belt Calculator",
+  description: "Timing belt center-center calculator",
   version: 1,
   initialState: {
     pitch: new Measurement(3, "mm").to("mm"),
@@ -18,4 +20,4 @@ export default {
     customBeltTeeth: 125,
   },
   component: lazy(() => import("web/calculators/belts/Belts")),
-};
+});

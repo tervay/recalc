@@ -1,12 +1,12 @@
 import Heading2 from "common/components/calc-heading/Heading2";
+import Metadata from "common/components/Metadata";
 import Table from "common/components/Table";
 import Measurement from "common/models/Measurement";
 import Motor, { MotorState, nominalVoltage } from "common/models/Motor";
 import { measurementMax } from "common/tooling/math";
-import { setTitle } from "common/tooling/routing";
 import React, { useEffect, useState } from "react";
 
-import motorsConfig from "./index";
+import config from "./index";
 
 const _default = () => new Measurement(0, "W");
 const _defaultArray = () => [_default(), _default(), _default()];
@@ -18,8 +18,6 @@ const currents = [
 ];
 
 export default function Motors() {
-  setTitle(motorsConfig.title);
-
   const [dataTbl, setDataTbl] = useState({
     "Falcon 500": _defaultArray(),
     NEO: _defaultArray(),
@@ -176,7 +174,8 @@ export default function Motors() {
 
   return (
     <>
-      <Heading2 title={motorsConfig.title} image={motorsConfig.image} />
+      <Metadata config={config} />
+      <Heading2 title={config.title} image={config.image} />
       <Table columns={columns} data={data} />
       <section className="section">
         <div className="container">

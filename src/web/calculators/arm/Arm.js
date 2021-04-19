@@ -4,6 +4,7 @@ import { LabeledPatientNumberInput } from "common/components/io/inputs/PatientNu
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
+import Metadata from "common/components/Metadata";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
 import Ratio from "common/models/Ratio";
@@ -14,24 +15,19 @@ import {
   queryStringToDefaults,
   stateToQueryString,
 } from "common/tooling/query-strings";
-import { setTitle } from "common/tooling/routing";
 import { objectify, unobjectify } from "common/tooling/util";
 import { defaultAssignment } from "common/tooling/versions";
 import React, { useEffect, useState } from "react";
 import { NumberParam } from "use-query-params";
-/* eslint import/no-webpack-loader-syntax: off */
 import worker from "workerize-loader!./math";
 
 import { ArmGraphConfig } from "./ArmGraphConfig";
-import arm from "./index";
+import config from "./index";
 import { buildDataForAccessorVsTime } from "./math";
 
 let instance = worker();
 
 export default function Arm() {
-  setTitle(arm.title);
-
-  // Parse URL params
   const {
     motor: motor_,
     ratio: ratio_,
@@ -53,7 +49,7 @@ export default function Arm() {
       endAngle: Measurement.getParam(),
       iterationLimit: NumberParam,
     },
-    arm.initialState,
+    config.initialState,
     defaultAssignment
   );
 
@@ -116,12 +112,13 @@ export default function Arm() {
 
   return (
     <>
+      <Metadata config={config} />
       <Heading
-        title={arm.title}
-        subtitle={`V${arm.version}`}
+        title={config.title}
+        subtitle={`V${config.version}`}
         getQuery={() => {
           return stateToQueryString([
-            new QueryableParamHolder({ version: arm.version }, NumberParam),
+            new QueryableParamHolder({ version: config.version }, NumberParam),
             new QueryableParamHolder({ motor }, Motor.getParam()),
             new QueryableParamHolder({ ratio }, Ratio.getParam()),
             new QueryableParamHolder(

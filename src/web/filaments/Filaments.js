@@ -1,14 +1,12 @@
 import Heading2 from "common/components/calc-heading/Heading2";
+import Metadata from "common/components/Metadata";
 import Table from "common/components/Table";
 import Filament from "common/models/Filament";
-import { setTitle } from "common/tooling/routing";
 import React from "react";
 
-import filamentConfig from "./index";
+import config from "./index";
 
 export default function Compressors() {
-  setTitle(filamentConfig.title);
-
   const data = React.useMemo(
     () =>
       Filament.getAllFilaments().map((f) => ({
@@ -70,7 +68,8 @@ export default function Compressors() {
 
   return (
     <>
-      <Heading2 title={filamentConfig.title} image={filamentConfig.image} />
+      <Metadata config={config} />
+      <Heading2 title={config.title} image={config.image} />
       <Table columns={columns} data={data} />
       <section className="section">
         <div className="container">
