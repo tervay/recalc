@@ -4,7 +4,7 @@ import Motor from "common/models/Motor";
 import { cleanNumberInput } from "common/tooling/io";
 import { uuid } from "common/tooling/util";
 import propTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export function UnlabeledMotorInput(props) {
   const [motor, setMotor] = props.stateHook;

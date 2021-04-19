@@ -3,7 +3,7 @@ import { toolTipForIds } from "common/components/tooltips";
 import Measurement from "common/models/Measurement";
 import { cleanNumberInput } from "common/tooling/io";
 import propTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export function UnlabeledQtyInput(props) {
   const [qty, setQty] = props.stateHook;

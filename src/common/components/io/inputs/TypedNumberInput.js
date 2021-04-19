@@ -1,5 +1,4 @@
 import propTypes from "prop-types";
-import React from "react";
 
 import { UnlabeledNumberInput } from "./NumberInput";
 

@@ -1,5 +1,4 @@
 import propTypes from "prop-types";
-import React from "react";
 
 import Piston from "../../../models/Piston";
 import { UnlabeledQtyInput } from "./QtyInput";

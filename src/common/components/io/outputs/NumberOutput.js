@@ -1,6 +1,5 @@
 import { toolTipForIds } from "common/components/tooltips";
 import propTypes from "prop-types";
-import React from "react";
 
 export function UnlabeledNumberOutput(props) {
   const value = props.precision

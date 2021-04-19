@@ -4,7 +4,7 @@ import Table from "common/components/Table";
 import Measurement from "common/models/Measurement";
 import Motor, { MotorState, nominalVoltage } from "common/models/Motor";
 import { measurementMax } from "common/tooling/math";
-import React, { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import config from "./index";
 
@@ -49,7 +49,7 @@ export default function Motors() {
     });
   }, []);
 
-  const data = React.useMemo(
+  const data = useMemo(
     () =>
       Motor.getAllMotors().map((m) => {
         const powerToString = (p) => {
@@ -112,7 +112,7 @@ export default function Motors() {
       }),
     [JSON.stringify(dataTbl)]
   );
-  const columns = React.useMemo(
+  const columns = useMemo(
     () => [
       {
         Header: "Name",

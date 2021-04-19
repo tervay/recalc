@@ -1,6 +1,6 @@
 import Compressor from "common/models/Compressor";
 import propTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CompressorInput(props) {
   const [compressor, setCompressor] = props.stateHook;

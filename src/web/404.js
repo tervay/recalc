@@ -1,5 +1,4 @@
 import sample from "lodash/sample";
-import React from "react";
 
 export default function Error404() {
   const gifs = [

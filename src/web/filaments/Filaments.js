@@ -2,12 +2,12 @@ import HeadingWithBgImage from "common/components/calc-heading/HeadingWithBgImag
 import Metadata from "common/components/Metadata";
 import Table from "common/components/Table";
 import Filament from "common/models/Filament";
-import React from "react";
+import { useMemo } from "react";
 
 import config from "./index";
 
 export default function Compressors() {
-  const data = React.useMemo(
+  const data = useMemo(
     () =>
       Filament.getAllFilaments().map((f) => ({
         name: f.name,
@@ -28,7 +28,7 @@ export default function Compressors() {
       })),
     []
   );
-  const columns = React.useMemo(
+  const columns = useMemo(
     () => [
       {
         Header: "Name",

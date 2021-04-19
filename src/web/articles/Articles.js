@@ -1,6 +1,6 @@
 import { parseHeaders, render } from "common/tooling/md";
 import propTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Error404 from "web/404";
 import wretch from "wretch";

@@ -3,12 +3,12 @@ import Metadata from "common/components/Metadata";
 import Table from "common/components/Table";
 import Compressor from "common/models/Compressor";
 import Measurement from "common/models/Measurement";
-import React from "react";
+import { useMemo } from "react";
 
 import config from "./index";
 
 export default function Compressors() {
-  const data = React.useMemo(
+  const data = useMemo(
     () =>
       Compressor.getAllCompressors().map((c) => ({
         link: <a href={c.url}>{c.name}</a>,
@@ -43,7 +43,7 @@ export default function Compressors() {
       })),
     []
   );
-  const columns = React.useMemo(
+  const columns = useMemo(
     () => [
       {
         Header: "Name",

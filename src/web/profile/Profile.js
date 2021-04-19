@@ -1,5 +1,5 @@
 import { getCalculators } from "common/services/db";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "redux-zero/react";
 import ago from "s-ago";
 

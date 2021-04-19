@@ -1,6 +1,5 @@
 import createStore from "redux-zero";
 import { Provider } from "redux-zero/react";
-import React from "react";
 
 const initialState = { isSignedIn: false, id: null };
 const store = createStore(initialState);

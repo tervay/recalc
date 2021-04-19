@@ -17,7 +17,7 @@ import {
 } from "common/tooling/query-strings";
 import { objectify, unobjectify } from "common/tooling/util";
 import { defaultAssignment } from "common/tooling/versions";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NumberParam } from "use-query-params";
 import worker from "workerize-loader!./math";
 

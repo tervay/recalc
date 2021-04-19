@@ -1,6 +1,6 @@
 import { LabeledPatientNumberInput } from "common/components/io/inputs/PatientNumberInput";
 import moment from "moment";
-import React, { useCallback, useEffect, useState } from "react";
+import { createRef, useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { DSLogParser } from "web/calculators/dslogs/parser";
 
@@ -14,7 +14,7 @@ export default function DSLogs() {
   const [errors, setErrors] = useState([]);
   const [filename, setFilename] = useState("example.dslog");
 
-  const chartRef = React.createRef();
+  const chartRef = createRef();
   const [chartData, setChartData] = useState([]);
   const [chartOptions, setChartOptions] = useState({});
   const [useAbsoluteTime, setUseAbsoluteTime] = useState(false);

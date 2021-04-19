@@ -3,7 +3,6 @@ import * as ChartZoomPlugin from "chartjs-plugin-zoom";
 import { ReactChart } from "chartjs-react";
 import { isLocalhost } from "common/tooling/util";
 import styles from "exports.module.scss";
-import React from "react";
 
 Chart.defaults.font.family = styles.font_family;
 const chartColors = styles.chart_colors.split(isLocalhost() ? ", " : ",");

@@ -1,5 +1,5 @@
 import propTypes from "prop-types";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 export default function PressureAngleInput(props) {
   const [pressureAngle, setPressureAngle] = props.stateHook;

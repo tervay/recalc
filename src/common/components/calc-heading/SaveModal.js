@@ -1,6 +1,6 @@
 import { save } from "common/services/db";
 import propTypes from "prop-types";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export function SaveModal(props) {
   let modalClasses = "modal";

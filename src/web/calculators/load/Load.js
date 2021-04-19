@@ -19,7 +19,7 @@ import {
   stateToQueryString,
 } from "common/tooling/query-strings";
 import { defaultAssignment } from "common/tooling/versions";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NumberParam, StringParam } from "use-query-params";
 
 import config from "./index";

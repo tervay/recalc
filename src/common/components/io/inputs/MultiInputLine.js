@@ -1,5 +1,5 @@
 import propTypes from "prop-types";
-import React from "react";
+import { Fragment } from "react";
 
 export default function MultiInputLine(props) {
   return (
@@ -9,7 +9,7 @@ export default function MultiInputLine(props) {
       </div>
       <div className="field-body">
         {props.children.map((c) => {
-          return <React.Fragment key={c.props.label}>{c}</React.Fragment>;
+          return <Fragment key={c.props.label}>{c}</Fragment>;
         })}
       </div>
     </div>

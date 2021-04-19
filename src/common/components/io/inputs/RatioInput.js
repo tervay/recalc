@@ -3,7 +3,7 @@ import { toolTipForIds } from "common/components/tooltips";
 import Ratio from "common/models/Ratio";
 import { cleanNumberInput } from "common/tooling/io";
 import propTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export function UnlabeledRatioInput(props) {
   const [ratio, setRatio] = props.stateHook;

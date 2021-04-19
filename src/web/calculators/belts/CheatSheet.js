@@ -1,5 +1,4 @@
 import Measurement from "common/models/Measurement";
-import React from "react";
 import { teethToPD } from "web/calculators/belts/math";
 
 const WCP_HTD =

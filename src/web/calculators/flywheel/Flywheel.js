@@ -15,7 +15,7 @@ import {
   queryStringToDefaults,
   stateToQueryString,
 } from "common/tooling/query-strings";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BooleanParam, NumberParam } from "use-query-params";
 import {
   calculateWindupTime,

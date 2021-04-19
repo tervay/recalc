@@ -12,7 +12,7 @@ import {
   queryStringToDefaults,
   stateToQueryString,
 } from "common/tooling/query-strings";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { NumberParam, StringParam } from "use-query-params";
 
 import CheatSheet from "./CheatSheet";

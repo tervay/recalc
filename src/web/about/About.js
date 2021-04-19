@@ -1,5 +1,4 @@
 import { setTitle } from "common/tooling/routing";
-import React from "react";
 import version from "version";
 
 export default function About() {

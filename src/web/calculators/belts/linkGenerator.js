@@ -1,6 +1,5 @@
 import Measurement from "common/models/Measurement";
 import propTypes from "prop-types";
-import React from "react";
 
 function MakeVBeltGuysLink(teeth, pitch, width) {
   const length = Math.round(pitch.mul(teeth).to("mm").scalar);

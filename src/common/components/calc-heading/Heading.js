@@ -1,6 +1,5 @@
 import ShareButton from "common/components/calc-heading/ShareButton";
 import propTypes from "prop-types";
-import React from "react";
 
 export default function Heading(props) {
   return (

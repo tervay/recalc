@@ -1,6 +1,6 @@
 import Material, { materialMap } from "common/models/Material";
 import propTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function MaterialInput(props) {
   const [material, setMaterial] = props.stateHook;

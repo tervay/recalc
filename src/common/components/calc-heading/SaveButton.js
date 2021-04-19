@@ -1,5 +1,4 @@
 import propTypes from "prop-types";
-import React from "react";
 import { useSelector } from "redux-zero/react";
 
 export function SaveButton(props) {

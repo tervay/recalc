@@ -1,5 +1,4 @@
 import { setTitle } from "common/tooling/routing";
-import React from "react";
 import arm from "web/calculators/arm";
 import belts from "web/calculators/belts";
 import chains from "web/calculators/chains";

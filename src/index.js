@@ -3,7 +3,7 @@ import "index.scss";
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
 import App from "App";
-import React from "react";
+import { StrictMode } from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "serviceWorker";
 
@@ -27,9 +27,9 @@ if (
 }
 
 ReactDOM.render(
-  <React.StrictMode>
+  <StrictMode>
     <App />
-  </React.StrictMode>,
+  </StrictMode>,
   document.getElementById("root")
 );
 

@@ -2,7 +2,7 @@ import "index.scss";
 
 import Nav from "common/components/nav/Nav";
 import store from "common/services/store";
-import React, { lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "redux-zero/react";
 import Error404 from "web/404";

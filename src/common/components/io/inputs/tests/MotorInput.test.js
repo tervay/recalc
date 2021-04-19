@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import userEvent from "@testing-library/user-event";
 import Motor from "common/models/Motor";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { LabeledMotorInput } from "../MotorInput";
 

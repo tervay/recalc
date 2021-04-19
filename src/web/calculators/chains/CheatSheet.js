@@ -1,5 +1,3 @@
-import React from "react";
-
 import { teethToPD } from "./math";
 
 export default function CheatSheet() {

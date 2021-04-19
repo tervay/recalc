@@ -1,5 +1,4 @@
 import propTypes from "prop-types";
-import React from "react";
 
 export default function BooleanInput(props) {
   const [value, setValue] = props.stateHook;

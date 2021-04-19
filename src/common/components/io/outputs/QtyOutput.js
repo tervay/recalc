@@ -1,5 +1,5 @@
 import propTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export function UnlabeledQtyOutput(props) {
   const [qty, setQty] = props.stateHook;

@@ -3,7 +3,6 @@ import { isLocalhost } from "common/tooling/util";
 import styles from "exports.module.scss";
 import moment from "moment";
 import propTypes from "prop-types";
-import React from "react";
 import Select from "react-select";
 import { decimate } from "web/calculators/dslogs/dataUtils";
 
