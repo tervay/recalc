@@ -1,6 +1,6 @@
 import Measurement from "common/models/Measurement";
+import Model from "common/models/Model";
 import Rules from "common/models/Rules";
-import Model from "common/tooling/Model";
 import keyBy from "lodash/keyBy";
 
 export const nominalVoltage = new Measurement(12, "V");

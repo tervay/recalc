@@ -1,5 +1,5 @@
 import Measurement from "common/models/Measurement";
-import Model from "common/tooling/Model";
+import Model from "common/models/Model";
 import keyBy from "lodash/keyBy";
 import { getCompressorWork } from "web/calculators/pneumatics/math";
 

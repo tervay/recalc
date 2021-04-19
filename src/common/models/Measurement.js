@@ -1,4 +1,4 @@
-import Model from "common/tooling/Model";
+import Model from "common/models/Model";
 import Qty from "js-quantities";
 
 export default class Measurement extends Model {

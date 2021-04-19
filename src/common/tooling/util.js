@@ -3,7 +3,7 @@ import Ratio from "common/models/Ratio";
 import { isObjectLike } from "lodash";
 
 import Measurement from "../models/Measurement";
-import Model from "./Model";
+import Model from "../models/Model";
 
 /**
  *
