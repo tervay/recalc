@@ -1,4 +1,4 @@
-import Heading2 from "common/components/calc-heading/Heading2";
+import HeadingWithBgImage from "common/components/calc-heading/HeadingWithBgImage";
 import Metadata from "common/components/Metadata";
 import Table from "common/components/Table";
 import Compressor from "common/models/Compressor";
@@ -84,7 +84,7 @@ export default function Compressors() {
   return (
     <>
       <Metadata config={config} />
-      <Heading2 image={config.image} title={config.title} />
+      <HeadingWithBgImage image={config.image} title={config.title} />
       <Table columns={columns} data={data} />
     </>
   );

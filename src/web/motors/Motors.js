@@ -1,4 +1,4 @@
-import Heading2 from "common/components/calc-heading/Heading2";
+import HeadingWithBgImage from "common/components/calc-heading/HeadingWithBgImage";
 import Metadata from "common/components/Metadata";
 import Table from "common/components/Table";
 import Measurement from "common/models/Measurement";
@@ -175,7 +175,7 @@ export default function Motors() {
   return (
     <>
       <Metadata config={config} />
-      <Heading2 title={config.title} image={config.image} />
+      <HeadingWithBgImage title={config.title} image={config.image} />
       <Table columns={columns} data={data} />
       <section className="section">
         <div className="container">

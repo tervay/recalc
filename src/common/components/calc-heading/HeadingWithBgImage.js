@@ -1,7 +1,7 @@
 import propTypes from "prop-types";
 import React from "react";
 
-export default function Heading(props) {
+export default function HeadingWithBgImage(props) {
   return (
     <div className="columns">
       <div className="column is-3 title front-text">{props.title}</div>
@@ -16,7 +16,7 @@ export default function Heading(props) {
   );
 }
 
-Heading.propTypes = {
+HeadingWithBgImage.propTypes = {
   title: propTypes.string,
   image: propTypes.string,
 };
