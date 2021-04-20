@@ -18,7 +18,7 @@
     "express": "^4.17.1",
     "express-static-gzip": "^2.1.1",
     "firebase": "^8.4.1",
-    "gzipper": "^4.4.0",
+    "gzipper": "^4.5.0",
     "js-quantities": "^1.7.6",
     "katex": "^0.13.2",
     "lodash": "^4.17.21",

@@ -4239,10 +4239,15 @@ commander@^4.1.1:
   resolved "https://registry.yarnpkg.com/commander/-/commander-4.1.1.tgz#9fd602bd936294e9e9ef46a3f4d6964044b18068"
   integrity sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==
 
-commander@^6.0.0, commander@^6.2.0:
+commander@^6.0.0:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-6.2.1.tgz#0792eb682dfbc325999bb2b84fddddba110ac73c"
   integrity sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==
+
+commander@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-7.2.0.tgz#a36cb57d0b501ce108e4d20559a150a391d97ab7"
+  integrity sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==
 
 common-tags@^1.8.0:
   version "1.8.0"
@@ -4933,7 +4938,7 @@ deep-equal@^1.0.1:
     object-keys "^1.1.1"
     regexp.prototype.flags "^1.2.0"
 
-deep-equal@^2.0.4:
+deep-equal@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/deep-equal/-/deep-equal-2.0.5.tgz#55cd2fe326d83f9cbf7261ef0e060b3f724c5cb9"
   integrity sha512-nPiRgmbAtm1a3JsnLCf6/SLfXcjyN5v8L1TXzdCmHrXJ4hx+gW/w1YCcn7z8gJtSiDArZCgYtbao3QqLm/N1Sw==
@@ -6795,14 +6800,14 @@ gzip-size@^6.0.0:
   dependencies:
     duplexer "^0.1.2"
 
-gzipper@^4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/gzipper/-/gzipper-4.4.0.tgz#652a4a29aee4b10c19a7145d282fccad00daea63"
-  integrity sha512-cl+KoDIxDCaGlrmxfH2Z3EaLtYGv9mxPZXsGowHkGRANMggaGRpGvCXubfbQpD0mNGVcgz7csZ1nnQ6/h7EJQQ==
+gzipper@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/gzipper/-/gzipper-4.5.0.tgz#209bf65fa306b99de681d8de78a8bef0783c163b"
+  integrity sha512-CnAnm6b1CztEw97Jlq+TY5a/DX3T5PeXdw0K4tEAuzA5c09Bq5bEMzBt0+lE8iZ4V6Pm8/PxQIQxbdwdlUOQVw==
   dependencies:
-    commander "^6.2.0"
-    deep-equal "^2.0.4"
-    uuid "^8.3.1"
+    commander "^7.2.0"
+    deep-equal "^2.0.5"
+    uuid "^8.3.2"
 
 hammerjs@^2.0.8:
   version "2.0.8"
@@ -13449,7 +13454,7 @@ uuid@^3.0.1, uuid@^3.3.2, uuid@^3.4.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
-uuid@^8.3.0, uuid@^8.3.1:
+uuid@^8.3.0, uuid@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
