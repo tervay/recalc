@@ -19,13 +19,14 @@ import { objectify, unobjectify } from "common/tooling/util";
 import { defaultAssignment } from "common/tooling/versions";
 import { useEffect, useState } from "react";
 import { NumberParam } from "use-query-params";
-import worker from "workerize-loader!./math";
+import worker from "workerize-loader!web/calculators/arm/math";
 
 import { ArmGraphConfig } from "./ArmGraphConfig";
 import config from "./index";
 import { buildDataForAccessorVsTime } from "./math";
 
 let instance = worker();
+console.log('instance := ', instance);
 
 export default function Arm() {
   const {
