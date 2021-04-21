@@ -25,7 +25,10 @@ module.exports = {
     "simple-import-sort/exports": "warn",
     "react-hooks/exhaustive-deps": "off",
     "react/react-in-jsx-scope": "off",
-    "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    "no-unused-vars": [
+      "warn",
+      { varsIgnorePattern: "^_", argsIgnorePattern: "^_" },
+    ],
     "import/no-webpack-loader-syntax": "off",
     "import/no-unresolved": "off",
   },

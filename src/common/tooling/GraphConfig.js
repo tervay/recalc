@@ -1,5 +1,5 @@
-import styles from "exports.module.scss";
 import { isLocalhost } from "common/tooling/util";
+import styles from "exports.module.scss";
 
 const chartColors = styles.chart_colors.split(isLocalhost() ? ", " : ",");
 

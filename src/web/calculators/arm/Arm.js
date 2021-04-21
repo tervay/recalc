@@ -26,7 +26,6 @@ import config from "./index";
 import { buildDataForAccessorVsTime } from "./math";
 
 let instance = worker();
-console.log('instance := ', instance);
 
 export default function Arm() {
   const {
@@ -61,7 +60,7 @@ export default function Arm() {
   const [armMass, setArmMass] = useState(armMass_);
   const [currentLimit, setCurrentLimit] = useState(currentLimit_);
   const [startAngle, setStartAngle] = useState(startAngle_);
-  const [endAngle, setEndAngle] = useState(endAngle_);
+  const [endAngle, setEndAngle] = useState(endAngle_.round(10));
   const [iterationLimit, setIterationLimit] = useState(iterationLimit_);
 
   // Outputs

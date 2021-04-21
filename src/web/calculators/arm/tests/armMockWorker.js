@@ -1,5 +1,4 @@
 const math = require("../math");
-console.log(math);
 
 module.exports = () => ({
   calculateState: (args) => {
