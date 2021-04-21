@@ -3,6 +3,11 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom/extend-expect";
+// import "jest-canvas-mock";
+
+jest.mock("./common/tooling/graph.js", () => ({
+  Graph: () => null,
+}));
 
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";

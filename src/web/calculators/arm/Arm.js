@@ -19,7 +19,7 @@ import { objectify, unobjectify } from "common/tooling/util";
 import { defaultAssignment } from "common/tooling/versions";
 import { useEffect, useState } from "react";
 import { NumberParam } from "use-query-params";
-import worker from "workerize-loader!./math";
+import worker from "workerize-loader!web/calculators/arm/math";
 
 import { ArmGraphConfig } from "./ArmGraphConfig";
 import config from "./index";
@@ -60,7 +60,7 @@ export default function Arm() {
   const [armMass, setArmMass] = useState(armMass_);
   const [currentLimit, setCurrentLimit] = useState(currentLimit_);
   const [startAngle, setStartAngle] = useState(startAngle_);
-  const [endAngle, setEndAngle] = useState(endAngle_);
+  const [endAngle, setEndAngle] = useState(endAngle_.round(10));
   const [iterationLimit, setIterationLimit] = useState(iterationLimit_);
 
   // Outputs
