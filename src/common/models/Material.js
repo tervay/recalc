@@ -29,6 +29,10 @@ export default class Material extends Model {
   static Aluminum7075_T6() {
     return new Material("7075-T6 Aluminum");
   }
+
+  static getAllMaterials() {
+    return Object.keys(materialMap).map((m) => new Material(m));
+  }
 }
 
 const psi = (n) => new Measurement(n, "psi");

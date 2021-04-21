@@ -206,4 +206,8 @@ export default class Measurement extends Model {
   forcePositive() {
     return new Measurement(Math.max(0, this.scalar), this.units());
   }
+
+  round(n) {
+    return new Measurement(Number(this.scalar.toFixed(n)), this.units());
+  }
 }

@@ -1,4 +1,4 @@
-import { GraphConfig } from "common/tooling/graph";
+import { GraphConfig } from "common/tooling/GraphConfig";
 
 export class LinearMechGraphConfig extends GraphConfig {
   static options() {
