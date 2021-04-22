@@ -113,7 +113,7 @@
       "node_modules/(?!chartjs-react/.*)"
     ],
     "moduleNameMapper": {
-      "workerize-loader!web/calculators/arm/math": "web/calculators/arm/tests/armMockWorker.js"
+      "workerize-loader!web/calculators/arm/math": "tests/workerStubs/arm.math.js"
     }
   }
 }
