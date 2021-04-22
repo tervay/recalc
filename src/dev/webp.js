@@ -1,5 +1,5 @@
-const imagemin = require("imagemin");
-const imageminWebp = require("imagemin-webp");
+import imagemin from "imagemin";
+import imageminWebp from "imagemin-webp";
 
 imagemin(["public/media/*"], {
   destination: "public/media",
