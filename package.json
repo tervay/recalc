@@ -88,7 +88,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "imagemin": "^7.0.1",
+    "imagemin": "^8.0.0",
     "imagemin-webp": "^6.0.0",
     "jest-each": "^26.6.2",
     "prettier": "^2.2.1",
