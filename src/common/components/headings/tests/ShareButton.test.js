@@ -23,7 +23,7 @@ describe("Share button", () => {
     render(<ShareButton getQuery={f} />);
     fireEvent.click(screen.getByText("Copy link"));
     expect(f).toHaveBeenCalledTimes(1);
-    expect(f).toHaveBeenLastCalledWith(); // no args
+    expect(f).toHaveBeenLastCalledWith();
 
     expect(write).toHaveBeenCalledTimes(1);
     expect(write).toHaveBeenLastCalledWith(

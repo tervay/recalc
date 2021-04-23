@@ -1,4 +1,4 @@
-import Heading from "common/components/calc-heading/Heading";
+import Heading from "common/components/headings/Heading";
 import ChainInput from "common/components/io/inputs/ChainInput";
 import MultiInputLine from "common/components/io/inputs/MultiInputLine";
 import { LabeledNumberInput } from "common/components/io/inputs/NumberInput";

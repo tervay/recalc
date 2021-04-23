@@ -6,6 +6,7 @@ export default function HeadingWithBgImage(props) {
       <div className="column is-3 title front-text">{props.title}</div>
       <div
         className="column is-9 bg-image"
+        data-testid={"heading-bg-image-div"}
         style={{
           backgroundImage: `url("${props.image}.png")`,
           height: "100px",

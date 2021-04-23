@@ -1,4 +1,4 @@
-import Heading from "common/components/calc-heading/Heading";
+import Heading from "common/components/headings/Heading";
 import MaterialInput from "common/components/io/inputs/MaterialInput";
 import { LabeledMotorInput } from "common/components/io/inputs/MotorInput";
 import MultiInputLine from "common/components/io/inputs/MultiInputLine";

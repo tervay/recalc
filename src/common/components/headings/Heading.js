@@ -1,4 +1,4 @@
-import ShareButton from "common/components/calc-heading/ShareButton";
+import ShareButton from "common/components/headings/ShareButton";
 import propTypes from "prop-types";
 
 export default function Heading(props) {

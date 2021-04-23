@@ -1,4 +1,4 @@
-import HeadingWithBgImage from "common/components/calc-heading/HeadingWithBgImage";
+import HeadingWithBgImage from "common/components/headings/HeadingWithBgImage";
 import Metadata from "common/components/Metadata";
 import Table from "common/components/Table";
 import Measurement from "common/models/Measurement";

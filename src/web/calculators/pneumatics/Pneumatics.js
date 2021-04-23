@@ -1,4 +1,4 @@
-import Heading from "common/components/calc-heading/Heading";
+import Heading from "common/components/headings/Heading";
 import CompressorInput from "common/components/io/inputs/CompressorInput";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import TabularInput from "common/components/io/inputs/TabularInput";
