@@ -42,7 +42,7 @@ export default function Arm() {
     {
       motor: Motor.getParam(),
       ratio: Ratio.getParam(),
-      armLength: Measurement.getParam(),
+      comLength: Measurement.getParam(),
       armMass: Measurement.getParam(),
       currentLimit: Measurement.getParam(),
       startAngle: Measurement.getParam(),
@@ -121,10 +121,7 @@ export default function Arm() {
             new QueryableParamHolder({ version: config.version }, NumberParam),
             new QueryableParamHolder({ motor }, Motor.getParam()),
             new QueryableParamHolder({ ratio }, Ratio.getParam()),
-            new QueryableParamHolder(
-              { armLength: comLength },
-              Measurement.getParam()
-            ),
+            new QueryableParamHolder({ comLength }, Measurement.getParam()),
             new QueryableParamHolder({ armMass }, Measurement.getParam()),
             new QueryableParamHolder({ currentLimit }, Measurement.getParam()),
             new QueryableParamHolder({ startAngle }, Measurement.getParam()),
