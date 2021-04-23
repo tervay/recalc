@@ -50,44 +50,6 @@ export default function About() {
         suggestions.
       </p>
 
-      {/* <h3 className="title is-3">Why do you have a sign in button?</h3>
-      <p>
-        Signing in allows you to save calculator configurations to your account
-        with a specific name, so that you can come back and reference them
-        later. No more wondering which screenshot was your final drivetrain
-        spec!
-      </p>
-
-      <h3 className="title is-3">What information does ReCalc collect?</h3>
-      <p>Signing in with Google means we &ldquo;collect&rdquo; two things:</p>
-      <ol>
-        <li>Your email address</li>
-        <li>A unique identifier attached to your account</li>
-        <li>Any saved calculator configurations</li>
-      </ol>
-      <p>
-        Your email is not linked in any way to any other information in our
-        database. The only reason we &ldquo;collect&rdquo; an email is since
-        Google tells us which emails have logged in. Our database has no way of
-        knowing which email corresponds to which ID, nor which email corresponds
-        to which calculator configurations - they are only linked for a brief
-        time locally in your browser upon signing in. The unique identifier is
-        created by Google upon your first login and is not the same identifier
-        as other websites that you log into with Google.
-      </p>
-      <p>
-        Your information is securely stored in a{" "}
-        <a href="https://firebase.google.com/">Firestore database.</a>
-      </p>
-      <p>
-        ReCalc also uses{" "}
-        <a href="https://github.com/zgoat/goatcounter">open-source analytics</a>{" "}
-        to track basic usage information, such as operating system, browser
-        version, screen size, country of origin, and referral site (such as a
-        link from Google search). This analytics script is GDPR-compliant and is
-        commonly blocked by ad-blockers anyway.
-      </p> */}
-
       <h3 className="title is-3">How accurate are the calculators?</h3>
       <p>
         The math behind them is sound &ldquo;in theory,&rdquo; but of course,
