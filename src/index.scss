@@ -185,3 +185,7 @@ label.checkbox {
   background-color: $g2;
   border: 1px solid $g3;
 }
+
+[data-tooltip] {
+  z-index: 2791;
+}
