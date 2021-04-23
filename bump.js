@@ -1,7 +1,7 @@
-const prompts = require("prompts");
-const { argv } = require("yargs");
-const fs = require("fs");
-const { exec } = require("child_process");
+import prompts from "prompts";
+import argv from "yargs";
+import fs from "fs";
+import { exec } from "child_process";
 
 const choices = ["major", "minor", "patch"];
 
