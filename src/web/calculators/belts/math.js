@@ -202,3 +202,5 @@ export function calculateTeethInMesh(
   const Ng = Math.min(p1Teeth, p2Teeth);
   return new Measurement(0.5).sub(D.sub(d).div(C.mul(6))).mul(Ng).scalar;
 }
+
+export const testables = { calculateDistance };
