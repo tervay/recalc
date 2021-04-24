@@ -1,4 +1,7 @@
+import Belt from "common/models/Belt";
 import Measurement from "common/models/Measurement";
+
+// Reference: https://www.sdp-si.com/Belt-Drive/Designing-a-miniature-belt-drive.pdf
 
 /**
  *
@@ -14,25 +17,24 @@ export function teethToPD(teeth, pitch, unit = undefined) {
 }
 
 function calculateDistance(pitch, p1PitchDiameter, p2PitchDiameter, beltTeeth) {
-  const NB = beltTeeth;
-  const L = pitch.mul(NB);
+  const belt = Belt.fromTeeth(beltTeeth, pitch);
 
-  const t1 = L.sub(
-    new Measurement(1.57).mul(p1PitchDiameter.add(p2PitchDiameter))
-  ).div(4);
-  const t2 = t1.mul(t1);
-  const t3 = p1PitchDiameter
-    .sub(p2PitchDiameter)
-    .mul(p1PitchDiameter.sub(p2PitchDiameter))
-    .div(8);
+  const b = belt.length
+    .mul(2)
+    .sub(p1PitchDiameter.add(p2PitchDiameter).mul(Math.PI));
 
-  const inSqrt = t2.sub(t3).to("in^2").scalar;
-  if (inSqrt < 0) {
+  const pulleyDiff = p1PitchDiameter.sub(p2PitchDiameter).abs();
+
+  const toSqrt = b.mul(b).sub(pulleyDiff.mul(pulleyDiff).mul(8)).to("in2");
+
+  if (toSqrt.lte(new Measurement(0, "in2"))) {
     return new Measurement(0, "in");
   }
-  const sqrt = new Measurement(Math.sqrt(inSqrt), "in");
-  const C = t1.add(sqrt).to("in");
-  return C;
+
+  const sqrt = new Measurement(Math.sqrt(toSqrt.scalar), "in");
+  const CD = b.add(sqrt).div(8);
+
+  return CD;
 }
 
 /**
@@ -79,28 +81,17 @@ export function calculateClosestCenters(
     i <= maxBeltToothCount + beltToothIncrement;
     i += beltToothIncrement
   ) {
-    const NB = i;
-    const L = pitch.mul(NB);
+    const belt = Belt.fromTeeth(i, pitch);
 
-    const t1 = L.sub(
-      new Measurement(1.57).mul(p1PitchDiameter.add(p2PitchDiameter))
-    ).div(4);
-    const t2 = t1.mul(t1);
-    const t3 = p1PitchDiameter
-      .sub(p2PitchDiameter)
-      .mul(p1PitchDiameter.sub(p2PitchDiameter))
-      .div(8);
-
-    const inSqrt = t2.sub(t3).to("in^2").scalar;
-    if (inSqrt < 0) {
-      continue;
-    }
-    const sqrt = new Measurement(Math.sqrt(inSqrt), "in");
-    const C = t1.add(sqrt).to("in");
     results[i] = {
-      centerDistance: C,
+      centerDistance: calculateDistance(
+        pitch,
+        p1PitchDiameter,
+        p2PitchDiameter,
+        i
+      ),
       toothCount: i,
-      beltLength: L,
+      beltLength: belt.length,
     };
   }
 
@@ -110,7 +101,7 @@ export function calculateClosestCenters(
   Object.keys(results).forEach((i) => {
     i = Number(i);
     const centerDistance = results[i].centerDistance;
-    if (centerDistance.baseScalar <= desiredCenter.baseScalar) {
+    if (centerDistance.lte(desiredCenter)) {
       if (closestSmallerSize === 0) {
         closestSmallerSize = i;
       } else {
@@ -198,9 +189,8 @@ export function calculateTeethInMesh(
 
   const D = Measurement.max(p1PitchDiameter, p2PitchDiameter);
   const d = Measurement.min(p1PitchDiameter, p2PitchDiameter);
-  const C = realDistance;
-  const Ng = Math.min(p1Teeth, p2Teeth);
-  return new Measurement(0.5).sub(D.sub(d).div(C.mul(6))).mul(Ng).scalar;
+  const div = D.sub(d).div(realDistance.mul(6));
+  return new Measurement(0.5).sub(div).mul(Math.min(p1Teeth, p2Teeth)).scalar;
 }
 
 export const testables = { calculateDistance };

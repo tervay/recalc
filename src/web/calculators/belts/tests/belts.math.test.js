@@ -1,10 +1,10 @@
 import Measurement from "common/models/Measurement";
 
 import {
-  calculateClosestCenters,
-  teethToPD,
   calculateCenterGivenSpecificBelt,
+  calculateClosestCenters,
   calculateTeethInMesh,
+  teethToPD,
   testables,
 } from "../math";
 
@@ -197,6 +197,13 @@ describe("Belt math", () => {
       p2PitchDiameter: teethToPD(12, mm(3)),
       beltTeeth: 139,
       expected: inch(6.96),
+    },
+    {
+      pitch: mm(5),
+      p1PitchDiameter: teethToPD(52, mm(5)),
+      p2PitchDiameter: teethToPD(54, mm(5)),
+      beltTeeth: 340,
+      expected: inch(28.24796),
     },
   ])(
     "Calculate distance",
