@@ -73,7 +73,7 @@
   },
   "devDependencies": {
     "@testing-library/react-hooks": "^5.1.2",
-    "@types/jest": "^26.0.22",
+    "@types/jest": "^26.0.23",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.22.1",
