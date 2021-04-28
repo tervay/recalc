@@ -1,10 +1,12 @@
+import { uuid } from "common/tooling/util";
 import propTypes from "prop-types";
 
 export default function BooleanInput(props) {
   const [value, setValue] = props.stateHook;
+  props = { ...props, inputId: props.inputId || uuid() };
 
   return (
-    <label className="checkbox">
+    <label className="checkbox" htmlFor={props.inputId}>
       <input
         id={props.inputId}
         type="checkbox"

@@ -141,5 +141,5 @@ LinkGenerator.propTypes = {
   smallBelt: propTypes.number,
   largeBelt: propTypes.number,
   pitch: propTypes.instanceOf(Measurement),
-  data: propTypes.object,
+  data: propTypes.any,
 };

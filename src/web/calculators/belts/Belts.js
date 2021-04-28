@@ -217,13 +217,13 @@ export default function Belts() {
               label="Center"
               choices={["in", "mm", "cm"]}
               precision={4}
-              inputId="smaller-input"
-              selectId="smaller-select"
+              inputId="smallerCenterDistanceInput"
+              selectId="smallerCenterDistanceSelect"
             />
             <LabeledNumberOutput
               stateHook={[smallerTeeth, setSmallerTeeth]}
               label="Teeth"
-              inputId="smaller-output"
+              inputId="smallerBeltTeeth"
             />
           </MultiInputLine>
           <MultiInputLine label="Larger">
@@ -232,13 +232,13 @@ export default function Belts() {
               label="Center"
               choices={["in", "mm", "cm"]}
               precision={4}
-              inputId="larger-input"
-              selectId="larger-select"
+              inputId="largerCenterDistanceInput"
+              selectId="largerBeltTeeth"
             />
             <LabeledNumberOutput
               stateHook={[largerTeeth, setLargerTeeth]}
               label="Teeth"
-              inputId="larger-output"
+              inputId="largerBeltTeeth"
             />
           </MultiInputLine>
           <LabeledNumberOutput

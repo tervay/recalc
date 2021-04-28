@@ -26,6 +26,7 @@ export function UnlabeledQtyOutput(props) {
           className={"input input-right"}
           value={value}
           id={props.inputId}
+          data-testid={props.inputId}
         />
       </p>
       <p className="control">
