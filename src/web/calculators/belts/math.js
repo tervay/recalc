@@ -10,6 +10,14 @@ import Measurement from "common/models/Measurement";
  * @param {string} unit
  */
 export function teethToPD(teeth, pitch, unit = undefined) {
+  if (typeof teeth === "string") {
+    if (teeth.length === 0) {
+      return new Measurement(0, unit || pitch.units());
+    }
+
+    teeth = Number(teeth);
+  }
+
   return pitch
     .mul(teeth)
     .div(Math.PI)
@@ -59,9 +67,15 @@ export function calculateClosestCenters(
   beltToothIncrement
 ) {
   if (
-    minBeltToothCount <= 0 ||
-    maxBeltToothCount <= 0 ||
-    beltToothIncrement <= 0
+    [
+      minBeltToothCount,
+      maxBeltToothCount,
+      beltToothIncrement,
+      pitch.baseScalar,
+      desiredCenter.baseScalar,
+      p1PitchDiameter.baseScalar,
+      p2PitchDiameter.baseScalar,
+    ].some((n) => n <= 0)
   ) {
     return {
       smaller: {

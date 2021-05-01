@@ -3,6 +3,30 @@ import userEvent from "@testing-library/user-event";
 
 import Belts from "../Belts";
 
+const inputs = {
+  pitch: () => screen.getByLabelText("Pitch"),
+  desiredCenter: () => screen.getByLabelText("Desired Center"),
+  p1Teeth: () => screen.getByTestId("p1Teeth-input"),
+  p2Teeth: () => screen.getByTestId("p2Teeth-input"),
+  beltToothIncrement: () => screen.getByLabelText("Belt tooth increment"),
+  beltToothMaximum: () => screen.getByLabelText("Belt tooth maximum"),
+};
+
+const secondaryInputs = {
+  extraCenter: () => screen.getByLabelText("Extra Center"),
+  specificBeltTeeth: () => screen.getByLabelText("Belt Teeth"),
+};
+
+const outputs = {
+  p1PD: () => screen.getByTestId("p1Pitch-input"),
+  p2PD: () => screen.getByTestId("p2Pitch-input"),
+  smallerCenterDistance: () => screen.getByTestId("smallerCenterDistanceInput"),
+  smallerBeltTeeth: () => screen.getByTestId("smallerBeltTeeth"),
+  largerCenterDistance: () => screen.getByTestId("largerCenterDistanceInput"),
+  largerBeltTeeth: () => screen.getByTestId("largerBeltTeeth"),
+  teethInMesh: () => screen.getByLabelText("Teeth in mesh"),
+};
+
 describe("Belts calculator", () => {
   test("Renders", () => {
     render(<Belts />);
@@ -11,21 +35,14 @@ describe("Belts calculator", () => {
   test("Should see all inputs & outputs", () => {
     render(<Belts />);
 
-    expect(screen.getByLabelText("Pitch")).toBeVisible();
-    expect(screen.getByLabelText("Desired Center")).toBeVisible();
-    expect(screen.getByLabelText("Extra Center")).toBeVisible();
-    expect(screen.getByLabelText("Teeth in mesh")).toBeVisible();
-    expect(screen.getByLabelText("Belt tooth increment")).toBeVisible();
-    expect(screen.getByLabelText("Belt tooth maximum")).toBeVisible();
-    expect(screen.getByLabelText("Belt Teeth")).toBeVisible();
-    expect(screen.getAllByLabelText("Teeth")).toHaveLength(4);
-    screen.getAllByLabelText("Teeth").forEach((div) => {
-      expect(div).toBeVisible();
-    });
-    expect(screen.getByTestId("smallerCenterDistanceInput")).toBeVisible();
-    expect(screen.getByTestId("largerCenterDistanceInput")).toBeVisible();
-    expect(screen.getByTestId("smallerBeltTeeth")).toBeVisible();
-    expect(screen.getByTestId("largerBeltTeeth")).toBeVisible();
+    for (const [_, getDiv] of Object.entries(inputs)) {
+      expect(getDiv()).toBeVisible();
+    }
+    for (const [_, getDiv] of Object.entries(outputs)) {
+      expect(getDiv()).toBeVisible();
+    }
+
+    expect(screen.getByTestId("enableSpecificBelt")).toBeVisible();
   });
 
   test("Changing pitch changes outputs", () => {
@@ -39,8 +56,8 @@ describe("Belts calculator", () => {
     expect(screen.getByTestId("largerCenterDistanceInput")).toHaveValue(
       "0.0000"
     );
-    expect(screen.getByTestId("smallerBeltTeeth")).toHaveValue(15);
-    expect(screen.getByTestId("largerBeltTeeth")).toHaveValue(20);
+    expect(screen.getByTestId("smallerBeltTeeth")).toHaveValue(0);
+    expect(screen.getByTestId("largerBeltTeeth")).toHaveValue(0);
 
     userEvent.type(screen.getByLabelText("Pitch"), "7");
 
@@ -54,4 +71,17 @@ describe("Belts calculator", () => {
     expect(screen.getByTestId("largerBeltTeeth")).toHaveValue(60);
     expect(screen.getByLabelText("Teeth in mesh")).toHaveValue(7.6);
   });
+
+  test.each(Object.values(inputs))(
+    "Changing any primary input results in base output state",
+    (getInput) => {
+      render(<Belts />);
+      userEvent.clear(getInput());
+
+      expect(outputs.smallerCenterDistance()).toHaveValue("0.0000");
+      expect(outputs.largerCenterDistance()).toHaveValue("0.0000");
+      expect(outputs.smallerBeltTeeth()).toHaveValue(0);
+      expect(outputs.largerBeltTeeth()).toHaveValue(0);
+    }
+  );
 });

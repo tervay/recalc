@@ -12,6 +12,7 @@ export default function BooleanInput(props) {
         type="checkbox"
         defaultChecked={value}
         onClick={(e) => setValue(e.target.checked)}
+        data-testid={props.inputId}
       />
       <span>{props.label}</span>
     </label>
