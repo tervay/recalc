@@ -171,7 +171,8 @@ export function calculateCenterGivenSpecificBelt(
   pitch,
   p1PitchDiameter,
   p2PitchDiameter,
-  beltTeeth
+  beltTeeth,
+  extraCenter
 ) {
   return {
     smaller: {
@@ -181,7 +182,7 @@ export function calculateCenterGivenSpecificBelt(
         p1PitchDiameter,
         p2PitchDiameter,
         beltTeeth
-      ),
+      ).add(extraCenter),
     },
     larger: {
       teeth: 0,

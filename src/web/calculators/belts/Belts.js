@@ -77,7 +77,8 @@ export default function Belts() {
         pitch,
         teethToPD(p1Teeth, pitch),
         teethToPD(p2Teeth, pitch),
-        Number(customBeltTeeth)
+        Number(customBeltTeeth),
+        extraCenter
       );
     }
 
@@ -173,6 +174,7 @@ export default function Belts() {
             choices={["in", "mm", "cm"]}
             inputId={"desired-center-input"}
             selectId={"desired-center-select"}
+            disabled={useCustomBelt}
           />
           <LabeledQtyInput
             label="Extra Center"

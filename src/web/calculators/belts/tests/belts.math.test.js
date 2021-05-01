@@ -114,6 +114,7 @@ describe("Belt math", () => {
         teeth: 340,
         distance: expect.toBeCloseToMeasurement(new Measurement(18.8389, "in")),
       },
+      extraCenter: new Measurement(0, "in"),
     },
     {
       pitch: mm(5),
@@ -122,8 +123,9 @@ describe("Belt math", () => {
       beltTeeth: 118,
       expectedSmaller: {
         teeth: 118,
-        distance: expect.toBeCloseToMeasurement(new Measurement(6.4, "in")),
+        distance: expect.toBeCloseToMeasurement(new Measurement(8.4, "in")),
       },
+      extraCenter: new Measurement(2, "in"),
     },
   ])(
     "Calculate closest centers given a specific belt",
@@ -133,13 +135,15 @@ describe("Belt math", () => {
       p2PitchDiameter,
       beltTeeth,
       expectedSmaller,
+      extraCenter,
     }) => {
       expect(
         calculateCenterGivenSpecificBelt(
           pitch,
           p1PitchDiameter,
           p2PitchDiameter,
-          beltTeeth
+          beltTeeth,
+          extraCenter
         )
       ).toMatchObject({
         smaller: expectedSmaller,
