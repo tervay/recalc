@@ -189,7 +189,7 @@ describe("Motor tests", () => {
         resistance: new Measurement(12 / 122, "V / A"),
       },
     ],
-  ])("(%s) Fields are properly set from motorMap", (motor, data) => {
+  ])("%p Fields are properly set from motorMap", (motor, data) => {
     expect(motor).toMatchObject({
       url: data.url,
       name: data.name,
@@ -279,7 +279,7 @@ test.each([
   [{ a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 }, 4],
   [{ a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 }, 5],
   [{ a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 }, 6],
-])("(%#) Generate combinations works properly", (obj, n) => {
+])("%p Generate combinations works properly", (obj, n) => {
   const combos = GenerateObjectKeyCombinations(obj, n);
   const props = Object.keys(obj).length;
   expect(combos).toHaveLength(
@@ -297,7 +297,7 @@ const motor = {
 
 const combos = GenerateObjectKeyCombinations(motor, 3);
 
-describe.each(combos)("(%p) MotorState combinations", (incompleteState) => {
+describe.each(combos)("%p MotorState combinations", (incompleteState) => {
   test("Terminates and completes state with high current limit", () => {
     const ms = new MotorState(
       Motor.Falcon500s(1),

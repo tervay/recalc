@@ -31,14 +31,14 @@ describe("Piston", () => {
   test.each([
     [workingPressure, new Measurement(864.6725484991103, "N")],
     [lowPressure, new Measurement(117.9098929771514, "N")],
-  ])("(%s) getPushForce works correctly", (pressure, expectedResult) => {
+  ])("%p getPushForce works correctly", (pressure, expectedResult) => {
     expect(p.getPushForce(pressure)).toEqualMeasurement(expectedResult);
   });
 
   test.each([
     [workingPressure, new Measurement(810.6305142179158, "N")],
     [lowPressure, new Measurement(110.5405246660794, "N")],
-  ])("(%s) getPullForce works correctly", (pressure, expectedResult) => {
+  ])("%p getPullForce works correctly", (pressure, expectedResult) => {
     expect(p.getPullForce(pressure)).toEqualMeasurement(expectedResult);
   });
 

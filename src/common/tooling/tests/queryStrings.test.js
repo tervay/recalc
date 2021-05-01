@@ -37,7 +37,7 @@ describe("Query strings", () => {
         },
       },
     ])(
-      "Works with no conversion function and everything provided",
+      "%p Works with no conversion function and everything provided",
       ({ query, queryParams, defaults, expected }) => {
         expect(
           queryStringToDefaults(query, queryParams, defaults)
@@ -79,7 +79,7 @@ describe("Query strings", () => {
         },
       },
     ])(
-      "Works with no conversion function and some things missing",
+      "%p Works with no conversion function and some things missing",
       ({ query, queryParams, defaults, expected }) => {
         expect(
           queryStringToDefaults(query, queryParams, defaults)
@@ -128,7 +128,7 @@ describe("Query strings", () => {
         ],
         expected: "bar=0&foo=%7B%22s%22%3A5%2C%22u%22%3A%22N%2Am%2Fs2%22%7D",
       },
-    ])("works", ({ qphs, expected }) => {
+    ])("%p works", ({ qphs, expected }) => {
       expect(stateToQueryString(qphs)).toEqual(expected);
     });
   });

@@ -14,7 +14,7 @@ describe("util", () => {
     ["example.com", false],
     ["example.local", true],
     ["example", false],
-  ])("%s isLocalHost", (host, expected) => {
+  ])("%p isLocalHost", (host, expected) => {
     delete global.window.location;
     global.window = Object.create(window);
     global.window.location = {
@@ -121,7 +121,7 @@ describe("util", () => {
         },
       },
     ],
-  ])("objectify", (obj, expected) => {
+  ])("%p objectify", (obj, expected) => {
     expect(objectify(obj)).toMatchObject(expected);
   });
 
@@ -187,7 +187,7 @@ describe("util", () => {
       [{ m: [{ constructorId: 2, s: 1, u: "in" }] }],
       [{ m: [expect.toEqualMeasurement(new Measurement(1, "in"))] }],
     ],
-  ])("unobjectify", (obj, expected) => {
+  ])("%p unobjectify", (obj, expected) => {
     expect(unobjectify(obj)).toMatchObject(expected);
   });
 });
