@@ -15,6 +15,7 @@ export function UnlabeledNumberInput(props) {
           onChange={(e) => setValue(e.target.value)}
           id={props.inputId}
           disabled={props.disabled}
+          data-testid={props.inputId}
         />
       </p>
       {props.children}

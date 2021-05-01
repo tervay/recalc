@@ -263,6 +263,7 @@ export default function Belts() {
             <BooleanInput
               stateHook={[useCustomBelt, setUseCustomBelt]}
               label=" Enable"
+              inputId="enableSpecificBelt"
             />
             <LabeledNumberInput
               stateHook={[customBeltTeeth, setCustomBeltTeeth]}
