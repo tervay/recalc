@@ -1,8 +1,7 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import userEvent from "@testing-library/user-event";
 import Measurement from "common/models/Measurement";
-
 import { useState } from "react";
 
 import { LabeledQtyInput } from "../QtyInput";
