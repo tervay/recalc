@@ -88,7 +88,7 @@
     "prompts": "^2.4.1",
     "source-map-explorer": "^2.5.2",
     "ts-jest": "^26.5.5",
-    "yargs": "^16.2.0"
+    "yargs": "^17.0.0"
   },
   "engines": {
     "node": "15.x"
