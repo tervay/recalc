@@ -2,7 +2,7 @@ import { setTitle } from "common/tooling/routing";
 import arm from "web/calculators/arm";
 import belts from "web/calculators/belts";
 import chains from "web/calculators/chains";
-import dslogs from "web/calculators/dslogs";
+// import dslogs from "web/calculators/dslogs";
 import flywheel from "web/calculators/flywheel";
 import linear from "web/calculators/linear_mech";
 import gearload from "web/calculators/load";

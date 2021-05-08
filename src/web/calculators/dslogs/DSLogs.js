@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { LabeledPatientNumberInput } from "common/components/io/inputs/PatientNumberInput";
 import moment from "moment";
 import { createRef, useCallback, useEffect, useState } from "react";
