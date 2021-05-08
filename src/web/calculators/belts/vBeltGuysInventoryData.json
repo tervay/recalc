@@ -1769,5 +1769,180 @@
     "width": "15 mm",
     "generatedUrl": "https://www.vbeltguys.com/products/1025-5m-15-synchronous-timing-belt",
     "responseCode": 200
+  },
+  {
+    "teeth": 124,
+    "pitch": "3 mm",
+    "width": "15 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/372-3m-15-synchronous-timing-belt",
+    "responseCode": 404
+  },
+  {
+    "teeth": 124,
+    "pitch": "3 mm",
+    "width": "15 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/372-3m-15-synchronous-timing-belt",
+    "responseCode": 404
+  },
+  {
+    "teeth": 124,
+    "pitch": "3 mm",
+    "width": "9 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/372-3m-09-synchronous-timing-belt",
+    "responseCode": 404
+  },
+  {
+    "teeth": 124,
+    "pitch": "3 mm",
+    "width": "9 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/372-3m-09-synchronous-timing-belt",
+    "responseCode": 404
+  },
+  {
+    "teeth": 123,
+    "pitch": "3 mm",
+    "width": "15 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/369-3m-15-synchronous-timing-belt",
+    "responseCode": 404
+  },
+  {
+    "teeth": 123,
+    "pitch": "3 mm",
+    "width": "9 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/369-3m-09-synchronous-timing-belt",
+    "responseCode": 404
+  },
+  {
+    "teeth": 123,
+    "pitch": "3 mm",
+    "width": "9 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/369-3m-09-synchronous-timing-belt",
+    "responseCode": 404
+  },
+  {
+    "teeth": 123,
+    "pitch": "5 mm",
+    "width": "9 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/615-5m-09-synchronous-timing-belt",
+    "responseCode": 200
+  },
+  {
+    "teeth": 123,
+    "pitch": "5 mm",
+    "width": "15 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/615-5m-15-synchronous-timing-belt",
+    "responseCode": 200
+  },
+  {
+    "teeth": 30,
+    "pitch": "5 mm",
+    "width": "15 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/150-5m-15-synchronous-timing-belt",
+    "responseCode": 404
+  },
+  {
+    "teeth": 40,
+    "pitch": "5 mm",
+    "width": "15 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/200-5m-15-synchronous-timing-belt",
+    "responseCode": 200
+  },
+  {
+    "teeth": 40,
+    "pitch": "5 mm",
+    "width": "9 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/200-5m-09-synchronous-timing-belt",
+    "responseCode": 200
+  },
+  {
+    "teeth": 35,
+    "pitch": "5 mm",
+    "width": "15 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/175-5m-15-synchronous-timing-belt",
+    "responseCode": 404
+  },
+  {
+    "teeth": 35,
+    "pitch": "5 mm",
+    "width": "9 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/175-5m-09-synchronous-timing-belt",
+    "responseCode": 404
+  },
+  {
+    "teeth": 30,
+    "pitch": "5 mm",
+    "width": "9 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/150-5m-09-synchronous-timing-belt",
+    "responseCode": 404
+  },
+  {
+    "teeth": 0,
+    "pitch": "5 mm",
+    "width": "15 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/0-5m-15-synchronous-timing-belt",
+    "responseCode": 404
+  },
+  {
+    "teeth": 0,
+    "pitch": "5 mm",
+    "width": "9 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/0-5m-09-synchronous-timing-belt",
+    "responseCode": 404
+  },
+  {
+    "teeth": 65,
+    "pitch": "5 mm",
+    "width": "9 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/325-5m-09-synchronous-timing-belt",
+    "responseCode": 200
+  },
+  {
+    "teeth": 65,
+    "pitch": "5 mm",
+    "width": "15 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/325-5m-15-synchronous-timing-belt",
+    "responseCode": 200
+  },
+  {
+    "teeth": 65,
+    "pitch": "5 mm",
+    "width": "9 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/325-5m-09-synchronous-timing-belt",
+    "responseCode": 200
+  },
+  {
+    "teeth": 65,
+    "pitch": "5 mm",
+    "width": "15 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/325-5m-15-synchronous-timing-belt",
+    "responseCode": 200
+  },
+  {
+    "teeth": 65,
+    "pitch": "5 mm",
+    "width": "9 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/325-5m-09-synchronous-timing-belt",
+    "responseCode": 200
+  },
+  {
+    "teeth": 60,
+    "pitch": "5 mm",
+    "width": "15 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/300-5m-15-synchronous-timing-belt",
+    "responseCode": 200
+  },
+  {
+    "teeth": 65,
+    "pitch": "5 mm",
+    "width": "15 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/325-5m-15-synchronous-timing-belt",
+    "responseCode": 200
+  },
+  {
+    "teeth": 60,
+    "pitch": "5 mm",
+    "width": "9 mm",
+    "generatedUrl": "https://www.vbeltguys.com/products/300-5m-09-synchronous-timing-belt",
+    "responseCode": 200
   }
 ]
