@@ -10,9 +10,13 @@ const spreadsheetId = "1po6dM_EVEPVecRIrvq-ThEfvFDRg-OO6uI9emKdDuqI";
 const doc = new GoogleSpreadsheet(spreadsheetId);
 let worksheet = undefined;
 
-doc.loadInfo().then(async () => {
-  worksheet = doc.sheetsByTitle[process.env.NODE_ENV];
-});
+if (process.env.NODE_ENV !== "test") {
+  authenticateServiceAccount()
+    .then(() => doc.loadInfo())
+    .then(async () => {
+      worksheet = doc.sheetsByTitle[process.env.NODE_ENV];
+    });
+}
 
 let allRows = [];
 
@@ -22,8 +26,6 @@ async function authenticateServiceAccount() {
     private_key: process.env.REACT_APP_GOOGLE_PRIVATE_KEY,
   });
 }
-
-authenticateServiceAccount();
 
 function getInventory() {
   return inventoryData;
