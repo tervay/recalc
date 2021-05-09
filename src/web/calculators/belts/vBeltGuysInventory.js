@@ -10,7 +10,10 @@ const spreadsheetId = "1po6dM_EVEPVecRIrvq-ThEfvFDRg-OO6uI9emKdDuqI";
 const doc = new GoogleSpreadsheet(spreadsheetId);
 let worksheet = undefined;
 
-if (process.env.NODE_ENV !== "test") {
+const allowAuth =
+  process.env.NODE_ENV !== "test" && !process.env.REACT_APP_SKIP_GAUTH;
+
+if (allowAuth) {
   authenticateServiceAccount()
     .then(() => doc.loadInfo())
     .then(async () => {
@@ -69,7 +72,7 @@ async function writeToSheet(teeth, pitch, width, url, responseCode) {
 }
 
 export function checkForBelt(teeth, pitch, width) {
-  if (process.env.NODE_ENV === "test") {
+  if (!allowAuth) {
     return;
   }
 
