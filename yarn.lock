@@ -3725,10 +3725,10 @@ chartjs-plugin-zoom@1.0.0-beta.5:
   dependencies:
     hammerjs "^2.0.8"
 
-chartjs-react@^3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/chartjs-react/-/chartjs-react-3.3.1.tgz#a82f68fda8405cefc0556bd5dad39abe7550b57b"
-  integrity sha512-kqOHLQBkBm0kPrckAcft5FXv3EgmDZWhC5fm49l9sRu2+VGzfknct9bg3cKt+DBmC6XKtw3qpSnOJAn2vXjBsg==
+chartjs-react@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/chartjs-react/-/chartjs-react-3.3.2.tgz#f096c503e1b6e9687aa84701f9aebc12f570ba35"
+  integrity sha512-k0bXvISqXyJ9A+hBNiyygJolMwdMe3CAX5qemxAvdJy4J4nim4bOPBBRLT52AGGnV8/7ZxEbXjrmhwDid4l7qw==
 
 check-types@^11.1.1:
   version "11.1.2"
