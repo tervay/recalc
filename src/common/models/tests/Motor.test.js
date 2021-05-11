@@ -165,8 +165,7 @@ describe("Motor tests", () => {
         stallCurrent: new Measurement(24, "A"),
         freeCurrent: new Measurement(5, "A"),
         weight: new Measurement(1.1, "lb"),
-        url:
-          "https://www.andymark.com/products/snow-blower-motor-with-hex-shaft",
+        url: "https://www.andymark.com/products/snow-blower-motor-with-hex-shaft",
         kV: new Measurement(100 / 12, "rpm/V"),
         kT: new Measurement(7.90893775 / (24 - 5), "N*m/A"),
         maxPower: new Measurement((100 / 2) * (7.90893775 / 2), "rpm * N * m"),
