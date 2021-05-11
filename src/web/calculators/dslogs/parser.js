@@ -154,22 +154,7 @@ export class DSLogParser {
 
   parsePDPV3(pdpBytes) {
     const pdpOffsets = [
-      8,
-      18,
-      28,
-      38,
-      48,
-      58,
-      72,
-      82,
-      92,
-      102,
-      112,
-      122,
-      136,
-      146,
-      156,
-      166,
+      8, 18, 28, 38, 48, 58, 72, 82, 92, 102, 112, 122, 136, 146, 156, 166,
     ];
 
     const vals = pdpOffsets.map((offset) =>

@@ -41,5 +41,3 @@ REACT_APP_SKIP_GAUTH=true
 `yarn heroku:build` - build & compress
 
 `yarn heroku:start` - start server in prod mode
-
-

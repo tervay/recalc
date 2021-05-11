@@ -15,8 +15,7 @@ if (
   )
 ) {
   Sentry.init({
-    dsn:
-      "https://ce7fda8f8fb743a7b733e26823d626c7@o96005.ingest.sentry.io/5588486",
+    dsn: "https://ce7fda8f8fb743a7b733e26823d626c7@o96005.ingest.sentry.io/5588486",
     autoSessionTracking: true,
     integrations: [new Integrations.BrowserTracing()],
 
