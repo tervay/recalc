@@ -40,6 +40,7 @@
 
 @import "../node_modules/bulma/sass/helpers/all";
 @import "../node_modules/@creativebulma/bulma-tooltip/dist/bulma-tooltip.min.css";
+@import "../node_modules/bulma-switch/dist/css/bulma-switch.sass";
 
 body {
   margin: 0;
@@ -59,10 +60,6 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
-
-.input-right {
-  text-align: right;
 }
 
 nav {
@@ -188,4 +185,10 @@ label.checkbox {
 
 [data-tooltip] {
   z-index: 2791;
+}
+
+@for $i from 1 through 9 {
+  .fg-#{$i} {
+    flex-grow: #{$i};
+  }
 }

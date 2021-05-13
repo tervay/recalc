@@ -6,16 +6,22 @@ export default function BooleanInput(props) {
   props = { ...props, inputId: props.inputId || uuid() };
 
   return (
-    <label className="checkbox" htmlFor={props.inputId}>
+    <div
+      className=""
+      style={{
+        paddingTop: "0.375rem",
+      }}
+    >
       <input
         id={props.inputId}
         type="checkbox"
+        className="switch is-thin"
         defaultChecked={value}
         onClick={(e) => setValue(e.target.checked)}
         data-testid={props.inputId}
       />
-      <span>{props.label}</span>
-    </label>
+      <label htmlFor={props.inputId}>{props.label}</label>
+    </div>
   );
 }
 

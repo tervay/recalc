@@ -31,11 +31,15 @@ UnlabeledNumberInput.propTypes = {
 };
 
 export function LabeledNumberInput(props) {
-  props = { ...props, inputId: props.inputId || uuid() };
+  props = {
+    ...props,
+    inputId: props.inputId || uuid(),
+    labelFg: props.labelFg || 1,
+  };
 
   return (
     <div className="field is-horizontal">
-      <div className="field-label is-normal">
+      <div className={`field-label is-normal fg-${props.labelFg}`}>
         <label className="label" htmlFor={props.inputId}>
           <span
             className="has-tooltip-right"
@@ -57,4 +61,5 @@ LabeledNumberInput.propTypes = {
   label: propTypes.string,
   inputId: propTypes.string,
   disabled: propTypes.bool,
+  labelFg: propTypes.number,
 };

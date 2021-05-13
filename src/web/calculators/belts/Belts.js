@@ -264,7 +264,7 @@ export default function Belts() {
           <MultiInputLine label="Specific Belt">
             <BooleanInput
               stateHook={[useCustomBelt, setUseCustomBelt]}
-              label=" Enable"
+              label=""
               inputId="enableSpecificBelt"
             />
             <LabeledNumberInput
@@ -272,6 +272,7 @@ export default function Belts() {
               label="Belt Teeth"
               className="is-9"
               disabled={!useCustomBelt}
+              labelFg={2}
             />
           </MultiInputLine>
           <LinkGenerator
