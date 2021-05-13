@@ -1,3 +1,4 @@
+import { VBeltGuysInventory } from "common/models/Inventory";
 import Measurement from "common/models/Measurement";
 import propTypes from "prop-types";
 

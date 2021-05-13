@@ -4,7 +4,7 @@ import { isEqual } from "lodash";
 import wretch from "wretch";
 
 import { MakeVBeltGuysLink } from "./linkGenerator";
-import inventoryData from "./vBeltGuysInventoryData.json";
+import inventoryData from "common/models/data/vBeltGuysInventoryData.json";
 
 const spreadsheetId = "1po6dM_EVEPVecRIrvq-ThEfvFDRg-OO6uI9emKdDuqI";
 const doc = new GoogleSpreadsheet(spreadsheetId);
