@@ -1,14 +1,14 @@
 language: node_js
 node_js:
-- 15
+  - 15
 cache:
   directories:
-  - node_modules
+    - node_modules
 script:
-- npm run travis:build
-- npm run travis:test
+  - npm run travis:build
+  - npm run travis:test
 env:
   global:
-    secure: B1+Alposu28PRQMXY6j96BlunGGqkOEQIxvizbjR5YRHLGrlkr+SeXR6Fkuuj+dpP4EXghZ4Dd8R9uoCI1w3QAgnkm/FxOxvu351taP/IDDEb0GZBB+B55jz2+nwACxs908A6kTh2Q6Y+Nb/g6rKe32HlwWqtJM/gbIYw5G88jC0sM7tuIO3jyZkQYVIbyvnX/RUHtfRXuNeUZkmg+4B1Q5wOEtfJQ5yf+qtgymeK5ukTph8KaialXcGkeeHdcdSDs+Mh0eXGYxHDt44xpixhZ4R45Ffbz3iux7TKFItA/laSsDDxwWMRyCStHXBEIxZ29RrrajYiRKe77G69Dkb6HmvlImkA1yQ3YWci0GkAiCuwmLKuNiZOGvJcgW/go8IEZ17l+cwy7yBl4PfQkyWF7MDFH/8Js9XJhu8Y1UAt9BzUW1zqlQveDMwHEXZd1E3+JF/YBTscvUZpc6By36rLj3l5vPhxliBiZ6SmDu7YR2KysdUTAooNS8Ra1CSVU8L0EQaC+eOc24U8MBIrjHSiqFyddtOdh/K9rLId1NKK36US+nLLW5dsnxYbo7J1P0LbiWSFAFD+z5VkofuBOdV4vMDuNxRiUVfQpQldJ98zevRIHcGMWOOq8bA5V3A30X0EvDLNAMjDM6rx2TiZQhFQ0StfBXvN3uKRL0ptnMs83M=
+    - secure: nQjBRN858KdBBE1PE2Ti7IqBddw5zIMxf48zT2051aUnXbxoOHx8Y373PvlwoIeEwjWyGmiXqnSGP/eOCLkW7NqwFCb7WE9r3SHvBYvCIJVe3v2sZG3xUjy2F2mMsZR6SnO2rSnH3ZBmfguiOh9x82S3L62U3Pmbx/W+MPdm21fkRAE8RiAZypSdU6DRLlmcAJoRdhjbsVVP7UlQG79Ja0z4lyHzU6P8CvkSVklJ6tT31UfjyRsr+FCXF/USLaJ52k8B1yNZ3HWl/M2SDZyNaiqhh5JSCY5EiErFFTD0bwL0Ta7iDlNaD+j2wENMwulSejzUSCqUiFuA09SvAiWTZtfBsjaUxvbj6DC9vgtXTBUFLHNYUpQt8I2ENgPjBA4snC0sKnInScBA1gPjysbC81gmhbTQCO7P85sfXjE46s+nTCkVLwWgGeWinmk0w7FPji7JGrQkiG5q84UYBBeRvoUYOcvQ6I/uDeHqc2Afwy/nteaNPWG0iJPh5eJuXqO0a8A51wyJRWqsUzX5IbnVk4YNB/vuev7PSazIIYraysuao9r+YiKmKdLNSQSoZCRfFwuhMJIdSXAnUMKfEQFiHUEoCG1MKFMp1BPWUcSW4vI9yIQu3Nua/TkrivgxKnE12zWFU9/XIC+JInroKTPSXuzBfekH1JuRs/PwU4Y/yF0=
 before_install:
-- echo $pw | gpg --passphrase-fd 0 .env.gpg
+  - echo $pw | gpg --passphrase-fd 0 .env.gpg
