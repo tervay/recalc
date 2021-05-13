@@ -7,8 +7,5 @@ cache:
 script:
   - npm run travis:build
   - npm run travis:test
-env:
-  global:
-    - secure: nQjBRN858KdBBE1PE2Ti7IqBddw5zIMxf48zT2051aUnXbxoOHx8Y373PvlwoIeEwjWyGmiXqnSGP/eOCLkW7NqwFCb7WE9r3SHvBYvCIJVe3v2sZG3xUjy2F2mMsZR6SnO2rSnH3ZBmfguiOh9x82S3L62U3Pmbx/W+MPdm21fkRAE8RiAZypSdU6DRLlmcAJoRdhjbsVVP7UlQG79Ja0z4lyHzU6P8CvkSVklJ6tT31UfjyRsr+FCXF/USLaJ52k8B1yNZ3HWl/M2SDZyNaiqhh5JSCY5EiErFFTD0bwL0Ta7iDlNaD+j2wENMwulSejzUSCqUiFuA09SvAiWTZtfBsjaUxvbj6DC9vgtXTBUFLHNYUpQt8I2ENgPjBA4snC0sKnInScBA1gPjysbC81gmhbTQCO7P85sfXjE46s+nTCkVLwWgGeWinmk0w7FPji7JGrQkiG5q84UYBBeRvoUYOcvQ6I/uDeHqc2Afwy/nteaNPWG0iJPh5eJuXqO0a8A51wyJRWqsUzX5IbnVk4YNB/vuev7PSazIIYraysuao9r+YiKmKdLNSQSoZCRfFwuhMJIdSXAnUMKfEQFiHUEoCG1MKFMp1BPWUcSW4vI9yIQu3Nua/TkrivgxKnE12zWFU9/XIC+JInroKTPSXuzBfekH1JuRs/PwU4Y/yF0=
 before_install:
-  - echo $pw | gpg --passphrase-fd 0 .env.gpg
+  - echo $pw | gpg --yes --passphrase-fd 0 .env.gpg
