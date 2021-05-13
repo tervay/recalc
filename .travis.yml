@@ -7,5 +7,8 @@ cache:
 script:
 - npm run travis:build
 - npm run travis:test
+env:
+  global:
+    secure: B1+Alposu28PRQMXY6j96BlunGGqkOEQIxvizbjR5YRHLGrlkr+SeXR6Fkuuj+dpP4EXghZ4Dd8R9uoCI1w3QAgnkm/FxOxvu351taP/IDDEb0GZBB+B55jz2+nwACxs908A6kTh2Q6Y+Nb/g6rKe32HlwWqtJM/gbIYw5G88jC0sM7tuIO3jyZkQYVIbyvnX/RUHtfRXuNeUZkmg+4B1Q5wOEtfJQ5yf+qtgymeK5ukTph8KaialXcGkeeHdcdSDs+Mh0eXGYxHDt44xpixhZ4R45Ffbz3iux7TKFItA/laSsDDxwWMRyCStHXBEIxZ29RrrajYiRKe77G69Dkb6HmvlImkA1yQ3YWci0GkAiCuwmLKuNiZOGvJcgW/go8IEZ17l+cwy7yBl4PfQkyWF7MDFH/8Js9XJhu8Y1UAt9BzUW1zqlQveDMwHEXZd1E3+JF/YBTscvUZpc6By36rLj3l5vPhxliBiZ6SmDu7YR2KysdUTAooNS8Ra1CSVU8L0EQaC+eOc24U8MBIrjHSiqFyddtOdh/K9rLId1NKK36US+nLLW5dsnxYbo7J1P0LbiWSFAFD+z5VkofuBOdV4vMDuNxRiUVfQpQldJ98zevRIHcGMWOOq8bA5V3A30X0EvDLNAMjDM6rx2TiZQhFQ0StfBXvN3uKRL0ptnMs83M=
 before_install:
-- openssl aes-256-cbc -K $encrypted_3c84dcdc6bbe_key -iv $encrypted_3c84dcdc6bbe_iv -in .env.enc -out .env -d
+- echo $pw | gpg --passphrase-fd 0 .env.gpg
