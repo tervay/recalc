@@ -2,40 +2,28 @@ import { VBeltGuysInventory } from "common/models/Inventory";
 import Measurement from "common/models/Measurement";
 import propTypes from "prop-types";
 
-import { checkForBelt, scanInventory } from "./vBeltGuysInventory";
-
-export function MakeVBeltGuysLink(teeth, pitch, width) {
-  const length = Math.round(pitch.mul(teeth).to("mm").scalar);
-  const zeroPad = (num, places) => String(num).padStart(places, "0");
-
-  return `https://www.vbeltguys.com/products/${length}-${
-    pitch.to("mm").scalar
-  }m-${zeroPad(width, 2)}-synchronous-timing-belt`;
-}
+const inv = new VBeltGuysInventory();
+inv.authenticate();
 
 function ScannableResult(props) {
-  let beltScan = scanInventory(
-    MakeVBeltGuysLink(props.teeth, props.pitch, props.width)
-  );
+  let beltScan = inv.scanInventory({ ...props });
 
   let div = <></>;
   if ((beltScan.found && beltScan.has) || !beltScan.found) {
     div = (
       <tr>
         <th>
-          <a href={MakeVBeltGuysLink(props.teeth, props.pitch, props.width)}>
-            VBeltGuys
-          </a>
+          <a href={inv.objToUrl({ ...props })}>VBeltGuys</a>
         </th>
         <td></td>
         <td>{props.pitch.format()}</td>
         <td>{props.teeth}</td>
-        <td>{props.width}mm</td>
+        <td>{Number(props.width.to("mm").scalar.toFixed(2))} mm</td>
       </tr>
     );
 
     if (!beltScan.found) {
-      checkForBelt(props.teeth, props.pitch, props.width);
+      inv.pingWebsite({ ...props });
     }
   }
 
@@ -45,7 +33,7 @@ function ScannableResult(props) {
 ScannableResult.propTypes = {
   teeth: propTypes.number,
   pitch: propTypes.instanceOf(Measurement),
-  width: propTypes.number,
+  width: propTypes.instanceOf(Measurement),
 };
 
 function AvailableToHtml(props) {
@@ -81,12 +69,12 @@ function AvailableToHtml(props) {
         <ScannableResult
           teeth={props.smallBelt}
           pitch={props.pitch}
-          width={9}
+          width={new Measurement(9, "mm")}
         />
         <ScannableResult
           teeth={props.smallBelt}
           pitch={props.pitch}
-          width={15}
+          width={new Measurement(15, "mm")}
         />
 
         {tabulate(props.largeAvailable)}
@@ -95,12 +83,12 @@ function AvailableToHtml(props) {
             <ScannableResult
               teeth={props.largeBelt}
               pitch={props.pitch}
-              width={9}
+              width={new Measurement(9, "mm")}
             />
             <ScannableResult
               teeth={props.largeBelt}
               pitch={props.pitch}
-              width={15}
+              width={new Measurement(15, "mm")}
             />
           </>
         )}
@@ -124,7 +112,7 @@ export default function LinkGenerator(props) {
   const isValidBelt = (beltObj, teeth, pitch) => {
     return (
       beltObj.teeth === teeth &&
-      pitch.to("mm").scalar.toString() === beltObj.pitch.replace("mm", "")
+      pitch.to("mm").scalar.toString() === beltObj.pitch.replace(" mm", "")
     );
   };
 

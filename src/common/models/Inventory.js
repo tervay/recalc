@@ -1,16 +1,17 @@
+import vBeltGuysInventoryJson from "common/models/data/vBeltGuysInventoryData.json";
+import Measurement from "common/models/Measurement";
 import { NotImplementedError } from "common/tooling/errors";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import { isEqual } from "lodash";
-import wretch from "wretch";
-import Measurement from "common/models/Measurement";
-
-import vBeltGuysInventoryJson from "common/models/data/vBeltGuysInventoryData.json";
-
-// const allowAuth =
-//   process.env.NODE_ENV !== "test" && !process.env.REACT_APP_SKIP_GAUTH;
 
 export default class Inventory {
-  constructor(name, spreadsheetId, inventoryData, allowAuth = true) {
+  constructor(
+    name,
+    spreadsheetId,
+    inventoryData,
+    allowAuth = true,
+    authCb = () => {}
+  ) {
     if (new.target === Inventory) {
       throw new TypeError("Cannot instantiate base class Inventory directly");
     }
@@ -19,32 +20,36 @@ export default class Inventory {
     this.spreadsheetId = spreadsheetId;
     this.inventoryData = inventoryData;
     this.allowAuth = allowAuth && !process.env.REACT_APP_SKIP_GAUTH;
+    this.authCb = authCb;
 
     this.worksheetName = `${name}_${process.env.NODE_ENV}`;
     this.worksheet = undefined;
     this.allRows = [];
     this.googleSpreadsheet = new GoogleSpreadsheet(spreadsheetId);
+  }
 
-    if (allowAuth) {
+  objToUrl(_) {
+    throw new NotImplementedError("Inventory should implement objToUrl!");
+  }
+
+  shouldWrite(_) {
+    throw new NotImplementedError("Inventory should implement shouldWrite!");
+  }
+
+  objToArray(_) {
+    throw new NotImplementedError("Inventory should implement objToArray!");
+  }
+
+  async authenticate() {
+    if (this.allowAuth) {
       this.authenticateServiceAccount()
         .then(() => this.googleSpreadsheet.loadInfo())
         .then(async () => {
           this.worksheet =
             this.googleSpreadsheet.sheetsByTitle[this.worksheetName];
-        });
+        })
+        .then(() => this.authCb(this));
     }
-  }
-
-  objToUrl(obj) {
-    throw new NotImplementedError("Inventory should implement objToUrl!");
-  }
-
-  shouldWrite(obj) {
-    throw new NotImplementedError("Inventory should implement shouldWrite!");
-  }
-
-  objToArray(obj) {
-    throw new NotImplementedError("Inventory should implement objToArray!");
   }
 
   async authenticateServiceAccount() {
@@ -81,23 +86,22 @@ export default class Inventory {
         console.log("Rate limited on gSheets writes");
       }
     }
+
+    return null;
   }
 
-  checkInventory(obj) {
-    if (!allowAuth) {
+  async pingWebsite(obj) {
+    if (!this.allowAuth) {
       return;
     }
 
-    const url = this.objToUrl(obj).generatedUrl;
+    const url = this.objToUrl(obj);
     if (this.shouldWrite(obj)) {
-      wretch(url)
-        .get()
-        .notFound((_) => {
-          this.writeToSheet([...this.objToArray(obj), 404]);
-        })
-        .res((_) => {
-          this.writeToSheet([...this.objToArray(obj), 200]);
-        });
+      const response = await fetch(url);
+      return await this.writeToSheet([
+        ...this.objToArray(obj),
+        response.status,
+      ]);
     }
   }
 }
@@ -106,12 +110,14 @@ export class VBeltGuysInventory extends Inventory {
   constructor({
     inventoryData = vBeltGuysInventoryJson,
     allowAuth = true,
+    authCb = () => {},
   } = {}) {
     super(
       "VBeltGuys",
       "1po6dM_EVEPVecRIrvq-ThEfvFDRg-OO6uI9emKdDuqI",
       inventoryData,
-      allowAuth
+      allowAuth,
+      authCb
     );
   }
 

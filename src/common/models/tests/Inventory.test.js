@@ -179,17 +179,70 @@ describe("Inventory", () => {
       expect(inv.googleSpreadsheet).toBeInstanceOf(GoogleSpreadsheet);
     });
 
-    test("Writes to sheet", async () => {
-      const inv = new VBeltGuysInventory();
-      expect(inv.worksheetName).toBe("VBeltGuys_test");
+    test("Authenticates and loads worksheet", (done) => {
+      const inv = new VBeltGuysInventory({
+        authCb: (inventory) => {
+          expect(inventory.worksheet).not.toBeUndefined();
+          done();
+        },
+      });
 
-      await inv.writeToSheet(
-        inv.objToArray({
-          teeth: 200,
-          pitch: new Measurement(5, "mm"),
-          width: new Measurement(15, "mm"),
-        })
-      );
+      expect(inv.worksheetName).toBe("VBeltGuys_test");
+      inv.authenticate();
+    });
+
+    test("Writes to worksheet", (done) => {
+      const inv = new VBeltGuysInventory({
+        authCb: async (inventory) => {
+          expect(inventory.worksheet).not.toBeUndefined();
+          await inventory.writeToSheet([1, 2, 3, 4, 5]);
+
+          const rows = await inventory.worksheet.getRows();
+          expect(rows.length).toBeGreaterThanOrEqual(1);
+          expect(rows[rows.length - 1]).toMatchObject({
+            Teeth: "1",
+            Pitch: "2",
+            Width: "3",
+            "Generated URL": "4",
+            "Response Code": "5",
+          });
+
+          await rows[rows.length - 1].delete();
+          done();
+        },
+      });
+
+      expect(inv.worksheetName).toBe("VBeltGuys_test");
+      inv.authenticate();
+    });
+
+    test("Pings VBeltGuys and attempts to write", (done) => {
+      const inv = new VBeltGuysInventory({
+        authCb: async (inventory) => {
+          const spy = jest
+            .spyOn(inventory, "writeToSheet")
+            .mockImplementation(() => {});
+
+          expect(inventory.worksheet).not.toBeUndefined();
+          await inventory.pingWebsite({
+            teeth: 200,
+            pitch: new Measurement(3, "mm"),
+            width: new Measurement(9, "mm"),
+          });
+
+          expect(spy).toHaveBeenCalled();
+          expect(spy).toHaveBeenLastCalledWith([
+            "200",
+            "3 mm",
+            "9 mm",
+            "https://www.vbeltguys.com/products/600-3m-09-synchronous-timing-belt",
+            200,
+          ]);
+          done();
+        },
+      });
+
+      inv.authenticate();
     });
   });
 });
