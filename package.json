@@ -55,7 +55,7 @@
     "dev:bump": "node bump.js",
     "dev:format": "npx prettier . --write && npx eslint src/ --fix",
     "travis:build": ". ./.env && CI=false react-scripts build",
-    "travis:test": ". ./.env && TZ=America/New_York react-scripts test --runInBand",
+    "travis:test": ". ./.env && TZ=America/New_York react-scripts test --runInBand --verbose",
     "heroku:build": "react-scripts build && npm run dev:compress",
     "heroku:start": "node src/dev/express.js"
   },

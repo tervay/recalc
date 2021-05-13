@@ -7,3 +7,5 @@ cache:
 script:
   - npm run travis:build
   - npm run travis:test
+before_install:
+  - echo $pw | gpg --yes --passphrase-fd 0 .env.gpg
