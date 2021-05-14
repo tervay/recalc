@@ -1,7 +1,10 @@
+import { uuid } from "common/tooling/util";
 import propTypes from "prop-types";
 import { useEffect } from "react";
 
 export default function ChainInput(props) {
+  props = { ...props, selectId: props.selectId || uuid() };
+
   const [chain, setChain] = props.stateHook;
 
   useEffect(() => {
@@ -11,7 +14,9 @@ export default function ChainInput(props) {
   return (
     <div className="field is-horizontal">
       <div className="field-label is-normal">
-        <label className="label">Chain</label>
+        <label className="label" htmlFor={props.selectId}>
+          Chain
+        </label>
       </div>
       <div className="field-body">
         <p className="control">
@@ -19,6 +24,8 @@ export default function ChainInput(props) {
             <select
               defaultValue={chain}
               onChange={(e) => setChain(e.target.value)}
+              id={props.selectId}
+              data-testid={props.selectId}
             >
               {["#25", "#35", "#50 / Bike"].map((c) => (
                 <option key={c}>{c}</option>
@@ -33,4 +40,5 @@ export default function ChainInput(props) {
 
 ChainInput.propTypes = {
   stateHook: propTypes.arrayOf(propTypes.any, propTypes.func),
+  selectId: propTypes.string,
 };

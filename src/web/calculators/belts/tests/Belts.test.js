@@ -39,10 +39,8 @@ describe("Belts calculator", () => {
     for (const [_, getDiv] of Object.entries({
       ...inputs,
       ...secondaryInputs,
+      ...outputs,
     })) {
-      expect(getDiv()).toBeVisible();
-    }
-    for (const [_, getDiv] of Object.entries(outputs)) {
       expect(getDiv()).toBeVisible();
     }
   });

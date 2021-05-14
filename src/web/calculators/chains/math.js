@@ -14,7 +14,7 @@ export function teethToPD(teeth, chain, unit = undefined) {
     teeth === null ||
     teeth.toString().length === 0
   ) {
-    return new Measurement(0, unit || chain.units());
+    return new Measurement(0, "in");
   }
 
   const chainPitch = chainTypeToPitch(chain);
@@ -59,7 +59,16 @@ export function calculateClosestCenters(
   desiredCenter,
   extraCenter
 ) {
-  if (desiredCenter.scalar === 0) {
+  const z1 = Number(p1Teeth);
+  const z2 = Number(p2Teeth);
+
+  if (
+    [desiredCenter.scalar, z1, z2].includes(0) ||
+    teethToPD(z1, chain)
+      .div(2)
+      .add(teethToPD(z2, chain).div(2))
+      .gt(desiredCenter)
+  ) {
     return {
       smaller: {
         teeth: 0,
@@ -73,8 +82,6 @@ export function calculateClosestCenters(
   }
 
   const c0 = desiredCenter;
-  const z1 = Number(p1Teeth);
-  const z2 = Number(p2Teeth);
   const p = chainTypeToPitch(chain);
 
   const t1 = c0.mul(2).div(p);
