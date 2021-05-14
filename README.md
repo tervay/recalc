@@ -1,4 +1,4 @@
-# ReCalc
+# ⎰ReCalc
 
 This is a collaboration focused mechanical design calculator, primarily for FRC.
 

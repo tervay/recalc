@@ -6,11 +6,11 @@ export default function About() {
 
   return (
     <div className="content">
-      <h2 className="title is-2">ReCalc</h2>
+      <h2 className="title is-2">⎰ReCalc</h2>
 
       <h3 className="title is-3">About</h3>
       <p>
-        ReCalc is a mechanical design calculator, focused on ease of
+        ⎰ReCalc is a mechanical design calculator, focused on ease of
         collaboration and a quality user interface.
       </p>
 
@@ -65,7 +65,7 @@ export default function About() {
 
       <h3 className="title is-3">Source code</h3>
       <p>
-        The source code for ReCalc can be found{" "}
+        The source code for ⎰ReCalc can be found{" "}
         <a href="https://github.com/tervay/recalc">on GitHub.</a>
       </p>
       <p>Pull requests / issues / suggestions are welcome!</p>

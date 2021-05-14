@@ -25,7 +25,7 @@ export default function Landing() {
           }}
         >
           <div className="container">
-            <h1 className="title">ReCalc</h1>
+            <h1 className="title">⎰ReCalc</h1>
             <h2 className="subtitle">
               A collaboration focused mechanical design calculator
             </h2>
@@ -110,7 +110,7 @@ export default function Landing() {
           </div>
 
           <div className="column is-half">
-            <Tile to="/about" title="About ReCalc" />
+            <Tile to="/about" title="About ⎰ReCalc" />
           </div>
         </div>
       </section>
