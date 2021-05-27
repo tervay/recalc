@@ -27,8 +27,12 @@ export class GraphConfig {
             mode: "xy",
           },
           zoom: {
-            enabled: true,
-            mode: "xy",
+            wheel: {
+              enabled: true,
+            },
+            pinch: {
+              enabled: true,
+            },
           },
         },
       },
