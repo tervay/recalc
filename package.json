@@ -75,9 +75,9 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/react-hooks": "^6.0.0",
+    "@testing-library/react-hooks": "^7.0.0",
     "@types/jest": "^26.0.23",
-    "eslint": "^7.26.0",
+    "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.2",
     "eslint-plugin-prettier": "^3.4.0",
@@ -85,7 +85,7 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "imagemin": "^8.0.0",
     "imagemin-webp": "^6.0.0",
-    "jest-each": "^26.6.2",
+    "jest-each": "^27.0.1",
     "prettier": "^2.3.0",
     "pretty-quick": "^3.1.0",
     "prompts": "^2.4.1",
