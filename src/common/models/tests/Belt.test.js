@@ -23,7 +23,7 @@ const testCases = [
 
 describe("Belt", () => {
   test.each(testCases)(
-    "Fills fields given teeth and pitch",
+    "%p Fills fields given teeth and pitch",
     ({ pitch, teeth, length }) => {
       const b = Belt.fromTeeth(teeth, pitch);
       expect(b.length).toBeCloseToMeasurement(length);
@@ -31,7 +31,7 @@ describe("Belt", () => {
   );
 
   test.each(testCases)(
-    "Fills fields given length and pitch",
+    "%p Fills fields given length and pitch",
     ({ pitch, teeth, length }) => {
       const b = Belt.fromLength(length, pitch);
       expect(b.teeth).toBeCloseTo(teeth);

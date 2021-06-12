@@ -30,7 +30,7 @@ describe("arm math", () => {
     [m(0.5), kg(10), CIRCLE_UP_RIGHT, Nm(-34.68358)],
     [m(0.5), kg(10), CIRCLE_UP_LEFT, Nm(34.68358)],
   ])(
-    "calculateArmTorque returns correct values",
+    "%p calculateArmTorque returns correct values",
     (comLength, armMass, angle, expectedValue) => {
       expect(
         calculateArmTorque(comLength, armMass, angle)
@@ -42,7 +42,7 @@ describe("arm math", () => {
     [m(1), kg(1), kgm2(1)],
     [m(5), kg(2), kgm2(50)],
     [m(3), kg(12), kgm2(108)],
-  ])("calculateArmInertia", (comLength, armMass, expected) => {
+  ])("%p calculateArmInertia", (comLength, armMass, expected) => {
     expect(calculateArmInertia(comLength, armMass)).toBeCloseToMeasurement(
       expected
     );

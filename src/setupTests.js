@@ -29,9 +29,11 @@ function generateSuccess(msg) {
 
 function validateInstanceOf(obj, cls) {
   if (!(obj instanceof cls)) {
-    return generateFailure(`Expected ${obj} to be an instanceof ${cls}`);
+    return generateFailure(`Expected ${obj} to be an instanceof ${cls.name}`);
   } else {
-    return generateSuccess(`Expected ${obj} not to be an instanceof ${cls}`);
+    return generateSuccess(
+      `Expected ${obj} not to be an instanceof ${cls.name}`
+    );
   }
 }
 

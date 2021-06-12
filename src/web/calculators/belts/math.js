@@ -120,9 +120,8 @@ export function calculateClosestCenters(
         closestSmallerSize = i;
       } else {
         const currError = centerDistance.sub(desiredCenter);
-        const prevError = results[closestSmallerSize].centerDistance.sub(
-          desiredCenter
-        );
+        const prevError =
+          results[closestSmallerSize].centerDistance.sub(desiredCenter);
         if (-currError.baseScalar < -prevError.baseScalar) {
           closestSmallerSize = i;
         }
@@ -144,9 +143,8 @@ export function calculateClosestCenters(
       closestSmallerSize !== 0
         ? {
             teeth: closestSmallerSize,
-            distance: results[closestSmallerSize].centerDistance.add(
-              extraCenter
-            ),
+            distance:
+              results[closestSmallerSize].centerDistance.add(extraCenter),
           }
         : {
             teeth: 0,
@@ -156,9 +154,8 @@ export function calculateClosestCenters(
       closestLargerSize !== 0
         ? {
             teeth: closestLargerSize,
-            distance: results[closestLargerSize].centerDistance.add(
-              extraCenter
-            ),
+            distance:
+              results[closestLargerSize].centerDistance.add(extraCenter),
           }
         : {
             teeth: 0,
@@ -171,7 +168,8 @@ export function calculateCenterGivenSpecificBelt(
   pitch,
   p1PitchDiameter,
   p2PitchDiameter,
-  beltTeeth
+  beltTeeth,
+  extraCenter
 ) {
   return {
     smaller: {
@@ -181,7 +179,7 @@ export function calculateCenterGivenSpecificBelt(
         p1PitchDiameter,
         p2PitchDiameter,
         beltTeeth
-      ),
+      ).add(extraCenter),
     },
     larger: {
       teeth: 0,

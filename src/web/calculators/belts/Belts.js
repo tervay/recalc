@@ -6,6 +6,7 @@ import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 import Metadata from "common/components/Metadata";
+import beltData from "common/models/data/beltData.json";
 import Measurement from "common/models/Measurement";
 import {
   QueryableParamHolder,
@@ -15,7 +16,6 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import { BooleanParam, NumberParam } from "use-query-params";
 
-import beltData from "./beltData.json";
 import CheatSheet from "./CheatSheet";
 import config from "./index";
 import LinkGenerator from "./linkGenerator";
@@ -77,7 +77,8 @@ export default function Belts() {
         pitch,
         teethToPD(p1Teeth, pitch),
         teethToPD(p2Teeth, pitch),
-        Number(customBeltTeeth)
+        Number(customBeltTeeth),
+        extraCenter
       );
     }
 
@@ -173,6 +174,7 @@ export default function Belts() {
             choices={["in", "mm", "cm"]}
             inputId={"desired-center-input"}
             selectId={"desired-center-select"}
+            disabled={useCustomBelt}
           />
           <LabeledQtyInput
             label="Extra Center"
@@ -262,7 +264,7 @@ export default function Belts() {
           <MultiInputLine label="Specific Belt">
             <BooleanInput
               stateHook={[useCustomBelt, setUseCustomBelt]}
-              label=" Enable"
+              label=""
               inputId="enableSpecificBelt"
             />
             <LabeledNumberInput
@@ -270,6 +272,7 @@ export default function Belts() {
               label="Belt Teeth"
               className="is-9"
               disabled={!useCustomBelt}
+              labelFg={2}
             />
           </MultiInputLine>
           <LinkGenerator

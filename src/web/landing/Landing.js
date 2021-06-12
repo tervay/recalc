@@ -2,7 +2,7 @@ import { setTitle } from "common/tooling/routing";
 import arm from "web/calculators/arm";
 import belts from "web/calculators/belts";
 import chains from "web/calculators/chains";
-import dslogs from "web/calculators/dslogs";
+// import dslogs from "web/calculators/dslogs";
 import flywheel from "web/calculators/flywheel";
 import linear from "web/calculators/linear_mech";
 import gearload from "web/calculators/load";
@@ -25,7 +25,7 @@ export default function Landing() {
           }}
         >
           <div className="container">
-            <h1 className="title">ReCalc</h1>
+            <h1 className="title">⎰ReCalc</h1>
             <h2 className="subtitle">
               A collaboration focused mechanical design calculator
             </h2>
@@ -110,7 +110,7 @@ export default function Landing() {
           </div>
 
           <div className="column is-half">
-            <Tile to="/about" title="About ReCalc" />
+            <Tile to="/about" title="About ⎰ReCalc" />
           </div>
         </div>
       </section>

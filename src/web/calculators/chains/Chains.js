@@ -97,7 +97,7 @@ export default function Chains() {
       />
       <div className="columns">
         <div className="column">
-          <ChainInput stateHook={[chain, setChain]} />
+          <ChainInput stateHook={[chain, setChain]} selectId={"chainInput"} />
           <LabeledQtyInput
             label="Desired Center"
             stateHook={[desiredCenter, setDesiredCenter]}
@@ -116,24 +116,28 @@ export default function Chains() {
             <LabeledNumberInput
               stateHook={[p1Teeth, setP1Teeth]}
               label="Teeth"
+              inputId="p1Teeth-input"
             />
             <LabeledQtyOutput
               label="PD"
               stateHook={[p1Pitch, setP1Pitch]}
               choices={["in", "mm", "cm"]}
               precision={4}
+              inputId="p1Pitch-input"
             />
           </MultiInputLine>
           <MultiInputLine label={"Pulley 2"}>
             <LabeledNumberInput
               stateHook={[p2Teeth, setP2Teeth]}
               label="Teeth"
+              inputId="p2Teeth-input"
             />
             <LabeledQtyOutput
               label="PD"
               stateHook={[p2Pitch, setP2Pitch]}
               choices={["in", "mm", "cm"]}
               precision={4}
+              inputId="p2Pitch-input"
             />
           </MultiInputLine>
           <MultiInputLine label="Smaller">
@@ -142,10 +146,12 @@ export default function Chains() {
               label="Center"
               choices={["in", "mm", "cm"]}
               precision={4}
+              inputId="smallerCenterDistance"
             />
             <LabeledNumberOutput
               stateHook={[smallerTeeth, setSmallerTeeth]}
               label="Links"
+              inputId="smallerLinks"
             />
           </MultiInputLine>
           <MultiInputLine label="Larger">
@@ -154,10 +160,12 @@ export default function Chains() {
               label="Center"
               choices={["in", "mm", "cm"]}
               precision={4}
+              inputId="largerCenterDistance"
             />
             <LabeledNumberOutput
               stateHook={[largerTeeth, setLargerTeeth]}
               label="Links"
+              inputId="largerLinks"
             />
           </MultiInputLine>
           <br />

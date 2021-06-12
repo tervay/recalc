@@ -15,7 +15,7 @@ describe("Ratio", () => {
     [new Ratio(3.0, Ratio.REDUCTION), 3],
     [new Ratio(4.0, Ratio.STEP_UP), 0.25],
     [new Ratio(5.0, Ratio.STEP_UP), 0.2],
-  ])("(%s) asNumber() works correctly", (ratio, expected) => {
+  ])("%p asNumber() works correctly", (ratio, expected) => {
     expect(ratio.asNumber()).toEqual(expected);
   });
 
@@ -41,7 +41,7 @@ describe("Ratio", () => {
         ratioType: "Step-up",
       },
     ],
-  ])("(%s) toDict() works correctly", (ratio, dict) => {
+  ])("%p toDict() works correctly", (ratio, dict) => {
     expect(ratio.toDict()).toEqual(dict);
   });
 

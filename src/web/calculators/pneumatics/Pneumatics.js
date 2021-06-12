@@ -53,10 +53,8 @@ export default function Pneumatics() {
   // const [recommendedTanks, setRecommendedTanks] = useState(getRecommendedTanks([p1, p2, p3]))
 
   useEffect(() => {
-    const {
-      timeline: timeline_,
-      dutyCycle: dutyCycle_,
-    } = generatePressureTimeline([p1, p2, p3], volume, compressor);
+    const { timeline: timeline_, dutyCycle: dutyCycle_ } =
+      generatePressureTimeline([p1, p2, p3], volume, compressor);
     setChartData(timeline_);
 
     setDutyCycle(dutyCycle_.toFixed(1));

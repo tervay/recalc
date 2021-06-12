@@ -66,7 +66,7 @@ describe("Measurement", () => {
       [15500.03, "in2"],
     ],
   ])(
-    "(%#) Simplify returns simplified jsQty",
+    "%p Simplify returns simplified jsQty",
     ([complexMagnitude, complexUnits], [simpleMagnitude, simpleUnits]) => {
       const complexMeasurement = new Qty(complexMagnitude, complexUnits);
       const simplified = Measurement.simplify(complexMeasurement);
@@ -104,7 +104,7 @@ describe("Measurement", () => {
         new Measurement(10, "kg"),
         new Measurement(22.23, "lb"),
       ],
-    ])("(%#) Add", (a, b, result) => {
+    ])("%p Add", (a, b, result) => {
       expect(a.add(b)).toBeCloseToMeasurement(result);
     });
 
@@ -119,7 +119,7 @@ describe("Measurement", () => {
         new Measurement(8, "N m"),
         new Measurement(7, "J"),
       ],
-    ])("(%#) Sub", (a, b, result) => {
+    ])("%p Sub", (a, b, result) => {
       expect(a.sub(b)).toBeCloseToMeasurement(result);
     });
 
@@ -134,7 +134,7 @@ describe("Measurement", () => {
         new Measurement(3, "V"),
         new Measurement(15, "W"),
       ],
-    ])("(%#) Mul", (a, b, result) => {
+    ])("%p Mul", (a, b, result) => {
       expect(a.mul(b)).toBeCloseToMeasurement(result);
     });
 
@@ -145,21 +145,21 @@ describe("Measurement", () => {
         new Measurement(4, "V"),
       ],
       [new Measurement(10, "ft"), new Measurement(5, "ft"), new Measurement(2)],
-    ])("(%#) Div", (a, b, result) => {
+    ])("%p Div", (a, b, result) => {
       expect(a.div(b)).toBeCloseToMeasurement(result);
     });
 
     test.each([
       [new Measurement(5, "in"), new Measurement(5, "in")],
       [new Measurement(5, "cm"), new Measurement(0.05, "m")],
-    ])("(%#) Eq", (a, b) => {
+    ])("%p Eq", (a, b) => {
       expect(a).toEqualMeasurement(b);
     });
 
     test.each([
       [new Measurement(5, "in"), new Measurement(10, "in")],
       [new Measurement(10, "m"), new Measurement(10000, "cm")],
-    ])("(%#) lt", (a, b) => {
+    ])("%p lt", (a, b) => {
       expect(a).toBeLessThanMeasurement(b);
     });
 
@@ -168,14 +168,14 @@ describe("Measurement", () => {
       [new Measurement(5, "in"), new Measurement(5, "in")],
       [new Measurement(10, "m"), new Measurement(10000, "cm")],
       [new Measurement(10, "m"), new Measurement(1000, "cm")],
-    ])("(%#) lte", (a, b) => {
+    ])("%p lte", (a, b) => {
       expect(a).toBeLessThanOrEqualMeasurement(b);
     });
 
     test.each([
       [new Measurement(5, "in"), new Measurement(10, "in")],
       [new Measurement(10, "m"), new Measurement(10000, "cm")],
-    ])("(%#) gt", (a, b) => {
+    ])("%p gt", (a, b) => {
       expect(b).toBeGreaterThanMeasurement(a);
     });
 
@@ -184,7 +184,7 @@ describe("Measurement", () => {
       [new Measurement(5, "in"), new Measurement(5, "in")],
       [new Measurement(10, "m"), new Measurement(10000, "cm")],
       [new Measurement(10, "m"), new Measurement(1000, "cm")],
-    ])("(%#) gte", (a, b) => {
+    ])("%p gte", (a, b) => {
       expect(b).toBeGreaterThanOrEqualMeasurement(a);
     });
   });
@@ -230,7 +230,7 @@ describe("Measurement", () => {
       new Measurement(20, "A"),
       new Measurement(20, "A"),
     ],
-  ])("(%#) clamp() works correctly", (min, measurement, max, expected) => {
+  ])("%p clamp() works correctly", (min, measurement, max, expected) => {
     expect(measurement.clamp(min, max)).toEqualMeasurement(expected);
   });
 
@@ -248,7 +248,7 @@ describe("Measurement", () => {
     [new Measurement(-5, "A"), new Measurement(5, "A")],
     [new Measurement(0, "ft"), new Measurement(0, "ft")],
     [new Measurement(20, "V"), new Measurement(20, "V")],
-  ])("(%#) abs() works correctly", (measurement, expected) => {
+  ])("%p abs() works correctly", (measurement, expected) => {
     expect(measurement.abs()).toEqualMeasurement(expected);
   });
 
@@ -256,7 +256,7 @@ describe("Measurement", () => {
     [new Measurement(-5, "ft"), -1],
     [new Measurement(0, "V"), 0],
     [new Measurement(10, "Ohm"), 1],
-  ])("(%#) sign() works correctly", (measurement, expected) => {
+  ])("%p sign() works correctly", (measurement, expected) => {
     expect(measurement.sign()).toEqual(expected);
   });
 
@@ -264,14 +264,14 @@ describe("Measurement", () => {
     [new Measurement(-5, "A"), new Measurement(5, "A")],
     [new Measurement(0, "ft"), new Measurement(0, "ft")],
     [new Measurement(20, "V"), new Measurement(-20, "V")],
-  ])("(%#) negate() works correctly", (measurement, expected) => {
+  ])("%p negate() works correctly", (measurement, expected) => {
     expect(measurement.negate()).toEqualMeasurement(expected);
   });
 
   test.each([
     [new Measurement(5, "A"), new Measurement(5, "A/rad")],
     [new Measurement(0, "rad rpm"), new Measurement(0, "rpm")],
-  ])("(%#) removeRad() works correctly", (measurement, expected) => {
+  ])("%p removeRad() works correctly", (measurement, expected) => {
     expect(measurement.removeRad()).toEqualMeasurement(expected);
   });
 

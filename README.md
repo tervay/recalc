@@ -1,6 +1,22 @@
-# ReCalc
+# ⎰ReCalc
 
 This is a collaboration focused mechanical design calculator, primarily for FRC.
+
+## Local setup
+
+```
+$ nvm use 15
+$ yarn --version
+1.22.5
+$ yarn
+```
+
+You'll also need to the `REACT_APP_SKIP_GAUTH` (set to `true`) field to the `.env` file:
+
+```
+SKIP_PREFLIGHT_CHECK=true
+REACT_APP_SKIP_GAUTH=true
+```
 
 ### Basic dev commands:
 

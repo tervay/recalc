@@ -19,7 +19,7 @@ export default function Compressors() {
           f.bendingStrength === null
             ? ""
             : f.bendingStrength.to("MPa").scalar.toFixed(1),
-        charpy: f.charpy.to("kJ/m2").scalar.toFixed(1),
+        charpy: f.charpy === null ? "" : f.charpy.to("kJ/m2").scalar.toFixed(1),
         sources: f.sources.map((src, i) => (
           <a key={i} href={src}>
             [{i + 1}]
@@ -74,6 +74,7 @@ export default function Compressors() {
       <section className="section">
         <div className="container">
           <div className="title">Explaining these numbers</div>
+          <p className="block">Test.</p>
           <p className={"block"}>
             Imagine the printed part subject being a rectangular prism printed
             with filament lines in parallel with the long direction of the

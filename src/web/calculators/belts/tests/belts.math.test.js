@@ -25,7 +25,7 @@ describe("Belt math", () => {
     [36, mm(3), inch(1.353)],
     [48, mm(3), inch(1.805)],
     [60, mm(3), inch(2.256)],
-  ])("Teeth to pitch diameter", (teeth, pitch, expected) => {
+  ])("%p Teeth to pitch diameter", (teeth, pitch, expected) => {
     expect(teethToPD(teeth, pitch)).toBeCloseToMeasurement(expected);
   });
 
@@ -73,7 +73,7 @@ describe("Belt math", () => {
       },
     ],
   ])(
-    "Calculate closest centers",
+    "%p Calculate closest centers",
     ({
       pitch,
       p1Teeth,
@@ -114,6 +114,7 @@ describe("Belt math", () => {
         teeth: 340,
         distance: expect.toBeCloseToMeasurement(new Measurement(18.8389, "in")),
       },
+      extraCenter: new Measurement(0, "in"),
     },
     {
       pitch: mm(5),
@@ -122,24 +123,27 @@ describe("Belt math", () => {
       beltTeeth: 118,
       expectedSmaller: {
         teeth: 118,
-        distance: expect.toBeCloseToMeasurement(new Measurement(6.4, "in")),
+        distance: expect.toBeCloseToMeasurement(new Measurement(8.4, "in")),
       },
+      extraCenter: new Measurement(2, "in"),
     },
   ])(
-    "Calculate closest centers given a specific belt",
+    "%p Calculate closest centers given a specific belt",
     ({
       pitch,
       p1PitchDiameter,
       p2PitchDiameter,
       beltTeeth,
       expectedSmaller,
+      extraCenter,
     }) => {
       expect(
         calculateCenterGivenSpecificBelt(
           pitch,
           p1PitchDiameter,
           p2PitchDiameter,
-          beltTeeth
+          beltTeeth,
+          extraCenter
         )
       ).toMatchObject({
         smaller: expectedSmaller,
@@ -169,7 +173,7 @@ describe("Belt math", () => {
       expected: 6.32988,
     },
   ])(
-    "Calculate teeth in mesh",
+    "%p Calculate teeth in mesh",
     ({
       p1PitchDiameter,
       p2PitchDiameter,
@@ -206,7 +210,7 @@ describe("Belt math", () => {
       expected: inch(28.24796),
     },
   ])(
-    "Calculate distance",
+    "%p Calculate distance",
     ({ pitch, p1PitchDiameter, p2PitchDiameter, beltTeeth, expected }) => {
       expect(
         testables.calculateDistance(

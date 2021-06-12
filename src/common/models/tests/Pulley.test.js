@@ -24,7 +24,7 @@ const testCases = [
 
 describe("Belt", () => {
   test.each(testCases)(
-    "Fills fields given teeth and pitch",
+    "%p Fills fields given teeth and pitch",
     ({ pitch, teeth, pitchDiameter }) => {
       const p = Pulley.fromTeeth(teeth, pitch);
       expect(p.pitchDiameter).toBeCloseToMeasurement(pitchDiameter);
@@ -32,7 +32,7 @@ describe("Belt", () => {
   );
 
   test.each(testCases)(
-    "Fills fields given pitchDiameter and pitch",
+    "%p Fills fields given pitchDiameter and pitch",
     ({ pitch, teeth, pitchDiameter }) => {
       const p = Pulley.fromPitchDiameter(pitchDiameter, pitch);
       expect(p.teeth).toEqual(teeth);

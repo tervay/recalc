@@ -60,7 +60,7 @@ describe("Compressor", () => {
         weight: new Measurement(5.8, "lb"),
       },
     ],
-  ])("(%#) Fields are properly set from compressorMap", (compressor, data) => {
+  ])("%p Fields are properly set from compressorMap", (compressor, data) => {
     expect(compressor).toMatchObject({
       url: expect.any(String),
       weight: expect.toEqualMeasurement(data.weight),
@@ -69,7 +69,7 @@ describe("Compressor", () => {
   });
 
   describe.each(Compressor.getAllCompressors())(
-    "(%#) CFM function",
+    "%p CFM function",
     (compressor) => {
       test("Returns FRC-legal values at 0 psi", () => {
         expect(
