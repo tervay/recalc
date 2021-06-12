@@ -74,7 +74,6 @@ export default function Compressors() {
       <section className="section">
         <div className="container">
           <div className="title">Explaining these numbers</div>
-          <p className="block">Test.</p>
           <p className={"block"}>
             Imagine the printed part subject being a rectangular prism printed
             with filament lines in parallel with the long direction of the
