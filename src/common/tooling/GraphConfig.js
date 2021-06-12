@@ -29,6 +29,9 @@ export class GraphConfig {
           zoom: {
             enabled: true,
             mode: "xy",
+            wheel: {
+              enabled: true,
+            },
           },
         },
       },

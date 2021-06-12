@@ -3788,10 +3788,10 @@ chart.js@^3.3.2:
   resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-3.3.2.tgz#667f3a0b6371b9719d8949c04a5bcbaec0d8c615"
   integrity sha512-H0hSO7xqTIrwxoACqnSoNromEMfXvfuVnrbuSt2TuXfBDDofbnto4zuZlRtRvC73/b37q3wGAWZyUU41QPvNbA==
 
-chartjs-plugin-zoom@1.0.0-beta.5:
-  version "1.0.0-beta.5"
-  resolved "https://registry.yarnpkg.com/chartjs-plugin-zoom/-/chartjs-plugin-zoom-1.0.0-beta.5.tgz#a44f41a2b7061856229fb59dd160b3108e4a3f12"
-  integrity sha512-ltt6zMo43bG0qgWrsKfuAF8MY20X2tdeOWcHvscGuhGGgD5HQAn3/FgHNeGOn0co4Z7FlpVH1nHZ62TK8A0B0Q==
+chartjs-plugin-zoom@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/chartjs-plugin-zoom/-/chartjs-plugin-zoom-1.0.1.tgz#b01dd3257dc795440b0ffdc61fbf225cf7e4a375"
+  integrity sha512-3G2Fjd1yhv+E54l0znz1zDOTA8KuUHNtPIP2s/aprNOwIQc5EQ0UVfvGuwiSXYuZuypIGQm4QOP55DPlv7wOXw==
   dependencies:
     hammerjs "^2.0.8"
 
