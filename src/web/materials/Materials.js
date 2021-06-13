@@ -3,26 +3,10 @@ import Metadata from "common/components/Metadata";
 import Material from "common/models/Material";
 import { uuid } from "common/tooling/util";
 import propTypes from "prop-types";
-import { forwardRef, useEffect, useRef } from "react";
 import { useSortBy, useTable } from "react-table";
 
 import config from "./index";
-
-const IndeterminateCheckbox = forwardRef(({ indeterminate, ...rest }, ref) => {
-  const defaultRef = useRef();
-  const resolvedRef = ref || defaultRef;
-
-  useEffect(() => {
-    resolvedRef.current.indeterminate = indeterminate;
-  }, [resolvedRef, indeterminate]);
-
-  return <input type="checkbox" ref={resolvedRef} {...rest} />;
-});
-
-IndeterminateCheckbox.displayName = "IndeterminateCheckbox";
-IndeterminateCheckbox.propTypes = {
-  indeterminate: propTypes.any,
-};
+import { ToggleableColumnTable } from "./ToggleableColumnTable";
 
 function Table({ columns, data }) {
   const {
@@ -38,7 +22,19 @@ function Table({ columns, data }) {
       columns,
       data,
       initialState: {
-        // hiddenColumns: ["Poisson's Ratio"],
+        hiddenColumns: [
+          "Poisson's Ratio",
+          "Brinell Hardness",
+          "Rockwell M Hardness",
+          "Fatigue Strength (MPa)",
+          "Latent Heat of Fusion (J/g)",
+          "Melting Completion (°C)",
+          "Specific Heat Capacity (J/(kg × °C))",
+          "Thermal Conductivity (W/(m × °C))",
+          "Thermal Expansion (%/°C)",
+          "Heat Deflection (@66 PSI) (°C)",
+          "Glass Transition Temperature (°C)",
+        ],
       },
     },
     useSortBy
@@ -46,25 +42,14 @@ function Table({ columns, data }) {
 
   return (
     <>
-      <div>
-        <div>
-          <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} /> Toggle
-          All
-        </div>
-        {allColumns.map((column) => (
-          <div key={column.id}>
-            <label>
-              <input type="checkbox" {...column.getToggleHiddenProps()} />{" "}
-              {column.id}
-            </label>
-          </div>
-        ))}
-        <br />
-      </div>
+      <ToggleableColumnTable
+        columns={allColumns}
+        getToggleHideAllColumnsProps={getToggleHideAllColumnsProps}
+      />
       <div className="table-container">
         <table
           {...getTableProps()}
-          className="table is-narrow is-hoverable is-fullwidth is-bordered"
+          className="table is-narrow is-hoverable is-fullwidth is-bordered sticky"
         >
           <thead>
             {headerGroups.map((headerGroup) => (

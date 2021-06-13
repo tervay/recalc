@@ -24,7 +24,7 @@ describe("Material", () => {
 
   test("getAllMaterials returns expected values", () => {
     const all = Material.getAllMaterials();
-    expect(all).toHaveLength(11);
+    expect(all).toHaveLength(12);
     for (const m of all) {
       expect(m).toBeInstanceOf(Material);
       expect(m.name).toBeDefined();

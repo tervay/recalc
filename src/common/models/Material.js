@@ -109,17 +109,17 @@ export const materialMap = keyBy(
   [
     {
       material: "Steel",
-      name: "4140 Steel",
+      name: "4130 Steel",
       mechanical: new MechanicalProperties({
-        brinellHardness: 310,
+        brinellHardness: 300,
         tensileModulus: GPa(190),
-        elongationAtBreak: 16,
-        fatigueStrength: MPa(650),
+        elongationAtBreak: 18,
+        fatigueStrength: MPa(660),
         poissonsRatio: 0.29,
         shearModulus: GPa(73),
-        shearStrength: MPa(660),
-        tensileStrengthUltimate: MPa(1080),
-        tensileStrengthYield: MPa(990),
+        shearStrength: MPa(640),
+        tensileStrengthUltimate: MPa(1040),
+        tensileStrengthYield: MPa(980),
         density: gcm3(7.8),
       }),
       thermal: new ThermalProperties({
@@ -134,17 +134,17 @@ export const materialMap = keyBy(
     },
     {
       material: "Steel",
-      name: "4130 Steel",
+      name: "4140 Steel",
       mechanical: new MechanicalProperties({
-        brinellHardness: 300,
+        brinellHardness: 310,
         tensileModulus: GPa(190),
-        elongationAtBreak: 18,
-        fatigueStrength: MPa(660),
+        elongationAtBreak: 16,
+        fatigueStrength: MPa(650),
         poissonsRatio: 0.29,
         shearModulus: GPa(73),
-        shearStrength: MPa(640),
-        tensileStrengthUltimate: MPa(1040),
-        tensileStrengthYield: MPa(980),
+        shearStrength: MPa(660),
+        tensileStrengthUltimate: MPa(1080),
+        tensileStrengthYield: MPa(990),
         density: gcm3(7.8),
       }),
       thermal: new ThermalProperties({
@@ -279,6 +279,27 @@ export const materialMap = keyBy(
       }),
     },
     {
+      material: "PETG",
+      name: "Generic PETG",
+      mechanical: new MechanicalProperties({
+        tensileModulus: GPa(2.2),
+        flexuralModulus: GPa(2.1),
+        flexuralStrength: MPa(77),
+        impactNotchedIzod: Jm(77),
+        shearStrength: MPa(62),
+        tensileStrengthUltimate: MPa(53),
+        density: gcm3(1.3),
+      }),
+      thermal: new ThermalProperties({
+        glassTransitionTemperature: C(81),
+        heatDeflectionAt66Psi: C(73),
+        meltingOnset: C(140),
+        specificHeatCapacity: JkgK(1200),
+        thermalConductivity: WmK(0.29),
+        thermalExpansion: ummK(68),
+      }),
+    },
+    {
       material: "ABS",
       name: "Generic ABS",
       mechanical: new MechanicalProperties({
@@ -355,6 +376,7 @@ export const materialMap = keyBy(
         impactNotchedIzod: Jm(260),
         shearModulus: GPa(0.85),
         tensileStrengthUltimate: MPa(24),
+        density: gcm3(1.0),
       }),
       thermal: new ThermalProperties({
         glassTransitionTemperature: C(-80),
