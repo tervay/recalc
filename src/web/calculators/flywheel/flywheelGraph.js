@@ -17,11 +17,11 @@ export class FlywheelConfig extends GraphConfig {
           beginAtZero: true,
           title: {
             display: true,
-            text: "Ratio",
+            text: "Reduction Ratio",
           },
         },
       },
-      "Windup Time (s) vs Ratio"
+      "Windup Time (s) vs Reduction Ratio"
     );
   }
 }
