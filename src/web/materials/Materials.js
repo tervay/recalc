@@ -5,6 +5,7 @@ import { uuid } from "common/tooling/util";
 import propTypes from "prop-types";
 import { forwardRef, useEffect, useRef } from "react";
 import { useSortBy, useTable } from "react-table";
+
 import config from "./index";
 
 const IndeterminateCheckbox = forwardRef(({ indeterminate, ...rest }, ref) => {

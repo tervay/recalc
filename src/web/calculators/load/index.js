@@ -21,7 +21,7 @@ export default new PageConfig({
     gearTeeth: 60,
     pinionWidth: new Measurement(0.475, "in"),
     gearWidth: new Measurement(0.375, "in"),
-    pinionMaterial: Material.Steel4140Annealed(),
+    pinionMaterial: Material.Steel4140(),
     gearMaterial: Material.Aluminum7075_T6(),
   },
   component: lazy(() => import("web/calculators/load/Load")),
