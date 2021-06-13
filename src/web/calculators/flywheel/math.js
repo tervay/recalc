@@ -40,62 +40,6 @@ export function calculateWindupTime(
 
 /**
  *
- *
- * @param {Measurement} weight
- * @param {Measurement} radius
- * @param {Measurement} motorFreeSpeed
- * @param {Measurement} motorStallTorque
- * @param {Measurement} motorStallCurrent
- * @param {Measurement} motorResistance
- * @param {number} motorQuantity
- * @param {Ratio} ratio
- * @param {Measurement} targetSpeed
- */
-export function calculateWindupTime2(
-  weight,
-  radius,
-  motorFreeSpeed,
-  motorStallTorque,
-  motorStallCurrent,
-  motorResistance,
-  motorQuantity,
-  ratio,
-  targetSpeed
-) {
-  if (motorQuantity === 0 || ratio.asNumber() === 0) {
-    return new Measurement(0, "s");
-  }
-
-  const J = new Measurement(0.5)
-    .mul(weight)
-    .mul(radius)
-    .mul(radius)
-    .div(ratio.asNumber())
-    .div(ratio.asNumber());
-  const R = motorResistance;
-  const kT = motorStallTorque.div(motorStallCurrent).mul(motorQuantity);
-  const kE = new Measurement(kT.scalar, "V*s/rad"); // valid for DC + BLDC motors
-  const w = targetSpeed;
-
-  const t1 = new Measurement(-1).mul(J).mul(R);
-  const t2 = kT.mul(kE);
-  const t3 = t1.div(t2);
-  const t4 = new Measurement(1).sub(
-    w.div(motorFreeSpeed.div(ratio.asNumber()))
-  );
-
-  if (t4.scalar <= 0) {
-    return new Measurement(0, "s");
-  } else {
-    return t3
-      .mul(Math.log(t4.scalar))
-      .mul(new Measurement(1, "rad^-1"))
-      .to("s");
-  }
-}
-
-/**
- *
  * @param {Measurement} momentOfInertia
  * @param {Measurement} motorFreeSpeed
  * @param {Measurement} motorStallTorque

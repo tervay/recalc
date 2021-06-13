@@ -3,7 +3,6 @@ import { LabeledMotorInput } from "common/components/io/inputs/MotorInput";
 import MultiInputLine from "common/components/io/inputs/MultiInputLine";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
 import { LabeledRatioInput } from "common/components/io/inputs/RatioInput";
-import { LabeledNumberOutput } from "common/components/io/outputs/NumberOutput";
 import { LabeledQtyOutput } from "common/components/io/outputs/QtyOutput";
 import Metadata from "common/components/Metadata";
 import Measurement from "common/models/Measurement";
@@ -21,7 +20,6 @@ import {
   calculateWindupTime,
   generateChartData,
 } from "web/calculators/flywheel/math";
-
 import { FlywheelConfig } from "./flywheelGraph";
 import config from "./index";
 import { flywheelVersionManager } from "./versions";
@@ -62,8 +60,6 @@ export default function Flywheel() {
 
   // Outputs
   const [windupTime, setWindupTime] = useState(new Measurement(0, "s"));
-  const [optimalRatio, setOptimalRatio] = useState(new Ratio(1));
-
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
@@ -187,10 +183,6 @@ export default function Flywheel() {
             choices={["s"]}
             label={"Windup Time"}
             precision={3}
-          />
-          <LabeledNumberOutput
-            stateHook={[optimalRatio, setOptimalRatio]}
-            label={"Optimal Ratio"}
           />
         </div>
         <div className="column">
