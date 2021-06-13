@@ -19,7 +19,13 @@ export default class Material extends Model {
   }
 
   getSafeMaterialStrength() {
-    return this.mechanical.tensileStrengthUltimate.div(3);
+    return [
+      this.mechanical.tensileStrengthYield,
+      this.mechanical.tensileStrengthUltimate,
+      this.mechanical.tensileStrengthBreak,
+    ]
+      .find((v) => v !== undefined)
+      .div(3);
   }
 
   static Steel4140() {

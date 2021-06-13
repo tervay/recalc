@@ -273,6 +273,12 @@ export default function Load() {
               estimating factors of safety.
               <br />
               <br />
+              Additionally, the field of material science has many different
+              tests & specifications for different materials and their
+              properties, and some data is imperfectly extrapolated from other
+              tests.
+              <br />
+              <br />
               This calculator assumes the pinion is attached directly to the
               motor output shaft, and that each motor has a pinion together
               driving a single gear.
