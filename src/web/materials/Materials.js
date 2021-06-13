@@ -5,7 +5,6 @@ import { uuid } from "common/tooling/util";
 import propTypes from "prop-types";
 import { forwardRef, useEffect, useRef } from "react";
 import { useSortBy, useTable } from "react-table";
-
 import config from "./index";
 
 const IndeterminateCheckbox = forwardRef(({ indeterminate, ...rest }, ref) => {
@@ -37,6 +36,9 @@ function Table({ columns, data }) {
     {
       columns,
       data,
+      initialState: {
+        // hiddenColumns: ["Poisson's Ratio"],
+      },
     },
     useSortBy
   );
@@ -136,11 +138,15 @@ export default function Materials() {
       columns: [
         {
           Header: "Density (g/cm³)",
-          accessor: (m) => m.mechanical?.density?.to("g/cm3").scalar.toFixed(2),
+          accessor: (m) => m.mechanical?.density?.to("g/cm3").scalar.toFixed(1),
         },
         {
-          Header: "Hardness",
-          accessor: (m) => m.mechanical?.hardness,
+          Header: "Brinell Hardness",
+          accessor: (m) => m.mechanical?.brinellHardness,
+        },
+        {
+          Header: "Rockwell M Hardness",
+          accessor: (m) => m.mechanical?.rockwellMHardness,
         },
         {
           Header: "Tensile Modulus (GPa)",
@@ -193,7 +199,7 @@ export default function Materials() {
         {
           Header: "Izod Impact Strength (J/m)",
           accessor: (m) =>
-            m.mechanical?.impactNotchedIzod?.to("J/m").scalar.toFixed(1),
+            m.mechanical?.impactNotchedIzod?.to("J/m").scalar.toFixed(),
         },
       ],
     },
@@ -203,7 +209,7 @@ export default function Materials() {
         {
           Header: "Latent Heat of Fusion (J/g)",
           accessor: (m) =>
-            m.thermal?.latentHeatOfFusion?.to("J/g").scalar.toFixed(1),
+            m.thermal?.latentHeatOfFusion?.to("J/g").scalar.toFixed(0),
         },
         {
           Header: "Maximum Mechanical Temperature (°C)",

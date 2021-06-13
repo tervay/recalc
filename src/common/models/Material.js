@@ -37,7 +37,8 @@ export default class Material extends Model {
 
 class MechanicalProperties {
   constructor({
-    hardness,
+    brinellHardness,
+    rockwellMHardness,
     tensileModulus,
     tensileStrengthUltimate,
     tensileStrengthYield,
@@ -51,7 +52,8 @@ class MechanicalProperties {
     flexuralStrength,
     impactNotchedIzod,
   } = {}) {
-    this.hardness = hardness;
+    this.brinellHardness = brinellHardness;
+    this.rockwellMHardness = rockwellMHardness;
     this.tensileModulus = tensileModulus;
     this.tensileStrengthUltimate = tensileStrengthUltimate;
     this.tensileStrengthYield = tensileStrengthYield;
@@ -128,7 +130,7 @@ export const materialMap = keyBy(
       material: "Steel",
       name: "4140 Steel",
       mechanical: new MechanicalProperties({
-        hardness: 310,
+        brinellHardness: 310,
         tensileModulus: GPa(190),
         elongationAtBreak: 16,
         fatigueStrength: MPa(650),
@@ -153,7 +155,7 @@ export const materialMap = keyBy(
       material: "Steel",
       name: "4130 Steel",
       mechanical: new MechanicalProperties({
-        hardness: 300,
+        brinellHardness: 300,
         tensileModulus: GPa(190),
         elongationAtBreak: 18,
         fatigueStrength: MPa(660),
@@ -178,7 +180,7 @@ export const materialMap = keyBy(
       material: "Aluminum",
       name: "6061-T6 Aluminum",
       mechanical: new MechanicalProperties({
-        hardness: 93,
+        brinellHardness: 93,
         tensileModulus: GPa(69),
         elongationAtBreak: 10,
         fatigueStrength: MPa(96),
@@ -203,7 +205,7 @@ export const materialMap = keyBy(
       material: "Aluminum",
       name: "7075-T6 Aluminum",
       mechanical: new MechanicalProperties({
-        hardness: 150,
+        brinellHardness: 150,
         tensileModulus: GPa(70),
         elongationAtBreak: 7.9,
         fatigueStrength: MPa(160),
@@ -222,6 +224,56 @@ export const materialMap = keyBy(
         specificHeatCapacity: JkgK(870),
         thermalConductivity: WmK(130),
         thermalExpansion: ummK(23),
+      }),
+    },
+    {
+      material: "Brass",
+      name: "360 Brass",
+      mechanical: new MechanicalProperties({
+        tensileModulus: GPa(100),
+        elongationAtBreak: 23,
+        poissonsRatio: 0.31,
+        shearModulus: GPa(39),
+        shearStrength: MPa(210),
+        tensileStrengthUltimate: MPa(330),
+        tensileStrengthYield: MPa(140),
+        density: gcm3(8.2),
+      }),
+      thermal: new ThermalProperties({
+        latentHeatOfFusion: Jg(170),
+        maximumTemperatureMechanical: C(120),
+        meltingCompletion: C(900),
+        meltingOnset: C(890),
+        specificHeatCapacity: JkgK(380),
+        thermalConductivity: WmK(120),
+        thermalExpansion: ummK(21),
+      }),
+    },
+    {
+      name: "Generic PC",
+      material: "Polycarb",
+      mechanical: new MechanicalProperties({
+        tensileModulus: GPa(2.3),
+        elongationAtBreak: 110,
+        fatigueStrength: MPa(6.9),
+        flexuralModulus: GPa(2.3),
+        flexuralStrength: MPa(92),
+        impactNotchedIzod: Jm(440),
+        poissonsRatio: 0.38,
+        rockwellMHardness: 68,
+        shearModulus: GPa(0.8),
+        shearStrength: MPa(70),
+        tensileStrengthUltimate: MPa(66),
+        tensileStrengthYield: MPa(62),
+        density: gcm3(1.2),
+      }),
+      thermal: new ThermalProperties({
+        glassTransitionTemperature: C(150),
+        heatDeflectionAt66Psi: C(140),
+        maximumTemperatureMechanical: C(120),
+        specificHeatCapacity: JkgK(1200),
+        thermalConductivity: WmK(0.2),
+        thermalExpansion: ummK(69),
       }),
     },
     {
@@ -265,6 +317,71 @@ export const materialMap = keyBy(
         specificHeatCapacity: JkgK(1400),
         thermalConductivity: WmK(0.23),
         thermalExpansion: ummK(95),
+      }),
+    },
+    {
+      name: "Delrin",
+      material: "POM-H",
+      mechanical: new MechanicalProperties({
+        tensileModulus: GPa(3.4),
+        elongationAtBreak: 55,
+        fatigueStrength: MPa(29),
+        flexuralModulus: GPa(2.9),
+        flexuralStrength: MPa(94),
+        impactNotchedIzod: Jm(75),
+        rockwellMHardness: 94,
+        tensileStrengthUltimate: MPa(67),
+        density: gcm3(1.4),
+      }),
+      thermal: new ThermalProperties({
+        glassTransitionTemperature: C(-23),
+        heatDeflectionAt66Psi: C(160),
+        maximumTemperatureMechanical: C(90),
+        meltingOnset: C(180),
+        specificHeatCapacity: JkgK(1460),
+        thermalConductivity: WmK(0.33),
+        thermalExpansion: ummK(120),
+      }),
+    },
+    {
+      name: "Rigid PVC",
+      material: "PVC",
+      mechanical: new MechanicalProperties({
+        tensileModulus: GPa(3.8),
+        elongationAtBreak: 58,
+        flexuralModulus: GPa(3.5),
+        flexuralStrength: MPa(80),
+        impactNotchedIzod: Jm(360),
+        tensileStrengthUltimate: MPa(47),
+        density: gcm3(1.4),
+      }),
+      thermal: new ThermalProperties({
+        glassTransitionTemperature: C(85),
+        heatDeflectionAt66Psi: C(90),
+        maximumTemperatureMechanical: C(95),
+        meltingOnset: C(180),
+        specificHeatCapacity: JkgK(880),
+        thermalConductivity: WmK(0.16),
+        thermalExpansion: ummK(61),
+      }),
+    },
+    {
+      name: "HDPE",
+      material: "HDPE",
+      mechanical: new MechanicalProperties({
+        tensileModulus: GPa(1.0),
+        elongationAtBreak: 100,
+        impactNotchedIzod: Jm(260),
+        shearModulus: GPa(0.85),
+        tensileStrengthUltimate: MPa(24),
+      }),
+      thermal: new ThermalProperties({
+        glassTransitionTemperature: C(-80),
+        maximumTemperatureMechanical: C(90),
+        meltingOnset: C(130),
+        specificHeatCapacity: JkgK(2400),
+        thermalConductivity: WmK(0.45),
+        thermalExpansion: ummK(130),
       }),
     },
   ],
