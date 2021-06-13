@@ -42,6 +42,7 @@ class MechanicalProperties {
     tensileModulus,
     tensileStrengthUltimate,
     tensileStrengthYield,
+    tensileStrengthBreak,
     elongationAtBreak,
     fatigueStrength,
     poissonsRatio,
@@ -51,12 +52,14 @@ class MechanicalProperties {
     flexuralModulus,
     flexuralStrength,
     impactNotchedIzod,
+    impactCharpy,
   } = {}) {
     this.brinellHardness = brinellHardness;
     this.rockwellMHardness = rockwellMHardness;
     this.tensileModulus = tensileModulus;
     this.tensileStrengthUltimate = tensileStrengthUltimate;
     this.tensileStrengthYield = tensileStrengthYield;
+    this.tensileStrengthBreak = tensileStrengthBreak;
     this.elongationAtBreak = elongationAtBreak;
     this.fatigueStrength = fatigueStrength;
     this.poissonsRatio = poissonsRatio;
@@ -66,6 +69,7 @@ class MechanicalProperties {
     this.flexuralModulus = flexuralModulus;
     this.flexuralStrength = flexuralStrength;
     this.impactNotchedIzod = impactNotchedIzod;
+    this.impactCharpy = impactCharpy;
   }
 }
 
@@ -104,6 +108,7 @@ const WmK = (n) => new Measurement(n, "W").div(new Measurement(1, "m * degK"));
 const ummK = (n) =>
   new Measurement(n, "micrometers").div(new Measurement(1, "m * degK"));
 const Jm = (n) => new Measurement(n, "J/m");
+const kJm2 = (n) => new Measurement(n, "kJ").div(new Measurement(1, "m^2"));
 
 export const materialMap = keyBy(
   [
@@ -258,70 +263,6 @@ export const materialMap = keyBy(
       }),
     },
     {
-      material: "PLA",
-      name: "Generic PLA",
-      mechanical: new MechanicalProperties({
-        density: gcm3(1.3),
-        tensileModulus: GPa(3.5),
-        elongationAtBreak: 6.0,
-        flexuralModulus: GPa(4.0),
-        flexuralStrength: MPa(80),
-        shearModulus: GPa(2.4),
-        tensileStrengthUltimate: MPa(50),
-      }),
-      thermal: new ThermalProperties({
-        specificHeatCapacity: JkgK(1800),
-        thermalConductivity: WmK(0.13),
-        maximumTemperatureMechanical: C(50),
-        meltingOnset: C(160),
-        heatDeflectionAt66Psi: C(65),
-        glassTransitionTemperature: C(60),
-      }),
-    },
-    {
-      material: "PETG",
-      name: "Generic PETG",
-      mechanical: new MechanicalProperties({
-        tensileModulus: GPa(2.2),
-        flexuralModulus: GPa(2.1),
-        flexuralStrength: MPa(77),
-        impactNotchedIzod: Jm(77),
-        shearStrength: MPa(62),
-        tensileStrengthUltimate: MPa(53),
-        density: gcm3(1.3),
-      }),
-      thermal: new ThermalProperties({
-        glassTransitionTemperature: C(81),
-        heatDeflectionAt66Psi: C(73),
-        meltingOnset: C(140),
-        specificHeatCapacity: JkgK(1200),
-        thermalConductivity: WmK(0.29),
-        thermalExpansion: ummK(68),
-      }),
-    },
-    {
-      material: "ABS",
-      name: "Generic ABS",
-      mechanical: new MechanicalProperties({
-        tensileModulus: GPa(2.0),
-        elongationAtBreak: 20,
-        flexuralModulus: GPa(2.1),
-        flexuralStrength: MPa(97),
-        impactNotchedIzod: Jm(320),
-        poissonsRatio: 0.41,
-        tensileStrengthUltimate: MPa(41),
-        density: gcm3(1.1),
-      }),
-      thermal: new ThermalProperties({
-        glassTransitionTemperature: C(100),
-        heatDeflectionAt66Psi: C(100),
-        maximumTemperatureMechanical: C(80),
-        specificHeatCapacity: JkgK(1400),
-        thermalConductivity: WmK(0.23),
-        thermalExpansion: ummK(95),
-      }),
-    },
-    {
       name: "Delrin",
       material: "POM-H",
       mechanical: new MechanicalProperties({
@@ -385,6 +326,195 @@ export const materialMap = keyBy(
         specificHeatCapacity: JkgK(2400),
         thermalConductivity: WmK(0.45),
         thermalExpansion: ummK(130),
+      }),
+    },
+    {
+      material: "PLA",
+      name: "Generic PLA",
+      mechanical: new MechanicalProperties({
+        density: gcm3(1.3),
+        tensileModulus: GPa(3.5),
+        elongationAtBreak: 6.0,
+        flexuralModulus: GPa(4.0),
+        flexuralStrength: MPa(80),
+        shearModulus: GPa(2.4),
+        tensileStrengthUltimate: MPa(50),
+      }),
+      thermal: new ThermalProperties({
+        specificHeatCapacity: JkgK(1800),
+        thermalConductivity: WmK(0.13),
+        maximumTemperatureMechanical: C(50),
+        meltingOnset: C(160),
+        heatDeflectionAt66Psi: C(65),
+        glassTransitionTemperature: C(60),
+      }),
+    },
+    {
+      material: "PLA",
+      name: "PolyLite PLA",
+      mechanical: new MechanicalProperties({
+        density: gcm3(1.17),
+        tensileModulus: MPa(2636),
+        tensileStrengthUltimate: MPa(46.6),
+        elongationAtBreak: 1.9,
+        flexuralModulus: MPa(3283),
+        flexuralStrength: MPa(85.1),
+        impactCharpy: kJm2(2.68),
+      }),
+      thermal: new ThermalProperties({
+        glassTransitionTemperature: C(61),
+        meltingOnset: C(150),
+        heatDeflectionAt66Psi: C(59.8),
+      }),
+    },
+    {
+      material: "PETG",
+      name: "Generic PETG",
+      mechanical: new MechanicalProperties({
+        tensileModulus: GPa(2.2),
+        flexuralModulus: GPa(2.1),
+        flexuralStrength: MPa(77),
+        impactNotchedIzod: Jm(77),
+        shearStrength: MPa(62),
+        tensileStrengthUltimate: MPa(53),
+        density: gcm3(1.3),
+      }),
+      thermal: new ThermalProperties({
+        glassTransitionTemperature: C(81),
+        heatDeflectionAt66Psi: C(73),
+        meltingOnset: C(140),
+        specificHeatCapacity: JkgK(1200),
+        thermalConductivity: WmK(0.29),
+        thermalExpansion: ummK(68),
+      }),
+    },
+    {
+      material: "ABS",
+      name: "Generic ABS",
+      mechanical: new MechanicalProperties({
+        tensileModulus: GPa(2.0),
+        elongationAtBreak: 20,
+        flexuralModulus: GPa(2.1),
+        flexuralStrength: MPa(97),
+        impactNotchedIzod: Jm(320),
+        poissonsRatio: 0.41,
+        tensileStrengthUltimate: MPa(41),
+        density: gcm3(1.1),
+      }),
+      thermal: new ThermalProperties({
+        glassTransitionTemperature: C(100),
+        heatDeflectionAt66Psi: C(100),
+        maximumTemperatureMechanical: C(80),
+        specificHeatCapacity: JkgK(1400),
+        thermalConductivity: WmK(0.23),
+        thermalExpansion: ummK(95),
+      }),
+    },
+    {
+      material: "CF-PC",
+      name: "Prusament PC Blend Carbon Fiber",
+      mechanical: new MechanicalProperties({
+        density: gcm3(1.16),
+        tensileStrengthYield: MPa(55),
+        tensileModulus: GPa(2.3),
+        flexuralModulus: GPa(3.0),
+        flexuralStrength: MPa(85),
+        impactCharpy: kJm2(9),
+      }),
+      thermal: new ThermalProperties({
+        heatDeflectionAt66Psi: C(114),
+      }),
+    },
+    {
+      material: "Nylon",
+      name: "MF Nylon",
+      mechanical: new MechanicalProperties({
+        tensileModulus: GPa(1.7),
+        tensileStrengthBreak: MPa(36),
+        tensileStrengthYield: MPa(51),
+        flexuralModulus: GPa(1.4),
+        flexuralStrength: MPa(50),
+        impactNotchedIzod: Jm(110),
+        density: gcm3(1.1),
+      }),
+      thermal: new ThermalProperties({
+        heatDeflectionAt66Psi: C(41),
+      }),
+    },
+    {
+      material: "CF-Nylon",
+      name: "MF Onyx",
+      mechanical: new MechanicalProperties({
+        tensileModulus: GPa(2.4),
+        tensileStrengthBreak: MPa(37),
+        tensileStrengthYield: MPa(40),
+        flexuralModulus: GPa(3.0),
+        flexuralStrength: MPa(71),
+        impactNotchedIzod: Jm(330),
+        density: gcm3(1.2),
+      }),
+      thermal: new ThermalProperties({
+        heatDeflectionAt66Psi: C(145),
+      }),
+    },
+    {
+      material: "CF-Nylon",
+      name: "MF Onyx w/ CF",
+      mechanical: new MechanicalProperties({
+        tensileModulus: GPa(60),
+        tensileStrengthUltimate: MPa(800),
+        flexuralModulus: GPa(51),
+        flexuralStrength: MPa(540),
+        impactNotchedIzod: Jm(960),
+        density: gcm3(1.4),
+      }),
+      thermal: new ThermalProperties({
+        heatDeflectionAt66Psi: C(105),
+      }),
+    },
+    {
+      material: "CF-Nylon",
+      name: "MF Onyx w/ Kevlar",
+      mechanical: new MechanicalProperties({
+        tensileModulus: GPa(27),
+        tensileStrengthUltimate: MPa(610),
+        flexuralModulus: GPa(26),
+        flexuralStrength: MPa(240),
+        impactNotchedIzod: Jm(2000),
+        density: gcm3(1.2),
+      }),
+      thermal: new ThermalProperties({
+        heatDeflectionAt66Psi: C(105),
+      }),
+    },
+    {
+      material: "CF-Nylon",
+      name: "MF Onyx w/ Fiberglass",
+      mechanical: new MechanicalProperties({
+        tensileModulus: GPa(21),
+        tensileStrengthUltimate: MPa(590),
+        flexuralModulus: GPa(22),
+        flexuralStrength: MPa(200),
+        impactNotchedIzod: Jm(2600),
+        density: gcm3(1.5),
+      }),
+      thermal: new ThermalProperties({
+        heatDeflectionAt66Psi: C(105),
+      }),
+    },
+    {
+      material: "CF-Nylon",
+      name: "MF Onyx w/ HSHT Fiberglass",
+      mechanical: new MechanicalProperties({
+        tensileModulus: GPa(21),
+        tensileStrengthUltimate: MPa(600),
+        flexuralModulus: GPa(21),
+        flexuralStrength: MPa(420),
+        impactNotchedIzod: Jm(3100),
+        density: gcm3(1.5),
+      }),
+      thermal: new ThermalProperties({
+        heatDeflectionAt66Psi: C(150),
       }),
     },
   ],

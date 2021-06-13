@@ -34,6 +34,14 @@ function Table({ columns, data }) {
           "Thermal Expansion (%/°C)",
           "Heat Deflection (@66 PSI) (°C)",
           "Glass Transition Temperature (°C)",
+          "Shear Modulus (GPa)",
+          "Shear Strength (MPa)",
+          "Charpy Impact Strength (J/m^2)",
+          "Tensile Strength (Yield) (MPa)",
+          "Tensile Strength (Break) (MPa)",
+          "Elongation At Break (%)",
+          "Maximum Mechanical Temperature (°C)",
+          "Melting Onset (°C)",
         ],
       },
     },
@@ -163,14 +171,19 @@ export default function Materials() {
             m.mechanical?.shearStrength?.to("MPa").scalar.toFixed(1),
         },
         {
+          Header: "Tensile Strength (Yield) (MPa)",
+          accessor: (m) =>
+            m.mechanical?.tensileStrengthYield?.to("MPa").scalar.toFixed(1),
+        },
+        {
           Header: "Tensile Strength (Ultimate) (MPa)",
           accessor: (m) =>
             m.mechanical?.tensileStrengthUltimate?.to("MPa").scalar.toFixed(1),
         },
         {
-          Header: "Tensile Strength (Yield) (MPa)",
+          Header: "Tensile Strength (Break) (MPa)",
           accessor: (m) =>
-            m.mechanical?.tensileStrengthYield?.to("MPa").scalar.toFixed(1),
+            m.mechanical?.tensileStrengthBreak?.to("MPa").scalar.toFixed(1),
         },
         {
           Header: "Flexural Modulus (GPa)",
@@ -186,6 +199,11 @@ export default function Materials() {
           Header: "Izod Impact Strength (J/m)",
           accessor: (m) =>
             m.mechanical?.impactNotchedIzod?.to("J/m").scalar.toFixed(),
+        },
+        {
+          Header: "Charpy Impact Strength (J/m^2)",
+          accessor: (m) =>
+            m.mechanical?.impactCharpy?.to("J/m^2").scalar.toFixed(),
         },
       ],
     },

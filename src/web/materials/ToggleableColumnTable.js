@@ -41,11 +41,13 @@ const groups = {
     "Poisson's Ratio",
     "Shear Modulus (GPa)",
     "Shear Strength (MPa)",
-    "Tensile Strength (Ultimate) (MPa)",
     "Tensile Strength (Yield) (MPa)",
+    "Tensile Strength (Ultimate) (MPa)",
+    "Tensile Strength (Break) (MPa)",
     "Flexural Modulus (GPa)",
     "Flexural Strength (MPa)",
     "Izod Impact Strength (J/m)",
+    "Charpy Impact Strength (J/m^2)",
   ],
   Thermal: [
     "Latent Heat of Fusion (J/g)",
@@ -76,8 +78,6 @@ export function ToggleableColumnTable({
         </div>
       ))
   );
-
-  console.log(getToggleHideAllColumnsProps());
 
   return (
     <table className="table is-narrow is-hoverable is-fullwidth">

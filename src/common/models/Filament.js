@@ -31,7 +31,7 @@ const filamentMap = keyBy(
       bendingStrength: new Measurement(81, "MPa"),
       charpy: new Measurement(10.72, "kJ/m2"),
       sources: [
-        "https://static.markforged.com/markforged_composites_datasheet.pdf",
+        "http://static.markforged.com/downloads/composites-data-sheet.pdf",
         "https://scholarworks.rit.edu/cgi/viewcontent.cgi?article=11338&context=theses",
         "https://www.matec-conferences.org/articles/matecconf/pdf/2019/03/matecconf_mms18_01018.pdf",
       ],
