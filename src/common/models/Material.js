@@ -23,11 +23,11 @@ export default class Material extends Model {
   }
 
   static Steel4140Annealed() {
-    return new Material("Quenched & Tempered 4140 Chromoly Steel");
+    return new Material("4140 Steel");
   }
 
   static Aluminum7075_T6() {
-    return new Material("Quenched & Tempered 4140 Chromoly Steel");
+    return new Material("4140 Steel");
   }
 
   static getAllMaterials() {
@@ -47,6 +47,9 @@ class MechanicalProperties {
     shearModulus,
     shearStrength,
     density,
+    flexuralModulus,
+    flexuralStrength,
+    impactNotchedIzod,
   } = {}) {
     this.hardness = hardness;
     this.tensileModulus = tensileModulus;
@@ -58,6 +61,9 @@ class MechanicalProperties {
     this.shearModulus = shearModulus;
     this.shearStrength = shearStrength;
     this.density = density;
+    this.flexuralModulus = flexuralModulus;
+    this.flexuralStrength = flexuralStrength;
+    this.impactNotchedIzod = impactNotchedIzod;
   }
 }
 
@@ -70,6 +76,8 @@ class ThermalProperties {
     specificHeatCapacity,
     thermalConductivity,
     thermalExpansion,
+    heatDeflectionAt66Psi,
+    glassTransitionTemperature,
   } = {}) {
     this.latentHeatOfFusion = latentHeatOfFusion;
     this.maximumTemperatureMechanical = maximumTemperatureMechanical;
@@ -78,10 +86,11 @@ class ThermalProperties {
     this.specificHeatCapacity = specificHeatCapacity;
     this.thermalConductivity = thermalConductivity;
     this.thermalExpansion = thermalExpansion;
+    this.heatDeflectionAt66Psi = heatDeflectionAt66Psi;
+    this.glassTransitionTemperature = glassTransitionTemperature;
   }
 }
 
-const psi = (n) => new Measurement(n, "psi");
 const GPa = (n) => new Measurement(n, "GPa");
 const MPa = (n) => new Measurement(n, "MPa");
 const gcm3 = (n) => new Measurement(n, "g/cm3");
@@ -92,6 +101,7 @@ const JkgK = (n) =>
 const WmK = (n) => new Measurement(n, "W").div(new Measurement(1, "m * degK"));
 const ummK = (n) =>
   new Measurement(n, "micrometers").div(new Measurement(1, "m * degK"));
+const Jm = (n) => new Measurement(n, "J/m");
 
 export const materialMap = keyBy(
   [
@@ -115,8 +125,8 @@ export const materialMap = keyBy(
     // { name: "PVC", tensileStrength: psi(7000) },
     // { name: "UHMW", tensileStrength: psi(4000) },
     {
-      material: "4140 Steel",
-      name: "Quenched & Tempered 4140 Chromoly Steel",
+      material: "Steel",
+      name: "4140 Steel",
       mechanical: new MechanicalProperties({
         hardness: 310,
         tensileModulus: GPa(190),
@@ -140,8 +150,8 @@ export const materialMap = keyBy(
       }),
     },
     {
-      material: "4130 Steel",
-      name: "Quenched & Tempered 4130 Chromoly Steel",
+      material: "Steel",
+      name: "4130 Steel",
       mechanical: new MechanicalProperties({
         hardness: 300,
         tensileModulus: GPa(190),
@@ -165,12 +175,12 @@ export const materialMap = keyBy(
       }),
     },
     {
+      material: "Aluminum",
       name: "6061-T6 Aluminum",
-      material: "6061-T6 Aluminum",
       mechanical: new MechanicalProperties({
         hardness: 93,
         tensileModulus: GPa(69),
-        elongationAtBreak: 0.1,
+        elongationAtBreak: 10,
         fatigueStrength: MPa(96),
         poissonsRatio: 0.33,
         shearModulus: GPa(26),
@@ -178,6 +188,83 @@ export const materialMap = keyBy(
         tensileStrengthUltimate: MPa(310),
         tensileStrengthYield: MPa(270),
         density: gcm3(2.7),
+      }),
+      thermal: new ThermalProperties({
+        latentHeatOfFusion: Jg(400),
+        maximumTemperatureMechanical: C(170),
+        meltingCompletion: C(650),
+        meltingOnset: C(580),
+        specificHeatCapacity: JkgK(900),
+        thermalConductivity: WmK(170),
+        thermalExpansion: ummK(24),
+      }),
+    },
+    {
+      material: "Aluminum",
+      name: "7075-T6 Aluminum",
+      mechanical: new MechanicalProperties({
+        hardness: 150,
+        tensileModulus: GPa(70),
+        elongationAtBreak: 7.9,
+        fatigueStrength: MPa(160),
+        poissonsRatio: 0.32,
+        shearModulus: GPa(26),
+        shearStrength: MPa(330),
+        tensileStrengthUltimate: MPa(560),
+        tensileStrengthYield: MPa(480),
+        density: gcm3(3),
+      }),
+      thermal: new ThermalProperties({
+        latentHeatOfFusion: Jg(380),
+        maximumTemperatureMechanical: C(200),
+        meltingCompletion: C(640),
+        meltingOnset: C(480),
+        specificHeatCapacity: JkgK(870),
+        thermalConductivity: WmK(130),
+        thermalExpansion: ummK(23),
+      }),
+    },
+    {
+      material: "PLA",
+      name: "Generic PLA",
+      mechanical: new MechanicalProperties({
+        density: gcm3(1.3),
+        tensileModulus: GPa(3.5),
+        elongationAtBreak: 6.0,
+        flexuralModulus: GPa(4.0),
+        flexuralStrength: MPa(80),
+        shearModulus: GPa(2.4),
+        tensileStrengthUltimate: MPa(50),
+      }),
+      thermal: new ThermalProperties({
+        specificHeatCapacity: JkgK(1800),
+        thermalConductivity: WmK(0.13),
+        maximumTemperatureMechanical: C(50),
+        meltingOnset: C(160),
+        heatDeflectionAt66Psi: C(65),
+        glassTransitionTemperature: C(60),
+      }),
+    },
+    {
+      material: "ABS",
+      name: "Generic ABS",
+      mechanical: new MechanicalProperties({
+        tensileModulus: GPa(2.0),
+        elongationAtBreak: 20,
+        flexuralModulus: GPa(2.1),
+        flexuralStrength: MPa(97),
+        impactNotchedIzod: Jm(320),
+        poissonsRatio: 0.41,
+        tensileStrengthUltimate: MPa(41),
+        density: gcm3(1.1),
+      }),
+      thermal: new ThermalProperties({
+        glassTransitionTemperature: C(100),
+        heatDeflectionAt66Psi: C(100),
+        maximumTemperatureMechanical: C(80),
+        specificHeatCapacity: JkgK(1400),
+        thermalConductivity: WmK(0.23),
+        thermalExpansion: ummK(95),
       }),
     },
   ],

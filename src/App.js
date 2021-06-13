@@ -15,8 +15,8 @@ import pneumatics from "web/calculators/pneumatics";
 import compressors from "web/compressors";
 import filaments from "web/filaments";
 import Landing from "web/landing";
-import motors from "web/motors";
 import materials from "web/materials";
+import motors from "web/motors";
 
 const About = lazy(() => import("web/about/About"));
 

@@ -1,13 +1,12 @@
 import HeadingWithBgImage from "common/components/headings/HeadingWithBgImage";
 import Metadata from "common/components/Metadata";
-import Filament from "common/models/Filament";
 import Material from "common/models/Material";
-import { useMemo, useEffect, useRef, forwardRef } from "react";
-import { useTable, useSortBy } from "react-table";
+import { uuid } from "common/tooling/util";
 import propTypes from "prop-types";
+import { forwardRef, useEffect, useRef } from "react";
+import { useSortBy, useTable } from "react-table";
 
 import config from "./index";
-import { uuid } from "common/tooling/util";
 
 const IndeterminateCheckbox = forwardRef(({ indeterminate, ...rest }, ref) => {
   const defaultRef = useRef();
@@ -25,28 +24,7 @@ IndeterminateCheckbox.propTypes = {
   indeterminate: propTypes.any,
 };
 
-function formatMeasurement(measurement, units, scalarToFixed) {
-  if (measurement !== undefined && measurement !== null) {
-    return measurement.to(units).scalar.toFixed(scalarToFixed);
-  }
-
-  return "";
-}
-
-function formatNumber(number, scalarToFixed) {
-  if (number !== undefined && number !== null) {
-    if (scalarToFixed !== undefined) {
-      return number.toFixed(scalarToFixed);
-    }
-
-    return number;
-  }
-
-  return "";
-}
-
 function Table({ columns, data }) {
-  // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
     getTableBodyProps,
@@ -83,7 +61,7 @@ function Table({ columns, data }) {
       <div className="table-container">
         <table
           {...getTableProps()}
-          className="table is-narrow is-hoverable is-fullwidth"
+          className="table is-narrow is-hoverable is-fullwidth is-bordered"
         >
           <thead>
             {headerGroups.map((headerGroup) => (
@@ -108,7 +86,7 @@ function Table({ columns, data }) {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map((row, i) => {
+            {rows.map((row) => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()} key={uuid()}>
@@ -158,50 +136,64 @@ export default function Materials() {
       columns: [
         {
           Header: "Density (g/cm³)",
-          // accessor: (m) => m.mechanical.density.to("g/cm3").scalar.toFixed(2),
-          accessor: (m) => formatMeasurement(m.mechanical.density, "g/cm3", 2),
+          accessor: (m) => m.mechanical?.density?.to("g/cm3").scalar.toFixed(2),
         },
         {
           Header: "Hardness",
-          accessor: (m) => formatNumber(m.mechanical.hardness),
+          accessor: (m) => m.mechanical?.hardness,
         },
         {
           Header: "Tensile Modulus (GPa)",
           accessor: (m) =>
-            formatMeasurement(m.mechanical.tensileModulus, "GPa", 0),
+            m.mechanical?.tensileModulus?.to("GPa").scalar.toFixed(1),
         },
         {
           Header: "Elongation At Break (%)",
-          accessor: (m) => formatNumber(m.mechanical.elongationAtBreak),
+          accessor: (m) => m.mechanical?.elongationAtBreak,
         },
         {
           Header: "Fatigue Strength (MPa)",
           accessor: (m) =>
-            formatMeasurement(m.mechanical.fatigueStrength, "MPa", 0),
+            m.mechanical?.fatigueStrength?.to("MPa").scalar.toFixed(1),
         },
         {
           Header: "Poisson's Ratio",
-          accessor: (m) => formatNumber(m.mechanical.poissonsRatio),
+          accessor: (m) => m.mechanical?.poissonsRatio,
         },
         {
           Header: "Shear Modulus (GPa)",
           accessor: (m) =>
-            formatMeasurement(m.mechanical.shearModulus, "GPa", 0),
+            m.mechanical?.shearModulus?.to("GPa").scalar.toFixed(1),
         },
         {
           Header: "Shear Strength (MPa)",
           accessor: (m) =>
-            formatMeasurement(m.mechanical.shearStrength, "MPa", 0),
+            m.mechanical?.shearStrength?.to("MPa").scalar.toFixed(1),
         },
         {
           Header: "Tensile Strength (Ultimate) (MPa)",
           accessor: (m) =>
-            formatMeasurement(m.mechanical.tensileStrengthUltimate, "MPa", 0),
+            m.mechanical?.tensileStrengthUltimate?.to("MPa").scalar.toFixed(1),
         },
         {
           Header: "Tensile Strength (Yield) (MPa)",
           accessor: (m) =>
-            formatMeasurement(m.mechanical.tensileStrengthYield, "MPa", 0),
+            m.mechanical?.tensileStrengthYield?.to("MPa").scalar.toFixed(1),
+        },
+        {
+          Header: "Flexural Modulus (GPa)",
+          accessor: (m) =>
+            m.mechanical?.flexuralModulus?.to("GPa").scalar.toFixed(1),
+        },
+        {
+          Header: "Flexural Strength (MPa)",
+          accessor: (m) =>
+            m.mechanical?.flexuralStrength?.to("MPa").scalar.toFixed(1),
+        },
+        {
+          Header: "Izod Impact Strength (J/m)",
+          accessor: (m) =>
+            m.mechanical?.impactNotchedIzod?.to("J/m").scalar.toFixed(1),
         },
       ],
     },
@@ -211,45 +203,52 @@ export default function Materials() {
         {
           Header: "Latent Heat of Fusion (J/g)",
           accessor: (m) =>
-            formatMeasurement(m.thermal?.latentHeatOfFusion, "J/g", 0),
+            m.thermal?.latentHeatOfFusion?.to("J/g").scalar.toFixed(1),
         },
         {
           Header: "Maximum Mechanical Temperature (°C)",
           accessor: (m) =>
-            formatMeasurement(
-              m.thermal?.maximumTemperatureMechanical,
-              "degC",
-              0
-            ),
+            m.thermal?.maximumTemperatureMechanical
+              ?.to("degC")
+              .scalar.toFixed(0),
         },
         {
           Header: "Melting Onset (°C)",
           accessor: (m) =>
-            formatMeasurement(m.thermal?.meltingOnset, "degC", 0),
+            m.thermal?.meltingOnset?.to("degC").scalar.toFixed(0),
         },
         {
           Header: "Melting Completion (°C)",
           accessor: (m) =>
-            formatMeasurement(m.thermal?.meltingCompletion, "degC", 0),
+            m.thermal?.meltingCompletion?.to("degC").scalar.toFixed(0),
         },
         {
           Header: "Specific Heat Capacity (J/(kg × °C))",
           accessor: (m) =>
-            formatMeasurement(m.thermal?.specificHeatCapacity, "J/kg*degC", 0),
+            m.thermal?.specificHeatCapacity?.to("J/kg*degC").scalar.toFixed(1),
         },
         {
           Header: "Thermal Conductivity (W/(m × °C))",
           accessor: (m) =>
-            formatMeasurement(m.thermal?.thermalConductivity, "W/m*degC", 0),
+            m.thermal?.thermalConductivity?.to("W/m*degC").scalar.toFixed(1),
         },
         {
           Header: "Thermal Expansion (%/°C)",
           accessor: (m) =>
-            formatMeasurement(
-              m.thermal?.thermalExpansion.mul(100),
-              "1/degC",
-              4
-            ),
+            m.thermal?.thermalExpansion
+              ?.mul(100)
+              .to("1/degC")
+              .scalar.toFixed(4),
+        },
+        {
+          Header: "Heat Deflection (@66 PSI) (°C)",
+          accessor: (m) =>
+            m.thermal?.heatDeflectionAt66Psi?.to("degC").scalar.toFixed(0),
+        },
+        {
+          Header: "Glass Transition Temperature (°C)",
+          accessor: (m) =>
+            m.thermal?.glassTransitionTemperature?.to("degC").scalar.toFixed(0),
         },
       ],
     },
