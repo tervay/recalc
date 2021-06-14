@@ -18,7 +18,7 @@ describe("Material", () => {
   test("Safe tensile strength is 1/3 of max tensile strength", () => {
     const m = Material.Steel4140();
     expect(m.getSafeMaterialStrength()).toEqualMeasurement(
-      new Measurement(1080 / 3, "MPa")
+      new Measurement(990 / 3, "MPa")
     );
   });
 
