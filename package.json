@@ -4,7 +4,7 @@
   "license": "MIT",
   "dependencies": {
     "@creativebulma/bulma-tooltip": "^1.2.0",
-    "@sentry/react": "^6.6.0",
+    "@sentry/react": "^6.7.1",
     "@sentry/tracing": "^6.7.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -77,7 +77,7 @@
   "devDependencies": {
     "@testing-library/react-hooks": "^7.0.0",
     "@types/jest": "^26.0.23",
-    "eslint": "^7.28.0",
+    "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.4.0",
