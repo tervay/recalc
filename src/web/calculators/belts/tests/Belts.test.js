@@ -73,7 +73,7 @@ describe("Belts calculator", () => {
   });
 
   test.each(Object.values(inputs))(
-    "%p Changing any primary input results in base output state",
+    "%p Clearing any primary input results in base output state",
     (getInput) => {
       render(<Belts />);
       userEvent.clear(getInput());
