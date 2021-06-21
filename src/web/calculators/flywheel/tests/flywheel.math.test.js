@@ -1,6 +1,7 @@
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
 import Ratio from "common/models/Ratio";
+
 import { calculateWindupTime, generateChartData } from "../math";
 
 describe("Flywheel math", () => {

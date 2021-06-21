@@ -1,4 +1,5 @@
 import Heading from "common/components/headings/Heading";
+import BooleanInput from "common/components/io/inputs/BooleanInput";
 import { LabeledMotorInput } from "common/components/io/inputs/MotorInput";
 import MultiInputLine from "common/components/io/inputs/MultiInputLine";
 import { LabeledQtyInput } from "common/components/io/inputs/QtyInput";
@@ -20,6 +21,7 @@ import {
   calculateWindupTime,
   generateChartData,
 } from "web/calculators/flywheel/math";
+
 import { FlywheelConfig } from "./flywheelGraph";
 import config from "./index";
 import { flywheelVersionManager } from "./versions";
@@ -125,8 +127,8 @@ export default function Flywheel() {
       <div className="columns">
         <div className="column">
           <LabeledMotorInput
-            inputId="motors"
-            label={"Motors"}
+            inputId="motor"
+            label={"Motor"}
             stateHook={[motor, setMotor]}
             choices={Motor.choices}
           />
@@ -165,16 +167,11 @@ export default function Flywheel() {
               label={""}
               disabled={!useCustomMOI}
             />
-            <div label="CustomMOI">
-              <label className="checkbox">
-                <input
-                  type="checkbox"
-                  checked={useCustomMOI}
-                  onChange={(e) => setUseCustomMOI(e.target.checked)}
-                />{" "}
-                Use custom MOI
-              </label>
-            </div>
+            <BooleanInput
+              stateHook={[useCustomMOI, setUseCustomMOI]}
+              label="Use custom MOI"
+              inputId="enableCustomMOI"
+            />
           </MultiInputLine>
 
           <LabeledQtyOutput

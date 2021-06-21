@@ -1,5 +1,5 @@
-import { forwardRef, useEffect, useRef } from "react";
 import propTypes from "prop-types";
+import { forwardRef, useEffect, useRef } from "react";
 
 function zip(a, b, c) {
   let ret = [];
