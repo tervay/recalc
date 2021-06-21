@@ -172,7 +172,7 @@ describe("Inventory", () => {
       expect(inv.spreadsheetId).toBe(
         "1po6dM_EVEPVecRIrvq-ThEfvFDRg-OO6uI9emKdDuqI"
       );
-      expect(inv.inventoryData).toHaveLength(1544);
+      expect(inv.inventoryData).toHaveLength(1642);
       expect(inv.allowAuth).toBeFalsy();
       expect(inv.worksheetName).toBe("VBeltGuys_test");
       expect(inv.worksheet).toBeUndefined();
