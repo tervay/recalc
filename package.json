@@ -54,6 +54,7 @@
     "dev:analyze": "source-map-explorer 'build/static/js/*.js' --html coverage/src_map_explorer.html",
     "dev:bump": "node bump.js",
     "dev:format": "npx prettier . --write && npx eslint src/ --fix",
+    "dev:test": ". ./.env && TZ=America/New_York react-scripts test",
     "travis:build": ". ./.env && CI=false react-scripts build",
     "travis:test": ". ./.env && TZ=America/New_York react-scripts test --coverage",
     "heroku:build": "react-scripts build && npm run dev:compress",

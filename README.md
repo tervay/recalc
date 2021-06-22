@@ -22,6 +22,8 @@ REACT_APP_SKIP_GAUTH=true
 
 `yarn dev:start` - start server
 
+`yarn dev:test` - run tests w/o coverage
+
 `yarn dev:coverage` - run test coverage report
 
 `yarn dev:compress` - compress `./build` directory to brotli and gzip
