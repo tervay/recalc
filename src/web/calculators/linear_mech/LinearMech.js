@@ -94,13 +94,7 @@ export default function LinearMech() {
     );
 
     setCurrentDrawChartData(
-      generateCurrentDrawChartData(
-        motor,
-        travelDistance,
-        spoolDiameter,
-        load,
-        ratio
-      )
+      generateCurrentDrawChartData(motor, spoolDiameter, load, ratio)
     );
 
     setCurrentDraw(calculateCurrentDraw(motor, spoolDiameter, load, ratio));

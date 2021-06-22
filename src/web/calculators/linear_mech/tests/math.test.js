@@ -7,6 +7,8 @@ import {
   CalculateLoadedSpeed,
   CalculateTimeToGoal,
   CalculateUnloadedSpeed,
+  generateCurrentDrawChartData,
+  generateTimeToGoalChartData,
 } from "../math";
 
 const inch = (n) => new Measurement(n, "in");
@@ -123,6 +125,79 @@ describe("Linear mech math", () => {
       expect(
         calculateCurrentDraw(motor, spoolDiameter, load, ratio)
       ).toBeCloseToMeasurement(expected);
+    }
+  );
+
+  test.each([
+    {
+      motor: Motor.Falcon500s(1),
+      travelDistance: inch(40),
+      spoolDiameter: inch(1),
+      load: lbs(100),
+      ratio: new Ratio(3),
+      efficiency: 97,
+      expectedLength: 95,
+      expected: {
+        0: { x: 1.3125, y: "2.9344" },
+        40: { x: 5.8125, y: "0.8852" },
+        94: { x: 11.8875, y: "1.5895" },
+      },
+    },
+  ])(
+    "%p generateTimeToGoalChartData",
+    ({
+      motor,
+      travelDistance,
+      spoolDiameter,
+      load,
+      ratio,
+      efficiency,
+      expectedLength,
+      expected,
+    }) => {
+      const data = generateTimeToGoalChartData(
+        motor,
+        travelDistance,
+        spoolDiameter,
+        load,
+        ratio,
+        efficiency
+      );
+
+      expect(data).toHaveLength(expectedLength);
+      Object.keys(expected).map((i) => {
+        expect(data[Number(i)]).toMatchObject(expected[i]);
+      });
+    }
+  );
+
+  test.each([
+    {
+      motor: Motor.Falcon500s(1),
+      spoolDiameter: inch(1),
+      load: lbs(100),
+      ratio: new Ratio(3),
+      expectedLength: 78,
+      expected: {
+        0: { x: 3.225, y: "96.9612" },
+        40: { x: 7.725, y: "41.3527" },
+        77: { x: 11.8875, y: "27.3980" },
+      },
+    },
+  ])(
+    "%p generateCurrentDrawChartData",
+    ({ motor, spoolDiameter, load, ratio, expectedLength, expected }) => {
+      const data = generateCurrentDrawChartData(
+        motor,
+        spoolDiameter,
+        load,
+        ratio
+      );
+
+      expect(data).toHaveLength(expectedLength);
+      Object.keys(expected).map((i) => {
+        expect(data[Number(i)]).toMatchObject(expected[i]);
+      });
     }
   );
 });

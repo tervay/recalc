@@ -67,3 +67,7 @@ export const unobjectify = (obj) => {
     return obj;
   }
 };
+
+export const fixFloatingPoint = (n) => {
+  return Number(n.toFixed(12));
+};

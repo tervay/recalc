@@ -1,5 +1,6 @@
 import Measurement from "common/models/Measurement";
 import Ratio from "common/models/Ratio";
+import { fixFloatingPoint } from "common/tooling/util";
 
 export function generateTimeToGoalChartData(
   motor,
@@ -21,7 +22,7 @@ export function generateTimeToGoalChartData(
     );
 
   let data = [];
-  for (let i = start; i < end; i += step) {
+  for (let i = start; i < end; i = fixFloatingPoint(step + i)) {
     const t = getTimeForRatio(new Ratio(i, ratio.ratioType));
 
     if (t.scalar >= 0) {
@@ -37,7 +38,6 @@ export function generateTimeToGoalChartData(
 
 export function generateCurrentDrawChartData(
   motor,
-  travelDistance,
   spoolDiameter,
   load,
   ratio
@@ -51,7 +51,7 @@ export function generateCurrentDrawChartData(
     calculateCurrentDraw(motor, spoolDiameter, load, r);
 
   let data = [];
-  for (let i = start; i < end; i += step) {
+  for (let i = start; i < end; i = fixFloatingPoint(step + i)) {
     const t = getCurrentDrawForRatio(new Ratio(i, ratio.ratioType)).to("A");
 
     if (t.scalar >= 0 && t.scalar <= 100) {

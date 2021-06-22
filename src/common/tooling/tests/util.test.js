@@ -2,7 +2,14 @@ import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
 import Ratio from "common/models/Ratio";
 
-import { getDate, isLocalhost, objectify, unobjectify, uuid } from "../util";
+import {
+  fixFloatingPoint,
+  getDate,
+  isLocalhost,
+  objectify,
+  unobjectify,
+  uuid,
+} from "../util";
 
 describe("util", () => {
   test.each([
@@ -189,5 +196,26 @@ describe("util", () => {
     ],
   ])("%p unobjectify", (obj, expected) => {
     expect(unobjectify(obj)).toMatchObject(expected);
+  });
+
+  test.each([
+    {
+      n: 0.020000000000000004,
+      expected: 0.02,
+    },
+    {
+      n: 3.000000000000000001,
+      expected: 3,
+    },
+    {
+      n: 5,
+      expected: 5,
+    },
+    {
+      n: 6.125,
+      expected: 6.125,
+    },
+  ])("%p fixFloatingPoint", ({ n, expected }) => {
+    expect(fixFloatingPoint(n)).toEqual(expected);
   });
 });
