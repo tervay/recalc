@@ -5,13 +5,12 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,24 +19,31 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Cache Node.js modules
-      uses: actions/cache@v2
-      with:
-        # npm cache files are stored in `~/.npm` on Linux/macOS
-        path: ~/.npm
-        key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.OS }}-node-
-          ${{ runner.OS }}-
-    - run: yarn --frozen-lockfile
-    - run: yarn travis:build
-    - name: Run tests
-      env:
-        REACT_APP_GOOGLE_PRIVATE_KEY: ${{ secrets.REACT_APP_GOOGLE_PRIVATE_KEY }}
-        REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAIL }}
-      run: yarn travis:test
+      - name: Test
+        env:
+          REACT_APP_GOOGLE_PRIVATE_KEY: ${{ secrets.REACT_APP_GOOGLE_PRIVATE_KEY }}
+          REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAIL }}
+        run: |
+          echo ${#REACT_APP_GOOGLE_PRIVATE_KEY}
+          echo ${#REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAIL}
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+      - run: yarn --frozen-lockfile
+      - run: yarn travis:build
+      - name: Run tests
+        env:
+          REACT_APP_GOOGLE_PRIVATE_KEY: ${{ secrets.REACT_APP_GOOGLE_PRIVATE_KEY }}
+          REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAIL }}
+        run: yarn travis:test
