@@ -37,3 +37,6 @@ jobs:
     - run: yarn --frozen-lockfile
     - run: yarn travis:build
     - run: yarn travis:test
+      env:
+        REACT_APP_GOOGLE_PRIVATE_KEY: ${{ secrets.REACT_APP_GOOGLE_PRIVATE_KEY }}
+        REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAIL }}
