@@ -20,13 +20,6 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - name: Test
-        env:
-          REACT_APP_GOOGLE_PRIVATE_KEY: ${{ secrets.REACT_APP_GOOGLE_PRIVATE_KEY }}
-          REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAIL }}
-        run: |
-          echo ${#REACT_APP_GOOGLE_PRIVATE_KEY}
-          echo ${#REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAIL}
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
