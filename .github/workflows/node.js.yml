@@ -41,3 +41,8 @@ jobs:
           REACT_APP_GOOGLE_PRIVATE_KEY: ${{ secrets.REACT_APP_GOOGLE_PRIVATE_KEY }}
           REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAIL }}
         run: yarn travis:test
+      - name: Code Coverage Report
+        uses: romeovs/lcov-reporter-action@v0.2.11
+        with:
+          lcov-file: ./coverage/lcov.info
+          github-token: ${{ secrets.GH_PAT }}
