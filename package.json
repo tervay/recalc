@@ -1,6 +1,6 @@
 {
   "name": "recalc",
-  "version": "1.25.14",
+  "version": "1.25.15",
   "license": "MIT",
   "dependencies": {
     "@creativebulma/bulma-tooltip": "^1.2.0",
