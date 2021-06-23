@@ -202,12 +202,14 @@ export default function Load() {
             />
             <MaterialInput
               label="Material"
+              selectId="pinionMaterial"
               stateHook={[pinionMaterial, setPinionMaterial]}
             />
             <LabeledQtyInput
               stateHook={[pinionWidth, setPinionWidth]}
               choices={["in"]}
               label="Width"
+              inputId="pinionWidth"
             />
           </MultiInputLine>
           <MultiInputLine label="Driven Gear">
@@ -219,11 +221,13 @@ export default function Load() {
             <MaterialInput
               label="Material"
               stateHook={[gearMaterial, setGearMaterial]}
+              selectId="gearMaterial"
             />
             <LabeledQtyInput
               stateHook={[gearWidth, setGearWidth]}
               choices={["in"]}
               label="Width"
+              inputId="gearWidth"
             />
           </MultiInputLine>
           <LabeledQtyOutput

@@ -10,7 +10,7 @@ function guessLewisYFactor(teeth, pressureAngle) {
   }[pressureAngle.scalar];
 }
 
-export function calculateSafeToothLoad(
+function calculateSafeToothLoad(
   teeth,
   material,
   width,
@@ -38,7 +38,7 @@ export function calculateState(
   gearWidth
 ) {
   const ms = new MotorState(motor, currentLimit, {
-    current: currentLimit,
+    current: Measurement.min(currentLimit, motor.stallCurrent),
     voltage: nominalVoltage,
   });
   motorRules.solve(ms);
@@ -110,3 +110,5 @@ export function calculateState(
     },
   };
 }
+
+export const testables = { guessLewisYFactor, calculateSafeToothLoad };
