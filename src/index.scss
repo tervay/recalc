@@ -69,6 +69,11 @@ nav {
 .nav-title {
   padding-left: 6px;
   color: white;
+  font-size: large;
+}
+
+.navbar-item:hover {
+  @extend .scale-down-center;
 }
 
 .center-table th {
@@ -181,6 +186,7 @@ label.checkbox {
 .recalc-box:hover {
   background-color: $g2;
   border: 1px solid $g3;
+  @extend .scale-down-center;
 }
 
 [data-tooltip] {
@@ -191,4 +197,33 @@ label.checkbox {
   .fg-#{$i} {
     flex-grow: #{$i};
   }
+}
+
+@-webkit-keyframes scale-down-center {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+}
+
+$scaleTo: 0.97;
+$scaleTime: 0.075s;
+@keyframes scale-down-center {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale($scaleTo);
+    transform: scale($scaleTo);
+  }
+}
+
+.scale-down-center {
+  -webkit-animation: scale-down-center $scaleTime linear both;
+  animation: scale-down-center $scaleTime linear both;
 }
