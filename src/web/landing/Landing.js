@@ -39,7 +39,9 @@ export default function Landing() {
           paddingTop: 0,
         }}
       >
-        <h1 className="title">Calculators</h1>
+        <h1 className="title">
+          <i className="fas fa-calculator" /> Calculators
+        </h1>
         <div className="columns is-multiline is-gapless">
           <div className="column is-half">
             <Tile to={belts.url} title={belts.title} image={belts.image} />
@@ -88,7 +90,9 @@ export default function Landing() {
           paddingTop: 0,
         }}
       >
-        <h1 className="title">Information</h1>
+        <h1 className="title">
+          <i className="fas fa-info-circle" /> Information
+        </h1>
         <div className="columns is-multiline is-gapless">
           <div className="column is-half">
             <Tile

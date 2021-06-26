@@ -268,7 +268,9 @@ export default function Load() {
         <div className="column">
           <article className="message is-warning">
             <div className="message-header">
-              <p>Warning</p>
+              <p>
+                <i className="fas fa-exclamation-triangle" /> Warning
+              </p>
             </div>
             <div className="message-body">
               This calculator uses some questionable regression math in order to

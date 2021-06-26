@@ -171,7 +171,9 @@ export default function Chains() {
           <br />
           <article className="message is-warning">
             <div className="message-header">
-              <p>Warning</p>
+              <p>
+                <i className="fas fa-exclamation-triangle" /> Warning
+              </p>
             </div>
             <div className="message-body">
               VEX has listed the pitch diameter for their #25 chain hex bore &

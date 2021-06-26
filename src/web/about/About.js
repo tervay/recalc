@@ -8,13 +8,17 @@ export default function About() {
     <div className="content">
       <h2 className="title is-2">⎰ReCalc</h2>
 
-      <h3 className="title is-3">About</h3>
+      <h3 className="title is-3">
+        <i className="fas fa-info-circle" /> About
+      </h3>
       <p>
         ⎰ReCalc is a mechanical design calculator, focused on ease of
         collaboration and a quality user interface.
       </p>
 
-      <h3 className="title is-3">Thanks & Credits</h3>
+      <h3 className="title is-3">
+        <i className="fas fa-users" /> Thanks & Credits
+      </h3>
       <p>
         My thanks to go many people throughout the FRC community, specifically
         CD users:
@@ -34,14 +38,8 @@ export default function About() {
           dydx, for{" "}
           <a href="https://www.chiefdelphi.com/t/flywheel-calculator/372836">
             a great flywheel calculator
-          </a>{" "}
-          and explaining how it works to me
-        </li>
-        <li>
-          JVN, for{" "}
-          <a href="https://johnvneun.com/calc">
-            one of the most impactful design calculators in FRC
           </a>
+          , which served as the basis for ReCalc&apos;s
         </li>
         <li>JackTervay, for the renders on the landing</li>
       </ul>
@@ -63,7 +61,9 @@ export default function About() {
         </a>
       </p>
 
-      <h3 className="title is-3">Source code</h3>
+      <h3 className="title is-3">
+        <i className="fas fa-code-branch" /> Source code
+      </h3>
       <p>
         The source code for ⎰ReCalc can be found{" "}
         <a href="https://github.com/tervay/recalc">on GitHub.</a>

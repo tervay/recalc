@@ -188,9 +188,25 @@ export default function Arm() {
           />
         </div>
         <div className="column">
+          <Graph
+            type="line"
+            options={ArmGraphConfig.options()}
+            data={{
+              datasets: [
+                ArmGraphConfig.dataset({
+                  label: "Current Draw (A)",
+                  colorIndex: 0,
+                  data: rawChartData,
+                  id: "y",
+                }),
+              ],
+            }}
+          />
           <article className="message is-info">
             <div className="message-header">
-              <p>Note</p>
+              <p>
+                <i className="fas fa-info-circle" /> Note
+              </p>
             </div>
             <div className="message-body">
               The angles follow the unit circle; i.e.: <br />
@@ -213,20 +229,6 @@ export default function Arm() {
               This accounts for acceleration, but not deceleration.
             </div>
           </article>
-          <Graph
-            type="line"
-            options={ArmGraphConfig.options()}
-            data={{
-              datasets: [
-                ArmGraphConfig.dataset({
-                  label: "Current Draw (A)",
-                  colorIndex: 0,
-                  data: rawChartData,
-                  id: "y",
-                }),
-              ],
-            }}
-          />
         </div>
       </div>
     </>
