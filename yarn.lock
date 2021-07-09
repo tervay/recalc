@@ -13791,10 +13791,10 @@ wrappy@1:
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
 
-wretch@^1.7.4:
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/wretch/-/wretch-1.7.4.tgz#d71fc16ed01a8fd549df6cd06f205c6d13e2cf73"
-  integrity sha512-gBET7PgqgJ89GPBHujw0+arM/8YtWPqG6od8dRMTumvr3xvSlONpp2ANYqbpSL+cSoe6g97quZTgwM0jNn6riA==
+wretch@^1.7.5:
+  version "1.7.5"
+  resolved "https://registry.yarnpkg.com/wretch/-/wretch-1.7.5.tgz#81dd6a6d12130bf4cc300d5a90d8f515d3d1de80"
+  integrity sha512-gfErt6B+B5hJDQ/svHg+8aONEYTjo6Y0C/jXcJRDLezqSrW6qUvftqm1HJaP1F/Y2QGy2kJXeH8FD++O54LeGg==
 
 write-file-atomic@^3.0.0:
   version "3.0.3"
