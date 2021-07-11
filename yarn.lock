@@ -6519,10 +6519,10 @@ gzip-size@^6.0.0:
   dependencies:
     duplexer "^0.1.2"
 
-gzipper@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/gzipper/-/gzipper-4.5.0.tgz#209bf65fa306b99de681d8de78a8bef0783c163b"
-  integrity sha512-CnAnm6b1CztEw97Jlq+TY5a/DX3T5PeXdw0K4tEAuzA5c09Bq5bEMzBt0+lE8iZ4V6Pm8/PxQIQxbdwdlUOQVw==
+gzipper@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/gzipper/-/gzipper-5.0.0.tgz#9b39bbc94e78f007e013a1ac7c8347d17a97c3a0"
+  integrity sha512-gP+p0uvifiIN2m5YB/X10lg+yvy1xI3bBAKQ/rcR2weIClQ8cKQdqA7GzvGwRNhA0gO3hU3ALG9XuoO5zf63iA==
   dependencies:
     commander "^7.2.0"
     deep-equal "^2.0.5"
