@@ -14,7 +14,7 @@
     "bulma": "^0.9.3",
     "bulma-switch": "^2.0.0",
     "chart.js": "^3.3.2",
-    "chartjs-plugin-zoom": "1.0.1",
+    "chartjs-plugin-zoom": "1.1.1",
     "chartjs-react": "^3.3.2",
     "express": "^4.17.1",
     "express-static-gzip": "^2.1.1",
