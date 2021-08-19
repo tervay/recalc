@@ -186,7 +186,9 @@ export default function Motors() {
             of April 4th, 2021. All motors except for the Falcon 500 have 0.25
             lbs added to their weight to represent the weight of a speed
             controller. VEX has a great introduction to DC motors specs{" "}
-            <a href={"https://motors.vex.com/introduction"}>here</a>.
+            <a href={"https://motors.vex.com/introduction"}>here</a>. For a
+            heavily work-in-progress interactive motor playground, you can use{" "}
+            <a href="https://recalc-ts.vercel.app/motors">a preview here</a>.
           </p>
           <div className="title">
             <a href={"https://en.wikipedia.org/wiki/Stall_torque"}>
