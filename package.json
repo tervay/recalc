@@ -19,7 +19,7 @@
     "express": "^4.17.1",
     "express-static-gzip": "^2.1.1",
     "google-spreadsheet": "^3.1.15",
-    "gzipper": "^4.5.0",
+    "gzipper": "^5.0.1",
     "js-quantities": "^1.7.6",
     "lodash": "^4.17.21",
     "moment": "^2.27.0",
