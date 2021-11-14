@@ -1,0 +1,87 @@
+@import "./animations.scss";
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+input[type="number"],
+input:disabled {
+  min-width: 5em;
+  text-align: right;
+}
+
+// Move loading spinner
+.control.is-loading::after {
+  right: 4em;
+}
+
+label.checkbox {
+  padding-top: 6px;
+  line-height: 1.5;
+}
+
+input[type="checkbox"] {
+  margin-right: 0.5em;
+}
+
+.field-label {
+  flex-basis: auto;
+  flex-shrink: 20;
+  flex-grow: 0;
+  margin-right: 1rem;
+  white-space: nowrap;
+}
+
+nav {
+  padding: 1em;
+}
+
+.nav-title {
+  padding-left: 6px;
+  color: white;
+  font-size: large;
+}
+
+.navbar {
+  margin-bottom: 0 !important;
+}
+
+a.navbar-item:hover,
+a.navbar-item:active,
+a.navbar-item:focus {
+  background-color: $primary;
+}
+
+.navbar-item:hover {
+  @extend .scale-up-center;
+}
+
+.box {
+  background-color: $g1;
+}
+
+[data-tooltip] {
+  z-index: 2791;
+}
+
+.divider {
+  margin: 0;
+  padding-bottom: 1rem;
+  text-transform: unset;
+  color: $g9;
+}
+
+.field.is-horizontal {
+  width: 100%;
+}
+
+.panel-block {
+  border-bottom: none !important;
+}

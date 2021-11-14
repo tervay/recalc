@@ -1,0 +1,66 @@
+{
+  "inputs": {
+    "motor": {
+      "min": 1,
+      "max": 4,
+      "exclude": [2]
+    },
+    "shooterRPM": {
+      "min": 1000,
+      "max": 6300,
+      "exclude": [11000]
+    },
+    "currentLimit": {
+      "min": 20,
+      "max": 80,
+      "exclude": [40]
+    },
+    "shooterRatio": {
+      "min": 1,
+      "max": 5,
+      "exclude": [2]
+    },
+    "projectileWeight": {
+      "min": 2,
+      "max": 10,
+      "exclude": [5]
+    },
+    "shooterRadius": {
+      "min": 2,
+      "max": 4,
+      "exclude": [3]
+    },
+    "shooterWeight": {
+      "min": 1,
+      "max": 5,
+      "exclude": [1]
+    },
+    "flywheelRadius": {
+      "min": 2,
+      "max": 4,
+      "exclude": [2]
+    },
+    "flywheelWeight": {
+      "min": 2,
+      "max": 5,
+      "exclude": [1.5]
+    },
+    "flywheelShooterRatio": {
+      "min": 1,
+      "max": 5,
+      "exclude": [1]
+    }
+  },
+  "outputs": [
+    "shooterMaxSpeed",
+    "customShooterMOI",
+    "customFlywheelMOI",
+    "windupTime",
+    "recoveryTime",
+    "surfaceSpeed",
+    "projectileSpeed",
+    "speedAfterShot",
+    "flywheelEnergy",
+    "projectileEnergy"
+  ]
+}
