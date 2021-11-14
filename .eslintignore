@@ -3,3 +3,4 @@ src/tests/
 node_modules/
 build/
 coverage/
+**/*.md
