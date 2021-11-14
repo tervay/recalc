@@ -1,0 +1,131 @@
+@import "./animations.scss";
+
+.bg-image {
+  /* Add the blur effect */
+  filter: blur(3px);
+  -webkit-filter: blur(3px);
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg-image-front-text {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  padding-left: 3%;
+}
+
+.box-with-hover:hover {
+  background-color: $g2;
+}
+
+.recalc-box {
+  background-color: $g1;
+  border-radius: $box-radius;
+  color: $box-color;
+  padding: 1rem;
+  border: 1px solid $g1_5;
+  margin: 0.25rem;
+
+  &:hover {
+    background-color: $g2;
+    border: 1px solid $g3;
+    @extend .scale-down-center;
+  }
+}
+
+.recalc-switch {
+  appearance: none;
+  margin-top: 0.375rem;
+  height: 1rem;
+  width: 2.5em;
+  background-color: $g3;
+  cursor: pointer;
+  border-radius: 1em;
+  position: relative;
+  transition: background-color 0.3s ease;
+
+  &::before {
+    content: "";
+    height: 100%;
+    width: 50%;
+    background-color: white;
+    position: absolute;
+    border-radius: 50%;
+    border: $g3 solid 0.2em;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+
+  &:checked {
+    background-color: $c5;
+  }
+
+  &:checked::before {
+    border-color: $c5;
+    transform: translateX(100%);
+  }
+}
+
+.float-right {
+  float: right;
+}
+
+.remove-margin {
+  margin: 0 !important;
+}
+
+.remove-padding {
+  padding: 0 !important;
+}
+
+.remove-padding-top {
+  padding-top: 0 !important;
+}
+
+.form-columns > .column {
+  padding-bottom: 0;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.lowkey-input {
+  background-color: transparent;
+  color: white;
+  border: none;
+  box-shadow: 0;
+  font-size: 18px;
+
+  &:active,
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid white;
+  }
+}
+
+.underline-for-tooltip {
+  border-bottom: 1px dashed $g2;
+  cursor: pointer;
+}
+
+.svg {
+  max-height: 2rem;
+  padding-right: 4px;
+
+  &-white {
+    filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(190deg)
+      brightness(107%) contrast(101%);
+  }
+
+  &-black {
+    filter: invert(0%) sepia(0%) saturate(7465%) hue-rotate(338deg)
+      brightness(106%) contrast(109%);
+  }
+}

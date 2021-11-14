@@ -1,0 +1,101 @@
+[
+  {
+    "name": "Falcon 500",
+    "freeSpeed": { "magnitude": 6380, "unit": "rpm" },
+    "stallTorque": { "magnitude": 4.69, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 257, "unit": "A" },
+    "freeCurrent": { "magnitude": 1.5, "unit": "A" },
+    "weight": { "magnitude": 1.1, "unit": "lbs" },
+    "url": "https://www.vexrobotics.com/217-6515.html"
+  },
+  {
+    "name": "NEO",
+    "freeSpeed": { "magnitude": 5880, "unit": "rpm" },
+    "stallTorque": { "magnitude": 3.36, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 166, "unit": "A" },
+    "freeCurrent": { "magnitude": 1.3, "unit": "A" },
+    "weight": { "magnitude": 0.94, "unit": "lbs" },
+    "url": "https://www.revrobotics.com/rev-21-1650/"
+  },
+  {
+    "name": "NEO 550",
+    "freeSpeed": { "magnitude": 11710, "unit": "rpm" },
+    "stallTorque": { "magnitude": 1.08, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 111, "unit": "A" },
+    "freeCurrent": { "magnitude": 1.1, "unit": "A" },
+    "weight": { "magnitude": 0.31, "unit": "lbs" },
+    "url": "https://www.revrobotics.com/rev-21-1651/"
+  },
+  {
+    "name": "775pro",
+    "freeSpeed": { "magnitude": 18730, "unit": "rpm" },
+    "stallTorque": { "magnitude": 0.71, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 134, "unit": "A" },
+    "freeCurrent": { "magnitude": 0.7, "unit": "A" },
+    "weight": { "magnitude": 0.8, "unit": "lbs" },
+    "url": "https://www.vexrobotics.com/775pro.html"
+  },
+  {
+    "name": "775 RedLine",
+    "freeSpeed": { "magnitude": 19500, "unit": "rpm" },
+    "stallTorque": { "magnitude": 0.64, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 122, "unit": "A" },
+    "freeCurrent": { "magnitude": 2.6, "unit": "A" },
+    "weight": { "magnitude": 0.806, "unit": "lbs" },
+    "url": "https://www.andymark.com/products/andymark-775-redline-motor-v2"
+  },
+  {
+    "name": "CIM",
+    "freeSpeed": { "magnitude": 5330, "unit": "rpm" },
+    "stallTorque": { "magnitude": 2.41, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 131, "unit": "A" },
+    "freeCurrent": { "magnitude": 2.7, "unit": "A" },
+    "weight": { "magnitude": 2.82, "unit": "lbs" },
+    "url": "https://www.vexrobotics.com/217-2000.html"
+  },
+  {
+    "name": "MiniCIM",
+    "freeSpeed": { "magnitude": 5840, "unit": "rpm" },
+    "stallTorque": { "magnitude": 1.41, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 89, "unit": "A" },
+    "freeCurrent": { "magnitude": 3, "unit": "A" },
+    "weight": { "magnitude": 2.16, "unit": "lbs" },
+    "url": "https://www.vexrobotics.com/217-3371.html"
+  },
+  {
+    "name": "BAG",
+    "freeSpeed": { "magnitude": 13180, "unit": "rpm" },
+    "stallTorque": { "magnitude": 0.43, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 53, "unit": "A" },
+    "freeCurrent": { "magnitude": 1.8, "unit": "A" },
+    "weight": { "magnitude": 0.71, "unit": "lbs" },
+    "url": "https://www.vexrobotics.com/217-3351.html"
+  },
+  {
+    "name": "AM-9015",
+    "freeSpeed": { "magnitude": 14270, "unit": "rpm" },
+    "stallTorque": { "magnitude": 0.36, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 71, "unit": "A" },
+    "freeCurrent": { "magnitude": 3.7, "unit": "A" },
+    "weight": { "magnitude": 0.5, "unit": "lbs" },
+    "url": "https://www.andymark.com/products/9015-motor"
+  },
+  {
+    "name": "NeveRest",
+    "freeSpeed": { "magnitude": 5480, "unit": "rpm" },
+    "stallTorque": { "magnitude": 0.173, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 9.8, "unit": "A" },
+    "freeCurrent": { "magnitude": 0.355, "unit": "A" },
+    "weight": { "magnitude": 0.587, "unit": "lbs" },
+    "url": "https://www.andymark.com/products/neverest-series-motor-only"
+  },
+  {
+    "name": "Snowblower",
+    "freeSpeed": { "magnitude": 100, "unit": "rpm" },
+    "stallTorque": { "magnitude": 7.90893775, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 24, "unit": "A" },
+    "freeCurrent": { "magnitude": 5, "unit": "A" },
+    "weight": { "magnitude": 1.1, "unit": "lbs" },
+    "url": "https://www.andymark.com/products/snow-blower-motor-with-hex-shaft"
+  }
+]

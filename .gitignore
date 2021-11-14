@@ -1,9 +1,8 @@
+cred.json
 .env
+testgen.py
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-.idea/
-lint.txt
 
 # dependencies
 /node_modules
@@ -26,8 +25,3 @@ lint.txt
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-.vscode/
-
-.eslintcache
-debug.log
