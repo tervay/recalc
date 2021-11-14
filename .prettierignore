@@ -2,4 +2,5 @@ build/
 node_modules/
 .vscode/
 coverage/
-public/raw_articles/
+src/web/calculators/readmes.tsx
+**/*.md
