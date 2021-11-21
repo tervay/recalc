@@ -1,5 +1,5 @@
 import katex from "katex";
-import marked from "marked";
+import { marked, Renderer } from "marked";
 
 type MarkdownSection = {
   title: string;
@@ -8,7 +8,7 @@ type MarkdownSection = {
 
 // KaTeX rendering
 // From https://github.com/markedjs/marked/issues/1538#issuecomment-526189561
-const renderer = new marked.Renderer();
+const renderer = new Renderer();
 
 let i = 0;
 const next_id = () => `__special_katext_id_${i++}__`;
