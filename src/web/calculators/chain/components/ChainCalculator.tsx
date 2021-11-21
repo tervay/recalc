@@ -5,7 +5,7 @@ import ChainInput from "common/components/io/new/inputs/L3/ChainInput";
 import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
 import NumericOutput from "common/components/io/outputs/NumberOutput";
 import { Column, Columns, Divider } from "common/components/styling/Building";
-import { chainPitchMap } from "common/models/Chain";
+import Chain, { chainPitchMap } from "common/models/Chain";
 import Sprocket from "common/models/Sprocket";
 import { useGettersSetters } from "common/tooling/conversion";
 import { useEffect, useState } from "react";
@@ -13,6 +13,11 @@ import chainConfig, {
   ChainParamsV1,
   ChainStateV1,
 } from "web/calculators/chain";
+import {
+  EmptyCheatSheet,
+  Sprocket25ChainCheatSheet,
+  Sprocket35ChainCheatSheet,
+} from "web/calculators/chain/components/SprocketCheatSheet";
 import { ChainState } from "web/calculators/chain/converter";
 import {
   calculateCenters,
@@ -75,6 +80,13 @@ export default function ChainCalculator(): JSX.Element {
   useEffect(() => {
     setP2PD(calculate.p2PD());
   }, [get.p2Teeth, get.chain]);
+
+  let cheatSheet = <EmptyCheatSheet />;
+  if (get.chain.eq(new Chain("#25"))) {
+    cheatSheet = <Sprocket25ChainCheatSheet />;
+  } else if (get.chain.eq(new Chain("#35"))) {
+    cheatSheet = <Sprocket35ChainCheatSheet />;
+  }
 
   return (
     <>
@@ -209,7 +221,7 @@ export default function ChainCalculator(): JSX.Element {
             </Column>
           </Columns>
         </Column>
-        <Column />
+        <Column>{cheatSheet}</Column>
       </Columns>
     </>
   );
