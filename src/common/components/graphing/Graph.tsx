@@ -34,6 +34,9 @@ export default function Graph(
 
   useEffect(() => {
     setOptions(setZoomPluginEnabled(options, zoomEnabled));
+    if (zoomEnabled) {
+      makeResetFunction(props.id)();
+    }
   }, [zoomEnabled]);
 
   return (
