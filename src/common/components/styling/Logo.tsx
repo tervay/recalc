@@ -12,7 +12,7 @@ export default function Logo(props: {
         className={["svg", `svg-${color}`].join(" ")}
         style={{ verticalAlign: alignment }}
       />
-      <b>ReCalc (Preview)</b>
+      <b>ReCalc (Beta)</b>
     </span>
   );
 }
