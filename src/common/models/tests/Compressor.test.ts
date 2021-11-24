@@ -7,7 +7,7 @@ describe("Compressor model", () => {
       id: "AndyMark 1.1 Pump (12V)",
       data: {
         weight: lb(3.37),
-        url: "https://www.andymark.com/products/1-1-pump-12V",
+        url: "https://www.andymark.com/products/1-1-pump-12v",
       },
     },
     {
