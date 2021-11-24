@@ -20,7 +20,7 @@ const pneumaticsConfig: PageConfig = {
   image: "/media/Pneumatics",
   version: 1,
   component: lazy(
-    () => import("web/calculators/pneumatics/components/Pneumatics")
+    () => import("web/calculators/pneumatics/components/PneumaticsPage")
   ),
 };
 export default pneumaticsConfig;

@@ -1,4 +1,5 @@
 import Tile, { ImageSize } from "common/components/home/Tile";
+import Metadata from "common/components/Metadata";
 import {
   Column,
   Columns,
@@ -37,6 +38,7 @@ function Clickable(props: {
 export default function Home(): JSX.Element {
   return (
     <>
+      <Metadata title="A collaboration focused mechanical design calculator." />
       <div className="hero">
         <div
           className="hero-body"
