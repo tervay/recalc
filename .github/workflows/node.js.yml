@@ -35,12 +35,11 @@ jobs:
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
       - run: yarn --frozen-lockfile
-      - run: yarn travis:build
+      - run: yarn build
       - name: Run tests
         env:
-          REACT_APP_GOOGLE_PRIVATE_KEY: ${{ secrets.REACT_APP_GOOGLE_PRIVATE_KEY }}
-          REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.REACT_APP_GOOGLE_SERVICE_ACCOUNT_EMAIL }}
-        run: yarn travis:test
+          REACT_APP_KEYPHRASE: ${{ secrets.REACT_APP_KEYPHRASE }}
+        run: yarn test
       - name: Code Coverage Report
         uses: romeovs/lcov-reporter-action@v0.2.21
         with:
