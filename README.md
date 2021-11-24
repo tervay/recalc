@@ -1,4 +1,4 @@
-# [⎰ReCalc](https://reca.lc/)
+# [ReCalc](https://reca.lc/)
 
 ReCalc is a collaboration focused mechanical design calculator, primarily for FRC.
 
@@ -39,7 +39,7 @@ $ yarn
 |  Flywheel  |  ✓   |     ✓      |   ✓    |      ✓      |              |   x   |  ✓   |   ✓    |
 |   Linear   |  ✓   |     ~      |   ✓    |             |              |   ✓   |      |   ✓    |
 | Pneumatic  |  ✓   |            |   ✓    |             |              |   ✓   |  ~   |   ✓    |
-|   Chain    |  ✓   |     ✓      |        |             |              |   x   |      |        |
+|   Chain    |  ✓   |     ✓      |   ✓    |             |              |   x   |      |   ✓    |
 | Gear Load  |      |            |        |             |              |       |      |        |
 
 ---
