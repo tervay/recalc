@@ -26,7 +26,10 @@ export default class Sprocket extends Model {
     super("Sprocket");
     this.teeth = teeth;
     this.pitch = pitch;
-    this.pitchDiameter = pitch.div(Math.sin(Math.PI / teeth));
+    this.pitchDiameter =
+      teeth == 0
+        ? new Measurement(0, "in")
+        : pitch.div(Math.sin(Math.PI / teeth));
     this.bore = vendorData?.bore;
     this.wrong = vendorData?.wrong;
     this.vendors = vendorData?.vendors;
