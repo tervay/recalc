@@ -51,3 +51,14 @@ $ yarn
 * Enter desired reduction -> get gearbox config list
 * Breaker calc?
 * Simple drivetrain calc
+
+
+### User suggestions
+
+* Better motor playground inputs
+* Custom motor input
+* More complete sprocket list (1403?)
+* Bolden/italicize selected pulley/sprocket on calcs
+* Document how to get MOI in CAD
+* Auto-scale motor playground axes
+* Able to customize what gets displayed in graphs via checkboxes
