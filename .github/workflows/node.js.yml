@@ -39,7 +39,7 @@ jobs:
       - name: Run tests
         env:
           REACT_APP_KEYPHRASE: ${{ secrets.REACT_APP_KEYPHRASE }}
-        run: yarn test
+        run: yarn test --coverage
       - name: Code Coverage Report
         uses: romeovs/lcov-reporter-action@v0.2.21
         with:

@@ -54,7 +54,7 @@
     "eject": "react-scripts eject",
     "--------------------------------": "------------------------",
     "dev:analyze": "source-map-explorer 'build/static/js/*.js' --html coverage/src_map_explorer.html",
-    "dev:coverage": "npm run test -- --coverage --watchAll=false",
+    "dev:coverage": "yarn test --coverage --watchAll=false",
     "dev:format": "npx prettier . --write && npx eslint src/ --fix",
     "dev:encrypt": "npx ts-node -O '{\"module\":\"commonjs\"}' scripts/encrypt.ts",
     "dev:webp": "node scripts/webp.mjs"
