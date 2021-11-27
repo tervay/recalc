@@ -62,7 +62,7 @@ export default function LinearCalculator(): JSX.Element {
         get.motor.toDict(),
         get.spoolDiameter.toDict(),
         get.load.toDict(),
-        get.ratio.toDict(),
+        get.ratio.toDict()
       ),
   };
 

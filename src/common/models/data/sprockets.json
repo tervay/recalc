@@ -1,476 +1,317 @@
 [
-    {
-        "bore": "NEO/CIM (8mm)",
-        "chain": "#25",
-        "teeth": 10,
-        "vendors": [
-            "REV"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "3/8\" Hex",
-        "chain": "#25",
-        "teeth": 16,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": true
-    },
-    {
-        "bore": "3/8\" Hex",
-        "chain": "#25",
-        "teeth": 18,
-        "vendors": [
-            "VEXpro",
-            "WCP"
-        ],
-        "wrong": true
-    },
-    {
-        "bore": "3/8\" Hex",
-        "chain": "#25",
-        "teeth": 22,
-        "vendors": [
-            "VEXpro",
-            "WCP"
-        ],
-        "wrong": true
-    },
-    {
-        "bore": "3/8\" Hex",
-        "chain": "#25",
-        "teeth": 24,
-        "vendors": [
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1/2\" Hex",
-        "chain": "#25",
-        "teeth": 16,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": true
-    },
-    {
-        "bore": "1/2\" Hex",
-        "chain": "#25",
-        "teeth": 17,
-        "vendors": [
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1/2\" Hex",
-        "chain": "#25",
-        "teeth": 18,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": true
-    },
-    {
-        "bore": "1/2\" Hex",
-        "chain": "#25",
-        "teeth": 22,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": true
-    },
-    {
-        "bore": "1/2\" Hex",
-        "chain": "#25",
-        "teeth": 24,
-        "vendors": [
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1/2\" ID",
-        "chain": "#25",
-        "teeth": 16,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": true
-    },
-    {
-        "bore": "1/2\" ID",
-        "chain": "#25",
-        "teeth": 18,
-        "vendors": [
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1/2\" ID",
-        "chain": "#25",
-        "teeth": 22,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": true
-    },
-    {
-        "bore": "1/2\" ID",
-        "chain": "#25",
-        "teeth": 24,
-        "vendors": [
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#25",
-        "teeth": 32,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#25",
-        "teeth": 34,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#25",
-        "teeth": 36,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#25",
-        "teeth": 38,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#25",
-        "teeth": 40,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#25",
-        "teeth": 42,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#25",
-        "teeth": 44,
-        "vendors": [
-            "VEXpro",
-            "WCP"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#25",
-        "teeth": 48,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#25",
-        "teeth": 54,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#25",
-        "teeth": 58,
-        "vendors": [
-            "VEXpro",
-            "WCP"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#25",
-        "teeth": 60,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#25",
-        "teeth": 64,
-        "vendors": [
-            "VEXpro",
-            "WCP"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#25",
-        "teeth": 66,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#25",
-        "teeth": 72,
-        "vendors": [
-            "VEXpro",
-            "WCP"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1/2\" Hex",
-        "chain": "#35",
-        "teeth": 12,
-        "vendors": [
-            "VEXpro",
-            "WCP"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1/2\" Hex",
-        "chain": "#35",
-        "teeth": 15,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1/2\" ID",
-        "chain": "#35",
-        "teeth": 12,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1/2\" ID",
-        "chain": "#35",
-        "teeth": 15,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#35",
-        "teeth": 22,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#35",
-        "teeth": 24,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#35",
-        "teeth": 26,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#35",
-        "teeth": 28,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#35",
-        "teeth": 30,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#35",
-        "teeth": 32,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#35",
-        "teeth": 33,
-        "vendors": [
-            "VEXpro",
-            "WCP"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#35",
-        "teeth": 36,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#35",
-        "teeth": 42,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#35",
-        "teeth": 44,
-        "vendors": [
-            "VEXpro",
-            "WCP"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#35",
-        "teeth": 48,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#35",
-        "teeth": 54,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    },
-    {
-        "bore": "1-1/8\" Bearing Bore",
-        "chain": "#35",
-        "teeth": 60,
-        "vendors": [
-            "VEXpro",
-            "WCP",
-            "AndyMark"
-        ],
-        "wrong": false
-    }
+  {
+    "bore": "NEO/CIM (8mm)",
+    "chain": "#25",
+    "teeth": 10,
+    "vendors": ["REV"],
+    "wrong": false
+  },
+  {
+    "bore": "3/8\" Hex",
+    "chain": "#25",
+    "teeth": 16,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": true
+  },
+  {
+    "bore": "3/8\" Hex",
+    "chain": "#25",
+    "teeth": 18,
+    "vendors": ["VEXpro", "WCP"],
+    "wrong": true
+  },
+  {
+    "bore": "3/8\" Hex",
+    "chain": "#25",
+    "teeth": 22,
+    "vendors": ["VEXpro", "WCP"],
+    "wrong": true
+  },
+  {
+    "bore": "3/8\" Hex",
+    "chain": "#25",
+    "teeth": 24,
+    "vendors": ["AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1/2\" Hex",
+    "chain": "#25",
+    "teeth": 16,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": true
+  },
+  {
+    "bore": "1/2\" Hex",
+    "chain": "#25",
+    "teeth": 17,
+    "vendors": ["AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1/2\" Hex",
+    "chain": "#25",
+    "teeth": 18,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": true
+  },
+  {
+    "bore": "1/2\" Hex",
+    "chain": "#25",
+    "teeth": 22,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": true
+  },
+  {
+    "bore": "1/2\" Hex",
+    "chain": "#25",
+    "teeth": 24,
+    "vendors": ["AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1/2\" ID",
+    "chain": "#25",
+    "teeth": 16,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": true
+  },
+  {
+    "bore": "1/2\" ID",
+    "chain": "#25",
+    "teeth": 18,
+    "vendors": ["AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1/2\" ID",
+    "chain": "#25",
+    "teeth": 22,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": true
+  },
+  {
+    "bore": "1/2\" ID",
+    "chain": "#25",
+    "teeth": 24,
+    "vendors": ["AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#25",
+    "teeth": 32,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#25",
+    "teeth": 34,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#25",
+    "teeth": 36,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#25",
+    "teeth": 38,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#25",
+    "teeth": 40,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#25",
+    "teeth": 42,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#25",
+    "teeth": 44,
+    "vendors": ["VEXpro", "WCP"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#25",
+    "teeth": 48,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#25",
+    "teeth": 54,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#25",
+    "teeth": 58,
+    "vendors": ["VEXpro", "WCP"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#25",
+    "teeth": 60,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#25",
+    "teeth": 64,
+    "vendors": ["VEXpro", "WCP"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#25",
+    "teeth": 66,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#25",
+    "teeth": 72,
+    "vendors": ["VEXpro", "WCP"],
+    "wrong": false
+  },
+  {
+    "bore": "1/2\" Hex",
+    "chain": "#35",
+    "teeth": 12,
+    "vendors": ["VEXpro", "WCP"],
+    "wrong": false
+  },
+  {
+    "bore": "1/2\" Hex",
+    "chain": "#35",
+    "teeth": 15,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1/2\" ID",
+    "chain": "#35",
+    "teeth": 12,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1/2\" ID",
+    "chain": "#35",
+    "teeth": 15,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#35",
+    "teeth": 22,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#35",
+    "teeth": 24,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#35",
+    "teeth": 26,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#35",
+    "teeth": 28,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#35",
+    "teeth": 30,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#35",
+    "teeth": 32,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#35",
+    "teeth": 33,
+    "vendors": ["VEXpro", "WCP"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#35",
+    "teeth": 36,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#35",
+    "teeth": 42,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#35",
+    "teeth": 44,
+    "vendors": ["VEXpro", "WCP"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#35",
+    "teeth": 48,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#35",
+    "teeth": 54,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  },
+  {
+    "bore": "1-1/8\" Bearing Bore",
+    "chain": "#35",
+    "teeth": 60,
+    "vendors": ["VEXpro", "WCP", "AndyMark"],
+    "wrong": false
+  }
 ]

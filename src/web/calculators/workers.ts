@@ -17,8 +17,9 @@ import createPneumaticsWorker from "workerize-loader!web/calculators/pneumatics/
 import createMotorPlaygroundWorker from "workerize-loader!web/info/motors/graphBuilder";
 
 const pneumaticsWorker = createPneumaticsWorker<typeof PneumaticsWorker>();
-export const usePneumaticsWorker: () => Workerized<typeof PneumaticsWorker> =
-  () => pneumaticsWorker;
+export const usePneumaticsWorker: () => Workerized<
+  typeof PneumaticsWorker
+> = () => pneumaticsWorker;
 
 const motorPlaygroundWorker =
   createMotorPlaygroundWorker<typeof MotorPlaygroundWorker>();
