@@ -90,7 +90,7 @@
     "@types/react-table": "^7.7.9",
     "@types/testing-library__jest-dom": "^5.14.2",
     "@types/tinycolor2": "^1.4.3",
-    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
     "eslint": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
