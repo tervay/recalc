@@ -27,7 +27,7 @@
     "katex": "^0.15.1",
     "konva": "^8.3.0",
     "lodash": "^4.17.21",
-    "marked": "^4.0.6",
+    "marked": "^4.0.7",
     "node-sass": "^7.0.0",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
