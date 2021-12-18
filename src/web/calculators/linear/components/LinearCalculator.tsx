@@ -23,6 +23,7 @@ import {
 } from "web/calculators/linear";
 import { LinearState } from "web/calculators/linear/converter";
 import {
+  calculateDragLoad,
   calculateLoadedSpeed,
   calculateTimeToGoal,
   calculateUnloadedSpeed,
@@ -64,6 +65,13 @@ export default function LinearCalculator(): JSX.Element {
         get.load.toDict(),
         get.ratio.toDict()
       ),
+    dragLoad: () =>
+      calculateDragLoad(
+        get.motor,
+        get.spoolDiameter,
+        get.ratio,
+        get.efficiency
+      ).negate(),
   };
 
   const [unloadedSpeed, setUnloadedSpeed] = useState(calculate.unloadedSpeed());
@@ -74,6 +82,7 @@ export default function LinearCalculator(): JSX.Element {
   const [loadedTimeToGoal, setLoadedTimeToGoal] = useState(
     calculate.loadedTimeToGoal()
   );
+  const [dragLoad, setDragLoad] = useState(calculate.dragLoad());
 
   const [timeToGoalStates, setTimeToGoalStates] = useState(
     [] as GraphDataPoint[]
@@ -97,6 +106,10 @@ export default function LinearCalculator(): JSX.Element {
   useEffect(() => {
     setUnloadedTimeToGoal(calculate.unloadedTimeToGoal());
   }, [get.travelDistance, unloadedSpeed]);
+
+  useEffect(() => {
+    setDragLoad(calculate.dragLoad());
+  }, [get.motor, get.spoolDiameter, get.ratio, get.efficiency]);
 
   useEffect(() => {
     calculate.timeToGoalStates().then((d) => setTimeToGoalStates(d));
@@ -225,6 +238,17 @@ export default function LinearCalculator(): JSX.Element {
               </SingleInputLine>
             </Column>
           </Columns>
+          <SingleInputLine
+            label="Stall Load"
+            id="stallLoad"
+            tooltip="The amount of weight the system can handle before stalling."
+          >
+            <MeasurementOutput
+              stateHook={[dragLoad, setDragLoad]}
+              numberRoundTo={2}
+              defaultUnit="lbs"
+            />
+          </SingleInputLine>
         </Column>
         <Column>
           <Graph
