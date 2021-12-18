@@ -1,6 +1,7 @@
 import Graph from "common/components/graphing/Graph";
 import { EzDataset, GraphConfig } from "common/components/graphing/graphConfig";
 import Metadata from "common/components/Metadata";
+import Table from "common/components/styling/Table";
 import Compressor from "common/models/Compressor";
 import Measurement from "common/models/Measurement";
 import { useMemo } from "react";
@@ -26,6 +27,55 @@ export default function CompressorsPage(): JSX.Element {
   return (
     <>
       <Metadata pageConfig={compressorsConfig} />
+      <Table
+        columns={[
+          {
+            Header: "Name",
+            accessor: "name",
+          },
+          {
+            Header: "Weight",
+            accessor: "weight",
+            sortType: "number",
+          },
+          {
+            Header: "CFM @ 0 PSI",
+            accessor: "cfm0",
+            sortType: "number",
+          },
+          {
+            Header: "CFM @ 50 PSI",
+            accessor: "cfm50",
+            sortType: "number",
+          },
+          {
+            Header: "CFM @ 100 PSI",
+            accessor: "cfm100",
+            sortType: "number",
+          },
+          {
+            Header: "CFM/lb @ 100 PSI",
+            accessor: "cfmlb",
+            sortType: "number",
+          },
+        ]}
+        data={Compressor.getAllCompressors().map((c) => ({
+          name: <a href={c.url}>{c.identifier}</a>,
+          weight: c.weight.format(),
+          cfm0: c.cfmAtPressure(new Measurement(0, "psi")).scalar.toFixed(2),
+          cfm50: c.cfmAtPressure(new Measurement(50, "psi")).scalar.toFixed(2),
+          cfm100: c
+            .cfmAtPressure(new Measurement(100, "psi"))
+            .scalar.toFixed(2),
+          cfmlb: c
+            .cfmAtPressure(new Measurement(100, "psi"))
+            .div(c.weight)
+            .scalar.toFixed(2),
+        }))}
+        fullwidth
+        hoverable
+      />
+
       <div className="playground-container">
         <Graph
           options={graphConfig}
