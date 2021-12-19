@@ -15,11 +15,7 @@ import { useGettersSetters } from "common/tooling/conversion";
 import { useEffect, useState } from "react";
 import { BeltsParamsV1, BeltsStateV1 } from "web/calculators/belts";
 import InventoryTable from "web/calculators/belts/components/InventoryTable";
-import {
-  EmptyCheatSheet,
-  Pulley3mmCheatSheat,
-  Pulley5mmCheatSheat,
-} from "web/calculators/belts/components/PulleyCheatSheet";
+import { PulleyCheatSheet } from "web/calculators/belts/components/PulleyCheatSheet";
 import { BeltState } from "web/calculators/belts/converter";
 import {
   calculateClosestCenters,
@@ -146,11 +142,29 @@ export default function BeltsCalculator(): JSX.Element {
     get.pitch,
   ]);
 
-  let cheatSheet = <EmptyCheatSheet />;
+  let cheatSheet = (
+    <PulleyCheatSheet pitch={new Measurement(999, "mm")} currentPulleys={[]} />
+  );
   if (get.pitch.eq(new Measurement(3, "mm"))) {
-    cheatSheet = <Pulley3mmCheatSheat />;
+    cheatSheet = (
+      <PulleyCheatSheet
+        pitch={new Measurement(3, "mm")}
+        currentPulleys={[
+          Pulley.fromTeeth(get.p1Teeth, get.pitch),
+          Pulley.fromTeeth(get.p2Teeth, get.pitch),
+        ]}
+      />
+    );
   } else if (get.pitch.eq(new Measurement(5, "mm"))) {
-    cheatSheet = <Pulley5mmCheatSheat />;
+    cheatSheet = (
+      <PulleyCheatSheet
+        pitch={new Measurement(5, "mm")}
+        currentPulleys={[
+          Pulley.fromTeeth(get.p1Teeth, get.pitch),
+          Pulley.fromTeeth(get.p2Teeth, get.pitch),
+        ]}
+      />
+    );
   }
 
   let largerOptionDiv = <></>;

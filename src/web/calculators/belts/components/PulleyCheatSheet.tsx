@@ -5,7 +5,12 @@ import Measurement from "common/models/Measurement";
 import Pulley from "common/models/Pulley";
 import React from "react";
 
-function PulleyCheatSheet(props: { pitch: Measurement }): JSX.Element {
+export function PulleyCheatSheet(props: {
+  pitch: Measurement;
+  currentPulleys: Pulley[];
+}): JSX.Element {
+  const currentTeeth = props.currentPulleys.map((p) => p.teeth);
+
   const data = _data
     .map((p) => {
       return Pulley.fromTeeth(p.teeth, new Measurement(p.pitch, "mm"), {
@@ -52,7 +57,14 @@ function PulleyCheatSheet(props: { pitch: Measurement }): JSX.Element {
           </thead>
           <tbody>
             {data.map((pulley) => (
-              <tr key={JSON.stringify(pulley)}>
+              <tr
+                key={JSON.stringify(pulley)}
+                className={
+                  currentTeeth.includes(pulley.teeth)
+                    ? "has-text-weight-bold is-underlined"
+                    : ""
+                }
+              >
                 {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
                 <td>{VendorList(pulley.vendors!, pulley.urls!)}</td>
                 <td>{pulley.type}</td>
@@ -73,15 +85,3 @@ function PulleyCheatSheet(props: { pitch: Measurement }): JSX.Element {
     </>
   );
 }
-
-export const Pulley3mmCheatSheat = React.memo(() => (
-  <PulleyCheatSheet pitch={new Measurement(3, "mm")} />
-));
-
-export const Pulley5mmCheatSheat = React.memo(() => (
-  <PulleyCheatSheet pitch={new Measurement(5, "mm")} />
-));
-
-export const EmptyCheatSheet = React.memo(() => (
-  <PulleyCheatSheet pitch={new Measurement(999, "mm")} />
-));
