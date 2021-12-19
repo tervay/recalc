@@ -7,7 +7,10 @@ import React from "react";
 
 export default function SprocketCheatSheet(props: {
   chainType: Chain;
+  currentSprockets: Sprocket[];
 }): JSX.Element {
+  const sprocketTeeth = props.currentSprockets.map((s) => s.teeth);
+
   const data = _data
     .map((s) => {
       return new Sprocket(s.teeth, chainPitchMap[s.chain], {
@@ -41,7 +44,14 @@ export default function SprocketCheatSheet(props: {
           </thead>
           <tbody>
             {data.map((sprocket) => (
-              <tr key={JSON.stringify(sprocket)}>
+              <tr
+                key={JSON.stringify(sprocket)}
+                className={
+                  sprocketTeeth.includes(sprocket.teeth)
+                    ? "has-text-weight-bold is-underlined"
+                    : ""
+                }
+              >
                 {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
                 <td>{VendorList(sprocket.vendors!)}</td>
                 <td>{sprocket.pitch.format()}</td>
@@ -58,13 +68,3 @@ export default function SprocketCheatSheet(props: {
     </>
   );
 }
-
-export const Sprocket25ChainCheatSheet = React.memo(() => (
-  <SprocketCheatSheet chainType={new Chain("#25")} />
-));
-export const Sprocket35ChainCheatSheet = React.memo(() => (
-  <SprocketCheatSheet chainType={new Chain("#35")} />
-));
-export const EmptyCheatSheet = React.memo(() => (
-  <SprocketCheatSheet chainType={new Chain("#50")} />
-));

@@ -13,11 +13,7 @@ import chainConfig, {
   ChainParamsV1,
   ChainStateV1,
 } from "web/calculators/chain";
-import {
-  EmptyCheatSheet,
-  Sprocket25ChainCheatSheet,
-  Sprocket35ChainCheatSheet,
-} from "web/calculators/chain/components/SprocketCheatSheet";
+import SprocketCheatSheet from "web/calculators/chain/components/SprocketCheatSheet";
 import { ChainState } from "web/calculators/chain/converter";
 import {
   calculateCenters,
@@ -81,11 +77,29 @@ export default function ChainCalculator(): JSX.Element {
     setP2PD(calculate.p2PD());
   }, [get.p2Teeth, get.chain]);
 
-  let cheatSheet = <EmptyCheatSheet />;
+  let cheatSheet = (
+    <SprocketCheatSheet chainType={new Chain("#50")} currentSprockets={[]} />
+  );
   if (get.chain.eq(new Chain("#25"))) {
-    cheatSheet = <Sprocket25ChainCheatSheet />;
+    cheatSheet = (
+      <SprocketCheatSheet
+        chainType={new Chain("#25")}
+        currentSprockets={[
+          new Sprocket(get.p1Teeth, get.chain.pitch),
+          new Sprocket(get.p2Teeth, get.chain.pitch),
+        ]}
+      />
+    );
   } else if (get.chain.eq(new Chain("#35"))) {
-    cheatSheet = <Sprocket35ChainCheatSheet />;
+    cheatSheet = (
+      <SprocketCheatSheet
+        chainType={new Chain("#35")}
+        currentSprockets={[
+          new Sprocket(get.p1Teeth, get.chain.pitch),
+          new Sprocket(get.p2Teeth, get.chain.pitch),
+        ]}
+      />
+    );
   }
 
   return (
