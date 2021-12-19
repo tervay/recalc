@@ -50,7 +50,7 @@ export type MotorPlaygroundState = Stateify<typeof MotorPlaygroundParams>;
 const maxTorque = 6;
 const maxPower = 600;
 const maxCurrent = 120;
-const maxRpm = 19500;
+// const maxRpm = 19500;
 
 export const graphConfig = GraphConfig.options(
   {
@@ -90,7 +90,7 @@ export const graphConfig = GraphConfig.options(
         text: "RPM",
       },
       min: 0,
-      max: maxRpm,
+      // max: maxRpm,
     },
     ...Motor.getAllChoices().reduce((acc, _, i) => {
       return {
