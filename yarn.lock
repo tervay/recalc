@@ -1918,10 +1918,10 @@
     jest-diff "^27.0.0"
     pretty-format "^27.0.0"
 
-"@types/js-quantities@^1.6.2":
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/@types/js-quantities/-/js-quantities-1.6.2.tgz#62688c490b9c508ed739366eda2c386613bc2733"
-  integrity sha512-ylwLf5kMzD+16kUZ6h5BDBx7FdUs5gnkP0+YX8hiV/iV5+AcuHyWUkZA4GTDfJ59KXp7woCdDbFX57H/taBIqA==
+"@types/js-quantities@^1.6.3":
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/@types/js-quantities/-/js-quantities-1.6.3.tgz#b75175a6852ce7da5530e2bbdedf87c9d2c8e460"
+  integrity sha512-YwBhHz9Ad7GH/hvg8P9qoKoqG5+xYsM2AQpb96jCDS9HbIj3m24RPgoY2xKPUd5LYAIkaL26igRQQrETf4Gwxg==
 
 "@types/json-schema@*", "@types/json-schema@^7.0.3", "@types/json-schema@^7.0.5", "@types/json-schema@^7.0.7", "@types/json-schema@^7.0.8", "@types/json-schema@^7.0.9":
   version "7.0.9"
