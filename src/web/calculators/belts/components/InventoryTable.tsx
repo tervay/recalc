@@ -134,42 +134,46 @@ export default function InventoryTable(props: {
       <Divider paddingLess color="primary">
         Matching COTS Belts&nbsp;<a href="/data/belts">(all belts)</a>
       </Divider>
-      <table className="table is-fullwidth is-narrow is-hoverable">
-        {tHead}
-        <tbody>
-          {frcAvailableRows(
-            Belt.fromTeeth(
-              props.smallerTeeth,
-              props.pitch,
-              new Measurement(9, "mm")
-            )
-          )}
-          {frcAvailableRows(
-            Belt.fromTeeth(
-              props.smallerTeeth,
-              props.pitch,
-              new Measurement(15, "mm")
-            )
-          )}
-          {props.largerTeeth &&
-            frcAvailableRows(
-              Belt.fromTeeth(
-                props.largerTeeth,
-                props.pitch,
-                new Measurement(9, "mm")
-              )
-            )}
-          {props.largerTeeth &&
-            frcAvailableRows(
-              Belt.fromTeeth(
-                props.largerTeeth,
-                props.pitch,
-                new Measurement(15, "mm")
-              )
-            )}
-          {vbgDivs}
-        </tbody>
-      </table>
+      <div className="table-container">
+        <div style={{ margin: "24px" }}>
+          <table className="table is-fullwidth is-narrow is-hoverable">
+            {tHead}
+            <tbody>
+              {frcAvailableRows(
+                Belt.fromTeeth(
+                  props.smallerTeeth,
+                  props.pitch,
+                  new Measurement(9, "mm")
+                )
+              )}
+              {frcAvailableRows(
+                Belt.fromTeeth(
+                  props.smallerTeeth,
+                  props.pitch,
+                  new Measurement(15, "mm")
+                )
+              )}
+              {props.largerTeeth &&
+                frcAvailableRows(
+                  Belt.fromTeeth(
+                    props.largerTeeth,
+                    props.pitch,
+                    new Measurement(9, "mm")
+                  )
+                )}
+              {props.largerTeeth &&
+                frcAvailableRows(
+                  Belt.fromTeeth(
+                    props.largerTeeth,
+                    props.pitch,
+                    new Measurement(15, "mm")
+                  )
+                )}
+              {vbgDivs}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

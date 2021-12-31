@@ -32,38 +32,40 @@ export default function SprocketCheatSheet(props: {
         Matching COTS Sprockets
       </Divider>
       <div className="table-container">
-        <table className="table is-hoverable is-narrow is-fullwidth">
-          <thead>
-            <tr>
-              <th>Vendor</th>
-              <th>Pitch</th>
-              <th>Teeth</th>
-              <th>Pitch Diameter</th>
-              <th>Bore</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((sprocket) => (
-              <tr
-                key={JSON.stringify(sprocket)}
-                className={
-                  sprocketTeeth.includes(sprocket.teeth)
-                    ? "has-text-weight-bold is-underlined"
-                    : ""
-                }
-              >
-                {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-                <td>{VendorList(sprocket.vendors!)}</td>
-                <td>{sprocket.pitch.format()}</td>
-                <td>{sprocket.teeth}</td>
-                <td>
-                  {sprocket.pitchDiameter.to("in").toPrecision(0.001).scalar}"
-                </td>
-                <td>{sprocket.bore}</td>
+        <div className="table-container-2">
+          <table className="table is-hoverable is-narrow is-fullwidth">
+            <thead>
+              <tr>
+                <th>Vendor</th>
+                <th>Pitch</th>
+                <th>Teeth</th>
+                <th>PD</th>
+                <th>Bore</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {data.map((sprocket) => (
+                <tr
+                  key={JSON.stringify(sprocket)}
+                  className={
+                    sprocketTeeth.includes(sprocket.teeth)
+                      ? "emphasize-row"
+                      : ""
+                  }
+                >
+                  {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
+                  <td>{VendorList(sprocket.vendors!)}</td>
+                  <td>{sprocket.pitch.format()}</td>
+                  <td>{sprocket.teeth}T</td>
+                  <td>
+                    {sprocket.pitchDiameter.to("in").toPrecision(0.001).scalar}"
+                  </td>
+                  <td className="is-size-7">{sprocket.bore}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );

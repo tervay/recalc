@@ -43,44 +43,51 @@ export function PulleyCheatSheet(props: {
         Matching COTS Pulleys
       </Divider>
       <div className="table-container">
-        <table className="table is-hoverable is-narrow is-fullwidth">
-          <thead>
-            <tr>
-              <th>Vendor</th>
-              <th>Type</th>
-              <th>Pitch</th>
-              <th>Width</th>
-              <th>Teeth</th>
-              <th>Pitch Diameter </th>
-              <th>Bore</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((pulley) => (
-              <tr
-                key={JSON.stringify(pulley)}
-                className={
-                  currentTeeth.includes(pulley.teeth)
-                    ? "has-text-weight-bold is-underlined"
-                    : ""
-                }
-              >
-                {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-                <td>{VendorList(pulley.vendors!, pulley.urls!)}</td>
-                <td>{pulley.type}</td>
-                <td>{pulley.pitch.format().replace(" ", "")}</td>
-                <td>
-                  {pulley.widths?.map((w) => w.to("mm").scalar).join(", ")}mm
-                </td>
-                <td>{pulley.teeth}T</td>
-                <td>
-                  {pulley.pitchDiameter.to("in").toPrecision(0.001).scalar}"
-                </td>
-                <td>{pulley.bore}</td>
+        <div className="table-container-2">
+          <table className="table is-hoverable is-narrow is-fullwidth">
+            <thead>
+              <tr>
+                <th>Vendor</th>
+                <th>Type</th>
+                <th>Pitch</th>
+                <th>Width</th>
+                <th>Teeth</th>
+                <th>PD</th>
+                <th>Bore</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {data.map((pulley) => (
+                <tr
+                  key={JSON.stringify(pulley)}
+                  className={
+                    currentTeeth.includes(pulley.teeth) ? "emphasize-row" : ""
+                  }
+                >
+                  <td className="is-size-7">
+                    {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
+                    {VendorList(pulley.vendors!, pulley.urls!)}
+                  </td>
+                  <td>{pulley.type}</td>
+                  <td>{pulley.pitch.format().replace(" ", "")}</td>
+                  <td>
+                    {pulley.widths?.map((w) => w.to("mm").scalar).join(", ")}mm
+                  </td>
+                  <td>{pulley.teeth}T</td>
+                  <td>
+                    {pulley.pitchDiameter.to("in").toPrecision(0.001).scalar}"
+                  </td>
+                  <td
+                    className="is-size-7"
+                    style={{ verticalAlign: "inherit" }}
+                  >
+                    {pulley.bore}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );

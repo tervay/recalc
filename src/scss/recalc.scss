@@ -129,3 +129,29 @@
       brightness(106%) contrast(109%);
   }
 }
+
+.table,
+.table-container {
+  background-color: $g1;
+  border-color: $g1;
+  border-radius: 12px;
+}
+
+.table-container-2 {
+  margin: 24px;
+}
+
+td {
+  vertical-align: middle !important;
+}
+
+.table {
+  margin-top: 24px;
+}
+
+.emphasize-row {
+  // text-decoration: line-through;
+  background-color: white;
+  box-shadow: 0px 3px 8px 2px $g2;
+  // margin: 10px;
+}
