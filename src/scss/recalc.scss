@@ -26,15 +26,15 @@
 }
 
 .recalc-box {
-  background-color: $g1;
+  background-color: white;
   border-radius: $box-radius;
   color: $box-color;
-  padding: 1rem;
-  border: 1px solid $g1_5;
+  padding: 1.25rem;
+  border: 1px solid $g2;
   margin: 0.25rem;
 
   &:hover {
-    background-color: $g2;
+    background-color: $g1;
     border: 1px solid $g3;
     @extend .scale-down-center;
   }

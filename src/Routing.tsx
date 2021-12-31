@@ -1,4 +1,9 @@
-import { Footer, Message } from "common/components/styling/Building";
+import {
+  Column,
+  Columns,
+  Footer,
+  Message,
+} from "common/components/styling/Building";
 import Nav from "common/components/styling/Nav";
 import PageConfig from "common/models/PageConfig";
 import { Suspense } from "react";
@@ -64,12 +69,17 @@ function App(): JSX.Element {
           </Suspense>
 
           <Footer>
-            <Message color="warning">
-              These calculators are provided as reference <b>only</b>. These
-              should not be taken as the holy truth of the universe - they are
-              estimates created in order to guide you to the best solution. I
-              cannot guarantee the math is perfectly accurate in all scenarios.
-            </Message>
+            <Columns centered>
+              <Column ofTwelve={6}>
+                <Message color="warning">
+                  These calculators are provided as reference <b>only</b>. These
+                  should not be taken as the holy truth of the universe - they
+                  are estimates created in order to guide you to the best
+                  solution. I cannot guarantee the math is perfectly accurate in
+                  all scenarios.
+                </Message>
+              </Column>
+            </Columns>
           </Footer>
         </div>
       </section>

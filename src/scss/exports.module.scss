@@ -19,19 +19,29 @@ $c6: mix($c5, $c7, 50%);
 $c8: mix($c7, $c9, 50%);
 
 /* Greys */
-$g1: #fbfbfc;
-$g9: #050507;
-$g5: mix($g1, $g9, 50%);
+// $g1: #fbfbfc;
+// $g9: #050507;
+// $g5: mix($g1, $g9, 50%);
 
-$g3: mix($g1, $g5, 50%);
-$g7: mix($g5, $g9, 50%);
+// $g3: mix($g1, $g5, 50%);
+// $g7: mix($g5, $g9, 50%);
 
-$g2: mix($g1, $g3, 50%);
-$g4: mix($g3, $g5, 50%);
-$g6: mix($g5, $g7, 50%);
-$g8: mix($g7, $g9, 50%);
+// $g2: mix($g1, $g3, 50%);
+// $g4: mix($g3, $g5, 50%);
+// $g6: mix($g5, $g7, 50%);
+// $g8: mix($g7, $g9, 50%);
 
-$g1_5: mix($g1, $g2, 50%);
+$g1: #f7fafc;
+$g2: #edf2f7;
+$g3: #e2e8f0;
+$g4: #cbd5e0;
+$g5: #a0aec0;
+$g6: #718096;
+$g7: #4a5568;
+$g8: #2d3748;
+$g9: #1a202c;
+
+// $g1_5: mix($g1, $g2, 50%);
 
 $unused: red;
 
@@ -49,17 +59,22 @@ $grey-light: $g3;
 $grey-lighter: $g2;
 $grey-lightest: $g1;
 
-$white-ter: $g1_5;
-$white-bis: $g1;
+// $white-ter: $g1_5;
+// $white-bis: ;
 $white: white;
+$black: $g9;
+$white-ter: $g1;
+$grey-darker: $g8;
 
-$text-strong: $g9;
-$text-light: $g5;
-$subtitle-color: $g7;
+// $text-strong: $g9;
+// $text-light: $g5;
+// $subtitle-color: $g7;
 
 $box-shadow: 0 0.5em 0.5em -0.3em rgba($black, 0.1);
+$box-radius: 24px;
 
-$input-disabled-background-color: $g1_5;
+$input-disabled-background-color: $g2;
+$footer-background-color: white;
 
 /* Component colors */
 $chart_colors: (

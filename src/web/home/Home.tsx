@@ -46,7 +46,7 @@ export default function Home(): JSX.Element {
             paddingTop: 0,
           }}
         >
-          <div className="container">
+          <div className="container has-text-centered">
             <h1 className="title">
               <Logo color="black" />
             </h1>
