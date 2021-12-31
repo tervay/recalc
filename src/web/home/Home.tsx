@@ -48,7 +48,7 @@ export default function Home(): JSX.Element {
         >
           <div className="container has-text-centered">
             <h1 className="title">
-              <Logo color="black" />
+              <Logo color="black" alignment="bottom" />
             </h1>
             <h2 className="subtitle">
               A collaboration focused mechanical design calculator.
