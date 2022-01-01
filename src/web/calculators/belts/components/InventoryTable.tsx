@@ -1,4 +1,3 @@
-import { Divider } from "common/components/styling/Building";
 import Belt from "common/models/Belt";
 import VBeltGuysInventory from "common/models/inventories/VBeltGuysInventory";
 import Measurement from "common/models/Measurement";
@@ -70,6 +69,11 @@ export default function InventoryTable(props: {
   const tHead = (
     <thead>
       <tr>
+        <th colSpan={5}>
+          Matching COTS Belts&nbsp;<a href="/data/belts">(all belts)</a>
+        </th>
+      </tr>
+      <tr>
         <th>Vendor</th>
         <th>Type</th>
         <th>Pitch</th>
@@ -130,12 +134,9 @@ export default function InventoryTable(props: {
 
   const id = "inventory-table";
   return (
-    <div id={id} data-testid={id}>
-      <Divider paddingLess color="primary">
-        Matching COTS Belts&nbsp;<a href="/data/belts">(all belts)</a>
-      </Divider>
+    <div id={id} data-testid={id} style={{ paddingBottom: "8px" }}>
       <div className="table-container">
-        <div style={{ margin: "24px" }}>
+        <div className="table-container2">
           <table className="table is-fullwidth is-narrow is-hoverable">
             {tHead}
             <tbody>

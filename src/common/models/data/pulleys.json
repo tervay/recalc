@@ -173,7 +173,7 @@
     "pitch": 5,
     "width": "9, 15",
     "teeth": 12,
-    "bore": "NEO/CIM (8mm)"
+    "bore": "NEO/CIM"
   },
   {
     "vendors": ["AndyMark"],
@@ -184,7 +184,7 @@
     "pitch": 5,
     "width": 9,
     "teeth": 12,
-    "bore": "NEO/CIM (8mm)"
+    "bore": "NEO/CIM"
   },
   {
     "vendors": ["AndyMark"],
@@ -222,7 +222,7 @@
     "pitch": 5,
     "width": 9,
     "teeth": 30,
-    "bore": "NEO/CIM (8mm)"
+    "bore": "NEO/CIM"
   },
   {
     "vendors": ["AndyMark"],
@@ -262,7 +262,7 @@
     "pitch": 3,
     "width": 21.4,
     "teeth": 16,
-    "bore": "NEO/CIM (8mm)"
+    "bore": "NEO/CIM"
   },
   {
     "vendors": ["REV"],
@@ -289,7 +289,7 @@
     "pitch": 3,
     "width": 5,
     "teeth": 24,
-    "bore": "5mm Hex, 16mm Bolt Circle"
+    "bore": "5mm Hex"
   },
   {
     "vendors": ["REV"],
@@ -298,7 +298,7 @@
     "pitch": 3,
     "width": 5,
     "teeth": 30,
-    "bore": "5mm Hex, 16mm Bolt Circle"
+    "bore": "5mm Hex"
   },
   {
     "vendors": ["REV"],
@@ -307,7 +307,7 @@
     "pitch": 3,
     "width": 5,
     "teeth": 36,
-    "bore": "5mm Hex, 16mm Bolt Circle"
+    "bore": "5mm Hex"
   },
   {
     "vendors": ["REV"],
@@ -316,7 +316,7 @@
     "pitch": 3,
     "width": 5,
     "teeth": 48,
-    "bore": "5mm Hex, 16mm Bolt Circle"
+    "bore": "5mm Hex"
   },
   {
     "vendors": ["REV"],
@@ -325,6 +325,6 @@
     "pitch": 3,
     "width": 5,
     "teeth": 60,
-    "bore": "5mm Hex, 16mm Bolt Circle"
+    "bore": "5mm Hex"
   }
 ]

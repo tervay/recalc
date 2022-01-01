@@ -1,4 +1,3 @@
-import { Divider } from "common/components/styling/Building";
 import _data from "common/models/data/pulleys.json";
 import { FRCVendor, PulleyBeltType } from "common/models/ExtraTypes";
 import Measurement from "common/models/Measurement";
@@ -39,55 +38,55 @@ export function PulleyCheatSheet(props: {
 
   return (
     <>
-      <Divider paddingLess color="primary">
-        Matching COTS Pulleys
-      </Divider>
       <div className="table-container">
-        <div className="table-container-2">
-          <table className="table is-hoverable is-narrow is-fullwidth">
-            <thead>
-              <tr>
-                <th>Vendor</th>
-                <th>Type</th>
-                <th>Pitch</th>
-                <th>Width</th>
-                <th>Teeth</th>
-                <th>PD</th>
-                <th>Bore</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((pulley) => (
-                <tr
-                  key={JSON.stringify(pulley)}
-                  className={
-                    currentTeeth.includes(pulley.teeth) ? "emphasize-row" : ""
-                  }
+        <table className="table is-hoverable is-narrow is-fullwidth">
+          <thead>
+            <tr>
+              <th colSpan={7}>Matching COTS Pulleys</th>
+            </tr>
+            <tr>
+              <th>Vendor</th>
+              <th>Type</th>
+              <th className="has-text-right">Pitch</th>
+              <th className="has-text-right">Width</th>
+              <th className="has-text-right">Teeth</th>
+              <th className="has-text-right">PD</th>
+              <th className="has-text-centered">Bore</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((pulley) => (
+              <tr
+                key={JSON.stringify(pulley)}
+                className={
+                  currentTeeth.includes(pulley.teeth) ? "emphasize-row" : ""
+                }
+              >
+                <td className="is-size-7">
+                  {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
+                  {VendorList(pulley.vendors!, pulley.urls!)}
+                </td>
+                <td>{pulley.type}</td>
+                <td className="has-text-right">
+                  {pulley.pitch.format().replace(" ", " ")}
+                </td>
+                <td className="has-text-right">
+                  {pulley.widths?.map((w) => w.to("mm").scalar).join(", ")} mm
+                </td>
+                <td className="has-text-centered">{pulley.teeth}T</td>
+                <td className="has-text-right">
+                  {pulley.pitchDiameter.to("in").toPrecision(0.001).scalar}"
+                </td>
+                <td
+                  className="is-size-7 has-text-centered"
+                  style={{ verticalAlign: "inherit" }}
                 >
-                  <td className="is-size-7">
-                    {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-                    {VendorList(pulley.vendors!, pulley.urls!)}
-                  </td>
-                  <td>{pulley.type}</td>
-                  <td>{pulley.pitch.format().replace(" ", "")}</td>
-                  <td>
-                    {pulley.widths?.map((w) => w.to("mm").scalar).join(", ")}mm
-                  </td>
-                  <td>{pulley.teeth}T</td>
-                  <td>
-                    {pulley.pitchDiameter.to("in").toPrecision(0.001).scalar}"
-                  </td>
-                  <td
-                    className="is-size-7"
-                    style={{ verticalAlign: "inherit" }}
-                  >
-                    {pulley.bore}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                  {pulley.bore}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </>
   );

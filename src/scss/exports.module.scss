@@ -41,7 +41,7 @@ $g7: #4a5568;
 $g8: #2d3748;
 $g9: #1a202c;
 
-// $g1_5: mix($g1, $g2, 50%);
+$g1_5: mix($g1, $g2, 50%);
 
 $unused: red;
 
@@ -111,6 +111,8 @@ $pdp_colors: (
 $family-sans-serif: "Quicksand", sans-serif, -apple-system, BlinkMacSystemFont,
   "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
   "Droid Sans", "Helvetica Neue", sans-serif;
+
+$table-row-hover-background-color: $g1;
 
 :export {
   primary: $primary;

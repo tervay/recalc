@@ -27,12 +27,13 @@
 
 .recalc-box {
   background-color: white;
-  border-radius: $box-radius;
+  border-radius: 10px;
   color: $box-color;
   padding: 1.25rem;
   border: 1px solid $g2;
+
   margin: 0.25rem;
-  box-shadow: 0 6px 10px rgb(0 0 0 / 5%);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 5%);
 
   &:hover {
     background-color: $g1;
@@ -133,13 +134,26 @@
 
 .table,
 .table-container {
-  background-color: $g1;
   border-color: $g1;
-  border-radius: 12px;
-}
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 
-.table-container-2 {
-  margin: 15px;
+  thead {
+    background-color: $g1_5;
+    tr > th {
+      padding: 6px 12px !important;
+    }
+
+    th[colspan]:not([colspan="1"]) {
+      border: 0;
+      text-align: center !important;
+    }
+  }
+
+  th {
+    vertical-align: middle !important;
+  }
 }
 
 td {
@@ -153,22 +167,26 @@ td {
 }
 
 .emphasize-row {
-  $highlighted-row-radius: 15px;
-
-  background-color: white;
+  background-color: $g2;
   box-shadow: 0 6px 10px rgb(0 0 0 / 5%);
-  border-radius: $highlighted-row-radius;
+
+  $highlighted-row-radius: 8px;
+  $td-border: 1px solid $g5;
 
   td {
     padding: 10px !important;
+    border-top: $td-border;
+    border-bottom: $td-border;
   }
 
   td:first-child {
+    border-left: $td-border;
     border-top-left-radius: $highlighted-row-radius;
     border-bottom-left-radius: $highlighted-row-radius;
   }
 
   td:last-child {
+    border-right: $td-border;
     border-top-right-radius: $highlighted-row-radius;
     border-bottom-right-radius: $highlighted-row-radius;
   }
