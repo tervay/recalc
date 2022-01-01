@@ -62,7 +62,7 @@ export function PulleyCheatSheet(props: {
                   currentTeeth.includes(pulley.teeth) ? "emphasize-row" : ""
                 }
               >
-                <td className="is-size-7">
+                <td>
                   {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
                   {VendorList(pulley.vendors!, pulley.urls!)}
                 </td>
@@ -78,7 +78,7 @@ export function PulleyCheatSheet(props: {
                   {pulley.pitchDiameter.to("in").toPrecision(0.001).scalar}"
                 </td>
                 <td
-                  className="is-size-7 has-text-centered"
+                  className="has-text-centered"
                   style={{ verticalAlign: "inherit" }}
                 >
                   {pulley.bore}
