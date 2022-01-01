@@ -91,7 +91,26 @@ a.navbar-item:focus {
   // background-color: $g2;
 }
 
-.input,
-select {
-  border: 1px solid rgb(209, 213, 219) !important;
+$input-select-border: 1px solid rgb(209, 213, 219) !important;
+
+.control {
+  input {
+    border-left: $input-select-border;
+    border-bottom: $input-select-border;
+    border-top: $input-select-border;
+    // border-right: 0;
+  }
+
+  input:only-child {
+    border-right: $input-select-border;
+  }
+
+  select {
+    border-right: $input-select-border;
+    border-bottom: $input-select-border;
+    border-top: $input-select-border;
+    // border-left-color: transparent !important;
+    // border-left: 0;
+    // background-color: transparent;
+  }
 }
