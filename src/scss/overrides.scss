@@ -72,10 +72,12 @@ a.navbar-item:focus {
 }
 
 .divider {
-  margin: 0;
-  padding-bottom: 1rem;
+  // margin: 0;
+  // padding-bottom: 1rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
   text-transform: unset;
-  color: $g9;
+  color: $g7;
 }
 
 .field.is-horizontal {
