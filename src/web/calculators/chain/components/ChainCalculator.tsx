@@ -78,7 +78,7 @@ export default function ChainCalculator(): JSX.Element {
   }, [get.p2Teeth, get.chain]);
 
   let cheatSheet = (
-    <SprocketCheatSheet chainType={new Chain("#50")} currentSprockets={[]} />
+    <SprocketCheatSheet chainType={new Chain("#40")} currentSprockets={[]} />
   );
   if (get.chain.eq(new Chain("#25"))) {
     cheatSheet = (
@@ -122,7 +122,7 @@ export default function ChainCalculator(): JSX.Element {
                     <br />
                   </>
                 ))}
-                Bike chain is typically #50.
+                Bike chain is typically #40.
               </>
             }
           >

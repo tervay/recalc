@@ -9,7 +9,7 @@ export type ChainDict = {
 export const chainPitchMap: Record<string, Measurement> = {
   "#25": new Measurement(0.25, "in"),
   "#35": new Measurement(0.375, "in"),
-  "#50": new Measurement(0.5, "in"),
+  "#40": new Measurement(0.5, "in"),
 };
 
 export default class Chain extends Model {
