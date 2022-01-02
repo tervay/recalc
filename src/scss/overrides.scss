@@ -93,7 +93,7 @@ a.navbar-item:focus {
   // background-color: $g2;
 }
 
-$input-select-border: 1px solid rgb(209, 213, 219) !important;
+$input-select-border: 1px solid rgb(209, 213, 219);
 
 .control {
   input {
@@ -115,4 +115,8 @@ $input-select-border: 1px solid rgb(209, 213, 219) !important;
     // border-left: 0;
     // background-color: transparent;
   }
+}
+
+[disabled].input {
+  border: $input-select-border;
 }
