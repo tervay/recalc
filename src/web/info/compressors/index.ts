@@ -55,5 +55,3 @@ export const graphConfig = GraphConfig.options(
     showLegend: true,
   }
 );
-
-console.log(graphConfig);

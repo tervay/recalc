@@ -306,7 +306,7 @@ testWrapper<
         flywheelWeight: 1.5,
         shooterMaxSpeed: 12760,
         customShooterMOI: 4.5,
-        customFlywheelMOI: 0.8,
+        customFlywheelMOI: 3,
         windupTime: 2.89,
         recoveryTime: 0.1709,
         surfaceSpeed: 287.98,
