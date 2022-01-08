@@ -85,7 +85,7 @@ export default function Table<D extends Record<string, unknown>>(props: {
           }}
           style={{ width: "100px" }}
         />
-      </span>{" "}
+      </span>
       <div className="select">
         <select
           value={pageSize}
@@ -114,7 +114,12 @@ export default function Table<D extends Record<string, unknown>>(props: {
               <tr {...headerGroup.getHeaderGroupProps()} key={Math.random()}>
                 {headerGroup.headers.map((column) => (
                   <th
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    {...column.getHeaderProps([
+                      column.getSortByToggleProps(),
+                      {
+                        className: column.className,
+                      },
+                    ])}
                     key={Math.random()}
                   >
                     {column.render("Header")}
@@ -137,7 +142,14 @@ export default function Table<D extends Record<string, unknown>>(props: {
                 <tr {...row.getRowProps()} key={Math.random()}>
                   {row.cells.map((cell) => {
                     return (
-                      <td {...cell.getCellProps()} key={Math.random()}>
+                      <td
+                        {...cell.getCellProps([
+                          {
+                            className: cell.column.className,
+                          },
+                        ])}
+                        key={Math.random()}
+                      >
                         {cell.render("Cell")}
                       </td>
                     );

@@ -1,0 +1,172 @@
+{
+  "Aluminum Tube Stock": [
+    {
+      "size": "1\" x 1\" x 0.040\"",
+      "lengths": [59],
+      "prices": [19.99],
+      "vendor": "VEXPro"
+    },
+    {
+      "size": "1\" x 1\" x 0.100\"",
+      "lengths": [59],
+      "prices": [24.99],
+      "vendor": "VEXPro"
+    },
+    {
+      "size": "1\" x 2\" x 0.050\"",
+      "lengths": [59],
+      "prices": [29.99],
+      "vendor": "VEXPro"
+    },
+    {
+      "size": "1\" x 2\" x 0.100\"",
+      "lengths": [59],
+      "prices": [34.99],
+      "vendor": "VEXPro"
+    },
+    {
+      "size": "5/8\" x 5/8\" x 0.063\"",
+      "lengths": [36],
+      "prices": [8.0],
+      "vendor": "AndyMark"
+    },
+    {
+      "size": "1\" x 1\" x 0.063\"",
+      "lengths": [36, 72],
+      "prices": [11.25, 20.0],
+      "vendor": "AndyMark"
+    },
+    {
+      "size": "1\" x 1\" x 0.125\"",
+      "lengths": [36, 72],
+      "prices": [17.0, 33.0],
+      "vendor": "AndyMark"
+    },
+    {
+      "size": "1\" x 2\" x 0.063\"",
+      "lengths": [36, 72],
+      "prices": [15.5, 28.0],
+      "vendor": "AndyMark"
+    },
+    {
+      "size": "1\" x 2\" x 0.125\"",
+      "lengths": [36, 72],
+      "prices": [26.75, 49.0],
+      "vendor": "AndyMark"
+    },
+    {
+      "size": "1\" x 2\" x 0.063\"",
+      "lengths": [59],
+      "prices": [19.99],
+      "vendor": "WCP"
+    },
+    {
+      "size": "1\" x 2\" x 0.125\"",
+      "lengths": [59],
+      "prices": [29.99],
+      "vendor": "WCP"
+    },
+    {
+      "size": "1\" x 1\" x 0.063\"",
+      "lengths": [59],
+      "prices": [14.99],
+      "vendor": "WCP"
+    },
+    {
+      "size": "1\" x 1\" x 0.125\"",
+      "lengths": [59],
+      "prices": [26.99],
+      "vendor": "WCP"
+    },
+    {
+      "size": "1.5\" x 1.5\" x 0.063\"",
+      "lengths": [59],
+      "prices": [21.99],
+      "vendor": "WCP"
+    },
+    {
+      "size": "1.5\" x 1.5\" x 0.125\"",
+      "lengths": [59],
+      "prices": [37.99],
+      "vendor": "WCP"
+    },
+    {
+      "size": "2\" x 2\" x 0.063\"",
+      "lengths": [59],
+      "prices": [34.99],
+      "vendor": "WCP"
+    },
+    {
+      "size": "2\" x 2\" x 0.125\"",
+      "lengths": [59],
+      "prices": [46.99],
+      "vendor": "WCP"
+    },
+    {
+      "size": "2.5\" x 2.5\" x 0.125\"",
+      "lengths": [59],
+      "prices": [64.99],
+      "vendor": "WCP"
+    },
+    {
+      "size": "3\" x 3\" x 0.125\"",
+      "lengths": [59],
+      "prices": [79.99],
+      "vendor": "WCP"
+    }
+  ],
+  "Plastic Tube Stock": [
+    {
+      "size": "1\" x 1\" x 0.100\"",
+      "lengths": [59],
+      "prices": [27.99],
+      "vendor": "VEXPro"
+    },
+    {
+      "size": "1\" x 2\" x 0.100\"",
+      "lengths": [59],
+      "prices": [34.99],
+      "vendor": "VEXPro"
+    }
+  ],
+  "Anodized Aluminum Peanut Stock": [
+    {
+      "size": "1\" x 1\" x 0.050\"",
+      "lengths": [36],
+      "prices": [19.0],
+      "vendor": "AndyMark"
+    }
+  ],
+  "Aluminum Peanut Stock": [
+    {
+      "size": "1\" x 1\" x 0.050\"",
+      "lengths": [3.5, 6, 11.25, 36, 72],
+      "prices": [3.5, 5, 6.25, 13.5, 23.5],
+      "vendor": "AndyMark"
+    }
+  ],
+  "Anodized Aluminum Walnut Stock": [
+    {
+      "size": "1\" x 2\" x 0.063\"",
+      "lengths": [36],
+      "prices": [23.0],
+      "vendor": "AndyMark"
+    }
+  ],
+  "Aluminum Walnut Stock": [
+    {
+      "size": "1\" x 2\" x 0.063\"",
+      "lengths": [12, 36, 72],
+      "prices": [7.5, 17.0, 30.0],
+      "vendor": "AndyMark"
+    }
+  ],
+  "Slotted Aluminum Stock": [
+    {
+      "size": "1\" x 1\" x #10",
+      "lengths": [48],
+      "prices": [17.5],
+      "vendor": "REV"
+    }
+  ]
+}

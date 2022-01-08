@@ -20,6 +20,7 @@ import Home from "web/home/Home";
 import compressorsConfig from "web/info/compressors";
 import beltDataConfig from "web/info/data/belts";
 import motorsConfig from "web/info/motors";
+import utilConfig from "web/info/util";
 
 function Routable(props: { config: PageConfig }): JSX.Element {
   return <Route path={props.config.url} component={props.config.component} />;
@@ -64,6 +65,7 @@ function App(): JSX.Element {
                 <Routable config={motorsConfig} />
                 <Routable config={compressorsConfig} />
                 <Routable config={aboutConfig} />
+                <Routable config={utilConfig} />
               </QueryParamProvider>
             </Switch>
           </Suspense>
