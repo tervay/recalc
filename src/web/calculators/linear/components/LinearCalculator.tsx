@@ -134,7 +134,7 @@ export default function LinearCalculator(): JSX.Element {
         title="Linear Mechanism Calculator"
       />
 
-      <Columns>
+      <Columns desktop>
         <Column>
           <SingleInputLine
             label="Motor"

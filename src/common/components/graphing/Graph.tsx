@@ -40,7 +40,7 @@ export default function Graph(
   }, [zoomEnabled]);
 
   return (
-    <div className="box remove-hover">
+    <div className="box remove-hover" style={{ width: "99%" }}>
       <Level paddingLess marginLess>
         <LevelLeft>
           <LevelItem>
