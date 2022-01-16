@@ -23,6 +23,7 @@ import {
 } from "web/calculators/linear";
 import { LinearState } from "web/calculators/linear/converter";
 import {
+  calculateCurrentDraw,
   calculateDragLoad,
   calculateLoadedSpeed,
   calculateTimeToGoal,
@@ -65,6 +66,8 @@ export default function LinearCalculator(): JSX.Element {
         get.load.toDict(),
         get.ratio.toDict()
       ),
+    currentDraw: () =>
+      calculateCurrentDraw(get.motor, get.spoolDiameter, get.load, get.ratio),
     dragLoad: () =>
       calculateDragLoad(
         get.motor,
@@ -90,6 +93,7 @@ export default function LinearCalculator(): JSX.Element {
   const [currentDrawStates, setCurrentDrawStates] = useState(
     [] as GraphDataPoint[]
   );
+  const [currentDraw, setCurrentDraw] = useState(calculate.currentDraw());
 
   useEffect(() => {
     setUnloadedSpeed(calculate.unloadedSpeed());
@@ -125,6 +129,10 @@ export default function LinearCalculator(): JSX.Element {
   useEffect(() => {
     calculate.currentDrawStates().then((d) => setCurrentDrawStates(d));
   }, [get.motor, get.spoolDiameter, get.load, get.ratio, get.efficiency]);
+
+  useEffect(() => {
+    setCurrentDraw(calculate.currentDraw());
+  }, [get.motor, get.spoolDiameter, get.load, get.ratio]);
 
   return (
     <>
@@ -247,6 +255,17 @@ export default function LinearCalculator(): JSX.Element {
               stateHook={[dragLoad, setDragLoad]}
               numberRoundTo={2}
               defaultUnit="lbs"
+            />
+          </SingleInputLine>
+          <SingleInputLine
+            label="Estimated Current Draw"
+            id="currentDraw"
+            tooltip="The estimated current draw per motor."
+          >
+            <MeasurementOutput
+              stateHook={[currentDraw, setCurrentDraw]}
+              numberRoundTo={1}
+              defaultUnit="A"
             />
           </SingleInputLine>
         </Column>

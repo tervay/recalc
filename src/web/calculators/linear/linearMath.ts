@@ -113,8 +113,6 @@ export function generateTimeToGoalChartData(
   const n = 100;
   const step = (end - start) / n;
 
-  console.log(`Generating time to goal X axis between ${start} and ${end}`);
-
   const getTimeForRatio = (r: Ratio) =>
     calculateTimeToGoal(
       calculateLoadedSpeed(motor, spoolDiameter, r, efficiency, load),
