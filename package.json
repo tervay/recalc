@@ -101,7 +101,7 @@
     "prettier-plugin-organize-imports": "2.3.4",
     "raw-loader": "^4.0.2",
     "source-map-explorer": "^2.5.2",
-    "type-fest": "^2.9.0",
+    "type-fest": "^2.10.0",
     "typescript-plugin-css-modules": "^3.4.0"
   }
 }
