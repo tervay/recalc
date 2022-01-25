@@ -20,7 +20,9 @@ function frcAvailableRows(belt: Belt): JSX.Element[] {
         key={(b.url === undefined ? "" : b.url) + b.teeth + b.width?.format()}
       >
         <th>
-          <a href={b.url}>{b.vendor}</a>
+          <a target={"_blank"} href={b.url}>
+            {b.vendor}
+          </a>
         </th>
         <td>{b.type}</td>
         <td>{b.pitch.format()}</td>
@@ -48,7 +50,9 @@ function VbgAvailableRows(props: { belt: Belt }): JSX.Element {
     div = (
       <tr>
         <th>
-          <a href={vbg.makeUrl(props.belt)}>VBeltGuys</a>
+          <a target={"_blank"} href={vbg.makeUrl(props.belt)}>
+            VBeltGuys
+          </a>
         </th>
         <td>HTD</td>
         <td>{props.belt.pitch.format()}</td>

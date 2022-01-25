@@ -30,7 +30,7 @@ export function PulleyCheatSheet(props: {
   const VendorList = (vendors: FRCVendor[], urls: string[]) =>
     vendors
       .map<React.ReactNode>((v, i) => (
-        <a href={urls[i]} key={v + Math.random()}>
+        <a target={"_blank"} href={urls[i]} key={v + Math.random()}>
           {v}
         </a>
       ))

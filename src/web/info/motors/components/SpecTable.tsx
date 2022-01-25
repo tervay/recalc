@@ -61,7 +61,11 @@ function getRowForMotor(motor: Motor): MotorRow {
     power40A: getPeakPowerAtCurrentLimit(motor, A(40)),
     power50A: getPeakPowerAtCurrentLimit(motor, A(50)),
     powerWeightRatio: getPowerWeightRatio(motor),
-    nameLink: <a href={motor.url}>{motor.identifier}</a>,
+    nameLink: (
+      <a target={"_blank"} href={motor.url}>
+        {motor.identifier}
+      </a>
+    ),
   };
 }
 

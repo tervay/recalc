@@ -60,7 +60,11 @@ export default function BeltDataDisplay(): JSX.Element {
           {
             Header: "URL",
             accessor: "url",
-            Cell: (cell: Cell) => <a href={cell.value}>{cell.value}</a>,
+            Cell: (cell: Cell) => (
+              <a target={"_blank"} href={cell.value}>
+                {cell.value}
+              </a>
+            ),
           },
         ]}
         data={data}

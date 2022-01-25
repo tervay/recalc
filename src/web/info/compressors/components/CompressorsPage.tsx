@@ -60,7 +60,11 @@ export default function CompressorsPage(): JSX.Element {
           },
         ]}
         data={Compressor.getAllCompressors().map((c) => ({
-          name: <a href={c.url}>{c.identifier}</a>,
+          name: (
+            <a target={"_blank"} href={c.url}>
+              {c.identifier}
+            </a>
+          ),
           weight: c.weight.scalar.toFixed(2),
           cfm0: c.cfmAtPressure(new Measurement(0, "psi")).scalar.toFixed(2),
           cfm50: c.cfmAtPressure(new Measurement(50, "psi")).scalar.toFixed(2),
