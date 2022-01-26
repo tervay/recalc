@@ -5,7 +5,7 @@ import PageConfig from "common/models/PageConfig";
 import { MeasurementParam, MotorParam, RatioParam } from "common/models/Params";
 import Ratio, { RatioType } from "common/models/Ratio";
 import { lazy } from "react";
-import { BooleanParam, withDefault } from "serialize-query-params";
+import { BooleanParam, NumberParam, withDefault } from "serialize-query-params";
 
 const flywheelConfig: PageConfig = {
   url: "/flywheel",
@@ -48,12 +48,14 @@ export const FlywheelStateV2Defaults = {
   useCustomFlywheelMoi: false,
   projectileRadius: new Measurement(2, "in"),
   projectileWeight: new Measurement(5, "lbs"),
+  efficiency: 100,
 };
 
 // export const FlywheelParamsV2 = Foo(FlywheelStateV2Defaults);
 export const FlywheelParamsV2 = {
   motor: withDefault(MotorParam, FlywheelStateV2Defaults.motor),
   motorRatio: withDefault(RatioParam, FlywheelStateV2Defaults.motorRatio),
+  efficiency: withDefault(NumberParam, FlywheelStateV2Defaults.efficiency),
   currentLimit: withDefault(
     MeasurementParam,
     FlywheelStateV2Defaults.currentLimit

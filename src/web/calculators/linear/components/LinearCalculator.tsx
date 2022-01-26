@@ -14,6 +14,7 @@ import {
 import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
 import { Column, Columns } from "common/components/styling/Building";
 import Measurement from "common/models/Measurement";
+import { nominalVoltage } from "common/models/Motor";
 import { useGettersSetters } from "common/tooling/conversion";
 import { useEffect, useState } from "react";
 import {
@@ -29,7 +30,13 @@ import {
   calculateTimeToGoal,
   calculateUnloadedSpeed,
 } from "web/calculators/linear/linearMath";
+import {
+  calculateKa,
+  calculateKg,
+  calculateKv,
+} from "web/calculators/shared/sharedMath";
 import { useLinearWorker } from "web/calculators/workers";
+import KgKvKaDisplay from "../../shared/components/KgKvKaDisplay";
 
 export default function LinearCalculator(): JSX.Element {
   const worker = useLinearWorker();
@@ -73,8 +80,31 @@ export default function LinearCalculator(): JSX.Element {
         get.motor,
         get.spoolDiameter,
         get.ratio,
-        get.efficiency
+        get.efficiency / 100
       ).negate(),
+    kG: () =>
+      calculateKg(
+        get.motor.stallTorque.mul(get.motor.quantity).mul(get.ratio.asNumber()),
+        get.spoolDiameter.div(2),
+        get.load.mul(get.efficiency / 100),
+        nominalVoltage
+      ),
+    kV: () =>
+      calculateKv(
+        get.motor.freeSpeed.div(get.ratio.asNumber()),
+        get.spoolDiameter.div(2),
+        nominalVoltage
+      ),
+    kA: () =>
+      calculateKa(
+        get.motor.stallTorque
+          .mul(get.motor.quantity)
+          .mul(get.ratio.asNumber())
+          .mul(get.efficiency / 100),
+        get.spoolDiameter.div(2),
+        get.load,
+        nominalVoltage
+      ),
   };
 
   const [unloadedSpeed, setUnloadedSpeed] = useState(calculate.unloadedSpeed());
@@ -94,6 +124,9 @@ export default function LinearCalculator(): JSX.Element {
     [] as GraphDataPoint[]
   );
   const [currentDraw, setCurrentDraw] = useState(calculate.currentDraw());
+  const [kG, setKg] = useState(calculate.kG());
+  const [kV, setKv] = useState(calculate.kV());
+  const [kA, setKa] = useState(calculate.kA());
 
   useEffect(() => {
     setUnloadedSpeed(calculate.unloadedSpeed());
@@ -133,6 +166,34 @@ export default function LinearCalculator(): JSX.Element {
   useEffect(() => {
     setCurrentDraw(calculate.currentDraw());
   }, [get.motor, get.spoolDiameter, get.load, get.ratio]);
+
+  useEffect(() => {
+    setKg(calculate.kG());
+  }, [
+    get.motor.stallTorque,
+    get.motor.quantity,
+    get.efficiency,
+    get.ratio,
+    get.load,
+    get.spoolDiameter,
+    nominalVoltage,
+  ]);
+
+  useEffect(() => {
+    setKv(calculate.kV());
+  }, [get.motor.freeSpeed, get.spoolDiameter, nominalVoltage]);
+
+  useEffect(() => {
+    setKa(calculate.kA());
+  }, [
+    get.motor.stallTorque,
+    get.motor.quantity,
+    get.efficiency,
+    get.ratio,
+    get.spoolDiameter,
+    get.load,
+    nominalVoltage,
+  ]);
 
   return (
     <>
@@ -268,6 +329,7 @@ export default function LinearCalculator(): JSX.Element {
               defaultUnit="A"
             />
           </SingleInputLine>
+          <KgKvKaDisplay kG={kG} kV={kV} kA={kA} />
         </Column>
         <Column>
           <Graph
