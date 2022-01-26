@@ -92,9 +92,21 @@ export default class Measurement extends Model {
     }
 
     if (m.kind() === undefined) {
-      // MOI
       if (m.innerQty.isCompatible(Qty(1, "in^2 * lbs"))) {
+        // Moment of inertia
         return ["in^2 lbs"];
+      } else if (m.innerQty.isCompatible("V*s/m")) {
+        // kV (linear)
+        return ["V*s/m", "V*s/ft", "V*s/in"];
+      } else if (m.innerQty.isCompatible("V*s^2/m")) {
+        // kA (linear)
+        return ["V*s^2/m", "V*s^2/ft", "V*s^2/in"];
+      } else if (m.innerQty.isCompatible("V*s/rad")) {
+        // kV (angular)
+        return ["V*s/rad", "V*s/deg", "V*s/rotation"];
+      } else if (m.innerQty.isCompatible("V*s^2/rad")) {
+        // kA (angular)
+        return ["V*s^2/rad", "V*s^2/deg", "V*s^2/rotation"];
       }
     }
 

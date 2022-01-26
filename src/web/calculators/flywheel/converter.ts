@@ -26,6 +26,7 @@ export class FlywheelConverters {
       projectileRadius: FlywheelStateV2Defaults.projectileRadius,
       projectileWeight: FlywheelStateV2Defaults.projectileWeight,
       useCustomFlywheelMoi: FlywheelStateV2Defaults.useCustomFlywheelMoi,
+      efficiency: FlywheelStateV2Defaults.efficiency,
     };
   };
 }

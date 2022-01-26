@@ -9,6 +9,7 @@ import {
 import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
 import { Column, Columns, Divider } from "common/components/styling/Building";
 import Measurement from "common/models/Measurement";
+import { nominalVoltage } from "common/models/Motor";
 import { useGettersSetters } from "common/tooling/conversion";
 import { useEffect, useState } from "react";
 import flywheelConfig, {
@@ -25,6 +26,8 @@ import {
   calculateSpeedAfterShot,
   calculateWindupTime,
 } from "web/calculators/flywheel/flywheelMath";
+import KvKaDisplay from "web/calculators/shared/components/KvKaDisplay";
+import { calculateKa, calculateKv } from "web/calculators/shared/sharedMath";
 
 export default function FlywheelCalculator(): JSX.Element {
   const [get, set] = useGettersSetters(
@@ -103,21 +106,39 @@ export default function FlywheelCalculator(): JSX.Element {
         flywheelEnergy,
         projectileEnergy
       ),
+    totalMomentOfInertia: () =>
+      get.shooterMomentOfInertia.add(
+        get.flywheelMomentOfInertia.div(
+          get.flywheelRatio.asNumber() == 0
+            ? 1
+            : Math.pow(get.flywheelRatio.asNumber(), 2)
+        )
+      ),
     recoveryTime: () =>
       calculateRecoveryTime(
-        get.shooterMomentOfInertia.add(
-          get.flywheelMomentOfInertia.div(
-            get.flywheelRatio.asNumber() == 0
-              ? 1
-              : Math.pow(get.flywheelRatio.asNumber(), 2)
-          )
-        ),
+        totalMomentOfInertia,
         get.motor,
         get.motorRatio,
         1 / 100,
         get.shooterTargetSpeed,
         speedAfterShot,
         get.currentLimit
+      ),
+    kV: () =>
+      calculateKv(
+        get.motor.freeSpeed.div(get.motorRatio.asNumber()),
+        get.flywheelRadius,
+        nominalVoltage
+      ),
+    kA: () =>
+      calculateKa(
+        get.motor.stallTorque
+          .mul(get.motor.quantity)
+          .mul(get.motorRatio.asNumber())
+          .mul(get.efficiency / 100),
+        get.flywheelRadius,
+        totalMomentOfInertia.div(get.flywheelRadius.mul(get.flywheelRadius)),
+        nominalVoltage
       ),
   };
 
@@ -140,7 +161,12 @@ export default function FlywheelCalculator(): JSX.Element {
   const [speedAfterShot, setSpeedAfterShot] = useState(
     calculate.speedAfterShot()
   );
+  const [totalMomentOfInertia, setTotalMomentOfInertia] = useState(
+    calculate.totalMomentOfInertia()
+  );
   const [recoveryTime, setRecoveryTime] = useState(calculate.recoveryTime());
+  const [kV, setKv] = useState(calculate.kV());
+  const [kA, setKa] = useState(calculate.kA());
 
   useEffect(() => {
     if (!get.useCustomShooterMoi) {
@@ -210,6 +236,14 @@ export default function FlywheelCalculator(): JSX.Element {
   ]);
 
   useEffect(() => {
+    setTotalMomentOfInertia(calculate.totalMomentOfInertia());
+  }, [
+    get.flywheelMomentOfInertia,
+    get.shooterMomentOfInertia,
+    get.flywheelRatio,
+  ]);
+
+  useEffect(() => {
     setRecoveryTime(calculate.recoveryTime());
   }, [
     get.shooterMomentOfInertia,
@@ -225,6 +259,21 @@ export default function FlywheelCalculator(): JSX.Element {
   useEffect(() => {
     setShooterTopSpeed(calculate.shooterTopSpeed());
   }, [get.motor, get.motorRatio]);
+
+  useEffect(() => {
+    setKv(calculate.kV());
+  }, [get.motor.freeSpeed, get.motorRatio, get.flywheelRadius]);
+
+  useEffect(() => {
+    setKa(calculate.kA());
+  }, [
+    get.motor.stallTorque,
+    get.motor.quantity,
+    get.motorRatio,
+    get.efficiency,
+    get.flywheelRadius,
+    totalMomentOfInertia,
+  ]);
 
   return (
     <>
@@ -474,6 +523,7 @@ export default function FlywheelCalculator(): JSX.Element {
               numberRoundTo={0}
             />
           </SingleInputLine>
+          <KvKaDisplay kV={kV} kA={kA} />
         </Column>
       </Columns>
     </>

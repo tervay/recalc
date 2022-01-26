@@ -17,6 +17,9 @@ import { armGraphConfig, ArmParamsV1, ArmStateV1 } from "web/calculators/arm";
 import { MomentaryArmState } from "web/calculators/arm/armMath";
 import { ArmState } from "web/calculators/arm/converter";
 import { useArmWorker } from "web/calculators/workers";
+import { nominalVoltage } from "../../../../common/models/Motor";
+import KgKvKaDisplay from "../../shared/components/KgKvKaDisplay";
+import { calculateKa, calculateKg, calculateKv } from "../../shared/sharedMath";
 
 export default function ArmCalculator(): JSX.Element {
   const [get, set] = useGettersSetters(ArmState.getState() as ArmStateV1);
@@ -34,11 +37,37 @@ export default function ArmCalculator(): JSX.Element {
         get.endAngle.toDict(),
         get.iterationLimit
       ),
+    kG: () =>
+      calculateKg(
+        get.motor.stallTorque.mul(get.motor.quantity).mul(get.ratio.asNumber()),
+        get.comLength,
+        get.armMass.mul(get.efficiency / 100),
+        nominalVoltage
+      ),
+    kV: () =>
+      calculateKv(
+        get.motor.freeSpeed.div(get.ratio.asNumber()),
+        new Measurement(1, "rad"),
+        nominalVoltage
+      ),
+    kA: () =>
+      calculateKa(
+        get.motor.stallTorque
+          .mul(get.motor.quantity)
+          .mul(get.ratio.asNumber())
+          .mul(get.efficiency / 100),
+        get.comLength.mul(get.comLength).div(new Measurement(1, "rad")),
+        get.armMass,
+        nominalVoltage
+      ),
   };
 
   const [states, setStates] = useState([] as MomentaryArmState[]);
   const [isCalculating, setIsCalculating] = useState(true);
   const [timeToGoal, setTimeToGoal] = useState(new Measurement(0, "s"));
+  const [kG, setKg] = useState(calculate.kG());
+  const [kV, setKv] = useState(calculate.kV());
+  const [kA, setKa] = useState(calculate.kA());
 
   useEffect(() => {
     setIsCalculating(true);
@@ -61,6 +90,37 @@ export default function ArmCalculator(): JSX.Element {
     get.endAngle,
     get.iterationLimit,
   ]);
+
+  useEffect(
+    () => setKg(calculate.kG()),
+    [
+      get.motor.stallTorque,
+      get.motor.quantity,
+      get.efficiency,
+      get.ratio,
+      get.comLength,
+      get.armMass,
+      nominalVoltage,
+    ]
+  );
+
+  useEffect(
+    () => setKv(calculate.kV()),
+    [get.motor.freeSpeed, get.ratio, nominalVoltage]
+  );
+
+  useEffect(
+    () => setKa(calculate.kA()),
+    [
+      get.motor.stallTorque,
+      get.motor.quantity,
+      get.efficiency,
+      get.ratio,
+      get.comLength,
+      get.armMass,
+      nominalVoltage,
+    ]
+  );
 
   return (
     <>
@@ -175,6 +235,7 @@ export default function ArmCalculator(): JSX.Element {
             For more clarifying info, click the <code>Docs</code> expandable
             below.
           </Message>
+          <KgKvKaDisplay kG={kG} kV={kV} kA={kA} angular={true} />
         </Column>
         <Column>
           <Graph

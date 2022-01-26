@@ -28,6 +28,7 @@ export const ArmParamsV1 = {
   startAngle: withDefault(MeasurementParam, Measurement.CIRCLE_RIGHT()),
   endAngle: withDefault(MeasurementParam, Measurement.CIRCLE_UP()),
   iterationLimit: withDefault(NumberParam, 10000),
+  efficiency: withDefault(NumberParam, 100),
 };
 export type ArmStateV1 = Stateify<typeof ArmParamsV1>;
 
