@@ -10,24 +10,32 @@ import {
 } from "common/components/io/new/inputs";
 import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
 import { Column, Columns, Message } from "common/components/styling/Building";
+import { useAsyncMemo } from "common/hooks/useAsyncMemo";
 import Measurement from "common/models/Measurement";
 import { useGettersSetters } from "common/tooling/conversion";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { armGraphConfig, ArmParamsV1, ArmStateV1 } from "web/calculators/arm";
 import { MomentaryArmState } from "web/calculators/arm/armMath";
 import { ArmState } from "web/calculators/arm/converter";
+import KgKvKaDisplay from "web/calculators/shared/components/KgKvKaDisplay";
+import {
+  calculateKa,
+  calculateKg,
+  calculateKv,
+} from "web/calculators/shared/sharedMath";
 import { useArmWorker } from "web/calculators/workers";
-import { nominalVoltage } from "../../../../common/models/Motor";
-import KgKvKaDisplay from "../../shared/components/KgKvKaDisplay";
-import { calculateKa, calculateKg, calculateKv } from "../../shared/sharedMath";
 
 export default function ArmCalculator(): JSX.Element {
   const [get, set] = useGettersSetters(ArmState.getState() as ArmStateV1);
   const worker = useArmWorker();
 
-  const calculate = {
-    states: () =>
-      worker.calculateArmStates(
+  const [isCalculating, setIsCalculating] = useState(true);
+
+  const states = useAsyncMemo(
+    [] as MomentaryArmState[],
+    async () => {
+      setIsCalculating(true);
+      const states = await worker.calculateArmStates(
         get.motor.toDict(),
         get.ratio.toDict(),
         get.comLength.toDict(),
@@ -36,89 +44,73 @@ export default function ArmCalculator(): JSX.Element {
         get.startAngle.toDict(),
         get.endAngle.toDict(),
         get.iterationLimit
-      ),
-    kG: () =>
+      );
+      setIsCalculating(false);
+      return states;
+    },
+    [
+      get.motor,
+      get.ratio,
+      get.comLength,
+      get.armMass,
+      get.currentLimit,
+      get.startAngle,
+      get.endAngle,
+      get.iterationLimit,
+    ]
+  );
+
+  const timeToGoal = useMemo(
+    () =>
+      states.length > 0
+        ? Measurement.fromDict(states[states.length - 1].time)
+        : new Measurement(0, "s"),
+    [states]
+  );
+
+  const kG = useMemo(
+    () =>
       calculateKg(
         get.motor.stallTorque.mul(get.motor.quantity).mul(get.ratio.asNumber()),
         get.comLength,
-        get.armMass.mul(get.efficiency / 100),
-        nominalVoltage
+        get.armMass.mul(get.efficiency / 100)
       ),
-    kV: () =>
+    [
+      get.motor.stallTorque,
+      get.motor.quantity,
+      get.ratio,
+      get.comLength,
+      get.armMass,
+      get.efficiency,
+    ]
+  );
+
+  const kV = useMemo(
+    () =>
       calculateKv(
         get.motor.freeSpeed.div(get.ratio.asNumber()),
-        new Measurement(1, "rad"),
-        nominalVoltage
+        new Measurement(1, "rad")
       ),
-    kA: () =>
+    [get.motor.freeSpeed, get.ratio]
+  );
+
+  const kA = useMemo(
+    () =>
       calculateKa(
         get.motor.stallTorque
           .mul(get.motor.quantity)
           .mul(get.ratio.asNumber())
           .mul(get.efficiency / 100),
         get.comLength.mul(get.comLength).div(new Measurement(1, "rad")),
-        get.armMass,
-        nominalVoltage
+        get.armMass
       ),
-  };
-
-  const [states, setStates] = useState([] as MomentaryArmState[]);
-  const [isCalculating, setIsCalculating] = useState(true);
-  const [timeToGoal, setTimeToGoal] = useState(new Measurement(0, "s"));
-  const [kG, setKg] = useState(calculate.kG());
-  const [kV, setKv] = useState(calculate.kV());
-  const [kA, setKa] = useState(calculate.kA());
-
-  useEffect(() => {
-    setIsCalculating(true);
-    calculate.states().then((v) => {
-      setStates(v);
-      setIsCalculating(false);
-      setTimeToGoal(
-        v.length > 0
-          ? Measurement.fromDict(v[v.length - 1].time)
-          : new Measurement(0, "s")
-      );
-    });
-  }, [
-    get.motor,
-    get.ratio,
-    get.comLength,
-    get.armMass,
-    get.currentLimit,
-    get.startAngle,
-    get.endAngle,
-    get.iterationLimit,
-  ]);
-
-  useEffect(
-    () => setKg(calculate.kG()),
     [
       get.motor.stallTorque,
       get.motor.quantity,
-      get.efficiency,
       get.ratio,
+      get.efficiency,
       get.comLength,
       get.armMass,
-      nominalVoltage,
-    ]
-  );
-
-  useEffect(
-    () => setKv(calculate.kV()),
-    [get.motor.freeSpeed, get.ratio, nominalVoltage]
-  );
-
-  useEffect(
-    () => setKa(calculate.kA()),
-    [
-      get.motor.stallTorque,
-      get.motor.quantity,
-      get.efficiency,
-      get.ratio,
-      get.comLength,
-      get.armMass,
-      nominalVoltage,
     ]
   );
 
@@ -145,6 +137,13 @@ export default function ArmCalculator(): JSX.Element {
             tooltip="Ratio of the gearbox."
           >
             <RatioInput stateHook={[get.ratio, set.setRatio]} />
+          </SingleInputLine>
+          <SingleInputLine
+            label="Efficiency (%)"
+            id="efficiency"
+            tooltip="The efficiency of the system in transmitting torque from the motors."
+          >
+            <NumberInput stateHook={[get.efficiency, set.setEfficiency]} />
           </SingleInputLine>
           <SingleInputLine
             label="Current Limit"
@@ -222,7 +221,7 @@ export default function ArmCalculator(): JSX.Element {
             tooltip="Time from start angle to end angle."
           >
             <MeasurementOutput
-              stateHook={[timeToGoal, setTimeToGoal]}
+              stateHook={[timeToGoal, () => undefined]}
               numberRoundTo={3}
               loadingIf={() => isCalculating}
             />
@@ -235,7 +234,7 @@ export default function ArmCalculator(): JSX.Element {
             For more clarifying info, click the <code>Docs</code> expandable
             below.
           </Message>
-          <KgKvKaDisplay kG={kG} kV={kV} kA={kA} angular={true} />
+          <KgKvKaDisplay kG={kG} kV={kV} kA={kA} distanceType={"angular"} />
         </Column>
         <Column>
           <Graph
