@@ -11,7 +11,7 @@ export default function KgKvKaDisplay({
   kG,
   kV,
   kA,
-  angular,
+  distanceType,
 }: KgKvKaDisplayProps): JSX.Element {
   return (
     <>
@@ -26,7 +26,7 @@ export default function KgKvKaDisplay({
           defaultUnit="V"
         />
       </SingleInputLine>
-      <KvKaDisplay kV={kV} kA={kA} angular={angular} />
+      <KvKaDisplay kV={kV} kA={kA} distanceType={distanceType} />
     </>
   );
 }

@@ -5,15 +5,15 @@ import Measurement from "common/models/Measurement";
 export interface KvKaDisplayProps {
   kV: Measurement;
   kA: Measurement;
-  angular?: boolean;
+  distanceType: "linear" | "angular";
 }
 
 export default function KvKaDisplay({
   kV,
   kA,
-  angular,
+  distanceType,
 }: KvKaDisplayProps): JSX.Element {
-  const defaultDistanceUnit = angular ? "rad" : "m";
+  const defaultDistanceUnit = distanceType == "angular" ? "rad" : "m";
   return (
     <>
       <SingleInputLine

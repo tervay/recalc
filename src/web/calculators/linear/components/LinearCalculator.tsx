@@ -13,10 +13,10 @@ import {
 } from "common/components/io/new/inputs";
 import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
 import { Column, Columns } from "common/components/styling/Building";
+import { useAsyncMemo } from "common/hooks/useAsyncMemo";
 import Measurement from "common/models/Measurement";
-import { nominalVoltage } from "common/models/Motor";
 import { useGettersSetters } from "common/tooling/conversion";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import {
   linearGraphConfig,
   LinearParamsV1,
@@ -30,22 +30,26 @@ import {
   calculateTimeToGoal,
   calculateUnloadedSpeed,
 } from "web/calculators/linear/linearMath";
+import KgKvKaDisplay from "web/calculators/shared/components/KgKvKaDisplay";
 import {
   calculateKa,
   calculateKg,
   calculateKv,
 } from "web/calculators/shared/sharedMath";
 import { useLinearWorker } from "web/calculators/workers";
-import KgKvKaDisplay from "../../shared/components/KgKvKaDisplay";
 
 export default function LinearCalculator(): JSX.Element {
   const worker = useLinearWorker();
 
   const [get, set] = useGettersSetters(LinearState.getState() as LinearStateV1);
-  const calculate = {
-    unloadedSpeed: () =>
-      calculateUnloadedSpeed(get.motor, get.spoolDiameter, get.ratio),
-    loadedSpeed: () =>
+
+  const unloadedSpeed = useMemo(
+    () => calculateUnloadedSpeed(get.motor, get.spoolDiameter, get.ratio),
+    [get.motor, get.spoolDiameter, get.ratio]
+  );
+
+  const loadedSpeed = useMemo(
+    () =>
       calculateLoadedSpeed(
         get.motor,
         get.spoolDiameter,
@@ -53,11 +57,33 @@ export default function LinearCalculator(): JSX.Element {
         get.efficiency,
         get.load
       ),
-    unloadedTimeToGoal: () =>
-      calculateTimeToGoal(unloadedSpeed, get.travelDistance),
-    loadedTimeToGoal: () =>
-      calculateTimeToGoal(loadedSpeed, get.travelDistance),
-    timeToGoalStates: () =>
+    [get.motor, get.spoolDiameter, get.ratio, get.efficiency, get.load]
+  );
+
+  const unloadedTimeToGoal = useMemo(
+    () => calculateTimeToGoal(unloadedSpeed, get.travelDistance),
+    [get.travelDistance, unloadedSpeed]
+  );
+
+  const loadedTimeToGoal = useMemo(
+    () => calculateTimeToGoal(loadedSpeed, get.travelDistance),
+    [get.travelDistance, loadedSpeed]
+  );
+
+  const dragLoad = useMemo(
+    () =>
+      calculateDragLoad(
+        get.motor,
+        get.spoolDiameter,
+        get.ratio,
+        get.efficiency
+      ).negate(),
+    [get.motor, get.spoolDiameter, get.ratio, get.efficiency]
+  );
+
+  const timeToGoalStates = useAsyncMemo(
+    [] as GraphDataPoint[],
+    () =>
       worker.generateTimeToGoalChartData(
         get.motor.toDict(),
         get.travelDistance.toDict(),
@@ -66,134 +92,79 @@ export default function LinearCalculator(): JSX.Element {
         get.ratio.toDict(),
         get.efficiency
       ),
-    currentDrawStates: () =>
+    [
+      get.motor,
+      get.travelDistance,
+      get.spoolDiameter,
+      get.load,
+      get.ratio,
+      get.efficiency,
+    ]
+  );
+
+  const currentDrawStates = useAsyncMemo(
+    [] as GraphDataPoint[],
+    () =>
       worker.generateCurrentDrawChartData(
         get.motor.toDict(),
         get.spoolDiameter.toDict(),
         get.load.toDict(),
         get.ratio.toDict()
       ),
-    currentDraw: () =>
+    [get.motor, get.spoolDiameter, get.load, get.ratio, get.efficiency]
+  );
+
+  const currentDraw = useMemo(
+    () =>
       calculateCurrentDraw(get.motor, get.spoolDiameter, get.load, get.ratio),
-    dragLoad: () =>
-      calculateDragLoad(
-        get.motor,
-        get.spoolDiameter,
-        get.ratio,
-        get.efficiency / 100
-      ).negate(),
-    kG: () =>
+    [get.motor, get.spoolDiameter, get.load, get.ratio]
+  );
+
+  const kG = useMemo(
+    () =>
       calculateKg(
         get.motor.stallTorque.mul(get.motor.quantity).mul(get.ratio.asNumber()),
         get.spoolDiameter.div(2),
-        get.load.mul(get.efficiency / 100),
-        nominalVoltage
+        get.load.mul(get.efficiency / 100)
       ),
-    kV: () =>
+    [
+      get.motor.stallTorque,
+      get.motor.quantity,
+      get.efficiency,
+      get.ratio,
+      get.load,
+      get.spoolDiameter,
+    ]
+  );
+
+  const kV = useMemo(
+    () =>
       calculateKv(
         get.motor.freeSpeed.div(get.ratio.asNumber()),
-        get.spoolDiameter.div(2),
-        nominalVoltage
+        get.spoolDiameter.div(2)
       ),
-    kA: () =>
+    [get.motor.freeSpeed, get.spoolDiameter]
+  );
+
+  const kA = useMemo(
+    () =>
       calculateKa(
         get.motor.stallTorque
           .mul(get.motor.quantity)
           .mul(get.ratio.asNumber())
           .mul(get.efficiency / 100),
         get.spoolDiameter.div(2),
-        get.load,
-        nominalVoltage
+        get.load
       ),
-  };
-
-  const [unloadedSpeed, setUnloadedSpeed] = useState(calculate.unloadedSpeed());
-  const [loadedSpeed, setLoadedSpeed] = useState(calculate.loadedSpeed());
-  const [unloadedTimeToGoal, setUnloadedTimeToGoal] = useState(
-    calculate.unloadedTimeToGoal()
+    [
+      get.motor.stallTorque,
+      get.motor.quantity,
+      get.efficiency,
+      get.ratio,
+      get.spoolDiameter,
+      get.load,
+    ]
   );
-  const [loadedTimeToGoal, setLoadedTimeToGoal] = useState(
-    calculate.loadedTimeToGoal()
-  );
-  const [dragLoad, setDragLoad] = useState(calculate.dragLoad());
-
-  const [timeToGoalStates, setTimeToGoalStates] = useState(
-    [] as GraphDataPoint[]
-  );
-  const [currentDrawStates, setCurrentDrawStates] = useState(
-    [] as GraphDataPoint[]
-  );
-  const [currentDraw, setCurrentDraw] = useState(calculate.currentDraw());
-  const [kG, setKg] = useState(calculate.kG());
-  const [kV, setKv] = useState(calculate.kV());
-  const [kA, setKa] = useState(calculate.kA());
-
-  useEffect(() => {
-    setUnloadedSpeed(calculate.unloadedSpeed());
-  }, [get.motor, get.spoolDiameter, get.ratio]);
-
-  useEffect(() => {
-    setLoadedSpeed(calculate.loadedSpeed());
-  }, [get.motor, get.spoolDiameter, get.ratio, get.efficiency, get.load]);
-
-  useEffect(() => {
-    setLoadedTimeToGoal(calculate.loadedTimeToGoal());
-  }, [get.travelDistance, loadedSpeed]);
-
-  useEffect(() => {
-    setUnloadedTimeToGoal(calculate.unloadedTimeToGoal());
-  }, [get.travelDistance, unloadedSpeed]);
-
-  useEffect(() => {
-    setDragLoad(calculate.dragLoad());
-  }, [get.motor, get.spoolDiameter, get.ratio, get.efficiency]);
-
-  useEffect(() => {
-    calculate.timeToGoalStates().then((d) => setTimeToGoalStates(d));
-  }, [
-    get.motor,
-    get.travelDistance,
-    get.spoolDiameter,
-    get.load,
-    get.ratio,
-    get.efficiency,
-  ]);
-
-  useEffect(() => {
-    calculate.currentDrawStates().then((d) => setCurrentDrawStates(d));
-  }, [get.motor, get.spoolDiameter, get.load, get.ratio, get.efficiency]);
-
-  useEffect(() => {
-    setCurrentDraw(calculate.currentDraw());
-  }, [get.motor, get.spoolDiameter, get.load, get.ratio]);
-
-  useEffect(() => {
-    setKg(calculate.kG());
-  }, [
-    get.motor.stallTorque,
-    get.motor.quantity,
-    get.efficiency,
-    get.ratio,
-    get.load,
-    get.spoolDiameter,
-    nominalVoltage,
-  ]);
-
-  useEffect(() => {
-    setKv(calculate.kV());
-  }, [get.motor.freeSpeed, get.spoolDiameter, nominalVoltage]);
-
-  useEffect(() => {
-    setKa(calculate.kA());
-  }, [
-    get.motor.stallTorque,
-    get.motor.quantity,
-    get.efficiency,
-    get.ratio,
-    get.spoolDiameter,
-    get.load,
-    nominalVoltage,
-  ]);
 
   return (
     <>
@@ -259,7 +230,7 @@ export default function LinearCalculator(): JSX.Element {
                 tooltip="How fast the system travels under expected load."
               >
                 <MeasurementOutput
-                  stateHook={[loadedSpeed, setLoadedSpeed]}
+                  stateHook={[loadedSpeed, () => undefined]}
                   numberRoundTo={2}
                   dangerIf={() => loadedSpeed.lte(new Measurement(0, "ft/s"))}
                 />
@@ -272,7 +243,7 @@ export default function LinearCalculator(): JSX.Element {
                 tooltip="How long the system takes to travel the target distance under expected load."
               >
                 <MeasurementOutput
-                  stateHook={[loadedTimeToGoal, setLoadedTimeToGoal]}
+                  stateHook={[loadedTimeToGoal, () => undefined]}
                   numberRoundTo={2}
                   dangerIf={() => loadedSpeed.lte(new Measurement(0, "ft/s"))}
                 />
@@ -287,7 +258,7 @@ export default function LinearCalculator(): JSX.Element {
                 tooltip="How fast the system would travel if no load were present."
               >
                 <MeasurementOutput
-                  stateHook={[unloadedSpeed, setUnloadedSpeed]}
+                  stateHook={[unloadedSpeed, () => undefined]}
                   numberRoundTo={2}
                   dangerIf={() => unloadedSpeed.lte(new Measurement(0, "ft/s"))}
                 />
@@ -300,7 +271,7 @@ export default function LinearCalculator(): JSX.Element {
                 tooltip="How long the system takes to travel the target distance if no load were present."
               >
                 <MeasurementOutput
-                  stateHook={[unloadedTimeToGoal, setUnloadedTimeToGoal]}
+                  stateHook={[unloadedTimeToGoal, () => undefined]}
                   numberRoundTo={2}
                   dangerIf={() => unloadedSpeed.lte(new Measurement(0, "ft/s"))}
                 />
@@ -313,7 +284,7 @@ export default function LinearCalculator(): JSX.Element {
             tooltip="The amount of weight the system can handle before stalling."
           >
             <MeasurementOutput
-              stateHook={[dragLoad, setDragLoad]}
+              stateHook={[dragLoad, () => undefined]}
               numberRoundTo={2}
               defaultUnit="lbs"
             />
@@ -324,12 +295,12 @@ export default function LinearCalculator(): JSX.Element {
             tooltip="The estimated current draw per motor."
           >
             <MeasurementOutput
-              stateHook={[currentDraw, setCurrentDraw]}
+              stateHook={[currentDraw, () => undefined]}
               numberRoundTo={1}
               defaultUnit="A"
             />
           </SingleInputLine>
-          <KgKvKaDisplay kG={kG} kV={kV} kA={kA} />
+          <KgKvKaDisplay kG={kG} kV={kV} kA={kA} distanceType={"linear"} />
         </Column>
         <Column>
           <Graph

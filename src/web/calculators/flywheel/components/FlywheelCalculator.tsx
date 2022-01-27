@@ -3,15 +3,14 @@ import SingleInputLine from "common/components/io/inputs/SingleInputLine";
 import {
   BooleanInput,
   MeasurementInput,
-  MotorInput,
+  MotorInput, NumberInput,
   RatioInput,
 } from "common/components/io/new/inputs";
 import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
 import { Column, Columns, Divider } from "common/components/styling/Building";
 import Measurement from "common/models/Measurement";
-import { nominalVoltage } from "common/models/Motor";
 import { useGettersSetters } from "common/tooling/conversion";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import flywheelConfig, {
   FlywheelParamsV2,
   FlywheelStateV2,
@@ -34,8 +33,8 @@ export default function FlywheelCalculator(): JSX.Element {
     FlywheelState.getState() as FlywheelStateV2
   );
 
-  const calculate = {
-    windupTime: () =>
+  const windupTime = useMemo(
+    () =>
       calculateWindupTime(
         get.shooterMomentOfInertia.add(
           get.flywheelMomentOfInertia.div(
@@ -49,26 +48,36 @@ export default function FlywheelCalculator(): JSX.Element {
         get.motorRatio,
         get.shooterTargetSpeed
       ),
-    shooterMOI: () =>
-      get.shooterRadius.mul(get.shooterRadius).mul(get.shooterWeight).div(2),
-    flywheelMOI: () => {
-      const pureMOI = get.flywheelRadius
-        .mul(get.flywheelRadius)
-        .mul(get.flywheelWeight)
-        .div(2);
+    [
+      get.motor,
+      get.currentLimit,
+      get.motorRatio,
+      get.shooterTargetSpeed,
+      get.shooterMomentOfInertia,
+      get.flywheelMomentOfInertia,
+      get.flywheelRatio,
+    ]
+  );
 
-      return get.flywheelRatio.asNumber() === 0 ? pureMOI.mul(0) : pureMOI;
-    },
-    shooterTopSpeed: () =>
+  const shooterTopSpeed = useMemo(
+    () =>
       get.motorRatio.asNumber() === 0
         ? new Measurement(0, "rpm")
         : get.motor.freeSpeed.div(get.motorRatio.asNumber()),
-    shooterSurfaceSpeed: () =>
+    [get.motorRatio, get.motor.freeSpeed]
+  );
+
+  const shooterSurfaceSpeed = useMemo(
+    () =>
       calculateShooterWheelSurfaceSpeed(
         get.shooterTargetSpeed,
         get.shooterRadius
       ),
-    projectileSpeed: () =>
+    [get.shooterTargetSpeed, get.shooterRadius]
+  );
+
+  const projectileSpeed = useMemo(
+    () =>
       calculateProjectileExitVelocity(
         get.projectileWeight,
         get.shooterRadius,
@@ -81,9 +90,22 @@ export default function FlywheelCalculator(): JSX.Element {
         ),
         shooterSurfaceSpeed
       ),
-    projectileEnergy: () =>
-      calculateProjectileEnergy(projectileSpeed, get.projectileWeight),
-    flywheelEnergy: () =>
+    [
+      get.projectileWeight,
+      get.shooterRadius,
+      get.shooterMomentOfInertia,
+      get.flywheelMomentOfInertia,
+      get.flywheelRatio,
+    ]
+  );
+
+  const projectileEnergy = useMemo(
+    () => calculateProjectileEnergy(projectileSpeed, get.projectileWeight),
+    [projectileSpeed, get.projectileWeight]
+  );
+
+  const flywheelEnergy = useMemo(
+    () =>
       calculateFlywheelEnergy(
         get.shooterMomentOfInertia.add(
           get.flywheelMomentOfInertia.div(
@@ -94,7 +116,16 @@ export default function FlywheelCalculator(): JSX.Element {
         ),
         get.shooterTargetSpeed
       ),
-    speedAfterShot: () =>
+    [
+      get.shooterMomentOfInertia,
+      get.flywheelMomentOfInertia,
+      get.flywheelRatio,
+      get.shooterTargetSpeed,
+    ]
+  );
+
+  const speedAfterShot = useMemo(
+    () =>
       calculateSpeedAfterShot(
         get.shooterMomentOfInertia.add(
           get.flywheelMomentOfInertia.div(
@@ -106,7 +137,17 @@ export default function FlywheelCalculator(): JSX.Element {
         flywheelEnergy,
         projectileEnergy
       ),
-    totalMomentOfInertia: () =>
+    [
+      get.shooterMomentOfInertia,
+      get.flywheelMomentOfInertia,
+      get.flywheelRatio,
+      flywheelEnergy,
+      projectileEnergy,
+    ]
+  );
+
+  const totalMomentOfInertia = useMemo(
+    () =>
       get.shooterMomentOfInertia.add(
         get.flywheelMomentOfInertia.div(
           get.flywheelRatio.asNumber() == 0
@@ -114,7 +155,11 @@ export default function FlywheelCalculator(): JSX.Element {
             : Math.pow(get.flywheelRatio.asNumber(), 2)
         )
       ),
-    recoveryTime: () =>
+    [get.shooterMomentOfInertia, get.flywheelMomentOfInertia, get.flywheelRatio]
+  );
+
+  const recoveryTime = useMemo(
+    () =>
       calculateRecoveryTime(
         totalMomentOfInertia,
         get.motor,
@@ -124,155 +169,68 @@ export default function FlywheelCalculator(): JSX.Element {
         speedAfterShot,
         get.currentLimit
       ),
-    kV: () =>
+    [
+      totalMomentOfInertia,
+      get.motor,
+      get.motorRatio,
+      get.shooterTargetSpeed,
+      speedAfterShot,
+      get.currentLimit,
+    ]
+  );
+
+  const kV = useMemo(
+    () =>
       calculateKv(
         get.motor.freeSpeed.div(get.motorRatio.asNumber()),
-        get.flywheelRadius,
-        nominalVoltage
+        get.flywheelRadius
       ),
-    kA: () =>
+    [get.motor.freeSpeed, get.motorRatio, get.flywheelRadius]
+  );
+
+  const kA = useMemo(
+    () =>
       calculateKa(
         get.motor.stallTorque
           .mul(get.motor.quantity)
           .mul(get.motorRatio.asNumber())
           .mul(get.efficiency / 100),
         get.flywheelRadius,
-        totalMomentOfInertia.div(get.flywheelRadius.mul(get.flywheelRadius)),
-        nominalVoltage
+        totalMomentOfInertia.div(get.flywheelRadius.mul(get.flywheelRadius))
       ),
-  };
-
-  const [windupTime, setWindupTime] = useState(calculate.windupTime());
-  const [shooterTopSpeed, setShooterTopSpeed] = useState(
-    calculate.shooterTopSpeed()
+    [
+      get.motor.stallTorque,
+      get.motor.quantity,
+      get.motorRatio,
+      get.efficiency,
+      get.flywheelRadius,
+      totalMomentOfInertia,
+    ]
   );
-  const [shooterSurfaceSpeed, setShooterSurfaceSpeed] = useState(
-    calculate.shooterSurfaceSpeed()
-  );
-  const [projectileSpeed, setProjectileSpeed] = useState(
-    calculate.projectileSpeed()
-  );
-  const [projectileEnergy, setProjectileEnergy] = useState(
-    calculate.projectileEnergy()
-  );
-  const [flywheelEnergy, setFlywheelEnergy] = useState(
-    calculate.flywheelEnergy()
-  );
-  const [speedAfterShot, setSpeedAfterShot] = useState(
-    calculate.speedAfterShot()
-  );
-  const [totalMomentOfInertia, setTotalMomentOfInertia] = useState(
-    calculate.totalMomentOfInertia()
-  );
-  const [recoveryTime, setRecoveryTime] = useState(calculate.recoveryTime());
-  const [kV, setKv] = useState(calculate.kV());
-  const [kA, setKa] = useState(calculate.kA());
 
   useEffect(() => {
     if (!get.useCustomShooterMoi) {
-      set.setShooterMomentOfInertia(calculate.shooterMOI());
+      set.setShooterMomentOfInertia(
+        get.shooterRadius.mul(get.shooterRadius).mul(get.shooterWeight).div(2)
+      );
     }
   }, [get.shooterRadius, get.shooterWeight, get.useCustomShooterMoi]);
 
   useEffect(() => {
-    setFlywheelEnergy(calculate.flywheelEnergy());
-  }, [
-    get.shooterMomentOfInertia,
-    get.flywheelMomentOfInertia,
-    get.shooterTargetSpeed,
-    get.flywheelRatio,
-  ]);
-
-  useEffect(() => {
     if (!get.useCustomFlywheelMoi) {
-      set.setFlywheelMomentOfInertia(calculate.flywheelMOI());
+      const pureMOI = get.flywheelRadius
+        .mul(get.flywheelRadius)
+        .mul(get.flywheelWeight)
+        .div(2);
+      set.setFlywheelMomentOfInertia(
+        get.flywheelRatio.asNumber() === 0 ? pureMOI.mul(0) : pureMOI
+      );
     }
   }, [
     get.flywheelRadius,
     get.flywheelWeight,
     get.useCustomFlywheelMoi,
     get.flywheelRatio,
-  ]);
-
-  useEffect(() => {
-    setWindupTime(calculate.windupTime());
-  }, [
-    get.motor,
-    get.currentLimit,
-    get.motorRatio,
-    get.shooterTargetSpeed,
-    get.shooterMomentOfInertia,
-    get.flywheelMomentOfInertia,
-    get.flywheelRatio,
-  ]);
-
-  useEffect(() => {
-    setShooterSurfaceSpeed(calculate.shooterSurfaceSpeed());
-  }, [get.shooterTargetSpeed, get.shooterRadius]);
-
-  useEffect(() => {
-    setProjectileSpeed(calculate.projectileSpeed());
-  }, [
-    get.projectileWeight,
-    get.shooterRadius,
-    get.shooterMomentOfInertia,
-    get.flywheelMomentOfInertia,
-    get.flywheelRatio,
-    shooterSurfaceSpeed,
-  ]);
-
-  useEffect(() => {
-    setProjectileEnergy(calculate.projectileEnergy());
-  }, [projectileSpeed, get.projectileWeight]);
-
-  useEffect(() => {
-    setSpeedAfterShot(calculate.speedAfterShot());
-  }, [
-    get.shooterMomentOfInertia,
-    get.flywheelMomentOfInertia,
-    get.flywheelRatio,
-    flywheelEnergy,
-    projectileEnergy,
-  ]);
-
-  useEffect(() => {
-    setTotalMomentOfInertia(calculate.totalMomentOfInertia());
-  }, [
-    get.flywheelMomentOfInertia,
-    get.shooterMomentOfInertia,
-    get.flywheelRatio,
-  ]);
-
-  useEffect(() => {
-    setRecoveryTime(calculate.recoveryTime());
-  }, [
-    get.shooterMomentOfInertia,
-    get.flywheelMomentOfInertia,
-    get.flywheelRatio,
-    get.motor,
-    get.motorRatio,
-    get.shooterTargetSpeed,
-    speedAfterShot,
-    get.currentLimit,
-  ]);
-
-  useEffect(() => {
-    setShooterTopSpeed(calculate.shooterTopSpeed());
-  }, [get.motor, get.motorRatio]);
-
-  useEffect(() => {
-    setKv(calculate.kV());
-  }, [get.motor.freeSpeed, get.motorRatio, get.flywheelRadius]);
-
-  useEffect(() => {
-    setKa(calculate.kA());
-  }, [
-    get.motor.stallTorque,
-    get.motor.quantity,
-    get.motorRatio,
-    get.efficiency,
-    get.flywheelRadius,
-    totalMomentOfInertia,
   ]);
 
   return (
@@ -290,6 +248,13 @@ export default function FlywheelCalculator(): JSX.Element {
             tooltip="The motors powering the system."
           >
             <MotorInput stateHook={[get.motor, set.setMotor]} />
+          </SingleInputLine>
+          <SingleInputLine
+            label="Efficiency (%)"
+            id="efficiency"
+            tooltip="The efficiency of the system in transmitting torque from the motors."
+          >
+            <NumberInput stateHook={[get.efficiency, set.setEfficiency]} />
           </SingleInputLine>
           <SingleInputLine
             label="Current Limit"
@@ -313,7 +278,7 @@ export default function FlywheelCalculator(): JSX.Element {
             tooltip="The max possible speed of the shooter wheel(s)."
           >
             <MeasurementOutput
-              stateHook={[shooterTopSpeed, setShooterTopSpeed]}
+              stateHook={[shooterTopSpeed, () => undefined]}
               numberRoundTo={0}
             />
           </SingleInputLine>
@@ -459,7 +424,7 @@ export default function FlywheelCalculator(): JSX.Element {
             tooltip="The estimated time it takes the system to reach the target speed from rest."
           >
             <MeasurementOutput
-              stateHook={[windupTime, setWindupTime]}
+              stateHook={[windupTime, () => undefined]}
               numberRoundTo={2}
             />
           </SingleInputLine>
@@ -469,7 +434,7 @@ export default function FlywheelCalculator(): JSX.Element {
             tooltip="The estimated time it takes the system to reach the target speed immediately following a shot."
           >
             <MeasurementOutput
-              stateHook={[recoveryTime, setRecoveryTime]}
+              stateHook={[recoveryTime, () => undefined]}
               numberRoundTo={4}
             />
           </SingleInputLine>
@@ -479,7 +444,7 @@ export default function FlywheelCalculator(): JSX.Element {
             tooltip="The speed of the surface of the shooter wheel(s)."
           >
             <MeasurementOutput
-              stateHook={[shooterSurfaceSpeed, setShooterSurfaceSpeed]}
+              stateHook={[shooterSurfaceSpeed, () => undefined]}
               numberRoundTo={2}
             />
           </SingleInputLine>
@@ -489,7 +454,7 @@ export default function FlywheelCalculator(): JSX.Element {
             tooltip="The estimated speed of the projectile after being shot."
           >
             <MeasurementOutput
-              stateHook={[projectileSpeed, setProjectileSpeed]}
+              stateHook={[projectileSpeed, () => undefined]}
               numberRoundTo={2}
             />
           </SingleInputLine>
@@ -499,7 +464,7 @@ export default function FlywheelCalculator(): JSX.Element {
             tooltip="The estimated speed of the shooter wheels immediately following a shot."
           >
             <MeasurementOutput
-              stateHook={[speedAfterShot, setSpeedAfterShot]}
+              stateHook={[speedAfterShot, () => undefined]}
               numberRoundTo={0}
             />
           </SingleInputLine>
@@ -509,7 +474,7 @@ export default function FlywheelCalculator(): JSX.Element {
             tooltip="The energy stored in the flywheel."
           >
             <MeasurementOutput
-              stateHook={[flywheelEnergy, setFlywheelEnergy]}
+              stateHook={[flywheelEnergy, () => undefined]}
               numberRoundTo={0}
             />
           </SingleInputLine>
@@ -519,11 +484,11 @@ export default function FlywheelCalculator(): JSX.Element {
             tooltip="The amount of energy transferred into the projectile in a shot."
           >
             <MeasurementOutput
-              stateHook={[projectileEnergy, setProjectileEnergy]}
+              stateHook={[projectileEnergy, () => undefined]}
               numberRoundTo={0}
             />
           </SingleInputLine>
-          <KvKaDisplay kV={kV} kA={kA} />
+          <KvKaDisplay kV={kV} kA={kA} distanceType={"linear"} />
         </Column>
       </Columns>
     </>
