@@ -96,6 +96,7 @@ export default function FlywheelCalculator(): JSX.Element {
       get.shooterMomentOfInertia,
       get.flywheelMomentOfInertia,
       get.flywheelRatio,
+      shooterSurfaceSpeed
     ]
   );
 
