@@ -19,7 +19,7 @@ export type CompressorDict = {
   readonly name: string;
 };
 
-export const DISABLE_AT_PSI = new Measurement(115, "psi");
+export const DISABLE_AT_PSI = new Measurement(120, "psi");
 export const ENABLE_AT_PSI = new Measurement(95, "psi");
 
 export default class Compressor extends Model {

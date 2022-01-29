@@ -21,7 +21,7 @@ export function generatePressureTimeline(
     return { timeline: [], dutyCycle: 0 };
   }
 
-  const pressures = [{ x: 0, y: new Measurement(115, "psi") }];
+  const pressures = [{ x: 0, y: DISABLE_AT_PSI }];
   const duration = new Measurement(2 * 60 + 30, "s");
   const dt = new Measurement(1, "s");
   let t = new Measurement(0, "s"),
@@ -70,7 +70,7 @@ export function generatePressureTimeline(
       x: t.to("s").scalar,
       y: newPressure.clamp(
         new Measurement(0, "psi"),
-        new Measurement(115, "psi")
+        DISABLE_AT_PSI
       ),
     });
 

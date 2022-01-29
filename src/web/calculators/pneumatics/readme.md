@@ -14,7 +14,7 @@ I recommend watching [this video](https://www.youtube.com/watch?v=R-OBtVCPjMc) t
 
 ##### Compressors
 
-The compressor will automatically enable below 95psi, and will automatically disable above 115psi.
+The compressor will automatically enable below 95psi, and will automatically disable above 120psi.
 
 Compressors vary in performance based on the psi of the system they are feeding into. Their performance is typically measured in cubic feet per minute, or CFM. Vendors typically provide a table of CFM values at different pressures, eg CFM at 0psi, CFM at 10psi, etc.
 
