@@ -11369,9 +11369,9 @@ type-fest@^0.8.1:
   version "0.8.1"
   resolved "https://registry.npmjs.org/type-fest/-/type-fest-0.8.1.tgz"
 
-type-fest@^2.10.0:
-  version "2.10.0"
-  resolved "https://registry.npmjs.org/type-fest/-/type-fest-2.10.0.tgz"
+type-fest@^2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-2.11.0.tgz#732ffaf73e4d17d1f762a539876a791b45ed273b"
 
 type-is@~1.6.17, type-is@~1.6.18:
   version "1.6.18"
