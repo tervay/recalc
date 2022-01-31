@@ -17,7 +17,7 @@ export class FlywheelConverters {
       shooterWeight: s.weight,
       useCustomShooterMoi: s.useCustomMoi,
       motor: s.motor,
-      motorRatio: s.ratio,
+      ratio: s.ratio,
       currentLimit: FlywheelStateV2Defaults.currentLimit,
       flywheelRadius: FlywheelStateV2Defaults.flywheelRadius,
       flywheelMomentOfInertia: FlywheelStateV2Defaults.flywheelMomentOfInertia,

@@ -54,7 +54,7 @@ export const FlywheelStateV2Defaults = {
 // export const FlywheelParamsV2 = Foo(FlywheelStateV2Defaults);
 export const FlywheelParamsV2 = {
   motor: withDefault(MotorParam, FlywheelStateV2Defaults.motor),
-  motorRatio: withDefault(RatioParam, FlywheelStateV2Defaults.motorRatio),
+  ratio: withDefault(RatioParam, FlywheelStateV2Defaults.motorRatio),
   efficiency: withDefault(NumberParam, FlywheelStateV2Defaults.efficiency),
   currentLimit: withDefault(
     MeasurementParam,

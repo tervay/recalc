@@ -5,12 +5,7 @@ import {
 } from "common/components/graphing/graphConfig";
 import SimpleHeading from "common/components/heading/SimpleHeading";
 import SingleInputLine from "common/components/io/inputs/SingleInputLine";
-import {
-  MeasurementInput,
-  MotorInput,
-  NumberInput,
-  RatioInput,
-} from "common/components/io/new/inputs";
+import { MeasurementInput } from "common/components/io/new/inputs";
 import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
 import { Column, Columns } from "common/components/styling/Building";
 import { useAsyncMemo } from "common/hooks/useAsyncMemo";
@@ -31,6 +26,7 @@ import {
   calculateUnloadedSpeed,
 } from "web/calculators/linear/linearMath";
 import KgKvKaDisplay from "web/calculators/shared/components/KgKvKaDisplay";
+import MotorSelector from "web/calculators/shared/components/MotorSelector";
 import {
   calculateKa,
   calculateKg,
@@ -176,27 +172,7 @@ export default function LinearCalculator(): JSX.Element {
 
       <Columns desktop>
         <Column>
-          <SingleInputLine
-            label="Motor"
-            id="motor"
-            tooltip="The motors powering the system."
-          >
-            <MotorInput stateHook={[get.motor, set.setMotor]} />
-          </SingleInputLine>
-          <SingleInputLine
-            label="Efficiency (%)"
-            id="efficiency"
-            tooltip="The efficiency of the system in transmitting torque from the motors."
-          >
-            <NumberInput stateHook={[get.efficiency, set.setEfficiency]} />
-          </SingleInputLine>
-          <SingleInputLine
-            label="Ratio"
-            id="ratio"
-            tooltip="The ratio between the motors and the system."
-          >
-            <RatioInput stateHook={[get.ratio, set.setRatio]} />
-          </SingleInputLine>
+          <MotorSelector get={get} set={set} />
           <SingleInputLine
             label="Travel Distance"
             id="comLength"

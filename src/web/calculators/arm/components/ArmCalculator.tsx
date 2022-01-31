@@ -2,12 +2,7 @@ import Graph from "common/components/graphing/Graph";
 import { GraphConfig } from "common/components/graphing/graphConfig";
 import SimpleHeading from "common/components/heading/SimpleHeading";
 import SingleInputLine from "common/components/io/inputs/SingleInputLine";
-import {
-  MeasurementInput,
-  MotorInput,
-  NumberInput,
-  RatioInput,
-} from "common/components/io/new/inputs";
+import { MeasurementInput, NumberInput } from "common/components/io/new/inputs";
 import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
 import { Column, Columns, Message } from "common/components/styling/Building";
 import { useAsyncMemo } from "common/hooks/useAsyncMemo";
@@ -18,6 +13,7 @@ import { armGraphConfig, ArmParamsV1, ArmStateV1 } from "web/calculators/arm";
 import { MomentaryArmState } from "web/calculators/arm/armMath";
 import { ArmState } from "web/calculators/arm/converter";
 import KgKvKaDisplay from "web/calculators/shared/components/KgKvKaDisplay";
+import MotorSelector from "web/calculators/shared/components/MotorSelector";
 import {
   calculateKa,
   calculateKg,
@@ -124,36 +120,7 @@ export default function ArmCalculator(): JSX.Element {
 
       <Columns>
         <Column>
-          <SingleInputLine
-            label="Motor"
-            id="motor"
-            tooltip="Motors powering the arm."
-          >
-            <MotorInput stateHook={[get.motor, set.setMotor]} />
-          </SingleInputLine>
-          <SingleInputLine
-            label="Ratio"
-            id="ratio"
-            tooltip="Ratio of the gearbox."
-          >
-            <RatioInput stateHook={[get.ratio, set.setRatio]} />
-          </SingleInputLine>
-          <SingleInputLine
-            label="Efficiency (%)"
-            id="efficiency"
-            tooltip="The efficiency of the system in transmitting torque from the motors."
-          >
-            <NumberInput stateHook={[get.efficiency, set.setEfficiency]} />
-          </SingleInputLine>
-          <SingleInputLine
-            label="Current Limit"
-            id="currentLimit"
-            tooltip="Current limit applied to each motor."
-          >
-            <MeasurementInput
-              stateHook={[get.currentLimit, set.setCurrentLimit]}
-            />
-          </SingleInputLine>
+          <MotorSelector get={get} set={set} />
           <SingleInputLine
             label="CoM Distance"
             id="comLength"
