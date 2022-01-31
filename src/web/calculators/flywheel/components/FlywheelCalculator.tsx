@@ -27,6 +27,7 @@ import {
 } from "web/calculators/flywheel/flywheelMath";
 import KvKaDisplay from "web/calculators/shared/components/KvKaDisplay";
 import { calculateKa, calculateKv } from "web/calculators/shared/sharedMath";
+import MotorSelector from "web/calculators/shared/components/MotorSelector";
 
 export default function FlywheelCalculator(): JSX.Element {
   const [get, set] = useGettersSetters(
@@ -45,13 +46,13 @@ export default function FlywheelCalculator(): JSX.Element {
         ),
         get.motor,
         get.currentLimit,
-        get.motorRatio,
+        get.ratio,
         get.shooterTargetSpeed
       ),
     [
       get.motor,
       get.currentLimit,
-      get.motorRatio,
+      get.ratio,
       get.shooterTargetSpeed,
       get.shooterMomentOfInertia,
       get.flywheelMomentOfInertia,
@@ -61,10 +62,10 @@ export default function FlywheelCalculator(): JSX.Element {
 
   const shooterTopSpeed = useMemo(
     () =>
-      get.motorRatio.asNumber() === 0
+      get.ratio.asNumber() === 0
         ? new Measurement(0, "rpm")
-        : get.motor.freeSpeed.div(get.motorRatio.asNumber()),
-    [get.motorRatio, get.motor.freeSpeed]
+        : get.motor.freeSpeed.div(get.ratio.asNumber()),
+    [get.ratio, get.motor.freeSpeed]
   );
 
   const shooterSurfaceSpeed = useMemo(
@@ -164,7 +165,7 @@ export default function FlywheelCalculator(): JSX.Element {
       calculateRecoveryTime(
         totalMomentOfInertia,
         get.motor,
-        get.motorRatio,
+        get.ratio,
         1 / 100,
         get.shooterTargetSpeed,
         speedAfterShot,
@@ -173,7 +174,7 @@ export default function FlywheelCalculator(): JSX.Element {
     [
       totalMomentOfInertia,
       get.motor,
-      get.motorRatio,
+      get.ratio,
       get.shooterTargetSpeed,
       speedAfterShot,
       get.currentLimit,
@@ -183,10 +184,10 @@ export default function FlywheelCalculator(): JSX.Element {
   const kV = useMemo(
     () =>
       calculateKv(
-        get.motor.freeSpeed.div(get.motorRatio.asNumber()),
+        get.motor.freeSpeed.div(get.ratio.asNumber()),
         get.flywheelRadius
       ),
-    [get.motor.freeSpeed, get.motorRatio, get.flywheelRadius]
+    [get.motor.freeSpeed, get.ratio, get.flywheelRadius]
   );
 
   const kA = useMemo(
@@ -194,7 +195,7 @@ export default function FlywheelCalculator(): JSX.Element {
       calculateKa(
         get.motor.stallTorque
           .mul(get.motor.quantity)
-          .mul(get.motorRatio.asNumber())
+          .mul(get.ratio.asNumber())
           .mul(get.efficiency / 100),
         get.flywheelRadius,
         totalMomentOfInertia.div(get.flywheelRadius.mul(get.flywheelRadius))
@@ -202,7 +203,7 @@ export default function FlywheelCalculator(): JSX.Element {
     [
       get.motor.stallTorque,
       get.motor.quantity,
-      get.motorRatio,
+      get.ratio,
       get.efficiency,
       get.flywheelRadius,
       totalMomentOfInertia,
@@ -243,20 +244,7 @@ export default function FlywheelCalculator(): JSX.Element {
       />
       <Columns multiline>
         <Column>
-          <SingleInputLine
-            label="Motor"
-            id="motor"
-            tooltip="The motors powering the system."
-          >
-            <MotorInput stateHook={[get.motor, set.setMotor]} />
-          </SingleInputLine>
-          <SingleInputLine
-            label="Efficiency (%)"
-            id="efficiency"
-            tooltip="The efficiency of the system in transmitting torque from the motors."
-          >
-            <NumberInput stateHook={[get.efficiency, set.setEfficiency]} />
-          </SingleInputLine>
+          <MotorSelector get={get} set={set} />
           <SingleInputLine
             label="Current Limit"
             id="currentLimit"
@@ -265,13 +253,6 @@ export default function FlywheelCalculator(): JSX.Element {
             <MeasurementInput
               stateHook={[get.currentLimit, set.setCurrentLimit]}
             />
-          </SingleInputLine>
-          <SingleInputLine
-            label="Shooter Ratio"
-            id="shooterRatio"
-            tooltip="The ratio between the motors and the shooter wheel(s)."
-          >
-            <RatioInput stateHook={[get.motorRatio, set.setMotorRatio]} />
           </SingleInputLine>
           <SingleInputLine
             label="Shooter Max Speed"
