@@ -14,6 +14,8 @@ export default function KvKaDisplay({
   distanceType,
 }: KvKaDisplayProps): JSX.Element {
   const defaultDistanceUnit = distanceType == "angular" ? "rad" : "m";
+  const responseTime = kV.scalar == 0 ? new Measurement(0, "s") : kA.div(kV);
+
   return (
     <>
       <SingleInputLine
@@ -46,7 +48,7 @@ export default function KvKaDisplay({
             3-5 times shorter than this to optimally control the mechanism."
       >
         <MeasurementOutput
-          stateHook={[kA.div(kV), () => undefined]}
+          stateHook={[responseTime, () => undefined]}
           numberRoundTo={2}
           defaultUnit="s"
         />

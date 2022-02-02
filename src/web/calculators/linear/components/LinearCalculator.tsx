@@ -137,14 +137,16 @@ export default function LinearCalculator(): JSX.Element {
     ]
   );
 
-  const kV = useMemo(
-    () =>
-      calculateKv(
-        get.motor.freeSpeed.div(get.ratio.asNumber()),
-        get.spoolDiameter.div(2)
-      ),
-    [get.motor.freeSpeed, get.spoolDiameter]
-  );
+  const kV = useMemo(() => {
+    if (get.ratio.asNumber() == 0) {
+      return new Measurement(0, "V*s/m");
+    }
+
+    return calculateKv(
+      get.motor.freeSpeed.div(get.ratio.asNumber()),
+      get.spoolDiameter.div(2)
+    );
+  }, [get.motor.freeSpeed, get.spoolDiameter]);
 
   const kA = useMemo(
     () =>

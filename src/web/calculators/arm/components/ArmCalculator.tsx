@@ -85,14 +85,16 @@ export default function ArmCalculator(): JSX.Element {
     ]
   );
 
-  const kV = useMemo(
-    () =>
-      calculateKv(
-        get.motor.freeSpeed.div(get.ratio.asNumber()),
-        new Measurement(1, "rad")
-      ),
-    [get.motor.freeSpeed, get.ratio]
-  );
+  const kV = useMemo(() => {
+    if (get.ratio.asNumber() == 0) {
+      return new Measurement(0, "V*s/rad");
+    }
+
+    return calculateKv(
+      get.motor.freeSpeed.div(get.ratio.asNumber()),
+      new Measurement(1, "rad")
+    );
+  }, [get.motor.freeSpeed, get.ratio]);
 
   const kA = useMemo(
     () =>

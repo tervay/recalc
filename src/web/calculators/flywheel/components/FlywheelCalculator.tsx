@@ -3,7 +3,8 @@ import SingleInputLine from "common/components/io/inputs/SingleInputLine";
 import {
   BooleanInput,
   MeasurementInput,
-  MotorInput, NumberInput,
+  MotorInput,
+  NumberInput,
   RatioInput,
 } from "common/components/io/new/inputs";
 import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
@@ -96,7 +97,7 @@ export default function FlywheelCalculator(): JSX.Element {
       get.shooterMomentOfInertia,
       get.flywheelMomentOfInertia,
       get.flywheelRatio,
-      shooterSurfaceSpeed
+      shooterSurfaceSpeed,
     ]
   );
 
@@ -180,34 +181,38 @@ export default function FlywheelCalculator(): JSX.Element {
     ]
   );
 
-  const kV = useMemo(
-    () =>
-      calculateKv(
-        get.motor.freeSpeed.div(get.motorRatio.asNumber()),
-        get.flywheelRadius
-      ),
-    [get.motor.freeSpeed, get.motorRatio, get.flywheelRadius]
-  );
+  const kV = useMemo(() => {
+    if (get.motorRatio.asNumber() == 0) {
+      return new Measurement(0, "V*s/m");
+    }
 
-  const kA = useMemo(
-    () =>
-      calculateKa(
-        get.motor.stallTorque
-          .mul(get.motor.quantity)
-          .mul(get.motorRatio.asNumber())
-          .mul(get.efficiency / 100),
-        get.flywheelRadius,
-        totalMomentOfInertia.div(get.flywheelRadius.mul(get.flywheelRadius))
-      ),
-    [
-      get.motor.stallTorque,
-      get.motor.quantity,
-      get.motorRatio,
-      get.efficiency,
+    return calculateKv(
+      get.motor.freeSpeed.div(get.motorRatio.asNumber()),
+      get.flywheelRadius
+    );
+  }, [get.motor.freeSpeed, get.motorRatio, get.flywheelRadius]);
+
+  const kA = useMemo(() => {
+    if (get.flywheelRadius.scalar == 0) {
+      return new Measurement(0, "V*s^2/m");
+    }
+
+    return calculateKa(
+      get.motor.stallTorque
+        .mul(get.motor.quantity)
+        .mul(get.motorRatio.asNumber())
+        .mul(get.efficiency / 100),
       get.flywheelRadius,
-      totalMomentOfInertia,
-    ]
-  );
+      totalMomentOfInertia.div(get.flywheelRadius.mul(get.flywheelRadius))
+    );
+  }, [
+    get.motor.stallTorque,
+    get.motor.quantity,
+    get.motorRatio,
+    get.efficiency,
+    get.flywheelRadius,
+    totalMomentOfInertia,
+  ]);
 
   useEffect(() => {
     if (!get.useCustomShooterMoi) {
