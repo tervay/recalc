@@ -68,10 +68,7 @@ export function generatePressureTimeline(
     const newPressure = previousPressure.add(newPressureDelta);
     pressures.push({
       x: t.to("s").scalar,
-      y: newPressure.clamp(
-        new Measurement(0, "psi"),
-        DISABLE_AT_PSI
-      ),
+      y: newPressure.clamp(new Measurement(0, "psi"), DISABLE_AT_PSI),
     });
 
     t = t.add(dt);
