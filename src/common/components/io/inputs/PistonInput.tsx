@@ -82,6 +82,14 @@ export default function PistonInput(props: {
     setRodDiameter(Piston.rodDiameterFromBore(bore));
   }, [bore]);
 
+  useEffect(() => {
+    setExtendForce(calculate.extendForce(piston));
+  }, [piston, extendPressure]);
+
+  useEffect(() => {
+    setRetractForce(calculate.retractForce(piston));
+  }, [piston, retractPressure]);
+
   return (
     <Panel
       removeInternalBorders
@@ -194,6 +202,7 @@ export default function PistonInput(props: {
           expanded={true}
           stateHook={[extendForce, setExtendForce]}
           numberRoundTo={2}
+          defaultUnit="N"
         />
       </SingleInputLine>
       <SingleInputLine

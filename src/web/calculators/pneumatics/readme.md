@@ -37,7 +37,7 @@ extensionForce = pressure * (π * (boreDiameter / 2)²)
 As the front of the cylinder fills, there is a volume of the cylinder occupied by the rod, so the retraction force is slightly less than the extension force.
 
 ```
-retractionForce = pressure * (π * ((boreDiameter / 2) - (rodDiameter / 2))²)
+retractionForce = pressure * (π * ((boreDiameter / 2)² - (rodDiameter / 2)²))
 ```
 
 ##### Work
