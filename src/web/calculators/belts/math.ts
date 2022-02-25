@@ -129,3 +129,11 @@ export function calculateClosestCenters(
     },
   };
 }
+
+export function calculateDistanceBetweenPulleys(
+  p1: Pulley,
+  p2: Pulley,
+  ccDistance: Measurement
+): Measurement {
+  return ccDistance.sub(p1.pitchDiameter.div(2)).sub(p2.pitchDiameter.div(2));
+}

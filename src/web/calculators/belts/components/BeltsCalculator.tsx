@@ -20,6 +20,7 @@ import { BeltState } from "web/calculators/belts/converter";
 import {
   calculateClosestCenters,
   calculateDistance,
+  calculateDistanceBetweenPulleys,
   ClosestCentersResult,
   teethInMesh,
 } from "web/calculators/belts/math";
@@ -62,6 +63,18 @@ export default function BeltsCalculator(): JSX.Element {
         largerCenter,
         Pulley.fromTeeth(get.p2Teeth, get.pitch)
       ),
+    smallDistanceBetweenPulleys: () =>
+      calculateDistanceBetweenPulleys(
+        Pulley.fromTeeth(get.p1Teeth, get.pitch),
+        Pulley.fromTeeth(get.p2Teeth, get.pitch),
+        smallerCenter
+      ),
+    largeDistanceBetweenPulleys: () =>
+      calculateDistanceBetweenPulleys(
+        Pulley.fromTeeth(get.p1Teeth, get.pitch),
+        Pulley.fromTeeth(get.p2Teeth, get.pitch),
+        largerCenter
+      ),
   };
 
   const [p1pd, setP1PD] = useState(calculate.p1PD());
@@ -91,6 +104,12 @@ export default function BeltsCalculator(): JSX.Element {
   const [p2SmallMesh, setP2SmallMesh] = useState(calculate.p2SmallMesh());
   const [p1LargeMesh, setP1LargeMesh] = useState(calculate.p1LargeMesh());
   const [p2LargeMesh, setP2LargeMesh] = useState(calculate.p2LargeMesh());
+  const [smallPulleyGap, setSmallPulleyGap] = useState(
+    calculate.smallDistanceBetweenPulleys()
+  );
+  const [largePulleyGap, setLargePulleyGap] = useState(
+    calculate.largeDistanceBetweenPulleys()
+  );
 
   useEffect(() => {
     setP1PD(calculate.p1PD());
@@ -141,6 +160,14 @@ export default function BeltsCalculator(): JSX.Element {
     get.customBeltTeeth,
     get.pitch,
   ]);
+
+  useEffect(() => {
+    setSmallPulleyGap(calculate.smallDistanceBetweenPulleys());
+  }, [get.p1Teeth, get.p2Teeth, get.pitch, smallerCenter]);
+
+  useEffect(() => {
+    setLargePulleyGap(calculate.largeDistanceBetweenPulleys());
+  }, [get.p1Teeth, get.p2Teeth, get.pitch, largerCenter]);
 
   let cheatSheet = (
     <PulleyCheatSheet pitch={new Measurement(999, "mm")} currentPulleys={[]} />
@@ -224,6 +251,19 @@ export default function BeltsCalculator(): JSX.Element {
             </SingleInputLine>
           </Column>
         </Columns>
+
+        <SingleInputLine
+          label="Gap between pulleys"
+          tooltip="Does not account for flanges. Verify your flanges take up less space than this."
+        >
+          <MeasurementOutput
+            stateHook={[largePulleyGap, setLargePulleyGap]}
+            defaultUnit="in"
+            numberRoundTo={2}
+            dangerIf={() => largePulleyGap.lt(new Measurement(0, "in"))}
+            warningIf={() => largePulleyGap.lt(new Measurement(3 / 16, "in"))}
+          />
+        </SingleInputLine>
       </>
     );
   }
@@ -426,6 +466,19 @@ export default function BeltsCalculator(): JSX.Element {
               </SingleInputLine>
             </Column>
           </Columns>
+
+          <SingleInputLine
+            label="Gap between pulleys"
+            tooltip="Does not account for flanges. Verify your flanges take up less space than this."
+          >
+            <MeasurementOutput
+              stateHook={[smallPulleyGap, setSmallPulleyGap]}
+              defaultUnit="in"
+              numberRoundTo={2}
+              dangerIf={() => smallPulleyGap.lt(new Measurement(0, "in"))}
+              warningIf={() => smallPulleyGap.lt(new Measurement(3 / 16, "in"))}
+            />
+          </SingleInputLine>
 
           {largerOptionDiv}
         </Column>
