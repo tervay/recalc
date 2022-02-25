@@ -254,7 +254,7 @@ export default function BeltsCalculator(): JSX.Element {
 
         <SingleInputLine
           label="Gap between pulleys"
-          tooltip="Does not account for flanges. Verify your flanges take up less space than this."
+          tooltip="Gap between pulley pitch diameters. Does not account for flanges nor belt thickness. Verify your flanges take up less space than this."
         >
           <MeasurementOutput
             stateHook={[largePulleyGap, setLargePulleyGap]}
@@ -469,7 +469,7 @@ export default function BeltsCalculator(): JSX.Element {
 
           <SingleInputLine
             label="Gap between pulleys"
-            tooltip="Does not account for flanges. Verify your flanges take up less space than this."
+            tooltip="Gap between pulley pitch diameters. Does not account for flanges nor belt thickness. Verify your flanges take up less space than this."
           >
             <MeasurementOutput
               stateHook={[smallPulleyGap, setSmallPulleyGap]}
