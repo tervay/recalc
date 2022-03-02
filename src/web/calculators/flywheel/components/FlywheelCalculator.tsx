@@ -150,14 +150,21 @@ export default function FlywheelCalculator(): JSX.Element {
 
   const totalMomentOfInertia = useMemo(
     () =>
-      get.shooterMomentOfInertia.add(
-        get.flywheelMomentOfInertia.div(
-          get.flywheelRatio.asNumber() == 0
-            ? 1
-            : Math.pow(get.flywheelRatio.asNumber(), 2)
+      get.shooterMomentOfInertia
+        .add(
+          get.flywheelMomentOfInertia.div(
+            get.flywheelRatio.asNumber() == 0
+              ? 1
+              : Math.pow(get.flywheelRatio.asNumber(), 2)
+          )
         )
-      ),
-    [get.shooterMomentOfInertia, get.flywheelMomentOfInertia, get.flywheelRatio]
+        .div(get.motorRatio.asNumber()),
+    [
+      get.shooterMomentOfInertia,
+      get.flywheelMomentOfInertia,
+      get.flywheelRatio,
+      get.motorRatio,
+    ]
   );
 
   const recoveryTime = useMemo(
