@@ -25,7 +25,7 @@
     "google-spreadsheet": "^3.2.0",
     "js-quantities": "^1.7.6",
     "katex": "^0.15.3",
-    "konva": "^8.3.4",
+    "konva": "^8.3.5",
     "lodash": "^4.17.21",
     "marked": "^4.0.12",
     "node-sass": "^7.0.1",
