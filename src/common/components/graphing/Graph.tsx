@@ -31,7 +31,6 @@ import { Chart } from "react-chartjs-2";
 // }
 
 export default function Graph(
-  // props: ChartProps & { title: string; id: string; height?: number }
   props: {
     title: string;
     id: string;
