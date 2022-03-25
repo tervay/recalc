@@ -1,43 +1,55 @@
-import { Chart, ChartOptions } from "chart.js";
-import { ChartProps, ReactChart } from "chartjs-react";
-import SingleInputLine from "common/components/io/inputs/SingleInputLine";
-import { BooleanInput } from "common/components/io/new/inputs";
+import { ChartOptions } from "chart.js";
+import { EzDataset } from "common/components/graphing/types";
 import {
-  Button,
   Level,
   LevelItem,
   LevelLeft,
   LevelRight,
   Title,
 } from "common/components/styling/Building";
-import { useEffect, useState } from "react";
+import { Chart } from "react-chartjs-2";
 
-function setZoomPluginEnabled(
-  options: ChartOptions,
-  enabled: boolean
-): ChartOptions {
-  if (options.plugins?.zoom?.zoom?.wheel?.enabled !== undefined) {
-    options.plugins.zoom.zoom.wheel.enabled = enabled;
-  }
-  if (options.plugins?.zoom?.pan?.enabled !== undefined) {
-    options.plugins.zoom.pan.enabled = enabled;
-  }
+// function setZoomPluginEnabled(
+//   options: ChartOptions<"line">,
+//   enabled: boolean
+// ): ChartOptions<"line"> {
+//   if (options.plugins?.zoom?.zoom?.wheel?.enabled !== undefined) {
+//     options.plugins.zoom.zoom.wheel.enabled = enabled;
+//   }
+//   if (options.plugins?.zoom?.pan?.enabled !== undefined) {
+//     options.plugins.zoom.pan.enabled = enabled;
+//   }
 
-  return options;
-}
+//   return options;
+// }
+
+// export function makeResetFunction(id: string): () => void {
+//   return () => {
+//     const instance = ChartJS.getChart(id);
+//     instance?.resetZoom();
+//   };
+// }
 
 export default function Graph(
-  props: ChartProps & { title: string; id: string; height?: number }
-): JSX.Element {
-  const [zoomEnabled, setZoomEnabled] = useState(false);
-  const [options, setOptions] = useState(props.options);
+  // props: ChartProps & { title: string; id: string; height?: number }
+  props: {
+    title: string;
+    id: string;
+    height?: number;
 
-  useEffect(() => {
-    setOptions(setZoomPluginEnabled(options, zoomEnabled));
-    if (zoomEnabled) {
-      makeResetFunction(props.id)();
-    }
-  }, [zoomEnabled]);
+    options: ChartOptions<"line">;
+    simpleDatasets: EzDataset[];
+  }
+): JSX.Element {
+  // const [zoomEnabled, setZoomEnabled] = useState(false);
+  // const [options, setOptions] = useState(props.options);
+
+  // useEffect(() => {
+  //   setOptions(setZoomPluginEnabled(options, zoomEnabled));
+  //   if (zoomEnabled) {
+  //     makeResetFunction(props.id)();
+  //   }
+  // }, [zoomEnabled]);
 
   return (
     <div className="box remove-hover" style={{ width: "99%" }}>
@@ -49,33 +61,35 @@ export default function Graph(
         </LevelLeft>
         <LevelRight>
           <LevelItem>
-            <SingleInputLine label="Toggle Zoom">
+            {/* <SingleInputLine label="Toggle Zoom">
               <BooleanInput stateHook={[zoomEnabled, setZoomEnabled]} />
-            </SingleInputLine>
+            </SingleInputLine> */}
           </LevelItem>
           <LevelItem>
-            <Button
+            {/* <Button
               color="primary"
               onClick={makeResetFunction(props.id)}
               faIcon="binoculars"
               disabled={!zoomEnabled}
             >
               Reset Zoom
-            </Button>
+            </Button> */}
           </LevelItem>
         </LevelRight>
       </Level>
 
-      <div style={{ maxHeight: `${props.height ?? 100000}px` }}>
-        <ReactChart {...props} options={options} />
+      <div
+        style={{
+          maxHeight: `${props.height ?? 100000}px`,
+          height: `${props.height}px`,
+        }}
+      >
+        <Chart
+          type="line"
+          options={props.options}
+          data={{ datasets: props.simpleDatasets }}
+        />
       </div>
     </div>
   );
-}
-
-export function makeResetFunction(id: string): () => void {
-  return () => {
-    const instance = Chart.getChart(id);
-    instance?.resetZoom();
-  };
 }

@@ -307,23 +307,20 @@ export default function LinearCalculator(): JSX.Element {
         <Column>
           <Graph
             options={linearGraphConfig}
-            data={{
-              datasets: [
-                GraphConfig.dataset(
-                  "Time to Goal (s)",
-                  timeToGoalStates.filter((s) => s.y > 0),
-                  0,
-                  "y-time"
-                ),
-                GraphConfig.dataset(
-                  "Current Draw (A)",
-                  currentDrawStates,
-                  1,
-                  "y-current"
-                ),
-              ],
-            }}
-            type="line"
+            simpleDatasets={[
+              GraphConfig.dataset(
+                "Time to Goal (s)",
+                timeToGoalStates.filter((s) => s.y > 0),
+                0,
+                "y-time"
+              ),
+              GraphConfig.dataset(
+                "Current Draw (A)",
+                currentDrawStates,
+                1,
+                "y-current"
+              ),
+            ]}
             title=""
             id="linearGraph"
             height={800}

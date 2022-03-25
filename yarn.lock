@@ -3592,11 +3592,6 @@ chartjs-plugin-zoom@^1.2.0:
   dependencies:
     hammerjs "^2.0.8"
 
-chartjs-react@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/chartjs-react/-/chartjs-react-3.4.0.tgz#b1cfa5b44ebe412eae23cbf07c7a6a600121886a"
-  integrity sha512-q2MvrG2sE8KepOC1tUaHbLqAqppSwfznbUj5GPfbfhe60dyf7hLMx3Xi8eKU7wNecGXKsIRnTQ2/asDvmAN7bg==
-
 check-types@^11.1.1:
   version "11.1.2"
   resolved "https://registry.yarnpkg.com/check-types/-/check-types-11.1.2.tgz#86a7c12bf5539f6324eb0e70ca8896c0e38f3e2f"
@@ -10890,6 +10885,11 @@ react-app-polyfill@^2.0.0:
     raf "^3.4.1"
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
+
+react-chartjs-2@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/react-chartjs-2/-/react-chartjs-2-4.0.1.tgz#38ed1d5b6e2f789408450c981e9e8e1d78b2e015"
+  integrity sha512-q8bgWzKoFvBvD7YcjT/hXG8jt55TaMAuJ1dmI3tKFJ7CijUWYz4pIfOhkTI6PBTwqu/pmeWsClBRd/7HiWzN1g==
 
 react-dev-utils@^11.0.3:
   version "11.0.4"

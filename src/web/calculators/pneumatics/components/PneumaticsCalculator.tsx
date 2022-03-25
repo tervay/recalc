@@ -85,12 +85,9 @@ export default function PneumaticsCalculator(): JSX.Element {
       />
       <Graph
         options={pneumaticsGraphConfig}
-        data={{
-          datasets: [
-            GraphConfig.dataset("System Pressure (psi)", timeline, 0, "y"),
-          ],
-        }}
-        type="line"
+        simpleDatasets={[
+          GraphConfig.dataset("System Pressure (psi)", timeline, 0, "y"),
+        ]}
         title="System Pressure Over Time"
         id="pneumaticsGraph"
       />

@@ -83,8 +83,7 @@ export default function CompressorsPage(): JSX.Element {
       <div className="playground-container">
         <Graph
           options={graphConfig}
-          data={{ datasets: data }}
-          type="line"
+          simpleDatasets={data}
           title="Compressor Data"
           id="compressorGraph"
         />
