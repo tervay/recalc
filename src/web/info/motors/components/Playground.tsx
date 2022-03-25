@@ -26,8 +26,7 @@ export default function Playground(): JSX.Element {
       <div className="playground-container">
         <Graph
           options={graphConfig}
-          data={{ datasets: datasets }}
-          type="line"
+          simpleDatasets={datasets}
           title="Motor Playground"
           id="motorGraph"
         />

@@ -241,49 +241,44 @@ export default function ArmCalculator(): JSX.Element {
         <Column>
           <Graph
             options={armGraphConfig}
-            data={{
-              datasets: [
-                GraphConfig.dataset(
-                  "Position (deg)",
-                  states.map((s) => ({
-                    x: Measurement.fromDict(s.time).scalar,
-                    y: Measurement.fromDict(s.position).to("deg").scalar,
-                  })),
-                  0,
-                  "y-position"
-                ),
-                GraphConfig.dataset(
-                  "Current (A)",
-                  states.map((s) => ({
-                    x: Measurement.fromDict(s.time).scalar,
-                    y: Measurement.fromDict(s.motorState.current).to("A")
-                      .scalar,
-                  })),
-                  1,
-                  "y-current"
-                ),
-                GraphConfig.dataset(
-                  "Motor RPM",
-                  states.map((s) => ({
-                    x: Measurement.fromDict(s.time).scalar,
-                    y: Measurement.fromDict(s.motorState.rpm).to("rpm").scalar,
-                  })),
-                  2,
-                  "y-rpm"
-                ),
-                GraphConfig.dataset(
-                  "Motor Torque",
-                  states.map((s) => ({
-                    x: Measurement.fromDict(s.time).scalar,
-                    y: Measurement.fromDict(s.motorState.torque).to("N m")
-                      .scalar,
-                  })),
-                  3,
-                  "y-torque"
-                ),
-              ],
-            }}
-            type="line"
+            simpleDatasets={[
+              GraphConfig.dataset(
+                "Position (deg)",
+                states.map((s) => ({
+                  x: Measurement.fromDict(s.time).scalar,
+                  y: Measurement.fromDict(s.position).to("deg").scalar,
+                })),
+                0,
+                "y-position"
+              ),
+              GraphConfig.dataset(
+                "Current (A)",
+                states.map((s) => ({
+                  x: Measurement.fromDict(s.time).scalar,
+                  y: Measurement.fromDict(s.motorState.current).to("A").scalar,
+                })),
+                1,
+                "y-current"
+              ),
+              GraphConfig.dataset(
+                "Motor RPM",
+                states.map((s) => ({
+                  x: Measurement.fromDict(s.time).scalar,
+                  y: Measurement.fromDict(s.motorState.rpm).to("rpm").scalar,
+                })),
+                2,
+                "y-rpm"
+              ),
+              GraphConfig.dataset(
+                "Motor Torque",
+                states.map((s) => ({
+                  x: Measurement.fromDict(s.time).scalar,
+                  y: Measurement.fromDict(s.motorState.torque).to("N m").scalar,
+                })),
+                3,
+                "y-torque"
+              ),
+            ]}
             title=""
             id="armGraph"
             height={800}
