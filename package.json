@@ -14,7 +14,7 @@
     "@tippyjs/react": "^4.2.6",
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.22",
-    "@types/react": "^17.0.40",
+    "@types/react": "^18.0.6",
     "@types/react-dom": "^17.0.14",
     "bulma": "^0.9.3",
     "bulma-switch": "^2.0.4",
