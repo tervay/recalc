@@ -13,7 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@tippyjs/react": "^4.2.6",
     "@types/jest": "^27.4.1",
-    "@types/node": "^17.0.22",
+    "@types/node": "^17.0.26",
     "@types/react": "^17.0.40",
     "@types/react-dom": "^17.0.14",
     "bulma": "^0.9.3",
