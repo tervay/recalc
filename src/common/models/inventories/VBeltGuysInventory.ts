@@ -76,11 +76,11 @@ export default class VBeltGuysInventory extends Inventory<
 
   rowToArray(row: GoogleSpreadsheetRow): WritableArray {
     return [
-      row.Teeth,
-      row.Pitch,
-      row.Width,
-      row["Generated URL"],
-      row["Response Code"],
+      row.teeth,
+      row.pitch,
+      row.width,
+      row["generatedUrl"],
+      row["responseCode"],
     ];
   }
 }
