@@ -188,6 +188,14 @@ export default function BeltsCalculator(): JSX.Element {
     setLargePulleyGap(calculate.largeDistanceBetweenPulleys());
   }, [get.p1Teeth, get.p2Teeth, get.pitch, largerCenter]);
 
+  useEffect(() => {
+    setSmallDiffFromTarget(smallerCenter.sub(get.desiredCenter));
+  }, [smallerCenter, get.desiredCenter]);
+
+  useEffect(() => {
+    setLargeDiffFromTarget(largerCenter.sub(get.desiredCenter));
+  }, [largerCenter, get.desiredCenter]);
+
   let cheatSheet = (
     <PulleyCheatSheet pitch={new Measurement(999, "mm")} currentPulleys={[]} />
   );
@@ -241,7 +249,7 @@ export default function BeltsCalculator(): JSX.Element {
           <Column fullhdPercentage={0.5} percentage={1}>
             <SingleInputLine
               label="Center Distance"
-              id="largerCenter"
+              id={idPrefix + "Center"}
               for="numeric"
             >
               <MeasurementOutput
@@ -257,7 +265,7 @@ export default function BeltsCalculator(): JSX.Element {
           <Column>
             <SingleInputLine
               label="Pulley 1 Teeth in Mesh"
-              id="largerP1TeethInMesh"
+              id={idPrefix + "P1TeethInMesh"}
               for="id"
               tooltip="The number of teeth that the belt has engaged with Pulley 1."
             >
@@ -267,7 +275,7 @@ export default function BeltsCalculator(): JSX.Element {
           <Column>
             <SingleInputLine
               label="Pulley 2 Teeth in Mesh"
-              id="largerP2TeethInMesh"
+              id={idPrefix + "P2TeethInMesh"}
               for="id"
               tooltip="The number of teeth that the belt has engaged with Pulley 2."
             >
@@ -295,18 +303,24 @@ export default function BeltsCalculator(): JSX.Element {
               />
             </SingleInputLine>
           </Column>
-          <Column>
-            <SingleInputLine
-              label="Difference from target"
-              tooltip="The difference between this belt's center distance, and the target center distance"
-            >
-              <MeasurementOutput
-                stateHook={diffFromTargetHook}
-                defaultUnit="in"
-                numberRoundTo={3}
-              />
-            </SingleInputLine>
-          </Column>
+          {get.useCustomBelt ? (
+            <></>
+          ) : (
+            <Column>
+              <SingleInputLine
+                label="Difference from target"
+                id={idPrefix + "DiffFromTarget"}
+                for="id"
+                tooltip="The difference between this belt's center distance, and the target center distance"
+              >
+                <MeasurementOutput
+                  stateHook={diffFromTargetHook}
+                  defaultUnit="in"
+                  numberRoundTo={3}
+                />
+              </SingleInputLine>
+            </Column>
+          )}
         </Columns>
       </>
     );
@@ -452,7 +466,7 @@ export default function BeltsCalculator(): JSX.Element {
           </Columns>
           <BeltOption
             title={`${get.useCustomBelt ? "Custom" : "Smaller"} Belt`}
-            idPrefix={`${get.useCustomBelt ? "Custom" : "Smaller"}`}
+            idPrefix={`${get.useCustomBelt ? "smaller" : "smaller"}`}
             teethHook={[smallerTeeth, setSmallerTeeth]}
             centerDistanceHook={[smallerCenter, setSmallerCenter]}
             pulley1TeethMeshHook={[p1SmallMesh, setP1SmallMesh]}

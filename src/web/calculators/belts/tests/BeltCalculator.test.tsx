@@ -32,6 +32,8 @@ const outputs = {
   smallerP1TeethInMesh: () => screen.getByTestId("smallerP1TeethInMesh"),
   smallerP2TeethInMesh: () => screen.getByTestId("smallerP2TeethInMesh"),
   smallerBeltTeeth: () => screen.getByTestId("smallerBeltTeeth"),
+  largerDiffFromTarget: () => screen.getByTestId("largerDiffFromTarget"),
+  smallerDiffFromTarget: () => screen.getByTestId("smallerDiffFromTarget"),
 };
 
 const outputSelects = {};
@@ -75,6 +77,8 @@ testWrapper<
         largerCenter: 5.5006,
         largerP1TeethInMesh: 7.7,
         largerP2TeethInMesh: 11.5,
+        largerDiffFromTarget: 0.501,
+        smallerDiffFromTarget: -0.19,
       },
     ],
     [
@@ -98,6 +102,8 @@ testWrapper<
         largerCenter: 5.0174,
         largerP1TeethInMesh: 7.8,
         largerP2TeethInMesh: 11.8,
+        largerDiffFromTarget: 0.017,
+        smallerDiffFromTarget: -0.042,
       },
     ],
     [
@@ -121,6 +127,8 @@ testWrapper<
         largerCenter: 35.1375,
         largerP1TeethInMesh: 8,
         largerP2TeethInMesh: 12,
+        largerDiffFromTarget: 0.137,
+        smallerDiffFromTarget: -0.158,
       },
     ],
     [
@@ -144,6 +152,8 @@ testWrapper<
         largerCenter: 5.0568,
         largerP1TeethInMesh: 7.8,
         largerP2TeethInMesh: 11.8,
+        largerDiffFromTarget: 0.057,
+        smallerDiffFromTarget: -0.239,
       },
     ],
     [
@@ -167,6 +177,8 @@ testWrapper<
         largerCenter: 5.0337,
         largerP1TeethInMesh: 21.3,
         largerP2TeethInMesh: 11.4,
+        largerDiffFromTarget: 0.034,
+        smallerDiffFromTarget: -0.263,
       },
     ],
     [
@@ -190,13 +202,15 @@ testWrapper<
         largerCenter: 5.1298,
         largerP1TeethInMesh: 7.4,
         largerP2TeethInMesh: 22.5,
+        largerDiffFromTarget: 0.13,
+        smallerDiffFromTarget: -0.168,
       },
     ],
     [
       {
         change: {
           key: "pitch",
-          value: "0.19685",
+          value: "0.25",
         },
         select: {
           key: "pitch",
@@ -204,17 +218,19 @@ testWrapper<
         },
       },
       {
-        largerBeltTeeth: 75,
-        largerCenter: 5.4076,
-        largerP1TeethInMesh: 7.8,
-        largerP2TeethInMesh: 11.6,
-        p1PitchDiameter: 1.0025,
-        p2PitchDiameter: 1.5038,
-        smallerBeltTeeth: 70,
-        smallerCenter: 4.9149,
+        largerBeltTeeth: 65,
+        largerCenter: 5.616,
+        largerP1TeethInMesh: 7.7,
+        largerP2TeethInMesh: 11.5,
+        p1PitchDiameter: 1.2732,
+        p2PitchDiameter: 1.9099,
+        smallerBeltTeeth: 60,
+        smallerCenter: 4.9898,
         smallerP1TeethInMesh: 7.7,
-        smallerP2TeethInMesh: 11.6,
+        smallerP2TeethInMesh: 11.5,
         specificBeltTeeth: 125,
+        largerDiffFromTarget: 0.616,
+        smallerDiffFromTarget: -0.01,
       },
     ],
     [
@@ -246,6 +262,8 @@ testWrapper<
         specificBeltTeeth: 125,
         enableCustomBelt: false,
         extraCenter: 1,
+        largerDiffFromTarget: 1.207,
+        smallerDiffFromTarget: 0.912,
       },
     ],
     [
@@ -277,6 +295,8 @@ testWrapper<
         enableCustomBelt: true,
         extraCenter: 1,
         specificBeltTeeth: 340,
+        largerDiffFromTarget: null,
+        smallerDiffFromTarget: null,
       },
     ],
   ],
