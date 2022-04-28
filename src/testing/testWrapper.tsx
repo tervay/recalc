@@ -81,8 +81,8 @@ export default function testWrapper<
   secondaryInputs?: SecondaryInputsType,
   waitForElements?: (() => HTMLElement)[]
 ): void {
-  const prep = () =>
-    act(async () => {
+  const prep = async () =>
+    await act(async () => {
       render(component);
       waitForElements?.forEach(async (e) => {
         await waitFor(e);
@@ -120,17 +120,17 @@ export default function testWrapper<
           );
         }
         await prep();
-        act(() => {
+        await act(async () => {
           if (changeAction.change) {
-            userEvent.clear(inputs[changeAction.change.key as string]());
-            userEvent.type(
+            await userEvent.clear(inputs[changeAction.change.key as string]());
+            await userEvent.type(
               inputs[changeAction.change.key as string](),
               changeAction.change.value
             );
           }
 
           if (changeAction.select) {
-            userEvent.selectOptions(
+            await userEvent.selectOptions(
               allSelects[changeAction.select.key as string](),
               [changeAction.select.value]
             );
