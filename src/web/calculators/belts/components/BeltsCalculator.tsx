@@ -9,6 +9,7 @@ import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
 import NumericOutput from "common/components/io/outputs/NumberOutput";
 import { Column, Columns, Divider } from "common/components/styling/Building";
 import Belt from "common/models/Belt";
+import { StateHook } from "common/models/ExtraTypes";
 import Measurement from "common/models/Measurement";
 import Pulley from "common/models/Pulley";
 import { useGettersSetters } from "common/tooling/conversion";
@@ -24,6 +25,17 @@ import {
   ClosestCentersResult,
   teethInMesh,
 } from "web/calculators/belts/math";
+
+interface BeltOptionProps {
+  title: string;
+  idPrefix: string;
+  teethHook: StateHook<number>;
+  centerDistanceHook: StateHook<Measurement>;
+  pulley1TeethMeshHook: StateHook<number>;
+  pulley2TeethMeshHook: StateHook<number>;
+  gapBetweenPulleysHook: StateHook<Measurement>;
+  diffFromTargetHook: StateHook<Measurement>;
+}
 
 export default function BeltsCalculator(): JSX.Element {
   const [get, set] = useGettersSetters(BeltState.getState() as BeltsStateV1);
@@ -111,6 +123,13 @@ export default function BeltsCalculator(): JSX.Element {
     calculate.largeDistanceBetweenPulleys()
   );
 
+  const [smallDiffFromTarget, setSmallDiffFromTarget] = useState(
+    smallerCenter.sub(get.desiredCenter.add(get.extraCenter))
+  );
+  const [largeDiffFromTarget, setLargeDiffFromTarget] = useState(
+    largerCenter.sub(get.desiredCenter.add(get.extraCenter))
+  );
+
   useEffect(() => {
     setP1PD(calculate.p1PD());
   }, [get.p1Teeth, get.pitch]);
@@ -169,6 +188,14 @@ export default function BeltsCalculator(): JSX.Element {
     setLargePulleyGap(calculate.largeDistanceBetweenPulleys());
   }, [get.p1Teeth, get.p2Teeth, get.pitch, largerCenter]);
 
+  useEffect(() => {
+    setSmallDiffFromTarget(smallerCenter.sub(get.desiredCenter));
+  }, [smallerCenter, get.desiredCenter]);
+
+  useEffect(() => {
+    setLargeDiffFromTarget(largerCenter.sub(get.desiredCenter));
+  }, [largerCenter, get.desiredCenter]);
+
   let cheatSheet = (
     <PulleyCheatSheet pitch={new Measurement(999, "mm")} currentPulleys={[]} />
   );
@@ -194,28 +221,39 @@ export default function BeltsCalculator(): JSX.Element {
     );
   }
 
-  let largerOptionDiv = <></>;
-  if (!get.useCustomBelt) {
-    largerOptionDiv = (
+  function BeltOption(props: BeltOptionProps) {
+    const {
+      title,
+      idPrefix,
+      teethHook,
+      centerDistanceHook,
+      pulley1TeethMeshHook,
+      pulley2TeethMeshHook,
+      gapBetweenPulleysHook,
+      diffFromTargetHook,
+    } = props;
+
+    return (
       <>
-        <Divider color="primary">Larger Belt</Divider>
+        <Divider color="primary">{title}</Divider>
         <Columns formColumns multiline>
           <Column fullhdPercentage={0.5} percentage={1}>
-            <SingleInputLine label="Belt Teeth" id="largerBeltTeeth" for="id">
-              <NumericOutput
-                stateHook={[largerTeeth, setLargerTeeth]}
-                roundTo={0}
-              />
+            <SingleInputLine
+              label="Belt Teeth"
+              id={`${idPrefix}BeltTeeth`}
+              for="id"
+            >
+              <NumericOutput stateHook={teethHook} roundTo={0} />
             </SingleInputLine>
           </Column>
           <Column fullhdPercentage={0.5} percentage={1}>
             <SingleInputLine
               label="Center Distance"
-              id="largerCenter"
+              id={idPrefix + "Center"}
               for="numeric"
             >
               <MeasurementOutput
-                stateHook={[largerCenter, setLargerCenter]}
+                stateHook={centerDistanceHook}
                 numberRoundTo={4}
                 defaultUnit="in"
               />
@@ -227,43 +265,63 @@ export default function BeltsCalculator(): JSX.Element {
           <Column>
             <SingleInputLine
               label="Pulley 1 Teeth in Mesh"
-              id="largerP1TeethInMesh"
+              id={idPrefix + "P1TeethInMesh"}
               for="id"
               tooltip="The number of teeth that the belt has engaged with Pulley 1."
             >
-              <NumericOutput
-                stateHook={[p1LargeMesh, setP1LargeMesh]}
-                roundTo={1}
-              />
+              <NumericOutput stateHook={pulley1TeethMeshHook} roundTo={1} />
             </SingleInputLine>
           </Column>
           <Column>
             <SingleInputLine
               label="Pulley 2 Teeth in Mesh"
-              id="largerP2TeethInMesh"
+              id={idPrefix + "P2TeethInMesh"}
               for="id"
               tooltip="The number of teeth that the belt has engaged with Pulley 2."
             >
-              <NumericOutput
-                stateHook={[p2LargeMesh, setP2LargeMesh]}
-                roundTo={1}
-              />
+              <NumericOutput stateHook={pulley2TeethMeshHook} roundTo={1} />
             </SingleInputLine>
           </Column>
         </Columns>
 
-        <SingleInputLine
-          label="Gap between pulleys"
-          tooltip="Gap between pulley pitch diameters. Does not account for flanges nor belt thickness. Verify your flanges take up less space than this."
-        >
-          <MeasurementOutput
-            stateHook={[largePulleyGap, setLargePulleyGap]}
-            defaultUnit="in"
-            numberRoundTo={2}
-            dangerIf={() => largePulleyGap.lt(new Measurement(0, "in"))}
-            warningIf={() => largePulleyGap.lt(new Measurement(3 / 16, "in"))}
-          />
-        </SingleInputLine>
+        <Columns formColumns multiline>
+          <Column>
+            <SingleInputLine
+              label="Gap between pulleys"
+              tooltip="Gap between pulley pitch diameters. Does not account for flanges nor belt thickness. Verify your flanges take up less space than this."
+            >
+              <MeasurementOutput
+                stateHook={gapBetweenPulleysHook}
+                defaultUnit="in"
+                numberRoundTo={2}
+                dangerIf={() =>
+                  gapBetweenPulleysHook[0].lt(new Measurement(0, "in"))
+                }
+                warningIf={() =>
+                  gapBetweenPulleysHook[0].lt(new Measurement(3 / 16, "in"))
+                }
+              />
+            </SingleInputLine>
+          </Column>
+          {get.useCustomBelt ? (
+            <></>
+          ) : (
+            <Column>
+              <SingleInputLine
+                label="Difference from target"
+                id={idPrefix + "DiffFromTarget"}
+                for="id"
+                tooltip="The difference between this belt's center distance, and the target center distance"
+              >
+                <MeasurementOutput
+                  stateHook={diffFromTargetHook}
+                  defaultUnit="in"
+                  numberRoundTo={3}
+                />
+              </SingleInputLine>
+            </Column>
+          )}
+        </Columns>
       </>
     );
   }
@@ -406,81 +464,28 @@ export default function BeltsCalculator(): JSX.Element {
               </SingleInputLine>
             </Column>
           </Columns>
-
-          <Divider color="primary">
-            {get.useCustomBelt ? "Custom" : "Smaller"} Belt
-          </Divider>
-          <Columns formColumns multiline>
-            <Column fullhdPercentage={0.5} percentage={1}>
-              <SingleInputLine
-                label="Belt Teeth"
-                id="smallerBeltTeeth"
-                for="id"
-              >
-                <NumericOutput
-                  stateHook={[smallerTeeth, setSmallerTeeth]}
-                  roundTo={0}
-                />
-              </SingleInputLine>
-            </Column>
-            <Column fullhdPercentage={0.5} percentage={1}>
-              <SingleInputLine
-                label="Center Distance"
-                id="smallerCenter"
-                for="numeric"
-              >
-                <MeasurementOutput
-                  stateHook={[smallerCenter, setSmallerCenter]}
-                  numberRoundTo={4}
-                  defaultUnit="in"
-                />
-              </SingleInputLine>
-            </Column>
-          </Columns>
-
-          <Columns formColumns multiline>
-            <Column>
-              <SingleInputLine
-                label="Pulley 1 Teeth in Mesh"
-                id="smallerP1TeethInMesh"
-                for="id"
-                tooltip="The number of teeth that the belt has engaged with Pulley 1."
-              >
-                <NumericOutput
-                  stateHook={[p1SmallMesh, setP1SmallMesh]}
-                  roundTo={1}
-                />
-              </SingleInputLine>
-            </Column>
-            <Column>
-              <SingleInputLine
-                label="Pulley 2 Teeth in Mesh"
-                id="smallerP2TeethInMesh"
-                for="id"
-                tooltip="The number of teeth that the belt has engaged with Pulley 2."
-              >
-                <NumericOutput
-                  stateHook={[p2SmallMesh, setP2SmallMesh]}
-                  roundTo={1}
-                />
-              </SingleInputLine>
-            </Column>
-          </Columns>
-
-          <SingleInputLine
-            label="Gap between pulleys"
-            tooltip="Gap between pulley pitch diameters. Does not account for flanges nor belt thickness. Verify your flanges take up less space than this."
-          >
-            <MeasurementOutput
-              stateHook={[smallPulleyGap, setSmallPulleyGap]}
-              defaultUnit="in"
-              numberRoundTo={2}
-              dangerIf={() => smallPulleyGap.lt(new Measurement(0, "in"))}
-              warningIf={() => smallPulleyGap.lt(new Measurement(3 / 16, "in"))}
+          <BeltOption
+            title={`${get.useCustomBelt ? "Custom" : "Smaller"} Belt`}
+            idPrefix={"smaller"}
+            teethHook={[smallerTeeth, setSmallerTeeth]}
+            centerDistanceHook={[smallerCenter, setSmallerCenter]}
+            pulley1TeethMeshHook={[p1SmallMesh, setP1SmallMesh]}
+            pulley2TeethMeshHook={[p2SmallMesh, setP2SmallMesh]}
+            gapBetweenPulleysHook={[smallPulleyGap, setSmallPulleyGap]}
+            diffFromTargetHook={[smallDiffFromTarget, setSmallDiffFromTarget]}
+          />
+          {!get.useCustomBelt && (
+            <BeltOption
+              title={"Larger Belt"}
+              idPrefix={"larger"}
+              teethHook={[largerTeeth, setLargerTeeth]}
+              centerDistanceHook={[largerCenter, setLargerCenter]}
+              pulley1TeethMeshHook={[p1LargeMesh, setP1LargeMesh]}
+              pulley2TeethMeshHook={[p2LargeMesh, setP2LargeMesh]}
+              gapBetweenPulleysHook={[largePulleyGap, setLargePulleyGap]}
+              diffFromTargetHook={[largeDiffFromTarget, setLargeDiffFromTarget]}
             />
-          </SingleInputLine>
-
-          {largerOptionDiv}
+          )}
         </Column>
         <Column>
           <InventoryTable

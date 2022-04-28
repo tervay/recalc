@@ -20,7 +20,7 @@ export default beltsConfig;
 export const BeltsParamsV1 = {
   customBeltTeeth: withDefault(NumberParam, 125),
   desiredCenter: withDefault(MeasurementParam, new Measurement(5, "in")),
-  extraCenter: withDefault(MeasurementParam, new Measurement(0, "mm")),
+  extraCenter: withDefault(MeasurementParam, new Measurement(0.0, "mm")),
   p1Teeth: withDefault(NumberParam, 16),
   p2Teeth: withDefault(NumberParam, 24),
   pitch: withDefault(MeasurementParam, new Measurement(3, "mm")),
