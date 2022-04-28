@@ -466,7 +466,11 @@ export default function BeltsCalculator(): JSX.Element {
           </Columns>
           <BeltOption
             title={`${get.useCustomBelt ? "Custom" : "Smaller"} Belt`}
+<<<<<<< HEAD
             idPrefix={`${get.useCustomBelt ? "smaller" : "smaller"}`}
+=======
+            idPrefix={`${get.useCustomBelt ? "Custom" : "Smaller"}`}
+>>>>>>> e1297faf3b90411383552a44646c94e83e34894e
             teethHook={[smallerTeeth, setSmallerTeeth]}
             centerDistanceHook={[smallerCenter, setSmallerCenter]}
             pulley1TeethMeshHook={[p1SmallMesh, setP1SmallMesh]}
