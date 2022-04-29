@@ -195,9 +195,9 @@ export default function FlywheelCalculator(): JSX.Element {
 
     return calculateKv(
       get.motor.freeSpeed.div(get.motorRatio.asNumber()),
-      get.flywheelRadius
+      get.shooterRadius
     );
-  }, [get.motor.freeSpeed, get.motorRatio, get.flywheelRadius]);
+  }, [get.motor.freeSpeed, get.motorRatio, get.shooterRadius]);
 
   const kA = useMemo(() => {
     if (get.flywheelRadius.scalar == 0) {
@@ -209,7 +209,7 @@ export default function FlywheelCalculator(): JSX.Element {
         .mul(get.motor.quantity)
         .mul(get.motorRatio.asNumber())
         .mul(get.efficiency / 100),
-      get.flywheelRadius,
+      get.shooterRadius,
       totalMomentOfInertia.div(get.flywheelRadius.mul(get.flywheelRadius))
     );
   }, [
@@ -219,6 +219,7 @@ export default function FlywheelCalculator(): JSX.Element {
     get.efficiency,
     get.flywheelRadius,
     totalMomentOfInertia,
+    get.shooterRadius,
   ]);
 
   useEffect(() => {
