@@ -559,6 +559,7 @@
   },
   {
     "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
     "teeth": 170,
     "width": "15 mm",
     "pitch": "5 mm",
@@ -568,6 +569,7 @@
   },
   {
     "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
     "teeth": 120,
     "width": "15 mm",
     "pitch": "5 mm",
@@ -577,6 +579,7 @@
   },
   {
     "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
     "teeth": 160,
     "width": "15 mm",
     "pitch": "5 mm",
@@ -586,6 +589,7 @@
   },
   {
     "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
     "teeth": 131,
     "width": "15 mm",
     "pitch": "5 mm",
@@ -595,6 +599,7 @@
   },
   {
     "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
     "teeth": 93,
     "width": "9 mm",
     "pitch": "5 mm",
@@ -604,6 +609,7 @@
   },
   {
     "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
     "teeth": 55,
     "width": "15 mm",
     "pitch": "5 mm",
@@ -613,6 +619,7 @@
   },
   {
     "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
     "teeth": 85,
     "width": "15 mm",
     "pitch": "5 mm",
@@ -622,6 +629,7 @@
   },
   {
     "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
     "teeth": 151,
     "width": "15 mm",
     "pitch": "5 mm",
@@ -631,6 +639,7 @@
   },
   {
     "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
     "teeth": 48,
     "width": "9 mm",
     "pitch": "5 mm",
@@ -640,6 +649,7 @@
   },
   {
     "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
     "teeth": 40,
     "width": "9 mm",
     "pitch": "5 mm",
@@ -649,6 +659,7 @@
   },
   {
     "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
     "teeth": 45,
     "width": "9 mm",
     "pitch": "5 mm",
@@ -658,6 +669,7 @@
   },
   {
     "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
     "teeth": 104,
     "width": "15 mm",
     "pitch": "5 mm",
@@ -667,6 +679,7 @@
   },
   {
     "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
     "teeth": 85,
     "width": "15 mm",
     "pitch": "5 mm",
@@ -676,6 +689,7 @@
   },
   {
     "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
     "teeth": 48,
     "width": "9 mm",
     "pitch": "5 mm",
@@ -685,6 +699,7 @@
   },
   {
     "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
     "teeth": 117,
     "width": "15 mm",
     "pitch": "5 mm",
@@ -694,6 +709,7 @@
   },
   {
     "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
     "teeth": 104,
     "width": "15 mm",
     "pitch": "5 mm",
@@ -703,6 +719,7 @@
   },
   {
     "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
     "teeth": 151,
     "width": "15 mm",
     "pitch": "5 mm",
@@ -1150,5 +1167,545 @@
     "type": "HTD",
     "sku": "217-3470",
     "url": "https://www.vexrobotics.com/htdbelts9.html"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 60,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0001",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 65,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0002",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 70,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0003",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 75,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0004",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 80,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0005",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 85,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0006",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 90,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0007",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 95,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0008",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 100,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0009",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 110,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0010",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 120,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0011",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 130,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0012",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 140,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0013",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 150,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0014",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 160,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0015",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 170,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0016",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 180,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0017",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 200,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0018",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 220,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0019",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 250,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-0020",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 60,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1001",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 65,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1002",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 70,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1003",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 75,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1004",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 80,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1005",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 85,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1006",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 90,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1007",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 95,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1008",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 100,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1009",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 110,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1010",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 120,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1011",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 130,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1012",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 140,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1013",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 150,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1014",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 160,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1015",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 170,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1016",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 180,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1017",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 200,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1018",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 220,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1019",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "Swyft",
+    "teeth": 250,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "BLT-1020",
+    "url": "https://swyftrobotics.com/product/htd-timing-belts/"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 40,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 45,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 48,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 60,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 70,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 93,
+    "width": "9 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 160,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 131,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 104,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 200,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 170,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 107,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 140,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 110,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 180,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 117,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 85,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 151,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 120,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
+  },
+  {
+    "vendor": "AndyMark",
+    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+    "teeth": 55,
+    "width": "15 mm",
+    "pitch": "5 mm",
+    "type": "HTD",
+    "sku": "am-abcd"
   }
 ]

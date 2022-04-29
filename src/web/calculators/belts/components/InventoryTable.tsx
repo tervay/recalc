@@ -15,6 +15,8 @@ const frcBelts: Belt[] = Belt.getAllBelts();
 function frcAvailableRows(belt: Belt): JSX.Element[] {
   return frcBelts
     .filter((b) => b.eq(belt))
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    .filter((b) => b.width?.eq(belt.width!))
     .map((b) => (
       <tr
         key={(b.url === undefined ? "" : b.url) + b.teeth + b.width?.format()}
