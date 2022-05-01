@@ -117,6 +117,6 @@ $input-select-border: 1px solid rgb(209, 213, 219);
   }
 }
 
-[disabled].input:not(.is-danger, .is-warning){
+[disabled].input:not(.is-danger, .is-warning) {
   border: $input-select-border;
 }

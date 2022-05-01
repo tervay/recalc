@@ -30,16 +30,14 @@ import { Chart } from "react-chartjs-2";
 //   };
 // }
 
-export default function Graph(
-  props: {
-    title: string;
-    id: string;
-    height?: number;
+export default function Graph(props: {
+  title: string;
+  id: string;
+  height?: number;
 
-    options: ChartOptions<"line">;
-    simpleDatasets: EzDataset[];
-  }
-): JSX.Element {
+  options: ChartOptions<"line">;
+  simpleDatasets: EzDataset[];
+}): JSX.Element {
   // const [zoomEnabled, setZoomEnabled] = useState(false);
   // const [options, setOptions] = useState(props.options);
 

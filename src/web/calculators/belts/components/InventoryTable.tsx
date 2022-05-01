@@ -13,25 +13,27 @@ vbg.authenticate();
 const frcBelts: Belt[] = Belt.getAllBelts();
 
 function frcAvailableRows(belt: Belt): JSX.Element[] {
-  return frcBelts
-    .filter((b) => b.eq(belt))
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    .filter((b) => b.width?.eq(belt.width!))
-    .map((b) => (
-      <tr
-        key={(b.url === undefined ? "" : b.url) + b.teeth + b.width?.format()}
-      >
-        <th>
-          <a target={"_blank"} href={b.url}>
-            {b.vendor}
-          </a>
-        </th>
-        <td>{b.type}</td>
-        <td>{b.pitch.format()}</td>
-        <td>{b.teeth}</td>
-        <td>{b.width?.format()}</td>
-      </tr>
-    ));
+  return (
+    frcBelts
+      .filter((b) => b.eq(belt))
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      .filter((b) => b.width?.eq(belt.width!))
+      .map((b) => (
+        <tr
+          key={(b.url === undefined ? "" : b.url) + b.teeth + b.width?.format()}
+        >
+          <th>
+            <a target={"_blank"} href={b.url}>
+              {b.vendor}
+            </a>
+          </th>
+          <td>{b.type}</td>
+          <td>{b.pitch.format()}</td>
+          <td>{b.teeth}</td>
+          <td>{b.width?.format()}</td>
+        </tr>
+      ))
+  );
 }
 
 function VbgAvailableRows(props: { belt: Belt }): JSX.Element {
