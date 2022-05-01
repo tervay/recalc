@@ -6,6 +6,7 @@
     "stallCurrent": { "magnitude": 257, "unit": "A" },
     "freeCurrent": { "magnitude": 1.5, "unit": "A" },
     "weight": { "magnitude": 1.1, "unit": "lbs" },
+    "diameter": { "magnitude": 2.362, "unit": "in" },
     "url": "https://www.vexrobotics.com/217-6515.html"
   },
   {
@@ -15,6 +16,7 @@
     "stallCurrent": { "magnitude": 166, "unit": "A" },
     "freeCurrent": { "magnitude": 1.3, "unit": "A" },
     "weight": { "magnitude": 0.94, "unit": "lbs" },
+    "diameter": { "magnitude": 2.36, "unit": "in" },
     "url": "https://www.revrobotics.com/rev-21-1650/"
   },
   {
@@ -24,6 +26,7 @@
     "stallCurrent": { "magnitude": 111, "unit": "A" },
     "freeCurrent": { "magnitude": 1.1, "unit": "A" },
     "weight": { "magnitude": 0.31, "unit": "lbs" },
+    "diameter": { "magnitude": 1.38, "unit": "in" },
     "url": "https://www.revrobotics.com/rev-21-1651/"
   },
   {
@@ -33,6 +36,7 @@
     "stallCurrent": { "magnitude": 134, "unit": "A" },
     "freeCurrent": { "magnitude": 0.7, "unit": "A" },
     "weight": { "magnitude": 0.8, "unit": "lbs" },
+    "diameter": { "magnitude": 1.744, "unit": "in" },
     "url": "https://www.vexrobotics.com/775pro.html"
   },
   {
@@ -42,6 +46,7 @@
     "stallCurrent": { "magnitude": 122, "unit": "A" },
     "freeCurrent": { "magnitude": 2.6, "unit": "A" },
     "weight": { "magnitude": 0.806, "unit": "lbs" },
+    "diameter": { "magnitude": 1.765, "unit": "in" },
     "url": "https://www.andymark.com/products/andymark-775-redline-motor-v2"
   },
   {
@@ -51,6 +56,7 @@
     "stallCurrent": { "magnitude": 131, "unit": "A" },
     "freeCurrent": { "magnitude": 2.7, "unit": "A" },
     "weight": { "magnitude": 2.82, "unit": "lbs" },
+    "diameter": { "magnitude": 2.52, "unit": "in" },
     "url": "https://www.vexrobotics.com/217-2000.html"
   },
   {
@@ -60,6 +66,7 @@
     "stallCurrent": { "magnitude": 89, "unit": "A" },
     "freeCurrent": { "magnitude": 3, "unit": "A" },
     "weight": { "magnitude": 2.16, "unit": "lbs" },
+    "diameter": { "magnitude": 2.52, "unit": "in" },
     "url": "https://www.vexrobotics.com/217-3371.html"
   },
   {
@@ -69,6 +76,7 @@
     "stallCurrent": { "magnitude": 53, "unit": "A" },
     "freeCurrent": { "magnitude": 1.8, "unit": "A" },
     "weight": { "magnitude": 0.71, "unit": "lbs" },
+    "diameter": { "magnitude": 1.591, "unit": "in" },
     "url": "https://www.vexrobotics.com/217-3351.html"
   },
   {
@@ -78,7 +86,18 @@
     "stallCurrent": { "magnitude": 71, "unit": "A" },
     "freeCurrent": { "magnitude": 3.7, "unit": "A" },
     "weight": { "magnitude": 0.5, "unit": "lbs" },
+    "diameter": { "magnitude": 1.489, "unit": "in" },
     "url": "https://www.andymark.com/products/9015-motor"
+  },
+  {
+    "name": "BaneBots 550",
+    "freeSpeed": { "magnitude": 19300, "unit": "rpm" },
+    "stallTorque": { "magnitude": 0.488, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 85, "unit": "A" },
+    "freeCurrent": { "magnitude": 1.4, "unit": "A" },
+    "weight": { "magnitude": 0.48, "unit": "lbs" },
+    "diameter": { "magnitude": 1.52, "unit": "in" },
+    "url": "https://www.andymark.com/products/banebots-550-motor"
   },
   {
     "name": "NeveRest",
@@ -87,6 +106,7 @@
     "stallCurrent": { "magnitude": 9.8, "unit": "A" },
     "freeCurrent": { "magnitude": 0.355, "unit": "A" },
     "weight": { "magnitude": 0.587, "unit": "lbs" },
+    "diameter": { "magnitude": 1.5, "unit": "in" },
     "url": "https://www.andymark.com/products/neverest-series-motor-only"
   },
   {
@@ -96,6 +116,7 @@
     "stallCurrent": { "magnitude": 24, "unit": "A" },
     "freeCurrent": { "magnitude": 5, "unit": "A" },
     "weight": { "magnitude": 1.1, "unit": "lbs" },
+    "diameter": { "magnitude": 2.54, "unit": "in" },
     "url": "https://www.andymark.com/products/snow-blower-motor-with-hex-shaft"
   }
 ]

@@ -66,6 +66,7 @@ function getRowForMotor(motor: Motor): MotorRow {
         {motor.identifier}
       </a>
     ),
+    diameter: motor.diameter.to("in").scalar.toFixed(2),
   };
 }
 
@@ -90,7 +91,10 @@ export default function SpecTable(): JSX.Element {
           Header: "Weight (lb)",
           accessor: "weight",
         },
-
+        {
+          Header: "Diameter (in)",
+          accessor: "diameter",
+        },
         {
           Header: "Free Speed (RPM)",
           accessor: "freeSpeed",
