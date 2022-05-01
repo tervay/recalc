@@ -14,6 +14,7 @@ import armConfig from "web/calculators/arm";
 import beltsConfig from "web/calculators/belts";
 import chainConfig from "web/calculators/chain";
 import flywheelConfig from "web/calculators/flywheel";
+import intakeConfig from "web/calculators/intake";
 import linearConfig from "web/calculators/linear";
 import pneumaticsConfig from "web/calculators/pneumatics";
 import compressorsConfig from "web/info/compressors";
@@ -68,6 +69,7 @@ export default function Home(): JSX.Element {
           <Clickable config={flywheelConfig} />
           <Clickable config={armConfig} />
           <Clickable config={linearConfig} />
+          <Clickable config={intakeConfig} />
         </Columns>
       </Section>
 

@@ -34,6 +34,12 @@ export default class Ratio extends Model {
     };
   }
 
+  to(ratioType: RatioType): Ratio {
+    return ratioType == this.ratioType
+      ? this
+      : new Ratio(1 / this.magnitude, ratioType);
+  }
+
   static fromDict(d: RatioDict): Ratio {
     return new Ratio(d.magnitude, d.ratioType);
   }
