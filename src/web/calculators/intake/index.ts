@@ -9,8 +9,8 @@ import { withDefault } from "serialize-query-params";
 
 const intakeConfig: PageConfig = {
   url: "/intake",
-  title: "Intake Calculator",
-  description: "Intake calculator",
+  title: "Intake Calculator (WIP)",
+  description: "Intake calculator (WIP)",
   version: 1,
   component: lazy(() => import("web/calculators/intake/components/IntakePage")),
 };
