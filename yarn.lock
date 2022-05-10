@@ -11572,10 +11572,10 @@ react-table@^7.7.0:
   resolved "https://registry.yarnpkg.com/react-table/-/react-table-7.7.0.tgz#e2ce14d7fe3a559f7444e9ecfe8231ea8373f912"
   integrity sha512-jBlj70iBwOTvvImsU9t01LjFjy4sXEtclBovl3mTiqjz23Reu0DKnRza4zlLtOPACx6j2/7MrQIthIK1Wi+LIA==
 
-react-use-promise@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/react-use-promise/-/react-use-promise-0.4.1.tgz#b772cc92f42d11a729b464980d1e337fe01d0cc4"
-  integrity sha512-uIOsLF0em7YRM0cLeOqmOQ1fFGQHoDxyLsiP0InX/e3rdSbDSwkd3CkKsmu8F4oYY9ao2944AgBN6HvQ0rILsA==
+react-use-promise@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/react-use-promise/-/react-use-promise-0.5.0.tgz#1abe26f73a9d55415c081ef5be74087840bac0a8"
+  integrity sha512-kpmnwDsXILLsEe4lxMT2iaJKQq1Wt4KuW2t6YPXwulAWSvnqwPAlj8wrRMQ5d/0+SutKR2qk41yJpeaV49bvUQ==
 
 react@^17.0.2:
   version "17.0.2"
