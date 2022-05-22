@@ -2063,10 +2063,10 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/google-spreadsheet@^3.2.1":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/@types/google-spreadsheet/-/google-spreadsheet-3.2.1.tgz#b53fcd02cb1c703db4b8c35752ebc0a7ec316f0c"
-  integrity sha512-k9fMPyRJuWFoRiD4ZU2xTJTBykeXIh+ittw59UHGvNVkyu0b82DorkEJe36LBlaLkqD2qPBAunVz6JZRMFvWIA==
+"@types/google-spreadsheet@^3.2.2":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@types/google-spreadsheet/-/google-spreadsheet-3.2.2.tgz#1d7a75982c89caa3ac38828d2f3268b5bc67e641"
+  integrity sha512-6e6GyxDuV1vGR+lHsuS06xaDo7r3PxSJdei+Z9x9DD7vZMhsY8kr8A3RkXsamQesDgr03VEcA8tlEyQapw9rjg==
 
 "@types/graceful-fs@^4.1.2":
   version "4.1.5"
@@ -6779,10 +6779,10 @@ google-p12-pem@^3.0.3:
   dependencies:
     node-forge "^1.0.0"
 
-google-spreadsheet@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/google-spreadsheet/-/google-spreadsheet-3.2.0.tgz#ce8aa75c15705aa950ad52b091a6fc4d33dcb329"
-  integrity sha512-z7XMaqb+26rdo8p51r5O03u8aPLAPzn5YhOXYJPcf2hdMVr0dUbIARgdkRdmGiBeoV/QoU/7VNhq1MMCLZv3kQ==
+google-spreadsheet@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/google-spreadsheet/-/google-spreadsheet-3.3.0.tgz#725aecf9ea67ff8b8c45ddaf714f78f3e99db6a1"
+  integrity sha512-ahmRNh14s1i3phfvbF2mxen1lohWJpUaFWgsU6P6bXu7QrmxMaim1Ys/7BU4W5yucWCzphoIrHMbrbeIR5K9mw==
   dependencies:
     axios "^0.21.4"
     google-auth-library "^6.1.3"
