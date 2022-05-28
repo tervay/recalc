@@ -18,7 +18,7 @@
     "@types/react-dom": "^18.0.3",
     "bulma": "^0.9.4",
     "bulma-switch": "^2.0.4",
-    "chart.js": "^3.7.1",
+    "chart.js": "^3.8.0",
     "chartjs-plugin-zoom": "^1.2.1",
     "crypto-js": "^4.1.1",
     "google-spreadsheet": "^3.2.0",
