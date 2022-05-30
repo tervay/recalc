@@ -33,7 +33,9 @@ export function changeActionToString<T, V>(
 
   if (changeAction.change) {
     s.push(
-      `Changing ${changeAction.change.key} to ${changeAction.change.value}`
+      `Changing ${String(changeAction.change.key)} to ${
+        changeAction.change.value
+      }`
     );
   }
 
@@ -43,7 +45,9 @@ export function changeActionToString<T, V>(
 
   if (changeAction.select) {
     s.push(
-      `Selecting ${changeAction.select.key} as ${changeAction.select.value}`
+      `Selecting ${String(changeAction.select.key)} as ${
+        changeAction.select.value
+      }`
     );
   }
 
