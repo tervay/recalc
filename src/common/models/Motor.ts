@@ -28,15 +28,6 @@ export type MotorDict = {
 };
 
 export default class Motor extends Model {
-  public readonly freeSpeed: Measurement;
-  public readonly stallTorque: Measurement;
-  public readonly stallCurrent: Measurement;
-  public readonly freeCurrent: Measurement;
-  public readonly weight: Measurement;
-  public readonly url: string;
-  public readonly quantity: number;
-  public readonly diameter: Measurement;
-
   public readonly kV: Measurement;
   public readonly kT: Measurement;
   public readonly maxPower: Measurement;
@@ -44,38 +35,26 @@ export default class Motor extends Model {
 
   constructor(
     identifier: string,
-    freeSpeed: Measurement,
-    stallTorque: Measurement,
-    stallCurrent: Measurement,
-    freeCurrent: Measurement,
-    weight: Measurement,
-    url: string,
-    diameter: Measurement,
-    quantity: number
+    public readonly freeSpeed: Measurement,
+    public readonly stallTorque: Measurement,
+    public readonly stallCurrent: Measurement,
+    public readonly freeCurrent: Measurement,
+    public readonly weight: Measurement,
+    public readonly url: string,
+    public readonly diameter: Measurement,
+    public readonly quantity: number
   ) {
     super(identifier);
-    this.freeSpeed = freeSpeed;
-    this.stallTorque = stallTorque;
-    this.stallCurrent = stallCurrent;
-    this.freeCurrent = freeCurrent;
-    this.weight = weight;
-    this.url = url;
-    this.quantity = quantity;
-    this.diameter = diameter;
 
-    // this.kV = this.freeSpeed.div(nominalVoltage);
-    // this.kT = this.stallTorque.div(
-    //   quantity === 0
-    //     ? new Measurement(1, "A")
-    //     : this.stallCurrent.sub(this.freeCurrent)
-    // );
     this.resistance =
       quantity === 0
         ? new Measurement(0, "ohm")
         : nominalVoltage.div(this.stallCurrent);
+
     this.kV = this.freeSpeed.div(
       nominalVoltage.sub(this.resistance.mul(this.freeCurrent))
     );
+
     this.kT = this.stallTorque.div(this.stallCurrent);
 
     this.maxPower = new MotorRules(this, highCurrentLimit, {

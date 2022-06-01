@@ -22,25 +22,14 @@ type VisibilityOptions = {
 };
 
 export class MotorPlaygroundEntry extends Model {
-  public readonly motor: Motor;
-  public readonly currentLimit: Measurement;
-  public readonly ratio: Ratio;
-  public readonly voltage: Measurement;
-  public readonly visibilityOptions: VisibilityOptions;
-
   constructor(
-    motor: Motor,
-    currentLimit: Measurement,
-    voltage: Measurement,
-    ratio: Ratio,
-    visibilityOptions: VisibilityOptions
+    public readonly motor: Motor,
+    public readonly currentLimit: Measurement,
+    public readonly voltage: Measurement,
+    public readonly ratio: Ratio,
+    public readonly visibilityOptions: VisibilityOptions
   ) {
     super(motor.identifier + currentLimit.identifier);
-    this.motor = motor;
-    this.currentLimit = currentLimit;
-    this.ratio = ratio;
-    this.voltage = voltage;
-    this.visibilityOptions = visibilityOptions;
   }
 
   datasets(): EzDataset[] {

@@ -10,25 +10,13 @@ type ConditionFn<T> = (source: T) => boolean;
 type ModifyFn<T> = (source: T) => void;
 
 class Rule<T> {
-  public readonly name: string;
-  public readonly conditionFn: ConditionFn<T>;
-  public readonly modifyFn: ModifyFn<T>;
-  public readonly haltAfter: boolean;
-  public readonly priority: number;
-
   constructor(
-    name: string,
-    conditionFn: ConditionFn<T>,
-    modifyFn: ModifyFn<T>,
-    haltAfter: boolean,
-    priority: number
-  ) {
-    this.name = name;
-    this.conditionFn = conditionFn;
-    this.modifyFn = modifyFn;
-    this.haltAfter = haltAfter;
-    this.priority = priority;
-  }
+    public readonly name: string,
+    public readonly conditionFn: ConditionFn<T>,
+    public readonly modifyFn: ModifyFn<T>,
+    public readonly haltAfter: boolean,
+    public readonly priority: number
+  ) {}
 }
 
 export default class Rules<T> {

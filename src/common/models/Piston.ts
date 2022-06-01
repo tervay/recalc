@@ -36,40 +36,19 @@ const boreToRodDiameter: Record<number, number> = {
 };
 
 export default class Piston extends Model {
-  public name: string;
-  public quantity: number;
-  public bore: Measurement;
-  public rodDiameter: Measurement;
-  public strokeLength: Measurement;
-  public retractPressure: Measurement;
-  public extendPressure: Measurement;
-  public enabled: boolean;
-  public period: Measurement;
-  public state: State;
-
   constructor(
-    name: string,
-    quantity: number,
-    bore: Measurement,
-    rodDiameter: Measurement,
-    strokeLength: Measurement,
-    retractPressure: Measurement,
-    extendPressure: Measurement,
-    enabled: boolean,
-    period: Measurement,
-    state: State = State.RETRACTED
+    public name: string,
+    public quantity: number,
+    public bore: Measurement,
+    public rodDiameter: Measurement,
+    public strokeLength: Measurement,
+    public retractPressure: Measurement,
+    public extendPressure: Measurement,
+    public enabled: boolean,
+    public period: Measurement,
+    public state: State = State.RETRACTED
   ) {
     super(name);
-    this.name = name;
-    this.quantity = quantity;
-    this.bore = bore;
-    this.rodDiameter = rodDiameter;
-    this.strokeLength = strokeLength;
-    this.retractPressure = retractPressure;
-    this.extendPressure = extendPressure;
-    this.enabled = enabled;
-    this.period = period;
-    this.state = state;
   }
 
   getExtendForce(pressure: Measurement): Measurement {

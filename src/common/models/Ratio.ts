@@ -12,13 +12,11 @@ export type RatioDict = {
 };
 
 export default class Ratio extends Model {
-  public readonly magnitude: number;
-  public readonly ratioType: RatioType;
-
-  constructor(magnitude: number, ratioType: RatioType = RatioType.REDUCTION) {
+  constructor(
+    public readonly magnitude: number,
+    public readonly ratioType: RatioType = RatioType.REDUCTION
+  ) {
     super("Ratio");
-    this.magnitude = magnitude;
-    this.ratioType = ratioType;
   }
 
   asNumber(): number {

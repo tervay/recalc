@@ -15,17 +15,17 @@ type VendorData = {
 };
 
 export default class Sprocket extends Model {
-  public readonly teeth: number;
-  public readonly pitch: Measurement;
   public readonly pitchDiameter: Measurement;
   public readonly bore?: string;
   public readonly wrong?: boolean;
   public readonly vendors?: FRCVendor[];
 
-  constructor(teeth: number, pitch: Measurement, vendorData?: VendorData) {
+  constructor(
+    public readonly teeth: number,
+    public readonly pitch: Measurement,
+    vendorData?: VendorData
+  ) {
     super("Sprocket");
-    this.teeth = teeth;
-    this.pitch = pitch;
     this.pitchDiameter =
       teeth == 0
         ? new Measurement(0, "in")

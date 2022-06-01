@@ -11,11 +11,8 @@ export function getNumberFromPistonName(name: string): number {
 }
 
 export default class PistonList extends Model {
-  public readonly pistons: Piston[];
-
-  constructor(pistons: Piston[]) {
+  constructor(public readonly pistons: Piston[]) {
     super("PistonList");
-    this.pistons = pistons;
   }
 
   sort(): PistonList {

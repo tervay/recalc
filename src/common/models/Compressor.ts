@@ -24,20 +24,14 @@ export const ENABLE_AT_PSI = new Measurement(95, "psi");
 
 export default class Compressor extends Model {
   private readonly cachedCfmFn: (_pressure: Measurement) => Measurement;
-  private readonly cfmPolynomialTerms: number[];
-  public readonly weight: Measurement;
-  public readonly url: string;
 
   constructor(
     identifier: string,
-    cfmPolynomialTerms: number[],
-    weight: Measurement,
-    url: string
+    private readonly cfmPolynomialTerms: number[],
+    public readonly weight: Measurement,
+    public readonly url: string
   ) {
     super(identifier);
-    this.cfmPolynomialTerms = cfmPolynomialTerms;
-    this.weight = weight;
-    this.url = url;
 
     this.cachedCfmFn = (pressure: Measurement) => {
       const pressureScalar = pressure.to("psi").scalar;

@@ -14,29 +14,19 @@ type VendorData = {
 };
 
 export default class Belt extends Model {
-  public readonly teeth: number;
-  public readonly pitch: Measurement;
-  public readonly length: Measurement;
-  public readonly width?: Measurement;
-
   public readonly vendor?: FRCVendor;
   public readonly type?: PulleyBeltType;
   public readonly sku?: string;
   public readonly url?: string;
 
   constructor(
-    teeth: number,
-    pitch: Measurement,
-    length: Measurement,
-    width?: Measurement,
+    public readonly teeth: number,
+    public readonly pitch: Measurement,
+    public readonly length: Measurement,
+    public readonly width?: Measurement,
     vendorData?: VendorData
   ) {
     super("Belt");
-    this.teeth = teeth;
-    this.pitch = pitch;
-    this.length = length;
-    this.width = width;
-
     this.vendor = vendorData?.vendor;
     this.type = vendorData?.type;
     this.sku = vendorData?.sku;
