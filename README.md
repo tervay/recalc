@@ -40,24 +40,15 @@ $ yarn
 |   Linear   |  ✓   |     ~      |   ✓    |             |              |   ✓   |      |   ✓    |
 | Pneumatic  |  ✓   |            |   ✓    |             |              |   ✓   |  ~   |   ✓    |
 |   Chain    |  ✓   |     ✓      |   ✓    |             |              |   x   |      |   ✓    |
-| Gear Load  |      |            |        |             |              |       |      |        |
 
 ---
 
-### Probably will do later
+### Priority list
 
-* Arm calc 2d animation
-* Export models (pulleys/belts/etc) to csv/json/etc
-* Enter desired reduction -> get gearbox config list
-* Breaker calc?
-* Simple drivetrain calc
-
-
-### User suggestions
-
-* Better motor playground inputs
-* Custom motor input
-* More complete sprocket list (1403?)
-* Bolden/italicize selected pulley/sprocket on calcs
-* Document how to get MOI in CAD
-* Able to customize what gets displayed in graphs via checkboxes
+1. UI tests
+2. Docs
+3. Target reduction -> Gearbox calc
+4. ILITE Drivetrain calc
+5. CSS overhaul
+6. Export models to csv/json
+7. PDF renderer
