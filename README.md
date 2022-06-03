@@ -52,3 +52,5 @@ $ yarn
 5. CSS overhaul
 6. Export models to csv/json
 7. PDF renderer
+
+I'd like to overhaul the UI with DaisyUI v2, which is a plugin for Tailwind v3. Tailwind v3 requires postcss v8, but postcss v8 is only supported in either (react-scripts v4 + tailwind v2) OR (react-scripts v5 + tailwind v3). So I would need to upgrade ReCalc to use react-scripts v5. However, react-scripts v5 upgrades webpack from v4 to v5, and webpack v5 removes Node polyfills, which breaks the Google Spreadsheet API wrapper I'm using.
