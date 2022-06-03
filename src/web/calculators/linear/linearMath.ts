@@ -131,6 +131,7 @@ export function generateTimeToGoalChartData(
     }
   }
 
+  console.log("returning " + data);
   return data;
 }
 

@@ -7,7 +7,7 @@ import {
   LevelRight,
   Title,
 } from "common/components/styling/Building";
-import { Chart } from "react-chartjs-2";
+import { Chart as Charty } from "react-chartjs-2";
 
 // function setZoomPluginEnabled(
 //   options: ChartOptions<"line">,
@@ -81,7 +81,7 @@ export default function Graph(props: {
           height: `${props.height}px`,
         }}
       >
-        <Chart
+        <Charty
           type="line"
           options={props.options}
           data={{ datasets: props.simpleDatasets }}

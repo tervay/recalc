@@ -53,19 +53,23 @@ export default function PneumaticsCalculator(): JSX.Element {
       generatePressureTimeline(get.pistons, get.tankVolume, get.compressor),
     timeline: () => timelineAndDutyCycle.timeline,
     dutyCycle: () => timelineAndDutyCycle.dutyCycle,
-    recommendedTanks: () =>
-      worker.getRecommendedTanks(get.pistons.toDict(), get.compressor.toDict()),
+    // recommendedTanks: () =>
+    //   worker.getRecommendedTanks(get.pistons.toDict(), get.compressor.toDict()),
   };
+
+  // worker
+    // .getRecommendedTanks(get.pistons.toDict(), get.compressor.toDict())
+    // .then((r) => console.log(r));
 
   const [timelineAndDutyCycle, setTimelineAndDutyCycle] = useState(
     calculate.timelineAndDutyCycle()
   );
   const [timeline, setTimeline] = useState(calculate.timeline());
   const [dutyCycle, setDutyCycle] = useState(calculate.dutyCycle());
-  const [recommendedTanks, _error, _state] = usePromise(
-    calculate.recommendedTanks,
-    [get.pistons.pistons, get.compressor]
-  );
+  // const [recommendedTanks, _error, _state] = usePromise(
+  //   calculate.recommendedTanks,
+  //   [get.pistons.pistons, get.compressor]
+  // );
 
   useEffect(() => {
     setTimelineAndDutyCycle(calculate.timelineAndDutyCycle());
@@ -83,14 +87,14 @@ export default function PneumaticsCalculator(): JSX.Element {
         state={get}
         title="Pneumatics Calculator"
       />
-      <Graph
+      {/* <Graph
         options={pneumaticsGraphConfig}
         simpleDatasets={[
           GraphConfig.dataset("System Pressure (psi)", timeline, 0, "y"),
         ]}
         title="System Pressure Over Time"
         id="pneumaticsGraph"
-      />
+      /> */}
       <Columns multiline centered>
         <Column narrow>
           <Button
@@ -133,7 +137,7 @@ export default function PneumaticsCalculator(): JSX.Element {
           </SingleInputLine>
         </Column>
         <Column narrow>
-          <SingleInputLine
+          {/* <SingleInputLine
             label="Recommended KOP Tanks"
             id="recommendedTanks"
             tooltip="The number of 574mL tanks required to not drop below 20psi during a match."
@@ -143,7 +147,7 @@ export default function PneumaticsCalculator(): JSX.Element {
               loadingIf={() => [0, undefined].includes(recommendedTanks)}
               roundTo={0}
             />
-          </SingleInputLine>
+          </SingleInputLine> */}
         </Column>
       </Columns>
 

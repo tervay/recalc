@@ -1,7 +1,7 @@
 import { Button } from "common/components/styling/Building";
 import { Column, usePagination, useSortBy, useTable } from "react-table";
 
-export default function Table<D extends Record<string, unknown>>(props: {
+export default function Table<D extends object>(props: {
   columns: Array<Column<D>>;
   data: D[];
   textCentered?: boolean;

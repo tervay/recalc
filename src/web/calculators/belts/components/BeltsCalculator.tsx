@@ -15,7 +15,7 @@ import Pulley from "common/models/Pulley";
 import { useGettersSetters } from "common/tooling/conversion";
 import { useEffect, useState } from "react";
 import { BeltsParamsV1, BeltsStateV1 } from "web/calculators/belts";
-import InventoryTable from "web/calculators/belts/components/InventoryTable";
+// import InventoryTable from "web/calculators/belts/components/InventoryTable";
 import { PulleyCheatSheet } from "web/calculators/belts/components/PulleyCheatSheet";
 import { BeltState } from "web/calculators/belts/converter";
 import {
@@ -488,11 +488,11 @@ export default function BeltsCalculator(): JSX.Element {
           )}
         </Column>
         <Column>
-          <InventoryTable
+          {/* <InventoryTable
             smallerTeeth={smallerTeeth}
             largerTeeth={get.useCustomBelt ? undefined : largerTeeth}
             pitch={get.pitch}
-          />
+          /> */}
           {cheatSheet}
         </Column>
       </Columns>

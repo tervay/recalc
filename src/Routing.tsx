@@ -55,7 +55,7 @@ function App(): JSX.Element {
                 )}
               />
 
-              <QueryParamProvider ReactRouterRoute={Route}>
+              <QueryParamProvider ReactRouterRoute={Route as any}>
                 <Routable config={beltsConfig} />
                 <Routable config={chainConfig} />
                 <Routable config={pneumaticsConfig} />

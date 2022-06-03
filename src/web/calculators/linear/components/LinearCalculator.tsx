@@ -102,6 +102,19 @@ export default function LinearCalculator(): JSX.Element {
     ]
   );
 
+  console.log(worker.generateTimeToGoalChartData);
+  worker
+
+    .generateTimeToGoalChartData(
+      get.motor.toDict(),
+      get.travelDistance.toDict(),
+      get.spoolDiameter.toDict(),
+      get.load.toDict(),
+      get.ratio.toDict(),
+      get.efficiency
+    )
+    .then((r) => console.log(r));
+
   const currentDrawStates = useAsyncMemo(
     [] as GraphDataPoint[],
     () =>

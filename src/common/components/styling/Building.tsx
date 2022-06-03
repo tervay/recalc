@@ -352,6 +352,7 @@ export function Collapsible(
 export function Markdown(
   props: OptionalChildren & { markdownContent: string }
 ): JSX.Element {
+  console.log(props.markdownContent);
   const content = parse(props.markdownContent);
   const sections = content.map((md) => (
     <Collapsible title={md.title} key={md.title}>
