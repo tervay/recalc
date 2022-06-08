@@ -1,3 +1,4 @@
+bin/
 cred.json
 .env
 testgen.py

@@ -12,6 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: cypress/included:8.7.0
     environment: recalc-prod
 
     strategy:
@@ -37,10 +38,12 @@ jobs:
       - run: yarn --frozen-lockfile
       - run: yarn build
       - name: Run tests
+        if: ${{ !env.ACT }}
         env:
           REACT_APP_KEYPHRASE: ${{ secrets.REACT_APP_KEYPHRASE }}
         run: yarn test --coverage
       - name: Code Coverage Report
+        if: ${{ !env.ACT }}
         uses: romeovs/lcov-reporter-action@v0.2.21
         with:
           lcov-file: ./coverage/lcov.info
