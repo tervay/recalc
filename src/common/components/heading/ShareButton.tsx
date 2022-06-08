@@ -13,7 +13,8 @@ export default function ShareButton<State extends BaseState>(
 ): JSX.Element {
   return (
     <button
-      className="button is-primary has-text-white"
+      className="btn gap-2"
+      // className="button is-primary has-text-white"
       onClick={() =>
         navigator.clipboard.writeText(
           buildUrlForCurrentPage(URLifier(props.queryParams, props.state))

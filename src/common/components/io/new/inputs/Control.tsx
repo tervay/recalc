@@ -14,12 +14,12 @@ function SkippableControlWrapper(props: ControlFieldProps): JSX.Element {
   return props.skipControl ? (
     <>{props.children}</>
   ) : (
-    <div className="field has-addons">{props.children}</div>
+    <div className="">{props.children}</div>
   );
 }
 
 export default function Control(props: ControlFieldProps): JSX.Element {
-  const classes = ["control", getExpandedClass(props)];
+  const classes = [""]; //, getExpandedClass(props)];
   return (
     <SkippableControlWrapper {...props}>
       <div className={classes.join(" ")}>{props.children}</div>

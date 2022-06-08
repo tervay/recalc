@@ -29,21 +29,30 @@ export default function SingleInputLine(props: {
       </Tippy>
     );
 
+  const childDiv = React.cloneElement(props.children, {
+    id: props.id,
+    numberId: props.id,
+    selectId: `select${props.id}`,
+    expanded: true,
+  });
+
   return (
-    <div className={classes.join(" ")}>
-      <div className="field-label is-normal">
-        <label className="label" htmlFor={props.id}>
-          {labelDiv}
-        </label>
-      </div>
-      <div className="field-body">
-        {React.cloneElement(props.children, {
-          id: props.id,
-          numberId: props.id,
-          selectId: `select${props.id}`,
-          expanded: true,
-        })}
-      </div>
+    // <div className={classes.join(" ")}>
+    //   <div className="field-label is-normal">
+    //     <label className="label" htmlFor={props.id}>
+    //       {labelDiv}
+    //     </label>
+    //   </div>
+    //   <div className="field-body">
+    //     {childDiv}
+    //   </div>
+    // </div>
+
+    <div className="form-control">
+      <label className="input-group">
+        <span>{props.label}</span>
+        {childDiv}
+      </label>
     </div>
   );
 }

@@ -1,6 +1,4 @@
-import Control, {
-  makeDefaultControlFieldProps,
-} from "common/components/io/new/inputs/Control";
+import { makeDefaultControlFieldProps } from "common/components/io/new/inputs/Control";
 import L0Number from "common/components/io/new/inputs/L0/L0Number";
 import {
   L1ControlledNumberProps,
@@ -56,24 +54,24 @@ export default function L1ControlledNumber<T>(
   }, [t]);
 
   return (
-    <Control expanded={props.expanded} skipControl={props.skipControl}>
-      <L0Number
-        id={props.id}
-        dangerIf={props.dangerIf}
-        delay={props.delay}
-        disabledIf={props.disabledIf}
-        infoIf={props.infoIf}
-        linkIf={props.linkIf}
-        primaryIf={props.primaryIf}
-        successIf={props.successIf}
-        warningIf={props.warningIf}
-        readonly={props.readonly}
-        roundTo={props.roundTo}
-        rounded={props.rounded}
-        stateHook={[num, setNum]}
-        static={props.static}
-        size={props.size}
-      />
-    </Control>
+    // <Control expanded={props.expanded} skipControl={props.skipControl}>
+    <L0Number
+      id={props.id}
+      dangerIf={props.dangerIf}
+      delay={props.delay}
+      disabledIf={props.disabledIf}
+      infoIf={props.infoIf}
+      linkIf={props.linkIf}
+      primaryIf={props.primaryIf}
+      successIf={props.successIf}
+      warningIf={props.warningIf}
+      readonly={props.readonly}
+      roundTo={props.roundTo}
+      rounded={props.rounded}
+      stateHook={[num, setNum]}
+      static={props.static}
+      size={props.size}
+    />
+    // </Control>
   );
 }

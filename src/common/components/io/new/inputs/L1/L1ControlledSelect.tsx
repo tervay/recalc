@@ -1,6 +1,4 @@
-import Control, {
-  makeDefaultControlFieldProps,
-} from "common/components/io/new/inputs/Control";
+import { makeDefaultControlFieldProps } from "common/components/io/new/inputs/Control";
 import L0Select from "common/components/io/new/inputs/L0/L0Select";
 import {
   L1ControlledSelectProps,
@@ -47,21 +45,21 @@ export default function L1ControlledSelect<T>(
   }, [t]);
 
   return (
-    <Control expanded={props.expanded} skipControl={props.skipControl}>
-      <L0Select
-        id={props.id}
-        choices={props.choices}
-        dangerIf={props.dangerIf}
-        infoIf={props.infoIf}
-        linkIf={props.linkIf}
-        primaryIf={props.primaryIf}
-        successIf={props.successIf}
-        warningIf={props.warningIf}
-        loadingIf={props.loadingIf}
-        rounded={props.rounded}
-        size={props.size}
-        stateHook={[string, setString]}
-      />
-    </Control>
+    // <Control expanded={props.expanded} skipControl={props.skipControl}>
+    <L0Select
+      id={props.id}
+      choices={props.choices}
+      dangerIf={props.dangerIf}
+      infoIf={props.infoIf}
+      linkIf={props.linkIf}
+      primaryIf={props.primaryIf}
+      successIf={props.successIf}
+      warningIf={props.warningIf}
+      loadingIf={props.loadingIf}
+      rounded={props.rounded}
+      size={props.size}
+      stateHook={[string, setString]}
+    />
+    // </Control>
   );
 }

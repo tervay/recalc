@@ -38,7 +38,7 @@ export default function Table<D extends Record<string, unknown>>(props: {
     usePagination
   );
 
-  const classes = ["table"];
+  const classes = ["table", "w-full"];
   if (props.textCentered) {
     classes.push("has-text-centered");
   }
@@ -107,7 +107,7 @@ export default function Table<D extends Record<string, unknown>>(props: {
 
   return (
     <>
-      <div className="table-container">
+      <div className="table-container w-full">
         <table {...getTableProps()} className={classes.join(" ")}>
           <thead>
             {headerGroups.map((headerGroup) => (
@@ -139,7 +139,11 @@ export default function Table<D extends Record<string, unknown>>(props: {
             {showedRows.map((row) => {
               prepareRow(row);
               return (
-                <tr {...row.getRowProps()} key={Math.random()}>
+                <tr
+                  {...row.getRowProps()}
+                  key={Math.random()}
+                  className="hover"
+                >
                   {row.cells.map((cell) => {
                     return (
                       <td

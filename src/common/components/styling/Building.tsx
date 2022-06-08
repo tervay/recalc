@@ -55,7 +55,7 @@ export function Columns(
     desktop?: boolean;
   }
 ): JSX.Element {
-  const classes = ["columns"];
+  const classes = ["grid", `grid-cols-${props.children.length}`];
   if (props.formColumns) {
     classes.push("form-columns");
   }

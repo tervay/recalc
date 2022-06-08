@@ -4,6 +4,20 @@ import "scss/index.css";
 import "scss/index.scss";
 import reportWebVitals from "./reportWebVitals";
 import Routing from "./Routing";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-ignore
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        "recalc-blue": "#006eb6",
+      },
+    },
+    container: {
+      center: true,
+    },
+  },
+};
 
 ReactDOM.render(
   <React.StrictMode>

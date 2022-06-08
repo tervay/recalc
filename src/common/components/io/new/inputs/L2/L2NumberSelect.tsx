@@ -56,7 +56,9 @@ export default function L2NumberSelect<T>(
   };
 
   return (
-    <div className="field has-addons">
+    // <div className="form-control">
+    //   <div className="input-group">
+    <>
       <L1ControlledNumber
         fromNumber={props.fromNumber}
         makeNumber={props.makeNumber}
@@ -74,6 +76,8 @@ export default function L2NumberSelect<T>(
         )}
         skipControl={true}
       />
-    </div>
+    </>
+    //   </div>
+    // </div>
   );
 }
