@@ -45,3 +45,8 @@ jobs:
         with:
           lcov-file: ./coverage/lcov.info
           github-token: ${{ secrets.GH_PAT }}
+      - name: Cypress.io
+        uses: cypress-io/github-action@v4.0.1
+        with:
+          build: yarn build
+          start: yarn start

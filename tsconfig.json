@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": ["dom", "dom.iterable", "esnext", "Webworker"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext",
+      "Webworker"
+    ],
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "src/",
@@ -20,11 +25,17 @@
       {
         "name": "typescript-plugin-css-modules"
       }
+    ],
+    "types": [
+      "cypress"
     ]
   },
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules"
+  ],
   "include": [
     "src",
-    "src/common/components/io/new/inputs/L1/L1ControlledSelect/.tsx"
+    "src/common/components/io/new/inputs/L1/L1ControlledSelect/.tsx",
+    "cypress"
   ]
 }
