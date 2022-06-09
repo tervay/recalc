@@ -61,3 +61,4 @@ jobs:
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          REACT_APP_KEYPHRASE: ${{ secrets.REACT_APP_KEYPHRASE }}
