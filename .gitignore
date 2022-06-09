@@ -2,6 +2,8 @@ bin/
 cred.json
 .env
 testgen.py
+cypress/screenshots/
+cypress/videos/
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 

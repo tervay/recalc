@@ -51,6 +51,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": ". ./.env && react-scripts test",
+    "tests": "start-server-and-test start http://localhost:3000 dev:cypress-run",
     "eject": "react-scripts eject",
     "--------------------------------": "------------------------",
     "dev:analyze": "source-map-explorer 'build/static/js/*.js' --html coverage/src_map_explorer.html",
@@ -58,7 +59,8 @@
     "dev:format": "npx prettier . --write && npx eslint src/ --fix",
     "dev:encrypt": "npx ts-node -O '{\"module\":\"commonjs\"}' scripts/encrypt.ts",
     "dev:webp": "node scripts/webp.mjs",
-    "dev:cypress": "yarn run cypress open"
+    "dev:cypress": "yarn run cypress open",
+    "dev:cypress-run": "yarn run cypress run"
   },
   "eslintConfig": {
     "extends": [
@@ -106,6 +108,7 @@
     "prettier-plugin-organize-imports": "2.3.4",
     "raw-loader": "^4.0.2",
     "source-map-explorer": "^2.5.2",
+    "start-server-and-test": "^1.14.0",
     "type-fest": "^2.13.0",
     "typescript-plugin-css-modules": "^3.4.0"
   }
