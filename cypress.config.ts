@@ -6,5 +6,13 @@ export default defineConfig({
       // implement node event listeners here
     },
   },
+
   projectId: "rq9vfm",
+
+  component: {
+    devServer: {
+      framework: "create-react-app",
+      bundler: "webpack",
+    },
+  },
 });

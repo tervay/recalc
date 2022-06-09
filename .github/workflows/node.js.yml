@@ -48,14 +48,28 @@ jobs:
         with:
           lcov-file: ./coverage/lcov.info
           github-token: ${{ secrets.GH_PAT }}
-      - name: Cypress.io
+      - name: Cypress E2E tests
         uses: cypress-io/github-action@v4.0.1
         with:
-          build: yarn build
           start: yarn start
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
           record: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # Recommended: pass the GitHub token lets this action correctly
+          # determine the unique run id necessary to re-run the checks
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          REACT_APP_KEYPHRASE: ${{ secrets.REACT_APP_KEYPHRASE }}
+      - name: Cypress Component tests
+        uses: cypress-io/github-action@v4.0.1
+        with:
+          install: false
+          start: yarn start
+          wait-on: 'http://localhost:3000'
+          wait-on-timeout: 120
+          record: true
+          component: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # Recommended: pass the GitHub token lets this action correctly

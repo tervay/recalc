@@ -26,9 +26,6 @@
         "name": "typescript-plugin-css-modules"
       }
     ],
-    "types": [
-      "cypress"
-    ]
   },
   "exclude": [
     "node_modules"
@@ -36,6 +33,5 @@
   "include": [
     "src",
     "src/common/components/io/new/inputs/L1/L1ControlledSelect/.tsx",
-    "cypress"
   ]
 }
