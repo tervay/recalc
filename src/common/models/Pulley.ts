@@ -57,6 +57,10 @@ export default class Pulley extends Model {
     );
   }
 
+  toJSON() {
+    return this.toDict();
+  }
+
   toDict(): PulleyDict {
     return {
       teeth: this.teeth,

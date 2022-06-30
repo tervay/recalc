@@ -57,7 +57,7 @@ export function PulleyCheatSheet(props: {
           <tbody>
             {data.map((pulley) => (
               <tr
-                key={JSON.stringify(pulley)}
+                key={Math.random()}
                 className={
                   currentTeeth.includes(pulley.teeth) ? "emphasize-row" : ""
                 }

@@ -1,21 +1,41 @@
 import Belt from "common/models/Belt";
 import Measurement from "common/models/Measurement";
 import Pulley from "common/models/Pulley";
+import {
+  debugAndReturn,
+  useDebugger,
+  useFileLogger,
+  useFunctionLogger,
+} from "common/tooling/logging";
 import { roundToNearestMulitple } from "common/tooling/util";
+
+const fileLogger = useFileLogger("Belts::math");
 
 export function calculateDistance(
   p1: Pulley,
   p2: Pulley,
   belt: Belt
 ): Measurement {
+  const logger = useFunctionLogger(fileLogger, "calculateDistance", {
+    p1,
+    p2,
+    belt,
+  });
+  const debug = useDebugger(logger);
+
   const b = belt.length
     .mul(2)
     .sub(p1.pitchDiameter.add(p2.pitchDiameter).mul(Math.PI));
+  debug({ b });
 
   const pulleyDiff = p1.pitchDiameter.sub(p2.pitchDiameter).abs();
+  debug({ pulleyDiff });
 
   const toSqrt = b.mul(b).sub(pulleyDiff.mul(pulleyDiff).mul(8));
+  debug({ toSqrt });
+
   if (toSqrt.lte(new Measurement(0, "in^2"))) {
+    logger().fail("Returning early");
     return new Measurement(0, "in");
   }
 
@@ -23,8 +43,9 @@ export function calculateDistance(
     Math.sqrt(toSqrt.scalar),
     toSqrt.units().replace("2", "1")
   );
+  debug({ sqrted });
 
-  return b.add(sqrted).div(8);
+  return debugAndReturn(b.add(sqrted).div(8), debug);
 }
 
 export function teethInMesh(

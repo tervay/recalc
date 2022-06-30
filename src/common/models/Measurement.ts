@@ -256,6 +256,10 @@ export default class Measurement extends Model {
     };
   }
 
+  toJSON() {
+    return this.toDict();
+  }
+
   static get GRAVITY(): Measurement {
     return new Measurement(-9.81, "m/s^2");
   }
