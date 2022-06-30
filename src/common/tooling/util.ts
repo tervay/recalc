@@ -86,6 +86,29 @@ export function stringifyMeasurements(
   return ret;
 }
 
+export function JSONifyMeasurements(
+  objs: Record<string, Measurement>
+): Record<string, Record<string, unknown>> {
+  const ret: Record<string, Record<string, unknown>> = {};
+  Object.entries(objs).forEach(([k, v]) => {
+    ret[k] = v.toDict();
+  });
+
+  return ret;
+}
+
 export const fixFloatingPoint = (n: number): number => {
   return Number(n.toFixed(12));
 };
+
+export const wrapString = (raw: string, n: number) =>
+  raw.match(new RegExp(`.{1,${n}}`, "g"))!.join("\n");
+
+export function getCurrentFunctionName(offset = 0): string {
+  const err = new Error();
+  if (err.stack === undefined) {
+    return "UNKNOWN_METHOD";
+  }
+
+  return err.stack.split("\n")[2 + offset].split(" ")[5];
+}

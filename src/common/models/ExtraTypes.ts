@@ -1,6 +1,8 @@
+import Belt from "common/models/Belt";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
 import { MeasurementParam, MotorParam, RatioParam } from "common/models/Params";
+import Pulley from "common/models/Pulley";
 import Ratio from "common/models/Ratio";
 import { Dispatch, SetStateAction } from "react";
 import { BooleanParam, QueryParamConfig } from "serialize-query-params";
@@ -70,3 +72,5 @@ export const deg = (n: number): Measurement => new Measurement(n, "degrees");
 export const V = (n: number): Measurement => new Measurement(n, "V");
 export const Nm = (n: number): Measurement => new Measurement(n, "N m");
 export const W = (n: number): Measurement => new Measurement(n, "W");
+
+export type JSONable = number | string | Measurement | Belt | Pulley;
