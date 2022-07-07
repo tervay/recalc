@@ -54,14 +54,27 @@ export function teethInMesh(
   center: Measurement,
   pulleyToUse: Pulley
 ): number {
+  const logger = useFunctionLogger(fileLogger, "teethInMesh", {
+    p1,
+    p2,
+    center,
+    pulleyToUse,
+  });
   if (center.scalar === 0) {
+    logger().fail("center is zero");
     return 0;
   }
+  const debug = useDebugger(logger);
 
   const D = Measurement.max(p1.pitchDiameter, p2.pitchDiameter);
   const d = Measurement.min(p1.pitchDiameter, p2.pitchDiameter);
+  debug({ D, d });
   const div = D.sub(d).div(center.mul(6));
-  return new Measurement(0.5).sub(div).mul(pulleyToUse.teeth).scalar;
+  debug({ div });
+  return debugAndReturn(
+    new Measurement(0.5).sub(div).mul(pulleyToUse.teeth).scalar,
+    logger
+  );
 }
 
 export function getTIMFactor(teethInMesh: number): number {

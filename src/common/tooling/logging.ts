@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import adze, {
   createShed,
   LabelData,
@@ -7,7 +8,6 @@ import adze, {
   render,
 } from "adze";
 import { JSONable } from "common/models/ExtraTypes";
-import PageConfig from "common/models/PageConfig";
 import isEqual from "lodash/isEqual";
 import lzstring from "lz-string";
 import { wrapString } from "./util";
@@ -74,15 +74,17 @@ class LogCollector {
   }
 
   compress(): string {
-    return wrapString(
-      [
-        ...lzstring.compressToUint8Array(
-          JSON.stringify(this.logs.map((log) => log.render?.[1]))
-        ),
-      ]
-        .map((x) => x.toString(16).padStart(2, "0"))
-        .join(" "),
-      60
+    return (
+      wrapString(
+        [
+          ...lzstring.compressToUint8Array(
+            JSON.stringify(this.logs.map((log) => log.render?.[1]))
+          ),
+        ]
+          .map((x) => x.toString(16).padStart(2, "0"))
+          .join(" "),
+        60
+      ) ?? "Could not wrap string"
     );
   }
 }
@@ -90,7 +92,7 @@ class LogCollector {
 const shed = createShed({ cacheLimit: 9999999 });
 export const logCollector = new LogCollector();
 
-shed.addListener("*", ({ args, label, namespace, meta }, render, printed) => {
+shed.addListener("*", ({ label, namespace, meta }, render, printed) => {
   const collection = shed.getCollection("*");
   const lastLog = collection[collection.length - 1];
 
@@ -120,11 +122,11 @@ export default function useLogger(
   return () => relog().namespace(namespace).label(label);
 }
 
-export function useComponentLogger(
-  pageConfig: PageConfig
-): ReturnType<typeof useLogger> {
-  return useLogger("", "");
-}
+// export function useComponentLogger(
+//   pageConfig: PageConfig
+// ): ReturnType<typeof useLogger> {
+//   return useLogger("", "");
+// }
 
 export function useFileLogger(namespace: string): ReturnType<typeof useLogger> {
   return () => relog().namespace(namespace);

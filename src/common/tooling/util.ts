@@ -102,7 +102,7 @@ export const fixFloatingPoint = (n: number): number => {
 };
 
 export const wrapString = (raw: string, n: number) =>
-  raw.match(new RegExp(`.{1,${n}}`, "g"))!.join("\n");
+  raw.match(new RegExp(`.{1,${n}}`, "g"))?.join("\n");
 
 export function getCurrentFunctionName(offset = 0): string {
   const err = new Error();

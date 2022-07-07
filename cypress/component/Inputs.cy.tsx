@@ -280,9 +280,11 @@ describe("L0 Inputs", () => {
           />
         );
 
-        cy.get("select").select("Bar").then((_) => {
-          expect(spy).to.have.been.calledWith("Bar");
-        })
+        cy.get("select")
+          .select("Bar")
+          .then((_) => {
+            expect(spy).to.have.been.calledWith("Bar");
+          });
       });
     });
   });
