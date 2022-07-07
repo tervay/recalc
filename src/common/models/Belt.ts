@@ -57,7 +57,7 @@ export default class Belt extends Model {
     );
   }
 
-  toJSON() {
+  toJSON(): Record<string, unknown> {
     return this.toDict();
   }
 

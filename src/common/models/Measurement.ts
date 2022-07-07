@@ -256,7 +256,7 @@ export default class Measurement extends Model {
     };
   }
 
-  toJSON() {
+  toJSON(): MeasurementDict {
     return this.toDict();
   }
 
