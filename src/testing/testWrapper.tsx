@@ -93,7 +93,7 @@ export default function testWrapper<
       });
     });
 
-  describe(`${details.name} auto-generated test suite`, () => {
+  describe.skip(`${details.name} auto-generated test suite`, () => {
     test("Everything is visible", async () => {
       await prep();
 
