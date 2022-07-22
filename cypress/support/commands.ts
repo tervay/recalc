@@ -45,6 +45,11 @@ declare global {
        * @example cy.dataCy('greeting')
        */
       dataCy(value: string): Chainable;
+      getByTestId(value: string): Chainable;
     }
   }
 }
+
+Cypress.Commands.add("getByTestId", (selector, ...args) => {
+  return cy.get(`[data-testid=${selector}]`, ...args);
+});

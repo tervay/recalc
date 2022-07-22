@@ -4,7 +4,7 @@
     "strict": true,
     "baseUrl": "../src",
     "target": "es5",
-    "lib": ["es5", "dom"],
+    "lib": ["dom", "dom.iterable", "esnext", "Webworker"],
     "types": ["cypress"],
     "esModuleInterop": true
   },
