@@ -38,8 +38,10 @@
   &:hover {
     background-color: $g1;
     border: 1px solid $g3;
-    @extend .scale-down-center;
+    transform: scale(0.97);
   }
+
+  transition: 0.15s;
 }
 
 .recalc-switch {
