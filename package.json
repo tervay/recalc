@@ -46,7 +46,7 @@
     "ts-toolbelt": "^9.6.0",
     "typescript": "^4.7.4",
     "use-query-params": "^1.2.2",
-    "web-vitals": "^2.1.4",
+    "web-vitals": "^3.0.1",
     "workerize-loader": "^1.3.0"
   },
   "scripts": {
