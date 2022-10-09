@@ -128,5 +128,15 @@
     "weight": { "magnitude": 0.5158, "unit": "lbs" },
     "diameter": { "magnitude": 1.45, "unit": "in" },
     "url": "https://www.revrobotics.com/REV-41-1291/"
+  },
+  {
+    "name": "Core Hex",
+    "freeSpeed": { "magnitude": 125, "unit": "rpm" },
+    "stallTorque": { "magnitude": 3.2, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 4.4, "unit": "A" },
+    "freeCurrent": { "magnitude": 0.5, "unit": "A" },
+    "weight": { "magnitude": 0.4375, "unit": "lbs" },
+    "diameter": { "magnitude": 1.5, "unit": "in" },
+    "url": "https://www.revrobotics.com/rev-41-1300/"
   }
 ]
