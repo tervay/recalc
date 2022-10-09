@@ -118,5 +118,15 @@
     "weight": { "magnitude": 1.1, "unit": "lbs" },
     "diameter": { "magnitude": 2.54, "unit": "in" },
     "url": "https://www.andymark.com/products/snow-blower-motor-with-hex-shaft"
+  },
+  {
+    "name": "HD Hex",
+    "freeSpeed": { "magnitude": 6000, "unit": "rpm" },
+    "stallTorque": { "magnitude": 0.105, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 8.5, "unit": "A" },
+    "freeCurrent": { "magnitude": 0.4, "unit": "A" },
+    "weight": { "magnitude": 0.5158, "unit": "lbs" },
+    "diameter": { "magnitude": 1.45, "unit": "in" },
+    "url": "https://www.revrobotics.com/REV-41-1291/"
   }
 ]
