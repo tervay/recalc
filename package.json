@@ -24,7 +24,7 @@
     "crypto-js": "^4.1.1",
     "google-spreadsheet": "^3.3.0",
     "js-quantities": "^1.7.6",
-    "katex": "^0.16.2",
+    "katex": "^0.16.3",
     "konva": "^8.3.6",
     "lodash": "^4.17.21",
     "lz-string": "^1.4.4",
