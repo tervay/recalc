@@ -109,7 +109,7 @@
     "imagemin": "^8.0.1",
     "imagemin-webp": "^7.0.0",
     "prettier": "^2.7.1",
-    "prettier-plugin-organize-imports": "3.1.1",
+    "prettier-plugin-organize-imports": "3.2.0",
     "raw-loader": "^4.0.2",
     "source-map-explorer": "^2.5.3",
     "start-server-and-test": "^1.14.0",
