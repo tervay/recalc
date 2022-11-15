@@ -29,6 +29,7 @@
     "lodash": "^4.17.21",
     "lz-string": "^1.4.4",
     "marked": "^4.2.2",
+    "ml-matrix": "^6.10.4",
     "node-sass": "^7.0.3",
     "query-string": "^7.1.1",
     "react": "^17.0.2",
