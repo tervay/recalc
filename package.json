@@ -84,7 +84,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/runtime": "^7.20.0",
+    "@babel/runtime": "^7.20.1",
     "@jedmao/location": "^3.0.0",
     "@types/crypto-js": "^4.1.1",
     "@types/google-spreadsheet": "^3.2.2",
