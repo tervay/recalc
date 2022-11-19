@@ -109,7 +109,7 @@ shed.addListener("*", ({ label, namespace, meta }, render, printed) => {
 
 const relog = adze({
   useEmoji: false,
-  machineReadable: process.env.environment === "production",
+  machineReadable: import.meta.env.PROD,
   captureStacktrace: false,
   terminalColorFidelity: 3,
   logLevel: 20,

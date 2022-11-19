@@ -47,7 +47,7 @@ export default abstract class Inventory<
     this.authCb = authCallback;
     this.offlineData = offlineData;
 
-    this.worksheetName = `${name}_${process.env.NODE_ENV}`;
+    this.worksheetName = `${name}_development`;
     this.spreadsheet = new GoogleSpreadsheet(spreadsheetId);
     this.worksheet = undefined;
   }

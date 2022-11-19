@@ -5,6 +5,7 @@ import Compressor, {
 } from "common/models/Compressor";
 import Measurement from "common/models/Measurement";
 import PistonList, { PistonListDict } from "common/models/PistonList";
+import { expose } from "common/tooling/promise-worker";
 
 type Timeline = { x: number; y: number }[];
 type TimelineAndDutyCycle = {
@@ -108,3 +109,12 @@ export function getRecommendedTanks(
     }
   }
 }
+
+const workerFunctions = {
+  generatePressureTimeline,
+  getRecommendedTanks,
+};
+
+expose(workerFunctions);
+type PneumaticWorkerFunctions = typeof workerFunctions;
+export type { PneumaticWorkerFunctions };

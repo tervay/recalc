@@ -2,6 +2,7 @@ import { GraphDataPoint } from "common/components/graphing/graphConfig";
 import Measurement, { MeasurementDict } from "common/models/Measurement";
 import Motor, { MotorDict } from "common/models/Motor";
 import Ratio, { RatioDict } from "common/models/Ratio";
+import { expose } from "common/tooling/promise-worker";
 import { fixFloatingPoint } from "common/tooling/util";
 
 export function calculateUnloadedSpeed(
@@ -167,3 +168,17 @@ export function generateCurrentDrawChartData(
 
   return data;
 }
+
+const workerFunctions = {
+  calculateCurrentDraw,
+  calculateDragLoad,
+  calculateLoadedSpeed,
+  calculateTimeToGoal,
+  calculateUnloadedSpeed,
+  generateCurrentDrawChartData,
+  generateTimeToGoalChartData,
+};
+
+expose(workerFunctions);
+type LinearWorkerFunctions = typeof workerFunctions;
+export type { LinearWorkerFunctions };

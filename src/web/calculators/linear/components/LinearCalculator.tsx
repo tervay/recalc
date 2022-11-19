@@ -16,6 +16,7 @@ import { Column, Columns } from "common/components/styling/Building";
 import { useAsyncMemo } from "common/hooks/useAsyncMemo";
 import Measurement from "common/models/Measurement";
 import { useGettersSetters } from "common/tooling/conversion";
+import { wrap } from "common/tooling/promise-worker";
 import { useMemo } from "react";
 import {
   linearGraphConfig,
@@ -29,18 +30,19 @@ import {
   calculateLoadedSpeed,
   calculateTimeToGoal,
   calculateUnloadedSpeed,
+  LinearWorkerFunctions,
 } from "web/calculators/linear/linearMath";
+import rawWorker from "web/calculators/linear/linearMath?worker";
 import KgKvKaDisplay from "web/calculators/shared/components/KgKvKaDisplay";
 import {
   calculateKa,
   calculateKg,
   calculateKv,
 } from "web/calculators/shared/sharedMath";
-import { useLinearWorker } from "web/calculators/workers";
+
+const worker = await wrap<LinearWorkerFunctions>(new rawWorker());
 
 export default function LinearCalculator(): JSX.Element {
-  const worker = useLinearWorker();
-
   const [get, set] = useGettersSetters(LinearState.getState() as LinearStateV1);
 
   const unloadedSpeed = useMemo(

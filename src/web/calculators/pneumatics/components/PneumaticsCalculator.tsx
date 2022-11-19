@@ -11,6 +11,7 @@ import Measurement from "common/models/Measurement";
 import Piston from "common/models/Piston";
 import PistonList, { getNumberFromPistonName } from "common/models/PistonList";
 import { useGettersSetters } from "common/tooling/conversion";
+import { wrap } from "common/tooling/promise-worker";
 import { getRandomInteger, NoOp } from "common/tooling/util";
 import { useEffect, useState } from "react";
 import usePromise from "react-use-promise";
@@ -20,8 +21,13 @@ import {
   PneumaticsStateV1,
 } from "web/calculators/pneumatics";
 import { PneumaticsState } from "web/calculators/pneumatics/converter";
-import { generatePressureTimeline } from "web/calculators/pneumatics/math";
-import { usePneumaticsWorker } from "web/calculators/workers";
+import {
+  generatePressureTimeline,
+  PneumaticWorkerFunctions,
+} from "web/calculators/pneumatics/math";
+import rawWorker from "web/calculators/pneumatics/math?worker";
+
+const worker = await wrap<PneumaticWorkerFunctions>(new rawWorker());
 
 const defaultPiston = (pl: PistonList) => {
   const maxFound = Math.max(
@@ -46,7 +52,6 @@ export default function PneumaticsCalculator(): JSX.Element {
   const [get, set] = useGettersSetters(
     PneumaticsState.getState() as PneumaticsStateV1
   );
-  const worker = usePneumaticsWorker();
 
   const calculate = {
     timelineAndDutyCycle: () =>

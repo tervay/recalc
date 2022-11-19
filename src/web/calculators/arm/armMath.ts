@@ -6,6 +6,7 @@ import Motor, {
 } from "common/models/Motor";
 import Ratio, { RatioDict } from "common/models/Ratio";
 import { MotorRules } from "common/models/Rules";
+import { expose } from "common/tooling/promise-worker";
 
 function calculateArmTorque(
   comLength: Measurement,
@@ -146,3 +147,15 @@ export function calculateArmStates(
 
   return states;
 }
+
+const workerFunctions = {
+  calculateArmInertia,
+  calculateArmTorque,
+  calculateSpringConstant,
+  calculateMaximumStringArmMountingDistance,
+  calculateArmStates,
+};
+
+expose(workerFunctions);
+type ArmWorkerFunctions = typeof workerFunctions;
+export type { ArmWorkerFunctions };

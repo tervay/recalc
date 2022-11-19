@@ -9,7 +9,7 @@ type Credentials =
     }
   | undefined;
 
-const keyphrase = process.env.REACT_APP_KEYPHRASE;
+const keyphrase = import.meta.env.VITE_KEYPHRASE;
 const credentials: Credentials =
   keyphrase === undefined
     ? undefined
