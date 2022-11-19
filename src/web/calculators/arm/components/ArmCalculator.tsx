@@ -13,9 +13,14 @@ import { Column, Columns, Message } from "common/components/styling/Building";
 import { useAsyncMemo } from "common/hooks/useAsyncMemo";
 import Measurement from "common/models/Measurement";
 import { useGettersSetters } from "common/tooling/conversion";
+import { wrap } from "common/tooling/promise-worker";
 import { useMemo, useState } from "react";
 import { armGraphConfig, ArmParamsV1, ArmStateV1 } from "web/calculators/arm";
-import { MomentaryArmState } from "web/calculators/arm/armMath";
+import {
+  ArmWorkerFunctions,
+  MomentaryArmState,
+} from "web/calculators/arm/armMath";
+import rawWorker from "web/calculators/arm/armMath?worker";
 import { ArmState } from "web/calculators/arm/converter";
 import KgKvKaDisplay from "web/calculators/shared/components/KgKvKaDisplay";
 import {
@@ -23,11 +28,11 @@ import {
   calculateKg,
   calculateKv,
 } from "web/calculators/shared/sharedMath";
-import { useArmWorker } from "web/calculators/workers";
+
+const worker = await wrap<ArmWorkerFunctions>(new rawWorker());
 
 export default function ArmCalculator(): JSX.Element {
   const [get, set] = useGettersSetters(ArmState.getState() as ArmStateV1);
-  const worker = useArmWorker();
 
   const [isCalculating, setIsCalculating] = useState(true);
 

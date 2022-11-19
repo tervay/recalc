@@ -4,7 +4,7 @@ import Measurement from "common/models/Measurement";
 import usePromise from "react-use-promise";
 
 const vbg = new VBeltGuysInventory({
-  allowAuth: true,
+  allowAuth: false,
   authCb: null,
   offlineData: null,
 });
