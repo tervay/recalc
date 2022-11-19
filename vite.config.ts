@@ -16,6 +16,9 @@ export default defineConfig({
     port: 3000,
   },
   plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
+  worker: {
+    plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
+  },
   resolve: {
     alias: {
       // This Rollup aliases are extracted from @esbuild-plugins/node-modules-polyfill,
@@ -52,6 +55,7 @@ export default defineConfig({
       zlib: "rollup-plugin-node-polyfills/polyfills/zlib",
       tty: "rollup-plugin-node-polyfills/polyfills/tty",
       domain: "rollup-plugin-node-polyfills/polyfills/domain",
+      process: "rollup-plugin-node-polyfills/polyfills/process-es6",
     },
   },
   optimizeDeps: {
