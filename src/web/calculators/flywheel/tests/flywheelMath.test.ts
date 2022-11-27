@@ -11,6 +11,7 @@ import {
 } from "common/models/ExtraTypes";
 import Motor from "common/models/Motor";
 import Ratio, { RatioType } from "common/models/Ratio";
+import { describe, expect, test } from "vitest";
 import {
   calculateFlywheelEnergy,
   calculateProjectileEnergy,
