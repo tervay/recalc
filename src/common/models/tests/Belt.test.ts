@@ -1,5 +1,6 @@
 import Belt from "common/models/Belt";
 import { mm } from "common/models/ExtraTypes";
+import { describe, expect, test } from "vitest";
 import Measurement from "../Measurement";
 
 const testCases = [

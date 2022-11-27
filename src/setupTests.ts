@@ -1,12 +1,14 @@
-// jest-dom adds custom jest matchers for asserting on DOM nodes.
-// allows you to do things like:
-// expect(element).toHaveTextContent(/react/i)
-// learn more: https://github.com/testing-library/jest-dom
-import "@testing-library/jest-dom";
-import "@testing-library/jest-dom/extend-expect";
 import Measurement from "common/models/Measurement";
 import Model from "common/models/Model";
 import calcMatchers from "testing/calculatorMatchers";
+import { expect } from "vitest";
+
+const _oldLog = console.debug;
+console.debug = (...msg) => {
+  if (!msg[0].includes("Debug(2)")) {
+    _oldLog(...msg);
+  }
+};
 
 export interface Result {
   pass: boolean;

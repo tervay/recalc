@@ -2,6 +2,7 @@ import { A, deg, inch, lb, Nm, rpm, s, V, W } from "common/models/ExtraTypes";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
 import Ratio, { RatioType } from "common/models/Ratio";
+import { describe, expect, test } from "vitest";
 import {
   calculateArmStates,
   calculateMaximumStringArmMountingDistance,
@@ -66,7 +67,7 @@ describe("armMath", () => {
       ).toBeCloseToMeasurement(expected);
     }
   );
-  test.only.each([
+  test.each([
     {
       motor_: Motor.CIMs(3).toDict(),
       ratio_: new Ratio(100, RatioType.REDUCTION).toDict(),

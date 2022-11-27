@@ -4,10 +4,9 @@ import VBeltGuysInventory, {
   VBeltGuysResult,
 } from "common/models/inventories/VBeltGuysInventory";
 import { NoOp } from "common/tooling/util";
+import { describe, expect, test, vi } from "vitest";
 
 describe("VBeltGuysInventory", () => {
-  jest.setTimeout(20 * 1000);
-
   test.each([
     {
       belt: Belt.fromTeeth(200, mm(3), mm(9)),
@@ -21,9 +20,13 @@ describe("VBeltGuysInventory", () => {
       belt: Belt.fromTeeth(100, mm(3), mm(9)),
       url: "https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt",
     },
-  ])("objToUrl", ({ belt, url }) => {
-    expect(new VBeltGuysInventory().makeUrl(belt)).toEqual(url);
-  });
+  ])(
+    "objToUrl",
+    ({ belt, url }) => {
+      expect(new VBeltGuysInventory().makeUrl(belt)).toEqual(url);
+    },
+    { timeout: 20 * 1000 }
+  );
 
   test.each([
     {
@@ -125,7 +128,7 @@ describe("VBeltGuysInventory", () => {
       offlineData: [],
       allowAuth: true,
       authCb: async (i) => {
-        const spy = jest
+        const spy = vi
           .spyOn(i, "writeToSheet")
           .mockImplementation((_) => new Promise((resolve) => resolve()));
 
@@ -139,7 +142,7 @@ describe("VBeltGuysInventory", () => {
           "https://www.vbeltguys.com/products/600-3m-09-synchronous-timing-belt",
           "200",
         ]);
-        done();
+        // done();
       },
     });
 
@@ -164,7 +167,7 @@ describe("VBeltGuysInventory", () => {
         });
 
         await rows[rows.length - 1].delete();
-        done();
+        // done();
       },
       offlineData: [],
     });
