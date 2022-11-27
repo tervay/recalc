@@ -6,6 +6,10 @@ export default defineConfig({
   test: {
     setupFiles: ["./src/setupTests.ts"],
     environment: "jsdom",
+    coverage: {
+      provider: "istanbul",
+      exclude: ["**/*.tsx"],
+    },
   },
   plugins: [viteTsconfigPaths(), react()],
 });
