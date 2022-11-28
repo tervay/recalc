@@ -865,6 +865,11 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
+"@buge/ts-units@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@buge/ts-units/-/ts-units-1.2.1.tgz#ca8a074a8a23553a93f9ef9261c4663cd694f2d1"
+  integrity sha512-zhJXNXWeyKQMNoCUdx8LwBqOqBytASbSFmETqzZJKPr/jtZrGeSDhQa0V40d53g5t+0//crxIi4LGekzx6OfdA==
+
 "@colors/colors@1.5.0":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
