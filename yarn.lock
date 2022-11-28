@@ -8122,10 +8122,10 @@ vite-plugin-svgr@^2.2.2:
     "@rollup/pluginutils" "^5.0.0"
     "@svgr/core" "^6.4.0"
 
-vite-plugin-top-level-await@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/vite-plugin-top-level-await/-/vite-plugin-top-level-await-1.2.1.tgz#c62785388786a73a639659a5d1f60b7dc773340d"
-  integrity sha512-zcWT63N+N9lLIKuBIjmRd4Iufx62AGorLu/RDmMwm40ZsGNllP1Q0jObF3Mjqe6OByj+0vjy1LH/pupr5yWGgw==
+vite-plugin-top-level-await@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/vite-plugin-top-level-await/-/vite-plugin-top-level-await-1.2.2.tgz#11d33d3423ce9d5aebdedf62a9033cb0c91cfd85"
+  integrity sha512-JBuY9X5KCxZyzwQUOIBpgX0Jbe2BECxwElWPeyrdRC5xaWzDibTG65QBW25COmwqHBeVlV04u8GTlJkuOWhfgw==
   dependencies:
     "@swc/core" "^1.3.10"
 
