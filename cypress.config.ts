@@ -8,11 +8,10 @@ export default defineConfig({
   },
 
   projectId: "rq9vfm",
-
   component: {
     devServer: {
-      framework: "create-react-app",
-      bundler: "webpack",
+      framework: "react",
+      bundler: "vite",
     },
   },
 });

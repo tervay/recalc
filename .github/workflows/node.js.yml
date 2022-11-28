@@ -1,7 +1,4 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
-name: Node.js CI
+name: Node CI
 
 on:
   push:
@@ -10,22 +7,22 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  install:
     runs-on: ubuntu-latest
-    container: cypress/included:8.7.0
+    container: cypress/included:10.11.0
     environment: recalc-prod
 
     strategy:
       matrix:
         node-version: [14.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
+
       - name: Cache Node.js modules
         uses: actions/cache@v2
         with:
@@ -35,44 +32,48 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
+
       - run: yarn install
+
       - run: yarn build
+
       - name: Run tests
-        if: ${{ !env.ACT }}
         env:
-          REACT_APP_KEYPHRASE: ${{ secrets.REACT_APP_KEYPHRASE }}
+          VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
         run: yarn test --coverage
-      - name: Code Coverage Report
+
+      - name: Post coverage report
         if: ${{ !env.ACT }}
         uses: romeovs/lcov-reporter-action@v0.2.21
         with:
           lcov-file: ./coverage/lcov.info
           github-token: ${{ secrets.GH_PAT }}
-      - name: Cypress E2E tests
-        uses: cypress-io/github-action@v4.0.1
-        with:
-          start: yarn start
-          wait-on: "http://localhost:3000"
-          wait-on-timeout: 120
-          record: true
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # Recommended: pass the GitHub token lets this action correctly
-          # determine the unique run id necessary to re-run the checks
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-          REACT_APP_KEYPHRASE: ${{ secrets.REACT_APP_KEYPHRASE }}
-      - name: Cypress Component tests
-        uses: cypress-io/github-action@v4.0.1
+
+      - name: Cypress e2e tests
+        uses: cypress-io/github-action@v4.2.0
         with:
           install: false
           start: yarn start
           wait-on: "http://localhost:3000"
-          wait-on-timeout: 120
-          record: true
-          component: true
+          wait-on-timeout: 60
+          record: false
+          spec: cypress/e2e/*
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # Recommended: pass the GitHub token lets this action correctly
-          # determine the unique run id necessary to re-run the checks
+          VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-          REACT_APP_KEYPHRASE: ${{ secrets.REACT_APP_KEYPHRASE }}
+
+      - name: Cypress component tests
+        uses: cypress-io/github-action@v4.2.0
+        with:
+          install: false
+          start: yarn start
+          wait-on: "http://localhost:3000"
+          wait-on-timeout: 60
+          record: false
+          component: true
+          spec: cypress/component/*
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
