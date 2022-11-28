@@ -7,7 +7,8 @@
   },
   "extends": [
     "plugin:@typescript-eslint/recommended",
-    "plugin:cypress/recommended"
+    "plugin:cypress/recommended",
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["react", "@typescript-eslint", "cypress"],

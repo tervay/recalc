@@ -57,12 +57,16 @@
     "dev:logs": "npx ts-node -O '{\"module\":\"commonjs\"}' scripts/decodeLogs.ts",
     "dev:webp": "node scripts/webp.mjs",
     "dev:cypress": "yarn run cypress open",
-    "dev:cypress-run": "yarn run cypress run"
+    "dev:cypress-run": "yarn run cypress run",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
       "react-app"
     ]
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   },
   "browserslist": {
     "production": [
@@ -100,12 +104,15 @@
     "babel-preset-react-app": "7.0.0",
     "cypress": "^10.11.0",
     "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.10",
+    "husky": "^8.0.2",
     "imagemin": "^8.0.1",
     "imagemin-webp": "^7.0.0",
     "jsdom": "^20.0.3",
+    "lint-staged": "^13.0.4",
     "prettier": "^2.7.1",
     "prettier-plugin-organize-imports": "3.2.1",
     "rollup-plugin-polyfill-node": "^0.11.0",
