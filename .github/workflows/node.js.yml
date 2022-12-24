@@ -77,3 +77,20 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
+  deploy:
+    environment: recalc-prod
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      #  your build commands
+      # - run: |
+      #     yarn build
+      - uses: amondnet/vercel-action@v20 #deploy
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+          github-token: ${{ secrets.GITHUB_TOKEN }} #Optional
+          # vercel-args: "--prod" #Optional
+          vercel-org-id: ${{ secrets.ORG_ID}} #Required
+          vercel-project-id: ${{ secrets.PROJECT_ID}} #Required
+
