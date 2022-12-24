@@ -9,6 +9,8 @@ on:
 jobs:
   Deploy-Preview:
     runs-on: ubuntu-latest
+    environment: recalc-prod
+
     steps:
       - uses: actions/checkout@v2
       - name: Install Vercel CLI
