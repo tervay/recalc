@@ -1,0 +1,144 @@
+name: New Node CI
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+env:
+  NODE_VERSION: "14"
+  UBUNTU_VERSION: "ubuntu-22.04"
+
+jobs:
+  unit_tests:
+    runs-on: ${{ env.UBUNTU_VERSION }}
+    environment: recalc-prod
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+
+      - name: Run tests
+        env:
+          VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
+        run: yarn test --coverage
+
+  cypress_e2e:
+    runs-on: ${{ env.UBUNTU_VERSION }}
+    environment: recalc-prod
+    container: cypress/included:10.11.0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+
+      - name: Cypress e2e tests
+        uses: cypress-io/github-action@v4.2.0
+        with:
+          install: false
+          start: yarn start
+          wait-on: "http://localhost:3000"
+          wait-on-timeout: 60
+          record: false
+          spec: cypress/e2e/*
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
+  cypress_component:
+    runs-on: ${{ env.UBUNTU_VERSION }}
+    environment: recalc-prod
+    container: cypress/included:10.11.0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+
+      - name: Cypress component tests
+        uses: cypress-io/github-action@v4.2.0
+        with:
+          install: false
+          start: yarn start
+          wait-on: "http://localhost:3000"
+          wait-on-timeout: 60
+          record: false
+          component: true
+          spec: cypress/component/*
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
+  deploy_dev:
+    runs-on: ${{ env.UBUNTU_VERSION }}
+    environment: recalc-prod
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+
+      - name: "Vercel dev deploy"
+        uses: amondnet/vercel-action@v20 #deploy
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+          github-token: ${{ secrets.GITHUB_TOKEN }} #Optional
+          # vercel-args: "--prod" #Optional
+          vercel-org-id: ${{ secrets.ORG_ID}} #Required
+          vercel-project-id: ${{ secrets.PROJECT_ID}} #Required
