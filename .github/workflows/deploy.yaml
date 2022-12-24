@@ -1,0 +1,41 @@
+name: Vercel Deploy Prod
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy_prod:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+
+      - run: yarn install
+
+      - run: yarn build
+
+      - name: "Vercel dev deploy"
+        uses: amondnet/vercel-action@v20 #deploy
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+          github-token: ${{ secrets.GH_PAT }} #Optional
+          vercel-args: "--prod" #Optional
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID}} #Required
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
