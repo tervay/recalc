@@ -28,6 +28,10 @@ jobs:
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
 
+      - run: yarn install
+
+      - run: yarn build
+
       - name: Run tests
         env:
           VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
@@ -55,6 +59,10 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
+
+      - run: yarn install
+
+      - run: yarn build
 
       - name: Cypress e2e tests
         uses: cypress-io/github-action@v4.2.0
@@ -93,6 +101,10 @@ jobs:
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
 
+      - run: yarn install
+
+      - run: yarn build
+
       - name: Cypress component tests
         uses: cypress-io/github-action@v4.2.0
         with:
@@ -129,6 +141,10 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
+
+      - run: yarn install
+
+      - run: yarn build
 
       - name: "Vercel dev deploy"
         uses: amondnet/vercel-action@v20 #deploy
