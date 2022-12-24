@@ -30,6 +30,8 @@ jobs:
       - run: yarn install
 
       - run: yarn build
+        env:
+          VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
 
       - name: Run tests
         env:
@@ -61,6 +63,8 @@ jobs:
       - run: yarn install
 
       - run: yarn build
+        env:
+          VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
 
       - name: Cypress e2e tests
         uses: cypress-io/github-action@v4.2.0
@@ -101,6 +105,8 @@ jobs:
       - run: yarn install
 
       - run: yarn build
+        env:
+          VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
 
       - name: Cypress component tests
         uses: cypress-io/github-action@v4.2.0
@@ -141,6 +147,8 @@ jobs:
       - run: yarn install
 
       - run: yarn build
+        env:
+          VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
 
       - name: "Vercel dev deploy"
         uses: amondnet/vercel-action@v20 #deploy
@@ -150,3 +158,4 @@ jobs:
           # vercel-args: "--prod" #Optional
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}} #Required
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
+          github-comment: true
