@@ -1,0 +1,9 @@
+{
+  "public": false,
+  "git": {
+    "deploymentEnabled": {
+      "main": false
+    }
+  },
+  "outputDirectory": "build"
+}
