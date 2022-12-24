@@ -5,22 +5,18 @@ on:
     branches-ignore:
       - main
 
-env:
-  NODE_VERSION: "14"
-  UBUNTU_VERSION: "ubuntu-22.04"
-
 jobs:
   unit_tests:
-    runs-on: ${{ env.UBUNTU_VERSION }}
+    runs-on: ubuntu-22.04
     environment: recalc-prod
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup Node ${{ env.NODE_VERSION }}
+      - name: Setup Node 14
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: 14
 
       - name: Cache Node.js modules
         uses: actions/cache@v2
@@ -38,17 +34,17 @@ jobs:
         run: yarn test --coverage
 
   cypress_e2e:
-    runs-on: ${{ env.UBUNTU_VERSION }}
+    runs-on: ubuntu-22.04
     environment: recalc-prod
     container: cypress/included:10.11.0
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup Node ${{ env.NODE_VERSION }}
+      - name: Setup Node 14
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: 14
 
       - name: Cache Node.js modules
         uses: actions/cache@v2
@@ -75,17 +71,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
   cypress_component:
-    runs-on: ${{ env.UBUNTU_VERSION }}
+    runs-on: ubuntu-22.04
     environment: recalc-prod
     container: cypress/included:10.11.0
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup Node ${{ env.NODE_VERSION }}
+      - name: Setup Node 14
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: 14
 
       - name: Cache Node.js modules
         uses: actions/cache@v2
@@ -113,16 +109,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
   deploy_dev:
-    runs-on: ${{ env.UBUNTU_VERSION }}
+    runs-on: ubuntu-22.04
     environment: recalc-prod
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup Node ${{ env.NODE_VERSION }}
+      - name: Setup Node 14
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: 14
 
       - name: Cache Node.js modules
         uses: actions/cache@v2
