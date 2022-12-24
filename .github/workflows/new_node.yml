@@ -8,7 +8,6 @@ on:
 jobs:
   unit_tests:
     runs-on: ubuntu-22.04
-    environment: recalc-prod
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -39,7 +38,6 @@ jobs:
 
   cypress_e2e:
     runs-on: ubuntu-22.04
-    environment: recalc-prod
     container: cypress/included:10.11.0
     steps:
       - name: Checkout
@@ -80,7 +78,6 @@ jobs:
 
   cypress_component:
     runs-on: ubuntu-22.04
-    environment: recalc-prod
     container: cypress/included:10.11.0
     steps:
       - name: Checkout
@@ -122,7 +119,6 @@ jobs:
 
   deploy_dev:
     runs-on: ubuntu-22.04
-    environment: recalc-prod
     steps:
       - name: Checkout
         uses: actions/checkout@v2
