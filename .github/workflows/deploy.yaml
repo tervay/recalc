@@ -1,4 +1,4 @@
-name: Vercel Deploy Prod
+name: Deploy (Prod)
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 jobs:
   deploy_prod:
     runs-on: ubuntu-22.04
+    environment: recalc-env
     steps:
       - name: Checkout
         uses: actions/checkout@v2
