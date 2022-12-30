@@ -1,4 +1,4 @@
-name: New Node CI
+name: Web CI
 
 on:
   push:
