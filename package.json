@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   },
   "dependencies": {
     "@creativebulma/bulma-divider": "^1.1.0",
@@ -47,8 +47,6 @@
     "build": "tsc && vite build",
     "serve": "vite preview",
     "test": ". ./.env && vitest",
-    "tests": "start-server-and-test start http://localhost:3000 dev:cypress-run",
-    "eject": "react-scripts eject",
     "--------------------------------": "------------------------",
     "dev:analyze": "source-map-explorer 'build/static/js/*.js' --html coverage/src_map_explorer.html",
     "dev:coverage": "yarn test --coverage --watchAll=false",
