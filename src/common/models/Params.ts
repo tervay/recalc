@@ -8,6 +8,7 @@ import MotorPlaygroundList, {
 import PistonList, { PistonListDict } from "common/models/PistonList";
 import Pulley, { PulleyDict } from "common/models/Pulley";
 import Ratio, { RatioDict } from "common/models/Ratio";
+import RatioPairList, { RatioPairDict } from "common/models/RatioPair";
 import { decodeJson, encodeJson } from "use-query-params";
 
 export type ParamValue = number | Motor | Measurement | Pulley;
@@ -37,6 +38,19 @@ export const RatioParam = {
     }
 
     return Ratio.fromDict(decodeJson(s) as RatioDict);
+  },
+};
+
+export const RatioPairParam = {
+  encode: (r: RatioPairList): DecodableString => {
+    return encodeJson(r.toDict());
+  },
+  decode: (s: DecodableString): RatioPairList | null => {
+    if (s === null || s === undefined) {
+      return null;
+    }
+
+    return RatioPairList.fromDict(decodeJson(s) as RatioPairDict);
   },
 };
 
