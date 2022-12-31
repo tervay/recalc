@@ -99,7 +99,7 @@
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
     "@vitejs/plugin-react": "^2.2.0",
-    "@vitest/coverage-istanbul": "^0.25.3",
+    "@vitest/coverage-istanbul": "^0.26.2",
     "cypress": "^10.11.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.5.0",
