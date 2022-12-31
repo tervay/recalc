@@ -18,7 +18,9 @@ jobs:
         with:
           node-version: 14
 
-      - run: yarn install
+      - run: |
+          yarn install
+          yarn list
 
       - run: yarn build
         env:
@@ -42,7 +44,9 @@ jobs:
         with:
           node-version: 14
 
-      - run: yarn install
+      - run: |
+          yarn install
+          yarn list
 
       - run: yarn build
         env:
@@ -75,7 +79,9 @@ jobs:
         with:
           node-version: 14
 
-      - run: yarn install
+      - run: |
+          yarn install
+          yarn list
 
       - run: yarn build
         env:
@@ -109,7 +115,9 @@ jobs:
         with:
           node-version: 14
 
-      - run: yarn install
+      - run: |
+          yarn install
+          yarn list
 
       - run: yarn build
         env:
