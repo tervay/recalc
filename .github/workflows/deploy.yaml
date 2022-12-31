@@ -6,7 +6,128 @@ on:
       - main
 
 jobs:
+  unit_tests:
+    runs-on: ubuntu-22.04
+    environment: recalc-env
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+
+      - run: yarn install
+
+      - run: yarn build
+        env:
+          VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
+
+      - name: Run tests
+        env:
+          VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
+        run: yarn test --coverage
+
+  cypress_e2e:
+    runs-on: ubuntu-22.04
+    environment: recalc-env
+    container: cypress/included:10.11.0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+
+      - run: yarn install
+
+      - run: yarn build
+        env:
+          VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
+
+      - name: Cypress e2e tests
+        uses: cypress-io/github-action@v4.2.0
+        with:
+          install: false
+          start: yarn start
+          wait-on: "http://localhost:3000"
+          wait-on-timeout: 60
+          record: false
+          spec: cypress/e2e/*
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
+  cypress_component:
+    runs-on: ubuntu-22.04
+    environment: recalc-env
+    container: cypress/included:10.11.0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+
+      - run: yarn install
+
+      - run: yarn build
+        env:
+          VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
+
+      - name: Cypress component tests
+        uses: cypress-io/github-action@v4.2.0
+        with:
+          install: false
+          start: yarn start
+          wait-on: "http://localhost:3000"
+          wait-on-timeout: 60
+          record: false
+          component: true
+          spec: cypress/component/*
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
   deploy_prod:
+    needs: [unit_tests, cypress_e2e, cypress_component]
     runs-on: ubuntu-22.04
     environment: recalc-env
     steps:
@@ -42,3 +163,4 @@ jobs:
           vercel-args: "--prod" #Optional
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}} #Required
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
+          github-comment: true
