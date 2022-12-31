@@ -3,5 +3,11 @@
   "git": {
     "deploymentEnabled": false
   },
-  "outputDirectory": "build"
+  "outputDirectory": "build",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
