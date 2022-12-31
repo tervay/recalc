@@ -2,7 +2,7 @@ name: Web CI
 
 on:
   push:
-    branches: [main]
+    branches-ignore: [main]
   pull_request_target:
     branches: [main]
 
@@ -128,6 +128,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
   deploy_dev:
+    needs: [unit_tests, cypress_e2e, cypress_component]
     runs-on: ubuntu-22.04
     environment: recalc-env
     steps:
