@@ -2,8 +2,9 @@ name: Web CI
 
 on:
   push:
-    branches-ignore:
-      - main
+    branches: [main]
+  pull_request_target:
+    branches: [main]
 
 jobs:
   unit_tests:
