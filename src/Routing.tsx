@@ -17,6 +17,7 @@ import flywheelConfig from "web/calculators/flywheel";
 import intakeConfig from "web/calculators/intake";
 import linearConfig from "web/calculators/linear";
 import pneumaticsConfig from "web/calculators/pneumatics";
+import ratioConfig from "web/calculators/ratio";
 import Home from "web/home/Home";
 import compressorsConfig from "web/info/compressors";
 import beltDataConfig from "web/info/data/belts";
@@ -63,6 +64,7 @@ function App(): JSX.Element {
                 <Routable config={armConfig} />
                 <Routable config={linearConfig} />
                 <Routable config={intakeConfig} />
+                <Routable config={ratioConfig} />
 
                 <Routable config={motorsConfig} />
                 <Routable config={compressorsConfig} />
