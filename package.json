@@ -119,7 +119,7 @@
     "type-fest": "^3.3.0",
     "typescript-plugin-css-modules": "^3.4.0",
     "vite": "^3.2.4",
-    "vite-plugin-svgr": "^2.2.2",
+    "vite-plugin-svgr": "^2.4.0",
     "vite-plugin-top-level-await": "^1.2.2",
     "vite-tsconfig-paths": "^3.6.0"
   },
