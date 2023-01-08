@@ -110,7 +110,7 @@ export default function Home(): JSX.Element {
 
         <Columns multiline gapless>
           <Shortcut
-            name="2023 Game Manual (Encrypted)"
+            name="2023 Game Manual"
             url="https://firstfrc.blob.core.windows.net/frc2023/Manual/2023FRCGameManual.pdf"
           />
           <Shortcut name="2023 Q&A" url="https://frc-qa.firstinspires.org/" />
