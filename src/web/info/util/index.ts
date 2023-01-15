@@ -3,7 +3,7 @@ import { lazy } from "react";
 
 const utilConfig: PageConfig = {
   url: "/util",
-  title: "Utility Reference",
+  title: "Cheat Sheets",
   description: "",
   component: lazy(() => import("./components/Util")),
 };

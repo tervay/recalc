@@ -5,7 +5,7 @@ export default function Tile(props: {
   to: string;
   image?: string;
   title: string;
-  imageSize?: ImageSize;
+  imageSize?: ImageSize | string;
 }): JSX.Element {
   return (
     <Link to={props.to}>

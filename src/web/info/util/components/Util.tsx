@@ -1,9 +1,10 @@
-import ExtrusionPrices from "web/info/util/components/ExtrusionPrices";
+import MountingCheatSheet from "web/info/util/components/MountingCheatSheet";
 
 export default function Util(): JSX.Element {
   return (
     <>
-      <ExtrusionPrices />
+      <MountingCheatSheet />
+      {/* <ExtrusionPrices /> */}
     </>
   );
 }

@@ -52,7 +52,15 @@ export type ConversionFn<VFrom extends BaseState, VTo extends BaseState> = (
   s: VFrom
 ) => VTo;
 
-export type FRCVendor = "VEXpro" | "WCP" | "AndyMark" | "REV" | "VBeltGuys";
+export type FRCVendor =
+  | "VEXpro"
+  | "WCP"
+  | "AndyMark"
+  | "REV"
+  | "VBeltGuys"
+  | "CTRE"
+  | "Anderson Power"
+  | "NI";
 export type PulleyBeltType = "HTD" | "GT2";
 
 // Quick units, mostly for tests

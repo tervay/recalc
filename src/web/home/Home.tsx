@@ -20,10 +20,11 @@ import pneumaticsConfig from "web/calculators/pneumatics";
 import ratioConfig from "web/calculators/ratio";
 import compressorsConfig from "web/info/compressors";
 import motorsConfig from "web/info/motors";
+import utilConfig from "web/info/util";
 
 function Clickable(props: {
   config: PageConfig;
-  imageSize?: ImageSize;
+  imageSize?: ImageSize | string;
 }): JSX.Element {
   return (
     <Column ofTwelve={6}>
@@ -99,7 +100,8 @@ export default function Home(): JSX.Element {
         <Columns gapless multiline>
           <Clickable config={motorsConfig} />
           <Clickable config={compressorsConfig} />
-          <Clickable config={aboutConfig} imageSize="square" />
+          <Clickable config={aboutConfig} imageSize="96x96" />
+          <Clickable config={utilConfig} />
         </Columns>
       </Section>
 
