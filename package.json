@@ -24,7 +24,7 @@
     "katex": "^0.16.4",
     "lodash": "^4.17.21",
     "lz-string": "^1.4.4",
-    "marked": "^4.2.5",
+    "marked": "^4.2.12",
     "query-string": "^7.1.1",
     "react": "^17.0.2",
     "react-chartjs-2": "^4.3.1",
