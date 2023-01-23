@@ -5812,6 +5812,11 @@ stackback@0.0.2:
   resolved "https://registry.yarnpkg.com/stackback/-/stackback-0.0.2.tgz#1ac8a0d9483848d1695e418b6d031a3c3ce68e3b"
   integrity sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==
 
+std-env@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/std-env/-/std-env-3.3.1.tgz#93a81835815e618c8aa75e7c8a4dc04f7c314e29"
+  integrity sha512-3H20QlwQsSm2OvAxWIYhs+j01MzzqwMwGiiO1NQaJYZgJZFPuAbf95/DiKRBSTYIJ2FeGUc+B/6mPGcWP9dO3Q==
+
 strict-uri-encode@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz#279b225df1d582b1f54e65addd4352e18faa0713"
@@ -6454,6 +6459,20 @@ vite-node@0.27.2:
     source-map-support "^0.5.21"
     vite "^3.0.0 || ^4.0.0"
 
+vite-node@0.27.3:
+  version "0.27.3"
+  resolved "https://registry.yarnpkg.com/vite-node/-/vite-node-0.27.3.tgz#56b823b7f45b17f6ee45cd37468e869a7915ff5a"
+  integrity sha512-eyJYOO64o5HIp8poc4bJX+ZNBwMZeI3f6/JdiUmJgW02Mt7LnoCtDMRVmLaY9S05SIsjGe339ZK4uo2wQ+bF9g==
+  dependencies:
+    cac "^6.7.14"
+    debug "^4.3.4"
+    mlly "^1.1.0"
+    pathe "^0.2.0"
+    picocolors "^1.0.0"
+    source-map "^0.6.1"
+    source-map-support "^0.5.21"
+    vite "^3.0.0 || ^4.0.0"
+
 vite-plugin-svgr@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/vite-plugin-svgr/-/vite-plugin-svgr-2.4.0.tgz#9b14953955e79893ea7718089b9777a494e38fc6"
@@ -6503,7 +6522,7 @@ vite@^3.2.4:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vitest@0.27.2, vitest@^0.27.2:
+vitest@0.27.2:
   version "0.27.2"
   resolved "https://registry.yarnpkg.com/vitest/-/vitest-0.27.2.tgz#af10dad4d2e94b816b2e7c4d947a0976626b345a"
   integrity sha512-y7tdsL2uaQy+KF18AlmNHZe29ukyFytlxrpSTwwmgLE2XHR/aPucJP9FLjWoqjgqFlXzRAjHlFJLU+HDyI/OsA==
@@ -6525,6 +6544,31 @@ vitest@0.27.2, vitest@^0.27.2:
     tinyspy "^1.0.2"
     vite "^3.0.0 || ^4.0.0"
     vite-node "0.27.2"
+    why-is-node-running "^2.2.2"
+
+vitest@^0.27.3:
+  version "0.27.3"
+  resolved "https://registry.yarnpkg.com/vitest/-/vitest-0.27.3.tgz#207529ca35943956e3141b270ac01dcc635a89c3"
+  integrity sha512-Ld3UVgRVhJUtqvQ3dW89GxiApFAgBsWJZBCWzK+gA3w2yG68csXlGZZ4WDJURf+8ecNfgrScga6xY+8YSOpiMg==
+  dependencies:
+    "@types/chai" "^4.3.4"
+    "@types/chai-subset" "^1.3.3"
+    "@types/node" "*"
+    acorn "^8.8.1"
+    acorn-walk "^8.2.0"
+    cac "^6.7.14"
+    chai "^4.3.7"
+    debug "^4.3.4"
+    local-pkg "^0.4.2"
+    picocolors "^1.0.0"
+    source-map "^0.6.1"
+    std-env "^3.3.1"
+    strip-literal "^1.0.0"
+    tinybench "^2.3.1"
+    tinypool "^0.3.0"
+    tinyspy "^1.0.2"
+    vite "^3.0.0 || ^4.0.0"
+    vite-node "0.27.3"
     why-is-node-running "^2.2.2"
 
 w3c-xmlserializer@^4.0.0:
