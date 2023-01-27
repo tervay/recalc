@@ -80,7 +80,7 @@
   },
   "devDependencies": {
     "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
-    "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
+    "@esbuild-plugins/node-modules-polyfill": "^0.2.0",
     "@jedmao/location": "^3.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@types/crypto-js": "^4.1.1",
