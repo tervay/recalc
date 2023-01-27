@@ -311,10 +311,10 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@esbuild-plugins/node-globals-polyfill@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@esbuild-plugins/node-globals-polyfill/-/node-globals-polyfill-0.1.1.tgz#a313ab3efbb2c17c8ce376aa216c627c9b40f9d7"
-  integrity sha512-MR0oAA+mlnJWrt1RQVQ+4VYuRJW/P2YmRTv1AsplObyvuBMnPHiizUF95HHYiSsMGLhyGtWufaq2XQg6+iurBg==
+"@esbuild-plugins/node-globals-polyfill@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@esbuild-plugins/node-globals-polyfill/-/node-globals-polyfill-0.2.1.tgz#56709aca77f2b7462682bd88e9d586af3a3f1c3f"
+  integrity sha512-syey5nwTsSRFiUbeHnN7dPcoYmtwwgxLNFkv8ll0ngkbTE9P87nh7GCf9xkkt5VUBVAKDNt2rnTSTA8/TLw1vQ==
 
 "@esbuild-plugins/node-modules-polyfill@^0.1.4":
   version "0.1.4"
@@ -1974,7 +1974,7 @@ cwebp-bin@^7.0.1:
     bin-build "^3.0.0"
     bin-wrapper "^4.0.1"
 
-cypress@^12.4.0:
+cypress@^12.3.0:
   version "12.4.0"
   resolved "https://registry.yarnpkg.com/cypress/-/cypress-12.4.0.tgz#de695bc51aec9d995456077a9c3e0ddadfb105c6"
   integrity sha512-//h93K/yGC/7pxv1KamlkADbKHLp5h3f9rZDE2McRjXZDagMETH0sXowOOanvhsH8cFt/JWspIcK+p9cuaoAqg==
