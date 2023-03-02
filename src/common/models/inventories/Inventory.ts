@@ -1,11 +1,6 @@
 import Model from "common/models/Model";
 import credentials from "common/tooling/crypto";
-import {
-  GoogleSpreadsheet,
-  GoogleSpreadsheetRow,
-  GoogleSpreadsheetWorksheet,
-} from "google-spreadsheet";
-import { isEqual } from "lodash";
+// import {
 
 export type WritableArray = string[];
 type ScanResult = {
@@ -30,10 +25,10 @@ export default abstract class Inventory<
   public readonly worksheetName: string;
   private readonly allowAuth: boolean;
   private readonly authCb: AuthCallback<PreWriteModel, PostWriteModel>;
-  private readonly spreadsheet: GoogleSpreadsheet;
-  private worksheet?: GoogleSpreadsheetWorksheet;
+  // private readonly spreadsheet: GoogleSpreadsheet;
+  // private worksheet?: GoogleSpreadsheetWorksheet;
   private readonly offlineData: PostWriteModel[];
-  private rows?: GoogleSpreadsheetRow[];
+  // private rows?: GoogleSpreadsheetRow[];
 
   constructor(
     name: string,
@@ -48,25 +43,25 @@ export default abstract class Inventory<
     this.offlineData = offlineData;
 
     this.worksheetName = `${name}_development`;
-    this.spreadsheet = new GoogleSpreadsheet(spreadsheetId);
-    this.worksheet = undefined;
+    // this.spreadsheet = new GoogleSpreadsheet(spreadsheetId);
+    // this.worksheet = undefined;
   }
 
-  didSetupWorksheet(): boolean {
-    return this.worksheet !== undefined;
-  }
+  // didSetupWorksheet(): boolean {
+  // return this.worksheet !== undefined;
+  // }
 
   abstract makeUrl(obj: PreWriteModel): string;
   abstract shouldWrite(obj: PreWriteModel): boolean;
   abstract makeArrayToWrite(obj: PreWriteModel): WritableArray;
-  abstract rowToArray(row: GoogleSpreadsheetRow): WritableArray;
+  // abstract rowToArray(row: GoogleSpreadsheetRow): WritableArray;
 
   async authenticate(): Promise<void> {
     if (this.allowAuth) {
       this.authenticateServiceAccount()
-        .then(() => this.spreadsheet.loadInfo())
+        // .then(() => this.spreadsheet.loadInfo())
         .then(async () => {
-          this.worksheet = this.spreadsheet.sheetsByTitle[this.worksheetName];
+          // this.worksheet = this.spreadsheet.sheetsByTitle[this.worksheetName];
         })
         .then(() => this.authCb(this));
     }
@@ -79,10 +74,10 @@ export default abstract class Inventory<
       );
     }
 
-    await this.spreadsheet.useServiceAccountAuth({
-      client_email: credentials.email,
-      private_key: credentials.private_key,
-    });
+    // await this.spreadsheet.useServiceAccountAuth({
+    // client_email: credentials.email,
+    // private_key: credentials.private_key,
+    // });
   }
 
   scanInventory(obj: PreWriteModel): ScanResult {
@@ -98,14 +93,14 @@ export default abstract class Inventory<
   }
 
   async writeToSheet(arr: WritableArray): Promise<void> {
-    const rows = await this.getRows();
+    // const rows = await this.getRows();
 
     try {
-      if (
-        rows.filter((row) => isEqual(this.rowToArray(row), arr)).length === 0
-      ) {
-        await this.worksheet?.addRow(arr);
-      }
+      // if (
+      // rows.filter((row) => isEqual(this.rowToArray(row), arr)).length === 0
+      // ) {
+      // await this.worksheet?.addRow(arr);
+      // }
     } catch {
       console.log("Probably rate limited");
     }
@@ -127,20 +122,20 @@ export default abstract class Inventory<
     return new Promise((resolve) => resolve(428));
   }
 
-  async getRows(): Promise<GoogleSpreadsheetRow[]> {
-    if (this.worksheet === undefined) {
-      // throw Error("Did not set up worksheet");
-      return new Promise((resolve) => resolve([]));
-    }
+  // async getRows(): Promise<GoogleSpreadsheetRow[]> {
+  //   if (this.worksheet === undefined) {
+  //     // throw Error("Did not set up worksheet");
+  //     return new Promise((resolve) => resolve([]));
+  //   }
 
-    try {
-      this.rows = await this.worksheet.getRows();
-    } catch {
-      console.log("probably rate limited on reads");
-    }
+  //   try {
+  //     this.rows = await this.worksheet.getRows();
+  //   } catch {
+  //     console.log("probably rate limited on reads");
+  //   }
 
-    return new Promise((resolve) =>
-      resolve(this.rows === undefined ? [] : this.rows)
-    );
-  }
+  //   return new Promise((resolve) =>
+  //     resolve(this.rows === undefined ? [] : this.rows)
+  //   );
+  // }
 }
