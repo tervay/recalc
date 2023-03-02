@@ -19,7 +19,6 @@
     "chart.js": "^3.8.0",
     "chartjs-plugin-zoom": "^1.2.1",
     "crypto-js": "^4.1.1",
-    "google-spreadsheet": "^3.3.0",
     "js-quantities": "^1.7.6",
     "katex": "^0.16.4",
     "lodash": "^4.17.21",
