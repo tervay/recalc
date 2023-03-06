@@ -22,7 +22,7 @@
     "js-quantities": "^1.7.6",
     "katex": "^0.16.4",
     "lodash": "^4.17.21",
-    "lz-string": "^1.4.4",
+    "lz-string": "^1.5.0",
     "marked": "^4.2.12",
     "query-string": "^7.1.1",
     "react": "^17.0.2",
