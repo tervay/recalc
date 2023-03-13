@@ -4667,6 +4667,11 @@ postcss-load-config@^3.1.4:
     lilconfig "^2.0.5"
     yaml "^1.10.2"
 
+postcss-modules-extract-imports@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-modules-extract-imports/-/postcss-modules-extract-imports-3.0.0.tgz#cda1f047c0ae80c97dbe28c3e76a43b88025741d"
+  integrity sha512-bdHleFnP3kZ4NYDhuGlVK+CMrQ/pqUm8bx/oGL93K6gVwiclvX5x0n76fYMKuIGKzlABOy13zsvqjb0f92TEXw==
+
 postcss-modules-local-by-default@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/postcss-modules-local-by-default/-/postcss-modules-local-by-default-4.0.0.tgz#ebbb54fae1598eecfdf691a02b3ff3b390a5a51c"
@@ -5882,10 +5887,10 @@ type-fest@^3.6.1:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-3.6.1.tgz#cf8025edeebfd6cf48de73573a5e1423350b9993"
   integrity sha512-htXWckxlT6U4+ilVgweNliPqlsVSSucbxVexRYllyMVJDtf5rTjv6kF/s+qAd4QSL1BZcnJPEJavYBPQiWuZDA==
 
-typescript-plugin-css-modules@^4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/typescript-plugin-css-modules/-/typescript-plugin-css-modules-4.2.2.tgz#b612eb7ad58579d9c5c5b4e64eb26e4968826417"
-  integrity sha512-X5OYGkX96ENq2c7xFJO4tgtiMTlBkOMoRmVHQXH2H4CGFcVODKGieDqPU2B0IV0I+AyvKYDFdKh4ZKtKxAcAww==
+typescript-plugin-css-modules@^4.2.3:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/typescript-plugin-css-modules/-/typescript-plugin-css-modules-4.2.3.tgz#c5ce99a6f0eea4f562bf4a673edaabf730f419d3"
+  integrity sha512-jEEP2oUPOqR89QGgvPK2HSTZLkrCeKZQ9EwiNxm9VUcufUbNY1Tv053fPKRq6c13PMQjlBU3WrQjKN8u0j5Y6w==
   dependencies:
     "@types/postcss-modules-local-by-default" "^4.0.0"
     "@types/postcss-modules-scope" "^3.0.1"
@@ -5895,6 +5900,7 @@ typescript-plugin-css-modules@^4.2.2:
     lodash.camelcase "^4.3.0"
     postcss "^8.4.21"
     postcss-load-config "^3.1.4"
+    postcss-modules-extract-imports "^3.0.0"
     postcss-modules-local-by-default "^4.0.0"
     postcss-modules-scope "^3.0.0"
     reserved-words "^0.1.2"
