@@ -1033,10 +1033,10 @@
     magic-string "^0.27.0"
     react-refresh "^0.14.0"
 
-"@vitest/coverage-istanbul@^0.28.5":
-  version "0.28.5"
-  resolved "https://registry.yarnpkg.com/@vitest/coverage-istanbul/-/coverage-istanbul-0.28.5.tgz#b854e9a0aeb9c1b10eae1a3f1cecfe1e127d1e51"
-  integrity sha512-na1pkr3AVrdFflzuBXsBh1MvBfhSMrv4nfd4N8rm0HEJlvlbQc+GiqNwtwzfO8TPsXxcjNphSIMp5wvCy+0xrQ==
+"@vitest/coverage-istanbul@^0.29.7":
+  version "0.29.7"
+  resolved "https://registry.yarnpkg.com/@vitest/coverage-istanbul/-/coverage-istanbul-0.29.7.tgz#af8bc7fb302e9ebf789d3758117d638950cd2966"
+  integrity sha512-PPnvqEkwSSgjJ1cOgkm5g49/3UiPGPLC5qmWvrx2ITF9AfN2NejnjaEKxoYrX7oQQyBFgf/ph/BraxsqOOo+Kg==
   dependencies:
     istanbul-lib-coverage "^3.2.0"
     istanbul-lib-instrument "^5.2.1"
@@ -1044,7 +1044,6 @@
     istanbul-lib-source-maps "^4.0.1"
     istanbul-reports "^3.1.5"
     test-exclude "^6.0.0"
-    vitest "0.28.5"
 
 "@vitest/expect@0.28.5":
   version "0.28.5"
@@ -6107,7 +6106,7 @@ vite-tsconfig-paths@^3.6.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vitest@0.28.5, vitest@^0.28.5:
+vitest@^0.28.5:
   version "0.28.5"
   resolved "https://registry.yarnpkg.com/vitest/-/vitest-0.28.5.tgz#94410a8924cd7189e4f1adffa8c5cde809cbf2f9"
   integrity sha512-pyCQ+wcAOX7mKMcBNkzDwEHRGqQvHUl0XnoHR+3Pb1hytAHISgSxv9h0gUiSiYtISXUU3rMrKiKzFYDrI6ZIHA==
