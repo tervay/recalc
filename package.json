@@ -107,7 +107,7 @@
     "lint-staged": "^13.2.0",
     "prettier": "^2.8.6",
     "prettier-plugin-organize-imports": "3.2.2",
-    "sass": "^1.59.3",
+    "sass": "^1.60.0",
     "source-map-explorer": "^2.5.3",
     "type-fest": "^3.7.0",
     "typescript-plugin-css-modules": "^5.0.0",
