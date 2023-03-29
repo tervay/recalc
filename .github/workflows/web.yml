@@ -34,7 +34,7 @@ jobs:
   cypress_e2e:
     runs-on: ubuntu-22.04
     environment: recalc-env
-    container: cypress/included:12.8.1
+    container: cypress/included:12.9.0
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -70,7 +70,7 @@ jobs:
   cypress_component:
     runs-on: ubuntu-22.04
     environment: recalc-env
-    container: cypress/included:12.8.1
+    container: cypress/included:12.9.0
     steps:
       - name: Checkout
         uses: actions/checkout@v2
