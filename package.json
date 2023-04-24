@@ -20,7 +20,7 @@
     "chartjs-plugin-zoom": "^1.2.1",
     "crypto-js": "^4.1.1",
     "js-quantities": "^1.7.6",
-    "katex": "^0.16.4",
+    "katex": "^0.16.6",
     "lodash": "^4.17.21",
     "lz-string": "^1.5.0",
     "marked": "^4.3.0",
