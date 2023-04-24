@@ -1079,10 +1079,10 @@
     "@babel/plugin-transform-react-jsx-source" "^7.19.6"
     react-refresh "^0.14.0"
 
-"@vitest/coverage-istanbul@^0.28.5":
-  version "0.28.5"
-  resolved "https://registry.yarnpkg.com/@vitest/coverage-istanbul/-/coverage-istanbul-0.28.5.tgz#b854e9a0aeb9c1b10eae1a3f1cecfe1e127d1e51"
-  integrity sha512-na1pkr3AVrdFflzuBXsBh1MvBfhSMrv4nfd4N8rm0HEJlvlbQc+GiqNwtwzfO8TPsXxcjNphSIMp5wvCy+0xrQ==
+"@vitest/coverage-istanbul@^0.29.8":
+  version "0.29.8"
+  resolved "https://registry.yarnpkg.com/@vitest/coverage-istanbul/-/coverage-istanbul-0.29.8.tgz#9d317fa307471aab8214c15fe63b7adb7372bb1b"
+  integrity sha512-ZCBDQFM8Quu5yQN2BNhTRL2XHxzghE1aH2pUctwrCDcafabpLE2CV8KaYHg1bBVNIKGtyLqQagv4E455uAn6dw==
   dependencies:
     istanbul-lib-coverage "^3.2.0"
     istanbul-lib-instrument "^5.2.1"
@@ -1090,7 +1090,6 @@
     istanbul-lib-source-maps "^4.0.1"
     istanbul-reports "^3.1.5"
     test-exclude "^6.0.0"
-    vitest "0.28.5"
 
 "@vitest/expect@0.28.5":
   version "0.28.5"
@@ -6146,7 +6145,7 @@ vite-tsconfig-paths@^3.6.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vitest@0.28.5, vitest@^0.28.5:
+vitest@^0.28.5:
   version "0.28.5"
   resolved "https://registry.yarnpkg.com/vitest/-/vitest-0.28.5.tgz#94410a8924cd7189e4f1adffa8c5cde809cbf2f9"
   integrity sha512-pyCQ+wcAOX7mKMcBNkzDwEHRGqQvHUl0XnoHR+3Pb1hytAHISgSxv9h0gUiSiYtISXUU3rMrKiKzFYDrI6ZIHA==
