@@ -48,7 +48,7 @@
     "test": ". ./.env && vitest",
     "--------------------------------": "------------------------",
     "dev:analyze": "source-map-explorer 'build/static/js/*.js' --html coverage/src_map_explorer.html",
-    "dev:coverage": "yarn test --coverage --watchAll=false",
+    "dev:coverage": "yarn test --coverage",
     "dev:format": "npx prettier . --write && npx eslint src/ --fix",
     "dev:encrypt": "npx ts-node -O '{\"module\":\"commonjs\"}' scripts/encrypt.ts",
     "dev:logs": "npx ts-node -O '{\"module\":\"commonjs\"}' scripts/decodeLogs.ts",

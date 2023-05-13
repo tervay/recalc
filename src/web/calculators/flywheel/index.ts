@@ -20,7 +20,7 @@ const flywheelConfig: PageConfig = {
 export default flywheelConfig;
 
 export const FlywheelParamsV1 = {
-  motor: withDefault(MotorParam, Motor.fromIdentifier("Falcon 500", 1)),
+  motor: withDefault(MotorParam, Motor.NEOs(2)),
   ratio: withDefault(RatioParam, new Ratio(1, RatioType.REDUCTION)),
   radius: withDefault(MeasurementParam, new Measurement(2, "in")),
   targetSpeed: withDefault(MeasurementParam, new Measurement(2000, "rpm")),
@@ -33,7 +33,7 @@ export const FlywheelParamsV1 = {
 };
 
 export const FlywheelStateV2Defaults = {
-  motor: Motor.fromIdentifier("Falcon 500", 2),
+  motor: Motor.NEOs(2),
   motorRatio: new Ratio(2, RatioType.STEP_UP),
   currentLimit: new Measurement(40, "A"),
   shooterRadius: new Measurement(3, "in"),

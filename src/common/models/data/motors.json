@@ -1,15 +1,5 @@
 [
   {
-    "name": "Falcon 500",
-    "freeSpeed": { "magnitude": 6380, "unit": "rpm" },
-    "stallTorque": { "magnitude": 4.69, "unit": "N*m" },
-    "stallCurrent": { "magnitude": 257, "unit": "A" },
-    "freeCurrent": { "magnitude": 1.5, "unit": "A" },
-    "weight": { "magnitude": 1.1, "unit": "lbs" },
-    "diameter": { "magnitude": 2.362, "unit": "in" },
-    "url": "https://www.vexrobotics.com/217-6515.html"
-  },
-  {
     "name": "NEO",
     "freeSpeed": { "magnitude": 5880, "unit": "rpm" },
     "stallTorque": { "magnitude": 3.36, "unit": "N*m" },
@@ -18,6 +8,16 @@
     "weight": { "magnitude": 0.94, "unit": "lbs" },
     "diameter": { "magnitude": 2.36, "unit": "in" },
     "url": "https://www.revrobotics.com/rev-21-1650/"
+  },
+  {
+    "name": "Falcon 500",
+    "freeSpeed": { "magnitude": 6380, "unit": "rpm" },
+    "stallTorque": { "magnitude": 4.69, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 257, "unit": "A" },
+    "freeCurrent": { "magnitude": 1.5, "unit": "A" },
+    "weight": { "magnitude": 1.1, "unit": "lbs" },
+    "diameter": { "magnitude": 2.362, "unit": "in" },
+    "url": "https://www.vexrobotics.com/217-6515.html"
   },
   {
     "name": "NEO 550",
