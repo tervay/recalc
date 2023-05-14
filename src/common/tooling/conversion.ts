@@ -1,17 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BaseState, ConversionFn, Setters } from "common/models/ExtraTypes";
-import { camelCase, startCase } from "lodash";
 import queryString, { stringify } from "query-string";
 import { useState } from "react";
 import {
-  decodeQueryParams,
-  encodeQueryParams,
   NumberParam,
   QueryParamConfigMap,
+  decodeQueryParams,
+  encodeQueryParams,
   withDefault,
 } from "serialize-query-params";
 
-const pascalCase = (s: string) => startCase(camelCase(s)).replace(/ /g, "");
+const pascalCase = (s: string) => s[0].toUpperCase() + s.slice(1);
 
 export function useGettersSetters<T extends BaseState>(
   state: T

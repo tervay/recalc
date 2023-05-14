@@ -16,6 +16,7 @@ export function makeDefaultL0BooleanProps<T extends BooleanInputProps>(
 export default function L0Boolean(props: L0BooleanProps): JSX.Element {
   const [val, setVal] = props.stateHook;
 
+  console.log(props.id, props.stateHook);
   return (
     <div className="field">
       <div className="control">

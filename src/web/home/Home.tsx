@@ -18,6 +18,7 @@ import intakeConfig from "web/calculators/intake";
 import linearConfig from "web/calculators/linear";
 import pneumaticsConfig from "web/calculators/pneumatics";
 import ratioConfig from "web/calculators/ratio";
+import ratioFinderConfig from "web/calculators/ratioFinder";
 import compressorsConfig from "web/info/compressors";
 import motorsConfig from "web/info/motors";
 import utilConfig from "web/info/util";
@@ -89,6 +90,7 @@ export default function Home(): JSX.Element {
           <Clickable config={linearConfig} />
           <Clickable config={intakeConfig} />
           <Clickable config={ratioConfig} />
+          <Clickable config={ratioFinderConfig} />
         </Columns>
       </Section>
 
