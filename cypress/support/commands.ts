@@ -45,7 +45,10 @@ declare global {
        * @example cy.dataCy('greeting')
        */
       dataCy(value: string): Chainable;
-      getByTestId(value: string): Chainable;
+      getByTestId(
+        value: string,
+        options?: Partial<Loggable & Timeoutable & Withinable & Shadow>
+      ): Chainable;
     }
   }
 }

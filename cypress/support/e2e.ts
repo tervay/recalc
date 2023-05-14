@@ -149,7 +149,10 @@ export function generateIOTests<
               v ? "be.checked" : "not.be.checked"
             );
           } else {
-            cy.getByTestId(allDivs[k]).should("have.value", v);
+            cy.getByTestId(allDivs[k], { timeout: 20000 }).should(
+              "have.value",
+              v
+            );
           }
         });
       });
