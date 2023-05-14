@@ -19,10 +19,10 @@ import InventoryTable from "web/calculators/belts/components/InventoryTable";
 import { PulleyCheatSheet } from "web/calculators/belts/components/PulleyCheatSheet";
 import { BeltState } from "web/calculators/belts/converter";
 import {
+  ClosestCentersResult,
   calculateClosestCenters,
   calculateDistance,
   calculateDistanceBetweenPulleys,
-  ClosestCentersResult,
   teethInMesh,
 } from "web/calculators/belts/math";
 
@@ -287,6 +287,7 @@ export default function BeltsCalculator(): JSX.Element {
         <Columns formColumns multiline>
           <Column>
             <SingleInputLine
+              id={idPrefix + "PulleyGap"}
               label="Gap between pulleys"
               tooltip="Gap between pulley pitch diameters. Does not account for flanges nor belt thickness. Verify your flanges take up less space than this."
             >

@@ -1,0 +1,58 @@
+---
+inputs:
+  motor:
+    min: 1
+    max: 3
+    exclude:
+      - 2
+  ratio:
+    min: 50
+    max: 150
+    exclude:
+      - 100
+  comLength:
+    min: 10
+    max: 30
+    exclude:
+      - 20
+  armMass:
+    min: 2
+    max: 10
+    exclude:
+      - 15
+  currentLimit:
+    min: 20
+    max: 50
+    exclude:
+      - 40
+  startAngle:
+    min: 0
+    max: 10
+    exclude:
+      - 0
+  endAngle:
+    min: 45
+    max: 90
+    exclude:
+      - 90
+  iterationLimit:
+    min: 100
+    max: 200
+    exclude:
+      - 10000
+  efficiency:
+    min: 90
+    max: 95
+    exclude:
+      - 100
+outputs:
+  timeToGoal:
+    select: true
+  kG:
+    select: true
+  kV:
+    select: true
+  kA:
+    select: true
+  responseTime:
+    select: true
