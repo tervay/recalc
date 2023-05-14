@@ -85,6 +85,24 @@ $$
 
 And now we have a fairly approachable formula that we can use!
 
+### Other Math
+
+* $r_w$ = shooter wheel radius
+* $w_w$ = shooter wheel RPM
+* $V_w$ = shooter wheel surface speed
+* $V_p$ = projectile speed
+* $T$ = speed transfer percentage
+* $J_w$ = Shooter wheel MOI
+* $J_f$ = flywheel MOI
+* $J_t$ = total MOI
+* $m_p$ = projectile weight
+
+$$ J_t = J_w + J_f $$
+$$ V_w = w_w * r_w $$
+$$ T = \frac{20 J_t}{7 m_p {\frac{r_w}{2}}^{2} + 40 J_t} $$
+$$ V_p = V_w * T $$
+
+
 ### Projectile Speed Estimation
 
 FRC Team 846 [derived some math](https://web.archive.org/web/20150920073053/https:/lynbrookrobotics.com/resourcefiles/whitepages/2012/Shooter%20Calculations%20Document.pdf) regarding this back in 2012.
