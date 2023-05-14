@@ -42,7 +42,7 @@ export default function KvKaDisplay({
       </SingleInputLine>
       <SingleInputLine
         label="Response Time"
-        id="timescale"
+        id="responseTime"
         tooltip="Characteristic timescale of the mechanism response; 
             control loop period and total signal delay should be at least 
             3-5 times shorter than this to optimally control the mechanism."
