@@ -1,58 +1,175 @@
-import { CustomSet } from "common/models/CustomSet";
-import { Gearbox, Stage } from "common/models/Gearbox";
-import data from "common/models/data/ratioFinderOptions.json";
+import { Bore, FRCVendor } from "common/models/ExtraTypes";
+import {
+  GearData,
+  Gearbox2,
+  MotionMethod,
+  Stage2,
+} from "common/models/Gearbox";
+import amGears from "common/models/data/cots/andymark/gears.json";
+import revGears from "common/models/data/cots/rev/gears.json";
 import { expose } from "common/tooling/promise-worker";
-import max from "lodash/max";
-import min from "lodash/min";
 import { RatioFinderStateV1 } from "web/calculators/ratioFinder";
 
-type PinionChoice = "NEO" | "Falcon" | "775" | "550" | "none";
+function stagesFromMinToMax(min: number, max: number): Stage2[] {
+  let stages: Stage2[] = [];
+  for (let i = min; i <= max; i++) {
+    for (let j = min; j <= max; j++) {
+      if (i === j) {
+        continue;
+      }
+
+      stages.push(new Stage2(i, j, [], []));
+    }
+  }
+
+  return stages;
+}
+
+export function allPossibleSingleGearStages(state: RatioFinderStateV1) {
+  return stagesFromMinToMax(state.minGearTeeth, state.maxGearTeeth);
+}
+
+function shouldLinkMotionMethod(
+  mm: MotionMethod,
+  state: RatioFinderStateV1,
+  driving: boolean
+): boolean {
+  let good = true;
+
+  if (driving) {
+  } else {
+    good = good && mm.bore !== "Falcon";
+    good = good && mm.bore !== "NEO";
+    good = good && mm.bore !== "775";
+    good = good && mm.bore !== "550";
+  }
+
+  if (!state.enableVEX) {
+    good = good && mm.vendor != "VEXpro";
+  }
+  if (!state.enableREV) {
+    good = good && mm.vendor != "REV";
+  }
+  if (!state.enableWCP) {
+    good = good && mm.vendor != "WCP";
+  }
+  if (!state.enableAM) {
+    good = good && mm.vendor != "AndyMark";
+  }
+
+  if (mm.bore === "NEO") {
+    good = good && state.enableNEOPinions;
+  }
+  if (mm.bore === "Falcon") {
+    good = good && state.enableFalconPinions;
+  }
+  if (mm.bore === "550") {
+    good = good && state.enable550Pinions;
+  }
+  if (mm.bore === "775") {
+    good = good && state.enable775Pinions;
+  }
+
+  return good;
+}
+
+export function shouldLinkGear(
+  gear: GearData,
+  state: RatioFinderStateV1,
+  driving: boolean
+): boolean {
+  let good = true;
+  if (gear.dp === 20) {
+    good = good && state.enable20DPGears;
+  }
+  if (gear.dp === 32) {
+    good = good && state.enable32DPGears;
+  }
+
+  return (
+    good &&
+    shouldLinkMotionMethod({ ...gear, type: "Gear" }, state, driving) &&
+    gear.teeth >= state.minGearTeeth &&
+    gear.teeth <= state.maxGearTeeth
+  );
+}
+
+export function linkOverlappingGearStages(
+  stages: Stage2[],
+  data: Record<string, GearData[]>,
+  state: RatioFinderStateV1
+) {
+  for (const vendor in data) {
+    data[vendor].forEach((gear) => {
+      stages.forEach((stage) => {
+        if (gear.teeth === stage.driven && shouldLinkGear(gear, state, false)) {
+          stage.drivenMethods.push({ ...gear, type: "Gear" });
+        }
+
+        if (gear.teeth === stage.driving && shouldLinkGear(gear, state, true)) {
+          stage.drivingMethods.push({ ...gear, type: "Gear" });
+        }
+      });
+    });
+  }
+}
 
 export function generateOptions(state: RatioFinderStateV1) {
-  let options: Gearbox[] = [];
-  const absoluteMin =
-    min([
-      state.minGearTeeth || 6,
-      state.minPulleyTeeth || 10,
-      state.minSprocketTeeth || 14,
-    ]) || 12;
-  const absoluteMax =
-    max([
-      state.maxGearTeeth || 84,
-      state.maxPulleyTeeth || 72,
-      state.maxSprocketTeeth || 72,
-    ]) || 80;
-
-  const singleStageOptions: CustomSet<Stage> = new CustomSet(
-    (a, b) => a.driven === b.driven && a.driving === b.driving,
-    [] as Stage[]
+  let stages = allPossibleSingleGearStages(state);
+  linkOverlappingGearStages(
+    stages,
+    {
+      REV: revGears.map((g) => ({
+        dp: g.dp,
+        bore: g.bore as Bore,
+        teeth: g.teeth,
+        vendor: g.vendor as FRCVendor,
+        partNumber: g.partNumber,
+        url: g.url,
+      })),
+      AndyMark: amGears.map((g) => ({
+        dp: g.dp,
+        bore: g.bore as Bore,
+        teeth: g.teeth,
+        vendor: g.vendor as FRCVendor,
+        partNumber: g.partNumber,
+        url: g.url,
+      })),
+    },
+    state
   );
 
-  let pinionChoice: PinionChoice;
-  if (state.enableNEOPinions) {
-  }
+  stages = stages.filter(
+    (stage) =>
+      ![
+        stage.drivenMethods.length > 0,
+        stage.drivingMethods.length > 0,
+      ].includes(false)
+  );
 
-  if (state.enable20DPGears) {
-    singleStageOptions.bulkAdd(getCots20DPGears("NEO"));
-  }
-
-  if (state.enable32DPGears) {
-    singleStageOptions.bulkAdd(getCots32DPGears("NEO"));
-  }
-
+  let options: Gearbox2[] = [];
   for (let i = state.minStages; i <= state.maxStages; i++) {
-    let gbs: Gearbox[] = [];
+    let gbs: Gearbox2[] = [];
 
-    var iter = permutations(singleStageOptions.set, i);
+    var iter = permutations(stages, i);
     var curr = iter.next();
     while (!curr.done) {
-      const gb = new Gearbox(curr.value);
+      const gb = new Gearbox2(curr.value);
       const ratio = gb.getRatio();
 
+      let good = true;
+      if (state.firstPartPinion) {
+        good = gb.containsPinionInGoodPlace();
+      } else {
+        good = !gb.containsPinionInGoodPlace();
+      }
+
       if (
-        !gb.containsPinionsInBadPlaces() &&
         ratio >= state.minReduction &&
-        ratio <= state.maxReduction
+        ratio <= state.maxReduction &&
+        !gb.containsPinionInBadPlace() &&
+        good &&
+        gb.overlapsBores()
       ) {
         gbs.push(gb);
       }
@@ -70,46 +187,6 @@ const workerFunctions = { generateOptions };
 expose(workerFunctions);
 type RatioFinderWorkerFunctions = typeof workerFunctions;
 export type { RatioFinderWorkerFunctions };
-
-function getStagesFromList(
-  numbers: number[],
-  motionSource: string,
-  secondIsValid: ((a: number) => boolean) | undefined = undefined
-): Stage[] {
-  if (secondIsValid === undefined) {
-    secondIsValid = (x) => true;
-  }
-
-  let stages: Stage[] = [];
-
-  numbers.forEach((i) => {
-    numbers.forEach((j) => {
-      if (!secondIsValid!(j) || i == j) {
-        return;
-      }
-
-      stages.push(new Stage(i, j, motionSource));
-    });
-  });
-
-  return stages;
-}
-
-function getCots20DPGears(pinions: PinionChoice): Stage[] {
-  return getStagesFromList(
-    data["gears"]["20 DP"],
-    "20 DP Gears",
-    (n) => n >= 18
-  );
-}
-
-function getCots32DPGears(pinions: PinionChoice): Stage[] {
-  return getStagesFromList(
-    data["gears"]["32 DP"],
-    "32 DP Gears",
-    (n) => n >= 18
-  );
-}
 
 function* permutations<T>(array: T[], r: number) {
   // Algorythm copied from Python `itertools.permutations`.

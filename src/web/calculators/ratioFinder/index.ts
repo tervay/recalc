@@ -21,6 +21,7 @@ export const RatioFinderParamsV1 = {
   maxReduction: withDefault(NumberParam, 7.25),
   minStages: withDefault(NumberParam, 2),
   maxStages: withDefault(NumberParam, 2),
+  firstPartPinion: withDefault(BooleanParam, true),
   // cotsOnly: withDefault(BooleanParam, true),
 
   enableVPs: withDefault(BooleanParam, true),
@@ -40,11 +41,17 @@ export const RatioFinderParamsV1 = {
 
   enable20DPGears: withDefault(BooleanParam, true),
   enable32DPGears: withDefault(BooleanParam, true),
-  minGearTeeth: withDefault(NumberParam, 20),
+  minGearTeeth: withDefault(NumberParam, 8),
   maxGearTeeth: withDefault(NumberParam, 80),
   enableNEOPinions: withDefault(BooleanParam, true),
   enableFalconPinions: withDefault(BooleanParam, true),
   enable775Pinions: withDefault(BooleanParam, true),
   enable550Pinions: withDefault(BooleanParam, true),
+
+  enableVEX: withDefault(BooleanParam, true),
+  enableREV: withDefault(BooleanParam, true),
+  enableWCP: withDefault(BooleanParam, true),
+  enableAM: withDefault(BooleanParam, true),
+  enableTTB: withDefault(BooleanParam, true),
 };
 export type RatioFinderStateV1 = Stateify<typeof RatioFinderParamsV1>;

@@ -1,13 +1,12 @@
-import Tippy from "@tippyjs/react";
 import SimpleHeading from "common/components/heading/SimpleHeading";
 import SingleInputLine from "common/components/io/inputs/SingleInputLine";
 import { BooleanInput, NumberInput } from "common/components/io/new/inputs";
 import { Column, Columns, Divider } from "common/components/styling/Building";
-import { Gearbox } from "common/models/Gearbox";
+import { Gearbox2, MotionMethod } from "common/models/Gearbox";
 import { useGettersSetters } from "common/tooling/conversion";
 import { wrap } from "common/tooling/promise-worker";
+import groupBy from "lodash/groupBy";
 import { useEffect, useState } from "react";
-import { animateFill } from "tippy.js";
 import ratioFinderConfig, {
   RatioFinderParamsV1,
   RatioFinderStateV1,
@@ -18,18 +17,149 @@ import rawWorker from "web/calculators/ratioFinder/math?worker";
 
 const worker = await wrap<RatioFinderWorkerFunctions>(new rawWorker());
 
+function MotionMethodCell(props: {
+  motionMethods: MotionMethod[];
+  excludePinions?: boolean;
+}): JSX.Element {
+  let mms = props.motionMethods;
+  if (props.excludePinions === true) {
+    mms = mms.filter((m) => !["Falcon", "NEO", "550", "775"].includes(m.bore));
+  }
+
+  let gb = groupBy(mms, (m) => m.bore);
+  const keys = props.excludePinions
+    ? Object.keys(gb).filter(
+        (k) => !["Falcon", "NEO", "550", "775"].includes(k)
+      )
+    : Object.keys(gb);
+
+  return (
+    <>
+      <table className="table is-fullwidth is-narrow p-0">
+        <thead>
+          <tr>
+            <th>Bore</th>
+            <th>P/N</th>
+          </tr>
+        </thead>
+        <tbody>
+          {keys.map((k) => (
+            <tr>
+              <td>{k}</td>
+              <td>
+                {gb[k].map((m) => (
+                  <>
+                    ({m.type.slice(0, 1)}) <a href={m.url}>{m.partNumber}</a>
+                    <br />
+                  </>
+                ))}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
+  );
+}
+
+function GearboxRows(props: {
+  gearbox: Gearbox2;
+  maxStages: number;
+}): JSX.Element {
+  const emptyStages = props.maxStages - props.gearbox.getStages();
+
+  return (
+    <>
+      <tr>
+        <td rowSpan={2} className="thick-bottom-border">
+          {props.gearbox.getRatio().toFixed(2).replace(/\.00$/, "")}:1
+        </td>
+        {props.gearbox.stages.map((stage) => (
+          <td colSpan={2} className="has-text-centered">
+            <b>
+              {stage.driving}:{stage.driven}
+            </b>
+          </td>
+        ))}
+        {emptyStages > 0 &&
+          [...Array(emptyStages)].map((_) => <td colSpan={2}></td>)}
+      </tr>
+
+      <tr>
+        {props.gearbox.stages.map((stage, i) => (
+          <>
+            <td
+              colSpan={1}
+              className="has-text-centered unset-va thick-bottom-border p-0"
+            >
+              <MotionMethodCell
+                motionMethods={stage.drivingMethods}
+                excludePinions={i > 0}
+              />
+            </td>
+            <td
+              colSpan={1}
+              className="has-text-centered unset-va thick-bottom-border p-0"
+            >
+              <MotionMethodCell
+                motionMethods={stage.drivenMethods}
+                excludePinions
+              />
+            </td>
+          </>
+        ))}
+      </tr>
+    </>
+  );
+}
+
 export default function RatioFinderCalculator(): JSX.Element {
   const [get, set] = useGettersSetters(
     RatioFinderState.getState() as RatioFinderStateV1
   );
 
-  const [gearboxes, setGearboxes] = useState([] as Gearbox[]);
+  const [gearboxes, setGearboxes] = useState([] as Gearbox2[]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     worker.generateOptions(get).then((r) => {
-      setGearboxes(r.map((obj) => Gearbox.fromObj(obj)));
+      setGearboxes(r.map((obj) => Gearbox2.fromObj(obj)));
+      setIsLoading(false);
     });
-  }, [get.enable20DPGears, get.enable32DPGears]);
+  }, [
+    get.targetReduction,
+    get.minReduction,
+    get.maxReduction,
+    get.minStages,
+    get.maxStages,
+    get.firstPartPinion,
+    get.enableVPs,
+    get.enableMPs,
+    get.enableSports,
+    get.enableGT2,
+    get.enableHTD,
+    get.enableRT25,
+    get.minPulleyTeeth,
+    get.maxPulleyTeeth,
+    get.enable25Chain,
+    get.enable35Chain,
+    get.minSprocketTeeth,
+    get.maxSprocketTeeth,
+    get.enable20DPGears,
+    get.enable32DPGears,
+    get.minGearTeeth,
+    get.maxGearTeeth,
+    get.enableNEOPinions,
+    get.enableFalconPinions,
+    get.enable775Pinions,
+    get.enable550Pinions,
+    get.enableVEX,
+    get.enableREV,
+    get.enableWCP,
+    get.enableAM,
+    get.enableTTB,
+  ]);
 
   const [displayNum, setDisplayNum] = useState(20);
 
@@ -71,6 +201,13 @@ export default function RatioFinderCalculator(): JSX.Element {
               <BooleanInput stateHook={[get.cotsOnly, set.setCotsOnly]} />
             </SingleInputLine>
           </Column> */}
+          <Column narrow>
+            <SingleInputLine label="First Part Pinion">
+              <BooleanInput
+                stateHook={[get.firstPartPinion, set.setFirstPartPinion]}
+              />
+            </SingleInputLine>
+          </Column>
           <Column>
             <SingleInputLine label="Min Stages">
               <NumberInput stateHook={[get.minStages, set.setMinStages]} />
@@ -79,6 +216,34 @@ export default function RatioFinderCalculator(): JSX.Element {
           <Column>
             <SingleInputLine label="Max Stages">
               <NumberInput stateHook={[get.maxStages, set.setMaxStages]} />
+            </SingleInputLine>
+          </Column>
+        </Columns>
+        <Divider>Vendor Settings</Divider>
+        <Columns>
+          <Column narrow>
+            <SingleInputLine label="Enable REV">
+              <BooleanInput stateHook={[get.enableREV, set.setEnableREV]} />
+            </SingleInputLine>
+          </Column>
+          <Column narrow>
+            <SingleInputLine label="Enable VEX">
+              <BooleanInput stateHook={[get.enableVEX, set.setEnableVEX]} />
+            </SingleInputLine>
+          </Column>
+          <Column narrow>
+            <SingleInputLine label="Enable WCP">
+              <BooleanInput stateHook={[get.enableWCP, set.setEnableWCP]} />
+            </SingleInputLine>
+          </Column>
+          <Column narrow>
+            <SingleInputLine label="Enable AM">
+              <BooleanInput stateHook={[get.enableAM, set.setEnableAM]} />
+            </SingleInputLine>
+          </Column>
+          <Column narrow>
+            <SingleInputLine label="Enable TTB">
+              <BooleanInput stateHook={[get.enableTTB, set.setEnableTTB]} />
             </SingleInputLine>
           </Column>
         </Columns>
@@ -240,14 +405,14 @@ export default function RatioFinderCalculator(): JSX.Element {
           </Column>
         </Columns>
       </>
+      {isLoading && <div id="loading" />}
       <Columns centered>
-        <Column ofTwelve={6}>
-          <table className="table is-hoverable is-fullwidth">
+        <Column ofTwelve={10}>
+          <table className="table is-hoverable is-fullwidth is-bordered">
             <thead>
               <tr>
-                <th># Stages</th>
-                <th colSpan={get.maxStages}>Stages</th>
-                <th>Net Reduction</th>
+                <th>Ratio</th>
+                <th colSpan={get.maxStages * 2}>Stages</th>
               </tr>
             </thead>
             <tbody>
@@ -255,28 +420,13 @@ export default function RatioFinderCalculator(): JSX.Element {
                 .sort((a, b) => a.compare(b, get.targetReduction))
                 .slice(0, displayNum)
                 .map((gb) => (
-                  <tr>
-                    <td>{gb.getStages()}</td>
-                    {gb.stages.map((s) => (
-                      <td>
-                        <Tippy
-                          content={s.motionSource}
-                          animateFill
-                          plugins={[animateFill]}
-                          allowHTML
-                        >
-                          <span className="underline-for-tooltip">
-                            {s.driving}:{s.driven}
-                          </span>
-                        </Tippy>
-                      </td>
-                    ))}
-                    <td>{gb.getRatio()}:1</td>
-                  </tr>
+                  <GearboxRows gearbox={gb} maxStages={get.maxStages} />
                 ))}
             </tbody>
           </table>
-          {gearboxes.length - displayNum} more...
+          {gearboxes.length - displayNum > 20 && (
+            <>{gearboxes.length - displayNum} more...</>
+          )}
         </Column>
       </Columns>
     </>

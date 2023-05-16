@@ -62,6 +62,7 @@ export type FRCVendor =
   | "Anderson Power"
   | "NI";
 export type PulleyBeltType = "HTD" | "GT2";
+export type Bore = "NEO" | "Falcon" | "775" | "550" | "1/2 Hex" | "3/8 Hex";
 
 // Quick units, mostly for tests
 export const mm = (n: number): Measurement => new Measurement(n, "mm");

@@ -1,0 +1,162 @@
+[
+  {
+    "bore": "550",
+    "partNumber": "REV-21-1908",
+    "pitch": {
+      "magnitude": 3,
+      "units": "mm"
+    },
+    "teeth": 12,
+    "type": "GT2",
+    "url": "https://www.revrobotics.com/REV-21-1908",
+    "width": {
+      "magnitude": 15,
+      "units": "mm"
+    },
+    "vendor": "REV"
+  },
+  {
+    "bore": "NEO",
+    "partNumber": "REV-21-2200",
+    "pitch": {
+      "magnitude": 0.25,
+      "units": "in"
+    },
+    "teeth": 12,
+    "type": "RT25",
+    "url": "https://www.revrobotics.com/REV-21-2200",
+    "width": {
+      "magnitude": 0.5,
+      "units": "in"
+    },
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "partNumber": "REV-21-2205",
+    "pitch": {
+      "magnitude": 0.25,
+      "units": "in"
+    },
+    "teeth": 16,
+    "type": "RT25",
+    "url": "https://www.revrobotics.com/REV-21-2205",
+    "width": {
+      "magnitude": 0.5,
+      "units": "in"
+    },
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "partNumber": "REV-21-2206",
+    "pitch": {
+      "magnitude": 0.25,
+      "units": "in"
+    },
+    "teeth": 16,
+    "type": "RT25",
+    "url": "https://www.revrobotics.com/REV-21-2206",
+    "width": {
+      "magnitude": 1,
+      "units": "in"
+    },
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-25-2224",
+    "pitch": {
+      "magnitude": 0.25,
+      "units": "in"
+    },
+    "teeth": 24,
+    "type": "RT25",
+    "url": "https://www.revrobotics.com/REV-25-2224",
+    "width": {
+      "magnitude": 0.5,
+      "units": "in"
+    },
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-25-2236",
+    "pitch": {
+      "magnitude": 0.25,
+      "units": "in"
+    },
+    "teeth": 32,
+    "type": "RT25",
+    "url": "https://www.revrobotics.com/REV-25-2236",
+    "width": {
+      "magnitude": 0.5,
+      "units": "in"
+    },
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-25-2248",
+    "pitch": {
+      "magnitude": 0.25,
+      "units": "in"
+    },
+    "teeth": 40,
+    "type": "RT25",
+    "url": "https://www.revrobotics.com/REV-25-2248",
+    "width": {
+      "magnitude": 0.5,
+      "units": "in"
+    },
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-25-2260",
+    "pitch": {
+      "magnitude": 0.25,
+      "units": "in"
+    },
+    "teeth": 48,
+    "type": "RT25",
+    "url": "https://www.revrobotics.com/REV-25-2260",
+    "width": {
+      "magnitude": 0.5,
+      "units": "in"
+    },
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-25-2272",
+    "pitch": {
+      "magnitude": 0.25,
+      "units": "in"
+    },
+    "teeth": 56,
+    "type": "RT25",
+    "url": "https://www.revrobotics.com/REV-25-2272",
+    "width": {
+      "magnitude": 0.5,
+      "units": "in"
+    },
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-25-2284",
+    "pitch": {
+      "magnitude": 0.25,
+      "units": "in"
+    },
+    "teeth": 4,
+    "type": "RT25",
+    "url": "https://www.revrobotics.com/REV-25-2284",
+    "width": {
+      "magnitude": 0.5,
+      "units": "in"
+    },
+    "vendor": "REV"
+  }
+]
