@@ -3,128 +3,128 @@
     "bore": "1.125in Bearing",
     "partNumber": "am-2234a",
     "pitch": {
-      "magnitude": 5,
-      "units": "mm"
+      "s": 5,
+      "u": "mm"
     },
     "teeth": 42,
     "type": "HTD",
     "url": "https://andymark.com/am-2234a",
     "vendor": "AndyMark",
     "width": {
-      "magnitude": 15,
-      "units": "mm"
+      "s": 15,
+      "u": "mm"
     }
   },
   {
     "bore": "NEO",
     "partNumber": "am-3263",
     "pitch": {
-      "magnitude": 5,
-      "units": "mm"
+      "s": 5,
+      "u": "mm"
     },
     "teeth": 12,
     "type": "HTD",
     "url": "https://andymark.com/am-3263",
     "vendor": "AndyMark",
     "width": {
-      "magnitude": 9,
-      "units": "mm"
+      "s": 9,
+      "u": "mm"
     }
   },
   {
     "bore": "NEO",
     "partNumber": "am-3265",
     "pitch": {
-      "magnitude": 5,
-      "units": "mm"
+      "s": 5,
+      "u": "mm"
     },
     "teeth": 30,
     "type": "HTD",
     "url": "https://andymark.com/am-3265",
     "vendor": "AndyMark",
     "width": {
-      "magnitude": 9,
-      "units": "mm"
+      "s": 9,
+      "u": "mm"
     }
   },
   {
     "bore": "3/8 Hex",
     "partNumber": "am-3402",
     "pitch": {
-      "magnitude": 5,
-      "units": "mm"
+      "s": 5,
+      "u": "mm"
     },
     "teeth": 24,
     "type": "HTD",
     "url": "https://andymark.com/am-3402",
     "vendor": "AndyMark",
     "width": {
-      "magnitude": 9,
-      "units": "mm"
+      "s": 9,
+      "u": "mm"
     }
   },
   {
     "bore": "1/2 Hex",
     "partNumber": "am-3403",
     "pitch": {
-      "magnitude": 5,
-      "units": "mm"
+      "s": 5,
+      "u": "mm"
     },
     "teeth": 24,
     "type": "HTD",
     "url": "https://andymark.com/am-3403",
     "vendor": "AndyMark",
     "width": {
-      "magnitude": 9,
-      "units": "mm"
+      "s": 9,
+      "u": "mm"
     }
   },
   {
     "bore": "3/8 Hex",
     "partNumber": "am-3404",
     "pitch": {
-      "magnitude": 5,
-      "units": "mm"
+      "s": 5,
+      "u": "mm"
     },
     "teeth": 24,
     "type": "HTD",
     "url": "https://andymark.com/am-3404",
     "vendor": "AndyMark",
     "width": {
-      "magnitude": 15,
-      "units": "mm"
+      "s": 15,
+      "u": "mm"
     }
   },
   {
     "bore": "1/2 Hex",
     "partNumber": "am-4625",
     "pitch": {
-      "magnitude": 5,
-      "units": "mm"
+      "s": 5,
+      "u": "mm"
     },
     "teeth": 24,
     "type": "HTD",
     "url": "https://andymark.com/am-4625",
     "vendor": "AndyMark",
     "width": {
-      "magnitude": 9,
-      "units": "mm"
+      "s": 9,
+      "u": "mm"
     }
   },
   {
     "bore": "1/2 Hex",
     "partNumber": "am-4626",
     "pitch": {
-      "magnitude": 5,
-      "units": "mm"
+      "s": 5,
+      "u": "mm"
     },
     "teeth": 24,
     "type": "HTD",
     "url": "https://andymark.com/am-4626",
     "vendor": "AndyMark",
     "width": {
-      "magnitude": 15,
-      "units": "mm"
+      "s": 15,
+      "u": "mm"
     }
   }
 ]

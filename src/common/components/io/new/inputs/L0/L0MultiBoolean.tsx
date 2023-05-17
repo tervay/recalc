@@ -26,8 +26,10 @@ export default function L0MultiBoolean(props: {
             e.preventDefault();
             if (selected.includes(option.name)) {
               setSelected(selected.filter((o) => o !== option.name));
+              option.stateHook[1](false);
             } else {
               setSelected([...selected, option.name]);
+              option.stateHook[1](true);
             }
           }}
           key={option.name}

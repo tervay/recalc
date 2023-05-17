@@ -1,135 +1,38 @@
-import { Bore, FRCVendor } from "common/models/ExtraTypes";
+import {
+  Bore,
+  ChainType,
+  FRCVendor,
+  PulleyBeltType,
+} from "common/models/ExtraTypes";
 import { MeasurementDict } from "common/models/Measurement";
 import { min } from "lodash";
 import max from "lodash/max";
 
-export type PulleyData = {
-  type: "HTD" | "GT2" | "RT25";
+type BaseMotionMethod = {
   teeth: number;
+  bore: Bore;
+  vendor: FRCVendor;
+  url: string;
+  partNumber: string;
+};
+
+export type PulleyData = BaseMotionMethod & {
+  beltType: PulleyBeltType;
   pitch: MeasurementDict;
-  bore: Bore;
-  vendor: FRCVendor;
-  url: string;
-  partNumber: string;
 };
 
-export type SprocketData = {
-  type: "#25" | "#35";
-  teeth: number;
-  bore: Bore;
-  vendor: FRCVendor;
-  url: string;
-  partNumber: string;
+export type SprocketData = BaseMotionMethod & {
+  chainType: ChainType;
 };
 
-export type GearData = {
+export type GearData = BaseMotionMethod & {
   dp: number;
-  teeth: number;
-  bore: Bore;
-  vendor: FRCVendor;
-  url: string;
-  partNumber: string;
 };
 
-export type MotionMethod = (PulleyData | SprocketData | GearData) & {
-  type: "Gear" | "Pulley" | "Sprocket";
+export type MotionMethodPart = "Gear" | "Pulley" | "Sprocket";
+export type MotionMethod = BaseMotionMethod & {
+  type: MotionMethodPart;
 };
-
-export class Stage {
-  constructor(
-    public readonly driving: MotionMethod,
-    public readonly driven: MotionMethod
-  ) {}
-
-  getRatio(): number {
-    return this.driven.teeth / max([1, this.driving.teeth])!;
-  }
-
-  getMax(): number {
-    return this.driven.teeth > this.driving.teeth
-      ? this.driven.teeth
-      : this.driving.teeth;
-  }
-
-  getMin(): number {
-    return this.driven.teeth < this.driving.teeth
-      ? this.driven.teeth
-      : this.driving.teeth;
-  }
-}
-
-export class Gearbox {
-  constructor(public stages: Stage[]) {}
-
-  addStage(stage: Stage) {
-    this.stages.push(stage);
-  }
-
-  getRatio(): number {
-    return this.stages.reduce((prev, curr) => prev * curr.getRatio(), 1);
-  }
-
-  getStages(): number {
-    return this.stages.length;
-  }
-
-  getMax(): number {
-    return max(this.stages.map((s) => s.getMax())) || 1000;
-  }
-
-  getMin(): number {
-    return min(this.stages.map((s) => s.getMin())) || 0;
-  }
-
-  containsPinionsInBadPlaces(): boolean {
-    if (this.stages.length === 1) {
-      return false;
-    }
-
-    for (let i = 1; i < this.stages.length; i++) {
-      if (
-        ["Falcon", "NEO", "550", "775"].includes(this.stages[i].driving.bore) ||
-        ["Falcon", "NEO", "550", "775"].includes(this.stages[i].driven.bore)
-      ) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  containsFirstPartPinion(): boolean {
-    return ["Falcon", "NEO", "550", "775"].includes(
-      this.stages[0].driving.bore
-    );
-  }
-
-  toObj(): {
-    driven: MotionMethod;
-    driving: MotionMethod;
-  }[] {
-    return this.stages.map((s) => ({
-      driven: s.driven,
-      driving: s.driving,
-    }));
-  }
-
-  static fromObj(obj: { driven: MotionMethod; driving: MotionMethod }[]) {
-    return new Gearbox(obj.map((o) => new Stage(o.driving, o.driven)));
-  }
-
-  compare(gb: Gearbox, targetReduction: number): number {
-    const error = Math.abs(this.getRatio() - targetReduction);
-    const otherError = Math.abs(gb.getRatio() - targetReduction);
-
-    return (
-      error - otherError ||
-      // this.getMin() - gb.getMin() ||
-      this.getStages() - gb.getStages() ||
-      this.getMax() - gb.getMax()
-    );
-  }
-}
 
 export class Stage2 {
   constructor(
@@ -190,7 +93,7 @@ export class Gearbox2 {
 
     for (let i = 1; i < this.stages.length; i++) {
       let nonPinions = this.stages[i].drivingMethods.filter(
-        (m) => m.bore === "1/2 Hex" || m.bore === "3/8 Hex"
+        (m) => !["Falcon", "NEO", "550", "775"].includes(m.bore)
       );
 
       // console.log(i, this.stages[i]);

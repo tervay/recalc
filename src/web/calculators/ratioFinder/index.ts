@@ -24,20 +24,20 @@ export const RatioFinderParamsV1 = {
   firstPartPinion: withDefault(BooleanParam, true),
   // cotsOnly: withDefault(BooleanParam, true),
 
-  enableVPs: withDefault(BooleanParam, true),
+  enableVPs: withDefault(BooleanParam, false),
   enableMPs: withDefault(BooleanParam, true),
   enableSports: withDefault(BooleanParam, true),
 
   enableGT2: withDefault(BooleanParam, true),
   enableHTD: withDefault(BooleanParam, true),
   enableRT25: withDefault(BooleanParam, true),
-  minPulleyTeeth: withDefault(NumberParam, 16),
-  maxPulleyTeeth: withDefault(NumberParam, 40),
+  minPulleyTeeth: withDefault(NumberParam, 8),
+  maxPulleyTeeth: withDefault(NumberParam, 80),
 
   enable25Chain: withDefault(BooleanParam, true),
   enable35Chain: withDefault(BooleanParam, true),
-  minSprocketTeeth: withDefault(NumberParam, 16),
-  maxSprocketTeeth: withDefault(NumberParam, 60),
+  minSprocketTeeth: withDefault(NumberParam, 8),
+  maxSprocketTeeth: withDefault(NumberParam, 80),
 
   enable20DPGears: withDefault(BooleanParam, true),
   enable32DPGears: withDefault(BooleanParam, true),
@@ -58,5 +58,6 @@ export const RatioFinderParamsV1 = {
   enable38HexBore: withDefault(BooleanParam, true),
   enableBearingBore: withDefault(BooleanParam, true),
   enable875Bore: withDefault(BooleanParam, true),
+  enableMaxSpline: withDefault(BooleanParam, true),
 };
 export type RatioFinderStateV1 = Stateify<typeof RatioFinderParamsV1>;

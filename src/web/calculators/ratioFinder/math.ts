@@ -1,12 +1,25 @@
-import { Bore, FRCVendor } from "common/models/ExtraTypes";
+import {
+  Bore,
+  ChainType,
+  FRCVendor,
+  PulleyBeltType,
+} from "common/models/ExtraTypes";
 import {
   GearData,
   Gearbox2,
   MotionMethod,
+  MotionMethodPart,
+  PulleyData,
+  SprocketData,
   Stage2,
 } from "common/models/Gearbox";
 import amGears from "common/models/data/cots/andymark/gears.json";
+import amPulleys from "common/models/data/cots/andymark/pulleys.json";
+import amSprockets from "common/models/data/cots/andymark/sprockets.json";
 import revGears from "common/models/data/cots/rev/gears.json";
+import revPulleys from "common/models/data/cots/rev/pulleys.json";
+import revSprockets from "common/models/data/cots/rev/sprockets.json";
+
 import { expose } from "common/tooling/promise-worker";
 import { RatioFinderStateV1 } from "web/calculators/ratioFinder";
 
@@ -29,115 +42,146 @@ export function allPossibleSingleGearStages(state: RatioFinderStateV1) {
   return stagesFromMinToMax(state.minGearTeeth, state.maxGearTeeth);
 }
 
-function shouldLinkMotionMethod(
-  mm: MotionMethod,
-  state: RatioFinderStateV1,
-  driving: boolean
-): boolean {
-  let good = true;
-
-  if (driving) {
-  } else {
-    good = good && mm.bore !== "Falcon";
-    good = good && mm.bore !== "NEO";
-    good = good && mm.bore !== "775";
-    good = good && mm.bore !== "550";
-  }
-
-  if (!state.enableVEX) {
-    good = good && mm.vendor != "VEXpro";
-  }
-  if (!state.enableREV) {
-    good = good && mm.vendor != "REV";
-  }
-  if (!state.enableWCP) {
-    good = good && mm.vendor != "WCP";
-  }
-  if (!state.enableAM) {
-    good = good && mm.vendor != "AndyMark";
-  }
-
-  if (mm.bore === "NEO") {
-    good = good && state.enableNEOPinions;
-  }
-  if (mm.bore === "Falcon") {
-    good = good && state.enableFalconPinions;
-  }
-  if (mm.bore === "550") {
-    good = good && state.enable550Pinions;
-  }
-  if (mm.bore === "775") {
-    good = good && state.enable775Pinions;
-  }
-
-  return good;
-}
-
-export function shouldLinkGear(
-  gear: GearData,
-  state: RatioFinderStateV1,
-  driving: boolean
-): boolean {
-  let good = true;
-  if (gear.dp === 20) {
-    good = good && state.enable20DPGears;
-  }
-  if (gear.dp === 32) {
-    good = good && state.enable32DPGears;
-  }
-
-  return (
-    good &&
-    shouldLinkMotionMethod({ ...gear, type: "Gear" }, state, driving) &&
-    gear.teeth >= state.minGearTeeth &&
-    gear.teeth <= state.maxGearTeeth
-  );
-}
-
 export function linkOverlappingGearStages(
   stages: Stage2[],
-  data: Record<string, GearData[]>,
+  motionMethods: MotionMethod[],
   state: RatioFinderStateV1
 ) {
-  for (const vendor in data) {
-    data[vendor].forEach((gear) => {
-      stages.forEach((stage) => {
-        if (gear.teeth === stage.driven && shouldLinkGear(gear, state, false)) {
-          stage.drivenMethods.push({ ...gear, type: "Gear" });
-        }
+  motionMethods.forEach((gear) => {
+    stages.forEach((stage) => {
+      if (gear.teeth === stage.driven) {
+        stage.drivenMethods.push(gear);
+      }
 
-        if (gear.teeth === stage.driving && shouldLinkGear(gear, state, true)) {
-          stage.drivingMethods.push({ ...gear, type: "Gear" });
-        }
-      });
+      if (gear.teeth === stage.driving) {
+        stage.drivingMethods.push(gear);
+      }
     });
-  }
+  });
+}
+
+function filterGears(
+  state: RatioFinderStateV1,
+  gears: typeof revGears
+): GearData[] {
+  return gears
+    .map((g) => ({
+      dp: g.dp,
+      bore: g.bore as Bore,
+      teeth: g.teeth,
+      vendor: g.vendor as FRCVendor,
+      partNumber: g.partNumber,
+      url: g.url,
+    }))
+    .filter((g) => state.enable20DPGears || g.dp !== 20)
+    .filter((g) => state.enable32DPGears || g.dp !== 32)
+    .filter((g) => state.minGearTeeth <= g.teeth)
+    .filter((g) => state.maxGearTeeth >= g.teeth);
+}
+
+function filterPulleys(
+  state: RatioFinderStateV1,
+  pulleys: typeof revPulleys
+): PulleyData[] {
+  return pulleys
+    .map((p) => ({
+      bore: p.bore as Bore,
+      teeth: p.teeth,
+      vendor: p.vendor as FRCVendor,
+      partNumber: p.partNumber,
+      url: p.url,
+      pitch: p.pitch,
+      beltType: p.type as PulleyBeltType,
+    }))
+    .filter((p) => state.enableHTD || p.beltType !== "HTD")
+    .filter((p) => state.enableGT2 || p.beltType !== "GT2")
+    .filter((p) => state.enableRT25 || p.beltType !== "RT25")
+    .filter((p) => state.minPulleyTeeth <= p.teeth)
+    .filter((p) => state.maxPulleyTeeth >= p.teeth);
+}
+function filterSprockets(
+  state: RatioFinderStateV1,
+  sprockets: typeof revSprockets
+): SprocketData[] {
+  return sprockets
+    .map((s) => ({
+      bore: s.bore as Bore,
+      teeth: s.teeth,
+      vendor: s.vendor as FRCVendor,
+      partNumber: s.partNumber,
+      url: s.url,
+      chainType: s.type as ChainType,
+    }))
+    .filter((s) => state.enable25Chain || s.chainType !== "#25")
+    .filter((s) => state.enable35Chain || s.chainType !== "#35")
+    .filter((s) => state.minSprocketTeeth <= s.teeth)
+    .filter((s) => state.maxSprocketTeeth >= s.teeth);
 }
 
 export function generateOptions(state: RatioFinderStateV1) {
   let stages = allPossibleSingleGearStages(state);
-  linkOverlappingGearStages(
-    stages,
-    {
-      REV: revGears.map((g) => ({
-        dp: g.dp,
-        bore: g.bore as Bore,
-        teeth: g.teeth,
-        vendor: g.vendor as FRCVendor,
-        partNumber: g.partNumber,
-        url: g.url,
-      })),
-      AndyMark: amGears.map((g) => ({
-        dp: g.dp,
-        bore: g.bore as Bore,
-        teeth: g.teeth,
-        vendor: g.vendor as FRCVendor,
-        partNumber: g.partNumber,
-        url: g.url,
-      })),
-    },
-    state
-  );
+
+  let gears = [
+    ...(state.enableREV ? revGears : []),
+    ...(state.enableAM ? amGears : []),
+    ...(state.enableWCP ? [] : []),
+    ...(state.enableTTB ? [] : []),
+    ...(state.enableVEX ? [] : []),
+  ];
+
+  let pulleys = [
+    ...(state.enableREV ? revPulleys : []),
+    ...(state.enableAM ? amPulleys : []),
+    ...(state.enableWCP ? [] : []),
+    ...(state.enableTTB ? [] : []),
+    ...(state.enableVEX ? [] : []),
+  ];
+
+  let sprockets = [
+    ...(state.enableREV ? revSprockets : []),
+    ...(state.enableAM ? amSprockets : []),
+    ...(state.enableWCP ? [] : []),
+    ...(state.enableTTB ? [] : []),
+    ...(state.enableVEX ? [] : []),
+  ];
+
+  let motionMethods: MotionMethod[] = [
+    ...filterGears(state, gears).map((g) => ({
+      ...g,
+      type: "Gear" as MotionMethodPart,
+    })),
+    ...filterPulleys(state, pulleys).map((g) => ({
+      ...g,
+      type: "Pulley" as MotionMethodPart,
+    })),
+    ...filterSprockets(state, sprockets).map((g) => ({
+      ...g,
+      type: "Sprocket" as MotionMethodPart,
+    })),
+  ]
+    .filter((m) => state.enableREV || m.vendor !== "REV")
+    .filter((m) => state.enableAM || m.vendor !== "AndyMark")
+    .filter((m) => state.enableVEX || m.vendor !== "VEXpro")
+    .filter((m) => state.enableWCP || m.vendor !== "WCP")
+    .filter((m) => state.enableTTB || m.vendor !== "TTB")
+    .filter((m) => {
+      let good = true;
+      if (["Falcon", "NEO", "550", "775"].includes(m.bore)) {
+        good = good && (state.enableFalconPinions || m.bore !== "Falcon");
+        good = good && (state.enableNEOPinions || m.bore !== "NEO");
+        good = good && (state.enable775Pinions || m.bore !== "775");
+        good = good && (state.enable550Pinions || m.bore !== "550");
+      } else {
+        good = good && (state.enable12HexBore || m.bore !== "1/2 Hex");
+        good = good && (state.enable38HexBore || m.bore !== "3/8 Hex");
+        good = good && (state.enable875Bore || m.bore !== "0.875in");
+        good = good && (state.enableBearingBore || m.bore !== "1.125in");
+        good = good && (state.enableMaxSpline || m.bore !== "MAXSpline");
+      }
+      return good;
+    });
+
+  linkOverlappingGearStages(stages, motionMethods, state);
 
   stages = stages.filter(
     (stage) =>

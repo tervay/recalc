@@ -160,6 +160,11 @@ export default function RatioFinderCalculator(): JSX.Element {
     get.enableWCP,
     get.enableAM,
     get.enableTTB,
+    get.enable12HexBore,
+    get.enable38HexBore,
+    get.enableBearingBore,
+    get.enable875Bore,
+    get.enableMaxSpline,
   ]);
 
   const [displayNum, setDisplayNum] = useState(20);
@@ -246,16 +251,16 @@ export default function RatioFinderCalculator(): JSX.Element {
               label="Planetaries"
               options={[
                 {
-                  name: "VersaPlanetaries",
-                  stateHook: [get.enableVPs, set.setEnableVPs],
-                },
-                {
                   name: "MAX Planetaries",
                   stateHook: [get.enableMPs, set.setEnableMPs],
                 },
                 {
                   name: "57 Sports",
                   stateHook: [get.enableSports, set.setEnableSports],
+                },
+                {
+                  name: "VersaPlanetaries",
+                  stateHook: [get.enableVPs, set.setEnableVPs],
                 },
               ]}
             />
@@ -354,6 +359,10 @@ export default function RatioFinderCalculator(): JSX.Element {
                 {
                   name: '1.125"',
                   stateHook: [get.enableBearingBore, set.setEnableBearingBore],
+                },
+                {
+                  name: "MAXSpline",
+                  stateHook: [get.enableMaxSpline, set.setEnableMaxSpline],
                 },
               ]}
             />
