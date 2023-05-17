@@ -48,10 +48,15 @@ export const RatioFinderParamsV1 = {
   enable775Pinions: withDefault(BooleanParam, true),
   enable550Pinions: withDefault(BooleanParam, true),
 
-  enableVEX: withDefault(BooleanParam, true),
+  enableVEX: withDefault(BooleanParam, false),
   enableREV: withDefault(BooleanParam, true),
   enableWCP: withDefault(BooleanParam, true),
   enableAM: withDefault(BooleanParam, true),
   enableTTB: withDefault(BooleanParam, true),
+
+  enable12HexBore: withDefault(BooleanParam, true),
+  enable38HexBore: withDefault(BooleanParam, true),
+  enableBearingBore: withDefault(BooleanParam, true),
+  enable875Bore: withDefault(BooleanParam, true),
 };
 export type RatioFinderStateV1 = Stateify<typeof RatioFinderParamsV1>;

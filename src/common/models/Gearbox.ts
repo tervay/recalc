@@ -199,7 +199,6 @@ export class Gearbox2 {
       }
     }
 
-    console.log("good on " + this.stages);
     return false;
   }
 

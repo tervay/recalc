@@ -1,12 +1,13 @@
 import SimpleHeading from "common/components/heading/SimpleHeading";
 import SingleInputLine from "common/components/io/inputs/SingleInputLine";
 import { BooleanInput, NumberInput } from "common/components/io/new/inputs";
+import L0MultiBoolean from "common/components/io/new/inputs/L0/L0MultiBoolean";
 import { Column, Columns, Divider } from "common/components/styling/Building";
 import { Gearbox2, MotionMethod } from "common/models/Gearbox";
 import { useGettersSetters } from "common/tooling/conversion";
 import { wrap } from "common/tooling/promise-worker";
 import groupBy from "lodash/groupBy";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ratioFinderConfig, {
   RatioFinderParamsV1,
   RatioFinderStateV1,
@@ -43,15 +44,15 @@ function MotionMethodCell(props: {
           </tr>
         </thead>
         <tbody>
-          {keys.map((k) => (
-            <tr>
+          {keys.map((k, i) => (
+            <tr key={i}>
               <td>{k}</td>
               <td>
-                {gb[k].map((m) => (
-                  <>
+                {gb[k].map((m, i) => (
+                  <React.Fragment key={i}>
                     ({m.type.slice(0, 1)}) <a href={m.url}>{m.partNumber}</a>
                     <br />
-                  </>
+                  </React.Fragment>
                 ))}
               </td>
             </tr>
@@ -74,20 +75,20 @@ function GearboxRows(props: {
         <td rowSpan={2} className="thick-bottom-border">
           {props.gearbox.getRatio().toFixed(2).replace(/\.00$/, "")}:1
         </td>
-        {props.gearbox.stages.map((stage) => (
-          <td colSpan={2} className="has-text-centered">
+        {props.gearbox.stages.map((stage, i) => (
+          <td colSpan={2} className="has-text-centered" key={i}>
             <b>
               {stage.driving}:{stage.driven}
             </b>
           </td>
         ))}
         {emptyStages > 0 &&
-          [...Array(emptyStages)].map((_) => <td colSpan={2}></td>)}
+          [...Array(emptyStages)].map((_, i) => <td colSpan={2} key={i}></td>)}
       </tr>
 
       <tr>
         {props.gearbox.stages.map((stage, i) => (
-          <>
+          <React.Fragment key={i}>
             <td
               colSpan={1}
               className="has-text-centered unset-va thick-bottom-border p-0"
@@ -106,7 +107,7 @@ function GearboxRows(props: {
                 excludePinions
               />
             </td>
-          </>
+          </React.Fragment>
         ))}
       </tr>
     </>
@@ -171,7 +172,6 @@ export default function RatioFinderCalculator(): JSX.Element {
         title={ratioFinderConfig.title}
       />
       <>
-        <Divider>Ratio Settings</Divider>
         <Columns>
           <Column>
             <SingleInputLine label="Target Reduction">
@@ -179,32 +179,14 @@ export default function RatioFinderCalculator(): JSX.Element {
                 stateHook={[get.targetReduction, set.setTargetReduction]}
               />
             </SingleInputLine>
-          </Column>
-          <Column>
             <SingleInputLine label="Min Reduction">
               <NumberInput
                 stateHook={[get.minReduction, set.setMinReduction]}
               />
             </SingleInputLine>
-          </Column>
-          <Column>
             <SingleInputLine label="Max Reduction">
               <NumberInput
                 stateHook={[get.maxReduction, set.setMaxReduction]}
-              />
-            </SingleInputLine>
-          </Column>
-        </Columns>
-        <Columns>
-          {/* <Column narrow>
-            <SingleInputLine label="COTS Only">
-              <BooleanInput stateHook={[get.cotsOnly, set.setCotsOnly]} />
-            </SingleInputLine>
-          </Column> */}
-          <Column narrow>
-            <SingleInputLine label="First Part Pinion">
-              <BooleanInput
-                stateHook={[get.firstPartPinion, set.setFirstPartPinion]}
               />
             </SingleInputLine>
           </Column>
@@ -212,80 +194,190 @@ export default function RatioFinderCalculator(): JSX.Element {
             <SingleInputLine label="Min Stages">
               <NumberInput stateHook={[get.minStages, set.setMinStages]} />
             </SingleInputLine>
-          </Column>
-          <Column>
             <SingleInputLine label="Max Stages">
               <NumberInput stateHook={[get.maxStages, set.setMaxStages]} />
             </SingleInputLine>
+            <Columns>
+              <Column>
+                <SingleInputLine label="First Part Pinion">
+                  <BooleanInput
+                    stateHook={[get.firstPartPinion, set.setFirstPartPinion]}
+                  />
+                </SingleInputLine>
+              </Column>
+              <Column>
+                <SingleInputLine label="Display Results">
+                  <NumberInput stateHook={[displayNum, setDisplayNum]} />
+                </SingleInputLine>
+              </Column>
+            </Columns>
           </Column>
         </Columns>
-        <Divider>Vendor Settings</Divider>
         <Columns>
-          <Column narrow>
-            <SingleInputLine label="Enable REV">
-              <BooleanInput stateHook={[get.enableREV, set.setEnableREV]} />
-            </SingleInputLine>
+          <Column extraClasses="px-2">
+            <L0MultiBoolean
+              label="Vendors"
+              options={[
+                {
+                  name: "REV",
+                  stateHook: [get.enableREV, set.setEnableREV],
+                },
+                {
+                  name: "WCP",
+                  stateHook: [get.enableWCP, set.setEnableWCP],
+                },
+                {
+                  name: "AndyMark",
+                  stateHook: [get.enableAM, set.setEnableAM],
+                },
+                {
+                  name: "TTB",
+                  stateHook: [get.enableTTB, set.setEnableTTB],
+                },
+                {
+                  name: "VEX",
+                  stateHook: [get.enableVEX, set.setEnableVEX],
+                },
+              ]}
+            />
           </Column>
-          <Column narrow>
-            <SingleInputLine label="Enable VEX">
-              <BooleanInput stateHook={[get.enableVEX, set.setEnableVEX]} />
-            </SingleInputLine>
+          <Column extraClasses="px-2">
+            <L0MultiBoolean
+              label="Planetaries"
+              options={[
+                {
+                  name: "VersaPlanetaries",
+                  stateHook: [get.enableVPs, set.setEnableVPs],
+                },
+                {
+                  name: "MAX Planetaries",
+                  stateHook: [get.enableMPs, set.setEnableMPs],
+                },
+                {
+                  name: "57 Sports",
+                  stateHook: [get.enableSports, set.setEnableSports],
+                },
+              ]}
+            />
           </Column>
-          <Column narrow>
-            <SingleInputLine label="Enable WCP">
-              <BooleanInput stateHook={[get.enableWCP, set.setEnableWCP]} />
-            </SingleInputLine>
+          <Column extraClasses="px-2">
+            <L0MultiBoolean
+              label="Gear Types"
+              options={[
+                {
+                  name: "20 DP",
+                  stateHook: [get.enable20DPGears, set.setEnable20DPGears],
+                },
+                {
+                  name: "32 DP",
+                  stateHook: [get.enable32DPGears, set.setEnable32DPGears],
+                },
+              ]}
+            />
           </Column>
-          <Column narrow>
-            <SingleInputLine label="Enable AM">
-              <BooleanInput stateHook={[get.enableAM, set.setEnableAM]} />
-            </SingleInputLine>
+          <Column extraClasses="px-2">
+            <L0MultiBoolean
+              label="Pulley Types"
+              options={[
+                {
+                  name: "GT2",
+                  stateHook: [get.enableGT2, set.setEnableGT2],
+                },
+                {
+                  name: "HTD",
+                  stateHook: [get.enableHTD, set.setEnableHTD],
+                },
+                {
+                  name: "RT25",
+                  stateHook: [get.enableRT25, set.setEnableRT25],
+                },
+              ]}
+            />
           </Column>
-          <Column narrow>
-            <SingleInputLine label="Enable TTB">
-              <BooleanInput stateHook={[get.enableTTB, set.setEnableTTB]} />
-            </SingleInputLine>
+          <Column extraClasses="px-2">
+            <L0MultiBoolean
+              label="Chain Types"
+              options={[
+                {
+                  name: "#25",
+                  stateHook: [get.enable25Chain, set.setEnable35Chain],
+                },
+                {
+                  name: "#35",
+                  stateHook: [get.enable35Chain, set.setEnable35Chain],
+                },
+              ]}
+            />
+          </Column>
+          <Column extraClasses="px-2">
+            <L0MultiBoolean
+              label="Pinion Bores"
+              options={[
+                {
+                  name: "NEO",
+                  stateHook: [get.enableNEOPinions, set.setEnableNEOPinions],
+                },
+                {
+                  name: "Falcon",
+                  stateHook: [
+                    get.enableFalconPinions,
+                    set.setEnableFalconPinions,
+                  ],
+                },
+                {
+                  name: "775",
+                  stateHook: [get.enable775Pinions, set.setEnable775Pinions],
+                },
+                {
+                  name: "550",
+                  stateHook: [get.enable550Pinions, set.setEnable550Pinions],
+                },
+              ]}
+            />
+          </Column>
+          <Column extraClasses="px-2">
+            <L0MultiBoolean
+              label="Other Bores"
+              options={[
+                {
+                  name: '1/2" Hex',
+                  stateHook: [get.enable12HexBore, set.setEnable12HexBore],
+                },
+                {
+                  name: '3/8" Hex',
+                  stateHook: [get.enable38HexBore, set.setEnable38HexBore],
+                },
+                {
+                  name: '0.875"',
+                  stateHook: [get.enable875Bore, set.setEnable875Bore],
+                },
+                {
+                  name: '1.125"',
+                  stateHook: [get.enableBearingBore, set.setEnableBearingBore],
+                },
+              ]}
+            />
           </Column>
         </Columns>
-        <Divider>Planetary Settings</Divider>
         <Columns>
-          <Column narrow>
-            <SingleInputLine label="Enable VPs">
-              <BooleanInput stateHook={[get.enableVPs, set.setEnableVPs]} />
+          <Column>
+            <Divider extraClasses="mt-0">Gear Tooth Range</Divider>
+            <SingleInputLine label="Min">
+              <NumberInput
+                stateHook={[get.minGearTeeth, set.setMinGearTeeth]}
+                disabledIf={() => !(get.enable20DPGears || get.enable32DPGears)}
+              />
             </SingleInputLine>
-          </Column>
-          <Column narrow>
-            <SingleInputLine label="Enable MPs">
-              <BooleanInput stateHook={[get.enableMPs, set.setEnableMPs]} />
-            </SingleInputLine>
-          </Column>
-          <Column narrow>
-            <SingleInputLine label="Enable Sports">
-              <BooleanInput
-                stateHook={[get.enableSports, set.setEnableSports]}
+            <SingleInputLine label="Max">
+              <NumberInput
+                stateHook={[get.maxGearTeeth, set.setMaxGearTeeth]}
+                disabledIf={() => !(get.enable20DPGears || get.enable32DPGears)}
               />
             </SingleInputLine>
           </Column>
-        </Columns>
-        <Divider>Pulley Settings</Divider>
-        <Columns>
-          <Column narrow>
-            <SingleInputLine label="Enable GT2">
-              <BooleanInput stateHook={[get.enableGT2, set.setEnableGT2]} />
-            </SingleInputLine>
-          </Column>
-          <Column narrow>
-            <SingleInputLine label="Enable HTD">
-              <BooleanInput stateHook={[get.enableHTD, set.setEnableHTD]} />
-            </SingleInputLine>
-          </Column>
-          <Column narrow>
-            <SingleInputLine label="Enable RT25">
-              <BooleanInput stateHook={[get.enableRT25, set.setEnableRT25]} />
-            </SingleInputLine>
-          </Column>
           <Column>
-            <SingleInputLine label="Min Teeth">
+            <Divider extraClasses="mt-0">Pulley Tooth Range</Divider>
+            <SingleInputLine label="Min">
               <NumberInput
                 stateHook={[get.minPulleyTeeth, set.setMinPulleyTeeth]}
                 disabledIf={() =>
@@ -293,9 +385,7 @@ export default function RatioFinderCalculator(): JSX.Element {
                 }
               />
             </SingleInputLine>
-          </Column>
-          <Column>
-            <SingleInputLine label="Max Teeth">
+            <SingleInputLine label="Max">
               <NumberInput
                 stateHook={[get.maxPulleyTeeth, set.setMaxPulleyTeeth]}
                 disabledIf={() =>
@@ -304,102 +394,18 @@ export default function RatioFinderCalculator(): JSX.Element {
               />
             </SingleInputLine>
           </Column>
-        </Columns>
-        <Divider>Sprocket Settings</Divider>
-        <Columns>
-          <Column narrow>
-            <SingleInputLine label="Enable #25">
-              <BooleanInput
-                stateHook={[get.enable25Chain, set.setEnable25Chain]}
-              />
-            </SingleInputLine>
-          </Column>
-          <Column narrow>
-            <SingleInputLine label="Enable #35">
-              <BooleanInput
-                stateHook={[get.enable35Chain, set.setEnable35Chain]}
-              />
-            </SingleInputLine>
-          </Column>
           <Column>
-            <SingleInputLine label="Min Teeth">
+            <Divider extraClasses="mt-0">Sprocket Tooth Range</Divider>
+            <SingleInputLine label="Min">
               <NumberInput
                 stateHook={[get.minSprocketTeeth, set.setMinSprocketTeeth]}
                 disabledIf={() => !(get.enable25Chain || get.enable35Chain)}
               />
             </SingleInputLine>
-          </Column>
-          <Column>
-            <SingleInputLine label="Max Teeth">
+            <SingleInputLine label="Max">
               <NumberInput
                 stateHook={[get.maxSprocketTeeth, set.setMaxSprocketTeeth]}
                 disabledIf={() => !(get.enable25Chain || get.enable35Chain)}
-              />
-            </SingleInputLine>
-          </Column>
-        </Columns>
-        <Divider>Gear Settings</Divider>
-        <Columns>
-          <Column narrow>
-            <SingleInputLine label="Enable 20DP">
-              <BooleanInput
-                stateHook={[get.enable20DPGears, set.setEnable20DPGears]}
-              />
-            </SingleInputLine>
-          </Column>
-          <Column narrow>
-            <SingleInputLine label="Enable 32DP">
-              <BooleanInput
-                stateHook={[get.enable32DPGears, set.setEnable32DPGears]}
-              />
-            </SingleInputLine>
-          </Column>
-          <Column>
-            <SingleInputLine label="Min Teeth">
-              <NumberInput
-                stateHook={[get.minGearTeeth, set.setMinGearTeeth]}
-                disabledIf={() => !(get.enable20DPGears || get.enable32DPGears)}
-              />
-            </SingleInputLine>
-          </Column>
-          <Column>
-            <SingleInputLine label="Max Teeth">
-              <NumberInput
-                stateHook={[get.maxGearTeeth, set.setMaxGearTeeth]}
-                disabledIf={() => !(get.enable20DPGears || get.enable32DPGears)}
-              />
-            </SingleInputLine>
-          </Column>
-        </Columns>
-        <Columns>
-          <Column narrow>
-            <SingleInputLine label="Enable NEO Pinions">
-              <BooleanInput
-                stateHook={[get.enableNEOPinions, set.setEnableNEOPinions]}
-              />
-            </SingleInputLine>
-          </Column>
-          <Column narrow>
-            <SingleInputLine label="Enable Falcon Pinions">
-              <BooleanInput
-                stateHook={[
-                  get.enableFalconPinions,
-                  set.setEnableFalconPinions,
-                ]}
-              />
-            </SingleInputLine>
-          </Column>
-          <Column narrow>
-            <SingleInputLine label="Enable 775 Pinions">
-              <BooleanInput
-                stateHook={[get.enable775Pinions, set.setEnable775Pinions]}
-              />
-            </SingleInputLine>
-          </Column>
-          <Column narrow>
-            <SingleInputLine label="Enable 550 Pinions">
-              <BooleanInput
-                stateHook={[get.enable550Pinions, set.setEnable550Pinions]}
               />
             </SingleInputLine>
           </Column>
@@ -419,8 +425,8 @@ export default function RatioFinderCalculator(): JSX.Element {
               {gearboxes
                 .sort((a, b) => a.compare(b, get.targetReduction))
                 .slice(0, displayNum)
-                .map((gb) => (
-                  <GearboxRows gearbox={gb} maxStages={get.maxStages} />
+                .map((gb, i) => (
+                  <GearboxRows gearbox={gb} maxStages={get.maxStages} key={i} />
                 ))}
             </tbody>
           </table>
