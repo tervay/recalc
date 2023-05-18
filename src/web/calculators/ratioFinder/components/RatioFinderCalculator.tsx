@@ -34,6 +34,16 @@ function MotionMethodCell(props: {
       )
     : Object.keys(gb);
 
+  keys.forEach((k) => {
+    if (gb[k].length === 0) {
+      console.log(gb);
+    }
+  });
+
+  if (keys.length === 0) {
+    console.log(props.motionMethods);
+  }
+
   return (
     <>
       <table className="table is-fullwidth is-narrow p-0">
@@ -130,8 +140,7 @@ export default function RatioFinderCalculator(): JSX.Element {
     });
   }, [
     get.targetReduction,
-    get.minReduction,
-    get.maxReduction,
+    get.reductionError,
     get.minStages,
     get.maxStages,
     get.firstPartPinion,
@@ -184,14 +193,9 @@ export default function RatioFinderCalculator(): JSX.Element {
                 stateHook={[get.targetReduction, set.setTargetReduction]}
               />
             </SingleInputLine>
-            <SingleInputLine label="Min Reduction">
+            <SingleInputLine label="Reduction Error Threshold">
               <NumberInput
-                stateHook={[get.minReduction, set.setMinReduction]}
-              />
-            </SingleInputLine>
-            <SingleInputLine label="Max Reduction">
-              <NumberInput
-                stateHook={[get.maxReduction, set.setMaxReduction]}
+                stateHook={[get.reductionError, set.setReductionError]}
               />
             </SingleInputLine>
           </Column>

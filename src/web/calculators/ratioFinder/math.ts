@@ -49,7 +49,10 @@ export function linkOverlappingGearStages(
 ) {
   motionMethods.forEach((gear) => {
     stages.forEach((stage) => {
-      if (gear.teeth === stage.driven) {
+      if (
+        gear.teeth === stage.driven &&
+        !["Falcon", "NEO", "550", "775"].includes(gear.bore)
+      ) {
         stage.drivenMethods.push(gear);
       }
 
@@ -209,11 +212,12 @@ export function generateOptions(state: RatioFinderStateV1) {
       }
 
       if (
-        ratio >= state.minReduction &&
-        ratio <= state.maxReduction &&
+        ratio >= state.targetReduction - state.reductionError &&
+        ratio <= state.targetReduction + state.reductionError &&
         !gb.containsPinionInBadPlace() &&
         good &&
-        gb.overlapsBores()
+        gb.overlapsBores() &&
+        gb.overlapsMotionMethods()
       ) {
         gbs.push(gb);
       }

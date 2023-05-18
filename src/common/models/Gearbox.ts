@@ -88,7 +88,11 @@ export class Gearbox2 {
 
   containsPinionInBadPlace(): boolean {
     if (this.stages.length === 1) {
-      return false;
+      return (
+        this.stages[0].drivenMethods.filter(
+          (m) => !["Falcon", "NEO", "550", "775"].includes(m.bore)
+        ).length === 0
+      );
     }
 
     for (let i = 1; i < this.stages.length; i++) {
@@ -97,7 +101,12 @@ export class Gearbox2 {
       );
 
       // console.log(i, this.stages[i]);
-      if (nonPinions.length === 0) {
+      if (
+        nonPinions.length === 0 ||
+        this.stages[i].drivenMethods.filter(
+          (m) => !["Falcon", "NEO", "550", "775"].includes(m.bore)
+        ).length === 0
+      ) {
         return true;
       }
     }
@@ -132,6 +141,24 @@ export class Gearbox2 {
     }
 
     return false;
+  }
+
+  overlapsMotionMethods(): boolean {
+    let good = true;
+
+    for (let i = 0; i < this.stages.length; i++) {
+      for (let j = 0; j < this.stages[i].drivenMethods.length; j++) {
+        if (
+          this.stages[i].drivingMethods.filter(
+            (m) => m.type === this.stages[i].drivenMethods[j].type
+          ).length === 0
+        ) {
+          good = false;
+        }
+      }
+    }
+
+    return good;
   }
 
   toObj(): {
