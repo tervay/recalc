@@ -85,7 +85,7 @@
     "@types/katex": "^0.16.0",
     "@types/lodash": "^4.14.194",
     "@types/lz-string": "^1.5.0",
-    "@types/marked": "^4.3.0",
+    "@types/marked": "^5.0.0",
     "@types/react-helmet": "^6.1.6",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-table": "^7.7.14",
