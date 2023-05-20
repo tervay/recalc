@@ -28,6 +28,7 @@ import amGears from "common/models/data/cots/andymark/gears.json";
 import amPulleys from "common/models/data/cots/andymark/pulleys.json";
 import amSprockets from "common/models/data/cots/andymark/sprockets.json";
 import maxPlanetary from "common/models/data/cots/planetaries/maxplanetaries.json";
+import sportPlanetary from "common/models/data/cots/planetaries/sports.json";
 import versaPlanetary from "common/models/data/cots/planetaries/versaplanetaries.json";
 import revGears from "common/models/data/cots/rev/gears.json";
 import revPulleys from "common/models/data/cots/rev/pulleys.json";
@@ -195,6 +196,19 @@ export function generateOptions(state: RatioFinderStateV1) {
         ratios: versaPlanetary.ratios,
         url: versaPlanetary.url,
         vendor: versaPlanetary.vendor as FRCVendor,
+      })
+    );
+  }
+  if (state.enableSports && state.enableAM) {
+    stages = stages.concat(
+      generatePlanetaryStages({
+        inputs: sportPlanetary.inputs as Bore[],
+        maxStages: sportPlanetary.maxStages,
+        outputs: sportPlanetary.outputs as Bore[],
+        partNumber: sportPlanetary.partNumber,
+        ratios: sportPlanetary.ratios,
+        url: sportPlanetary.url,
+        vendor: sportPlanetary.vendor as FRCVendor,
       })
     );
   }
