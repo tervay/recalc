@@ -71,7 +71,7 @@ export type RawPlanetaryData = {
   vendor: FRCVendor;
 };
 
-export class Stage2 {
+export class Stage {
   constructor(
     public readonly driving: number,
     public readonly driven: number,
@@ -92,7 +92,7 @@ export class Stage2 {
   }
 }
 
-export class Planetary extends Stage2 {
+export class Planetary extends Stage {
   constructor(
     public readonly reduction: number,
     public readonly stageOptions: number[][],
@@ -131,10 +131,10 @@ export class Planetary extends Stage2 {
   }
 }
 
-export class Gearbox2 {
-  constructor(public stages: Stage2[]) {}
+export class Gearbox {
+  constructor(public stages: Stage[]) {}
 
-  addStage(stage: Stage2) {
+  addStage(stage: Stage) {
     this.stages.push(stage);
   }
 
@@ -281,15 +281,14 @@ export class Gearbox2 {
       drivenMethods: MotionMethod[];
     }[]
   ) {
-    return new Gearbox2(
+    return new Gearbox(
       obj.map(
-        (o) =>
-          new Stage2(o.driving, o.driven, o.drivingMethods, o.drivenMethods)
+        (o) => new Stage(o.driving, o.driven, o.drivingMethods, o.drivenMethods)
       )
     );
   }
 
-  compare(gb: Gearbox2, targetReduction: number): number {
+  compare(gb: Gearbox, targetReduction: number): number {
     const error = Math.abs(this.getRatio() - targetReduction);
     const otherError = Math.abs(gb.getRatio() - targetReduction);
 

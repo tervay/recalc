@@ -6,7 +6,7 @@ import { Column, Columns, Divider } from "common/components/styling/Building";
 import { Bore, MotorBores } from "common/models/ExtraTypes";
 import {
   DrivingDriven,
-  Gearbox2,
+  Gearbox,
   MMTypeStr,
   MotionMethod,
 } from "common/models/Gearbox";
@@ -126,7 +126,7 @@ function MotionMethodCell(props: {
 }
 
 function GearboxRows(props: {
-  gearbox: Gearbox2;
+  gearbox: Gearbox;
   maxStages: number;
 }): JSX.Element {
   const emptyStages = props.maxStages - props.gearbox.getStages();
@@ -193,13 +193,13 @@ export default function RatioFinderCalculator(): JSX.Element {
     RatioFinderState.getState() as RatioFinderStateV1
   );
 
-  const [gearboxes, setGearboxes] = useState([] as Gearbox2[]);
+  const [gearboxes, setGearboxes] = useState([] as Gearbox[]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
     worker.generateOptions(get).then((r) => {
-      setGearboxes(r.map((obj) => Gearbox2.fromObj(obj)));
+      setGearboxes(r.map((obj) => Gearbox.fromObj(obj)));
       setIsLoading(false);
     });
   }, [

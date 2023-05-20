@@ -7,14 +7,14 @@ import {
 } from "common/models/ExtraTypes";
 import {
   GearData,
-  Gearbox2,
+  Gearbox,
   MotionMethod,
   MotionMethodPart,
   Planetary,
   PulleyData,
   RawPlanetaryData,
   SprocketData,
-  Stage2,
+  Stage,
 } from "common/models/Gearbox";
 import { expose } from "common/tooling/promise-worker";
 import { combinationsWithReplacement, permutations } from "common/tooling/util";
@@ -38,15 +38,15 @@ import vexGears from "common/models/data/cots/vex/gears.json";
 import vexPulleys from "common/models/data/cots/vex/pulleys.json";
 import vexSprockets from "common/models/data/cots/vex/sprockets.json";
 
-function stagesFromMinToMax(min: number, max: number): Stage2[] {
-  let stages: Stage2[] = [];
+function stagesFromMinToMax(min: number, max: number): Stage[] {
+  let stages: Stage[] = [];
   for (let i = min; i <= max; i++) {
     for (let j = min; j <= max; j++) {
       if (i === j) {
         continue;
       }
 
-      stages.push(new Stage2(i, j, [], []));
+      stages.push(new Stage(i, j, [], []));
     }
   }
 
@@ -94,7 +94,7 @@ export function generatePlanetaryStages(planetary: RawPlanetaryData) {
 }
 
 export function linkOverlappingGearStages(
-  stages: Stage2[],
+  stages: Stage[],
   motionMethods: MotionMethod[],
   state: RatioFinderStateV1
 ) {
@@ -265,15 +265,15 @@ export function generateOptions(state: RatioFinderStateV1) {
     .filter((stage) => stage.drivenMethods.length > 0)
     .filter((stage) => stage.drivingMethods.length > 0);
 
-  let options: Gearbox2[] = [];
+  let options: Gearbox[] = [];
   for (let i = state.minStages; i <= state.maxStages; i++) {
-    let gbs: Gearbox2[] = [];
+    let gbs: Gearbox[] = [];
 
     var iter = permutations(stages, i);
     var curr = iter.next();
 
     while (!curr.done) {
-      const gb = new Gearbox2(curr.value);
+      const gb = new Gearbox(curr.value);
       const ratio = gb.getRatio();
 
       if (
