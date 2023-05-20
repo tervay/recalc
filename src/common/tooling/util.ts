@@ -112,3 +112,99 @@ export function getCurrentFunctionName(offset = 0): string {
 
   return err.stack.split("\n")[2 + offset].split(" ")[5];
 }
+
+export function* permutations<T>(array: T[], r: number) {
+  // Algorythm copied from Python `itertools.permutations`.
+  var n = array.length;
+  if (r === undefined) {
+    r = n;
+  }
+  if (r > n) {
+    return;
+  }
+  var indices = [];
+  for (var i = 0; i < n; i++) {
+    indices.push(i);
+  }
+  var cycles = [];
+  for (var i = n; i > n - r; i--) {
+    cycles.push(i);
+  }
+  var results = [];
+  var res = [];
+  for (var k = 0; k < r; k++) {
+    res.push(array[indices[k]]);
+  }
+  yield res;
+  // results.push(res);
+
+  var broken = false;
+  while (n > 0) {
+    for (var i = r - 1; i >= 0; i--) {
+      cycles[i]--;
+      if (cycles[i] === 0) {
+        indices = indices
+          .slice(0, i)
+          .concat(indices.slice(i + 1).concat(indices.slice(i, i + 1)));
+        cycles[i] = n - i;
+        broken = false;
+      } else {
+        var j = cycles[i];
+        var x = indices[i];
+        indices[i] = indices[n - j];
+        indices[n - j] = x;
+        var res = [];
+        for (var k = 0; k < r; k++) {
+          res.push(array[indices[k]]);
+        }
+        // results.push(res);
+        yield res;
+        broken = true;
+        break;
+      }
+    }
+    if (broken === false) {
+      break;
+    }
+  }
+
+  return;
+}
+
+export function* combinationsWithReplacement<T>(
+  iterable: Iterable<T>,
+  r: number
+): Generator<T[]> {
+  if (!Number.isInteger(r) || r < 0) {
+    throw RangeError("r must be a non-negative integer");
+  }
+  const pool = [...iterable];
+  const n = pool.length;
+  if (n === 0 && r > 0) {
+    return;
+  }
+  const indices = new Uint32Array(r);
+  yield Array(r).fill(pool[0]);
+  while (true) {
+    let i: number;
+    loop: {
+      for (i = r - 1; i >= 0; i--) {
+        if (indices[i] !== n - 1) {
+          break loop;
+        }
+      }
+      return;
+    }
+    const result: T[] = Array(r);
+    for (let j = 0; j < i; j++) {
+      result[j] = pool[indices[j]];
+    }
+    const index = indices[i] + 1;
+    const element = pool[index];
+    for (let j = i; j < r; j++) {
+      indices[j] = index;
+      result[j] = element;
+    }
+    yield result;
+  }
+}
