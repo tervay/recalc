@@ -6,6 +6,7 @@ import {
   PulleyBeltType,
 } from "common/models/ExtraTypes";
 import { MeasurementDict } from "common/models/Measurement";
+import fastCartesian from "fast-cartesian";
 import { min } from "lodash";
 import max from "lodash/max";
 
@@ -32,7 +33,11 @@ export type GearData = BaseMotionMethod & {
   dp: number;
 };
 
-export type MotionMethodPart = "Gear" | "Pulley" | "Sprocket";
+export type PlanetaryData = BaseMotionMethod & {
+  stageSequence?: number[];
+};
+
+export type MotionMethodPart = "Gear" | "Pulley" | "Sprocket" | "Planetary";
 export type MotionMethod = BaseMotionMethod & {
   type: MotionMethodPart;
 };
@@ -45,9 +50,26 @@ export function MMTypeStr(mm: MotionMethod): string {
     typeStr = (mm as any as PulleyData).beltType;
   } else if (mm.type === "Sprocket") {
     typeStr = (mm as any as SprocketData).chainType;
+  } else if (mm.type === "Planetary") {
+    const pd = mm as any as PlanetaryData;
+    if (pd.stageSequence === undefined) {
+      typeStr = "Planetary";
+    } else {
+      typeStr = pd.stageSequence.join(":");
+    }
   }
   return typeStr;
 }
+
+export type RawPlanetaryData = {
+  inputs: Bore[];
+  outputs: Bore[];
+  ratios: number[];
+  maxStages: number;
+  partNumber: string;
+  url: string;
+  vendor: FRCVendor;
+};
 
 export class Stage2 {
   constructor(
@@ -67,6 +89,45 @@ export class Stage2 {
 
   getMin(): number {
     return this.driven < this.driving ? this.driven : this.driving;
+  }
+}
+
+export class Planetary extends Stage2 {
+  constructor(
+    public readonly reduction: number,
+    public readonly stageOptions: number[][],
+    planetary: RawPlanetaryData
+  ) {
+    super(
+      1,
+      reduction,
+      planetary.inputs.map((input) => ({
+        ...({
+          bore: input,
+          partNumber: planetary.partNumber,
+          teeth: reduction,
+          type: "Planetary",
+          url: planetary.url,
+          vendor: planetary.vendor,
+          stageSequence: undefined,
+        } as PlanetaryData),
+        type: "Planetary",
+      })),
+      fastCartesian([planetary.outputs, stageOptions]).map(
+        ([outputBore, stageOption]) => ({
+          ...({
+            bore: outputBore,
+            partNumber: planetary.partNumber,
+            teeth: reduction,
+            type: "Planetary",
+            url: planetary.url,
+            vendor: planetary.vendor,
+            stageSequence: stageOption,
+          } as PlanetaryData),
+          type: "Planetary",
+        })
+      )
+    );
   }
 }
 
@@ -135,7 +196,9 @@ export class Gearbox2 {
         const matchingMethod = stage.drivenMethods.filter(
           (driven) =>
             driving.type === driven.type &&
-            MMTypeStr(driving) === MMTypeStr(driven)
+            (driving.type === "Planetary" && driven.type === "Planetary"
+              ? true
+              : MMTypeStr(driving) === MMTypeStr(driven))
         );
 
         if (matchingMethod.length > 0) {

@@ -18,7 +18,7 @@ export default ratioFinderConfig;
 export const RatioFinderParamsV1 = {
   targetReduction: withDefault(NumberParam, 15),
   reductionError: withDefault(NumberParam, 0.1),
-  minStages: withDefault(NumberParam, 2),
+  minStages: withDefault(NumberParam, 1),
   maxStages: withDefault(NumberParam, 2),
   firstPartPinion: withDefault(BooleanParam, true),
   // cotsOnly: withDefault(BooleanParam, true),

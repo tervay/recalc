@@ -1,0 +1,9 @@
+{
+  "inputs": ["NEO", "Falcon", "550", "775"],
+  "outputs": ["1/2 Hex"],
+  "ratios": [3, 4, 5],
+  "maxStages": 3,
+  "partNumber": "REV-21-2100",
+  "url": "https://www.revrobotics.com/rev-21-2100/",
+  "vendor": "REV"
+}

@@ -32,16 +32,15 @@ function overlappingDrivingDrivenMethods(
   let good: DrivingDriven = { driven: [], driving: [] };
 
   methods.driving.forEach((driving, i) => {
-    if (
-      excludePinions &&
-      ["Falcon", "NEO", "775", "550"].includes(driving.bore)
-    ) {
+    if (excludePinions && MotorBores.includes(driving.bore)) {
       return;
     }
 
     const matchingType = methods.driven.filter(
       (driven) =>
-        driven.type === driving.type && MMTypeStr(driven) === MMTypeStr(driving)
+        driven.type === driving.type &&
+        (MMTypeStr(driven) === MMTypeStr(driving) ||
+          driving.type === "Planetary")
     );
 
     if (matchingType.length > 0) {
@@ -64,7 +63,9 @@ function MotionMethodCell(props: {
 }): JSX.Element {
   let mms = props.motionMethods;
   if (props.excludePinions === true) {
-    mms = mms.filter((m) => !MotorBores.includes(m.bore));
+    mms = mms.filter(
+      (m) => !MotorBores.includes(m.bore) || m.type === "Planetary"
+    );
   }
 
   let gb = groupBy(mms, (m) => m.bore);
@@ -93,7 +94,7 @@ function MotionMethodCell(props: {
 
       x[bore][mmType].forEach((mm, i) => {
         tableRows.push(
-          <tr key={`${mm.partNumber}-${i}`}>
+          <tr key={`${Math.random()}`}>
             {firstTd}
             {secondTd}
             <td style={{ width: "100%", whiteSpace: "nowrap" }}>
@@ -156,6 +157,8 @@ function GearboxRows(props: {
             },
             i > 0
           );
+
+          console.log(stage, overlapping);
 
           return (
             <React.Fragment key={i}>
@@ -300,7 +303,10 @@ export default function RatioFinderCalculator(): JSX.Element {
                 </Columns>
                 <Columns formColumns>
                   <Column>
-                    <SingleInputLine label="First Part Pinion">
+                    <SingleInputLine
+                      label="Start Gearbox With Motor"
+                      tooltip="If enabled, the first bore will be a motor bore. If disabled, the first bore will not be a motor bore."
+                    >
                       <BooleanInput
                         stateHook={[
                           get.firstPartPinion,
@@ -385,10 +391,32 @@ export default function RatioFinderCalculator(): JSX.Element {
               {isLoading ? (
                 <div id="loading" />
               ) : (
-                <div className="is-size-5 p-2">
+                <div className="is-size-5 p-2 has-text-centered">
                   {gearboxes.length} gearboxes found
                 </div>
               )}
+              <div className="notification is-warning is-light content pt-1 px-1">
+                <ul>
+                  <li>
+                    Be sure to review the{" "}
+                    <a href="https://docs.google.com/gview?url=https://link.vex.com/vexpro/pdf/VersaPlanetary-LoadRatings&embedded=true">
+                      VP Load Ratings
+                    </a>{" "}
+                    as this does not account for them.
+                  </li>
+                  <li>
+                    Planetaries won't show if their respective vendors are
+                    disabled. (e.g. both REV and MAX Planetaries must be enabled
+                    to see MAX Planetaries.)
+                  </li>
+                  <li>Planetary part numbers are not accurate.</li>
+                  <li>Currently missing all WCP.</li>
+                  <li>
+                    3+ stage generation can be slow. Try limiting tooth ranges
+                    or reducing error threshold.
+                  </li>
+                </ul>
+              </div>
             </Column>
           </Column>
           <Column>
