@@ -8,6 +8,8 @@ import { MeasurementDict } from "common/models/Measurement";
 import { min } from "lodash";
 import max from "lodash/max";
 
+export type DrivingDriven = { driving: MotionMethod[]; driven: MotionMethod[] };
+
 type BaseMotionMethod = {
   teeth: number;
   bore: Bore;
@@ -33,6 +35,18 @@ export type MotionMethodPart = "Gear" | "Pulley" | "Sprocket";
 export type MotionMethod = BaseMotionMethod & {
   type: MotionMethodPart;
 };
+
+export function MMTypeStr(mm: MotionMethod): string {
+  let typeStr = "";
+  if (mm.type === "Gear") {
+    typeStr = `${(mm as any as GearData).dp} DP`;
+  } else if (mm.type === "Pulley") {
+    typeStr = (mm as any as PulleyData).beltType;
+  } else if (mm.type === "Sprocket") {
+    typeStr = (mm as any as SprocketData).chainType;
+  }
+  return typeStr;
+}
 
 export class Stage2 {
   constructor(
@@ -114,49 +128,72 @@ export class Gearbox2 {
     return false;
   }
 
-  overlapsBores(): boolean {
-    if (this.stages.length === 1) {
-      return true;
-    }
+  filterStagesForOverlappingMotionMethods() {
+    this.stages.forEach((stage) => {
+      let newDriven: MotionMethod[] = [];
+      let newDriving: MotionMethod[] = [];
 
-    for (let i = 0; i < this.stages.length - 1; i++) {
-      for (
-        let boreIdx = 0;
-        boreIdx < this.stages[i].drivenMethods.length;
-        boreIdx++
-      ) {
-        for (
-          let matingBoreIdx = 0;
-          matingBoreIdx < this.stages[i + 1].drivingMethods.length;
-          matingBoreIdx++
-        ) {
-          if (
-            this.stages[i].drivenMethods[boreIdx].bore ===
-            this.stages[i + 1].drivingMethods[matingBoreIdx].bore
-          ) {
-            return true;
-          }
+      stage.drivingMethods.forEach((driving) => {
+        const matchingMethod = stage.drivenMethods.filter(
+          (driven) =>
+            driving.type === driven.type &&
+            MMTypeStr(driving) === MMTypeStr(driven)
+        );
+
+        if (matchingMethod.length > 0) {
+          newDriving.push(driving);
+
+          matchingMethod.forEach((match) => {
+            if (!newDriven.includes(match)) {
+              newDriven.push(match);
+            }
+          });
         }
-      }
-    }
+      });
 
-    return false;
+      stage.drivingMethods = newDriving;
+      stage.drivenMethods = newDriven;
+    });
   }
 
-  overlapsMotionMethods(): boolean {
-    let good = true;
+  filterStagesForOverlappingBores() {
+    for (let i = 0; i < this.stages.length - 1; i++) {
+      let prevStage = this.stages[i];
+      let nextStage = this.stages[i + 1];
+      let newPrevDriven: MotionMethod[] = [];
+      let newNextDriving: MotionMethod[] = [];
 
-    for (let i = 0; i < this.stages.length; i++) {
-      for (let j = 0; j < this.stages[i].drivenMethods.length; j++) {
-        if (
-          this.stages[i].drivingMethods.filter(
-            (m) => m.type === this.stages[i].drivenMethods[j].type
-          ).length === 0
-        ) {
-          good = false;
+      prevStage.drivenMethods.forEach((driven) => {
+        const matchingBores = nextStage.drivingMethods.filter(
+          (driving) => driving.bore === driven.bore
+        );
+
+        if (matchingBores.length > 0) {
+          newPrevDriven.push(driven);
+
+          matchingBores.forEach((matching) => {
+            if (!newNextDriving.includes(matching)) {
+              newNextDriving.push(matching);
+            }
+          });
         }
-      }
+      });
+
+      prevStage.drivenMethods = newPrevDriven;
+      nextStage.drivingMethods = newNextDriving;
     }
+  }
+
+  hasMotionModes(): boolean {
+    let good = true;
+    this.stages.forEach((stage) => {
+      if (
+        stage.drivenMethods.length === 0 ||
+        stage.drivingMethods.length === 0
+      ) {
+        good = false;
+      }
+    });
 
     return good;
   }
@@ -197,9 +234,9 @@ export class Gearbox2 {
 
     return (
       error - otherError ||
-      // this.getMin() - gb.getMin() ||
       this.getStages() - gb.getStages() ||
-      this.getMax() - gb.getMax()
+      this.getMax() - gb.getMax() ||
+      this.getMin() - gb.getMin()
     );
   }
 }

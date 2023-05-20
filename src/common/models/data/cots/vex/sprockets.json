@@ -1,0 +1,338 @@
+[
+  {
+    "type": "#25",
+    "teeth": 16,
+    "bore": "1/2 Hex",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1928,365-1933,366-1951",
+    "partNumber": "217-2642"
+  },
+  {
+    "type": "#25",
+    "teeth": 16,
+    "bore": "1/2 Hex",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1928,365-1933,366-1952",
+    "partNumber": "217-7371"
+  },
+  {
+    "type": "#25",
+    "teeth": 17,
+    "bore": "1/2 Hex",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1928,365-1934,366-1953",
+    "partNumber": "217-7372"
+  },
+  {
+    "type": "#25",
+    "teeth": 18,
+    "bore": "1/2 Hex",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1928,365-1935,366-1954",
+    "partNumber": "217-3488"
+  },
+  {
+    "type": "#25",
+    "teeth": 18,
+    "bore": "1/2 Hex",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1928,365-1935,366-1955",
+    "partNumber": "217-7373"
+  },
+  {
+    "type": "#25",
+    "teeth": 22,
+    "bore": "1/2 Hex",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1928,365-1936,366-1956",
+    "partNumber": "217-2640"
+  },
+  {
+    "type": "#25",
+    "teeth": 22,
+    "bore": "1/2 Hex",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1928,365-1936,366-1957",
+    "partNumber": "217-7374"
+  },
+  {
+    "type": "#25",
+    "teeth": 16,
+    "bore": "3/8 Hex",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1929,365-1933,367-1958",
+    "partNumber": "217-5833"
+  },
+  {
+    "type": "#25",
+    "teeth": 22,
+    "bore": "3/8 Hex",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1929,365-1936,367-1960",
+    "partNumber": "217-5835"
+  },
+  {
+    "type": "#25",
+    "teeth": 32,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1931,365-1937,369-1963",
+    "partNumber": "217-2690"
+  },
+  {
+    "type": "#25",
+    "teeth": 34,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1931,365-1938,369-1964",
+    "partNumber": "217-2664"
+  },
+  {
+    "type": "#25",
+    "teeth": 36,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1931,365-1939,369-1965",
+    "partNumber": "217-2639"
+  },
+  {
+    "type": "#25",
+    "teeth": 38,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1931,365-1940,369-1966",
+    "partNumber": "217-2638"
+  },
+  {
+    "type": "#25",
+    "teeth": 40,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1931,365-1941,369-1967",
+    "partNumber": "217-2637"
+  },
+  {
+    "type": "#25",
+    "teeth": 42,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1931,365-1942,369-1968",
+    "partNumber": "217-2636"
+  },
+  {
+    "type": "#25",
+    "teeth": 44,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1931,365-1943,369-1969",
+    "partNumber": "217-2635"
+  },
+  {
+    "type": "#25",
+    "teeth": 48,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1931,365-1944,369-1970",
+    "partNumber": "217-2634"
+  },
+  {
+    "type": "#25",
+    "teeth": 54,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1931,365-1945,369-1971",
+    "partNumber": "217-2633"
+  },
+  {
+    "type": "#25",
+    "teeth": 58,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1931,365-1946,369-1972",
+    "partNumber": "217-2632"
+  },
+  {
+    "type": "#25",
+    "teeth": 60,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1931,365-1947,369-1973",
+    "partNumber": "217-2631"
+  },
+  {
+    "type": "#25",
+    "teeth": 64,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1931,365-1948,369-1974",
+    "partNumber": "217-2629"
+  },
+  {
+    "type": "#25",
+    "teeth": 72,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/25-sprockets.html?config=364-1931,365-1950,369-1976",
+    "partNumber": "217-2627"
+  },
+  {
+    "type": "#35",
+    "teeth": 12,
+    "bore": "1/2 Hex",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1613,310-1616,311-1618,312-1633",
+    "partNumber": "217-5843"
+  },
+  {
+    "type": "#35",
+    "teeth": 12,
+    "bore": "1/2 Hex",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1613,310-1616,311-1618,312-1634",
+    "partNumber": "217-5845"
+  },
+  {
+    "type": "#35",
+    "teeth": 15,
+    "bore": "1/2 Hex",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1613,310-1616,311-1619,312-1635",
+    "partNumber": "217-5844"
+  },
+  {
+    "type": "#35",
+    "teeth": 15,
+    "bore": "1/2 Hex",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1613,310-1616,311-1619,312-1636",
+    "partNumber": "217-5846"
+  },
+  {
+    "type": "#35",
+    "teeth": 12,
+    "bore": "1/2 Hex",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1613,310-1617,311-1618,312-1637",
+    "partNumber": "217-2662"
+  },
+  {
+    "type": "#35",
+    "teeth": 12,
+    "bore": "1/2 Hex",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1613,310-1617,311-1618,312-1638",
+    "partNumber": "217-2658"
+  },
+  {
+    "type": "#35",
+    "teeth": 15,
+    "bore": "1/2 Hex",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1613,310-1617,311-1619,312-1639",
+    "partNumber": "217-2660"
+  },
+  {
+    "type": "#35",
+    "teeth": 15,
+    "bore": "1/2 Hex",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1613,310-1617,311-1619,312-1640",
+    "partNumber": "217-2656"
+  },
+  {
+    "type": "#35",
+    "teeth": 22,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1615,310-1617,311-1620,314-1649",
+    "partNumber": "217-2688"
+  },
+  {
+    "type": "#35",
+    "teeth": 24,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1615,310-1617,311-1621,314-1650",
+    "partNumber": "217-2655"
+  },
+  {
+    "type": "#35",
+    "teeth": 26,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1615,310-1617,311-1622,314-1651",
+    "partNumber": "217-2654"
+  },
+  {
+    "type": "#35",
+    "teeth": 28,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1615,310-1617,311-1623,314-1652",
+    "partNumber": "217-2653"
+  },
+  {
+    "type": "#35",
+    "teeth": 30,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1615,310-1617,311-1624,314-1653",
+    "partNumber": "217-2652"
+  },
+  {
+    "type": "#35",
+    "teeth": 32,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1615,310-1617,311-1625,314-1654",
+    "partNumber": "217-2651"
+  },
+  {
+    "type": "#35",
+    "teeth": 36,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1615,310-1617,311-1627,314-1656",
+    "partNumber": "217-2649"
+  },
+  {
+    "type": "#35",
+    "teeth": 42,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1615,310-1617,311-1628,314-1657",
+    "partNumber": "217-2648"
+  },
+  {
+    "type": "#35",
+    "teeth": 44,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1615,310-1617,311-1629,314-1658",
+    "partNumber": "217-2647"
+  },
+  {
+    "type": "#35",
+    "teeth": 48,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1615,310-1617,311-1630,314-1659",
+    "partNumber": "217-2646"
+  },
+  {
+    "type": "#35",
+    "teeth": 54,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1615,310-1617,311-1631,314-1660",
+    "partNumber": "217-2645"
+  },
+  {
+    "type": "#35",
+    "teeth": 60,
+    "bore": "1.125in",
+    "vendor": "VEXpro",
+    "url": "https://www.vexrobotics.com/35-sprockets.html?config=309-1615,310-1617,311-1632,314-1661",
+    "partNumber": "217-2644"
+  }
+]

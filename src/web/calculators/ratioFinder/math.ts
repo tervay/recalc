@@ -19,6 +19,15 @@ import amSprockets from "common/models/data/cots/andymark/sprockets.json";
 import revGears from "common/models/data/cots/rev/gears.json";
 import revPulleys from "common/models/data/cots/rev/pulleys.json";
 import revSprockets from "common/models/data/cots/rev/sprockets.json";
+import ttbPulleys from "common/models/data/cots/ttb/pulleys.json";
+import ttbSprockets from "common/models/data/cots/ttb/sprockets.json";
+import vexGears from "common/models/data/cots/vex/gears.json";
+import vexPulleys from "common/models/data/cots/vex/pulleys.json";
+import vexSprockets from "common/models/data/cots/vex/sprockets.json";
+
+import cloneDeep from "lodash/cloneDeep";
+import max from "lodash/max";
+import min from "lodash/min";
 
 import { expose } from "common/tooling/promise-worker";
 import { RatioFinderStateV1 } from "web/calculators/ratioFinder";
@@ -39,7 +48,12 @@ function stagesFromMinToMax(min: number, max: number): Stage2[] {
 }
 
 export function allPossibleSingleGearStages(state: RatioFinderStateV1) {
-  return stagesFromMinToMax(state.minGearTeeth, state.maxGearTeeth);
+  return stagesFromMinToMax(
+    min([state.minGearTeeth, state.minPulleyTeeth, state.minSprocketTeeth]) ||
+      8,
+    max([state.maxGearTeeth, state.maxPulleyTeeth, state.maxSprocketTeeth]) ||
+      80
+  );
 }
 
 export function linkOverlappingGearStages(
@@ -129,23 +143,23 @@ export function generateOptions(state: RatioFinderStateV1) {
     ...(state.enableAM ? amGears : []),
     ...(state.enableWCP ? [] : []),
     ...(state.enableTTB ? [] : []),
-    ...(state.enableVEX ? [] : []),
+    ...(state.enableVEX ? vexGears : []),
   ];
 
   let pulleys = [
     ...(state.enableREV ? revPulleys : []),
     ...(state.enableAM ? amPulleys : []),
     ...(state.enableWCP ? [] : []),
-    ...(state.enableTTB ? [] : []),
-    ...(state.enableVEX ? [] : []),
+    ...(state.enableTTB ? ttbPulleys : []),
+    ...(state.enableVEX ? vexPulleys : []),
   ];
 
   let sprockets = [
     ...(state.enableREV ? revSprockets : []),
     ...(state.enableAM ? amSprockets : []),
     ...(state.enableWCP ? [] : []),
-    ...(state.enableTTB ? [] : []),
-    ...(state.enableVEX ? [] : []),
+    ...(state.enableTTB ? ttbSprockets : []),
+    ...(state.enableVEX ? vexSprockets : []),
   ];
 
   let motionMethods: MotionMethod[] = [
@@ -186,13 +200,9 @@ export function generateOptions(state: RatioFinderStateV1) {
 
   linkOverlappingGearStages(stages, motionMethods, state);
 
-  stages = stages.filter(
-    (stage) =>
-      ![
-        stage.drivenMethods.length > 0,
-        stage.drivingMethods.length > 0,
-      ].includes(false)
-  );
+  stages = stages
+    .filter((stage) => stage.drivenMethods.length > 0)
+    .filter((stage) => stage.drivingMethods.length > 0);
 
   let options: Gearbox2[] = [];
   for (let i = state.minStages; i <= state.maxStages; i++) {
@@ -200,26 +210,31 @@ export function generateOptions(state: RatioFinderStateV1) {
 
     var iter = permutations(stages, i);
     var curr = iter.next();
+
     while (!curr.done) {
       const gb = new Gearbox2(curr.value);
       const ratio = gb.getRatio();
 
-      let good = true;
-      if (state.firstPartPinion) {
-        good = gb.containsPinionInGoodPlace();
-      } else {
-        good = !gb.containsPinionInGoodPlace();
-      }
-
       if (
         ratio >= state.targetReduction - state.reductionError &&
-        ratio <= state.targetReduction + state.reductionError &&
-        !gb.containsPinionInBadPlace() &&
-        good &&
-        gb.overlapsBores() &&
-        gb.overlapsMotionMethods()
+        ratio <= state.targetReduction + state.reductionError
       ) {
-        gbs.push(gb);
+        const newStages = cloneDeep(curr.value);
+        gb.stages = newStages;
+        gb.filterStagesForOverlappingMotionMethods();
+        gb.filterStagesForOverlappingBores();
+        gb.filterStagesForOverlappingMotionMethods();
+
+        let good = true;
+        if (state.firstPartPinion) {
+          good = gb.containsPinionInGoodPlace();
+        } else {
+          good = !gb.containsPinionInGoodPlace();
+        }
+
+        if (gb.hasMotionModes() && good && !gb.containsPinionInBadPlace()) {
+          gbs.push(gb);
+        }
       }
 
       curr = iter.next();
