@@ -2,6 +2,7 @@ import {
   Bore,
   ChainType,
   FRCVendor,
+  MotorBores,
   PulleyBeltType,
 } from "common/models/ExtraTypes";
 import { MeasurementDict } from "common/models/Measurement";
@@ -94,32 +95,29 @@ export class Gearbox2 {
 
   containsPinionInGoodPlace(): boolean {
     return (
-      this.stages[0].drivingMethods.filter((m) =>
-        ["Falcon", "NEO", "550", "775"].includes(m.bore)
-      ).length > 0
+      this.stages[0].drivingMethods.filter((m) => MotorBores.includes(m.bore))
+        .length > 0
     );
   }
 
   containsPinionInBadPlace(): boolean {
     if (this.stages.length === 1) {
       return (
-        this.stages[0].drivenMethods.filter(
-          (m) => !["Falcon", "NEO", "550", "775"].includes(m.bore)
-        ).length === 0
+        this.stages[0].drivenMethods.filter((m) => !MotorBores.includes(m.bore))
+          .length === 0
       );
     }
 
     for (let i = 1; i < this.stages.length; i++) {
       let nonPinions = this.stages[i].drivingMethods.filter(
-        (m) => !["Falcon", "NEO", "550", "775"].includes(m.bore)
+        (m) => !MotorBores.includes(m.bore)
       );
 
       // console.log(i, this.stages[i]);
       if (
         nonPinions.length === 0 ||
-        this.stages[i].drivenMethods.filter(
-          (m) => !["Falcon", "NEO", "550", "775"].includes(m.bore)
-        ).length === 0
+        this.stages[i].drivenMethods.filter((m) => !MotorBores.includes(m.bore))
+          .length === 0
       ) {
         return true;
       }

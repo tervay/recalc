@@ -3,6 +3,7 @@ import SingleInputLine from "common/components/io/inputs/SingleInputLine";
 import { BooleanInput, NumberInput } from "common/components/io/new/inputs";
 import L0MultiBoolean from "common/components/io/new/inputs/L0/L0MultiBoolean";
 import { Column, Columns, Divider } from "common/components/styling/Building";
+import { Bore, MotorBores } from "common/models/ExtraTypes";
 import {
   DrivingDriven,
   Gearbox2,
@@ -63,14 +64,12 @@ function MotionMethodCell(props: {
 }): JSX.Element {
   let mms = props.motionMethods;
   if (props.excludePinions === true) {
-    mms = mms.filter((m) => !["Falcon", "NEO", "550", "775"].includes(m.bore));
+    mms = mms.filter((m) => !MotorBores.includes(m.bore));
   }
 
   let gb = groupBy(mms, (m) => m.bore);
   const bores = props.excludePinions
-    ? Object.keys(gb).filter(
-        (k) => !["Falcon", "NEO", "550", "775"].includes(k)
-      )
+    ? Object.keys(gb).filter((k) => !MotorBores.includes(k as Bore))
     : Object.keys(gb);
 
   let x: { [bore: string]: { [mmType: string]: MotionMethod[] } } = {};
@@ -94,10 +93,10 @@ function MotionMethodCell(props: {
 
       x[bore][mmType].forEach((mm, i) => {
         tableRows.push(
-          <tr>
+          <tr key={`${mm.partNumber}-${i}`}>
             {firstTd}
             {secondTd}
-            <td key={i} style={{ width: "100%", whiteSpace: "nowrap" }}>
+            <td style={{ width: "100%", whiteSpace: "nowrap" }}>
               <a href={mm.url}>{mm.partNumber}</a>
             </td>
           </tr>

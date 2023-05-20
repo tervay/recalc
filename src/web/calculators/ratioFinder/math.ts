@@ -2,6 +2,7 @@ import {
   Bore,
   ChainType,
   FRCVendor,
+  MotorBores,
   PulleyBeltType,
 } from "common/models/ExtraTypes";
 import {
@@ -63,10 +64,7 @@ export function linkOverlappingGearStages(
 ) {
   motionMethods.forEach((gear) => {
     stages.forEach((stage) => {
-      if (
-        gear.teeth === stage.driven &&
-        !["Falcon", "NEO", "550", "775"].includes(gear.bore)
-      ) {
+      if (gear.teeth === stage.driven && !MotorBores.includes(gear.bore)) {
         stage.drivenMethods.push(gear);
       }
 
@@ -183,7 +181,7 @@ export function generateOptions(state: RatioFinderStateV1) {
     .filter((m) => state.enableTTB || m.vendor !== "TTB")
     .filter((m) => {
       let good = true;
-      if (["Falcon", "NEO", "550", "775"].includes(m.bore)) {
+      if (MotorBores.includes(m.bore)) {
         good = good && (state.enableFalconPinions || m.bore !== "Falcon");
         good = good && (state.enableNEOPinions || m.bore !== "NEO");
         good = good && (state.enable775Pinions || m.bore !== "775");

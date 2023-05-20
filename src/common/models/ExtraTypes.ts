@@ -74,6 +74,14 @@ export type Bore =
   | "0.875in"
   | "1.125in"
   | "MAXSpline";
+export const MotorBores: Bore[] = ["NEO", "Falcon", "775", "550"];
+export const NonMotorBores: Bore[] = [
+  "1/2 Hex",
+  "3/8 Hex",
+  "0.875in",
+  "1.125in",
+  "MAXSpline",
+];
 
 // Quick units, mostly for tests
 export const mm = (n: number): Measurement => new Measurement(n, "mm");
