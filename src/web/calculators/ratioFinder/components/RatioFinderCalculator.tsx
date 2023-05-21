@@ -93,12 +93,23 @@ function MotionMethodCell(props: {
       tableRows.push();
 
       x[bore][mmType].forEach((mm, i) => {
+        let pnCol = mm.partNumber;
+        if (mm.type === "Planetary") {
+          if (mm.vendor === "REV") {
+            pnCol = "MAX Planetary";
+          } else if (mm.vendor === "AndyMark") {
+            pnCol = "Sport";
+          } else if (mm.vendor === "VEXpro") {
+            pnCol = "VersaPlanetary";
+          }
+        }
+
         tableRows.push(
           <tr key={`${Math.random()}`}>
             {firstTd}
             {secondTd}
             <td style={{ width: "100%", whiteSpace: "nowrap" }}>
-              <a href={mm.url}>{mm.partNumber}</a>
+              <a href={mm.url}>{pnCol}</a>
             </td>
           </tr>
         );
@@ -157,8 +168,6 @@ function GearboxRows(props: {
             },
             i > 0
           );
-
-          console.log(stage, overlapping);
 
           return (
             <React.Fragment key={i}>

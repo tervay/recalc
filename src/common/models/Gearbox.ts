@@ -55,7 +55,11 @@ export function MMTypeStr(mm: MotionMethod): string {
     if (pd.stageSequence === undefined) {
       typeStr = "Planetary";
     } else {
-      typeStr = pd.stageSequence.join(":");
+      if (pd.stageSequence.length === 1) {
+        typeStr = `${pd.stageSequence[0]}:1`;
+      } else {
+        typeStr = pd.stageSequence.join("×");
+      }
     }
   }
   return typeStr;
@@ -291,9 +295,24 @@ export class Gearbox {
   compare(gb: Gearbox, targetReduction: number): number {
     const error = Math.abs(this.getRatio() - targetReduction);
     const otherError = Math.abs(gb.getRatio() - targetReduction);
+    // const targetPerStageReduction = Math.pow(
+    //   targetReduction,
+    //   1 / gb.getStages()
+    // );
+    // const perStageTotalError = this.stages.reduce(
+    //   (prev, curr) =>
+    //     prev + Math.abs(targetPerStageReduction - curr.getRatio()),
+    //   1
+    // );
+    // const perStageTotalErrorOther = gb.stages.reduce(
+    //   (prev, curr) =>
+    //     prev + Math.abs(targetPerStageReduction - curr.getRatio()),
+    //   1
+    // );
 
     return (
       error - otherError ||
+      // perStageTotalError - perStageTotalErrorOther ||
       this.getStages() - gb.getStages() ||
       this.getMax() - gb.getMax() ||
       this.getMin() - gb.getMin()

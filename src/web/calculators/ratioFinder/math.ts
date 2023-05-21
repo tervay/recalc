@@ -90,7 +90,6 @@ export function generatePlanetaryStages(planetary: RawPlanetaryData) {
     planetaries.push(new Planetary(ratio, stages, planetary));
   });
 
-  console.log(planetaries);
   return planetaries;
 }
 
