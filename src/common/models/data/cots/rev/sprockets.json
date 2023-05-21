@@ -1,0 +1,50 @@
+[
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-1964",
+    "teeth": 48,
+    "type": "#25",
+    "url": "https://www.revrobotics.com/REV-21-1964",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-1972",
+    "teeth": 64,
+    "type": "#25",
+    "url": "https://www.revrobotics.com/REV-21-1972",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "partNumber": "REV-21-2012",
+    "teeth": 16,
+    "type": "#25",
+    "url": "https://www.revrobotics.com/REV-21-2012",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-2015",
+    "teeth": 24,
+    "type": "#25",
+    "url": "https://www.revrobotics.com/REV-21-2015",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "partNumber": "REV-21-2016",
+    "teeth": 16,
+    "type": "#25",
+    "url": "https://www.revrobotics.com/REV-21-2016",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "partNumber": "REV-21-2017",
+    "teeth": 24,
+    "type": "#25",
+    "url": "https://www.revrobotics.com/REV-21-2017",
+    "vendor": "REV"
+  }
+]

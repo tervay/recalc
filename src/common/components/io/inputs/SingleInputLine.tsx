@@ -8,9 +8,14 @@ export default function SingleInputLine(props: {
   for?: "numeric" | "id";
   id?: string;
   wrap?: boolean;
+  horizontal?: boolean;
   tooltip?: React.ReactNode;
 }): JSX.Element {
-  const classes = ["field", "is-horizontal"];
+  const classes = ["field"];
+  if (props.horizontal === undefined || props.horizontal) {
+    classes.push("is-horizontal");
+  }
+
   if (props.wrap) {
     classes.push("is-flex-wrap-wrap");
   }
@@ -31,7 +36,13 @@ export default function SingleInputLine(props: {
 
   return (
     <div className={classes.join(" ")}>
-      <div className="field-label is-normal">
+      <div
+        className={`field-label is-normal ${
+          !(props.horizontal === undefined || props.horizontal)
+            ? "has-text-left"
+            : ""
+        }`}
+      >
         <label className="label" htmlFor={props.id}>
           {labelDiv}
         </label>

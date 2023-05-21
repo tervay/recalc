@@ -1,0 +1,130 @@
+[
+  {
+    "bore": "1.125in",
+    "partNumber": "am-2234a",
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    },
+    "teeth": 42,
+    "type": "HTD",
+    "url": "https://andymark.com/am-2234a",
+    "vendor": "AndyMark",
+    "width": {
+      "s": 15,
+      "u": "mm"
+    }
+  },
+  {
+    "bore": "NEO",
+    "partNumber": "am-3263",
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    },
+    "teeth": 12,
+    "type": "HTD",
+    "url": "https://andymark.com/am-3263",
+    "vendor": "AndyMark",
+    "width": {
+      "s": 9,
+      "u": "mm"
+    }
+  },
+  {
+    "bore": "NEO",
+    "partNumber": "am-3265",
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    },
+    "teeth": 30,
+    "type": "HTD",
+    "url": "https://andymark.com/am-3265",
+    "vendor": "AndyMark",
+    "width": {
+      "s": 9,
+      "u": "mm"
+    }
+  },
+  {
+    "bore": "3/8 Hex",
+    "partNumber": "am-3402",
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    },
+    "teeth": 24,
+    "type": "HTD",
+    "url": "https://andymark.com/am-3402",
+    "vendor": "AndyMark",
+    "width": {
+      "s": 9,
+      "u": "mm"
+    }
+  },
+  {
+    "bore": "1/2 Hex",
+    "partNumber": "am-3403",
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    },
+    "teeth": 24,
+    "type": "HTD",
+    "url": "https://andymark.com/am-3403",
+    "vendor": "AndyMark",
+    "width": {
+      "s": 9,
+      "u": "mm"
+    }
+  },
+  {
+    "bore": "3/8 Hex",
+    "partNumber": "am-3404",
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    },
+    "teeth": 24,
+    "type": "HTD",
+    "url": "https://andymark.com/am-3404",
+    "vendor": "AndyMark",
+    "width": {
+      "s": 15,
+      "u": "mm"
+    }
+  },
+  {
+    "bore": "1/2 Hex",
+    "partNumber": "am-4625",
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    },
+    "teeth": 24,
+    "type": "HTD",
+    "url": "https://andymark.com/am-4625",
+    "vendor": "AndyMark",
+    "width": {
+      "s": 9,
+      "u": "mm"
+    }
+  },
+  {
+    "bore": "1/2 Hex",
+    "partNumber": "am-4626",
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    },
+    "teeth": 24,
+    "type": "HTD",
+    "url": "https://andymark.com/am-4626",
+    "vendor": "AndyMark",
+    "width": {
+      "s": 15,
+      "u": "mm"
+    }
+  }
+]

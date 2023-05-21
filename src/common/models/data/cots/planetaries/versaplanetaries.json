@@ -1,0 +1,9 @@
+{
+  "inputs": ["NEO", "Falcon", "550", "775"],
+  "outputs": ["1/2 Hex", "3/8 Hex"],
+  "ratios": [3, 4, 5, 7, 9, 10],
+  "maxStages": 3,
+  "partNumber": "217-4973",
+  "url": "https://www.vexrobotics.com/versaplanetary.html",
+  "vendor": "VEXpro"
+}

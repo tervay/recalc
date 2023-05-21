@@ -1,0 +1,50 @@
+[
+  {
+    "bore": "NEO",
+    "partNumber": "TTB-0061",
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    },
+    "teeth": 11,
+    "type": "HTD",
+    "url": "https://www.thethriftybot.com/bearings/QTY-1-11-Tooth-HTD-Motor-Output-Pulley-p530626517",
+    "vendor": "TTB",
+    "width": {
+      "s": 18.5,
+      "u": "mm"
+    }
+  },
+  {
+    "bore": "Falcon",
+    "partNumber": "TTB-0062",
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    },
+    "teeth": 11,
+    "type": "HTD",
+    "url": "https://www.thethriftybot.com/bearings/QTY-1-11-Tooth-HTD-Motor-Output-Pulley-p530626517",
+    "vendor": "TTB",
+    "width": {
+      "s": 18.5,
+      "u": "mm"
+    }
+  },
+  {
+    "bore": "1/2 Hex",
+    "partNumber": "TTB-0058",
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    },
+    "teeth": 15,
+    "type": "HTD",
+    "url": "https://www.thethriftybot.com/bearings/QTY-2-Aluminum-15-Tooth-HTD-Pulley-p517457145",
+    "vendor": "TTB",
+    "width": {
+      "s": 18.5,
+      "u": "mm"
+    }
+  }
+]
