@@ -1197,10 +1197,10 @@
     "@babel/plugin-transform-react-jsx-source" "^7.19.6"
     react-refresh "^0.14.0"
 
-"@vitest/coverage-istanbul@^0.31.0":
-  version "0.31.0"
-  resolved "https://registry.yarnpkg.com/@vitest/coverage-istanbul/-/coverage-istanbul-0.31.0.tgz#57d14c5d66685f9fe0d80e5884e940c0872a7fd6"
-  integrity sha512-SaTI1PSpCRtBhJ5ihBx7Z+jgrFAQlDjuI4MFmKQ/HjyYWzEoaU+I062SquRrOLjJtVOHnwJdjVJXKi0dgFiR9Q==
+"@vitest/coverage-istanbul@^0.31.3":
+  version "0.31.3"
+  resolved "https://registry.yarnpkg.com/@vitest/coverage-istanbul/-/coverage-istanbul-0.31.3.tgz#acf0b8993211f9ac3ac9700b1c3c84fffd803488"
+  integrity sha512-XDMeVhMQwwSA8oRxlDqe2nHK8jNSFdSYBpUTul7mZjNYeP3iL2hMFwLyDKkFzWOL7LGrOzFx7RSXYOPsKM0XNQ==
   dependencies:
     istanbul-lib-coverage "^3.2.0"
     istanbul-lib-instrument "^5.2.1"
