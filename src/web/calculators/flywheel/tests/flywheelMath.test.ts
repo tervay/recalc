@@ -201,32 +201,25 @@ describe("flywheelMath", () => {
   );
   test.each([
     {
-      totalMomentOfInertia: in2lb(11),
-      flywheelEnergy: J(609.94),
-      projectileEnergy: J(67.37),
-      expected: rpm(5544.36),
+      projectileVelocity: fps(9.176),
+      shooterWheelRadius: inch(4),
+      expected: rpm(525.746072812),
     },
     {
-      totalMomentOfInertia: in2lb(7.5),
-      flywheelEnergy: J(415.87),
-      projectileEnergy: J(36.76),
-      expected: rpm(5612.699),
+      projectileVelocity: fps(18.0),
+      shooterWheelRadius: inch(4),
+      expected: rpm(1031.32403124),
     },
     {
-      totalMomentOfInertia: in2lb(5),
-      flywheelEnergy: J(128.3),
-      projectileEnergy: J(8.25),
-      expected: rpm(3868.262),
+      projectileVelocity: fps(9.176),
+      shooterWheelRadius: inch(2),
+      expected: rpm(1051.49214562),
     },
   ])(
     "%p calculateSpeedAfterShot",
-    ({ totalMomentOfInertia, flywheelEnergy, projectileEnergy, expected }) => {
+    ({ projectileVelocity, shooterWheelRadius, expected }) => {
       expect(
-        calculateSpeedAfterShot(
-          totalMomentOfInertia,
-          flywheelEnergy,
-          projectileEnergy
-        )
+        calculateSpeedAfterShot(projectileVelocity, shooterWheelRadius)
       ).toBeCloseToMeasurement(expected);
     }
   );

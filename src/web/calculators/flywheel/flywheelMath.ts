@@ -106,24 +106,20 @@ export function calculateFlywheelEnergy(
 }
 
 export function calculateSpeedAfterShot(
-  totalMomentOfInertia: Measurement,
-  flywheelEnergy: Measurement,
-  projectileEnergy: Measurement
+  projectileVelocity: Measurement,
+  shooterWheelRadius: Measurement
 ): Measurement {
-  if (Measurement.anyAreZero(totalMomentOfInertia)) {
+  if (Measurement.anyAreZero(shooterWheelRadius)) {
     return new Measurement(0, "rpm");
   }
 
-  const v2 = flywheelEnergy
-    .sub(projectileEnergy)
-    .div(totalMomentOfInertia.mul(0.5))
-    .mul(new Measurement(1, "rad^2"))
-    .to("rpm^2");
+  const speed = projectileVelocity
+    .mul(2.0)
+    .div(shooterWheelRadius)
+    .mul(new Measurement(1, "rad"))
+    .to("rpm");
 
-  if (v2.lt(new Measurement(0, "rpm^2"))) {
-    return new Measurement(0, "rpm");
-  }
-  return new Measurement(Math.sqrt(v2.scalar), "rpm");
+  return speed;
 }
 
 export function calculateRecoveryTime(
