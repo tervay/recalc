@@ -31,7 +31,7 @@ describe("flywheelMath", () => {
       currentLimit: A(50),
       ratio: new Ratio(2, RatioType.STEP_UP),
       targetSpeed: rpm(11000),
-      expected: s(3.282),
+      expected: s(6.564),
     },
     {
       momentOfInertia: in2lb(5),
@@ -39,7 +39,7 @@ describe("flywheelMath", () => {
       currentLimit: A(60),
       ratio: new Ratio(2, RatioType.REDUCTION),
       targetSpeed: rpm(9000),
-      expected: s(3.7047),
+      expected: s(1.85235),
     },
     {
       momentOfInertia: in2lb(13.1),
@@ -249,7 +249,7 @@ describe("flywheelMath", () => {
       targetSpeed: rpm(10000),
       speedAfterShot: rpm(9837.97),
       currentLimit: A(50),
-      expected: s(0.04739),
+      expected: s(0.09478),
     },
     {
       totalMomentOfInertia: in2lb(15),
@@ -259,7 +259,7 @@ describe("flywheelMath", () => {
       targetSpeed: rpm(3000),
       speedAfterShot: rpm(2967.68),
       currentLimit: A(60),
-      expected: s(0.00719),
+      expected: s(0.003595),
     },
   ])(
     "%p calculateRecoveryTime",

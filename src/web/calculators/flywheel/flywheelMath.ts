@@ -10,34 +10,15 @@ export function calculateWindupTime(
   ratio: Ratio,
   targetSpeed: Measurement
 ): Measurement {
-  if (motor.quantity === 0 || ratio.asNumber() === 0) {
-    return new Measurement(0, "s");
-  }
-
-  const torque = new MotorRules(motor, currentLimit, {
-    rpm: new Measurement(0, "rpm"),
-    voltage: nominalVoltage,
-  }).solve().torque;
-
-  if (torque.baseScalar === 0) {
-    return new Measurement(0, "s");
-  }
-
-  const t1 = momentOfInertia
-    .mul(motor.freeSpeed.div(ratio.asNumber()))
-    .div(torque.mul(motor.quantity))
-    .negate();
-
-  const logNum = motor.freeSpeed.div(ratio.asNumber()).sub(targetSpeed);
-  const logDen = motor.freeSpeed.div(ratio.asNumber());
-
-  const toLog = logNum.div(logDen).baseScalar;
-  if (toLog <= 0) {
-    return new Measurement(0, "s");
-  }
-
-  const logged = Math.log(toLog);
-  return t1.removeRad().mul(logged).to("s");
+  return calculateRecoveryTime(
+    momentOfInertia,
+    motor,
+    ratio,
+    0.0,
+    targetSpeed,
+    new Measurement(0, "rpm"),
+    currentLimit
+  );
 }
 
 export function calculateShooterWheelSurfaceSpeed(
@@ -132,14 +113,14 @@ export function calculateRecoveryTime(
   ratio: Ratio,
   variation: number,
   targetSpeed: Measurement,
-  speedAfterShot: Measurement,
+  initialSpeed: Measurement,
   currentLimit: Measurement
 ): Measurement {
   if (motor.quantity === 0 || ratio.asNumber() === 0) {
     return new Measurement(0, "s");
   }
 
-  const motorFreeSpeed = motor.freeSpeed.div(ratio.asNumber());
+  const wheelFreeSpeed = motor.freeSpeed.div(ratio.asNumber());
 
   const torque = new MotorRules(motor, currentLimit, {
     voltage: nominalVoltage,
@@ -150,11 +131,11 @@ export function calculateRecoveryTime(
     return new Measurement(0, "s");
   }
 
-  const t1 = totalMomentOfInertia.negate().mul(motorFreeSpeed);
-  const t2 = torque.mul(motor.quantity);
+  const t1 = totalMomentOfInertia.negate().mul(wheelFreeSpeed);
+  const t2 = torque.mul(motor.quantity).mul(ratio.asNumber());
 
-  const t3 = motorFreeSpeed.sub(targetSpeed.mul(1 - variation));
-  const t4 = motorFreeSpeed.sub(speedAfterShot);
+  const t3 = wheelFreeSpeed.sub(targetSpeed.mul(1 - variation));
+  const t4 = wheelFreeSpeed.sub(initialSpeed);
 
   const logged = Math.log(t3.div(t4).scalar);
 
