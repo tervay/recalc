@@ -157,19 +157,20 @@ export default function FlywheelCalculator(): JSX.Element {
     }
 
     return calculateKa(
-      get.motor.stallTorque
-        .mul(get.motor.quantity)
-        .mul(get.motorRatio.asNumber())
-        .mul(get.efficiency / 100),
+      get.motor.stallTorque.mul(get.motor.quantity).mul(get.efficiency / 100),
       get.shooterRadius,
-      totalMomentOfInertia.div(get.flywheelRadius.mul(get.flywheelRadius))
+      totalMomentOfInertia.div(
+        get.shooterRadius
+          .mul(get.shooterRadius)
+          .mul(get.motorRatio.asNumber())
+          .mul(get.motorRatio.asNumber())
+      )
     );
   }, [
     get.motor.stallTorque,
     get.motor.quantity,
     get.motorRatio,
     get.efficiency,
-    get.flywheelRadius,
     totalMomentOfInertia,
     get.shooterRadius,
   ]);
