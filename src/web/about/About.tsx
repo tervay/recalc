@@ -36,7 +36,7 @@ export default function About(): JSX.Element {
             </li>
             <li>
               pchild, also for{" "}
-              <a href="http://calc.team401.org/">
+              <a href="https://docs.google.com/spreadsheets/d/14EuiVDz4uvvVL2AjZqj3sKWue6_OzR7Nu98l_mk1me8/edit#gid=340525968">
                 an incredible design calculator
               </a>
             </li>
