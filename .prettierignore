@@ -4,3 +4,4 @@ node_modules/
 coverage/
 src/web/calculators/readmes.tsx
 **/*.md
+.vercel/
