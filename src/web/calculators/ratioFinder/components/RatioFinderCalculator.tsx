@@ -29,7 +29,7 @@ function overlappingDrivingDrivenMethods(
   methods: DrivingDriven,
   excludePinions: boolean
 ): DrivingDriven {
-  let good: DrivingDriven = { driven: [], driving: [] };
+  const good: DrivingDriven = { driven: [], driving: [] };
 
   methods.driving.forEach((driving, i) => {
     if (excludePinions && MotorBores.includes(driving.bore)) {
@@ -68,17 +68,17 @@ function MotionMethodCell(props: {
     );
   }
 
-  let gb = groupBy(mms, (m) => m.bore);
+  const gb = groupBy(mms, (m) => m.bore);
   const bores = props.excludePinions
     ? Object.keys(gb).filter((k) => !MotorBores.includes(k as Bore))
     : Object.keys(gb);
 
-  let x: { [bore: string]: { [mmType: string]: MotionMethod[] } } = {};
+  const x: { [bore: string]: { [mmType: string]: MotionMethod[] } } = {};
   bores.forEach((bore) => {
     x[bore] = groupBy(gb[bore], (mm) => MMTypeStr(mm));
   });
 
-  let tableRows: JSX.Element[] = [];
+  const tableRows: JSX.Element[] = [];
   Object.keys(x).forEach((bore, boreIndex) => {
     let firstTd: JSX.Element = <></>;
 
@@ -161,7 +161,7 @@ function GearboxRows(props: {
 
       <tr>
         {props.gearbox.stages.map((stage, i) => {
-          let overlapping = overlappingDrivingDrivenMethods(
+          const overlapping = overlappingDrivingDrivenMethods(
             {
               driven: stage.drivenMethods,
               driving: stage.drivingMethods,

@@ -115,22 +115,22 @@ export function getCurrentFunctionName(offset = 0): string {
 
 export function* permutations<T>(array: T[], r: number) {
   // Algorythm copied from Python `itertools.permutations`.
-  var n = array.length;
+  const n = array.length;
   if (r === undefined) {
     r = n;
   }
   if (r > n) {
     return;
   }
-  var indices = [];
+  let indices = [];
   for (var i = 0; i < n; i++) {
     indices.push(i);
   }
-  var cycles = [];
+  const cycles = [];
   for (var i = n; i > n - r; i--) {
     cycles.push(i);
   }
-  var results = [];
+  const results = [];
   var res = [];
   for (var k = 0; k < r; k++) {
     res.push(array[indices[k]]);
@@ -138,7 +138,7 @@ export function* permutations<T>(array: T[], r: number) {
   yield res;
   // results.push(res);
 
-  var broken = false;
+  let broken = false;
   while (n > 0) {
     for (var i = r - 1; i >= 0; i--) {
       cycles[i]--;
@@ -149,8 +149,8 @@ export function* permutations<T>(array: T[], r: number) {
         cycles[i] = n - i;
         broken = false;
       } else {
-        var j = cycles[i];
-        var x = indices[i];
+        const j = cycles[i];
+        const x = indices[i];
         indices[i] = indices[n - j];
         indices[n - j] = x;
         var res = [];
