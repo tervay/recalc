@@ -15,7 +15,7 @@ import Measurement from "common/models/Measurement";
 import { useGettersSetters } from "common/tooling/conversion";
 import { wrap } from "common/tooling/promise-worker";
 import { useMemo, useState } from "react";
-import { armGraphConfig, ArmParamsV1, ArmStateV1 } from "web/calculators/arm";
+import { ArmParamsV1, ArmStateV1, armGraphConfig } from "web/calculators/arm";
 import {
   ArmWorkerFunctions,
   MomentaryArmState,

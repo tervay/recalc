@@ -12,18 +12,18 @@ import Piston from "common/models/Piston";
 import PistonList, { getNumberFromPistonName } from "common/models/PistonList";
 import { useGettersSetters } from "common/tooling/conversion";
 import { wrap } from "common/tooling/promise-worker";
-import { getRandomInteger, NoOp } from "common/tooling/util";
+import { NoOp, getRandomInteger } from "common/tooling/util";
 import { useEffect, useState } from "react";
 import usePromise from "react-use-promise";
 import {
-  pneumaticsGraphConfig,
   PneumaticsParamsV1,
   PneumaticsStateV1,
+  pneumaticsGraphConfig,
 } from "web/calculators/pneumatics";
 import { PneumaticsState } from "web/calculators/pneumatics/converter";
 import {
-  generatePressureTimeline,
   PneumaticWorkerFunctions,
+  generatePressureTimeline,
 } from "web/calculators/pneumatics/math";
 import rawWorker from "web/calculators/pneumatics/math?worker";
 

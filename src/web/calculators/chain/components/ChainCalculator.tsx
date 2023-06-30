@@ -16,8 +16,8 @@ import chainConfig, {
 import SprocketCheatSheet from "web/calculators/chain/components/SprocketCheatSheet";
 import { ChainState } from "web/calculators/chain/converter";
 import {
-  calculateCenters,
   ChainClosestCentersResult,
+  calculateCenters,
 } from "web/calculators/chain/math";
 
 export default function ChainCalculator(): JSX.Element {

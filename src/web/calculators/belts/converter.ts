@@ -3,9 +3,9 @@ import Pulley from "common/models/Pulley";
 import { StateMaker } from "common/tooling/conversion";
 import beltsConfig, {
   BeltParamsV2,
+  BeltStateV2,
   BeltsParamsV1,
   BeltsStateV1,
-  BeltStateV2,
 } from "web/calculators/belts";
 
 export class Converters {

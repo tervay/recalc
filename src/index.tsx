@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "scss/index.css";
 import "scss/index.scss";
-import reportWebVitals from "./reportWebVitals";
 import Routing from "./Routing";
+import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
