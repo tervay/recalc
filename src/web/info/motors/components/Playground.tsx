@@ -4,9 +4,9 @@ import { StateMaker, useGettersSetters } from "common/tooling/conversion";
 import { wrap } from "common/tooling/promise-worker";
 import { useEffect, useState } from "react";
 import {
-  graphConfig,
   MotorPlaygroundParams,
   MotorPlaygroundState,
+  graphConfig,
 } from "web/info/motors";
 import PlaygroundInput from "web/info/motors/components/PlaygroundInput";
 import { PlaygroundWorkerFunctions } from "web/info/motors/graphBuilder";

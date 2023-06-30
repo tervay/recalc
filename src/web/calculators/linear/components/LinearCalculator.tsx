@@ -19,18 +19,18 @@ import { useGettersSetters } from "common/tooling/conversion";
 import { wrap } from "common/tooling/promise-worker";
 import { useMemo } from "react";
 import {
-  linearGraphConfig,
   LinearParamsV1,
   LinearStateV1,
+  linearGraphConfig,
 } from "web/calculators/linear";
 import { LinearState } from "web/calculators/linear/converter";
 import {
+  LinearWorkerFunctions,
   calculateCurrentDraw,
   calculateDragLoad,
   calculateLoadedSpeed,
   calculateTimeToGoal,
   calculateUnloadedSpeed,
-  LinearWorkerFunctions,
 } from "web/calculators/linear/linearMath";
 import rawWorker from "web/calculators/linear/linearMath?worker";
 import KgKvKaDisplay from "web/calculators/shared/components/KgKvKaDisplay";
