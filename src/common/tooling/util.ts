@@ -123,24 +123,22 @@ export function* permutations<T>(array: T[], r: number) {
     return;
   }
   let indices = [];
-  for (var i = 0; i < n; i++) {
+  for (let i = 0; i < n; i++) {
     indices.push(i);
   }
   const cycles = [];
-  for (var i = n; i > n - r; i--) {
+  for (let i = n; i > n - r; i--) {
     cycles.push(i);
   }
-  const results = [];
-  var res = [];
-  for (var k = 0; k < r; k++) {
+  const res = [];
+  for (let k = 0; k < r; k++) {
     res.push(array[indices[k]]);
   }
   yield res;
-  // results.push(res);
 
   let broken = false;
   while (n > 0) {
-    for (var i = r - 1; i >= 0; i--) {
+    for (let i = r - 1; i >= 0; i--) {
       cycles[i]--;
       if (cycles[i] === 0) {
         indices = indices
@@ -153,11 +151,10 @@ export function* permutations<T>(array: T[], r: number) {
         const x = indices[i];
         indices[i] = indices[n - j];
         indices[n - j] = x;
-        var res = [];
-        for (var k = 0; k < r; k++) {
+        const res = [];
+        for (let k = 0; k < r; k++) {
           res.push(array[indices[k]]);
         }
-        // results.push(res);
         yield res;
         broken = true;
         break;
