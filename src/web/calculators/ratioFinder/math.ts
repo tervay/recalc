@@ -40,7 +40,7 @@ import vexPulleys from "common/models/data/cots/vex/pulleys.json";
 import vexSprockets from "common/models/data/cots/vex/sprockets.json";
 
 function stagesFromMinToMax(min: number, max: number): Stage[] {
-  let stages: Stage[] = [];
+  const stages: Stage[] = [];
   for (let i = min; i <= max; i++) {
     for (let j = min; j <= max; j++) {
       if (i === j) {
@@ -66,7 +66,7 @@ export function allPossibleSingleGearStages(state: RatioFinderStateV1) {
 export function allPossiblePlanetaryRatios(planetary: RawPlanetaryData): {
   [ratio: number]: number[][];
 } {
-  let ret: {
+  const ret: {
     [ratio: number]: number[][];
   } = {};
   for (let i = 1; i <= planetary.maxStages; i++) {
@@ -84,7 +84,7 @@ export function allPossiblePlanetaryRatios(planetary: RawPlanetaryData): {
 
 export function generatePlanetaryStages(planetary: RawPlanetaryData) {
   const ratiosAndStages = allPossiblePlanetaryRatios(planetary);
-  let planetaries: Planetary[] = [];
+  const planetaries: Planetary[] = [];
   Object.entries(ratiosAndStages).forEach(([ratio_, stages]) => {
     const ratio = Number(ratio_);
     planetaries.push(new Planetary(ratio, stages, planetary));
@@ -212,7 +212,7 @@ export function generateOptions(state: RatioFinderStateV1) {
     );
   }
 
-  let gears = [
+  const gears = [
     ...(state.enableREV ? revGears : []),
     ...(state.enableAM ? amGears : []),
     ...(state.enableWCP ? [] : []),
@@ -220,7 +220,7 @@ export function generateOptions(state: RatioFinderStateV1) {
     ...(state.enableVEX ? vexGears : []),
   ];
 
-  let pulleys = [
+  const pulleys = [
     ...(state.enableREV ? revPulleys : []),
     ...(state.enableAM ? amPulleys : []),
     ...(state.enableWCP ? [] : []),
@@ -228,7 +228,7 @@ export function generateOptions(state: RatioFinderStateV1) {
     ...(state.enableVEX ? vexPulleys : []),
   ];
 
-  let sprockets = [
+  const sprockets = [
     ...(state.enableREV ? revSprockets : []),
     ...(state.enableAM ? amSprockets : []),
     ...(state.enableWCP ? [] : []),
@@ -236,7 +236,7 @@ export function generateOptions(state: RatioFinderStateV1) {
     ...(state.enableVEX ? vexSprockets : []),
   ];
 
-  let motionMethods: MotionMethod[] = [
+  const motionMethods: MotionMethod[] = [
     ...filterGears(state, gears).map((g) => ({
       ...g,
       type: "Gear" as MotionMethodPart,
@@ -280,10 +280,10 @@ export function generateOptions(state: RatioFinderStateV1) {
 
   let options: Gearbox[] = [];
   for (let i = state.minStages; i <= state.maxStages; i++) {
-    let gbs: Gearbox[] = [];
+    const gbs: Gearbox[] = [];
 
-    var iter = permutations(stages, i);
-    var curr = iter.next();
+    const iter = permutations(stages, i);
+    let curr = iter.next();
 
     while (!curr.done) {
       const gb = new Gearbox(curr.value);

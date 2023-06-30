@@ -174,7 +174,7 @@ export class Gearbox {
     }
 
     for (let i = 1; i < this.stages.length; i++) {
-      let nonPinions = this.stages[i].drivingMethods.filter(
+      const nonPinions = this.stages[i].drivingMethods.filter(
         (m) => !MotorBores.includes(m.bore)
       );
 
@@ -193,8 +193,8 @@ export class Gearbox {
 
   filterStagesForOverlappingMotionMethods() {
     this.stages.forEach((stage) => {
-      let newDriven: MotionMethod[] = [];
-      let newDriving: MotionMethod[] = [];
+      const newDriven: MotionMethod[] = [];
+      const newDriving: MotionMethod[] = [];
 
       stage.drivingMethods.forEach((driving) => {
         const matchingMethod = stage.drivenMethods.filter(
@@ -223,10 +223,10 @@ export class Gearbox {
 
   filterStagesForOverlappingBores() {
     for (let i = 0; i < this.stages.length - 1; i++) {
-      let prevStage = this.stages[i];
-      let nextStage = this.stages[i + 1];
-      let newPrevDriven: MotionMethod[] = [];
-      let newNextDriving: MotionMethod[] = [];
+      const prevStage = this.stages[i];
+      const nextStage = this.stages[i + 1];
+      const newPrevDriven: MotionMethod[] = [];
+      const newNextDriving: MotionMethod[] = [];
 
       prevStage.drivenMethods.forEach((driven) => {
         const matchingBores = nextStage.drivingMethods.filter(
