@@ -88,7 +88,7 @@ And now we have a fairly approachable formula that we can use!
 ### Other Math
 
 * $r_w$ = shooter wheel radius
-* $w_w$ = shooter wheel RPM
+* $\omega_w$ = shooter wheel rotational speed (radians/s)
 * $V_w$ = shooter wheel surface speed
 * $V_p$ = projectile speed
 * $T$ = speed transfer percentage
@@ -98,8 +98,8 @@ And now we have a fairly approachable formula that we can use!
 * $m_p$ = projectile weight
 
 $$ J_t = J_w + J_f $$
-$$ V_w = w_w * r_w $$
-$$ T = \frac{20 J_t}{7 m_p {\frac{r_w}{2}}^{2} + 40 J_t} $$
+$$ V_w = \omega_w * r_w $$
+$$ T = \frac{20 J_t}{7 m_p (2 {r_w})^{2} + 40 J_t} $$
 $$ V_p = V_w * T $$
 
 

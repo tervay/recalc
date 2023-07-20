@@ -127,25 +127,8 @@ export default function FlywheelCalculator(): JSX.Element {
   );
 
   const speedAfterShot = useMemo(
-    () =>
-      calculateSpeedAfterShot(
-        get.shooterMomentOfInertia.add(
-          get.flywheelMomentOfInertia.div(
-            get.flywheelRatio.asNumber() == 0
-              ? 1
-              : Math.pow(get.flywheelRatio.asNumber(), 2)
-          )
-        ),
-        flywheelEnergy,
-        projectileEnergy
-      ),
-    [
-      get.shooterMomentOfInertia,
-      get.flywheelMomentOfInertia,
-      get.flywheelRatio,
-      flywheelEnergy,
-      projectileEnergy,
-    ]
+    () => calculateSpeedAfterShot(projectileSpeed, get.shooterRadius),
+    [projectileSpeed, get.shooterRadius]
   );
 
   const totalMomentOfInertia = useMemo(
