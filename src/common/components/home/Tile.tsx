@@ -38,7 +38,7 @@ export default function Tile(props: {
             </figure>
           </div>
           <div
-            className="column subtitle"
+            className="column subtitle is-size-4"
             style={{ display: "flex", alignItems: "center" }}
           >
             {props.title}

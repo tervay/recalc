@@ -126,3 +126,37 @@ $input-select-border: 1px solid rgb(209, 213, 219);
     text-align: center !important;
   }
 }
+
+label {
+  font-weight: 500 !important;
+}
+
+th {
+  font-weight: 500 !important;
+}
+
+.logo-img {
+  vertical-align: sub !important;
+}
+
+.logo-text {
+  font-weight: 300;
+  font-size: 2rem;
+}
+
+.logo-subtitle {
+  font-weight: 200;
+  font-size: 1.1rem;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+nav {
+  padding: 0.5em;
+}
+
+.panel-heading {
+  font-weight: 500;
+}
