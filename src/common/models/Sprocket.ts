@@ -23,7 +23,7 @@ export default class Sprocket extends Model {
   constructor(
     public readonly teeth: number,
     public readonly pitch: Measurement,
-    vendorData?: VendorData
+    vendorData?: VendorData,
   ) {
     super("Sprocket");
     this.pitchDiameter =

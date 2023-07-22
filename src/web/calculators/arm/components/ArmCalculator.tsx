@@ -48,7 +48,7 @@ export default function ArmCalculator(): JSX.Element {
         get.currentLimit.toDict(),
         get.startAngle.toDict(),
         get.endAngle.toDict(),
-        get.iterationLimit
+        get.iterationLimit,
       );
       setIsCalculating(false);
       return states;
@@ -62,7 +62,7 @@ export default function ArmCalculator(): JSX.Element {
       get.startAngle,
       get.endAngle,
       get.iterationLimit,
-    ]
+    ],
   );
 
   const timeToGoal = useMemo(
@@ -70,7 +70,7 @@ export default function ArmCalculator(): JSX.Element {
       states.length > 0
         ? Measurement.fromDict(states[states.length - 1].time)
         : new Measurement(0, "s"),
-    [states]
+    [states],
   );
 
   const kG = useMemo(
@@ -78,7 +78,7 @@ export default function ArmCalculator(): JSX.Element {
       calculateKg(
         get.motor.stallTorque.mul(get.motor.quantity).mul(get.ratio.asNumber()),
         get.comLength,
-        get.armMass.mul(get.efficiency / 100)
+        get.armMass.mul(get.efficiency / 100),
       ),
     [
       get.motor.stallTorque,
@@ -87,7 +87,7 @@ export default function ArmCalculator(): JSX.Element {
       get.comLength,
       get.armMass,
       get.efficiency,
-    ]
+    ],
   );
 
   const kV = useMemo(() => {
@@ -97,7 +97,7 @@ export default function ArmCalculator(): JSX.Element {
 
     return calculateKv(
       get.motor.freeSpeed.div(get.ratio.asNumber()),
-      new Measurement(1, "rad")
+      new Measurement(1, "rad"),
     );
   }, [get.motor.freeSpeed, get.ratio]);
 
@@ -109,7 +109,7 @@ export default function ArmCalculator(): JSX.Element {
           .mul(get.ratio.asNumber())
           .mul(get.efficiency / 100),
         get.comLength.mul(get.comLength).div(new Measurement(1, "rad")),
-        get.armMass
+        get.armMass,
       ),
     [
       get.motor.stallTorque,
@@ -118,7 +118,7 @@ export default function ArmCalculator(): JSX.Element {
       get.efficiency,
       get.comLength,
       get.armMass,
-    ]
+    ],
   );
 
   return (
@@ -254,7 +254,7 @@ export default function ArmCalculator(): JSX.Element {
                   y: Measurement.fromDict(s.position).to("deg").scalar,
                 })),
                 0,
-                "y-position"
+                "y-position",
               ),
               GraphConfig.dataset(
                 "Current (A)",
@@ -263,7 +263,7 @@ export default function ArmCalculator(): JSX.Element {
                   y: Measurement.fromDict(s.motorState.current).to("A").scalar,
                 })),
                 1,
-                "y-current"
+                "y-current",
               ),
               GraphConfig.dataset(
                 "Motor RPM",
@@ -272,7 +272,7 @@ export default function ArmCalculator(): JSX.Element {
                   y: Measurement.fromDict(s.motorState.rpm).to("rpm").scalar,
                 })),
                 2,
-                "y-rpm"
+                "y-rpm",
               ),
               GraphConfig.dataset(
                 "Motor Torque",
@@ -281,7 +281,7 @@ export default function ArmCalculator(): JSX.Element {
                   y: Measurement.fromDict(s.motorState.torque).to("N m").scalar,
                 })),
                 3,
-                "y-torque"
+                "y-torque",
               ),
             ]}
             title=""

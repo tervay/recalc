@@ -30,7 +30,7 @@ export const MotorPlaygroundParams = {
           new MotorPlaygroundEntry(
             Motor.fromIdentifier(
               m.identifier,
-              ["Falcon 500", "NEO"].includes(m.identifier) ? 1 : 0
+              ["Falcon 500", "NEO"].includes(m.identifier) ? 1 : 0,
             ),
             new Measurement(60, "A"),
             nominalVoltage,
@@ -39,10 +39,10 @@ export const MotorPlaygroundParams = {
               showCurrent: true,
               showPower: true,
               showTorque: true,
-            }
-          )
-      )
-    )
+            },
+          ),
+      ),
+    ),
   ),
 };
 export type MotorPlaygroundState = Stateify<typeof MotorPlaygroundParams>;
@@ -119,7 +119,7 @@ export const graphConfig = GraphConfig.options(
   {
     maintainAspectRatio: true,
     showLegend: false,
-  }
+  },
 );
 
 graphConfig.aspectRatio = 1.2;

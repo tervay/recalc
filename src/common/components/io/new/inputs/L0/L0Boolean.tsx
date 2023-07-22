@@ -5,7 +5,7 @@ import {
 import { uuid } from "common/tooling/util";
 
 export function makeDefaultL0BooleanProps<T extends BooleanInputProps>(
-  props: T
+  props: T,
 ): L0BooleanProps {
   return {
     id: props.id ?? uuid(),

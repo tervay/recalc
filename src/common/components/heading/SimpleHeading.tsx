@@ -6,7 +6,7 @@ import { BaseState } from "common/models/ExtraTypes";
 export default function SimpleHeading<State extends BaseState>(
   props: {
     title: string;
-  } & ShareButtonProps<State>
+  } & ShareButtonProps<State>,
 ): JSX.Element {
   return (
     <nav className="level">

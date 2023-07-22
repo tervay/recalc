@@ -21,7 +21,7 @@ export const RatioParamsV1 = {
     new RatioPairList([
       [18, 72],
       [24, 48],
-    ])
+    ]),
   ),
 };
 export type RatioStateV1 = Stateify<typeof RatioParamsV1>;

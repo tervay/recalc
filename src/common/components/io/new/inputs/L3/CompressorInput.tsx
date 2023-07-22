@@ -5,7 +5,7 @@ import { CompressorInputProps } from "common/components/io/new/inputs/types/Type
 import Compressor from "common/models/Compressor";
 
 export default function CompressorInput(
-  props: CompressorInputProps
+  props: CompressorInputProps,
 ): JSX.Element {
   return (
     <L1ControlledSelect

@@ -69,7 +69,7 @@ describe("Belt Calculator e2e tests", () => {
       .click();
     cy.get("@copy").should(
       "have.been.calledWithExactly",
-      "http://localhost:3000/belts?customBeltTeeth=125&desiredCenter=%7B%22s%22%3A5%2C%22u%22%3A%22in%22%7D&extraCenter=%7B%22s%22%3A0%2C%22u%22%3A%22mm%22%7D&p1Teeth=16&p2Teeth=24&pitch=%7B%22s%22%3A3%2C%22u%22%3A%22mm%22%7D&toothIncrement=5&useCustomBelt=0"
+      "http://localhost:3000/belts?customBeltTeeth=125&desiredCenter=%7B%22s%22%3A5%2C%22u%22%3A%22in%22%7D&extraCenter=%7B%22s%22%3A0%2C%22u%22%3A%22mm%22%7D&p1Teeth=16&p2Teeth=24&pitch=%7B%22s%22%3A3%2C%22u%22%3A%22mm%22%7D&toothIncrement=5&useCustomBelt=0",
     );
   });
 
@@ -229,7 +229,7 @@ describe("Belt Calculator e2e tests", () => {
         },
       ],
     ],
-    secondaryInputs
+    secondaryInputs,
   );
 });
 

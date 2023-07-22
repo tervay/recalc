@@ -21,7 +21,7 @@ function adjustedWeight(motor: Motor): Measurement {
 
 function getPeakPowerAtCurrentLimit(
   motor: Motor,
-  currentLimit: Measurement
+  currentLimit: Measurement,
 ): string {
   const power = new MotorRules(motor, currentLimit, {
     current: currentLimit,

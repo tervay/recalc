@@ -9,7 +9,8 @@ const ratioFinderConfig: PageConfig = {
   description: "Ratio Finder (WIP)",
   version: 1,
   component: lazy(
-    () => import("web/calculators/ratioFinder/components/RatioFinderCalculator")
+    () =>
+      import("web/calculators/ratioFinder/components/RatioFinderCalculator"),
   ),
 };
 

@@ -11,7 +11,7 @@ import { expose } from "common/tooling/promise-worker";
 function calculateArmTorque(
   comLength: Measurement,
   armMass: Measurement,
-  currentAngle: Measurement
+  currentAngle: Measurement,
 ): Measurement {
   return comLength
     .mul(armMass)
@@ -21,7 +21,7 @@ function calculateArmTorque(
 
 function calculateArmInertia(
   comLength: Measurement,
-  armMass: Measurement
+  armMass: Measurement,
 ): Measurement {
   return armMass.mul(comLength).mul(comLength);
 }
@@ -30,7 +30,7 @@ export function calculateSpringConstant(
   comLength: Measurement,
   armMass: Measurement,
   stringPulleyMountHeight: Measurement,
-  stringArmMountDistance: Measurement
+  stringArmMountDistance: Measurement,
 ): Measurement {
   const leftSide = comLength.mul(armMass);
   const rightSide = stringPulleyMountHeight.mul(stringArmMountDistance);
@@ -39,7 +39,7 @@ export function calculateSpringConstant(
 
 export function calculateMaximumStringArmMountingDistance(
   springLength: Measurement,
-  elongationAllowed: number
+  elongationAllowed: number,
 ): Measurement {
   const denom = 1 + Math.SQRT2 * (1 + 1 / elongationAllowed);
   return springLength.div(denom);
@@ -58,7 +58,7 @@ export function calculateArmStates(
   currentLimit_: MeasurementDict,
   startAngle_: MeasurementDict,
   endAngle_: MeasurementDict,
-  iterationLimit: number
+  iterationLimit: number,
 ): MomentaryArmState[] {
   const motor = Motor.fromDict(motor_);
   const ratio = Ratio.fromDict(ratio_);
@@ -96,7 +96,7 @@ export function calculateArmStates(
     const gravitationalTorque = calculateArmTorque(
       comLength,
       armMass,
-      currentArmAngle
+      currentArmAngle,
     );
 
     const ms = new MotorRules(motor, currentLimit, {
@@ -109,7 +109,7 @@ export function calculateArmStates(
 
     const armAngularAccel = netArmTorque.div(inertia);
     currentArmRpm = currentArmRpm.add(
-      armAngularAccel.mul(timeDelta).mul(new Measurement(1, "rad"))
+      armAngularAccel.mul(timeDelta).mul(new Measurement(1, "rad")),
     );
 
     currentArmAngle = currentArmAngle.add(
@@ -120,8 +120,8 @@ export function calculateArmStates(
             .mul(timeDelta)
             .mul(timeDelta)
             .div(2)
-            .mul(new Measurement(1, "rad"))
-        )
+            .mul(new Measurement(1, "rad")),
+        ),
     );
 
     currentMotorRpm = currentArmRpm

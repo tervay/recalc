@@ -38,14 +38,14 @@ export function isLocalhost(hostname = window.location.hostname): boolean {
 
 export function roundToNearestMulitple(
   roundable: number,
-  multipleOf: number
+  multipleOf: number,
 ): number {
   return Math.ceil(roundable / multipleOf) * multipleOf;
 }
 
 export function closestNumberFromArray(array: number[], n: number): number {
   return array.reduce((prev, curr) =>
-    Math.abs(curr - n) < Math.abs(prev - n) ? curr : prev
+    Math.abs(curr - n) < Math.abs(prev - n) ? curr : prev,
   );
 }
 
@@ -53,7 +53,7 @@ export function gappedRange(
   start: number,
   end: number,
   length: number,
-  round?: boolean
+  round?: boolean,
 ): number[] {
   const step = (end - start) / length;
   const range = [];
@@ -67,7 +67,7 @@ export function gappedRange(
 export function consoleGroup(
   name: string,
   doLog: () => boolean,
-  vars: Record<string, unknown>
+  vars: Record<string, unknown>,
 ): void {
   if (doLog()) {
     console.group(name);
@@ -77,7 +77,7 @@ export function consoleGroup(
 }
 
 export function stringifyMeasurements(
-  objs: Record<string, Measurement>
+  objs: Record<string, Measurement>,
 ): Record<string, string> {
   const ret: Record<string, string> = {};
   Object.entries(objs).forEach(([k, v]) => {
@@ -87,7 +87,7 @@ export function stringifyMeasurements(
 }
 
 export function JSONifyMeasurements(
-  objs: Record<string, Measurement>
+  objs: Record<string, Measurement>,
 ): Record<string, Record<string, unknown>> {
   const ret: Record<string, Record<string, unknown>> = {};
   Object.entries(objs).forEach(([k, v]) => {
@@ -170,7 +170,7 @@ export function* permutations<T>(array: T[], r: number) {
 
 export function* combinationsWithReplacement<T>(
   iterable: Iterable<T>,
-  r: number
+  r: number,
 ): Generator<T[]> {
   if (!Number.isInteger(r) || r < 0) {
     throw RangeError("r must be a non-negative integer");

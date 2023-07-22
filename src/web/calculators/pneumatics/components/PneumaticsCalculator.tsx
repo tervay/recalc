@@ -31,7 +31,7 @@ const worker = await wrap<PneumaticWorkerFunctions>(new rawWorker());
 
 const defaultPiston = (pl: PistonList) => {
   const maxFound = Math.max(
-    ...pl.pistons.map((p) => getNumberFromPistonName(p.identifier))
+    ...pl.pistons.map((p) => getNumberFromPistonName(p.identifier)),
   );
   const n = [-Infinity, Infinity, NaN].includes(maxFound) ? 1 : maxFound + 1;
 
@@ -44,13 +44,13 @@ const defaultPiston = (pl: PistonList) => {
     new Measurement(getRandomInteger(15, 60), "psi"),
     new Measurement(getRandomInteger(15, 60), "psi"),
     true,
-    new Measurement(getRandomInteger(4, 16), "s")
+    new Measurement(getRandomInteger(4, 16), "s"),
   );
 };
 
 export default function PneumaticsCalculator(): JSX.Element {
   const [get, set] = useGettersSetters(
-    PneumaticsState.getState() as PneumaticsStateV1
+    PneumaticsState.getState() as PneumaticsStateV1,
   );
 
   const calculate = {
@@ -63,13 +63,13 @@ export default function PneumaticsCalculator(): JSX.Element {
   };
 
   const [timelineAndDutyCycle, setTimelineAndDutyCycle] = useState(
-    calculate.timelineAndDutyCycle()
+    calculate.timelineAndDutyCycle(),
   );
   const [timeline, setTimeline] = useState(calculate.timeline());
   const [dutyCycle, setDutyCycle] = useState(calculate.dutyCycle());
   const [recommendedTanks, _error, _state] = usePromise(
     calculate.recommendedTanks,
-    [get.pistons.pistons, get.compressor]
+    [get.pistons.pistons, get.compressor],
   );
 
   useEffect(() => {
@@ -102,7 +102,7 @@ export default function PneumaticsCalculator(): JSX.Element {
             color={"primary"}
             onClick={() => {
               set.setPistons(
-                get.pistons.copyAndAdd(defaultPiston(get.pistons))
+                get.pistons.copyAndAdd(defaultPiston(get.pistons)),
               );
             }}
             faIcon="plus"

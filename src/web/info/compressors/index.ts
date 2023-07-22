@@ -53,5 +53,5 @@ export const graphConfig = GraphConfig.options(
   {
     maintainAspectRatio: true,
     showLegend: true,
-  }
+  },
 );

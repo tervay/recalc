@@ -24,7 +24,7 @@ export default class Belt extends Model {
     public readonly pitch: Measurement,
     public readonly length: Measurement,
     public readonly width?: Measurement,
-    vendorData?: VendorData
+    vendorData?: VendorData,
   ) {
     super("Belt");
     this.vendor = vendorData?.vendor;
@@ -37,7 +37,7 @@ export default class Belt extends Model {
     teeth: number,
     pitch: Measurement,
     width?: Measurement,
-    vendorData?: VendorData
+    vendorData?: VendorData,
   ): Belt {
     return new Belt(teeth, pitch, pitch.mul(teeth), width, vendorData);
   }
@@ -46,14 +46,14 @@ export default class Belt extends Model {
     length: Measurement,
     pitch: Measurement,
     width?: Measurement,
-    vendorData?: VendorData
+    vendorData?: VendorData,
   ): Belt {
     return new Belt(
       cleanFloatingPointErrors(length.div(pitch).scalar),
       pitch,
       length,
       width,
-      vendorData
+      vendorData,
     );
   }
 
@@ -83,8 +83,8 @@ export default class Belt extends Model {
           type: b.type as PulleyBeltType,
           url: b.url,
           vendor: b.vendor as FRCVendor,
-        }
-      )
+        },
+      ),
     );
     const vbgBelts = include_vbg
       ? [...new Set(_vbg.filter((b) => b.responseCode === 200))].map((b) =>
@@ -97,8 +97,8 @@ export default class Belt extends Model {
               vendor: "VBeltGuys",
               sku: b.generatedUrl.split("/")[b.generatedUrl.split("/").length],
               type: "HTD",
-            }
-          )
+            },
+          ),
         )
       : [];
 

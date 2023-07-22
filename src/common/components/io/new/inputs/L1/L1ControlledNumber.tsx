@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 
 export function makeDefaultL1ControlledNumberProps<
   M,
-  T extends SetAllFieldsButStateHookOptional<RemoveL1NumberCreationFns<M>>
+  T extends SetAllFieldsButStateHookOptional<RemoveL1NumberCreationFns<M>>,
 >(props: T): RemoveL1NumberCreationFns<M> {
   return {
     ...{
@@ -38,7 +38,7 @@ export function makeDefaultL1ControlledNumberProps<
 }
 
 export default function L1ControlledNumber<T>(
-  props: L1ControlledNumberProps<T>
+  props: L1ControlledNumberProps<T>,
 ): JSX.Element {
   const [t, setT] = props.stateHook;
   const [num, setNum] = useState(props.makeNumber(t));

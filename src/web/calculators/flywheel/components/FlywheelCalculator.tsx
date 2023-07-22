@@ -31,7 +31,7 @@ import { calculateKa, calculateKv } from "web/calculators/shared/sharedMath";
 
 export default function FlywheelCalculator(): JSX.Element {
   const [get, set] = useGettersSetters(
-    FlywheelState.getState() as FlywheelStateV2
+    FlywheelState.getState() as FlywheelStateV2,
   );
 
   const windupTime = useMemo(
@@ -41,13 +41,13 @@ export default function FlywheelCalculator(): JSX.Element {
           get.flywheelMomentOfInertia.div(
             get.flywheelRatio.asNumber() == 0
               ? 1
-              : Math.pow(get.flywheelRatio.asNumber(), 2)
-          )
+              : Math.pow(get.flywheelRatio.asNumber(), 2),
+          ),
         ),
         get.motor,
         get.currentLimit,
         get.motorRatio,
-        get.shooterTargetSpeed
+        get.shooterTargetSpeed,
       ),
     [
       get.motor,
@@ -57,7 +57,7 @@ export default function FlywheelCalculator(): JSX.Element {
       get.shooterMomentOfInertia,
       get.flywheelMomentOfInertia,
       get.flywheelRatio,
-    ]
+    ],
   );
 
   const shooterTopSpeed = useMemo(
@@ -65,16 +65,16 @@ export default function FlywheelCalculator(): JSX.Element {
       get.motorRatio.asNumber() === 0
         ? new Measurement(0, "rpm")
         : get.motor.freeSpeed.div(get.motorRatio.asNumber()),
-    [get.motorRatio, get.motor.freeSpeed]
+    [get.motorRatio, get.motor.freeSpeed],
   );
 
   const shooterSurfaceSpeed = useMemo(
     () =>
       calculateShooterWheelSurfaceSpeed(
         get.shooterTargetSpeed,
-        get.shooterRadius
+        get.shooterRadius,
       ),
-    [get.shooterTargetSpeed, get.shooterRadius]
+    [get.shooterTargetSpeed, get.shooterRadius],
   );
 
   const projectileSpeed = useMemo(
@@ -86,10 +86,10 @@ export default function FlywheelCalculator(): JSX.Element {
           get.flywheelMomentOfInertia.div(
             get.flywheelRatio.asNumber() == 0
               ? 1
-              : Math.pow(get.flywheelRatio.asNumber(), 2)
-          )
+              : Math.pow(get.flywheelRatio.asNumber(), 2),
+          ),
         ),
-        shooterSurfaceSpeed
+        shooterSurfaceSpeed,
       ),
     [
       get.projectileWeight,
@@ -98,12 +98,12 @@ export default function FlywheelCalculator(): JSX.Element {
       get.flywheelMomentOfInertia,
       get.flywheelRatio,
       shooterSurfaceSpeed,
-    ]
+    ],
   );
 
   const projectileEnergy = useMemo(
     () => calculateProjectileEnergy(projectileSpeed, get.projectileWeight),
-    [projectileSpeed, get.projectileWeight]
+    [projectileSpeed, get.projectileWeight],
   );
 
   const flywheelEnergy = useMemo(
@@ -113,17 +113,17 @@ export default function FlywheelCalculator(): JSX.Element {
           get.flywheelMomentOfInertia.div(
             get.flywheelRatio.asNumber() == 0
               ? 1
-              : Math.pow(get.flywheelRatio.asNumber(), 2)
-          )
+              : Math.pow(get.flywheelRatio.asNumber(), 2),
+          ),
         ),
-        get.shooterTargetSpeed
+        get.shooterTargetSpeed,
       ),
     [
       get.shooterMomentOfInertia,
       get.flywheelMomentOfInertia,
       get.flywheelRatio,
       get.shooterTargetSpeed,
-    ]
+    ],
   );
 
   const speedAfterShot = useMemo(
@@ -133,11 +133,11 @@ export default function FlywheelCalculator(): JSX.Element {
           get.flywheelMomentOfInertia.div(
             get.flywheelRatio.asNumber() == 0
               ? 1
-              : Math.pow(get.flywheelRatio.asNumber(), 2)
-          )
+              : Math.pow(get.flywheelRatio.asNumber(), 2),
+          ),
         ),
         flywheelEnergy,
-        projectileEnergy
+        projectileEnergy,
       ),
     [
       get.shooterMomentOfInertia,
@@ -145,7 +145,7 @@ export default function FlywheelCalculator(): JSX.Element {
       get.flywheelRatio,
       flywheelEnergy,
       projectileEnergy,
-    ]
+    ],
   );
 
   const totalMomentOfInertia = useMemo(
@@ -157,8 +157,8 @@ export default function FlywheelCalculator(): JSX.Element {
               get.flywheelMomentOfInertia.div(
                 get.flywheelRatio.asNumber() == 0
                   ? 1
-                  : Math.pow(get.flywheelRatio.asNumber(), 2)
-              )
+                  : Math.pow(get.flywheelRatio.asNumber(), 2),
+              ),
             )
             .div(get.motorRatio.asNumber()),
     [
@@ -166,7 +166,7 @@ export default function FlywheelCalculator(): JSX.Element {
       get.flywheelMomentOfInertia,
       get.flywheelRatio,
       get.motorRatio,
-    ]
+    ],
   );
 
   const recoveryTime = useMemo(
@@ -178,7 +178,7 @@ export default function FlywheelCalculator(): JSX.Element {
         1 / 100,
         get.shooterTargetSpeed,
         speedAfterShot,
-        get.currentLimit
+        get.currentLimit,
       ),
     [
       totalMomentOfInertia,
@@ -187,7 +187,7 @@ export default function FlywheelCalculator(): JSX.Element {
       get.shooterTargetSpeed,
       speedAfterShot,
       get.currentLimit,
-    ]
+    ],
   );
 
   const kV = useMemo(() => {
@@ -197,7 +197,7 @@ export default function FlywheelCalculator(): JSX.Element {
 
     return calculateKv(
       get.motor.freeSpeed.div(get.motorRatio.asNumber()),
-      get.shooterRadius
+      get.shooterRadius,
     );
   }, [get.motor.freeSpeed, get.motorRatio, get.shooterRadius]);
 
@@ -212,7 +212,7 @@ export default function FlywheelCalculator(): JSX.Element {
         .mul(get.motorRatio.asNumber())
         .mul(get.efficiency / 100),
       get.shooterRadius,
-      totalMomentOfInertia.div(get.flywheelRadius.mul(get.flywheelRadius))
+      totalMomentOfInertia.div(get.flywheelRadius.mul(get.flywheelRadius)),
     );
   }, [
     get.motor.stallTorque,
@@ -227,7 +227,7 @@ export default function FlywheelCalculator(): JSX.Element {
   useEffect(() => {
     if (!get.useCustomShooterMoi) {
       set.setShooterMomentOfInertia(
-        get.shooterRadius.mul(get.shooterRadius).mul(get.shooterWeight).div(2)
+        get.shooterRadius.mul(get.shooterRadius).mul(get.shooterWeight).div(2),
       );
     }
   }, [get.shooterRadius, get.shooterWeight, get.useCustomShooterMoi]);
@@ -239,7 +239,7 @@ export default function FlywheelCalculator(): JSX.Element {
         .mul(get.flywheelWeight)
         .div(2);
       set.setFlywheelMomentOfInertia(
-        get.flywheelRatio.asNumber() === 0 ? pureMOI.mul(0) : pureMOI
+        get.flywheelRatio.asNumber() === 0 ? pureMOI.mul(0) : pureMOI,
       );
     }
   }, [

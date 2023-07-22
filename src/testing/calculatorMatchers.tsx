@@ -38,7 +38,7 @@ export default {
   },
   toHaveValues<Map extends IdToElementMap>(
     map: Map,
-    expected: { [k in keyof Map]: number }
+    expected: { [k in keyof Map]: number },
   ): Result {
     Object.entries(map).forEach(([key, getDiv]) => {
       // expect(getDiv()).toHaveValue(expected[key]);

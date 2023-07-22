@@ -47,7 +47,7 @@ export default function LinearCalculator(): JSX.Element {
 
   const unloadedSpeed = useMemo(
     () => calculateUnloadedSpeed(get.motor, get.spoolDiameter, get.ratio),
-    [get.motor, get.spoolDiameter, get.ratio]
+    [get.motor, get.spoolDiameter, get.ratio],
   );
 
   const loadedSpeed = useMemo(
@@ -57,19 +57,19 @@ export default function LinearCalculator(): JSX.Element {
         get.spoolDiameter,
         get.ratio,
         get.efficiency,
-        get.load
+        get.load,
       ),
-    [get.motor, get.spoolDiameter, get.ratio, get.efficiency, get.load]
+    [get.motor, get.spoolDiameter, get.ratio, get.efficiency, get.load],
   );
 
   const unloadedTimeToGoal = useMemo(
     () => calculateTimeToGoal(unloadedSpeed, get.travelDistance),
-    [get.travelDistance, unloadedSpeed]
+    [get.travelDistance, unloadedSpeed],
   );
 
   const loadedTimeToGoal = useMemo(
     () => calculateTimeToGoal(loadedSpeed, get.travelDistance),
-    [get.travelDistance, loadedSpeed]
+    [get.travelDistance, loadedSpeed],
   );
 
   const dragLoad = useMemo(
@@ -78,9 +78,9 @@ export default function LinearCalculator(): JSX.Element {
         get.motor,
         get.spoolDiameter,
         get.ratio,
-        get.efficiency
+        get.efficiency,
       ).negate(),
-    [get.motor, get.spoolDiameter, get.ratio, get.efficiency]
+    [get.motor, get.spoolDiameter, get.ratio, get.efficiency],
   );
 
   const timeToGoalStates = useAsyncMemo(
@@ -92,7 +92,7 @@ export default function LinearCalculator(): JSX.Element {
         get.spoolDiameter.toDict(),
         get.load.toDict(),
         get.ratio.toDict(),
-        get.efficiency
+        get.efficiency,
       ),
     [
       get.motor,
@@ -101,7 +101,7 @@ export default function LinearCalculator(): JSX.Element {
       get.load,
       get.ratio,
       get.efficiency,
-    ]
+    ],
   );
 
   const currentDrawStates = useAsyncMemo(
@@ -111,15 +111,15 @@ export default function LinearCalculator(): JSX.Element {
         get.motor.toDict(),
         get.spoolDiameter.toDict(),
         get.load.toDict(),
-        get.ratio.toDict()
+        get.ratio.toDict(),
       ),
-    [get.motor, get.spoolDiameter, get.load, get.ratio, get.efficiency]
+    [get.motor, get.spoolDiameter, get.load, get.ratio, get.efficiency],
   );
 
   const currentDraw = useMemo(
     () =>
       calculateCurrentDraw(get.motor, get.spoolDiameter, get.load, get.ratio),
-    [get.motor, get.spoolDiameter, get.load, get.ratio]
+    [get.motor, get.spoolDiameter, get.load, get.ratio],
   );
 
   const kG = useMemo(
@@ -127,7 +127,7 @@ export default function LinearCalculator(): JSX.Element {
       calculateKg(
         get.motor.stallTorque.mul(get.motor.quantity).mul(get.ratio.asNumber()),
         get.spoolDiameter.div(2),
-        get.load.mul(get.efficiency / 100)
+        get.load.mul(get.efficiency / 100),
       ),
     [
       get.motor.stallTorque,
@@ -136,7 +136,7 @@ export default function LinearCalculator(): JSX.Element {
       get.ratio,
       get.load,
       get.spoolDiameter,
-    ]
+    ],
   );
 
   const kV = useMemo(() => {
@@ -146,7 +146,7 @@ export default function LinearCalculator(): JSX.Element {
 
     return calculateKv(
       get.motor.freeSpeed.div(get.ratio.asNumber()),
-      get.spoolDiameter.div(2)
+      get.spoolDiameter.div(2),
     );
   }, [get.motor.freeSpeed, get.spoolDiameter]);
 
@@ -158,7 +158,7 @@ export default function LinearCalculator(): JSX.Element {
           .mul(get.ratio.asNumber())
           .mul(get.efficiency / 100),
         get.spoolDiameter.div(2),
-        get.load
+        get.load,
       ),
     [
       get.motor.stallTorque,
@@ -167,7 +167,7 @@ export default function LinearCalculator(): JSX.Element {
       get.ratio,
       get.spoolDiameter,
       get.load,
-    ]
+    ],
   );
 
   return (
@@ -314,13 +314,13 @@ export default function LinearCalculator(): JSX.Element {
                 "Time to Goal (s)",
                 timeToGoalStates.filter((s) => s.y > 0),
                 0,
-                "y-time"
+                "y-time",
               ),
               GraphConfig.dataset(
                 "Current Draw (A)",
                 currentDrawStates,
                 1,
-                "y-current"
+                "y-current",
               ),
             ]}
             title=""

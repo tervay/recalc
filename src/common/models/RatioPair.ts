@@ -46,7 +46,7 @@ export default class RatioPairList extends Model {
   calculateNetRatio(): Ratio {
     return new Ratio(
       this.pairs.reduce((acc, curr) => acc * (curr[0] / curr[1]), 1),
-      RatioType.STEP_UP
+      RatioType.STEP_UP,
     );
   }
 }

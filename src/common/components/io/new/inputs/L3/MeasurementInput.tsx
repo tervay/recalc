@@ -4,11 +4,11 @@ import Measurement from "common/models/Measurement";
 import { useEffect, useState } from "react";
 
 export default function MeasurementInput(
-  props: MeasurementInputProps
+  props: MeasurementInputProps,
 ): JSX.Element {
   const [meas, setMeas] = props.stateHook;
   const [newMeas, setNewMeas] = useState(
-    meas.to(props.defaultUnit ?? meas.units())
+    meas.to(props.defaultUnit ?? meas.units()),
   );
 
   useEffect(() => {

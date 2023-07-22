@@ -14,12 +14,12 @@ export interface InventorySavedResult {
 }
 
 export type AuthCallback<A extends Model, B extends InventorySavedResult> = (
-  i: Inventory<A, B>
+  i: Inventory<A, B>,
 ) => void;
 
 export default abstract class Inventory<
   PreWriteModel extends Model,
-  PostWriteModel extends InventorySavedResult
+  PostWriteModel extends InventorySavedResult,
 > {
   public readonly name: string;
   public readonly worksheetName: string;
@@ -35,7 +35,7 @@ export default abstract class Inventory<
     spreadsheetId: string,
     offlineData: PostWriteModel[],
     allowAuth = true,
-    authCallback: AuthCallback<PreWriteModel, PostWriteModel>
+    authCallback: AuthCallback<PreWriteModel, PostWriteModel>,
   ) {
     this.name = name;
     this.allowAuth = allowAuth;
@@ -70,7 +70,7 @@ export default abstract class Inventory<
   async authenticateServiceAccount(): Promise<void> {
     if (credentials === undefined) {
       throw Error(
-        "Tried to authenticate service account without env passkey set properly"
+        "Tried to authenticate service account without env passkey set properly",
       );
     }
 

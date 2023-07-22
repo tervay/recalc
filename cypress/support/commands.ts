@@ -47,7 +47,7 @@ declare global {
       dataCy(value: string): Chainable;
       getByTestId(
         value: string,
-        options?: Partial<Loggable & Timeoutable & Withinable & Shadow>
+        options?: Partial<Loggable & Timeoutable & Withinable & Shadow>,
       ): Chainable;
     }
   }

@@ -8,7 +8,7 @@ export function calculateWindupTime(
   motor: Motor,
   currentLimit: Measurement,
   ratio: Ratio,
-  targetSpeed: Measurement
+  targetSpeed: Measurement,
 ): Measurement {
   if (motor.quantity === 0 || ratio.asNumber() === 0) {
     return new Measurement(0, "s");
@@ -42,7 +42,7 @@ export function calculateWindupTime(
 
 export function calculateShooterWheelSurfaceSpeed(
   speed: Measurement,
-  radius: Measurement
+  radius: Measurement,
 ): Measurement {
   return speed.mul(radius).removeRad().to("ft/s");
 }
@@ -50,7 +50,7 @@ export function calculateShooterWheelSurfaceSpeed(
 export function projectileSpeedTransferPercentage(
   projectileWeight: Measurement,
   shooterWheelRadius: Measurement,
-  totalMOI: Measurement
+  totalMOI: Measurement,
 ): Measurement {
   if (Measurement.anyAreZero(shooterWheelRadius, projectileWeight)) {
     return new Measurement(0);
@@ -62,7 +62,7 @@ export function projectileSpeedTransferPercentage(
         .mul(shooterWheelRadius.mul(2))
         .mul(shooterWheelRadius.mul(2))
         .mul(7)
-        .add(totalMOI.mul(40))
+        .add(totalMOI.mul(40)),
     );
 }
 
@@ -70,20 +70,20 @@ export function calculateProjectileExitVelocity(
   projectileWeight: Measurement,
   shooterWheelRadius: Measurement,
   totalMOI: Measurement,
-  shooterWheelSurfaceSpeed: Measurement
+  shooterWheelSurfaceSpeed: Measurement,
 ): Measurement {
   return shooterWheelSurfaceSpeed.mul(
     projectileSpeedTransferPercentage(
       projectileWeight,
       shooterWheelRadius,
-      totalMOI
-    )
+      totalMOI,
+    ),
   );
 }
 
 export function calculateProjectileEnergy(
   projectileVelocity: Measurement,
-  projectileWeight: Measurement
+  projectileWeight: Measurement,
 ): Measurement {
   return projectileWeight
     .mul(projectileVelocity)
@@ -94,7 +94,7 @@ export function calculateProjectileEnergy(
 
 export function calculateFlywheelEnergy(
   totalMomentOfInertia: Measurement,
-  targetSpeed: Measurement
+  targetSpeed: Measurement,
 ): Measurement {
   return totalMomentOfInertia
     .mul(targetSpeed)
@@ -108,7 +108,7 @@ export function calculateFlywheelEnergy(
 export function calculateSpeedAfterShot(
   totalMomentOfInertia: Measurement,
   flywheelEnergy: Measurement,
-  projectileEnergy: Measurement
+  projectileEnergy: Measurement,
 ): Measurement {
   if (Measurement.anyAreZero(totalMomentOfInertia)) {
     return new Measurement(0, "rpm");
@@ -133,7 +133,7 @@ export function calculateRecoveryTime(
   variation: number,
   targetSpeed: Measurement,
   speedAfterShot: Measurement,
-  currentLimit: Measurement
+  currentLimit: Measurement,
 ): Measurement {
   if (motor.quantity === 0 || ratio.asNumber() === 0) {
     return new Measurement(0, "s");

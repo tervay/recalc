@@ -6,7 +6,7 @@ export function calculateCenterDistance(
   chain: Chain,
   p1Teeth: number,
   p2Teeth: number,
-  links: number
+  links: number,
 ): Measurement {
   const P = chain.pitch;
   const N = Math.max(p1Teeth, p2Teeth);
@@ -29,7 +29,7 @@ export function calculateCenters(
   chain: Chain,
   p1Teeth: number,
   p2Teeth: number,
-  desiredCenter: Measurement
+  desiredCenter: Measurement,
 ): ChainClosestCentersResult {
   if (
     [desiredCenter.scalar, p1Teeth, p2Teeth].includes(0) ||

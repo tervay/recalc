@@ -20,7 +20,7 @@ const pneumaticsConfig: PageConfig = {
   image: "/media/Pneumatics",
   version: 1,
   component: lazy(
-    () => import("web/calculators/pneumatics/components/PneumaticsPage")
+    () => import("web/calculators/pneumatics/components/PneumaticsPage"),
   ),
 };
 export default pneumaticsConfig;
@@ -38,7 +38,7 @@ export const PneumaticsParamsV1 = {
         new Measurement(60, "psi"),
         new Measurement(60, "psi"),
         true,
-        new Measurement(8, "s")
+        new Measurement(8, "s"),
       ),
       new Piston(
         "Cylinder 2",
@@ -49,9 +49,9 @@ export const PneumaticsParamsV1 = {
         new Measurement(60, "psi"),
         new Measurement(60, "psi"),
         true,
-        new Measurement(12, "s")
+        new Measurement(12, "s"),
       ),
-    ])
+    ]),
   ),
   tankVolume: withDefault(MeasurementParam, new Measurement(574 * 2, "cm^3")),
   compressor: withDefault(CompressorParam, Compressor.VIAIR_90C_12V()),
@@ -81,5 +81,5 @@ export const pneumaticsGraphConfig = GraphConfig.options(
   },
   {
     maintainAspectRatio: true,
-  }
+  },
 );

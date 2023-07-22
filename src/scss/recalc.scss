@@ -63,7 +63,9 @@
     position: absolute;
     border-radius: 50%;
     border: $g3 solid 0.2em;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      border-color 0.3s ease;
   }
 
   &:checked {
@@ -138,8 +140,11 @@
 .table-container {
   border-color: $g1;
   border-radius: 4px;
-  box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-    rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  box-shadow:
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 
   thead {
     background-color: $g1_5;

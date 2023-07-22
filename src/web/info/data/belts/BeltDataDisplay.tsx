@@ -17,7 +17,7 @@ export default function BeltDataDisplay(): JSX.Element {
         sku: b.sku,
         url: b.url,
       })),
-    []
+    [],
   );
 
   return (

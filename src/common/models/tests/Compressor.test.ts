@@ -70,33 +70,33 @@ describe("Compressor model", () => {
     "%p cfmFn is always positive 0-120psi",
     (compressor) => {
       expect(compressor.cfmAtPressure(psi(0))).toBeGreaterThanMeasurement(
-        cfm(0)
+        cfm(0),
       );
       expect(compressor.cfmAtPressure(psi(20))).toBeGreaterThanMeasurement(
-        cfm(0)
+        cfm(0),
       );
       expect(compressor.cfmAtPressure(psi(40))).toBeGreaterThanMeasurement(
-        cfm(0)
+        cfm(0),
       );
       expect(compressor.cfmAtPressure(psi(60))).toBeGreaterThanMeasurement(
-        cfm(0)
+        cfm(0),
       );
       expect(compressor.cfmAtPressure(psi(80))).toBeGreaterThanMeasurement(
-        cfm(0)
+        cfm(0),
       );
       expect(compressor.cfmAtPressure(psi(100))).toBeGreaterThanMeasurement(
-        cfm(0)
+        cfm(0),
       );
       expect(compressor.cfmAtPressure(psi(110))).toBeGreaterThanMeasurement(
-        cfm(0)
+        cfm(0),
       );
       expect(compressor.cfmAtPressure(psi(115))).toBeGreaterThanMeasurement(
-        cfm(0)
+        cfm(0),
       );
       expect(compressor.cfmAtPressure(psi(120))).toBeGreaterThanMeasurement(
-        cfm(0)
+        cfm(0),
       );
-    }
+    },
   );
 
   test.each([

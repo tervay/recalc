@@ -25,7 +25,7 @@ describe("VBeltGuysInventory", () => {
     ({ belt, url }) => {
       expect(new VBeltGuysInventory().makeUrl(belt)).toEqual(url);
     },
-    { timeout: 20 * 1000 }
+    { timeout: 20 * 1000 },
   );
 
   test.each([
@@ -102,21 +102,21 @@ describe("VBeltGuysInventory", () => {
       authCb: NoOp,
     });
     expect(
-      inventory.scanInventory(Belt.fromTeeth(100, mm(3), mm(9)))
+      inventory.scanInventory(Belt.fromTeeth(100, mm(3), mm(9))),
     ).toMatchObject({
       found: true,
       has: true,
     });
 
     expect(
-      inventory.scanInventory(Belt.fromTeeth(200, mm(5), mm(15)))
+      inventory.scanInventory(Belt.fromTeeth(200, mm(5), mm(15))),
     ).toMatchObject({
       found: true,
       has: false,
     });
 
     expect(
-      inventory.scanInventory(Belt.fromTeeth(150, mm(5), mm(15)))
+      inventory.scanInventory(Belt.fromTeeth(150, mm(5), mm(15))),
     ).toMatchObject({
       found: false,
       has: undefined,

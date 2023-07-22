@@ -22,6 +22,6 @@ export type RemoveL1NumberCreationFns<T> = Exclude<
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type RemoveL2NumberSelectCreationFnsAndChoices<
-  T extends NumberConvertible<any> & StringConvertible<any>
+  T extends NumberConvertible<any> & StringConvertible<any>,
 > = Exclude<T, NumberConvertible<any> & StringConvertible<any> & HasChoices>;
 /* eslint-enable @typescript-eslint/no-explicit-any */

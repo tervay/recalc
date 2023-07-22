@@ -50,11 +50,11 @@ type ChangedInputAndCorrespondingValues<
   NumberedInputsType extends IdToElementMap,
   SelectType extends IdToElementMap,
   SecondaryInputsType extends IdToElementMap,
-  NumberedOutputsType extends IOify<IdToElementMap>
+  NumberedOutputsType extends IOify<IdToElementMap>,
 > = [
   ChangeAction<NumberedInputsType, SelectType>,
   NumberedOutputsType &
-    Optional<IOify<SecondaryInputsType> & IOify<NumberedInputsType>>
+    Optional<IOify<SecondaryInputsType> & IOify<NumberedInputsType>>,
 ];
 
 function changeActionToString<T, V>(changeAction: ChangeAction<T, V>): string {
@@ -64,7 +64,7 @@ function changeActionToString<T, V>(changeAction: ChangeAction<T, V>): string {
     s.push(
       `Changing ${String(changeAction.change.key)} to ${
         changeAction.change.value
-      }`
+      }`,
     );
   }
 
@@ -76,7 +76,7 @@ function changeActionToString<T, V>(changeAction: ChangeAction<T, V>): string {
     s.push(
       `Selecting ${String(changeAction.select.key)} as ${
         changeAction.select.value
-      }`
+      }`,
     );
   }
 
@@ -87,7 +87,7 @@ export function generateIOTests<
   InputsType extends IdToElementMap,
   OutputsType extends IdToElementMap,
   SelectType extends IdToElementMap,
-  SecondaryInputsType extends IdToElementMap
+  SecondaryInputsType extends IdToElementMap,
 >(
   metadata: Metadata,
   inputs: InputsType,
@@ -99,7 +99,7 @@ export function generateIOTests<
     SecondaryInputsType,
     IOify<OutputsType>
   >[],
-  secondaryInputs?: SecondaryInputsType
+  secondaryInputs?: SecondaryInputsType,
 ): void {
   describe(`${metadata.name} auto-generated E2E test suite`, () => {
     beforeEach(() => {
@@ -146,12 +146,12 @@ export function generateIOTests<
 
           if (typeof v === "boolean") {
             cy.getByTestId(allDivs[k]).should(
-              v ? "be.checked" : "not.be.checked"
+              v ? "be.checked" : "not.be.checked",
             );
           } else {
             cy.getByTestId(allDivs[k], { timeout: 20000 }).should(
               "have.value",
-              v
+              v,
             );
           }
         });

@@ -27,7 +27,7 @@ export class MotorPlaygroundEntry extends Model {
     public readonly currentLimit: Measurement,
     public readonly voltage: Measurement,
     public readonly ratio: Ratio,
-    public readonly visibilityOptions: VisibilityOptions
+    public readonly visibilityOptions: VisibilityOptions,
   ) {
     super(motor.identifier + currentLimit.identifier);
   }
@@ -36,12 +36,12 @@ export class MotorPlaygroundEntry extends Model {
     const motorStates = gappedRange(
       0,
       this.motor.kV.mul(this.voltage).to("rpm").scalar,
-      100
+      100,
     ).map((n) =>
       new MotorRules(this.motor, this.currentLimit, {
         voltage: this.voltage,
         rpm: new Measurement(n, "rpm"),
-      }).solve()
+      }).solve(),
     );
 
     const ret = [];
@@ -55,8 +55,8 @@ export class MotorPlaygroundEntry extends Model {
             y: ms.power.mul(this.motor.quantity).to("W").scalar,
           })),
           Motor.getAllChoices().indexOf(this.motor.identifier) + 1,
-          `y${Motor.getAllChoices().indexOf(this.motor.identifier) + 1}-power`
-        )
+          `y${Motor.getAllChoices().indexOf(this.motor.identifier) + 1}-power`,
+        ),
       );
     }
     if (this.visibilityOptions.showTorque) {
@@ -68,8 +68,8 @@ export class MotorPlaygroundEntry extends Model {
             y: ms.torque.mul(this.motor.quantity).to("N*m").scalar,
           })),
           Motor.getAllChoices().indexOf(this.motor.identifier) + 1 + 100,
-          `y${Motor.getAllChoices().indexOf(this.motor.identifier) + 1}-torque`
-        )
+          `y${Motor.getAllChoices().indexOf(this.motor.identifier) + 1}-torque`,
+        ),
       );
     }
     if (this.visibilityOptions.showCurrent) {
@@ -81,8 +81,10 @@ export class MotorPlaygroundEntry extends Model {
             y: ms.current.mul(this.motor.quantity).to("A").scalar,
           })),
           Motor.getAllChoices().indexOf(this.motor.identifier) + 1 + 200,
-          `y${Motor.getAllChoices().indexOf(this.motor.identifier) + 1}-current`
-        )
+          `y${
+            Motor.getAllChoices().indexOf(this.motor.identifier) + 1
+          }-current`,
+        ),
       );
     }
 
@@ -105,7 +107,7 @@ export class MotorPlaygroundEntry extends Model {
       Measurement.fromDict(d.currentLimit),
       Measurement.fromDict(d.voltage),
       Ratio.fromDict(d.ratio),
-      d.visibilityOptions
+      d.visibilityOptions,
     );
   }
 
@@ -140,7 +142,7 @@ export default class MotorPlaygroundList extends Model {
 
   static fromDict(d: MotorPlaygroundListDict): MotorPlaygroundList {
     return new MotorPlaygroundList(
-      d.entries.map((e) => MotorPlaygroundEntry.fromDict(e))
+      d.entries.map((e) => MotorPlaygroundEntry.fromDict(e)),
     );
   }
 
@@ -152,7 +154,7 @@ export default class MotorPlaygroundList extends Model {
 
   replaceEntry(
     oldEntry: MotorPlaygroundEntry,
-    newEntry: MotorPlaygroundEntry
+    newEntry: MotorPlaygroundEntry,
   ): MotorPlaygroundList {
     for (let i = 0; i < this.entries.length; i++) {
       if (this.entries[i].eq(oldEntry)) {

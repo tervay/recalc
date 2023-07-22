@@ -37,19 +37,19 @@ export default function PistonInput(props: {
   const [rodDiameter, setRodDiameter] = useState(props.piston.rodDiameter);
   const [strokeLength, setStrokeLength] = useState(props.piston.strokeLength);
   const [retractPressure, setRetractPressure] = useState(
-    props.piston.retractPressure
+    props.piston.retractPressure,
   );
   const [extendPressure, setExtendPressure] = useState(
-    props.piston.extendPressure
+    props.piston.extendPressure,
   );
   const [enabled, setEnabled] = useState(props.piston.enabled);
   const [period, setPeriod] = useState(props.piston.period);
 
   const [retractForce, setRetractForce] = useState(
-    calculate.retractForce(piston).to("N")
+    calculate.retractForce(piston).to("N"),
   );
   const [extendForce, setExtendForce] = useState(
-    calculate.extendForce(piston).to("N")
+    calculate.extendForce(piston).to("N"),
   );
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export default function PistonInput(props: {
       retractPressure,
       extendPressure,
       enabled,
-      period
+      period,
     );
     setPiston(newPiston);
     setPl(pl.replaceInSameSpot(oldPiston, newPiston));

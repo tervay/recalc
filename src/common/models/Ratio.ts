@@ -14,7 +14,7 @@ export type RatioDict = {
 export default class Ratio extends Model {
   constructor(
     public readonly magnitude: number,
-    public readonly ratioType: RatioType = RatioType.REDUCTION
+    public readonly ratioType: RatioType = RatioType.REDUCTION,
   ) {
     super("Ratio");
   }

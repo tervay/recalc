@@ -78,12 +78,12 @@ class LogCollector {
       wrapString(
         [
           ...lzstring.compressToUint8Array(
-            JSON.stringify(this.logs.map((log) => log.render?.[1]))
+            JSON.stringify(this.logs.map((log) => log.render?.[1])),
           ),
         ]
           .map((x) => x.toString(16).padStart(2, "0"))
           .join(" "),
-        60
+        60,
       ) ?? "Could not wrap string"
     );
   }
@@ -117,7 +117,7 @@ const relog = adze({
 
 export default function useLogger(
   namespace: string,
-  label: string
+  label: string,
 ): () => ReturnType<typeof adze> {
   return () => relog().namespace(namespace).label(label);
 }
@@ -135,7 +135,7 @@ export function useFileLogger(namespace: string): ReturnType<typeof useLogger> {
 export function useFunctionLogger(
   fileLogger: ReturnType<typeof useLogger>,
   functionName: string,
-  args: Record<string, JSONable>
+  args: Record<string, JSONable>,
 ): ReturnType<typeof useLogger> {
   return () => {
     let _log = fileLogger().namespace(functionName);
@@ -159,7 +159,7 @@ export function useDebugger(logger: ReturnType<typeof useLogger>): Debugger {
 
 export function debugAndReturn<T extends JSONable>(
   value: T,
-  debugger_: Debugger
+  debugger_: Debugger,
 ): T {
   debugger_({ return: value });
   return value;

@@ -35,7 +35,7 @@ export default function Table<D extends Record<string, unknown>>(props: {
       },
     },
     useSortBy,
-    usePagination
+    usePagination,
   );
 
   const classes = ["table"];

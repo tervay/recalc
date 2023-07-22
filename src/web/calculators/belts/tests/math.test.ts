@@ -55,14 +55,14 @@ describe("Belt math", () => {
         p1,
         p2,
         desiredCenter,
-        multipleOf
+        multipleOf,
       );
 
       expect(smaller.belt).toEqualModel(expectedSmaller.belt);
       expect(expectedSmaller.distance).toBeCloseToMeasurement(smaller.distance);
       expect(larger.belt).toEqualModel(expectedLarger.belt);
       expect(expectedLarger.distance).toBeCloseToMeasurement(larger.distance);
-    }
+    },
   );
 
   test.each([
@@ -85,7 +85,7 @@ describe("Belt math", () => {
     ({ p1, p2, realDistance, expectedP1, expectedP2 }) => {
       expect(teethInMesh(p1, p2, realDistance, p1)).toBeCloseTo(expectedP1);
       expect(teethInMesh(p1, p2, realDistance, p2)).toBeCloseTo(expectedP2);
-    }
+    },
   );
   test.each([
     {

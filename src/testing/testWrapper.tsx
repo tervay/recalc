@@ -28,7 +28,7 @@ type ChangeAction<T, V> = {
 };
 
 export function changeActionToString<T, V>(
-  changeAction: ChangeAction<T, V>
+  changeAction: ChangeAction<T, V>,
 ): string {
   const s = [];
 
@@ -36,7 +36,7 @@ export function changeActionToString<T, V>(
     s.push(
       `Changing ${String(changeAction.change.key)} to ${
         changeAction.change.value
-      }`
+      }`,
     );
   }
 
@@ -48,7 +48,7 @@ export function changeActionToString<T, V>(
     s.push(
       `Selecting ${String(changeAction.select.key)} as ${
         changeAction.select.value
-      }`
+      }`,
     );
   }
 
@@ -59,18 +59,18 @@ type ChangedInputAndCorrespondingValues<
   NumberedInputsType extends IdToElementMap,
   SelectType extends IdToElementMap,
   SecondaryInputsType extends IdToElementMap,
-  NumberedOutputsType extends Numberify<IdToElementMap>
+  NumberedOutputsType extends Numberify<IdToElementMap>,
 > = [
   ChangeAction<NumberedInputsType, SelectType>,
   NumberedOutputsType &
-    Optional<Numberify<SecondaryInputsType> & Numberify<NumberedInputsType>>
+    Optional<Numberify<SecondaryInputsType> & Numberify<NumberedInputsType>>,
 ];
 
 export default function testWrapper<
   InputsType extends IdToElementMap,
   OutputsType extends IdToElementMap,
   SelectType extends IdToElementMap,
-  SecondaryInputsType extends IdToElementMap
+  SecondaryInputsType extends IdToElementMap,
 >(
   component: JSX.Element,
   details: Details,
@@ -84,7 +84,7 @@ export default function testWrapper<
     Numberify<OutputsType>
   >[],
   secondaryInputs?: SecondaryInputsType,
-  waitForElements?: (() => HTMLElement)[]
+  waitForElements?: (() => HTMLElement)[],
 ): void {
   const prep = async () =>
     await act(async () => {
@@ -117,11 +117,11 @@ export default function testWrapper<
 
     changeAndChecks.forEach(([changeAction, expecteds]) => {
       test(`[${changeActionToString(
-        changeAction
+        changeAction,
       )}] => then check inputs`, async () => {
         if (changeAction.queryString) {
           mockLocation(
-            "http://localhost:3000/" + changeAction.queryString.value
+            "http://localhost:3000/" + changeAction.queryString.value,
           );
         }
         await prep();
@@ -130,14 +130,14 @@ export default function testWrapper<
             await userEvent.clear(inputs[changeAction.change.key as string]());
             await userEvent.type(
               inputs[changeAction.change.key as string](),
-              changeAction.change.value
+              changeAction.change.value,
             );
           }
 
           if (changeAction.select) {
             await userEvent.selectOptions(
               allSelects[changeAction.select.key as string](),
-              [changeAction.select.value]
+              [changeAction.select.value],
             );
           }
         });
@@ -174,7 +174,7 @@ export default function testWrapper<
 
 export function allValue<T extends IdToElementMap>(
   elements: T,
-  value: number
+  value: number,
 ): Numberify<T> {
   return Object.fromEntries(Object.entries(elements).map((e) => [e, value]));
 }
@@ -182,7 +182,7 @@ export function allValue<T extends IdToElementMap>(
 export function allValueExcept<T extends IdToElementMap>(
   key: string,
   elements: T,
-  value: number
+  value: number,
 ): Numberify<IdToElementMap> {
   const { [key]: _, ...rest } = elements;
   return allValue(rest, value);

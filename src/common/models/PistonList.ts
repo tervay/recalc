@@ -20,8 +20,8 @@ export default class PistonList extends Model {
       [...this.pistons].sort(
         (p, p2) =>
           getNumberFromPistonName(p.identifier) -
-          getNumberFromPistonName(p2.identifier)
-      )
+          getNumberFromPistonName(p2.identifier),
+      ),
     );
   }
 

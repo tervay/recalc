@@ -41,12 +41,12 @@ export const ArmsParamV2 = {
   infoMode: withDefault(NumberParam, CounterBalanceInfoMode.DESIRE_SPRING),
   stringArmMountDistance: withDefault(
     MeasurementParam,
-    new Measurement(5, "in")
+    new Measurement(5, "in"),
   ),
   springConstant: withDefault(MeasurementParam, new Measurement(2, "N/m")),
   stringPulleyMountHeight: withDefault(
     MeasurementParam,
-    new Measurement(4, "in")
+    new Measurement(4, "in"),
   ),
 };
 
@@ -97,5 +97,5 @@ export const armGraphConfig = GraphConfig.options(
   },
   {
     maintainAspectRatio: false,
-  }
+  },
 );

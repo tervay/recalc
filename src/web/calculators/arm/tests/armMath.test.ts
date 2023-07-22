@@ -47,10 +47,10 @@ describe("armMath", () => {
           comLength,
           armMass,
           stringPulleyMountHeight,
-          stringArmMountDistance
-        )
+          stringArmMountDistance,
+        ),
       ).toBeCloseToMeasurement(expected);
-    }
+    },
   );
   test.skip.each([
     { springLength: inch(1), elongationAllowed: 100, expected: inch(1) },
@@ -62,10 +62,10 @@ describe("armMath", () => {
       expect(
         calculateMaximumStringArmMountingDistance(
           springLength,
-          elongationAllowed
-        )
+          elongationAllowed,
+        ),
       ).toBeCloseToMeasurement(expected);
-    }
+    },
   );
   test.each([
     {
@@ -152,38 +152,38 @@ describe("armMath", () => {
         currentLimit_,
         startAngle_,
         endAngle_,
-        iterationLimit
+        iterationLimit,
       );
       expect(armStates.length).toBeGreaterThan(0);
       expect(armStates.length).toBeLessThanOrEqual(iterationLimit);
       const lastArmState = armStates[armStates.length - 1];
       expect(
-        Measurement.fromDict(lastArmState.motorState.current)
+        Measurement.fromDict(lastArmState.motorState.current),
       ).toBeCloseToMeasurement(
-        Measurement.fromDict(expected.motorState.current)
+        Measurement.fromDict(expected.motorState.current),
       );
       expect(
-        Measurement.fromDict(lastArmState.motorState.power)
+        Measurement.fromDict(lastArmState.motorState.power),
       ).toBeCloseToMeasurement(Measurement.fromDict(expected.motorState.power));
       expect(
-        Measurement.fromDict(lastArmState.motorState.rpm)
+        Measurement.fromDict(lastArmState.motorState.rpm),
       ).toBeCloseToMeasurement(Measurement.fromDict(expected.motorState.rpm));
       expect(
-        Measurement.fromDict(lastArmState.motorState.torque)
+        Measurement.fromDict(lastArmState.motorState.torque),
       ).toBeCloseToMeasurement(
-        Measurement.fromDict(expected.motorState.torque)
+        Measurement.fromDict(expected.motorState.torque),
       );
       expect(
-        Measurement.fromDict(lastArmState.motorState.voltage)
+        Measurement.fromDict(lastArmState.motorState.voltage),
       ).toBeCloseToMeasurement(
-        Measurement.fromDict(expected.motorState.voltage)
+        Measurement.fromDict(expected.motorState.voltage),
       );
       expect(
-        Measurement.fromDict(lastArmState.position)
+        Measurement.fromDict(lastArmState.position),
       ).toBeCloseToMeasurement(Measurement.fromDict(expected.position));
       expect(Measurement.fromDict(lastArmState.time)).toBeCloseToMeasurement(
-        Measurement.fromDict(expected.time)
+        Measurement.fromDict(expected.time),
       );
-    }
+    },
   );
 });

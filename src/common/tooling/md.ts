@@ -40,7 +40,7 @@ renderer.listitem = function (text: string) {
     this,
     replace_math_with_ids(text),
     false,
-    false
+    false,
   );
 };
 
@@ -55,7 +55,7 @@ renderer.tablecell = function (
   flags: {
     header: boolean;
     align: "center" | "left" | "right" | null;
-  }
+  },
 ) {
   return original_tablecell.call(this, replace_math_with_ids(content), flags);
 };

@@ -18,10 +18,10 @@ export default function CompressorsPage(): JSX.Element {
             y: c.cfmAtPressure(new Measurement(n, "psi")).scalar,
           })),
           i,
-          `y-${c.identifier}`
-        )
+          `y-${c.identifier}`,
+        ),
       ),
-    []
+    [],
   );
 
   return (

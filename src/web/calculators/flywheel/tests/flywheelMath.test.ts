@@ -65,10 +65,10 @@ describe("flywheelMath", () => {
           motor,
           currentLimit,
           ratio,
-          targetSpeed
-        )
+          targetSpeed,
+        ),
       ).toBeCloseToMeasurement(expected);
-    }
+    },
   );
   test.each([
     { speed: rpm(5000), radius: inch(4), expected: fps(174.5329) },
@@ -76,7 +76,7 @@ describe("flywheelMath", () => {
     { speed: rpm(100), radius: inch(1), expected: fps(0.873) },
   ])("%p calculateShooterWheelSurfaceSpeed", ({ speed, radius, expected }) => {
     expect(
-      calculateShooterWheelSurfaceSpeed(speed, radius)
+      calculateShooterWheelSurfaceSpeed(speed, radius),
     ).toBeCloseToMeasurement(expected);
   });
   test.each([
@@ -105,10 +105,10 @@ describe("flywheelMath", () => {
         projectileSpeedTransferPercentage(
           projectileWeight,
           shooterWheelRadius,
-          totalMOI
-        )
+          totalMOI,
+        ),
       ).toBeCloseToMeasurement(expected);
-    }
+    },
   );
   test.each([
     {
@@ -146,10 +146,10 @@ describe("flywheelMath", () => {
           projectileWeight,
           shooterWheelRadius,
           totalMOI,
-          shooterWheelSurfaceSpeed
-        )
+          shooterWheelSurfaceSpeed,
+        ),
       ).toBeCloseToMeasurement(expected);
-    }
+    },
   );
   test.each([
     {
@@ -171,9 +171,9 @@ describe("flywheelMath", () => {
     "%p calculateProjectileEnergy",
     ({ projectileVelocity, projectileWeight, expected }) => {
       expect(
-        calculateProjectileEnergy(projectileVelocity, projectileWeight)
+        calculateProjectileEnergy(projectileVelocity, projectileWeight),
       ).toBeCloseToMeasurement(expected);
-    }
+    },
   );
   test.each([
     {
@@ -195,9 +195,9 @@ describe("flywheelMath", () => {
     "%p calculateFlywheelEnergy",
     ({ totalMomentOfInertia, targetSpeed, expected }) => {
       expect(
-        calculateFlywheelEnergy(totalMomentOfInertia, targetSpeed)
+        calculateFlywheelEnergy(totalMomentOfInertia, targetSpeed),
       ).toBeCloseToMeasurement(expected);
-    }
+    },
   );
   test.each([
     {
@@ -225,10 +225,10 @@ describe("flywheelMath", () => {
         calculateSpeedAfterShot(
           totalMomentOfInertia,
           flywheelEnergy,
-          projectileEnergy
-        )
+          projectileEnergy,
+        ),
       ).toBeCloseToMeasurement(expected);
-    }
+    },
   );
   test.each([
     {
@@ -281,9 +281,9 @@ describe("flywheelMath", () => {
           variation,
           targetSpeed,
           speedAfterShot,
-          currentLimit
-        )
+          currentLimit,
+        ),
       ).toBeCloseToMeasurement(expected);
-    }
+    },
   );
 });

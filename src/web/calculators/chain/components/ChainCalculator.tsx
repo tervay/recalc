@@ -39,20 +39,20 @@ export default function ChainCalculator(): JSX.Element {
     get.chain,
     get.p1Teeth,
     get.p2Teeth,
-    get.desiredCenter
+    get.desiredCenter,
   );
 
   const [smallerCenter, setSmallerCenter] = useState(
-    calculate.smallerCenter(results)
+    calculate.smallerCenter(results),
   );
   const [smallerLinks, setSmallerLinks] = useState(
-    calculate.smallerLinks(results)
+    calculate.smallerLinks(results),
   );
   const [largerCenter, setLargerCenter] = useState(
-    calculate.largerCenter(results)
+    calculate.largerCenter(results),
   );
   const [largerLinks, setLargerLinks] = useState(
-    calculate.largerLinks(results)
+    calculate.largerLinks(results),
   );
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function ChainCalculator(): JSX.Element {
       get.chain,
       get.p1Teeth,
       get.p2Teeth,
-      get.desiredCenter
+      get.desiredCenter,
     );
 
     setSmallerCenter(results.smaller.distance.add(get.extraCenter));

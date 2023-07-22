@@ -42,7 +42,7 @@ function VbgAvailableRows(props: { belt: Belt }): JSX.Element {
     !scan.found
       ? vbg.pingSite(props.belt)
       : new Promise((resolve) => resolve(208)),
-    [props.belt]
+    [props.belt],
   );
 
   let div = <></>;
@@ -105,14 +105,14 @@ export default function InventoryTable(props: {
         belt={Belt.fromTeeth(
           props.smallerTeeth,
           props.pitch,
-          new Measurement(9, "mm")
+          new Measurement(9, "mm"),
         )}
       />
       <VbgAvailableRows
         belt={Belt.fromTeeth(
           props.smallerTeeth,
           props.pitch,
-          new Measurement(15, "mm")
+          new Measurement(15, "mm"),
         )}
       />
     </>
@@ -126,14 +126,14 @@ export default function InventoryTable(props: {
           belt={Belt.fromTeeth(
             props.largerTeeth,
             props.pitch,
-            new Measurement(9, "mm")
+            new Measurement(9, "mm"),
           )}
         />
         <VbgAvailableRows
           belt={Belt.fromTeeth(
             props.largerTeeth,
             props.pitch,
-            new Measurement(15, "mm")
+            new Measurement(15, "mm"),
           )}
         />
       </>
@@ -152,31 +152,31 @@ export default function InventoryTable(props: {
                 Belt.fromTeeth(
                   props.smallerTeeth,
                   props.pitch,
-                  new Measurement(9, "mm")
-                )
+                  new Measurement(9, "mm"),
+                ),
               )}
               {frcAvailableRows(
                 Belt.fromTeeth(
                   props.smallerTeeth,
                   props.pitch,
-                  new Measurement(15, "mm")
-                )
+                  new Measurement(15, "mm"),
+                ),
               )}
               {props.largerTeeth &&
                 frcAvailableRows(
                   Belt.fromTeeth(
                     props.largerTeeth,
                     props.pitch,
-                    new Measurement(9, "mm")
-                  )
+                    new Measurement(9, "mm"),
+                  ),
                 )}
               {props.largerTeeth &&
                 frcAvailableRows(
                   Belt.fromTeeth(
                     props.largerTeeth,
                     props.pitch,
-                    new Measurement(15, "mm")
-                  )
+                    new Measurement(15, "mm"),
+                  ),
                 )}
               {vbgDivs}
             </tbody>

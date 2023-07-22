@@ -20,6 +20,6 @@ readline
           console.log(err);
         }
         process.exit(0);
-      }
+      },
     );
   });

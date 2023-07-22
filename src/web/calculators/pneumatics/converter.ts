@@ -13,7 +13,7 @@ export class PneumaticsState {
     return StateMaker.BumpState(
       pneumaticsConfig.version,
       [PneumaticsParamsV1],
-      []
+      [],
     );
   }
 }

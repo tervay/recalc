@@ -46,7 +46,7 @@ export default class Piston extends Model {
     public extendPressure: Measurement,
     public enabled: boolean,
     public period: Measurement,
-    public state: State = State.RETRACTED
+    public state: State = State.RETRACTED,
   ) {
     super(name);
   }
@@ -67,19 +67,19 @@ export default class Piston extends Model {
 
   getExtendWork(systemPressure: Measurement): Measurement {
     return this.getExtendForce(
-      Measurement.min(systemPressure, this.extendPressure)
+      Measurement.min(systemPressure, this.extendPressure),
     ).mul(this.strokeLength);
   }
 
   getRetractWork(systemPressure: Measurement): Measurement {
     return this.getRetractForce(
-      Measurement.min(systemPressure, this.retractPressure)
+      Measurement.min(systemPressure, this.retractPressure),
     ).mul(this.strokeLength);
   }
 
   getWork(systemPressure: Measurement): Measurement {
     return this.getExtendWork(systemPressure).add(
-      this.getRetractWork(systemPressure)
+      this.getRetractWork(systemPressure),
     );
   }
 
@@ -123,7 +123,7 @@ export default class Piston extends Model {
       Measurement.fromDict(d.retractPressure),
       Measurement.fromDict(d.extendPressure),
       d.enabled,
-      Measurement.fromDict(d.period)
+      Measurement.fromDict(d.period),
     );
   }
 

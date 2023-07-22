@@ -15,7 +15,7 @@ class Rule<T> {
     public readonly conditionFn: ConditionFn<T>,
     public readonly modifyFn: ModifyFn<T>,
     public readonly haltAfter: boolean,
-    public readonly priority: number
+    public readonly priority: number,
   ) {}
 }
 
@@ -31,7 +31,7 @@ export default class Rules<T> {
     conditionFn: ConditionFn<T>,
     modifyFn: ModifyFn<T>,
     haltAfter = false,
-    priority = 0
+    priority = 0,
   ): void {
     this.rules.push(new Rule(name, conditionFn, modifyFn, haltAfter, priority));
     this.rules.sort((a, b) => b.priority - a.priority);
@@ -86,7 +86,7 @@ export class MotorRules {
   constructor(
     motor: Motor,
     currentLimit: Measurement,
-    motorState: IncompleteMotorState
+    motorState: IncompleteMotorState,
   ) {
     this.motorState = motorState;
     this.rulesState = {
@@ -131,7 +131,7 @@ export class MotorRules {
         m.solved = true;
       },
       true,
-      1
+      1,
     );
     rules.addRule(
       "Current -> torque",
@@ -140,14 +140,14 @@ export class MotorRules {
         m.torque = m.motor.kT
           .mul(m.current!.sub(m.motor.freeCurrent))
           .forcePositive();
-      }
+      },
     );
     rules.addRule(
       "Torque -> current",
       (m) => m.torque !== undefined && m.current === undefined,
       (m) => {
         m.current = m.torque!.div(m.motor.kT).forcePositive();
-      }
+      },
     );
     rules.addRule(
       "Limit torque due to current limit",
@@ -158,12 +158,12 @@ export class MotorRules {
       (m) => {
         m.torque = Measurement.min(
           m.torque!,
-          m.currentLimit.mul(m.motor.kT)
+          m.currentLimit.mul(m.motor.kT),
         ).forcePositive();
         m.didLimitTorque = true;
       },
       false,
-      2
+      2,
     );
     rules.addRule(
       "Limit current due to current limit",
@@ -176,7 +176,7 @@ export class MotorRules {
         m.didLimitCurrent = true;
       },
       false,
-      2
+      2,
     );
 
     rules.addRule(
@@ -195,7 +195,7 @@ export class MotorRules {
           .div(m.motor.resistance)
           // .add(m.motor.freeCurrent)
           .forcePositive();
-      }
+      },
     );
 
     rules.addRule(
@@ -204,7 +204,7 @@ export class MotorRules {
         m.rpm !== undefined && m.torque !== undefined && m.power === undefined,
       (m) => {
         m.power = m.rpm!.mul(m.torque!).removeRad().forcePositive();
-      }
+      },
     );
 
     rules.addRule(
@@ -219,7 +219,7 @@ export class MotorRules {
           .mul(m.motor.resistance)
           .add(m.rpm!.div(m.motor.kV))
           .forcePositive();
-      }
+      },
     );
 
     rules.addRule(
@@ -238,7 +238,7 @@ export class MotorRules {
         m.didLimitVoltage = true;
       },
       false,
-      3
+      3,
     );
 
     rules.addRule(
@@ -255,7 +255,7 @@ export class MotorRules {
           .voltage!.sub(m.current!.mul(m.motor.resistance))
           .mul(m.motor.kV)
           .forcePositive();
-      }
+      },
     );
 
     rules.addRule(
@@ -267,7 +267,7 @@ export class MotorRules {
           .power!.div(m.torque!)
           .mul(new Measurement(1, "rad"))
           .forcePositive();
-      }
+      },
     );
 
     rules.addRule(
@@ -282,7 +282,7 @@ export class MotorRules {
         m.voltage = new Measurement(0, "V");
       },
       true,
-      1
+      1,
     );
 
     return rules;

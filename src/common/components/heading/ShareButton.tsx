@@ -9,14 +9,14 @@ export type ShareButtonProps<State extends BaseState> = {
 };
 
 export default function ShareButton<State extends BaseState>(
-  props: ShareButtonProps<State>
+  props: ShareButtonProps<State>,
 ): JSX.Element {
   return (
     <button
       className="button is-primary has-text-white"
       onClick={() =>
         navigator.clipboard.writeText(
-          buildUrlForCurrentPage(URLifier(props.queryParams, props.state))
+          buildUrlForCurrentPage(URLifier(props.queryParams, props.state)),
         )
       }
     >

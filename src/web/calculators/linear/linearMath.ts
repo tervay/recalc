@@ -8,7 +8,7 @@ import { fixFloatingPoint } from "common/tooling/util";
 export function calculateUnloadedSpeed(
   motor: Motor,
   spoolDiameter: Measurement,
-  ratio: Ratio
+  ratio: Ratio,
 ): Measurement {
   if ([ratio.asNumber(), motor.quantity].includes(0)) {
     return new Measurement(0, "ft/s");
@@ -26,7 +26,7 @@ export function calculateDragLoad(
   motor: Motor,
   spoolDiameter: Measurement,
   ratio: Ratio,
-  efficiency: number
+  efficiency: number,
 ): Measurement {
   if ([spoolDiameter.scalar].includes(0)) {
     return new Measurement(0, "lb");
@@ -45,7 +45,7 @@ export function calculateLoadedSpeed(
   spoolDiameter: Measurement,
   ratio: Ratio,
   efficiency: number,
-  load: Measurement
+  load: Measurement,
 ): Measurement {
   const dragLoad = calculateDragLoad(motor, spoolDiameter, ratio, efficiency);
 
@@ -66,7 +66,7 @@ export function calculateLoadedSpeed(
 
 export function calculateTimeToGoal(
   speed: Measurement,
-  distance: Measurement
+  distance: Measurement,
 ): Measurement {
   if (speed.lte(new Measurement(0, "ft/s"))) {
     return new Measurement(0, "s");
@@ -79,7 +79,7 @@ export function calculateCurrentDraw(
   motor: Motor,
   spoolDiameter: Measurement,
   load: Measurement,
-  ratio: Ratio
+  ratio: Ratio,
 ): Measurement {
   if ([ratio.asNumber(), motor.quantity].includes(0)) {
     return new Measurement(0, "A");
@@ -90,7 +90,7 @@ export function calculateCurrentDraw(
     .mul(torqueAtMotor)
     .mul(new Measurement(9.81, "m/s^2"));
   const totalCurrentDraw = currentDraw.add(
-    motor.freeCurrent.mul(motor.quantity)
+    motor.freeCurrent.mul(motor.quantity),
   );
   return totalCurrentDraw.div(motor.quantity);
 }
@@ -101,7 +101,7 @@ export function generateTimeToGoalChartData(
   spoolDiameter_: MeasurementDict,
   load_: MeasurementDict,
   ratio_: RatioDict,
-  efficiency: number
+  efficiency: number,
 ): GraphDataPoint[] {
   const motor = Motor.fromDict(motor_);
   const travelDistance = Measurement.fromDict(travelDistance_);
@@ -117,7 +117,7 @@ export function generateTimeToGoalChartData(
   const getTimeForRatio = (r: Ratio) =>
     calculateTimeToGoal(
       calculateLoadedSpeed(motor, spoolDiameter, r, efficiency, load),
-      travelDistance
+      travelDistance,
     );
 
   const data: GraphDataPoint[] = [];
@@ -139,7 +139,7 @@ export function generateCurrentDrawChartData(
   motor_: MotorDict,
   spoolDiameter_: MeasurementDict,
   load_: MeasurementDict,
-  ratio_: RatioDict
+  ratio_: RatioDict,
 ): GraphDataPoint[] {
   const motor = Motor.fromDict(motor_);
   const spoolDiameter = Measurement.fromDict(spoolDiameter_);

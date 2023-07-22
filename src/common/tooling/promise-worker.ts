@@ -75,7 +75,7 @@ function expose(functions: ExposedFunctions): void {
   /** Returns a list of names of all exposed functions */
   const getFunctionality = function () {
     const functionality = Object.keys(functions).filter(
-      (key) => typeof functions[key] === "function"
+      (key) => typeof functions[key] === "function",
     );
     return functionality;
   };
@@ -115,7 +115,7 @@ function expose(functions: ExposedFunctions): void {
  *  (see README for details)
  */
 async function wrap<T extends ExposedFunctions>(
-  worker: Worker
+  worker: Worker,
 ): Promise<PromiseWorker<T>> {
   type job = {
     request: request;
@@ -141,7 +141,7 @@ async function wrap<T extends ExposedFunctions>(
     const response = message.data;
 
     const jobIndex = activeJobs.findIndex(
-      (job) => job.request.id == response.id
+      (job) => job.request.id == response.id,
     );
 
     if (jobIndex < 0) {
@@ -177,7 +177,7 @@ async function wrap<T extends ExposedFunctions>(
   functionality.forEach(
     (item) =>
       (wrapper[item] = (...args: unknown[]) =>
-        createJob({ action: item, payload: args }))
+        createJob({ action: item, payload: args })),
   );
 
   // Add the termination function

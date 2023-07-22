@@ -316,5 +316,5 @@ testWrapper<
         projectileEnergy: 62,
       },
     ],
-  ]
+  ],
 );

@@ -17,7 +17,7 @@ type RawMotorSpec = {
 
 const rawMotorDataLookup: Record<string, RawMotorSpec> = keyBy(
   _rawMotorData,
-  "name"
+  "name",
 );
 export const nominalVoltage = new Measurement(12, "V");
 export const highCurrentLimit = new Measurement(1000, "A");
@@ -42,7 +42,7 @@ export default class Motor extends Model {
     public readonly weight: Measurement,
     public readonly url: string,
     public readonly diameter: Measurement,
-    public readonly quantity: number
+    public readonly quantity: number,
   ) {
     super(identifier);
 
@@ -52,7 +52,7 @@ export default class Motor extends Model {
         : nominalVoltage.div(this.stallCurrent);
 
     this.kV = this.freeSpeed.div(
-      nominalVoltage.sub(this.resistance.mul(this.freeCurrent))
+      nominalVoltage.sub(this.resistance.mul(this.freeCurrent)),
     );
 
     this.kT = this.stallTorque.div(this.stallCurrent);
@@ -85,13 +85,13 @@ export default class Motor extends Model {
       Measurement.fromRawJson(rawMotorDataLookup[id].weight),
       rawMotorDataLookup[id].url,
       Measurement.fromRawJson(rawMotorDataLookup[id].diameter),
-      quantity
+      quantity,
     );
   }
 
   static getAllMotors(): Motor[] {
     return Object.keys(rawMotorDataLookup).map((s) =>
-      this.fromIdentifier(s as string, 1)
+      this.fromIdentifier(s as string, 1),
     );
   }
 

@@ -16,7 +16,7 @@ type TimelineAndDutyCycle = {
 export function generatePressureTimeline(
   pistonList: PistonList,
   volume: Measurement,
-  compressor: Compressor
+  compressor: Compressor,
 ): TimelineAndDutyCycle {
   if (volume.scalar === 0) {
     return { timeline: [], dutyCycle: 0 };
@@ -43,7 +43,7 @@ export function generatePressureTimeline(
       if (remainingTimeToFire[i].lt(new Measurement(0, "s"))) {
         remainingTimeToFire[i] = p.period.copy().sub(dt);
         totalCylinderWork = totalCylinderWork.add(
-          p.toggleStateAndGetWorkFromIt(previousPressure)
+          p.toggleStateAndGetWorkFromIt(previousPressure),
         );
       }
     });
@@ -83,7 +83,7 @@ export function generatePressureTimeline(
 
 export function getRecommendedTanks(
   pistonList_: PistonListDict,
-  compressor_: CompressorDict
+  compressor_: CompressorDict,
 ): number {
   const pistonList = PistonList.fromDict(pistonList_);
   const compressor = Compressor.fromDict(compressor_);
@@ -95,11 +95,11 @@ export function getRecommendedTanks(
     const timeline = generatePressureTimeline(
       pistonList,
       new Measurement(val, "ml"),
-      compressor
+      compressor,
     );
 
     const lowestPressure = timeline.timeline.reduce((prev, curr) =>
-      prev.y < curr.y ? prev : curr
+      prev.y < curr.y ? prev : curr,
     );
 
     if (lowestPressure.y < 20) {

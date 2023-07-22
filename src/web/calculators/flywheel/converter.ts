@@ -40,7 +40,7 @@ export class FlywheelState {
     return StateMaker.BumpState(
       flywheelConfig.version,
       [FlywheelParamsV1, FlywheelParamsV2],
-      [FlywheelConverters.v1ToV2]
+      [FlywheelConverters.v1ToV2],
     );
   }
 }

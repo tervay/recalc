@@ -42,7 +42,7 @@ function makeTitle(axisTitles: Record<string, string>): string {
 
   let yString = [
     ...new Set(
-      ys.map(([_, v]) => v).filter((s) => s !== undefined && s.length > 0)
+      ys.map(([_, v]) => v).filter((s) => s !== undefined && s.length > 0),
     ),
   ].join(", ");
   if (yString.includes(", ")) {
@@ -55,7 +55,7 @@ function makeTitle(axisTitles: Record<string, string>): string {
 export class GraphConfig {
   static options(
     scaleOptions: DeepPartial<ScaleChartOptions<"line">["scales"]>,
-    config: Configurable = { maintainAspectRatio: false, showLegend: true }
+    config: Configurable = { maintainAspectRatio: false, showLegend: true },
   ): ChartOptions<"line"> {
     return {
       elements: {
@@ -78,7 +78,7 @@ export class GraphConfig {
                 ...acc,
                 [axisTitle]: scaleOptions[axisTitle]?.title?.text,
               };
-            }, {})
+            }, {}),
           ),
         },
         zoom: {
@@ -106,7 +106,7 @@ export class GraphConfig {
     label: string,
     data: { x: number; y: number }[],
     colorIndex: number,
-    id: string
+    id: string,
   ): EzDataset {
     return {
       label: label,

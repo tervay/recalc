@@ -11,7 +11,7 @@ export default function L0MultiBoolean(props: {
   }[];
 }): JSX.Element {
   const [selected, setSelected] = useState(
-    props.options.filter((o) => o.stateHook[0]).map((o) => o.name)
+    props.options.filter((o) => o.stateHook[0]).map((o) => o.name),
   );
 
   return (

@@ -2,7 +2,7 @@ import { getExpandedClass } from "common/components/io/classes";
 import { ControlFieldProps } from "common/components/io/new/inputs/types/Types";
 
 export function makeDefaultControlFieldProps<
-  T extends Partial<Omit<ControlFieldProps, "children">>
+  T extends Partial<Omit<ControlFieldProps, "children">>,
 >(props: T): Omit<ControlFieldProps, "children"> {
   return {
     expanded: props.expanded ?? false,

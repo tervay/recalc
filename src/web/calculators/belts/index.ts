@@ -32,7 +32,7 @@ export type BeltsStateV1 = Stateify<typeof BeltsParamsV1>;
 export const BeltParamsV2 = {
   pulley: withDefault(
     PulleyParam,
-    Pulley.fromTeeth(100, new Measurement(15, "mm"))
+    Pulley.fromTeeth(100, new Measurement(15, "mm")),
   ),
 };
 export type BeltStateV2 = Stateify<typeof BeltParamsV2>;

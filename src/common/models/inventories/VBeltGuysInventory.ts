@@ -42,14 +42,14 @@ export default class VBeltGuysInventory extends Inventory<
       offlineData: _vbg,
       authCb: NoOp,
       allowAuth: false,
-    }
+    },
   ) {
     super(
       "VBeltGuys",
       "1xaEbFEW0CWEI_hfGBuCB45w1Fsgo85pgfHAdkM7bNUA",
       args.offlineData !== null ? args.offlineData : _vbg,
       args.allowAuth !== null ? args.allowAuth : false,
-      args.authCb !== null ? args.authCb : NoOp
+      args.authCb !== null ? args.authCb : NoOp,
     );
   }
 
