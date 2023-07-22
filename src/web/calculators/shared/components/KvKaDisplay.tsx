@@ -20,7 +20,7 @@ export default function KvKaDisplay({
     <>
       <SingleInputLine
         label="Estimated kV"
-        id="kV"
+        id="estimatedKV"
         tooltip="Velocity feedforward constant of the mechanism."
       >
         <MeasurementOutput
@@ -31,7 +31,7 @@ export default function KvKaDisplay({
       </SingleInputLine>
       <SingleInputLine
         label="Estimated kA"
-        id="kA"
+        id="estimatedKA"
         tooltip="Acceleration feedforward constant of the mechanism."
       >
         <MeasurementOutput

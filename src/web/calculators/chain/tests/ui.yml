@@ -1,0 +1,35 @@
+---
+inputs:
+  desiredCenter:
+    select: true
+    min: 3
+    max: 50
+    exclude:
+      - 5
+  extraCenter:
+    select: true
+    min: 1
+    max: 3
+    exclude:
+      - 0
+  p1Teeth:
+    min: 16
+    max: 72
+    exclude:
+      - 16
+  p2Teeth:
+    min: 16
+    max: 72
+    exclude:
+      - 36
+outputs:
+  p1PD:
+    select: true
+  p2PD:
+    select: true
+  smallerLinks: {}
+  smallerCenter:
+    select: true
+  largerLinks: {}
+  largerCenter:
+    select: true

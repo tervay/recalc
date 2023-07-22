@@ -64,7 +64,7 @@ def ui(config, calculator_name, endpoint):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python gen_test.py testcases.json")
+        print("Usage: python gen_test.py ui.yml")
         exit(0)
 
     fname = sys.argv[1]

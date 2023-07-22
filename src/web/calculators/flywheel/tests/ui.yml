@@ -1,0 +1,94 @@
+---
+inputs:
+  motor:
+    select: true
+    min: 1
+    max: 4
+    exclude:
+      - 2
+  efficiency:
+    min: 80
+    max: 95
+    exclude:
+      - 100
+  shooterRPM:
+    select: true
+    min: 1000
+    max: 6300
+    exclude:
+      - 11000
+  currentLimit:
+    select: true
+    min: 20
+    max: 80
+    exclude:
+      - 40
+  shooterRatio:
+    select: true
+    min: 1
+    max: 5
+    exclude:
+      - 2
+  projectileWeight:
+    select: true
+    min: 2
+    max: 10
+    exclude:
+      - 5
+  shooterRadius:
+    select: true
+    min: 2
+    max: 4
+    exclude:
+      - 3
+  shooterWeight:
+    select: true
+    min: 1
+    max: 5
+    exclude:
+      - 1
+  flywheelRadius:
+    select: true
+    min: 2
+    max: 4
+    exclude:
+      - 2
+  flywheelWeight:
+    select: true
+    min: 2
+    max: 5
+    exclude:
+      - 1.5
+  flywheelShooterRatio:
+    select: true
+    min: 1
+    max: 5
+    exclude:
+      - 1
+outputs:
+  shooterMaxSpeed:
+    select: true
+  customShooterMOI:
+    select: true
+  customFlywheelMOI:
+    select: true
+  windupTime:
+    select: true
+  recoveryTime:
+    select: true
+  surfaceSpeed:
+    select: true
+  projectileSpeed:
+    select: true
+  speedAfterShot:
+    select: true
+  flywheelEnergy:
+    select: true
+  projectileEnergy:
+    select: true
+  estimatedKV:
+    select: true
+  estimatedKA:
+    select: true
+  responseTime:
+    select: true

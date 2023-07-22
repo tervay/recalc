@@ -9,6 +9,7 @@ export function calculateWindupTime(
   currentLimit: Measurement,
   ratio: Ratio,
   targetSpeed: Measurement,
+  efficiency: number,
 ): Measurement {
   if (motor.quantity === 0 || ratio.asNumber() === 0) {
     return new Measurement(0, "s");
@@ -17,7 +18,9 @@ export function calculateWindupTime(
   const torque = new MotorRules(motor, currentLimit, {
     rpm: new Measurement(0, "rpm"),
     voltage: nominalVoltage,
-  }).solve().torque;
+  })
+    .solve()
+    .torque.mul(efficiency / 100);
 
   if (torque.baseScalar === 0) {
     return new Measurement(0, "s");
@@ -134,6 +137,7 @@ export function calculateRecoveryTime(
   targetSpeed: Measurement,
   speedAfterShot: Measurement,
   currentLimit: Measurement,
+  efficiency: number,
 ): Measurement {
   if (motor.quantity === 0 || ratio.asNumber() === 0) {
     return new Measurement(0, "s");
@@ -144,7 +148,9 @@ export function calculateRecoveryTime(
   const torque = new MotorRules(motor, currentLimit, {
     voltage: nominalVoltage,
     rpm: new Measurement(0, "rpm"),
-  }).solve().torque;
+  })
+    .solve()
+    .torque.mul(efficiency / 100);
 
   if (torque.scalar === 0) {
     return new Measurement(0, "s");

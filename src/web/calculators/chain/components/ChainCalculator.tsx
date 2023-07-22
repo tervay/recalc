@@ -156,11 +156,7 @@ export default function ChainCalculator(): JSX.Element {
             </Column>
 
             <Column>
-              <SingleInputLine
-                label="PD"
-                id="p1PitchDiameter"
-                tooltip="Pitch Diameter"
-              >
+              <SingleInputLine label="PD" id="p1PD" tooltip="Pitch Diameter">
                 <MeasurementOutput
                   stateHook={[p1PD, setP1PD]}
                   numberRoundTo={4}
@@ -179,11 +175,7 @@ export default function ChainCalculator(): JSX.Element {
             </Column>
 
             <Column>
-              <SingleInputLine
-                label="PD"
-                id="p2PitchDiameter"
-                tooltip="Pitch Diameter"
-              >
+              <SingleInputLine label="PD" id="p2PD" tooltip="Pitch Diameter">
                 <MeasurementOutput
                   stateHook={[p2PD, setP2PD]}
                   numberRoundTo={4}

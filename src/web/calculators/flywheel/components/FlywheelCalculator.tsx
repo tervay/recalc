@@ -10,6 +10,8 @@ import {
 import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
 import { Column, Columns, Divider } from "common/components/styling/Building";
 import Measurement from "common/models/Measurement";
+import { nominalVoltage } from "common/models/Motor";
+import { MotorRules } from "common/models/Rules";
 import { useGettersSetters } from "common/tooling/conversion";
 import { useEffect, useMemo } from "react";
 import flywheelConfig, {
@@ -48,6 +50,7 @@ export default function FlywheelCalculator(): JSX.Element {
         get.currentLimit,
         get.motorRatio,
         get.shooterTargetSpeed,
+        get.efficiency,
       ),
     [
       get.motor,
@@ -57,6 +60,7 @@ export default function FlywheelCalculator(): JSX.Element {
       get.shooterMomentOfInertia,
       get.flywheelMomentOfInertia,
       get.flywheelRatio,
+      get.efficiency,
     ],
   );
 
@@ -179,6 +183,7 @@ export default function FlywheelCalculator(): JSX.Element {
         get.shooterTargetSpeed,
         speedAfterShot,
         get.currentLimit,
+        get.efficiency,
       ),
     [
       totalMomentOfInertia,
@@ -187,6 +192,7 @@ export default function FlywheelCalculator(): JSX.Element {
       get.shooterTargetSpeed,
       speedAfterShot,
       get.currentLimit,
+      get.efficiency,
     ],
   );
 
@@ -207,8 +213,12 @@ export default function FlywheelCalculator(): JSX.Element {
     }
 
     return calculateKa(
-      get.motor.stallTorque
-        .mul(get.motor.quantity)
+      new MotorRules(get.motor, get.currentLimit, {
+        voltage: nominalVoltage,
+        rpm: new Measurement(0, "rpm"),
+      })
+        .solve()
+        .torque.mul(get.motor.quantity)
         .mul(get.motorRatio.asNumber())
         .mul(get.efficiency / 100),
       get.shooterRadius,
@@ -222,6 +232,7 @@ export default function FlywheelCalculator(): JSX.Element {
     get.flywheelRadius,
     totalMomentOfInertia,
     get.shooterRadius,
+    get.currentLimit,
   ]);
 
   useEffect(() => {
