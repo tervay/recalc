@@ -85,8 +85,7 @@ export default function About(): JSX.Element {
 
           <h3 className="title is-3">Disclaimer</h3>
           <p>
-            This site is not in any way affiliated or endorsed by FIRST nor
-            Google.
+            This site is not in any way affiliated or endorsed by FIRST.
           </p>
         </div>
       </div>
