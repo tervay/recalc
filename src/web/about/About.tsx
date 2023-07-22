@@ -8,10 +8,6 @@ export default function About(): JSX.Element {
       <Metadata pageConfig={aboutConfig} />
       <div>
         <div className="content">
-          <h2 className="title is-2">
-            <Logo />
-          </h2>
-
           <h3 className="title is-3">
             <i className="fas fa-info-circle" /> About
           </h3>

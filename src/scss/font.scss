@@ -1,0 +1,302 @@
+@font-face {
+  font-family: "Config Rounded";
+  src: url("ConfigRounded/ConfigRoundedBoldItalic.eot");
+  src:
+    local("Config Rounded Bold Italic"),
+    local("ConfigRoundedBoldItalic"),
+    url("ConfigRounded/ConfigRoundedBoldItalic.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedBoldItalic.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedBoldItalic.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedBoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Config Rounded";
+  src: url("ConfigRounded/ConfigRoundedBold.eot");
+  src:
+    local("Config Rounded Bold"),
+    local("ConfigRoundedBold"),
+    url("ConfigRounded/ConfigRoundedBold.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedBold.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedBold.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedBold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Config Rounded Extralight Itali";
+  src: url("ConfigRounded/ConfigRoundedExtralightItalic.eot");
+  src:
+    local("Config Rounded Extralight Italic"),
+    local("ConfigRoundedExtralightItalic"),
+    url("ConfigRounded/ConfigRoundedExtralightItalic.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedExtralightItalic.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedExtralightItalic.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedExtralightItalic.ttf") format("truetype");
+  font-weight: 200;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Config Rounded";
+  src: url("ConfigRounded/ConfigRoundedExtrabold.eot");
+  src:
+    local("Config Rounded Extrabold"),
+    local("ConfigRoundedExtrabold"),
+    url("ConfigRounded/ConfigRoundedExtrabold.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedExtrabold.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedExtrabold.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedExtrabold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Config Rounded";
+  src: url("ConfigRounded/ConfigRoundedExtraboldItalic.eot");
+  src:
+    local("Config Rounded Extrabold Italic"),
+    local("ConfigRoundedExtraboldItalic"),
+    url("ConfigRounded/ConfigRoundedExtraboldItalic.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedExtraboldItalic.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedExtraboldItalic.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedExtraboldItalic.ttf") format("truetype");
+  font-weight: 800;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Config Rounded";
+  src: url("ConfigRounded/ConfigRoundedBlack.eot");
+  src:
+    local("Config Rounded Black"),
+    local("ConfigRoundedBlack"),
+    url("ConfigRounded/ConfigRoundedBlack.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedBlack.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedBlack.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedBlack.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Config Rounded";
+  src: url("ConfigRounded/ConfigRoundedBlackItalic.eot");
+  src:
+    local("Config Rounded Black Italic"),
+    local("ConfigRoundedBlackItalic"),
+    url("ConfigRounded/ConfigRoundedBlackItalic.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedBlackItalic.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedBlackItalic.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedBlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Config Rounded";
+  src: url("ConfigRounded/ConfigRoundedLightItalic.eot");
+  src:
+    local("Config Rounded Light Italic"),
+    local("ConfigRoundedLightItalic"),
+    url("ConfigRounded/ConfigRoundedLightItalic.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedLightItalic.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedLightItalic.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedLightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Config Rounded";
+  src: url("ConfigRounded/ConfigRoundedLight.eot");
+  src:
+    local("Config Rounded Light"),
+    local("ConfigRoundedLight"),
+    url("ConfigRounded/ConfigRoundedLight.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedLight.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedLight.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedLight.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Config Rounded";
+  src: url("ConfigRounded/ConfigRoundedMedium.eot");
+  src:
+    local("Config Rounded Medium"),
+    local("ConfigRoundedMedium"),
+    url("ConfigRounded/ConfigRoundedMedium.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedMedium.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedMedium.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedMedium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Config Rounded";
+  src: url("ConfigRounded/ConfigRoundedMediumItalic.eot");
+  src:
+    local("Config Rounded Medium Italic"),
+    local("ConfigRoundedMediumItalic"),
+    url("ConfigRounded/ConfigRoundedMediumItalic.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedMediumItalic.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedMediumItalic.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedMediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Config Rounded";
+  src: url("ConfigRounded/ConfigRoundedExtralight.eot");
+  src:
+    local("Config Rounded Extralight"),
+    local("ConfigRoundedExtralight"),
+    url("ConfigRounded/ConfigRoundedExtralight.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedExtralight.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedExtralight.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedExtralight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Config Rounded";
+  src: url("ConfigRounded/ConfigRoundedItalic.eot");
+  src:
+    local("Config Rounded Italic"),
+    local("ConfigRoundedItalic"),
+    url("ConfigRounded/ConfigRoundedItalic.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedItalic.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedItalic.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Config Rounded";
+  src: url("ConfigRounded/ConfigRoundedRegular.eot");
+  src:
+    local("Config Rounded Regular"),
+    local("ConfigRoundedRegular"),
+    url("ConfigRounded/ConfigRoundedRegular.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedRegular.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedRegular.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedRegular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Config Rounded";
+  src: url("ConfigRounded/ConfigRoundedThin.eot");
+  src:
+    local("Config Rounded Thin"),
+    local("ConfigRoundedThin"),
+    url("ConfigRounded/ConfigRoundedThin.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedThin.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedThin.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedThin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Config Rounded";
+  src: url("ConfigRounded/ConfigRoundedThinItalic.eot");
+  src:
+    local("Config Rounded Thin Italic"),
+    local("ConfigRoundedThinItalic"),
+    url("ConfigRounded/ConfigRoundedThinItalic.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedThinItalic.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedThinItalic.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedThinItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Config Rounded Text";
+  src: url("ConfigRounded/ConfigRoundedText.eot");
+  src:
+    local("Config Rounded Text"),
+    local("ConfigRoundedText"),
+    url("ConfigRounded/ConfigRoundedText.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedText.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedText.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedText.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Config Rounded Text";
+  src: url("ConfigRounded/ConfigRoundedTextItalic.eot");
+  src:
+    local("Config Rounded Text Italic"),
+    local("ConfigRoundedTextItalic"),
+    url("ConfigRounded/ConfigRoundedTextItalic.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedTextItalic.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedTextItalic.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedTextItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Config Rounded";
+  src: url("ConfigRounded/ConfigRoundedSemibold.eot");
+  src:
+    local("Config Rounded Semibold"),
+    local("ConfigRoundedSemibold"),
+    url("ConfigRounded/ConfigRoundedSemibold.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedSemibold.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedSemibold.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedSemibold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Config Rounded";
+  src: url("ConfigRounded/ConfigRoundedSemiboldItalic.eot");
+  src:
+    local("Config Rounded Semibold Italic"),
+    local("ConfigRoundedSemiboldItalic"),
+    url("ConfigRounded/ConfigRoundedSemiboldItalic.eot?#iefix")
+      format("embedded-opentype"),
+    url("ConfigRounded/ConfigRoundedSemiboldItalic.woff2") format("woff2"),
+    url("ConfigRounded/ConfigRoundedSemiboldItalic.woff") format("woff"),
+    url("ConfigRounded/ConfigRoundedSemiboldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+// @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@475&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@625&display=swap");

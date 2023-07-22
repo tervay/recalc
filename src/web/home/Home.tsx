@@ -59,23 +59,6 @@ export default function Home(): JSX.Element {
   return (
     <>
       <Metadata title="A collaboration focused mechanical design calculator." />
-      <div className="hero">
-        <div
-          className="hero-body"
-          style={{
-            paddingTop: 0,
-          }}
-        >
-          <div className="container has-text-centered">
-            <h1 className="title">
-              <Logo color="black" alignment="bottom" />
-            </h1>
-            <h2 className="subtitle">
-              A collaboration focused mechanical design calculator.
-            </h2>
-          </div>
-        </div>
-      </div>
       <Section extraClasses="remove-padding-top">
         <Title>
           <Icon name="calculator" /> Calculators
