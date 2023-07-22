@@ -33,7 +33,7 @@ function messageForMeasurements(
   m1: Measurement,
   m2: Measurement,
   pass: boolean,
-  status: string
+  status: string,
 ): string {
   return pass
     ? `${m1.format()} is ${status} ${m2.format()}`
@@ -43,14 +43,14 @@ function messageForMeasurements(
 function messageForModelEquality<T extends Model>(
   m1: T,
   m2: T,
-  pass: boolean
+  pass: boolean,
 ): string {
   return pass
     ? `${JSON.stringify(m1.toDict())} is equal to ${JSON.stringify(
-        m2.toDict()
+        m2.toDict(),
       )}`
     : `${JSON.stringify(m1.toDict())} is not equal to ${JSON.stringify(
-        m2.toDict()
+        m2.toDict(),
       )}`;
 }
 
@@ -58,7 +58,7 @@ function passOrFailOnMeasurementStatus(
   fn: (a: Measurement, b: Measurement) => boolean,
   a: Measurement,
   b: Measurement,
-  status: string
+  status: string,
 ): Result {
   return fn(a, b)
     ? pass(messageForMeasurements(a, b, true, status))
@@ -68,7 +68,7 @@ function passOrFailOnMeasurementStatus(
 function passOrFailOnModelsEqual<T extends Model>(
   fn: (a: T, b: T) => boolean,
   a: T,
-  b: T
+  b: T,
 ): Result {
   return fn(a, b)
     ? pass(messageForModelEquality(a, b, true))
@@ -79,69 +79,69 @@ expect.extend({
   ...{
     toEqualMeasurement(
       received: Measurement,
-      measurement: Measurement
+      measurement: Measurement,
     ): Result {
       return passOrFailOnMeasurementStatus(
         (a, b) => a.eq(b),
         received,
         measurement,
-        "equal to"
+        "equal to",
       );
     },
     toBeCloseToMeasurement(
       received: Measurement,
       measurement: Measurement,
-      precision = 2
+      precision = 2,
     ): Result {
       return passOrFailOnMeasurementStatus(
         (a, b) => Math.pow(10, -precision) / 2 > Math.abs(a.scalar - b.scalar),
         received.to(measurement.units()),
         measurement,
-        "close to"
+        "close to",
       );
     },
     toBeLessThanMeasurement(
       received: Measurement,
-      measurement: Measurement
+      measurement: Measurement,
     ): Result {
       return passOrFailOnMeasurementStatus(
         (a, b) => a.lt(b),
         received,
         measurement,
-        "less than"
+        "less than",
       );
     },
     toBeLessThanOrEqualToMeasurement(
       received: Measurement,
-      measurement: Measurement
+      measurement: Measurement,
     ): Result {
       return passOrFailOnMeasurementStatus(
         (a, b) => a.lte(b),
         received,
         measurement,
-        "less than or equal to"
+        "less than or equal to",
       );
     },
     toBeGreaterThanMeasurement(
       received: Measurement,
-      measurement: Measurement
+      measurement: Measurement,
     ): Result {
       return passOrFailOnMeasurementStatus(
         (a, b) => a.gt(b),
         received,
         measurement,
-        "greater than"
+        "greater than",
       );
     },
     toBeGreaterThanOrEqualToMeasurement(
       received: Measurement,
-      measurement: Measurement
+      measurement: Measurement,
     ): Result {
       return passOrFailOnMeasurementStatus(
         (a, b) => a.gte(b),
         received,
         measurement,
-        "greater than or equal to"
+        "greater than or equal to",
       );
     },
     toEqualModel<M extends Model>(received: M, model: M): Result {

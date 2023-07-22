@@ -71,13 +71,13 @@ describe("Measurement", () => {
     ([complexMagnitude, complexUnits], [simpleMagnitude, simpleUnits]) => {
       const complexMeasurement = new Qty(
         Number(complexMagnitude),
-        complexUnits.toString()
+        complexUnits.toString(),
       );
       const simplified = Measurement.simplify(complexMeasurement);
 
       expect(simplified.units()).toEqual(simpleUnits);
       expect(simplified.scalar).toBeCloseTo(Number(simpleMagnitude));
-    }
+    },
   );
 
   describe("Math functions map to inner Qty functions", () => {
@@ -187,7 +187,7 @@ describe("Measurement", () => {
   test("fromDict() parses correctly", () => {
     const d = { s: 1, u: "in" };
     expect(Measurement.fromDict(d)).toEqualMeasurement(
-      new Measurement(1, "in")
+      new Measurement(1, "in"),
     );
   });
 
@@ -226,11 +226,11 @@ describe("Measurement", () => {
 
   test("inverse() works correctly", () => {
     expect(new Measurement(5, "in/s").inverse()).toEqualMeasurement(
-      new Measurement(0.2, "s/in")
+      new Measurement(0.2, "s/in"),
     );
 
     expect(() => new Measurement(0, "A/V").inverse()).toThrowError(
-      "Divide by zero"
+      "Divide by zero",
     );
   });
 
@@ -267,13 +267,13 @@ describe("Measurement", () => {
 
   test("Measurement.min() works correctly", () => {
     expect(
-      Measurement.min(new Measurement(5, "A"), new Measurement(10, "A"))
+      Measurement.min(new Measurement(5, "A"), new Measurement(10, "A")),
     ).toEqualMeasurement(new Measurement(5, "A"));
   });
 
   test("Measurement.max() works correctly", () => {
     expect(
-      Measurement.max(new Measurement(5, "A"), new Measurement(10, "A"))
+      Measurement.max(new Measurement(5, "A"), new Measurement(10, "A")),
     ).toEqualMeasurement(new Measurement(10, "A"));
   });
 
@@ -281,6 +281,6 @@ describe("Measurement", () => {
     "%p Measurement.toBase()",
     (a, b) => {
       expect(a.toBase()).toEqualMeasurement(b);
-    }
+    },
   );
 });

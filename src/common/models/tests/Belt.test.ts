@@ -42,7 +42,7 @@ describe("Belt model", () => {
     ({ pitch, teeth, length }) => {
       const b = Belt.fromTeeth(teeth, pitch);
       expect(b.length).toBeCloseToMeasurement(length);
-    }
+    },
   );
 
   test.each(testCases)(
@@ -50,20 +50,20 @@ describe("Belt model", () => {
     ({ pitch, teeth, length }) => {
       const b = Belt.fromLength(length, pitch);
       expect(b.teeth).toBeCloseTo(teeth);
-    }
+    },
   );
 
   test.each(testCases)(
     "%p toDict returns expected data",
     ({ pitch, teeth, toDict }) => {
       expect(Belt.fromTeeth(teeth, pitch).toDict()).toMatchObject(toDict);
-    }
+    },
   );
 
   test.each(testCases)("%p eq", ({ pitch, teeth, eq }) => {
     expect(Belt.fromTeeth(teeth, pitch)).toEqualModel(eq);
     expect(Belt.fromTeeth(teeth, pitch)).not.toEqualModel(
-      new Measurement(1, "inch")
+      new Measurement(1, "inch"),
     );
     expect(Belt.fromTeeth(teeth + 10, pitch)).not.toEqualModel(eq);
     expect(Belt.fromTeeth(teeth, pitch.add(mm(1)))).not.toEqualModel(eq);

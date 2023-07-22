@@ -28,7 +28,7 @@ describe("L0 Inputs", () => {
           readonly={false}
           delay={0}
           roundTo={0}
-        />
+        />,
       ).then(() => {
         cy.get("input")
           .type("1")
@@ -57,7 +57,7 @@ describe("L0 Inputs", () => {
           readonly={false}
           delay={0}
           roundTo={0}
-        />
+        />,
       ).then(() => {
         cy.get("input").then((div) => {
           expect(div).to.be.disabled;
@@ -84,7 +84,7 @@ describe("L0 Inputs", () => {
           readonly={false}
           delay={0}
           roundTo={0}
-        />
+        />,
       ).then(() => {
         cy.get("input").then((div) => {
           expect(div).to.have.id("ss");
@@ -92,7 +92,7 @@ describe("L0 Inputs", () => {
       });
     });
     const makeProps: (
-      stateHook: L0NumberProps["stateHook"]
+      stateHook: L0NumberProps["stateHook"],
     ) => L0NumberProps = (stateHook) => {
       return {
         stateHook: stateHook,
@@ -126,7 +126,7 @@ describe("L0 Inputs", () => {
       it(`[${name}] colors`, () => {
         const hook: StateHook<number> = [0, cy.spy()];
         mount(
-          <L0Number {...makeProps(hook)} {...{ [name]: () => true }} />
+          <L0Number {...makeProps(hook)} {...{ [name]: () => true }} />,
         ).then(() => {
           cy.get("input").then((div) => {
             expect(div).to.have.class(className);
@@ -154,7 +154,7 @@ describe("L0 Inputs", () => {
           readonly={false}
           delay={10000}
           roundTo={0}
-        />
+        />,
       );
 
       cy.get("input")
@@ -184,7 +184,7 @@ describe("L0 Inputs", () => {
         readonly={false}
         delay={1000}
         roundTo={0}
-      />
+      />,
     ).then(() => {
       cy.get("input")
         .type("123")
@@ -240,7 +240,7 @@ describe("Select", () => {
         warningIf={() => false}
         dangerIf={() => false}
         choices={["Foo", "Bar", "Baz"]}
-      />
+      />,
     ).then(() => {
       cy.get("option").should("have.length", 3);
     });
@@ -262,7 +262,7 @@ describe("Select", () => {
         warningIf={() => false}
         dangerIf={() => false}
         choices={["Foo", "Bar", "Baz"]}
-      />
+      />,
     ).then(() => {
       cy.get("select")
         .select("Bar")

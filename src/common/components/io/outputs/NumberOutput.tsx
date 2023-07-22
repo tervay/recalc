@@ -6,7 +6,7 @@ import {
 import { Exclude } from "ts-toolbelt/out/Object/Exclude";
 
 export default function NumericOutput(
-  props: Exclude<NumberInputProps, Disableable>
+  props: Exclude<NumberInputProps, Disableable>,
 ): JSX.Element {
   return <NumberInput {...props} disabledIf={() => true} />;
 }

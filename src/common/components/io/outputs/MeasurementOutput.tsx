@@ -6,7 +6,7 @@ import {
 import { Exclude } from "ts-toolbelt/out/Object/Exclude";
 
 export default function MeasurementOutput(
-  props: Exclude<MeasurementInputProps, Disableable>
+  props: Exclude<MeasurementInputProps, Disableable>,
 ): JSX.Element {
   return <MeasurementInput {...props} numberDisabledIf={() => true} />;
 }

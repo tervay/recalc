@@ -30,9 +30,9 @@ export default function SingleMotorPlaygroundInput(props: {
           currentLimit,
           voltage,
           props.entry.ratio,
-          visibility
-        )
-      )
+          visibility,
+        ),
+      ),
     );
   }, [currentLimit, voltage, visibility, enabled]);
 

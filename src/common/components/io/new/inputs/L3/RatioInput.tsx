@@ -16,7 +16,7 @@ export default function RatioInput(props: RatioInputProps): JSX.Element {
           ratio.magnitude,
           s.toLowerCase() === "reduction"
             ? RatioType.REDUCTION
-            : RatioType.STEP_UP
+            : RatioType.STEP_UP,
         )
       }
       makeString={(r) => r.ratioType}

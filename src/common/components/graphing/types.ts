@@ -35,14 +35,14 @@ const chartColors: Record<number, tinycolor.Instance> =
     //     .clone()
     //     .brighten(60),
     // }),
-    {}
+    {},
   );
 
 export function webworkerDataset(
   label: string,
   data: { x: number; y: number }[],
   colorIndex: number,
-  id: string
+  id: string,
 ): EzDataset {
   return {
     label: label,

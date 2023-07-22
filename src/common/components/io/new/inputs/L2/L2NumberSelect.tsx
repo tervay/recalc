@@ -14,7 +14,7 @@ import {
 } from "common/components/io/new/inputs/types/Utility";
 
 export default function L2NumberSelect<T>(
-  props: L2NumberSelectProps<T>
+  props: L2NumberSelectProps<T>,
 ): JSX.Element {
   const defaultSelectProps: SetAllFieldsButStateHookOptional<
     RemoveL1SelectCreationFns<T>
@@ -61,7 +61,7 @@ export default function L2NumberSelect<T>(
         fromNumber={props.fromNumber}
         makeNumber={props.makeNumber}
         {...makeDefaultL1ControlledNumberProps<T, typeof defaultNumberProps>(
-          defaultNumberProps
+          defaultNumberProps,
         )}
         skipControl={true}
       />
@@ -70,7 +70,7 @@ export default function L2NumberSelect<T>(
         fromString={props.fromString}
         makeString={props.makeString}
         {...makeDefaultL1ControlledSelectProps<T, typeof defaultSelectProps>(
-          defaultSelectProps
+          defaultSelectProps,
         )}
         skipControl={true}
       />

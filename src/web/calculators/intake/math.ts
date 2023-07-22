@@ -5,7 +5,7 @@ import Ratio, { RatioType } from "common/models/Ratio";
 export function calculateRecommendedRatio(
   motor: Motor,
   drivetrainSpeed: Measurement,
-  rollerDiameter: Measurement
+  rollerDiameter: Measurement,
 ): Ratio {
   const targetSpeed = drivetrainSpeed.mul(2);
   if (Measurement.anyAreZero(targetSpeed)) {
@@ -18,14 +18,14 @@ export function calculateRecommendedRatio(
       .mul(motor.freeSpeed)
       .removeRad()
       .div(targetSpeed).scalar,
-    RatioType.REDUCTION
+    RatioType.REDUCTION,
   );
 }
 
 export function calculateLinearSurfaceSpeed(
   motor: Motor,
   ratio: Ratio,
-  rollerDiameter: Measurement
+  rollerDiameter: Measurement,
 ): Measurement {
   return motor.freeSpeed
     .div(ratio.asNumber())

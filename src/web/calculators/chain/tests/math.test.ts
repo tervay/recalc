@@ -33,9 +33,9 @@ describe("math", () => {
     "%p calculateCenterDistance",
     ({ chain, p1Teeth, p2Teeth, links, expected }) => {
       expect(
-        calculateCenterDistance(chain, p1Teeth, p2Teeth, links)
+        calculateCenterDistance(chain, p1Teeth, p2Teeth, links),
       ).toBeCloseToMeasurement(expected);
-    }
+    },
   );
   test.each([
     {
@@ -74,13 +74,13 @@ describe("math", () => {
       const centers = calculateCenters(chain, p1Teeth, p2Teeth, desiredCenter);
 
       expect(centers.larger.distance).toBeCloseToMeasurement(
-        expected.larger.distance
+        expected.larger.distance,
       );
       expect(centers.larger.links).toBe(expected.larger.links);
       expect(centers.smaller.distance).toBeCloseToMeasurement(
-        expected.smaller.distance
+        expected.smaller.distance,
       );
       expect(centers.smaller.links).toBe(expected.smaller.links);
-    }
+    },
   );
 });

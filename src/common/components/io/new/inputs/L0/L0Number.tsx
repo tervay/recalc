@@ -22,7 +22,7 @@ export default function L0Number(props: L0NumberProps): JSX.Element {
   useEffect(() => {
     const timeoutId = setTimeout(
       () => setValue(SafelyParse(stringValue)),
-      props.delay
+      props.delay,
     );
 
     return () => clearTimeout(timeoutId);

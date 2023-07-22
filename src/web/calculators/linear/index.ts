@@ -60,5 +60,5 @@ export const linearGraphConfig = GraphConfig.options(
   },
   {
     maintainAspectRatio: false,
-  }
+  },
 );

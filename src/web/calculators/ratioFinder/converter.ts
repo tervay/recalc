@@ -13,7 +13,7 @@ export class RatioFinderState {
     return StateMaker.BumpState(
       ratioFinderConfig.version,
       [RatioFinderParamsV1],
-      []
+      [],
     );
   }
 }

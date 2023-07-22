@@ -23,23 +23,23 @@ export default function IntakeCalculator(): JSX.Element {
 
   const surfaceSpeed = useMemo(
     () => calculateLinearSurfaceSpeed(get.motor, get.ratio, get.rollerDiameter),
-    [get.motor, get.ratio, get.rollerDiameter]
+    [get.motor, get.ratio, get.rollerDiameter],
   );
   const timeToGoal = useMemo(
     () =>
       surfaceSpeed.eq(new Measurement(0, "ft/s"))
         ? new Measurement(0, "s")
         : get.travelDistance.div(surfaceSpeed),
-    [get.travelDistance, surfaceSpeed]
+    [get.travelDistance, surfaceSpeed],
   );
   const recommendedRatio = useMemo(
     () =>
       calculateRecommendedRatio(
         get.motor,
         get.drivetrainSpeed,
-        get.rollerDiameter
+        get.rollerDiameter,
       ),
-    [get.motor, get.drivetrainSpeed, get.rollerDiameter]
+    [get.motor, get.drivetrainSpeed, get.rollerDiameter],
   );
 
   return (

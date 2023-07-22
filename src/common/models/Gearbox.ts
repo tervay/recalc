@@ -80,7 +80,7 @@ export class Stage {
     public readonly driving: number,
     public readonly driven: number,
     public drivingMethods: MotionMethod[],
-    public drivenMethods: MotionMethod[]
+    public drivenMethods: MotionMethod[],
   ) {}
 
   getRatio(): number {
@@ -100,7 +100,7 @@ export class Planetary extends Stage {
   constructor(
     public readonly reduction: number,
     public readonly stageOptions: number[][],
-    planetary: RawPlanetaryData
+    planetary: RawPlanetaryData,
   ) {
     super(
       1,
@@ -129,8 +129,8 @@ export class Planetary extends Stage {
             stageSequence: stageOption,
           } as PlanetaryData),
           type: "Planetary",
-        })
-      )
+        }),
+      ),
     );
   }
 }
@@ -175,7 +175,7 @@ export class Gearbox {
 
     for (let i = 1; i < this.stages.length; i++) {
       const nonPinions = this.stages[i].drivingMethods.filter(
-        (m) => !MotorBores.includes(m.bore)
+        (m) => !MotorBores.includes(m.bore),
       );
 
       // console.log(i, this.stages[i]);
@@ -202,7 +202,7 @@ export class Gearbox {
             driving.type === driven.type &&
             (driving.type === "Planetary" && driven.type === "Planetary"
               ? true
-              : MMTypeStr(driving) === MMTypeStr(driven))
+              : MMTypeStr(driving) === MMTypeStr(driven)),
         );
 
         if (matchingMethod.length > 0) {
@@ -230,7 +230,7 @@ export class Gearbox {
 
       prevStage.drivenMethods.forEach((driven) => {
         const matchingBores = nextStage.drivingMethods.filter(
-          (driving) => driving.bore === driven.bore
+          (driving) => driving.bore === driven.bore,
         );
 
         if (matchingBores.length > 0) {
@@ -283,12 +283,13 @@ export class Gearbox {
       driving: number;
       drivingMethods: MotionMethod[];
       drivenMethods: MotionMethod[];
-    }[]
+    }[],
   ) {
     return new Gearbox(
       obj.map(
-        (o) => new Stage(o.driving, o.driven, o.drivingMethods, o.drivenMethods)
-      )
+        (o) =>
+          new Stage(o.driving, o.driven, o.drivingMethods, o.drivenMethods),
+      ),
     );
   }
 

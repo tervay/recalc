@@ -14,7 +14,7 @@ const flywheelConfig: PageConfig = {
   image: "/media/Flywheel",
   version: 2,
   component: lazy(
-    () => import("web/calculators/flywheel/components/FlywheelPage")
+    () => import("web/calculators/flywheel/components/FlywheelPage"),
   ),
 };
 export default flywheelConfig;
@@ -27,7 +27,7 @@ export const FlywheelParamsV1 = {
   weight: withDefault(MeasurementParam, new Measurement(5, "lbs")),
   momentOfInertia: withDefault(
     MeasurementParam,
-    new Measurement(10, "lb in^2")
+    new Measurement(10, "lb in^2"),
   ),
   useCustomMoi: withDefault(BooleanParam, false),
 };
@@ -58,52 +58,52 @@ export const FlywheelParamsV2 = {
   efficiency: withDefault(NumberParam, FlywheelStateV2Defaults.efficiency),
   currentLimit: withDefault(
     MeasurementParam,
-    FlywheelStateV2Defaults.currentLimit
+    FlywheelStateV2Defaults.currentLimit,
   ),
   shooterRadius: withDefault(
     MeasurementParam,
-    FlywheelStateV2Defaults.shooterRadius
+    FlywheelStateV2Defaults.shooterRadius,
   ),
   shooterWeight: withDefault(
     MeasurementParam,
-    FlywheelStateV2Defaults.shooterWeight
+    FlywheelStateV2Defaults.shooterWeight,
   ),
   shooterTargetSpeed: withDefault(
     MeasurementParam,
-    FlywheelStateV2Defaults.shooterTargetSpeed
+    FlywheelStateV2Defaults.shooterTargetSpeed,
   ),
   shooterMomentOfInertia: withDefault(
     MeasurementParam,
-    FlywheelStateV2Defaults.shooterMomentOfInertia
+    FlywheelStateV2Defaults.shooterMomentOfInertia,
   ),
   useCustomShooterMoi: withDefault(
     BooleanParam,
-    FlywheelStateV2Defaults.useCustomShooterMoi
+    FlywheelStateV2Defaults.useCustomShooterMoi,
   ),
   flywheelRadius: withDefault(
     MeasurementParam,
-    FlywheelStateV2Defaults.flywheelRadius
+    FlywheelStateV2Defaults.flywheelRadius,
   ),
   flywheelWeight: withDefault(
     MeasurementParam,
-    FlywheelStateV2Defaults.flywheelWeight
+    FlywheelStateV2Defaults.flywheelWeight,
   ),
   flywheelRatio: withDefault(RatioParam, FlywheelStateV2Defaults.flywheelRatio),
   flywheelMomentOfInertia: withDefault(
     MeasurementParam,
-    FlywheelStateV2Defaults.flywheelMomentOfInertia
+    FlywheelStateV2Defaults.flywheelMomentOfInertia,
   ),
   useCustomFlywheelMoi: withDefault(
     BooleanParam,
-    FlywheelStateV2Defaults.useCustomFlywheelMoi
+    FlywheelStateV2Defaults.useCustomFlywheelMoi,
   ),
   projectileRadius: withDefault(
     MeasurementParam,
-    FlywheelStateV2Defaults.projectileRadius
+    FlywheelStateV2Defaults.projectileRadius,
   ),
   projectileWeight: withDefault(
     MeasurementParam,
-    FlywheelStateV2Defaults.projectileWeight
+    FlywheelStateV2Defaults.projectileWeight,
   ),
 };
 

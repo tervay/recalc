@@ -12,7 +12,7 @@ type RawCompressorSpec = {
 
 const rawCompressorDataLookup: Record<string, RawCompressorSpec> = keyBy(
   _rawCommpressorData,
-  "name"
+  "name",
 );
 
 export type CompressorDict = {
@@ -29,14 +29,14 @@ export default class Compressor extends Model {
     identifier: string,
     private readonly cfmPolynomialTerms: number[],
     public readonly weight: Measurement,
-    public readonly url: string
+    public readonly url: string,
   ) {
     super(identifier);
 
     this.cachedCfmFn = (pressure: Measurement) => {
       const pressureScalar = pressure.to("psi").scalar;
       const scalar = this.cfmPolynomialTerms.reduce(
-        (prev, curr, i) => prev + curr * Math.pow(pressureScalar, i)
+        (prev, curr, i) => prev + curr * Math.pow(pressureScalar, i),
       );
       return new Measurement(scalar, "ft^3/min");
     };
@@ -55,13 +55,13 @@ export default class Compressor extends Model {
       id,
       rawCompressorDataLookup[id].cfmPolynomialTerms,
       Measurement.fromRawJson(rawCompressorDataLookup[id].weight),
-      rawCompressorDataLookup[id].url
+      rawCompressorDataLookup[id].url,
     );
   }
 
   static getAllCompressors(): Compressor[] {
     return Object.keys(rawCompressorDataLookup).map((s) =>
-      this.fromIdentifier(s)
+      this.fromIdentifier(s),
     );
   }
 

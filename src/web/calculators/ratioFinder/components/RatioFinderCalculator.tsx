@@ -27,7 +27,7 @@ const worker = await wrap<RatioFinderWorkerFunctions>(new rawWorker());
 
 function overlappingDrivingDrivenMethods(
   methods: DrivingDriven,
-  excludePinions: boolean
+  excludePinions: boolean,
 ): DrivingDriven {
   const good: DrivingDriven = { driven: [], driving: [] };
 
@@ -40,7 +40,7 @@ function overlappingDrivingDrivenMethods(
       (driven) =>
         driven.type === driving.type &&
         (MMTypeStr(driven) === MMTypeStr(driving) ||
-          driving.type === "Planetary")
+          driving.type === "Planetary"),
     );
 
     if (matchingType.length > 0) {
@@ -64,7 +64,7 @@ function MotionMethodCell(props: {
   let mms = props.motionMethods;
   if (props.excludePinions === true) {
     mms = mms.filter(
-      (m) => !MotorBores.includes(m.bore) || m.type === "Planetary"
+      (m) => !MotorBores.includes(m.bore) || m.type === "Planetary",
     );
   }
 
@@ -111,7 +111,7 @@ function MotionMethodCell(props: {
             <td style={{ width: "100%", whiteSpace: "nowrap" }}>
               <a href={mm.url}>{pnCol}</a>
             </td>
-          </tr>
+          </tr>,
         );
 
         firstTd = <></>;
@@ -166,7 +166,7 @@ function GearboxRows(props: {
               driven: stage.drivenMethods,
               driving: stage.drivingMethods,
             },
-            i > 0
+            i > 0,
           );
 
           return (
@@ -199,7 +199,7 @@ function GearboxRows(props: {
 
 export default function RatioFinderCalculator(): JSX.Element {
   const [get, set] = useGettersSetters(
-    RatioFinderState.getState() as RatioFinderStateV1
+    RatioFinderState.getState() as RatioFinderStateV1,
   );
 
   const [gearboxes, setGearboxes] = useState([] as Gearbox[]);

@@ -26,7 +26,7 @@ export default class Pulley extends Model {
     public readonly teeth: number,
     public readonly pitch: Measurement,
     public readonly pitchDiameter: Measurement,
-    vendorData?: VendorData
+    vendorData?: VendorData,
   ) {
     super("Pulley");
     this.vendors = vendorData?.vendors;
@@ -39,7 +39,7 @@ export default class Pulley extends Model {
   static fromTeeth(
     teeth: number,
     pitch: Measurement,
-    vendorData?: VendorData
+    vendorData?: VendorData,
   ): Pulley {
     return new Pulley(teeth, pitch, pitch.mul(teeth).div(Math.PI), vendorData);
   }
@@ -47,13 +47,13 @@ export default class Pulley extends Model {
   static fromPitchDiameter(
     pitchDiameter: Measurement,
     pitch: Measurement,
-    vendorData?: VendorData
+    vendorData?: VendorData,
   ): Pulley {
     return new Pulley(
       Number(pitchDiameter.mul(Math.PI).div(pitch).scalar.toFixed(2)),
       pitch,
       pitchDiameter,
-      vendorData
+      vendorData,
     );
   }
 

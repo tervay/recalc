@@ -5,13 +5,13 @@ interface CustomMatchers<CustomMatcherResult = any> {
   toEqualMeasurement(expected: Measurement): CustomMatcherResult;
   toBeCloseToMeasurement(
     expected: Measurement,
-    precision: number = 2
+    precision: number = 2,
   ): CustomMatcherResult;
   toBeLessThanMeasurement(expected: Measurement): CustomMatcherResult;
   toBeLessThanOrEqualToMeasurement(expected: Measurement): CustomMatcherResult;
   toBeGreaterThanMeasurement(expected: Measurement): CustomMatcherResult;
   toBeGreaterThanOrEqualToMeasurement(
-    expected: Measurement
+    expected: Measurement,
   ): CustomMatcherResult;
   toEqualModel<M extends Model>(expected: M): CustomMatcherResult;
   toAllBeVisible(): CustomMatcherResult;

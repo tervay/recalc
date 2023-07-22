@@ -49,7 +49,7 @@ type Setters<K extends BaseState> = {
 export type { Setters, Stateify };
 
 export type ConversionFn<VFrom extends BaseState, VTo extends BaseState> = (
-  s: VFrom
+  s: VFrom,
 ) => VTo;
 
 export type FRCVendor =

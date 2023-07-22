@@ -59,7 +59,7 @@ export function allPossibleSingleGearStages(state: RatioFinderStateV1) {
     min([state.minGearTeeth, state.minPulleyTeeth, state.minSprocketTeeth]) ||
       8,
     max([state.maxGearTeeth, state.maxPulleyTeeth, state.maxSprocketTeeth]) ||
-      80
+      80,
   );
 }
 
@@ -96,7 +96,7 @@ export function generatePlanetaryStages(planetary: RawPlanetaryData) {
 export function linkOverlappingGearStages(
   stages: Stage[],
   motionMethods: MotionMethod[],
-  state: RatioFinderStateV1
+  state: RatioFinderStateV1,
 ) {
   motionMethods.forEach((gear) => {
     stages.forEach((stage) => {
@@ -113,7 +113,7 @@ export function linkOverlappingGearStages(
 
 function filterGears(
   state: RatioFinderStateV1,
-  gears: typeof revGears
+  gears: typeof revGears,
 ): GearData[] {
   return gears
     .map((g) => ({
@@ -132,7 +132,7 @@ function filterGears(
 
 function filterPulleys(
   state: RatioFinderStateV1,
-  pulleys: typeof revPulleys
+  pulleys: typeof revPulleys,
 ): PulleyData[] {
   return pulleys
     .map((p) => ({
@@ -152,7 +152,7 @@ function filterPulleys(
 }
 function filterSprockets(
   state: RatioFinderStateV1,
-  sprockets: typeof revSprockets
+  sprockets: typeof revSprockets,
 ): SprocketData[] {
   return sprockets
     .map((s) => ({
@@ -182,7 +182,7 @@ export function generateOptions(state: RatioFinderStateV1) {
         ratios: maxPlanetary.ratios,
         url: maxPlanetary.url,
         vendor: maxPlanetary.vendor as FRCVendor,
-      })
+      }),
     );
   }
   if (state.enableVPs && state.enableVEX) {
@@ -195,7 +195,7 @@ export function generateOptions(state: RatioFinderStateV1) {
         ratios: versaPlanetary.ratios,
         url: versaPlanetary.url,
         vendor: versaPlanetary.vendor as FRCVendor,
-      })
+      }),
     );
   }
   if (state.enableSports && state.enableAM) {
@@ -208,7 +208,7 @@ export function generateOptions(state: RatioFinderStateV1) {
         ratios: sportPlanetary.ratios,
         url: sportPlanetary.url,
         vendor: sportPlanetary.vendor as FRCVendor,
-      })
+      }),
     );
   }
 

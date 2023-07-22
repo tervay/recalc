@@ -132,7 +132,7 @@ export const MotorPlaygroundListParam = {
     }
 
     return MotorPlaygroundList.fromDict(
-      decodeJson(s) as MotorPlaygroundListDict
+      decodeJson(s) as MotorPlaygroundListDict,
     );
   },
 };

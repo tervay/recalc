@@ -25,7 +25,7 @@ export class BeltState {
     return StateMaker.BumpState(
       beltsConfig.version,
       [BeltsParamsV1, BeltParamsV2],
-      [Converters.v1ToV2]
+      [Converters.v1ToV2],
     );
   }
 }

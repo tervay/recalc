@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 
 export function makeDefaultL1ControlledSelectProps<
   M,
-  T extends SetAllFieldsButStateHookOptional<RemoveL1SelectCreationFns<M>>
+  T extends SetAllFieldsButStateHookOptional<RemoveL1SelectCreationFns<M>>,
 >(props: T): RemoveL1SelectCreationFns<M> {
   return {
     ...{
@@ -33,7 +33,7 @@ export function makeDefaultL1ControlledSelectProps<
 }
 
 export default function L1ControlledSelect<T>(
-  props: L1ControlledSelectProps<T>
+  props: L1ControlledSelectProps<T>,
 ): JSX.Element {
   const [t, setT] = props.stateHook;
   const [string, setString] = useState(props.makeString(t));

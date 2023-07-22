@@ -14,14 +14,14 @@ import { RatioPairState } from "web/calculators/ratio/converter";
 
 export default function IntakeCalculator(): JSX.Element {
   const [get, set] = useGettersSetters(
-    RatioPairState.getState() as RatioStateV1
+    RatioPairState.getState() as RatioStateV1,
   );
 
   const [netRatio, setNetRatio] = useState(
-    get.ratioPairs.calculateNetRatio().asNumber()
+    get.ratioPairs.calculateNetRatio().asNumber(),
   );
   const [invNetRatio, setInvNetRatio] = useState(
-    netRatio === 0.0 ? 0.0 : 1.0 / netRatio
+    netRatio === 0.0 ? 0.0 : 1.0 / netRatio,
   );
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export default function IntakeCalculator(): JSX.Element {
             color="primary"
             onClick={() => {
               set.setRatioPairs(
-                new RatioPairList([...get.ratioPairs.pairs, [1, 1]])
+                new RatioPairList([...get.ratioPairs.pairs, [1, 1]]),
               );
             }}
           >

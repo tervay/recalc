@@ -16,7 +16,11 @@ const worker = await wrap<PlaygroundWorkerFunctions>(new rawWorker());
 
 export default function Playground(): JSX.Element {
   const [get, set] = useGettersSetters(
-    StateMaker.BumpState(1, [MotorPlaygroundParams], []) as MotorPlaygroundState
+    StateMaker.BumpState(
+      1,
+      [MotorPlaygroundParams],
+      [],
+    ) as MotorPlaygroundState,
   );
   const [datasets, setDatasets] = useState([] as EzDataset[]);
 

@@ -14,7 +14,7 @@ const fileLogger = useFileLogger("Belts::math");
 export function calculateDistance(
   p1: Pulley,
   p2: Pulley,
-  belt: Belt
+  belt: Belt,
 ): Measurement {
   const logger = useFunctionLogger(fileLogger, "calculateDistance", {
     p1,
@@ -41,7 +41,7 @@ export function calculateDistance(
 
   const sqrted = new Measurement(
     Math.sqrt(toSqrt.scalar),
-    toSqrt.units().replace("2", "1")
+    toSqrt.units().replace("2", "1"),
   );
   debug({ sqrted });
 
@@ -52,7 +52,7 @@ export function teethInMesh(
   p1: Pulley,
   p2: Pulley,
   center: Measurement,
-  pulleyToUse: Pulley
+  pulleyToUse: Pulley,
 ): number {
   const logger = useFunctionLogger(fileLogger, "teethInMesh", {
     p1,
@@ -73,7 +73,7 @@ export function teethInMesh(
   debug({ div });
   return debugAndReturn(
     new Measurement(0.5).sub(div).mul(pulleyToUse.teeth).scalar,
-    logger
+    logger,
   );
 }
 
@@ -94,7 +94,7 @@ export function getTIMFactor(teethInMesh: number): number {
 export function approximateBeltPitchLength(
   p1: Pulley,
   p2: Pulley,
-  desiredCenter: Measurement
+  desiredCenter: Measurement,
 ): Measurement {
   const t1 = desiredCenter.mul(2);
   const t2 = p1.pitchDiameter.add(p2.pitchDiameter).mul(1.57);
@@ -118,7 +118,7 @@ export function calculateClosestCenters(
   p1: Pulley,
   p2: Pulley,
   desiredCenter: Measurement,
-  multipleOf: number
+  multipleOf: number,
 ): ClosestCentersResult {
   if (
     [
@@ -145,7 +145,7 @@ export function calculateClosestCenters(
   const pl = approximateBeltPitchLength(p1, p2, desiredCenter);
   const largerTeeth = roundToNearestMulitple(
     pl.div(p1.pitch).scalar,
-    multipleOf
+    multipleOf,
   );
   const largerBelt = Belt.fromTeeth(largerTeeth, p1.pitch);
 
@@ -167,7 +167,7 @@ export function calculateClosestCenters(
 export function calculateDistanceBetweenPulleys(
   p1: Pulley,
   p2: Pulley,
-  ccDistance: Measurement
+  ccDistance: Measurement,
 ): Measurement {
   return ccDistance.sub(p1.pitchDiameter.div(2)).sub(p2.pitchDiameter.div(2));
 }

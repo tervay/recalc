@@ -17,7 +17,7 @@ interface BuildingProps {
 
 function globalClasses(
   props: Omit<BuildingProps, "children">,
-  otherClasses: string
+  otherClasses: string,
 ): string {
   const classes = [otherClasses, props.extraClasses];
   if (props.marginLess) {
@@ -53,7 +53,7 @@ export function Columns(
     gapless?: boolean;
     mobile?: boolean;
     desktop?: boolean;
-  }
+  },
 ): JSX.Element {
   const classes = ["columns"];
   if (props.formColumns) {
@@ -96,7 +96,7 @@ export function Column(
     desktopPercentage?: Percentage;
     tabletPercentage?: Percentage;
     mobilePercentage?: Percentage;
-  }
+  },
 ): JSX.Element {
   const classes = ["column"];
   const pctMap = {
@@ -166,7 +166,7 @@ export function Panel(
     heading: JSX.Element;
     color?: Color;
     removeInternalBorders?: boolean;
-  }
+  },
 ): JSX.Element {
   if (!Array.isArray(props.children)) {
     props = { ...props, children: [props.children as JSX.Element] };
@@ -209,7 +209,7 @@ export function Button(
     disabled?: boolean;
     faIcon?: string;
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  }
+  },
 ): JSX.Element {
   const innerText = props.faIcon ? (
     <>
@@ -290,7 +290,7 @@ export function UL(props: BuildingProps): JSX.Element {
 }
 
 export function Collapsible2(
-  props: BuildingProps & { title: string }
+  props: BuildingProps & { title: string },
 ): JSX.Element {
   const [expanded, setExpanded] = useState(false);
 
@@ -320,7 +320,7 @@ export function Collapsible2(
 }
 
 export function Collapsible(
-  props: BuildingProps & { title: string }
+  props: BuildingProps & { title: string },
 ): JSX.Element {
   const [expanded, setExpanded] = useState(false);
 
@@ -350,7 +350,7 @@ export function Collapsible(
 }
 
 export function Markdown(
-  props: OptionalChildren & { markdownContent: string }
+  props: OptionalChildren & { markdownContent: string },
 ): JSX.Element {
   const content = parse(props.markdownContent);
   const sections = content.map((md) => (
@@ -376,7 +376,7 @@ export function Message(
     title?: string;
     size?: Size;
     color?: Color;
-  }
+  },
 ): JSX.Element {
   const header =
     props.title === undefined ? (

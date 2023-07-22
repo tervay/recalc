@@ -13,7 +13,7 @@ import {
 const pascalCase = (s: string) => s[0].toUpperCase() + s.slice(1);
 
 export function useGettersSetters<T extends BaseState>(
-  state: T
+  state: T,
 ): [T, Setters<T>] {
   const getters: T = {} as T;
   const setters: Setters<T> = {} as Setters<T>;
@@ -28,7 +28,7 @@ export function useGettersSetters<T extends BaseState>(
 
 export function URLifier<State extends BaseState>(
   q: QueryParamConfigMap,
-  s: State
+  s: State,
 ): string {
   return stringify(encodeQueryParams(q, s));
 }
@@ -37,7 +37,7 @@ export class StateMaker {
   static Convert<
     BV extends BaseState,
     V1 extends BaseState,
-    V2 extends BaseState
+    V2 extends BaseState,
   >(s: BV, a: ConversionFn<V1, V2>[]): BV {
     a.forEach((f) => {
       s = f(s as any) as any;
@@ -49,11 +49,11 @@ export class StateMaker {
   static BumpState<A extends BaseState, B extends BaseState>(
     version: number,
     params: QueryParamConfigMap[],
-    converters: ConversionFn<A, B>[]
+    converters: ConversionFn<A, B>[],
   ): BaseState {
     let url_version = decodeQueryParams(
       { version: withDefault(NumberParam, version) },
-      queryString.parse(location.search)
+      queryString.parse(location.search),
     ).version;
 
     if (url_version === undefined) {
@@ -62,7 +62,7 @@ export class StateMaker {
 
     const urlState = decodeQueryParams(
       params[url_version - 1],
-      queryString.parse(location.search)
+      queryString.parse(location.search),
     );
     let state = urlState;
 

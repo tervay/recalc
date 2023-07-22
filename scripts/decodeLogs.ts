@@ -102,7 +102,7 @@ const fromHexString = (hexString: string) =>
   hexString.match(/.{1,2}/g)!.map((byte) => parseInt(byte, 16))[0];
 
 const dataz = Uint8Array.from(
-  dataSingleLine.split(" ").map((s) => fromHexString(s))
+  dataSingleLine.split(" ").map((s) => fromHexString(s)),
 );
 
 const nestedArrays = JSON.parse(LZString.decompressFromUint8Array(dataz)!);

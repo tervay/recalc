@@ -52,40 +52,40 @@ export default function BeltsCalculator(): JSX.Element {
         Pulley.fromTeeth(get.p1Teeth, get.pitch),
         Pulley.fromTeeth(get.p2Teeth, get.pitch),
         smallerCenter,
-        Pulley.fromTeeth(get.p1Teeth, get.pitch)
+        Pulley.fromTeeth(get.p1Teeth, get.pitch),
       ),
     p2SmallMesh: () =>
       teethInMesh(
         Pulley.fromTeeth(get.p1Teeth, get.pitch),
         Pulley.fromTeeth(get.p2Teeth, get.pitch),
         smallerCenter,
-        Pulley.fromTeeth(get.p2Teeth, get.pitch)
+        Pulley.fromTeeth(get.p2Teeth, get.pitch),
       ),
     p1LargeMesh: () =>
       teethInMesh(
         Pulley.fromTeeth(get.p1Teeth, get.pitch),
         Pulley.fromTeeth(get.p2Teeth, get.pitch),
         largerCenter,
-        Pulley.fromTeeth(get.p1Teeth, get.pitch)
+        Pulley.fromTeeth(get.p1Teeth, get.pitch),
       ),
     p2LargeMesh: () =>
       teethInMesh(
         Pulley.fromTeeth(get.p1Teeth, get.pitch),
         Pulley.fromTeeth(get.p2Teeth, get.pitch),
         largerCenter,
-        Pulley.fromTeeth(get.p2Teeth, get.pitch)
+        Pulley.fromTeeth(get.p2Teeth, get.pitch),
       ),
     smallDistanceBetweenPulleys: () =>
       calculateDistanceBetweenPulleys(
         Pulley.fromTeeth(get.p1Teeth, get.pitch),
         Pulley.fromTeeth(get.p2Teeth, get.pitch),
-        smallerCenter
+        smallerCenter,
       ),
     largeDistanceBetweenPulleys: () =>
       calculateDistanceBetweenPulleys(
         Pulley.fromTeeth(get.p1Teeth, get.pitch),
         Pulley.fromTeeth(get.p2Teeth, get.pitch),
-        largerCenter
+        largerCenter,
       ),
   };
 
@@ -96,20 +96,20 @@ export default function BeltsCalculator(): JSX.Element {
     Pulley.fromTeeth(get.p1Teeth, get.pitch),
     Pulley.fromTeeth(get.p2Teeth, get.pitch),
     get.desiredCenter,
-    get.toothIncrement
+    get.toothIncrement,
   );
 
   const [smallerCenter, setSmallerCenter] = useState(
-    calculate.smallerCenter(results)
+    calculate.smallerCenter(results),
   );
   const [smallerTeeth, setSmallerTeeth] = useState(
-    calculate.smallerTeeth(results)
+    calculate.smallerTeeth(results),
   );
   const [largerCenter, setLargerCenter] = useState(
-    calculate.largerCenter(results)
+    calculate.largerCenter(results),
   );
   const [largerTeeth, setLargerTeeth] = useState(
-    calculate.largerTeeth(results)
+    calculate.largerTeeth(results),
   );
 
   const [p1SmallMesh, setP1SmallMesh] = useState(calculate.p1SmallMesh());
@@ -117,17 +117,17 @@ export default function BeltsCalculator(): JSX.Element {
   const [p1LargeMesh, setP1LargeMesh] = useState(calculate.p1LargeMesh());
   const [p2LargeMesh, setP2LargeMesh] = useState(calculate.p2LargeMesh());
   const [smallPulleyGap, setSmallPulleyGap] = useState(
-    calculate.smallDistanceBetweenPulleys()
+    calculate.smallDistanceBetweenPulleys(),
   );
   const [largePulleyGap, setLargePulleyGap] = useState(
-    calculate.largeDistanceBetweenPulleys()
+    calculate.largeDistanceBetweenPulleys(),
   );
 
   const [smallDiffFromTarget, setSmallDiffFromTarget] = useState(
-    smallerCenter.sub(get.desiredCenter.add(get.extraCenter))
+    smallerCenter.sub(get.desiredCenter.add(get.extraCenter)),
   );
   const [largeDiffFromTarget, setLargeDiffFromTarget] = useState(
-    largerCenter.sub(get.desiredCenter.add(get.extraCenter))
+    largerCenter.sub(get.desiredCenter.add(get.extraCenter)),
   );
 
   useEffect(() => {
@@ -150,7 +150,7 @@ export default function BeltsCalculator(): JSX.Element {
       const dist = calculateDistance(
         Pulley.fromTeeth(get.p1Teeth, get.pitch),
         Pulley.fromTeeth(get.p2Teeth, get.pitch),
-        Belt.fromTeeth(get.customBeltTeeth, get.pitch)
+        Belt.fromTeeth(get.customBeltTeeth, get.pitch),
       );
 
       setSmallerCenter(dist.add(get.extraCenter).to(smallerCenter.units()));
@@ -160,7 +160,7 @@ export default function BeltsCalculator(): JSX.Element {
         Pulley.fromTeeth(get.p1Teeth, get.pitch),
         Pulley.fromTeeth(get.p2Teeth, get.pitch),
         get.desiredCenter,
-        get.toothIncrement
+        get.toothIncrement,
       );
 
       setLargerCenter(calculate.largerCenter(results).add(get.extraCenter));
