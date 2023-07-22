@@ -1,5 +1,4 @@
 import Metadata from "common/components/Metadata";
-import Logo from "common/components/styling/Logo";
 import aboutConfig from "web/about";
 
 export default function About(): JSX.Element {

@@ -7,7 +7,6 @@ import {
   Section,
   Title,
 } from "common/components/styling/Building";
-import Logo from "common/components/styling/Logo";
 import PageConfig from "common/models/PageConfig";
 import aboutConfig from "web/about";
 import armConfig from "web/calculators/arm";
