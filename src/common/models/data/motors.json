@@ -3,7 +3,7 @@
     "name": "NEO",
     "freeSpeed": { "magnitude": 5880, "unit": "rpm" },
     "stallTorque": { "magnitude": 3.36, "unit": "N*m" },
-    "stallCurrent": { "magnitude": 166, "unit": "A" },
+    "stallCurrent": { "magnitude": 181, "unit": "A" },
     "freeCurrent": { "magnitude": 1.3, "unit": "A" },
     "weight": { "magnitude": 0.94, "unit": "lbs" },
     "diameter": { "magnitude": 2.36, "unit": "in" },
@@ -138,5 +138,15 @@
     "weight": { "magnitude": 0.4375, "unit": "lbs" },
     "diameter": { "magnitude": 1.5, "unit": "in" },
     "url": "https://www.revrobotics.com/rev-41-1300/"
+  },
+  {
+    "name": "Falcon 500 (FOC)",
+    "freeSpeed": { "magnitude": 6080, "unit": "rpm" },
+    "stallTorque": { "magnitude": 5.84, "unit": "N*m" },
+    "stallCurrent": { "magnitude":304, "unit": "A" },
+    "freeCurrent": { "magnitude": 1.5, "unit": "A" },
+    "weight": { "magnitude": 1.1, "unit": "lbs" },
+    "diameter": { "magnitude": 2.362, "unit": "in" },
+    "url": "https://www.vexrobotics.com/217-6515.html"
   }
 ]
