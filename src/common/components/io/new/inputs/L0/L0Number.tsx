@@ -20,12 +20,14 @@ export default function L0Number(props: L0NumberProps): JSX.Element {
   ];
 
   useEffect(() => {
-    const timeoutId = setTimeout(
-      () => setValue(SafelyParse(stringValue)),
-      props.delay,
-    );
+    if (!props.disabledIf()) {
+      const timeoutId = setTimeout(
+        () => setValue(SafelyParse(stringValue)),
+        props.delay,
+      );
 
-    return () => clearTimeout(timeoutId);
+      return () => clearTimeout(timeoutId);
+    }
   }, [stringValue]);
 
   useEffect(() => {
@@ -33,6 +35,12 @@ export default function L0Number(props: L0NumberProps): JSX.Element {
       setStringValue(value.toFixed(props.roundTo));
     }
   }, [value]);
+
+  useEffect(() => {
+    if (props.id === "estimatedKA") {
+      console.log("String value is " + stringValue);
+    }
+  }, [stringValue]);
 
   return (
     <input

@@ -1,5 +1,6 @@
 import Measurement from "common/models/Measurement";
 import { nominalVoltage } from "common/models/Motor";
+import { stringifyMeasurements } from "common/tooling/util";
 
 export function calculateKv(
   maxSpeed: Measurement,
