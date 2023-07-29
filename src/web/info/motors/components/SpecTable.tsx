@@ -16,7 +16,9 @@ type MotorRow = {
 } & Replace<Select<Omit<Motor, "maxPower">, Measurement>, Measurement, string>;
 
 function adjustedWeight(motor: Motor): Measurement {
-  return motor.weight.add(motor.identifier.includes("Falcon 500") ? lb(0) : lb(0.25));
+  return motor.weight.add(
+    motor.identifier.includes("Falcon 500") ? lb(0) : lb(0.25),
+  );
 }
 
 function getPeakPowerAtCurrentLimit(

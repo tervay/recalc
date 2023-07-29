@@ -18,4 +18,6 @@ export default defineConfig({
     runMode: 3,
     openMode: 3,
   },
+  screenshotOnRunFailure: false,
+  video: false,
 });

@@ -143,7 +143,7 @@
     "name": "Falcon 500 (FOC)",
     "freeSpeed": { "magnitude": 6080, "unit": "rpm" },
     "stallTorque": { "magnitude": 5.84, "unit": "N*m" },
-    "stallCurrent": { "magnitude":304, "unit": "A" },
+    "stallCurrent": { "magnitude": 304, "unit": "A" },
     "freeCurrent": { "magnitude": 1.5, "unit": "A" },
     "weight": { "magnitude": 1.1, "unit": "lbs" },
     "diameter": { "magnitude": 2.362, "unit": "in" },
