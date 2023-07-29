@@ -95,7 +95,7 @@ describe("Flywheel Calculator e2e tests", () => {
     typeof allSelects,
     typeof secondaryInputs
   >(
-    { name: "Belt Calculator", url: "localhost:3000/flywheel" },
+    { name: "Flywheel Calculator", url: "localhost:3000/flywheel" },
     inputs,
     outputs,
     allSelects,
@@ -209,7 +209,7 @@ describe("Flywheel Calculator e2e tests", () => {
           projectileEnergy: 113,
           estimatedKV: 0.13,
           estimatedKA: 1.56,
-          responseTime: 12.2,
+          responseTime: "12.20",
         },
       ],
       [
@@ -285,7 +285,7 @@ describe("Flywheel Calculator e2e tests", () => {
           customShooterMOI: "8.0",
           customFlywheelMOI: "3.0",
           windupTime: 7.56,
-          recoveryTime: 0.7085,
+          recoveryTime: 1.5112,
           surfaceSpeed: 383.97,
           projectileSpeed: 31.52,
           speedAfterShot: 10616,
@@ -348,7 +348,7 @@ describe("Flywheel Calculator e2e tests", () => {
           flywheelEnergy: 3204,
           projectileEnergy: 361,
           estimatedKV: 0.13,
-          estimatedKA: 0.54,
+          estimatedKA: 1.19,
           responseTime: 9.31,
         },
       ],

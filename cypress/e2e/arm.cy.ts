@@ -66,7 +66,7 @@ describe("Arm Calculator e2e tests", () => {
     typeof allSelects,
     typeof secondaryInputs
   >(
-    { name: "Belt Calculator", url: "localhost:3000/arm" },
+    { name: "Arm Calculator", url: "localhost:3000/arm" },
     inputs,
     outputs,
     allSelects,
