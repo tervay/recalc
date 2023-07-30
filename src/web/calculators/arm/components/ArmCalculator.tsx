@@ -48,6 +48,7 @@ export default function ArmCalculator(): JSX.Element {
         get.currentLimit.toDict(),
         get.startAngle.toDict(),
         get.endAngle.toDict(),
+        get.efficiency,
         get.iterationLimit,
       );
       setIsCalculating(false);
@@ -61,6 +62,7 @@ export default function ArmCalculator(): JSX.Element {
       get.currentLimit,
       get.startAngle,
       get.endAngle,
+      get.efficiency,
       get.iterationLimit,
     ],
   );
@@ -150,7 +152,10 @@ export default function ArmCalculator(): JSX.Element {
             id="efficiency"
             tooltip="The efficiency of the system in transmitting torque from the motors."
           >
-            <NumberInput stateHook={[get.efficiency, set.setEfficiency]} />
+            <NumberInput
+              stateHook={[get.efficiency, set.setEfficiency]}
+              delay={0.5}
+            />
           </SingleInputLine>
           <SingleInputLine
             label="Current Limit"
@@ -172,7 +177,10 @@ export default function ArmCalculator(): JSX.Element {
               </>
             }
           >
-            <MeasurementInput stateHook={[get.comLength, set.setComLength]} />
+            <MeasurementInput
+              stateHook={[get.comLength, set.setComLength]}
+              numberDelay={0.5}
+            />
           </SingleInputLine>
           <SingleInputLine
             label="Arm Mass"
@@ -184,7 +192,10 @@ export default function ArmCalculator(): JSX.Element {
               </>
             }
           >
-            <MeasurementInput stateHook={[get.armMass, set.setArmMass]} />
+            <MeasurementInput
+              stateHook={[get.armMass, set.setArmMass]}
+              numberDelay={0.5}
+            />
           </SingleInputLine>
           <SingleInputLine
             label="Start Angle"
@@ -197,7 +208,10 @@ export default function ArmCalculator(): JSX.Element {
               </>
             }
           >
-            <MeasurementInput stateHook={[get.startAngle, set.setStartAngle]} />
+            <MeasurementInput
+              stateHook={[get.startAngle, set.setStartAngle]}
+              numberDelay={0.5}
+            />
           </SingleInputLine>
           <SingleInputLine
             label="End Angle"
@@ -210,7 +224,10 @@ export default function ArmCalculator(): JSX.Element {
               </>
             }
           >
-            <MeasurementInput stateHook={[get.endAngle, set.setEndAngle]} />
+            <MeasurementInput
+              stateHook={[get.endAngle, set.setEndAngle]}
+              numberDelay={0.5}
+            />
           </SingleInputLine>
           <SingleInputLine
             label="Iteration Limit"
@@ -219,6 +236,7 @@ export default function ArmCalculator(): JSX.Element {
           >
             <NumberInput
               stateHook={[get.iterationLimit, set.setIterationLimit]}
+              delay={0.5}
             />
           </SingleInputLine>
 
