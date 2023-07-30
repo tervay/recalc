@@ -58,6 +58,7 @@ export function calculateArmStates(
   currentLimit_: MeasurementDict,
   startAngle_: MeasurementDict,
   endAngle_: MeasurementDict,
+  efficiency: number,
   iterationLimit: number,
 ): MomentaryArmState[] {
   const motor = Motor.fromDict(motor_);
@@ -104,7 +105,10 @@ export function calculateArmStates(
       voltage: nominalVoltage,
     }).solve();
 
-    const outputTorque = ms.torque.mul(motor.quantity).mul(ratio.asNumber());
+    const outputTorque = ms.torque
+      .mul(motor.quantity)
+      .mul(ratio.asNumber())
+      .mul(efficiency / 100.0);
     const netArmTorque = outputTorque.add(gravitationalTorque);
 
     const armAngularAccel = netArmTorque.div(inertia);
