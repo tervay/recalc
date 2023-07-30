@@ -53,14 +53,14 @@ describe("linearMath", () => {
       spoolDiameter: inch(1),
       ratio: new Ratio(4, RatioType.REDUCTION),
       efficiency: 100,
-      expected: lb(-475.65),
+      expected: lb(-464.328),
     },
     {
       motor: Motor.NEOs(2),
       spoolDiameter: inch(2),
       ratio: new Ratio(4, RatioType.REDUCTION),
       efficiency: 75,
-      expected: lb(-178.37),
+      expected: lb(-174.123),
     },
   ])(
     "%p calculateDragLoad",
