@@ -2,7 +2,7 @@
   {
     "name": "NEO",
     "freeSpeed": { "magnitude": 5880, "unit": "rpm" },
-    "stallTorque": { "magnitude": 3.36, "unit": "N*m" },
+    "stallTorque": { "magnitude": 3.28, "unit": "N*m" },
     "stallCurrent": { "magnitude": 181, "unit": "A" },
     "freeCurrent": { "magnitude": 1.3, "unit": "A" },
     "weight": { "magnitude": 0.94, "unit": "lbs" },

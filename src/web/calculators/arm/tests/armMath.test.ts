@@ -76,6 +76,7 @@ describe("armMath", () => {
       currentLimit_: A(135).toDict(),
       startAngle_: Measurement.CIRCLE_RIGHT().toDict(),
       endAngle_: Measurement.CIRCLE_UP().toDict(),
+      efficiency: 100,
       iterationLimit: 1000,
       expected: {
         motorState: {
@@ -98,6 +99,7 @@ describe("armMath", () => {
       startAngle_: Measurement.CIRCLE_RIGHT().toDict(),
       endAngle_: Measurement.CIRCLE_UP().toDict(),
       iterationLimit: 1000,
+      efficiency: 100,
       expected: {
         motorState: {
           current: A(3.178).toDict(),
@@ -118,17 +120,18 @@ describe("armMath", () => {
       currentLimit_: A(135).toDict(),
       startAngle_: Measurement.CIRCLE_RIGHT().toDict(),
       endAngle_: Measurement.CIRCLE_UP().toDict(),
+      efficiency: 90,
       iterationLimit: 1000,
       expected: {
         motorState: {
-          current: A(34.223).toDict(),
-          power: W(260.7737).toDict(),
-          rpm: rpm(14019.6667).toDict(),
-          torque: Nm(0.1776).toDict(),
+          current: A(37.78).toDict(),
+          power: W(278.16).toDict(),
+          rpm: rpm(13519.879).toDict(),
+          torque: Nm(0.1965).toDict(),
           voltage: V(12).toDict(),
         },
-        position: deg(90.029).toDict(),
-        time: s(0.2195).toDict(),
+        position: deg(90.2719).toDict(),
+        time: s(0.233).toDict(),
       } as MomentaryArmState,
     },
   ])(
@@ -142,6 +145,7 @@ describe("armMath", () => {
       startAngle_,
       endAngle_,
       iterationLimit,
+      efficiency,
       expected,
     }) => {
       const armStates = calculateArmStates(
@@ -152,6 +156,7 @@ describe("armMath", () => {
         currentLimit_,
         startAngle_,
         endAngle_,
+        efficiency,
         iterationLimit,
       );
       expect(armStates.length).toBeGreaterThan(0);
