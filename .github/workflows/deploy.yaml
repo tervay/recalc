@@ -52,7 +52,7 @@ jobs:
         uses: cypress-io/github-action@v4.2.0
         with:
           install: false
-          start: yarn start
+          start: yarn serve
           wait-on: "http://localhost:3000"
           wait-on-timeout: 60
           record: false
@@ -85,7 +85,7 @@ jobs:
         uses: cypress-io/github-action@v4.2.0
         with:
           install: false
-          start: yarn start
+          start: yarn serve
           wait-on: "http://localhost:3000"
           wait-on-timeout: 60
           record: false
