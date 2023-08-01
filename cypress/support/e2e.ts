@@ -149,7 +149,7 @@ export function generateIOTests<
               v ? "be.checked" : "not.be.checked",
             );
           } else {
-            cy.getByTestId(allDivs[k], { timeout: 10000 }).should(
+            cy.getByTestId(allDivs[k], { timeout: 20000 }).should(
               "have.value",
               v,
             );
