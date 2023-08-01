@@ -93,7 +93,7 @@
     "@types/tinycolor2": "^1.4.3",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
-    "@vitejs/plugin-react": "^4.0.3",
+    "@vitejs/plugin-react": "^4.0.4",
     "@vitest/coverage-istanbul": "^0.33.0",
     "cypress": "^12.17.2",
     "eslint": "^7.32.0",
