@@ -3999,10 +3999,10 @@ make-dir@^4.0.0:
   dependencies:
     semver "^7.5.3"
 
-marked@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-6.0.0.tgz#80cd7f51145437cffe9f541a318b9882f75601df"
-  integrity sha512-7E3m/xIlymrFL5gWswIT4CheIE3fDeh51NV09M4x8iOc7NDYlyERcQMLAIHcSlrvwliwbPQ4OGD+MpPSYiQcqw==
+marked@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-7.0.0.tgz#5328f52c9197b93f1d3e3b49e0522afa5069c653"
+  integrity sha512-7Gv1Ry8tqR352ElQOQfxdGpIh8kNZh/yYjNCxAQCN1DDbY4bCTG3qDCSkZWlRElSseeEILDxkY/G9w7cgziBNw==
 
 merge-stream@^2.0.0:
   version "2.0.0"
