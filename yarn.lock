@@ -3859,10 +3859,10 @@ jake@^10.8.5:
     filelist "^1.0.1"
     minimatch "^3.0.4"
 
-js-quantities@^1.7.6:
-  version "1.7.6"
-  resolved "https://registry.yarnpkg.com/js-quantities/-/js-quantities-1.7.6.tgz#e892de0c70afa443fc7cd593016f00de2bd3b0cf"
-  integrity sha512-h6TH1xK1u/zdjD26M6kKVthZONJSDTIRzrohbqOILfJAyanWHGlJLWuAWkSMtqi8k/IxshStsc97Pkf8SL9yvA==
+js-quantities@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/js-quantities/-/js-quantities-1.8.0.tgz#32d8c447796574c1ab359d5bba64ab9c7575a7fc"
+  integrity sha512-swDw9RJpXACAWR16vAKoSojAsP6NI7cZjjnjKqhOyZSdybRUdmPr071foD3fejUKSU2JMHz99hflWkRWvfLTpQ==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
