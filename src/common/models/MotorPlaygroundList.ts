@@ -36,7 +36,7 @@ export class MotorPlaygroundEntry extends Model {
     const motorStates = gappedRange(
       0,
       this.motor.kV.mul(this.voltage).to("rpm").scalar,
-      100,
+      300,
     ).map((n) =>
       new MotorRules(this.motor, this.currentLimit, {
         voltage: this.voltage,

@@ -1,16 +1,19 @@
+import Tippy from "@tippyjs/react";
 import Table from "common/components/styling/Table";
 import { A, lb } from "common/models/ExtraTypes";
 import Measurement from "common/models/Measurement";
 import Motor, { nominalVoltage } from "common/models/Motor";
 import { MotorRules } from "common/models/Rules";
 import { useMemo } from "react";
+import { animateFill } from "tippy.js";
 import { Replace } from "ts-toolbelt/out/Object/Replace";
 import { Select } from "ts-toolbelt/out/Object/Select";
 
 type MotorRow = {
   power30A: string;
-  power40A: string;
-  power50A: string;
+  power45A: string;
+  power60A: string;
+  power75A: string;
   powerWeightRatio: string;
   nameLink: JSX.Element;
 } & Replace<Select<Omit<Motor, "maxPower">, Measurement>, Measurement, string>;
@@ -36,7 +39,7 @@ function getPeakPowerAtCurrentLimit(
 }
 
 function getPowerWeightRatio(motor: Motor): string {
-  for (let i = 50; i > 0; i--) {
+  for (let i = 75; i > 0; i--) {
     const power = new MotorRules(motor, new Measurement(i, "A"), {
       current: new Measurement(i, "A"),
       voltage: nominalVoltage,
@@ -60,8 +63,9 @@ function getRowForMotor(motor: Motor): MotorRow {
     stallTorque: motor.stallTorque.to("N*m").scalar.toFixed(2),
     weight: adjustedWeight(motor).to("lbs").scalar.toFixed(2),
     power30A: getPeakPowerAtCurrentLimit(motor, A(30)),
-    power40A: getPeakPowerAtCurrentLimit(motor, A(40)),
-    power50A: getPeakPowerAtCurrentLimit(motor, A(50)),
+    power45A: getPeakPowerAtCurrentLimit(motor, A(45)),
+    power60A: getPeakPowerAtCurrentLimit(motor, A(60)),
+    power75A: getPeakPowerAtCurrentLimit(motor, A(75)),
     powerWeightRatio: getPowerWeightRatio(motor),
     nameLink: (
       <a target={"_blank"} href={motor.url}>
@@ -90,7 +94,16 @@ export default function SpecTable(): JSX.Element {
           accessor: "nameLink",
         },
         {
-          Header: "Weight (lb)",
+          Header: () => (
+            <Tippy
+              content={"Non-Falcons have 0.25lbs added for speed controllers."}
+              animateFill
+              plugins={[animateFill]}
+              allowHTML
+            >
+              <span className="underline-for-tooltip">{"Weight (lb)"}</span>
+            </Tippy>
+          ),
           accessor: "weight",
         },
         {
@@ -114,16 +127,20 @@ export default function SpecTable(): JSX.Element {
           accessor: "freeCurrent",
         },
         {
-          Header: `Peak power at 30A (W)`,
+          Header: `Peak power (30A) (W)`,
           accessor: "power30A",
         },
         {
-          Header: `Peak power at 40A (W)`,
-          accessor: "power40A",
+          Header: `Peak power (45A) (W)`,
+          accessor: "power45A",
         },
         {
-          Header: `Peak power at 50A (W)`,
-          accessor: "power50A",
+          Header: `Peak power (60A) (W)`,
+          accessor: "power60A",
+        },
+        {
+          Header: `Peak power (75A) (W)`,
+          accessor: "power75A",
         },
         {
           Header: "Peak power : weight ratio (W/lb)",

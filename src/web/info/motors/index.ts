@@ -48,7 +48,7 @@ export const MotorPlaygroundParams = {
 export type MotorPlaygroundState = Stateify<typeof MotorPlaygroundParams>;
 
 const maxTorque = 6;
-const maxPower = 600;
+const maxPower = 700;
 const maxCurrent = 120;
 // const maxRpm = 19500;
 
