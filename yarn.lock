@@ -804,10 +804,10 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.11.tgz#d421b6c527a3037f7c84433fd2c4229e016863d3"
   integrity sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==
 
-"@types/katex@^0.16.2":
-  version "0.16.2"
-  resolved "https://registry.yarnpkg.com/@types/katex/-/katex-0.16.2.tgz#aa56983b722ccbc4aa81d11d117aa9c687b69b73"
-  integrity sha512-dHsSjSlU/EWEEbeNADr3FtZZOAXPkFPUO457QCnoNqcZQXNqNEu/svQd0Nritvd3wNff4vvC/f4e6xgX3Llt8A==
+"@types/katex@^0.16.3":
+  version "0.16.3"
+  resolved "https://registry.yarnpkg.com/@types/katex/-/katex-0.16.3.tgz#a341c89705145b7dd8e2a133b282a133eabe6076"
+  integrity sha512-CeVMX9EhVUW8MWnei05eIRks4D5Wscw/W9Byz1s3PA+yJvcdvq9SaDjiUKvRvEgjpdTyJMjQA43ae4KTwsvOPg==
 
 "@types/lodash.clonedeep@^4.5.6":
   version "4.5.7"
