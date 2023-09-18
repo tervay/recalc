@@ -794,10 +794,10 @@
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.11.tgz#56588b17ae8f50c53983a524fc3cc47437969d64"
   integrity sha512-qjDJRrmvBMiTx+jyLxvLfJU7UznFuokDv4f3WRuriHKERccVpFU+8XMQUAbDzoiJCsmexxRExQeMwwCdamSKDA==
 
-"@types/js-quantities@^1.6.3":
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/@types/js-quantities/-/js-quantities-1.6.3.tgz#b75175a6852ce7da5530e2bbdedf87c9d2c8e460"
-  integrity sha512-YwBhHz9Ad7GH/hvg8P9qoKoqG5+xYsM2AQpb96jCDS9HbIj3m24RPgoY2xKPUd5LYAIkaL26igRQQrETf4Gwxg==
+"@types/js-quantities@^1.6.4":
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/@types/js-quantities/-/js-quantities-1.6.4.tgz#83eb7002aa8f61a74fb4a88c4f3123518309dcc2"
+  integrity sha512-RIt4M6IC8tzECoF4K0Q4cDJAKy1XIhIvDJqKBbMs6O+ltNv/yTQbo4uTdheCP6/MHe04tWLrKIY7NMAEj8TAbA==
 
 "@types/json-schema@^7.0.9":
   version "7.0.11"
