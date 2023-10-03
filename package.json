@@ -21,7 +21,7 @@
     "crypto-js": "^4.1.1",
     "fast-cartesian": "^8.0.0",
     "js-quantities": "^1.8.0",
-    "katex": "^0.16.8",
+    "katex": "^0.16.9",
     "lodash": "^4.17.21",
     "lz-string": "^1.5.0",
     "marked": "^8.0.1",
