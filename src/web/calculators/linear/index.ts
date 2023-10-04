@@ -26,6 +26,8 @@ export const LinearParamsV1 = {
   load: withDefault(MeasurementParam, new Measurement(120, "lb")),
   ratio: withDefault(RatioParam, new Ratio(2, RatioType.REDUCTION)),
   efficiency: withDefault(NumberParam, 100),
+  currentLimit: withDefault(MeasurementParam, new Measurement(30, "A")),
+  angle: withDefault(MeasurementParam, new Measurement(90, "deg")),
 };
 export type LinearStateV1 = Stateify<typeof LinearParamsV1>;
 
