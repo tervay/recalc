@@ -22,6 +22,141 @@ export function calculateUnloadedSpeed(
     .to("ft/s");
 }
 
+interface MotionProfile {
+  accelerationPhaseDuration: Measurement;
+  constantVelocityPhaseDuration: Measurement;
+  decelerationPhaseDuration: Measurement;
+  topSpeed: Measurement;
+}
+
+function planTrapezoidalMotionProfile(
+  distance: Measurement,
+  motorTorque: Measurement,
+  maxVelocity: Measurement,
+  systemMass: Measurement,
+  spoolDiameter: Measurement,
+  angle: Measurement,
+): MotionProfile {
+  if (Measurement.anyAreZero(spoolDiameter, systemMass)) {
+    return {
+      accelerationPhaseDuration: new Measurement(0, "s"),
+      constantVelocityPhaseDuration: new Measurement(0, "s"),
+      decelerationPhaseDuration: new Measurement(0, "s"),
+      topSpeed: new Measurement(0, "m/s"),
+    };
+  }
+
+  const observedMotorForce = motorTorque.div(spoolDiameter.div(2));
+  const gravityForce = Measurement.GRAVITY.mul(systemMass).mul(
+    Math.sin(angle.to("rad").scalar),
+  );
+  const carriageMaxVelocity = maxVelocity
+    .mul(spoolDiameter.mul(Math.PI))
+    .div(new Measurement(360, "deg"));
+
+  // Calculate the distance
+  // Calculate time to reach maximum velocity (half of the total distance)
+  const effectiveAcceleration = observedMotorForce
+    .add(gravityForce)
+    .div(systemMass);
+
+  // Calculate time to reach maximum velocity (half of the total distance)
+  const timeToMaxVelocity = carriageMaxVelocity.div(effectiveAcceleration);
+
+  // Calculate the distance covered during the acceleration phase
+  const distanceDuringAcceleration = effectiveAcceleration
+    .mul(0.5)
+    .mul(timeToMaxVelocity)
+    .mul(timeToMaxVelocity);
+
+  if (distanceDuringAcceleration.gte(distance.div(2))) {
+    const x = distance.mul(2).div(effectiveAcceleration);
+    const t = new Measurement(Math.sqrt(x.to("s2").scalar), "s");
+
+    return {
+      accelerationPhaseDuration: t,
+      constantVelocityPhaseDuration: new Measurement(0, "s"),
+      decelerationPhaseDuration: t,
+      topSpeed: new Measurement(0, "m/s"),
+    };
+  }
+
+  // Calculate the distance covered during the deceleration phase
+  const distanceDuringDeceleration = distanceDuringAcceleration;
+
+  // Calculate the distance covered during the constant velocity phase
+  const distanceDuringConstantVelocity = distance
+    .sub(distanceDuringAcceleration)
+    .sub(distanceDuringDeceleration);
+
+  // Calculate the time for the constant velocity phase
+  const timeForConstantVelocity =
+    distanceDuringConstantVelocity.div(carriageMaxVelocity);
+
+  // Calculate the durations of each phase
+  const accelerationPhaseDuration = timeToMaxVelocity;
+  const constantVelocityPhaseDuration = timeForConstantVelocity;
+  const decelerationPhaseDuration = timeToMaxVelocity;
+
+  return {
+    accelerationPhaseDuration: accelerationPhaseDuration.to("s"),
+    constantVelocityPhaseDuration: constantVelocityPhaseDuration.to("s"),
+    decelerationPhaseDuration: decelerationPhaseDuration.to("s"),
+    topSpeed: new Measurement(0, "m/s"),
+  };
+}
+
+export function calculateProfiledTimeToGoal(
+  motor: Motor,
+  currentLimit: Measurement,
+  ratio: Ratio,
+  spoolDiameter: Measurement,
+  load: Measurement,
+  travelDistance: Measurement,
+  angle: Measurement,
+  efficiency: number,
+): MotionProfile & {
+  smartTimeToGoal: Measurement;
+} {
+  const profile = planTrapezoidalMotionProfile(
+    travelDistance,
+    motor.kT
+      .mul(Measurement.min(currentLimit, motor.stallCurrent))
+      .mul(motor.quantity)
+      .mul(ratio.asNumber())
+      .mul(efficiency / 100),
+    motor.freeSpeed.div(ratio.asNumber()),
+    load,
+    spoolDiameter,
+    angle,
+  );
+
+  let smartTTG;
+
+  if (
+    profile.accelerationPhaseDuration.lte(new Measurement(0, "s")) ||
+    profile.decelerationPhaseDuration.lte(new Measurement(0, "s"))
+  ) {
+    smartTTG = new Measurement(0, "s");
+    profile.accelerationPhaseDuration = new Measurement(0, "s");
+    profile.decelerationPhaseDuration = new Measurement(0, "s");
+    profile.constantVelocityPhaseDuration = new Measurement(0, "s");
+  } else if (
+    profile.constantVelocityPhaseDuration.lte(new Measurement(0, "s"))
+  ) {
+    profile.constantVelocityPhaseDuration = new Measurement(0, "s");
+    smartTTG = profile.accelerationPhaseDuration.add(
+      profile.decelerationPhaseDuration,
+    );
+  } else {
+    smartTTG = profile.accelerationPhaseDuration
+      .add(profile.constantVelocityPhaseDuration)
+      .add(profile.decelerationPhaseDuration);
+  }
+
+  return { ...profile, smartTimeToGoal: smartTTG };
+}
+
 export function calculateDragLoad(
   motor: Motor,
   spoolDiameter: Measurement,

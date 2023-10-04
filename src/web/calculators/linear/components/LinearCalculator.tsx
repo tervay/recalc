@@ -26,11 +26,7 @@ import {
 import { LinearState } from "web/calculators/linear/converter";
 import {
   LinearWorkerFunctions,
-  calculateCurrentDraw,
-  calculateDragLoad,
-  calculateLoadedSpeed,
-  calculateTimeToGoal,
-  calculateUnloadedSpeed,
+  calculateProfiledTimeToGoal,
 } from "web/calculators/linear/linearMath";
 import rawWorker from "web/calculators/linear/linearMath?worker";
 import KgKvKaDisplay from "web/calculators/shared/components/KgKvKaDisplay";
@@ -45,42 +41,28 @@ const worker = await wrap<LinearWorkerFunctions>(new rawWorker());
 export default function LinearCalculator(): JSX.Element {
   const [get, set] = useGettersSetters(LinearState.getState() as LinearStateV1);
 
-  const unloadedSpeed = useMemo(
-    () => calculateUnloadedSpeed(get.motor, get.spoolDiameter, get.ratio),
-    [get.motor, get.spoolDiameter, get.ratio],
-  );
-
-  const loadedSpeed = useMemo(
+  const profiledTimeToGoal = useMemo(
     () =>
-      calculateLoadedSpeed(
+      calculateProfiledTimeToGoal(
         get.motor,
-        get.spoolDiameter,
+        get.currentLimit,
         get.ratio,
-        get.efficiency,
+        get.spoolDiameter,
         get.load,
-      ),
-    [get.motor, get.spoolDiameter, get.ratio, get.efficiency, get.load],
-  );
-
-  const unloadedTimeToGoal = useMemo(
-    () => calculateTimeToGoal(unloadedSpeed, get.travelDistance),
-    [get.travelDistance, unloadedSpeed],
-  );
-
-  const loadedTimeToGoal = useMemo(
-    () => calculateTimeToGoal(loadedSpeed, get.travelDistance),
-    [get.travelDistance, loadedSpeed],
-  );
-
-  const dragLoad = useMemo(
-    () =>
-      calculateDragLoad(
-        get.motor,
-        get.spoolDiameter,
-        get.ratio,
+        get.travelDistance,
+        get.angle,
         get.efficiency,
-      ).negate(),
-    [get.motor, get.spoolDiameter, get.ratio, get.efficiency],
+      ),
+    [
+      get.motor,
+      get.currentLimit,
+      get.ratio,
+      get.spoolDiameter,
+      get.load,
+      get.travelDistance,
+      get.efficiency,
+      get.angle,
+    ],
   );
 
   const timeToGoalStates = useAsyncMemo(
@@ -114,12 +96,6 @@ export default function LinearCalculator(): JSX.Element {
         get.ratio.toDict(),
       ),
     [get.motor, get.spoolDiameter, get.load, get.ratio, get.efficiency],
-  );
-
-  const currentDraw = useMemo(
-    () =>
-      calculateCurrentDraw(get.motor, get.spoolDiameter, get.load, get.ratio),
-    [get.motor, get.spoolDiameter, get.load, get.ratio],
   );
 
   const kG = useMemo(
@@ -226,84 +202,90 @@ export default function LinearCalculator(): JSX.Element {
           >
             <MeasurementInput stateHook={[get.load, set.setLoad]} />
           </SingleInputLine>
+          <SingleInputLine label="Current Limit" id="currentLimit" tooltip="">
+            <MeasurementInput
+              stateHook={[get.currentLimit, set.setCurrentLimit]}
+              dangerIf={() => get.currentLimit.gte(get.motor.stallCurrent)}
+              warningIf={() =>
+                get.currentLimit
+                  .mul(get.currentLimit)
+                  .mul(profiledTimeToGoal.smartTimeToGoal)
+                  .gte(
+                    new Measurement(40, "A")
+                      .mul(new Measurement(40, "A"))
+                      .mul(new Measurement(10, "s")),
+                  )
+              }
+            />
+          </SingleInputLine>
+          <SingleInputLine label="Angle" id="angle" tooltip="">
+            <MeasurementInput stateHook={[get.angle, set.setAngle]} />
+          </SingleInputLine>
+
           <Columns formColumns>
             <Column>
               <SingleInputLine
-                label="Loaded Top Speed&nbsp;&nbsp;&nbsp;"
+                label="Accel Time"
+                id="profiledTTG"
+                tooltip="The amount of weight the system can handle before stalling."
+              >
+                <MeasurementOutput
+                  stateHook={[
+                    profiledTimeToGoal.accelerationPhaseDuration,
+                    () => undefined,
+                  ]}
+                  numberRoundTo={2}
+                  defaultUnit="s"
+                />
+              </SingleInputLine>
+            </Column>
+            <Column>
+              <SingleInputLine
+                label="Cruise Time"
+                id="profiledTTG"
+                tooltip="The amount of weight the system can handle before stalling."
+              >
+                <MeasurementOutput
+                  stateHook={[
+                    profiledTimeToGoal.constantVelocityPhaseDuration,
+                    () => undefined,
+                  ]}
+                  numberRoundTo={2}
+                  defaultUnit="s"
+                />
+              </SingleInputLine>
+            </Column>
+          </Columns>
+
+          <Columns formColumns>
+            <Column>
+              <SingleInputLine
+                label="Time to Goal"
                 id="loadedTopSpeed"
                 tooltip="How fast the system travels under expected load."
               >
                 <MeasurementOutput
-                  stateHook={[loadedSpeed, () => undefined]}
+                  stateHook={[
+                    profiledTimeToGoal.smartTimeToGoal,
+                    () => undefined,
+                  ]}
                   numberRoundTo={2}
-                  dangerIf={() => loadedSpeed.lte(new Measurement(0, "ft/s"))}
                 />
               </SingleInputLine>
             </Column>
             <Column>
               <SingleInputLine
-                label="Time To Goal"
+                label="Max Velocity"
                 id="loadedTimeToGoal"
                 tooltip="How long the system takes to travel the target distance under expected load."
               >
                 <MeasurementOutput
-                  stateHook={[loadedTimeToGoal, () => undefined]}
+                  stateHook={[profiledTimeToGoal.topSpeed, () => undefined]}
                   numberRoundTo={2}
-                  dangerIf={() => loadedSpeed.lte(new Measurement(0, "ft/s"))}
                 />
               </SingleInputLine>
             </Column>
           </Columns>
-          <Columns formColumns>
-            <Column>
-              <SingleInputLine
-                label="Unloaded Top Speed"
-                id="unloadedTopSpeed"
-                tooltip="How fast the system would travel if no load were present."
-              >
-                <MeasurementOutput
-                  stateHook={[unloadedSpeed, () => undefined]}
-                  numberRoundTo={2}
-                  dangerIf={() => unloadedSpeed.lte(new Measurement(0, "ft/s"))}
-                />
-              </SingleInputLine>
-            </Column>
-            <Column>
-              <SingleInputLine
-                label="Time To Goal"
-                id="unloadedTimeToGoal"
-                tooltip="How long the system takes to travel the target distance if no load were present."
-              >
-                <MeasurementOutput
-                  stateHook={[unloadedTimeToGoal, () => undefined]}
-                  numberRoundTo={2}
-                  dangerIf={() => unloadedSpeed.lte(new Measurement(0, "ft/s"))}
-                />
-              </SingleInputLine>
-            </Column>
-          </Columns>
-          <SingleInputLine
-            label="Stall Load"
-            id="stallLoad"
-            tooltip="The amount of weight the system can handle before stalling."
-          >
-            <MeasurementOutput
-              stateHook={[dragLoad, () => undefined]}
-              numberRoundTo={2}
-              defaultUnit="lbs"
-            />
-          </SingleInputLine>
-          <SingleInputLine
-            label="Estimated Current Draw"
-            id="currentDraw"
-            tooltip="The estimated current draw per motor."
-          >
-            <MeasurementOutput
-              stateHook={[currentDraw, () => undefined]}
-              numberRoundTo={1}
-              defaultUnit="A"
-            />
-          </SingleInputLine>
           <KgKvKaDisplay kG={kG} kV={kV} kA={kA} distanceType={"linear"} />
         </Column>
         <Column>
