@@ -89,6 +89,8 @@ export default class Measurement extends Model {
         return ["rpm"];
       case "power":
         return ["W", "hp"];
+      case "acceleration":
+        return ["in/s2", "ft/s2", "m/s2"];
     }
 
     if (m.kind() === undefined) {
@@ -324,5 +326,11 @@ export default class Measurement extends Model {
   }
   static CIRCLE_DOWN_LEFT(): Measurement {
     return new Measurement(315, "deg");
+  }
+
+  static STANDARD_BREAKER_ESTIMATE_I2T(): Measurement {
+    return new Measurement(40, "A")
+      .mul(new Measurement(40, "A"))
+      .mul(new Measurement(10, "s"));
   }
 }

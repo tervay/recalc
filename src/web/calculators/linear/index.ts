@@ -21,34 +21,34 @@ export default linearConfig;
 
 export const LinearParamsV1 = {
   motor: withDefault(MotorParam, Motor.NEOs(2)),
-  travelDistance: withDefault(MeasurementParam, new Measurement(40, "in")),
+  travelDistance: withDefault(MeasurementParam, new Measurement(60, "in")),
   spoolDiameter: withDefault(MeasurementParam, new Measurement(1, "in")),
-  load: withDefault(MeasurementParam, new Measurement(120, "lb")),
+  load: withDefault(MeasurementParam, new Measurement(15, "lb")),
   ratio: withDefault(RatioParam, new Ratio(2, RatioType.REDUCTION)),
   efficiency: withDefault(NumberParam, 100),
-  currentLimit: withDefault(MeasurementParam, new Measurement(30, "A")),
+  currentLimit: withDefault(MeasurementParam, new Measurement(40, "A")),
   angle: withDefault(MeasurementParam, new Measurement(90, "deg")),
 };
 export type LinearStateV1 = Stateify<typeof LinearParamsV1>;
 
 export const linearGraphConfig = GraphConfig.options(
   {
-    "y-current": {
-      type: "linear",
-      position: "right",
-      beginAtZero: true,
-      title: {
-        display: true,
-        text: "Current Draw per Motor (A)",
-      },
-    },
-    "y-time": {
+    "y-position": {
       type: "linear",
       position: "left",
       beginAtZero: true,
       title: {
         display: true,
-        text: "Loaded Time to Goal (s)",
+        text: "Position (in)",
+      },
+    },
+    "y-velocity": {
+      type: "linear",
+      position: "left",
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: "Velocity (in/s)",
       },
     },
     x: {
@@ -56,7 +56,7 @@ export const linearGraphConfig = GraphConfig.options(
       beginAtZero: true,
       title: {
         display: true,
-        text: "Ratio Magnitude",
+        text: "Time (s)",
       },
     },
   },

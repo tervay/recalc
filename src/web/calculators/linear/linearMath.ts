@@ -3,46 +3,45 @@ import Measurement, { MeasurementDict } from "common/models/Measurement";
 import Motor, { MotorDict } from "common/models/Motor";
 import Ratio, { RatioDict } from "common/models/Ratio";
 import { expose } from "common/tooling/promise-worker";
-import { fixFloatingPoint } from "common/tooling/util";
-
-export function calculateUnloadedSpeed(
-  motor: Motor,
-  spoolDiameter: Measurement,
-  ratio: Ratio,
-): Measurement {
-  if ([ratio.asNumber(), motor.quantity].includes(0)) {
-    return new Measurement(0, "ft/s");
-  }
-
-  return motor.freeSpeed
-    .div(ratio.asNumber())
-    .mul(spoolDiameter)
-    .mul(Math.PI)
-    .div(new Measurement(360, "deg"))
-    .to("ft/s");
-}
 
 interface MotionProfile {
   accelerationPhaseDuration: Measurement;
   constantVelocityPhaseDuration: Measurement;
   decelerationPhaseDuration: Measurement;
-  topSpeed: Measurement;
+  maxVelocity: Measurement;
+  acceleration: Measurement;
+  deceleration: Measurement;
+}
+
+interface TrapezoidalProfileParams {
+  distance: Measurement;
+  motorTorque: Measurement;
+  maxVelocity: Measurement;
+  systemMass: Measurement;
+  spoolDiameter: Measurement;
+  angle: Measurement;
 }
 
 function planTrapezoidalMotionProfile(
-  distance: Measurement,
-  motorTorque: Measurement,
-  maxVelocity: Measurement,
-  systemMass: Measurement,
-  spoolDiameter: Measurement,
-  angle: Measurement,
+  params: TrapezoidalProfileParams,
 ): MotionProfile {
+  const {
+    spoolDiameter,
+    systemMass,
+    angle,
+    distance,
+    maxVelocity,
+    motorTorque,
+  } = params;
+
   if (Measurement.anyAreZero(spoolDiameter, systemMass)) {
     return {
       accelerationPhaseDuration: new Measurement(0, "s"),
       constantVelocityPhaseDuration: new Measurement(0, "s"),
       decelerationPhaseDuration: new Measurement(0, "s"),
-      topSpeed: new Measurement(0, "m/s"),
+      maxVelocity: new Measurement(0, "m/s"),
+      acceleration: new Measurement(0, "m/s2"),
+      deceleration: new Measurement(0, "m/s2"),
     };
   }
 
@@ -60,6 +59,12 @@ function planTrapezoidalMotionProfile(
     .add(gravityForce)
     .div(systemMass);
 
+  const effectiveDeceleration = observedMotorForce
+    .negate()
+    .add(gravityForce)
+    .div(systemMass)
+    .negate();
+
   // Calculate time to reach maximum velocity (half of the total distance)
   const timeToMaxVelocity = carriageMaxVelocity.div(effectiveAcceleration);
 
@@ -69,20 +74,31 @@ function planTrapezoidalMotionProfile(
     .mul(timeToMaxVelocity)
     .mul(timeToMaxVelocity);
 
-  if (distanceDuringAcceleration.gte(distance.div(2))) {
-    const x = distance.mul(2).div(effectiveAcceleration);
+  const timeToSlowFromMaxVelocity = carriageMaxVelocity.div(
+    effectiveDeceleration,
+  );
+
+  // Calculate the distance covered during the deceleration phase
+  const distanceDuringDeceleration = effectiveDeceleration
+    .mul(0.5)
+    .mul(timeToSlowFromMaxVelocity)
+    .mul(timeToSlowFromMaxVelocity);
+
+  if (
+    distanceDuringAcceleration.add(distanceDuringDeceleration).gte(distance)
+  ) {
+    const x = distance.div(2).mul(2).div(effectiveAcceleration);
     const t = new Measurement(Math.sqrt(x.to("s2").scalar), "s");
 
     return {
       accelerationPhaseDuration: t,
       constantVelocityPhaseDuration: new Measurement(0, "s"),
       decelerationPhaseDuration: t,
-      topSpeed: new Measurement(0, "m/s"),
+      maxVelocity: t.mul(effectiveAcceleration),
+      acceleration: effectiveAcceleration,
+      deceleration: effectiveDeceleration,
     };
   }
-
-  // Calculate the distance covered during the deceleration phase
-  const distanceDuringDeceleration = distanceDuringAcceleration;
 
   // Calculate the distance covered during the constant velocity phase
   const distanceDuringConstantVelocity = distance
@@ -96,13 +112,18 @@ function planTrapezoidalMotionProfile(
   // Calculate the durations of each phase
   const accelerationPhaseDuration = timeToMaxVelocity;
   const constantVelocityPhaseDuration = timeForConstantVelocity;
-  const decelerationPhaseDuration = timeToMaxVelocity;
+  const decelerationPhaseDuration = timeToSlowFromMaxVelocity;
+
+  console.log(decelerationPhaseDuration.to("s").format());
+  console.log(distanceDuringDeceleration.to("in").format());
 
   return {
     accelerationPhaseDuration: accelerationPhaseDuration.to("s"),
     constantVelocityPhaseDuration: constantVelocityPhaseDuration.to("s"),
     decelerationPhaseDuration: decelerationPhaseDuration.to("s"),
-    topSpeed: new Measurement(0, "m/s"),
+    maxVelocity: accelerationPhaseDuration.mul(effectiveAcceleration),
+    acceleration: effectiveAcceleration,
+    deceleration: effectiveDeceleration,
   };
 }
 
@@ -117,27 +138,27 @@ export function calculateProfiledTimeToGoal(
   efficiency: number,
 ): MotionProfile & {
   smartTimeToGoal: Measurement;
+  maxVelocity: Measurement;
 } {
-  const profile = planTrapezoidalMotionProfile(
-    travelDistance,
-    motor.kT
+  const profile = planTrapezoidalMotionProfile({
+    distance: travelDistance,
+    motorTorque: motor.kT
       .mul(Measurement.min(currentLimit, motor.stallCurrent))
       .mul(motor.quantity)
       .mul(ratio.asNumber())
       .mul(efficiency / 100),
-    motor.freeSpeed.div(ratio.asNumber()),
-    load,
+    maxVelocity: motor.freeSpeed.div(ratio.asNumber()),
+    systemMass: load,
     spoolDiameter,
     angle,
-  );
+  });
 
-  let smartTTG;
-
+  let smartTimeToGoal;
   if (
     profile.accelerationPhaseDuration.lte(new Measurement(0, "s")) ||
     profile.decelerationPhaseDuration.lte(new Measurement(0, "s"))
   ) {
-    smartTTG = new Measurement(0, "s");
+    smartTimeToGoal = new Measurement(0, "s");
     profile.accelerationPhaseDuration = new Measurement(0, "s");
     profile.decelerationPhaseDuration = new Measurement(0, "s");
     profile.constantVelocityPhaseDuration = new Measurement(0, "s");
@@ -145,172 +166,129 @@ export function calculateProfiledTimeToGoal(
     profile.constantVelocityPhaseDuration.lte(new Measurement(0, "s"))
   ) {
     profile.constantVelocityPhaseDuration = new Measurement(0, "s");
-    smartTTG = profile.accelerationPhaseDuration.add(
+    smartTimeToGoal = profile.accelerationPhaseDuration.add(
       profile.decelerationPhaseDuration,
     );
   } else {
-    smartTTG = profile.accelerationPhaseDuration
+    smartTimeToGoal = profile.accelerationPhaseDuration
       .add(profile.constantVelocityPhaseDuration)
       .add(profile.decelerationPhaseDuration);
   }
 
-  return { ...profile, smartTimeToGoal: smartTTG };
-}
-
-export function calculateDragLoad(
-  motor: Motor,
-  spoolDiameter: Measurement,
-  ratio: Ratio,
-  efficiency: number,
-): Measurement {
-  if ([spoolDiameter.scalar].includes(0)) {
-    return new Measurement(0, "lb");
-  }
-
-  return motor.stallTorque
-    .mul(motor.quantity)
-    .mul(ratio.asNumber())
-    .mul(efficiency / 100)
-    .div(spoolDiameter.div(2))
-    .div(Measurement.GRAVITY);
-}
-
-export function calculateLoadedSpeed(
-  motor: Motor,
-  spoolDiameter: Measurement,
-  ratio: Ratio,
-  efficiency: number,
-  load: Measurement,
-): Measurement {
-  const dragLoad = calculateDragLoad(motor, spoolDiameter, ratio, efficiency);
-
-  if ([ratio.asNumber(), dragLoad.scalar].includes(0)) {
-    return new Measurement(0, "ft/s");
-  }
-
-  const topSpeed = motor.freeSpeed.div(ratio.asNumber());
-  const term1 = topSpeed.div(dragLoad).mul(load);
-  const wraparoundDistance = spoolDiameter.mul(Math.PI);
-
-  return term1
-    .add(topSpeed)
-    .mul(wraparoundDistance)
-    .div(new Measurement(360, "deg"))
-    .to("ft/s");
-}
-
-export function calculateTimeToGoal(
-  speed: Measurement,
-  distance: Measurement,
-): Measurement {
-  if (speed.lte(new Measurement(0, "ft/s"))) {
-    return new Measurement(0, "s");
-  }
-
-  return distance.div(speed).to("s");
-}
-
-export function calculateCurrentDraw(
-  motor: Motor,
-  spoolDiameter: Measurement,
-  load: Measurement,
-  ratio: Ratio,
-): Measurement {
-  if ([ratio.asNumber(), motor.quantity].includes(0)) {
-    return new Measurement(0, "A");
-  }
-  const torqueAtMotor = load.div(ratio.asNumber()).mul(spoolDiameter).div(2);
-  const currentDraw = motor.kT
-    .inverse()
-    .mul(torqueAtMotor)
-    .mul(new Measurement(9.81, "m/s^2"));
-  const totalCurrentDraw = currentDraw.add(
-    motor.freeCurrent.mul(motor.quantity),
-  );
-  return totalCurrentDraw.div(motor.quantity);
+  return { ...profile, smartTimeToGoal };
 }
 
 export function generateTimeToGoalChartData(
   motor_: MotorDict,
-  travelDistance_: MeasurementDict,
+  currentLimit_: MeasurementDict,
+  ratio_: RatioDict,
   spoolDiameter_: MeasurementDict,
   load_: MeasurementDict,
-  ratio_: RatioDict,
+  travelDistance_: MeasurementDict,
+  angle_: MeasurementDict,
   efficiency: number,
-): GraphDataPoint[] {
+): {
+  position: GraphDataPoint[];
+  velocity: GraphDataPoint[];
+} {
   const motor = Motor.fromDict(motor_);
+  const currentLimit = Measurement.fromDict(currentLimit_);
+  const load = Measurement.fromDict(load_);
   const travelDistance = Measurement.fromDict(travelDistance_);
   const spoolDiameter = Measurement.fromDict(spoolDiameter_);
-  const load = Measurement.fromDict(load_);
+  const angle = Measurement.fromDict(angle_);
   const ratio = Ratio.fromDict(ratio_);
 
-  const start = 0.25 * ratio.magnitude;
-  const end = 2.0 * ratio.magnitude;
-  const n = 100;
-  const step = (end - start) / n;
+  const profile = calculateProfiledTimeToGoal(
+    motor,
+    currentLimit,
+    ratio,
+    spoolDiameter,
+    load,
+    travelDistance,
+    angle,
+    efficiency,
+  );
 
-  const getTimeForRatio = (r: Ratio) =>
-    calculateTimeToGoal(
-      calculateLoadedSpeed(motor, spoolDiameter, r, efficiency, load),
-      travelDistance,
+  const timestep = new Measurement(0.005, "s");
+  let t = new Measurement(0, "s");
+  let velocity = new Measurement(0, "m/s");
+  let position = new Measurement(0, "m");
+
+  let timestamps: Measurement[] = [t];
+  let positions: Measurement[] = [position];
+  let velocities: Measurement[] = [velocity];
+
+  while (t.lte(profile.accelerationPhaseDuration)) {
+    t = t.add(timestep);
+    position = position.add(
+      velocity.mul(timestep).add(
+        profile.acceleration
+          .mul(timestep)
+          .mul(timestep)
+          .mul(1 / 2),
+      ),
     );
+    velocity = velocity.add(profile.acceleration.mul(timestep));
 
-  const data: GraphDataPoint[] = [];
-  for (let i = start; i < end; i = fixFloatingPoint(step + i)) {
-    const t = getTimeForRatio(new Ratio(i, ratio.ratioType));
-
-    if (t.scalar >= 0) {
-      data.push({
-        x: i,
-        y: Number(t.to("s").scalar.toFixed(4)),
-      });
-    }
+    positions.push(position);
+    velocities.push(velocity);
+    timestamps.push(t);
   }
 
-  return data;
-}
+  while (
+    t.lte(
+      profile.accelerationPhaseDuration.add(
+        profile.constantVelocityPhaseDuration,
+      ),
+    )
+  ) {
+    t = t.add(timestep);
+    position = position.add(velocity.mul(timestep));
+    velocity = velocity;
 
-export function generateCurrentDrawChartData(
-  motor_: MotorDict,
-  spoolDiameter_: MeasurementDict,
-  load_: MeasurementDict,
-  ratio_: RatioDict,
-): GraphDataPoint[] {
-  const motor = Motor.fromDict(motor_);
-  const spoolDiameter = Measurement.fromDict(spoolDiameter_);
-  const load = Measurement.fromDict(load_);
-  const ratio = Ratio.fromDict(ratio_);
-
-  const start = 0.25 * ratio.magnitude;
-  const end = 2.0 * ratio.magnitude;
-  const n = 100;
-  const step = (end - start) / n;
-
-  const getCurrentDrawForRatio = (r: Ratio) =>
-    calculateCurrentDraw(motor, spoolDiameter, load, r);
-
-  const data: GraphDataPoint[] = [];
-  for (let i = start; i < end; i = fixFloatingPoint(step + i)) {
-    const t = getCurrentDrawForRatio(new Ratio(i, ratio.ratioType)).to("A");
-
-    if (t.scalar >= 0) {
-      data.push({
-        x: i,
-        y: Number(t.scalar.toFixed(4)),
-      });
-    }
+    positions.push(position);
+    velocities.push(velocity);
+    timestamps.push(t);
   }
 
-  return data;
+  while (
+    t.lte(
+      profile.accelerationPhaseDuration
+        .add(profile.constantVelocityPhaseDuration)
+        .add(profile.decelerationPhaseDuration),
+    )
+  ) {
+    t = t.add(timestep);
+    position = position.add(
+      velocity.mul(timestep).add(
+        profile.deceleration
+          .negate()
+          .mul(timestep)
+          .mul(timestep)
+          .mul(1 / 2),
+      ),
+    );
+    velocity = velocity.add(profile.deceleration.negate().mul(timestep));
+
+    positions.push(position);
+    velocities.push(velocity);
+    timestamps.push(t);
+  }
+
+  return {
+    position: positions.map((p, i) => ({
+      y: p.to("in").scalar,
+      x: timestamps[i].to("s").scalar,
+    })),
+    velocity: velocities.map((p, i) => ({
+      y: p.to("in/s").scalar,
+      x: timestamps[i].to("s").scalar,
+    })),
+  };
 }
 
 const workerFunctions = {
-  calculateCurrentDraw,
-  calculateDragLoad,
-  calculateLoadedSpeed,
-  calculateTimeToGoal,
-  calculateUnloadedSpeed,
-  generateCurrentDrawChartData,
   generateTimeToGoalChartData,
 };
 
