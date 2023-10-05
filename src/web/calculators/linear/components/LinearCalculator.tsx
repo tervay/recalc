@@ -65,37 +65,29 @@ export default function LinearCalculator(): JSX.Element {
     ],
   );
 
-  const timeToGoalStates = useAsyncMemo(
-    [] as GraphDataPoint[],
+  const chartData = useAsyncMemo(
+    { position: [] as GraphDataPoint[], velocity: [] as GraphDataPoint[] },
     () =>
       worker.generateTimeToGoalChartData(
         get.motor.toDict(),
-        get.travelDistance.toDict(),
+        get.currentLimit.toDict(),
+        get.ratio.toDict(),
         get.spoolDiameter.toDict(),
         get.load.toDict(),
-        get.ratio.toDict(),
+        get.travelDistance.toDict(),
+        get.angle.toDict(),
         get.efficiency,
       ),
     [
       get.motor,
-      get.travelDistance,
+      get.currentLimit,
+      get.ratio,
       get.spoolDiameter,
       get.load,
-      get.ratio,
+      get.travelDistance,
+      get.angle,
       get.efficiency,
     ],
-  );
-
-  const currentDrawStates = useAsyncMemo(
-    [] as GraphDataPoint[],
-    () =>
-      worker.generateCurrentDrawChartData(
-        get.motor.toDict(),
-        get.spoolDiameter.toDict(),
-        get.load.toDict(),
-        get.ratio.toDict(),
-      ),
-    [get.motor, get.spoolDiameter, get.load, get.ratio, get.efficiency],
   );
 
   const kG = useMemo(
@@ -202,7 +194,11 @@ export default function LinearCalculator(): JSX.Element {
           >
             <MeasurementInput stateHook={[get.load, set.setLoad]} />
           </SingleInputLine>
-          <SingleInputLine label="Current Limit" id="currentLimit" tooltip="">
+          <SingleInputLine
+            label="Current Limit"
+            id="currentLimit"
+            tooltip="Current limit on each motor."
+          >
             <MeasurementInput
               stateHook={[get.currentLimit, set.setCurrentLimit]}
               dangerIf={() => get.currentLimit.gte(get.motor.stallCurrent)}
@@ -210,24 +206,33 @@ export default function LinearCalculator(): JSX.Element {
                 get.currentLimit
                   .mul(get.currentLimit)
                   .mul(profiledTimeToGoal.smartTimeToGoal)
-                  .gte(
-                    new Measurement(40, "A")
-                      .mul(new Measurement(40, "A"))
-                      .mul(new Measurement(10, "s")),
-                  )
+                  .gte(Measurement.STANDARD_BREAKER_ESTIMATE_I2T())
               }
             />
           </SingleInputLine>
-          <SingleInputLine label="Angle" id="angle" tooltip="">
+          <SingleInputLine
+            label="Angle"
+            id="angle"
+            tooltip="Angle of the mechanism. 90 degrees is vertical (upright). 0 degrees is horizontal."
+          >
             <MeasurementInput stateHook={[get.angle, set.setAngle]} />
           </SingleInputLine>
-
+          <SingleInputLine
+            label="Time to Goal"
+            id="timeToGoal"
+            tooltip="How long it takes the system to reach the travel distance."
+          >
+            <MeasurementOutput
+              stateHook={[profiledTimeToGoal.smartTimeToGoal, () => undefined]}
+              numberRoundTo={2}
+            />
+          </SingleInputLine>
           <Columns formColumns>
             <Column>
               <SingleInputLine
                 label="Accel Time"
-                id="profiledTTG"
-                tooltip="The amount of weight the system can handle before stalling."
+                id="accelTime"
+                tooltip="The duration the system is accelerating in the motion profile."
               >
                 <MeasurementOutput
                   stateHook={[
@@ -241,9 +246,27 @@ export default function LinearCalculator(): JSX.Element {
             </Column>
             <Column>
               <SingleInputLine
+                label="Decel Time"
+                id="decelTime"
+                tooltip="The duration the system is decelerating in the motion profile."
+              >
+                <MeasurementOutput
+                  stateHook={[
+                    profiledTimeToGoal.decelerationPhaseDuration,
+                    () => undefined,
+                  ]}
+                  numberRoundTo={2}
+                  defaultUnit="s"
+                />
+              </SingleInputLine>
+            </Column>
+          </Columns>
+          <Columns formColumns>
+            <Column>
+              <SingleInputLine
                 label="Cruise Time"
-                id="profiledTTG"
-                tooltip="The amount of weight the system can handle before stalling."
+                id="cruiseTime"
+                tooltip="The duration the system is cruising at max velocity in the motion profile."
               >
                 <MeasurementOutput
                   stateHook={[
@@ -255,37 +278,20 @@ export default function LinearCalculator(): JSX.Element {
                 />
               </SingleInputLine>
             </Column>
-          </Columns>
-
-          <Columns formColumns>
-            <Column>
-              <SingleInputLine
-                label="Time to Goal"
-                id="loadedTopSpeed"
-                tooltip="How fast the system travels under expected load."
-              >
-                <MeasurementOutput
-                  stateHook={[
-                    profiledTimeToGoal.smartTimeToGoal,
-                    () => undefined,
-                  ]}
-                  numberRoundTo={2}
-                />
-              </SingleInputLine>
-            </Column>
             <Column>
               <SingleInputLine
                 label="Max Velocity"
-                id="loadedTimeToGoal"
-                tooltip="How long the system takes to travel the target distance under expected load."
+                id="maxVelocity"
+                tooltip="The highest velocity the system reaches during the motion profile."
               >
                 <MeasurementOutput
-                  stateHook={[profiledTimeToGoal.topSpeed, () => undefined]}
+                  stateHook={[profiledTimeToGoal.maxVelocity, () => undefined]}
                   numberRoundTo={2}
                 />
               </SingleInputLine>
             </Column>
           </Columns>
+
           <KgKvKaDisplay kG={kG} kV={kV} kA={kA} distanceType={"linear"} />
         </Column>
         <Column>
@@ -293,19 +299,19 @@ export default function LinearCalculator(): JSX.Element {
             options={linearGraphConfig}
             simpleDatasets={[
               GraphConfig.dataset(
-                "Time to Goal (s)",
-                timeToGoalStates.filter((s) => s.y > 0),
+                "Position (in)",
+                chartData.position.filter((s) => s.y > 0),
                 0,
-                "y-time",
+                "y-position",
               ),
               GraphConfig.dataset(
-                "Current Draw (A)",
-                currentDrawStates,
+                "Velocity (in/s)",
+                chartData.velocity,
                 1,
-                "y-current",
+                "y-velocity",
               ),
             ]}
-            title=""
+            title="Motion Profile over Time"
             id="linearGraph"
             height={800}
           />

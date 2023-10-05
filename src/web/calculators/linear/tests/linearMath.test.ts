@@ -2,15 +2,6 @@ import { A, fps, inch, lb, s } from "common/models/ExtraTypes";
 import Motor from "common/models/Motor";
 import Ratio, { RatioType } from "common/models/Ratio";
 import { describe, expect, test } from "vitest";
-import {
-  calculateCurrentDraw,
-  calculateDragLoad,
-  calculateLoadedSpeed,
-  calculateTimeToGoal,
-  calculateUnloadedSpeed,
-  generateCurrentDrawChartData,
-  generateTimeToGoalChartData,
-} from "web/calculators/linear/linearMath";
 
 describe("linearMath", () => {
   test.each([
@@ -140,87 +131,6 @@ describe("linearMath", () => {
       expect(
         calculateCurrentDraw(motor, spoolDiameter, load, ratio),
       ).toBeCloseToMeasurement(expected);
-    },
-  );
-  test.skip.each([
-    {
-      motor_: Motor.Falcon500s(2).toDict(),
-      travelDistance_: inch(1).toDict(),
-      spoolDiameter_: inch(1).toDict(),
-      load_: inch(1).toDict(),
-      ratio_: new Ratio(2, RatioType.REDUCTION).toDict(),
-      efficiency: 100,
-      expected: [{ x: 0, y: 0 }],
-    },
-    {
-      motor_: Motor.Falcon500s(2).toDict(),
-      travelDistance_: inch(1).toDict(),
-      spoolDiameter_: inch(1).toDict(),
-      load_: inch(1).toDict(),
-      ratio_: new Ratio(2, RatioType.REDUCTION).toDict(),
-      efficiency: 100,
-      expected: [{ x: 0, y: 0 }],
-    },
-    {
-      motor_: Motor.Falcon500s(2).toDict(),
-      travelDistance_: inch(1).toDict(),
-      spoolDiameter_: inch(1).toDict(),
-      load_: inch(1).toDict(),
-      ratio_: new Ratio(2, RatioType.REDUCTION).toDict(),
-      efficiency: 100,
-      expected: [{ x: 0, y: 0 }],
-    },
-  ])(
-    "%p generateTimeToGoalChartData",
-    ({
-      motor_,
-      travelDistance_,
-      spoolDiameter_,
-      load_,
-      ratio_,
-      efficiency,
-      expected,
-    }) => {
-      expect(
-        generateTimeToGoalChartData(
-          motor_,
-          travelDistance_,
-          spoolDiameter_,
-          load_,
-          ratio_,
-          efficiency,
-        ),
-      ).toBe(expected);
-    },
-  );
-  test.skip.each([
-    {
-      motor_: Motor.Falcon500s(2).toDict(),
-      spoolDiameter_: inch(1).toDict(),
-      load_: inch(1).toDict(),
-      ratio_: new Ratio(2, RatioType.REDUCTION).toDict(),
-      expected: { x: 0, y: 0 },
-    },
-    {
-      motor_: Motor.Falcon500s(2).toDict(),
-      spoolDiameter_: inch(1).toDict(),
-      load_: inch(1).toDict(),
-      ratio_: new Ratio(2, RatioType.REDUCTION).toDict(),
-      expected: { x: 0, y: 0 },
-    },
-    {
-      motor_: Motor.Falcon500s(2).toDict(),
-      spoolDiameter_: inch(1).toDict(),
-      load_: inch(1).toDict(),
-      ratio_: new Ratio(2, RatioType.REDUCTION).toDict(),
-      expected: { x: 0, y: 0 },
-    },
-  ])(
-    "%p generateCurrentDrawChartData",
-    ({ motor_, spoolDiameter_, load_, ratio_, expected }) => {
-      expect(
-        generateCurrentDrawChartData(motor_, spoolDiameter_, load_, ratio_),
-      ).toBe(expected);
     },
   );
 });
