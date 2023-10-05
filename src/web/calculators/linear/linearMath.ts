@@ -22,7 +22,7 @@ interface TrapezoidalProfileParams {
   angle: Measurement;
 }
 
-function planTrapezoidalMotionProfile(
+export function planTrapezoidalMotionProfile(
   params: TrapezoidalProfileParams,
 ): MotionProfile {
   const {

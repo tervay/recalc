@@ -84,9 +84,11 @@ export const NonMotorBores: Bore[] = [
 ];
 
 // Quick units, mostly for tests
+export const m = (n: number): Measurement => new Measurement(n, "m");
 export const mm = (n: number): Measurement => new Measurement(n, "mm");
 export const inch = (n: number): Measurement => new Measurement(n, "inch");
 export const lb = (n: number): Measurement => new Measurement(n, "lbs");
+export const kg = (n: number): Measurement => new Measurement(n, "kg");
 export const psi = (n: number): Measurement => new Measurement(n, "psi");
 export const cfm = (n: number): Measurement => new Measurement(n, "ft^3 / min");
 export const A = (n: number): Measurement => new Measurement(n, "A");
@@ -94,11 +96,14 @@ export const in2lb = (n: number): Measurement => new Measurement(n, "in^2 lb");
 export const rpm = (n: number): Measurement => new Measurement(n, "rpm");
 export const s = (n: number): Measurement => new Measurement(n, "s");
 export const fps = (n: number): Measurement => new Measurement(n, "ft/s");
+export const m_s = (n: number): Measurement => new Measurement(n, "m/s");
 export const ul = (n: number): Measurement => new Measurement(n);
 export const J = (n: number): Measurement => new Measurement(n, "J");
 export const deg = (n: number): Measurement => new Measurement(n, "degrees");
 export const V = (n: number): Measurement => new Measurement(n, "V");
 export const Nm = (n: number): Measurement => new Measurement(n, "N m");
 export const W = (n: number): Measurement => new Measurement(n, "W");
+export const in_s2 = (n: number): Measurement => new Measurement(n, "in/s2");
+export const m_s2 = (n: number): Measurement => new Measurement(n, "m/s2");
 
 export type JSONable = number | string | Measurement | Belt | Pulley;
