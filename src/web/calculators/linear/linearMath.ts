@@ -87,14 +87,27 @@ export function planTrapezoidalMotionProfile(
   if (
     distanceDuringAcceleration.add(distanceDuringDeceleration).gte(distance)
   ) {
-    const x = distance.div(2).mul(2).div(effectiveAcceleration);
-    const t = new Measurement(Math.sqrt(x.to("s2").scalar), "s");
+    const accelTimeSq = distanceDuringAcceleration
+      .mul(2)
+      .div(effectiveAcceleration);
+    const accelTime = new Measurement(
+      Math.sqrt(accelTimeSq.to("s2").scalar),
+      "s",
+    );
+
+    const decelTimeSq = distanceDuringDeceleration
+      .mul(2)
+      .div(effectiveDeceleration);
+    const decelTime = new Measurement(
+      Math.sqrt(decelTimeSq.to("s2").scalar),
+      "s",
+    );
 
     return {
-      accelerationPhaseDuration: t,
+      accelerationPhaseDuration: accelTime,
       constantVelocityPhaseDuration: new Measurement(0, "s"),
-      decelerationPhaseDuration: t,
-      maxVelocity: t.mul(effectiveAcceleration),
+      decelerationPhaseDuration: decelTime,
+      maxVelocity: accelTime.mul(effectiveAcceleration),
       acceleration: effectiveAcceleration,
       deceleration: effectiveDeceleration,
     };

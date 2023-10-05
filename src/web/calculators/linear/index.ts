@@ -50,6 +50,7 @@ export const linearGraphConfig = GraphConfig.options(
         display: true,
         text: "Velocity (in/s)",
       },
+      min: 0,
     },
     x: {
       type: "linear",
