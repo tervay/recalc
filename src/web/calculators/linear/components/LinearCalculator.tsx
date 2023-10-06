@@ -6,6 +6,7 @@ import {
 import SimpleHeading from "common/components/heading/SimpleHeading";
 import SingleInputLine from "common/components/io/inputs/SingleInputLine";
 import {
+  BooleanInput,
   MeasurementInput,
   MotorInput,
   NumberInput,
@@ -52,6 +53,9 @@ export default function LinearCalculator(): JSX.Element {
         get.travelDistance,
         get.angle,
         get.efficiency,
+        get.limitAcceleration ? get.limitedAcceleration : undefined,
+        get.limitDeceleration ? get.limitedDeceleration : undefined,
+        get.limitVelocity ? get.limitedVelocity : undefined,
       ),
     [
       get.motor,
@@ -62,6 +66,12 @@ export default function LinearCalculator(): JSX.Element {
       get.travelDistance,
       get.efficiency,
       get.angle,
+      get.limitAcceleration,
+      get.limitedAcceleration,
+      get.limitDeceleration,
+      get.limitedDeceleration,
+      get.limitVelocity,
+      get.limitedVelocity,
     ],
   );
 
@@ -77,6 +87,9 @@ export default function LinearCalculator(): JSX.Element {
         get.travelDistance.toDict(),
         get.angle.toDict(),
         get.efficiency,
+        get.limitAcceleration ? get.limitedAcceleration.toDict() : undefined,
+        get.limitDeceleration ? get.limitedDeceleration.toDict() : undefined,
+        get.limitVelocity ? get.limitedVelocity.toDict() : undefined,
       ),
     [
       get.motor,
@@ -87,6 +100,12 @@ export default function LinearCalculator(): JSX.Element {
       get.travelDistance,
       get.angle,
       get.efficiency,
+      get.limitAcceleration,
+      get.limitedAcceleration,
+      get.limitDeceleration,
+      get.limitedDeceleration,
+      get.limitVelocity,
+      get.limitedVelocity,
     ],
   );
 
@@ -96,7 +115,7 @@ export default function LinearCalculator(): JSX.Element {
         get.motor.stallTorque.mul(get.motor.quantity).mul(get.ratio.asNumber()),
         get.spoolDiameter.div(2),
         get.load.mul(get.efficiency / 100),
-      ),
+      ).mul(Math.sin(get.angle.to("rad").scalar)),
     [
       get.motor.stallTorque,
       get.motor.quantity,
@@ -104,6 +123,7 @@ export default function LinearCalculator(): JSX.Element {
       get.ratio,
       get.load,
       get.spoolDiameter,
+      get.angle,
     ],
   );
 
@@ -217,16 +237,99 @@ export default function LinearCalculator(): JSX.Element {
           >
             <MeasurementInput stateHook={[get.angle, set.setAngle]} />
           </SingleInputLine>
-          <SingleInputLine
-            label="Time to Goal"
-            id="timeToGoal"
-            tooltip="How long it takes the system to reach the travel distance."
-          >
-            <MeasurementOutput
-              stateHook={[profiledTimeToGoal.smartTimeToGoal, () => undefined]}
-              numberRoundTo={2}
-            />
-          </SingleInputLine>
+          <Columns formColumns>
+            <Column ofTwelve={3}>
+              <SingleInputLine label="Limit Velocity">
+                <BooleanInput
+                  stateHook={[get.limitVelocity, set.setLimitVelocity]}
+                />
+              </SingleInputLine>
+            </Column>
+            <Column>
+              <SingleInputLine
+                label="Velocity Limit"
+                id="velocityLimit"
+                tooltip={
+                  "The limit upon the magnitude of acceleration that the motors can produce going upwards. " +
+                  "Should always be positive; ReCalc will handle directions for you."
+                }
+              >
+                <MeasurementInput
+                  stateHook={[get.limitedVelocity, set.setLimitedVelocity]}
+                  numberRoundTo={1}
+                  numberDisabledIf={() => !get.limitVelocity}
+                />
+              </SingleInputLine>
+            </Column>
+          </Columns>
+          <Columns formColumns>
+            <Column>
+              <SingleInputLine label="Limit Acceleration">
+                <BooleanInput
+                  stateHook={[get.limitAcceleration, set.setLimitAcceleration]}
+                />
+              </SingleInputLine>
+            </Column>
+
+            <Column>
+              <SingleInputLine label="Limit Deceleration">
+                <BooleanInput
+                  stateHook={[get.limitDeceleration, set.setLimitDeceleration]}
+                />
+              </SingleInputLine>
+            </Column>
+          </Columns>
+
+          {(get.limitAcceleration || get.limitDeceleration) && (
+            <Columns formColumns>
+              <Column>
+                {get.limitAcceleration && (
+                  <SingleInputLine
+                    label="Accel Limit"
+                    id="accelLimit"
+                    tooltip={
+                      "The limit upon the magnitude of acceleration that the motors can produce going upwards. " +
+                      "Should always be positive; ReCalc will handle directions for you."
+                    }
+                  >
+                    <MeasurementInput
+                      stateHook={[
+                        get.limitedAcceleration,
+                        set.setLimitedAcceleration,
+                      ]}
+                      numberRoundTo={1}
+                      numberDisabledIf={() => !get.limitAcceleration}
+                      defaultUnit="in/s2"
+                    />
+                  </SingleInputLine>
+                )}
+              </Column>
+
+              <Column>
+                {get.limitDeceleration && (
+                  <SingleInputLine
+                    label="Decel Limit"
+                    id="decelLimit"
+                    tooltip={
+                      "The limit upon the magnitude of acceleration that the motors can produce going downwards. " +
+                      "Should always be positive; ReCalc will handle directions for you."
+                    }
+                  >
+                    <MeasurementInput
+                      stateHook={[
+                        get.limitedDeceleration,
+                        set.setLimitedDeceleration,
+                      ]}
+                      numberRoundTo={1}
+                      numberDisabledIf={() => !get.limitDeceleration}
+                      defaultUnit="in/s2"
+                    />
+                  </SingleInputLine>
+                )}
+              </Column>
+            </Columns>
+          )}
+
           <Columns formColumns>
             <Column>
               <SingleInputLine
@@ -264,6 +367,100 @@ export default function LinearCalculator(): JSX.Element {
           <Columns formColumns>
             <Column>
               <SingleInputLine
+                label="Acceleration"
+                id="accelTime"
+                tooltip={
+                  "The magnitude of acceleration the system experiences going upwards. " +
+                  "Includes both motors and gravity. Should always be positive."
+                }
+              >
+                <MeasurementOutput
+                  stateHook={[profiledTimeToGoal.acceleration, () => undefined]}
+                  numberRoundTo={2}
+                  defaultUnit="in/s2"
+                />
+              </SingleInputLine>
+            </Column>
+            <Column>
+              <SingleInputLine
+                label="Deceleration"
+                id="decelTime"
+                tooltip={
+                  "The magnitude of acceleration the system experiences going downwards. " +
+                  "Includes both motors and gravity. Should always be positive."
+                }
+              >
+                <MeasurementOutput
+                  stateHook={[profiledTimeToGoal.deceleration, () => undefined]}
+                  numberRoundTo={2}
+                  defaultUnit="in/s2"
+                />
+              </SingleInputLine>
+            </Column>
+          </Columns>
+          <Columns formColumns>
+            <Column>
+              <SingleInputLine
+                label="Accel Dist"
+                id="accelDist"
+                tooltip={
+                  "The distance the system travels during the acceleration phase."
+                }
+              >
+                <MeasurementOutput
+                  stateHook={[
+                    profiledTimeToGoal.accelDistance,
+                    () => undefined,
+                  ]}
+                  numberRoundTo={2}
+                  defaultUnit="in"
+                />
+              </SingleInputLine>
+            </Column>
+            <Column>
+              <SingleInputLine
+                label="Decel Dist"
+                id="decelDist"
+                tooltip={
+                  "The distance the system travels during the deceleration phase."
+                }
+              >
+                <MeasurementOutput
+                  stateHook={[
+                    profiledTimeToGoal.decelDistance,
+                    () => undefined,
+                  ]}
+                  numberRoundTo={2}
+                  defaultUnit="in"
+                />
+              </SingleInputLine>
+            </Column>
+          </Columns>
+          <SingleInputLine
+            label="Time to Goal"
+            id="timeToGoal"
+            tooltip="How long it takes the system to reach the travel distance."
+          >
+            <MeasurementOutput
+              stateHook={[profiledTimeToGoal.smartTimeToGoal, () => undefined]}
+              numberRoundTo={2}
+            />
+          </SingleInputLine>
+          <SingleInputLine
+            label="Max Velocity"
+            id="maxVelocity"
+            tooltip="The highest velocity the system reaches during the motion profile."
+          >
+            <MeasurementOutput
+              stateHook={[profiledTimeToGoal.maxVelocity, () => undefined]}
+              numberRoundTo={2}
+              defaultUnit="in/s"
+            />
+          </SingleInputLine>
+
+          <Columns formColumns>
+            <Column>
+              <SingleInputLine
                 label="Cruise Time"
                 id="cruiseTime"
                 tooltip="The duration the system is cruising at max velocity in the motion profile."
@@ -280,17 +477,42 @@ export default function LinearCalculator(): JSX.Element {
             </Column>
             <Column>
               <SingleInputLine
-                label="Max Velocity"
-                id="maxVelocity"
-                tooltip="The highest velocity the system reaches during the motion profile."
+                label="Cruise Dist"
+                id="cruiseDist"
+                tooltip={
+                  "The distance the system travels during the cruise phase."
+                }
               >
                 <MeasurementOutput
-                  stateHook={[profiledTimeToGoal.maxVelocity, () => undefined]}
+                  stateHook={[
+                    profiledTimeToGoal.cruiseDistance,
+                    () => undefined,
+                  ]}
                   numberRoundTo={2}
+                  defaultUnit="in"
                 />
               </SingleInputLine>
             </Column>
           </Columns>
+
+          <SingleInputLine
+            label="System Acceleration"
+            id="systemAcceleration"
+            tooltip={
+              "The acceleration the system experiences without any motor input. " +
+              "This is positive if the system experiences an upwards acceleration, " +
+              "or negative if the system experiences downwards acceleration (most common)."
+            }
+          >
+            <MeasurementOutput
+              stateHook={[
+                profiledTimeToGoal.systemAcceleration,
+                () => undefined,
+              ]}
+              numberRoundTo={2}
+              defaultUnit="in/s2"
+            />
+          </SingleInputLine>
 
           <KgKvKaDisplay kG={kG} kV={kV} kA={kA} distanceType={"linear"} />
         </Column>
