@@ -59,7 +59,7 @@ describe("linearMath", () => {
         constantVelocityPhaseDuration: s(0),
         deceleration: m_s2(409.81),
         decelerationPhaseDuration: s(0.016),
-        maxVelocity: m_s(6.24652),
+        maxVelocity: m_s(6.545),
       },
     },
   ])(

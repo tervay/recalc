@@ -11,6 +11,10 @@ interface MotionProfile {
   maxVelocity: Measurement;
   acceleration: Measurement;
   deceleration: Measurement;
+  systemAcceleration: Measurement;
+  accelDistance: Measurement;
+  decelDistance: Measurement;
+  cruiseDistance: Measurement;
 }
 
 interface TrapezoidalProfileParams {
@@ -20,6 +24,24 @@ interface TrapezoidalProfileParams {
   systemMass: Measurement;
   spoolDiameter: Measurement;
   angle: Measurement;
+
+  limitedAcceleration?: Measurement;
+  limitedDeceleration?: Measurement;
+  limitedVelocity?: Measurement;
+}
+
+function canDecelerateInGivenDistance(
+  currentSpeed: Measurement,
+  distance: Measurement,
+  deceleration: Measurement,
+): boolean {
+  const finalSpeed = new Measurement(0, "m/s");
+  const stoppingDistance = finalSpeed
+    .mul(finalSpeed)
+    .sub(currentSpeed.mul(currentSpeed))
+    .div(deceleration.mul(2));
+
+  return stoppingDistance.lte(distance);
 }
 
 export function planTrapezoidalMotionProfile(
@@ -32,6 +54,9 @@ export function planTrapezoidalMotionProfile(
     distance,
     maxVelocity,
     motorTorque,
+    limitedAcceleration,
+    limitedDeceleration,
+    limitedVelocity,
   } = params;
 
   if (Measurement.anyAreZero(spoolDiameter, systemMass)) {
@@ -42,6 +67,10 @@ export function planTrapezoidalMotionProfile(
       maxVelocity: new Measurement(0, "m/s"),
       acceleration: new Measurement(0, "m/s2"),
       deceleration: new Measurement(0, "m/s2"),
+      systemAcceleration: new Measurement(0, "m/s2"),
+      accelDistance: new Measurement(0, "m"),
+      decelDistance: new Measurement(0, "m"),
+      cruiseDistance: new Measurement(0, "m"),
     };
   }
 
@@ -49,27 +78,89 @@ export function planTrapezoidalMotionProfile(
   const gravityForce = Measurement.GRAVITY.mul(systemMass).mul(
     Math.sin(angle.to("rad").scalar),
   );
-  const carriageMaxVelocity = maxVelocity
+
+  let carriageMaxVelocity = maxVelocity
     .mul(spoolDiameter.mul(Math.PI))
     .div(new Measurement(360, "deg"));
+  if (limitedVelocity !== undefined) {
+    carriageMaxVelocity = Measurement.min(limitedVelocity, carriageMaxVelocity);
+  }
 
-  // Calculate the distance
-  // Calculate time to reach maximum velocity (half of the total distance)
-  const effectiveAcceleration = observedMotorForce
-    .add(gravityForce)
-    .div(systemMass);
+  let observedMotorAcceleration = observedMotorForce.div(systemMass);
+  if (limitedAcceleration !== undefined) {
+    observedMotorAcceleration = Measurement.min(
+      observedMotorAcceleration,
+      limitedAcceleration,
+    );
+  }
 
-  const effectiveDeceleration = observedMotorForce
+  const observedGravityAcceleration = gravityForce.div(systemMass);
+
+  const effectiveAcceleration = observedMotorAcceleration.add(
+    observedGravityAcceleration,
+  );
+
+  let observedMotorDeceleration = observedMotorForce.div(systemMass);
+  if (limitedDeceleration !== undefined) {
+    observedMotorDeceleration = Measurement.min(
+      observedMotorDeceleration,
+      limitedDeceleration,
+    );
+  }
+
+  const effectiveDeceleration = observedMotorDeceleration
     .negate()
-    .add(gravityForce)
-    .div(systemMass)
+    .add(observedGravityAcceleration)
     .negate();
 
-  // Calculate time to reach maximum velocity (half of the total distance)
   const timeToMaxVelocity = carriageMaxVelocity.div(effectiveAcceleration);
 
-  // Calculate the distance covered during the acceleration phase
-  const distanceDuringAcceleration = effectiveAcceleration
+  let distanceDuringAcceleration = effectiveAcceleration
+    .mul(0.5)
+    .mul(timeToMaxVelocity)
+    .mul(timeToMaxVelocity);
+
+  if (
+    !canDecelerateInGivenDistance(
+      effectiveAcceleration.mul(timeToMaxVelocity),
+      distance.sub(distanceDuringAcceleration),
+      effectiveDeceleration,
+    )
+  ) {
+    const t_1_numerator = new Measurement(
+      Math.sqrt(
+        distance.mul(effectiveDeceleration.abs()).mul(2).to("m2/s2").scalar,
+      ),
+      "m/s",
+    );
+    const t1_denominator = new Measurement(
+      Math.sqrt(
+        effectiveAcceleration
+          .mul(effectiveAcceleration.add(effectiveDeceleration.abs()))
+          .to("m2/s4").scalar,
+      ),
+      "m/s2",
+    );
+
+    const t_1 = t_1_numerator.div(t1_denominator);
+    const maxVelo = t_1.mul(effectiveAcceleration);
+    const t_2 = maxVelo.div(effectiveDeceleration);
+
+    return {
+      acceleration: effectiveAcceleration,
+      accelerationPhaseDuration: t_1,
+      constantVelocityPhaseDuration: new Measurement(0, "s"),
+      cruiseDistance: new Measurement(0, "m"),
+      deceleration: effectiveDeceleration,
+      decelerationPhaseDuration: t_2,
+      maxVelocity: maxVelo,
+      systemAcceleration: observedGravityAcceleration,
+      accelDistance: effectiveAcceleration.mul(t_1).mul(t_1).div(2),
+      decelDistance: effectiveDeceleration.mul(t_2).mul(t_2).div(2),
+    };
+  }
+
+  distanceDuringAcceleration = effectiveAcceleration
     .mul(0.5)
     .mul(timeToMaxVelocity)
     .mul(timeToMaxVelocity);
@@ -78,7 +169,6 @@ export function planTrapezoidalMotionProfile(
     effectiveDeceleration,
   );
 
-  // Calculate the distance covered during the deceleration phase
   const distanceDuringDeceleration = effectiveDeceleration
     .mul(0.5)
     .mul(timeToSlowFromMaxVelocity)
@@ -110,6 +200,10 @@ export function planTrapezoidalMotionProfile(
       maxVelocity: accelTime.mul(effectiveAcceleration),
       acceleration: effectiveAcceleration,
       deceleration: effectiveDeceleration,
+      systemAcceleration: observedGravityAcceleration,
+      accelDistance: distanceDuringAcceleration,
+      decelDistance: distanceDuringDeceleration,
+      cruiseDistance: new Measurement(0, "m"),
     };
   }
 
@@ -127,16 +221,17 @@ export function planTrapezoidalMotionProfile(
   const constantVelocityPhaseDuration = timeForConstantVelocity;
   const decelerationPhaseDuration = timeToSlowFromMaxVelocity;
 
-  console.log(decelerationPhaseDuration.to("s").format());
-  console.log(distanceDuringDeceleration.to("in").format());
-
   return {
     accelerationPhaseDuration: accelerationPhaseDuration.to("s"),
     constantVelocityPhaseDuration: constantVelocityPhaseDuration.to("s"),
     decelerationPhaseDuration: decelerationPhaseDuration.to("s"),
-    maxVelocity: accelerationPhaseDuration.mul(effectiveAcceleration),
+    maxVelocity: carriageMaxVelocity,
     acceleration: effectiveAcceleration,
     deceleration: effectiveDeceleration,
+    systemAcceleration: observedGravityAcceleration,
+    accelDistance: distanceDuringAcceleration,
+    decelDistance: distanceDuringDeceleration,
+    cruiseDistance: distanceDuringConstantVelocity,
   };
 }
 
@@ -149,10 +244,29 @@ export function calculateProfiledTimeToGoal(
   travelDistance: Measurement,
   angle: Measurement,
   efficiency: number,
+  limitedAcceleration?: Measurement,
+  limitedDeceleration?: Measurement,
+  limitedVelocity?: Measurement,
 ): MotionProfile & {
   smartTimeToGoal: Measurement;
   maxVelocity: Measurement;
 } {
+  if (ratio.asNumber() == 0) {
+    return {
+      accelerationPhaseDuration: new Measurement(0, "s"),
+      constantVelocityPhaseDuration: new Measurement(0, "s"),
+      decelerationPhaseDuration: new Measurement(0, "s"),
+      maxVelocity: new Measurement(0, "m/s"),
+      acceleration: new Measurement(0, "m/s2"),
+      deceleration: new Measurement(0, "m/s2"),
+      smartTimeToGoal: new Measurement(0, "s"),
+      systemAcceleration: new Measurement(0, "m/s2"),
+      accelDistance: new Measurement(0, "m"),
+      decelDistance: new Measurement(0, "m"),
+      cruiseDistance: new Measurement(0, "m"),
+    };
+  }
+
   const profile = planTrapezoidalMotionProfile({
     distance: travelDistance,
     motorTorque: motor.kT
@@ -164,6 +278,9 @@ export function calculateProfiledTimeToGoal(
     systemMass: load,
     spoolDiameter,
     angle,
+    limitedAcceleration,
+    limitedDeceleration,
+    limitedVelocity,
   });
 
   let smartTimeToGoal;
@@ -200,6 +317,9 @@ export function generateTimeToGoalChartData(
   travelDistance_: MeasurementDict,
   angle_: MeasurementDict,
   efficiency: number,
+  limitedAcceleration_?: MeasurementDict,
+  limitedDeceleration_?: MeasurementDict,
+  limitedVelocity_?: MeasurementDict,
 ): {
   position: GraphDataPoint[];
   velocity: GraphDataPoint[];
@@ -211,6 +331,18 @@ export function generateTimeToGoalChartData(
   const spoolDiameter = Measurement.fromDict(spoolDiameter_);
   const angle = Measurement.fromDict(angle_);
   const ratio = Ratio.fromDict(ratio_);
+  const limitedAcceleration =
+    limitedAcceleration_ === undefined
+      ? undefined
+      : Measurement.fromDict(limitedAcceleration_);
+  const limitedDeceleration =
+    limitedDeceleration_ === undefined
+      ? undefined
+      : Measurement.fromDict(limitedDeceleration_);
+  const limitedVelocity =
+    limitedVelocity_ === undefined
+      ? undefined
+      : Measurement.fromDict(limitedVelocity_);
 
   const profile = calculateProfiledTimeToGoal(
     motor,
@@ -221,6 +353,9 @@ export function generateTimeToGoalChartData(
     travelDistance,
     angle,
     efficiency,
+    limitedAcceleration,
+    limitedDeceleration,
+    limitedVelocity,
   );
 
   const timestep = new Measurement(0.005, "s");
@@ -228,9 +363,9 @@ export function generateTimeToGoalChartData(
   let velocity = new Measurement(0, "m/s");
   let position = new Measurement(0, "m");
 
-  let timestamps: Measurement[] = [t];
-  let positions: Measurement[] = [position];
-  let velocities: Measurement[] = [velocity];
+  const timestamps: Measurement[] = [t];
+  const positions: Measurement[] = [position];
+  const velocities: Measurement[] = [velocity];
 
   while (t.lte(profile.accelerationPhaseDuration)) {
     t = t.add(timestep);
@@ -242,7 +377,10 @@ export function generateTimeToGoalChartData(
           .mul(1 / 2),
       ),
     );
-    velocity = velocity.add(profile.acceleration.mul(timestep));
+    velocity = Measurement.min(
+      velocity.add(profile.acceleration.mul(timestep)),
+      profile.maxVelocity,
+    );
 
     positions.push(position);
     velocities.push(velocity);
