@@ -42,7 +42,9 @@ export default function About(): JSX.Element {
               </a>
               , which served as the basis for ReCalc&apos;s
             </li>
-            <li>JackTervay, for the renders on the landing</li>
+            <li>
+              JackTervay, pchild, and cyberclone; for the renders on the landing
+            </li>
             <li>Connor_H, for modifications to the DC motor icon</li>
           </ul>
           <p>
