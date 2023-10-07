@@ -6,10 +6,12 @@ import {
 } from "common/components/styling/Building";
 import Nav from "common/components/styling/Nav";
 import PageConfig from "common/models/PageConfig";
+import { parse, stringify } from "query-string";
 import { Suspense } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Switch } from "react-router-dom";
 import { CompatRoute, CompatRouter } from "react-router-dom-v5-compat";
 import { QueryParamProvider } from "use-query-params";
+import { ReactRouter5Adapter } from "use-query-params/adapters/react-router-5";
 import aboutConfig from "web/about";
 import armConfig from "web/calculators/arm";
 import beltsConfig from "web/calculators/belts";
@@ -48,7 +50,13 @@ function App(): JSX.Element {
                   <Home />
                 </CompatRoute>
 
-                <QueryParamProvider ReactRouterRoute={Route}>
+                <QueryParamProvider
+                  adapter={ReactRouter5Adapter}
+                  options={{
+                    searchStringToObject: parse,
+                    objectToSearchString: stringify,
+                  }}
+                >
                   <Routable config={beltsConfig} />
                   <Routable config={chainConfig} />
                   <Routable config={pneumaticsConfig} />
