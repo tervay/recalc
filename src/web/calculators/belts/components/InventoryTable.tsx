@@ -77,9 +77,7 @@ export default function InventoryTable(props: {
   const tHead = (
     <thead>
       <tr>
-        <th colSpan={5}>
-          Matching COTS Belts&nbsp;<a href="/data/belts">(all belts)</a>
-        </th>
+        <th colSpan={5}>Matching COTS Belts</th>
       </tr>
       <tr>
         <th>Vendor</th>
