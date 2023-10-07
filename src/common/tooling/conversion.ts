@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BaseState, ConversionFn, Setters } from "common/models/ExtraTypes";
-import queryString, { stringify } from "query-string";
+import qs from "query-string";
 import { useState } from "react";
 import {
   NumberParam,
@@ -30,7 +30,7 @@ export function URLifier<State extends BaseState>(
   q: QueryParamConfigMap,
   s: State,
 ): string {
-  return stringify(encodeQueryParams(q, s));
+  return qs.stringify(encodeQueryParams(q, s));
 }
 
 export class StateMaker {
@@ -53,7 +53,7 @@ export class StateMaker {
   ): BaseState {
     let url_version = decodeQueryParams(
       { version: withDefault(NumberParam, version) },
-      queryString.parse(location.search),
+      qs.parse(location.search),
     ).version;
 
     if (url_version === undefined) {
@@ -62,7 +62,7 @@ export class StateMaker {
 
     const urlState = decodeQueryParams(
       params[url_version - 1],
-      queryString.parse(location.search),
+      qs.parse(location.search),
     );
     let state = urlState;
 
