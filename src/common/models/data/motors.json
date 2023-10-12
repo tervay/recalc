@@ -50,16 +50,6 @@
     "url": "https://wcproducts.com/products/kraken"
   },
   {
-    "name": "Kraken X60 (FOC)",
-    "freeSpeed": { "magnitude": 5800, "unit": "rpm" },
-    "stallTorque": { "magnitude": 9.37, "unit": "N*m" },
-    "stallCurrent": { "magnitude": 483, "unit": "A" },
-    "freeCurrent": { "magnitude": 1.5, "unit": "A" },
-    "weight": { "magnitude": 1.2, "unit": "lbs" },
-    "diameter": { "magnitude": 2.37, "unit": "in" },
-    "url": "https://www.vexrobotics.com/217-6515.html"
-  },
-  {
     "name": "NEO Vortex",
     "freeSpeed": { "magnitude": 6784, "unit": "rpm" },
     "stallTorque": { "magnitude": 3.6, "unit": "N*m" },
