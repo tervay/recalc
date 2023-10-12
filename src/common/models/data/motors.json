@@ -37,7 +37,7 @@
     "freeCurrent": { "magnitude": 2, "unit": "A" },
     "weight": { "magnitude": 1.2, "unit": "lbs" },
     "diameter": { "magnitude": 2.37, "unit": "in" },
-    "url": "https://www.vexrobotics.com/217-6515.html"
+    "url": "https://wcproducts.com/products/kraken"
   },
   {
     "name": "Kraken X60 (FOC)",
@@ -47,7 +47,7 @@
     "freeCurrent": { "magnitude": 2, "unit": "A" },
     "weight": { "magnitude": 1.2, "unit": "lbs" },
     "diameter": { "magnitude": 2.37, "unit": "in" },
-    "url": "https://www.vexrobotics.com/217-6515.html"
+    "url": "https://wcproducts.com/products/kraken"
   },
   {
     "name": "NEO Vortex",
