@@ -37,7 +37,7 @@
     "freeCurrent": { "magnitude": 1.5, "unit": "A" },
     "weight": { "magnitude": 1.2, "unit": "lbs" },
     "diameter": { "magnitude": 2.37, "unit": "in" },
-    "url": "https://www.vexrobotics.com/217-6515.html"
+    "url": "https://wcproducts.com/products/kraken"
   },
   {
     "name": "Kraken X60 (FOC) (HIGHLY PRELIMINARY)",
@@ -47,7 +47,7 @@
     "freeCurrent": { "magnitude": 1.5, "unit": "A" },
     "weight": { "magnitude": 1.2, "unit": "lbs" },
     "diameter": { "magnitude": 2.37, "unit": "in" },
-    "url": "https://www.vexrobotics.com/217-6515.html"
+    "url": "https://wcproducts.com/products/kraken"
   },
   {
     "name": "NEO Vortex (HIGHLY PRELIMINARY)",
@@ -57,7 +57,7 @@
     "freeCurrent": { "magnitude": 3.6, "unit": "A" },
     "weight": { "magnitude": 1.2, "unit": "lbs" },
     "diameter": { "magnitude": 0, "unit": "in" },
-    "url": "https://www.vexrobotics.com/217-6515.html"
+    "url": "https://www.revrobotics.com/next-generation-spark-neo/"
   },
   {
     "name": "NEO 550",
