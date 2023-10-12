@@ -34,7 +34,17 @@
     "freeSpeed": { "magnitude": 6000, "unit": "rpm" },
     "stallTorque": { "magnitude": 7.09, "unit": "N*m" },
     "stallCurrent": { "magnitude": 366, "unit": "A" },
-    "freeCurrent": { "magnitude": 1.5, "unit": "A" },
+    "freeCurrent": { "magnitude": 2, "unit": "A" },
+    "weight": { "magnitude": 1.2, "unit": "lbs" },
+    "diameter": { "magnitude": 2.37, "unit": "in" },
+    "url": "https://www.vexrobotics.com/217-6515.html"
+  },
+  {
+    "name": "Kraken X60 (FOC)",
+    "freeSpeed": { "magnitude": 5800, "unit": "rpm" },
+    "stallTorque": { "magnitude": 9.37, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 483, "unit": "A" },
+    "freeCurrent": { "magnitude": 2, "unit": "A" },
     "weight": { "magnitude": 1.2, "unit": "lbs" },
     "diameter": { "magnitude": 2.37, "unit": "in" },
     "url": "https://www.vexrobotics.com/217-6515.html"
