@@ -84,82 +84,104 @@ export default function SpecTable(): JSX.Element {
   const data = useMemo(() => getTableRows(), []);
 
   return (
-    <Table
-      fullwidth
-      hoverable
-      textCentered
-      columns={[
-        {
-          Header: "Name",
-          accessor: "nameLink",
-        },
-        {
-          Header: () => (
-            <Tippy
-              content={"Non-Falcons have 0.25lbs added for speed controllers."}
-              animateFill
-              plugins={[animateFill]}
-              allowHTML
-            >
-              <span className="underline-for-tooltip">{"Weight (lb)"}</span>
-            </Tippy>
-          ),
-          accessor: "weight",
-        },
-        {
-          Header: "Diameter (in)",
-          accessor: "diameter",
-        },
-        {
-          Header: "Free Speed (RPM)",
-          accessor: "freeSpeed",
-        },
-        {
-          Header: "Stall Torque (Nm)",
-          accessor: "stallTorque",
-        },
-        {
-          Header: "Stall Current (A)",
-          accessor: "stallCurrent",
-        },
-        {
-          Header: "Free Current (A)",
-          accessor: "freeCurrent",
-        },
-        {
-          Header: `Peak power (30A) (W)`,
-          accessor: "power30A",
-        },
-        {
-          Header: `Peak power (45A) (W)`,
-          accessor: "power45A",
-        },
-        {
-          Header: `Peak power (60A) (W)`,
-          accessor: "power60A",
-        },
-        {
-          Header: `Peak power (75A) (W)`,
-          accessor: "power75A",
-        },
-        {
-          Header: "Peak power : weight ratio (W/lb)",
-          accessor: "powerWeightRatio",
-        },
-        {
-          Header: "Resistance (Ω)",
-          accessor: "resistance",
-        },
-        {
-          Header: "kT (Nm/A)",
-          accessor: "kT",
-        },
-        {
-          Header: "kV (rpm/V)",
-          accessor: "kV",
-        },
-      ]}
-      data={data}
-    />
+    <>
+      <div className="notification is-warning">
+        The Vortex weight is not yet published, and is estimated using the
+        combined weight of a NEO + Spark MAX.
+      </div>
+      <div className="notification is-warning">
+        The motor specs from the Vortex are from REV, and the motor specs from
+        the Kraken are from WCP. All others are from VEX. The Falcon data from
+        VEX and the Falcon data from REV are significantly different; as such,{" "}
+        <b>
+          you should not assume that these numbers are directly comparible. You
+          should not base your purchases around these preliminary numbers. Use
+          them as guidelines only.
+        </b>
+      </div>
+      <div className="notification is-warning">
+        All motors except the Falcon, Kraken, and Vortex have 0.25 lbs added to
+        their weight, representing an external motor controller.
+      </div>
+      <Table
+        fullwidth
+        hoverable
+        textCentered
+        columns={[
+          {
+            Header: "Name",
+            accessor: "nameLink",
+          },
+          {
+            Header: () => (
+              <Tippy
+                content={
+                  "Non-Falcons have 0.25lbs added for speed controllers."
+                }
+                animateFill
+                plugins={[animateFill]}
+                allowHTML
+              >
+                <span className="underline-for-tooltip">{"Weight (lb)"}</span>
+              </Tippy>
+            ),
+            accessor: "weight",
+          },
+          {
+            Header: "Diameter (in)",
+            accessor: "diameter",
+          },
+          {
+            Header: "Free Speed (RPM)",
+            accessor: "freeSpeed",
+          },
+          {
+            Header: "Stall Torque (Nm)",
+            accessor: "stallTorque",
+          },
+          {
+            Header: "Stall Current (A)",
+            accessor: "stallCurrent",
+          },
+          {
+            Header: "Free Current (A)",
+            accessor: "freeCurrent",
+          },
+          {
+            Header: `Peak power (30A) (W)`,
+            accessor: "power30A",
+          },
+          {
+            Header: `Peak power (45A) (W)`,
+            accessor: "power45A",
+          },
+          {
+            Header: `Peak power (60A) (W)`,
+            accessor: "power60A",
+          },
+          {
+            Header: `Peak power (75A) (W)`,
+            accessor: "power75A",
+          },
+          {
+            Header: "Peak power : weight ratio (W/lb)",
+            accessor: "powerWeightRatio",
+          },
+          {
+            Header: "Resistance (Ω)",
+            accessor: "resistance",
+          },
+          {
+            Header: "kT (Nm/A)",
+            accessor: "kT",
+          },
+          {
+            Header: "kV (rpm/V)",
+            accessor: "kV",
+          },
+        ]}
+        data={data}
+      />
+    </>
   );
 }
