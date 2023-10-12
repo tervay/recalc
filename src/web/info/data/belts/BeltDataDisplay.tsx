@@ -2,7 +2,6 @@ import { Title } from "common/components/styling/Building";
 import Table from "common/components/styling/Table";
 import Belt from "common/models/Belt";
 import { useMemo } from "react";
-import { Cell } from "react-table";
 
 export default function BeltDataDisplay(): JSX.Element {
   const data = useMemo(
@@ -60,7 +59,7 @@ export default function BeltDataDisplay(): JSX.Element {
           {
             Header: "URL",
             accessor: "url",
-            Cell: (cell: Cell) => (
+            Cell: ({ cell }: { cell: { value: string | undefined } }) => (
               <a target={"_blank"} href={cell.value}>
                 {cell.value}
               </a>

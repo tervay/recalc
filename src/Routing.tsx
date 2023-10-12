@@ -5,10 +5,11 @@ import {
   Message,
 } from "common/components/styling/Building";
 import Nav from "common/components/styling/Nav";
-import PageConfig from "common/models/PageConfig";
+import qs from "query-string";
 import { Suspense } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryParamProvider } from "use-query-params";
+import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6";
 import aboutConfig from "web/about";
 import armConfig from "web/calculators/arm";
 import beltsConfig from "web/calculators/belts";
@@ -21,13 +22,8 @@ import ratioConfig from "web/calculators/ratio";
 import ratioFinderConfig from "web/calculators/ratioFinder";
 import Home from "web/home/Home";
 import compressorsConfig from "web/info/compressors";
-import beltDataConfig from "web/info/data/belts";
 import motorsConfig from "web/info/motors";
 import utilConfig from "web/info/util";
-
-function Routable(props: { config: PageConfig }): JSX.Element {
-  return <Route path={props.config.url} component={props.config.component} />;
-}
 
 function App(): JSX.Element {
   return (
@@ -40,40 +36,67 @@ function App(): JSX.Element {
               <progress className="progress is-small is-primary" max="100" />
             }
           >
-            <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route
-                path="/data"
-                render={({ match: { url } }) => (
-                  <>
-                    <Route
-                      path={`${url}/${beltDataConfig.url}`}
-                      component={beltDataConfig.component}
-                      exact
-                    />
-                  </>
-                )}
-              />
+            <QueryParamProvider
+              adapter={ReactRouter6Adapter}
+              options={{
+                searchStringToObject: qs.parse,
+                objectToSearchString: qs.stringify,
+              }}
+            >
+              <Routes>
+                <Route path="/" element={<Home />} />
 
-              <QueryParamProvider ReactRouterRoute={Route}>
-                <Routable config={beltsConfig} />
-                <Routable config={chainConfig} />
-                <Routable config={pneumaticsConfig} />
-                <Routable config={flywheelConfig} />
-                <Routable config={armConfig} />
-                <Routable config={linearConfig} />
-                <Routable config={intakeConfig} />
-                <Routable config={ratioConfig} />
-                <Routable config={ratioFinderConfig} />
-
-                <Routable config={motorsConfig} />
-                <Routable config={compressorsConfig} />
-                <Routable config={aboutConfig} />
-                <Routable config={utilConfig} />
-              </QueryParamProvider>
-            </Switch>
+                <Route
+                  path={beltsConfig.url}
+                  element={<beltsConfig.component />}
+                />
+                <Route
+                  path={chainConfig.url}
+                  element={<chainConfig.component />}
+                />
+                <Route
+                  path={pneumaticsConfig.url}
+                  element={<pneumaticsConfig.component />}
+                />
+                <Route
+                  path={flywheelConfig.url}
+                  element={<flywheelConfig.component />}
+                />
+                <Route path={armConfig.url} element={<armConfig.component />} />
+                <Route
+                  path={linearConfig.url}
+                  element={<linearConfig.component />}
+                />
+                <Route
+                  path={intakeConfig.url}
+                  element={<intakeConfig.component />}
+                />
+                <Route
+                  path={ratioConfig.url}
+                  element={<ratioConfig.component />}
+                />
+                <Route
+                  path={ratioFinderConfig.url}
+                  element={<ratioFinderConfig.component />}
+                />
+                <Route
+                  path={motorsConfig.url}
+                  element={<motorsConfig.component />}
+                />
+                <Route
+                  path={compressorsConfig.url}
+                  element={<compressorsConfig.component />}
+                />
+                <Route
+                  path={aboutConfig.url}
+                  element={<aboutConfig.component />}
+                />
+                <Route
+                  path={utilConfig.url}
+                  element={<utilConfig.component />}
+                />
+              </Routes>
+            </QueryParamProvider>
           </Suspense>
 
           <Footer>
