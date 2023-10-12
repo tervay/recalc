@@ -20,6 +20,36 @@
     "url": "https://www.vexrobotics.com/217-6515.html"
   },
   {
+    "name": "Falcon 500 (FOC)",
+    "freeSpeed": { "magnitude": 6080, "unit": "rpm" },
+    "stallTorque": { "magnitude": 5.84, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 304, "unit": "A" },
+    "freeCurrent": { "magnitude": 1.5, "unit": "A" },
+    "weight": { "magnitude": 1.1, "unit": "lbs" },
+    "diameter": { "magnitude": 2.362, "unit": "in" },
+    "url": "https://www.vexrobotics.com/217-6515.html"
+  },
+  {
+    "name": "Kraken X60",
+    "freeSpeed": { "magnitude": 6000, "unit": "rpm" },
+    "stallTorque": { "magnitude": 7.09, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 366, "unit": "A" },
+    "freeCurrent": { "magnitude": 1.5, "unit": "A" },
+    "weight": { "magnitude": 1.2, "unit": "lbs" },
+    "diameter": { "magnitude": 2.37, "unit": "in" },
+    "url": "https://www.vexrobotics.com/217-6515.html"
+  },
+  {
+    "name": "NEO Vortex",
+    "freeSpeed": { "magnitude": 6784, "unit": "rpm" },
+    "stallTorque": { "magnitude": 3.6, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 211, "unit": "A" },
+    "freeCurrent": { "magnitude": 3.6, "unit": "A" },
+    "weight": { "magnitude": 1.2, "unit": "lbs" },
+    "diameter": { "magnitude": 0, "unit": "in" },
+    "url": "https://www.vexrobotics.com/217-6515.html"
+  },
+  {
     "name": "NEO 550",
     "freeSpeed": { "magnitude": 11710, "unit": "rpm" },
     "stallTorque": { "magnitude": 1.08, "unit": "N*m" },
@@ -138,15 +168,5 @@
     "weight": { "magnitude": 0.4375, "unit": "lbs" },
     "diameter": { "magnitude": 1.5, "unit": "in" },
     "url": "https://www.revrobotics.com/rev-41-1300/"
-  },
-  {
-    "name": "Falcon 500 (FOC)",
-    "freeSpeed": { "magnitude": 6080, "unit": "rpm" },
-    "stallTorque": { "magnitude": 5.84, "unit": "N*m" },
-    "stallCurrent": { "magnitude": 304, "unit": "A" },
-    "freeCurrent": { "magnitude": 1.5, "unit": "A" },
-    "weight": { "magnitude": 1.1, "unit": "lbs" },
-    "diameter": { "magnitude": 2.362, "unit": "in" },
-    "url": "https://www.vexrobotics.com/217-6515.html"
   }
 ]
