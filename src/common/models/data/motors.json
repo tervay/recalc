@@ -30,7 +30,7 @@
     "url": "https://www.vexrobotics.com/217-6515.html"
   },
   {
-    "name": "Kraken X60 (HIGHLY PRELIMINARY)",
+    "name": "Kraken X60*",
     "freeSpeed": { "magnitude": 6000, "unit": "rpm" },
     "stallTorque": { "magnitude": 7.09, "unit": "N*m" },
     "stallCurrent": { "magnitude": 366, "unit": "A" },
@@ -40,7 +40,7 @@
     "url": "https://wcproducts.com/products/kraken"
   },
   {
-    "name": "Kraken X60 (FOC) (HIGHLY PRELIMINARY)",
+    "name": "Kraken X60 (FOC)*",
     "freeSpeed": { "magnitude": 5800, "unit": "rpm" },
     "stallTorque": { "magnitude": 9.37, "unit": "N*m" },
     "stallCurrent": { "magnitude": 483, "unit": "A" },
@@ -50,7 +50,7 @@
     "url": "https://wcproducts.com/products/kraken"
   },
   {
-    "name": "NEO Vortex (HIGHLY PRELIMINARY)",
+    "name": "NEO Vortex*",
     "freeSpeed": { "magnitude": 6784, "unit": "rpm" },
     "stallTorque": { "magnitude": 3.6, "unit": "N*m" },
     "stallCurrent": { "magnitude": 211, "unit": "A" },

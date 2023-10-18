@@ -20,7 +20,11 @@ type MotorRow = {
 
 function adjustedWeight(motor: Motor): Measurement {
   return motor.weight.add(
-    motor.identifier.includes("Falcon 500") ? lb(0) : lb(0.25),
+    ["Falcon 500", "Kraken X60", "Vortex"]
+      .map((s) => motor.identifier.includes(s))
+      .includes(true)
+      ? lb(0)
+      : lb(0.25),
   );
 }
 
@@ -98,6 +102,10 @@ export default function SpecTable(): JSX.Element {
           should not base your purchases around these preliminary numbers. Use
           them as guidelines only.
         </b>
+        <br />
+        <br />
+        Motors with an asterisk (*) suffix have data that was derived in a way
+        inconsistent with other motors and are highly preliminary.
       </div>
       <div className="notification is-warning">
         All motors except the Falcon, Kraken, and Vortex have 0.25 lbs added to
