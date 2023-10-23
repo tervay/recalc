@@ -1,7 +1,8 @@
 import SimpleHeading from "common/components/heading/SimpleHeading";
 import SingleInputLine from "common/components/io/inputs/SingleInputLine";
-import { BooleanInput, NumberInput } from "common/components/io/new/inputs";
+import { NumberInput } from "common/components/io/new/inputs";
 import L0MultiBoolean from "common/components/io/new/inputs/L0/L0MultiBoolean";
+import BoreInput from "common/components/io/new/inputs/L3/BoreInput";
 import { Column, Columns, Divider } from "common/components/styling/Building";
 import { Bore, MotorBores } from "common/models/ExtraTypes";
 import {
@@ -212,11 +213,11 @@ export default function RatioFinderCalculator(): JSX.Element {
       setIsLoading(false);
     });
   }, [
+    get.startingBore,
     get.targetReduction,
     get.reductionError,
     get.minStages,
     get.maxStages,
-    get.firstPartPinion,
     get.enableVPs,
     get.enableMPs,
     get.enableSports,
@@ -312,15 +313,9 @@ export default function RatioFinderCalculator(): JSX.Element {
                 </Columns>
                 <Columns formColumns>
                   <Column>
-                    <SingleInputLine
-                      label="Start Gearbox With Motor"
-                      tooltip="If enabled, the first bore will be a motor bore. If disabled, the first bore will not be a motor bore."
-                    >
-                      <BooleanInput
-                        stateHook={[
-                          get.firstPartPinion,
-                          set.setFirstPartPinion,
-                        ]}
+                    <SingleInputLine label="Starting Bore">
+                      <BoreInput
+                        stateHook={[get.startingBore, set.setStartingBore]}
                       />
                     </SingleInputLine>
                   </Column>
@@ -404,6 +399,7 @@ export default function RatioFinderCalculator(): JSX.Element {
                   {gearboxes.length} gearboxes found
                 </div>
               )}
+
               <div className="notification is-warning is-light content pt-1 px-1">
                 <ul>
                   <li>

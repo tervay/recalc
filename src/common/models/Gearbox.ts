@@ -165,6 +165,12 @@ export class Gearbox {
     );
   }
 
+  startsWithBore(bore: Bore): boolean {
+    return (
+      this.stages[0].drivingMethods.filter((m) => m.bore === bore).length > 0
+    );
+  }
+
   containsPinionInBadPlace(): boolean {
     if (this.stages.length === 1) {
       return (

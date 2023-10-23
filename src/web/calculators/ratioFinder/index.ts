@@ -1,5 +1,6 @@
 import { Stateify } from "common/models/ExtraTypes";
 import PageConfig from "common/models/PageConfig";
+import { BoreParam } from "common/models/Params";
 import { lazy } from "react";
 import { BooleanParam, NumberParam, withDefault } from "serialize-query-params";
 
@@ -21,8 +22,7 @@ export const RatioFinderParamsV1 = {
   reductionError: withDefault(NumberParam, 0.1),
   minStages: withDefault(NumberParam, 1),
   maxStages: withDefault(NumberParam, 2),
-  firstPartPinion: withDefault(BooleanParam, true),
-  // cotsOnly: withDefault(BooleanParam, true),
+  startingBore: withDefault(BoreParam, "NEO"),
 
   enableVPs: withDefault(BooleanParam, false),
   enableMPs: withDefault(BooleanParam, true),
