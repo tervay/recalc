@@ -299,14 +299,11 @@ export function generateOptions(state: RatioFinderStateV1) {
         gb.filterStagesForOverlappingBores();
         gb.filterStagesForOverlappingMotionMethods();
 
-        let good = true;
-        if (state.firstPartPinion) {
-          good = gb.containsPinionInGoodPlace();
-        } else {
-          good = !gb.containsPinionInGoodPlace();
-        }
-
-        if (gb.hasMotionModes() && good && !gb.containsPinionInBadPlace()) {
+        if (
+          gb.hasMotionModes() &&
+          gb.startsWithBore(state.startingBore) &&
+          !gb.containsPinionInBadPlace()
+        ) {
           gbs.push(gb);
         }
       }

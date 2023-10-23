@@ -6,7 +6,7 @@ import {
 } from "common/components/io/new/inputs/types/Utility";
 import Chain from "common/models/Chain";
 import Compressor from "common/models/Compressor";
-import { StateHook } from "common/models/ExtraTypes";
+import { Bore, StateHook } from "common/models/ExtraTypes";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
 import Ratio from "common/models/Ratio";
@@ -171,6 +171,10 @@ export type CompressorInputProps = SetAllFieldsButStateHookOptional<
 
 export type ChainInputProps = SetAllFieldsButStateHookOptional<
   RemoveL1SelectCreationFns<Chain>
+>;
+
+export type BoreInputProps = SetAllFieldsButStateHookOptional<
+  RemoveL1SelectCreationFns<Bore>
 >;
 
 export type MeasurementInputProps = RemoveL2NumberSelectCreationFnsAndChoices<

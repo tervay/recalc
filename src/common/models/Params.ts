@@ -1,5 +1,6 @@
 import Chain, { ChainDict } from "common/models/Chain";
 import Compressor, { CompressorDict } from "common/models/Compressor";
+import { Bore } from "common/models/ExtraTypes";
 import Measurement, { MeasurementDict } from "common/models/Measurement";
 import Motor, { MotorDict } from "common/models/Motor";
 import MotorPlaygroundList, {
@@ -9,7 +10,12 @@ import PistonList, { PistonListDict } from "common/models/PistonList";
 import Pulley, { PulleyDict } from "common/models/Pulley";
 import Ratio, { RatioDict } from "common/models/Ratio";
 import RatioPairList, { RatioPairDict } from "common/models/RatioPair";
-import { decodeJson, encodeJson } from "use-query-params";
+import {
+  decodeJson,
+  decodeString,
+  encodeJson,
+  encodeString,
+} from "use-query-params";
 
 export type ParamValue = number | Motor | Measurement | Pulley;
 
@@ -122,6 +128,20 @@ export const ChainParam = {
   },
 };
 
+export const BoreParam = {
+  encode: (b: Bore): DecodableString => {
+    return encodeString(b);
+  },
+  decode: (s: DecodableString): Bore => {
+    if (s === null || s === undefined) {
+      // i don't know why this breaks things if i set it to return a nullable
+      return "NEO";
+    }
+
+    return decodeString(s) as Bore;
+  },
+};
+
 export const MotorPlaygroundListParam = {
   encode: (mpl: MotorPlaygroundList): DecodableString => {
     return encodeJson(mpl.toDict());
@@ -145,4 +165,5 @@ export const TypeParamMap = {
   Ratio: RatioParam,
   Pulley: PulleyParam,
   MotorPlaygroundList: MotorPlaygroundListParam,
+  Bore: BoreParam,
 };
