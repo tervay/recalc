@@ -21,6 +21,9 @@ const rawMotorDataLookup: Record<string, RawMotorSpec> = keyBy(
 );
 export const nominalVoltage = new Measurement(12, "V");
 export const highCurrentLimit = new Measurement(1000, "A");
+const defaultMotorConstant = new Measurement(0, "N*m/A").div(
+  new Measurement(1, "ohm"),
+);
 
 export type MotorDict = {
   readonly quantity: number;
@@ -30,6 +33,7 @@ export type MotorDict = {
 export default class Motor extends Model {
   public readonly kV: Measurement;
   public readonly kT: Measurement;
+  public readonly kM: Measurement;
   public readonly maxPower: Measurement;
   public readonly resistance: Measurement;
 
@@ -46,16 +50,15 @@ export default class Motor extends Model {
   ) {
     super(identifier);
 
-    this.resistance =
-      quantity === 0
-        ? new Measurement(0, "ohm")
-        : nominalVoltage.div(this.stallCurrent);
+    this.resistance = nominalVoltage.div(this.stallCurrent);
 
     this.kV = this.freeSpeed.div(
       nominalVoltage.sub(this.resistance.mul(this.freeCurrent)),
     );
-
     this.kT = this.stallTorque.div(this.stallCurrent);
+    this.kM = new Measurement(
+      this.kT.scalar / Math.sqrt(this.resistance.scalar),
+    );
 
     this.maxPower = new MotorRules(this, highCurrentLimit, {
       voltage: nominalVoltage,

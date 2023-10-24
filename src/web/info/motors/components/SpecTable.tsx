@@ -77,6 +77,7 @@ function getRowForMotor(motor: Motor): MotorRow {
       </a>
     ),
     diameter: motor.diameter.to("in").scalar.toFixed(2),
+    kM: motor.kM.scalar.toFixed(3),
   };
 }
 
@@ -186,6 +187,10 @@ export default function SpecTable(): JSX.Element {
           {
             Header: "kV (rpm/V)",
             accessor: "kV",
+          },
+          {
+            Header: "kM (Nm/sqrt(W))",
+            accessor: "kM",
           },
         ]}
         data={data}
