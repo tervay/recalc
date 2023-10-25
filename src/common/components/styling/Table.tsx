@@ -1,7 +1,9 @@
-import { Button } from "common/components/styling/Building";
-import { Column, usePagination, useSortBy, useTable } from "react-table";
+import { Button, Column, Columns } from "common/components/styling/Building";
+import { usePagination, useSortBy, useTable } from "react-table";
 
 export default function Table<D extends Record<string, unknown>>(props: {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   columns: Array<Column<D>>;
   data: D[];
   textCentered?: boolean;
@@ -9,6 +11,8 @@ export default function Table<D extends Record<string, unknown>>(props: {
   hoverable?: boolean;
   narrow?: boolean;
   paginated?: boolean;
+  columnSelector?: boolean;
+  initialHiddenColumns?: string[];
 }): JSX.Element {
   const {
     getTableProps,
@@ -26,12 +30,14 @@ export default function Table<D extends Record<string, unknown>>(props: {
     setPageSize,
     canPreviousPage,
     canNextPage,
+    allColumns,
   } = useTable(
     {
       columns: props.columns,
       data: props.data,
       initialState: {
         pageSize: 50,
+        hiddenColumns: props.initialHiddenColumns ?? [],
       },
     },
     useSortBy,
@@ -107,59 +113,82 @@ export default function Table<D extends Record<string, unknown>>(props: {
 
   return (
     <>
-      <div className="table-container">
-        <table {...getTableProps()} className={classes.join(" ")}>
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()} key={Math.random()}>
-                {headerGroup.headers.map((column) => (
-                  <th
-                    {...column.getHeaderProps([
-                      column.getSortByToggleProps(),
-                      {
-                        className: column.className,
-                      },
-                    ])}
+      <Columns>
+        <Column ofTwelve={props.columnSelector ? 10 : 12}>
+          <div className="table-container">
+            <table {...getTableProps()} className={classes.join(" ")}>
+              <thead>
+                {headerGroups.map((headerGroup) => (
+                  <tr
+                    {...headerGroup.getHeaderGroupProps()}
                     key={Math.random()}
                   >
-                    {column.render("Header")}
-                    <span>
-                      {column.isSorted
-                        ? column.isSortedDesc
-                          ? " 🔽"
-                          : " 🔼"
-                        : ""}
-                    </span>
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {showedRows.map((row) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()} key={Math.random()}>
-                  {row.cells.map((cell) => {
-                    return (
-                      <td
-                        {...cell.getCellProps([
+                    {headerGroup.headers.map((column) => (
+                      <th
+                        {...column.getHeaderProps([
+                          column.getSortByToggleProps(),
                           {
-                            className: cell.column.className,
+                            className: column.className,
                           },
                         ])}
                         key={Math.random()}
                       >
-                        {cell.render("Cell")}
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+                        {column.render("Header")}
+                        <span>
+                          {column.isSorted
+                            ? column.isSortedDesc
+                              ? " 🔽"
+                              : " 🔼"
+                            : ""}
+                        </span>
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+              </thead>
+              <tbody {...getTableBodyProps()}>
+                {showedRows.map((row) => {
+                  prepareRow(row);
+                  return (
+                    <tr {...row.getRowProps()} key={Math.random()}>
+                      {row.cells.map((cell) => {
+                        return (
+                          <td
+                            {...cell.getCellProps([
+                              {
+                                className: cell.column.className,
+                              },
+                            ])}
+                            key={Math.random()}
+                          >
+                            {cell.render("Cell")}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </Column>
+
+        {props.columnSelector && (
+          <Column>
+            <div className="is-size-5">Column Visibility</div>
+            <div className="control">
+              {allColumns.map((column) => (
+                <div className="field">
+                  <label key={column.id} className="checkbox">
+                    <input type="checkbox" {...column.getToggleHiddenProps()} />
+                    {column.id}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </Column>
+        )}
+      </Columns>
       {paginationControls}
     </>
   );
