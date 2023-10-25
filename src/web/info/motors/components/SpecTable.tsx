@@ -10,12 +10,13 @@ import { Replace } from "ts-toolbelt/out/Object/Replace";
 import { Select } from "ts-toolbelt/out/Object/Select";
 
 type MotorRow = {
-  power30A: string;
-  power45A: string;
+  power20A: string;
+  power40A: string;
   power60A: string;
-  power75A: string;
+  power80A: string;
   powerWeightRatio: string;
   nameLink: JSX.Element;
+  torqueDensity: string;
 } & Replace<Select<Omit<Motor, "maxPower">, Measurement>, Measurement, string>;
 
 function adjustedWeight(motor: Motor): Measurement {
@@ -43,7 +44,7 @@ function getPeakPowerAtCurrentLimit(
 }
 
 function getPowerWeightRatio(motor: Motor): string {
-  for (let i = 75; i > 0; i--) {
+  for (let i = 80; i > 0; i--) {
     const power = new MotorRules(motor, new Measurement(i, "A"), {
       current: new Measurement(i, "A"),
       voltage: nominalVoltage,
@@ -66,10 +67,10 @@ function getRowForMotor(motor: Motor): MotorRow {
     stallCurrent: motor.stallCurrent.to("A").scalar.toFixed(0),
     stallTorque: motor.stallTorque.to("N*m").scalar.toFixed(2),
     weight: adjustedWeight(motor).to("lbs").scalar.toFixed(2),
-    power30A: getPeakPowerAtCurrentLimit(motor, A(30)),
-    power45A: getPeakPowerAtCurrentLimit(motor, A(45)),
+    power20A: getPeakPowerAtCurrentLimit(motor, A(20)),
+    power40A: getPeakPowerAtCurrentLimit(motor, A(40)),
     power60A: getPeakPowerAtCurrentLimit(motor, A(60)),
-    power75A: getPeakPowerAtCurrentLimit(motor, A(75)),
+    power80A: getPeakPowerAtCurrentLimit(motor, A(80)),
     powerWeightRatio: getPowerWeightRatio(motor),
     nameLink: (
       <a target={"_blank"} href={motor.url}>
@@ -78,6 +79,7 @@ function getRowForMotor(motor: Motor): MotorRow {
     ),
     diameter: motor.diameter.to("in").scalar.toFixed(2),
     kM: motor.kM.scalar.toFixed(3),
+    torqueDensity: motor.stallTorque.div(motor.weight).scalar.toFixed(2),
   };
 }
 
@@ -116,6 +118,14 @@ export default function SpecTable(): JSX.Element {
         fullwidth
         hoverable
         textCentered
+        columnSelector
+        initialHiddenColumns={[
+          "diameter",
+          "resistance",
+          "freeCurrent",
+          "power20A",
+          "power60A",
+        ]}
         columns={[
           {
             Header: "Name",
@@ -157,23 +167,27 @@ export default function SpecTable(): JSX.Element {
             accessor: "freeCurrent",
           },
           {
-            Header: `Peak power (30A) (W)`,
-            accessor: "power30A",
+            Header: `Peak power (20A) (W)`,
+            accessor: "power20A",
           },
           {
-            Header: `Peak power (45A) (W)`,
-            accessor: "power45A",
+            Header: `Peak power (40A) (W)`,
+            accessor: "power40A",
           },
           {
             Header: `Peak power (60A) (W)`,
             accessor: "power60A",
           },
           {
-            Header: `Peak power (75A) (W)`,
-            accessor: "power75A",
+            Header: `Peak power (80A) (W)`,
+            accessor: "power80A",
           },
           {
-            Header: "Peak power : weight ratio (W/lb)",
+            Header: "Torque Density (Nm/lb)",
+            accessor: "torqueDensity",
+          },
+          {
+            Header: "Peak Power Density (W/lb)",
             accessor: "powerWeightRatio",
           },
           {

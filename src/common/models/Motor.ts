@@ -21,9 +21,6 @@ const rawMotorDataLookup: Record<string, RawMotorSpec> = keyBy(
 );
 export const nominalVoltage = new Measurement(12, "V");
 export const highCurrentLimit = new Measurement(1000, "A");
-const defaultMotorConstant = new Measurement(0, "N*m/A").div(
-  new Measurement(1, "ohm"),
-);
 
 export type MotorDict = {
   readonly quantity: number;
