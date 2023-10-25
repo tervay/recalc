@@ -15,3 +15,6 @@ export const ArmReadme = React.memo(() => <Markdown markdownContent={_armReadme}
 
 import _linearReadme from "web/calculators/linear/readme.md?raw";
 export const LinearReadme = React.memo(() => <Markdown markdownContent={_linearReadme} />);
+
+import _motorsReadme from "web/info/motors/readme.md?raw";
+export const MotorsReadme = React.memo(() => <Markdown markdownContent={_motorsReadme} />);
