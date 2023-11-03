@@ -12,6 +12,7 @@ import aboutConfig from "web/about";
 import armConfig from "web/calculators/arm";
 import beltsConfig from "web/calculators/belts";
 import chainConfig from "web/calculators/chain";
+import driveConfig from "web/calculators/drive";
 import flywheelConfig from "web/calculators/flywheel";
 import intakeConfig from "web/calculators/intake";
 import linearConfig from "web/calculators/linear";
@@ -73,6 +74,7 @@ export default function Home(): JSX.Element {
           <Clickable config={intakeConfig} />
           <Clickable config={ratioConfig} />
           <Clickable config={ratioFinderConfig} />
+          <Clickable config={driveConfig} />
         </Columns>
       </Section>
 

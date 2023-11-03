@@ -205,3 +205,21 @@ export function* combinationsWithReplacement<T>(
     yield result;
   }
 }
+
+export function linspace(start: number, stop: number, step: number): number[] {
+  const ret: number[] = [];
+  for (let x = start; x <= stop; x += step) {
+    ret.push(x);
+  }
+  return ret;
+}
+
+export function* enumerate<T>(
+  it: Iterable<T>,
+  start = 0,
+): Iterable<[number, T]> {
+  let i = start;
+  for (const x of it) {
+    yield [i++, x];
+  }
+}
