@@ -89,7 +89,7 @@
     "@types/marked": "6.0.0",
     "@types/react-helmet": "6.1.8",
     "@types/react-router-dom": "5.3.3",
-    "@types/react-table": "7.7.17",
+    "@types/react-table": "7.7.18",
     "@types/tinycolor2": "1.4.5",
     "@typescript-eslint/eslint-plugin": "6.7.5",
     "@typescript-eslint/parser": "6.7.5",
