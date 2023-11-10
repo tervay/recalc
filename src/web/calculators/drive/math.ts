@@ -3,7 +3,11 @@ import Measurement, { MeasurementDict } from "common/models/Measurement";
 import Motor, { MotorDict, nominalVoltage } from "common/models/Motor";
 import Ratio, { RatioDict } from "common/models/Ratio";
 import { expose } from "common/tooling/promise-worker";
-import { enumerate, linspace } from "common/tooling/util";
+import {
+  enumerate,
+  linspace,
+  stringifyMeasurements,
+} from "common/tooling/util";
 
 export interface IliteResultDicts {
   maxVelocity: MeasurementDict;
@@ -193,7 +197,7 @@ export function iliteSim(args: {
     batteryVoltageAtRest.div(specVoltage),
   );
   const stallTorque = motor.stallTorque.mul(appliedVoltageRatio);
-  const dutyCycle = 0.75;
+  const dutyCycle = 1;
   const stallCurrent = motor.stallCurrent.mul(appliedVoltageRatio);
   const freeCurrent = motor.freeCurrent.mul(appliedVoltageRatio);
   const currentLimit = Measurement.min(
@@ -219,7 +223,8 @@ export function iliteSim(args: {
   const currentLimitedMaxMotorTorque = currentLimit
     .sub(freeCurrent)
     .div(stallCurrent.sub(freeCurrent))
-    .mul(stallTorque);
+    .mul(stallTorque)
+    .mul(efficiency);
   const weightTimesCOF = totalWeightForce.mul(wheelCOFStatic);
   const maxTorqueAtWheel = weightTimesCOF.mul(radius);
   const maxMotorTorque = maxTorqueAtWheel
@@ -255,6 +260,16 @@ export function iliteSim(args: {
     .mul(motor.quantity)
     .mul(dutyCycle)
     .div(efficiency);
+
+  console.log(
+    stringifyMeasurements({
+      maxMotorTorqueBeforeWheelSlip: maxMotorTorqueBeforeWheelSlip.to("N m"),
+      currentLimitedMaxMotorTorque: currentLimitedMaxMotorTorque.to("N m"),
+      stallTorque,
+      stallCurrent,
+      freeCurrent,
+    }),
+  );
 
   const voltageAtMaxTractiveForce = batteryVoltageAtRest.sub(
     outputCurrentAtMaxTractiveForce.mul(batteryResistance),
@@ -523,8 +538,6 @@ export function iliteSim(args: {
   }
 
   const accelerationCompleteIndex = isMaxSpeed.indexOf(true);
-
-  console.log(accelerationCompleteIndex);
 
   return {
     maxVelocity: Measurement.maxAll(floorSpeed).toDict(),

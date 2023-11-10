@@ -98,7 +98,7 @@ export default function DriveCalculator(): JSX.Element {
         })),
     [
       get.swerve,
-      get.motor.quantity,
+      get.motor,
       get.ratio.asNumber(),
       get.efficiency,
       get.weightInspected,
