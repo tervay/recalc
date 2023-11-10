@@ -86,6 +86,10 @@ export function stringifyMeasurements(
   return ret;
 }
 
+export function stringifyMeasurementsArray(objs: Measurement[]): string[] {
+  return objs.map((m) => m.format());
+}
+
 export function JSONifyMeasurements(
   objs: Record<string, Measurement>,
 ): Record<string, Record<string, unknown>> {

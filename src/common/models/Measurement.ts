@@ -1,5 +1,6 @@
 import Model from "common/models/Model";
 import Qty from "js-quantities";
+import maxBy from "lodash/maxBy";
 
 export type RawMeasurementJson = {
   readonly magnitude: number;
@@ -32,6 +33,10 @@ export default class Measurement extends Model {
 
   static max(m1: Measurement, m2: Measurement): Measurement {
     return m1.gt(m2) ? m1 : m2;
+  }
+
+  static maxAll(ms: Measurement[]): Measurement {
+    return maxBy(ms, (a) => a.baseScalar)!;
   }
 
   static simplify(qty: Qty): Qty {

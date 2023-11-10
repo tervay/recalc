@@ -1,8 +1,9 @@
+import { A, Nm, V, fps, ft_s2, m_s, rpm } from "common/models/ExtraTypes";
 import Measurement, { MeasurementDict } from "common/models/Measurement";
 import Motor, { MotorDict, nominalVoltage } from "common/models/Motor";
 import Ratio, { RatioDict } from "common/models/Ratio";
 import { expose } from "common/tooling/promise-worker";
-import { linspace, stringifyMeasurements } from "common/tooling/util";
+import { enumerate, linspace } from "common/tooling/util";
 
 export interface IliteResultDicts {
   maxVelocity: MeasurementDict;
@@ -20,14 +21,79 @@ export interface IliteResult {
   maxTheoreticalSpeed: Measurement;
 }
 
+function verifyRow(
+  row: number,
+  data: {
+    floorSpeed: Measurement;
+    appliedVoltage: Measurement;
+    appliedVoltageRatio: number;
+    absAppliedVoltage: Measurement;
+    motorSpeed: Measurement;
+    systemVoltage: Measurement;
+    attemptedCurrentDraw: Measurement;
+    actualAppliedTorque: Measurement;
+    appliedAcceleration: Measurement;
+  },
+): boolean {
+  if (![fps(0), fps(0), m_s(1.19351)][row].eq(data.floorSpeed)) {
+    console.log(row, "failed on floor speed", data.floorSpeed.format());
+    return false;
+  }
+
+  if (![V(0), V(12.42), V(8.1)][row].eq(data.appliedVoltage)) {
+    console.log(row, "failed on app volt", data.appliedVoltage.format());
+    return false;
+  }
+
+  if (![rpm(0), rpm(0), rpm(263.7648)][row].eq(data.motorSpeed)) {
+    console.log(row, "failed on motor spd", data.motorSpeed.format());
+    return false;
+  }
+  if (![V(12.6), V(9.36), V(9.36)][row].eq(data.systemVoltage)) {
+    console.log(row, "failed on sys volt", data.systemVoltage.format());
+    return false;
+  }
+  if (
+    ![A(0), A(184.67800714285713), A(112.96435993374712)][row].eq(
+      data.attemptedCurrentDraw,
+    )
+  ) {
+    console.log(
+      row,
+      "failed on att curr draw",
+      data.attemptedCurrentDraw.format(),
+    );
+    return false;
+  }
+  if (
+    ![Nm(0), Nm(1.038481676126878), Nm(1.0317135071073578)][row].eq(
+      data.actualAppliedTorque,
+    )
+  ) {
+    console.log(row, "failed on appl torq", data.actualAppliedTorque.format());
+    return false;
+  }
+
+  if (
+    ![ft_s2(0), ft_s2(23.870333431531442), ft_s2(23.714761643476926)][row].eq(
+      data.appliedAcceleration,
+    )
+  ) {
+    console.log(row, "failed on appl acc", data.appliedAcceleration.format());
+    return false;
+  }
+
+  return true;
+}
+
 type DecelerationMethod = "Brake" | "Coast" | "Reverse";
 const decelerationMethodToAccelerationThreshold: Record<
   DecelerationMethod,
-  number
+  Measurement
 > = {
-  Brake: 0.2,
-  Coast: 0.05,
-  Reverse: 1.0,
+  Brake: new Measurement(0.2, "ft/s2"),
+  Coast: new Measurement(0.05, "ft/s2"),
+  Reverse: new Measurement(1.0, "ft/s2"),
 };
 
 export function iliteSim(args: {
@@ -163,23 +229,6 @@ export function iliteSim(args: {
     .div(radius)
     .mul(efficiency);
 
-  // console.log(
-  //   stringifyMeasurements({
-  //     // maxMotorTorqueBeforeWheelSlip: maxMotorTorqueBeforeWheelSlip
-  //     //   .toBase()
-  //     //   .format(),
-  //     // currentLimitedMaxMotorTorque: currentLimitedMaxMotorTorque
-  //     //   .toBase()
-  //     //   .format(),
-  //     maxTorqueAtWheel: maxTorqueAtWheel.to("N m"),
-  //     mass: mass.to("kg"),
-  //     weightTimesCOF: weightTimesCOF.to("N"),
-  //     maxTractiveForceAtWheels: maxTractiveForceAtWheels.to("N"),
-  //     maxMotorTorqueBeforeWheelSlip: maxMotorTorqueBeforeWheelSlip.to("N m"),
-  //     maxMotorTorque: maxMotorTorque.to("N m"),
-  //   }),
-  // );
-
   const outputCurrentAtMaxTractiveForce = Measurement.min(
     maxMotorTorqueBeforeWheelSlip,
     currentLimitedMaxMotorTorque,
@@ -215,16 +264,7 @@ export function iliteSim(args: {
   const appliedVoltage = [new Measurement(0, "V")];
   const isHitTarget = [distanceTraveled[0].gte(sprintDistance)];
   const isFinishedDecelerating = [isHitTarget[0]];
-  const appliedAcceleration = [
-    isFinishedDecelerating[0] && isHitTarget[0]
-      ? new Measurement(0, "m/s2")
-      : actualAppliedTorque[0]
-          .mul(stallCurrent)
-          .div(gearing)
-          .div(radius)
-          .div(mass)
-          .mul(efficiency),
-  ];
+  const appliedAcceleration = [new Measurement(0, "m/s2")];
   const absAcceleration = [appliedAcceleration[0].abs()];
   const clampedPerMotorCurrentDraw = [
     Measurement.min(attemptedCurrentDraw[0].abs(), currentLimit).mul(
@@ -277,14 +317,192 @@ export function iliteSim(args: {
     maxSimulationTime.div(numSimRows).to("s").scalar,
   );
 
-  console.log(
-    stringifyMeasurements({
-      coulombs: coulombs[0].to("C"),
-    }),
-  );
+  let ttg = 0;
+  for (const [row, time] of enumerate(timesteps, 1)) {
+    floorSpeed.push(
+      Measurement.max(
+        appliedAcceleration[row - 1].mul(simTimeRes).add(floorSpeed[row - 1]),
+        new Measurement(0, "ft/s"),
+      ),
+    );
+
+    if (!isHitTarget[row - 1]) {
+      appliedVoltage.push(
+        Measurement.min(
+          batteryVoltageAtRest.sub(
+            actualCurrentDraw[row - 1]
+              .mul(motor.quantity)
+              .mul(batteryResistance),
+          ),
+          appliedVoltage[row - 1].add(deltaVolts),
+        ).sub(expectedVoltageLoss),
+      );
+    } else {
+      if (
+        floorSpeed[row - 1]
+          .sub(new Measurement(1, "ft/s"))
+          .lte(new Measurement(0, "ft/s"))
+      ) {
+        appliedVoltage.push(new Measurement(0, "V"));
+      } else {
+        appliedVoltage.push(
+          Measurement.max(
+            Measurement.maxAll(appliedVoltage).negate(),
+            appliedVoltage[row - 1].sub(deltaVolts),
+          ),
+        );
+      }
+    }
+
+    appliedVoltageRatios.push(
+      appliedVoltage[row].div(batteryVoltageAtRest).toBase().scalar,
+    );
+    absAppliedVoltage.push(appliedVoltage[row].abs());
+
+    motorSpeed.push(
+      floorSpeed[row]
+        .div(wheelDiameter.mul(Math.PI))
+        .div(gearing)
+        .mul(Math.abs(appliedVoltageRatios[row]))
+        .mul(new Measurement(2 * Math.PI, "rad")),
+    );
+
+    if (isFinishedDecelerating[row - 1] || isHitTarget[row - 1]) {
+      attemptedTorqueAtMotor.push(new Measurement(0, "N m"));
+    } else {
+      if (appliedVoltage[row].eq(new Measurement(0, "V"))) {
+        console.log("uh");
+      } else {
+        attemptedTorqueAtMotor.push(
+          actualFreeSpeed
+            .mul(appliedVoltageRatios[row])
+            .sub(motorSpeed[row])
+            .div(actualFreeSpeed.mul(appliedVoltageRatios[row]))
+            .mul(stallTorque)
+            .mul(appliedVoltageRatios[row]),
+        );
+      }
+    }
+
+    attemptedCurrentDraw.push(
+      isFinishedDecelerating[row - 1] && isHitTarget[row - 1]
+        ? new Measurement(0, "A")
+        : attemptedTorqueAtMotor[row]
+            .div(stallTorque)
+            .mul(stallCurrent.sub(freeCurrent))
+            .add(freeCurrent)
+            .mul(filtering)
+            .add(attemptedCurrentDraw[row - 1].mul(1 - filtering))
+            .abs(),
+    );
+
+    isCurrentLimiting.push(attemptedCurrentDraw[row].abs().gte(currentLimit));
+
+    clampedPerMotorCurrentDraw.push(
+      Measurement.min(
+        attemptedCurrentDraw[row].abs(),
+        currentLimit.mul(attemptedCurrentDraw[row].sign()),
+      ),
+    );
+
+    const b = Measurement.maxAll(actualAppliedTorque).mul(-1);
+    const factor =
+      isHitTarget[row - 1] && appliedVoltage[row].lt(new Measurement(0, "V"))
+        ? -1
+        : 1;
+
+    const a1 = clampedPerMotorCurrentDraw[row]
+      .sub(freeCurrent)
+      .mul(factor)
+      .div(stallCurrent.sub(freeCurrent))
+      .mul(stallTorque)
+      .mul(efficiency)
+      .sub(estimatedTorqueLoss.mul(floorSpeed[row]).div(maxTheoreticalSpeed))
+      .sub(estimatedTorqueLoss.mul(isHitTarget[row] ? 1 : 0).div(efficiency));
+
+    const a2 = appliedCOF[row - 1].div(motor.quantity);
+
+    const a = Measurement.min(a1, a2);
+    actualAppliedTorque.push(Measurement.max(a, b));
+
+    isWheelSlipping.push(
+      attemptedCurrentDraw[row].abs().gte(new Measurement(0, "A")) &&
+        actualAppliedTorque[row].mul(motor.quantity).gte(appliedCOF[row - 1]) &&
+        appliedVoltage[row].to("V").scalar != 0,
+    );
+
+    appliedAcceleration.push(
+      isFinishedDecelerating[row - 1] && isHitTarget[row - 1]
+        ? new Measurement(0, "m/s2")
+        : actualAppliedTorque[row]
+            .mul(motor.quantity)
+            .div(gearing)
+            .div(radius)
+            .div(mass)
+            .mul(efficiency),
+    );
+
+    absAcceleration.push(appliedAcceleration[row].abs());
+
+    distanceTraveled.push(
+      distanceTraveled[row - 1]
+        .add(appliedAcceleration[row].mul(0.5).mul(simTimeRes.mul(simTimeRes)))
+        .add(floorSpeed[row].mul(simTimeRes)),
+    );
+
+    isHitTarget.push(distanceTraveled[row].gte(sprintDistance));
+
+    if (isHitTarget[isHitTarget.length - 1] && ttg == 0) {
+      ttg = time;
+    }
+
+    if (isHitTarget[row]) {
+      appliedCOF.push(attemptedTorqueAtMotor[row]);
+    } else {
+      appliedCOF.push(
+        totalWeightForce
+          .mul(isWheelSlipping[row - 1] ? wheelCOFDynamic : wheelCOFStatic)
+          .mul(radius)
+          .mul(gearing)
+          .mul(attemptedTorqueAtMotor[row].sign()),
+      );
+    }
+
+    isFinishedDecelerating.push(
+      isFinishedDecelerating[row - 1] ||
+        (isHitTarget[row] &&
+          floorSpeed[row].lte(
+            deceleration_complete_threshold.mul(new Measurement(1, "s")),
+          )),
+    );
+
+    actualCurrentDraw.push(
+      isFinishedDecelerating[row] && isHitTarget[row]
+        ? new Measurement(0, "A")
+        : Measurement.min(
+            stallCurrent
+              .sub(freeCurrent)
+              .mul(actualAppliedTorque[row])
+              .div(stallTorque)
+              .div(efficiency)
+              .add(freeCurrent)
+              .div(efficiency),
+            clampedPerMotorCurrentDraw[row],
+          ),
+    );
+
+    systemVoltage.push(
+      batteryVoltageAtRest.sub(
+        actualCurrentDraw[row]
+          .mul(dutyCycle)
+          .mul(motor.quantity)
+          .mul(batteryResistance),
+      ),
+    );
+  }
 
   return {
-    maxVelocity: new Measurement(motor.quantity, "m/s").toDict(),
+    maxVelocity: Measurement.maxAll(floorSpeed).toDict(),
     maxTractiveForce: maxTractiveForceAtWheels.toDict(),
     outputCurrentAtMaxTractiveForce: outputCurrentAtMaxTractiveForce.toDict(),
     voltageAtMaxTractiveForce: voltageAtMaxTractiveForce.toDict(),

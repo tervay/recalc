@@ -235,6 +235,13 @@ export default function DriveCalculator(): JSX.Element {
         <Column>
           {output !== undefined && (
             <>
+              <SingleInputLine label="Max Speed">
+                <MeasurementOutput
+                  stateHook={[output.maxVelocity, () => {}]}
+                  numberRoundTo={2}
+                  defaultUnit="ft/s"
+                />
+              </SingleInputLine>
               <SingleInputLine label="Max Tractive Force">
                 <MeasurementOutput
                   stateHook={[output.maxTractiveForce, () => {}]}
