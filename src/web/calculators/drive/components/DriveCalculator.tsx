@@ -90,6 +90,11 @@ export default function DriveCalculator(): JSX.Element {
           totalCurrDrawOverTime: rd.totalCurrDrawOverTime.map((d) =>
             Measurement.fromDict(d),
           ),
+          timeToGoal: Measurement.fromDict(rd.timeToGoal),
+          accelerationDistance:
+            rd.accelerationDistance === undefined
+              ? undefined
+              : Measurement.fromDict(rd.accelerationDistance),
         })),
     [
       get.swerve,
@@ -276,6 +281,26 @@ export default function DriveCalculator(): JSX.Element {
         <Column>
           {output !== undefined && (
             <>
+              <SingleInputLine label="Time to Goal">
+                <MeasurementOutput
+                  stateHook={[output.timeToGoal, () => {}]}
+                  numberRoundTo={2}
+                  defaultUnit="s"
+                />
+              </SingleInputLine>
+
+              <SingleInputLine label="Acceleration Distance">
+                <MeasurementOutput
+                  stateHook={[
+                    output.accelerationDistance ?? get.sprintDistance,
+                    () => {},
+                  ]}
+                  numberRoundTo={2}
+                  defaultUnit="ft"
+                  warningIf={() => output.accelerationDistance === undefined}
+                />
+              </SingleInputLine>
+
               <Columns formColumns>
                 <Column>
                   <SingleInputLine label="Max Achieved Speed">
