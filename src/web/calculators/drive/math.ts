@@ -17,6 +17,8 @@ export interface IliteResultDicts {
   positionOverTime: MeasurementDict[];
   sysVoltageOverTime: MeasurementDict[];
   totalCurrDrawOverTime: MeasurementDict[];
+  timeToGoal: MeasurementDict;
+  accelerationDistance?: MeasurementDict;
 }
 
 export interface IliteResult {
@@ -31,6 +33,8 @@ export interface IliteResult {
   positionOverTime: Measurement[];
   sysVoltageOverTime: Measurement[];
   totalCurrDrawOverTime: Measurement[];
+  timeToGoal: Measurement;
+  accelerationDistance?: Measurement;
 }
 
 function verifyRow(
@@ -511,7 +515,16 @@ export function iliteSim(args: {
           .mul(batteryResistance),
       ),
     );
+
+    isMaxSpeed.push(
+      !isFinishedDecelerating[row] &&
+        absAcceleration[row].lte(maxSpeedAccelerationThreshold),
+    );
   }
+
+  const accelerationCompleteIndex = isMaxSpeed.indexOf(true);
+
+  console.log(accelerationCompleteIndex);
 
   return {
     maxVelocity: Measurement.maxAll(floorSpeed).toDict(),
@@ -525,6 +538,11 @@ export function iliteSim(args: {
     accelOverTime: absAcceleration.map((m) => m.toDict()),
     sysVoltageOverTime: systemVoltage.map((m) => m.toDict()),
     totalCurrDrawOverTime: actualCurrentDraw.map((m) => m.toDict()),
+    timeToGoal: new Measurement(ttg, "s").toDict(),
+    accelerationDistance:
+      accelerationCompleteIndex === -1
+        ? undefined
+        : distanceTraveled[accelerationCompleteIndex].toDict(),
   };
 }
 
