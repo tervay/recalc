@@ -1,6 +1,8 @@
+import Graph from "common/components/graphing/Graph";
+import { GraphConfig } from "common/components/graphing/graphConfig";
+import SimpleHeading from "common/components/heading/SimpleHeading";
 import SingleInputLine from "common/components/io/inputs/SingleInputLine";
 import {
-  BooleanInput,
   MeasurementInput,
   MotorInput,
   NumberInput,
@@ -12,7 +14,12 @@ import { useAsyncMemo } from "common/hooks/useAsyncMemo";
 import Measurement from "common/models/Measurement";
 import { useGettersSetters } from "common/tooling/conversion";
 import { wrap } from "common/tooling/promise-worker";
-import { DriveStateV1 } from "web/calculators/drive";
+import {
+  DriveParamsV1,
+  DriveStateV1,
+  electricalGraphConfig,
+  motionGraphConfig,
+} from "web/calculators/drive";
 import { DriveState } from "web/calculators/drive/converter";
 import { DriveWorkerFunctions, IliteResult } from "web/calculators/drive/math";
 import rawWorker from "web/calculators/drive/math?worker";
@@ -69,6 +76,20 @@ export default function DriveCalculator(): JSX.Element {
             rd.voltageAtMaxTractiveForce,
           ),
           maxTheoreticalSpeed: Measurement.fromDict(rd.maxTheoreticalSpeed),
+          timeSteps: rd.timeSteps.map((d) => Measurement.fromDict(d)),
+          velocityOverTime: rd.velocityOverTime.map((d) =>
+            Measurement.fromDict(d),
+          ),
+          positionOverTime: rd.positionOverTime.map((d) =>
+            Measurement.fromDict(d),
+          ),
+          accelOverTime: rd.accelOverTime.map((d) => Measurement.fromDict(d)),
+          sysVoltageOverTime: rd.sysVoltageOverTime.map((d) =>
+            Measurement.fromDict(d),
+          ),
+          totalCurrDrawOverTime: rd.totalCurrDrawOverTime.map((d) =>
+            Measurement.fromDict(d),
+          ),
         })),
     [
       get.swerve,
@@ -106,11 +127,16 @@ export default function DriveCalculator(): JSX.Element {
 
   return (
     <>
+      <SimpleHeading
+        queryParams={DriveParamsV1}
+        state={get}
+        title="Drivetrain Calculator"
+      />
       <Columns>
         <Column>
-          <SingleInputLine label="Swerve?">
+          {/* <SingleInputLine label="Swerve?">
             <BooleanInput stateHook={[get.swerve, set.setSwerve]} />
-          </SingleInputLine>
+          </SingleInputLine> */}
           <SingleInputLine label="Motors">
             <MotorInput stateHook={[get.motor, set.setMotor]} />
           </SingleInputLine>
@@ -120,39 +146,54 @@ export default function DriveCalculator(): JSX.Element {
           <SingleInputLine label="Efficiency">
             <NumberInput stateHook={[get.efficiency, set.setEfficiency]} />
           </SingleInputLine>
-          <SingleInputLine label="Inspected Weight">
-            <MeasurementInput
-              stateHook={[get.weightInspected, set.setWeightInspected]}
-            />
-          </SingleInputLine>
-          <SingleInputLine label="Auxilliary Weight">
-            <MeasurementInput
-              stateHook={[get.weightAuxilliary, set.setWeightAuxilliary]}
-            />
-          </SingleInputLine>
+
+          <Columns formColumns>
+            <Column>
+              <SingleInputLine label="Inspected Weight">
+                <MeasurementInput
+                  stateHook={[get.weightInspected, set.setWeightInspected]}
+                />
+              </SingleInputLine>
+            </Column>
+            <Column>
+              <SingleInputLine label="Auxilliary Weight">
+                <MeasurementInput
+                  stateHook={[get.weightAuxilliary, set.setWeightAuxilliary]}
+                />
+              </SingleInputLine>
+            </Column>
+          </Columns>
           <SingleInputLine label="Wheel Diameter">
             <MeasurementInput
               stateHook={[get.wheelDiameter, set.setWheelDiameter]}
             />
           </SingleInputLine>
-          <SingleInputLine label="COF (Static)">
-            <NumberInput
-              stateHook={[get.wheelCOFStatic, set.setWheelCOFStatic]}
-            />
-          </SingleInputLine>
-          <SingleInputLine label="COF (Dynamic)">
-            <NumberInput
-              stateHook={[get.wheelCOFDynamic, set.setWheelCOFDynamic]}
-            />
-          </SingleInputLine>
-          <SingleInputLine label="COF (Lateral)">
-            <NumberInput
-              stateHook={[get.wheelCOFLateral, set.setWheelCOFLateral]}
-            />
-          </SingleInputLine>
+          <Columns formColumns>
+            <Column>
+              <SingleInputLine label="COF (Static)">
+                <NumberInput
+                  stateHook={[get.wheelCOFStatic, set.setWheelCOFStatic]}
+                />
+              </SingleInputLine>
+            </Column>
+            <Column>
+              <SingleInputLine label="COF (Dynamic)">
+                <NumberInput
+                  stateHook={[get.wheelCOFDynamic, set.setWheelCOFDynamic]}
+                />
+              </SingleInputLine>
+            </Column>
+            {/* <Column>
+              <SingleInputLine label="COF (Lateral)">
+                <NumberInput
+                  stateHook={[get.wheelCOFLateral, set.setWheelCOFLateral]}
+                />
+              </SingleInputLine>
+            </Column> */}
+          </Columns>
           {!get.swerve && (
             <>
-              <SingleInputLine label="Wheel Base Length">
+              {/* <SingleInputLine label="Wheel Base Length">
                 <MeasurementInput
                   stateHook={[get.wheelBaseLength, set.setWheelBaseLength]}
                 />
@@ -177,7 +218,7 @@ export default function DriveCalculator(): JSX.Element {
                     set.setWeightDistributionLeftRight,
                   ]}
                 />
-              </SingleInputLine>
+              </SingleInputLine> */}
             </>
           )}
           <SingleInputLine label="Sprint Distance">
@@ -185,7 +226,7 @@ export default function DriveCalculator(): JSX.Element {
               stateHook={[get.sprintDistance, set.setSprintDistance]}
             />
           </SingleInputLine>
-          <SingleInputLine label="Target Time to Goal">
+          {/* <SingleInputLine label="Target Time to Goal">
             <MeasurementInput
               stateHook={[get.targetTimeToGoal, set.setTargetTimeToGoal]}
             />
@@ -194,7 +235,7 @@ export default function DriveCalculator(): JSX.Element {
             <NumberInput
               stateHook={[get.numCyclesPerMatch, set.setNumCyclesPerMatch]}
             />
-          </SingleInputLine>
+          </SingleInputLine> */}
           <SingleInputLine label="Battery Voltage at Rest">
             <MeasurementInput
               stateHook={[
@@ -218,30 +259,44 @@ export default function DriveCalculator(): JSX.Element {
               stateHook={[get.batteryResistance, set.setBatteryResistance]}
             />
           </SingleInputLine>
-          <SingleInputLine label="Battery Amp Hours">
+          {/* <SingleInputLine label="Battery Amp Hours">
             <MeasurementInput
               stateHook={[get.batteryAmpHours, set.setBatteryAmpHours]}
             />
-          </SingleInputLine>
-          <SingleInputLine label="Peak Battery Discharge C-Rating">
+          </SingleInputLine> */}
+          {/* <SingleInputLine label="Peak Battery Discharge C-Rating">
             <NumberInput
               stateHook={[
                 get.peakBatteryDischarge,
                 set.setPeakBatteryDischarge,
               ]}
             />
-          </SingleInputLine>
+          </SingleInputLine> */}
         </Column>
         <Column>
           {output !== undefined && (
             <>
-              <SingleInputLine label="Max Speed">
-                <MeasurementOutput
-                  stateHook={[output.maxVelocity, () => {}]}
-                  numberRoundTo={2}
-                  defaultUnit="ft/s"
-                />
-              </SingleInputLine>
+              <Columns formColumns>
+                <Column>
+                  <SingleInputLine label="Max Achieved Speed">
+                    <MeasurementOutput
+                      stateHook={[output.maxVelocity, () => {}]}
+                      numberRoundTo={2}
+                      defaultUnit="ft/s"
+                    />
+                  </SingleInputLine>
+                </Column>
+                <Column>
+                  <SingleInputLine label="Max Theoretical Speed">
+                    <MeasurementOutput
+                      stateHook={[output.maxTheoreticalSpeed, () => {}]}
+                      numberRoundTo={2}
+                      defaultUnit="ft/s"
+                    />
+                  </SingleInputLine>
+                </Column>
+              </Columns>
+
               <SingleInputLine label="Max Tractive Force">
                 <MeasurementOutput
                   stateHook={[output.maxTractiveForce, () => {}]}
@@ -249,37 +304,111 @@ export default function DriveCalculator(): JSX.Element {
                   defaultUnit="lbf"
                 />
               </SingleInputLine>
-              <SingleInputLine label="Current at Max Traction">
-                <MeasurementOutput
-                  stateHook={[output.outputCurrentAtMaxTractiveForce, () => {}]}
-                  numberRoundTo={2}
-                  defaultUnit="A"
-                />
-              </SingleInputLine>
-              <SingleInputLine label="Voltage at Max Traction">
-                <MeasurementOutput
-                  stateHook={[output.voltageAtMaxTractiveForce, () => {}]}
-                  numberRoundTo={2}
-                  defaultUnit="V"
-                  warningIf={() =>
-                    output.voltageAtMaxTractiveForce.lte(
-                      new Measurement(6.8, "V"),
-                    )
-                  }
-                  dangerIf={() =>
-                    output.voltageAtMaxTractiveForce.lte(
-                      new Measurement(6.3, "V"),
-                    )
-                  }
-                />
-              </SingleInputLine>
-              <SingleInputLine label="Max Theoretical Speed">
-                <MeasurementOutput
-                  stateHook={[output.maxTheoreticalSpeed, () => {}]}
-                  numberRoundTo={2}
-                  defaultUnit="ft/s"
-                />
-              </SingleInputLine>
+
+              <Columns formColumns>
+                <Column>
+                  <SingleInputLine label="Current at Max Traction">
+                    <MeasurementOutput
+                      stateHook={[
+                        output.outputCurrentAtMaxTractiveForce,
+                        () => {},
+                      ]}
+                      numberRoundTo={2}
+                      defaultUnit="A"
+                    />
+                  </SingleInputLine>
+                </Column>
+                <Column>
+                  <SingleInputLine label="Voltage at Max Traction">
+                    <MeasurementOutput
+                      stateHook={[output.voltageAtMaxTractiveForce, () => {}]}
+                      numberRoundTo={2}
+                      defaultUnit="V"
+                      warningIf={() =>
+                        output.voltageAtMaxTractiveForce.lte(
+                          new Measurement(6.8, "V"),
+                        )
+                      }
+                      dangerIf={() =>
+                        output.voltageAtMaxTractiveForce.lte(
+                          new Measurement(6.3, "V"),
+                        )
+                      }
+                    />
+                  </SingleInputLine>
+                </Column>
+              </Columns>
+
+              <Graph
+                options={motionGraphConfig}
+                simpleDatasets={[
+                  GraphConfig.dataset(
+                    "Velocity (ft/s)",
+                    output.timeSteps.map((m, i) => ({
+                      x: m.scalar,
+                      y: output.velocityOverTime[i].to("ft/s").scalar,
+                    })),
+                    0,
+                    "y-velocity",
+                  ),
+                  GraphConfig.dataset(
+                    "Position (ft)",
+                    output.timeSteps.map((m, i) => ({
+                      x: m.scalar,
+                      y: output.positionOverTime[i].to("ft").scalar,
+                    })),
+                    1,
+                    "y-position",
+                  ),
+                  GraphConfig.dataset(
+                    "Abs Acceleration (ft/s2)",
+                    output.timeSteps.map((m, i) => ({
+                      x: m.scalar,
+                      y: output.accelOverTime[i].to("ft/s2").scalar,
+                    })),
+                    2,
+                    "y-accel",
+                  ),
+                ]}
+                title="Movement Characteristics"
+                id="motionGraph"
+                height={400}
+              />
+              <Graph
+                options={electricalGraphConfig}
+                simpleDatasets={[
+                  GraphConfig.dataset(
+                    "Voltage (V)",
+                    output.timeSteps.map((m, i) => ({
+                      x: m.scalar,
+                      y: output.sysVoltageOverTime[i].to("V").scalar,
+                    })),
+                    0,
+                    "y-voltage",
+                  ),
+                  GraphConfig.dataset(
+                    "Brownout",
+                    output.timeSteps.map((m) => ({
+                      x: m.scalar,
+                      y: new Measurement(6.8, "V").scalar,
+                    })),
+                    3,
+                    "y-voltage",
+                  ),
+                  GraphConfig.dataset(
+                    "Current (A)",
+                    output.timeSteps.map((m, i) => ({
+                      x: m.scalar,
+                      y: output.totalCurrDrawOverTime[i].abs().to("A").scalar,
+                    })),
+                    1,
+                    "y-current",
+                  ),
+                ]}
+                title="Electrical Characteristics"
+                id="electricalGraph"
+                height={400}
+              />
             </>
           )}
         </Column>

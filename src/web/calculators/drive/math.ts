@@ -11,6 +11,12 @@ export interface IliteResultDicts {
   outputCurrentAtMaxTractiveForce: MeasurementDict;
   voltageAtMaxTractiveForce: MeasurementDict;
   maxTheoreticalSpeed: MeasurementDict;
+  timeSteps: MeasurementDict[];
+  velocityOverTime: MeasurementDict[];
+  accelOverTime: MeasurementDict[];
+  positionOverTime: MeasurementDict[];
+  sysVoltageOverTime: MeasurementDict[];
+  totalCurrDrawOverTime: MeasurementDict[];
 }
 
 export interface IliteResult {
@@ -19,6 +25,12 @@ export interface IliteResult {
   outputCurrentAtMaxTractiveForce: Measurement;
   voltageAtMaxTractiveForce: Measurement;
   maxTheoreticalSpeed: Measurement;
+  timeSteps: Measurement[];
+  velocityOverTime: Measurement[];
+  accelOverTime: Measurement[];
+  positionOverTime: Measurement[];
+  sysVoltageOverTime: Measurement[];
+  totalCurrDrawOverTime: Measurement[];
 }
 
 function verifyRow(
@@ -507,6 +519,12 @@ export function iliteSim(args: {
     outputCurrentAtMaxTractiveForce: outputCurrentAtMaxTractiveForce.toDict(),
     voltageAtMaxTractiveForce: voltageAtMaxTractiveForce.toDict(),
     maxTheoreticalSpeed: maxTheoreticalSpeed.toDict(),
+    timeSteps: timesteps.map((t) => new Measurement(t, "s").toDict()),
+    velocityOverTime: floorSpeed.map((m) => m.toDict()),
+    positionOverTime: distanceTraveled.map((m) => m.toDict()),
+    accelOverTime: absAcceleration.map((m) => m.toDict()),
+    sysVoltageOverTime: systemVoltage.map((m) => m.toDict()),
+    totalCurrDrawOverTime: actualCurrentDraw.map((m) => m.toDict()),
   };
 }
 
