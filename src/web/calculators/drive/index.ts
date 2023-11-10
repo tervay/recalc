@@ -1,3 +1,4 @@
+import { GraphConfig } from "common/components/graphing/graphConfig";
 import { Stateify } from "common/models/ExtraTypes";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
@@ -62,3 +63,80 @@ export const DriveParamsV1 = {
   throttleResponseMax: withDefault(NumberParam, 0.99),
 };
 export type DriveStateV1 = Stateify<typeof DriveParamsV1>;
+
+export const motionGraphConfig = GraphConfig.options(
+  {
+    "y-velocity": {
+      type: "linear",
+      position: "left",
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: "Velocity (ft/s)",
+      },
+    },
+    "y-position": {
+      type: "linear",
+      position: "right",
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: "Position (ft)",
+      },
+    },
+    "y-accel": {
+      type: "linear",
+      position: "right",
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: "Acceleration (ft/s2)",
+      },
+    },
+    x: {
+      type: "linear",
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: "Time (s)",
+      },
+    },
+  },
+  {
+    maintainAspectRatio: false,
+  },
+);
+
+export const electricalGraphConfig = GraphConfig.options(
+  {
+    "y-current": {
+      type: "linear",
+      position: "right",
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: "Current (A)",
+      },
+    },
+    "y-voltage": {
+      type: "linear",
+      position: "left",
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: "Voltage (V)",
+      },
+    },
+    x: {
+      type: "linear",
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: "Time (s)",
+      },
+    },
+  },
+  {
+    maintainAspectRatio: false,
+  },
+);
