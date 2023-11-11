@@ -3,11 +3,7 @@ import Measurement, { MeasurementDict } from "common/models/Measurement";
 import Motor, { MotorDict, nominalVoltage } from "common/models/Motor";
 import Ratio, { RatioDict } from "common/models/Ratio";
 import { expose } from "common/tooling/promise-worker";
-import {
-  enumerate,
-  linspace,
-  stringifyMeasurements,
-} from "common/tooling/util";
+import { enumerate, linspace } from "common/tooling/util";
 
 export interface IliteResultDicts {
   maxVelocity: MeasurementDict;
@@ -23,6 +19,8 @@ export interface IliteResultDicts {
   totalCurrDrawOverTime: MeasurementDict[];
   timeToGoal: MeasurementDict;
   accelerationDistance?: MeasurementDict;
+  isCurrLimitingOverTime: boolean[];
+  isWheelSlipping: boolean[];
 }
 
 export interface IliteResult {
@@ -39,6 +37,8 @@ export interface IliteResult {
   totalCurrDrawOverTime: Measurement[];
   timeToGoal: Measurement;
   accelerationDistance?: Measurement;
+  isCurrLimitingOverTime: boolean[];
+  isWheelSlipping: boolean[];
 }
 
 function verifyRow(
@@ -260,16 +260,6 @@ export function iliteSim(args: {
     .mul(motor.quantity)
     .mul(dutyCycle)
     .div(efficiency);
-
-  console.log(
-    stringifyMeasurements({
-      maxMotorTorqueBeforeWheelSlip: maxMotorTorqueBeforeWheelSlip.to("N m"),
-      currentLimitedMaxMotorTorque: currentLimitedMaxMotorTorque.to("N m"),
-      stallTorque,
-      stallCurrent,
-      freeCurrent,
-    }),
-  );
 
   const voltageAtMaxTractiveForce = batteryVoltageAtRest.sub(
     outputCurrentAtMaxTractiveForce.mul(batteryResistance),
@@ -556,6 +546,8 @@ export function iliteSim(args: {
       accelerationCompleteIndex === -1
         ? undefined
         : distanceTraveled[accelerationCompleteIndex].toDict(),
+    isCurrLimitingOverTime: isCurrentLimiting,
+    isWheelSlipping: isWheelSlipping,
   };
 }
 
