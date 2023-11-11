@@ -93,6 +93,28 @@ export const motionGraphConfig = GraphConfig.options(
         text: "Acceleration (ft/s2)",
       },
     },
+    "y-currlimit": {
+      type: "linear",
+      position: "right",
+      beginAtZero: true,
+      title: {
+        display: false,
+      },
+      display: false,
+      min: 0,
+      max: 5,
+    },
+    "y-wheelslip": {
+      type: "linear",
+      position: "right",
+      beginAtZero: true,
+      title: {
+        display: false,
+      },
+      display: false,
+      min: 0,
+      max: 4,
+    },
     x: {
       type: "linear",
       beginAtZero: true,
