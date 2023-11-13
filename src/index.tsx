@@ -1,9 +1,33 @@
+import { dom, library } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import {
+  faArrowsAltV,
+  faBookmark,
+  faCalculator,
+  faCheckSquare,
+  faCodeBranch,
+  faInfoCircle,
+  faLink,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import ReactDOM from "react-dom";
 import "scss/index.css";
 import "scss/index.scss";
 import Routing from "./Routing";
 import reportWebVitals from "./reportWebVitals";
+
+dom.watch();
+library.add(
+  faArrowsAltV,
+  faBookmark,
+  faCalculator,
+  faCheckSquare,
+  faCodeBranch,
+  faInfoCircle,
+  faLink,
+  faUsers,
+);
 
 ReactDOM.render(
   <React.StrictMode>
