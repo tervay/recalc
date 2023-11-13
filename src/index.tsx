@@ -10,6 +10,7 @@ import {
   faLink,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
 import { createRoot } from "react-dom/client";
 import "scss/index.css";
 import "scss/index.scss";
@@ -30,7 +31,11 @@ library.add(
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
-root.render(<Routing />);
+root.render(
+  <React.StrictMode>
+    <Routing />
+  </React.StrictMode>,
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
