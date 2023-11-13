@@ -821,10 +821,10 @@
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.11.tgz#56588b17ae8f50c53983a524fc3cc47437969d64"
   integrity sha512-qjDJRrmvBMiTx+jyLxvLfJU7UznFuokDv4f3WRuriHKERccVpFU+8XMQUAbDzoiJCsmexxRExQeMwwCdamSKDA==
 
-"@types/js-quantities@1.6.5":
-  version "1.6.5"
-  resolved "https://registry.yarnpkg.com/@types/js-quantities/-/js-quantities-1.6.5.tgz#dee0635ab81e67a261a015797ccb549311d7b55c"
-  integrity sha512-AkT7LRzMGHdoOkpeCPoZvwcULJ1nBh18gdvfdNpzmzUz06pfMs4cAUE25+YeGg1Hp53dQaZ5jWGQU/BgeHHPVw==
+"@types/js-quantities@1.6.6":
+  version "1.6.6"
+  resolved "https://registry.yarnpkg.com/@types/js-quantities/-/js-quantities-1.6.6.tgz#259961de1428e3b2c192a963d2e920a69298b02b"
+  integrity sha512-k2Q8/Avj4Oz50flfTnfVGnUCkt7OYQ3U+lfQVELE/x5mdbwChZ7fM0wpUpVWzbuSL8kIYt9ZsFQ0RFNBv8T3Qw==
 
 "@types/json-schema@^7.0.12":
   version "7.0.13"
