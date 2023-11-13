@@ -40,5 +40,8 @@ export default defineConfig({
     rollupOptions: {
       plugins: [],
     },
+    commonjsOptions: {
+      strictRequires: true,
+    },
   },
 });
