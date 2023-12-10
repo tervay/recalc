@@ -4,7 +4,6 @@ import {
   Level,
   LevelItem,
   LevelLeft,
-  LevelRight,
   Title,
 } from "common/components/styling/Building";
 import { Chart } from "react-chartjs-2";
@@ -56,14 +55,14 @@ export default function Graph(props: {
             <Title>{props.title}</Title>
           </LevelItem>
         </LevelLeft>
-        <LevelRight>
-          <LevelItem>
-            {/* <SingleInputLine label="Toggle Zoom">
+        {/* <LevelRight> */}
+        {/* <LevelItem> */}
+        {/* <SingleInputLine label="Toggle Zoom">
               <BooleanInput stateHook={[zoomEnabled, setZoomEnabled]} />
             </SingleInputLine> */}
-          </LevelItem>
-          <LevelItem>
-            {/* <Button
+        {/* </LevelItem>
+          <LevelItem> */}
+        {/* <Button
               color="primary"
               onClick={makeResetFunction(props.id)}
               faIcon="binoculars"
@@ -71,8 +70,8 @@ export default function Graph(props: {
             >
               Reset Zoom
             </Button> */}
-          </LevelItem>
-        </LevelRight>
+        {/* </LevelItem> */}
+        {/* </LevelRight> */}
       </Level>
 
       <div
