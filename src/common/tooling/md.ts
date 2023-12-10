@@ -72,14 +72,16 @@ export function parse(md: string): MarkdownSection[] {
     const split = section.split("\n");
     return {
       title: split[0].replaceAll("#", ""),
-      content: marked
-        .parse(split.slice(1).join("\n"), { renderer: renderer })
-        .replace(/(__special_katext_id_\d+__)/g, (_match, capture) => {
-          const { type, expression } = math_expressions[capture];
-          return katex.renderToString(expression, {
-            displayMode: type == "block",
-          });
-        }),
+      content: (
+        marked.parse(split.slice(1).join("\n"), {
+          renderer: renderer,
+        }) as string
+      ).replace(/(__special_katext_id_\d+__)/g, (_match, capture) => {
+        const { type, expression } = math_expressions[capture];
+        return katex.renderToString(expression, {
+          displayMode: type == "block",
+        });
+      }),
     };
   });
 }
