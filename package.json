@@ -41,7 +41,7 @@
     "ts-toolbelt": "9.6.0",
     "typescript": "5.3.3",
     "use-query-params": "2.2.1",
-    "vitest": "0.34.6",
+    "vitest": "1.0.4",
     "web-vitals": "3.5.0"
   },
   "scripts": {
@@ -96,7 +96,7 @@
     "@typescript-eslint/eslint-plugin": "6.7.5",
     "@typescript-eslint/parser": "6.7.5",
     "@vitejs/plugin-react": "4.2.1",
-    "@vitest/coverage-istanbul": "0.34.6",
+    "@vitest/coverage-istanbul": "1.0.4",
     "cypress": "13.6.1",
     "eslint": "8.51.0",
     "eslint-config-prettier": "9.1.0",
