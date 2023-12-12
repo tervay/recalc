@@ -28,6 +28,7 @@ import { LinearState } from "web/calculators/linear/converter";
 import {
   LinearWorkerFunctions,
   calculateProfiledTimeToGoal,
+  calculateStallLoad,
 } from "web/calculators/linear/linearMath";
 import rawWorker from "web/calculators/linear/linearMath?worker";
 import KgKvKaDisplay from "web/calculators/shared/components/KgKvKaDisplay";
@@ -156,6 +157,18 @@ export default function LinearCalculator(): JSX.Element {
       get.spoolDiameter,
       get.load,
     ],
+  );
+
+  const stallLoad = useMemo(
+    () =>
+      calculateStallLoad(
+        get.motor,
+        get.currentLimit,
+        get.spoolDiameter,
+        get.ratio,
+        get.efficiency,
+      ).negate(),
+    [get.motor, get.currentLimit, get.spoolDiameter, get.ratio, get.efficiency],
   );
 
   return (
@@ -511,6 +524,20 @@ export default function LinearCalculator(): JSX.Element {
               ]}
               numberRoundTo={2}
               defaultUnit="in/s2"
+            />
+          </SingleInputLine>
+
+          <SingleInputLine
+            label="Stall Load"
+            id="stallLoad"
+            tooltip={
+              "The maximum amount of load the system can handle. Estimated."
+            }
+          >
+            <MeasurementOutput
+              stateHook={[stallLoad, () => undefined]}
+              numberRoundTo={2}
+              defaultUnit="lbs"
             />
           </SingleInputLine>
 
