@@ -102,18 +102,19 @@ export default function Home(): JSX.Element {
             url="https://firstfrc.blob.core.windows.net/frc2023/Manual/2023FRCGameManual.pdf"
           />
           <Shortcut name="2023 Q&A" url="https://frc-qa.firstinspires.org/" />
+
           <Shortcut
             name="FRC Resources"
             url="https://www.firstinspires.org/resource-library/frc/technical-resources"
           />
 
           <Shortcut
-            name="Team/Event Search"
-            url="https://www.firstinspires.org/team-event-search#type=teams&sort=name&programs=FRC&year=2023"
+            name="2024 Team/Event Search"
+            url="https://www.firstinspires.org/team-event-search#type=teams&sort=name&programs=FRC&year=2024"
           />
           <Shortcut
-            name="FRC-Events"
-            url="https://frc-events.firstinspires.org/2023/Events/EventList"
+            name="2024 FRC-Events"
+            url="https://frc-events.firstinspires.org/2024/Events/EventList"
           />
           <Shortcut
             name="Open Alliance 2023"
