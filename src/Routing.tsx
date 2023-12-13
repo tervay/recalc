@@ -14,6 +14,7 @@ import aboutConfig from "web/about";
 import armConfig from "web/calculators/arm";
 import beltsConfig from "web/calculators/belts";
 import chainConfig from "web/calculators/chain";
+import driveConfig from "web/calculators/drive";
 import flywheelConfig from "web/calculators/flywheel";
 import intakeConfig from "web/calculators/intake";
 import linearConfig from "web/calculators/linear";
@@ -78,6 +79,10 @@ function App(): JSX.Element {
                 <Route
                   path={ratioFinderConfig.url}
                   element={<ratioFinderConfig.component />}
+                />
+                <Route
+                  path={driveConfig.url}
+                  element={<driveConfig.component />}
                 />
                 <Route
                   path={motorsConfig.url}
