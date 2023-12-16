@@ -9,7 +9,7 @@ import {
   RatioInput,
 } from "common/components/io/new/inputs";
 import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
-import { Column, Columns } from "common/components/styling/Building";
+import { Column, Columns, Message } from "common/components/styling/Building";
 import { useAsyncMemo } from "common/hooks/useAsyncMemo";
 import Measurement from "common/models/Measurement";
 import { useGettersSetters } from "common/tooling/conversion";
@@ -273,6 +273,11 @@ export default function LinearCalculator(): JSX.Element {
           <KgKvKaDisplay kG={kG} kV={kV} kA={kA} distanceType={"linear"} />
         </Column>
         <Column>
+          <Message color="warning">
+            There is a small delay in output updates. The longer it takes to
+            reach the goal, the slower the graph & outputs will be to update.
+            This does <b>not</b> model deceleration.
+          </Message>
           <Graph
             options={linearGraphConfig}
             simpleDatasets={[
