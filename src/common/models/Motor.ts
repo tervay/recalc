@@ -48,7 +48,9 @@ export default class Motor extends Model {
   ) {
     super(identifier);
 
-    this.resistance = nominalVoltage.div(this.stallCurrent);
+    this.resistance = nominalVoltage.div(
+      this.stallCurrent.sub(this.freeCurrent),
+    );
 
     this.kV = this.freeSpeed.div(
       nominalVoltage.sub(this.resistance.mul(this.freeCurrent)),

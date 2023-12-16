@@ -377,7 +377,7 @@ export default function FlywheelCalculator(): JSX.Element {
                     set.setShooterMomentOfInertia,
                   ]}
                   numberDisabledIf={() => !get.useCustomShooterMoi}
-                  numberRoundTo={1}
+                  numberRoundTo={4}
                 />
               </SingleInputLine>
             </Column>

@@ -11,9 +11,9 @@ import Playground from "./Playground";
 import SpecTable from "./SpecTable";
 
 export default function Motors(): JSX.Element {
-  const J = new Measurement(0.0001, "kg m2");
-  const B = new Measurement(0.0001, "N m s / rad");
-  const L = new Measurement(0.02, "H");
+  const J = new Measurement(0.0001 + 0.0026, "kg m2");
+  const B = new Measurement(0.00004, "N m s / rad");
+  const L = new Measurement(0.000035, "H");
 
   const solver = new ODESolver(
     (t, y) => {
@@ -27,6 +27,8 @@ export default function Motors(): JSX.Element {
         .sub(motor.kV.inverse().mul(prevVel))
         .div(L);
 
+      // console.log("mul " + prevCurrent.format());
+      // console.log("changing by " + newCurrentPerSec.to("A/s").format());
       const newVelocityPerSec = motor.kT
         .mul(prevCurrent)
         .sub(B.mul(prevVel))
@@ -43,10 +45,10 @@ export default function Motors(): JSX.Element {
     },
     [0, 181],
     0,
-    1,
+    2,
   );
 
-  const data = useMemo(() => solver.rk4(1000), []);
+  const data = useMemo(() => solver.rk4(2000), []);
 
   return (
     <>
