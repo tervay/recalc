@@ -191,13 +191,14 @@ export function solveMotorODE(
   motor: Motor,
   currentLimit: Measurement,
   shouldStop: (info: StoppingInfo) => boolean,
+  J: Measurement,
+  antiTorque: Measurement,
 ) {
-  const J = new Measurement(0.0001, "kg m2");
   const B = new Measurement(0.00004, "N m s / rad");
   const L = new Measurement(0.000035, "H");
 
   const duration = 30;
-  const numStepsPerSec = 1000;
+  const numStepsPerSec = 800;
   const steps = duration * numStepsPerSec;
 
   const solver = new ODESolver(
@@ -217,14 +218,38 @@ export function solveMotorODE(
         .sub(motor.kV.inverse().mul(prevVel))
         .div(L);
 
-      const newVelocityPerSec = motor.kT
-        .mul(currToUse)
-        .sub(B.mul(prevVel))
+      // console.log(
+      //   stringifyMeasurements({
+      //     torque: motor.kT.mul(motor.quantity).mul(currToUse).to("N m"),
+      //     antiTorque: antiTorque.to("N m"),
+      //   }),
+      // );
+
+      const newVelocityPerSec = Measurement.max(
+        new Measurement(0, "N m"),
+        motor.kT
+          .mul(motor.quantity)
+          .mul(currToUse)
+          .sub(antiTorque)
+          .sub(B.mul(prevVel)),
+      )
         .div(J)
         .mul(new Measurement(1, "rad"))
         .toBase();
 
-      console.log(t * numStepsPerSec);
+      console.log({
+        t,
+        shouldStop: shouldStop({
+          currentDraw: currToUse,
+          position: prevPosition,
+          stepNumber: t * numStepsPerSec,
+          velocity: prevVel,
+        }),
+        currentDraw: currToUse.format(),
+        position: prevPosition.format(),
+        stepNumber: t * numStepsPerSec,
+        velocity: prevVel.format(),
+      });
 
       return {
         changeRates: [

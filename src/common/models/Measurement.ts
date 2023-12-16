@@ -96,7 +96,7 @@ export default class Measurement extends Model {
     if (m.kind() === undefined) {
       if (m.innerQty.isCompatible(Qty(1, "in^2 * lbs"))) {
         // Moment of inertia
-        return ["in^2 lbs", "kg m^2"];
+        return ["kg m^2"];
       } else if (m.innerQty.isCompatible("V*s/m")) {
         // kV (linear)
         return ["V*s/m", "V*s/ft", "V*s/in"];
@@ -332,5 +332,17 @@ export default class Measurement extends Model {
     return new Measurement(40, "A")
       .mul(new Measurement(40, "A"))
       .mul(new Measurement(10, "s"));
+  }
+
+  linearizeRadialPosition(inchesPerRevolution: Measurement): Measurement {
+    return this.mul(inchesPerRevolution)
+      .div(2 * Math.PI)
+      .removeRad();
+  }
+
+  radializeLinearPosition(inchesPerRevolution: Measurement): Measurement {
+    return this.div(inchesPerRevolution).mul(
+      new Measurement(2 * Math.PI, "rad"),
+    );
   }
 }
