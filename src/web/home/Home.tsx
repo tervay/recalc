@@ -45,13 +45,11 @@ function Shortcut(props: {
   size?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 }): JSX.Element {
   return (
-    <Column ofTwelve={props.size ?? 4}>
-      <a href={props.url}>
-        <div className="recalc-box">
-          <div className="subtitle">{props.name}</div>
-        </div>
-      </a>
-    </Column>
+    <a href={props.url}>
+      <div className="recalc-box">
+        <div className="subtitle">{props.name}</div>
+      </div>
+    </a>
   );
 }
 
@@ -97,29 +95,40 @@ export default function Home(): JSX.Element {
         </Title>
 
         <Columns multiline gapless>
-          <Shortcut
-            name="2023 Game Manual"
-            url="https://firstfrc.blob.core.windows.net/frc2023/Manual/2023FRCGameManual.pdf"
-          />
-          <Shortcut name="2023 Q&A" url="https://frc-qa.firstinspires.org/" />
+          <Column>
+            <Shortcut
+              name="2023 Official PDF Manual"
+              url="https://firstfrc.blob.core.windows.net/frc2023/Manual/2023FRCGameManual.pdf"
+            />
+            <Shortcut
+              name="2023 Unofficial Web Manual"
+              url="https://www.frcmanual.com/2023/introduction"
+            />
+            <Shortcut name="2024 Q&A" url="https://frc-qa.firstinspires.org/" />
+          </Column>
 
-          <Shortcut
-            name="FRC Resources"
-            url="https://www.firstinspires.org/resource-library/frc/technical-resources"
-          />
+          <Column>
+            <Shortcut
+              name="FRC Resources"
+              url="https://www.firstinspires.org/resource-library/frc/technical-resources"
+            />
 
-          <Shortcut
-            name="2024 Team/Event Search"
-            url="https://www.firstinspires.org/team-event-search#type=teams&sort=name&programs=FRC&year=2024"
-          />
-          <Shortcut
-            name="2024 FRC-Events"
-            url="https://frc-events.firstinspires.org/2024/Events/EventList"
-          />
-          <Shortcut
-            name="Open Alliance 2023"
-            url="https://www.theopenalliance.com/teams/2023/"
-          />
+            <Shortcut
+              name="Open Alliance 2023"
+              url="https://www.theopenalliance.com/teams/2023/"
+            />
+          </Column>
+
+          <Column>
+            <Shortcut
+              name="2024 Team/Event Search"
+              url="https://www.firstinspires.org/team-event-search#type=teams&sort=name&programs=FRC&year=2024"
+            />
+            <Shortcut
+              name="2024 FRC-Events"
+              url="https://frc-events.firstinspires.org/2024/Events/EventList"
+            />
+          </Column>
         </Columns>
       </Section>
     </>
