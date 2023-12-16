@@ -1,9 +1,15 @@
-export type ODEFunction = (t: number, y: number[]) => number[];
+export type ODEFunction = (
+  t: number,
+  y: number[],
+) => {
+  changeRates: number[];
+  shouldStop: boolean;
+};
 
 export default class ODESolver {
   constructor(
     private readonly ode: ODEFunction,
-    private readonly y0: [number, number],
+    private readonly y0: number[],
     private readonly t0: number,
     private readonly t1: number,
   ) {}
@@ -18,7 +24,9 @@ export default class ODESolver {
 
     for (let i = 0; i < resolution; i++) {
       console.log(i);
-      ys[i + 1] = this.ode(ts[i], ys[i]).map((x, j) => ys[i][j] + x * h); //y_n+1 = y_n + dy/dx *h
+      ys[i + 1] = this.ode(ts[i], ys[i]).changeRates.map(
+        (x, j) => ys[i][j] + x * h,
+      ); //y_n+1 = y_n + dy/dx *h
     }
 
     return {
@@ -38,25 +46,48 @@ export default class ODESolver {
     if (this.y0.includes(NaN))
       console.warn("y0 contains invalid starting value", this.y0);
 
+    let stoppingIndex = 0;
     for (let i = 0; i < resolution; i++) {
-      const k1 = this.ode(ts[i], ys[i]); // f(t, y_n)
+      stoppingIndex = i;
+      let k = this.ode(ts[i], ys[i]); // f(t, y_n)
+      const k1 = k.changeRates;
+
+      if (k.shouldStop) {
+        break;
+      }
 
       const s1 = ys[i].map((y, j) => y + (k1[j] * h) / 2);
-      const k2 = this.ode(ts[i] + h / 2, s1); // f(t + h/2, y_n + k1*h/2)
+      k = this.ode(ts[i] + h / 2, s1); // f(t + h/2, y_n + k1*h/2)
+      const k2 = k.changeRates;
+
+      if (k.shouldStop) {
+        break;
+      }
 
       const s2 = ys[i].map((y, j) => y + (k2[j] * h) / 2);
-      const k3 = this.ode(ts[i] + h / 2, s2); // f(t + h/2, y_n + k2*h/2)
+      k = this.ode(ts[i] + h / 2, s2); // f(t + h/2, y_n + k2*h/2)
+      const k3 = k.changeRates;
+
+      if (k.shouldStop) {
+        break;
+      }
 
       const s3 = ys[i].map((y, j) => y + k3[j] * h);
-      const k4 = this.ode(ts[i] + h, s3); // f(t + h, y_n + k3*h)
+      k = this.ode(ts[i] + h, s3); // f(t + h, y_n + k3*h)
+      const k4 = k.changeRates;
+
+      if (k.shouldStop) {
+        break;
+      }
+
       ys[i + 1] = ys[i].map(
         (x, j) => x + (k1[j] / 6 + k2[j] / 3 + k3[j] / 3 + k4[j] / 6) * h,
       ); //y_n+1 = y_n + (k1 +2*k2 + 2*k3 +k4)/6 *h
     }
 
     return {
-      ts: ts,
-      ys: ys,
+      ts: ts.slice(0, stoppingIndex),
+      ys: ys.slice(0, stoppingIndex),
     };
   }
 
@@ -69,10 +100,10 @@ export default class ODESolver {
     ys[0] = this.y0;
 
     for (let i = 0; i < resolution; i++) {
-      const k1 = this.ode(ts[i], ys[i]); // f(t, y_n)
+      const k1 = this.ode(ts[i], ys[i]).changeRates; // f(t, y_n)
 
       const s1 = ys[i].map((y, j) => y + (k1[j] * h) / 2); // y_n + k1 * h/2
-      const k2 = this.ode(ts[i] + h / 2, s1); // f(t + h/2, y_n + k1*h/2)
+      const k2 = this.ode(ts[i] + h / 2, s1).changeRates; // f(t + h/2, y_n + k1*h/2)
       ys[i + 1] = ys[i].map((x, j) => x + k2[j] * h); //y_n+1 = y_n + k2 *h
     }
     return {
