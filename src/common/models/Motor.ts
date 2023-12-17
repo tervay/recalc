@@ -2,6 +2,7 @@ import _rawMotorData from "common/models/data/motors.json";
 import Measurement, { RawMeasurementJson } from "common/models/Measurement";
 import Model from "common/models/Model";
 import { MotorRules } from "common/models/Rules";
+import ODESolver from "common/tooling/ODE";
 import keyBy from "lodash/keyBy";
 
 type RawMotorSpec = {
@@ -129,3 +130,80 @@ export type IncompleteMotorState = {
 };
 
 export type CompleteMotorState = Required<IncompleteMotorState>;
+
+export type StoppingInfo = {
+  position: Measurement;
+  velocity: Measurement;
+  currentDraw: Measurement;
+  stepNumber: number;
+};
+
+export function solveMotorODE(
+  motor: Motor,
+  currentLimit: Measurement,
+  shouldStop: (info: StoppingInfo) => boolean,
+  J: Measurement,
+  antiTorque: Measurement,
+  efficiency: number,
+) {
+  const B = new Measurement(0.00004, "N m s / rad");
+  const L = new Measurement(0.000035, "H");
+
+  const duration = 30;
+  const numStepsPerSec = 800;
+  const steps = duration * numStepsPerSec;
+
+  const solver = new ODESolver(
+    (t, y) => {
+      const prevVel = new Measurement(y[0], "rad/s");
+      const prevCurrent = new Measurement(y[1], "A");
+      const prevCurrLimit = new Measurement(y[2], "A");
+      const prevPosition = new Measurement(y[3], "rad");
+
+      const currToUse = prevCurrent.gte(prevCurrLimit)
+        ? prevCurrLimit
+        : prevCurrent;
+      const limited = prevCurrent.gte(prevCurrLimit);
+
+      const newCurrentPerSec = nominalVoltage
+        .sub(motor.resistance.mul(prevCurrent))
+        .sub(motor.kV.inverse().mul(prevVel))
+        .div(L);
+
+      const newVelocityPerSec = Measurement.max(
+        new Measurement(0, "N m"),
+        motor.kT
+          .mul(motor.quantity)
+          .mul(efficiency / 100)
+          .mul(currToUse)
+          .sub(antiTorque)
+          .sub(B.mul(prevVel)),
+      )
+        .div(J)
+        .mul(new Measurement(1, "rad"))
+        .toBase();
+
+      return {
+        changeRates: [
+          newVelocityPerSec.scalar === 0
+            ? 0
+            : newVelocityPerSec.to("rad/s2").scalar,
+          newCurrentPerSec.to("A/s").scalar,
+          limited ? 0 : newCurrentPerSec.to("A/s").scalar,
+          prevVel.to("rad/s").scalar,
+        ],
+        shouldStop: shouldStop({
+          currentDraw: currToUse,
+          position: prevPosition,
+          stepNumber: t * numStepsPerSec,
+          velocity: prevVel,
+        }),
+      };
+    },
+    [0, motor.stallCurrent.scalar, currentLimit.scalar, 0],
+    0,
+    duration,
+  );
+
+  return solver.rk4(steps);
+}

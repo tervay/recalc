@@ -283,4 +283,38 @@ describe("Measurement", () => {
       expect(a.toBase()).toEqualMeasurement(b);
     },
   );
+
+  test("linearize works correctly", () => {
+    expect(
+      new Measurement(2 * Math.PI, "rad").linearizeRadialPosition(
+        new Measurement(1, "in"),
+      ),
+    ).toEqualMeasurement(new Measurement(1, "in"));
+
+    expect(
+      new Measurement(4 * Math.PI, "rad").linearizeRadialPosition(
+        new Measurement(2, "in"),
+      ),
+    ).toEqualMeasurement(new Measurement(4, "in"));
+
+    expect(
+      new Measurement(10 * Math.PI, "rad").linearizeRadialPosition(
+        new Measurement(0.5, "in"),
+      ),
+    ).toEqualMeasurement(new Measurement(2.5, "in"));
+  });
+
+  test("rotarize works correctly", () => {
+    expect(
+      new Measurement(1, "in").radializeLinearPosition(
+        new Measurement(1, "in"),
+      ),
+    ).toEqualMeasurement(new Measurement(2 * Math.PI, "rad"));
+
+    expect(
+      new Measurement(4, "in").radializeLinearPosition(
+        new Measurement(2, "in"),
+      ),
+    ).toEqualMeasurement(new Measurement(4 * Math.PI, "rad"));
+  });
 });

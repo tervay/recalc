@@ -26,6 +26,7 @@
     "katex": "0.16.9",
     "lodash": "4.17.21",
     "lz-string": "1.5.0",
+    "odex": "3.0.0-rc.4",
     "marked": "11.1.0",
     "query-string": "8.1.0",
     "react": "18.2.0",

@@ -1,23 +1,20 @@
 import Graph from "common/components/graphing/Graph";
-import {
-  GraphConfig,
-  GraphDataPoint,
-} from "common/components/graphing/graphConfig";
+import { GraphConfig } from "common/components/graphing/graphConfig";
 import SimpleHeading from "common/components/heading/SimpleHeading";
 import SingleInputLine from "common/components/io/inputs/SingleInputLine";
 import {
-  BooleanInput,
   MeasurementInput,
   MotorInput,
   NumberInput,
   RatioInput,
 } from "common/components/io/new/inputs";
 import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
-import { Column, Columns } from "common/components/styling/Building";
+import { Column, Columns, Message } from "common/components/styling/Building";
 import { useAsyncMemo } from "common/hooks/useAsyncMemo";
 import Measurement from "common/models/Measurement";
 import { useGettersSetters } from "common/tooling/conversion";
 import { wrap } from "common/tooling/promise-worker";
+import { maxBy } from "lodash";
 import { useMemo } from "react";
 import {
   LinearParamsV1,
@@ -27,7 +24,6 @@ import {
 import { LinearState } from "web/calculators/linear/converter";
 import {
   LinearWorkerFunctions,
-  calculateProfiledTimeToGoal,
   calculateStallLoad,
 } from "web/calculators/linear/linearMath";
 import rawWorker from "web/calculators/linear/linearMath?worker";
@@ -43,70 +39,45 @@ const worker = await wrap<LinearWorkerFunctions>(new rawWorker());
 export default function LinearCalculator(): JSX.Element {
   const [get, set] = useGettersSetters(LinearState.getState() as LinearStateV1);
 
-  const profiledTimeToGoal = useMemo(
+  const moi = useMemo(
     () =>
-      calculateProfiledTimeToGoal(
-        get.motor,
-        get.currentLimit,
-        get.ratio,
-        get.spoolDiameter,
-        get.load,
-        get.travelDistance,
-        get.angle,
-        get.efficiency,
-        get.limitAcceleration ? get.limitedAcceleration : undefined,
-        get.limitDeceleration ? get.limitedDeceleration : undefined,
-        get.limitVelocity ? get.limitedVelocity : undefined,
-      ),
-    [
-      get.motor,
-      get.currentLimit,
-      get.ratio,
-      get.spoolDiameter,
-      get.load,
-      get.travelDistance,
-      get.efficiency,
-      get.angle,
-      get.limitAcceleration,
-      get.limitedAcceleration,
-      get.limitDeceleration,
-      get.limitedDeceleration,
-      get.limitVelocity,
-      get.limitedVelocity,
-    ],
+      get.ratio.asNumber() === 0
+        ? new Measurement(0, "kg m2")
+        : get.load
+            .mul(get.spoolDiameter.div(2))
+            .mul(get.spoolDiameter.div(2))
+            .div(get.ratio.asNumber())
+            .div(get.ratio.asNumber()),
+    [get.load, get.angle, get.ratio, get.spoolDiameter],
   );
 
-  const chartData = useAsyncMemo(
-    { position: [] as GraphDataPoint[], velocity: [] as GraphDataPoint[] },
+  const odeChartData = useAsyncMemo(
+    {
+      position: [],
+      velocity: [],
+      currentDraw: [],
+    },
     () =>
-      worker.generateTimeToGoalChartData(
+      worker.generateODEData(
         get.motor.toDict(),
         get.currentLimit.toDict(),
+        get.travelDistance.toDict(),
         get.ratio.toDict(),
         get.spoolDiameter.toDict(),
         get.load.toDict(),
-        get.travelDistance.toDict(),
-        get.angle.toDict(),
+        moi.toDict(),
         get.efficiency,
-        get.limitAcceleration ? get.limitedAcceleration.toDict() : undefined,
-        get.limitDeceleration ? get.limitedDeceleration.toDict() : undefined,
-        get.limitVelocity ? get.limitedVelocity.toDict() : undefined,
+        get.angle.toDict(),
       ),
     [
       get.motor,
       get.currentLimit,
+      get.travelDistance,
       get.ratio,
       get.spoolDiameter,
-      get.load,
-      get.travelDistance,
-      get.angle,
+      moi,
       get.efficiency,
-      get.limitAcceleration,
-      get.limitedAcceleration,
-      get.limitDeceleration,
-      get.limitedDeceleration,
-      get.limitVelocity,
-      get.limitedVelocity,
+      get.angle,
     ],
   );
 
@@ -159,6 +130,23 @@ export default function LinearCalculator(): JSX.Element {
     ],
   );
 
+  const maxVelocity = useMemo(
+    () =>
+      new Measurement(maxBy(odeChartData.velocity, (v) => v.y)?.y ?? 0, "in/s"),
+    [odeChartData],
+  );
+
+  const timeToGoal = useMemo(
+    () =>
+      new Measurement(
+        odeChartData.position.length === 0
+          ? 0
+          : odeChartData.position[odeChartData.position.length - 1].x,
+        "s",
+      ),
+    [odeChartData],
+  );
+
   const stallLoad = useMemo(
     () =>
       calculateStallLoad(
@@ -186,21 +174,30 @@ export default function LinearCalculator(): JSX.Element {
             id="motor"
             tooltip="The motors powering the system."
           >
-            <MotorInput stateHook={[get.motor, set.setMotor]} />
+            <MotorInput
+              stateHook={[get.motor, set.setMotor]}
+              numberDelay={500}
+            />
           </SingleInputLine>
           <SingleInputLine
             label="Efficiency (%)"
             id="efficiency"
             tooltip="The efficiency of the system in transmitting torque from the motors."
           >
-            <NumberInput stateHook={[get.efficiency, set.setEfficiency]} />
+            <NumberInput
+              stateHook={[get.efficiency, set.setEfficiency]}
+              delay={500}
+            />
           </SingleInputLine>
           <SingleInputLine
             label="Ratio"
             id="ratio"
             tooltip="The ratio between the motors and the system."
           >
-            <RatioInput stateHook={[get.ratio, set.setRatio]} />
+            <RatioInput
+              stateHook={[get.ratio, set.setRatio]}
+              numberDelay={500}
+            />
           </SingleInputLine>
           <SingleInputLine
             label="Travel Distance"
@@ -209,6 +206,7 @@ export default function LinearCalculator(): JSX.Element {
           >
             <MeasurementInput
               stateHook={[get.travelDistance, set.setTravelDistance]}
+              numberDelay={500}
             />
           </SingleInputLine>
           <SingleInputLine
@@ -218,6 +216,7 @@ export default function LinearCalculator(): JSX.Element {
           >
             <MeasurementInput
               stateHook={[get.spoolDiameter, set.setSpoolDiameter]}
+              numberDelay={500}
             />
           </SingleInputLine>
           <SingleInputLine
@@ -225,7 +224,10 @@ export default function LinearCalculator(): JSX.Element {
             id="comLength"
             tooltip="How much weight the system is lifting upwards."
           >
-            <MeasurementInput stateHook={[get.load, set.setLoad]} />
+            <MeasurementInput
+              stateHook={[get.load, set.setLoad]}
+              numberDelay={500}
+            />
           </SingleInputLine>
           <SingleInputLine
             label="Current Limit"
@@ -238,9 +240,10 @@ export default function LinearCalculator(): JSX.Element {
               warningIf={() =>
                 get.currentLimit
                   .mul(get.currentLimit)
-                  .mul(profiledTimeToGoal.smartTimeToGoal)
+                  .mul(timeToGoal)
                   .gte(Measurement.STANDARD_BREAKER_ESTIMATE_I2T())
               }
+              numberDelay={500}
             />
           </SingleInputLine>
           <SingleInputLine
@@ -248,214 +251,18 @@ export default function LinearCalculator(): JSX.Element {
             id="angle"
             tooltip="Angle of the mechanism. 90 degrees is vertical (upright). 0 degrees is horizontal."
           >
-            <MeasurementInput stateHook={[get.angle, set.setAngle]} />
+            <MeasurementInput
+              stateHook={[get.angle, set.setAngle]}
+              numberDelay={500}
+            />
           </SingleInputLine>
-          <Columns formColumns>
-            <Column ofTwelve={3}>
-              <SingleInputLine label="Limit Velocity">
-                <BooleanInput
-                  stateHook={[get.limitVelocity, set.setLimitVelocity]}
-                />
-              </SingleInputLine>
-            </Column>
-            <Column>
-              <SingleInputLine
-                label="Velocity Limit"
-                id="velocityLimit"
-                tooltip={
-                  "The limit upon the magnitude of acceleration that the motors can produce going upwards. " +
-                  "Should always be positive; ReCalc will handle directions for you."
-                }
-              >
-                <MeasurementInput
-                  stateHook={[get.limitedVelocity, set.setLimitedVelocity]}
-                  numberRoundTo={1}
-                  numberDisabledIf={() => !get.limitVelocity}
-                />
-              </SingleInputLine>
-            </Column>
-          </Columns>
-          <Columns formColumns>
-            <Column>
-              <SingleInputLine label="Limit Acceleration">
-                <BooleanInput
-                  stateHook={[get.limitAcceleration, set.setLimitAcceleration]}
-                />
-              </SingleInputLine>
-            </Column>
-
-            <Column>
-              <SingleInputLine label="Limit Deceleration">
-                <BooleanInput
-                  stateHook={[get.limitDeceleration, set.setLimitDeceleration]}
-                />
-              </SingleInputLine>
-            </Column>
-          </Columns>
-
-          {(get.limitAcceleration || get.limitDeceleration) && (
-            <Columns formColumns>
-              <Column>
-                {get.limitAcceleration && (
-                  <SingleInputLine
-                    label="Accel Limit"
-                    id="accelLimit"
-                    tooltip={
-                      "The limit upon the magnitude of acceleration that the motors can produce going upwards. " +
-                      "Should always be positive; ReCalc will handle directions for you."
-                    }
-                  >
-                    <MeasurementInput
-                      stateHook={[
-                        get.limitedAcceleration,
-                        set.setLimitedAcceleration,
-                      ]}
-                      numberRoundTo={1}
-                      numberDisabledIf={() => !get.limitAcceleration}
-                      defaultUnit="in/s2"
-                    />
-                  </SingleInputLine>
-                )}
-              </Column>
-
-              <Column>
-                {get.limitDeceleration && (
-                  <SingleInputLine
-                    label="Decel Limit"
-                    id="decelLimit"
-                    tooltip={
-                      "The limit upon the magnitude of acceleration that the motors can produce going downwards. " +
-                      "Should always be positive; ReCalc will handle directions for you."
-                    }
-                  >
-                    <MeasurementInput
-                      stateHook={[
-                        get.limitedDeceleration,
-                        set.setLimitedDeceleration,
-                      ]}
-                      numberRoundTo={1}
-                      numberDisabledIf={() => !get.limitDeceleration}
-                      defaultUnit="in/s2"
-                    />
-                  </SingleInputLine>
-                )}
-              </Column>
-            </Columns>
-          )}
-
-          <Columns formColumns>
-            <Column>
-              <SingleInputLine
-                label="Accel Time"
-                id="accelTime"
-                tooltip="The duration the system is accelerating in the motion profile."
-              >
-                <MeasurementOutput
-                  stateHook={[
-                    profiledTimeToGoal.accelerationPhaseDuration,
-                    () => undefined,
-                  ]}
-                  numberRoundTo={2}
-                  defaultUnit="s"
-                />
-              </SingleInputLine>
-            </Column>
-            <Column>
-              <SingleInputLine
-                label="Decel Time"
-                id="decelTime"
-                tooltip="The duration the system is decelerating in the motion profile."
-              >
-                <MeasurementOutput
-                  stateHook={[
-                    profiledTimeToGoal.decelerationPhaseDuration,
-                    () => undefined,
-                  ]}
-                  numberRoundTo={2}
-                  defaultUnit="s"
-                />
-              </SingleInputLine>
-            </Column>
-          </Columns>
-          <Columns formColumns>
-            <Column>
-              <SingleInputLine
-                label="Acceleration"
-                id="accelTime"
-                tooltip={
-                  "The magnitude of acceleration the system experiences going upwards. " +
-                  "Includes both motors and gravity. Should always be positive."
-                }
-              >
-                <MeasurementOutput
-                  stateHook={[profiledTimeToGoal.acceleration, () => undefined]}
-                  numberRoundTo={2}
-                  defaultUnit="in/s2"
-                />
-              </SingleInputLine>
-            </Column>
-            <Column>
-              <SingleInputLine
-                label="Deceleration"
-                id="decelTime"
-                tooltip={
-                  "The magnitude of acceleration the system experiences going downwards. " +
-                  "Includes both motors and gravity. Should always be positive."
-                }
-              >
-                <MeasurementOutput
-                  stateHook={[profiledTimeToGoal.deceleration, () => undefined]}
-                  numberRoundTo={2}
-                  defaultUnit="in/s2"
-                />
-              </SingleInputLine>
-            </Column>
-          </Columns>
-          <Columns formColumns>
-            <Column>
-              <SingleInputLine
-                label="Accel Dist"
-                id="accelDist"
-                tooltip={
-                  "The distance the system travels during the acceleration phase."
-                }
-              >
-                <MeasurementOutput
-                  stateHook={[
-                    profiledTimeToGoal.accelDistance,
-                    () => undefined,
-                  ]}
-                  numberRoundTo={2}
-                  defaultUnit="in"
-                />
-              </SingleInputLine>
-            </Column>
-            <Column>
-              <SingleInputLine
-                label="Decel Dist"
-                id="decelDist"
-                tooltip={
-                  "The distance the system travels during the deceleration phase."
-                }
-              >
-                <MeasurementOutput
-                  stateHook={[
-                    profiledTimeToGoal.decelDistance,
-                    () => undefined,
-                  ]}
-                  numberRoundTo={2}
-                  defaultUnit="in"
-                />
-              </SingleInputLine>
-            </Column>
-          </Columns>
           <SingleInputLine
             label="Time to Goal"
             id="timeToGoal"
             tooltip="How long it takes the system to reach the travel distance."
           >
             <MeasurementOutput
-              stateHook={[profiledTimeToGoal.smartTimeToGoal, () => undefined]}
+              stateHook={[timeToGoal, () => undefined]}
               numberRoundTo={2}
             />
           </SingleInputLine>
@@ -465,99 +272,62 @@ export default function LinearCalculator(): JSX.Element {
             tooltip="The highest velocity the system reaches during the motion profile."
           >
             <MeasurementOutput
-              stateHook={[profiledTimeToGoal.maxVelocity, () => undefined]}
+              stateHook={[maxVelocity, () => undefined]}
               numberRoundTo={2}
               defaultUnit="in/s"
             />
           </SingleInputLine>
-
-          <Columns formColumns>
-            <Column>
-              <SingleInputLine
-                label="Cruise Time"
-                id="cruiseTime"
-                tooltip="The duration the system is cruising at max velocity in the motion profile."
-              >
-                <MeasurementOutput
-                  stateHook={[
-                    profiledTimeToGoal.constantVelocityPhaseDuration,
-                    () => undefined,
-                  ]}
-                  numberRoundTo={2}
-                  defaultUnit="s"
-                />
-              </SingleInputLine>
-            </Column>
-            <Column>
-              <SingleInputLine
-                label="Cruise Dist"
-                id="cruiseDist"
-                tooltip={
-                  "The distance the system travels during the cruise phase."
-                }
-              >
-                <MeasurementOutput
-                  stateHook={[
-                    profiledTimeToGoal.cruiseDistance,
-                    () => undefined,
-                  ]}
-                  numberRoundTo={2}
-                  defaultUnit="in"
-                />
-              </SingleInputLine>
-            </Column>
-          </Columns>
-
-          <SingleInputLine
-            label="System Acceleration"
-            id="systemAcceleration"
-            tooltip={
-              "The acceleration the system experiences without any motor input. " +
-              "This is positive if the system experiences an upwards acceleration, " +
-              "or negative if the system experiences downwards acceleration (most common)."
-            }
-          >
-            <MeasurementOutput
-              stateHook={[
-                profiledTimeToGoal.systemAcceleration,
-                () => undefined,
-              ]}
-              numberRoundTo={2}
-              defaultUnit="in/s2"
-            />
-          </SingleInputLine>
-
           <SingleInputLine
             label="Stall Load"
             id="stallLoad"
-            tooltip={
-              "The maximum amount of load the system can handle. Estimated."
-            }
+            tooltip="The highest weight the system can lift at all."
           >
             <MeasurementOutput
               stateHook={[stallLoad, () => undefined]}
               numberRoundTo={2}
-              defaultUnit="lbs"
+              defaultUnit="lb"
             />
           </SingleInputLine>
+          {/* <SingleInputLine
+            label="MOI"
+            id="moi"
+            tooltip="The highest velocity the system reaches during the motion profile."
+          >
+            <MeasurementOutput
+              stateHook={[moi, () => undefined]}
+              numberRoundTo={4}
+              defaultUnit="kg m^2"
+            />
+          </SingleInputLine> */}
 
           <KgKvKaDisplay kG={kG} kV={kV} kA={kA} distanceType={"linear"} />
         </Column>
         <Column>
+          <Message color="warning">
+            There is a small delay in output updates. The longer it takes to
+            reach the goal, the slower the graph & outputs will be to update.
+            This does <b>not</b> model deceleration.
+          </Message>
           <Graph
             options={linearGraphConfig}
             simpleDatasets={[
               GraphConfig.dataset(
                 "Position (in)",
-                chartData.position.filter((s) => s.y > 0),
+                odeChartData.position,
                 0,
                 "y-position",
               ),
               GraphConfig.dataset(
                 "Velocity (in/s)",
-                chartData.velocity,
+                odeChartData.velocity,
                 1,
                 "y-velocity",
+              ),
+              GraphConfig.dataset(
+                "Current Draw (A)",
+                odeChartData.currentDraw,
+                2,
+                "y-current",
               ),
             ]}
             title="Motion Profile over Time"

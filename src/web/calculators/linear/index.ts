@@ -64,6 +64,16 @@ export const linearGraphConfig = GraphConfig.options(
       },
       min: 0,
     },
+    "y-current": {
+      type: "linear",
+      position: "right",
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: "Current Draw (A)",
+      },
+      min: 0,
+    },
     x: {
       type: "linear",
       beginAtZero: true,
