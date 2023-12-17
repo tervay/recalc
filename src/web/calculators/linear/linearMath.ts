@@ -1,6 +1,10 @@
 import { GraphDataPoint } from "common/components/graphing/graphConfig";
 import Measurement, { MeasurementDict } from "common/models/Measurement";
-import Motor, { MotorDict, solveMotorODE, nominalVoltage } from "common/models/Motor";
+import Motor, {
+  MotorDict,
+  nominalVoltage,
+  solveMotorODE,
+} from "common/models/Motor";
 import Ratio, { RatioDict } from "common/models/Ratio";
 import { MotorRules } from "common/models/Rules";
 import { expose } from "common/tooling/promise-worker";
@@ -13,6 +17,8 @@ function generateODEData(
   spoolDiameter_: MeasurementDict,
   load_: MeasurementDict,
   J_: MeasurementDict,
+  efficiency: number,
+  angle_: MeasurementDict,
 ): {
   position: GraphDataPoint[];
   velocity: GraphDataPoint[];
@@ -25,6 +31,7 @@ function generateODEData(
   const ratio = Ratio.fromDict(ratio_);
   const load = Measurement.fromDict(load_);
   const J = Measurement.fromDict(J_);
+  const angle = Measurement.fromDict(angle_);
 
   if (
     [
@@ -38,7 +45,10 @@ function generateODEData(
   }
 
   const gravitationalForce = load.mul(Measurement.GRAVITY.negate());
-  const gravitationalTorque = gravitationalForce.mul(spoolDiameter.div(2));
+  const gravitationalTorque = gravitationalForce
+    .mul(spoolDiameter.div(2))
+    .div(ratio.asNumber())
+    .mul(Math.sin(angle.to("rad").scalar));
 
   const data = solveMotorODE(
     motor,
@@ -53,6 +63,7 @@ function generateODEData(
         info.stepNumber >= 1000),
     J,
     gravitationalTorque,
+    efficiency,
   );
 
   return {

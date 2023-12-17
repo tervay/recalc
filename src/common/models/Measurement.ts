@@ -101,7 +101,7 @@ export default class Measurement extends Model {
     if (m.kind() === undefined) {
       if (m.innerQty.isCompatible(Qty(1, "in^2 * lbs"))) {
         // Moment of inertia
-        return ["kg m^2"];
+        return ["in^2 lbs", "kg m^2"];
       } else if (m.innerQty.isCompatible("V*s/m")) {
         // kV (linear)
         return ["V*s/m", "V*s/ft", "V*s/in"];

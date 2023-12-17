@@ -4548,7 +4548,7 @@ object.values@^1.1.6:
     define-properties "^1.2.0"
     es-abstract "^1.22.1"
 
-odex@^3.0.0-rc.4:
+odex@3.0.0-rc.4:
   version "3.0.0-rc.4"
   resolved "https://registry.yarnpkg.com/odex/-/odex-3.0.0-rc.4.tgz#083c201e3a5e6504bc71a8d9bd023002f5d78ca7"
   integrity sha512-NPpR3eFHUJWQWYT9VParetnYF2bVe1p9iel1PHk2PLGgOdfXd7tr67XJi6x6fVzDmoKnUv1e9AtRtdwLxg2Z2Q==

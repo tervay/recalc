@@ -63,10 +63,16 @@ export default function Motors(): JSX.Element {
 
   const data = useMemo(
     () =>
-      solveMotorODE(Motor.NEOs(1), new Measurement(40, "A"), (info) => {
-        // return info.stepNumber >= 1000;
-        return info.position.gte(new Measurement(500, "rad"));
-      }),
+      solveMotorODE(
+        Motor.NEOs(1),
+        new Measurement(40, "A"),
+        (info) => {
+          // return info.stepNumber >= 1000;
+          return info.position.gte(new Measurement(500, "rad"));
+        },
+        new Measurement(0.0001, "kg m2"),
+        new Measurement(0, "N m"),
+      ),
     [],
   );
 

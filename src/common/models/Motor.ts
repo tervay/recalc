@@ -193,6 +193,7 @@ export function solveMotorODE(
   shouldStop: (info: StoppingInfo) => boolean,
   J: Measurement,
   antiTorque: Measurement,
+  efficiency: number,
 ) {
   const B = new Measurement(0.00004, "N m s / rad");
   const L = new Measurement(0.000035, "H");
@@ -229,6 +230,7 @@ export function solveMotorODE(
         new Measurement(0, "N m"),
         motor.kT
           .mul(motor.quantity)
+          .mul(efficiency / 100)
           .mul(currToUse)
           .sub(antiTorque)
           .sub(B.mul(prevVel)),

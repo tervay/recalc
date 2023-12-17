@@ -22,7 +22,10 @@ import {
   linearGraphConfig,
 } from "web/calculators/linear";
 import { LinearState } from "web/calculators/linear/converter";
-import { LinearWorkerFunctions, calculateStallLoad } from "web/calculators/linear/linearMath";
+import {
+  LinearWorkerFunctions,
+  calculateStallLoad,
+} from "web/calculators/linear/linearMath";
 import rawWorker from "web/calculators/linear/linearMath?worker";
 import KgKvKaDisplay from "web/calculators/shared/components/KgKvKaDisplay";
 import {
@@ -61,6 +64,8 @@ export default function LinearCalculator(): JSX.Element {
         get.spoolDiameter.toDict(),
         get.load.toDict(),
         moi.toDict(),
+        get.efficiency,
+        get.angle.toDict(),
       ),
     [
       get.motor,
@@ -69,6 +74,8 @@ export default function LinearCalculator(): JSX.Element {
       get.ratio,
       get.spoolDiameter,
       moi,
+      get.efficiency,
+      get.angle,
     ],
   );
 
@@ -247,7 +254,6 @@ export default function LinearCalculator(): JSX.Element {
               numberDelay={500}
             />
           </SingleInputLine>
-
           <SingleInputLine
             label="Time to Goal"
             id="timeToGoal"
@@ -269,8 +275,18 @@ export default function LinearCalculator(): JSX.Element {
               defaultUnit="in/s"
             />
           </SingleInputLine>
-
           <SingleInputLine
+            label="Stall Load"
+            id="stallLoad"
+            tooltip="The highest weight the system can lift at all."
+          >
+            <MeasurementOutput
+              stateHook={[stallLoad, () => undefined]}
+              numberRoundTo={2}
+              defaultUnit="lb"
+            />
+          </SingleInputLine>
+          {/* <SingleInputLine
             label="MOI"
             id="moi"
             tooltip="The highest velocity the system reaches during the motion profile."
@@ -280,21 +296,7 @@ export default function LinearCalculator(): JSX.Element {
               numberRoundTo={4}
               defaultUnit="kg m^2"
             />
-          </SingleInputLine>
-
-          <SingleInputLine
-            label="Stall Load"
-            id="stallLoad"
-            tooltip={
-              "The maximum amount of load the system can handle. Estimated."
-            }
-          >
-            <MeasurementOutput
-              stateHook={[stallLoad, () => undefined]}
-              numberRoundTo={2}
-              defaultUnit="lbs"
-            />
-          </SingleInputLine>
+          </SingleInputLine> */}
 
           <KgKvKaDisplay kG={kG} kV={kV} kA={kA} distanceType={"linear"} />
         </Column>
