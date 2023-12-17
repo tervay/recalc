@@ -41,11 +41,13 @@ export default function LinearCalculator(): JSX.Element {
 
   const moi = useMemo(
     () =>
-      get.load
-        .mul(get.spoolDiameter.div(2))
-        .mul(get.spoolDiameter.div(2))
-        .div(get.ratio.asNumber())
-        .div(get.ratio.asNumber()),
+      get.ratio.asNumber() === 0
+        ? new Measurement(0, "kg m2")
+        : get.load
+            .mul(get.spoolDiameter.div(2))
+            .mul(get.spoolDiameter.div(2))
+            .div(get.ratio.asNumber())
+            .div(get.ratio.asNumber()),
     [get.load, get.angle, get.ratio, get.spoolDiameter],
   );
 

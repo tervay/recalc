@@ -183,20 +183,6 @@ export function solveMotorODE(
         .mul(new Measurement(1, "rad"))
         .toBase();
 
-      console.log({
-        t,
-        shouldStop: shouldStop({
-          currentDraw: currToUse,
-          position: prevPosition,
-          stepNumber: t * numStepsPerSec,
-          velocity: prevVel,
-        }),
-        currentDraw: currToUse.format(),
-        position: prevPosition.format(),
-        stepNumber: t * numStepsPerSec,
-        velocity: prevVel.format(),
-      });
-
       return {
         changeRates: [
           newVelocityPerSec.scalar === 0
