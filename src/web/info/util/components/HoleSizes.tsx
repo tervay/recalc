@@ -301,6 +301,7 @@ export function HoleSizes(): JSX.Element {
 
   return (
     <>
+      <div className="is-size-3">Hole Sizes</div>
       <Columns formColumns>
         <Column>
           <SingleInputLine label="Hole Size">

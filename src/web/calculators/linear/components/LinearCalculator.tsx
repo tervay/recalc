@@ -22,7 +22,7 @@ import {
   linearGraphConfig,
 } from "web/calculators/linear";
 import { LinearState } from "web/calculators/linear/converter";
-import { LinearWorkerFunctions } from "web/calculators/linear/linearMath";
+import { LinearWorkerFunctions, calculateStallLoad } from "web/calculators/linear/linearMath";
 import rawWorker from "web/calculators/linear/linearMath?worker";
 import KgKvKaDisplay from "web/calculators/shared/components/KgKvKaDisplay";
 import {
@@ -136,6 +136,18 @@ export default function LinearCalculator(): JSX.Element {
         "s",
       ),
     [odeChartData],
+  );
+
+  const stallLoad = useMemo(
+    () =>
+      calculateStallLoad(
+        get.motor,
+        get.currentLimit,
+        get.spoolDiameter,
+        get.ratio,
+        get.efficiency,
+      ).negate(),
+    [get.motor, get.currentLimit, get.spoolDiameter, get.ratio, get.efficiency],
   );
 
   return (
@@ -267,6 +279,20 @@ export default function LinearCalculator(): JSX.Element {
               stateHook={[moi, () => undefined]}
               numberRoundTo={4}
               defaultUnit="kg m^2"
+            />
+          </SingleInputLine>
+
+          <SingleInputLine
+            label="Stall Load"
+            id="stallLoad"
+            tooltip={
+              "The maximum amount of load the system can handle. Estimated."
+            }
+          >
+            <MeasurementOutput
+              stateHook={[stallLoad, () => undefined]}
+              numberRoundTo={2}
+              defaultUnit="lbs"
             />
           </SingleInputLine>
 

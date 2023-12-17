@@ -105,5 +105,6 @@ export const Nm = (n: number): Measurement => new Measurement(n, "N m");
 export const W = (n: number): Measurement => new Measurement(n, "W");
 export const in_s2 = (n: number): Measurement => new Measurement(n, "in/s2");
 export const m_s2 = (n: number): Measurement => new Measurement(n, "m/s2");
+export const ft_s2 = (n: number): Measurement => new Measurement(n, "ft/s2");
 
 export type JSONable = number | string | Measurement | Belt | Pulley;

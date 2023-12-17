@@ -1,7 +1,8 @@
 import { GraphDataPoint } from "common/components/graphing/graphConfig";
 import Measurement, { MeasurementDict } from "common/models/Measurement";
-import Motor, { MotorDict, solveMotorODE } from "common/models/Motor";
+import Motor, { MotorDict, solveMotorODE, nominalVoltage } from "common/models/Motor";
 import Ratio, { RatioDict } from "common/models/Ratio";
+import { MotorRules } from "common/models/Rules";
 import { expose } from "common/tooling/promise-worker";
 
 function generateODEData(
@@ -76,6 +77,29 @@ function generateODEData(
       y: y[2],
     })),
   };
+}
+
+export function calculateStallLoad(
+  motor: Motor,
+  currentLimit: Measurement,
+  spoolDiameter: Measurement,
+  ratio: Ratio,
+  efficiency: number,
+): Measurement {
+  if ([spoolDiameter.scalar].includes(0)) {
+    return new Measurement(0, "lb");
+  }
+
+  return new MotorRules(motor, currentLimit, {
+    current: currentLimit,
+    voltage: nominalVoltage,
+  })
+    .solve()
+    .torque.mul(motor.quantity)
+    .mul(ratio.asNumber())
+    .mul(efficiency / 100)
+    .div(spoolDiameter.div(2))
+    .div(Measurement.GRAVITY);
 }
 
 const workerFunctions = {
