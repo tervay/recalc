@@ -49,7 +49,6 @@ export default class ODESolver {
     let stoppingIndex = 0;
     for (let i = 0; i < resolution; i++) {
       stoppingIndex = i;
-      console.log(stoppingIndex);
       let k = this.ode(ts[i], ys[i]); // f(t, y_n)
       const k1 = k.changeRates;
 
