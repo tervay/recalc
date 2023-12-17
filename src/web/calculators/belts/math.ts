@@ -60,21 +60,48 @@ export function teethInMesh(
     center,
     pulleyToUse,
   });
-  if (center.scalar === 0) {
+  if (center.scalar === 0 || pulleyToUse.pitch.scalar === 0) {
     logger().fail("center is zero");
     return 0;
   }
-  const debug = useDebugger(logger);
 
-  const D = Measurement.max(p1.pitchDiameter, p2.pitchDiameter);
-  const d = Measurement.min(p1.pitchDiameter, p2.pitchDiameter);
-  debug({ D, d });
-  const div = D.sub(d).div(center.mul(6));
-  debug({ div });
-  return debugAndReturn(
-    new Measurement(0.5).sub(div).mul(pulleyToUse.teeth).scalar,
-    logger,
-  );
+  let mode: "larger" | "smaller";
+  if (p1.eq(pulleyToUse)) {
+    if (p1.teeth > p2.teeth) {
+      mode = "larger";
+    } else {
+      mode = "smaller";
+    }
+  } else {
+    if (p1.teeth > p2.teeth) {
+      mode = "smaller";
+    } else {
+      mode = "larger";
+    }
+  }
+
+  const P1 = p1.pitchDiameter;
+  const P2 = p2.pitchDiameter;
+  const d = P1.sub(P2).div(2).abs();
+  const a = Math.asin(d.to("in").scalar / center.to("in").scalar);
+
+  if (Number.isNaN(a)) {
+    return 0;
+  }
+
+  if (mode === "larger") {
+    const cl2 = pulleyToUse.pitchDiameter
+      .mul(90 - a)
+      .mul(Math.PI)
+      .div(180);
+    return Math.floor(cl2.div(pulleyToUse.pitch).scalar);
+  } else {
+    const cl2 = pulleyToUse.pitchDiameter
+      .mul(90 + a)
+      .mul(Math.PI)
+      .div(180);
+    return Math.floor(cl2.div(pulleyToUse.pitch).scalar);
+  }
 }
 
 export function getTIMFactor(teethInMesh: number): number {
