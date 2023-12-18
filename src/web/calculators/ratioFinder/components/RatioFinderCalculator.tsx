@@ -251,6 +251,7 @@ export default function RatioFinderCalculator(): JSX.Element {
     get.startingPinionSize,
     get.forceStartingPinionSize,
     get.enableKrakenPinions,
+    get.enableSplineXL,
   ]);
 
   const [displayNum, setDisplayNum] = useState(20);
@@ -443,7 +444,6 @@ export default function RatioFinderCalculator(): JSX.Element {
                     to see MAX Planetaries.)
                   </li>
                   <li>Planetary part numbers are not accurate.</li>
-                  <li>Currently missing all WCP.</li>
                   <li>
                     3+ stage generation can be slow. Try limiting tooth ranges
                     or reducing error threshold.
@@ -570,6 +570,10 @@ export default function RatioFinderCalculator(): JSX.Element {
                     {
                       name: "MAXSpline",
                       stateHook: [get.enableMaxSpline, set.setEnableMaxSpline],
+                    },
+                    {
+                      name: "SplineXL",
+                      stateHook: [get.enableSplineXL, set.setEnableSplineXL],
                     },
                   ]}
                 />

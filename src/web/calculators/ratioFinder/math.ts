@@ -72,7 +72,7 @@ export function allPossibleSingleGearStages(state: RatioFinderStateV1) {
     min([state.minGearTeeth, state.minPulleyTeeth, state.minSprocketTeeth]) ||
       8,
     max([state.maxGearTeeth, state.maxPulleyTeeth, state.maxSprocketTeeth]) ||
-      80,
+      84,
     state.forceStartingPinionSize ? [state.startingPinionSize] : [],
   );
 }
@@ -299,6 +299,7 @@ export function generateOptions(state: RatioFinderStateV1) {
         good = good && (state.enable875Bore || m.bore !== "0.875in");
         good = good && (state.enableBearingBore || m.bore !== "1.125in");
         good = good && (state.enableMaxSpline || m.bore !== "MAXSpline");
+        good = good && (state.enableSplineXL || m.bore !== "SplineXL");
       }
       return good;
     });

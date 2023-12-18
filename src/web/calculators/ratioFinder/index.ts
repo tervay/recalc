@@ -34,17 +34,17 @@ export const RatioFinderParamsV1 = {
   enableHTD: withDefault(BooleanParam, true),
   enableRT25: withDefault(BooleanParam, true),
   minPulleyTeeth: withDefault(NumberParam, 8),
-  maxPulleyTeeth: withDefault(NumberParam, 80),
+  maxPulleyTeeth: withDefault(NumberParam, 84),
 
   enable25Chain: withDefault(BooleanParam, true),
   enable35Chain: withDefault(BooleanParam, true),
   minSprocketTeeth: withDefault(NumberParam, 8),
-  maxSprocketTeeth: withDefault(NumberParam, 80),
+  maxSprocketTeeth: withDefault(NumberParam, 84),
 
   enable20DPGears: withDefault(BooleanParam, true),
   enable32DPGears: withDefault(BooleanParam, true),
   minGearTeeth: withDefault(NumberParam, 8),
-  maxGearTeeth: withDefault(NumberParam, 80),
+  maxGearTeeth: withDefault(NumberParam, 84),
   enableNEOPinions: withDefault(BooleanParam, true),
   enableFalconPinions: withDefault(BooleanParam, true),
   enable775Pinions: withDefault(BooleanParam, true),
@@ -62,5 +62,6 @@ export const RatioFinderParamsV1 = {
   enableBearingBore: withDefault(BooleanParam, true),
   enable875Bore: withDefault(BooleanParam, true),
   enableMaxSpline: withDefault(BooleanParam, true),
+  enableSplineXL: withDefault(BooleanParam, true),
 };
 export type RatioFinderStateV1 = Stateify<typeof RatioFinderParamsV1>;
