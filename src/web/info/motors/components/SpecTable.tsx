@@ -17,7 +17,11 @@ type MotorRow = {
   powerWeightRatio: string;
   nameLink: JSX.Element;
   torqueDensity: string;
-} & Replace<Select<Omit<Motor, "maxPower">, Measurement>, Measurement, string>;
+} & Replace<
+  Select<Omit<Motor, "maxPower" | "b">, Measurement>,
+  Measurement,
+  string
+>;
 
 function adjustedWeight(motor: Motor): Measurement {
   return motor.weight.add(
