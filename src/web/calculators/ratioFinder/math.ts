@@ -38,6 +38,9 @@ import ttbSprockets from "common/models/data/cots/ttb/sprockets.json";
 import vexGears from "common/models/data/cots/vex/gears.json";
 import vexPulleys from "common/models/data/cots/vex/pulleys.json";
 import vexSprockets from "common/models/data/cots/vex/sprockets.json";
+import wcpGears from "common/models/data/cots/wcp/gears.json";
+import wcpPulleys from "common/models/data/cots/wcp/pulleys.json";
+import wcpSprockets from "common/models/data/cots/wcp/sprockets.json";
 
 function stagesFromMinToMax(
   min: number,
@@ -239,7 +242,7 @@ export function generateOptions(state: RatioFinderStateV1) {
   const gears = [
     ...(state.enableREV ? revGears : []),
     ...(state.enableAM ? amGears : []),
-    ...(state.enableWCP ? [] : []),
+    ...(state.enableWCP ? wcpGears : []),
     ...(state.enableTTB ? [] : []),
     ...(state.enableVEX ? vexGears : []),
   ];
@@ -247,7 +250,7 @@ export function generateOptions(state: RatioFinderStateV1) {
   const pulleys = [
     ...(state.enableREV ? revPulleys : []),
     ...(state.enableAM ? amPulleys : []),
-    ...(state.enableWCP ? [] : []),
+    ...(state.enableWCP ? wcpPulleys : []),
     ...(state.enableTTB ? ttbPulleys : []),
     ...(state.enableVEX ? vexPulleys : []),
   ];
@@ -255,7 +258,7 @@ export function generateOptions(state: RatioFinderStateV1) {
   const sprockets = [
     ...(state.enableREV ? revSprockets : []),
     ...(state.enableAM ? amSprockets : []),
-    ...(state.enableWCP ? [] : []),
+    ...(state.enableWCP ? wcpSprockets : []),
     ...(state.enableTTB ? ttbSprockets : []),
     ...(state.enableVEX ? vexSprockets : []),
   ];
@@ -286,6 +289,7 @@ export function generateOptions(state: RatioFinderStateV1) {
         good = good && (state.enableNEOPinions || m.bore !== "NEO");
         good = good && (state.enable775Pinions || m.bore !== "775");
         good = good && (state.enable550Pinions || m.bore !== "550");
+        good = good && (state.enableKrakenPinions || m.bore !== "Kraken");
       } else {
         good = good && (state.enable12HexBore || m.bore !== "1/2 Hex");
         good = good && (state.enable38HexBore || m.bore !== "3/8 Hex");

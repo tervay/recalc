@@ -27,12 +27,12 @@ export type ParamifyDefaults<DefaultMap extends BaseState> = {
   [Name in keyof DefaultMap]: DefaultMap[Name] extends Measurement
     ? typeof MeasurementParam
     : DefaultMap[Name] extends Motor
-    ? typeof MotorParam
-    : DefaultMap[Name] extends Ratio
-    ? typeof RatioParam
-    : DefaultMap[Name] extends boolean
-    ? typeof BooleanParam
-    : null;
+      ? typeof MotorParam
+      : DefaultMap[Name] extends Ratio
+        ? typeof RatioParam
+        : DefaultMap[Name] extends boolean
+          ? typeof BooleanParam
+          : null;
 };
 
 export type UseStateObject<T extends BaseState> = {
@@ -66,6 +66,7 @@ export type PulleyBeltType = "HTD" | "GT2" | "RT25";
 export type ChainType = "#25" | "#35";
 export type Bore =
   | "NEO"
+  | "Kraken"
   | "Falcon"
   | "775"
   | "550"
@@ -73,14 +74,16 @@ export type Bore =
   | "3/8 Hex"
   | "0.875in"
   | "1.125in"
-  | "MAXSpline";
-export const MotorBores: Bore[] = ["NEO", "Falcon", "775", "550"];
+  | "MAXSpline"
+  | "SplineXL";
+export const MotorBores: Bore[] = ["NEO", "Kraken", "Falcon", "775", "550"];
 export const NonMotorBores: Bore[] = [
   "1/2 Hex",
   "3/8 Hex",
   "0.875in",
   "1.125in",
   "MAXSpline",
+  "SplineXL",
 ];
 
 // Quick units, mostly for tests

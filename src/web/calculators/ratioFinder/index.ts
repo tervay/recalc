@@ -49,6 +49,7 @@ export const RatioFinderParamsV1 = {
   enableFalconPinions: withDefault(BooleanParam, true),
   enable775Pinions: withDefault(BooleanParam, true),
   enable550Pinions: withDefault(BooleanParam, true),
+  enableKrakenPinions: withDefault(BooleanParam, true),
 
   enableVEX: withDefault(BooleanParam, false),
   enableREV: withDefault(BooleanParam, true),

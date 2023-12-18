@@ -45,13 +45,13 @@ export type MotionMethod = BaseMotionMethod & {
 export function MMTypeStr(mm: MotionMethod): string {
   let typeStr = "";
   if (mm.type === "Gear") {
-    typeStr = `${(mm as any as GearData).dp} DP`;
+    typeStr = `${(mm as unknown as GearData).dp} DP`;
   } else if (mm.type === "Pulley") {
-    typeStr = (mm as any as PulleyData).beltType;
+    typeStr = (mm as unknown as PulleyData).beltType;
   } else if (mm.type === "Sprocket") {
-    typeStr = (mm as any as SprocketData).chainType;
+    typeStr = (mm as unknown as SprocketData).chainType;
   } else if (mm.type === "Planetary") {
-    const pd = mm as any as PlanetaryData;
+    const pd = mm as unknown as PlanetaryData;
     if (pd.stageSequence === undefined) {
       typeStr = "Planetary";
     } else {

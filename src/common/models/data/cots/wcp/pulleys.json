@@ -1,0 +1,66 @@
+[
+  {
+    "bore": "Kraken",
+    "partNumber": "WCP-1178",
+    "pitch": {
+      "s": 3,
+      "u": "mm"
+    },
+    "teeth": 16,
+    "type": "GT2",
+    "url": "https://wcproducts.com/collections/motors-pneumatics/products/kraken",
+    "width": {
+      "s": 9,
+      "u": "mm"
+    },
+    "vendor": "WCP"
+  },
+  {
+    "bore": "Kraken",
+    "partNumber": "WCP-1179",
+    "pitch": {
+      "s": 3,
+      "u": "mm"
+    },
+    "teeth": 16,
+    "type": "GT2",
+    "url": "https://wcproducts.com/collections/motors-pneumatics/products/kraken",
+    "width": {
+      "s": 15,
+      "u": "mm"
+    },
+    "vendor": "WCP"
+  },
+  {
+    "bore": "Kraken",
+    "partNumber": "WCP-1017",
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    },
+    "teeth": 12,
+    "type": "HTD",
+    "url": "https://wcproducts.com/collections/motors-pneumatics/products/kraken",
+    "width": {
+      "s": 9,
+      "u": "mm"
+    },
+    "vendor": "WCP"
+  },
+  {
+    "bore": "Kraken",
+    "partNumber": "WCP-1018",
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    },
+    "teeth": 12,
+    "type": "HTD",
+    "url": "https://wcproducts.com/collections/motors-pneumatics/products/kraken",
+    "width": {
+      "s": 15,
+      "u": "mm"
+    },
+    "vendor": "WCP"
+  }
+]

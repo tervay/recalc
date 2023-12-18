@@ -250,6 +250,7 @@ export default function RatioFinderCalculator(): JSX.Element {
     get.enableMaxSpline,
     get.startingPinionSize,
     get.forceStartingPinionSize,
+    get.enableKrakenPinions,
   ]);
 
   const [displayNum, setDisplayNum] = useState(20);
@@ -511,6 +512,14 @@ export default function RatioFinderCalculator(): JSX.Element {
                         set.setEnableNEOPinions,
                       ],
                     },
+                    {
+                      name: "Kraken",
+                      stateHook: [
+                        get.enableKrakenPinions,
+                        set.setEnableKrakenPinions,
+                      ],
+                    },
+
                     {
                       name: "Falcon",
                       stateHook: [
