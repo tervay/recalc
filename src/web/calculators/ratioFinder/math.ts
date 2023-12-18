@@ -327,7 +327,19 @@ export function generateOptions(state: RatioFinderStateV1) {
           gb.hasMotionModes() &&
           gb.startsWithBore(state.startingBore) &&
           (state.forceStartingPinionSize
-            ? gb.startsWithTeeth(state.startingPinionSize)
+            ? gb.startsWithTeeth(state.startingPinionSize) &&
+              !gb.containsInvalidTeethSizingDueToPoorForesight(
+                state.minGearTeeth,
+                state.maxGearTeeth,
+              ) &&
+              !gb.containsInvalidTeethSizingDueToPoorForesight(
+                state.minPulleyTeeth,
+                state.maxPulleyTeeth,
+              ) &&
+              !gb.containsInvalidTeethSizingDueToPoorForesight(
+                state.minSprocketTeeth,
+                state.maxSprocketTeeth,
+              )
             : true) &&
           !gb.containsPinionInBadPlace()
         ) {

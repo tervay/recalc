@@ -177,6 +177,34 @@ export class Gearbox {
     );
   }
 
+  containsInvalidTeethSizingDueToPoorForesight(
+    minTeeth: number,
+    maxTeeth: number,
+  ) {
+    let good = true;
+    for (let i = 0; i < this.stages.length; i++) {
+      if (i > 0) {
+        good =
+          good &&
+          minTeeth <= this.stages[i].driving &&
+          this.stages[i].driving <= maxTeeth;
+      }
+
+      good =
+        good &&
+        minTeeth <= this.stages[i].driven &&
+        this.stages[i].driven <= maxTeeth;
+    }
+
+    if (!good) {
+      console.log("not good", this.stages);
+    } else {
+      console.log("good", this.stages);
+    }
+
+    return !good;
+  }
+
   containsPinionInBadPlace(): boolean {
     if (this.stages.length === 1) {
       return (
