@@ -34,6 +34,7 @@ export default class Motor extends Model {
   public readonly kM: Measurement;
   public readonly maxPower: Measurement;
   public readonly resistance: Measurement;
+  public readonly b: Measurement;
 
   constructor(
     identifier: string,
@@ -57,6 +58,7 @@ export default class Motor extends Model {
     this.kM = new Measurement(
       this.kT.scalar / Math.sqrt(this.resistance.scalar),
     );
+    this.b = this.kT.mul(this.freeCurrent).div(this.freeSpeed);
 
     this.maxPower = new MotorRules(this, highCurrentLimit, {
       voltage: nominalVoltage,
