@@ -252,6 +252,7 @@ export default function RatioFinderCalculator(): JSX.Element {
     get.forceStartingPinionSize,
     get.enableKrakenPinions,
     get.enableSplineXL,
+    get.printablePulleys,
   ]);
 
   const [displayNum, setDisplayNum] = useState(20);
@@ -355,6 +356,19 @@ export default function RatioFinderCalculator(): JSX.Element {
                   )}
                 </Columns>
 
+                <Columns formColumns>
+                  <Column>
+                    <SingleInputLine label="Enable Printed Pulleys">
+                      <BooleanInput
+                        stateHook={[
+                          get.printablePulleys,
+                          set.setPrintablePulleys,
+                        ]}
+                      />
+                    </SingleInputLine>
+                  </Column>
+                </Columns>
+
                 <Columns>
                   <Column>
                     <Divider extraClasses="mt-0">Gear Tooth Range</Divider>
@@ -364,6 +378,7 @@ export default function RatioFinderCalculator(): JSX.Element {
                         disabledIf={() =>
                           !(get.enable20DPGears || get.enable32DPGears)
                         }
+                        delay={500}
                       />
                     </SingleInputLine>
                     <SingleInputLine label="Max">
@@ -372,6 +387,7 @@ export default function RatioFinderCalculator(): JSX.Element {
                         disabledIf={() =>
                           !(get.enable20DPGears || get.enable32DPGears)
                         }
+                        delay={500}
                       />
                     </SingleInputLine>
                   </Column>
@@ -383,6 +399,7 @@ export default function RatioFinderCalculator(): JSX.Element {
                         disabledIf={() =>
                           !(get.enableGT2 || get.enableHTD || get.enableRT25)
                         }
+                        delay={500}
                       />
                     </SingleInputLine>
                     <SingleInputLine label="Max">
@@ -391,6 +408,7 @@ export default function RatioFinderCalculator(): JSX.Element {
                         disabledIf={() =>
                           !(get.enableGT2 || get.enableHTD || get.enableRT25)
                         }
+                        delay={500}
                       />
                     </SingleInputLine>
                   </Column>
@@ -405,6 +423,7 @@ export default function RatioFinderCalculator(): JSX.Element {
                         disabledIf={() =>
                           !(get.enable25Chain || get.enable35Chain)
                         }
+                        delay={500}
                       />
                     </SingleInputLine>
                     <SingleInputLine label="Max">
@@ -416,6 +435,7 @@ export default function RatioFinderCalculator(): JSX.Element {
                         disabledIf={() =>
                           !(get.enable25Chain || get.enable35Chain)
                         }
+                        delay={500}
                       />
                     </SingleInputLine>
                   </Column>
@@ -451,6 +471,10 @@ export default function RatioFinderCalculator(): JSX.Element {
                   <li>
                     3+ stage generation can be slow. Try limiting tooth ranges
                     or reducing error threshold.
+                  </li>
+                  <li>
+                    Enabling printed pulleys can be very slow. It uses pulleys
+                    on all bores and all types between 8 and 84T.
                   </li>
                 </ul>
               </div>

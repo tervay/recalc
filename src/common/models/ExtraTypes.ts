@@ -61,7 +61,8 @@ export type FRCVendor =
   | "CTRE"
   | "Anderson Power"
   | "NI"
-  | "TTB";
+  | "TTB"
+  | "Printed";
 export type PulleyBeltType = "HTD" | "GT2" | "RT25";
 export type ChainType = "#25" | "#35";
 export type Bore =

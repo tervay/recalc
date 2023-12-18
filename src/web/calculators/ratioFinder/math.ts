@@ -30,6 +30,7 @@ import amSprockets from "common/models/data/cots/andymark/sprockets.json";
 import maxPlanetary from "common/models/data/cots/planetaries/maxplanetaries.json";
 import sportPlanetary from "common/models/data/cots/planetaries/sports.json";
 import versaPlanetary from "common/models/data/cots/planetaries/versaplanetaries.json";
+import printedPulleys from "common/models/data/cots/printedPulleys.json";
 import revGears from "common/models/data/cots/rev/gears.json";
 import revPulleys from "common/models/data/cots/rev/pulleys.json";
 import revSprockets from "common/models/data/cots/rev/sprockets.json";
@@ -256,6 +257,7 @@ export function generateOptions(state: RatioFinderStateV1) {
     ...(state.enableWCP ? wcpPulleys : []),
     ...(state.enableTTB ? ttbPulleys : []),
     ...(state.enableVEX ? vexPulleys : []),
+    ...(state.printablePulleys ? printedPulleys : []),
   ];
 
   const sprockets = [
@@ -285,6 +287,7 @@ export function generateOptions(state: RatioFinderStateV1) {
     .filter((m) => state.enableVEX || m.vendor !== "VEXpro")
     .filter((m) => state.enableWCP || m.vendor !== "WCP")
     .filter((m) => state.enableTTB || m.vendor !== "TTB")
+    .filter((m) => state.printablePulleys || m.vendor !== "Printed")
     .filter((m) => {
       let good = true;
       if (MotorBores.includes(m.bore)) {
@@ -330,6 +333,7 @@ export function generateOptions(state: RatioFinderStateV1) {
         gb.filterStagesForOverlappingMotionMethods();
         gb.filterStagesForOverlappingBores();
         gb.filterStagesForOverlappingMotionMethods();
+        gb.filterStagesForStartingBore(state.startingBore);
 
         if (
           gb.hasMotionModes() &&

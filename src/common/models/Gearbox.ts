@@ -233,6 +233,12 @@ export class Gearbox {
     });
   }
 
+  filterStagesForStartingBore(bore: Bore) {
+    this.stages[0].drivingMethods = this.stages[0].drivingMethods.filter(
+      (dm) => dm.bore === bore,
+    );
+  }
+
   filterStagesForOverlappingBores() {
     for (let i = 0; i < this.stages.length - 1; i++) {
       const prevStage = this.stages[i];

@@ -25,6 +25,7 @@ export const RatioFinderParamsV1 = {
   startingBore: withDefault(BoreParam, "NEO"),
   forceStartingPinionSize: withDefault(BooleanParam, false),
   startingPinionSize: withDefault(NumberParam, 14),
+  printablePulleys: withDefault(BooleanParam, false),
 
   enableVPs: withDefault(BooleanParam, false),
   enableMPs: withDefault(BooleanParam, true),
