@@ -445,6 +445,10 @@ export default function RatioFinderCalculator(): JSX.Element {
                   </li>
                   <li>Planetary part numbers are not accurate.</li>
                   <li>
+                    Does not account for the fact that some MAXSpline & SplineXL
+                    parts are interchangeable.
+                  </li>
+                  <li>
                     3+ stage generation can be slow. Try limiting tooth ranges
                     or reducing error threshold.
                   </li>
