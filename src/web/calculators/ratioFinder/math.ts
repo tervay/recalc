@@ -143,7 +143,8 @@ function filterGears(
     .filter(
       (g) =>
         (state.forceStartingPinionSize &&
-          g.teeth === state.startingPinionSize) ||
+          g.teeth === state.startingPinionSize &&
+          MotorBores.includes(g.bore)) ||
         (state.minGearTeeth <= g.teeth && state.maxGearTeeth >= g.teeth),
     );
 }
@@ -168,7 +169,8 @@ function filterPulleys(
     .filter(
       (g) =>
         (state.forceStartingPinionSize &&
-          g.teeth === state.startingPinionSize) ||
+          g.teeth === state.startingPinionSize &&
+          MotorBores.includes(g.bore)) ||
         (state.minPulleyTeeth <= g.teeth && state.maxPulleyTeeth >= g.teeth),
     );
 }
@@ -190,7 +192,8 @@ function filterSprockets(
     .filter(
       (g) =>
         (state.forceStartingPinionSize &&
-          g.teeth === state.startingPinionSize) ||
+          g.teeth === state.startingPinionSize &&
+          MotorBores.includes(g.bore)) ||
         (state.minSprocketTeeth <= g.teeth &&
           state.maxSprocketTeeth >= g.teeth),
     );
