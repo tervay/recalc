@@ -23,6 +23,8 @@ export const RatioFinderParamsV1 = {
   minStages: withDefault(NumberParam, 1),
   maxStages: withDefault(NumberParam, 2),
   startingBore: withDefault(BoreParam, "NEO"),
+  forceStartingPinionSize: withDefault(BooleanParam, false),
+  startingPinionSize: withDefault(NumberParam, 14),
 
   enableVPs: withDefault(BooleanParam, false),
   enableMPs: withDefault(BooleanParam, true),

@@ -39,7 +39,11 @@ import vexGears from "common/models/data/cots/vex/gears.json";
 import vexPulleys from "common/models/data/cots/vex/pulleys.json";
 import vexSprockets from "common/models/data/cots/vex/sprockets.json";
 
-function stagesFromMinToMax(min: number, max: number): Stage[] {
+function stagesFromMinToMax(
+  min: number,
+  max: number,
+  additionalStartingSizes: number[],
+): Stage[] {
   const stages: Stage[] = [];
   for (let i = min; i <= max; i++) {
     for (let j = min; j <= max; j++) {
@@ -48,6 +52,12 @@ function stagesFromMinToMax(min: number, max: number): Stage[] {
       }
 
       stages.push(new Stage(i, j, [], []));
+    }
+  }
+
+  for (let i = 0; i < additionalStartingSizes.length; i++) {
+    for (let j = min; j <= max; j++) {
+      stages.push(new Stage(additionalStartingSizes[i], j, [], []));
     }
   }
 
@@ -60,6 +70,7 @@ export function allPossibleSingleGearStages(state: RatioFinderStateV1) {
       8,
     max([state.maxGearTeeth, state.maxPulleyTeeth, state.maxSprocketTeeth]) ||
       80,
+    state.forceStartingPinionSize ? [state.startingPinionSize] : [],
   );
 }
 
@@ -126,8 +137,12 @@ function filterGears(
     }))
     .filter((g) => state.enable20DPGears || g.dp !== 20)
     .filter((g) => state.enable32DPGears || g.dp !== 32)
-    .filter((g) => state.minGearTeeth <= g.teeth)
-    .filter((g) => state.maxGearTeeth >= g.teeth);
+    .filter(
+      (g) =>
+        (state.forceStartingPinionSize &&
+          g.teeth === state.startingPinionSize) ||
+        (state.minGearTeeth <= g.teeth && state.maxGearTeeth >= g.teeth),
+    );
 }
 
 function filterPulleys(
@@ -147,8 +162,12 @@ function filterPulleys(
     .filter((p) => state.enableHTD || p.beltType !== "HTD")
     .filter((p) => state.enableGT2 || p.beltType !== "GT2")
     .filter((p) => state.enableRT25 || p.beltType !== "RT25")
-    .filter((p) => state.minPulleyTeeth <= p.teeth)
-    .filter((p) => state.maxPulleyTeeth >= p.teeth);
+    .filter(
+      (g) =>
+        (state.forceStartingPinionSize &&
+          g.teeth === state.startingPinionSize) ||
+        (state.minPulleyTeeth <= g.teeth && state.maxPulleyTeeth >= g.teeth),
+    );
 }
 function filterSprockets(
   state: RatioFinderStateV1,
@@ -165,8 +184,13 @@ function filterSprockets(
     }))
     .filter((s) => state.enable25Chain || s.chainType !== "#25")
     .filter((s) => state.enable35Chain || s.chainType !== "#35")
-    .filter((s) => state.minSprocketTeeth <= s.teeth)
-    .filter((s) => state.maxSprocketTeeth >= s.teeth);
+    .filter(
+      (g) =>
+        (state.forceStartingPinionSize &&
+          g.teeth === state.startingPinionSize) ||
+        (state.minSprocketTeeth <= g.teeth &&
+          state.maxSprocketTeeth >= g.teeth),
+    );
 }
 
 export function generateOptions(state: RatioFinderStateV1) {
@@ -302,6 +326,9 @@ export function generateOptions(state: RatioFinderStateV1) {
         if (
           gb.hasMotionModes() &&
           gb.startsWithBore(state.startingBore) &&
+          (state.forceStartingPinionSize
+            ? gb.startsWithTeeth(state.startingPinionSize)
+            : true) &&
           !gb.containsPinionInBadPlace()
         ) {
           gbs.push(gb);

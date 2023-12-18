@@ -171,6 +171,12 @@ export class Gearbox {
     );
   }
 
+  startsWithTeeth(teeth: number): boolean {
+    return (
+      this.stages[0].drivingMethods.filter((m) => m.teeth === teeth).length > 0
+    );
+  }
+
   containsPinionInBadPlace(): boolean {
     if (this.stages.length === 1) {
       return (

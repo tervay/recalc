@@ -1,6 +1,6 @@
 import SimpleHeading from "common/components/heading/SimpleHeading";
 import SingleInputLine from "common/components/io/inputs/SingleInputLine";
-import { NumberInput } from "common/components/io/new/inputs";
+import { BooleanInput, NumberInput } from "common/components/io/new/inputs";
 import L0MultiBoolean from "common/components/io/new/inputs/L0/L0MultiBoolean";
 import BoreInput from "common/components/io/new/inputs/L3/BoreInput";
 import { Column, Columns, Divider } from "common/components/styling/Building";
@@ -248,6 +248,8 @@ export default function RatioFinderCalculator(): JSX.Element {
     get.enableBearingBore,
     get.enable875Bore,
     get.enableMaxSpline,
+    get.startingPinionSize,
+    get.forceStartingPinionSize,
   ]);
 
   const [displayNum, setDisplayNum] = useState(20);
@@ -324,6 +326,31 @@ export default function RatioFinderCalculator(): JSX.Element {
                       <NumberInput stateHook={[displayNum, setDisplayNum]} />
                     </SingleInputLine>
                   </Column>
+                </Columns>
+
+                <Columns formColumns>
+                  <Column>
+                    <SingleInputLine label="Force Pinion Size">
+                      <BooleanInput
+                        stateHook={[
+                          get.forceStartingPinionSize,
+                          set.setForceStartingPinionSize,
+                        ]}
+                      />
+                    </SingleInputLine>
+                  </Column>
+                  {get.forceStartingPinionSize && (
+                    <Column>
+                      <SingleInputLine label="Starting Pinion Size">
+                        <NumberInput
+                          stateHook={[
+                            get.startingPinionSize,
+                            set.setStartingPinionSize,
+                          ]}
+                        />
+                      </SingleInputLine>
+                    </Column>
+                  )}
                 </Columns>
 
                 <Columns>
