@@ -148,7 +148,7 @@ export function solveMotorODE(
   antiTorque: Measurement,
   efficiency: number,
 ) {
-  const B = new Measurement(0.00004, "N m s / rad");
+  const B = motor.b;
   const L = new Measurement(0.000035, "H");
 
   const duration = 30;
