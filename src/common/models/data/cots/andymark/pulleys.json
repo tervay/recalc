@@ -126,5 +126,21 @@
       "s": 15,
       "u": "mm"
     }
+  },
+  {
+    "bore": "3/8 Hex",
+    "partNumber": "am-4960",
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    },
+    "teeth": 14,
+    "type": "HTD",
+    "url": "https://www.andymark.com/products/14-tooth-htd-0-375-in-hex-bore-pulley",
+    "vendor": "AndyMark",
+    "width": {
+      "s": 9,
+      "u": "mm"
+    }
   }
 ]
