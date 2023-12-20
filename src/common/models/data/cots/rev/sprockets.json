@@ -46,5 +46,45 @@
     "type": "#25",
     "url": "https://www.revrobotics.com/REV-21-2017",
     "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3370",
+    "teeth": 40,
+    "type": "#25",
+    "url": "https://www.revrobotics.com/ion-25-billet-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3374",
+    "teeth": 48,
+    "type": "#25",
+    "url": "https://www.revrobotics.com/ion-25-billet-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3378",
+    "teeth": 56,
+    "type": "#25",
+    "url": "https://www.revrobotics.com/ion-25-billet-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3382",
+    "teeth": 64,
+    "type": "#25",
+    "url": "https://www.revrobotics.com/ion-25-billet-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3386",
+    "teeth": 72,
+    "type": "#25",
+    "url": "https://www.revrobotics.com/ion-25-billet-sprockets/",
+    "vendor": "REV"
   }
 ]

@@ -270,5 +270,69 @@
     "teeth": 12,
     "url": "https://www.revrobotics.com/REV-41-1660",
     "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1922",
+    "teeth": 22,
+    "url": "https://www.revrobotics.com/20DP-Gears/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1924",
+    "teeth": 26,
+    "url": "https://www.revrobotics.com/20DP-Gears/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1930",
+    "teeth": 38,
+    "url": "https://www.revrobotics.com/20DP-Gears/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1932",
+    "teeth": 42,
+    "url": "https://www.revrobotics.com/20DP-Gears/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1933",
+    "teeth": 44,
+    "url": "https://www.revrobotics.com/20DP-Gears/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1922",
+    "teeth": 22,
+    "url": "https://www.revrobotics.com/20DP-Gears/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1944",
+    "teeth": 66,
+    "url": "https://www.revrobotics.com/20DP-Gears/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1947",
+    "teeth": 72,
+    "url": "https://www.revrobotics.com/20DP-Gears/",
+    "vendor": "REV"
   }
 ]
