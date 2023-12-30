@@ -55,7 +55,7 @@
     "stallTorque": { "magnitude": 3.6, "unit": "N*m" },
     "stallCurrent": { "magnitude": 211, "unit": "A" },
     "freeCurrent": { "magnitude": 3.6, "unit": "A" },
-    "weight": { "magnitude": 1.2, "unit": "lbs" },
+    "weight": { "magnitude": 1.28, "unit": "lbs" },
     "diameter": { "magnitude": 0, "unit": "in" },
     "url": "https://www.revrobotics.com/next-generation-spark-neo/"
   },

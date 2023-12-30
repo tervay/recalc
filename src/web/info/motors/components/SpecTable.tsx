@@ -97,10 +97,6 @@ export default function SpecTable(): JSX.Element {
   return (
     <>
       <div className="notification is-warning">
-        The Vortex weight is not yet published, and is estimated using the
-        combined weight of a NEO + Spark MAX.
-      </div>
-      <div className="notification is-warning">
         The motor specs from the Vortex are from REV, and the motor specs from
         the Kraken are from WCP. All others are from VEX. The Falcon data from
         VEX and the Falcon data from REV are significantly different; as such,{" "}
