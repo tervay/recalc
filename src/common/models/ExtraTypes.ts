@@ -73,6 +73,8 @@ export type Bore =
   | "550"
   | "1/2 Hex"
   | "3/8 Hex"
+  | "1/2 Round"
+  | "3/8 Round"
   | "0.875in"
   | "1.125in"
   | "MAXSpline"
@@ -81,6 +83,8 @@ export const MotorBores: Bore[] = ["NEO", "Kraken", "Falcon", "775", "550"];
 export const NonMotorBores: Bore[] = [
   "1/2 Hex",
   "3/8 Hex",
+  "1/2 Round",
+  "3/8 Round",
   "0.875in",
   "1.125in",
   "MAXSpline",
