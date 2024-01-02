@@ -14,6 +14,7 @@ import { useAsyncMemo } from "common/hooks/useAsyncMemo";
 import Measurement from "common/models/Measurement";
 import { useGettersSetters } from "common/tooling/conversion";
 import { wrap } from "common/tooling/promise-worker";
+import { useMemo } from "react";
 import {
   DriveParamsV1,
   DriveStateV1,
@@ -23,6 +24,8 @@ import {
 import { DriveState } from "web/calculators/drive/converter";
 import { DriveWorkerFunctions, IliteResult } from "web/calculators/drive/math";
 import rawWorker from "web/calculators/drive/math?worker";
+import KvKaDisplay from "web/calculators/shared/components/KvKaDisplay";
+import { calculateKa, calculateKv } from "web/calculators/shared/sharedMath";
 
 const worker = await wrap<DriveWorkerFunctions>(new rawWorker());
 
@@ -129,6 +132,38 @@ export default function DriveCalculator(): JSX.Element {
       get.maxSpeedAccelerationThreshold,
       get.throttleResponseMin,
       get.throttleResponseMax,
+    ],
+  );
+
+  const kV = useMemo(() => {
+    if (get.ratio.asNumber() == 0) {
+      return new Measurement(0, "V*s/m");
+    }
+
+    return calculateKv(
+      get.motor.freeSpeed.div(get.ratio.asNumber()),
+      get.wheelDiameter.div(2),
+    );
+  }, [get.motor.freeSpeed, get.wheelDiameter, get.ratio]);
+
+  const kA = useMemo(
+    () =>
+      calculateKa(
+        get.motor.stallTorque
+          .mul(get.motor.quantity)
+          .mul(get.ratio.asNumber())
+          .mul(get.efficiency / 100),
+        get.wheelDiameter.div(2),
+        get.weightInspected.add(get.weightAuxilliary),
+      ),
+    [
+      get.motor.stallTorque,
+      get.motor.quantity,
+      get.efficiency,
+      get.ratio,
+      get.wheelDiameter,
+      get.weightInspected,
+      get.weightAuxilliary,
     ],
   );
 
@@ -434,24 +469,33 @@ export default function DriveCalculator(): JSX.Element {
                 </Column>
               </Columns>
 
-              <SingleInputLine
-                label="Acceleration Distance"
-                tooltip={
-                  "How much distance is traveled before the system reaches max velocity. " +
-                  "If this is equal to your sprint distance (and is highlighted in yellow), your " +
-                  "system takes longer to accelerate than it does to reach your target distance."
-                }
-              >
-                <MeasurementOutput
-                  stateHook={[
-                    output.accelerationDistance ?? get.sprintDistance,
-                    () => {},
-                  ]}
-                  numberRoundTo={2}
-                  defaultUnit="ft"
-                  warningIf={() => output.accelerationDistance === undefined}
-                />
-              </SingleInputLine>
+              <Columns>
+                <Column>
+                  <KvKaDisplay kV={kV} kA={kA} distanceType={"linear"} />
+                </Column>
+                <Column>
+                  <SingleInputLine
+                    label="Acceleration Distance"
+                    tooltip={
+                      "How much distance is traveled before the system reaches max velocity. " +
+                      "If this is equal to your sprint distance (and is highlighted in yellow), your " +
+                      "system takes longer to accelerate than it does to reach your target distance."
+                    }
+                  >
+                    <MeasurementOutput
+                      stateHook={[
+                        output.accelerationDistance ?? get.sprintDistance,
+                        () => {},
+                      ]}
+                      numberRoundTo={2}
+                      defaultUnit="ft"
+                      warningIf={() =>
+                        output.accelerationDistance === undefined
+                      }
+                    />
+                  </SingleInputLine>
+                </Column>
+              </Columns>
             </>
           )}
         </Column>
