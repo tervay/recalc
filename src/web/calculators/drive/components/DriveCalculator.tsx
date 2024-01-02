@@ -14,7 +14,6 @@ import { useAsyncMemo } from "common/hooks/useAsyncMemo";
 import Measurement from "common/models/Measurement";
 import { useGettersSetters } from "common/tooling/conversion";
 import { wrap } from "common/tooling/promise-worker";
-import { useMemo } from "react";
 import {
   DriveParamsV1,
   DriveStateV1,
@@ -24,8 +23,6 @@ import {
 import { DriveState } from "web/calculators/drive/converter";
 import { DriveWorkerFunctions, IliteResult } from "web/calculators/drive/math";
 import rawWorker from "web/calculators/drive/math?worker";
-import KvKaDisplay from "web/calculators/shared/components/KvKaDisplay";
-import { calculateKa, calculateKv } from "web/calculators/shared/sharedMath";
 
 const worker = await wrap<DriveWorkerFunctions>(new rawWorker());
 
@@ -135,38 +132,6 @@ export default function DriveCalculator(): JSX.Element {
     ],
   );
 
-  const kV = useMemo(() => {
-    if (get.ratio.asNumber() == 0) {
-      return new Measurement(0, "V*s/m");
-    }
-
-    return calculateKv(
-      get.motor.freeSpeed.div(get.ratio.asNumber()),
-      get.wheelDiameter.div(2),
-    );
-  }, [get.motor.freeSpeed, get.wheelDiameter, get.ratio]);
-
-  const kA = useMemo(
-    () =>
-      calculateKa(
-        get.motor.stallTorque
-          .mul(get.motor.quantity)
-          .mul(get.ratio.asNumber())
-          .mul(get.efficiency / 100),
-        get.wheelDiameter.div(2),
-        get.weightInspected.add(get.weightAuxilliary),
-      ),
-    [
-      get.motor.stallTorque,
-      get.motor.quantity,
-      get.efficiency,
-      get.ratio,
-      get.wheelDiameter,
-      get.weightInspected,
-      get.weightAuxilliary,
-    ],
-  );
-
   return (
     <>
       <SimpleHeading
@@ -174,22 +139,19 @@ export default function DriveCalculator(): JSX.Element {
         state={get}
         title="Drivetrain Calculator"
       />
-      <Columns>
+      <Columns multiline>
         <Column>
           {/* <SingleInputLine label="Swerve?">
             <BooleanInput stateHook={[get.swerve, set.setSwerve]} />
           </SingleInputLine> */}
-          <SingleInputLine
-            label="Motors"
-            tooltip="Total number of propulsion motors powering the drivetrain."
-          >
-            <MotorInput stateHook={[get.motor, set.setMotor]} />
-          </SingleInputLine>
 
           <Columns formColumns>
             <Column>
-              <SingleInputLine label="Ratio">
-                <RatioInput stateHook={[get.ratio, set.setRatio]} />
+              <SingleInputLine
+                label="Motors"
+                tooltip="Total number of propulsion motors powering the drivetrain."
+              >
+                <MotorInput stateHook={[get.motor, set.setMotor]} />
               </SingleInputLine>
             </Column>
             <Column>
@@ -201,6 +163,21 @@ export default function DriveCalculator(): JSX.Element {
                 }
               >
                 <NumberInput stateHook={[get.efficiency, set.setEfficiency]} />
+              </SingleInputLine>
+            </Column>
+          </Columns>
+
+          <Columns formColumns>
+            <Column>
+              <SingleInputLine label="Ratio">
+                <RatioInput stateHook={[get.ratio, set.setRatio]} />
+              </SingleInputLine>
+            </Column>
+            <Column>
+              <SingleInputLine label="Sprint Distance">
+                <MeasurementInput
+                  stateHook={[get.sprintDistance, set.setSprintDistance]}
+                />
               </SingleInputLine>
             </Column>
           </Columns>
@@ -287,11 +264,6 @@ export default function DriveCalculator(): JSX.Element {
               </SingleInputLine> */}
             </>
           )}
-          <SingleInputLine label="Sprint Distance">
-            <MeasurementInput
-              stateHook={[get.sprintDistance, set.setSprintDistance]}
-            />
-          </SingleInputLine>
           {/* <SingleInputLine label="Target Time to Goal">
             <MeasurementInput
               stateHook={[get.targetTimeToGoal, set.setTargetTimeToGoal]}
@@ -365,32 +337,29 @@ export default function DriveCalculator(): JSX.Element {
         <Column>
           {output !== undefined && (
             <>
-              <SingleInputLine label="Time to Goal">
-                <MeasurementOutput
-                  stateHook={[output.timeToGoal, () => {}]}
-                  numberRoundTo={2}
-                  defaultUnit="s"
-                />
-              </SingleInputLine>
-
-              <SingleInputLine
-                label="Acceleration Distance"
-                tooltip={
-                  "How much distance is traveled before the system reaches max velocity. " +
-                  "If this is equal to your sprint distance (and is highlighted in yellow), your " +
-                  "system takes longer to accelerate than it does to reach your target distance."
-                }
-              >
-                <MeasurementOutput
-                  stateHook={[
-                    output.accelerationDistance ?? get.sprintDistance,
-                    () => {},
-                  ]}
-                  numberRoundTo={2}
-                  defaultUnit="ft"
-                  warningIf={() => output.accelerationDistance === undefined}
-                />
-              </SingleInputLine>
+              <Columns formColumns>
+                <Column>
+                  <SingleInputLine label="Time to Goal">
+                    <MeasurementOutput
+                      stateHook={[output.timeToGoal, () => {}]}
+                      numberRoundTo={2}
+                      defaultUnit="s"
+                    />
+                  </SingleInputLine>
+                </Column>
+                <Column>
+                  <SingleInputLine
+                    label="Max Tractive Force"
+                    tooltip="The highest amount of force your drivetrain is capable of exerting on the carpet."
+                  >
+                    <MeasurementOutput
+                      stateHook={[output.maxTractiveForce, () => {}]}
+                      numberRoundTo={2}
+                      defaultUnit="lbf"
+                    />
+                  </SingleInputLine>
+                </Column>
+              </Columns>
 
               <Columns formColumns>
                 <Column>
@@ -419,17 +388,6 @@ export default function DriveCalculator(): JSX.Element {
                 </Column>
               </Columns>
 
-              <SingleInputLine
-                label="Max Tractive Force"
-                tooltip="The highest amount of force your drivetrain is capable of exerting on the carpet."
-              >
-                <MeasurementOutput
-                  stateHook={[output.maxTractiveForce, () => {}]}
-                  numberRoundTo={2}
-                  defaultUnit="lbf"
-                />
-              </SingleInputLine>
-
               <Columns formColumns>
                 <Column>
                   <SingleInputLine
@@ -448,7 +406,6 @@ export default function DriveCalculator(): JSX.Element {
                       defaultUnit="A"
                     />
                   </SingleInputLine>
-                  <KvKaDisplay kV={kV} kA={kA} distanceType={"linear"} />
                 </Column>
                 <Column>
                   <SingleInputLine
@@ -476,13 +433,32 @@ export default function DriveCalculator(): JSX.Element {
                   </SingleInputLine>
                 </Column>
               </Columns>
+
+              <SingleInputLine
+                label="Acceleration Distance"
+                tooltip={
+                  "How much distance is traveled before the system reaches max velocity. " +
+                  "If this is equal to your sprint distance (and is highlighted in yellow), your " +
+                  "system takes longer to accelerate than it does to reach your target distance."
+                }
+              >
+                <MeasurementOutput
+                  stateHook={[
+                    output.accelerationDistance ?? get.sprintDistance,
+                    () => {},
+                  ]}
+                  numberRoundTo={2}
+                  defaultUnit="ft"
+                  warningIf={() => output.accelerationDistance === undefined}
+                />
+              </SingleInputLine>
             </>
           )}
         </Column>
       </Columns>
 
       {output !== undefined && (
-        <Columns>
+        <Columns multiline>
           <Column>
             <Graph
               options={motionGraphConfig}
