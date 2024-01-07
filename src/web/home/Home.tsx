@@ -97,12 +97,12 @@ export default function Home(): JSX.Element {
         <Columns multiline gapless>
           <Column>
             <Shortcut
-              name="2023 Official PDF Manual"
-              url="https://firstfrc.blob.core.windows.net/frc2023/Manual/2023FRCGameManual.pdf"
+              name="2024 Official PDF Manual"
+              url="https://firstfrc.blob.core.windows.net/frc2024/Manual/2024GameManual.pdf"
             />
             <Shortcut
-              name="2023 Unofficial Web Manual"
-              url="https://www.frcmanual.com/2023/introduction"
+              name="2024 Unofficial Web Manual"
+              url="https://www.frcmanual.com/2024"
             />
             <Shortcut name="2024 Q&A" url="https://frc-qa.firstinspires.org/" />
           </Column>
@@ -114,8 +114,8 @@ export default function Home(): JSX.Element {
             />
 
             <Shortcut
-              name="Open Alliance 2023"
-              url="https://www.theopenalliance.com/teams/2023/"
+              name="Open Alliance 2024"
+              url="https://www.theopenalliance.com/teams/2024/"
             />
           </Column>
 
