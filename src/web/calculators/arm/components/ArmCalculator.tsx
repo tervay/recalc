@@ -160,7 +160,7 @@ export default function ArmCalculator(): JSX.Element {
           <SingleInputLine
             label="Current Limit"
             id="currentLimit"
-            tooltip="Current limit applied to each motor."
+            tooltip="Stator current limit applied to each motor."
           >
             <MeasurementInput
               stateHook={[get.currentLimit, set.setCurrentLimit]}
