@@ -43,7 +43,7 @@
     "typescript": "5.3.3",
     "use-query-params": "2.2.1",
     "vitest": "0.34.6",
-    "web-vitals": "3.5.1"
+    "web-vitals": "3.5.2"
   },
   "scripts": {
     "start": "vite",
