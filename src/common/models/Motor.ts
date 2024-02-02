@@ -151,6 +151,9 @@ export function solveMotorODE(
   const B = motor.b;
   const L = new Measurement(0.000035, "H");
 
+  // https://github.com/frc971/971-Robot-Code/blob/ecfddf97eb3783916f4355dec98400e0811d3571/frc971/control_loops/python/control_loop.py#L745C30-L745C58
+  const inherentMotorInertia = new Measurement(0.00005822569, "kg m2");
+
   const duration = 30;
   const numStepsPerSec = 800;
   const steps = duration * numStepsPerSec;
@@ -181,7 +184,7 @@ export function solveMotorODE(
           .sub(antiTorque)
           .sub(B.mul(prevVel)),
       )
-        .div(J)
+        .div(J.add(inherentMotorInertia))
         .mul(new Measurement(1, "rad"))
         .toBase();
 
