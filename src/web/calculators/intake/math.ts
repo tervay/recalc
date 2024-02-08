@@ -27,6 +27,10 @@ export function calculateLinearSurfaceSpeed(
   ratio: Ratio,
   rollerDiameter: Measurement,
 ): Measurement {
+  if (Measurement.anyAreZero(ratio.asNumber())) {
+    return new Measurement(0, "ft/s");
+  }
+
   return motor.freeSpeed
     .div(ratio.asNumber())
     .mul(rollerDiameter.div(2))
