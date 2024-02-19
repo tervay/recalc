@@ -4,7 +4,7 @@
     "partNumber": "REV-21-1964",
     "teeth": 48,
     "type": "#25",
-    "url": "https://www.revrobotics.com/REV-21-1964",
+    "url": "https://www.revrobotics.com/ion-25-sprockets/",
     "vendor": "REV"
   },
   {
@@ -12,7 +12,7 @@
     "partNumber": "REV-21-1972",
     "teeth": 64,
     "type": "#25",
-    "url": "https://www.revrobotics.com/REV-21-1972",
+    "url": "https://www.revrobotics.com/ion-25-sprockets/",
     "vendor": "REV"
   },
   {
@@ -20,7 +20,7 @@
     "partNumber": "REV-21-2012",
     "teeth": 16,
     "type": "#25",
-    "url": "https://www.revrobotics.com/REV-21-2012",
+    "url": "https://www.revrobotics.com/ion-25-sprockets/",
     "vendor": "REV"
   },
   {
@@ -28,7 +28,15 @@
     "partNumber": "REV-21-2015",
     "teeth": 24,
     "type": "#25",
-    "url": "https://www.revrobotics.com/REV-21-2015",
+    "url": "https://www.revrobotics.com/ion-25-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-2019",
+    "teeth": 32,
+    "type": "#25",
+    "url": "https://www.revrobotics.com/ion-25-sprockets/",
     "vendor": "REV"
   },
   {
@@ -36,7 +44,7 @@
     "partNumber": "REV-21-2016",
     "teeth": 16,
     "type": "#25",
-    "url": "https://www.revrobotics.com/REV-21-2016",
+    "url": "https://www.revrobotics.com/ion-25-sprockets/",
     "vendor": "REV"
   },
   {
@@ -44,7 +52,7 @@
     "partNumber": "REV-21-2017",
     "teeth": 24,
     "type": "#25",
-    "url": "https://www.revrobotics.com/REV-21-2017",
+    "url": "https://www.revrobotics.com/ion-25-sprockets/",
     "vendor": "REV"
   },
   {
