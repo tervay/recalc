@@ -113,7 +113,7 @@
     "prettier-plugin-organize-imports": "3.2.4",
     "sass": "1.71.1",
     "source-map-explorer": "2.5.3",
-    "type-fest": "4.10.2",
+    "type-fest": "4.10.3",
     "vite": "5.1.4",
     "vite-plugin-svgr": "4.2.0",
     "vite-plugin-top-level-await": "1.4.1",
