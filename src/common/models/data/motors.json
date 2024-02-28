@@ -178,5 +178,15 @@
     "weight": { "magnitude": 0.4375, "unit": "lbs" },
     "diameter": { "magnitude": 1.5, "unit": "in" },
     "url": "https://www.revrobotics.com/rev-41-1300/"
+  },
+  {
+    "name": "V5 Smart Motor (Red)",
+    "freeSpeed": { "magnitude": 100, "unit": "rpm" },
+    "stallTorque": { "magnitude": 2.1, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 2.5, "unit": "A" },
+    "freeCurrent": { "magnitude": 0.9, "unit": "A" },
+    "weight": { "magnitude": 0.342, "unit": "lbs" },
+    "diameter": { "magnitude": 2.0, "unit": "in" },
+    "url": "https://www.vexrobotics.com/276-4840.html"
   }
 ]
