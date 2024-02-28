@@ -111,7 +111,7 @@ export default function SpecTable(): JSX.Element {
         inconsistent with other motors and are highly preliminary.
       </div>
       <div className="notification is-warning">
-        All motors except the Falcon, Kraken, and Vortex have 0.25 lbs added to
+        All motors except the Falcon, Kraken, Vortex, and V5 Smart Motor have 0.25 lbs added to
         their weight, representing an external motor controller.
       </div>
       <Table
