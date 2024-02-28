@@ -25,7 +25,7 @@ type MotorRow = {
 
 function adjustedWeight(motor: Motor): Measurement {
   return motor.weight.add(
-    ["Falcon 500", "Kraken X60", "Vortex"]
+    ["Falcon 500", "Kraken X60", "Vortex", "V5 Smart Motor"]
       .map((s) => motor.identifier.includes(s))
       .includes(true)
       ? lb(0)
