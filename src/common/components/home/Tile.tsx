@@ -25,15 +25,16 @@ export default function Tile(props: {
                   <>
                     <source type="image/webp" srcSet={props.image + ".webp"} />
                     <source type="image/png" srcSet={props.image + ".png"} />
+                    <img
+                      src={
+                        (props.image ||
+                          "https://bulma.io/images/placeholders/1280x960") +
+                        ".png"
+                      }
+                      alt={props.title}
+                    />
                   </>
                 )}
-                <img
-                  src={
-                    (props.image ||
-                      "https://bulma.io/images/placeholders/1280x960") + ".png"
-                  }
-                  alt={props.title}
-                />
               </picture>
             </figure>
           </div>
