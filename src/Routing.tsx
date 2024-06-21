@@ -25,6 +25,7 @@ import Home from "web/home/Home";
 import compressorsConfig from "web/info/compressors";
 import motorsConfig from "web/info/motors";
 import utilConfig from "web/info/util";
+import scoutingConfig from "web/scouting";
 
 function App(): JSX.Element {
   return (
@@ -99,6 +100,10 @@ function App(): JSX.Element {
                 <Route
                   path={utilConfig.url}
                   element={<utilConfig.component />}
+                />
+                <Route
+                  path={scoutingConfig.url}
+                  element={<scoutingConfig.component />}
                 />
               </Routes>
             </QueryParamProvider>

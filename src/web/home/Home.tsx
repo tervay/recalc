@@ -22,6 +22,7 @@ import ratioFinderConfig from "web/calculators/ratioFinder";
 import compressorsConfig from "web/info/compressors";
 import motorsConfig from "web/info/motors";
 import utilConfig from "web/info/util";
+import scoutingConfig from "web/scouting";
 
 function Clickable(props: {
   config: PageConfig;
@@ -86,6 +87,7 @@ export default function Home(): JSX.Element {
           <Clickable config={compressorsConfig} />
           <Clickable config={aboutConfig} imageSize="96x96" />
           <Clickable config={utilConfig} />
+          <Clickable config={scoutingConfig} />
         </Columns>
       </Section>
 
