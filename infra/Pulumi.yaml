@@ -1,0 +1,10 @@
+name: infra2
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: A Python program to deploy a serverless application on Google Cloud
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: serverless-gcp-python

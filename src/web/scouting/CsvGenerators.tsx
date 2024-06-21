@@ -17,6 +17,13 @@ import { useState } from "react";
 
 const queryClient = new QueryClient();
 
+const cloudFnUrl =
+  "https://us-central1-recalc-1590210745953.cloudfunctions.net/recalc_entrypoint_fn-8235106";
+
+function makeCloudUrl(eventKey: string, method: string): string {
+  return `${cloudFnUrl}?event=${eventKey}&method=${method}`;
+}
+
 function TeamsCSVOutput(props: { eventKey: string }): JSX.Element {
   const { data } = useQuery({
     queryKey: ["teams", props.eventKey],
@@ -32,6 +39,9 @@ function TeamsCSVOutput(props: { eventKey: string }): JSX.Element {
   return (
     <div>
       <h1 className="is-size-3">Teams</h1>
+      <div className="is-size-5">
+        <a href={makeCloudUrl(props.eventKey, "teams")}>Importable URL</a>
+      </div>
       <textarea
         wrap="off"
         readOnly
@@ -89,6 +99,9 @@ function ScheduleCSVOutput(props: { eventKey: string }): JSX.Element {
   return (
     <div>
       <h1 className="is-size-3">Schedule</h1>
+      <div className="is-size-5">
+        <a href={makeCloudUrl(props.eventKey, "schedule")}>Importable URL</a>
+      </div>
       <textarea
         wrap="off"
         readOnly
@@ -158,6 +171,9 @@ function COPRSOutput(props: { eventKey: string }): JSX.Element {
   return (
     <div>
       <h1 className="is-size-3">COPRs</h1>
+      <div className="is-size-5">
+        <a href={makeCloudUrl(props.eventKey, "coprs")}>Importable URL</a>
+      </div>
       <textarea
         readOnly
         wrap="off"
@@ -203,6 +219,9 @@ function RankingsOutput(props: { eventKey: string }): JSX.Element {
   return (
     <div>
       <h1 className="is-size-3">Rankings</h1>
+      <div className="is-size-5">
+        <a href={makeCloudUrl(props.eventKey, "rankings")}>Importable URL</a>
+      </div>
       <textarea
         readOnly
         wrap="off"
