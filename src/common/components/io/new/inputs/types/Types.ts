@@ -190,3 +190,7 @@ export type MotorInputProps = RemoveL2NumberSelectCreationFnsAndChoices<
 export type RatioInputProps = RemoveL2NumberSelectCreationFnsAndChoices<
   L2NumberSelectProps<Ratio>
 >;
+
+export type GenericSelectInputProps<T> = SetAllFieldsButStateHookOptional<
+  RemoveL1SelectCreationFns<T>
+>;
