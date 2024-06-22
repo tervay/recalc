@@ -105,7 +105,7 @@ def rankings(event_key: str):
         to_html(
             [headers]
             + [
-                [r["rank"], r["team_key"]]
+                [r["rank"], r["team_key"][3:]]
                 + r["sort_orders"]
                 + r["extra_stats"]
                 + [r["matches_played"]]
@@ -121,7 +121,7 @@ def coprs(event_key: str):
     headers = ["Team #"] + list(coprs.keys())
     data = [headers]
     for team in coprs[headers[1]].keys():
-        data.append([team] + [coprs[header][team] for header in headers[1:]])
+        data.append([team[3:]] + [coprs[header][team] for header in headers[1:]])
 
     return return_helper(to_html(data))
 
