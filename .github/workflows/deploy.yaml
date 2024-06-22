@@ -53,8 +53,7 @@ jobs:
         with:
           install: false
           start: yarn serve
-          wait-on: "http://localhost:3000"
-          wait-on-timeout: 60
+          wait-on: "npx wait-on --timeout 60000 http://localhost:3000"
           record: false
           spec: cypress/e2e/*
         env:
@@ -86,8 +85,7 @@ jobs:
         with:
           install: false
           start: yarn serve
-          wait-on: "http://localhost:3000"
-          wait-on-timeout: 60
+          wait-on: "npx wait-on --timeout 60000 http://localhost:3000"
           record: false
           component: true
           spec: cypress/component/*
