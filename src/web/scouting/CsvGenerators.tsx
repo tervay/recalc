@@ -15,7 +15,13 @@ import {
 } from "common/models/TBA";
 import { useState } from "react";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const cloudFnUrl =
   "https://us-central1-recalc-1590210745953.cloudfunctions.net/recalc_entrypoint_fn-8235106";
@@ -276,8 +282,8 @@ function QueryComponents() {
       <p className="is-size-x">
         These can be copy-pasted into spreadsheets for use offline. You can also
         use the importable URLs with <code>IMPORTHTML</code> like so:
-        <pre>=IMPORTHTML("insert url here", "TABLE")</pre>
       </p>
+      <pre>=IMPORTHTML("insert url here", "TABLE")</pre>
       <br />
 
       <Columns formColumns>
