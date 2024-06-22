@@ -273,8 +273,10 @@ function QueryComponents() {
   return (
     <>
       <p className="is-size-2">Scouting CSV Generators</p>
-      <p className="is-size-5">
-        These can be copy-pasted into spreadsheets for use offline.
+      <p className="is-size-x">
+        These can be copy-pasted into spreadsheets for use offline. You can also
+        use the importable URLs with <code>IMPORTHTML</code> like so:
+        <pre>=IMPORTHTML("insert url here", "TABLE")</pre>
       </p>
       <br />
 
