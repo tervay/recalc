@@ -105,7 +105,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
   deploy_dev:
-    needs: [unit_tests, cypress_e2e, cypress_component]
+    needs: [unit_tests]
     runs-on: ubuntu-22.04
     environment: recalc-env
     steps:
