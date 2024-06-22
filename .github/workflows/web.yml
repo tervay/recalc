@@ -10,7 +10,7 @@ jobs:
     environment: recalc-env
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -37,7 +37,7 @@ jobs:
     container: cypress/included:13.6.1
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -54,7 +54,7 @@ jobs:
           VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
 
       - name: Cypress e2e tests
-        uses: cypress-io/github-action@v4.2.0
+        uses: cypress-io/github-action@v6
         with:
           install: false
           start: yarn serve
@@ -73,7 +73,7 @@ jobs:
     container: cypress/included:13.6.1
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -90,7 +90,7 @@ jobs:
           VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
 
       - name: Cypress component tests
-        uses: cypress-io/github-action@v4.2.0
+        uses: cypress-io/github-action@v6
         with:
           install: false
           start: yarn serve
@@ -110,7 +110,7 @@ jobs:
     environment: recalc-env
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
