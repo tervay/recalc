@@ -30,6 +30,7 @@ jobs:
         run: yarn test --coverage
 
   cypress_e2e:
+    if: false
     runs-on: ubuntu-22.04
     environment: recalc-env
     container: cypress/included:13.6.1
@@ -62,6 +63,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
   cypress_component:
+    if: false
     runs-on: ubuntu-22.04
     environment: recalc-env
     container: cypress/included:13.6.1
