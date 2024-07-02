@@ -43,7 +43,7 @@
     "tinycolor2": "1.6.0",
     "tippy.js": "6.3.7",
     "ts-toolbelt": "9.6.0",
-    "typescript": "5.4.5",
+    "typescript": "5.5.3",
     "use-query-params": "2.2.1",
     "vitest": "0.34.6",
     "web-vitals": "3.5.2"
