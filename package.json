@@ -107,7 +107,7 @@
     "eslint-plugin-cypress": "3.2.0",
     "eslint-plugin-prettier": "5.2.1",
     "eslint-plugin-react": "7.34.1",
-    "husky": "9.1.2",
+    "husky": "9.1.4",
     "imagemin": "9.0.0",
     "imagemin-webp": "8.0.0",
     "jsdom": "24.0.0",
