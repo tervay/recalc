@@ -6603,10 +6603,10 @@ vite-plugin-svgr@4.2.0:
     "@svgr/core" "^8.1.0"
     "@svgr/plugin-jsx" "^8.1.0"
 
-vite-plugin-top-level-await@1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/vite-plugin-top-level-await/-/vite-plugin-top-level-await-1.4.2.tgz#aee36b4c398c15de629a7978f4ef1cfc4e44e50b"
-  integrity sha512-Lz9ZGlDEqLpIJ/NU3toXSUrjmovlJf9qV/LNNa5RB2NYbN3SptfnZEz91//uqahhZtFzL5lKREPwv3YJmlnybg==
+vite-plugin-top-level-await@1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/vite-plugin-top-level-await/-/vite-plugin-top-level-await-1.4.4.tgz#4900e06bfb7179de20aaa9b4730d04022a9e259e"
+  integrity sha512-QyxQbvcMkgt+kDb12m2P8Ed35Sp6nXP+l8ptGrnHV9zgYDUpraO0CPdlqLSeBqvY2DToR52nutDG7mIHuysdiw==
   dependencies:
     "@rollup/plugin-virtual" "^3.0.2"
     "@swc/core" "^1.7.0"
