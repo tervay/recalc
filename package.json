@@ -117,7 +117,7 @@
     "sass": "1.77.2",
     "source-map-explorer": "2.5.3",
     "type-fest": "4.18.2",
-    "vite": "5.4.8",
+    "vite": "5.4.9",
     "vite-plugin-svgr": "4.2.0",
     "vite-plugin-top-level-await": "1.4.4",
     "vite-tsconfig-paths": "4.3.2"
