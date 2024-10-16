@@ -988,21 +988,7 @@
   resolved "https://registry.yarnpkg.com/@types/katex/-/katex-0.16.3.tgz#a341c89705145b7dd8e2a133b282a133eabe6076"
   integrity sha512-CeVMX9EhVUW8MWnei05eIRks4D5Wscw/W9Byz1s3PA+yJvcdvq9SaDjiUKvRvEgjpdTyJMjQA43ae4KTwsvOPg==
 
-"@types/lodash.clonedeep@^4.5.6":
-  version "4.5.9"
-  resolved "https://registry.yarnpkg.com/@types/lodash.clonedeep/-/lodash.clonedeep-4.5.9.tgz#ea48276c7cc18d080e00bb56cf965bcceb3f0fc1"
-  integrity sha512-19429mWC+FyaAhOLzsS8kZUsI+/GmBAQ0HFiCPsKGU+7pBXOQWhyrY6xNNDwUSX8SMZMJvuFVMF9O5dQOlQK9Q==
-  dependencies:
-    "@types/lodash" "*"
-
-"@types/lodash.defaultsdeep@^4.6.6":
-  version "4.6.9"
-  resolved "https://registry.yarnpkg.com/@types/lodash.defaultsdeep/-/lodash.defaultsdeep-4.6.9.tgz#050fbe389a7a6e245b15da9ee83a8a62f047a1c4"
-  integrity sha512-pLtCFK0YkHfGtGLYLNMTbFB5/G5+RsmQCIbbHH8GOAXjv+gDkVilY98kILfe8JH2Kev0OCReYxp1AjxEjP8ixA==
-  dependencies:
-    "@types/lodash" "*"
-
-"@types/lodash@*", "@types/lodash@4.17.4":
+"@types/lodash@4.17.4":
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.17.4.tgz#0303b64958ee070059e3a7184048a55159fe20b7"
   integrity sha512-wYCP26ZLxaT3R39kiN2+HcJ4kTd3U1waI/cY7ivWYqFP6pW3ZNpvi6Wd6PHZx7T/t8z0vlkXMg3QYLa7DZ/IJQ==
@@ -1032,11 +1018,6 @@
   version "20.8.3"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.8.3.tgz#c4ae2bb1cfab2999ed441a95c122bbbe1567a66d"
   integrity sha512-jxiZQFpb+NlH5kjW49vXxvxTjeeqlbsnTAdBTKpzEdPs9itay7MscYXz3Fo9VYFEsfQ6LJFitHad3faerLAjCw==
-
-"@types/node@^12.7.5":
-  version "12.20.55"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.55.tgz#c329cbd434c42164f846b909bd6f85b5537f6240"
-  integrity sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==
 
 "@types/prop-types@*":
   version "15.7.10"
@@ -1330,17 +1311,13 @@ acorn@^8.10.0, acorn@^8.9.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.11.2.tgz#ca0d78b51895be5390a5903c5b3bdcdaf78ae40b"
   integrity sha512-nc0Axzp/0FILLEVsm4fNwLCwMttvhEI263QtVPQcbpfZZ3ts0hLsZGOpE6czNlid7CJ9MlyH8reXkpsf3YUY4w==
 
-adze@1.9.1:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/adze/-/adze-1.9.1.tgz#79a98c45daec71c9d5e5af2728fdd7a324f359ea"
-  integrity sha512-Ae/qZDHY8pyybVNoSHYnCUf6YNkSaICf+uo1UvVEQYGpQH0J7sKUUQWby92N+u5Deo0rt6lH/tu7TQsUtQb5tg==
+adze@2.0.12:
+  version "2.0.12"
+  resolved "https://registry.yarnpkg.com/adze/-/adze-2.0.12.tgz#0538b810d45e456eaf0fae9020bb44e3f4465758"
+  integrity sha512-JxgI7u+yWIiSP98TSCRCpgobWYaHyWGJARfijk82HvVdpp/VwF8yw+ZWKCLnqi1DAJpEgbWCWai5SDnsoCrNvQ==
   dependencies:
-    "@types/lodash.clonedeep" "^4.5.6"
-    "@types/lodash.defaultsdeep" "^4.6.6"
-    "@types/node" "^12.7.5"
-    chalk "^4.1.0"
-    lodash.clonedeep "^4.5.0"
-    lodash.defaultsdeep "^4.6.1"
+    chalk "^5.3.0"
+    date-fns "^3.6.0"
 
 agent-base@^7.0.2, agent-base@^7.1.0:
   version "7.1.0"
@@ -1881,7 +1858,7 @@ chai@^4.3.10:
     pathval "^1.1.1"
     type-detect "^4.0.8"
 
-chalk@5.3.0:
+chalk@5.3.0, chalk@^5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-5.3.0.tgz#67c20a7ebef70e7f3970a01f90fa210cb6860385"
   integrity sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==
@@ -2244,6 +2221,11 @@ data-urls@^5.0.0:
   dependencies:
     whatwg-mimetype "^4.0.0"
     whatwg-url "^14.0.0"
+
+date-fns@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-3.6.0.tgz#f20ca4fe94f8b754951b24240676e8618c0206bf"
+  integrity sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==
 
 dayjs@^1.10.4:
   version "1.11.10"
@@ -4429,16 +4411,6 @@ locate-path@^6.0.0:
   integrity sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==
   dependencies:
     p-locate "^5.0.0"
-
-lodash.clonedeep@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
-  integrity sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==
-
-lodash.defaultsdeep@^4.6.1:
-  version "4.6.1"
-  resolved "https://registry.yarnpkg.com/lodash.defaultsdeep/-/lodash.defaultsdeep-4.6.1.tgz#512e9bd721d272d94e3d3a63653fa17516741ca6"
-  integrity sha512-3j8wdDzYuWO3lM3Reg03MuQR957t287Rpcxp1njpEa8oDrikb+FwGdW3n+FELh/A6qib6yPit0j/pv9G/yeAqA==
 
 lodash.merge@^4.6.2:
   version "4.6.2"
