@@ -98,7 +98,7 @@
     "@types/react-table": "7.7.20",
     "@types/tinycolor2": "1.4.6",
     "@typescript-eslint/eslint-plugin": "6.7.5",
-    "@typescript-eslint/parser": "8.10.0",
+    "@typescript-eslint/parser": "8.11.0",
     "@vitejs/plugin-react": "4.3.2",
     "@vitest/coverage-istanbul": "0.34.6",
     "cypress": "13.15.0",
