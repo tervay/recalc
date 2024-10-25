@@ -50,6 +50,26 @@
     "url": "https://wcproducts.com/products/kraken"
   },
   {
+    "name": "Kraken X44*",
+    "freeSpeed": { "magnitude": 7530, "unit": "rpm" },
+    "stallTorque": { "magnitude": 4.05, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 275, "unit": "A" },
+    "freeCurrent": { "magnitude": 1.4, "unit": "A" },
+    "weight": { "magnitude": 1.2, "unit": "lbs" },
+    "diameter": { "magnitude": 1.73, "unit": "in" },
+    "url": "https://wcproducts.com/products/kraken"
+  },
+  {
+    "name": "Minion*",
+    "freeSpeed": { "magnitude": 7384, "unit": "rpm" },
+    "stallTorque": { "magnitude": 3.1, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 200, "unit": "A" },
+    "freeCurrent": { "magnitude": 3.9, "unit": "A" },
+    "weight": { "magnitude": 1.2, "unit": "lbs" },
+    "diameter": { "magnitude": 1.73, "unit": "in" },
+    "url": "https://newsite.ctr-electronics.com/products/minion-brushless-motor"
+  },
+  {
     "name": "NEO Vortex*",
     "freeSpeed": { "magnitude": 6784, "unit": "rpm" },
     "stallTorque": { "magnitude": 3.6, "unit": "N*m" },
