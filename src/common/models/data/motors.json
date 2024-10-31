@@ -188,5 +188,15 @@
     "weight": { "magnitude": 0.342, "unit": "lbs" },
     "diameter": { "magnitude": 2.0, "unit": "in" },
     "url": "https://www.vexrobotics.com/276-4840.html"
+  },
+  {
+    "name": "Modern Robotics",
+    "freeSpeed": { "magnitude": 5900, "unit": "rpm" },
+    "stallTorque": { "magnitude": 0.19, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 11, "unit": "A" },
+    "freeCurrent": { "magnitude": 0.3, "unit": "A" },
+    "weight": { "magnitude": 0.5445, "unit": "lbs" },
+    "diameter": { "magnitude": 1.48, "unit": "in" },
+    "url": "https://www.gobilda.com/modern-robotics-12vdc-motor/"
   }
 ]
