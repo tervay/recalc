@@ -14,6 +14,7 @@ type RawMotorSpec = {
   readonly weight: RawMeasurementJson;
   readonly url: string;
   readonly diameter: RawMeasurementJson;
+  readonly controllerWeight: RawMeasurementJson | null;
 };
 
 const rawMotorDataLookup: Record<string, RawMotorSpec> = keyBy(
@@ -45,6 +46,7 @@ export default class Motor extends Model {
     public readonly weight: Measurement,
     public readonly url: string,
     public readonly diameter: Measurement,
+    public readonly controllerWeight: Measurement | null,
     public readonly quantity: number,
   ) {
     super(identifier);
@@ -88,6 +90,9 @@ export default class Motor extends Model {
       Measurement.fromRawJson(rawMotorDataLookup[id].weight),
       rawMotorDataLookup[id].url,
       Measurement.fromRawJson(rawMotorDataLookup[id].diameter),
+      rawMotorDataLookup[id].controllerWeight === null
+        ? null
+        : Measurement.fromRawJson(rawMotorDataLookup[id].controllerWeight),
       quantity,
     );
   }

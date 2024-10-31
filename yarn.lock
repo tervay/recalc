@@ -1133,15 +1133,15 @@
     semver "^7.5.4"
     ts-api-utils "^1.0.1"
 
-"@typescript-eslint/parser@8.10.0":
-  version "8.10.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-8.10.0.tgz#3cbe7206f5e42835878a74a76da533549f977662"
-  integrity sha512-E24l90SxuJhytWJ0pTQydFT46Nk0Z+bsLKo/L8rtQSL93rQ6byd1V/QbDpHUTdLPOMsBCcYXZweADNCfOCmOAg==
+"@typescript-eslint/parser@8.12.2":
+  version "8.12.2"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-8.12.2.tgz#2e8173b34e1685e918b2d571c16c906d3747bad2"
+  integrity sha512-MrvlXNfGPLH3Z+r7Tk+Z5moZAc0dzdVjTgUgwsdGweH7lydysQsnSww3nAmsq8blFuRD5VRlAr9YdEFw3e6PBw==
   dependencies:
-    "@typescript-eslint/scope-manager" "8.10.0"
-    "@typescript-eslint/types" "8.10.0"
-    "@typescript-eslint/typescript-estree" "8.10.0"
-    "@typescript-eslint/visitor-keys" "8.10.0"
+    "@typescript-eslint/scope-manager" "8.12.2"
+    "@typescript-eslint/types" "8.12.2"
+    "@typescript-eslint/typescript-estree" "8.12.2"
+    "@typescript-eslint/visitor-keys" "8.12.2"
     debug "^4.3.4"
 
 "@typescript-eslint/scope-manager@6.7.5":
@@ -1152,13 +1152,13 @@
     "@typescript-eslint/types" "6.7.5"
     "@typescript-eslint/visitor-keys" "6.7.5"
 
-"@typescript-eslint/scope-manager@8.10.0":
-  version "8.10.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/scope-manager/-/scope-manager-8.10.0.tgz#606ffe18314d7b5c2f118f2f02aaa2958107a19c"
-  integrity sha512-AgCaEjhfql9MDKjMUxWvH7HjLeBqMCBfIaBbzzIcBbQPZE7CPh1m6FF+L75NUMJFMLYhCywJXIDEMa3//1A0dw==
+"@typescript-eslint/scope-manager@8.12.2":
+  version "8.12.2"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/scope-manager/-/scope-manager-8.12.2.tgz#6db0213745e6392c8e90fe9af5915e6da32eb94a"
+  integrity sha512-gPLpLtrj9aMHOvxJkSbDBmbRuYdtiEbnvO25bCMza3DhMjTQw0u7Y1M+YR5JPbMsXXnSPuCf5hfq0nEkQDL/JQ==
   dependencies:
-    "@typescript-eslint/types" "8.10.0"
-    "@typescript-eslint/visitor-keys" "8.10.0"
+    "@typescript-eslint/types" "8.12.2"
+    "@typescript-eslint/visitor-keys" "8.12.2"
 
 "@typescript-eslint/type-utils@6.7.5":
   version "6.7.5"
@@ -1175,10 +1175,10 @@
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-6.7.5.tgz#4571320fb9cf669de9a95d9849f922c3af809790"
   integrity sha512-WboQBlOXtdj1tDFPyIthpKrUb+kZf2VroLZhxKa/VlwLlLyqv/PwUNgL30BlTVZV1Wu4Asu2mMYPqarSO4L5ZQ==
 
-"@typescript-eslint/types@8.10.0":
-  version "8.10.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-8.10.0.tgz#eb29c4bc2ed23489348c297469c76d28c38fb618"
-  integrity sha512-k/E48uzsfJCRRbGLapdZgrX52csmWJ2rcowwPvOZ8lwPUv3xW6CcFeJAXgx4uJm+Ge4+a4tFOkdYvSpxhRhg1w==
+"@typescript-eslint/types@8.12.2":
+  version "8.12.2"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-8.12.2.tgz#8d70098c0e90442495b53d0296acdca6d0f3f73c"
+  integrity sha512-VwDwMF1SZ7wPBUZwmMdnDJ6sIFk4K4s+ALKLP6aIQsISkPv8jhiw65sAK6SuWODN/ix+m+HgbYDkH+zLjrzvOA==
 
 "@typescript-eslint/typescript-estree@6.7.5":
   version "6.7.5"
@@ -1193,13 +1193,13 @@
     semver "^7.5.4"
     ts-api-utils "^1.0.1"
 
-"@typescript-eslint/typescript-estree@8.10.0":
-  version "8.10.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-8.10.0.tgz#36cc66e06c5f44d6781f95cb03b132e985273a33"
-  integrity sha512-3OE0nlcOHaMvQ8Xu5gAfME3/tWVDpb/HxtpUZ1WeOAksZ/h/gwrBzCklaGzwZT97/lBbbxJ16dMA98JMEngW4w==
+"@typescript-eslint/typescript-estree@8.12.2":
+  version "8.12.2"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-8.12.2.tgz#206df9b1cbff212aaa9401985ef99f04daa84da5"
+  integrity sha512-mME5MDwGe30Pq9zKPvyduyU86PH7aixwqYR2grTglAdB+AN8xXQ1vFGpYaUSJ5o5P/5znsSBeNcs5g5/2aQwow==
   dependencies:
-    "@typescript-eslint/types" "8.10.0"
-    "@typescript-eslint/visitor-keys" "8.10.0"
+    "@typescript-eslint/types" "8.12.2"
+    "@typescript-eslint/visitor-keys" "8.12.2"
     debug "^4.3.4"
     fast-glob "^3.3.2"
     is-glob "^4.0.3"
@@ -1228,30 +1228,30 @@
     "@typescript-eslint/types" "6.7.5"
     eslint-visitor-keys "^3.4.1"
 
-"@typescript-eslint/visitor-keys@8.10.0":
-  version "8.10.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/visitor-keys/-/visitor-keys-8.10.0.tgz#7ce4c0c3b82140415c9cd9babe09e0000b4e9979"
-  integrity sha512-k8nekgqwr7FadWk548Lfph6V3r9OVqjzAIVskE7orMZR23cGJjAOVazsZSJW+ElyjfTM4wx/1g88Mi70DDtG9A==
+"@typescript-eslint/visitor-keys@8.12.2":
+  version "8.12.2"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/visitor-keys/-/visitor-keys-8.12.2.tgz#94d7410f78eb6d134b9fcabaf1eeedb910ba8c38"
+  integrity sha512-PChz8UaKQAVNHghsHcPyx1OMHoFRUEA7rJSK/mDhdq85bk+PLsUHUBqTQTFt18VJZbmxBovM65fezlheQRsSDA==
   dependencies:
-    "@typescript-eslint/types" "8.10.0"
+    "@typescript-eslint/types" "8.12.2"
     eslint-visitor-keys "^3.4.3"
 
-"@vercel/analytics@^1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@vercel/analytics/-/analytics-1.3.1.tgz#e2b1deac1b5d14fa2e4fe36186ac5054c6385ae4"
-  integrity sha512-xhSlYgAuJ6Q4WQGkzYTLmXwhYl39sWjoMA3nHxfkvG+WdBT25c563a7QhwwKivEOZtPJXifYHR1m2ihoisbWyA==
+"@vercel/analytics@^1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@vercel/analytics/-/analytics-1.3.2.tgz#e7a8e22c83a7945e069960bab172308498b12b4e"
+  integrity sha512-n/Ws7skBbW+fUBMeg+jrT30+GP00jTHvCcL4fuVrShuML0uveEV/4vVUdvqEVnDgXIGfLm0GXW5EID2mCcRXhg==
   dependencies:
     server-only "^0.0.1"
 
-"@vercel/speed-insights@^1.0.12":
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/@vercel/speed-insights/-/speed-insights-1.0.12.tgz#71c2edffdedae98d34e306d7b0a573e6816898b4"
-  integrity sha512-ZGQ+a7bcfWJD2VYEp2R1LHvRAMyyaFBYytZXsfnbOMkeOvzGNVxUL7aVUvisIrTZjXTSsxG45DKX7yiw6nq2Jw==
+"@vercel/speed-insights@^1.0.13":
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/@vercel/speed-insights/-/speed-insights-1.0.13.tgz#36ec8ca35e2c8ecfcbc34e38932bd518bdb07e16"
+  integrity sha512-3iuOMB/M0WE3Zeuoo2mnlD7Eo7fGH7RBGi92Vq4qO7Kp+BwNbpwFqkjuPQDEeBxoGQLJFRICrsx5/IluHZVCZA==
 
-"@vitejs/plugin-react@4.3.2":
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/@vitejs/plugin-react/-/plugin-react-4.3.2.tgz#1e13f666fe3135b477220d3c13b783704636b6e4"
-  integrity sha512-hieu+o05v4glEBucTcKMK3dlES0OeJlD9YVOAPraVMOInBCwzumaIFiUjr4bHK7NPgnAHgiskUoceKercrN8vg==
+"@vitejs/plugin-react@4.3.3":
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/@vitejs/plugin-react/-/plugin-react-4.3.3.tgz#28301ac6d7aaf20b73a418ee5c65b05519b4836c"
+  integrity sha512-NooDe9GpHGqNns1i8XDERg0Vsg5SSYRhRxxyTGogUdkdNt47jal+fbuYi+Yfq6pzRCKXyoPcWisfxE6RIM3GKA==
   dependencies:
     "@babel/core" "^7.25.2"
     "@babel/plugin-transform-react-jsx-self" "^7.24.7"
@@ -2182,10 +2182,10 @@ cwebp-bin@^8.0.0:
     bin-build "^3.0.0"
     bin-wrapper "^4.0.1"
 
-cypress@13.15.0:
-  version "13.15.0"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-13.15.0.tgz#5eca5387ef34b2e611cfa291967c69c2cd39381d"
-  integrity sha512-53aO7PwOfi604qzOkCSzNlWquCynLlKE/rmmpSPcziRH6LNfaDUAklQT6WJIsD8ywxlIy+uVZsnTMCCQVd2kTw==
+cypress@13.15.1:
+  version "13.15.1"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-13.15.1.tgz#d85074e07cc576eb30068617d529719ef6093b69"
+  integrity sha512-DwUFiKXo4lef9kA0M4iEhixFqoqp2hw8igr0lTqafRb9qtU3X0XGxKbkSYsUFdkrAkphc7MPDxoNPhk5pj9PVg==
   dependencies:
     "@cypress/request" "^3.0.4"
     "@cypress/xvfb" "^1.2.4"
@@ -2227,6 +2227,7 @@ cypress@13.15.0:
     semver "^7.5.3"
     supports-color "^8.1.1"
     tmp "~0.2.3"
+    tree-kill "1.2.2"
     untildify "^4.0.0"
     yauzl "^2.10.0"
 
@@ -6281,6 +6282,11 @@ tr46@^5.0.0:
   dependencies:
     punycode "^2.3.1"
 
+tree-kill@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/tree-kill/-/tree-kill-1.2.2.tgz#4ca09a9092c88b73a7cdc5e8a01b507b0790a0cc"
+  integrity sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==
+
 trim-repeated@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/trim-repeated/-/trim-repeated-1.0.0.tgz#e3646a2ea4e891312bf7eace6cfb05380bc01c21"
@@ -6615,10 +6621,10 @@ vite-tsconfig-paths@4.3.2:
     globrex "^0.1.2"
     tsconfck "^3.0.3"
 
-vite@5.4.9, "vite@^3.0.0 || ^4.0.0 || ^5.0.0-0", "vite@^3.1.0 || ^4.0.0 || ^5.0.0-0":
-  version "5.4.9"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-5.4.9.tgz#215c80cbebfd09ccbb9ceb8c0621391c9abdc19c"
-  integrity sha512-20OVpJHh0PAM0oSOELa5GaZNWeDjcAvQjGXy2Uyr+Tp+/D2/Hdz6NLgpJLsarPTA2QJ6v8mX2P1ZfbsSKvdMkg==
+vite@5.4.10, "vite@^3.0.0 || ^4.0.0 || ^5.0.0-0", "vite@^3.1.0 || ^4.0.0 || ^5.0.0-0":
+  version "5.4.10"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-5.4.10.tgz#d358a7bd8beda6cf0f3b7a450a8c7693a4f80c18"
+  integrity sha512-1hvaPshuPUtxeQ0hsVH3Mud0ZanOLwVTneA1EgbAM5LhaZEqyPWGRQ7BtaMvUrTDeEaC8pxtj6a6jku3x4z6SQ==
   dependencies:
     esbuild "^0.21.3"
     postcss "^8.4.43"
