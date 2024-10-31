@@ -240,4 +240,5 @@
     "diameter": { "magnitude": 1.48, "unit": "in" },
     "url": "https://www.gobilda.com/modern-robotics-12vdc-motor/",
     "controllerWeight": { "magnitude": 0.25, "unit": "lbs" }
+  }
 ]
