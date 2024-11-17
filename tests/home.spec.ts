@@ -1,7 +1,5 @@
 import { expect, test } from "@playwright/test";
 
-test.describe.configure({ mode: "parallel" });
-
 test.describe("Home page", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("localhost:3000");

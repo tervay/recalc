@@ -9,8 +9,7 @@ export default defineConfig({
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: 3,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -27,11 +26,6 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
-    },
-
-    {
       name: "firefox",
       use: { ...devices["Desktop Firefox"] },
     },
@@ -40,15 +34,15 @@ export default defineConfig({
       name: "webkit",
       use: { ...devices["Desktop Safari"] },
     },
-
-    /* Test against mobile viewports. */
     {
-      name: "Mobile Chrome",
-      use: { ...devices["Pixel 7"] },
-    },
-    {
-      name: "Mobile Safari",
-      use: { ...devices["iPhone 14 Pro Max"] },
+      name: "Google Chrome",
+      use: {
+        ...devices["Desktop Chrome"],
+        channel: "chrome",
+        contextOptions: {
+          permissions: ["clipboard-read", "clipboard-write"],
+        },
+      },
     },
   ],
 

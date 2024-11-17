@@ -10,10 +10,6 @@ You'll need Node version 18 and Yarn version 1.22.
 $ yarn
 ```
 
-If you want to run UI tests, you'll need to install a few dependencies beforehand in order to run Cypress. Read Cypress official docs for instructions regarding your OS.
-
-https://docs.cypress.io/guides/getting-started/installing-cypress
-
 ## Basic dev commands:
 
 `yarn start` - start server
@@ -21,10 +17,6 @@ https://docs.cypress.io/guides/getting-started/installing-cypress
 `yarn build` - build to `./build`
 
 `yarn test` - run tests
-
-`yarn dev:cypress-run` - run UI e2e tests
-
-`yarn dev:cypress-run --component` - run UI component tests
 
 `yarn dev:analyze` - check bundle sizes
 
