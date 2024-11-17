@@ -67,7 +67,8 @@ export type PulleyBeltType = "HTD" | "GT2" | "RT25";
 export type ChainType = "#25" | "#35";
 export type Bore =
   | "NEO"
-  | "Kraken"
+  | "SplineXS"
+  | "Vortex"
   | "Falcon"
   | "775"
   | "550"
@@ -79,7 +80,14 @@ export type Bore =
   | "1.125in"
   | "MAXSpline"
   | "SplineXL";
-export const MotorBores: Bore[] = ["NEO", "Kraken", "Falcon", "775", "550"];
+export const MotorBores: Bore[] = [
+  "NEO",
+  "SplineXS",
+  "Vortex",
+  "Falcon",
+  "775",
+  "550",
+];
 export const NonMotorBores: Bore[] = [
   "1/2 Hex",
   "3/8 Hex",

@@ -238,6 +238,8 @@ export default function RatioFinderCalculator(): JSX.Element {
     get.enableFalconPinions,
     get.enable775Pinions,
     get.enable550Pinions,
+    get.enableKrakenPinions,
+    get.enableVortexPinions,
     get.enableVEX,
     get.enableREV,
     get.enableWCP,
@@ -250,7 +252,6 @@ export default function RatioFinderCalculator(): JSX.Element {
     get.enableMaxSpline,
     get.startingPinionSize,
     get.forceStartingPinionSize,
-    get.enableKrakenPinions,
     get.enableSplineXL,
     get.printablePulleys,
   ]);
@@ -547,7 +548,13 @@ export default function RatioFinderCalculator(): JSX.Element {
                         set.setEnableKrakenPinions,
                       ],
                     },
-
+                    {
+                      name: "Vortex",
+                      stateHook: [
+                        get.enableVortexPinions,
+                        set.setEnableVortexPinions,
+                      ],
+                    },
                     {
                       name: "Falcon",
                       stateHook: [
