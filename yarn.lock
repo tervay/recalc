@@ -4478,10 +4478,10 @@ make-dir@^1.0.0, make-dir@^1.2.0:
   dependencies:
     pify "^3.0.0"
 
-marked@*, marked@12.0.2:
-  version "12.0.2"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-12.0.2.tgz#b31578fe608b599944c69807b00f18edab84647e"
-  integrity sha512-qXUm7e/YKFoqFPYPa3Ukg9xlI5cyAtGmyEIzMfW//m6kXwCy2Ps9DYf5ioijFKQ8qyuscrHoY04iJGctu2Kg0Q==
+marked@*, marked@15.0.1:
+  version "15.0.1"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-15.0.1.tgz#ed4a33b40b631623a1c3e68eb94663de740c5710"
+  integrity sha512-VnnE19XO2Vb2oZeH8quAepfrb6Aaz4OoY8yZQACfuy/5KVJ0GxYC0Qxzz/iuc+g5UF7H0HJ+QROfvH26XeBdDA==
 
 merge-stream@^2.0.0:
   version "2.0.0"
