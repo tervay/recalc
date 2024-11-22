@@ -1,6 +1,6 @@
 [
   {
-    "bore": "Kraken",
+    "bore": "SplineXS",
     "partNumber": "WCP-1178",
     "pitch": {
       "s": 3,
@@ -16,7 +16,7 @@
     "vendor": "WCP"
   },
   {
-    "bore": "Kraken",
+    "bore": "SplineXS",
     "partNumber": "WCP-1179",
     "pitch": {
       "s": 3,
@@ -32,7 +32,7 @@
     "vendor": "WCP"
   },
   {
-    "bore": "Kraken",
+    "bore": "SplineXS",
     "partNumber": "WCP-1017",
     "pitch": {
       "s": 5,
@@ -48,7 +48,7 @@
     "vendor": "WCP"
   },
   {
-    "bore": "Kraken",
+    "bore": "SplineXS",
     "partNumber": "WCP-1018",
     "pitch": {
       "s": 5,

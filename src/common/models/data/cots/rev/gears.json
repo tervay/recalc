@@ -334,5 +334,13 @@
     "teeth": 72,
     "url": "https://www.revrobotics.com/20DP-Gears/",
     "vendor": "REV"
+  },
+  {
+    "bore": "Vortex",
+    "dp": 20,
+    "partNumber": "REV-21-6800",
+    "teeth": 7,
+    "url": "https://www.revrobotics.com/rev-21-6800/",
+    "vendor": "REV"
   }
 ]

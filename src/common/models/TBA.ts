@@ -59,9 +59,9 @@ export interface TBAMatchAlliances {
 }
 
 export interface TBAMatchAlliance {
-  dq_team_keys: any[];
+  dq_team_keys: unknown[];
   score: number;
-  surrogate_team_keys: any[];
+  surrogate_team_keys: unknown[];
   team_keys: string[];
 }
 

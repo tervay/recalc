@@ -23,7 +23,7 @@ export default defineConfig({
     }),
   ],
   worker: {
-    plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
+    plugins: () => [react(), viteTsconfigPaths(), svgrPlugin()],
   },
   resolve: {
     alias: {},

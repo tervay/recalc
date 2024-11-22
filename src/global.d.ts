@@ -24,8 +24,8 @@ declare module "raw-loader!*" {
 type FlattenedPromise<T> = unknown extends T
   ? Promise<T>
   : T extends Promise<infer _U>
-  ? T
-  : Promise<T>;
+    ? T
+    : Promise<T>;
 
 type AnyFunction = (...args: any[]) => any;
 type Async<F extends AnyFunction> = (

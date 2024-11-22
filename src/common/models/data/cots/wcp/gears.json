@@ -1,6 +1,6 @@
 [
   {
-    "bore": "Kraken",
+    "bore": "SplineXS",
     "dp": 20,
     "partNumber": "WCP-1008",
     "teeth": 10,
@@ -8,7 +8,7 @@
     "vendor": "WCP"
   },
   {
-    "bore": "Kraken",
+    "bore": "SplineXS",
     "dp": 20,
     "partNumber": "WCP-1009",
     "teeth": 11,
@@ -16,7 +16,7 @@
     "vendor": "WCP"
   },
   {
-    "bore": "Kraken",
+    "bore": "SplineXS",
     "dp": 20,
     "partNumber": "WCP-1010",
     "teeth": 12,
@@ -24,7 +24,7 @@
     "vendor": "WCP"
   },
   {
-    "bore": "Kraken",
+    "bore": "SplineXS",
     "dp": 20,
     "partNumber": "WCP-1011",
     "teeth": 12,
@@ -32,7 +32,7 @@
     "vendor": "WCP"
   },
   {
-    "bore": "Kraken",
+    "bore": "SplineXS",
     "dp": 20,
     "partNumber": "WCP-1012",
     "teeth": 13,
@@ -40,7 +40,7 @@
     "vendor": "WCP"
   },
   {
-    "bore": "Kraken",
+    "bore": "SplineXS",
     "dp": 20,
     "partNumber": "WCP-1013",
     "teeth": 14,
@@ -48,7 +48,7 @@
     "vendor": "WCP"
   },
   {
-    "bore": "Kraken",
+    "bore": "SplineXS",
     "dp": 20,
     "partNumber": "WCP-1014",
     "teeth": 14,
@@ -56,7 +56,7 @@
     "vendor": "WCP"
   },
   {
-    "bore": "Kraken",
+    "bore": "SplineXS",
     "dp": 20,
     "partNumber": "WCP-1015",
     "teeth": 15,
@@ -64,7 +64,7 @@
     "vendor": "WCP"
   },
   {
-    "bore": "Kraken",
+    "bore": "SplineXS",
     "dp": 20,
     "partNumber": "WCP-1016",
     "teeth": 16,
@@ -1061,6 +1061,214 @@
     "partNumber": "WCP-0124",
     "teeth": 84,
     "url": "https://wcproducts.com/collections/belts-chain-gears/products/pocketed-gears",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1191",
+    "teeth": 34,
+    "url": "https://wcproducts.com/products/wcp-1191",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1192",
+    "teeth": 36,
+    "url": "https://wcproducts.com/products/wcp-1192",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1193",
+    "teeth": 38,
+    "url": "https://wcproducts.com/products/wcp-1193",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1194",
+    "teeth": 40,
+    "url": "https://wcproducts.com/products/wcp-1194",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1195",
+    "teeth": 42,
+    "url": "https://wcproducts.com/products/wcp-1195",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1196",
+    "teeth": 44,
+    "url": "https://wcproducts.com/products/wcp-1196",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1197",
+    "teeth": 46,
+    "url": "https://wcproducts.com/products/wcp-1197",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1198",
+    "teeth": 48,
+    "url": "https://wcproducts.com/products/wcp-1198",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1199",
+    "teeth": 50,
+    "url": "https://wcproducts.com/products/wcp-1199",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1200",
+    "teeth": 52,
+    "url": "https://wcproducts.com/products/wcp-1200",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1201",
+    "teeth": 54,
+    "url": "https://wcproducts.com/products/wcp-1201",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1202",
+    "teeth": 56,
+    "url": "https://wcproducts.com/products/wcp-1202",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1203",
+    "teeth": 58,
+    "url": "https://wcproducts.com/products/wcp-1203",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1204",
+    "teeth": 60,
+    "url": "https://wcproducts.com/products/wcp-1204",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1205",
+    "teeth": 62,
+    "url": "https://wcproducts.com/products/wcp-1205",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1206",
+    "teeth": 64,
+    "url": "https://wcproducts.com/products/wcp-1206",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1207",
+    "teeth": 66,
+    "url": "https://wcproducts.com/products/wcp-1207",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1208",
+    "teeth": 68,
+    "url": "https://wcproducts.com/products/wcp-1208",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1209",
+    "teeth": 70,
+    "url": "https://wcproducts.com/products/wcp-1209",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1210",
+    "teeth": 72,
+    "url": "https://wcproducts.com/products/wcp-1210",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1211",
+    "teeth": 74,
+    "url": "https://wcproducts.com/products/wcp-1211",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1212",
+    "teeth": 76,
+    "url": "https://wcproducts.com/products/wcp-1212",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1213",
+    "teeth": 78,
+    "url": "https://wcproducts.com/products/wcp-1213",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1214",
+    "teeth": 80,
+    "url": "https://wcproducts.com/products/wcp-1214",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1215",
+    "teeth": 82,
+    "url": "https://wcproducts.com/products/wcp-1215",
+    "vendor": "WCP"
+  },
+  {
+    "bore": "SplineXL",
+    "dp": 20,
+    "partNumber": "WCP-1216",
+    "teeth": 84,
+    "url": "https://wcproducts.com/products/wcp-1216",
     "vendor": "WCP"
   }
 ]

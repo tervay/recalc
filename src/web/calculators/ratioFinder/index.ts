@@ -44,13 +44,14 @@ export const RatioFinderParamsV1 = {
 
   enable20DPGears: withDefault(BooleanParam, true),
   enable32DPGears: withDefault(BooleanParam, true),
-  minGearTeeth: withDefault(NumberParam, 8),
+  minGearTeeth: withDefault(NumberParam, 7),
   maxGearTeeth: withDefault(NumberParam, 84),
   enableNEOPinions: withDefault(BooleanParam, true),
   enableFalconPinions: withDefault(BooleanParam, true),
   enable775Pinions: withDefault(BooleanParam, true),
   enable550Pinions: withDefault(BooleanParam, true),
   enableKrakenPinions: withDefault(BooleanParam, true),
+  enableVortexPinions: withDefault(BooleanParam, true),
 
   enableVEX: withDefault(BooleanParam, false),
   enableREV: withDefault(BooleanParam, true),

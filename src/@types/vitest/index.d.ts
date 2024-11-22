@@ -1,7 +1,7 @@
 import Measurement from "common/models/Measurement";
 import "vitest";
 
-interface CustomMatchers<CustomMatcherResult = any> {
+interface CustomMatchers<CustomMatcherResult = unknown> {
   toEqualMeasurement(expected: Measurement): CustomMatcherResult;
   toBeCloseToMeasurement(
     expected: Measurement,
@@ -24,6 +24,6 @@ interface CustomMatchers<CustomMatcherResult = any> {
 }
 
 declare module "vitest" {
-  interface Assertion<T = any> extends CustomMatchers<T> {}
+  interface Assertion<T = unknown> extends CustomMatchers<T> {}
   interface AsymmetricMatchersContaining extends CustomMatchers {}
 }
