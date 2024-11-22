@@ -29,7 +29,7 @@
     "katex": "0.16.11",
     "lodash": "4.17.21",
     "lz-string": "1.5.0",
-    "marked": "12.0.2",
+    "marked": "15.0.2",
     "odex": "3.0.0-rc.4",
     "query-string": "8.1.0",
     "react": "18.3.1",
