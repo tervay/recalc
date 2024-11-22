@@ -10,6 +10,7 @@ export default defineConfig({
       provider: "istanbul",
       exclude: ["**/*.tsx"],
     },
+    exclude: ["playwright-tests"],
   },
   plugins: [viteTsconfigPaths(), react()],
 });
