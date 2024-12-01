@@ -30,6 +30,7 @@ export function calculateCenters(
   p1Teeth: number,
   p2Teeth: number,
   desiredCenter: Measurement,
+  allowHalfLinks: boolean,
 ): ChainClosestCentersResult {
   if (
     [desiredCenter.scalar, p1Teeth, p2Teeth].includes(0) ||
@@ -59,8 +60,10 @@ export function calculateCenters(
   const t3 = p.mul(Math.pow(Math.abs(z2 - z1) / (2 * Math.PI), 2)).div(c0);
   const x0 = t1.scalar + t2 + t3.scalar;
 
-  const roundLinksUp = (n: number) => Math.ceil(n / 2) * 2;
-  const roundLinksDown = (n: number) => Math.floor(n / 2) * 2;
+  const roundLinksUp = (n: number) =>
+    allowHalfLinks ? Math.ceil(n) : Math.ceil(n / 2) * 2;
+  const roundLinksDown = (n: number) =>
+    allowHalfLinks ? Math.floor(n) : Math.floor(n / 2) * 2;
 
   return {
     smaller: {

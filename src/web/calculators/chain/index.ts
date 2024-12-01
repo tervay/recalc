@@ -4,7 +4,7 @@ import Measurement from "common/models/Measurement";
 import PageConfig from "common/models/PageConfig";
 import { ChainParam, MeasurementParam } from "common/models/Params";
 import { lazy } from "react";
-import { NumberParam, withDefault } from "serialize-query-params";
+import { BooleanParam, NumberParam, withDefault } from "serialize-query-params";
 
 const chainConfig: PageConfig = {
   url: "/chains",
@@ -23,5 +23,6 @@ export const ChainParamsV1 = {
   p2Teeth: withDefault(NumberParam, 36),
   desiredCenter: withDefault(MeasurementParam, new Measurement(5, "in")),
   extraCenter: withDefault(MeasurementParam, new Measurement(0, "in")),
+  allowHalfLinks: withDefault(BooleanParam, false),
 };
 export type ChainStateV1 = Stateify<typeof ChainParamsV1>;
