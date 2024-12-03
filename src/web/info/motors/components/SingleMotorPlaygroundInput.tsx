@@ -1,3 +1,4 @@
+import { motorColor } from "common/components/graphing/types";
 import SingleInputLine from "common/components/io/inputs/SingleInputLine";
 import {
   BooleanInput,
@@ -10,6 +11,14 @@ import MotorPlaygroundList, {
   MotorPlaygroundEntry,
 } from "common/models/MotorPlaygroundList";
 import { useEffect, useState } from "react";
+
+function circle(radius: number) {
+  return {
+    height: 2 * radius + "px",
+    width: 2 * radius + "px",
+    borderRadius: radius + "px",
+  };
+}
 
 export default function SingleMotorPlaygroundInput(props: {
   entry: MotorPlaygroundEntry;
@@ -44,6 +53,16 @@ export default function SingleMotorPlaygroundInput(props: {
             <a className="has-text-black" href={props.entry.motor.url}>
               {props.entry.motor.identifier}
             </a>
+            <div
+              style={{
+                display: "inline-flex",
+                margin: "auto",
+                marginLeft: "10px",
+                marginBottom: "-3px",
+                ...circle(10),
+                background: motorColor(props.entry.motor.identifier).toString(),
+              }}
+            ></div>
           </div>
         }
       >
