@@ -14,14 +14,28 @@ export function motorColor(id: string): tinycolor.Instance {
   return (motorColors[id] ?? tinycolor("grey")).clone();
 }
 
+// generated from: https://medialab.github.io/iwanthue/
 const motorColors: Record<string, tinycolor.Instance> = {
-  "Falcon 500": tinycolor("red").darken(),
-  NEO: tinycolor("black"),
-  "NEO 550": tinycolor("orange").darken(20),
-  "775pro": tinycolor("green"),
-  "775 RedLine": tinycolor("blue"),
-  CIM: tinycolor("purple"),
-  MiniCIM: tinycolor("salmon"),
+  NEO: tinycolor("#5abd7f"),
+  "Falcon 500": tinycolor("#b553bc"),
+  "Falcon 500 (FOC)": tinycolor("#64b647"),
+  "Kraken X60*": tinycolor("#7166d9"),
+  "Kraken X60 (FOC)*": tinycolor("#b4b331"),
+  "Kraken X44*": tinycolor("#646db8"),
+  "Minion*": tinycolor("#dd943c"),
+  "NEO Vortex*": tinycolor("#5f9ed7"),
+  "NEO 550": tinycolor("#d9562f"),
+  "775pro": tinycolor("#4dbfb7"),
+  "775 RedLine": tinycolor("#d3405a"),
+  CIM: tinycolor("#3b804c"),
+  MiniCIM: tinycolor("#d74d93"),
+  BAG: tinycolor("#69792c"),
+  "AM-9015": tinycolor("#c88ccf"),
+  "BaneBots 550": tinycolor("#b9ae64"),
+  Snowblower: tinycolor("#9f4d70"),
+  "HD Hex": tinycolor("#976d33"),
+  "Core Hex": tinycolor("#e48882"),
+  "V5 Smart Motor (Red)": tinycolor("#aa4e34"),
 };
 
 const chartColors: Record<number, tinycolor.Instance> =
