@@ -295,7 +295,8 @@ export function generateOptions(state: RatioFinderStateV1) {
         good = good && (state.enableNEOPinions || m.bore !== "NEO");
         good = good && (state.enable775Pinions || m.bore !== "775");
         good = good && (state.enable550Pinions || m.bore !== "550");
-        good = good && (state.enableKrakenPinions || m.bore !== "Kraken");
+        good = good && (state.enableKrakenPinions || m.bore !== "SplineXS");
+        good = good && (state.enableVortexPinions || m.bore !== "Vortex");
       } else {
         good = good && (state.enable12HexBore || m.bore !== "1/2 Hex");
         good = good && (state.enable38HexBore || m.bore !== "3/8 Hex");

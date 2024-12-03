@@ -1,7 +1,7 @@
 {
-  "inputs": ["NEO", "Falcon", "550", "775"],
+  "inputs": ["NEO", "Falcon", "550", "775", "1/2\" Hex", "SplineXS", "Vortex"],
   "outputs": ["1/2 Hex"],
-  "ratios": [3, 4, 5],
+  "ratios": [3, 4, 5, 9],
   "maxStages": 3,
   "partNumber": "REV-21-2100",
   "url": "https://www.revrobotics.com/rev-21-2100/",

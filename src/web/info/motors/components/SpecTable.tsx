@@ -1,6 +1,6 @@
 import Tippy from "@tippyjs/react";
 import Table from "common/components/styling/Table";
-import { A, lb } from "common/models/ExtraTypes";
+import { lb } from "common/models/ExtraTypes";
 import Measurement from "common/models/Measurement";
 import Motor, { nominalVoltage } from "common/models/Motor";
 import { MotorRules } from "common/models/Rules";
@@ -14,51 +14,59 @@ type MotorRow = {
   power40A: string;
   power60A: string;
   power80A: string;
-  powerWeightRatio: string;
+  powerDensity20A: string;
+  powerDensity40A: string;
+  powerDensity60A: string;
+  powerDensity80A: string;
   nameLink: JSX.Element;
   torqueDensity: string;
 } & Replace<
-  Select<Omit<Motor, "maxPower" | "b">, Measurement>,
+  Select<Omit<Motor, "maxPower" | "b" | "controllerWeight">, Measurement>,
   Measurement,
   string
 >;
 
 function adjustedWeight(motor: Motor): Measurement {
-  return motor.weight.add(
-    ["Falcon 500", "Kraken X60", "Vortex", "V5 Smart Motor"]
-      .map((s) => motor.identifier.includes(s))
-      .includes(true)
-      ? lb(0)
-      : lb(0.25),
+  return motor.weight.add(motor.controllerWeight ?? lb(0));
+}
+
+function getPeakPowerAtCurrentLimit(motor: Motor, current: number): string {
+  return (
+    Array.from({ length: current }, (_, i) => current - i)
+      .map(
+        (i) =>
+          new MotorRules(motor, new Measurement(i, "A"), {
+            current: new Measurement(i, "A"),
+            voltage: nominalVoltage,
+          })
+            .solve()
+            .power.to("W").scalar,
+      )
+      .sort((a, b) => a - b)
+      .pop()
+      ?.toFixed(0) ?? "-"
   );
 }
 
-function getPeakPowerAtCurrentLimit(
-  motor: Motor,
-  currentLimit: Measurement,
-): string {
-  const power = new MotorRules(motor, currentLimit, {
-    current: currentLimit,
-    voltage: nominalVoltage,
-  })
-    .solve()
-    .power.to("W");
-
-  return power.scalar <= 0 ? "-" : power.scalar.toFixed(0);
-}
-
-function getPowerWeightRatio(motor: Motor): string {
-  for (let i = 80; i > 0; i--) {
-    const power = new MotorRules(motor, new Measurement(i, "A"), {
-      current: new Measurement(i, "A"),
-      voltage: nominalVoltage,
-    }).solve().power;
-    if (power.to("W").scalar > 0) {
-      return power.div(adjustedWeight(motor)).to("W/lb").scalar.toFixed(1);
-    }
-  }
-
-  return "-";
+function getPowerWeightRatio(motor: Motor, current: number): string {
+  return (
+    Array.from({ length: current }, (_, i) => current - i)
+      .map(
+        (i) =>
+          new MotorRules(motor, new Measurement(i, "A"), {
+            current: new Measurement(i, "A"),
+            voltage: nominalVoltage,
+          })
+            .solve()
+            .power.to("W")
+            .div(adjustedWeight(motor))
+            .to("W/lb").scalar,
+      )
+      .filter((s) => s > 0)
+      .sort((a, b) => a - b)
+      .pop()
+      ?.toFixed(0) ?? "-"
+  );
 }
 
 function getRowForMotor(motor: Motor): MotorRow {
@@ -71,11 +79,14 @@ function getRowForMotor(motor: Motor): MotorRow {
     stallCurrent: motor.stallCurrent.to("A").scalar.toFixed(0),
     stallTorque: motor.stallTorque.to("N*m").scalar.toFixed(2),
     weight: adjustedWeight(motor).to("lbs").scalar.toFixed(2),
-    power20A: getPeakPowerAtCurrentLimit(motor, A(20)),
-    power40A: getPeakPowerAtCurrentLimit(motor, A(40)),
-    power60A: getPeakPowerAtCurrentLimit(motor, A(60)),
-    power80A: getPeakPowerAtCurrentLimit(motor, A(80)),
-    powerWeightRatio: getPowerWeightRatio(motor),
+    power20A: getPeakPowerAtCurrentLimit(motor, 20),
+    power40A: getPeakPowerAtCurrentLimit(motor, 40),
+    power60A: getPeakPowerAtCurrentLimit(motor, 60),
+    power80A: getPeakPowerAtCurrentLimit(motor, 80),
+    powerDensity20A: getPowerWeightRatio(motor, 20),
+    powerDensity40A: getPowerWeightRatio(motor, 40),
+    powerDensity60A: getPowerWeightRatio(motor, 60),
+    powerDensity80A: getPowerWeightRatio(motor, 80),
     nameLink: (
       <a target={"_blank"} href={motor.url}>
         {motor.identifier}
@@ -109,10 +120,20 @@ export default function SpecTable(): JSX.Element {
         <br />
         Motors with an asterisk (*) suffix have data that was derived in a way
         inconsistent with other motors and are highly preliminary.
+        <br />
+        <br />
       </div>
-      <div className="notification is-warning">
-        All motors except the Falcon, Kraken, Vortex, and V5 Smart Motor have 0.25 lbs added to
-        their weight, representing an external motor controller.
+      <div className="notification is-warning content">
+        <ul>
+          <li>
+            The NEO, Falcon, Vortex, Kraken X60, Kraken X44, and NEO 550 motors
+            have no weight added for motor controllers.
+          </li>
+          <li>The Minion motor has 0.32lb added for the Talon FSX.</li>
+          <li>
+            All other motors have 0.25lb added for their motor controllers.
+          </li>
+        </ul>
       </div>
       <Table
         fullwidth
@@ -125,6 +146,9 @@ export default function SpecTable(): JSX.Element {
           "freeCurrent",
           "power20A",
           "power60A",
+          "powerDensity20A",
+          "powerDensity40A",
+          "powerDensity60A",
         ]}
         columns={[
           {
@@ -145,10 +169,6 @@ export default function SpecTable(): JSX.Element {
               </Tippy>
             ),
             accessor: "weight",
-          },
-          {
-            Header: "Diameter (in)",
-            accessor: "diameter",
           },
           {
             Header: "Free Speed (RPM)",
@@ -183,12 +203,15 @@ export default function SpecTable(): JSX.Element {
             accessor: "power80A",
           },
           {
+            Header: "Power Density (20A) (W/lb)",
+            accessor: "powerDensity20A",
+          },
+          { Header: "Power Density (40A) (W/lb)", accessor: "powerDensity40A" },
+          { Header: "Power Density (60A) (W/lb)", accessor: "powerDensity60A" },
+          { Header: "Power Density (80A) (W/lb)", accessor: "powerDensity80A" },
+          {
             Header: "Torque Density (Nm/lb)",
             accessor: "torqueDensity",
-          },
-          {
-            Header: "Peak Power Density (W/lb)",
-            accessor: "powerWeightRatio",
           },
           {
             Header: "Resistance (Ω)",

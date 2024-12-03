@@ -1,6 +1,6 @@
 [
   {
-    "bore": "Kraken",
+    "bore": "SplineXS",
     "partNumber": "WCP-1019",
     "teeth": 10,
     "type": "#25",
@@ -8,7 +8,7 @@
     "vendor": "WCP"
   },
   {
-    "bore": "Kraken",
+    "bore": "SplineXS",
     "partNumber": "WCP-1020",
     "teeth": 12,
     "type": "#25",
