@@ -10,6 +10,10 @@ export type EzDataset = {
   yAxisID: string;
 };
 
+export function motorColor(id: string): tinycolor.Instance {
+  return (motorColors[id] ?? tinycolor("grey")).clone();
+}
+
 const motorColors: Record<string, tinycolor.Instance> = {
   "Falcon 500": tinycolor("red").darken(),
   NEO: tinycolor("black"),
@@ -24,17 +28,10 @@ const chartColors: Record<number, tinycolor.Instance> =
   Motor.getAllChoices().reduce(
     (prev, curr, i) => ({
       ...prev,
-      [i + 1]: motorColors[curr] ?? tinycolor("grey"),
-      [i + 1 + 100]: (motorColors[curr] ?? tinycolor("grey")).triad()[1],
-      [i + 1 + 200]: (motorColors[curr] ?? tinycolor("grey")).triad()[2],
+      [i + 1]: motorColor(curr),
+      [i + 1 + 100]: motorColor(curr).darken(3),
+      [i + 1 + 200]: motorColor(curr).darken(6),
     }),
-    //   [i + 1 + 100]: (motorColors[curr] ?? tinycolor("grey"))
-    //     .clone()
-    //     .brighten(30),
-    //   [i + 1 + 200]: (motorColors[curr] ?? tinycolor("grey"))
-    //     .clone()
-    //     .brighten(60),
-    // }),
     {},
   );
 
