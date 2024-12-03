@@ -123,13 +123,37 @@ test.describe("Chain Calculator", () => {
     await expect(page.getByTestId("selectlargerCenter")).toHaveValue("in");
   });
 
+  test("Enable Half Links", async ({ page }) => {
+    await page.getByTestId("allowHalfLinks").setChecked(true);
+    await expect(page.getByTestId("p1PD")).toHaveValue("1.2815");
+    await expect(page.getByTestId("selectp1PD")).toHaveValue("in");
+    await expect(page.getByTestId("p2PD")).toHaveValue("2.8684");
+    await expect(page.getByTestId("selectp2PD")).toHaveValue("in");
+    await expect(page.getByTestId("smallerLinks")).toHaveValue("66");
+    await expect(page.getByTestId("smallerCenter")).toHaveValue("4.9359");
+    await expect(page.getByTestId("selectsmallerCenter")).toHaveValue("in");
+    await expect(page.getByTestId("largerLinks")).toHaveValue("67");
+    await expect(page.getByTestId("largerCenter")).toHaveValue("5.0625");
+    await expect(page.getByTestId("selectlargerCenter")).toHaveValue("in");
+    await expect(page.getByTestId("chain")).toHaveValue("#25");
+    await expect(page.getByTestId("desiredCenter")).toHaveValue("5");
+    await expect(page.getByTestId("selectdesiredCenter")).toHaveValue("in");
+    await expect(page.getByTestId("extraCenter")).toHaveValue("0");
+    await expect(page.getByTestId("selectextraCenter")).toHaveValue("mm");
+
+    await expect(page.getByRole("button", { name: "Copy Link" })).toBeVisible();
+    await expect(
+      page.getByRole("cell", { name: "Matching COTS Sprockets" }),
+    ).toBeVisible();
+  });
+
   test("Copy link button works", async ({ page, browserName }) => {
     test.skip(browserName === "webkit");
 
     await page.getByRole("button", { name: "Copy Link" }).click();
     const value = await page.evaluate("navigator.clipboard.readText()");
     expect(value).toEqual(
-      "http://localhost:3000/chains?chain=%7B%22name%22%3A%22%2325%22%7D&desiredCenter=%7B%22s%22%3A5%2C%22u%22%3A%22in%22%7D&extraCenter=%7B%22s%22%3A0%2C%22u%22%3A%22mm%22%7D&p1Teeth=16&p2Teeth=36",
+      "http://localhost:3000/chains?allowHalfLinks=0&chain=%7B%22name%22%3A%22%2325%22%7D&desiredCenter=%7B%22s%22%3A5%2C%22u%22%3A%22in%22%7D&extraCenter=%7B%22s%22%3A0%2C%22u%22%3A%22mm%22%7D&p1Teeth=16&p2Teeth=36",
     );
   });
 });
