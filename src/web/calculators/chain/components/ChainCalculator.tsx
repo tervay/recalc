@@ -1,6 +1,10 @@
 import SimpleHeading from "common/components/heading/SimpleHeading";
 import SingleInputLine from "common/components/io/inputs/SingleInputLine";
-import { MeasurementInput, NumberInput } from "common/components/io/new/inputs";
+import {
+  BooleanInput,
+  MeasurementInput,
+  NumberInput,
+} from "common/components/io/new/inputs";
 import ChainInput from "common/components/io/new/inputs/L3/ChainInput";
 import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
 import NumericOutput from "common/components/io/outputs/NumberOutput";
@@ -40,6 +44,7 @@ export default function ChainCalculator(): JSX.Element {
     get.p1Teeth,
     get.p2Teeth,
     get.desiredCenter,
+    get.allowHalfLinks,
   );
 
   const [smallerCenter, setSmallerCenter] = useState(
@@ -61,13 +66,21 @@ export default function ChainCalculator(): JSX.Element {
       get.p1Teeth,
       get.p2Teeth,
       get.desiredCenter,
+      get.allowHalfLinks,
     );
 
     setSmallerCenter(results.smaller.distance.add(get.extraCenter));
     setSmallerLinks(results.smaller.links);
     setLargerCenter(results.larger.distance.add(get.extraCenter));
     setLargerLinks(results.larger.links);
-  }, [get.chain, get.p1Teeth, get.p2Teeth, get.desiredCenter, get.extraCenter]);
+  }, [
+    get.chain,
+    get.p1Teeth,
+    get.p2Teeth,
+    get.desiredCenter,
+    get.extraCenter,
+    get.allowHalfLinks,
+  ]);
 
   useEffect(() => {
     setP1PD(calculate.p1PD());
@@ -111,23 +124,43 @@ export default function ChainCalculator(): JSX.Element {
       />
       <Columns desktop centered>
         <Column>
-          <SingleInputLine
-            label="Chain Type"
-            id="chain"
-            tooltip={
-              <>
-                {Object.entries(chainPitchMap).map(([name, pitch]) => (
+          <Columns formColumns>
+            <Column narrow>
+              <SingleInputLine
+                label="Chain Type"
+                id="chain"
+                tooltip={
                   <>
-                    <span>{`${name} has pitch ${pitch.format()}.`}</span>
-                    <br />
+                    {Object.entries(chainPitchMap).map(([name, pitch]) => (
+                      <>
+                        <span>{`${name} has pitch ${pitch.format()}.`}</span>
+                        <br />
+                      </>
+                    ))}
+                    Bike chain is typically #40.
                   </>
-                ))}
-                Bike chain is typically #40.
-              </>
-            }
-          >
-            <ChainInput stateHook={[get.chain, set.setChain]} />
-          </SingleInputLine>
+                }
+              >
+                <ChainInput stateHook={[get.chain, set.setChain]} />
+              </SingleInputLine>
+            </Column>
+            <Column narrow>
+              <SingleInputLine
+                label="Allow Half Links"
+                id="allowHalfLinks"
+                tooltip={
+                  <>
+                    Allow the use of 1/2 links to allow for odd numbers of links
+                  </>
+                }
+              >
+                <BooleanInput
+                  stateHook={[get.allowHalfLinks, set.setAllowHalfLinks]}
+                />
+              </SingleInputLine>
+            </Column>
+          </Columns>
+
           <SingleInputLine
             label="Desired Center"
             id="desiredCenter"
