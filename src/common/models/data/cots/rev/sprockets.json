@@ -94,5 +94,213 @@
     "type": "#25",
     "url": "https://www.revrobotics.com/ion-25-billet-sprockets/",
     "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "partNumber": "REV-21-3706",
+    "teeth": 9,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "partNumber": "REV-21-3707",
+    "teeth": 10,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "partNumber": "REV-21-3708",
+    "teeth": 11,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "partNumber": "REV-21-3709",
+    "teeth": 12,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "partNumber": "REV-21-3710",
+    "teeth": 16,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "partNumber": "REV-21-3711",
+    "teeth": 18,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "partNumber": "REV-21-3712",
+    "teeth": 20,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "partNumber": "REV-21-3713",
+    "teeth": 24,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3714",
+    "teeth": 16,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3715",
+    "teeth": 18,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3716",
+    "teeth": 20,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3717",
+    "teeth": 24,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3718",
+    "teeth": 28,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3719",
+    "teeth": 32,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3720",
+    "teeth": 36,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3721",
+    "teeth": 40,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3722",
+    "teeth": 44,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3723",
+    "teeth": 48,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3724",
+    "teeth": 52,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3725",
+    "teeth": 56,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3726",
+    "teeth": 60,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3727",
+    "teeth": 64,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3728",
+    "teeth": 68,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3729",
+    "teeth": 72,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3730",
+    "teeth": 76,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "partNumber": "REV-21-3731",
+    "teeth": 80,
+    "type": "#35",
+    "url": "https://www.revrobotics.com/ion-35-sprockets/",
+    "vendor": "REV"
   }
 ]
