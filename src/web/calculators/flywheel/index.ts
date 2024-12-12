@@ -33,12 +33,12 @@ export const FlywheelParamsV1 = {
 };
 
 export const FlywheelStateV2Defaults = {
-  motor: Motor.NEOs(2),
+  motor: Motor.KrakensWithFOC(2),
   motorRatio: new Ratio(2, RatioType.STEP_UP),
   currentLimit: new Measurement(40, "A"),
   shooterRadius: new Measurement(3, "in"),
   shooterWeight: new Measurement(1, "lbs"),
-  shooterTargetSpeed: new Measurement(11000, "rpm"),
+  shooterTargetSpeed: new Measurement(10000, "rpm"),
   shooterMomentOfInertia: new Measurement(22.5, "lb in^2"),
   useCustomShooterMoi: false,
   flywheelRadius: new Measurement(2, "in"),

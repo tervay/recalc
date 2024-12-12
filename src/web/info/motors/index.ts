@@ -30,7 +30,11 @@ export const MotorPlaygroundParams = {
           new MotorPlaygroundEntry(
             Motor.fromIdentifier(
               m.identifier,
-              ["Falcon 500", "NEO"].includes(m.identifier) ? 1 : 0,
+              ["Kraken X60 (FOC)*", "NEO Vortex*", "Kraken X44*"].includes(
+                m.identifier,
+              )
+                ? 1
+                : 0,
             ),
             new Measurement(60, "A"),
             nominalVoltage,

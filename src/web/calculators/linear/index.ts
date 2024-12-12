@@ -20,7 +20,7 @@ const linearConfig: PageConfig = {
 export default linearConfig;
 
 export const LinearParamsV1 = {
-  motor: withDefault(MotorParam, Motor.NEOs(2)),
+  motor: withDefault(MotorParam, Motor.KrakensWithFOC(2)),
   travelDistance: withDefault(MeasurementParam, new Measurement(60, "in")),
   spoolDiameter: withDefault(MeasurementParam, new Measurement(1, "in")),
   load: withDefault(MeasurementParam, new Measurement(15, "lb")),

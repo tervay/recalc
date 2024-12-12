@@ -19,7 +19,7 @@ const intakeConfig: PageConfig = {
 export default intakeConfig;
 
 export const IntakeParamsV1 = {
-  motor: withDefault(MotorParam, Motor.NEOs(1)),
+  motor: withDefault(MotorParam, Motor.KrakensWithFOC(1)),
   ratio: withDefault(RatioParam, new Ratio(2, RatioType.REDUCTION)),
   rollerDiameter: withDefault(MeasurementParam, new Measurement(2, "in")),
   travelDistance: withDefault(MeasurementParam, new Measurement(15, "in")),

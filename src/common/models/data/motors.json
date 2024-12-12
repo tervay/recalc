@@ -1,38 +1,5 @@
 [
   {
-    "name": "NEO",
-    "freeSpeed": { "magnitude": 5880, "unit": "rpm" },
-    "stallTorque": { "magnitude": 3.28, "unit": "N*m" },
-    "stallCurrent": { "magnitude": 181, "unit": "A" },
-    "freeCurrent": { "magnitude": 1.3, "unit": "A" },
-    "weight": { "magnitude": 0.94, "unit": "lbs" },
-    "diameter": { "magnitude": 2.36, "unit": "in" },
-    "url": "https://www.revrobotics.com/rev-21-1650/",
-    "controllerWeight": { "magnitude": 0.25, "unit": "lbs" }
-  },
-  {
-    "name": "Falcon 500",
-    "freeSpeed": { "magnitude": 6380, "unit": "rpm" },
-    "stallTorque": { "magnitude": 4.69, "unit": "N*m" },
-    "stallCurrent": { "magnitude": 257, "unit": "A" },
-    "freeCurrent": { "magnitude": 1.5, "unit": "A" },
-    "weight": { "magnitude": 1.1, "unit": "lbs" },
-    "diameter": { "magnitude": 2.362, "unit": "in" },
-    "url": "https://www.vexrobotics.com/217-6515.html",
-    "controllerWeight": null
-  },
-  {
-    "name": "Falcon 500 (FOC)",
-    "freeSpeed": { "magnitude": 6080, "unit": "rpm" },
-    "stallTorque": { "magnitude": 5.84, "unit": "N*m" },
-    "stallCurrent": { "magnitude": 304, "unit": "A" },
-    "freeCurrent": { "magnitude": 1.5, "unit": "A" },
-    "weight": { "magnitude": 1.1, "unit": "lbs" },
-    "diameter": { "magnitude": 2.362, "unit": "in" },
-    "url": "https://www.vexrobotics.com/217-6515.html",
-    "controllerWeight": null
-  },
-  {
     "name": "Kraken X60*",
     "freeSpeed": { "magnitude": 6000, "unit": "rpm" },
     "stallTorque": { "magnitude": 7.09, "unit": "N*m" },
@@ -66,6 +33,17 @@
     "controllerWeight": null
   },
   {
+    "name": "NEO",
+    "freeSpeed": { "magnitude": 5880, "unit": "rpm" },
+    "stallTorque": { "magnitude": 3.28, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 181, "unit": "A" },
+    "freeCurrent": { "magnitude": 1.3, "unit": "A" },
+    "weight": { "magnitude": 0.94, "unit": "lbs" },
+    "diameter": { "magnitude": 2.36, "unit": "in" },
+    "url": "https://www.revrobotics.com/rev-21-1650/",
+    "controllerWeight": { "magnitude": 0.25, "unit": "lbs" }
+  },
+  {
     "name": "Kraken X44*",
     "freeSpeed": { "magnitude": 7530, "unit": "rpm" },
     "stallTorque": { "magnitude": 4.05, "unit": "N*m" },
@@ -77,12 +55,34 @@
     "controllerWeight": null
   },
   {
+    "name": "Falcon 500",
+    "freeSpeed": { "magnitude": 6380, "unit": "rpm" },
+    "stallTorque": { "magnitude": 4.69, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 257, "unit": "A" },
+    "freeCurrent": { "magnitude": 1.5, "unit": "A" },
+    "weight": { "magnitude": 1.1, "unit": "lbs" },
+    "diameter": { "magnitude": 2.362, "unit": "in" },
+    "url": "https://www.vexrobotics.com/217-6515.html",
+    "controllerWeight": null
+  },
+  {
+    "name": "Falcon 500 (FOC)",
+    "freeSpeed": { "magnitude": 6080, "unit": "rpm" },
+    "stallTorque": { "magnitude": 5.84, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 304, "unit": "A" },
+    "freeCurrent": { "magnitude": 1.5, "unit": "A" },
+    "weight": { "magnitude": 1.1, "unit": "lbs" },
+    "diameter": { "magnitude": 2.362, "unit": "in" },
+    "url": "https://www.vexrobotics.com/217-6515.html",
+    "controllerWeight": null
+  },
+  {
     "name": "Minion*",
     "freeSpeed": { "magnitude": 7384, "unit": "rpm" },
     "stallTorque": { "magnitude": 3.1, "unit": "N*m" },
     "stallCurrent": { "magnitude": 200.46, "unit": "A" },
     "freeCurrent": { "magnitude": 3.926, "unit": "A" },
-    "weight": { "magnitude": 9999.68, "unit": "lbs" },
+    "weight": { "magnitude": 0.65, "unit": "lbs" },
     "diameter": { "magnitude": 1.5, "unit": "in" },
     "url": "https://newsite.ctr-electronics.com/products/minion-brushless-motor",
     "controllerWeight": { "magnitude": 0.32, "unit": "lbs" }
