@@ -20,8 +20,8 @@ export default driveConfig;
 
 export const DriveParamsV1 = {
   swerve: withDefault(BooleanParam, true),
-  motor: withDefault(MotorParam, Motor.NEOs(4)),
-  ratio: withDefault(RatioParam, new Ratio(6)),
+  motor: withDefault(MotorParam, Motor.KrakensWithFOC(4)),
+  ratio: withDefault(RatioParam, new Ratio(5.36)),
   efficiency: withDefault(NumberParam, 97),
   weightInspected: withDefault(MeasurementParam, new Measurement(125, "lb")),
   weightAuxilliary: withDefault(MeasurementParam, new Measurement(24, "lb")),

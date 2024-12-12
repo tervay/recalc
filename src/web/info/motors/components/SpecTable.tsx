@@ -120,8 +120,6 @@ export default function SpecTable(): JSX.Element {
         <br />
         Motors with an asterisk (*) suffix have data that was derived in a way
         inconsistent with other motors and are highly preliminary.
-        <br />
-        <br />
       </div>
       <div className="notification is-warning content">
         <ul>
@@ -129,7 +127,13 @@ export default function SpecTable(): JSX.Element {
             The NEO, Falcon, Vortex, Kraken X60, Kraken X44, and NEO 550 motors
             have no weight added for motor controllers.
           </li>
-          <li>The Minion motor has 0.32lb added for the Talon FSX.</li>
+          <li>
+            The Minion motor has{" "}
+            <a href="https://www.chiefdelphi.com/t/ctr-electronics-2024-25-new-products/473711/17?u=jtrv">
+              0.32lb
+            </a>{" "}
+            added for the Talon FXS.
+          </li>
           <li>
             All other motors have 0.25lb added for their motor controllers.
           </li>

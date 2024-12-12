@@ -20,7 +20,7 @@ const armConfig: PageConfig = {
 export default armConfig;
 
 export const ArmParamsV1 = {
-  motor: withDefault(MotorParam, Motor.NEOs(2)),
+  motor: withDefault(MotorParam, Motor.KrakensWithFOC(2)),
   ratio: withDefault(RatioParam, new Ratio(100, RatioType.REDUCTION)),
   comLength: withDefault(MeasurementParam, new Measurement(20, "in")),
   armMass: withDefault(MeasurementParam, new Measurement(15, "lb")),

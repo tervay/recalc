@@ -126,6 +126,10 @@ export default class Motor extends Model {
   static CIMs(quantity: number): Motor {
     return Motor.fromIdentifier("CIM", quantity);
   }
+
+  static KrakensWithFOC(quantity: number): Motor {
+    return Motor.fromIdentifier("Kraken X60 (FOC)*", quantity);
+  }
 }
 
 export type IncompleteMotorState = {
