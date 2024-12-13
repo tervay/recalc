@@ -14,8 +14,6 @@ export function PulleyCheatSheet(props: {
   pitch: Measurement;
   currentPulleys: Pulley[];
 }): JSX.Element {
-  const currentTeeth = props.currentPulleys.map((p) => p.teeth);
-
   const allPulleys = useMemo(
     () => [
       ...revPulleys,
@@ -26,6 +24,8 @@ export function PulleyCheatSheet(props: {
     ],
     [],
   );
+
+  console.log(props.pitch.format());
 
   const data = allPulleys
     .map((p) =>

@@ -196,31 +196,6 @@ export default function BeltsCalculator(): JSX.Element {
     setLargeDiffFromTarget(largerCenter.sub(get.desiredCenter));
   }, [largerCenter, get.desiredCenter]);
 
-  let cheatSheet = (
-    <PulleyCheatSheet pitch={new Measurement(999, "mm")} currentPulleys={[]} />
-  );
-  if (get.pitch.eq(new Measurement(3, "mm"))) {
-    cheatSheet = (
-      <PulleyCheatSheet
-        pitch={new Measurement(3, "mm")}
-        currentPulleys={[
-          Pulley.fromTeeth(get.p1Teeth, get.pitch),
-          Pulley.fromTeeth(get.p2Teeth, get.pitch),
-        ]}
-      />
-    );
-  } else if (get.pitch.eq(new Measurement(5, "mm"))) {
-    cheatSheet = (
-      <PulleyCheatSheet
-        pitch={new Measurement(5, "mm")}
-        currentPulleys={[
-          Pulley.fromTeeth(get.p1Teeth, get.pitch),
-          Pulley.fromTeeth(get.p2Teeth, get.pitch),
-        ]}
-      />
-    );
-  }
-
   function BeltOption(props: BeltOptionProps) {
     const {
       title,
@@ -496,7 +471,14 @@ export default function BeltsCalculator(): JSX.Element {
             largerTeeth={get.useCustomBelt ? undefined : largerTeeth}
             pitch={get.pitch}
           />
-          {cheatSheet}
+
+          <PulleyCheatSheet
+            pitch={get.pitch}
+            currentPulleys={[
+              Pulley.fromTeeth(get.p1Teeth, get.pitch),
+              Pulley.fromTeeth(get.p2Teeth, get.pitch),
+            ]}
+          />
         </Column>
       </Columns>
 
