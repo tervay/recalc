@@ -1,8 +1,14 @@
-import _data from "common/models/data/pulleys.json";
+// import _data from "common/models/data/pulleys.json";
 import { FRCVendor, PulleyBeltType } from "common/models/ExtraTypes";
 import Measurement from "common/models/Measurement";
 import Pulley from "common/models/Pulley";
-import React from "react";
+import React, { useMemo } from "react";
+
+import amPulleys from "common/models/data/cots/andymark/pulleys.json";
+import revPulleys from "common/models/data/cots/rev/pulleys.json";
+import ttbPulleys from "common/models/data/cots/ttb/pulleys.json";
+import vexPulleys from "common/models/data/cots/vex/pulleys.json";
+import wcpPulleys from "common/models/data/cots/wcp/pulleys.json";
 
 export function PulleyCheatSheet(props: {
   pitch: Measurement;
@@ -10,22 +16,35 @@ export function PulleyCheatSheet(props: {
 }): JSX.Element {
   const currentTeeth = props.currentPulleys.map((p) => p.teeth);
 
-  const data = _data
-    .map((p) => {
-      return Pulley.fromTeeth(p.teeth, new Measurement(p.pitch, "mm"), {
-        vendors: p.vendors as FRCVendor[],
+  const allPulleys = useMemo(
+    () => [
+      ...revPulleys,
+      ...vexPulleys,
+      ...wcpPulleys,
+      ...amPulleys,
+      ...ttbPulleys,
+    ],
+    [],
+  );
+
+  const data = allPulleys
+    .map((p) =>
+      Pulley.fromTeeth(p.teeth, Measurement.fromDict(p.pitch), {
+        vendors: [p.vendor as FRCVendor],
         type: p.type as PulleyBeltType,
-        urls: p.urls as string[],
+        urls: [p.url],
         bore: p.bore,
-        widths:
-          typeof p.width === "string"
-            ? p.width
-                .split(", ")
-                .map((ws: string) => new Measurement(Number(ws), "mm"))
-            : [new Measurement(p.width, "mm")],
-      });
-    })
-    .filter((p) => p.pitch.eq(props.pitch));
+        widths: [Measurement.fromDict(p.width)],
+      }),
+    )
+    .filter(
+      (p) =>
+        p.pitch.eq(props.pitch) &&
+        props.currentPulleys.map((pulley) => pulley.teeth).includes(p.teeth),
+    )
+    .sort(
+      (a, b) => a.vendors![0].localeCompare(b.vendors![0]) || a.teeth - b.teeth,
+    );
 
   const VendorList = (vendors: FRCVendor[], urls: string[]) =>
     vendors
@@ -58,9 +77,9 @@ export function PulleyCheatSheet(props: {
             {data.map((pulley) => (
               <tr
                 key={Math.random()}
-                className={
-                  currentTeeth.includes(pulley.teeth) ? "emphasize-row" : ""
-                }
+                // className={
+                //   currentTeeth.includes(pulley.teeth) ? "emphasize-row" : ""
+                // }
               >
                 <td>
                   {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
