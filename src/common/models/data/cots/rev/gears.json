@@ -2,9 +2,17 @@
   {
     "bore": "1/2 Hex",
     "dp": 20,
+    "partNumber": "REV-21-2196",
+    "teeth": 16,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
     "partNumber": "REV-21-1920",
     "teeth": 18,
-    "url": "https://www.revrobotics.com/REV-21-1920",
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
     "vendor": "REV"
   },
   {
@@ -12,7 +20,15 @@
     "dp": 20,
     "partNumber": "REV-21-1921",
     "teeth": 20,
-    "url": "https://www.revrobotics.com/REV-21-1921",
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1922",
+    "teeth": 22,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
     "vendor": "REV"
   },
   {
@@ -20,263 +36,7 @@
     "dp": 20,
     "partNumber": "REV-21-1923",
     "teeth": 24,
-    "url": "https://www.revrobotics.com/REV-21-1923",
-    "vendor": "REV"
-  },
-  {
-    "bore": "1/2 Hex",
-    "dp": 20,
-    "partNumber": "REV-21-1925",
-    "teeth": 28,
-    "url": "https://www.revrobotics.com/REV-21-1925",
-    "vendor": "REV"
-  },
-  {
-    "bore": "1/2 Hex",
-    "dp": 20,
-    "partNumber": "REV-21-1926",
-    "teeth": 30,
-    "url": "https://www.revrobotics.com/REV-21-1926",
-    "vendor": "REV"
-  },
-  {
-    "bore": "1/2 Hex",
-    "dp": 20,
-    "partNumber": "REV-21-1927",
-    "teeth": 32,
-    "url": "https://www.revrobotics.com/REV-21-1927",
-    "vendor": "REV"
-  },
-  {
-    "bore": "1/2 Hex",
-    "dp": 20,
-    "partNumber": "REV-21-1928",
-    "teeth": 34,
-    "url": "https://www.revrobotics.com/REV-21-1928",
-    "vendor": "REV"
-  },
-  {
-    "bore": "1/2 Hex",
-    "dp": 20,
-    "partNumber": "REV-21-1929",
-    "teeth": 36,
-    "url": "https://www.revrobotics.com/REV-21-1929",
-    "vendor": "REV"
-  },
-  {
-    "bore": "1/2 Hex",
-    "dp": 20,
-    "partNumber": "REV-21-1931",
-    "teeth": 40,
-    "url": "https://www.revrobotics.com/REV-21-1931",
-    "vendor": "REV"
-  },
-  {
-    "bore": "1/2 Hex",
-    "dp": 20,
-    "partNumber": "REV-21-1936",
-    "teeth": 50,
-    "url": "https://www.revrobotics.com/REV-21-1936",
-    "vendor": "REV"
-  },
-  {
-    "bore": "1/2 Hex",
-    "dp": 20,
-    "partNumber": "REV-21-1937",
-    "teeth": 52,
-    "url": "https://www.revrobotics.com/REV-21-1937",
-    "vendor": "REV"
-  },
-  {
-    "bore": "1/2 Hex",
-    "dp": 20,
-    "partNumber": "REV-21-1941",
-    "teeth": 60,
-    "url": "https://www.revrobotics.com/REV-21-1941",
-    "vendor": "REV"
-  },
-  {
-    "bore": "1/2 Hex",
-    "dp": 20,
-    "partNumber": "REV-21-1943",
-    "teeth": 64,
-    "url": "https://www.revrobotics.com/REV-21-1943",
-    "vendor": "REV"
-  },
-  {
-    "bore": "1/2 Hex",
-    "dp": 20,
-    "partNumber": "REV-21-1945",
-    "teeth": 68,
-    "url": "https://www.revrobotics.com/REV-21-1945",
-    "vendor": "REV"
-  },
-  {
-    "bore": "1/2 Hex",
-    "dp": 20,
-    "partNumber": "REV-21-1951",
-    "teeth": 80,
-    "url": "https://www.revrobotics.com/REV-21-1951",
-    "vendor": "REV"
-  },
-  {
-    "bore": "NEO",
-    "dp": 20,
-    "partNumber": "REV-21-1998",
-    "teeth": 10,
-    "url": "https://www.revrobotics.com/REV-21-1998",
-    "vendor": "REV"
-  },
-  {
-    "bore": "NEO",
-    "dp": 20,
-    "partNumber": "REV-21-1999",
-    "teeth": 11,
-    "url": "https://www.revrobotics.com/REV-21-1999",
-    "vendor": "REV"
-  },
-  {
-    "bore": "NEO",
-    "dp": 20,
-    "partNumber": "REV-21-2000",
-    "teeth": 12,
-    "url": "https://www.revrobotics.com/REV-21-2000",
-    "vendor": "REV"
-  },
-  {
-    "bore": "NEO",
-    "dp": 20,
-    "partNumber": "REV-21-2001",
-    "teeth": 13,
-    "url": "https://www.revrobotics.com/REV-21-2001",
-    "vendor": "REV"
-  },
-  {
-    "bore": "NEO",
-    "dp": 20,
-    "partNumber": "REV-21-2002",
-    "teeth": 14,
-    "url": "https://www.revrobotics.com/REV-21-2002",
-    "vendor": "REV"
-  },
-  {
-    "bore": "1/2 Hex",
-    "dp": 20,
-    "partNumber": "REV-21-2196",
-    "teeth": 16,
-    "url": "https://www.revrobotics.com/REV-21-2196",
-    "vendor": "REV"
-  },
-  {
-    "bore": "MAXSpline",
-    "dp": 20,
-    "partNumber": "REV-21-3010",
-    "teeth": 32,
-    "url": "https://www.revrobotics.com/REV-21-3010",
-    "vendor": "REV"
-  },
-  {
-    "bore": "MAXSpline",
-    "dp": 20,
-    "partNumber": "REV-21-3012",
-    "teeth": 36,
-    "url": "https://www.revrobotics.com/REV-21-3012",
-    "vendor": "REV"
-  },
-  {
-    "bore": "MAXSpline",
-    "dp": 20,
-    "partNumber": "REV-21-3014",
-    "teeth": 40,
-    "url": "https://www.revrobotics.com/REV-21-3014",
-    "vendor": "REV"
-  },
-  {
-    "bore": "MAXSpline",
-    "dp": 20,
-    "partNumber": "REV-21-3018",
-    "teeth": 48,
-    "url": "https://www.revrobotics.com/REV-21-3018",
-    "vendor": "REV"
-  },
-  {
-    "bore": "MAXSpline",
-    "dp": 20,
-    "partNumber": "REV-21-3020",
-    "teeth": 52,
-    "url": "https://www.revrobotics.com/REV-21-3020",
-    "vendor": "REV"
-  },
-  {
-    "bore": "MAXSpline",
-    "dp": 20,
-    "partNumber": "REV-21-3021",
-    "teeth": 54,
-    "url": "https://www.revrobotics.com/REV-21-3021",
-    "vendor": "REV"
-  },
-  {
-    "bore": "MAXSpline",
-    "dp": 20,
-    "partNumber": "REV-21-3022",
-    "teeth": 56,
-    "url": "https://www.revrobotics.com/REV-21-3022",
-    "vendor": "REV"
-  },
-  {
-    "bore": "MAXSpline",
-    "dp": 20,
-    "partNumber": "REV-21-3023",
-    "teeth": 58,
-    "url": "https://www.revrobotics.com/REV-21-3023",
-    "vendor": "REV"
-  },
-  {
-    "bore": "MAXSpline",
-    "dp": 20,
-    "partNumber": "REV-21-3024",
-    "teeth": 60,
-    "url": "https://www.revrobotics.com/REV-21-3024",
-    "vendor": "REV"
-  },
-  {
-    "bore": "MAXSpline",
-    "dp": 20,
-    "partNumber": "REV-21-3026",
-    "teeth": 64,
-    "url": "https://www.revrobotics.com/REV-21-3026",
-    "vendor": "REV"
-  },
-  {
-    "bore": "MAXSpline",
-    "dp": 20,
-    "partNumber": "REV-21-3028",
-    "teeth": 68,
-    "url": "https://www.revrobotics.com/REV-21-3028",
-    "vendor": "REV"
-  },
-  {
-    "bore": "MAXSpline",
-    "dp": 20,
-    "partNumber": "REV-21-3034",
-    "teeth": 80,
-    "url": "https://www.revrobotics.com/REV-21-3034",
-    "vendor": "REV"
-  },
-  {
-    "bore": "550",
-    "dp": 32,
-    "partNumber": "REV-41-1660-PK2",
-    "teeth": 12,
-    "url": "https://www.revrobotics.com/REV-41-1660",
-    "vendor": "REV"
-  },
-  {
-    "bore": "1/2 Hex",
-    "dp": 20,
-    "partNumber": "REV-21-1922",
-    "teeth": 22,
-    "url": "https://www.revrobotics.com/20DP-Gears/",
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
     "vendor": "REV"
   },
   {
@@ -284,7 +44,47 @@
     "dp": 20,
     "partNumber": "REV-21-1924",
     "teeth": 26,
-    "url": "https://www.revrobotics.com/20DP-Gears/",
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1925",
+    "teeth": 28,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1926",
+    "teeth": 30,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1927",
+    "teeth": 32,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1928",
+    "teeth": 34,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1929",
+    "teeth": 36,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
     "vendor": "REV"
   },
   {
@@ -292,7 +92,15 @@
     "dp": 20,
     "partNumber": "REV-21-1930",
     "teeth": 38,
-    "url": "https://www.revrobotics.com/20DP-Gears/",
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1931",
+    "teeth": 40,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
     "vendor": "REV"
   },
   {
@@ -300,7 +108,7 @@
     "dp": 20,
     "partNumber": "REV-21-1932",
     "teeth": 42,
-    "url": "https://www.revrobotics.com/20DP-Gears/",
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
     "vendor": "REV"
   },
   {
@@ -308,15 +116,87 @@
     "dp": 20,
     "partNumber": "REV-21-1933",
     "teeth": 44,
-    "url": "https://www.revrobotics.com/20DP-Gears/",
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
     "vendor": "REV"
   },
   {
     "bore": "1/2 Hex",
     "dp": 20,
-    "partNumber": "REV-21-1922",
-    "teeth": 22,
-    "url": "https://www.revrobotics.com/20DP-Gears/",
+    "partNumber": "REV-21-1934",
+    "teeth": 46,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1935",
+    "teeth": 48,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1936",
+    "teeth": 50,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1937",
+    "teeth": 52,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1938",
+    "teeth": 54,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1939",
+    "teeth": 56,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1940",
+    "teeth": 58,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1941",
+    "teeth": 60,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1942",
+    "teeth": 62,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1943",
+    "teeth": 64,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
     "vendor": "REV"
   },
   {
@@ -324,7 +204,15 @@
     "dp": 20,
     "partNumber": "REV-21-1944",
     "teeth": 66,
-    "url": "https://www.revrobotics.com/20DP-Gears/",
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "1/2 Hex",
+    "dp": 20,
+    "partNumber": "REV-21-1945",
+    "teeth": 68,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
     "vendor": "REV"
   },
   {
@@ -332,15 +220,223 @@
     "dp": 20,
     "partNumber": "REV-21-1947",
     "teeth": 72,
-    "url": "https://www.revrobotics.com/20DP-Gears/",
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
     "vendor": "REV"
   },
   {
-    "bore": "Vortex",
+    "bore": "1/2 Hex",
     "dp": 20,
-    "partNumber": "REV-21-6800",
-    "teeth": 7,
-    "url": "https://www.revrobotics.com/rev-21-6800/",
+    "partNumber": "REV-21-1951",
+    "teeth": 80,
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3010",
+    "teeth": 32,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3011",
+    "teeth": 34,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3012",
+    "teeth": 36,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3013",
+    "teeth": 38,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3014",
+    "teeth": 40,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3015",
+    "teeth": 42,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3016",
+    "teeth": 44,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3017",
+    "teeth": 46,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3018",
+    "teeth": 48,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3019",
+    "teeth": 50,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3020",
+    "teeth": 52,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3021",
+    "teeth": 54,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3022",
+    "teeth": 56,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3023",
+    "teeth": 58,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3024",
+    "teeth": 60,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3025",
+    "teeth": 62,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3026",
+    "teeth": 64,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3027",
+    "teeth": 66,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3028",
+    "teeth": 68,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3030",
+    "teeth": 72,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "MAXSpline",
+    "dp": 20,
+    "partNumber": "REV-21-3034",
+    "teeth": 80,
+    "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "NEO",
+    "dp": 20,
+    "partNumber": "REV-21-1998",
+    "teeth": 10,
+    "url": "https://www.revrobotics.com/neo-pinions/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "NEO",
+    "dp": 20,
+    "partNumber": "REV-21-1999",
+    "teeth": 11,
+    "url": "https://www.revrobotics.com/neo-pinions/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "NEO",
+    "dp": 20,
+    "partNumber": "REV-21-2000",
+    "teeth": 12,
+    "url": "https://www.revrobotics.com/neo-pinions/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "NEO",
+    "dp": 20,
+    "partNumber": "REV-21-2001",
+    "teeth": 13,
+    "url": "https://www.revrobotics.com/neo-pinions/",
+    "vendor": "REV"
+  },
+  {
+    "bore": "NEO",
+    "dp": 20,
+    "partNumber": "REV-21-2002",
+    "teeth": 14,
+    "url": "https://www.revrobotics.com/neo-pinions/",
     "vendor": "REV"
   }
 ]
