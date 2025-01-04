@@ -99,14 +99,14 @@ export default function Home(): JSX.Element {
         <Columns multiline gapless>
           <Column>
             <Shortcut
-              name="2024 Official PDF Manual"
-              url="https://firstfrc.blob.core.windows.net/frc2024/Manual/2024GameManual.pdf"
+              name="2025 Official PDF Manual"
+              url="https://firstfrc.blob.core.windows.net/frc2025/Manual/2025GameManual.pdf"
             />
             <Shortcut
-              name="2024 Unofficial Web Manual"
-              url="https://www.frcmanual.com/2024"
+              name="2025 Unofficial Web Manual"
+              url="https://www.frcmanual.com/2025"
             />
-            <Shortcut name="2024 Q&A" url="https://frc-qa.firstinspires.org/" />
+            <Shortcut name="2025 Q&A" url="https://frc-qa.firstinspires.org/" />
           </Column>
 
           <Column>
@@ -116,19 +116,19 @@ export default function Home(): JSX.Element {
             />
 
             <Shortcut
-              name="Open Alliance 2024"
-              url="https://www.theopenalliance.com/teams/2024/"
+              name="Open Alliance"
+              url="https://www.chiefdelphi.com/c/first/open-alliance/89"
             />
           </Column>
 
           <Column>
             <Shortcut
-              name="2024 Team/Event Search"
-              url="https://www.firstinspires.org/team-event-search#type=teams&sort=name&programs=FRC&year=2024"
+              name="2025 Team/Event Search"
+              url="https://www.firstinspires.org/team-event-search#type=teams&sort=name&programs=FRC&year=2025"
             />
             <Shortcut
-              name="2024 FRC-Events"
-              url="https://frc-events.firstinspires.org/2024/Events/EventList"
+              name="2025 FRC-Events"
+              url="https://frc-events.firstinspires.org/2025/Events/EventList"
             />
           </Column>
         </Columns>
