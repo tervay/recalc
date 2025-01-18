@@ -20,7 +20,7 @@
     "@vercel/analytics": "1.4.1",
     "@vercel/speed-insights": "1.1.0",
     "adze": "1.9.1",
-    "bulma": "0.9.4",
+    "bulma": "1.0.3",
     "chart.js": "3.8.0",
     "chartjs-plugin-zoom": "1.2.1",
     "crypto-js": "4.2.0",
