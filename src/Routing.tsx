@@ -16,6 +16,7 @@ import beltsConfig from "web/calculators/belts";
 import chainConfig from "web/calculators/chain";
 import driveConfig from "web/calculators/drive";
 import flywheelConfig from "web/calculators/flywheel";
+import gearConfig from "web/calculators/gears";
 import intakeConfig from "web/calculators/intake";
 import linearConfig from "web/calculators/linear";
 import pneumaticsConfig from "web/calculators/pneumatics";
@@ -104,6 +105,10 @@ function App(): JSX.Element {
                 <Route
                   path={scoutingConfig.url}
                   element={<scoutingConfig.component />}
+                />
+                <Route
+                  path={gearConfig.url}
+                  element={<gearConfig.component />}
                 />
               </Routes>
             </QueryParamProvider>
