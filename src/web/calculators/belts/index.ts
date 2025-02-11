@@ -23,7 +23,7 @@ export const BeltsParamsV1 = {
   extraCenter: withDefault(MeasurementParam, new Measurement(0.0, "mm")),
   p1Teeth: withDefault(NumberParam, 16),
   p2Teeth: withDefault(NumberParam, 24),
-  pitch: withDefault(MeasurementParam, new Measurement(3, "mm")),
+  pitch: withDefault(MeasurementParam, new Measurement(5, "mm")),
   toothIncrement: withDefault(NumberParam, 5),
   useCustomBelt: withDefault(BooleanParam, false),
 };

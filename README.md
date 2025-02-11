@@ -28,6 +28,16 @@ $ yarn
 
 `yarn dev:webp` - convert images to `.webp`
 
+
+### Playwright
+
+```bash
+yarn playwright install
+yarn playwright install chrome
+yarn playwright install-deps
+yarn playwright test
+```
+
 ---
 
 ### Priority list
