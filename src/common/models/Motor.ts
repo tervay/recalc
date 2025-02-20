@@ -158,7 +158,21 @@ export function solveMotorODE(
   efficiency: number,
 ) {
   const B = motor.b;
-  const L = new Measurement(0.000035, "H");
+
+  const microHenryToHenry = (n: number) => n / 1e6;
+  const milliHenryToHenry = (n: number) => n / 1e3;
+  let L = new Measurement(microHenryToHenry(35), "H");
+  if (motor.identifier === "775pro" || motor.identifier === "775 RedLine") {
+    L = new Measurement(microHenryToHenry(47), "H");
+  } else if (motor.identifier === "miniCIM") {
+    L = new Measurement(microHenryToHenry(145), "H");
+  } else if (motor.identifier === "Core Hex") {
+    L = new Measurement(milliHenryToHenry(52), "H");
+  } else if (motor.identifier === "CIM") {
+    L = new Measurement(microHenryToHenry(132), "H");
+  } else if (motor.identifier === "BAG") {
+    L = new Measurement(microHenryToHenry(138), "H");
+  }
 
   // https://github.com/frc971/971-Robot-Code/blob/ecfddf97eb3783916f4355dec98400e0811d3571/frc971/control_loops/python/control_loop.py#L745C30-L745C58
   const inherentMotorInertia = new Measurement(0.00005822569, "kg m2");
