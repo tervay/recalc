@@ -44,10 +44,10 @@ export default function LinearCalculator(): JSX.Element {
       get.ratio.asNumber() === 0
         ? new Measurement(0, "kg m2")
         : get.load
-          .mul(get.spoolDiameter.div(2))
-          .mul(get.spoolDiameter.div(2))
-          .div(get.ratio.asNumber())
-          .div(get.ratio.asNumber()),
+            .mul(get.spoolDiameter.div(2))
+            .mul(get.spoolDiameter.div(2))
+            .div(get.ratio.asNumber())
+            .div(get.ratio.asNumber()),
     [get.load, get.angle, get.ratio, get.spoolDiameter],
   );
 
@@ -136,16 +136,18 @@ export default function LinearCalculator(): JSX.Element {
     [odeChartData],
   );
 
-  const timeToGoal = useMemo(
-    () =>
-      new Measurement(
+  const timeToGoal = useMemo(() => {
+    if (maxVelocity.to("in/s").scalar < 1) {
+      return new Measurement(0, "s");
+    } else {
+      return new Measurement(
         odeChartData.position.length === 0
           ? 0
           : odeChartData.position[odeChartData.position.length - 1].x,
         "s",
-      ),
-    [odeChartData],
-  );
+      );
+    }
+  }, [odeChartData]);
 
   const stallLoad = useMemo(
     () =>
@@ -264,6 +266,7 @@ export default function LinearCalculator(): JSX.Element {
             <MeasurementOutput
               stateHook={[timeToGoal, () => undefined]}
               numberRoundTo={2}
+              dangerIf={() => timeToGoal.eq(new Measurement(0, "s"))}
             />
           </SingleInputLine>
           <SingleInputLine
@@ -302,16 +305,13 @@ export default function LinearCalculator(): JSX.Element {
 
           <KgKvKaDisplay kG={kG} kV={kV} kA={kA} distanceType={"linear"} />
 
-
           <Message color="danger">
-            Please note the differences in carriage behavior between cascade
-            and continuous elevators. In a 2-stage cascade elevator, the carriage
+            Please note the differences in carriage behavior between cascade and
+            continuous elevators. In a 2-stage cascade elevator, the carriage
             will move twice as fast as the first stage with half as much torque.
-
-            <br /><br />
-            A cascade elevator mode will be added in the future.
+            <br />
+            <br />A cascade elevator mode will be added in the future.
           </Message>
-
         </Column>
         <Column>
           <Message color="warning">

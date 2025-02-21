@@ -50,6 +50,7 @@ function generateODEData(
     .div(ratio.asNumber())
     .mul(Math.sin(angle.to("rad").scalar));
 
+
   const data = solveMotorODE(
     motor,
     currentLimit,
