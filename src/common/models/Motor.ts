@@ -172,6 +172,10 @@ export function solveMotorODE(
     L = new Measurement(microHenryToHenry(132), "H");
   } else if (motor.identifier === "BAG") {
     L = new Measurement(microHenryToHenry(138), "H");
+  } else if (motor.identifier === "NEO") {
+    L = new Measurement(microHenryToHenry(35), "H");
+  } else if (motor.identifier === "NEO 550") {
+    L = new Measurement(microHenryToHenry(10), "H");
   }
 
   // https://github.com/frc971/971-Robot-Code/blob/ecfddf97eb3783916f4355dec98400e0811d3571/frc971/control_loops/python/control_loop.py#L745C30-L745C58
@@ -193,10 +197,13 @@ export function solveMotorODE(
         : prevCurrent;
       const limited = prevCurrent.gte(prevCurrLimit);
 
-      const newCurrentPerSec = nominalVoltage
-        .sub(motor.resistance.mul(prevCurrent))
-        .sub(motor.kV.inverse().mul(prevVel))
-        .div(L);
+      const newCurrentPerSec = Measurement.max(
+        new Measurement(0, "A/s"),
+        nominalVoltage
+          .sub(motor.resistance.mul(prevCurrent))
+          .sub(motor.kV.inverse().mul(prevVel))
+          .div(L),
+      );
 
       const newVelocityPerSec = Measurement.max(
         new Measurement(0, "N m"),
