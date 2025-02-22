@@ -203,7 +203,7 @@ export default function LinearCalculator(): JSX.Element {
           </SingleInputLine>
           <SingleInputLine
             label="Travel Distance"
-            id="comLength"
+            id="travelDistance"
             tooltip="How far the system is traveling."
           >
             <MeasurementInput
@@ -213,7 +213,7 @@ export default function LinearCalculator(): JSX.Element {
           </SingleInputLine>
           <SingleInputLine
             label="Spool Diameter"
-            id="comLength"
+            id="spoolDiameter"
             tooltip="The diameter of the part that rope may spool around. Use 1 if absent."
           >
             <MeasurementInput
@@ -223,7 +223,7 @@ export default function LinearCalculator(): JSX.Element {
           </SingleInputLine>
           <SingleInputLine
             label="Load"
-            id="comLength"
+            id="load"
             tooltip="How much weight the system is lifting upwards."
           >
             <MeasurementInput
