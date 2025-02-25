@@ -23,6 +23,7 @@ function generateODEData(
   position: GraphDataPoint[];
   velocity: GraphDataPoint[];
   currentDraw: GraphDataPoint[];
+  maxAcceleration: MeasurementDict;
 } {
   const motor = Motor.fromDict(motor_);
   const currentLimit = Measurement.fromDict(currentLimit_);
@@ -41,7 +42,7 @@ function generateODEData(
       currentLimit.baseScalar,
     ].includes(0)
   ) {
-    return { position: [], velocity: [], currentDraw: [] };
+    return { position: [], velocity: [], currentDraw: [], maxAcceleration: new Measurement(0, "in/s2").toDict() };
   }
 
   const gravitationalForce = load.mul(Measurement.GRAVITY.negate());
@@ -88,6 +89,14 @@ function generateODEData(
       x: data.ts[i],
       y: y[2],
     })),
+    maxAcceleration: calculateMaxAcceleration(
+      data.ys.map((y) => new Measurement(y[0], "rad/s")
+        .linearizeRadialPosition(
+          spoolDiameter.mul(Math.PI).div(ratio.asNumber()),
+        )
+        .to("in/s")),
+      data.ts
+    ).toDict()
   };
 }
 
@@ -114,6 +123,27 @@ export function calculateStallLoad(
     .div(Measurement.GRAVITY);
 }
 
+
+
+export function calculateMaxAcceleration(velocities: Measurement[], times: number[]) {
+  const timeMeasurements = times.map(t => new Measurement(t, "s"))
+  const velocityMeasurements = velocities;
+  const accelerationMeasurements: Measurement[] = []
+  for (let i = 1; i < velocityMeasurements.length; i++) {
+    const prevVel = velocityMeasurements[i - 1]
+    const prevTime = timeMeasurements[i - 1]
+    const time = timeMeasurements[i]
+    const vel = velocityMeasurements[i]
+
+    const acc = vel.sub(prevVel).div(time.sub(prevTime))
+    accelerationMeasurements.push(acc)
+  }
+
+  return accelerationMeasurements.reduce((max, acc) => {
+    return acc.gt(max) ? acc : max
+  }, new Measurement(0, "in/s2"));
+}
+
 const workerFunctions = {
   generateODEData,
 };
@@ -121,3 +151,4 @@ const workerFunctions = {
 expose(workerFunctions);
 type LinearWorkerFunctions = typeof workerFunctions;
 export type { LinearWorkerFunctions };
+
