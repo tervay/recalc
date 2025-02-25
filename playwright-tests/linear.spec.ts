@@ -23,10 +23,12 @@ test.describe("Linear Calculator", () => {
     await expect(page.getByTestId("selectcurrentLimit")).toHaveValue("A");
     await expect(page.getByTestId("angle")).toHaveValue("90");
     await expect(page.getByTestId("selectangle")).toHaveValue("deg");
-    await expect(page.getByTestId("timeToGoal")).toHaveValue("0.38");
+    await expect(page.getByTestId("timeToGoal")).toHaveValue("0.49");
     await expect(page.getByTestId("selecttimeToGoal")).toHaveValue("s");
-    await expect(page.getByTestId("maxVelocity")).toHaveValue("311.58");
+    await expect(page.getByTestId("maxVelocity")).toHaveValue("148.64");
     await expect(page.getByTestId("selectmaxVelocity")).toHaveValue("in/s");
+    await expect(page.getByTestId("maxAcceleration")).toHaveValue("847.95");
+    await expect(page.getByTestId("selectmaxAcceleration")).toHaveValue("in/s2");
     await expect(page.getByTestId("stallLoad")).toHaveValue("52.87");
     await expect(page.getByTestId("selectstallLoad")).toHaveValue("lbs");
     await expect(page.getByTestId("kG")).toHaveValue("0.27");
@@ -41,9 +43,10 @@ test.describe("Linear Calculator", () => {
 
   test("NEO", async ({ page }) => {
     await page.getByTestId("selectmotor").selectOption("NEO");
-    await expect(page.getByTestId("timeToGoal")).toHaveValue("0.40");
+    await expect(page.getByTestId("timeToGoal")).toHaveValue("0.51");
     await expect(page.getByTestId("selecttimeToGoal")).toHaveValue("s");
-    await expect(page.getByTestId("maxVelocity")).toHaveValue("297.79");
+    await expect(page.getByTestId("maxVelocity")).toHaveValue("144.51");
+    await expect(page.getByTestId("maxAcceleration")).toHaveValue("771.11");
     await expect(page.getByTestId("selectmaxVelocity")).toHaveValue("in/s");
     await expect(page.getByTestId("stallLoad")).toHaveValue("49.64");
     await expect(page.getByTestId("selectstallLoad")).toHaveValue("lbs");
@@ -59,9 +62,10 @@ test.describe("Linear Calculator", () => {
 
   test("CIM", async ({ page }) => {
     await page.getByTestId("selectmotor").selectOption("CIM");
-    await expect(page.getByTestId("timeToGoal")).toHaveValue("0.40");
+    await expect(page.getByTestId("timeToGoal")).toHaveValue("0.55");
     await expect(page.getByTestId("selecttimeToGoal")).toHaveValue("s");
-    await expect(page.getByTestId("maxVelocity")).toHaveValue("295.27");
+    await expect(page.getByTestId("maxVelocity")).toHaveValue("128.59");
+    await expect(page.getByTestId("maxAcceleration")).toHaveValue("787.60");
     await expect(page.getByTestId("selectmaxVelocity")).toHaveValue("in/s");
     await expect(page.getByTestId("stallLoad")).toHaveValue("48.57");
     await expect(page.getByTestId("selectstallLoad")).toHaveValue("lbs");

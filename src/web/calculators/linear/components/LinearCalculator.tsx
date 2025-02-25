@@ -44,10 +44,10 @@ export default function LinearCalculator(): JSX.Element {
       get.ratio.asNumber() === 0
         ? new Measurement(0, "kg m2")
         : get.load
-            .mul(get.spoolDiameter.div(2))
-            .mul(get.spoolDiameter.div(2))
-            .div(get.ratio.asNumber())
-            .div(get.ratio.asNumber()),
+          .mul(get.spoolDiameter.div(2))
+          .mul(get.spoolDiameter.div(2))
+          .div(get.ratio.asNumber())
+          .div(get.ratio.asNumber()),
     [get.load, get.angle, get.ratio, get.spoolDiameter],
   );
 
@@ -56,6 +56,7 @@ export default function LinearCalculator(): JSX.Element {
       position: [],
       velocity: [],
       currentDraw: [],
+      maxAcceleration: new Measurement(0, "in/s2").toDict(),
     },
     () =>
       worker.generateODEData(
@@ -278,6 +279,18 @@ export default function LinearCalculator(): JSX.Element {
               stateHook={[maxVelocity, () => undefined]}
               numberRoundTo={2}
               defaultUnit="in/s"
+            />
+          </SingleInputLine>
+
+          <SingleInputLine
+            label="Max Acceleration"
+            id="maxAcceleration"
+            tooltip="The highest acceleration the system reaches during the motion profile."
+          >
+            <MeasurementOutput
+              stateHook={[Measurement.fromDict(odeChartData.maxAcceleration), () => undefined]}
+              numberRoundTo={2}
+              defaultUnit="in/s2"
             />
           </SingleInputLine>
           <SingleInputLine

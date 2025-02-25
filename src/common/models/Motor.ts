@@ -185,6 +185,8 @@ export function solveMotorODE(
   const numStepsPerSec = 800;
   const steps = duration * numStepsPerSec;
 
+  console.log('===============')
+
   const solver = new ODESolver(
     (t, y) => {
       const prevVel = new Measurement(y[0], "rad/s");
@@ -197,13 +199,10 @@ export function solveMotorODE(
         : prevCurrent;
       const limited = prevCurrent.gte(prevCurrLimit);
 
-      const newCurrentPerSec = Measurement.max(
-        new Measurement(0, "A/s"),
-        nominalVoltage
-          .sub(motor.resistance.mul(prevCurrent))
-          .sub(motor.kV.inverse().mul(prevVel))
-          .div(L),
-      );
+      const newCurrentPerSec = nominalVoltage
+        .sub(motor.resistance.mul(prevCurrent))
+        .sub(motor.kV.inverse().mul(prevVel))
+        .div(L);
 
       const newVelocityPerSec = Measurement.max(
         new Measurement(0, "N m"),
