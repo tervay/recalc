@@ -116,6 +116,7 @@
     "vite": "6.3.5",
     "vite-plugin-svgr": "4.3.0",
     "vite-plugin-top-level-await": "1.5.0",
+    "vite-plugin-wasm": "^3.4.1",
     "vite-tsconfig-paths": "5.1.4"
   }
 }

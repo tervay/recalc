@@ -38,3 +38,7 @@ declare module "workerize-loader!*" {
   export function createInstance<T>(): Workerized<T>;
   export = createInstance;
 }
+
+declare let Module: {
+  my_wasm_add(_0: number, _1: number): number;
+};

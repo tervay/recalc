@@ -3,6 +3,7 @@ import { defineConfig } from "vite";
 import svgrPlugin from "vite-plugin-svgr";
 import topLevelAwait from "vite-plugin-top-level-await";
 import viteTsconfigPaths from "vite-tsconfig-paths";
+import wasm from "vite-plugin-wasm";
 
 export default defineConfig({
   server: {
@@ -12,6 +13,7 @@ export default defineConfig({
     port: 3000,
   },
   plugins: [
+    wasm(),
     react(),
     viteTsconfigPaths(),
     svgrPlugin(),

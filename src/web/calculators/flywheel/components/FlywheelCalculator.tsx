@@ -13,6 +13,7 @@ import Measurement from "common/models/Measurement";
 import { nominalVoltage } from "common/models/Motor";
 import { MotorRules } from "common/models/Rules";
 import { useGettersSetters } from "common/tooling/conversion";
+
 import { useEffect, useMemo } from "react";
 import flywheelConfig, {
   FlywheelParamsV2,
@@ -31,7 +32,13 @@ import {
 import KvKaDisplay from "web/calculators/shared/components/KvKaDisplay";
 import { calculateKa, calculateKv } from "web/calculators/shared/sharedMath";
 
+import MainModuleFactory from "./mywasm/wasm_main";
+
 export default function FlywheelCalculator(): JSX.Element {
+  MainModuleFactory().then((module) => {
+    console.log(module.my_wasm_add(1, 2));
+  });
+
   const [get, set] = useGettersSetters(
     FlywheelState.getState() as FlywheelStateV2,
   );

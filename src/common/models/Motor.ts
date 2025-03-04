@@ -159,6 +159,8 @@ export function solveMotorODE(
 ) {
   const B = motor.b;
 
+  const trueCurrentLimit = Measurement.min(currentLimit, motor.stallCurrent);
+
   const microHenryToHenry = (n: number) => n / 1e6;
   const milliHenryToHenry = (n: number) => n / 1e3;
   let L = new Measurement(microHenryToHenry(35), "H");
@@ -234,7 +236,7 @@ export function solveMotorODE(
         }),
       };
     },
-    [0, motor.stallCurrent.scalar, currentLimit.scalar, 0],
+    [0, motor.stallCurrent.scalar, trueCurrentLimit.scalar, 0],
     0,
     duration,
   );
