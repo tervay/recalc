@@ -100,7 +100,7 @@
     "@typescript-eslint/parser": "8.26.0",
     "@vitejs/plugin-react": "4.3.4",
     "eslint": "8.51.0",
-    "eslint-config-prettier": "10.1.0",
+    "eslint-config-prettier": "10.1.1",
     "eslint-plugin-prettier": "5.2.3",
     "eslint-plugin-react": "7.34.1",
     "husky": "9.1.7",
