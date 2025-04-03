@@ -887,10 +887,10 @@
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-1.0.6.tgz#628effeeae2064a1b4e79f78e81d87b7e5fc7b50"
   integrity sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==
 
-"@types/google-spreadsheet@3.2.2":
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/@types/google-spreadsheet/-/google-spreadsheet-3.2.2.tgz#1d7a75982c89caa3ac38828d2f3268b5bc67e641"
-  integrity sha512-6e6GyxDuV1vGR+lHsuS06xaDo7r3PxSJdei+Z9x9DD7vZMhsY8kr8A3RkXsamQesDgr03VEcA8tlEyQapw9rjg==
+"@types/google-spreadsheet@3.3.2":
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/@types/google-spreadsheet/-/google-spreadsheet-3.3.2.tgz#7f1d92300be3a974472832ebab1d23af2e7c504a"
+  integrity sha512-uBwRhNwx5JPsmrV+XmD77dxL8vVdOY/Aba1kx/mxtR6jePLZIN06I1jjEXEFidAyLUz+JWCphsVk8CCJ2Kzy2w==
 
 "@types/history@^4.7.11":
   version "4.7.11"
