@@ -1,6 +1,6 @@
 [
   {
-    "name": "Kraken X60*",
+    "name": "Kraken X60",
     "freeSpeed": { "magnitude": 6000, "unit": "rpm" },
     "stallTorque": { "magnitude": 7.09, "unit": "N*m" },
     "stallCurrent": { "magnitude": 366, "unit": "A" },
@@ -11,7 +11,7 @@
     "controllerWeight": null
   },
   {
-    "name": "Kraken X60 (FOC)*",
+    "name": "Kraken X60 (FOC)",
     "freeSpeed": { "magnitude": 5800, "unit": "rpm" },
     "stallTorque": { "magnitude": 9.37, "unit": "N*m" },
     "stallCurrent": { "magnitude": 483, "unit": "A" },
@@ -22,7 +22,7 @@
     "controllerWeight": null
   },
   {
-    "name": "NEO Vortex*",
+    "name": "NEO Vortex",
     "freeSpeed": { "magnitude": 6784, "unit": "rpm" },
     "stallTorque": { "magnitude": 3.6, "unit": "N*m" },
     "stallCurrent": { "magnitude": 211, "unit": "A" },
@@ -44,7 +44,7 @@
     "controllerWeight": { "magnitude": 0.25, "unit": "lbs" }
   },
   {
-    "name": "Kraken X44*",
+    "name": "Kraken X44",
     "freeSpeed": { "magnitude": 7530, "unit": "rpm" },
     "stallTorque": { "magnitude": 4.05, "unit": "N*m" },
     "stallCurrent": { "magnitude": 275, "unit": "A" },
@@ -67,7 +67,7 @@
   },
   {
     "name": "Cu60",
-    "freeSpeed": { "magnitude": 7200, "unit": "rpm" },
+    "freeSpeed": { "magnitude": 6780, "unit": "rpm" },
     "stallTorque": { "magnitude": 7.3, "unit": "N*m" },
     "stallCurrent": { "magnitude": 440, "unit": "A" },
     "freeCurrent": { "magnitude": 2.0, "unit": "A" },
@@ -88,7 +88,7 @@
     "controllerWeight": null
   },
   {
-    "name": "Minion*",
+    "name": "Minion",
     "freeSpeed": { "magnitude": 7384, "unit": "rpm" },
     "stallTorque": { "magnitude": 3.1, "unit": "N*m" },
     "stallCurrent": { "magnitude": 200.46, "unit": "A" },

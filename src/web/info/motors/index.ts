@@ -30,7 +30,7 @@ export const MotorPlaygroundParams = {
           new MotorPlaygroundEntry(
             Motor.fromIdentifier(
               m.identifier,
-              ["Kraken X60 (FOC)*", "NEO Vortex*", "Kraken X44*"].includes(
+              ["Kraken X60 (FOC)", "NEO Vortex", "Kraken X44"].includes(
                 m.identifier,
               )
                 ? 1
