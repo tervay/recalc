@@ -66,6 +66,17 @@
     "controllerWeight": null
   },
   {
+    "name": "Cu60",
+    "freeSpeed": { "magnitude": 7200, "unit": "rpm" },
+    "stallTorque": { "magnitude": 7.3, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 440, "unit": "A" },
+    "freeCurrent": { "magnitude": 2.0, "unit": "A" },
+    "weight": { "magnitude": 1.1, "unit": "lbs" },
+    "diameter": { "magnitude": 2.362, "unit": "in" },
+    "url": "https://newsite.reduxrobotics.com/products/cu60",
+    "controllerWeight": { "magnitude": 0.3, "unit": "lbs" }
+  },
+  {
     "name": "Falcon 500 (FOC)",
     "freeSpeed": { "magnitude": 6080, "unit": "rpm" },
     "stallTorque": { "magnitude": 5.84, "unit": "N*m" },
