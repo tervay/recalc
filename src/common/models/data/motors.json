@@ -67,7 +67,7 @@
   },
   {
     "name": "Cu60",
-    "freeSpeed": { "magnitude": 7200, "unit": "rpm" },
+    "freeSpeed": { "magnitude": 6780, "unit": "rpm" },
     "stallTorque": { "magnitude": 7.3, "unit": "N*m" },
     "stallCurrent": { "magnitude": 440, "unit": "A" },
     "freeCurrent": { "magnitude": 2.0, "unit": "A" },
