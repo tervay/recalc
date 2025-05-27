@@ -8,7 +8,7 @@ test.describe("Flywheel Calculator", () => {
   test("Default page", async ({ page }) => {
     await expect(page.getByTestId("motor")).toHaveValue("2");
     await expect(page.getByTestId("selectmotor")).toHaveValue(
-      "Kraken X60 (FOC)*",
+      "Kraken X60 (FOC)",
     );
     await expect(page.getByTestId("efficiency")).toHaveValue("100");
     await expect(page.getByTestId("currentLimit")).toHaveValue("40");
@@ -67,7 +67,7 @@ test.describe("Flywheel Calculator", () => {
 
   test('Outputs change with 4x x44s on 4" wheel', async ({ page }) => {
     await page.getByTestId("motor").fill("4");
-    await page.getByTestId("selectmotor").selectOption("Kraken X44*");
+    await page.getByTestId("selectmotor").selectOption("Kraken X44");
     await page.getByTestId("shooterRadius").fill("2");
 
     await expect(page.getByTestId("efficiency")).toHaveValue("100");

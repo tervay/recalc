@@ -8,7 +8,7 @@ test.describe("Linear Calculator", () => {
   test("Default page", async ({ page }) => {
     await expect(page.getByTestId("motor")).toHaveValue("2");
     await expect(page.getByTestId("selectmotor")).toHaveValue(
-      "Kraken X60 (FOC)*",
+      "Kraken X60 (FOC)",
     );
     await expect(page.getByTestId("efficiency")).toHaveValue("100");
     await expect(page.getByTestId("ratio")).toHaveValue("2");
