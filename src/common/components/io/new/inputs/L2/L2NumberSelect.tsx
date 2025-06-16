@@ -64,6 +64,7 @@ export default function L2NumberSelect<T>(
           defaultNumberProps,
         )}
         skipControl={true}
+        step={props.numberStep}
       />
       <L1ControlledSelect
         choices={props.choices}

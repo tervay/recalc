@@ -27,7 +27,7 @@ import {
   calculateStallLoad,
 } from "web/calculators/linear/linearMath";
 import rawWorker from "web/calculators/linear/linearMath?worker";
-import KgKvKaDisplay from "web/calculators/shared/components/KgKvKaDisplay";
+import PositionControlGainsAnalysis from "web/calculators/shared/components/PositionControlGainsAnalysis";
 import {
   calculateKa,
   calculateKg,
@@ -44,10 +44,10 @@ export default function LinearCalculator(): JSX.Element {
       get.ratio.asNumber() === 0
         ? new Measurement(0, "kg m2")
         : get.load
-          .mul(get.spoolDiameter.div(2))
-          .mul(get.spoolDiameter.div(2))
-          .div(get.ratio.asNumber())
-          .div(get.ratio.asNumber()),
+            .mul(get.spoolDiameter.div(2))
+            .mul(get.spoolDiameter.div(2))
+            .div(get.ratio.asNumber())
+            .div(get.ratio.asNumber()),
     [get.load, get.angle, get.ratio, get.spoolDiameter],
   );
 
@@ -288,7 +288,10 @@ export default function LinearCalculator(): JSX.Element {
             tooltip="The highest acceleration the system reaches during the motion profile."
           >
             <MeasurementOutput
-              stateHook={[Measurement.fromDict(odeChartData.maxAcceleration), () => undefined]}
+              stateHook={[
+                Measurement.fromDict(odeChartData.maxAcceleration),
+                () => undefined,
+              ]}
               numberRoundTo={2}
               defaultUnit="in/s2"
             />
@@ -316,15 +319,12 @@ export default function LinearCalculator(): JSX.Element {
             />
           </SingleInputLine> */}
 
-          <KgKvKaDisplay kG={kG} kV={kV} kA={kA} distanceType={"linear"} />
-
-          <Message color="danger">
-            Please note the differences in carriage behavior between cascade and
-            continuous elevators. In a 2-stage cascade elevator, the carriage
-            will move twice as fast as the first stage with half as much torque.
-            <br />
-            <br />A cascade elevator mode will be added in the future.
-          </Message>
+          <PositionControlGainsAnalysis
+            kg={kG}
+            kv={kV}
+            ka={kA}
+            distanceType={"linear"}
+          />
         </Column>
         <Column>
           <Message color="warning">

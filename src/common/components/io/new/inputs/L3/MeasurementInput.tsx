@@ -40,6 +40,7 @@ export default function MeasurementInput(
       }}
       makeString={(m) => Measurement.clarifyUnit(m.units())}
       choices={Measurement.choices(meas)}
+      numberStep={props.step}
     />
   );
 }

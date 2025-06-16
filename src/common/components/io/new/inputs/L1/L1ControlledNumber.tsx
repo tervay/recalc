@@ -73,6 +73,7 @@ export default function L1ControlledNumber<T>(
         stateHook={[num, setNum]}
         static={props.static}
         size={props.size}
+        step={props.step}
       />
     </Control>
   );

@@ -45,6 +45,7 @@ export default function L0Number(props: L0NumberProps): JSX.Element {
       id={props.id}
       data-testid={props.id}
       disabled={props.disabledIf()}
+      step={props.step}
     />
   );
 }

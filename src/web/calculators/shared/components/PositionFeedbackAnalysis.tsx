@@ -1,0 +1,172 @@
+import SingleInputLine from "common/components/io/inputs/SingleInputLine";
+import MeasurementInput from "common/components/io/new/inputs/L3/MeasurementInput";
+import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
+import { Divider } from "common/components/styling/Building";
+import Measurement from "common/models/Measurement";
+import { identity, Matrix, matrix, multiply } from "mathjs";
+import React, { useState } from "react";
+import { discretize_ab } from "../discretize";
+import { latencyCompensatePosition, lqr } from "../lqr";
+
+interface PositionFeedbackAnalysisProps {
+  kv: Measurement;
+  ka: Measurement;
+  dt?: Measurement;
+  posTolerance?: Measurement;
+  velTolerance?: Measurement;
+  distanceType: "linear" | "angular";
+}
+
+const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
+  kv,
+  ka,
+  dt: _dt,
+  posTolerance: _posTolerance,
+  velTolerance: _velTolerance,
+  distanceType,
+}) => {
+  const distanceUnit = distanceType === "angular" ? "rad" : "m";
+  const velocityUnit = distanceType === "angular" ? "rad/s" : "m/s";
+  const kPUnit = distanceType === "angular" ? "V/rad" : "V/m";
+  const kVUnit = distanceType === "angular" ? "V*s/rad" : "V*s/m";
+  const kAUnit = distanceType === "angular" ? "V*s^2/rad" : "V*s^2/m";
+  const [maxEffort, setMaxEffort] = useState<Measurement>(
+    new Measurement(12, "V"),
+  );
+  const [dt, setDt] = useState<Measurement>(_dt ?? new Measurement(0.001, "s"));
+  const [measurementDelay, setMeasurementDelay] = useState(
+    new Measurement(0, "s"),
+  );
+  const [posTolerance, setPosTolerance] = useState<Measurement>(
+    _posTolerance ??
+      new Measurement(1, distanceType === "angular" ? "rad" : "m"),
+  );
+  const [velTolerance, setVelTolerance] = useState<Measurement>(
+    _velTolerance ??
+      new Measurement(1, distanceType === "angular" ? "rad/s" : "m/s"),
+  );
+
+  const gains = React.useMemo(() => {
+    const dt_s = dt.to("s").scalar;
+    const measurementDelay_s = measurementDelay.to("s").scalar;
+    const posTolerance_m = posTolerance.to(distanceUnit).scalar;
+    const velTolerance_si = velTolerance.to(velocityUnit).scalar;
+    const maxEffort_v = maxEffort.to("V").scalar;
+    if (posTolerance_m === 0 || velTolerance_si === 0 || maxEffort_v === 0) {
+      return {
+        kp: new Measurement(0, kPUnit),
+        kd: new Measurement(0, kVUnit),
+      };
+    }
+
+    const A_cont = matrix([
+      [0, 1],
+      [0, -kv.to(kVUnit).scalar / ka.to(kAUnit).scalar],
+    ]);
+
+    const B_cont = matrix([[0], [1 / ka.to(kAUnit).scalar]]);
+
+    const [A_disc, B_disc] = discretize_ab(A_cont, B_cont, dt_s);
+
+    const Q = matrix([
+      [1 / posTolerance_m ** 2, 0],
+      [0, 1 / velTolerance_si ** 2],
+    ]);
+
+    const R = multiply(identity(2) as Matrix, 1 / maxEffort_v ** 2);
+
+    let gains = lqr(A_disc, B_disc, Q, R);
+
+    if (measurementDelay_s > 0) {
+      gains = latencyCompensatePosition(
+        gains.kp,
+        gains.kd,
+        A_disc,
+        B_disc,
+        dt_s,
+        measurementDelay_s,
+      );
+    }
+    return {
+      kp: new Measurement(gains.kp, kPUnit),
+      kd: new Measurement(gains.kd, kVUnit),
+    };
+  }, [dt, measurementDelay, posTolerance, velTolerance, maxEffort, kv, ka]);
+
+  return (
+    <div>
+      <Divider color="primary">Feedback Gains (position)</Divider>
+      <SingleInputLine
+        label="Max Effort"
+        id="maxEffort"
+        tooltip="Inverse square cost function weight for control effort (applied voltage).  A higher value will make the controller more aggressive.  Typically you will not need to change this, because FRC robots all operate at ~12V."
+      >
+        <MeasurementInput
+          stateHook={[maxEffort, setMaxEffort]}
+          defaultUnit="V"
+          step={1}
+        />
+      </SingleInputLine>
+      <SingleInputLine
+        label="Loop Time (dt)"
+        id="dt"
+        tooltip="The amount of time between each control loop iteration.  Lower values allow more aggressive control gains."
+      >
+        <MeasurementInput
+          stateHook={[dt, setDt]}
+          defaultUnit="s"
+          step={0.001}
+        />
+      </SingleInputLine>
+      <SingleInputLine
+        label="Measurement Delay"
+        id="measurementDelay"
+        tooltip="The time it takes to acquire a position measurement. Optimal feedback gains shrink exponentially as the measurement delay exceeds the system response time (see above).  This should be very small for anything other that's not a remote sensor."
+      >
+        <MeasurementInput
+          stateHook={[measurementDelay, setMeasurementDelay]}
+          defaultUnit="s"
+          step={0.1}
+        />
+      </SingleInputLine>
+      <SingleInputLine
+        label="Position Tolerance"
+        id="posTolerance"
+        tooltip="Inverse square cost function weight for position error.  A lower value will make the controller more aggressive.  Set this to the acceptable operational error for your mechanism."
+      >
+        <MeasurementInput
+          stateHook={[posTolerance, setPosTolerance]}
+          defaultUnit={distanceUnit}
+          step={0.1}
+        />
+      </SingleInputLine>
+      <SingleInputLine
+        label="Velocity Tolerance"
+        id="velTolerance"
+        tooltip="Inverse square cost function weight for velocity error.  A lower value will make the controller more aggressive.  Set this to the acceptable operational error for your mechanism."
+      >
+        <MeasurementInput
+          stateHook={[velTolerance, setVelTolerance]}
+          defaultUnit={velocityUnit}
+          step={0.1}
+        />
+      </SingleInputLine>
+      <SingleInputLine
+        label="kP"
+        id="kp"
+        tooltip="Proportional feedback gain.  The amount of voltage to apply proportional to the position error."
+      >
+        <MeasurementOutput stateHook={[gains.kp, () => {}]} numberRoundTo={2} />
+      </SingleInputLine>
+      <SingleInputLine
+        label="kD"
+        id="kd"
+        tooltip="Derivative feedback gain.  The amount of voltage to apply proportional to the velocity error."
+      >
+        <MeasurementOutput stateHook={[gains.kd, () => {}]} numberRoundTo={2} />
+      </SingleInputLine>
+    </div>
+  );
+};
+
+export default PositionFeedbackAnalysis;

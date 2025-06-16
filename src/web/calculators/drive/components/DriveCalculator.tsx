@@ -24,7 +24,7 @@ import {
 import { DriveState } from "web/calculators/drive/converter";
 import { DriveWorkerFunctions, IliteResult } from "web/calculators/drive/math";
 import rawWorker from "web/calculators/drive/math?worker";
-import KvKaDisplay from "web/calculators/shared/components/KvKaDisplay";
+import VelocityControlGainsAnalysis from "web/calculators/shared/components/VelocityControlGainsAnalysis";
 import { calculateKa, calculateKv } from "web/calculators/shared/sharedMath";
 
 const worker = await wrap<DriveWorkerFunctions>(new rawWorker());
@@ -471,9 +471,7 @@ export default function DriveCalculator(): JSX.Element {
 
               <Columns>
                 <Column>
-                  <KvKaDisplay kV={kV} kA={kA} distanceType={"linear"} />
-                </Column>
-                <Column>
+                  <VelocityControlGainsAnalysis kv={kV} ka={kA} />
                   <SingleInputLine
                     label="Acceleration Distance"
                     tooltip={
