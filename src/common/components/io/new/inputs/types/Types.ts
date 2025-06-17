@@ -113,7 +113,9 @@ export type L0NumberProps = Identifiable &
   Disableable &
   OtherStylable &
   Delayable &
-  NumericallyRoundable;
+  NumericallyRoundable & {
+    step?: number;
+  };
 export type L0BooleanProps = Identifiable & HasStateHook<boolean>;
 
 // L1
@@ -140,6 +142,7 @@ type _UniquelySelectProps<T> = Exclude<
   RemoveL1SelectCreationFns<L1ControlledSelectProps<T>>,
   _SharedBetweenNumberAndSelectProps<T>
 >;
+
 type _L2NumberSelect_SelectProps<T> = {
   [Prop in keyof _UniquelySelectProps<T> as `select${Capitalize<Prop>}`]: _UniquelySelectProps<T>[Prop];
 };
@@ -181,6 +184,7 @@ export type MeasurementInputProps = RemoveL2NumberSelectCreationFnsAndChoices<
   L2NumberSelectProps<Measurement>
 > & {
   defaultUnit?: string;
+  step?: number;
 };
 
 export type MotorInputProps = RemoveL2NumberSelectCreationFnsAndChoices<

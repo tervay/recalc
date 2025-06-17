@@ -28,15 +28,17 @@ test.describe("Linear Calculator", () => {
     await expect(page.getByTestId("maxVelocity")).toHaveValue("148.64");
     await expect(page.getByTestId("selectmaxVelocity")).toHaveValue("in/s");
     await expect(page.getByTestId("maxAcceleration")).toHaveValue("847.95");
-    await expect(page.getByTestId("selectmaxAcceleration")).toHaveValue("in/s2");
+    await expect(page.getByTestId("selectmaxAcceleration")).toHaveValue(
+      "in/s2",
+    );
     await expect(page.getByTestId("stallLoad")).toHaveValue("52.87");
     await expect(page.getByTestId("selectstallLoad")).toHaveValue("lbs");
     await expect(page.getByTestId("kG")).toHaveValue("0.27");
     await expect(page.getByTestId("selectkG")).toHaveValue("V");
-    await expect(page.getByTestId("estimatedKV")).toHaveValue("3.11");
-    await expect(page.getByTestId("selectestimatedKV")).toHaveValue("V*s/m");
-    await expect(page.getByTestId("estimatedKA")).toHaveValue("0.03");
-    await expect(page.getByTestId("selectestimatedKA")).toHaveValue("V*s^2/m");
+    await expect(page.getByTestId("kV")).toHaveValue("3.11");
+    await expect(page.getByTestId("selectkV")).toHaveValue("V*s/m");
+    await expect(page.getByTestId("kA")).toHaveValue("0.03");
+    await expect(page.getByTestId("selectkA")).toHaveValue("V*s^2/m");
     await expect(page.getByTestId("responseTime")).toHaveValue("0.01");
     await expect(page.getByTestId("selectresponseTime")).toHaveValue("s");
   });
@@ -52,10 +54,10 @@ test.describe("Linear Calculator", () => {
     await expect(page.getByTestId("selectstallLoad")).toHaveValue("lbs");
     await expect(page.getByTestId("kG")).toHaveValue("0.78");
     await expect(page.getByTestId("selectkG")).toHaveValue("V");
-    await expect(page.getByTestId("estimatedKV")).toHaveValue("3.07");
-    await expect(page.getByTestId("selectestimatedKV")).toHaveValue("V*s/m");
-    await expect(page.getByTestId("estimatedKA")).toHaveValue("0.08");
-    await expect(page.getByTestId("selectestimatedKA")).toHaveValue("V*s^2/m");
+    await expect(page.getByTestId("kV")).toHaveValue("3.07");
+    await expect(page.getByTestId("selectkV")).toHaveValue("V*s/m");
+    await expect(page.getByTestId("kA")).toHaveValue("0.08");
+    await expect(page.getByTestId("selectkA")).toHaveValue("V*s^2/m");
     await expect(page.getByTestId("responseTime")).toHaveValue("0.03");
     await expect(page.getByTestId("selectresponseTime")).toHaveValue("s");
   });
@@ -71,10 +73,10 @@ test.describe("Linear Calculator", () => {
     await expect(page.getByTestId("selectstallLoad")).toHaveValue("lbs");
     await expect(page.getByTestId("kG")).toHaveValue("1.05");
     await expect(page.getByTestId("selectkG")).toHaveValue("V");
-    await expect(page.getByTestId("estimatedKV")).toHaveValue("3.39");
-    await expect(page.getByTestId("selectestimatedKV")).toHaveValue("V*s/m");
-    await expect(page.getByTestId("estimatedKA")).toHaveValue("0.11");
-    await expect(page.getByTestId("selectestimatedKA")).toHaveValue("V*s^2/m");
+    await expect(page.getByTestId("kV")).toHaveValue("3.39");
+    await expect(page.getByTestId("selectkV")).toHaveValue("V*s/m");
+    await expect(page.getByTestId("kA")).toHaveValue("0.11");
+    await expect(page.getByTestId("selectkA")).toHaveValue("V*s^2/m");
     await expect(page.getByTestId("responseTime")).toHaveValue("0.03");
     await expect(page.getByTestId("selectresponseTime")).toHaveValue("s");
   });
