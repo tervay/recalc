@@ -9,14 +9,12 @@ interface PositionControlGainsAnalysisProps {
   ka: Measurement;
   kg?: Measurement;
   dt?: Measurement;
-  posTolerance?: Measurement;
-  velTolerance?: Measurement;
   distanceType: "linear" | "angular";
 }
 
 const PositionControlGainsAnalysis: React.FC<
   PositionControlGainsAnalysisProps
-> = ({ kv, ka, kg, dt, posTolerance, velTolerance, distanceType }) => {
+> = ({ kv, ka, kg, dt, distanceType }) => {
   return (
     <div>
       <Divider color="primary">Estimated Control Gains</Divider>
@@ -36,8 +34,6 @@ const PositionControlGainsAnalysis: React.FC<
         kv={kv}
         ka={ka}
         dt={dt}
-        posTolerance={posTolerance}
-        velTolerance={velTolerance}
         distanceType={distanceType}
       />
     </div>

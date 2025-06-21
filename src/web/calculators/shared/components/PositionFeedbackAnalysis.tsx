@@ -4,16 +4,15 @@ import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
 import { Divider } from "common/components/styling/Building";
 import Measurement from "common/models/Measurement";
 import { identity, Matrix, matrix, multiply } from "mathjs";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { discretize_ab } from "../discretize";
 import { latencyCompensatePosition, lqr } from "../lqr";
+import CostFunctionControls from "./CostFunctionControls";
 
 interface PositionFeedbackAnalysisProps {
   kv: Measurement;
   ka: Measurement;
   dt?: Measurement;
-  posTolerance?: Measurement;
-  velTolerance?: Measurement;
   distanceType: "linear" | "angular";
 }
 
@@ -21,8 +20,6 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
   kv,
   ka,
   dt: _dt,
-  posTolerance: _posTolerance,
-  velTolerance: _velTolerance,
   distanceType,
 }) => {
   const distanceUnit = distanceType === "angular" ? "rad" : "m";
@@ -33,18 +30,42 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
   const [maxEffort, setMaxEffort] = useState<Measurement>(
     new Measurement(12, "V"),
   );
-  const [dt, setDt] = useState<Measurement>(_dt ?? new Measurement(0.001, "s"));
+  const [dt, setDt] = useState<Measurement>(_dt ?? new Measurement(0, "s"));
   const [measurementDelay, setMeasurementDelay] = useState(
     new Measurement(0, "s"),
   );
-  const [posTolerance, setPosTolerance] = useState<Measurement>(
-    _posTolerance ??
-      new Measurement(1, distanceType === "angular" ? "rad" : "m"),
-  );
-  const [velTolerance, setVelTolerance] = useState<Measurement>(
-    _velTolerance ??
-      new Measurement(1, distanceType === "angular" ? "rad/s" : "m/s"),
-  );
+
+  const defaultVelTolerance = React.useMemo(() => {
+    const dtTolerance = Measurement.max(ka.div(kv), measurementDelay);
+    try {
+      return maxEffort.div(ka).mul(dtTolerance);
+    } catch (e) {
+      return new Measurement(0, distanceType === "angular" ? "rad/s" : "m/s");
+    }
+  }, [maxEffort, ka, kv, distanceType, measurementDelay]);
+
+  const [velTolerance, setVelTolerance] =
+    useState<Measurement>(defaultVelTolerance);
+
+  const defaultPosTolerance = React.useMemo(() => {
+    const dtTolerance = Measurement.max(ka.div(kv), measurementDelay);
+    try {
+      return maxEffort.mul(dtTolerance).mul(dtTolerance).div(ka);
+    } catch (e) {
+      return new Measurement(0, distanceType === "angular" ? "rad" : "m");
+    }
+  }, [maxEffort, ka, kv, distanceType, measurementDelay]);
+
+  const [posTolerance, setPosTolerance] =
+    useState<Measurement>(defaultPosTolerance);
+
+  useEffect(() => {
+    setPosTolerance(defaultPosTolerance);
+  }, [defaultPosTolerance]);
+
+  useEffect(() => {
+    setVelTolerance(defaultVelTolerance);
+  }, [defaultVelTolerance]);
 
   const gains = React.useMemo(() => {
     const dt_s = dt.to("s").scalar;
@@ -52,7 +73,13 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
     const posTolerance_m = posTolerance.to(distanceUnit).scalar;
     const velTolerance_si = velTolerance.to(velocityUnit).scalar;
     const maxEffort_v = maxEffort.to("V").scalar;
-    if (posTolerance_m === 0 || velTolerance_si === 0 || maxEffort_v === 0) {
+    if (
+      posTolerance_m === 0 ||
+      velTolerance_si === 0 ||
+      maxEffort_v === 0 ||
+      measurementDelay_s === 0 ||
+      dt_s === 0
+    ) {
       return {
         kp: new Measurement(0, kPUnit),
         kd: new Measurement(0, kVUnit),
@@ -77,16 +104,15 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
 
     let gains = lqr(A_disc, B_disc, Q, R);
 
-    if (measurementDelay_s > 0) {
-      gains = latencyCompensatePosition(
-        gains.kp,
-        gains.kd,
-        A_disc,
-        B_disc,
-        dt_s,
-        measurementDelay_s,
-      );
-    }
+    gains = latencyCompensatePosition(
+      gains.kp,
+      gains.kd,
+      A_disc,
+      B_disc,
+      dt_s,
+      measurementDelay_s,
+    );
+
     return {
       kp: new Measurement(gains.kp, kPUnit),
       kd: new Measurement(gains.kd, kVUnit),
@@ -96,17 +122,17 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
   return (
     <div>
       <Divider color="primary">Feedback Gains (position)</Divider>
-      <SingleInputLine
-        label="Max Effort"
-        id="maxEffort"
-        tooltip="Inverse square cost function weight for control effort (applied voltage).  A higher value will make the controller more aggressive.  Typically you will not need to change this, because FRC robots all operate at ~12V."
-      >
-        <MeasurementInput
-          stateHook={[maxEffort, setMaxEffort]}
-          defaultUnit="V"
-          step={1}
-        />
-      </SingleInputLine>
+      <CostFunctionControls
+        maxEffort={maxEffort}
+        setMaxEffort={setMaxEffort}
+        posTolerance={posTolerance}
+        setPosTolerance={setPosTolerance}
+        velTolerance={velTolerance}
+        setVelTolerance={setVelTolerance}
+        distanceUnit={distanceUnit}
+        velocityUnit={velocityUnit}
+        toleranceType="position"
+      />
       <SingleInputLine
         label="Loop Time (dt)"
         id="dt"
@@ -114,8 +140,9 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
       >
         <MeasurementInput
           stateHook={[dt, setDt]}
-          defaultUnit="s"
-          step={0.001}
+          defaultUnit="ms"
+          step={1}
+          style={dt.scalar === 0 ? { border: "2px solid red" } : {}}
         />
       </SingleInputLine>
       <SingleInputLine
@@ -125,30 +152,11 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
       >
         <MeasurementInput
           stateHook={[measurementDelay, setMeasurementDelay]}
-          defaultUnit="s"
-          step={0.1}
-        />
-      </SingleInputLine>
-      <SingleInputLine
-        label="Position Tolerance"
-        id="posTolerance"
-        tooltip="Inverse square cost function weight for position error.  A lower value will make the controller more aggressive.  Set this to the acceptable operational error for your mechanism."
-      >
-        <MeasurementInput
-          stateHook={[posTolerance, setPosTolerance]}
-          defaultUnit={distanceUnit}
-          step={0.1}
-        />
-      </SingleInputLine>
-      <SingleInputLine
-        label="Velocity Tolerance"
-        id="velTolerance"
-        tooltip="Inverse square cost function weight for velocity error.  A lower value will make the controller more aggressive.  Set this to the acceptable operational error for your mechanism."
-      >
-        <MeasurementInput
-          stateHook={[velTolerance, setVelTolerance]}
-          defaultUnit={velocityUnit}
-          step={0.1}
+          defaultUnit="ms"
+          step={1}
+          style={
+            measurementDelay.scalar === 0 ? { border: "2px solid red" } : {}
+          }
         />
       </SingleInputLine>
       <SingleInputLine

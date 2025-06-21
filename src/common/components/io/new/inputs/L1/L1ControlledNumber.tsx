@@ -37,8 +37,12 @@ export function makeDefaultL1ControlledNumberProps<
   };
 }
 
+interface StyledL1ControlledNumberProps<T> extends L1ControlledNumberProps<T> {
+  style?: React.CSSProperties;
+}
+
 export default function L1ControlledNumber<T>(
-  props: L1ControlledNumberProps<T>,
+  props: StyledL1ControlledNumberProps<T>,
 ): JSX.Element {
   const [t, setT] = props.stateHook;
   const [num, setNum] = useState(props.makeNumber(t));
@@ -74,6 +78,7 @@ export default function L1ControlledNumber<T>(
         static={props.static}
         size={props.size}
         step={props.step}
+        style={props.style}
       />
     </Control>
   );

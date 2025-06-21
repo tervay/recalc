@@ -13,8 +13,12 @@ import {
   RemoveL1SelectCreationFns,
 } from "common/components/io/new/inputs/types/Utility";
 
+interface StyledL2NumberSelectProps<T> extends L2NumberSelectProps<T> {
+  style?: React.CSSProperties;
+}
+
 export default function L2NumberSelect<T>(
-  props: L2NumberSelectProps<T>,
+  props: StyledL2NumberSelectProps<T>,
 ): JSX.Element {
   const defaultSelectProps: SetAllFieldsButStateHookOptional<
     RemoveL1SelectCreationFns<T>
@@ -65,6 +69,7 @@ export default function L2NumberSelect<T>(
         )}
         skipControl={true}
         step={props.numberStep}
+        style={props.style}
       />
       <L1ControlledSelect
         choices={props.choices}

@@ -3,8 +3,12 @@ import { MeasurementInputProps } from "common/components/io/new/inputs/types/Typ
 import Measurement from "common/models/Measurement";
 import { useEffect, useState } from "react";
 
+interface StyledMeasurementInputProps extends MeasurementInputProps {
+  style?: React.CSSProperties;
+}
+
 export default function MeasurementInput(
-  props: MeasurementInputProps,
+  props: StyledMeasurementInputProps,
 ): JSX.Element {
   const [meas, setMeas] = props.stateHook;
   const [newMeas, setNewMeas] = useState(
@@ -25,7 +29,7 @@ export default function MeasurementInput(
 
   return (
     <L2NumberSelect
-      {...(({ stateHook: _, ...o }) => o)(props)}
+      {...(({ stateHook: _, style, ...o }) => o)(props)}
       stateHook={[newMeas, setNewMeas]}
       fromNumber={(n) => {
         return new Measurement(n, Measurement.clarifyUnit(meas.units()));
@@ -41,6 +45,7 @@ export default function MeasurementInput(
       makeString={(m) => Measurement.clarifyUnit(m.units())}
       choices={Measurement.choices(meas)}
       numberStep={props.step}
+      style={props.style}
     />
   );
 }

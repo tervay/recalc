@@ -62,8 +62,8 @@ const FeedforwardAnalysis: React.FC<FeedforwardAnalysisProps> = ({
       >
         <MeasurementOutput
           stateHook={[kA.div(kV), () => undefined]}
-          numberRoundTo={3}
-          defaultUnit="s"
+          numberRoundTo={1}
+          defaultUnit="ms"
         />
       </SingleInputLine>
     </div>

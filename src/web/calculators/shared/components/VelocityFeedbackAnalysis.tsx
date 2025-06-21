@@ -8,6 +8,7 @@ import { discretize_ab } from "../discretize";
 import { latencyCompensateVelocity, lqr } from "../lqr";
 
 import MeasurementInput from "common/components/io/new/inputs/L3/MeasurementInput";
+import CostFunctionControls from "./CostFunctionControls";
 
 interface VelocityFeedbackAnalysisProps {
   kv: Measurement;
@@ -29,8 +30,17 @@ const VelocityFeedbackAnalysis: React.FC<VelocityFeedbackAnalysisProps> = ({
   const [measurementDelay, setMeasurementDelay] = useState(
     new Measurement(0, "s"),
   );
+
+  const defaultVelTolerance = React.useMemo(() => {
+    try {
+      return maxEffort.div(kv);
+    } catch (e) {
+      return new Measurement(0, "m/s");
+    }
+  }, [maxEffort, kv]);
+
   const [velTolerance, setVelTolerance] = useState<Measurement>(
-    _velTolerance ?? new Measurement(1, "m/s"),
+    _velTolerance ?? defaultVelTolerance,
   );
 
   const gains = React.useMemo(() => {
@@ -80,17 +90,14 @@ const VelocityFeedbackAnalysis: React.FC<VelocityFeedbackAnalysisProps> = ({
   return (
     <div>
       <Divider color="primary">Feedback Gains (velocity)</Divider>
-      <SingleInputLine
-        label="Max Effort"
-        id="maxEffort"
-        tooltip="Inverse square cost function weight for control effort (applied voltage).  A higher value will make the controller more aggressive.  Typically you will not need to change this, because FRC robots all operate at ~12V."
-      >
-        <MeasurementInput
-          stateHook={[maxEffort, setMaxEffort]}
-          defaultUnit="V"
-          step={1}
-        />
-      </SingleInputLine>
+      <CostFunctionControls
+        maxEffort={maxEffort}
+        setMaxEffort={setMaxEffort}
+        velTolerance={velTolerance}
+        setVelTolerance={setVelTolerance}
+        velocityUnit="m/s"
+        toleranceType="velocity"
+      />
       <SingleInputLine
         label="Loop Time (dt)"
         id="dt"
@@ -110,17 +117,6 @@ const VelocityFeedbackAnalysis: React.FC<VelocityFeedbackAnalysisProps> = ({
         <MeasurementInput
           stateHook={[measurementDelay, setMeasurementDelay]}
           defaultUnit="s"
-          step={0.1}
-        />
-      </SingleInputLine>
-      <SingleInputLine
-        label="Velocity Tolerance"
-        id="velTolerance"
-        tooltip="Inverse square cost function weight for velocity error.  A lower value will make the controller more aggressive.  Set this to the acceptable operational error for your mechanism."
-      >
-        <MeasurementInput
-          stateHook={[velTolerance, setVelTolerance]}
-          defaultUnit="m/s"
           step={0.1}
         />
       </SingleInputLine>
