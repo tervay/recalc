@@ -109,7 +109,7 @@ export default function LinearCalculator(): JSX.Element {
       get.motor.freeSpeed.div(get.ratio.asNumber()),
       get.spoolDiameter.div(2),
     );
-  }, [get.motor.freeSpeed, get.spoolDiameter]);
+  }, [get.motor.freeSpeed, get.spoolDiameter, get.ratio]);
 
   const kA = useMemo(
     () =>
@@ -318,7 +318,6 @@ export default function LinearCalculator(): JSX.Element {
               defaultUnit="kg m^2"
             />
           </SingleInputLine> */}
-
           <PositionControlGainsAnalysis
             kg={kG}
             kv={kV}

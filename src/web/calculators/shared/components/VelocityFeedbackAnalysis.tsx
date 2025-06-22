@@ -26,22 +26,26 @@ const VelocityFeedbackAnalysis: React.FC<VelocityFeedbackAnalysisProps> = ({
   const [maxEffort, setMaxEffort] = useState<Measurement>(
     new Measurement(12, "V"),
   );
-  const [dt, setDt] = useState<Measurement>(_dt ?? new Measurement(0.001, "s"));
+  const [dt, setDt] = useState<Measurement>(_dt ?? new Measurement(0, "s"));
   const [measurementDelay, setMeasurementDelay] = useState(
     new Measurement(0, "s"),
   );
 
   const defaultVelTolerance = React.useMemo(() => {
+    const dtTolerance = Measurement.max(ka.div(kv), measurementDelay);
     try {
-      return maxEffort.div(kv);
+      return maxEffort.div(kv).mul(dtTolerance);
     } catch (e) {
       return new Measurement(0, "m/s");
     }
-  }, [maxEffort, kv]);
+  }, [maxEffort, kv, ka, measurementDelay]);
 
   const [velTolerance, setVelTolerance] = useState<Measurement>(
     _velTolerance ?? defaultVelTolerance,
   );
+  React.useEffect(() => {
+    setVelTolerance(defaultVelTolerance);
+  }, [defaultVelTolerance]);
 
   const gains = React.useMemo(() => {
     const dt_s = dt.to("s").scalar;
@@ -49,7 +53,12 @@ const VelocityFeedbackAnalysis: React.FC<VelocityFeedbackAnalysisProps> = ({
     const velTolerance_si = velTolerance.to("m/s").scalar;
     const maxEffort_v = maxEffort.to("V").scalar;
 
-    if (velTolerance_si === 0 || maxEffort_v === 0) {
+    if (
+      velTolerance_si === 0 ||
+      maxEffort_v === 0 ||
+      dt_s === 0 ||
+      measurementDelay_s === 0
+    ) {
       return {
         kp: new Measurement(0, "V*s/m"),
       };
@@ -105,8 +114,11 @@ const VelocityFeedbackAnalysis: React.FC<VelocityFeedbackAnalysisProps> = ({
       >
         <MeasurementInput
           stateHook={[dt, setDt]}
-          defaultUnit="s"
-          step={0.001}
+          defaultUnit="ms"
+          step={1}
+          style={
+            measurementDelay.scalar === 0 ? { border: "2px solid red" } : {}
+          }
         />
       </SingleInputLine>
       <SingleInputLine
@@ -116,8 +128,11 @@ const VelocityFeedbackAnalysis: React.FC<VelocityFeedbackAnalysisProps> = ({
       >
         <MeasurementInput
           stateHook={[measurementDelay, setMeasurementDelay]}
-          defaultUnit="s"
-          step={0.1}
+          defaultUnit="ms"
+          step={1}
+          style={
+            measurementDelay.scalar === 0 ? { border: "2px solid red" } : {}
+          }
         />
       </SingleInputLine>
       <SingleInputLine
