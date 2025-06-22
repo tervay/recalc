@@ -251,5 +251,49 @@
     "diameter": { "magnitude": 1.48, "unit": "in" },
     "url": "https://www.gobilda.com/modern-robotics-12vdc-motor/",
     "controllerWeight": { "magnitude": 0.25, "unit": "lbs" }
+  },
+  {
+    "name": "5202/3/4 (1150 RPM)",
+    "freeSpeed": { "magnitude": 1150, "unit": "rpm" },
+    "stallTorque": { "magnitude": 0.7747, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 9.2, "unit": "A" },
+    "freeCurrent": { "magnitude": 0.25, "unit": "A" },
+    "weight": { "magnitude": 0.88, "unit": "lbs" },
+    "diameter": { "magnitude": 1.48, "unit": "in" },
+    "url": "https://www.gobilda.com/5203-series-yellow-jacket-planetary-gear-motor-5-2-1-ratio-24mm-length-8mm-rex-shaft-1150-rpm-3-3-5v-encoder/",
+    "controllerWeight": null
+  },
+  {
+    "name": "5202/3/4 (435 RPM)",
+    "freeSpeed": { "magnitude": 435, "unit": "rpm" },
+    "stallTorque": { "magnitude": 1.8338, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 9.2, "unit": "A" },
+    "freeCurrent": { "magnitude": 0.25, "unit": "A" },
+    "weight": { "magnitude": 0.97, "unit": "lbs" },
+    "diameter": { "magnitude": 1.48, "unit": "in" },
+    "url": "https://www.gobilda.com/5203-series-yellow-jacket-planetary-gear-motor-13-7-1-ratio-24mm-length-8mm-rex-shaft-435-rpm-3-3-5v-encoder/",
+    "controllerWeight": null
+  },
+  {
+    "name": "5202/3/4 (312 RPM)",
+    "freeSpeed": { "magnitude": 312, "unit": "rpm" },
+    "stallTorque": { "magnitude": 2.383, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 9.2, "unit": "A" },
+    "freeCurrent": { "magnitude": 0.25, "unit": "A" },
+    "weight": { "magnitude": 0.96, "unit": "lbs" },
+    "diameter": { "magnitude": 1.48, "unit": "in" },
+    "url": "https://www.gobilda.com/5203-series-yellow-jacket-planetary-gear-motor-19-2-1-ratio-24mm-length-8mm-rex-shaft-312-rpm-3-3-5v-encoder/",
+    "controllerWeight": null
+  },
+  {
+    "name": "5202/3/4 (60 RPM)",
+    "freeSpeed": { "magnitude": 60, "unit": "rpm" },
+    "stallTorque": { "magnitude": 13.0625, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 9.2, "unit": "A" },
+    "freeCurrent": { "magnitude": 0.25, "unit": "A" },
+    "weight": { "magnitude": 1.07, "unit": "lbs" },
+    "diameter": { "magnitude": 1.48, "unit": "in" },
+    "url": "https://www.gobilda.com/5203-series-yellow-jacket-planetary-gear-motor-99-5-1-ratio-24mm-length-8mm-rex-shaft-60-rpm-3-3-5v-encoder/",
+    "controllerWeight": null
   }
 ]
