@@ -22,11 +22,11 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
   dt: _dt,
   distanceType,
 }) => {
-  const distanceUnit = distanceType === "angular" ? "rad" : "m";
-  const velocityUnit = distanceType === "angular" ? "rad/s" : "m/s";
-  const kPUnit = distanceType === "angular" ? "V/rad" : "V/m";
-  const kVUnit = distanceType === "angular" ? "V*s/rad" : "V*s/m";
-  const kAUnit = distanceType === "angular" ? "V*s^2/rad" : "V*s^2/m";
+  const distanceUnit = distanceType === "angular" ? "rotation" : "m";
+  const velocityUnit = distanceType === "angular" ? "rotation/s" : "m/s";
+  const kPUnit = distanceType === "angular" ? "V/rotation" : "V/m";
+  const kVUnit = distanceType === "angular" ? "V*s/rotation" : "V*s/m";
+  const kAUnit = distanceType === "angular" ? "V*s^2/rotation" : "V*s^2/m";
   const [maxEffort, setMaxEffort] = useState<Measurement>(
     new Measurement(12, "V"),
   );
@@ -40,7 +40,10 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
     try {
       return maxEffort.div(ka).mul(dtTolerance).mul(0.1);
     } catch (e) {
-      return new Measurement(0, distanceType === "angular" ? "rad/s" : "m/s");
+      return new Measurement(
+        0,
+        distanceType === "angular" ? "rotation/s" : "m/s",
+      );
     }
   }, [maxEffort, ka, kv, distanceType, measurementDelay]);
 
@@ -52,7 +55,7 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
     try {
       return maxEffort.mul(dtTolerance).mul(dtTolerance).div(ka);
     } catch (e) {
-      return new Measurement(0, distanceType === "angular" ? "rad" : "m");
+      return new Measurement(0, distanceType === "angular" ? "rotation" : "m");
     }
   }, [maxEffort, ka, kv, distanceType, measurementDelay]);
 
@@ -172,14 +175,22 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
         id="kp"
         tooltip="Proportional feedback gain.  The amount of voltage to apply proportional to the position error."
       >
-        <MeasurementOutput stateHook={[gains.kp, () => {}]} numberRoundTo={2} />
+        <MeasurementOutput
+          stateHook={[gains.kp, () => {}]}
+          numberRoundTo={2}
+          defaultUnit={kPUnit}
+        />
       </SingleInputLine>
       <SingleInputLine
         label="kD"
         id="kd"
         tooltip="Derivative feedback gain.  The amount of voltage to apply proportional to the velocity error."
       >
-        <MeasurementOutput stateHook={[gains.kd, () => {}]} numberRoundTo={2} />
+        <MeasurementOutput
+          stateHook={[gains.kd, () => {}]}
+          numberRoundTo={2}
+          defaultUnit={kVUnit}
+        />
       </SingleInputLine>
     </div>
   );

@@ -41,7 +41,7 @@ const FeedforwardAnalysis: React.FC<FeedforwardAnalysisProps> = ({
         <MeasurementOutput
           stateHook={[kV, () => undefined]}
           numberRoundTo={2}
-          defaultUnit={distanceType === "angular" ? "V*s/rad" : "V*s/m"}
+          defaultUnit={distanceType === "angular" ? "V*s/rotation" : "V*s/m"}
         />
       </SingleInputLine>
       <SingleInputLine
@@ -52,7 +52,9 @@ const FeedforwardAnalysis: React.FC<FeedforwardAnalysisProps> = ({
         <MeasurementOutput
           stateHook={[kA, () => undefined]}
           numberRoundTo={2}
-          defaultUnit={distanceType === "angular" ? "V*s^2/rad" : "V*s^2/m"}
+          defaultUnit={
+            distanceType === "angular" ? "V*s^2/rotation" : "V*s^2/m"
+          }
         />
       </SingleInputLine>
       <SingleInputLine
