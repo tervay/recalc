@@ -38,7 +38,7 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
   const defaultVelTolerance = React.useMemo(() => {
     const dtTolerance = Measurement.max(ka.div(kv), measurementDelay);
     try {
-      return maxEffort.div(ka).mul(dtTolerance);
+      return maxEffort.div(ka).mul(dtTolerance).mul(0.1);
     } catch (e) {
       return new Measurement(0, distanceType === "angular" ? "rad/s" : "m/s");
     }

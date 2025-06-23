@@ -34,7 +34,7 @@ const VelocityFeedbackAnalysis: React.FC<VelocityFeedbackAnalysisProps> = ({
   const defaultVelTolerance = React.useMemo(() => {
     const dtTolerance = Measurement.max(ka.div(kv), measurementDelay);
     try {
-      return maxEffort.div(kv).mul(dtTolerance);
+      return maxEffort.div(kv).mul(dtTolerance).mul(0.1);
     } catch (e) {
       return new Measurement(0, "m/s");
     }
