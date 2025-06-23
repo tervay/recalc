@@ -45,14 +45,15 @@ const CostFunctionControls: React.FC<CostFunctionControlsProps> = ({
             These inputs control the weighting of the cost function used to
             define "optimality" for the feedback gain calculation. By default,
             they are seeded with values inferred from the physical
-            specifications of your mechanism and from your input delay setting.
-            The default tolerances - especially the velocity tolerance - err on
-            the side of passive/conservative response, and can often be lowered
-            for more aggressive/accurate tracking. If tightening a tolerance
-            causes the corresponding gain to shrink rather than increase, this
-            means your mechanism is too fast relative to the measurement delay
-            for aggressive control. You can either loosen the tolerances and
-            accept the performance loss, or reduce the measurement delay.
+            specifications of your mechanism and from your measurement delay
+            setting. The default tolerances - especially the velocity tolerance
+            - err on the side of passive/conservative response, and can often be
+            lowered for more aggressive/accurate tracking. If tightening a
+            tolerance causes the corresponding gain to shrink rather than
+            increase, this means your mechanism is too fast relative to the
+            measurement delay for aggressive control. You can either loosen the
+            tolerances and accept the performance loss, or reduce the
+            measurement delay.
           </Message>
           <SingleInputLine
             label="Max Effort"
