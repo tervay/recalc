@@ -1,6 +1,6 @@
 import SingleInputLine from "common/components/io/inputs/SingleInputLine";
 import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
-import { Divider } from "common/components/styling/Building";
+import { Divider, Message } from "common/components/styling/Building";
 import Measurement from "common/models/Measurement";
 import { matrix } from "mathjs";
 import React, { useState } from "react";
@@ -99,6 +99,12 @@ const VelocityFeedbackAnalysis: React.FC<VelocityFeedbackAnalysisProps> = ({
   return (
     <div>
       <Divider color="primary">Feedback Gains (velocity)</Divider>
+      <Message color="warning">
+        Stability and optimality of these feedback gains depend critically on
+        *both* the loop time and measurement delay inputs; gains will not be
+        computed until you provide nonzero values for both. Do *not* blindly
+        guess values - at that point, you are better off tuning manually.
+      </Message>
       <CostFunctionControls
         maxEffort={maxEffort}
         setMaxEffort={setMaxEffort}
@@ -124,7 +130,9 @@ const VelocityFeedbackAnalysis: React.FC<VelocityFeedbackAnalysisProps> = ({
       <SingleInputLine
         label="Measurement Delay"
         id="measurementDelay"
-        tooltip="The time it takes to acquire a velocity measurement. Optimal feedback gains shrink exponentially as the measurement delay exceeds the system response time (see above).  The biggest source of velocity measurement delay is typically filtering of the encoder signal."
+        tooltip="The time it takes to acquire a measurement. Optimal feedback gains shrink exponentially as the
+        measurement delay exceeds the system response time (see above).  Measurement delay can result from velocity
+        measurement filtering, CAN packet delays, and loop timing."
       >
         <MeasurementInput
           stateHook={[measurementDelay, setMeasurementDelay]}

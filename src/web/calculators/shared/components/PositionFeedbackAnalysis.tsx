@@ -1,7 +1,7 @@
 import SingleInputLine from "common/components/io/inputs/SingleInputLine";
 import MeasurementInput from "common/components/io/new/inputs/L3/MeasurementInput";
 import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
-import { Divider } from "common/components/styling/Building";
+import { Divider, Message } from "common/components/styling/Building";
 import Measurement from "common/models/Measurement";
 import { identity, Matrix, matrix, multiply } from "mathjs";
 import React, { useEffect, useState } from "react";
@@ -122,6 +122,12 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
   return (
     <div>
       <Divider color="primary">Feedback Gains (position)</Divider>
+      <Message color="warning">
+        Stability and optimality of these feedback gains depend critically on
+        *both* the loop time and measurement delay inputs; gains will not be
+        computed until you provide nonzero values for both. Do *not* blindly
+        guess values - at that point, you are better off tuning manually.
+      </Message>
       <CostFunctionControls
         maxEffort={maxEffort}
         setMaxEffort={setMaxEffort}
@@ -148,7 +154,9 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
       <SingleInputLine
         label="Measurement Delay"
         id="measurementDelay"
-        tooltip="The time it takes to acquire a position measurement. Optimal feedback gains shrink exponentially as the measurement delay exceeds the system response time (see above).  This should be very small for anything other that's not a remote sensor."
+        tooltip="The time it takes to acquire a measurement. Optimal feedback gains shrink exponentially as the
+        measurement delay exceeds the system response time (see above).  Measurement delay can result from velocity
+        measurement filtering, CAN packet delays, and loop timing."
       >
         <MeasurementInput
           stateHook={[measurementDelay, setMeasurementDelay]}
