@@ -12,11 +12,11 @@ import {
   Matrix,
   multiply,
   norm,
-  pow,
   subtract,
   transpose,
   usolve,
 } from "mathjs";
+import { rationalMatrixPower } from "./rationalMatrixPower";
 
 function luSolve(A: LUDecomposition, B: Matrix) {
   const cols = [];
@@ -84,7 +84,10 @@ export function latencyCompensatePosition(
   // m_K * (discA - discB * m_K).pow(inputDelay / dt);
   const K_comp = multiply(
     K,
-    pow(matrix(add(A, multiply(B, multiply(K, -1)))), floor(inputDelay / dt)),
+    rationalMatrixPower(
+      matrix(add(A, multiply(B, multiply(K, -1)))),
+      floor(inputDelay / dt),
+    ),
   );
   return {
     kp: K_comp.get([0, 0]),
@@ -103,7 +106,10 @@ export function latencyCompensateVelocity(
   // m_K * (discA - discB * m_K).pow(inputDelay / dt);
   const K_comp = multiply(
     K,
-    pow(matrix(add(A, multiply(B, multiply(K, -1)))), floor(inputDelay / dt)),
+    rationalMatrixPower(
+      matrix(add(A, multiply(B, multiply(K, -1)))),
+      floor(inputDelay / dt),
+    ),
   );
   return {
     kp: K_comp.get([0, 0]),
