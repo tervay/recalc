@@ -17,6 +17,8 @@ interface VelocityFeedbackAnalysisProps {
   velTolerance?: Measurement;
 }
 
+const batteryVoltage = new Measurement(12, "V");
+
 const VelocityFeedbackAnalysis: React.FC<VelocityFeedbackAnalysisProps> = ({
   kv,
   ka,
@@ -24,7 +26,7 @@ const VelocityFeedbackAnalysis: React.FC<VelocityFeedbackAnalysisProps> = ({
   velTolerance: _velTolerance,
 }) => {
   const [maxEffort, setMaxEffort] = useState<Measurement>(
-    new Measurement(12, "V"),
+    batteryVoltage.div(3),
   );
   const [dt, setDt] = useState<Measurement>(_dt ?? new Measurement(0, "s"));
   const [measurementDelay, setMeasurementDelay] = useState(
@@ -34,11 +36,11 @@ const VelocityFeedbackAnalysis: React.FC<VelocityFeedbackAnalysisProps> = ({
   const defaultVelTolerance = React.useMemo(() => {
     const dtTolerance = Measurement.max(ka.div(kv), measurementDelay);
     try {
-      return maxEffort.div(ka).mul(dtTolerance).mul(0.1);
+      return batteryVoltage.div(ka).mul(dtTolerance).mul(0.1);
     } catch (e) {
       return new Measurement(0, "m/s");
     }
-  }, [maxEffort, kv, ka, measurementDelay]);
+  }, [kv, ka, measurementDelay]);
 
   const [velTolerance, setVelTolerance] = useState<Measurement>(
     _velTolerance ?? defaultVelTolerance,

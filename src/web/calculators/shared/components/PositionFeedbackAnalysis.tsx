@@ -16,10 +16,11 @@ interface PositionFeedbackAnalysisProps {
   distanceType: "linear" | "angular";
 }
 
+const batteryVoltage = new Measurement(12, "V");
+
 const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
   kv,
   ka,
-  dt: _dt,
   distanceType,
 }) => {
   const distanceUnit = distanceType === "angular" ? "rotation" : "m";
@@ -28,9 +29,9 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
   const kVUnit = distanceType === "angular" ? "V*s/rotation" : "V*s/m";
   const kAUnit = distanceType === "angular" ? "V*s^2/rotation" : "V*s^2/m";
   const [maxEffort, setMaxEffort] = useState<Measurement>(
-    new Measurement(12, "V"),
+    batteryVoltage.div(3),
   );
-  const [dt, setDt] = useState<Measurement>(_dt ?? new Measurement(0, "s"));
+  const [dt, setDt] = useState<Measurement>(new Measurement(0, "s"));
   const [measurementDelay, setMeasurementDelay] = useState(
     new Measurement(0, "s"),
   );
@@ -38,14 +39,14 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
   const defaultVelTolerance = React.useMemo(() => {
     const dtTolerance = Measurement.max(ka.div(kv), measurementDelay);
     try {
-      return maxEffort.div(ka).mul(dtTolerance).mul(0.1);
+      return batteryVoltage.div(ka).mul(dtTolerance).mul(0.1);
     } catch (e) {
       return new Measurement(
         0,
         distanceType === "angular" ? "rotation/s" : "m/s",
       );
     }
-  }, [maxEffort, ka, kv, distanceType, measurementDelay]);
+  }, [ka, kv, distanceType, measurementDelay]);
 
   const [velTolerance, setVelTolerance] =
     useState<Measurement>(defaultVelTolerance);
@@ -53,11 +54,11 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
   const defaultPosTolerance = React.useMemo(() => {
     const dtTolerance = Measurement.max(ka.div(kv), measurementDelay);
     try {
-      return maxEffort.mul(dtTolerance).mul(dtTolerance).div(ka);
+      return batteryVoltage.mul(dtTolerance).mul(dtTolerance).div(ka);
     } catch (e) {
       return new Measurement(0, distanceType === "angular" ? "rotation" : "m");
     }
-  }, [maxEffort, ka, kv, distanceType, measurementDelay]);
+  }, [ka, kv, distanceType, measurementDelay]);
 
   const [posTolerance, setPosTolerance] =
     useState<Measurement>(defaultPosTolerance);
