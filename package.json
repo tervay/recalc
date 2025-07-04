@@ -68,6 +68,6 @@
     "vite-plugin-comlink": "5.1.0",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4",
-    "zod": "3.25.71"
+    "zod": "3.25.72"
   }
 }
