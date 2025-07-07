@@ -175,8 +175,8 @@ importers:
         specifier: 3.2.4
         version: 3.2.4(@types/node@24.0.10)(jiti@2.4.2)(lightningcss@1.30.1)
       zod:
-        specifier: 3.25.73
-        version: 3.25.73
+        specifier: 3.25.75
+        version: 3.25.75
 
 packages:
 
@@ -3772,8 +3772,8 @@ packages:
   zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
 
-  zod@3.25.73:
-    resolution: {integrity: sha512-fuIKbQAWQl22Ba5d1quwEETQYjqnpKVyZIWAhbnnHgnDd3a+z4YgEfkI5SZ2xMELnLAXo/Flk2uXgysZNf0uaA==}
+  zod@3.25.75:
+    resolution: {integrity: sha512-OhpzAmVzabPOL6C3A3gpAifqr9MqihV/Msx3gor2b2kviCgcb+HM9SEOpMWwwNp9MRunWnhtAKUoo0AHhjyPPg==}
 
 snapshots:
 
@@ -7501,4 +7501,4 @@ snapshots:
 
   zod@3.22.4: {}
 
-  zod@3.25.73: {}
+  zod@3.25.75: {}
