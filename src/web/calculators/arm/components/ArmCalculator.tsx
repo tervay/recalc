@@ -22,7 +22,7 @@ import {
 } from "web/calculators/arm/armMath";
 import rawWorker from "web/calculators/arm/armMath?worker";
 import { ArmState } from "web/calculators/arm/converter";
-import KgKvKaDisplay from "web/calculators/shared/components/KgKvKaDisplay";
+import PositionControlGainAnalysis from "web/calculators/shared/components/PositionControlGainsAnalysis";
 import {
   calculateKa,
   calculateKg,
@@ -259,7 +259,12 @@ export default function ArmCalculator(): JSX.Element {
             For more clarifying info, click the <code>Docs</code> expandable
             below.
           </Message>
-          <KgKvKaDisplay kG={kG} kV={kV} kA={kA} distanceType={"angular"} />
+          <PositionControlGainAnalysis
+            kg={kG}
+            kv={kV}
+            ka={kA}
+            distanceType={"angular"}
+          />
         </Column>
         <Column>
           <Graph

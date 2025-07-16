@@ -15,10 +15,10 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node 18
+      - name: Setup Node 22
         uses: actions/setup-node@v2
         with:
-          node-version: 18
+          node-version: 22
 
       - run: yarn install
 
@@ -42,10 +42,10 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node 18
+      - name: Setup Node 22
         uses: actions/setup-node@v2
         with:
-          node-version: 18
+          node-version: 22
 
       - name: "Vercel dev deploy"
         uses: amondnet/vercel-action@v20

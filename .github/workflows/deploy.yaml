@@ -13,10 +13,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node 18
+      - name: Setup Node 22
         uses: actions/setup-node@v2
         with:
-          node-version: 18
+          node-version: 22
 
       - run: yarn install
 
@@ -37,10 +37,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node 18
+      - name: Setup Node 22
         uses: actions/setup-node@v2
         with:
-          node-version: 18
+          node-version: 22
 
       - name: "Vercel prod deploy"
         uses: amondnet/vercel-action@v20

@@ -7,9 +7,15 @@ import { L0NumberProps } from "common/components/io/new/inputs/types/Types";
 import { SafelyParse } from "common/tooling/io";
 import { useEffect, useState } from "react";
 
-export default function L0Number(props: L0NumberProps): JSX.Element {
+interface StyledL0NumberProps extends L0NumberProps {
+  style?: React.CSSProperties;
+}
+
+export default function L0Number(props: StyledL0NumberProps): JSX.Element {
   const [value, setValue] = props.stateHook;
-  const [stringValue, setStringValue] = useState(value.toString());
+  const [stringValue, setStringValue] = useState(
+    props.roundTo < 100 ? value.toFixed(props.roundTo) : value.toString(),
+  );
 
   const classes = [
     "input",
@@ -32,7 +38,9 @@ export default function L0Number(props: L0NumberProps): JSX.Element {
 
   useEffect(() => {
     if (props.disabledIf()) {
-      setStringValue(value.toFixed(props.roundTo));
+      setStringValue(
+        props.roundTo < 100 ? value.toFixed(props.roundTo) : value.toString(),
+      );
     }
   }, [value]);
 
@@ -45,6 +53,8 @@ export default function L0Number(props: L0NumberProps): JSX.Element {
       id={props.id}
       data-testid={props.id}
       disabled={props.disabledIf()}
+      step={props.step}
+      style={props.style}
     />
   );
 }

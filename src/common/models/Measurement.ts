@@ -73,7 +73,7 @@ export default class Measurement extends Model {
       case "speed":
         return ["in/s", "ft/s", "mph", "m/s", "kph"];
       case "time":
-        return ["s", "min", "hr"];
+        return ["s", "ms", "min", "hr"];
       case "pressure":
         return ["psi", "Pa"];
       case "current":
@@ -89,9 +89,9 @@ export default class Measurement extends Model {
       case "frequency":
         return ["Hz"];
       case "angle":
-        return ["rad", "deg"];
+        return ["rad", "deg", "rotation"];
       case "angular_velocity":
-        return ["rpm"];
+        return ["rpm", "rad/s", "rotation/s", "deg/s"];
       case "power":
         return ["W", "hp"];
       case "acceleration":
@@ -102,14 +102,20 @@ export default class Measurement extends Model {
       if (m.innerQty.isCompatible(Qty(1, "in^2 * lbs"))) {
         // Moment of inertia
         return ["in^2 lbs", "kg m^2"];
+      } else if (m.innerQty.isCompatible("V/m")) {
+        // position kP (linear)
+        return ["V/m", "V/ft", "V/in"];
       } else if (m.innerQty.isCompatible("V*s/m")) {
-        // kV (linear)
+        // kV, position kD, velocity kP (linear)
         return ["V*s/m", "V*s/ft", "V*s/in"];
       } else if (m.innerQty.isCompatible("V*s^2/m")) {
         // kA (linear)
         return ["V*s^2/m", "V*s^2/ft", "V*s^2/in"];
+      } else if (m.innerQty.isCompatible("V/rad")) {
+        // position kP (angular)
+        return ["V/rad", "V/deg", "V/rotation"];
       } else if (m.innerQty.isCompatible("V*s/rad")) {
-        // kV (angular)
+        // kV, position kD, velocity kP (angular)
         return ["V*s/rad", "V*s/deg", "V*s/rotation"];
       } else if (m.innerQty.isCompatible("V*s^2/rad")) {
         // kA (angular)
