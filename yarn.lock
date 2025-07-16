@@ -936,25 +936,6 @@
   resolved "https://registry.yarnpkg.com/@types/katex/-/katex-0.16.3.tgz#a341c89705145b7dd8e2a133b282a133eabe6076"
   integrity sha512-CeVMX9EhVUW8MWnei05eIRks4D5Wscw/W9Byz1s3PA+yJvcdvq9SaDjiUKvRvEgjpdTyJMjQA43ae4KTwsvOPg==
 
-"@types/lodash.clonedeep@^4.5.6":
-  version "4.5.9"
-  resolved "https://registry.yarnpkg.com/@types/lodash.clonedeep/-/lodash.clonedeep-4.5.9.tgz#ea48276c7cc18d080e00bb56cf965bcceb3f0fc1"
-  integrity sha512-19429mWC+FyaAhOLzsS8kZUsI+/GmBAQ0HFiCPsKGU+7pBXOQWhyrY6xNNDwUSX8SMZMJvuFVMF9O5dQOlQK9Q==
-  dependencies:
-    "@types/lodash" "*"
-
-"@types/lodash.defaultsdeep@^4.6.6":
-  version "4.6.9"
-  resolved "https://registry.yarnpkg.com/@types/lodash.defaultsdeep/-/lodash.defaultsdeep-4.6.9.tgz#050fbe389a7a6e245b15da9ee83a8a62f047a1c4"
-  integrity sha512-pLtCFK0YkHfGtGLYLNMTbFB5/G5+RsmQCIbbHH8GOAXjv+gDkVilY98kILfe8JH2Kev0OCReYxp1AjxEjP8ixA==
-  dependencies:
-    "@types/lodash" "*"
-
-"@types/lodash@*":
-  version "4.17.20"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.17.20.tgz#1ca77361d7363432d29f5e55950d9ec1e1c6ea93"
-  integrity sha512-H3MHACvFUEiujabxhaI/ImO6gUrd8oOurg7LQtS7mbwIXA/cUqWrvBsaeJ23aZEPk1TAYkurjfMbSELfoCXlGA==
-
 "@types/lodash@4.17.4":
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.17.4.tgz#0303b64958ee070059e3a7184048a55159fe20b7"
@@ -980,11 +961,6 @@
   integrity sha512-4zXMWD91vBLGRtHK3YbIoFMia+1nqEz72coM42C5ETjnNCa/heoj7NT1G67iAfOqMmcfhuCZ4uNpyz8EjlAejw==
   dependencies:
     undici-types "~7.8.0"
-
-"@types/node@^12.7.5":
-  version "12.20.55"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.55.tgz#c329cbd434c42164f846b909bd6f85b5537f6240"
-  integrity sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==
 
 "@types/prop-types@*":
   version "15.7.15"
@@ -1195,6 +1171,11 @@
     "@typescript-eslint/types" "8.37.0"
     eslint-visitor-keys "^4.2.1"
 
+"@ungap/structured-clone@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
+  integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
+
 "@vercel/analytics@1.5.0":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@vercel/analytics/-/analytics-1.5.0.tgz#073f93694897414b21a8495e2619bbf64447dcaa"
@@ -1288,17 +1269,13 @@ acorn@^8.9.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.15.0.tgz#a360898bc415edaac46c8241f6383975b930b816"
   integrity sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==
 
-adze@1.9.1:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/adze/-/adze-1.9.1.tgz#79a98c45daec71c9d5e5af2728fdd7a324f359ea"
-  integrity sha512-Ae/qZDHY8pyybVNoSHYnCUf6YNkSaICf+uo1UvVEQYGpQH0J7sKUUQWby92N+u5Deo0rt6lH/tu7TQsUtQb5tg==
+adze@2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/adze/-/adze-2.2.5.tgz#38b90dfedfb6f0bd903ab47af56b74e012fe3fa4"
+  integrity sha512-QK+1EdcehjO1IRR8Bd4L7jhpeav+Enrp/cRLOlpHMsc4pdFTAKI5RI3rHqCakIVzq1RVZXCIzykMcD31ipiHAQ==
   dependencies:
-    "@types/lodash.clonedeep" "^4.5.6"
-    "@types/lodash.defaultsdeep" "^4.6.6"
-    "@types/node" "^12.7.5"
-    chalk "^4.1.0"
-    lodash.clonedeep "^4.5.0"
-    lodash.defaultsdeep "^4.6.1"
+    "@ungap/structured-clone" "1.2.0"
+    picocolors "1.1.1"
 
 agent-base@^7.1.0, agent-base@^7.1.2:
   version "7.1.4"
@@ -3844,16 +3821,6 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
-lodash.clonedeep@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
-  integrity sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==
-
-lodash.defaultsdeep@^4.6.1:
-  version "4.6.1"
-  resolved "https://registry.yarnpkg.com/lodash.defaultsdeep/-/lodash.defaultsdeep-4.6.1.tgz#512e9bd721d272d94e3d3a63653fa17516741ca6"
-  integrity sha512-3j8wdDzYuWO3lM3Reg03MuQR957t287Rpcxp1njpEa8oDrikb+FwGdW3n+FELh/A6qib6yPit0j/pv9G/yeAqA==
-
 lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
@@ -4434,7 +4401,7 @@ pend@~1.2.0:
   resolved "https://registry.yarnpkg.com/pend/-/pend-1.2.0.tgz#7a57eb550a6783f9115331fcf4663d5c8e007a50"
   integrity sha512-F3asv42UuXchdzt+xXqfW1OGlVBe+mxa2mqI0pg5yAHZPvFmY3Y6drSf/GQ1A86WgWEN9Kzh/WrgKa6iGcHXLg==
 
-picocolors@^1.1.1:
+picocolors@1.1.1, picocolors@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.1.1.tgz#3d321af3eab939b083c8f929a1d12cda81c26b6b"
   integrity sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==
