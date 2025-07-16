@@ -7,6 +7,7 @@ import {
 import Nav from "common/components/styling/Nav";
 import qs from "query-string";
 import { Suspense } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryParamProvider } from "use-query-params";
 import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6";
@@ -31,104 +32,109 @@ import scoutingConfig from "web/scouting";
 function App(): JSX.Element {
   return (
     <BrowserRouter>
-      <Nav />
-      <section className="section">
-        <div className="container">
-          <Suspense
-            fallback={
-              <progress className="progress is-small is-primary" max="100" />
-            }
-          >
-            <QueryParamProvider
-              adapter={ReactRouter6Adapter}
-              options={{
-                searchStringToObject: qs.parse,
-                objectToSearchString: qs.stringify,
-              }}
+      <HelmetProvider>
+        <Nav />
+        <section className="section">
+          <div className="container">
+            <Suspense
+              fallback={
+                <progress className="progress is-small is-primary" max="100" />
+              }
             >
-              <Routes>
-                <Route path="/" element={<Home />} />
+              <QueryParamProvider
+                adapter={ReactRouter6Adapter}
+                options={{
+                  searchStringToObject: qs.parse,
+                  objectToSearchString: qs.stringify,
+                }}
+              >
+                <Routes>
+                  <Route path="/" element={<Home />} />
 
-                <Route
-                  path={beltsConfig.url}
-                  element={<beltsConfig.component />}
-                />
-                <Route
-                  path={chainConfig.url}
-                  element={<chainConfig.component />}
-                />
-                <Route
-                  path={pneumaticsConfig.url}
-                  element={<pneumaticsConfig.component />}
-                />
-                <Route
-                  path={flywheelConfig.url}
-                  element={<flywheelConfig.component />}
-                />
-                <Route path={armConfig.url} element={<armConfig.component />} />
-                <Route
-                  path={linearConfig.url}
-                  element={<linearConfig.component />}
-                />
-                <Route
-                  path={intakeConfig.url}
-                  element={<intakeConfig.component />}
-                />
-                <Route
-                  path={ratioConfig.url}
-                  element={<ratioConfig.component />}
-                />
-                <Route
-                  path={ratioFinderConfig.url}
-                  element={<ratioFinderConfig.component />}
-                />
-                <Route
-                  path={driveConfig.url}
-                  element={<driveConfig.component />}
-                />
-                <Route
-                  path={motorsConfig.url}
-                  element={<motorsConfig.component />}
-                />
-                <Route
-                  path={compressorsConfig.url}
-                  element={<compressorsConfig.component />}
-                />
-                <Route
-                  path={aboutConfig.url}
-                  element={<aboutConfig.component />}
-                />
-                <Route
-                  path={utilConfig.url}
-                  element={<utilConfig.component />}
-                />
-                <Route
-                  path={scoutingConfig.url}
-                  element={<scoutingConfig.component />}
-                />
-                <Route
-                  path={gearConfig.url}
-                  element={<gearConfig.component />}
-                />
-              </Routes>
-            </QueryParamProvider>
-          </Suspense>
+                  <Route
+                    path={beltsConfig.url}
+                    element={<beltsConfig.component />}
+                  />
+                  <Route
+                    path={chainConfig.url}
+                    element={<chainConfig.component />}
+                  />
+                  <Route
+                    path={pneumaticsConfig.url}
+                    element={<pneumaticsConfig.component />}
+                  />
+                  <Route
+                    path={flywheelConfig.url}
+                    element={<flywheelConfig.component />}
+                  />
+                  <Route
+                    path={armConfig.url}
+                    element={<armConfig.component />}
+                  />
+                  <Route
+                    path={linearConfig.url}
+                    element={<linearConfig.component />}
+                  />
+                  <Route
+                    path={intakeConfig.url}
+                    element={<intakeConfig.component />}
+                  />
+                  <Route
+                    path={ratioConfig.url}
+                    element={<ratioConfig.component />}
+                  />
+                  <Route
+                    path={ratioFinderConfig.url}
+                    element={<ratioFinderConfig.component />}
+                  />
+                  <Route
+                    path={driveConfig.url}
+                    element={<driveConfig.component />}
+                  />
+                  <Route
+                    path={motorsConfig.url}
+                    element={<motorsConfig.component />}
+                  />
+                  <Route
+                    path={compressorsConfig.url}
+                    element={<compressorsConfig.component />}
+                  />
+                  <Route
+                    path={aboutConfig.url}
+                    element={<aboutConfig.component />}
+                  />
+                  <Route
+                    path={utilConfig.url}
+                    element={<utilConfig.component />}
+                  />
+                  <Route
+                    path={scoutingConfig.url}
+                    element={<scoutingConfig.component />}
+                  />
+                  <Route
+                    path={gearConfig.url}
+                    element={<gearConfig.component />}
+                  />
+                </Routes>
+              </QueryParamProvider>
+            </Suspense>
 
-          <Footer>
-            <Columns centered>
-              <Column ofTwelve={6}>
-                <Message color="warning">
-                  These calculators are provided as reference <b>only</b>. These
-                  should not be taken as the holy truth of the universe - they
-                  are estimates created in order to guide you to the best
-                  solution. I cannot guarantee the math is perfectly accurate in
-                  all scenarios.
-                </Message>
-              </Column>
-            </Columns>
-          </Footer>
-        </div>
-      </section>
+            <Footer>
+              <Columns centered>
+                <Column ofTwelve={6}>
+                  <Message color="warning">
+                    These calculators are provided as reference <b>only</b>.
+                    These should not be taken as the holy truth of the universe
+                    - they are estimates created in order to guide you to the
+                    best solution. I cannot guarantee the math is perfectly
+                    accurate in all scenarios.
+                  </Message>
+                </Column>
+              </Columns>
+            </Footer>
+          </div>
+        </section>
+      </HelmetProvider>
     </BrowserRouter>
   );
 }

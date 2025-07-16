@@ -133,7 +133,7 @@ export default function Table<D extends Record<string, unknown>>(props: {
                         ])}
                         key={Math.random()}
                       >
-                        {column.render("Header")}
+                        {column.render("Header") as React.ReactNode}
                         <span>
                           {column.isSorted
                             ? column.isSortedDesc
@@ -159,9 +159,9 @@ export default function Table<D extends Record<string, unknown>>(props: {
                                 className: cell.column.className,
                               },
                             ])}
-                            key={Math.random()}
+                            key={cell.column.id}
                           >
-                            {cell.render("Cell")}
+                            {cell.render("Cell") as React.ReactNode}
                           </td>
                         );
                       })}

@@ -1,5 +1,5 @@
 import PageConfig from "common/models/PageConfig";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function Metadata(props: {
   pageConfig?: PageConfig;
