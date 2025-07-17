@@ -130,6 +130,22 @@ export default class Motor extends Model {
   static KrakensWithFOC(quantity: number): Motor {
     return Motor.fromIdentifier("Kraken X60 (FOC)*", quantity);
   }
+
+  static goBILDA1150(quantity: number): Motor {
+    return Motor.fromIdentifier("5202/3/4 (1150 RPM)", quantity);
+  }
+
+  static goBILDA435(quantity: number): Motor {
+    return Motor.fromIdentifier("5202/3/4 (435 RPM)", quantity);
+  }
+
+  static goBILDA312(quantity: number): Motor {
+    return Motor.fromIdentifier("5202/3/4 (312 RPM)", quantity);
+  }
+
+  static goBILDA60(quantity: number): Motor {
+    return Motor.fromIdentifier("5202/3/4 (60 RPM)", quantity);
+  }
 }
 
 export type IncompleteMotorState = {
@@ -185,7 +201,7 @@ export function solveMotorODE(
   const numStepsPerSec = 800;
   const steps = duration * numStepsPerSec;
 
-  console.log('===============')
+  console.log("===============");
 
   const solver = new ODESolver(
     (t, y) => {
