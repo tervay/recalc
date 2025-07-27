@@ -132,19 +132,19 @@ export default class Motor extends Model {
   }
 
   static goBILDA1150(quantity: number): Motor {
-    return Motor.fromIdentifier("5202/3/4 (1150 RPM)", quantity);
+    return Motor.fromIdentifier("goBILDA 5202/3/4 (1150 RPM)", quantity);
   }
 
   static goBILDA435(quantity: number): Motor {
-    return Motor.fromIdentifier("5202/3/4 (435 RPM)", quantity);
+    return Motor.fromIdentifier("goBILDA 5202/3/4 (435 RPM)", quantity);
   }
 
   static goBILDA312(quantity: number): Motor {
-    return Motor.fromIdentifier("5202/3/4 (312 RPM)", quantity);
+    return Motor.fromIdentifier("goBILDA 5202/3/4 (312 RPM)", quantity);
   }
 
   static goBILDA60(quantity: number): Motor {
-    return Motor.fromIdentifier("5202/3/4 (60 RPM)", quantity);
+    return Motor.fromIdentifier("goBILDA 5202/3/4 (60 RPM)", quantity);
   }
 }
 
