@@ -86,9 +86,9 @@ outputs:
     select: true
   projectileEnergy:
     select: true
-  estimatedKV:
+  kV:
     select: true
-  estimatedKA:
+  kA:
     select: true
   responseTime:
     select: true

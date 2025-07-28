@@ -219,6 +219,18 @@ td:not(.unset-va) {
     -webkit-transform: rotate(360deg);
   }
 }
+
+.cost-function-controls {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.cost-function-controls-toggle {
+  margin-bottom: 5px;
+}
 @-webkit-keyframes spin {
   to {
     -webkit-transform: rotate(360deg);

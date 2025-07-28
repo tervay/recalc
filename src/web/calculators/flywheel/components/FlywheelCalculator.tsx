@@ -28,7 +28,7 @@ import {
   calculateSpeedAfterShot,
   calculateWindupTime,
 } from "web/calculators/flywheel/flywheelMath";
-import KvKaDisplay from "web/calculators/shared/components/KvKaDisplay";
+import VelocityControlGainsAnalysis from "web/calculators/shared/components/VelocityControlGainsAnalysis";
 import { calculateKa, calculateKv } from "web/calculators/shared/sharedMath";
 
 export default function FlywheelCalculator(): JSX.Element {
@@ -515,7 +515,7 @@ export default function FlywheelCalculator(): JSX.Element {
               numberRoundTo={0}
             />
           </SingleInputLine>
-          <KvKaDisplay kV={kV} kA={kA} distanceType={"linear"} />
+          <VelocityControlGainsAnalysis kv={kV} ka={kA} />
         </Column>
       </Columns>
     </>
