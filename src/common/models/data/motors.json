@@ -22,6 +22,17 @@
     "controllerWeight": null
   },
   {
+    "name": "NEO 2.0",
+    "freeSpeed": { "magnitude": 5676, "unit": "rpm" },
+    "stallTorque": { "magnitude": 3.75, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 150, "unit": "A" },
+    "freeCurrent": { "magnitude": 1, "unit": "A" },
+    "weight": { "magnitude": 0.8, "unit": "lbs" },
+    "diameter": { "magnitude": 2.362, "unit": "in" },
+    "url": "https://www.revrobotics.com/rev-21-1653/",
+    "controllerWeight": null
+  },
+  {
     "name": "NEO Vortex*",
     "freeSpeed": { "magnitude": 6784, "unit": "rpm" },
     "stallTorque": { "magnitude": 3.6, "unit": "N*m" },
@@ -53,6 +64,17 @@
     "diameter": { "magnitude": 1.732, "unit": "in" },
     "url": "https://wcproducts.com/products/kraken",
     "controllerWeight": null
+  },
+  {
+    "name": "Thrifty Pulsar",
+    "freeSpeed": { "magnitude": 7500, "unit": "rpm" },
+    "stallTorque": { "magnitude": 3.1, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 189, "unit": "A" },
+    "freeCurrent": { "magnitude": 1, "unit": "A" },
+    "weight": { "magnitude": 0.65, "unit": "lbs" },
+    "diameter": { "magnitude": 1.5, "unit": "in" },
+    "url": "https://www.thethriftybot.com/products/pulsar-775",
+    "controllerWeight": { "magnitude": 0.25, "unit": "lbs" }
   },
   {
     "name": "Falcon 500",
