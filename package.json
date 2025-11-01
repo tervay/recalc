@@ -108,7 +108,7 @@
     "imagemin": "9.0.1",
     "imagemin-webp": "8.0.0",
     "jsdom": "27.1.0",
-    "lint-staged": "16.2.4",
+    "lint-staged": "16.2.6",
     "prettier": "3.6.2",
     "prettier-plugin-organize-imports": "4.3.0",
     "sass": "1.77.2",
