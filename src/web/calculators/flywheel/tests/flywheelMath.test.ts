@@ -50,7 +50,7 @@ describe("flywheelMath", () => {
       ratio: new Ratio(1),
       targetSpeed: rpm(5000),
       efficiency: 50,
-      expected: s(6.2876),
+      expected: s(5.851),
     },
   ])(
     "%p calculateWindupTime",

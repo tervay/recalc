@@ -128,7 +128,7 @@ export default class Motor extends Model {
   }
 
   static KrakensWithFOC(quantity: number): Motor {
-    return Motor.fromIdentifier("Kraken X60 (FOC)*", quantity);
+    return Motor.fromIdentifier("Kraken X60 (FOC)", quantity);
   }
 
   static goBILDA1150(quantity: number): Motor {
