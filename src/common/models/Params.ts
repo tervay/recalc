@@ -30,6 +30,10 @@ export const MotorParam = {
       return null;
     }
 
+    if (typeof s === "string" && s.includes("*")) {
+      s = s.replace(/\*/g, "");
+    }
+
     return Motor.fromDict(decodeJson(s) as MotorDict);
   },
 };
