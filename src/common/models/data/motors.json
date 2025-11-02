@@ -88,17 +88,6 @@
     "controllerWeight": { "magnitude": 0.25, "unit": "lbs" }
   },
   {
-    "name": "Cu60",
-    "freeSpeed": { "magnitude": 6780, "unit": "rpm" },
-    "stallTorque": { "magnitude": 7.3, "unit": "N*m" },
-    "stallCurrent": { "magnitude": 440, "unit": "A" },
-    "freeCurrent": { "magnitude": 2.0, "unit": "A" },
-    "weight": { "magnitude": 1.1, "unit": "lbs" },
-    "diameter": { "magnitude": 2.362, "unit": "in" },
-    "url": "https://newsite.reduxrobotics.com/products/cu60",
-    "controllerWeight": { "magnitude": 0.3, "unit": "lbs" }
-  },
-  {
     "name": "Minion",
     "freeSpeed": { "magnitude": 7703, "unit": "rpm" },
     "stallTorque": { "magnitude": 3.173, "unit": "N*m" },
