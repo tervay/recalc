@@ -45,7 +45,7 @@
     "@types/node": "24.10.0",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
-    "commander": "14.0.1",
+    "commander": "14.0.2",
     "eslint": "9.39.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-import-resolver-typescript": "4.4.4",
