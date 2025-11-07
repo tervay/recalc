@@ -151,8 +151,8 @@ importers:
         specifier: 0.7.1
         version: 0.7.1(@trivago/prettier-plugin-sort-imports@6.0.0(prettier@3.6.2))(prettier@3.6.2)
       tailwindcss:
-        specifier: 4.1.16
-        version: 4.1.16
+        specifier: 4.1.17
+        version: 4.1.17
       tw-animate-css:
         specifier: 1.4.0
         version: 1.4.0
