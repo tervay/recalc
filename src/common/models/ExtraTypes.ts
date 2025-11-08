@@ -39,7 +39,8 @@ export type UseStateObject<T extends BaseState> = {
   [Prop in keyof T]: StateHook<T[Prop]>;
 };
 
-export type SetterStr<Str extends string> = `set${PascalCase<Str>}`;
+export type SetterStr<Str extends string> =
+  `set${PascalCase<Str, { preserveConsecutiveUppercase: true }>}`;
 type Setters<K extends BaseState> = {
   [Prop in keyof K as SetterStr<Prop extends string ? Prop : never>]: Dispatch<
     SetStateAction<K[Prop]>
