@@ -13,21 +13,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Setup Node 22
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: 'pnpm'
 
-      - run: yarn install
+      - run: pnpm install --frozen-lockfile
 
-      - run: yarn build
+      - run: pnpm build
         env:
           VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
 
       - name: Run tests
         env:
           VITE_KEYPHRASE: ${{ secrets.VITE_KEYPHRASE }}
-        run: yarn test
+        run: pnpm test
 
   deploy_prod:
     needs: [unit_tests]
@@ -37,10 +43,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Setup Node 22
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: 'pnpm'
 
       - name: "Vercel prod deploy"
         uses: amondnet/vercel-action@v20
