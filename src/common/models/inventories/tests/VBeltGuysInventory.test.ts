@@ -20,15 +20,9 @@ describe("VBeltGuysInventory", () => {
       belt: Belt.fromTeeth(100, mm(3), mm(9)),
       url: "https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt",
     },
-  ])(
-    {
-      name: "objToUrl",
-      timeout: 20 * 1000,
-    },
-    ({ belt, url }) => {
-      expect(new VBeltGuysInventory().makeUrl(belt)).toEqual(url);
-    },
-  );
+  ])("objToUrl", ({ belt, url }) => {
+    expect(new VBeltGuysInventory().makeUrl(belt)).toEqual(url);
+  });
 
   test.each([
     {
