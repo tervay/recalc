@@ -21,11 +21,13 @@ describe("VBeltGuysInventory", () => {
       url: "https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt",
     },
   ])(
-    "objToUrl",
+    {
+      name: "objToUrl",
+      timeout: 20 * 1000,
+    },
     ({ belt, url }) => {
       expect(new VBeltGuysInventory().makeUrl(belt)).toEqual(url);
     },
-    { timeout: 20 * 1000 },
   );
 
   test.each([
