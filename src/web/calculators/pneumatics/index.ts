@@ -17,7 +17,6 @@ const pneumaticsConfig: PageConfig = {
   url: "/pneumatics",
   title: "Pneumatics Calculator",
   description: "Pneumatics calc",
-  image: "/media/Pneumatics",
   version: 1,
   component: lazy(
     () => import("web/calculators/pneumatics/components/PneumaticsPage"),

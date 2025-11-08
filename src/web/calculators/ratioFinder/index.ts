@@ -6,8 +6,8 @@ import { BooleanParam, NumberParam, withDefault } from "serialize-query-params";
 
 const ratioFinderConfig: PageConfig = {
   url: "/ratioFinder",
-  title: "Ratio Finder (WIP)",
-  description: "Ratio Finder (WIP)",
+  title: "Ratio Finder",
+  description: "Ratio Finder",
   version: 1,
   component: lazy(
     () =>
@@ -22,7 +22,7 @@ export const RatioFinderParamsV1 = {
   reductionError: withDefault(NumberParam, 0.1),
   minStages: withDefault(NumberParam, 1),
   maxStages: withDefault(NumberParam, 2),
-  startingBore: withDefault(BoreParam, "NEO"),
+  startingBore: withDefault(BoreParam, "SplineXS"),
   forceStartingPinionSize: withDefault(BooleanParam, false),
   startingPinionSize: withDefault(NumberParam, 14),
   printablePulleys: withDefault(BooleanParam, false),

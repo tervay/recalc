@@ -10,7 +10,6 @@ const beltsConfig: PageConfig = {
   url: "/belts",
   title: "Belt Calculator",
   description: "Timing belt center-center calculator",
-  image: "/media/Belts",
   version: 1,
   component: lazy(() => import("web/calculators/belts/components/BeltsPage")),
 };
@@ -29,10 +28,12 @@ export const BeltsParamsV1 = {
 };
 export type BeltsStateV1 = Stateify<typeof BeltsParamsV1>;
 
+import { SimplePulley } from "common/models/Pulley";
+
 export const BeltParamsV2 = {
   pulley: withDefault(
     PulleyParam,
-    Pulley.fromTeeth(100, new Measurement(15, "mm")),
+    new SimplePulley(100, new Measurement(15, "mm")) as Pulley,
   ),
 };
 export type BeltStateV2 = Stateify<typeof BeltParamsV2>;

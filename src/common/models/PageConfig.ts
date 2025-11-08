@@ -3,7 +3,6 @@ import { FunctionComponent, LazyExoticComponent } from "react";
 
 type PageConfig = {
   readonly url: string;
-  readonly image?: string;
   readonly title: string;
   readonly version?: number;
   readonly initialState?: Record<string, ParamValue>;

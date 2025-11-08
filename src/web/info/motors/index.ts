@@ -15,7 +15,6 @@ const motorsConfig: PageConfig = {
   url: "/motors",
   title: "Motor Playground",
   description: "FRC motor playground",
-  image: "/media/Motor",
   component: lazy(() => import("./components/MotorsPage")),
 };
 

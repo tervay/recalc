@@ -12,7 +12,6 @@ const linearConfig: PageConfig = {
   url: "/linear",
   title: "Linear Mechanism Calculator",
   description: "Linear mechanism calculator",
-  image: "/media/Elevator",
   version: 1,
   component: lazy(() => import("web/calculators/linear/components/LinearPage")),
 };

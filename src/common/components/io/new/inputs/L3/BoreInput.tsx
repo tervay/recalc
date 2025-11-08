@@ -2,7 +2,8 @@ import L1ControlledSelect, {
   makeDefaultL1ControlledSelectProps,
 } from "common/components/io/new/inputs/L1/L1ControlledSelect";
 import { BoreInputProps } from "common/components/io/new/inputs/types/Types";
-import { Bore, MotorBores, NonMotorBores } from "common/models/ExtraTypes";
+import type { Bore } from "common/models/types/common";
+import { MotorBores, NonMotorBores } from "common/models/types/common";
 
 export default function BoreInput(props: BoreInputProps): JSX.Element {
   return (

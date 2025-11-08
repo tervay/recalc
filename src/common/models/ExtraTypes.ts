@@ -124,4 +124,8 @@ export const in_s2 = (n: number): Measurement => new Measurement(n, "in/s2");
 export const m_s2 = (n: number): Measurement => new Measurement(n, "m/s2");
 export const ft_s2 = (n: number): Measurement => new Measurement(n, "ft/s2");
 
-export type JSONable = number | string | Measurement | Belt | Pulley;
+import { SimpleBelt } from "./Belt";
+import { SimplePulley } from "./Pulley";
+import { SimpleSprocket } from "./Sprocket";
+
+export type JSONable = number | string | Measurement | Belt | Pulley | SimpleBelt | SimplePulley | SimpleSprocket;

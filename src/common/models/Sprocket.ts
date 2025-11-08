@@ -1,52 +1,67 @@
-import { FRCVendor } from "common/models/ExtraTypes";
-import Measurement, { MeasurementDict } from "common/models/Measurement";
+import Measurement from "common/models/Measurement";
 import Model from "common/models/Model";
-import { isEqual } from "lodash";
+import type { Bore } from "common/models/types/common";
+import type { JSONSprocket } from "common/models/types/sprockets";
 
-export type SprocketDict = {
-  readonly teeth: number;
-  readonly pitch: MeasurementDict;
-};
-
-type VendorData = {
-  bore: string;
-  wrong: boolean;
-  vendors: FRCVendor[];
-};
-
-export default class Sprocket extends Model {
+export class SimpleSprocket extends Model {
+  public readonly pitch: Measurement;
   public readonly pitchDiameter: Measurement;
-  public readonly bore?: string;
-  public readonly wrong?: boolean;
-  public readonly vendors?: FRCVendor[];
 
   constructor(
     public readonly teeth: number,
-    public readonly pitch: Measurement,
-    vendorData?: VendorData,
+    public readonly chainType: string,
   ) {
-    super("Sprocket");
-    this.pitchDiameter =
-      teeth == 0
-        ? new Measurement(0, "in")
-        : pitch.div(Math.sin(Math.PI / teeth));
-    this.bore = vendorData?.bore;
-    this.wrong = vendorData?.wrong;
-    this.vendors = vendorData?.vendors;
+    super('SimpleSprocket');
+    this.pitch =
+      {
+        '#25': new Measurement(0.25, 'in'),
+        '#35': new Measurement(0.375, 'in'),
+        '#40': new Measurement(0.5, 'in'),
+      }[chainType] ?? new Measurement(0, 'in');
+
+    this.pitchDiameter = this.pitch.mul(this.teeth).div(Math.PI);
   }
 
-  toDict(): SprocketDict {
+  public toDict(): Record<string, unknown> {
     return {
       teeth: this.teeth,
-      pitch: this.pitch.toDict(),
+      chainType: this.chainType,
     };
   }
 
-  static fromDict(d: SprocketDict): Sprocket {
-    return new Sprocket(d.teeth, Measurement.fromDict(d.pitch));
+  eq<M extends Model>(_m: M): boolean {
+    return false;
+  }
+}
+
+export default class Sprocket extends SimpleSprocket {
+  constructor(
+    public readonly teeth: number,
+    public readonly bore: Bore,
+    public readonly chainType: string,
+    public readonly url: string,
+    public readonly sku: string | null,
+    public readonly vendor: string,
+  ) {
+    super(teeth, chainType);
   }
 
-  eq<M extends Model>(m: M): boolean {
-    return m instanceof Sprocket && isEqual(this.toDict(), m.toDict());
+  public static fromJson(json: JSONSprocket): Sprocket {
+    return new Sprocket(
+      json.teeth,
+      json.bore,
+      json.chainType,
+      json.url,
+      json.sku,
+      json.vendor,
+    );
+  }
+
+  public toDict(): Record<string, unknown> {
+    return super.toDict();
+  }
+
+  eq<M extends Model>(_m: M): boolean {
+    return false;
   }
 }

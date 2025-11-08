@@ -8,10 +8,10 @@ import {
 import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
 import NumericOutput from "common/components/io/outputs/NumberOutput";
 import { Column, Columns, Divider } from "common/components/styling/Building";
-import Belt from "common/models/Belt";
+import { SimpleBelt } from "common/models/Belt";
 import { StateHook } from "common/models/ExtraTypes";
 import Measurement from "common/models/Measurement";
-import Pulley from "common/models/Pulley";
+import { SimplePulley } from "common/models/Pulley";
 import { useGettersSetters } from "common/tooling/conversion";
 import { useEffect, useState } from "react";
 import { BeltsParamsV1, BeltsStateV1 } from "web/calculators/belts";
@@ -40,51 +40,54 @@ interface BeltOptionProps {
 export default function BeltsCalculator(): JSX.Element {
   const [get, set] = useGettersSetters(BeltState.getState() as BeltsStateV1);
 
+  const p1 = new SimplePulley(get.p1Teeth, get.pitch);
+  const p2 = new SimplePulley(get.p2Teeth, get.pitch);
+
   const calculate = {
-    p1PD: () => Pulley.fromTeeth(get.p1Teeth, get.pitch).pitchDiameter,
-    p2PD: () => Pulley.fromTeeth(get.p2Teeth, get.pitch).pitchDiameter,
+    p1PD: () => p1.pitchDiameter,
+    p2PD: () => p2.pitchDiameter,
     smallerCenter: (res: ClosestCentersResult) => res.smaller.distance,
     smallerTeeth: (res: ClosestCentersResult) => res.smaller.belt.teeth,
     largerCenter: (res: ClosestCentersResult) => res.larger.distance,
     largerTeeth: (res: ClosestCentersResult) => res.larger.belt.teeth,
     p1SmallMesh: () =>
       teethInMesh(
-        Pulley.fromTeeth(get.p1Teeth, get.pitch),
-        Pulley.fromTeeth(get.p2Teeth, get.pitch),
+        p1,
+        p2,
         smallerCenter,
-        Pulley.fromTeeth(get.p1Teeth, get.pitch),
+        p1,
       ),
     p2SmallMesh: () =>
       teethInMesh(
-        Pulley.fromTeeth(get.p1Teeth, get.pitch),
-        Pulley.fromTeeth(get.p2Teeth, get.pitch),
+        p1,
+        p2,
         smallerCenter,
-        Pulley.fromTeeth(get.p2Teeth, get.pitch),
+        p2,
       ),
     p1LargeMesh: () =>
       teethInMesh(
-        Pulley.fromTeeth(get.p1Teeth, get.pitch),
-        Pulley.fromTeeth(get.p2Teeth, get.pitch),
+        p1,
+        p2,
         largerCenter,
-        Pulley.fromTeeth(get.p1Teeth, get.pitch),
+        p1,
       ),
     p2LargeMesh: () =>
       teethInMesh(
-        Pulley.fromTeeth(get.p1Teeth, get.pitch),
-        Pulley.fromTeeth(get.p2Teeth, get.pitch),
+        p1,
+        p2,
         largerCenter,
-        Pulley.fromTeeth(get.p2Teeth, get.pitch),
+        p2,
       ),
     smallDistanceBetweenPulleys: () =>
       calculateDistanceBetweenPulleys(
-        Pulley.fromTeeth(get.p1Teeth, get.pitch),
-        Pulley.fromTeeth(get.p2Teeth, get.pitch),
+        p1,
+        p2,
         smallerCenter,
       ),
     largeDistanceBetweenPulleys: () =>
       calculateDistanceBetweenPulleys(
-        Pulley.fromTeeth(get.p1Teeth, get.pitch),
-        Pulley.fromTeeth(get.p2Teeth, get.pitch),
+        p1,
+        p2,
         largerCenter,
       ),
   };
@@ -93,8 +96,8 @@ export default function BeltsCalculator(): JSX.Element {
   const [p2pd, setP2PD] = useState(calculate.p2PD());
 
   const results = calculateClosestCenters(
-    Pulley.fromTeeth(get.p1Teeth, get.pitch),
-    Pulley.fromTeeth(get.p2Teeth, get.pitch),
+    p1,
+    p2,
     get.desiredCenter,
     get.toothIncrement,
   );
@@ -148,17 +151,17 @@ export default function BeltsCalculator(): JSX.Element {
   useEffect(() => {
     if (get.useCustomBelt) {
       const dist = calculateDistance(
-        Pulley.fromTeeth(get.p1Teeth, get.pitch),
-        Pulley.fromTeeth(get.p2Teeth, get.pitch),
-        Belt.fromTeeth(get.customBeltTeeth, get.pitch),
+        p1,
+        p2,
+        new SimpleBelt(get.customBeltTeeth, get.pitch),
       );
 
       setSmallerCenter(dist.add(get.extraCenter).to(smallerCenter.units()));
       setSmallerTeeth(get.customBeltTeeth);
     } else {
       const results = calculateClosestCenters(
-        Pulley.fromTeeth(get.p1Teeth, get.pitch),
-        Pulley.fromTeeth(get.p2Teeth, get.pitch),
+        p1,
+        p2,
         get.desiredCenter,
         get.toothIncrement,
       );
@@ -475,8 +478,8 @@ export default function BeltsCalculator(): JSX.Element {
           <PulleyCheatSheet
             pitch={get.pitch}
             currentPulleys={[
-              Pulley.fromTeeth(get.p1Teeth, get.pitch),
-              Pulley.fromTeeth(get.p2Teeth, get.pitch),
+              p1,
+              p2,
             ]}
           />
         </Column>

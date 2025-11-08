@@ -10,7 +10,7 @@ import { BooleanParam, NumberParam, withDefault } from "serialize-query-params";
 
 const driveConfig: PageConfig = {
   url: "/drive",
-  title: "Drivetrain Calculator (WIP)",
+  title: "Drivetrain Calculator",
   description: "Drivetrain Calculator",
   version: 1,
   component: lazy(() => import("web/calculators/drive/components/DrivePage")),

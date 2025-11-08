@@ -9,7 +9,6 @@ const compressorsConfig: PageConfig = {
   url: "/compressors",
   title: "Compressor Playground",
   description: "Compressor playground",
-  image: "/media/Compressor",
   component: lazy(() => import("./components/CompressorsPage")),
 };
 

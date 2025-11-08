@@ -1,72 +1,52 @@
-import Belt from "common/models/Belt";
-import VBeltGuysInventory from "common/models/inventories/VBeltGuysInventory";
 import Measurement from "common/models/Measurement";
-import usePromise from "react-use-promise";
+import { JSONBelt, zJSONBelt } from "common/models/types/belts";
 
-const vbg = new VBeltGuysInventory({
-  allowAuth: false,
-  authCb: null,
-  offlineData: null,
-});
-vbg.authenticate();
+import revBelts from "generated/rev/belts.json";
+import swyftBelts from "generated/swyft/belts.json";
+import vbgBelts from "generated/vbg/belts.json";
+import wcpBelts from "generated/wcp/belts.json";
 
-const frcBelts: Belt[] = Belt.getAllBelts();
+const belts: JSONBelt[] = [
+  ...swyftBelts,
+  ...vbgBelts,
+  ...wcpBelts,
+  ...revBelts,
+].map((b) => zJSONBelt.parse(b));
 
-function frcAvailableRows(belt: Belt): JSX.Element[] {
-  return (
-    frcBelts
-      .filter((b) => b.eq(belt))
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      .filter((b) => b.width?.eq(belt.width!))
-      .map((b) => (
-        <tr
-          key={(b.url === undefined ? "" : b.url) + b.teeth + b.width?.format()}
-        >
-          <th>
-            <a target={"_blank"} href={b.url}>
-              {b.vendor}
-            </a>
-          </th>
-          <td>{b.type}</td>
-          <td>{b.pitch.format()}</td>
-          <td>{b.teeth}</td>
-          <td>{b.width?.format()}</td>
-        </tr>
-      ))
-  );
-}
-
-function VbgAvailableRows(props: { belt: Belt }): JSX.Element {
-  const scan = vbg.scanInventory(props.belt);
-  const [result, _, state] = usePromise(
-    !scan.found
-      ? vbg.pingSite(props.belt)
-      : new Promise((resolve) => resolve(208)),
-    [props.belt],
-  );
-
-  let div = <></>;
-  const showDiv =
-    (scan.found && scan.has === true) ||
-    (state === "resolved" && result === 200);
-
-  if (showDiv) {
-    div = (
-      <tr>
+function frcAvailableRows(teeth: number, pitch: Measurement): JSX.Element[] {
+  return belts
+    .filter((b) => pitch.eq(new Measurement(b.pitch, "mm")))
+    .filter((b) => b.teeth === teeth)
+    .map((b) => (
+      <tr
+        key={
+          b.sku ??
+          (b.url === undefined ? "" : b.url) +
+            b.teeth +
+            new Measurement(b.width, "mm").format()
+        }
+      >
         <th>
-          <a target={"_blank"} href={vbg.makeUrl(props.belt)}>
-            VBeltGuys
+          <a target={"_blank"} href={b.url}>
+            {b.vendor}
           </a>
         </th>
-        <td>HTD</td>
-        <td>{props.belt.pitch.format()}</td>
-        <td>{props.belt.teeth}</td>
-        <td>{props.belt.width?.format()}</td>
+        <td>{b.profile}</td>
+        <td>
+          {new Measurement(
+            b.pitch,
+            b.profile === "RT25" ? "in" : "mm",
+          ).format()}
+        </td>
+        <td>{b.teeth}</td>
+        <td>
+          {new Measurement(
+            b.width,
+            b.profile === "RT25" ? "in" : "mm",
+          ).format()}
+        </td>
       </tr>
-    );
-  }
-
-  return div;
+    ));
 }
 
 export default function InventoryTable(props: {
@@ -97,47 +77,6 @@ export default function InventoryTable(props: {
     );
   }
 
-  const smallVbgDivs = (
-    <>
-      <VbgAvailableRows
-        belt={Belt.fromTeeth(
-          props.smallerTeeth,
-          props.pitch,
-          new Measurement(9, "mm"),
-        )}
-      />
-      <VbgAvailableRows
-        belt={Belt.fromTeeth(
-          props.smallerTeeth,
-          props.pitch,
-          new Measurement(15, "mm"),
-        )}
-      />
-    </>
-  );
-  let vbgDivs = smallVbgDivs;
-  if (props.largerTeeth !== undefined) {
-    vbgDivs = (
-      <>
-        {smallVbgDivs}
-        <VbgAvailableRows
-          belt={Belt.fromTeeth(
-            props.largerTeeth,
-            props.pitch,
-            new Measurement(9, "mm"),
-          )}
-        />
-        <VbgAvailableRows
-          belt={Belt.fromTeeth(
-            props.largerTeeth,
-            props.pitch,
-            new Measurement(15, "mm"),
-          )}
-        />
-      </>
-    );
-  }
-
   const id = "inventory-table";
   return (
     <div id={id} data-testid={id} style={{ paddingBottom: "8px" }}>
@@ -146,37 +85,9 @@ export default function InventoryTable(props: {
           <table className="table is-fullwidth is-narrow is-hoverable">
             {tHead}
             <tbody>
-              {frcAvailableRows(
-                Belt.fromTeeth(
-                  props.smallerTeeth,
-                  props.pitch,
-                  new Measurement(9, "mm"),
-                ),
-              )}
-              {frcAvailableRows(
-                Belt.fromTeeth(
-                  props.smallerTeeth,
-                  props.pitch,
-                  new Measurement(15, "mm"),
-                ),
-              )}
+              {frcAvailableRows(props.smallerTeeth, props.pitch)}
               {props.largerTeeth &&
-                frcAvailableRows(
-                  Belt.fromTeeth(
-                    props.largerTeeth,
-                    props.pitch,
-                    new Measurement(9, "mm"),
-                  ),
-                )}
-              {props.largerTeeth &&
-                frcAvailableRows(
-                  Belt.fromTeeth(
-                    props.largerTeeth,
-                    props.pitch,
-                    new Measurement(15, "mm"),
-                  ),
-                )}
-              {vbgDivs}
+                frcAvailableRows(props.largerTeeth, props.pitch)}
             </tbody>
           </table>
         </div>

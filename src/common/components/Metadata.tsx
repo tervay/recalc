@@ -21,11 +21,6 @@ export default function Metadata(props: {
         />
 
         <meta
-          property="og:image"
-          content={window.location.origin + props.pageConfig.image + ".png"}
-        />
-
-        <meta
           name="description"
           content={"ReCalc (for FRC) - " + props.pageConfig.description}
         />

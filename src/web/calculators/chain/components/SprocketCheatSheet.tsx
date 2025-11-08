@@ -1,29 +1,29 @@
-import Chain, { chainPitchMap } from "common/models/Chain";
-import _data from "common/models/data/sprockets.json";
-import { FRCVendor } from "common/models/ExtraTypes";
-import Sprocket from "common/models/Sprocket";
-import React from "react";
+import Chain from "common/models/Chain";
+import Sprocket, { SimpleSprocket } from "common/models/Sprocket";
+import type { JSONSprocket } from "common/models/types/sprockets";
+import ttbSprockets from "generated/ttb/sprockets.json";
+import wcpSprockets from "generated/wcp/sprockets.json";
 
 export default function SprocketCheatSheet(props: {
   chainType: Chain;
-  currentSprockets: Sprocket[];
+  currentSprockets: SimpleSprocket[];
 }): JSX.Element {
   const sprocketTeeth = props.currentSprockets.map((s) => s.teeth);
 
-  const data = _data
-    .map((s) => {
-      return new Sprocket(s.teeth, chainPitchMap[s.chain], {
-        bore: s.bore,
-        vendors: s.vendors as FRCVendor[],
-        wrong: s.wrong,
-      });
-    })
-    .filter((s) => s.pitch.eq(props.chainType.pitch));
+  const allSprockets = [
+    ...(wcpSprockets as JSONSprocket[]),
+    ...(ttbSprockets as JSONSprocket[]),
+  ];
 
-  const VendorList = (vendors: FRCVendor[]) =>
-    vendors
-      .map<React.ReactNode>((v) => <span key={v + Math.random()}>{v}</span>)
-      .reduce((p, c) => [p, ", ", c]);
+  const data = allSprockets
+    .filter((s) => s.chainType === props.chainType.chainType())
+    .map((s) => Sprocket.fromJson(s))
+    .toSorted(
+      (a, b) =>
+        a.teeth - b.teeth ||
+        a.vendor.localeCompare(b.vendor) ||
+        a.bore.localeCompare(b.bore),
+    );
 
   return (
     <>
@@ -37,26 +37,25 @@ export default function SprocketCheatSheet(props: {
               <th>Vendor</th>
               <th>Pitch</th>
               <th>Teeth</th>
-              <th>PD</th>
               <th>Bore</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((sprocket) => (
+            {data.map((s, idx) => (
               <tr
-                key={JSON.stringify(sprocket)}
+                key={idx}
                 className={
-                  sprocketTeeth.includes(sprocket.teeth) ? "emphasize-row" : ""
+                  sprocketTeeth.includes(s.teeth) ? "emphasize-row" : ""
                 }
               >
-                {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-                <td>{VendorList(sprocket.vendors!)}</td>
-                <td>{sprocket.pitch.format()}</td>
-                <td>{sprocket.teeth}T</td>
                 <td>
-                  {sprocket.pitchDiameter.to("in").toPrecision(0.001).scalar}"
+                  <a target={"_blank"} href={s.url}>
+                    {s.vendor}
+                  </a>
                 </td>
-                <td className="is-size-7">{sprocket.bore}</td>
+                <td>{s.pitch.format()}</td>
+                <td>{s.teeth}T</td>
+                <td className="is-size-7">{s.bore}</td>
               </tr>
             ))}
           </tbody>

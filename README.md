@@ -24,8 +24,6 @@ $ yarn
 
 `yarn dev:format` - format source files
 
-`yarn dev:encrypt` - encrypt secrets/credentials
-
 `yarn dev:webp` - convert images to `.webp`
 
 

@@ -30,6 +30,10 @@ export default class Chain extends Model {
     };
   }
 
+  chainType(): string {
+    return this.identifier;
+  }
+
   static fromDict(d: ChainDict): Chain {
     return new Chain(d.name);
   }
