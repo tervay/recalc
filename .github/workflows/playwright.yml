@@ -12,15 +12,20 @@ jobs:
     if: false
     steps:
       - uses: actions/checkout@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
+          cache: 'pnpm'
       - name: Install dependencies
-        run: npm install -g yarn && yarn
+        run: pnpm install --frozen-lockfile
       - name: Install Playwright Browsers
-        run: yarn playwright install --with-deps
+        run: pnpm playwright install --with-deps
       - name: Run Playwright tests
-        run: yarn playwright test
+        run: pnpm playwright test
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
