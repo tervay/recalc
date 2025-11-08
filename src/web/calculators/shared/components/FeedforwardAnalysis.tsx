@@ -63,7 +63,10 @@ const FeedforwardAnalysis: React.FC<FeedforwardAnalysisProps> = ({
         tooltip="The exponential time constant (τ) of the system, representing the time it takes to reach 1-1/e (~63.2%) of its steady-state velocity after a step change in applied voltage. Lower values indicate faster response."
       >
         <MeasurementOutput
-          stateHook={[kA.div(kV), () => undefined]}
+          stateHook={[
+            kV.scalar === 0 ? new Measurement(0, "s") : kA.div(kV),
+            () => undefined,
+          ]}
           numberRoundTo={1}
           defaultUnit="ms"
         />

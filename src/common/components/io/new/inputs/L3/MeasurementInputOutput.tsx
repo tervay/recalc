@@ -40,6 +40,12 @@ export default function MeasurementInputOutput(
 
   const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = parseFloat(event.target.value);
+
+    if (isNaN(newValue)) {
+      setNumberValue(event.target.value);
+      return;
+    }
+
     setNumberValue(newValue.toString());
     setMeas((prevMeas) => new Measurement(newValue, unitValue));
   };
