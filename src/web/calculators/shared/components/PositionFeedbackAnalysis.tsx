@@ -37,8 +37,8 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
   );
 
   const defaultVelTolerance = React.useMemo(() => {
-    const dtTolerance = Measurement.max(ka.div(kv), measurementDelay);
     try {
+      const dtTolerance = Measurement.max(ka.div(kv), measurementDelay);
       return batteryVoltage.div(ka).mul(dtTolerance).mul(0.1);
     } catch (e) {
       return new Measurement(
@@ -52,8 +52,8 @@ const PositionFeedbackAnalysis: React.FC<PositionFeedbackAnalysisProps> = ({
     useState<Measurement>(defaultVelTolerance);
 
   const defaultPosTolerance = React.useMemo(() => {
-    const dtTolerance = Measurement.max(ka.div(kv), measurementDelay);
     try {
+      const dtTolerance = Measurement.max(ka.div(kv), measurementDelay);
       return batteryVoltage.mul(dtTolerance).mul(dtTolerance).div(ka);
     } catch (e) {
       return new Measurement(0, distanceType === "angular" ? "rotation" : "m");
