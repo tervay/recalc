@@ -24,6 +24,10 @@ export default function NumberInput({
   const [proxyValue, setProxyValue] = useState(value.toString());
 
   useEffect(() => {
+    setProxyValue(value.toString());
+  }, [value]);
+
+  useEffect(() => {
     if (proxyValue !== '' && proxyValue !== '0') {
       setValue(Number(proxyValue));
     } else {
@@ -50,12 +54,23 @@ export default function NumberInput({
         </TooltipProvider>
       )}
       <Input
+        type="number"
         value={proxyValue}
         onChange={(e) => {
           if (e.target.value !== '') {
             setProxyValue(e.target.value);
           } else {
             setProxyValue('');
+          }
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+            const currentValue = Number(proxyValue) || 0;
+            const step = e.shiftKey ? 10 : 1;
+            const newValue =
+              e.key === 'ArrowUp' ? currentValue + step : currentValue - step;
+            setProxyValue(newValue.toString());
+            e.preventDefault();
           }
         }}
         data-testid={testId}

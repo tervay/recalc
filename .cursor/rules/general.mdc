@@ -30,3 +30,4 @@ ReCalc is a design calculator website primarily used for the FIRST Robotics Comp
 - Always check if a component exists in Shadcn.
 - If a component does exist in Shadcn, install it via the command line (`pnpm dlx shadcn@latest add <component>`).
 - When installing new NPM dependencies, always pin to a specific version.
+- Before running Playwright tests, make sure to build the app with `pnpm run build`.
