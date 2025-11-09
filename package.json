@@ -2,6 +2,10 @@
   "name": "recalc4",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.20.0",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
