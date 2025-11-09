@@ -56,14 +56,14 @@
   },
   {
     "name": "NEO 2.0",
-    "freeSpeed": { "magnitude": 5676, "unit": "rpm" },
-    "stallTorque": { "magnitude": 3.75, "unit": "N*m" },
-    "stallCurrent": { "magnitude": 150, "unit": "A" },
-    "freeCurrent": { "magnitude": 1, "unit": "A" },
-    "weight": { "magnitude": 0.8, "unit": "lbs" },
+    "freeSpeed": { "magnitude": 5906, "unit": "rpm" },
+    "stallTorque": { "magnitude": 4.201, "unit": "N*m" },
+    "stallCurrent": { "magnitude": 216.269, "unit": "A" },
+    "freeCurrent": { "magnitude": 1.782, "unit": "A" },
+    "weight": { "magnitude": 0.802, "unit": "lbs" },
     "diameter": { "magnitude": 2.362, "unit": "in" },
     "url": "https://www.revrobotics.com/rev-21-1653/",
-    "controllerWeight": null
+    "controllerWeight": { "magnitude": 0.25, "unit": "lbs" }
   },
   {
     "name": "NEO",
@@ -71,7 +71,7 @@
     "stallTorque": { "magnitude": 4.201, "unit": "N*m" },
     "stallCurrent": { "magnitude": 216.269, "unit": "A" },
     "freeCurrent": { "magnitude": 1.782, "unit": "A" },
-    "weight": { "magnitude": 0.94, "unit": "lbs" },
+    "weight": { "magnitude": 0.938, "unit": "lbs" },
     "diameter": { "magnitude": 2.36, "unit": "in" },
     "url": "https://www.revrobotics.com/rev-21-1650/",
     "controllerWeight": { "magnitude": 0.25, "unit": "lbs" }
