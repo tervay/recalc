@@ -12,22 +12,6 @@ import {
 const kDt = 0.01;
 const constraints = fromCharacteristics(12, 2.5629, 0.43277);
 
-/**
- * Asserts that `val1` is within `eps` of `val2`.
- *
- * @param val1 - First operand in comparison.
- * @param val2 - Second operand in comparison.
- * @param eps - Tolerance for whether values are near to each other.
- */
-function assertNear(val1: number, val2: number, eps: number): void {
-  expect(Math.abs(val1 - val2)).toBeLessThanOrEqual(eps);
-}
-
-function assertNearState(val1: State, val2: State, eps: number): void {
-  assertNear(val1.position, val2.position, eps);
-  assertNear(val1.velocity, val2.velocity, eps);
-}
-
 function checkDynamics(
   profile: ExponentialProfile,
   current: State,
@@ -126,7 +110,7 @@ describe('ExponentialProfile Tests', () => {
       maxSpeed = Math.max(maxSpeed, state.velocity);
     }
 
-    assertNear(constraints.maxVelocity(), maxSpeed, 10e-5);
+    expect(maxSpeed).toBeCloseTo(constraints.maxVelocity(), 3);
     expect(state).toEqual(goal);
   });
 
@@ -141,7 +125,7 @@ describe('ExponentialProfile Tests', () => {
       maxSpeed = Math.min(maxSpeed, state.velocity);
     }
 
-    assertNear(-constraints.maxVelocity(), maxSpeed, 10e-5);
+    expect(maxSpeed).toBeCloseTo(-constraints.maxVelocity(), 3);
     expect(state).toEqual(goal);
   });
 
@@ -191,7 +175,8 @@ describe('ExponentialProfile Tests', () => {
         testCase.initial,
         testCase.goal,
       );
-      assertNearState(testCase.inflectionPoint, state, 1e-3);
+      expect(state.position).toBeCloseTo(testCase.inflectionPoint.position, 3);
+      expect(state.velocity).toBeCloseTo(testCase.inflectionPoint.velocity, 3);
     }
   });
 

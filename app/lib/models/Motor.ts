@@ -176,6 +176,22 @@ export default class Motor extends Model {
     return this.fromSpecs(ALL_MOTORS.find((m) => m.name === name)!, quantity);
   }
 
+  public static KrakenX60sFOC(quantity: number) {
+    return this.fromName('Kraken X60 (FOC)', quantity);
+  }
+
+  public static KrakenX60(quantity: number) {
+    return this.fromName('Kraken X60', quantity);
+  }
+
+  public static Falcon500(quantity: number) {
+    return this.fromName('Falcon 500', quantity);
+  }
+
+  public static NEO(quantity: number) {
+    return this.fromName('NEO', quantity);
+  }
+
   toDict(): MotorDict {
     return {
       name: this.identifier,
@@ -196,42 +212,50 @@ export const ALL_MOTORS: MotorSpecs[] = [
   {
     name: 'Kraken X60',
     voltage: new Measurement(12, 'V'),
-    stallTorque: new Measurement(7.09, 'N*m'),
-    stallCurrent: new Measurement(366, 'A'),
-    freeCurrent: new Measurement(1.5, 'A'),
-    freeSpeed: new Measurement(6000, 'rpm'),
+    stallTorque: new Measurement(7.157, 'N*m'),
+    stallCurrent: new Measurement(374.383, 'A'),
+    freeCurrent: new Measurement(2.83, 'A'),
+    freeSpeed: new Measurement(6065, 'rpm'),
   },
   {
     name: 'Kraken X60 (FOC)',
     voltage: new Measurement(12, 'V'),
-    stallTorque: new Measurement(9.37, 'N*m'),
-    stallCurrent: new Measurement(483, 'A'),
-    freeCurrent: new Measurement(1.5, 'A'),
-    freeSpeed: new Measurement(5800, 'rpm'),
+    stallTorque: new Measurement(9.362, 'N*m'),
+    stallCurrent: new Measurement(476.098, 'A'),
+    freeCurrent: new Measurement(3.496, 'A'),
+    freeSpeed: new Measurement(5784, 'rpm'),
   },
   {
     name: 'NEO Vortex',
     voltage: new Measurement(12, 'V'),
-    stallTorque: new Measurement(3.6, 'N*m'),
-    stallCurrent: new Measurement(211, 'A'),
-    freeCurrent: new Measurement(3.6, 'A'),
-    freeSpeed: new Measurement(6784, 'rpm'),
+    stallTorque: new Measurement(5.957, 'N*m'),
+    stallCurrent: new Measurement(391.091, 'A'),
+    freeCurrent: new Measurement(5.434, 'A'),
+    freeSpeed: new Measurement(6825, 'rpm'),
   },
   {
     name: 'NEO',
     voltage: new Measurement(12, 'V'),
-    stallTorque: new Measurement(3.28, 'N*m'),
-    stallCurrent: new Measurement(181, 'A'),
-    freeCurrent: new Measurement(1.3, 'A'),
-    freeSpeed: new Measurement(5880, 'rpm'),
+    stallTorque: new Measurement(4.201, 'N*m'),
+    stallCurrent: new Measurement(216.269, 'A'),
+    freeCurrent: new Measurement(1.782, 'A'),
+    freeSpeed: new Measurement(5906, 'rpm'),
   },
   {
     name: 'Kraken X44',
     voltage: new Measurement(12, 'V'),
-    stallTorque: new Measurement(4.05, 'N*m'),
-    stallCurrent: new Measurement(275, 'A'),
-    freeCurrent: new Measurement(1.4, 'A'),
-    freeSpeed: new Measurement(7530, 'rpm'),
+    stallTorque: new Measurement(4.113, 'N*m'),
+    stallCurrent: new Measurement(279.099, 'A'),
+    freeCurrent: new Measurement(3.156, 'A'),
+    freeSpeed: new Measurement(7757, 'rpm'),
+  },
+  {
+    name: 'Kraken X44 (FOC)',
+    voltage: new Measurement(12, 'V'),
+    stallTorque: new Measurement(5.011, 'N*m'),
+    stallCurrent: new Measurement(329.188, 'A'),
+    freeCurrent: new Measurement(3.231, 'A'),
+    freeSpeed: new Measurement(7367, 'rpm'),
   },
   {
     name: 'Falcon 500',
@@ -252,10 +276,26 @@ export const ALL_MOTORS: MotorSpecs[] = [
   {
     name: 'Minion',
     voltage: new Measurement(12, 'V'),
+    stallTorque: new Measurement(3.173, 'N*m'),
+    stallCurrent: new Measurement(211.607, 'A'),
+    freeCurrent: new Measurement(2.206, 'A'),
+    freeSpeed: new Measurement(7703, 'rpm'),
+  },
+  {
+    name: 'Minion (Adv Hall)',
+    voltage: new Measurement(12, 'V'),
+    stallTorque: new Measurement(3.201, 'N*m'),
+    stallCurrent: new Measurement(207.18, 'A'),
+    freeCurrent: new Measurement(2.384, 'A'),
+    freeSpeed: new Measurement(7644, 'rpm'),
+  },
+  {
+    name: 'Thrifty Pulsar',
+    voltage: new Measurement(12, 'V'),
     stallTorque: new Measurement(3.1, 'N*m'),
-    stallCurrent: new Measurement(200.46, 'A'),
-    freeCurrent: new Measurement(3.926, 'A'),
-    freeSpeed: new Measurement(7384, 'rpm'),
+    stallCurrent: new Measurement(189, 'A'),
+    freeCurrent: new Measurement(1, 'A'),
+    freeSpeed: new Measurement(7500, 'rpm'),
   },
   {
     name: 'NEO 550',

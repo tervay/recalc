@@ -2,8 +2,7 @@ import queryString from 'query-string';
 
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
-import type { RatioDict } from '~/lib/models/Ratio';
-import Ratio from '~/lib/models/Ratio';
+import Ratio, { RatioType } from '~/lib/models/Ratio';
 
 export interface DefaultAndQueryParamProvider<T> {
   queryParam: QueryParam<T>;
@@ -57,15 +56,24 @@ export const MeasurementParam: QueryParam<Measurement> = {
 };
 
 export const MotorParam: QueryParam<Motor> = {
-  encode: (value) => value.identifier,
-  decode: (value) => Motor.fromName(value, 1),
+  encode: (value) => queryString.stringify(value.toDict()),
+  decode: (value) => {
+    const parsed = queryString.parse(value);
+    return Motor.fromDict({
+      name: parsed.name as string,
+      quantity: Number(parsed.quantity),
+    });
+  },
 };
 
 export const RatioParam: QueryParam<Ratio> = {
   encode: (value) => queryString.stringify(value.toDict()),
   decode: (value) => {
     const parsed = queryString.parse(value);
-    return Ratio.fromDict(parsed as unknown as RatioDict);
+    return Ratio.fromDict({
+      magnitude: Number(parsed.magnitude),
+      ratioType: parsed.ratioType as RatioType,
+    });
   },
 };
 

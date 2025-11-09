@@ -39,7 +39,7 @@ export default function Intake() {
     travelDistance: Measurement;
     drivetrainSpeed: Measurement;
   }>({
-    motor: withDefault(MotorParam, Motor.fromName('Kraken X60 (FOC)', 1)),
+    motor: withDefault(MotorParam, Motor.KrakenX60sFOC(1)),
     ratio: withDefault(RatioParam, new Ratio(2, RatioType.REDUCTION)),
     rollerDiameter: withDefault(MeasurementParam, new Measurement(2, 'in')),
     travelDistance: withDefault(MeasurementParam, new Measurement(15, 'in')),
