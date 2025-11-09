@@ -26,3 +26,7 @@ ReCalc is a design calculator website primarily used for the FIRST Robotics Comp
 - The `.git` directory may not exist; in this case, the author is using the Jujutsu VCS.
 - Prefer to manage non-NPM dependencies with Mise.
 - Always ask before running any Mise or Jujutsu command.
+- Always use absolute imports.
+- Always check if a component exists in Shadcn.
+- If a component does exist in Shadcn, install it via the command line (`pnpm dlx shadcn@latest add <component>`).
+- When installing new NPM dependencies, always pin to a specific version.

@@ -10,6 +10,7 @@ import {
   MeasurementOutput,
 } from '~/components/recalc/io/measurement';
 import NumberInput, { NumberOutput } from '~/components/recalc/io/number';
+import Markdown from '~/components/recalc/markdown';
 import { PulleyTable } from '~/components/recalc/pulleyTable';
 import { useQueryParams } from '~/lib/hooks';
 import { calculateClosestCenters } from '~/lib/math/belts';
@@ -21,6 +22,7 @@ import {
   NumberParam,
   withDefault,
 } from '~/lib/types/queryParams';
+import _beltsReadme from '~/routes/belts.md?raw';
 
 export function meta() {
   return [
@@ -264,6 +266,9 @@ export default function Belts() {
             }
           />
         </div>
+      </div>
+      <div className="mt-8 space-y-4">
+        <Markdown markdownContent={_beltsReadme} />
       </div>
     </div>
   );
