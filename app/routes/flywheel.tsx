@@ -61,7 +61,7 @@ export default function Flywheel() {
     projectileWeight: Measurement;
     efficiency: number;
   }>({
-    motor: withDefault(MotorParam, Motor.fromName('Kraken X60 (FOC)', 2)),
+    motor: withDefault(MotorParam, Motor.KrakenX60sFOC(2)),
     ratio: withDefault(RatioParam, new Ratio(1, RatioType.REDUCTION)),
     statorLimit: withDefault(MeasurementParam, new Measurement(30, 'A')),
     supplyLimit: withDefault(MeasurementParam, new Measurement(90, 'A')),
@@ -196,6 +196,17 @@ export default function Flywheel() {
     totalMomentOfInertia,
   ]);
 
+  const maxAchievableShooterRPM = useMemo(() => {
+    if (ratio.asNumber() === 0) {
+      return new Measurement(0, 'rpm');
+    }
+    return motor.freeSpeed.div(ratio.asNumber());
+  }, [motor, ratio]);
+
+  const clampedShooterTargetSpeed = useMemo(() => {
+    return Measurement.min(shooterTargetSpeed, maxAchievableShooterRPM);
+  }, [shooterTargetSpeed, maxAchievableShooterRPM]);
+
   const sheetData = useMemo(
     () =>
       generateProfile(
@@ -210,7 +221,7 @@ export default function Flywheel() {
         statorLimit,
         new Measurement(0, 'm/s^2'),
         shooterDiameter,
-        shooterTargetSpeed.mul(shooterDiameter.div(2)).removeRad(),
+        clampedShooterTargetSpeed.mul(shooterDiameter.div(2)).removeRad(),
       ),
     [
       motor,
@@ -218,7 +229,7 @@ export default function Flywheel() {
       ratio,
       statorLimit,
       shooterDiameter,
-      shooterTargetSpeed,
+      clampedShooterTargetSpeed,
       totalMomentOfInertia,
     ],
   );

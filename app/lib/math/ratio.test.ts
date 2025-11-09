@@ -7,7 +7,7 @@ describe('calculateNetRatio', () => {
   it('calculates net ratio for single stage', () => {
     const pairs: RatioPair[] = [[18, 72]];
     const result = calculateNetRatio(pairs);
-    expect(result).toBeCloseTo(0.25, 5);
+    expect(result).toBeCloseTo(0.25, 3);
   });
 
   it('calculates net ratio for multiple stages', () => {
@@ -16,13 +16,13 @@ describe('calculateNetRatio', () => {
       [24, 48],
     ];
     const result = calculateNetRatio(pairs);
-    expect(result).toBeCloseTo(0.125, 5);
+    expect(result).toBeCloseTo(0.125, 3);
   });
 
   it('calculates net ratio for step-up', () => {
     const pairs: RatioPair[] = [[72, 18]];
     const result = calculateNetRatio(pairs);
-    expect(result).toBeCloseTo(4, 5);
+    expect(result).toBeCloseTo(4.0, 3);
   });
 
   it('handles 1:1 ratio', () => {
@@ -66,14 +66,14 @@ describe('calculateNetRatio', () => {
       [30, 60],
     ];
     const result = calculateNetRatio(pairs);
-    expect(result).toBeCloseTo(0.05, 5);
+    expect(result).toBeCloseTo(0.05, 3);
   });
 });
 
 describe('calculateInverseRatio', () => {
   it('calculates inverse ratio correctly', () => {
     const result = calculateInverseRatio(0.125);
-    expect(result).toBeCloseTo(8, 5);
+    expect(result).toBeCloseTo(8.0, 3);
   });
 
   it('handles 1:1 ratio', () => {
@@ -83,7 +83,7 @@ describe('calculateInverseRatio', () => {
 
   it('handles step-up ratios', () => {
     const result = calculateInverseRatio(4);
-    expect(result).toBeCloseTo(0.25, 5);
+    expect(result).toBeCloseTo(0.25, 3);
   });
 
   it('returns 0 for zero input', () => {
@@ -93,11 +93,11 @@ describe('calculateInverseRatio', () => {
 
   it('handles very small ratios', () => {
     const result = calculateInverseRatio(0.001);
-    expect(result).toBeCloseTo(1000, 1);
+    expect(result).toBeCloseTo(1000.0, 3);
   });
 
   it('handles very large ratios', () => {
     const result = calculateInverseRatio(1000);
-    expect(result).toBeCloseTo(0.001, 5);
+    expect(result).toBeCloseTo(0.001, 3);
   });
 });

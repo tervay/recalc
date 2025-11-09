@@ -69,7 +69,7 @@ export default function Linear() {
     batteryResistance: Measurement;
     cascade: boolean;
   }>({
-    motor: withDefault(MotorParam, Motor.fromName('Kraken X60 (FOC)', 2)),
+    motor: withDefault(MotorParam, Motor.KrakenX60sFOC(2)),
     travelDistance: withDefault(MeasurementParam, new Measurement(60, 'in')),
     spoolDiameter: withDefault(MeasurementParam, new Measurement(1, 'in')),
     load: withDefault(MeasurementParam, new Measurement(15, 'lb')),

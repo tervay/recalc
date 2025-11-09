@@ -7,6 +7,7 @@ ReCalc is a design calculator website primarily used for the FIRST Robotics Comp
 - Use pnpm instead of npm, yarn, or bun.
 - When making a change, before finishing the task, the build and tests must pass.
 - When making a change, before finishing the task, fix any formatting or linting problems.
+- You can fix formatting with `pnpm run format:fix`, and fix most linting problems with `pnpm run lint:fix`.
 - Accompany non-UI logic with unit tests where possible.
 - Accompany UI changes with playwright tests where possible.
 - Do not use emojis.
@@ -20,3 +21,8 @@ ReCalc is a design calculator website primarily used for the FIRST Robotics Comp
 - Always use absolute imports.
 - Be thorough about divide-by-zero errors.
 - You should be intimately familiar with the latest FIRST Robotics Competition rules, vendors, and COTS products.
+- Tests should be as thorough and as specific as possible, in order to catch behavioral changes.
+- Proper error-handling is paramount.
+- The `.git` directory may not exist; in this case, the author is using the Jujutsu VCS.
+- Prefer to manage non-NPM dependencies with Mise.
+- Always ask before running any Mise or Jujutsu command.
