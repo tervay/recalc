@@ -10,7 +10,9 @@ import MeasurementOutput from "common/components/io/outputs/MeasurementOutput";
 import NumericOutput from "common/components/io/outputs/NumberOutput";
 import { Column, Columns, Divider } from "common/components/styling/Building";
 import Chain, { chainPitchMap } from "common/models/Chain";
+import Measurement from "common/models/Measurement";
 import Sprocket from "common/models/Sprocket";
+import { SimpleSprocket } from "common/models/Sprocket";
 import { useGettersSetters } from "common/tooling/conversion";
 import { useEffect, useState } from "react";
 import chainConfig, {
@@ -27,9 +29,11 @@ import {
 export default function ChainCalculator(): JSX.Element {
   const [get, set] = useGettersSetters(ChainState.getState() as ChainStateV1);
 
+  const chainType = get.chain.pitch.eq(new Measurement(0.25, 'in')) ? '#25' : 
+                     get.chain.pitch.eq(new Measurement(0.375, 'in')) ? '#35' : '#40';
   const calculate = {
-    p1PD: () => new Sprocket(get.p1Teeth, get.chain.pitch).pitchDiameter,
-    p2PD: () => new Sprocket(get.p2Teeth, get.chain.pitch).pitchDiameter,
+    p1PD: () => new SimpleSprocket(get.p1Teeth, chainType).pitchDiameter,
+    p2PD: () => new SimpleSprocket(get.p2Teeth, chainType).pitchDiameter,
     smallerCenter: (res: ChainClosestCentersResult) => res.smaller.distance,
     smallerLinks: (res: ChainClosestCentersResult) => res.smaller.links,
     largerCenter: (res: ChainClosestCentersResult) => res.larger.distance,
@@ -98,8 +102,8 @@ export default function ChainCalculator(): JSX.Element {
       <SprocketCheatSheet
         chainType={new Chain("#25")}
         currentSprockets={[
-          new Sprocket(get.p1Teeth, get.chain.pitch),
-          new Sprocket(get.p2Teeth, get.chain.pitch),
+          new SimpleSprocket(get.p1Teeth, '#25'),
+          new SimpleSprocket(get.p2Teeth, '#25'),
         ]}
       />
     );
@@ -108,8 +112,8 @@ export default function ChainCalculator(): JSX.Element {
       <SprocketCheatSheet
         chainType={new Chain("#35")}
         currentSprockets={[
-          new Sprocket(get.p1Teeth, get.chain.pitch),
-          new Sprocket(get.p2Teeth, get.chain.pitch),
+          new SimpleSprocket(get.p1Teeth, '#35'),
+          new SimpleSprocket(get.p2Teeth, '#35'),
         ]}
       />
     );

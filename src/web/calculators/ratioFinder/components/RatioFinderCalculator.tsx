@@ -4,7 +4,8 @@ import { BooleanInput, NumberInput } from "common/components/io/new/inputs";
 import L0MultiBoolean from "common/components/io/new/inputs/L0/L0MultiBoolean";
 import BoreInput from "common/components/io/new/inputs/L3/BoreInput";
 import { Column, Columns, Divider } from "common/components/styling/Building";
-import { Bore, MotorBores } from "common/models/ExtraTypes";
+import type { Bore } from "common/models/types/common";
+import { MotorBores } from "common/models/types/common";
 import {
   DrivingDriven,
   Gearbox,

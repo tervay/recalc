@@ -1,11 +1,7 @@
-import {
-  Bore,
-  ChainType,
-  FRCVendor,
-  MotorBores,
-  PulleyBeltType,
-} from "common/models/ExtraTypes";
 import { MeasurementDict } from "common/models/Measurement";
+import type { Bore, FRCVendor, PulleyBeltType } from "common/models/types/common";
+import { MotorBores } from "common/models/types/common";
+import type { ChainType } from "common/models/types/sprockets";
 import fastCartesian from "fast-cartesian";
 import { min } from "lodash";
 import max from "lodash/max";

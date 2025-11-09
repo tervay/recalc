@@ -6,7 +6,8 @@ import {
 } from "common/components/io/new/inputs/types/Utility";
 import Chain from "common/models/Chain";
 import Compressor from "common/models/Compressor";
-import { Bore, StateHook } from "common/models/ExtraTypes";
+import { StateHook } from "common/models/ExtraTypes";
+import type { Bore } from "common/models/types/common";
 import Measurement from "common/models/Measurement";
 import Motor from "common/models/Motor";
 import Ratio from "common/models/Ratio";

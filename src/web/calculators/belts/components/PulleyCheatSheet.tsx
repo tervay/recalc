@@ -1,59 +1,35 @@
-// import _data from "common/models/data/pulleys.json";
-import { FRCVendor, PulleyBeltType } from "common/models/ExtraTypes";
 import Measurement from "common/models/Measurement";
-import Pulley from "common/models/Pulley";
-import React, { useMemo } from "react";
+import Pulley, { SimplePulley } from "common/models/Pulley";
+import { zJSONPulley, type JSONPulley } from "common/models/types/pulleys";
+import { useMemo } from "react";
+import { z } from "zod";
 
-import amPulleys from "common/models/data/cots/andymark/pulleys.json";
-import revPulleys from "common/models/data/cots/rev/pulleys.json";
-import ttbPulleys from "common/models/data/cots/ttb/pulleys.json";
-import vexPulleys from "common/models/data/cots/vex/pulleys.json";
-import wcpPulleys from "common/models/data/cots/wcp/pulleys.json";
+import revPulleys from "generated/rev/pulleys.json";
+import ttbPulleys from "generated/ttb/pulleys.json";
+import wcpPulleys from "generated/wcp/pulleys.json";
 
 export function PulleyCheatSheet(props: {
   pitch: Measurement;
-  currentPulleys: Pulley[];
+  currentPulleys: SimplePulley[];
 }): JSX.Element {
-  const allPulleys = useMemo(
-    () => [
-      ...revPulleys,
-      ...vexPulleys,
-      ...wcpPulleys,
-      ...amPulleys,
-      ...ttbPulleys,
-    ],
+  const allPulleys: JSONPulley[] = useMemo(
+    () =>
+      z.array(zJSONPulley).parse([...wcpPulleys, ...ttbPulleys, ...revPulleys]),
     [],
   );
 
-  console.log(props.pitch.format());
-
   const data = allPulleys
-    .map((p) =>
-      Pulley.fromTeeth(p.teeth, Measurement.fromDict(p.pitch), {
-        vendors: [p.vendor as FRCVendor],
-        type: p.type as PulleyBeltType,
-        urls: [p.url],
-        bore: p.bore,
-        widths: [Measurement.fromDict(p.width)],
-      }),
-    )
+    .map((p) => Pulley.fromJson(p))
     .filter(
       (p) =>
         p.pitch.eq(props.pitch) &&
         props.currentPulleys.map((pulley) => pulley.teeth).includes(p.teeth),
     )
-    .sort(
-      (a, b) => a.vendors![0].localeCompare(b.vendors![0]) || a.teeth - b.teeth,
-    );
-
-  const VendorList = (vendors: FRCVendor[], urls: string[]) =>
-    vendors
-      .map<React.ReactNode>((v, i) => (
-        <a target={"_blank"} href={urls[i]} key={v + Math.random()}>
-          {v}
-        </a>
-      ))
-      .reduce((p, c) => [p, ", ", c]);
+    .sort((a, b) => {
+      const aVendor = a.vendor ?? "";
+      const bVendor = b.vendor ?? "";
+      return aVendor.localeCompare(bVendor) || a.teeth - b.teeth;
+    });
 
   return (
     <>
@@ -75,22 +51,18 @@ export function PulleyCheatSheet(props: {
           </thead>
           <tbody>
             {data.map((pulley) => (
-              <tr
-                key={Math.random()}
-                // className={
-                //   currentTeeth.includes(pulley.teeth) ? "emphasize-row" : ""
-                // }
-              >
+              <tr key={pulley.sku ?? pulley.url}>
                 <td>
-                  {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-                  {VendorList(pulley.vendors!, pulley.urls!)}
+                  <a target={"_blank"} href={pulley.url ?? "#"}>
+                    {pulley.vendor ?? "N/A"}
+                  </a>
                 </td>
-                <td>{pulley.type}</td>
+                <td>{pulley.profile}</td>
                 <td className="has-text-right">
                   {pulley.pitch.format().replace(" ", " ")}
                 </td>
                 <td className="has-text-right">
-                  {pulley.widths?.map((w) => w.to("mm").scalar).join(", ")} mm
+                  {pulley.width ? `${pulley.width.to("mm").scalar} mm` : "N/A"}
                 </td>
                 <td className="has-text-centered">{pulley.teeth}T</td>
                 <td className="has-text-right">

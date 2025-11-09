@@ -1,7 +1,7 @@
 import Chain, { ChainDict } from "common/models/Chain";
 import Compressor, { CompressorDict } from "common/models/Compressor";
-import { Bore } from "common/models/ExtraTypes";
 import Measurement, { MeasurementDict } from "common/models/Measurement";
+import type { Bore } from "common/models/types/common";
 import Motor, { MotorDict } from "common/models/Motor";
 import MotorPlaygroundList, {
   MotorPlaygroundListDict,
@@ -89,7 +89,7 @@ export const PulleyParam = {
     }
 
     const obj = decodeJson(s);
-    return Pulley.fromDict(obj as PulleyDict);
+    return Pulley.fromDict(obj as PulleyDict) as Pulley;
   },
 };
 
@@ -139,7 +139,7 @@ export const BoreParam = {
   decode: (s: DecodableString): Bore => {
     if (s === null || s === undefined) {
       // i don't know why this breaks things if i set it to return a nullable
-      return "NEO";
+      return "SplineXS";
     }
 
     return decodeString(s) as Bore;

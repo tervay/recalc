@@ -1,18 +1,17 @@
-import amGears from "common/models/data/cots/andymark/gears.json";
-import revGears from "common/models/data/cots/rev/gears.json";
-import vexGears from "common/models/data/cots/vex/gears.json";
-import wcpGears from "common/models/data/cots/wcp/gears.json";
+import type { JSONGear } from "common/models/types/gears";
+import wcpGears from "generated/wcp/gears.json";
 
 export default function GearCheatSheet(props: {
   gear1Teeth: number;
   gear2Teeth: number;
   gearDP: number;
 }): JSX.Element {
-  const data = [...revGears, ...wcpGears, ...amGears, ...vexGears].filter(
-    (g) =>
-      g.dp === props.gearDP &&
-      (g.teeth === props.gear1Teeth || g.teeth === props.gear2Teeth),
-  );
+  const data: JSONGear[] = [...(wcpGears as JSONGear[])]
+    .filter(
+      (g) =>
+        g.dp === props.gearDP &&
+        (g.teeth === props.gear1Teeth || g.teeth === props.gear2Teeth),
+    );
 
   return (
     <>

@@ -12,7 +12,6 @@ const armConfig: PageConfig = {
   url: "/arm",
   title: "Arm Calculator",
   description: "Arm calculator",
-  image: "/media/Arm",
   version: 1,
   component: lazy(() => import("web/calculators/arm/components/ArmPage")),
 };

@@ -11,7 +11,6 @@ const flywheelConfig: PageConfig = {
   url: "/flywheel",
   title: "Flywheel Calculator",
   description: "Flywheel calculator",
-  image: "/media/Flywheel",
   version: 2,
   component: lazy(
     () => import("web/calculators/flywheel/components/FlywheelPage"),

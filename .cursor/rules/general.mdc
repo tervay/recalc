@@ -1,0 +1,13 @@
+---
+alwaysApply: true
+---
+
+ReCalc is a design calculator website primarily used for the FIRST Robotics Competition, and sometimes used for the FIRST Tech Challenge. It features several calculators that are in src/web/calculators/.
+
+- Use pnpm instead of npm, yarn, or bun.
+- When making a change, before finishing the task, the build and tests must pass.
+- Accompany math logic with unit tests where possible.
+- Do not use emojis.
+- Avoid using `as` typecasting when possible.
+- Use zod to convert to stricter types when necessary.
+- Avoid using `any`.

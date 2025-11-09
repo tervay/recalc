@@ -1,4 +1,4 @@
-import Tile, { ImageSize } from "common/components/home/Tile";
+import Tile from "common/components/home/Tile";
 import Metadata from "common/components/Metadata";
 import {
   Column,
@@ -25,18 +25,10 @@ import motorsConfig from "web/info/motors";
 import utilConfig from "web/info/util";
 import scoutingConfig from "web/scouting";
 
-function Clickable(props: {
-  config: PageConfig;
-  imageSize?: ImageSize | string;
-}): JSX.Element {
+function Clickable(props: { config: PageConfig }): JSX.Element {
   return (
     <Column ofTwelve={6}>
-      <Tile
-        title={props.config.title}
-        to={props.config.url}
-        image={props.config.image}
-        imageSize={props.imageSize}
-      />
+      <Tile title={props.config.title} to={props.config.url} />
     </Column>
   );
 }
@@ -67,7 +59,6 @@ export default function Home(): JSX.Element {
         <Columns gapless multiline>
           <Clickable config={beltsConfig} />
           <Clickable config={chainConfig} />
-          <Clickable config={pneumaticsConfig} />
           <Clickable config={flywheelConfig} />
           <Clickable config={armConfig} />
           <Clickable config={linearConfig} />
@@ -75,6 +66,7 @@ export default function Home(): JSX.Element {
           <Clickable config={ratioConfig} />
           <Clickable config={ratioFinderConfig} />
           <Clickable config={driveConfig} />
+          <Clickable config={pneumaticsConfig} />
           <Clickable config={gearConfig} />
         </Columns>
       </Section>
@@ -87,7 +79,7 @@ export default function Home(): JSX.Element {
         <Columns gapless multiline>
           <Clickable config={motorsConfig} />
           <Clickable config={compressorsConfig} />
-          <Clickable config={aboutConfig} imageSize="96x96" />
+          <Clickable config={aboutConfig} />
           <Clickable config={utilConfig} />
           <Clickable config={scoutingConfig} />
         </Columns>

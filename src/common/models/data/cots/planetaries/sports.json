@@ -1,9 +1,0 @@
-{
-  "inputs": ["NEO", "Falcon", "550", "775"],
-  "outputs": ["1/2 Hex"],
-  "ratios": [4, 12, 16, 20, 36, 48, 64, 80, 100],
-  "maxStages": 1,
-  "partNumber": "am-4XYZ",
-  "url": "https://www.andymark.com/categories/single-speed-planetary-gearboxes",
-  "vendor": "AndyMark"
-}

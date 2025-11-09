@@ -7,8 +7,8 @@ import { withDefault } from "serialize-query-params";
 
 const ratioConfig: PageConfig = {
   url: "/ratio",
-  title: "Ratio Calculator (WIP)",
-  description: "Ratio calculator (WIP)",
+  title: "Ratio Calculator",
+  description: "Ratio calculator",
   version: 1,
   component: lazy(() => import("web/calculators/ratio/components/RatioPage")),
 };

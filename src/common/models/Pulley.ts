@@ -1,80 +1,87 @@
-import { FRCVendor, PulleyBeltType } from "common/models/ExtraTypes";
-import Measurement, { MeasurementDict } from "common/models/Measurement";
+import Measurement from "common/models/Measurement";
 import Model from "common/models/Model";
+import type { Bore } from "common/models/types/common";
+import type { JSONPulley, PulleyDict } from "common/models/types/pulleys";
 
-export type PulleyDict = {
-  readonly teeth: number;
-  readonly pitch: MeasurementDict;
-};
-
-type VendorData = {
-  readonly vendors: FRCVendor[];
-  readonly urls: string[];
-  readonly type: PulleyBeltType;
-  readonly widths: Measurement[];
-  readonly bore: string;
-};
-
-export default class Pulley extends Model {
-  public readonly vendors?: FRCVendor[];
-  public readonly urls?: string[];
-  public readonly type?: PulleyBeltType;
-  public readonly widths?: Measurement[];
-  public readonly bore?: string;
+export class SimplePulley extends Model {
+  public readonly pitchDiameter: Measurement;
 
   constructor(
     public readonly teeth: number,
     public readonly pitch: Measurement,
-    public readonly pitchDiameter: Measurement,
-    vendorData?: VendorData,
   ) {
-    super("Pulley");
-    this.vendors = vendorData?.vendors;
-    this.urls = vendorData?.urls;
-    this.type = vendorData?.type;
-    this.widths = vendorData?.widths;
-    this.bore = vendorData?.bore;
+    super("SimplePulley");
+    this.pitchDiameter = this.pitch.mul(this.teeth).div(Math.PI);
   }
 
-  static fromTeeth(
-    teeth: number,
-    pitch: Measurement,
-    vendorData?: VendorData,
-  ): Pulley {
-    return new Pulley(teeth, pitch, pitch.mul(teeth).div(Math.PI), vendorData);
-  }
-
-  static fromPitchDiameter(
-    pitchDiameter: Measurement,
-    pitch: Measurement,
-    vendorData?: VendorData,
-  ): Pulley {
-    return new Pulley(
-      Number(pitchDiameter.mul(Math.PI).div(pitch).scalar.toFixed(2)),
-      pitch,
-      pitchDiameter,
-      vendorData,
-    );
-  }
-
-  toJSON(): PulleyDict {
-    return this.toDict();
-  }
-
-  toDict(): PulleyDict {
+  public toDict(): Record<string, unknown> {
     return {
       teeth: this.teeth,
       pitch: this.pitch.toDict(),
     };
   }
 
-  static fromDict(d: PulleyDict): Pulley {
-    return Pulley.fromTeeth(d.teeth, Measurement.fromDict(d.pitch));
-  }
+  eq<M extends Model>(_m: M): boolean {
+    if (_m instanceof SimplePulley) {
+      return this.teeth === _m.teeth && this.pitch.eq(_m.pitch);
+    }
 
-  eq<M extends Model>(m: M): boolean {
-    return (
-      m instanceof Pulley && m.teeth == this.teeth && m.pitch.eq(this.pitch)
-    );
+    return false;
   }
 }
+
+export default class Pulley extends SimplePulley {
+  constructor(
+    public readonly teeth: number,
+    public readonly width: Measurement,
+    public readonly profile: string,
+    public readonly pitch: Measurement,
+    public readonly sku: string | null,
+    public readonly url: string,
+    public readonly bore: Bore,
+    public readonly vendor: string,
+  ) {
+    super(teeth, pitch);
+  }
+
+  public static fromJson(json: JSONPulley): Pulley {
+    return new Pulley(
+      json.teeth,
+      Measurement.fromDict(json.width),
+      json.profile,
+      Measurement.fromDict(json.pitch),
+      json.sku,
+      json.url,
+      json.bore,
+      json.vendor,
+    );
+  }
+
+  public static fromDict(d: PulleyDict): SimplePulley {
+    return new SimplePulley(d.teeth, Measurement.fromDict(d.pitch));
+  }
+
+  public toDict(): PulleyDict {
+    return {
+      teeth: this.teeth,
+      pitch: this.pitch.toDict(),
+    };
+  }
+
+  eq<M extends Model>(_m: M): boolean {
+    if (_m instanceof Pulley) {
+      return (
+        this.teeth === _m.teeth &&
+        this.pitch.eq(_m.pitch) &&
+        this.width.eq(_m.width) &&
+        this.profile === _m.profile &&
+        this.bore === _m.bore &&
+        this.vendor === _m.vendor
+      );
+    }
+
+    return false;
+  }
+}
+
+export type { PulleyDict };

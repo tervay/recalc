@@ -1,0 +1,98 @@
+[
+  {
+    "teeth": 48,
+    "profile": "HTD",
+    "bore": "1.125\" Round",
+    "sku": "TTB-0128",
+    "url": "https://www.thethriftybot.com/products/qty-1-48-tooth-htd-pulley-bearing-hub-bore",
+    "vendor": "Thrifty",
+    "width": {
+      "s": 18.5,
+      "u": "mm"
+    },
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    }
+  },
+  {
+    "teeth": 36,
+    "profile": "HTD",
+    "bore": "1/2\" Hex",
+    "sku": "TTB-0127",
+    "url": "https://www.thethriftybot.com/products/qty-1-36-tooth-htd-pulley-1-2-hex-bore",
+    "vendor": "Thrifty",
+    "width": {
+      "s": 18.5,
+      "u": "mm"
+    },
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    }
+  },
+  {
+    "teeth": 24,
+    "profile": "HTD",
+    "bore": "1/2\" Hex",
+    "sku": "TTB-0126",
+    "url": "https://www.thethriftybot.com/products/qty-1-24-tooth-htd-pulley-1-2-hex-bore",
+    "vendor": "Thrifty",
+    "width": {
+      "s": 18.5,
+      "u": "mm"
+    },
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    }
+  },
+  {
+    "teeth": 11,
+    "profile": "HTD",
+    "bore": "SplineXS",
+    "sku": "TTB-0125",
+    "url": "https://www.thethriftybot.com/products/qty-1-11-tooth-htd-kraken-spline-motor-output-pulley",
+    "vendor": "Thrifty",
+    "width": {
+      "s": 18.5,
+      "u": "mm"
+    },
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    }
+  },
+  {
+    "teeth": 11,
+    "profile": "HTD",
+    "bore": "Falcon",
+    "sku": "TTB-0062",
+    "url": "https://www.thethriftybot.com/products/qty-1-11-tooth-htd-falcon-motor-output-pulley",
+    "vendor": "Thrifty",
+    "width": {
+      "s": 18.5,
+      "u": "mm"
+    },
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    }
+  },
+  {
+    "teeth": 11,
+    "profile": "HTD",
+    "bore": "8mm",
+    "sku": "TTB-0061",
+    "url": "https://www.thethriftybot.com/products/qty-1-11-tooth-htd-8mm-keyed-motor-output-pulley",
+    "vendor": "Thrifty",
+    "width": {
+      "s": 18.5,
+      "u": "mm"
+    },
+    "pitch": {
+      "s": 5,
+      "u": "mm"
+    }
+  }
+]

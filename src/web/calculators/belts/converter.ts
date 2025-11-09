@@ -1,5 +1,6 @@
 import { BaseState, ConversionFn } from "common/models/ExtraTypes";
-import Pulley from "common/models/Pulley";
+import { SimplePulley } from "common/models/Pulley";
+import type Pulley from "common/models/Pulley";
 import { StateMaker } from "common/tooling/conversion";
 import beltsConfig, {
   BeltParamsV2,
@@ -11,7 +12,7 @@ import beltsConfig, {
 export class Converters {
   static v1ToV2: ConversionFn<BeltsStateV1, BeltStateV2> = (s) => {
     return {
-      pulley: Pulley.fromTeeth(s.p1Teeth, s.pitch),
+      pulley: new SimplePulley(s.p1Teeth, s.pitch) as Pulley,
     };
   };
 }

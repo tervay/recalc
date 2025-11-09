@@ -1,6 +1,6 @@
 import Chain from "common/models/Chain";
 import Measurement from "common/models/Measurement";
-import Sprocket from "common/models/Sprocket";
+import { SimpleSprocket } from "common/models/Sprocket";
 
 export function calculateCenterDistance(
   chain: Chain,
@@ -32,11 +32,13 @@ export function calculateCenters(
   desiredCenter: Measurement,
   allowHalfLinks: boolean,
 ): ChainClosestCentersResult {
+  const chainType = chain.pitch.eq(new Measurement(0.25, 'in')) ? '#25' : 
+                     chain.pitch.eq(new Measurement(0.375, 'in')) ? '#35' : '#40';
   if (
     [desiredCenter.scalar, p1Teeth, p2Teeth].includes(0) ||
-    new Sprocket(p1Teeth, chain.pitch).pitchDiameter
+    new SimpleSprocket(p1Teeth, chainType).pitchDiameter
       .div(2)
-      .add(new Sprocket(p2Teeth, chain.pitch).pitchDiameter.div(2))
+      .add(new SimpleSprocket(p2Teeth, chainType).pitchDiameter.div(2))
       .gt(desiredCenter)
   ) {
     return {

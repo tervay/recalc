@@ -10,7 +10,6 @@ const chainConfig: PageConfig = {
   url: "/chains",
   title: "Chain Calculator",
   description: "Chain calculator",
-  image: "/media/Chain",
   version: 1,
   component: lazy(() => import("web/calculators/chain/components/ChainPage")),
 };

@@ -1,360 +1,414 @@
-import {
-  Bore,
-  ChainType,
-  FRCVendor,
-  MotorBores,
-  PulleyBeltType,
-} from "common/models/ExtraTypes";
-import {
-  GearData,
-  Gearbox,
-  MotionMethod,
-  MotionMethodPart,
-  Planetary,
-  PulleyData,
-  RawPlanetaryData,
-  SprocketData,
-  Stage,
-} from "common/models/Gearbox";
+import { Gearbox, MMTypeStr, MotionMethod, Stage } from "common/models/Gearbox";
+import type { Bore } from "common/models/types/common";
 import { expose } from "common/tooling/promise-worker";
-import { combinationsWithReplacement, permutations } from "common/tooling/util";
+import { permutations } from "common/tooling/util";
 import { RatioFinderStateV1 } from "web/calculators/ratioFinder";
 
-import cloneDeep from "lodash/cloneDeep";
 import max from "lodash/max";
 import min from "lodash/min";
 
-import amGears from "common/models/data/cots/andymark/gears.json";
-import amPulleys from "common/models/data/cots/andymark/pulleys.json";
-import amSprockets from "common/models/data/cots/andymark/sprockets.json";
-import maxPlanetary from "common/models/data/cots/planetaries/maxplanetaries.json";
-import sportPlanetary from "common/models/data/cots/planetaries/sports.json";
-import versaPlanetary from "common/models/data/cots/planetaries/versaplanetaries.json";
-import printedPulleys from "common/models/data/cots/printedPulleys.json";
-import revGears from "common/models/data/cots/rev/gears.json";
-import revPulleys from "common/models/data/cots/rev/pulleys.json";
-import revSprockets from "common/models/data/cots/rev/sprockets.json";
-import ttbPulleys from "common/models/data/cots/ttb/pulleys.json";
-import ttbSprockets from "common/models/data/cots/ttb/sprockets.json";
-import vexGears from "common/models/data/cots/vex/gears.json";
-import vexPulleys from "common/models/data/cots/vex/pulleys.json";
-import vexSprockets from "common/models/data/cots/vex/sprockets.json";
-import wcpGears from "common/models/data/cots/wcp/gears.json";
-import wcpPulleys from "common/models/data/cots/wcp/pulleys.json";
-import wcpSprockets from "common/models/data/cots/wcp/sprockets.json";
+import ttbPulleys from "generated/ttb/pulleys.json";
+import ttbSprockets from "generated/ttb/sprockets.json";
+import wcpGears from "generated/wcp/gears.json";
+import wcpPulleys from "generated/wcp/pulleys.json";
+import wcpSprockets from "generated/wcp/sprockets.json";
 
-function stagesFromMinToMax(
-  min: number,
-  max: number,
-  additionalStartingSizes: number[],
-): Stage[] {
-  const stages: Stage[] = [];
-  for (let i = min; i <= max; i++) {
-    for (let j = min; j <= max; j++) {
-      if (i === j) {
-        continue;
+const MOTOR_BORES: Bore[] = [
+  "SplineXS",
+  "Falcon",
+  "RS775",
+  "RS550",
+  "8mm",
+  "BAG",
+];
+
+function isValidBore(bore: string): bore is Bore {
+  return true; // JSON data is pre-validated
+}
+
+function isValidVendor(
+  vendor: string,
+): vendor is
+  | "WCP"
+  | "VEXpro"
+  | "AndyMark"
+  | "REV"
+  | "VBeltGuys"
+  | "CTRE"
+  | "Anderson Power"
+  | "NI"
+  | "TTB"
+  | "Printed" {
+  return true; // JSON data is pre-validated
+}
+
+// Load and filter all available parts
+function getMotionMethods(state: RatioFinderStateV1): MotionMethod[] {
+  const methods: MotionMethod[] = [];
+
+  // Add gears
+  if (state.enableWCP) {
+    for (const g of wcpGears) {
+      if (
+        (state.enable20DPGears && g.dp === 20) ||
+        (state.enable32DPGears && g.dp === 32)
+      ) {
+        if (g.teeth >= state.minGearTeeth && g.teeth <= state.maxGearTeeth) {
+          if (isValidBore(g.bore) && isValidVendor(g.vendor)) {
+            const method: MotionMethod = {
+              teeth: g.teeth,
+              bore: g.bore,
+              vendor: g.vendor,
+              partNumber: g.sku || "",
+              url: g.url,
+              type: "Gear",
+            };
+            Object.assign(method, { dp: g.dp });
+            methods.push(method);
+          }
+        }
       }
-
-      stages.push(new Stage(i, j, [], []));
     }
   }
 
-  for (let i = 0; i < additionalStartingSizes.length; i++) {
-    for (let j = min; j <= max; j++) {
-      stages.push(new Stage(additionalStartingSizes[i], j, [], []));
+  // Add pulleys
+  const pulleySources = [
+    { data: wcpPulleys, enabled: state.enableWCP },
+    { data: ttbPulleys, enabled: state.enableTTB },
+  ];
+
+  for (const { data, enabled } of pulleySources) {
+    if (!enabled) continue;
+
+    for (const p of data) {
+      if (
+        ((state.enableHTD && p.profile === "HTD") ||
+          (state.enableGT2 && p.profile === "GT2") ||
+          (state.enableRT25 && p.profile === "RT25")) &&
+        p.teeth >= state.minPulleyTeeth &&
+        p.teeth <= state.maxPulleyTeeth
+      ) {
+        if (isValidBore(p.bore) && isValidVendor(p.vendor)) {
+          const method: MotionMethod = {
+            teeth: p.teeth,
+            bore: p.bore,
+            vendor: p.vendor,
+            partNumber: p.sku,
+            url: p.url,
+            type: "Pulley",
+          };
+          Object.assign(method, {
+            beltType: p.profile,
+            pitch: { s: p.pitch, u: "mm" },
+          });
+          methods.push(method);
+        }
+      }
+    }
+  }
+
+  // Add printed pulleys (can be any bore and any tooth size)
+  if (state.printablePulleys) {
+    // Minimum teeth per bore (based on physical bore size constraints)
+    const boreMinTeeth: Record<Bore, number> = {
+      SplineXS: 9,
+      Falcon: 9,
+      "8mm": 9,
+      RS550: 9,
+      RS775: 9,
+      BAG: 9,
+      '1/4" Round': 9,
+      '3/8" Hex': 11,
+      '1/2" Hex': 13,
+      '1.125" Round': 22,
+      SplineXL: 26,
+      MAXSpline: 26,
+    };
+
+    const allBores: Bore[] = Object.keys(boreMinTeeth) as Bore[];
+
+    const beltTypes = [
+      { type: "HTD", enabled: state.enableHTD, pitch: 5, unit: "mm" },
+      { type: "GT2", enabled: state.enableGT2, pitch: 2, unit: "mm" },
+      { type: "RT25", enabled: state.enableRT25, pitch: 2.5, unit: "in" },
+    ];
+
+    for (const bore of allBores) {
+      const minTeeth = Math.max(boreMinTeeth[bore], state.minPulleyTeeth);
+
+      for (const belt of beltTypes) {
+        if (!belt.enabled) continue;
+
+        for (let teeth = minTeeth; teeth <= state.maxPulleyTeeth; teeth++) {
+          const method: MotionMethod = {
+            teeth,
+            bore,
+            vendor: "Printed",
+            partNumber: `Printed-${belt.type}-${teeth}T-${bore}`,
+            url: "",
+            type: "Pulley",
+          };
+          Object.assign(method, {
+            beltType: belt.type,
+            pitch: { s: belt.pitch, u: belt.unit },
+          });
+          methods.push(method);
+        }
+      }
+    }
+  }
+
+  // Add sprockets
+  const sprocketSources = [
+    { data: wcpSprockets, enabled: state.enableWCP },
+    { data: ttbSprockets, enabled: state.enableTTB },
+  ];
+
+  for (const { data, enabled } of sprocketSources) {
+    if (!enabled) continue;
+
+    for (const s of data) {
+      if (
+        ((state.enable25Chain && s.chainType === "#25") ||
+          (state.enable35Chain && s.chainType === "#35")) &&
+        s.teeth >= state.minSprocketTeeth &&
+        s.teeth <= state.maxSprocketTeeth
+      ) {
+        if (isValidBore(s.bore) && isValidVendor(s.vendor)) {
+          const method: MotionMethod = {
+            teeth: s.teeth,
+            bore: s.bore,
+            vendor: s.vendor,
+            partNumber: s.sku,
+            url: s.url,
+            type: "Sprocket",
+          };
+          Object.assign(method, { chainType: s.chainType });
+          methods.push(method);
+        }
+      }
+    }
+  }
+
+  // Filter by bore settings
+  return methods.filter((m) => {
+    const bore = m.bore;
+
+    // Motor bores
+    if (MOTOR_BORES.includes(bore)) {
+      if (bore === "Falcon" && !state.enableFalconPinions) return false;
+      if (bore === "RS775" && !state.enable775Pinions) return false;
+      if (bore === "RS550" && !state.enable550Pinions) return false;
+      if (bore === "SplineXS" && !state.enableKrakenPinions) return false;
+      if (bore === "8mm" && !state.enableNEOPinions) return false;
+      return true;
+    }
+
+    // Other bores
+    if (bore === '1/2" Hex' && !state.enable12HexBore) return false;
+    if (bore === '3/8" Hex' && !state.enable38HexBore) return false;
+    if (bore === '1.125" Round' && !state.enableBearingBore) return false;
+    if (bore === "SplineXL" && !state.enableSplineXL) return false;
+
+    return true;
+  });
+}
+
+// Check if two methods are compatible (same type and profile)
+function compatible(m1: MotionMethod, m2: MotionMethod): boolean {
+  return m1.type === m2.type && MMTypeStr(m1) === MMTypeStr(m2);
+}
+
+// Build all possible stages
+function buildStages(
+  methods: MotionMethod[],
+  state: RatioFinderStateV1,
+): Stage[] {
+  const stages: Stage[] = [];
+  const minTeeth =
+    min([state.minGearTeeth, state.minPulleyTeeth, state.minSprocketTeeth]) ||
+    8;
+  const maxTeeth =
+    max([state.maxGearTeeth, state.maxPulleyTeeth, state.maxSprocketTeeth]) ||
+    84;
+
+  // Group methods by teeth count for fast lookup
+  const byTeeth: Record<number, MotionMethod[]> = {};
+  for (const m of methods) {
+    if (!byTeeth[m.teeth]) byTeeth[m.teeth] = [];
+    byTeeth[m.teeth].push(m);
+  }
+
+  // Generate all stage combinations
+  const drivingSizes = state.forceStartingPinionSize
+    ? [state.startingPinionSize]
+    : Array.from({ length: maxTeeth - minTeeth + 1 }, (_, i) => i + minTeeth);
+
+  for (const driving of drivingSizes) {
+    for (let driven = minTeeth; driven <= maxTeeth; driven++) {
+      if (driving === driven) continue;
+
+      const drivingMethods = byTeeth[driving] || [];
+      const drivenMethods = byTeeth[driven] || [];
+      if (drivingMethods.length === 0 || drivenMethods.length === 0) continue;
+
+      // Find compatible pairs
+      const validDriving: MotionMethod[] = [];
+      const validDriven: MotionMethod[] = [];
+
+      for (const dm of drivingMethods) {
+        for (const dn of drivenMethods) {
+          // Driven can't have motor bores
+          if (MOTOR_BORES.includes(dn.bore)) continue;
+
+          // Must be compatible
+          if (!compatible(dm, dn)) continue;
+
+          if (!validDriving.find((m) => m.partNumber === dm.partNumber)) {
+            validDriving.push(dm);
+          }
+          if (!validDriven.find((m) => m.partNumber === dn.partNumber)) {
+            validDriven.push(dn);
+          }
+        }
+      }
+
+      if (validDriving.length > 0 && validDriven.length > 0) {
+        stages.push(new Stage(driving, driven, validDriving, validDriven));
+      }
     }
   }
 
   return stages;
 }
 
-export function allPossibleSingleGearStages(state: RatioFinderStateV1) {
-  return stagesFromMinToMax(
-    min([state.minGearTeeth, state.minPulleyTeeth, state.minSprocketTeeth]) ||
-      8,
-    max([state.maxGearTeeth, state.maxPulleyTeeth, state.maxSprocketTeeth]) ||
-      84,
-    state.forceStartingPinionSize ? [state.startingPinionSize] : [],
-  );
+// Filter stages that can connect (share bore between driven and next driving)
+function canConnect(s1: Stage, s2: Stage): boolean {
+  for (const m1 of s1.drivenMethods) {
+    for (const m2 of s2.drivingMethods) {
+      if (m1.bore === m2.bore) return true;
+    }
+  }
+  return false;
 }
 
-export function allPossiblePlanetaryRatios(planetary: RawPlanetaryData): {
-  [ratio: number]: number[][];
-} {
-  const ret: {
-    [ratio: number]: number[][];
-  } = {};
-  for (let i = 1; i <= planetary.maxStages; i++) {
-    [...combinationsWithReplacement(planetary.ratios, i)].forEach((arr) => {
-      const ratio = arr.reduce((prev, curr) => prev * curr, 1);
-      if (!(ratio in ret)) {
-        ret[ratio] = [];
+// Filter stages for compatible bores across multi-stage gearbox
+function filterBores(stages: Stage[]): Stage[] {
+  if (stages.length <= 1) return stages;
+
+  const filtered = stages.map(
+    (s) =>
+      new Stage(
+        s.driving,
+        s.driven,
+        [...s.drivingMethods],
+        [...s.drivenMethods],
+      ),
+  );
+
+  for (let i = 0; i < filtered.length - 1; i++) {
+    const sharedBores = new Set<Bore>();
+
+    for (const m1 of filtered[i].drivenMethods) {
+      for (const m2 of filtered[i + 1].drivingMethods) {
+        if (m1.bore === m2.bore) {
+          sharedBores.add(m1.bore);
+        }
       }
-      ret[ratio].push(arr);
-    });
+    }
+
+    filtered[i].drivenMethods = filtered[i].drivenMethods.filter((m) =>
+      sharedBores.has(m.bore),
+    );
+    filtered[i + 1].drivingMethods = filtered[i + 1].drivingMethods.filter(
+      (m) => sharedBores.has(m.bore),
+    );
   }
 
-  return ret;
-}
+  // Verify all stages still have methods
+  for (const s of filtered) {
+    if (s.drivingMethods.length === 0 || s.drivenMethods.length === 0) {
+      return [];
+    }
+  }
 
-export function generatePlanetaryStages(planetary: RawPlanetaryData) {
-  const ratiosAndStages = allPossiblePlanetaryRatios(planetary);
-  const planetaries: Planetary[] = [];
-  Object.entries(ratiosAndStages).forEach(([ratio_, stages]) => {
-    const ratio = Number(ratio_);
-    planetaries.push(new Planetary(ratio, stages, planetary));
-  });
-
-  return planetaries;
-}
-
-export function linkOverlappingGearStages(
-  stages: Stage[],
-  motionMethods: MotionMethod[],
-  state: RatioFinderStateV1,
-) {
-  motionMethods.forEach((gear) => {
-    stages.forEach((stage) => {
-      if (gear.teeth === stage.driven && !MotorBores.includes(gear.bore)) {
-        stage.drivenMethods.push(gear);
-      }
-
-      if (gear.teeth === stage.driving) {
-        stage.drivingMethods.push(gear);
-      }
-    });
-  });
-}
-
-function filterGears(
-  state: RatioFinderStateV1,
-  gears: typeof revGears,
-): GearData[] {
-  return gears
-    .map((g) => ({
-      dp: g.dp,
-      bore: g.bore as Bore,
-      teeth: g.teeth,
-      vendor: g.vendor as FRCVendor,
-      partNumber: g.partNumber,
-      url: g.url,
-    }))
-    .filter((g) => state.enable20DPGears || g.dp !== 20)
-    .filter((g) => state.enable32DPGears || g.dp !== 32)
-    .filter(
-      (g) =>
-        (state.forceStartingPinionSize &&
-          g.teeth === state.startingPinionSize &&
-          MotorBores.includes(g.bore)) ||
-        (state.minGearTeeth <= g.teeth && state.maxGearTeeth >= g.teeth),
-    );
-}
-
-function filterPulleys(
-  state: RatioFinderStateV1,
-  pulleys: typeof revPulleys,
-): PulleyData[] {
-  return pulleys
-    .map((p) => ({
-      bore: p.bore as Bore,
-      teeth: p.teeth,
-      vendor: p.vendor as FRCVendor,
-      partNumber: p.partNumber,
-      url: p.url,
-      pitch: p.pitch,
-      beltType: p.type as PulleyBeltType,
-    }))
-    .filter((p) => state.enableHTD || p.beltType !== "HTD")
-    .filter((p) => state.enableGT2 || p.beltType !== "GT2")
-    .filter((p) => state.enableRT25 || p.beltType !== "RT25")
-    .filter(
-      (g) =>
-        (state.forceStartingPinionSize &&
-          g.teeth === state.startingPinionSize &&
-          MotorBores.includes(g.bore)) ||
-        (state.minPulleyTeeth <= g.teeth && state.maxPulleyTeeth >= g.teeth),
-    );
-}
-function filterSprockets(
-  state: RatioFinderStateV1,
-  sprockets: typeof revSprockets,
-): SprocketData[] {
-  return sprockets
-    .map((s) => ({
-      bore: s.bore as Bore,
-      teeth: s.teeth,
-      vendor: s.vendor as FRCVendor,
-      partNumber: s.partNumber,
-      url: s.url,
-      chainType: s.type as ChainType,
-    }))
-    .filter((s) => state.enable25Chain || s.chainType !== "#25")
-    .filter((s) => state.enable35Chain || s.chainType !== "#35")
-    .filter(
-      (g) =>
-        (state.forceStartingPinionSize &&
-          g.teeth === state.startingPinionSize &&
-          MotorBores.includes(g.bore)) ||
-        (state.minSprocketTeeth <= g.teeth &&
-          state.maxSprocketTeeth >= g.teeth),
-    );
+  return filtered;
 }
 
 export function generateOptions(state: RatioFinderStateV1) {
-  let stages = allPossibleSingleGearStages(state);
+  const allMethods = getMotionMethods(state);
+  const allStages = buildStages(allMethods, state);
 
-  if (state.enableMPs && state.enableREV) {
-    stages = stages.concat(
-      generatePlanetaryStages({
-        inputs: maxPlanetary.inputs as Bore[],
-        maxStages: maxPlanetary.maxStages,
-        outputs: maxPlanetary.outputs as Bore[],
-        partNumber: maxPlanetary.partNumber,
-        ratios: maxPlanetary.ratios,
-        url: maxPlanetary.url,
-        vendor: maxPlanetary.vendor as FRCVendor,
-      }),
+  // Split into first stages (must have starting bore) and others
+  const firstStages = allStages
+    .filter((s) => s.drivingMethods.some((m) => m.bore === state.startingBore))
+    .map(
+      (s) =>
+        new Stage(
+          s.driving,
+          s.driven,
+          s.drivingMethods.filter((m) => m.bore === state.startingBore),
+          [...s.drivenMethods],
+        ),
     );
-  }
-  if (state.enableVPs && state.enableVEX) {
-    stages = stages.concat(
-      generatePlanetaryStages({
-        inputs: versaPlanetary.inputs as Bore[],
-        maxStages: versaPlanetary.maxStages,
-        outputs: versaPlanetary.outputs as Bore[],
-        partNumber: versaPlanetary.partNumber,
-        ratios: versaPlanetary.ratios,
-        url: versaPlanetary.url,
-        vendor: versaPlanetary.vendor as FRCVendor,
-      }),
-    );
-  }
-  if (state.enableSports && state.enableAM) {
-    stages = stages.concat(
-      generatePlanetaryStages({
-        inputs: sportPlanetary.inputs as Bore[],
-        maxStages: sportPlanetary.maxStages,
-        outputs: sportPlanetary.outputs as Bore[],
-        partNumber: sportPlanetary.partNumber,
-        ratios: sportPlanetary.ratios,
-        url: sportPlanetary.url,
-        vendor: sportPlanetary.vendor as FRCVendor,
-      }),
-    );
-  }
 
-  const gears = [
-    ...(state.enableREV ? revGears : []),
-    ...(state.enableAM ? amGears : []),
-    ...(state.enableWCP ? wcpGears : []),
-    ...(state.enableTTB ? [] : []),
-    ...(state.enableVEX ? vexGears : []),
-  ];
+  const otherStages = allStages;
+  const results: Gearbox[] = [];
 
-  const pulleys = [
-    ...(state.enableREV ? revPulleys : []),
-    ...(state.enableAM ? amPulleys : []),
-    ...(state.enableWCP ? wcpPulleys : []),
-    ...(state.enableTTB ? ttbPulleys : []),
-    ...(state.enableVEX ? vexPulleys : []),
-    ...(state.printablePulleys ? printedPulleys : []),
-  ];
-
-  const sprockets = [
-    ...(state.enableREV ? revSprockets : []),
-    ...(state.enableAM ? amSprockets : []),
-    ...(state.enableWCP ? wcpSprockets : []),
-    ...(state.enableTTB ? ttbSprockets : []),
-    ...(state.enableVEX ? vexSprockets : []),
-  ];
-
-  const motionMethods: MotionMethod[] = [
-    ...filterGears(state, gears).map((g) => ({
-      ...g,
-      type: "Gear" as MotionMethodPart,
-    })),
-    ...filterPulleys(state, pulleys).map((g) => ({
-      ...g,
-      type: "Pulley" as MotionMethodPart,
-    })),
-    ...filterSprockets(state, sprockets).map((g) => ({
-      ...g,
-      type: "Sprocket" as MotionMethodPart,
-    })),
-  ]
-    .filter((m) => state.enableREV || m.vendor !== "REV")
-    .filter((m) => state.enableAM || m.vendor !== "AndyMark")
-    .filter((m) => state.enableVEX || m.vendor !== "VEXpro")
-    .filter((m) => state.enableWCP || m.vendor !== "WCP")
-    .filter((m) => state.enableTTB || m.vendor !== "TTB")
-    .filter((m) => state.printablePulleys || m.vendor !== "Printed")
-    .filter((m) => {
-      let good = true;
-      if (MotorBores.includes(m.bore)) {
-        good = good && (state.enableFalconPinions || m.bore !== "Falcon");
-        good = good && (state.enableNEOPinions || m.bore !== "NEO");
-        good = good && (state.enable775Pinions || m.bore !== "775");
-        good = good && (state.enable550Pinions || m.bore !== "550");
-        good = good && (state.enableKrakenPinions || m.bore !== "SplineXS");
-        good = good && (state.enableVortexPinions || m.bore !== "Vortex");
-      } else {
-        good = good && (state.enable12HexBore || m.bore !== "1/2 Hex");
-        good = good && (state.enable38HexBore || m.bore !== "3/8 Hex");
-        good = good && (state.enable875Bore || m.bore !== "0.875in");
-        good = good && (state.enableBearingBore || m.bore !== "1.125in");
-        good = good && (state.enableMaxSpline || m.bore !== "MAXSpline");
-        good = good && (state.enableSplineXL || m.bore !== "SplineXL");
-      }
-      return good;
-    });
-
-  linkOverlappingGearStages(stages, motionMethods, state);
-
-  stages = stages
-    .filter((stage) => stage.drivenMethods.length > 0)
-    .filter((stage) => stage.drivingMethods.length > 0);
-
-  let options: Gearbox[] = [];
-  for (let i = state.minStages; i <= state.maxStages; i++) {
-    const gbs: Gearbox[] = [];
-
-    const iter = permutations(stages, i);
-    let curr = iter.next();
-
-    while (!curr.done) {
-      const gb = new Gearbox(curr.value);
-      const ratio = gb.getRatio();
-
+  // Single stage
+  if (state.minStages <= 1 && state.maxStages >= 1) {
+    for (const stage of firstStages) {
+      const ratio = stage.getRatio();
       if (
         ratio >= state.targetReduction - state.reductionError &&
         ratio <= state.targetReduction + state.reductionError
       ) {
-        const newStages = cloneDeep(curr.value);
-        gb.stages = newStages;
-        gb.filterStagesForOverlappingMotionMethods();
-        gb.filterStagesForOverlappingBores();
-        gb.filterStagesForOverlappingMotionMethods();
-        gb.filterStagesForStartingBore(state.startingBore);
+        results.push(new Gearbox([stage]));
+      }
+    }
+  }
+
+  // Multi-stage
+  for (let n = 2; n <= state.maxStages; n++) {
+    if (n < state.minStages) continue;
+
+    const iter = permutations(otherStages, n - 1);
+    let curr = iter.next();
+
+    while (!curr.done) {
+      const remaining = curr.value;
+
+      for (const first of firstStages) {
+        const stages = [first, ...remaining];
+        const ratio = new Gearbox(stages).getRatio();
 
         if (
-          gb.hasMotionModes() &&
-          gb.startsWithBore(state.startingBore) &&
-          (state.forceStartingPinionSize
-            ? gb.startsWithTeeth(state.startingPinionSize)
-            : true) &&
-          !gb.containsPinionInBadPlace()
+          ratio >= state.targetReduction - state.reductionError &&
+          ratio <= state.targetReduction + state.reductionError
         ) {
-          gbs.push(gb);
+          // Check connectivity
+          let ok = true;
+          for (let i = 0; i < stages.length - 1; i++) {
+            if (!canConnect(stages[i], stages[i + 1])) {
+              ok = false;
+              break;
+            }
+          }
+
+          if (ok) {
+            const filtered = filterBores(stages);
+            if (filtered.length > 0) {
+              results.push(new Gearbox(filtered));
+            }
+          }
         }
       }
 
       curr = iter.next();
     }
-
-    options = options.concat(gbs);
   }
 
-  return options.map((gb) => gb.toObj());
+  return results.map((gb) => gb.toObj());
 }
 
 const workerFunctions = { generateOptions };

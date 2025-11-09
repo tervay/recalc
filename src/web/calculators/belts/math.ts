@@ -1,6 +1,7 @@
-import Belt from "common/models/Belt";
+import { SimpleBelt } from "common/models/Belt";
 import Measurement from "common/models/Measurement";
-import Pulley from "common/models/Pulley";
+import { SimplePulley } from "common/models/Pulley";
+import type Pulley from "common/models/Pulley";
 import {
   debugAndReturn,
   useDebugger,
@@ -12,9 +13,9 @@ import { roundToNearestMulitple } from "common/tooling/util";
 const fileLogger = useFileLogger("Belts::math");
 
 export function calculateDistance(
-  p1: Pulley,
-  p2: Pulley,
-  belt: Belt,
+  p1: SimplePulley,
+  p2: SimplePulley,
+  belt: SimpleBelt,
 ): Measurement {
   const logger = useFunctionLogger(fileLogger, "calculateDistance", {
     p1,
@@ -49,10 +50,10 @@ export function calculateDistance(
 }
 
 export function teethInMesh(
-  p1: Pulley,
-  p2: Pulley,
+  p1: SimplePulley,
+  p2: SimplePulley,
   center: Measurement,
-  pulleyToUse: Pulley,
+  pulleyToUse: SimplePulley,
 ): number {
   const logger = useFunctionLogger(fileLogger, "teethInMesh", {
     p1,
@@ -119,8 +120,8 @@ export function getTIMFactor(teethInMesh: number): number {
 }
 
 export function approximateBeltPitchLength(
-  p1: Pulley,
-  p2: Pulley,
+  p1: SimplePulley,
+  p2: SimplePulley,
   desiredCenter: Measurement,
 ): Measurement {
   const t1 = desiredCenter.mul(2);
@@ -134,7 +135,7 @@ export function approximateBeltPitchLength(
 }
 
 type Result = {
-  belt: Belt;
+  belt: SimpleBelt;
   distance: Measurement;
 };
 export type ClosestCentersResult = {
@@ -142,8 +143,8 @@ export type ClosestCentersResult = {
   larger: Result;
 };
 export function calculateClosestCenters(
-  p1: Pulley,
-  p2: Pulley,
+  p1: SimplePulley,
+  p2: SimplePulley,
   desiredCenter: Measurement,
   multipleOf: number,
 ): ClosestCentersResult {
@@ -159,11 +160,11 @@ export function calculateClosestCenters(
   ) {
     return {
       larger: {
-        belt: Belt.fromTeeth(0, p1.pitch),
+        belt: new SimpleBelt(0, p1.pitch),
         distance: new Measurement(0, "mm"),
       },
       smaller: {
-        belt: Belt.fromTeeth(0, p1.pitch),
+        belt: new SimpleBelt(0, p1.pitch),
         distance: new Measurement(0, "mm"),
       },
     };
@@ -174,10 +175,10 @@ export function calculateClosestCenters(
     pl.div(p1.pitch).scalar,
     multipleOf,
   );
-  const largerBelt = Belt.fromTeeth(largerTeeth, p1.pitch);
+  const largerBelt = new SimpleBelt(largerTeeth, p1.pitch);
 
   const smallerTeeth = largerTeeth - multipleOf;
-  const smallerBelt = Belt.fromTeeth(smallerTeeth, p1.pitch);
+  const smallerBelt = new SimpleBelt(smallerTeeth, p1.pitch);
 
   return {
     larger: {
@@ -192,8 +193,8 @@ export function calculateClosestCenters(
 }
 
 export function calculateDistanceBetweenPulleys(
-  p1: Pulley,
-  p2: Pulley,
+  p1: SimplePulley,
+  p2: SimplePulley,
   ccDistance: Measurement,
 ): Measurement {
   return ccDistance.sub(p1.pitchDiameter.div(2)).sub(p2.pitchDiameter.div(2));

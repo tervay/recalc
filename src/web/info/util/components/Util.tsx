@@ -1,4 +1,3 @@
-import Bearings from "web/info/util/components/Bearings";
 import { HoleSizes } from "web/info/util/components/HoleSizes";
 import MountingCheatSheet from "web/info/util/components/MountingCheatSheet";
 import SpacerCalc from "web/info/util/components/Spacers";
@@ -9,8 +8,6 @@ export default function Util(): JSX.Element {
       <HoleSizes />
       <SpacerCalc />
       <MountingCheatSheet />
-      <Bearings />
-      {/* <ExtrusionPrices /> */}
     </>
   );
 }

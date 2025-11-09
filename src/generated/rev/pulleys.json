@@ -1,0 +1,146 @@
+[
+  {
+    "teeth": 12,
+    "width": {
+      "s": 0.5,
+      "u": "in"
+    },
+    "profile": "RT25",
+    "pitch": {
+      "s": 0.25,
+      "u": "in"
+    },
+    "sku": "REV-21-2200",
+    "url": "https://www.revrobotics.com/RT25-Pulleys/",
+    "bore": "8mm",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 16,
+    "width": {
+      "s": 0.5,
+      "u": "in"
+    },
+    "profile": "RT25",
+    "pitch": {
+      "s": 0.25,
+      "u": "in"
+    },
+    "sku": "REV-21-2205",
+    "url": "https://www.revrobotics.com/RT25-Pulleys/",
+    "bore": "1/2\" Hex",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 16,
+    "width": {
+      "s": 1,
+      "u": "in"
+    },
+    "profile": "RT25",
+    "pitch": {
+      "s": 0.25,
+      "u": "in"
+    },
+    "sku": "REV-21-2206",
+    "url": "https://www.revrobotics.com/RT25-Pulleys/",
+    "bore": "1/2\" Hex",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 24,
+    "width": {
+      "s": 0.5,
+      "u": "in"
+    },
+    "profile": "RT25",
+    "pitch": {
+      "s": 0.25,
+      "u": "in"
+    },
+    "sku": "REV-21-2224",
+    "url": "https://www.revrobotics.com/RT25-Pulleys/",
+    "bore": "MAXSpline",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 32,
+    "width": {
+      "s": 0.5,
+      "u": "in"
+    },
+    "profile": "RT25",
+    "pitch": {
+      "s": 0.25,
+      "u": "in"
+    },
+    "sku": "REV-21-2236",
+    "url": "https://www.revrobotics.com/RT25-Pulleys/",
+    "bore": "MAXSpline",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 40,
+    "width": {
+      "s": 0.5,
+      "u": "in"
+    },
+    "profile": "RT25",
+    "pitch": {
+      "s": 0.25,
+      "u": "in"
+    },
+    "sku": "REV-21-2248",
+    "url": "https://www.revrobotics.com/RT25-Pulleys/",
+    "bore": "MAXSpline",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 48,
+    "width": {
+      "s": 0.5,
+      "u": "in"
+    },
+    "profile": "RT25",
+    "pitch": {
+      "s": 0.25,
+      "u": "in"
+    },
+    "sku": "REV-21-2260",
+    "url": "https://www.revrobotics.com/RT25-Pulleys/",
+    "bore": "MAXSpline",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 56,
+    "width": {
+      "s": 0.5,
+      "u": "in"
+    },
+    "profile": "RT25",
+    "pitch": {
+      "s": 0.25,
+      "u": "in"
+    },
+    "sku": "REV-21-2272",
+    "url": "https://www.revrobotics.com/RT25-Pulleys/",
+    "bore": "MAXSpline",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 64,
+    "width": {
+      "s": 0.5,
+      "u": "in"
+    },
+    "profile": "RT25",
+    "pitch": {
+      "s": 0.25,
+      "u": "in"
+    },
+    "sku": "REV-21-2284",
+    "url": "https://www.revrobotics.com/RT25-Pulleys/",
+    "bore": "MAXSpline",
+    "vendor": "REV"
+  }
+]

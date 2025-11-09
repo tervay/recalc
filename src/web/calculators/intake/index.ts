@@ -13,7 +13,6 @@ const intakeConfig: PageConfig = {
   description: "Intake calculator",
   version: 1,
   component: lazy(() => import("web/calculators/intake/components/IntakePage")),
-  image: "/media/Intake",
 };
 
 export default intakeConfig;

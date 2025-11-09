@@ -1,4 +1,4 @@
-import Belt from "common/models/Belt";
+import { SimpleBelt } from "common/models/Belt";
 import { mm } from "common/models/ExtraTypes";
 import { describe, expect, test } from "vitest";
 import Measurement from "../Measurement";
@@ -12,7 +12,7 @@ const testCases = [
       teeth: 100,
       pitch: mm(3).toDict(),
     },
-    eq: new Belt(100, mm(3), mm(100 * 3)),
+    eq: new SimpleBelt(100, mm(3)),
   },
   {
     pitch: mm(5),
@@ -22,7 +22,7 @@ const testCases = [
       teeth: 340,
       pitch: mm(5).toDict(),
     },
-    eq: new Belt(340, mm(5), mm(340 * 5)),
+    eq: new SimpleBelt(340, mm(5)),
   },
   {
     pitch: mm(7),
@@ -32,7 +32,7 @@ const testCases = [
       teeth: 45,
       pitch: mm(7).toDict(),
     },
-    eq: new Belt(45, mm(7), mm(45 * 7)),
+    eq: new SimpleBelt(45, mm(7)),
   },
 ];
 
@@ -40,7 +40,7 @@ describe("Belt model", () => {
   test.each(testCases)(
     "%p Fills fields given teeth and pitch",
     ({ pitch, teeth, length }) => {
-      const b = Belt.fromTeeth(teeth, pitch);
+      const b = new SimpleBelt(teeth, pitch);
       expect(b.length).toBeCloseToMeasurement(length);
     },
   );
@@ -48,7 +48,8 @@ describe("Belt model", () => {
   test.each(testCases)(
     "%p Fills fields given length and pitch",
     ({ pitch, teeth, length }) => {
-      const b = Belt.fromLength(length, pitch);
+      const calculatedTeeth = Math.round(length.div(pitch).scalar);
+      const b = new SimpleBelt(calculatedTeeth, pitch);
       expect(b.teeth).toBeCloseTo(teeth);
     },
   );
@@ -56,16 +57,16 @@ describe("Belt model", () => {
   test.each(testCases)(
     "%p toDict returns expected data",
     ({ pitch, teeth, toDict }) => {
-      expect(Belt.fromTeeth(teeth, pitch).toDict()).toMatchObject(toDict);
+      expect(new SimpleBelt(teeth, pitch).toDict()).toMatchObject(toDict);
     },
   );
 
   test.each(testCases)("%p eq", ({ pitch, teeth, eq }) => {
-    expect(Belt.fromTeeth(teeth, pitch)).toEqualModel(eq);
-    expect(Belt.fromTeeth(teeth, pitch)).not.toEqualModel(
+    expect(new SimpleBelt(teeth, pitch)).toEqualModel(eq);
+    expect(new SimpleBelt(teeth, pitch)).not.toEqualModel(
       new Measurement(1, "inch"),
     );
-    expect(Belt.fromTeeth(teeth + 10, pitch)).not.toEqualModel(eq);
-    expect(Belt.fromTeeth(teeth, pitch.add(mm(1)))).not.toEqualModel(eq);
+    expect(new SimpleBelt(teeth + 10, pitch)).not.toEqualModel(eq);
+    expect(new SimpleBelt(teeth, pitch.add(mm(1)))).not.toEqualModel(eq);
   });
 });

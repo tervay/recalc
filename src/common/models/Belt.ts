@@ -1,64 +1,16 @@
-import _frcBelts from "common/models/data/belts.json";
-import _vbg from "common/models/data/inventories/VBeltGuys.json";
-import { FRCVendor, PulleyBeltType } from "common/models/ExtraTypes";
 import Measurement from "common/models/Measurement";
 import Model from "common/models/Model";
-import { cleanFloatingPointErrors } from "common/tooling/io";
-import { isEqual } from "lodash";
+import type { JSONBelt } from "common/models/types/belts";
 
-type VendorData = {
-  vendor: FRCVendor;
-  type: PulleyBeltType;
-  sku: string;
-  url: string;
-};
-
-export default class Belt extends Model {
-  public readonly vendor?: FRCVendor;
-  public readonly type?: PulleyBeltType;
-  public readonly sku?: string;
-  public readonly url?: string;
+export class SimpleBelt extends Model {
+  public readonly length: Measurement;
 
   constructor(
     public readonly teeth: number,
     public readonly pitch: Measurement,
-    public readonly length: Measurement,
-    public readonly width?: Measurement,
-    vendorData?: VendorData,
   ) {
-    super("Belt");
-    this.vendor = vendorData?.vendor;
-    this.type = vendorData?.type;
-    this.sku = vendorData?.sku;
-    this.url = vendorData?.url;
-  }
-
-  static fromTeeth(
-    teeth: number,
-    pitch: Measurement,
-    width?: Measurement,
-    vendorData?: VendorData,
-  ): Belt {
-    return new Belt(teeth, pitch, pitch.mul(teeth), width, vendorData);
-  }
-
-  static fromLength(
-    length: Measurement,
-    pitch: Measurement,
-    width?: Measurement,
-    vendorData?: VendorData,
-  ): Belt {
-    return new Belt(
-      cleanFloatingPointErrors(length.div(pitch).scalar),
-      pitch,
-      length,
-      width,
-      vendorData,
-    );
-  }
-
-  toJSON(): Record<string, unknown> {
-    return this.toDict();
+    super("SimpleBelt");
+    this.length = pitch.mul(teeth);
   }
 
   toDict(): Record<string, unknown> {
@@ -69,39 +21,65 @@ export default class Belt extends Model {
   }
 
   eq<M extends Model>(m: M): boolean {
-    return m instanceof Belt && isEqual(m.toDict(), this.toDict());
+    if (m instanceof SimpleBelt) {
+      return this.teeth === m.teeth && this.pitch.eq(m.pitch);
+    }
+
+    return false;
+  }
+}
+
+export default class Belt extends SimpleBelt {
+  public readonly length: Measurement;
+
+  constructor(
+    public readonly teeth: number,
+    public readonly pitch: Measurement,
+    public readonly width: Measurement,
+    public readonly profile: string,
+    public readonly sku: string | null,
+    public readonly url: string,
+    public readonly vendor: string,
+  ) {
+    super(teeth, pitch);
+    this.length = this.pitch.mul(this.teeth);
   }
 
-  static getAllBelts(include_vbg = false): Belt[] {
-    const frcBelts = _frcBelts.map((b) =>
-      Belt.fromTeeth(
-        b.teeth,
-        new Measurement(Number(b.pitch.replace(" mm", "")), "mm"),
-        new Measurement(Number(b.width.replace(" mm", "")), "mm"),
-        {
-          sku: b.sku,
-          type: b.type as PulleyBeltType,
-          url: b.url,
-          vendor: b.vendor as FRCVendor,
-        },
-      ),
+  public static fromJson(json: JSONBelt): Belt {
+    return new Belt(
+      json.teeth,
+      new Measurement(json.pitch, "mm"),
+      new Measurement(json.width, "mm"),
+      json.profile,
+      json.sku,
+      json.url,
+      json.vendor,
     );
-    const vbgBelts = include_vbg
-      ? [...new Set(_vbg.filter((b) => b.responseCode === 200))].map((b) =>
-          Belt.fromTeeth(
-            b.teeth,
-            new Measurement(Number(b.pitch.replace(" mm", "")), "mm"),
-            new Measurement(Number(b.width.replace(" mm", "")), "mm"),
-            {
-              url: b.generatedUrl,
-              vendor: "VBeltGuys",
-              sku: b.generatedUrl.split("/")[b.generatedUrl.split("/").length],
-              type: "HTD",
-            },
-          ),
-        )
-      : [];
-
-    return frcBelts.concat(vbgBelts);
   }
+
+  get type(): string {
+    return this.profile;
+  }
+
+  toDict(): Record<string, unknown> {
+    return {
+      teeth: this.teeth,
+      pitch: this.pitch.toDict(),
+    };
+  }
+
+  eq<M extends Model>(m: M): boolean {
+    if (m instanceof Belt) {
+      return (
+        this.teeth === m.teeth &&
+        this.pitch.eq(m.pitch) &&
+        this.width.eq(m.width) &&
+        this.profile === m.profile &&
+        this.vendor === m.vendor
+      );
+    }
+
+    return false;
+  }
+
 }

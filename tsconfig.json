@@ -10,7 +10,7 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
@@ -32,6 +32,7 @@
     // same as the --compilerOptions flag and the TS_NODE_COMPILER_OPTIONS environment variable
     "compilerOptions": {
       "module": "commonjs"
-    }
+    },
+    "require": ["tsconfig-paths/register"]
   }
 }
