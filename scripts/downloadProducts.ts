@@ -2,6 +2,7 @@ import { program } from 'commander';
 import { mkdir, writeFile } from 'fs/promises';
 import { FileSystemCache, NodeFetchCache } from 'node-fetch-cache';
 import { join } from 'path';
+import { format } from 'prettier';
 
 import { SimpleBelt } from '~/lib/models/Belt';
 import Measurement from '~/lib/models/Measurement';
@@ -9,8 +10,10 @@ import { type JSONBelt, wcpBeltToJsonBelt, zWCPBelt } from '~/lib/types/belts';
 import { type JSONGear, wcpGearToJsonGear, zWCPGear } from '~/lib/types/gears';
 import {
   type JSONPulley,
+  revPulleyToJsonPulley,
   thriftyPulleyToJsonPulley,
   wcpPulleyToJsonPulley,
+  zREVPulley,
   zThriftyPulley,
   zWCPPulley,
 } from '~/lib/types/pulleys';
@@ -96,7 +99,11 @@ async function writeJson(
   const outFile = join(outdir, `${productType}.json`);
 
   await mkdir(outdir, { recursive: true });
-  await writeFile(outFile, JSON.stringify(data, null, 2));
+  const jsonString = JSON.stringify(data, null, 2);
+  const formatted = await format(jsonString, {
+    filepath: outFile,
+  });
+  await writeFile(outFile, formatted);
 }
 
 async function wcpBelts() {
@@ -217,22 +224,26 @@ async function wcpSprockets() {
 
 async function swyftBelts() {
   const allProducts = await getAllProducts('Swyft');
+
   const belts: JSONBelt[] = [];
 
   for (const product of allProducts) {
     if (product.title.includes('Timing Belt')) {
-      const width = product.title.startsWith('15') ? 15 : 9;
+      const width = product.title.includes('9mm Width') ? 9 : 15;
 
       for (const variant of product.variants) {
-        belts.push({
-          teeth: Number(variant.title),
-          width,
-          profile: 'HTD',
-          pitch: 5,
-          sku: variant.sku,
-          url: urlForHandle(product.handle, 'Swyft'),
-          vendor: 'Swyft',
-        });
+        const teeth = Number(variant.title.split(' ')[0]);
+        if (!isNaN(teeth) && teeth > 0) {
+          belts.push({
+            teeth,
+            width,
+            profile: 'HTD',
+            pitch: 5,
+            sku: variant.sku,
+            url: urlForHandle(product.handle, 'Swyft'),
+            vendor: 'Swyft',
+          });
+        }
       }
     }
   }
@@ -405,6 +416,108 @@ async function thriftySprockets() {
   await writeJson(sprockets, 'Thrifty', 'sprockets');
 }
 
+async function revBelts() {
+  const toothCounts: number[] = [
+    32, 36, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152,
+    160, 168, 176, 184, 192, 200, 208, 216,
+  ];
+
+  const belts: JSONBelt[] = [];
+
+  for (const toothCount of toothCounts) {
+    belts.push({
+      teeth: toothCount,
+      width: new Measurement(0.5, 'in').to('mm').scalar,
+      profile: 'RT25',
+      pitch: new Measurement(0.25, 'in').to('mm').scalar,
+      sku: `REV-21-${toothCount + 4000}`,
+      url: 'https://www.revrobotics.com/RT25-Belts-1/2in-Width',
+      vendor: 'REV',
+    });
+  }
+
+  await writeJson(belts, 'REV', 'belts');
+}
+
+async function revPulleys() {
+  const data: {
+    teeth: number;
+    bore: '8mm' | '1/2" Hex' | 'MAXSpline';
+    width: number;
+    sku: string;
+  }[] = [
+    {
+      teeth: 12,
+      bore: '8mm',
+      width: 0.5,
+      sku: 'REV-21-2200',
+    },
+    {
+      teeth: 16,
+      bore: '1/2" Hex',
+      width: 0.5,
+      sku: 'REV-21-2205',
+    },
+    {
+      teeth: 16,
+      bore: '1/2" Hex',
+      width: 1,
+      sku: 'REV-21-2206',
+    },
+    {
+      teeth: 24,
+      bore: 'MAXSpline',
+      width: 0.5,
+      sku: 'REV-21-2224',
+    },
+    {
+      teeth: 32,
+      bore: 'MAXSpline',
+      width: 0.5,
+      sku: 'REV-21-2236',
+    },
+    {
+      teeth: 40,
+      bore: 'MAXSpline',
+      width: 0.5,
+      sku: 'REV-21-2248',
+    },
+    {
+      teeth: 48,
+      bore: 'MAXSpline',
+      width: 0.5,
+      sku: 'REV-21-2260',
+    },
+    {
+      teeth: 56,
+      bore: 'MAXSpline',
+      width: 0.5,
+      sku: 'REV-21-2272',
+    },
+    {
+      teeth: 64,
+      bore: 'MAXSpline',
+      width: 0.5,
+      sku: 'REV-21-2284',
+    },
+  ];
+
+  const pulleys: JSONPulley[] = [];
+
+  for (const item of data) {
+    const revPulley = zREVPulley.parse({
+      teeth: item.teeth,
+      width: item.width,
+      bore: item.bore,
+      sku: item.sku,
+      url: 'https://www.revrobotics.com/RT25-Pulleys/',
+    });
+    pulleys.push(revPulleyToJsonPulley(revPulley));
+  }
+
+  await writeJson(pulleys, 'REV', 'pulleys');
+}
+
 async function dispatch(vendor: string, productType: string) {
   if (vendor === 'wcp') {
     if (productType === 'belts') {
@@ -438,6 +551,14 @@ async function dispatch(vendor: string, productType: string) {
       await thriftySprockets();
     }
   }
+  if (vendor === 'rev') {
+    if (productType === 'belts') {
+      await revBelts();
+    }
+    if (productType === 'pulleys') {
+      await revPulleys();
+    }
+  }
 
   if (vendor === 'all' && productType === 'all') {
     await Promise.all([
@@ -448,6 +569,9 @@ async function dispatch(vendor: string, productType: string) {
       swyftBelts(),
       thriftyPulleys(),
       thriftySprockets(),
+      vbeltGuysBelts(),
+      revBelts(),
+      revPulleys(),
     ]);
   }
 }

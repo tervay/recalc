@@ -1467,15 +1467,6 @@
     "vendor": "VBeltGuys"
   },
   {
-    "teeth": 530,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "2650-5m-09",
-    "url": "https://www.vbeltguys.com/products/2650-5m-09-synchronous-timing-belt",
-    "vendor": "VBeltGuys"
-  },
-  {
     "teeth": 550,
     "width": 9,
     "profile": "HTD",
@@ -1500,15 +1491,6 @@
     "pitch": 5,
     "sku": "3200-5m-09",
     "url": "https://www.vbeltguys.com/products/3200-5m-09-synchronous-timing-belt",
-    "vendor": "VBeltGuys"
-  },
-  {
-    "teeth": 680,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "3400-5m-09",
-    "url": "https://www.vbeltguys.com/products/3400-5m-09-synchronous-timing-belt",
     "vendor": "VBeltGuys"
   },
   {
@@ -2079,15 +2061,6 @@
     "vendor": "VBeltGuys"
   },
   {
-    "teeth": 530,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "2650-5m-15",
-    "url": "https://www.vbeltguys.com/products/2650-5m-15-synchronous-timing-belt",
-    "vendor": "VBeltGuys"
-  },
-  {
     "teeth": 550,
     "width": 15,
     "profile": "HTD",
@@ -2112,15 +2085,6 @@
     "pitch": 5,
     "sku": "3200-5m-15",
     "url": "https://www.vbeltguys.com/products/3200-5m-15-synchronous-timing-belt",
-    "vendor": "VBeltGuys"
-  },
-  {
-    "teeth": 680,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "3400-5m-15",
-    "url": "https://www.vbeltguys.com/products/3400-5m-15-synchronous-timing-belt",
     "vendor": "VBeltGuys"
   },
   {

@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table';
+import revBelts from '~/genData/REV/belts.json';
 import swyftBelts from '~/genData/Swyft/belts.json';
 import vbgBelts from '~/genData/VBeltGuys/belts.json';
 import wcpBelts from '~/genData/WCP/belts.json';
@@ -20,7 +21,7 @@ export function BeltTable({
   filterFn?: (belt: Belt) => boolean;
 }) {
   const belts = useMemo(() => {
-    return [...wcpBelts, ...swyftBelts, ...vbgBelts]
+    return [...wcpBelts, ...swyftBelts, ...vbgBelts, ...revBelts]
       .map((b) => Belt.fromJson(b))
       .filter(filterFn)
       .sort(

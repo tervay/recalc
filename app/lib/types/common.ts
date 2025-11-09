@@ -9,6 +9,7 @@ export const zBore = z.enum([
   '3/8" Hex',
   'SplineXS',
   'SplineXL',
+  'MAXSpline',
   'Falcon',
   'RS775',
   'RS550',

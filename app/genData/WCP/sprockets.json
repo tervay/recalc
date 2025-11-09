@@ -1,5 +1,53 @@
 [
   {
+    "teeth": 36,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "url": "https://wcproducts.com/products/wcp-2106",
+    "sku": "WCP-2106",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 34,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "url": "https://wcproducts.com/products/wcp-2105",
+    "sku": "WCP-2105",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 32,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "url": "https://wcproducts.com/products/wcp-2104",
+    "sku": "WCP-2104",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 30,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "url": "https://wcproducts.com/products/wcp-2103",
+    "sku": "WCP-2103",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 28,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "url": "https://wcproducts.com/products/wcp-2102",
+    "sku": "WCP-2102",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 26,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "url": "https://wcproducts.com/products/wcp-2101",
+    "sku": "WCP-2101",
+    "vendor": "WCP"
+  },
+  {
     "teeth": 84,
     "bore": "SplineXL",
     "chainType": "#35",

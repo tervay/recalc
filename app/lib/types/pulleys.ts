@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import Measurement from '~/lib/models/Measurement';
 import { type Bore, zBore } from '~/lib/types/common';
 
 export const zJSONPulley = z.object({
@@ -90,5 +91,31 @@ export function thriftyPulleyToJsonPulley(pulley: ThriftyPulley): JSONPulley {
     vendor: 'Thrifty',
     width: 18.5,
     pitch: 5,
+  };
+}
+
+export const zREVPulleyBore = z.enum(['8mm', '1/2" Hex', 'MAXSpline']);
+export type REVPulleyBore = z.infer<typeof zREVPulleyBore>;
+
+export const zREVPulley = z.object({
+  teeth: z.number(),
+  width: z.number().min(0.25), // (inches)
+  bore: zREVPulleyBore,
+  sku: z.string(),
+  url: z.string().url(),
+});
+
+export type REVPulley = z.infer<typeof zREVPulley>;
+
+export function revPulleyToJsonPulley(pulley: REVPulley): JSONPulley {
+  return {
+    teeth: pulley.teeth,
+    width: new Measurement(pulley.width, 'in').to('mm').scalar, // Convert inches to mm
+    profile: 'RT25',
+    pitch: new Measurement(0.25, 'in').to('mm').scalar, // Convert inches to mm
+    sku: pulley.sku,
+    url: pulley.url,
+    bore: pulley.bore,
+    vendor: 'REV',
   };
 }
