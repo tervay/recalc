@@ -106,4 +106,12 @@ body {
     margin: 0;
     -moz-appearance: textfield !important;
   }
+
+  .svg-white {
+    filter: brightness(0) invert(1);
+  }
+
+  .svg-black {
+    filter: none;
+  }
 }
