@@ -16,3 +16,5 @@ ReCalc is a design calculator website primarily used for the FIRST Robotics Comp
 - ReCalc offloads compute-heavy tasks to background workers through Comlink in order to keep the UI responsive.
 - Do not create dynamic style strings. Use `cn`, which is a thin wrapper around `clsx` and `tw-merge`.
 - Always use absolute imports.
+- Be thorough about divide-by-zero errors.
+- You should be intimately familiar with the latest FIRST Robotics Competition rules, vendors, and COTS products.
