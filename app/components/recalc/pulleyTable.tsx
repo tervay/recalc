@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table';
+import revPulleys from '~/genData/REV/pulleys.json';
 import thriftyPulleys from '~/genData/Thrifty/pulleys.json';
 import wcpPulleys from '~/genData/WCP/pulleys.json';
 import Pulley from '~/lib/models/Pulley';
@@ -20,7 +21,7 @@ export function PulleyTable({
   filterFn?: (pulley: Pulley) => boolean;
 }) {
   const pulleys = useMemo(() => {
-    return [...wcpPulleys, ...thriftyPulleys]
+    return [...wcpPulleys, ...thriftyPulleys, ...revPulleys]
       .map((p) => {
         const pulleyData = {
           ...p,

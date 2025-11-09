@@ -1,11 +1,128 @@
 [
   {
+    "teeth": 30,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "150-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 30,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "150-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 35,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "175-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 35,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "175-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 40,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "200-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 40,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "200-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 45,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "225-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 45,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "225-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 50,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "250-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 50,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "250-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 55,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "275-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 55,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "275-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
     "teeth": 60,
     "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-1001",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
+    "sku": "300-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 60,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "300-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
@@ -13,350 +130,359 @@
     "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-1002",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 70,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1003",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 75,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1004",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 80,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1005",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 85,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1006",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 90,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1007",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 95,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1008",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 100,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1009",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 110,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1010",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 120,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1011",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 130,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1012",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 140,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1013",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 150,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1014",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 160,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1015",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 170,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1016",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 180,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1017",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 200,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1018",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 220,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1019",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 250,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-1020",
-    "url": "https://swyftrobotics.com/products/15mm-width-htd-timing-belts",
-    "vendor": "Swyft"
-  },
-  {
-    "teeth": 60,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "BLT-0001",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "325-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 65,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0002",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "325-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 70,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0003",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "350-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 70,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "350-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 75,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0004",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "375-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 75,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "375-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 80,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0005",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "400-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 80,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "400-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 85,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0006",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "425-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 85,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "425-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 90,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0007",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "450-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 90,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "450-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 95,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0008",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "475-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 95,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "475-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 100,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0009",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "500-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 100,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "500-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 110,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0010",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "550-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 110,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "550-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 120,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0011",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "600-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 120,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "600-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 130,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0012",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "650-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 130,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "650-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 140,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0013",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "700-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 140,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "700-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 150,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0014",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "750-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 150,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "750-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 160,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0015",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "800-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 160,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "800-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 170,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0016",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "850-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 170,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "850-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 180,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0017",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "900-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 180,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "900-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 190,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "950-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 190,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "950-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 200,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0018",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "1000-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 200,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "1000-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 220,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0019",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "1100-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 220,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "1100-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   },
   {
     "teeth": 250,
-    "width": 9,
+    "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "BLT-0020",
-    "url": "https://swyftrobotics.com/products/9mm-width-htd-timing-belts",
+    "sku": "1250-5M-9",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 250,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "1250-5M-15",
+    "url": "https://swyftrobotics.com/products/htd-timing-belts",
     "vendor": "Swyft"
   }
 ]

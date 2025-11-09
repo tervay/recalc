@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
@@ -35,10 +35,26 @@ export function MeasurementInput({
   const [scalar, setScalar] = useState(meas.scalar);
   const [unit, setUnit] = useState(meas.units());
   const kinds = useMemo(() => Measurement.choices(meas), [meas]);
+  const lastInternalMeas = useRef(meas);
 
   useEffect(() => {
-    setMeas(new Measurement(scalar, unit));
+    const newMeas = new Measurement(scalar, unit);
+    if (!newMeas.eq(lastInternalMeas.current)) {
+      lastInternalMeas.current = newMeas;
+      setMeas(newMeas);
+    }
   }, [scalar, unit, setMeas]);
+
+  useEffect(() => {
+    if (!meas.eq(lastInternalMeas.current)) {
+      lastInternalMeas.current = meas;
+      const newScalar = meas.scalar;
+      const newUnit = meas.units();
+      setScalar(newScalar);
+      setUnit(newUnit);
+      setProxyValue(newScalar.toString());
+    }
+  }, [meas]);
 
   const [proxyValue, setProxyValue] = useState(scalar.toString());
 

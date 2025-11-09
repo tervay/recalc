@@ -12,6 +12,7 @@ import {
 import NumberInput, { NumberOutput } from '~/components/recalc/io/number';
 import Markdown from '~/components/recalc/markdown';
 import { PulleyTable } from '~/components/recalc/pulleyTable';
+import { Button } from '~/components/ui/button';
 import { useQueryParams } from '~/lib/hooks';
 import { calculateClosestCenters } from '~/lib/math/belts';
 import Measurement from '~/lib/models/Measurement';
@@ -89,8 +90,31 @@ export default function Belts() {
   return (
     <div>
       <CalcHeading title="Belt Calculator" />
-      <div className="flex flex-row flex-wrap gap-x-4 px-1 [&>*]:flex-1">
+      <div className="flex flex-row flex-wrap gap-x-4 px-1 *:flex-1">
         <div className="flex flex-col gap-x-4 gap-y-2">
+          <div className="flex flex-wrap gap-2 px-1">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setPitch(new Measurement(3, 'mm'))}
+            >
+              GT2 (3mm)
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setPitch(new Measurement(5, 'mm'))}
+            >
+              HTD (5mm)
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setPitch(new Measurement(0.25, 'in'))}
+            >
+              RT25 (0.25in)
+            </Button>
+          </div>
           <IOLine>
             <MeasurementInput
               stateHook={[pitch, setPitch]}

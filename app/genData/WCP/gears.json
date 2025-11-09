@@ -24,6 +24,150 @@
     "vendor": "WCP"
   },
   {
+    "teeth": 17,
+    "dp": 20,
+    "bore": "SplineXS",
+    "url": "https://wcproducts.com/products/wcp-1640",
+    "sku": "WCP-1640",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 21,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://wcproducts.com/products/wcp-1654",
+    "sku": "WCP-1654",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 20,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://wcproducts.com/products/wcp-1653",
+    "sku": "WCP-1653",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 19,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://wcproducts.com/products/wcp-1652",
+    "sku": "WCP-1652",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 19,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://wcproducts.com/products/wcp-1651",
+    "sku": "WCP-1651",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 18,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://wcproducts.com/products/wcp-1650",
+    "sku": "WCP-1650",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 17,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://wcproducts.com/products/wcp-1649v",
+    "sku": "WCP-1649",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 17,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://wcproducts.com/products/wcp-1648",
+    "sku": "WCP-1648",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 16,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://wcproducts.com/products/wcp-1647",
+    "sku": "WCP-1647",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 15,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://wcproducts.com/products/wcp-1646",
+    "sku": "WCP-1646",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 21,
+    "dp": 20,
+    "bore": "SplineXS",
+    "url": "https://wcproducts.com/products/wcp-1645",
+    "sku": "WCP-1645",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 20,
+    "dp": 20,
+    "bore": "SplineXS",
+    "url": "https://wcproducts.com/products/wcp-1644",
+    "sku": "WCP-1644",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 19,
+    "dp": 20,
+    "bore": "SplineXS",
+    "url": "https://wcproducts.com/products/wcp-1643",
+    "sku": "WCP-1643",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 19,
+    "dp": 20,
+    "bore": "SplineXS",
+    "url": "https://wcproducts.com/products/wcp-1642",
+    "sku": "WCP-1642",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 18,
+    "dp": 20,
+    "bore": "SplineXS",
+    "url": "https://wcproducts.com/products/wcp-1641",
+    "sku": "WCP-1641",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 17,
+    "dp": 20,
+    "bore": "SplineXS",
+    "url": "https://wcproducts.com/products/wcp-1639",
+    "sku": "WCP-1639",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 16,
+    "dp": 20,
+    "bore": "SplineXS",
+    "url": "https://wcproducts.com/products/wcp-1638",
+    "sku": "WCP-1638",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 15,
+    "dp": 20,
+    "bore": "SplineXS",
+    "url": "https://wcproducts.com/products/wcp-1637",
+    "sku": "WCP-1637",
+    "vendor": "WCP"
+  },
+  {
     "teeth": 38,
     "dp": 20,
     "bore": "1/4\" Round",
@@ -973,14 +1117,6 @@
     "bore": "1/2\" Hex",
     "url": "https://wcproducts.com/products/wcp-0186",
     "sku": "WCP-0186",
-    "vendor": "WCP"
-  },
-  {
-    "teeth": 56,
-    "dp": 20,
-    "bore": "1/2\" Hex",
-    "url": "https://wcproducts.com/products/wcp-0185",
-    "sku": "WCP-0185",
     "vendor": "WCP"
   },
   {
