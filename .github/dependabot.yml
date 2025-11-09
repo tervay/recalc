@@ -4,23 +4,55 @@ updates:
     directory: '/'
     schedule:
       interval: 'daily'
+    open-pull-requests-limit: 10
     groups:
+      # React ecosystem - core React packages
       react:
         patterns:
           - 'react'
           - 'react-dom'
           - '@types/react'
           - '@types/react-dom'
+      
+      # React Router - framework packages
       react-router:
         patterns:
           - 'react-router'
           - '@react-router/*'
+          - '@vercel/react-router'
+      
+      # Tailwind CSS - styling framework
       tailwind:
         patterns:
           - 'tailwindcss'
           - '@tailwindcss/*'
           - 'tw-animate-css'
           - 'tailwind-merge'
+      
+      # TypeScript - language compiler
+      typescript:
+        patterns:
+          - 'typescript'
+      
+      # Node.js type definitions
+      node-types:
+        patterns:
+          - '@types/node'
+      
+      # Testing - test frameworks and tools
+      testing:
+        patterns:
+          - 'vitest'
+          - '@playwright/test'
+      
+      # Build tools - Vite and related plugins
+      vite:
+        patterns:
+          - 'vite'
+          - 'vite-*'
+          - '@tailwindcss/vite'
+      
+      # Linting and formatting - code quality tools
       linting:
         patterns:
           - 'eslint'
@@ -31,26 +63,46 @@ updates:
           - 'prettier'
           - 'prettier-*'
           - '@trivago/prettier-plugin-sort-imports'
-      vite:
-        patterns:
-          - 'vite'
-          - 'vite-tsconfig-paths'
-          - 'vite-plugin-comlink'
-          - '@tailwindcss/vite'
-          - 'vitest'
+      
+      # Radix UI - component library
       radix:
         patterns:
           - '@radix-ui/*'
-      js-quantities:
+      
+      # Markdown and math rendering
+      markdown-math:
+        patterns:
+          - 'react-markdown'
+          - 'katex'
+          - 'rehype-katex'
+          - 'remark-math'
+      
+      # Charts and visualization
+      charts:
+        patterns:
+          - 'recharts'
+      
+      # Utility libraries - common helper packages
+      utilities:
+        patterns:
+          - 'clsx'
+          - 'class-variance-authority'
+          - 'query-string'
+          - 'comlink'
+          - 'zod'
+          - 'lodash-es'
+          - '@types/lodash-es'
+          - 'isbot'
+          - 'lucide-react'
+      
+      # Measurement and units
+      measurement:
         patterns:
           - 'js-quantities'
           - '@types/js-quantities'
-      lodash:
+      
+      # Build and script tools
+      build-tools:
         patterns:
-          - 'lodash-es'
-          - '@types/lodash-es'
-      frequent:
-        patterns:
-          - '@types/node'
-          - 'lucide-react'
-          - 'isbot'
+          - 'commander'
+          - 'node-fetch-cache'
