@@ -72,6 +72,7 @@
     "vite-plugin-comlink": "5.3.0",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "4.0.7",
-    "zod": "4.1.12"
+    "zod": "4.1.12",
+    "@playwright/test": "1.56.1"
   }
 }

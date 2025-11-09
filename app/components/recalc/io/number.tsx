@@ -10,7 +10,12 @@ export default function NumberInput({
   stateHook,
   label,
   tooltip,
-}: HasStateHook<number> & { label: string; tooltip?: string }) {
+  testId,
+}: HasStateHook<number> & {
+  label: string;
+  tooltip?: string;
+  testId?: string;
+}) {
   const [value, setValue] = stateHook;
   const [proxyValue, setProxyValue] = useState(value.toString());
 
@@ -49,6 +54,7 @@ export default function NumberInput({
             setProxyValue('');
           }
         }}
+        data-testid={testId}
       />
     </div>
   );
@@ -58,10 +64,12 @@ export function NumberOutput({
   state,
   label,
   roundTo = 3,
+  testId,
 }: {
   state: number;
   label: string;
   roundTo?: number;
+  testId?: string;
 }) {
   const [stringified, setStringified] = useState(state.toFixed(roundTo));
 
@@ -81,6 +89,7 @@ export function NumberOutput({
         placeholder={label}
         value={stringified}
         className="disabled:bg-gray-100 disabled:text-gray-900"
+        data-testid={testId}
       />
     </div>
   );
