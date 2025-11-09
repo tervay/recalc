@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { BeltTable } from '~/components/recalc/beltTable';
 import IOLine from '~/components/recalc/blocks';
@@ -66,6 +66,18 @@ export default function Belts() {
   );
   const [useCustomBelt, setUseCustomBelt] = useState(queryParams.useCustomBelt);
 
+  useEffect(() => {
+    const rt25Pitch = new Measurement(0.25, 'in');
+    const gt2Pitch = new Measurement(3, 'mm');
+    const htdPitch = new Measurement(5, 'mm');
+
+    if (pitch.eq(rt25Pitch)) {
+      setToothIncrement(8);
+    } else if (pitch.eq(gt2Pitch) || pitch.eq(htdPitch)) {
+      setToothIncrement(5);
+    }
+  }, [pitch]);
+
   const results = useMemo(
     () =>
       calculateClosestCenters(
@@ -96,21 +108,30 @@ export default function Belts() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setPitch(new Measurement(3, 'mm'))}
+              onClick={() => {
+                setPitch(new Measurement(3, 'mm'));
+                setToothIncrement(5);
+              }}
             >
               GT2 (3mm)
             </Button>
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setPitch(new Measurement(5, 'mm'))}
+              onClick={() => {
+                setPitch(new Measurement(5, 'mm'));
+                setToothIncrement(5);
+              }}
             >
               HTD (5mm)
             </Button>
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setPitch(new Measurement(0.25, 'in'))}
+              onClick={() => {
+                setPitch(new Measurement(0.25, 'in'));
+                setToothIncrement(8);
+              }}
             >
               RT25 (0.25in)
             </Button>

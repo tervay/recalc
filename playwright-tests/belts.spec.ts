@@ -103,31 +103,146 @@ test.describe('Belts Calculator', () => {
     await expect(page.getByTestId('p2Teeth')).toHaveValue('24');
     await expect(page.getByTestId('p2PitchDiameter')).toHaveValue('1.910');
     await expect(page.getByTestId('selectp2PitchDiameter')).toHaveText('in');
-    await expect(page.getByTestId('smallerBeltTeeth')).toHaveValue('60');
-    await expect(page.getByTestId('smallerCenter')).toHaveValue('4.990');
+    await expect(page.getByTestId('smallerBeltTeeth')).toHaveValue('56');
+    await expect(page.getByTestId('smallerCenter')).toHaveValue('4.489');
     await expect(page.getByTestId('selectsmallerCenter')).toHaveText('in');
     await expect(page.getByTestId('smallerP1TeethInMesh')).toHaveValue('8');
     await expect(page.getByTestId('smallerP2TeethInMesh')).toHaveValue('11');
-    await expect(page.getByTestId('smallerPulleyGap')).toHaveValue('3.398');
+    await expect(page.getByTestId('smallerPulleyGap')).toHaveValue('2.897');
     await expect(page.getByTestId('selectsmallerPulleyGap')).toHaveText('in');
     await expect(page.getByTestId('smallerDiffFromTarget')).toHaveValue(
-      '0.010',
+      '0.511',
     );
     await expect(page.getByTestId('selectsmallerDiffFromTarget')).toHaveText(
       'in',
     );
-    await expect(page.getByTestId('largerBeltTeeth')).toHaveValue('65');
-    await expect(page.getByTestId('largerCenter')).toHaveValue('5.616');
+    await expect(page.getByTestId('largerBeltTeeth')).toHaveValue('64');
+    await expect(page.getByTestId('largerCenter')).toHaveValue('5.491');
     await expect(page.getByTestId('selectlargerCenter')).toHaveText('in');
     await expect(page.getByTestId('largerP1TeethInMesh')).toHaveValue('8');
     await expect(page.getByTestId('largerP2TeethInMesh')).toHaveValue('11');
-    await expect(page.getByTestId('largerPulleyGap')).toHaveValue('4.024');
+    await expect(page.getByTestId('largerPulleyGap')).toHaveValue('3.899');
     await expect(page.getByTestId('selectlargerPulleyGap')).toHaveText('in');
     await expect(page.getByTestId('largerDiffFromTarget')).toHaveValue(
-      '-0.616',
+      '-0.491',
     );
     await expect(page.getByTestId('selectlargerDiffFromTarget')).toHaveText(
       'in',
     );
+  });
+
+  test('GT2 quick set button changes pitch and tooth increment', async ({
+    page,
+  }) => {
+    await page.getByRole('button', { name: 'GT2 (3mm)' }).click();
+    await expect(page.getByTestId('pitch')).toHaveValue('3');
+    await expect(page.getByTestId('selectpitch')).toHaveText('mm');
+    await expect(page.getByTestId('beltToothIncrement')).toHaveValue('5');
+  });
+
+  test('HTD quick set button changes pitch and tooth increment', async ({
+    page,
+  }) => {
+    await page.getByRole('button', { name: 'HTD (5mm)' }).click();
+    await expect(page.getByTestId('pitch')).toHaveValue('5');
+    await expect(page.getByTestId('selectpitch')).toHaveText('mm');
+    await expect(page.getByTestId('beltToothIncrement')).toHaveValue('5');
+  });
+
+  test('RT25 quick set button changes pitch and tooth increment', async ({
+    page,
+  }) => {
+    await page.getByRole('button', { name: 'RT25 (0.25in)' }).click();
+    await expect(page.getByTestId('pitch')).toHaveValue('0.25');
+    await expect(page.getByTestId('selectpitch')).toHaveText('in');
+    await expect(page.getByTestId('beltToothIncrement')).toHaveValue('8');
+  });
+
+  test('3mm pitch shows matching COTS pulleys from WCP', async ({ page }) => {
+    await page.getByRole('button', { name: 'GT2 (3mm)' }).click();
+    await page.getByTestId('p1Teeth').fill('16');
+    const pulleyTable = page
+      .getByRole('cell', { name: 'Matching COTS Pulleys' })
+      .locator('xpath=ancestor::table');
+    await expect(
+      pulleyTable.getByRole('cell', { name: /WCP/ }).first(),
+    ).toBeVisible();
+  });
+
+  test('3mm pitch shows matching COTS belts from WCP and VBeltGuys', async ({
+    page,
+  }) => {
+    await page.getByRole('button', { name: 'GT2 (3mm)' }).click();
+    await page.getByTestId('p1Teeth').fill('16');
+    await page.getByTestId('p2Teeth').fill('20');
+    await page.getByTestId('desiredCenter').fill('3');
+    const beltTable = page
+      .getByRole('cell', { name: 'Matching COTS Belts' })
+      .locator('xpath=ancestor::table');
+    await expect(
+      beltTable.getByRole('cell', { name: /WCP/ }).first(),
+    ).toBeVisible();
+    await expect(
+      beltTable.getByRole('cell', { name: /VBeltGuys/ }).first(),
+    ).toBeVisible();
+  });
+
+  test('5mm pitch shows matching COTS pulleys from WCP and Thrifty', async ({
+    page,
+  }) => {
+    await page.getByRole('button', { name: 'HTD (5mm)' }).click();
+    await page.getByTestId('p1Teeth').fill('20');
+    await page.getByTestId('p2Teeth').fill('24');
+    const pulleyTable = page
+      .getByRole('cell', { name: 'Matching COTS Pulleys' })
+      .locator('xpath=ancestor::table');
+    await expect(
+      pulleyTable.getByRole('cell', { name: /WCP/ }).first(),
+    ).toBeVisible();
+    await expect(
+      pulleyTable.getByRole('cell', { name: /Thrifty/ }).first(),
+    ).toBeVisible();
+  });
+
+  test('5mm pitch shows matching COTS belts from Swyft, WCP, and VBeltGuys', async ({
+    page,
+  }) => {
+    await page.getByRole('button', { name: 'HTD (5mm)' }).click();
+    await page.getByTestId('p1Teeth').fill('20');
+    await page.getByTestId('p2Teeth').fill('24');
+    await page.getByTestId('desiredCenter').fill('3');
+    const beltTable = page
+      .getByRole('cell', { name: 'Matching COTS Belts' })
+      .locator('xpath=ancestor::table');
+    await expect(
+      beltTable.getByRole('cell', { name: /Swyft/ }).first(),
+    ).toBeVisible();
+    await expect(
+      beltTable.getByRole('cell', { name: /WCP/ }).first(),
+    ).toBeVisible();
+    await expect(
+      beltTable.getByRole('cell', { name: /VBeltGuys/ }).first(),
+    ).toBeVisible();
+  });
+
+  test('0.25in pitch with 8 tooth increment shows matching COTS pulleys and belts from REV', async ({
+    page,
+  }) => {
+    await page.getByRole('button', { name: 'RT25 (0.25in)' }).click();
+    await page.getByTestId('p1Teeth').fill('16');
+    await page.getByTestId('p2Teeth').fill('24');
+    await page.getByTestId('desiredCenter').fill('5');
+    const pulleyTable = page
+      .getByRole('cell', { name: 'Matching COTS Pulleys' })
+      .locator('xpath=ancestor::table');
+    await expect(
+      pulleyTable.getByRole('cell', { name: /REV/ }).first(),
+    ).toBeVisible();
+    const beltTable = page
+      .getByRole('cell', { name: 'Matching COTS Belts' })
+      .locator('xpath=ancestor::table');
+    await expect(
+      beltTable.getByRole('cell', { name: /REV/ }).first(),
+    ).toBeVisible();
   });
 });
