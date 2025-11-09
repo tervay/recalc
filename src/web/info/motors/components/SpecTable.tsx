@@ -107,25 +107,17 @@ export default function SpecTable(): JSX.Element {
 
   return (
     <>
-      <div className="notification is-warning">
-        The motor specs from the Vortex are from REV, and the motor specs from
-        the Kraken are from WCP. All others are from VEX. The Falcon data from
-        VEX and the Falcon data from REV are significantly different; as such,{" "}
-        <b>
-          you should not assume that these numbers are directly comparible. You
-          should not base your purchases around these preliminary numbers. Use
-          them as guidelines only.
-        </b>
-        <br />
-        <br />
-        Motors with an asterisk (*) suffix have data that was derived in a way
-        inconsistent with other motors and are highly preliminary.
-      </div>
       <div className="notification is-warning content">
+        Modern brushless motor data is largely taken from CTRE{" "}
+        <a href="https://motors.ctr-electronics.com">here</a>. NEO2 is not
+        tested by CTRE yet, but theoretical specs are identical to NEO 1.1, so
+        the data is set to the same. Old brushed motor data is taken from VEX{" "}
+        <a href="https://motors.vex.com/">here</a>. Data missing from either
+        site is taken from manufacturer datasheets.
         <ul>
           <li>
-            The NEO, Falcon, Vortex, Kraken X60, Kraken X44, and NEO 550 motors
-            have no weight added for motor controllers.
+            The Falcon, Vortex, Kraken X60, and Kraken X44 motors have no weight
+            added for motor controllers.
           </li>
           <li>
             The Minion motor has{" "}
