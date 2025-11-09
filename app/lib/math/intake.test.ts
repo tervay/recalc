@@ -85,4 +85,3 @@ describe('calculateRecommendedRatio', () => {
     expect(result.ratioType).toBe(RatioType.REDUCTION);
   });
 });
-

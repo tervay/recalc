@@ -1,5 +1,5 @@
 import Measurement, { type MeasurementDict } from '~/lib/models/Measurement';
-import Motor, { nominalVoltage } from '~/lib/models/Motor';
+import Motor from '~/lib/models/Motor';
 
 export type ODEFunction = (
   t: number,
@@ -193,8 +193,8 @@ export function solveMotorODE(
 
   const stallCurrent = motor.stallCurrent.mul(voltageRatio);
   const freeCurrent = motor.freeCurrent.mul(voltageRatio);
-  const freeSpeed = motor.freeSpeed.mul(voltageRatio);
-  const stallTorque = motor.stallTorque.mul(voltageRatio);
+  const _freeSpeed = motor.freeSpeed.mul(voltageRatio);
+  const _stallTorque = motor.stallTorque.mul(voltageRatio);
 
   const solver = new ODESolver(
     (t, y) => {

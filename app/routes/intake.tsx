@@ -78,7 +78,9 @@ export default function Intake() {
   return (
     <div>
       <CalcHeading title="Intake Calculator" />
-      <div className="flex flex-col gap-4 px-1 md:flex-row md:gap-x-4 [&>*]:flex-1">
+      <div
+        className="flex flex-col gap-4 px-1 md:flex-row md:gap-x-4 [&>*]:flex-1"
+      >
         <div className="flex flex-col gap-x-4 gap-y-2">
           <IOLine>
             <MotorInput stateHook={[motor, setMotor]} />
@@ -150,4 +152,3 @@ export default function Intake() {
     </div>
   );
 }
-

@@ -3,15 +3,14 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
-import NumberInput from '~/components/recalc/io/number';
-import { NumberOutput } from '~/components/recalc/io/number';
+import NumberInput, { NumberOutput } from '~/components/recalc/io/number';
 import { Button } from '~/components/ui/button';
 import { Label } from '~/components/ui/label';
 import { useQueryParams } from '~/lib/hooks';
 import { calculateInverseRatio, calculateNetRatio } from '~/lib/math/ratio';
 import {
-  RatioPairListParam,
   type RatioPair,
+  RatioPairListParam,
   withDefault,
 } from '~/lib/types/queryParams';
 
@@ -51,10 +50,7 @@ export default function Ratio() {
     [ratioPairsWithIds],
   );
 
-  const netRatio = useMemo(
-    () => calculateNetRatio(ratioPairs),
-    [ratioPairs],
-  );
+  const netRatio = useMemo(() => calculateNetRatio(ratioPairs), [ratioPairs]);
 
   const invNetRatio = useMemo(
     () => calculateInverseRatio(netRatio),
@@ -91,9 +87,14 @@ export default function Ratio() {
   return (
     <div>
       <CalcHeading title="Ratio Calculator" />
-      <div className="flex flex-col gap-4 px-1 md:flex-row md:gap-x-4 [&>*]:flex-1">
+      <div
+        className="flex flex-col gap-4 px-1 md:flex-row md:gap-x-4 [&>*]:flex-1"
+      >
         <div className="flex flex-col gap-x-4 gap-y-2">
-          <div className="mb-2 grid grid-cols-[auto_1fr_1fr_auto] items-center gap-2 font-semibold">
+          <div
+            className="mb-2 grid grid-cols-[auto_1fr_1fr_auto] items-center
+              gap-2 font-semibold"
+          >
             <Label>Stage</Label>
             <Label>Driving</Label>
             <Label>Driven</Label>
@@ -120,11 +121,7 @@ export default function Ratio() {
 
         <div className="flex flex-col gap-x-4 gap-y-2">
           <IOLine>
-            <NumberOutput
-              state={netRatio}
-              label="Net Reduction"
-              roundTo={4}
-            />
+            <NumberOutput state={netRatio} label="Net Reduction" roundTo={4} />
           </IOLine>
 
           <IOLine>
@@ -174,16 +171,10 @@ function RatioPairRow({
     <div className="grid grid-cols-[auto_1fr_1fr_auto] items-center gap-2">
       <Label className="text-sm">Stage {index}</Label>
       <div>
-        <NumberInput
-          stateHook={[drivingValue, setDrivingValue]}
-          label=""
-        />
+        <NumberInput stateHook={[drivingValue, setDrivingValue]} label="" />
       </div>
       <div>
-        <NumberInput
-          stateHook={[drivenValue, setDrivenValue]}
-          label=""
-        />
+        <NumberInput stateHook={[drivenValue, setDrivenValue]} label="" />
       </div>
       <Button
         variant="ghost"
@@ -197,4 +188,3 @@ function RatioPairRow({
     </div>
   );
 }
-

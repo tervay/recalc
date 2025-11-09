@@ -1,6 +1,5 @@
+import Logo from 'app/components/recalc/logo';
 import { Link } from 'react-router';
-
-import Logo from './logo';
 
 export default function Nav() {
   return (

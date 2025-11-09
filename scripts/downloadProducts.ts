@@ -1,6 +1,6 @@
 import { program } from 'commander';
 import { mkdir, writeFile } from 'fs/promises';
-import NodeFetchCache, { FileSystemCache } from 'node-fetch-cache';
+import { FileSystemCache, NodeFetchCache } from 'node-fetch-cache';
 import { join } from 'path';
 
 import { SimpleBelt } from '~/lib/models/Belt';

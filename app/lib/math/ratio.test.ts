@@ -101,4 +101,3 @@ describe('calculateInverseRatio', () => {
     expect(result).toBeCloseTo(0.001, 5);
   });
 });
-

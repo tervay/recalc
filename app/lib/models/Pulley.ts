@@ -22,7 +22,11 @@ export class SimplePulley extends Model {
   }
 
   eq<M extends Model>(m: M): boolean {
-    return false;
+    return (
+      m instanceof SimplePulley &&
+      m.teeth === this.teeth &&
+      this.pitch.eq(m.pitch)
+    );
   }
 }
 
@@ -60,7 +64,17 @@ export default class Pulley extends SimplePulley {
     };
   }
 
-  eq<M extends Model>(_m: M): boolean {
-    return false;
+  eq<M extends Model>(m: M): boolean {
+    return (
+      m instanceof Pulley &&
+      m.teeth === this.teeth &&
+      this.pitch.eq(m.pitch) &&
+      this.width.eq(m.width) &&
+      m.profile === this.profile &&
+      m.sku === this.sku &&
+      m.url === this.url &&
+      m.bore === this.bore &&
+      m.vendor === this.vendor
+    );
   }
 }

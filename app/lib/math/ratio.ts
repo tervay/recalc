@@ -13,4 +13,3 @@ export function calculateInverseRatio(netRatio: number): number {
   if (netRatio === 0) return 0;
   return 1 / netRatio;
 }
-

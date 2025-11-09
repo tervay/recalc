@@ -90,20 +90,27 @@ export default function Belts() {
       <div className="flex flex-row flex-wrap gap-x-4 px-1 [&>*]:flex-1">
         <div className="flex flex-col gap-x-4 gap-y-2">
           <IOLine>
-            <MeasurementInput stateHook={[pitch, setPitch]} label="Pitch" />
+            <MeasurementInput
+              stateHook={[pitch, setPitch]}
+              label="Pitch"
+              testId="pitch"
+            />
             <NumberInput
               stateHook={[toothIncrement, setToothIncrement]}
               label="Tooth Increment"
+              testId="beltToothIncrement"
             />
           </IOLine>
           <IOLine>
             <MeasurementInput
               stateHook={[desiredCenter, setDesiredCenter]}
               label="Target Center"
+              testId="desiredCenter"
             />
             <MeasurementInput
               stateHook={[extraCenter, setExtraCenter]}
               label="Extra Center"
+              testId="extraCenter"
             />
           </IOLine>
 
@@ -111,30 +118,42 @@ export default function Belts() {
             <BooleanInput
               stateHook={[useCustomBelt, setUseCustomBelt]}
               label="Use Custom Belt"
+              testId="enableCustomBelt"
             />
             <NumberInput
               stateHook={[customBeltTeeth, setCustomBeltTeeth]}
               label="Custom Belt Teeth"
+              testId="specificBeltTeeth"
             />
           </IOLine>
 
           <Divider className="">Pulley 1</Divider>
           <IOLine>
-            <NumberInput stateHook={[p1Teeth, setP1Teeth]} label="Teeth" />
+            <NumberInput
+              stateHook={[p1Teeth, setP1Teeth]}
+              label="Teeth"
+              testId="p1Teeth"
+            />
             <MeasurementOutput
               state={p1PitchDiameter}
               label="Pitch Diameter"
               defaultUnit="in"
+              testId="p1PitchDiameter"
             />
           </IOLine>
 
           <Divider className="">Pulley 2</Divider>
           <IOLine>
-            <NumberInput stateHook={[p2Teeth, setP2Teeth]} label="Teeth" />
+            <NumberInput
+              stateHook={[p2Teeth, setP2Teeth]}
+              label="Teeth"
+              testId="p2Teeth"
+            />
             <MeasurementOutput
               state={p2PitchDiameter}
               label="Pitch Diameter"
               defaultUnit="in"
+              testId="p2PitchDiameter"
             />
           </IOLine>
 
@@ -144,11 +163,13 @@ export default function Belts() {
               state={results.smaller.belt.teeth}
               label="Belt Teeth"
               roundTo={0}
+              testId="smallerBeltTeeth"
             />
             <MeasurementOutput
               state={results.smaller.distance}
               label="Center Distance"
               defaultUnit="in"
+              testId="smallerCenter"
             />
           </IOLine>
 
@@ -157,11 +178,13 @@ export default function Belts() {
               state={results.smaller.p1TeethInMesh}
               label="Pulley 1 Teeth in Mesh"
               roundTo={0}
+              testId="smallerP1TeethInMesh"
             />
             <NumberOutput
               state={results.smaller.p2TeethInMesh}
               label="Pulley 2 Teeth in Mesh"
               roundTo={0}
+              testId="smallerP2TeethInMesh"
             />
           </IOLine>
 
@@ -170,11 +193,13 @@ export default function Belts() {
               state={results.smaller.gapBetweenPulleys}
               label="Gap Between Pulleys"
               defaultUnit="in"
+              testId="smallerPulleyGap"
             />
             <MeasurementOutput
               state={results.smaller.differenceFromTarget}
               label="Difference From Target"
               defaultUnit="in"
+              testId="smallerDiffFromTarget"
             />
           </IOLine>
 
@@ -184,11 +209,13 @@ export default function Belts() {
               state={results.larger.belt.teeth}
               label="Belt Teeth"
               roundTo={0}
+              testId="largerBeltTeeth"
             />
             <MeasurementOutput
               state={results.larger.distance}
               label="Center Distance"
               defaultUnit="in"
+              testId="largerCenter"
             />
           </IOLine>
 
@@ -197,11 +224,13 @@ export default function Belts() {
               state={results.larger.p1TeethInMesh}
               label="Pulley 1 Teeth in Mesh"
               roundTo={0}
+              testId="largerP1TeethInMesh"
             />
             <NumberOutput
               state={results.larger.p2TeethInMesh}
               label="Pulley 2 Teeth in Mesh"
               roundTo={0}
+              testId="largerP2TeethInMesh"
             />
           </IOLine>
 
@@ -210,11 +239,13 @@ export default function Belts() {
               state={results.larger.gapBetweenPulleys}
               label="Gap Between Pulleys"
               defaultUnit="in"
+              testId="largerPulleyGap"
             />
             <MeasurementOutput
               state={results.larger.differenceFromTarget}
               label="Difference From Target"
               defaultUnit="in"
+              testId="largerDiffFromTarget"
             />
           </IOLine>
         </div>

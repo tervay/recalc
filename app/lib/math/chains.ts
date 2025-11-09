@@ -1,5 +1,5 @@
 import Measurement from '~/lib/models/Measurement';
-import Sprocket, { SimpleSprocket } from '~/lib/models/Sprocket';
+import { SimpleSprocket } from '~/lib/models/Sprocket';
 
 export function calculateCenterDistance(
   chainType: string,

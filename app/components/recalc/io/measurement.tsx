@@ -23,10 +23,12 @@ export function MeasurementInput({
   label,
   tooltip,
   disabled,
+  testId,
 }: HasStateHook<Measurement> & {
   label: string;
   tooltip?: string;
   disabled?: () => boolean;
+  testId?: string;
 }) {
   const [meas, setMeas] = stateHook;
 
@@ -81,9 +83,13 @@ export function MeasurementInput({
           }}
           className="rounded-r-none disabled:bg-gray-100 disabled:text-gray-900"
           disabled={disabled?.()}
+          data-testid={testId}
         />
         <Select value={unit} onValueChange={setUnit}>
-          <SelectTrigger className="rounded-l-none">
+          <SelectTrigger
+            className="rounded-l-none"
+            data-testid={testId ? `select${testId}` : undefined}
+          >
             <SelectValue placeholder="Theme" />
           </SelectTrigger>
           <SelectContent>
@@ -105,12 +111,14 @@ export function MeasurementOutput({
   defaultUnit,
   tooltip,
   roundTo = 3,
+  testId,
 }: {
   state: Measurement;
   label: string;
   defaultUnit?: string;
   tooltip?: string;
   roundTo?: number;
+  testId?: string;
 }) {
   const [scalar, setScalar] = useState(state.scalar);
   const [unit, setUnit] = useState(defaultUnit ?? state.units());
@@ -151,9 +159,13 @@ export function MeasurementOutput({
           placeholder={label}
           value={stringified}
           className="rounded-r-none disabled:bg-gray-100 disabled:text-gray-900"
+          data-testid={testId}
         />
         <Select value={unit} onValueChange={setUnit}>
-          <SelectTrigger className="rounded-l-none">
+          <SelectTrigger
+            className="rounded-l-none"
+            data-testid={testId ? `select${testId}` : undefined}
+          >
             <SelectValue placeholder="Theme" />
           </SelectTrigger>
           <SelectContent>
