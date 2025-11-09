@@ -103,11 +103,13 @@ export function MeasurementOutput({
   state,
   label,
   defaultUnit,
+  tooltip,
   roundTo = 3,
 }: {
   state: Measurement;
   label: string;
   defaultUnit?: string;
+  tooltip?: string;
   roundTo?: number;
 }) {
   const [scalar, setScalar] = useState(state.scalar);
@@ -125,9 +127,22 @@ export function MeasurementOutput({
 
   return (
     <div className="flex flex-row">
-      <Label htmlFor="measurement" className="mr-2 text-nowrap">
-        {label}
-      </Label>
+      {tooltip === undefined ? (
+        <Label htmlFor="measurement" className="mr-2 text-nowrap">
+          {label}
+        </Label>
+      ) : (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Label htmlFor="measurement" className="mr-2 text-nowrap">
+                {label}
+              </Label>
+            </TooltipTrigger>
+            <TooltipContent>{tooltip}</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      )}
       <div className="flex w-full flex-row">
         <Input
           type="number"

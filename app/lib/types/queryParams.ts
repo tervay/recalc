@@ -68,3 +68,20 @@ export const RatioParam: QueryParam<Ratio> = {
     return Ratio.fromDict(parsed as unknown as RatioDict);
   },
 };
+
+export type RatioPair = [number, number];
+
+export const RatioPairListParam: QueryParam<RatioPair[]> = {
+  encode: (value) => JSON.stringify(value),
+  decode: (value) => {
+    try {
+      const parsed = JSON.parse(value);
+      if (Array.isArray(parsed)) {
+        return parsed as RatioPair[];
+      }
+      return [[1, 1]];
+    } catch {
+      return [[1, 1]];
+    }
+  },
+};
