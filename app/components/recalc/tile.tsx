@@ -23,7 +23,10 @@ export default function Tile({ to, title, description, className }: TileProps) {
       >
         <div className="flex items-center justify-between">
           <div className="flex-1">
-            <h3 className="text-lg font-medium text-foreground group-hover:text-primary">
+            <h3
+              className="text-lg font-medium text-foreground
+                group-hover:text-primary"
+            >
               {title}
             </h3>
             {description && (
@@ -32,10 +35,12 @@ export default function Tile({ to, title, description, className }: TileProps) {
               </p>
             )}
           </div>
-          <ArrowRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-primary" />
+          <ArrowRight
+            className="h-5 w-5 text-muted-foreground transition-transform
+              group-hover:translate-x-1 group-hover:text-primary"
+          />
         </div>
       </div>
     </Link>
   );
 }
-

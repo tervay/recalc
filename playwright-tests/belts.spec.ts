@@ -24,7 +24,7 @@ test.describe('Belts Calculator', () => {
     await expect(page.getByTestId('smallerBeltTeeth')).toHaveValue('70');
     await expect(page.getByTestId('smallerCenter')).toHaveValue('4.915');
     await expect(page.getByTestId('selectsmallerCenter')).toHaveText('in');
-    await expect(page.getByTestId('smallerP1TeethInMesh')).toHaveValue('7');
+    await expect(page.getByTestId('smallerP1TeethInMesh')).toHaveValue('8');
     await expect(page.getByTestId('smallerP2TeethInMesh')).toHaveValue('11');
     await expect(page.getByTestId('smallerPulleyGap')).toHaveValue('3.662');
     await expect(page.getByTestId('selectsmallerPulleyGap')).toHaveText('in');
@@ -37,11 +37,13 @@ test.describe('Belts Calculator', () => {
     await expect(page.getByTestId('largerBeltTeeth')).toHaveValue('75');
     await expect(page.getByTestId('largerCenter')).toHaveValue('5.408');
     await expect(page.getByTestId('selectlargerCenter')).toHaveText('in');
-    await expect(page.getByTestId('largerP1TeethInMesh')).toHaveValue('7');
+    await expect(page.getByTestId('largerP1TeethInMesh')).toHaveValue('8');
     await expect(page.getByTestId('largerP2TeethInMesh')).toHaveValue('11');
     await expect(page.getByTestId('largerPulleyGap')).toHaveValue('4.154');
     await expect(page.getByTestId('selectlargerPulleyGap')).toHaveText('in');
-    await expect(page.getByTestId('largerDiffFromTarget')).toHaveValue('-0.408');
+    await expect(page.getByTestId('largerDiffFromTarget')).toHaveValue(
+      '-0.408',
+    );
     await expect(page.getByTestId('selectlargerDiffFromTarget')).toHaveText(
       'in',
     );
@@ -62,7 +64,7 @@ test.describe('Belts Calculator', () => {
     await expect(page.getByTestId('smallerBeltTeeth')).toHaveValue('70');
     await expect(page.getByTestId('smallerCenter')).toHaveValue('4.915');
     await expect(page.getByTestId('selectsmallerCenter')).toHaveText('in');
-    await expect(page.getByTestId('smallerP1TeethInMesh')).toHaveValue('7');
+    await expect(page.getByTestId('smallerP1TeethInMesh')).toHaveValue('8');
     await expect(page.getByTestId('smallerP2TeethInMesh')).toHaveValue('11');
     await expect(page.getByTestId('smallerPulleyGap')).toHaveValue('3.662');
     await expect(page.getByTestId('selectsmallerPulleyGap')).toHaveText('in');
@@ -75,11 +77,13 @@ test.describe('Belts Calculator', () => {
     await expect(page.getByTestId('largerBeltTeeth')).toHaveValue('75');
     await expect(page.getByTestId('largerCenter')).toHaveValue('5.408');
     await expect(page.getByTestId('selectlargerCenter')).toHaveText('in');
-    await expect(page.getByTestId('largerP1TeethInMesh')).toHaveValue('7');
+    await expect(page.getByTestId('largerP1TeethInMesh')).toHaveValue('8');
     await expect(page.getByTestId('largerP2TeethInMesh')).toHaveValue('11');
     await expect(page.getByTestId('largerPulleyGap')).toHaveValue('4.154');
     await expect(page.getByTestId('selectlargerPulleyGap')).toHaveText('in');
-    await expect(page.getByTestId('largerDiffFromTarget')).toHaveValue('-0.408');
+    await expect(page.getByTestId('largerDiffFromTarget')).toHaveValue(
+      '-0.408',
+    );
     await expect(page.getByTestId('selectlargerDiffFromTarget')).toHaveText(
       'in',
     );
@@ -102,7 +106,7 @@ test.describe('Belts Calculator', () => {
     await expect(page.getByTestId('smallerBeltTeeth')).toHaveValue('60');
     await expect(page.getByTestId('smallerCenter')).toHaveValue('4.990');
     await expect(page.getByTestId('selectsmallerCenter')).toHaveText('in');
-    await expect(page.getByTestId('smallerP1TeethInMesh')).toHaveValue('7');
+    await expect(page.getByTestId('smallerP1TeethInMesh')).toHaveValue('8');
     await expect(page.getByTestId('smallerP2TeethInMesh')).toHaveValue('11');
     await expect(page.getByTestId('smallerPulleyGap')).toHaveValue('3.398');
     await expect(page.getByTestId('selectsmallerPulleyGap')).toHaveText('in');
@@ -115,14 +119,15 @@ test.describe('Belts Calculator', () => {
     await expect(page.getByTestId('largerBeltTeeth')).toHaveValue('65');
     await expect(page.getByTestId('largerCenter')).toHaveValue('5.616');
     await expect(page.getByTestId('selectlargerCenter')).toHaveText('in');
-    await expect(page.getByTestId('largerP1TeethInMesh')).toHaveValue('7');
+    await expect(page.getByTestId('largerP1TeethInMesh')).toHaveValue('8');
     await expect(page.getByTestId('largerP2TeethInMesh')).toHaveValue('11');
     await expect(page.getByTestId('largerPulleyGap')).toHaveValue('4.024');
     await expect(page.getByTestId('selectlargerPulleyGap')).toHaveText('in');
-    await expect(page.getByTestId('largerDiffFromTarget')).toHaveValue('-0.616');
+    await expect(page.getByTestId('largerDiffFromTarget')).toHaveValue(
+      '-0.616',
+    );
     await expect(page.getByTestId('selectlargerDiffFromTarget')).toHaveText(
       'in',
     );
   });
 });
-

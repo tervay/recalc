@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const port = 5173;
+// Use default production port (react-router-serve defaults to 3000)
+const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 const baseURL = `http://localhost:${port}`;
 
 /**
@@ -8,6 +9,7 @@ const baseURL = `http://localhost:${port}`;
  */
 export default defineConfig({
   testDir: './playwright-tests',
+  testMatch: /.*\.spec\.ts$/,
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -48,11 +50,13 @@ export default defineConfig({
     },
   ],
 
-  /* Run your local dev server before starting the tests */
+  /* Run the built production server before starting the tests */
   webServer: {
-    command: 'pnpm dev',
+    command: 'pnpm start',
     port,
     reuseExistingServer: !process.env.CI,
+    timeout: 120 * 1000,
+    stdout: 'pipe',
+    stderr: 'pipe',
   },
 });
-

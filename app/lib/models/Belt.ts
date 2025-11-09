@@ -21,7 +21,11 @@ export class SimpleBelt extends Model {
   }
 
   eq<M extends Model>(m: M): boolean {
-    throw new Error('Method not implemented.');
+    return (
+      m instanceof SimpleBelt &&
+      m.teeth === this.teeth &&
+      this.pitch.eq(m.pitch)
+    );
   }
 }
 
@@ -61,6 +65,15 @@ export class Belt extends Model {
   }
 
   eq<M extends Model>(m: M): boolean {
-    throw new Error('Method not implemented.');
+    return (
+      m instanceof Belt &&
+      m.teeth === this.teeth &&
+      this.pitch.eq(m.pitch) &&
+      this.width.eq(m.width) &&
+      m.profile === this.profile &&
+      m.sku === this.sku &&
+      m.url === this.url &&
+      m.vendor === this.vendor
+    );
   }
 }

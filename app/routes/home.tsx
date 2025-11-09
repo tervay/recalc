@@ -1,4 +1,4 @@
-import { Calculator, Info, Bookmark, ExternalLink } from 'lucide-react';
+import { Bookmark, Calculator, ExternalLink, Info } from 'lucide-react';
 
 import Tile from '~/components/recalc/tile';
 
@@ -26,12 +26,15 @@ function Shortcut({ name, url }: ShortcutProps) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex items-center gap-2 rounded-lg border bg-card p-3 text-sm transition-all hover:border-primary/50 hover:bg-accent"
+      className="group flex items-center gap-2 rounded-lg border bg-card p-3
+        text-sm transition-all hover:border-primary/50 hover:bg-accent"
     >
       <span className="flex-1 text-foreground group-hover:text-primary">
         {name}
       </span>
-      <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary" />
+      <ExternalLink
+        className="h-4 w-4 text-muted-foreground group-hover:text-primary"
+      />
     </a>
   );
 }
@@ -45,7 +48,10 @@ interface SectionProps {
 function Section({ title, icon, children }: SectionProps) {
   return (
     <section className="mb-12">
-      <h2 className="mb-6 flex items-center gap-2 text-2xl font-semibold text-foreground">
+      <h2
+        className="mb-6 flex items-center gap-2 text-2xl font-semibold
+          text-foreground"
+      >
         {icon}
         {title}
       </h2>

@@ -30,7 +30,11 @@ export class SimpleSprocket extends Model {
   }
 
   eq<M extends Model>(m: M): boolean {
-    return false;
+    return (
+      m instanceof SimpleSprocket &&
+      m.teeth === this.teeth &&
+      m.chainType === this.chainType
+    );
   }
 }
 
@@ -62,6 +66,14 @@ export default class Sprocket extends SimpleSprocket {
   }
 
   eq<M extends Model>(m: M): boolean {
-    return false;
+    return (
+      m instanceof Sprocket &&
+      m.teeth === this.teeth &&
+      m.chainType === this.chainType &&
+      m.bore === this.bore &&
+      m.url === this.url &&
+      m.sku === this.sku &&
+      m.vendor === this.vendor
+    );
   }
 }

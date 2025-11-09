@@ -58,7 +58,7 @@ export const MeasurementParam: QueryParam<Measurement> = {
 
 export const MotorParam: QueryParam<Motor> = {
   encode: (value) => value.identifier,
-  decode: (value) => Motor.fromName(value),
+  decode: (value) => Motor.fromName(value, 1),
 };
 
 export const RatioParam: QueryParam<Ratio> = {
@@ -75,7 +75,7 @@ export const RatioPairListParam: QueryParam<RatioPair[]> = {
   encode: (value) => JSON.stringify(value),
   decode: (value) => {
     try {
-      const parsed = JSON.parse(value);
+      const parsed: unknown = JSON.parse(value);
       if (Array.isArray(parsed)) {
         return parsed as RatioPair[];
       }

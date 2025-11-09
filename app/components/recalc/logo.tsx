@@ -5,7 +5,10 @@ interface LogoProps {
   alignment?: 'middle' | 'bottom';
 }
 
-export default function Logo({ color = 'black', alignment = 'middle' }: LogoProps) {
+export default function Logo({
+  color = 'black',
+  alignment = 'middle',
+}: LogoProps) {
   return (
     <span className="inline-flex flex-col items-center">
       <div className="flex items-center gap-1">
@@ -38,4 +41,3 @@ export default function Logo({ color = 'black', alignment = 'middle' }: LogoProp
     </span>
   );
 }
-

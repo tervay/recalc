@@ -23,8 +23,7 @@ import { calculateKa, calculateKv } from '~/lib/math/kVkA';
 import { generateProfile } from '~/lib/math/sheetExponentialProfile';
 import Measurement from '~/lib/models/Measurement';
 import Motor, { nominalVoltage } from '~/lib/models/Motor';
-import Ratio from '~/lib/models/Ratio';
-import { RatioType } from '~/lib/models/Ratio';
+import Ratio, { RatioType } from '~/lib/models/Ratio';
 import { MotorRules } from '~/lib/rules';
 import {
   BooleanParam,
@@ -110,28 +109,16 @@ export default function Flywheel() {
   const [useCustomShooterMoi, setUseCustomShooterMoi] = useState(
     queryParams.useCustomShooterMoi,
   );
-  const [flywheelDiameter, setFlywheelDiameter] = useState(
-    queryParams.flywheelDiameter,
-  );
-  const [flywheelWeight, setFlywheelWeight] = useState(
-    queryParams.flywheelWeight,
-  );
-  const [customFlywheelMoi, setCustomFlywheelMoi] = useState(
-    queryParams.customFlywheelMoi,
-  );
-  const [useCustomFlywheelMoi, setUseCustomFlywheelMoi] = useState(
-    queryParams.useCustomFlywheelMoi,
-  );
-  const [flywhweelToShooterRatio, setFlywhweelToShooterRatio] = useState(
+  const [flywheelDiameter] = useState(queryParams.flywheelDiameter);
+  const [flywheelWeight] = useState(queryParams.flywheelWeight);
+  const [customFlywheelMoi] = useState(queryParams.customFlywheelMoi);
+  const [useCustomFlywheelMoi] = useState(queryParams.useCustomFlywheelMoi);
+  const [flywhweelToShooterRatio] = useState(
     queryParams.flywhweelToShooterRatio,
   );
-  const [projectileDiameter, setProjectileDiameter] = useState(
-    queryParams.projectileDiameter,
-  );
-  const [projectileWeight, setProjectileWeight] = useState(
-    queryParams.projectileWeight,
-  );
-  const [efficiency, setEfficiency] = useState(queryParams.efficiency);
+  const [_projectileDiameter] = useState(queryParams.projectileDiameter);
+  const [_projectileWeight] = useState(queryParams.projectileWeight);
+  const [efficiency] = useState(queryParams.efficiency);
 
   const derivedShooterMOI = useMemo(
     () => shooterWeight.mul(shooterDiameter.div(2).mul(shooterDiameter.div(2))),

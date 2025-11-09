@@ -41,7 +41,7 @@ export default function Motors() {
     [selectedMotor],
   );
 
-  const motor = useMemo(
+  const _motor = useMemo(
     () => Motor.fromName(selectedMotor, 1),
     [selectedMotor],
   );
