@@ -13,14 +13,14 @@ updates:
           - 'react-dom'
           - '@types/react'
           - '@types/react-dom'
-      
+
       # React Router - framework packages
       react-router:
         patterns:
           - 'react-router'
           - '@react-router/*'
           - '@vercel/react-router'
-      
+
       # Tailwind CSS - styling framework
       tailwind:
         patterns:
@@ -28,30 +28,30 @@ updates:
           - '@tailwindcss/*'
           - 'tw-animate-css'
           - 'tailwind-merge'
-      
+
       # TypeScript - language compiler
       typescript:
         patterns:
           - 'typescript'
-      
+
       # Node.js type definitions
       node-types:
         patterns:
           - '@types/node'
-      
+
       # Testing - test frameworks and tools
       testing:
         patterns:
           - 'vitest'
           - '@playwright/test'
-      
+
       # Build tools - Vite and related plugins
       vite:
         patterns:
           - 'vite'
           - 'vite-*'
           - '@tailwindcss/vite'
-      
+
       # Linting and formatting - code quality tools
       linting:
         patterns:
@@ -63,12 +63,12 @@ updates:
           - 'prettier'
           - 'prettier-*'
           - '@trivago/prettier-plugin-sort-imports'
-      
+
       # Radix UI - component library
       radix:
         patterns:
           - '@radix-ui/*'
-      
+
       # Markdown and math rendering
       markdown-math:
         patterns:
@@ -76,12 +76,12 @@ updates:
           - 'katex'
           - 'rehype-katex'
           - 'remark-math'
-      
+
       # Charts and visualization
       charts:
         patterns:
           - 'recharts'
-      
+
       # Utility libraries - common helper packages
       utilities:
         patterns:
@@ -94,13 +94,13 @@ updates:
           - '@types/lodash-es'
           - 'isbot'
           - 'lucide-react'
-      
+
       # Measurement and units
       measurement:
         patterns:
           - 'js-quantities'
           - '@types/js-quantities'
-      
+
       # Build and script tools
       build-tools:
         patterns:
