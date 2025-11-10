@@ -19,10 +19,7 @@ describe('ODESolver', () => {
 
       const result = solver.euler(10);
 
-      expect(result.ts.length).toBe(11);
-      expect(result.ys.length).toBe(11);
-      expect(result.ys[0][0]).toBe(1);
-      expect(result.ys[10][0]).toBeCloseTo(2.594, 3);
+      expect(result).toMatchSnapshot();
     });
 
     it('handles zero resolution', () => {
@@ -34,8 +31,7 @@ describe('ODESolver', () => {
 
       const result = solver.euler(0);
 
-      expect(result.ts.length).toBe(1);
-      expect(result.ys.length).toBe(1);
+      expect(result).toMatchSnapshot();
     });
 
     it('handles zero time range', () => {
@@ -47,10 +43,7 @@ describe('ODESolver', () => {
 
       const result = solver.euler(10);
 
-      expect(result.ts.length).toBe(11);
-      expect(result.ys.length).toBe(11);
-      expect(result.ts[0]).toBe(0);
-      expect(result.ts[10]).toBe(0);
+      expect(result).toMatchSnapshot();
     });
 
     it('handles multiple state variables', () => {
@@ -62,9 +55,7 @@ describe('ODESolver', () => {
 
       const result = solver.euler(10);
 
-      expect(result.ts.length).toBe(11);
-      expect(result.ys.length).toBe(11);
-      expect(result.ys[0].length).toBe(2);
+      expect(result).toMatchSnapshot();
     });
 
     it('handles zero initial conditions', () => {
@@ -76,10 +67,7 @@ describe('ODESolver', () => {
 
       const result = solver.euler(10);
 
-      expect(result.ts.length).toBe(11);
-      expect(result.ys.length).toBe(11);
-      expect(result.ys[0][0]).toBe(0);
-      expect(result.ys[10][0]).toBeCloseTo(1.0, 3);
+      expect(result).toMatchSnapshot();
     });
   });
 
@@ -93,10 +81,7 @@ describe('ODESolver', () => {
 
       const result = solver.rk4(10);
 
-      expect(result.ts.length).toBe(9);
-      expect(result.ys.length).toBe(9);
-      expect(result.ys[0][0]).toBe(1);
-      expect(result.ys[result.ys.length - 1][0]).toBeCloseTo(2.226, 3);
+      expect(result).toMatchSnapshot();
     });
 
     it('handles zero resolution', () => {
@@ -108,8 +93,7 @@ describe('ODESolver', () => {
 
       const result = solver.rk4(0);
 
-      expect(result.ts.length).toBe(0);
-      expect(result.ys.length).toBe(0);
+      expect(result).toMatchSnapshot();
     });
 
     it('handles shouldStop condition', () => {
@@ -125,8 +109,7 @@ describe('ODESolver', () => {
 
       const result = solver.rk4(100);
 
-      expect(result.ts.length).toBe(1);
-      expect(result.ys.length).toBe(1);
+      expect(result).toMatchSnapshot();
     });
 
     it('handles NaN in y0', () => {
@@ -138,8 +121,7 @@ describe('ODESolver', () => {
 
       const result = solver.rk4(10);
 
-      expect(result.ts.length).toBe(9);
-      expect(result.ys.length).toBe(9);
+      expect(result).toMatchSnapshot();
     });
 
     it('handles zero time range', () => {
@@ -151,8 +133,7 @@ describe('ODESolver', () => {
 
       const result = solver.rk4(10);
 
-      expect(result.ts.length).toBe(9);
-      expect(result.ys.length).toBe(9);
+      expect(result).toMatchSnapshot();
     });
 
     it('handles multiple state variables', () => {
@@ -164,9 +145,7 @@ describe('ODESolver', () => {
 
       const result = solver.rk4(10);
 
-      expect(result.ts.length).toBe(9);
-      expect(result.ys.length).toBe(9);
-      expect(result.ys[0].length).toBe(2);
+      expect(result).toMatchSnapshot();
     });
   });
 
@@ -180,10 +159,7 @@ describe('ODESolver', () => {
 
       const result = solver.midpoint(10);
 
-      expect(result.ts.length).toBe(11);
-      expect(result.ys.length).toBe(11);
-      expect(result.ys[0][0]).toBe(1);
-      expect(result.ys[10][0]).toBeCloseTo(2.714, 3);
+      expect(result).toMatchSnapshot();
     });
 
     it('handles zero resolution', () => {
@@ -195,8 +171,7 @@ describe('ODESolver', () => {
 
       const result = solver.midpoint(0);
 
-      expect(result.ts.length).toBe(1);
-      expect(result.ys.length).toBe(1);
+      expect(result).toMatchSnapshot();
     });
 
     it('handles zero time range', () => {
@@ -208,10 +183,7 @@ describe('ODESolver', () => {
 
       const result = solver.midpoint(10);
 
-      expect(result.ts.length).toBe(11);
-      expect(result.ys.length).toBe(11);
-      expect(result.ts[0]).toBe(0);
-      expect(result.ts[10]).toBe(0);
+      expect(result).toMatchSnapshot();
     });
 
     it('handles multiple state variables', () => {
@@ -223,9 +195,7 @@ describe('ODESolver', () => {
 
       const result = solver.midpoint(10);
 
-      expect(result.ts.length).toBe(11);
-      expect(result.ys.length).toBe(11);
-      expect(result.ys[0].length).toBe(2);
+      expect(result).toMatchSnapshot();
     });
   });
 });
@@ -254,9 +224,7 @@ describe.concurrent('solveMotorODE', () => {
       efficiency,
     );
 
-    expect(result.length).toBe(100);
-    expect(result[0].time.scalar).toBe(0);
-    expect(result[result.length - 1].time.scalar).toBeCloseTo(0.099, 3);
+    expect(result).toMatchSnapshot();
   }, 10000);
 
   it('handles zero motor quantity', () => {
@@ -282,7 +250,7 @@ describe.concurrent('solveMotorODE', () => {
       efficiency,
     );
 
-    expect(result.length).toBe(100);
+    expect(result).toMatchSnapshot();
   }, 10000);
 
   it('handles zero efficiency', () => {
@@ -308,7 +276,7 @@ describe.concurrent('solveMotorODE', () => {
       efficiency,
     );
 
-    expect(result.length).toBe(100);
+    expect(result).toMatchSnapshot();
   }, 10000);
 
   it('handles zero J', () => {
@@ -334,7 +302,7 @@ describe.concurrent('solveMotorODE', () => {
       efficiency,
     );
 
-    expect(result.length).toBe(100);
+    expect(result).toMatchSnapshot();
   }, 10000);
 
   it('handles stopping condition', () => {
@@ -364,7 +332,7 @@ describe.concurrent('solveMotorODE', () => {
       efficiency,
     );
 
-    expect(result.length).toBe(2);
+    expect(result).toMatchSnapshot();
   });
 
   it('handles zero voltage', () => {
@@ -416,6 +384,6 @@ describe.concurrent('solveMotorODE', () => {
       efficiency,
     );
 
-    expect(result.length).toBe(100);
+    expect(result).toMatchSnapshot();
   }, 10000);
 });

@@ -11,7 +11,7 @@ import {
 import NumberInput, { NumberOutput } from '~/components/recalc/io/number';
 import { StringSelectInput } from '~/components/recalc/io/stringSelect';
 import { SprocketTable } from '~/components/recalc/sprocketTable';
-import { useQueryParams } from '~/lib/hooks';
+import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { calculateCenters } from '~/lib/math/chains';
 import Measurement from '~/lib/models/Measurement';
 import { SimpleSprocket } from '~/lib/models/Sprocket';
@@ -30,6 +30,15 @@ export function meta() {
   ];
 }
 
+const DEFAULT_PARAMS = {
+  chain: withDefault(StringParam, '#25'),
+  p1Teeth: withDefault(NumberParam, 16),
+  p2Teeth: withDefault(NumberParam, 36),
+  desiredCenter: withDefault(MeasurementParam, new Measurement(5, 'in')),
+  extraCenter: withDefault(MeasurementParam, new Measurement(0, 'in')),
+  allowHalfLinks: withDefault(BooleanParam, false),
+};
+
 export default function Chains() {
   const queryParams = useQueryParams<{
     chain: string;
@@ -38,14 +47,7 @@ export default function Chains() {
     desiredCenter: Measurement;
     extraCenter: Measurement;
     allowHalfLinks: boolean;
-  }>({
-    chain: withDefault(StringParam, '#25'),
-    p1Teeth: withDefault(NumberParam, 16),
-    p2Teeth: withDefault(NumberParam, 36),
-    desiredCenter: withDefault(MeasurementParam, new Measurement(5, 'in')),
-    extraCenter: withDefault(MeasurementParam, new Measurement(0, 'in')),
-    allowHalfLinks: withDefault(BooleanParam, false),
-  });
+  }>(DEFAULT_PARAMS);
 
   const [chain, setChain] = useState(queryParams.chain);
   const [p1Teeth, setP1Teeth] = useState(queryParams.p1Teeth);
@@ -70,9 +72,21 @@ export default function Chains() {
     [chain, p1Teeth, p2Teeth, desiredCenter, allowHalfLinks],
   );
 
+  const serializedState = useSerializedState(DEFAULT_PARAMS, {
+    chain,
+    p1Teeth,
+    p2Teeth,
+    desiredCenter,
+    extraCenter,
+    allowHalfLinks,
+  });
+
   return (
     <div>
-      <CalcHeading title="Chain Calculator" />
+      <CalcHeading
+        title="Chain Calculator"
+        getSerializedState={() => serializedState}
+      />
 
       <div className="flex flex-row flex-wrap gap-x-4 px-1 [&>*]:flex-1">
         <div className="flex flex-col gap-x-4 gap-y-2">

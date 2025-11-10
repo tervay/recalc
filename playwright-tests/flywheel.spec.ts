@@ -225,7 +225,7 @@ test.describe('Flywheel Calculator', () => {
       maxAchievableShooterRpmUnit: 'rpm',
       kV: '0.260',
       kVUnit: 'V*s/m',
-      kA: '0.995',
+      kA: '0.663',
       kAUnit: 'V*s^2/m',
       spinupTime: '1.320',
       spinupTimeUnit: 's',
@@ -280,7 +280,7 @@ test.describe('Flywheel Calculator', () => {
         maxAchievableShooterRpmUnit: 'rpm',
         kV: '0.260',
         kVUnit: 'V*s/m',
-        kA: '0.497',
+        kA: '0.332',
         kAUnit: 'V*s^2/m',
         spinupTime: '0.660',
         spinupTimeUnit: 's',
@@ -392,7 +392,7 @@ test.describe('Flywheel Calculator', () => {
         maxAchievableShooterRpmUnit: 'rpm',
         kV: '0.194',
         kVUnit: 'V*s/m',
-        kA: '1.311',
+        kA: '0.874',
         kAUnit: 'V*s^2/m',
         spinupTime: '1.730',
         spinupTimeUnit: 's',
@@ -501,7 +501,7 @@ test.describe('Flywheel Calculator', () => {
         maxAchievableShooterRpmUnit: 'rpm',
         kV: '0.520',
         kVUnit: 'V*s/m',
-        kA: '0.249',
+        kA: '0.166',
         kAUnit: 'V*s^2/m',
         spinupTime: '0.430',
         spinupTimeUnit: 's',
@@ -557,7 +557,7 @@ test.describe('Flywheel Calculator', () => {
         maxAchievableShooterRpmUnit: 'rpm',
         kV: '0.130',
         kVUnit: 'V*s/m',
-        kA: '3.979',
+        kA: '2.653',
         kAUnit: 'V*s^2/m',
         spinupTime: '5.260',
         spinupTimeUnit: 's',
@@ -565,6 +565,1743 @@ test.describe('Flywheel Calculator', () => {
         minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '30.000',
         effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+  });
+
+  test.describe('Stator limit input', () => {
+    test('Change stator limit from 30 to 5', async ({ page }) => {
+      await page.getByTestId('statorLimit').fill('5');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '5',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '11.687',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '10.010',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '12.45',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '15.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+
+    test('Change stator limit from 30 to 50', async ({ page }) => {
+      await page.getByTestId('statorLimit').fill('50');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '50',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.378',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '0.750',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.10',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '15.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+
+    test('Change stator limit from 30 to 0', async ({ page }) => {
+      await page.getByTestId('statorLimit').fill('0');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '0',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.000',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '0.000',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '12.60',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '15.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+  });
+
+  test.describe('Supply limit input', () => {
+    test('Change supply limit from 90 to 5', async ({ page }) => {
+      await page.getByTestId('supplyLimit').fill('5');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '5',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '11.687',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '10.010',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '12.45',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '15.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+
+    test('Change supply limit from 90 to 0', async ({ page }) => {
+      await page.getByTestId('supplyLimit').fill('0');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '0',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.000',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '0.000',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '12.60',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '15.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+  });
+
+  test.describe('Supply voltage input', () => {
+    test('Change supply voltage from 12.6 to 10', async ({ page }) => {
+      await page.getByTestId('supplyVoltage').fill('10');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '10',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.663',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '1.320',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '9.10',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '15.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+
+    test('Change supply voltage from 12.6 to 0', async ({ page }) => {
+      await page.getByTestId('supplyVoltage').fill('0');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '0',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.663',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '1.320',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '-0.90',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '15.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+  });
+
+  test.describe('Battery resistance input', () => {
+    test('Change battery resistance from 0.015 to 0.02', async ({ page }) => {
+      await page.getByTestId('batteryResistance').fill('0.02');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.02',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.663',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '1.320',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.40',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '15.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+
+    test('Change battery resistance from 0.015 to 0', async ({ page }) => {
+      await page.getByTestId('batteryResistance').fill('0');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.663',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '1.320',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '12.60',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '15.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+  });
+
+  test.describe('Efficiency input', () => {
+    test('Change efficiency from 100 to 90', async ({ page }) => {
+      await page.getByTestId('efficiency').fill('90');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '90',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.737',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '1.460',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.70',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '15.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+
+    test('Change efficiency from 100 to 0', async ({ page }) => {
+      await page.getByTestId('efficiency').fill('0');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '0',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.000',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '0.000',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '12.60',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '15.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+  });
+
+  test.describe('Shooter diameter input', () => {
+    test('Change shooter diameter from 6 in to 4 in', async ({ page }) => {
+      await page.getByTestId('shooterDiameter').fill('4');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '4',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.390',
+        kVUnit: 'V*s/m',
+        kA: '0.663',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '0.880',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.70',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '10.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+
+    test('Change shooter diameter from 6 in to 6 cm', async ({ page }) => {
+      await page.getByTestId('selectshooterDiameter').click();
+      await page.getByRole('option', { name: 'cm', exact: true }).click();
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'cm',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.660',
+        kVUnit: 'V*s/m',
+        kA: '0.830',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '0.650',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.70',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '7.395',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+
+    test('Change shooter diameter from 6 in to 0', async ({ page }) => {
+      await page.getByTestId('shooterDiameter').fill('0');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '0',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.000',
+        kVUnit: 'V*s/m',
+        kA: '0.000',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '0.000',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '12.60',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '6.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+  });
+
+  test.describe('Shooter weight input', () => {
+    test('Change shooter weight from 1 lbs to 3 lbs', async ({ page }) => {
+      await page.getByTestId('shooterWeight').fill('3');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '3',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '1.459',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '2.890',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.70',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '33.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+
+    test('Change shooter weight from 1 lbs to 1 kg', async ({ page }) => {
+      await page.getByTestId('selectshooterWeight').click();
+      await page.getByRole('option', { name: 'kg', exact: true }).click();
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'kg',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '1.143',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '2.270',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.70',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '25.842',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+
+    test('Change shooter weight from 1 lbs to 0', async ({ page }) => {
+      await page.getByTestId('shooterWeight').fill('0');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '0',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.265',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '0.530',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.70',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '6.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+  });
+
+  test.describe('Shooter target speed input', () => {
+    test('Change shooter target speed from 3000 rpm to 4000 rpm', async ({
+      page,
+    }) => {
+      await page.getByTestId('shooterTargetSpeed').fill('4000');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '4000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.663',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '1.760',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.70',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '15.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+
+    test('Change shooter target speed from 3000 rpm to 0', async ({ page }) => {
+      await page.getByTestId('shooterTargetSpeed').fill('0');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '0',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.663',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '0.000',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.70',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '15.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+  });
+
+  test.describe('Flywheel diameter input', () => {
+    test('Change flywheel diameter from 4 in to 6 in', async ({ page }) => {
+      await page.getByTestId('flywheelDiameter').fill('6');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '6',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.995',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '1.970',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.70',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '22.500',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+
+    test('Change flywheel diameter from 4 in to 4 cm', async ({ page }) => {
+      await page.getByTestId('selectflywheelDiameter').click();
+      await page.getByRole('option', { name: 'cm', exact: true }).click();
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'cm',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.439',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '0.870',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.70',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '9.930',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+
+    test('Change flywheel diameter from 4 in to 0', async ({ page }) => {
+      await page.getByTestId('flywheelDiameter').fill('0');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '0',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.398',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '0.790',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.70',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '9.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+  });
+
+  test.describe('Flywheel weight input', () => {
+    test('Change flywheel weight from 1.5 lbs to 3 lbs', async ({ page }) => {
+      await page.getByTestId('flywheelWeight').fill('3');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '3',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.928',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '1.840',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.70',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '21.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+
+    test('Change flywheel weight from 1.5 lbs to 1.5 kg', async ({ page }) => {
+      await page.getByTestId('selectflywheelWeight').click();
+      await page.getByRole('option', { name: 'kg', exact: true }).click();
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'kg',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.983',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '1.950',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.70',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '22.228',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+
+    test('Change flywheel weight from 1.5 lbs to 0', async ({ page }) => {
+      await page.getByTestId('flywheelWeight').fill('0');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '0',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.398',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '0.790',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.70',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '9.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+  });
+
+  test.describe('Flywheel ratio input', () => {
+    test('Change flywheel ratio from 1 Reduction to 2 Reduction', async ({
+      page,
+    }) => {
+      await page.getByTestId('flywheelToShooterRatio').fill('2');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '2',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.464',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '0.920',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.70',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '10.500',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+
+    test('Change flywheel ratio from 1 Reduction to 2 Step-up', async ({
+      page,
+    }) => {
+      await page.getByTestId('flywheelToShooterRatio').fill('2');
+      await page.getByTestId('selectflywheelToShooterRatio').click();
+      await page.getByRole('option', { name: 'Step-up', exact: true }).click();
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '2',
+        flywheelToShooterRatioUnit: 'Step-up',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '1.459',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '2.890',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.70',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '33.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+
+    test('Change flywheel ratio from 1 Reduction to 0', async ({ page }) => {
+      await page.getByTestId('flywheelToShooterRatio').fill('0');
+      await assertInputs(page, {
+        motorQuantity: '2',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '1',
+        ratioType: 'Reduction',
+        statorLimit: '30',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '100',
+        shooterDiameter: '6',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '1',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '3000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '4',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '1.5',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '0',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
+      });
+
+      await assertOutputs(page, {
+        maxAchievableShooterRpm: '5784',
+        maxAchievableShooterRpmUnit: 'rpm',
+        kV: '0.260',
+        kVUnit: 'V*s/m',
+        kA: '0.663',
+        kAUnit: 'V*s^2/m',
+        spinupTime: '1.320',
+        spinupTimeUnit: 's',
+        minimumBatteryVoltage: '11.70',
+        minimumBatteryVoltageUnit: 'V',
+        effectiveMoi: '15.000',
+        effectiveMoiUnit: 'in2*lbs',
+      });
+    });
+  });
+
+  test.describe('Copy link button', () => {
+    test('Copy link with default values', async ({ page, browserName }) => {
+      test.skip(browserName === 'webkit');
+
+      await page.getByRole('button', { name: 'Copy Link' }).click();
+      const clipboardValue = await page.evaluate<string>(() =>
+        navigator.clipboard.readText(),
+      );
+      const url = new URL(clipboardValue);
+      expect(url.pathname).toBe('/flywheel');
+      const params = new URLSearchParams(url.search);
+      expect(params.get('motor')).toBeTruthy();
+      expect(params.get('ratio')).toBeTruthy();
+      expect(params.get('statorLimit')).toBeTruthy();
+      expect(params.get('supplyLimit')).toBeTruthy();
+      expect(params.get('supplyVoltage')).toBeTruthy();
+      expect(params.get('batteryResistance')).toBeTruthy();
+      expect(params.get('shooterDiameter')).toBeTruthy();
+      expect(params.get('shooterWeight')).toBeTruthy();
+      expect(params.get('shooterTargetSpeed')).toBeTruthy();
+      expect(params.get('customShooterMoi')).toBeTruthy();
+      expect(params.get('useCustomShooterMoi')).toBe('false');
+      expect(params.get('flywheelDiameter')).toBeTruthy();
+      expect(params.get('flywheelWeight')).toBeTruthy();
+      expect(params.get('customFlywheelMoi')).toBeTruthy();
+      expect(params.get('useCustomFlywheelMoi')).toBe('false');
+      expect(params.get('flywhweelToShooterRatio')).toBeTruthy();
+      expect(params.get('projectileDiameter')).toBeTruthy();
+      expect(params.get('projectileWeight')).toBeTruthy();
+      expect(params.get('efficiency')).toBe('100');
+    });
+
+    test('Copy link with modified values', async ({ page, browserName }) => {
+      test.skip(browserName === 'webkit');
+
+      await page.getByTestId('motor').fill('4');
+      await page.getByTestId('ratio').fill('2');
+      await page.getByTestId('statorLimit').fill('50');
+      await page.getByTestId('supplyLimit').fill('100');
+      await page.getByTestId('supplyVoltage').fill('11');
+      await page.getByTestId('batteryResistance').fill('0.02');
+      await page.getByTestId('efficiency').fill('90');
+      await page.getByTestId('shooterDiameter').fill('5');
+      await page.getByTestId('shooterWeight').fill('2');
+      await page.getByTestId('shooterTargetSpeed').fill('4000');
+      await page.getByTestId('useCustomShooterMoi').click();
+      await page.getByTestId('customShooterMoi').fill('5');
+      await page.getByTestId('flywheelDiameter').fill('5');
+      await page.getByTestId('flywheelWeight').fill('2');
+      await page.getByTestId('flywheelToShooterRatio').fill('2');
+      await page.getByTestId('useCustomFlywheelMoi').click();
+      await page.getByTestId('customFlywheelMoi').fill('4');
+      await page.getByTestId('projectileWeight').fill('1');
+
+      await page.getByRole('button', { name: 'Copy Link' }).click();
+      const clipboardValue = await page.evaluate<string>(() =>
+        navigator.clipboard.readText(),
+      );
+      const url = new URL(clipboardValue);
+      expect(url.pathname).toBe('/flywheel');
+      const params = new URLSearchParams(url.search);
+      expect(params.get('motor')).toBeTruthy();
+      expect(params.get('ratio')).toBeTruthy();
+      const statorLimitValue = decodeURIComponent(
+        params.get('statorLimit') ?? '',
+      );
+      expect(statorLimitValue).toContain('s=50');
+      expect(statorLimitValue).toContain('u=A');
+      const supplyLimitValue = decodeURIComponent(
+        params.get('supplyLimit') ?? '',
+      );
+      expect(supplyLimitValue).toContain('s=100');
+      expect(supplyLimitValue).toContain('u=A');
+      const supplyVoltageValue = decodeURIComponent(
+        params.get('supplyVoltage') ?? '',
+      );
+      expect(supplyVoltageValue).toContain('s=11');
+      expect(supplyVoltageValue).toContain('u=V');
+      const batteryResistanceValue = decodeURIComponent(
+        params.get('batteryResistance') ?? '',
+      );
+      expect(batteryResistanceValue).toContain('s=0.02');
+      expect(batteryResistanceValue).toContain('u=Ohm');
+      expect(params.get('efficiency')).toBe('90');
+      const shooterDiameterValue = decodeURIComponent(
+        params.get('shooterDiameter') ?? '',
+      );
+      expect(shooterDiameterValue).toContain('s=5');
+      expect(shooterDiameterValue).toContain('u=in');
+      const shooterWeightValue = decodeURIComponent(
+        params.get('shooterWeight') ?? '',
+      );
+      expect(shooterWeightValue).toContain('s=2');
+      expect(shooterWeightValue).toContain('u=lbs');
+      const shooterTargetSpeedValue = decodeURIComponent(
+        params.get('shooterTargetSpeed') ?? '',
+      );
+      expect(shooterTargetSpeedValue).toContain('s=4000');
+      expect(shooterTargetSpeedValue).toContain('u=rpm');
+      expect(params.get('useCustomShooterMoi')).toBe('true');
+      const customShooterMoiValue = decodeURIComponent(
+        params.get('customShooterMoi') ?? '',
+      );
+      expect(customShooterMoiValue).toContain('s=5');
+      const flywheelDiameterValue = decodeURIComponent(
+        params.get('flywheelDiameter') ?? '',
+      );
+      expect(flywheelDiameterValue).toContain('s=5');
+      expect(flywheelDiameterValue).toContain('u=in');
+      const flywheelWeightValue = decodeURIComponent(
+        params.get('flywheelWeight') ?? '',
+      );
+      expect(flywheelWeightValue).toContain('s=2');
+      expect(flywheelWeightValue).toContain('u=lbs');
+      const flywheelToShooterRatioValue = decodeURIComponent(
+        params.get('flywhweelToShooterRatio') ?? '',
+      );
+      expect(flywheelToShooterRatioValue).toContain('magnitude=2');
+      expect(params.get('useCustomFlywheelMoi')).toBe('true');
+      const customFlywheelMoiValue = decodeURIComponent(
+        params.get('customFlywheelMoi') ?? '',
+      );
+      expect(customFlywheelMoiValue).toContain('s=4');
+      const projectileWeightValue = decodeURIComponent(
+        params.get('projectileWeight') ?? '',
+      );
+      expect(projectileWeightValue).toContain('s=1');
+      expect(projectileWeightValue).toContain('u=lbs');
+    });
+
+    test('Copy link URL can be navigated to restore state', async ({
+      page,
+      browserName,
+    }) => {
+      test.skip(browserName === 'webkit');
+
+      await page.getByTestId('motor').fill('4');
+      await page.getByTestId('ratio').fill('2');
+      await page.getByTestId('statorLimit').fill('50');
+      await page.getByTestId('efficiency').fill('90');
+      await page.getByTestId('shooterDiameter').fill('5');
+      await page.getByTestId('shooterWeight').fill('2');
+      await page.getByTestId('shooterTargetSpeed').fill('4000');
+      await page.getByTestId('flywheelDiameter').fill('5');
+      await page.getByTestId('flywheelWeight').fill('2');
+
+      await page.getByRole('button', { name: 'Copy Link' }).click();
+      const clipboardValue = await page.evaluate<string>(() =>
+        navigator.clipboard.readText(),
+      );
+
+      await page.goto(clipboardValue);
+
+      await assertInputs(page, {
+        motorQuantity: '4',
+        motorName: 'Kraken X60 (FOC)',
+        ratioMagnitude: '2',
+        ratioType: 'Reduction',
+        statorLimit: '50',
+        statorLimitUnit: 'A',
+        supplyLimit: '90',
+        supplyLimitUnit: 'A',
+        supplyVoltage: '12.6',
+        supplyVoltageUnit: 'V',
+        batteryResistance: '0.015',
+        batteryResistanceUnit: 'Ohm',
+        efficiency: '90',
+        shooterDiameter: '5',
+        shooterDiameterUnit: 'in',
+        shooterWeight: '2',
+        shooterWeightUnit: 'lbs',
+        shooterTargetSpeed: '4000',
+        shooterTargetSpeedUnit: 'rpm',
+        useCustomShooterMoi: false,
+        customShooterMoi: '4.5',
+        customShooterMoiUnit: 'in2*lbs',
+        flywheelDiameter: '5',
+        flywheelDiameterUnit: 'in',
+        flywheelWeight: '2',
+        flywheelWeightUnit: 'lbs',
+        flywheelToShooterRatio: '1',
+        flywheelToShooterRatioUnit: 'Reduction',
+        useCustomFlywheelMoi: false,
+        customFlywheelMoi: '3',
+        customFlywheelMoiUnit: 'in2*lbs',
+        projectileWeight: '0.5',
+        projectileWeightUnit: 'lbs',
       });
     });
   });

@@ -23,7 +23,7 @@ import { MotorInput } from '~/components/recalc/io/motor';
 import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
 import { ChartContainer } from '~/components/ui/chart';
-import { useQueryParams } from '~/lib/hooks';
+import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { supplyLimitToStatorLimit } from '~/lib/math/common';
 import {
   ExponentialProfile,
@@ -53,6 +53,25 @@ export function meta() {
   ];
 }
 
+const DEFAULT_PARAMS = {
+  motor: withDefault(MotorParam, Motor.KrakenX60sFOC(2)),
+  travelDistance: withDefault(MeasurementParam, new Measurement(60, 'in')),
+  spoolDiameter: withDefault(MeasurementParam, new Measurement(1, 'in')),
+  load: withDefault(MeasurementParam, new Measurement(15, 'lb')),
+  ratio: withDefault(RatioParam, new Ratio(2, RatioType.REDUCTION)),
+  efficiency: withDefault(NumberParam, 100),
+  statorLimit: withDefault(MeasurementParam, new Measurement(60, 'A')),
+  supplyLimit: withDefault(MeasurementParam, new Measurement(90, 'A')),
+  supplyVoltage: withDefault(MeasurementParam, new Measurement(12.6, 'V')),
+  statorVoltage: withDefault(MeasurementParam, new Measurement(10, 'V')),
+  angle: withDefault(MeasurementParam, new Measurement(90, 'deg')),
+  batteryResistance: withDefault(
+    MeasurementParam,
+    new Measurement(0.015, 'Ohm'),
+  ),
+  cascade: withDefault(BooleanParam, false),
+};
+
 export default function Linear() {
   const queryParams = useQueryParams<{
     motor: Motor;
@@ -68,24 +87,7 @@ export default function Linear() {
     angle: Measurement;
     batteryResistance: Measurement;
     cascade: boolean;
-  }>({
-    motor: withDefault(MotorParam, Motor.KrakenX60sFOC(2)),
-    travelDistance: withDefault(MeasurementParam, new Measurement(60, 'in')),
-    spoolDiameter: withDefault(MeasurementParam, new Measurement(1, 'in')),
-    load: withDefault(MeasurementParam, new Measurement(15, 'lb')),
-    ratio: withDefault(RatioParam, new Ratio(2, RatioType.REDUCTION)),
-    efficiency: withDefault(NumberParam, 100),
-    statorLimit: withDefault(MeasurementParam, new Measurement(60, 'A')),
-    supplyLimit: withDefault(MeasurementParam, new Measurement(90, 'A')),
-    supplyVoltage: withDefault(MeasurementParam, new Measurement(12.6, 'V')),
-    statorVoltage: withDefault(MeasurementParam, new Measurement(10, 'V')),
-    angle: withDefault(MeasurementParam, new Measurement(90, 'deg')),
-    batteryResistance: withDefault(
-      MeasurementParam,
-      new Measurement(0.015, 'Ohm'),
-    ),
-    cascade: withDefault(BooleanParam, false),
-  });
+  }>(DEFAULT_PARAMS);
 
   const [motor, setMotor] = useState(queryParams.motor);
   const [travelDistance, setTravelDistance] = useState(
@@ -275,9 +277,28 @@ export default function Linear() {
     [supplyVoltage, minimumBatteryVoltage],
   );
 
+  const serializedState = useSerializedState(DEFAULT_PARAMS, {
+    motor,
+    travelDistance,
+    spoolDiameter,
+    load,
+    ratio,
+    efficiency,
+    statorLimit,
+    supplyLimit,
+    supplyVoltage,
+    statorVoltage,
+    angle,
+    batteryResistance,
+    cascade,
+  });
+
   return (
     <div>
-      <CalcHeading title="Linear Motion Calculator" />
+      <CalcHeading
+        title="Linear Motion Calculator"
+        getSerializedState={() => serializedState}
+      />
       <div className="flex flex-row flex-wrap gap-x-4 px-1 [&>*]:flex-1">
         <div className="flex flex-col gap-x-4 gap-y-2">
           <IOLine>

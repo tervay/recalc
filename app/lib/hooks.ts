@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import queryString from 'query-string';
+import { useMemo } from 'react';
 import { useLocation } from 'react-router';
 
 import type {
@@ -34,4 +35,35 @@ export function useQueryParams<T extends Record<string, any>>(
   }
 
   return result as T;
+}
+
+export function useSerializedState<T extends Record<string, any>>(
+  map: QueryParamEncodeDecodeMapWithDefaults<T>,
+  state: T,
+): string {
+  return useMemo(() => {
+    const serializedObjects: Record<string, string> = {};
+
+    for (const key in map) {
+      const value = state[key];
+      if (value !== undefined && value !== null) {
+        try {
+          serializedObjects[key] = map[key].queryParam.encode(value);
+        } catch (error) {
+          // Fallback to default if encoding fails
+          console.warn(`Failed to encode ${key}:`, error);
+          serializedObjects[key] = map[key].queryParam.encode(
+            map[key].defaultValue,
+          );
+        }
+      } else {
+        // Use default value if state value is missing
+        serializedObjects[key] = map[key].queryParam.encode(
+          map[key].defaultValue,
+        );
+      }
+    }
+
+    return queryString.stringify(serializedObjects);
+  }, [map, state]);
 }

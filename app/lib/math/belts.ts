@@ -1,7 +1,7 @@
 import { SimpleBelt } from '~/lib/models/Belt';
 import Measurement from '~/lib/models/Measurement';
 import type { SimplePulley } from '~/lib/models/Pulley';
-import { roundToNearestMulitple } from '~/lib/utils';
+import { roundToNearestMultiple } from '~/lib/utils';
 
 export function calculateDistanceBetweenPulleys(
   p1: SimplePulley,
@@ -100,7 +100,7 @@ export function calculateClosestCenters(
   }
 
   const pl = approximateBeltPitchLength(p1, p2, desiredCenter);
-  const largerTeeth = roundToNearestMulitple(
+  const largerTeeth = roundToNearestMultiple(
     pl.div(p1.pitch).scalar,
     multipleOf,
   );
