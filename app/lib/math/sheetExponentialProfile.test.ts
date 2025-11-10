@@ -643,22 +643,34 @@ describe.concurrent('generateProfile', () => {
       stopAtVelocity,
     );
 
-    expect(result.samples.length).toBeGreaterThan(0);
-
-    // aLim should be defined
-    expect(result.aLim.to('m/s^2').scalar).toBeDefined();
-
-    // First sample should start at zero
-    const firstSample = result.samples[0];
-    expect(firstSample.t.to('s').scalar).toBe(0);
-    expect(firstSample.x.to('m').scalar).toBeCloseTo(0, 3);
-    expect(firstSample.v.to('m/s').scalar).toBeCloseTo(0, 3);
-
-    // Should stop at velocity threshold
-    const lastSample = result.samples[result.samples.length - 1];
-    expect(lastSample.v.to('m/s').scalar).toBeGreaterThanOrEqual(
-      stopAtVelocity.to('m/s').scalar,
-    );
+    expect(result.samples.length).toEqual(1);
+    expect(result.aLim.to('m/s^2').scalar).toEqual(0);
+    expect(result.aStop.to('m/s^2').scalar).toEqual(0);
+    expect(result.vLim.to('m/s').scalar).toEqual(0);
+    expect(result.vFree.to('m/s').scalar).toEqual(0);
+    expect(result.transitionTimes.t_12.to('s').scalar).toEqual(0);
+    expect(result.transitionTimes.t_13.to('s').scalar).toEqual(0);
+    expect(result.transitionTimes.t_14.to('s').scalar).toEqual(0);
+    expect(result.phase2InitialCondition?.t?.to('s').scalar).toEqual(0);
+    expect(result.phase2InitialCondition?.x?.to('m').scalar).toEqual(0);
+    expect(result.phase2InitialCondition?.v?.to('m/s').scalar).toEqual(0);
+    expect(result.phase2TransitionTimes?.t_23?.to('s').scalar).toEqual(0);
+    expect(result.phase2TransitionTimes?.t_24?.to('s').scalar).toEqual(0);
+    expect(result.phase2FinalCondition?.t?.to('s').scalar).toEqual(0);
+    expect(result.phase2FinalCondition?.x?.to('m').scalar).toEqual(0);
+    expect(result.phase2FinalCondition?.v?.to('m/s').scalar).toEqual(0);
+    expect(result.phase3InitialCondition?.t?.to('s').scalar).toEqual(0);
+    expect(result.phase3InitialCondition?.x?.to('m').scalar).toEqual(0);
+    expect(result.phase3InitialCondition?.v?.to('m/s').scalar).toEqual(0);
+    expect(result.phase3FinalCondition?.t?.to('s').scalar).toEqual(0);
+    expect(result.phase3FinalCondition?.x?.to('m').scalar).toEqual(0);
+    expect(result.phase3FinalCondition?.v?.to('m/s').scalar).toEqual(0);
+    expect(result.phase4InitialCondition?.t?.to('s').scalar).toEqual(0);
+    expect(result.phase4InitialCondition?.x?.to('m').scalar).toEqual(0);
+    expect(result.phase4InitialCondition?.v?.to('m/s').scalar).toEqual(0);
+    expect(result.phase4FinalCondition?.t?.to('s').scalar).toEqual(0);
+    expect(result.phase4FinalCondition?.x?.to('m').scalar).toEqual(0);
+    expect(result.phase4FinalCondition?.v?.to('m/s').scalar).toEqual(0);
   });
 
   it('generates samples with correct structure', () => {
