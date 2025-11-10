@@ -12,7 +12,10 @@ import {
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 import type { HasStateHook } from '~/lib/types/common';
 
-export function RatioInput({ stateHook }: HasStateHook<Ratio>) {
+export function RatioInput({
+  stateHook,
+  testId,
+}: HasStateHook<Ratio> & { testId?: string }) {
   const [ratio, setRatio] = stateHook;
   const [magnitude, setMagnitude] = useState(ratio.magnitude);
   const [type, setType] = useState(ratio.ratioType);
@@ -49,6 +52,7 @@ export function RatioInput({ stateHook }: HasStateHook<Ratio>) {
             }
           }}
           className="rounded-r-none"
+          data-testid={testId}
         />
         <Select
           value={type}
@@ -56,7 +60,10 @@ export function RatioInput({ stateHook }: HasStateHook<Ratio>) {
             setType(value as RatioType);
           }}
         >
-          <SelectTrigger className="rounded-l-none">
+          <SelectTrigger
+            className="rounded-l-none"
+            data-testid={testId ? `select${testId}` : undefined}
+          >
             <SelectValue placeholder="Theme" />
           </SelectTrigger>
           <SelectContent>
