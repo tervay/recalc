@@ -12,7 +12,10 @@ import {
 import Motor, { ALL_MOTORS } from '~/lib/models/Motor';
 import type { HasStateHook } from '~/lib/types/common';
 
-export function MotorInput({ stateHook }: HasStateHook<Motor>) {
+export function MotorInput({
+  stateHook,
+  testId,
+}: HasStateHook<Motor> & { testId?: string }) {
   const [motor, setMotor] = stateHook;
   const [name, setName] = useState(motor.identifier);
   const [quantity, setQuantity] = useState(motor.quantity);
@@ -49,9 +52,13 @@ export function MotorInput({ stateHook }: HasStateHook<Motor>) {
             }
           }}
           className="rounded-r-none"
+          data-testid={testId}
         />
         <Select value={name} onValueChange={setName}>
-          <SelectTrigger className="rounded-l-none">
+          <SelectTrigger
+            className="rounded-l-none"
+            data-testid={testId ? `select${testId}` : undefined}
+          >
             <SelectValue placeholder="Theme" />
           </SelectTrigger>
           <SelectContent>

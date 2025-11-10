@@ -721,4 +721,129 @@ describe.concurrent('generateProfile', () => {
       expect(s.efficiency.scalar).toBeLessThanOrEqual(1);
     }
   });
+
+  it('handles very low stator limit that causes aLim to be zero', () => {
+    const targetDistance = new Measurement(1, 'm');
+    const maxVelocity = new Measurement(2, 'm/s');
+    const motor = Motor.KrakenX60sFOC(1);
+    const efficiency = 90;
+    const ratio = new Ratio(2, RatioType.REDUCTION);
+    const mass = new Measurement(1, 'kg');
+    // Very low stator limit that could cause aLim to be zero or very small
+    const statorLimit = new Measurement(1, 'A');
+    const gravity = Measurement.GRAVITY;
+    const wheelOrPulleyDiameter = new Measurement(4, 'in');
+    const stopAtVelocity = new Measurement(0.1, 'm/s');
+
+    // Should not throw - should return base case or handle gracefully
+    const result = generateProfile(
+      targetDistance,
+      maxVelocity,
+      motor,
+      efficiency,
+      ratio,
+      mass,
+      statorLimit,
+      gravity,
+      wheelOrPulleyDiameter,
+      stopAtVelocity,
+    );
+
+    expect(result.samples.length).toBeGreaterThan(0);
+    expect(result.aLim).toBeDefined();
+    expect(result.aStop).toBeDefined();
+    expect(result.transitionTimes).toBeDefined();
+    expect(result.transitionTimes.t_12).toBeDefined();
+    expect(result.transitionTimes.t_13).toBeDefined();
+    expect(result.transitionTimes.t_14).toBeDefined();
+
+    // First sample should start at zero
+    const firstSample = result.samples[0];
+    expect(firstSample.t.to('s').scalar).toBe(0);
+    expect(firstSample.x.to('m').scalar).toBeCloseTo(0, 3);
+    expect(firstSample.v.to('m/s').scalar).toBeCloseTo(0, 3);
+  });
+
+  it('handles stator limit that causes aStop to be zero', () => {
+    const targetDistance = new Measurement(1, 'm');
+    const maxVelocity = new Measurement(2, 'm/s');
+    const motor = Motor.KrakenX60sFOC(1);
+    const efficiency = 90;
+    const ratio = new Ratio(2, RatioType.REDUCTION);
+    const mass = new Measurement(1, 'kg');
+    // Very low stator limit that could cause aStop to be zero
+    const statorLimit = new Measurement(0.5, 'A');
+    const gravity = Measurement.GRAVITY;
+    const wheelOrPulleyDiameter = new Measurement(4, 'in');
+    const stopAtVelocity = new Measurement(0.1, 'm/s');
+
+    // Should not throw - should handle division by zero gracefully
+    const result = generateProfile(
+      targetDistance,
+      maxVelocity,
+      motor,
+      efficiency,
+      ratio,
+      mass,
+      statorLimit,
+      gravity,
+      wheelOrPulleyDiameter,
+      stopAtVelocity,
+    );
+
+    expect(result.samples.length).toBeGreaterThan(0);
+    expect(result.aLim).toBeDefined();
+    expect(result.aStop).toBeDefined();
+    expect(result.transitionTimes).toBeDefined();
+    expect(result.transitionTimes.t_12).toBeDefined();
+    expect(result.transitionTimes.t_13).toBeDefined();
+    expect(result.transitionTimes.t_14).toBeDefined();
+
+    // First sample should start at zero
+    const firstSample = result.samples[0];
+    expect(firstSample.t.to('s').scalar).toBe(0);
+    expect(firstSample.x.to('m').scalar).toBeCloseTo(0, 3);
+    expect(firstSample.v.to('m/s').scalar).toBeCloseTo(0, 3);
+  });
+
+  it('handles zero stator limit that causes aLim to be zero', () => {
+    const targetDistance = new Measurement(1, 'm');
+    const maxVelocity = new Measurement(2, 'm/s');
+    const motor = Motor.KrakenX60sFOC(1);
+    const efficiency = 90;
+    const ratio = new Ratio(2, RatioType.REDUCTION);
+    const mass = new Measurement(1, 'kg');
+    const statorLimit = new Measurement(0, 'A');
+    const gravity = Measurement.GRAVITY;
+    const wheelOrPulleyDiameter = new Measurement(4, 'in');
+    const stopAtVelocity = new Measurement(0.1, 'm/s');
+
+    // Should not throw - should handle division by zero gracefully
+    const result = generateProfile(
+      targetDistance,
+      maxVelocity,
+      motor,
+      efficiency,
+      ratio,
+      mass,
+      statorLimit,
+      gravity,
+      wheelOrPulleyDiameter,
+      stopAtVelocity,
+    );
+
+    expect(result.samples.length).toBeGreaterThan(0);
+    expect(result.aLim).toBeDefined();
+    expect(result.aStop).toBeDefined();
+    expect(result.transitionTimes).toBeDefined();
+    expect(result.transitionTimes.t_12).toBeDefined();
+    expect(result.transitionTimes.t_13).toBeDefined();
+    expect(result.transitionTimes.t_14).toBeDefined();
+
+    // First sample should start at zero
+    const firstSample = result.samples[0];
+    expect(firstSample.t.to('s').scalar).toBe(0);
+    expect(firstSample.x.to('m').scalar).toBeCloseTo(0, 3);
+    expect(firstSample.v.to('m/s').scalar).toBeCloseTo(0, 3);
+  });
 });

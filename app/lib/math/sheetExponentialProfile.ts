@@ -14,7 +14,52 @@ export function generateProfile(
   gravity: Measurement,
   wheelOrPulleyDiameter: Measurement,
   stopAtVelocity: Measurement | undefined = undefined,
+  timeCutoff: Measurement = new Measurement(10, 's'),
 ) {
+  if (statorLimit.lte(motor.freeCurrent)) {
+    const zerotxv = {
+      t: new Measurement(0, 's'),
+      x: new Measurement(0, 'm'),
+      v: new Measurement(0, 'm/s'),
+    };
+
+    return {
+      aLim: new Measurement(0, 'm/s^2'),
+      aStop: new Measurement(0, 'm/s^2'),
+      vLim: new Measurement(0, 'm/s'),
+      vFree: new Measurement(0, 'm/s'),
+      transitionTimes: {
+        t_12: new Measurement(0, 's'),
+        t_13: new Measurement(0, 's'),
+        t_14: new Measurement(0, 's'),
+      },
+      phase1FinalCondition: zerotxv,
+      phase2InitialCondition: zerotxv,
+      phase2TransitionTimes: {
+        t_23: new Measurement(0, 's'),
+        t_24: new Measurement(0, 's'),
+      },
+      phase2FinalCondition: zerotxv,
+      enterCoast: false,
+      phase3InitialCondition: zerotxv,
+      phase3FinalCondition: zerotxv,
+      phase4InitialCondition: zerotxv,
+      phase4FinalCondition: zerotxv,
+      samples: [
+        {
+          t: new Measurement(0, 's'),
+          x: new Measurement(0, 'm'),
+          v: new Measurement(0, 'm/s'),
+          motorRPM: new Measurement(0, 'rpm'),
+          current: new Measurement(0, 'A'),
+          torque: new Measurement(0, 'N*m'),
+          power: new Measurement(0, 'W'),
+          efficiency: new Measurement(0),
+        },
+      ],
+    };
+  }
+
   const r = wheelOrPulleyDiameter.div(2);
 
   const iLimMinusiFreeOveriStallMinusiFree = statorLimit
@@ -193,7 +238,10 @@ export function generateProfile(
     if (
       x.gte(targetDistance) ||
       new Measurement(timeSec, 's').gte(phase4FinalCondition.t) ||
-      (stopAtVelocity && v.gte(stopAtVelocity))
+      new Measurement(timeSec, 's').gte(timeCutoff) ||
+      (stopAtVelocity &&
+        // arbitrary fix for it barely missing the target velocity at max speeds
+        v.gte(stopAtVelocity.sub(new Measurement(0.01, 'in/s'))))
     ) {
       break;
     }

@@ -1,3 +1,4 @@
+import { minBy } from 'lodash-es';
 import { useMemo, useState } from 'react';
 import {
   CartesianGrid,
@@ -10,15 +11,19 @@ import {
 
 import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
+import Divider from '~/components/recalc/divider';
 import BooleanInput from '~/components/recalc/io/boolean';
 import {
   MeasurementInput,
   MeasurementOutput,
 } from '~/components/recalc/io/measurement';
 import { MotorInput } from '~/components/recalc/io/motor';
+import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
 import { ChartContainer } from '~/components/ui/chart';
 import { useQueryParams } from '~/lib/hooks';
+import { calculateLoadedBatteryVoltage } from '~/lib/math/batterySim';
+import { supplyLimitToStatorLimit } from '~/lib/math/common';
 import { calculateKa, calculateKv } from '~/lib/math/kVkA';
 import { generateProfile } from '~/lib/math/sheetExponentialProfile';
 import Measurement from '~/lib/models/Measurement';
@@ -47,6 +52,8 @@ export default function Flywheel() {
     ratio: Ratio;
     statorLimit: Measurement;
     supplyLimit: Measurement;
+    supplyVoltage: Measurement;
+    batteryResistance: Measurement;
     shooterDiameter: Measurement;
     shooterWeight: Measurement;
     shooterTargetSpeed: Measurement;
@@ -65,6 +72,11 @@ export default function Flywheel() {
     ratio: withDefault(RatioParam, new Ratio(1, RatioType.REDUCTION)),
     statorLimit: withDefault(MeasurementParam, new Measurement(30, 'A')),
     supplyLimit: withDefault(MeasurementParam, new Measurement(90, 'A')),
+    supplyVoltage: withDefault(MeasurementParam, new Measurement(12.6, 'V')),
+    batteryResistance: withDefault(
+      MeasurementParam,
+      new Measurement(0.015, 'Ohm'),
+    ),
     shooterDiameter: withDefault(MeasurementParam, new Measurement(6, 'in')),
     shooterWeight: withDefault(MeasurementParam, new Measurement(1, 'lb')),
     shooterTargetSpeed: withDefault(
@@ -73,14 +85,14 @@ export default function Flywheel() {
     ),
     customShooterMoi: withDefault(
       MeasurementParam,
-      new Measurement(4.5, 'in^2 lbs'),
+      new Measurement(4.5, 'in2*lbs'),
     ),
     useCustomShooterMoi: withDefault(BooleanParam, false),
     flywheelDiameter: withDefault(MeasurementParam, new Measurement(4, 'in')),
     flywheelWeight: withDefault(MeasurementParam, new Measurement(1.5, 'lb')),
     customFlywheelMoi: withDefault(
       MeasurementParam,
-      new Measurement(3, 'lb in^2'),
+      new Measurement(3, 'in2*lbs'),
     ),
     useCustomFlywheelMoi: withDefault(BooleanParam, false),
     flywhweelToShooterRatio: withDefault(
@@ -96,6 +108,10 @@ export default function Flywheel() {
   const [ratio, setRatio] = useState(queryParams.ratio);
   const [statorLimit, setStatorLimit] = useState(queryParams.statorLimit);
   const [supplyLimit, setSupplyLimit] = useState(queryParams.supplyLimit);
+  const [supplyVoltage, setSupplyVoltage] = useState(queryParams.supplyVoltage);
+  const [batteryResistance, setBatteryResistance] = useState(
+    queryParams.batteryResistance,
+  );
   const [shooterDiameter, setShooterDiameter] = useState(
     queryParams.shooterDiameter,
   );
@@ -109,16 +125,26 @@ export default function Flywheel() {
   const [useCustomShooterMoi, setUseCustomShooterMoi] = useState(
     queryParams.useCustomShooterMoi,
   );
-  const [flywheelDiameter] = useState(queryParams.flywheelDiameter);
-  const [flywheelWeight] = useState(queryParams.flywheelWeight);
-  const [customFlywheelMoi] = useState(queryParams.customFlywheelMoi);
-  const [useCustomFlywheelMoi] = useState(queryParams.useCustomFlywheelMoi);
-  const [flywhweelToShooterRatio] = useState(
+  const [flywheelDiameter, setFlywheelDiameter] = useState(
+    queryParams.flywheelDiameter,
+  );
+  const [flywheelWeight, setFlywheelWeight] = useState(
+    queryParams.flywheelWeight,
+  );
+  const [customFlywheelMoi, setCustomFlywheelMoi] = useState(
+    queryParams.customFlywheelMoi,
+  );
+  const [useCustomFlywheelMoi, setUseCustomFlywheelMoi] = useState(
+    queryParams.useCustomFlywheelMoi,
+  );
+  const [flywhweelToShooterRatio, setFlywhweelToShooterRatio] = useState(
     queryParams.flywhweelToShooterRatio,
   );
   const [_projectileDiameter] = useState(queryParams.projectileDiameter);
-  const [_projectileWeight] = useState(queryParams.projectileWeight);
-  const [efficiency] = useState(queryParams.efficiency);
+  const [projectileWeight, setProjectileWeight] = useState(
+    queryParams.projectileWeight,
+  );
+  const [efficiency, setEfficiency] = useState(queryParams.efficiency);
 
   const derivedShooterMOI = useMemo(
     () => shooterWeight.mul(shooterDiameter.div(2).mul(shooterDiameter.div(2))),
@@ -144,7 +170,7 @@ export default function Flywheel() {
   const totalMomentOfInertia = useMemo(
     () =>
       ratio.asNumber() === 0
-        ? new Measurement(0, 'in^2 * lbs')
+        ? new Measurement(0, 'in2*lbs')
         : usableShooterMOI
             .add(
               usableFlywheelMOI.div(
@@ -153,8 +179,29 @@ export default function Flywheel() {
                   : Math.pow(flywhweelToShooterRatio.asNumber(), 2),
               ),
             )
-            .div(ratio.asNumber()),
+            .div(ratio.asNumber())
+            .to('in2*lbs'),
     [usableShooterMOI, usableFlywheelMOI, flywhweelToShooterRatio, ratio],
+  );
+
+  const supplyLimitInStatorTerms = useMemo(
+    () =>
+      supplyLimitToStatorLimit({
+        supplyLimit,
+        supplyVoltage: nominalVoltage,
+        statorVoltage: nominalVoltage,
+      }),
+    [supplyLimit],
+  );
+
+  const isUsingStatorLimit = useMemo(
+    () => supplyLimitInStatorTerms.gt(statorLimit),
+    [supplyLimitInStatorTerms, statorLimit],
+  );
+
+  const limitingCurrentLimit = useMemo(
+    () => (isUsingStatorLimit ? statorLimit : supplyLimitInStatorTerms),
+    [isUsingStatorLimit, statorLimit, supplyLimitInStatorTerms],
   );
 
   const kV = useMemo(() => {
@@ -174,7 +221,7 @@ export default function Flywheel() {
     }
 
     return calculateKa(
-      new MotorRules(motor, statorLimit, {
+      new MotorRules(motor, limitingCurrentLimit, {
         voltage: nominalVoltage,
         rpm: new Measurement(0, 'rpm'),
       })
@@ -190,7 +237,7 @@ export default function Flywheel() {
   }, [
     flywheelDiameter,
     motor,
-    statorLimit,
+    limitingCurrentLimit,
     ratio,
     efficiency,
     totalMomentOfInertia,
@@ -218,7 +265,7 @@ export default function Flywheel() {
         totalMomentOfInertia
           .to('kg m2')
           .div(shooterDiameter.div(2).mul(shooterDiameter.div(2))),
-        statorLimit,
+        limitingCurrentLimit,
         new Measurement(0, 'm/s^2'),
         shooterDiameter,
         clampedShooterTargetSpeed.mul(shooterDiameter.div(2)).removeRad(),
@@ -227,7 +274,7 @@ export default function Flywheel() {
       motor,
       efficiency,
       ratio,
-      statorLimit,
+      limitingCurrentLimit,
       shooterDiameter,
       clampedShooterTargetSpeed,
       totalMomentOfInertia,
@@ -236,14 +283,14 @@ export default function Flywheel() {
 
   const meterizedSamples = useMemo(() => {
     return sheetData.samples.map((sample) => ({
-      t: sample.t.to('s').scalar,
-      x: sample.x.to('m').scalar,
-      v: sample.v.to('m/s').scalar,
-      motorRPM: sample.motorRPM.to('rpm').scalar,
-      current: sample.current.to('A').scalar,
-      torque: sample.torque.to('N*m').scalar,
-      power: sample.power.to('W').scalar,
-      efficiency: sample.efficiency.scalar,
+      t: sample.t.to('s').scalar.toFixed(2),
+      x: sample.x.to('m').scalar.toFixed(2),
+      v: sample.v.to('m/s').scalar.toFixed(2),
+      motorRPM: sample.motorRPM.to('rpm').scalar.toFixed(0),
+      current: sample.current.to('A').scalar.toFixed(2),
+      torque: sample.torque.to('N*m').scalar.toFixed(2),
+      power: sample.power.to('W').scalar.toFixed(2),
+      efficiency: sample.efficiency.scalar.toFixed(3),
     }));
   }, [sheetData.samples]);
 
@@ -251,24 +298,85 @@ export default function Flywheel() {
     return sheetData.samples[sheetData.samples.length - 1].t.to('s');
   }, [sheetData.samples]);
 
+  const samplesWithBatteryVoltage = useMemo(() => {
+    return sheetData.samples.map((sample) => ({
+      ...sample,
+      batteryVoltage: calculateLoadedBatteryVoltage(
+        supplyVoltage,
+        batteryResistance,
+        [sample.current.mul(motor.quantity)],
+      ),
+    }));
+  }, [sheetData.samples, supplyVoltage, batteryResistance, motor.quantity]);
+
+  const minimumBatteryVoltage = useMemo(
+    () =>
+      new Measurement(
+        minBy(
+          samplesWithBatteryVoltage,
+          (sample) => sample.batteryVoltage.to('V').scalar,
+        )?.batteryVoltage.to('V').scalar ?? 0,
+        'V',
+      ),
+    [samplesWithBatteryVoltage],
+  );
+
   return (
     <div>
       <CalcHeading title="Flywheel Calculator" />
-      <div className="flex flex-row flex-wrap gap-x-4 px-1 [&>*]:flex-1">
+      <div className="flex flex-row flex-wrap gap-x-4 px-1 *:flex-1">
         <div className="flex flex-col gap-x-4 gap-y-2">
+          <Divider>Motor & Drive System</Divider>
           <IOLine>
-            <MotorInput stateHook={[motor, setMotor]} />
-            <RatioInput stateHook={[ratio, setRatio]} />
+            <MotorInput stateHook={[motor, setMotor]} testId="motor" />
+            <RatioInput stateHook={[ratio, setRatio]} testId="ratio" />
           </IOLine>
 
           <IOLine>
             <MeasurementInput
+              stateHook={[statorLimit, setStatorLimit]}
+              label="Stator Limit"
+              testId="statorLimit"
+            />
+            <MeasurementInput
+              stateHook={[supplyLimit, setSupplyLimit]}
+              label="Supply Limit"
+              testId="supplyLimit"
+            />
+          </IOLine>
+
+          <IOLine>
+            <MeasurementInput
+              stateHook={[supplyVoltage, setSupplyVoltage]}
+              label="Supply Voltage"
+              testId="supplyVoltage"
+            />
+            <MeasurementInput
+              stateHook={[batteryResistance, setBatteryResistance]}
+              label="Battery Resistance"
+              testId="batteryResistance"
+            />
+          </IOLine>
+
+          <IOLine>
+            <NumberInput
+              stateHook={[efficiency, setEfficiency]}
+              label="Efficiency (%)"
+              testId="efficiency"
+            />
+          </IOLine>
+
+          <Divider>Shooter Wheel Properties</Divider>
+          <IOLine>
+            <MeasurementInput
               stateHook={[shooterDiameter, setShooterDiameter]}
               label="Shooter Diameter"
+              testId="shooterDiameter"
             />
             <MeasurementInput
               stateHook={[shooterWeight, setShooterWeight]}
               label="Shooter Weight"
+              testId="shooterWeight"
             />
           </IOLine>
 
@@ -276,6 +384,22 @@ export default function Flywheel() {
             <MeasurementInput
               stateHook={[shooterTargetSpeed, setShooterTargetSpeed]}
               label="Shooter Target Speed"
+              testId="shooterTargetSpeed"
+            />
+            <MeasurementOutput
+              state={maxAchievableShooterRPM}
+              label="Max Achievable Shooter RPM"
+              defaultUnit="rpm"
+              roundTo={0}
+              testId="maxAchievableShooterRpm"
+            />
+          </IOLine>
+
+          <IOLine>
+            <MeasurementInput
+              stateHook={[projectileWeight, setProjectileWeight]}
+              label="Projectile Weight"
+              testId="projectileWeight"
             />
           </IOLine>
 
@@ -284,27 +408,64 @@ export default function Flywheel() {
               stateHook={[customShooterMoi, setCustomShooterMoi]}
               label="Custom Shooter MOI"
               disabled={() => !useCustomShooterMoi}
+              testId="customShooterMoi"
             />
             <BooleanInput
               stateHook={[useCustomShooterMoi, setUseCustomShooterMoi]}
               label="Use Custom Shooter MOI"
+              testId="useCustomShooterMoi"
+            />
+          </IOLine>
+
+          <Divider>Flywheel Properties</Divider>
+          <IOLine>
+            <MeasurementInput
+              stateHook={[flywheelDiameter, setFlywheelDiameter]}
+              label="Flywheel Diameter"
+              testId="flywheelDiameter"
+            />
+            <MeasurementInput
+              stateHook={[flywheelWeight, setFlywheelWeight]}
+              label="Flywheel Weight"
+              testId="flywheelWeight"
+            />
+          </IOLine>
+
+          <IOLine>
+            <RatioInput
+              stateHook={[flywhweelToShooterRatio, setFlywhweelToShooterRatio]}
+              testId="flywheelToShooterRatio"
             />
           </IOLine>
 
           <IOLine>
             <MeasurementInput
-              stateHook={[statorLimit, setStatorLimit]}
-              label="Stator Limit"
+              stateHook={[customFlywheelMoi, setCustomFlywheelMoi]}
+              label="Custom Flywheel MOI"
+              disabled={() => !useCustomFlywheelMoi}
+              testId="customFlywheelMoi"
             />
-            <MeasurementInput
-              stateHook={[supplyLimit, setSupplyLimit]}
-              label="Supply Limit"
+            <BooleanInput
+              stateHook={[useCustomFlywheelMoi, setUseCustomFlywheelMoi]}
+              label="Use Custom Flywheel MOI"
+              testId="useCustomFlywheelMoi"
             />
           </IOLine>
 
+          <Divider>Outputs</Divider>
           <IOLine>
-            <MeasurementOutput state={kV} label="kV" defaultUnit="V*s/m" />
-            <MeasurementOutput state={kA} label="kA" defaultUnit="V*s^2/m" />
+            <MeasurementOutput
+              state={kV}
+              label="kV"
+              defaultUnit="V*s/m"
+              testId="kV"
+            />
+            <MeasurementOutput
+              state={kA}
+              label="kA"
+              defaultUnit="V*s^2/m"
+              testId="kA"
+            />
           </IOLine>
 
           <IOLine>
@@ -312,6 +473,23 @@ export default function Flywheel() {
               state={spinupTime}
               label="Spinup Time"
               defaultUnit="s"
+              testId="spinupTime"
+            />
+            <MeasurementOutput
+              state={minimumBatteryVoltage}
+              label="Minimum Battery Voltage"
+              defaultUnit="V"
+              roundTo={2}
+              testId="minimumBatteryVoltage"
+            />
+          </IOLine>
+
+          <IOLine>
+            <MeasurementOutput
+              state={totalMomentOfInertia}
+              label="Effective MOI"
+              defaultUnit="in2*lbs"
+              testId="effectiveMoi"
             />
           </IOLine>
         </div>
