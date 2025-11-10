@@ -16,7 +16,24 @@ export function generateProfile(
   stopAtVelocity: Measurement | undefined = undefined,
   timeCutoff: Measurement = new Measurement(10, 's'),
 ) {
-  if (statorLimit.lte(motor.freeCurrent)) {
+  console.log('targetDistance', targetDistance.to('m').format());
+  console.log('maxVelocity', maxVelocity.to('m/s').format());
+  console.log('motor', motor.freeSpeed.to('rpm').format());
+  console.log('efficiency', efficiency);
+  console.log('ratio', ratio.asNumber());
+  console.log('mass', mass.to('kg').format());
+  console.log('statorLimit', statorLimit.to('A').format());
+  console.log('gravity', gravity.to('m/s^2').format());
+  console.log('wheelOrPulleyDiameter', wheelOrPulleyDiameter.to('m').format());
+  console.log('stopAtVelocity', stopAtVelocity?.to('m/s').format());
+  console.log('timeCutoff', timeCutoff.to('s').format());
+  console.log('----');
+
+  if (
+    statorLimit.lte(motor.freeCurrent) ||
+    motor.quantity === 0 ||
+    ratio.asNumber() === 0
+  ) {
     const zerotxv = {
       t: new Measurement(0, 's'),
       x: new Measurement(0, 'm'),
@@ -526,21 +543,35 @@ function evaluateExp(
   t: Measurement,
 ): Measurement {
   const toSum: Measurement[] = [];
-  toSum.push(B.mul(B).mul(Math.exp(C.mul(t).mul(2).scalar)));
+  const exp2CT = Math.exp(C.mul(t).mul(2).scalar);
+  if (isFinite(exp2CT)) {
+    toSum.push(B.mul(B).mul(exp2CT));
+  }
 
   // (D*B/C + 2*A*B)*Math.exp(C*t)
-  toSum.push(
-    D.mul(B)
-      .div(C)
-      .add(A.mul(B).mul(2))
-      .mul(Math.exp(C.mul(t).scalar)),
-  );
+  const expCT = Math.exp(C.mul(t).scalar);
+  if (isFinite(expCT)) {
+    try {
+      toSum.push(
+        D.mul(B)
+          .div(C)
+          .add(A.mul(B).mul(2))
+          .mul(expCT),
+      );
+    } catch {
+      // Skip if division produces invalid value
+    }
+  }
 
   // A*D*t
   toSum.push(A.mul(D).mul(t));
 
   // - D*B/C
-  toSum.push(D.mul(B).div(C).negate());
+  try {
+    toSum.push(D.mul(B).div(C).negate());
+  } catch {
+    // Skip if division produces invalid value
+  }
 
   // - Delta_X*D
   toSum.push(Delta_X.mul(D).negate());
@@ -549,7 +580,16 @@ function evaluateExp(
   toSum.push(A.mul(A));
 
   return toSum.reduce(
-    (acc, curr) => acc.add(curr),
+    (acc, curr) => {
+      try {
+        if (isFinite(curr.scalar)) {
+          return acc.add(curr);
+        }
+      } catch {
+        // Skip invalid term
+      }
+      return acc;
+    },
     new Measurement(0, 'm2/s2'),
   );
 }
@@ -566,18 +606,25 @@ function evaluateExpDerivative(
 
   // 2*B**2*C*Math.exp(2*C*t)
   const exp = Math.exp(C.mul(t).mul(2).baseScalar);
-  if (exp !== Infinity) {
+  if (isFinite(exp)) {
     toSum.push(B.mul(B).mul(C).mul(2).mul(exp));
   }
 
   // (B*D/C + 2*A*B)*C*Math.exp(C*t)
-  toSum.push(
-    B.mul(D)
-      .div(C)
-      .add(A.mul(B).mul(2))
-      .mul(C)
-      .mul(Math.exp(C.mul(t).scalar)),
-  );
+  const expCT = Math.exp(C.mul(t).scalar);
+  if (isFinite(expCT)) {
+    try {
+      toSum.push(
+        B.mul(D)
+          .div(C)
+          .add(A.mul(B).mul(2))
+          .mul(C)
+          .mul(expCT),
+      );
+    } catch {
+      // Skip if division produces invalid value
+    }
+  }
 
   // A*D
   toSum.push(A.mul(D));

@@ -191,19 +191,25 @@ describe.concurrent('generateProfile', () => {
     const gravity = Measurement.GRAVITY;
     const wheelOrPulleyDiameter = new Measurement(4, 'in');
 
-    expect(() => {
-      generateProfile(
-        targetDistance,
-        maxVelocity,
-        motor,
-        efficiency,
-        ratio,
-        mass,
-        statorLimit,
-        gravity,
-        wheelOrPulleyDiameter,
-      );
-    }).toThrow();
+    const result = generateProfile(
+      targetDistance,
+      maxVelocity,
+      motor,
+      efficiency,
+      ratio,
+      mass,
+      statorLimit,
+      gravity,
+      wheelOrPulleyDiameter,
+    );
+
+    // Should return a zero profile when ratio is 0
+    expect(result.aLim.to('m/s^2').scalar).toBe(0);
+    expect(result.aStop.to('m/s^2').scalar).toBe(0);
+    expect(result.vLim.to('m/s').scalar).toBe(0);
+    expect(result.vFree.to('m/s').scalar).toBe(0);
+    expect(result.samples.length).toBe(1);
+    expect(result.samples[0].v.to('m/s').scalar).toBe(0);
   });
 
   it('handles zero efficiency', () => {
@@ -274,22 +280,15 @@ describe.concurrent('generateProfile', () => {
       stopAtVelocity,
     );
 
-    expect(result.samples.length).toBeGreaterThan(0);
-
-    // aLim should be defined
-    expect(result.aLim.to('m/s^2').scalar).toBeDefined();
-
-    // First sample should start at zero
-    const firstSample = result.samples[0];
-    expect(firstSample.t.to('s').scalar).toBe(0);
-    expect(firstSample.x.to('m').scalar).toBeCloseTo(0, 3);
-    expect(firstSample.v.to('m/s').scalar).toBeCloseTo(0, 3);
-
-    // Should stop at velocity threshold
-    const lastSample = result.samples[result.samples.length - 1];
-    expect(lastSample.v.to('m/s').scalar).toBeGreaterThanOrEqual(
-      stopAtVelocity.to('m/s').scalar,
-    );
+    // Should return a zero profile when motor quantity is 0
+    expect(result.aLim.to('m/s^2').scalar).toBe(0);
+    expect(result.aStop.to('m/s^2').scalar).toBe(0);
+    expect(result.vLim.to('m/s').scalar).toBe(0);
+    expect(result.vFree.to('m/s').scalar).toBe(0);
+    expect(result.samples.length).toBe(1);
+    expect(result.samples[0].v.to('m/s').scalar).toBe(0);
+    expect(result.samples[0].x.to('m').scalar).toBe(0);
+    expect(result.samples[0].t.to('s').scalar).toBe(0);
   });
 
   it('handles stopAtVelocity parameter', () => {
@@ -857,5 +856,22 @@ describe.concurrent('generateProfile', () => {
     expect(firstSample.t.to('s').scalar).toBe(0);
     expect(firstSample.x.to('m').scalar).toBeCloseTo(0, 3);
     expect(firstSample.v.to('m/s').scalar).toBeCloseTo(0, 3);
+  });
+
+  it('handles stupid edge case', () => {
+    const result = generateProfile(
+      new Measurement(2540, 'm'),
+      new Measurement(2540, 'm/s'),
+      Motor.KrakenX60sFOC(2),
+      100,
+      new Ratio(2, RatioType.REDUCTION),
+      new Measurement(0.37799364, 'kg'),
+      new Measurement(30, 'A'),
+      new Measurement(0, 'm/s^2'),
+      new Measurement(0.1524, 'm'),
+      new Measurement(23.0771, 'm/s'),
+    );
+
+    expect(result.samples.length).toEqual(44);
   });
 });

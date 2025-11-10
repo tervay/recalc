@@ -216,7 +216,7 @@ export default function Flywheel() {
   }, [motor, ratio, shooterDiameter]);
 
   const kA = useMemo(() => {
-    if (flywheelDiameter.scalar == 0) {
+    if (flywheelDiameter.scalar == 0 || motor.quantity === 0) {
       return new Measurement(0, 'V*s^2/m');
     }
 
