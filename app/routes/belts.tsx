@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { BeltTable } from '~/components/recalc/beltTable';
 import IOLine from '~/components/recalc/blocks';
@@ -13,7 +13,7 @@ import NumberInput, { NumberOutput } from '~/components/recalc/io/number';
 import Markdown from '~/components/recalc/markdown';
 import { PulleyTable } from '~/components/recalc/pulleyTable';
 import { Button } from '~/components/ui/button';
-import { useQueryParams } from '~/lib/hooks';
+import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { calculateClosestCenters } from '~/lib/math/belts';
 import Measurement from '~/lib/models/Measurement';
 import { SimplePulley } from '~/lib/models/Pulley';
@@ -32,6 +32,17 @@ export function meta() {
   ];
 }
 
+const DEFAULT_PARAMS = {
+  customBeltTeeth: withDefault(NumberParam, 125),
+  desiredCenter: withDefault(MeasurementParam, new Measurement(5, 'in')),
+  extraCenter: withDefault(MeasurementParam, new Measurement(0, 'mm')),
+  p1Teeth: withDefault(NumberParam, 16),
+  p2Teeth: withDefault(NumberParam, 24),
+  pitch: withDefault(MeasurementParam, new Measurement(5, 'mm')),
+  toothIncrement: withDefault(NumberParam, 5),
+  useCustomBelt: withDefault(BooleanParam, false),
+};
+
 export default function Belts() {
   const queryParams = useQueryParams<{
     customBeltTeeth: number;
@@ -42,16 +53,7 @@ export default function Belts() {
     pitch: Measurement;
     toothIncrement: number;
     useCustomBelt: boolean;
-  }>({
-    customBeltTeeth: withDefault(NumberParam, 125),
-    desiredCenter: withDefault(MeasurementParam, new Measurement(5, 'in')),
-    extraCenter: withDefault(MeasurementParam, new Measurement(0, 'mm')),
-    p1Teeth: withDefault(NumberParam, 16),
-    p2Teeth: withDefault(NumberParam, 24),
-    pitch: withDefault(MeasurementParam, new Measurement(5, 'mm')),
-    toothIncrement: withDefault(NumberParam, 5),
-    useCustomBelt: withDefault(BooleanParam, false),
-  });
+  }>(DEFAULT_PARAMS);
 
   const [customBeltTeeth, setCustomBeltTeeth] = useState(
     queryParams.customBeltTeeth,
@@ -65,18 +67,6 @@ export default function Belts() {
     queryParams.toothIncrement,
   );
   const [useCustomBelt, setUseCustomBelt] = useState(queryParams.useCustomBelt);
-
-  useEffect(() => {
-    const rt25Pitch = new Measurement(0.25, 'in');
-    const gt2Pitch = new Measurement(3, 'mm');
-    const htdPitch = new Measurement(5, 'mm');
-
-    if (pitch.eq(rt25Pitch)) {
-      setToothIncrement(8);
-    } else if (pitch.eq(gt2Pitch) || pitch.eq(htdPitch)) {
-      setToothIncrement(5);
-    }
-  }, [pitch]);
 
   const results = useMemo(
     () =>
@@ -99,9 +89,23 @@ export default function Belts() {
     [p2Teeth, pitch],
   );
 
+  const serializedState = useSerializedState(DEFAULT_PARAMS, {
+    pitch,
+    toothIncrement,
+    desiredCenter,
+    extraCenter,
+    useCustomBelt,
+    customBeltTeeth,
+    p1Teeth,
+    p2Teeth,
+  });
+
   return (
     <div>
-      <CalcHeading title="Belt Calculator" />
+      <CalcHeading
+        title="Belt Calculator"
+        getSerializedState={() => serializedState}
+      />
       <div className="flex flex-row flex-wrap gap-x-4 px-1 *:flex-1">
         <div className="flex flex-col gap-x-4 gap-y-2">
           <div className="flex flex-wrap gap-2 px-1">

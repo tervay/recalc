@@ -21,11 +21,14 @@ import { MotorInput } from '~/components/recalc/io/motor';
 import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
 import { ChartContainer } from '~/components/ui/chart';
-import { useQueryParams } from '~/lib/hooks';
+import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { calculateLoadedBatteryVoltage } from '~/lib/math/batterySim';
 import { supplyLimitToStatorLimit } from '~/lib/math/common';
 import { calculateKa, calculateKv } from '~/lib/math/kVkA';
-import { generateProfile } from '~/lib/math/sheetExponentialProfile';
+import {
+  EMPTY_PROFILE,
+  generateProfile,
+} from '~/lib/math/sheetExponentialProfile';
 import Measurement from '~/lib/models/Measurement';
 import Motor, { nominalVoltage } from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
@@ -45,6 +48,43 @@ export function meta() {
     { name: 'description', content: 'Flywheel Calculator' },
   ];
 }
+
+const DEFAULT_PARAMS = {
+  motor: withDefault(MotorParam, Motor.KrakenX60sFOC(2)),
+  ratio: withDefault(RatioParam, new Ratio(1, RatioType.REDUCTION)),
+  statorLimit: withDefault(MeasurementParam, new Measurement(30, 'A')),
+  supplyLimit: withDefault(MeasurementParam, new Measurement(90, 'A')),
+  supplyVoltage: withDefault(MeasurementParam, new Measurement(12.6, 'V')),
+  batteryResistance: withDefault(
+    MeasurementParam,
+    new Measurement(0.015, 'Ohm'),
+  ),
+  shooterDiameter: withDefault(MeasurementParam, new Measurement(6, 'in')),
+  shooterWeight: withDefault(MeasurementParam, new Measurement(1, 'lb')),
+  shooterTargetSpeed: withDefault(
+    MeasurementParam,
+    new Measurement(3000, 'rpm'),
+  ),
+  customShooterMoi: withDefault(
+    MeasurementParam,
+    new Measurement(4.5, 'in2*lbs'),
+  ),
+  useCustomShooterMoi: withDefault(BooleanParam, false),
+  flywheelDiameter: withDefault(MeasurementParam, new Measurement(4, 'in')),
+  flywheelWeight: withDefault(MeasurementParam, new Measurement(1.5, 'lb')),
+  customFlywheelMoi: withDefault(
+    MeasurementParam,
+    new Measurement(3, 'in2*lbs'),
+  ),
+  useCustomFlywheelMoi: withDefault(BooleanParam, false),
+  flywhweelToShooterRatio: withDefault(
+    RatioParam,
+    new Ratio(1, RatioType.REDUCTION),
+  ),
+  projectileDiameter: withDefault(MeasurementParam, new Measurement(4, 'in')),
+  projectileWeight: withDefault(MeasurementParam, new Measurement(0.5, 'lb')),
+  efficiency: withDefault(NumberParam, 100),
+};
 
 export default function Flywheel() {
   const queryParams = useQueryParams<{
@@ -67,42 +107,7 @@ export default function Flywheel() {
     projectileDiameter: Measurement;
     projectileWeight: Measurement;
     efficiency: number;
-  }>({
-    motor: withDefault(MotorParam, Motor.KrakenX60sFOC(2)),
-    ratio: withDefault(RatioParam, new Ratio(1, RatioType.REDUCTION)),
-    statorLimit: withDefault(MeasurementParam, new Measurement(30, 'A')),
-    supplyLimit: withDefault(MeasurementParam, new Measurement(90, 'A')),
-    supplyVoltage: withDefault(MeasurementParam, new Measurement(12.6, 'V')),
-    batteryResistance: withDefault(
-      MeasurementParam,
-      new Measurement(0.015, 'Ohm'),
-    ),
-    shooterDiameter: withDefault(MeasurementParam, new Measurement(6, 'in')),
-    shooterWeight: withDefault(MeasurementParam, new Measurement(1, 'lb')),
-    shooterTargetSpeed: withDefault(
-      MeasurementParam,
-      new Measurement(3000, 'rpm'),
-    ),
-    customShooterMoi: withDefault(
-      MeasurementParam,
-      new Measurement(4.5, 'in2*lbs'),
-    ),
-    useCustomShooterMoi: withDefault(BooleanParam, false),
-    flywheelDiameter: withDefault(MeasurementParam, new Measurement(4, 'in')),
-    flywheelWeight: withDefault(MeasurementParam, new Measurement(1.5, 'lb')),
-    customFlywheelMoi: withDefault(
-      MeasurementParam,
-      new Measurement(3, 'in2*lbs'),
-    ),
-    useCustomFlywheelMoi: withDefault(BooleanParam, false),
-    flywhweelToShooterRatio: withDefault(
-      RatioParam,
-      new Ratio(1, RatioType.REDUCTION),
-    ),
-    projectileDiameter: withDefault(MeasurementParam, new Measurement(4, 'in')),
-    projectileWeight: withDefault(MeasurementParam, new Measurement(0.5, 'lb')),
-    efficiency: withDefault(NumberParam, 100),
-  });
+  }>(DEFAULT_PARAMS);
 
   const [motor, setMotor] = useState(queryParams.motor);
   const [ratio, setRatio] = useState(queryParams.ratio);
@@ -216,7 +221,7 @@ export default function Flywheel() {
   }, [motor, ratio, shooterDiameter]);
 
   const kA = useMemo(() => {
-    if (flywheelDiameter.scalar == 0) {
+    if (shooterDiameter.baseScalar == 0 || motor.quantity === 0) {
       return new Measurement(0, 'V*s^2/m');
     }
 
@@ -229,13 +234,13 @@ export default function Flywheel() {
         .torque.mul(motor.quantity)
         .mul(ratio.asNumber())
         .mul(efficiency / 100),
-      flywheelDiameter.div(2),
+      shooterDiameter.div(2),
       totalMomentOfInertia.div(
-        flywheelDiameter.div(2).mul(flywheelDiameter.div(2)),
+        shooterDiameter.div(2).mul(shooterDiameter.div(2)),
       ),
     );
   }, [
-    flywheelDiameter,
+    shooterDiameter,
     motor,
     limitingCurrentLimit,
     ratio,
@@ -254,32 +259,34 @@ export default function Flywheel() {
     return Measurement.min(shooterTargetSpeed, maxAchievableShooterRPM);
   }, [shooterTargetSpeed, maxAchievableShooterRPM]);
 
-  const sheetData = useMemo(
-    () =>
-      generateProfile(
-        new Measurement(100000, 'in'),
-        new Measurement(100000, 'in/s'),
-        motor,
-        efficiency,
-        ratio,
-        totalMomentOfInertia
-          .to('kg m2')
-          .div(shooterDiameter.div(2).mul(shooterDiameter.div(2))),
-        limitingCurrentLimit,
-        new Measurement(0, 'm/s^2'),
-        shooterDiameter,
-        clampedShooterTargetSpeed.mul(shooterDiameter.div(2)).removeRad(),
-      ),
-    [
+  const sheetData = useMemo(() => {
+    if (shooterDiameter.baseScalar === 0) {
+      return EMPTY_PROFILE;
+    }
+
+    return generateProfile(
+      new Measurement(100000, 'in'),
+      new Measurement(100000, 'in/s'),
       motor,
       efficiency,
       ratio,
+      totalMomentOfInertia
+        .to('kg m2')
+        .div(shooterDiameter.div(2).mul(shooterDiameter.div(2))),
       limitingCurrentLimit,
+      new Measurement(0, 'm/s^2'),
       shooterDiameter,
-      clampedShooterTargetSpeed,
-      totalMomentOfInertia,
-    ],
-  );
+      clampedShooterTargetSpeed.mul(shooterDiameter.div(2)).removeRad(),
+    );
+  }, [
+    motor,
+    efficiency,
+    ratio,
+    limitingCurrentLimit,
+    shooterDiameter,
+    clampedShooterTargetSpeed,
+    totalMomentOfInertia,
+  ]);
 
   const meterizedSamples = useMemo(() => {
     return sheetData.samples.map((sample) => ({
@@ -321,9 +328,34 @@ export default function Flywheel() {
     [samplesWithBatteryVoltage],
   );
 
+  const serializedState = useSerializedState(DEFAULT_PARAMS, {
+    motor,
+    ratio,
+    statorLimit,
+    supplyLimit,
+    supplyVoltage,
+    batteryResistance,
+    shooterDiameter,
+    shooterWeight,
+    shooterTargetSpeed,
+    customShooterMoi,
+    useCustomShooterMoi,
+    flywheelDiameter,
+    flywheelWeight,
+    customFlywheelMoi,
+    useCustomFlywheelMoi,
+    flywhweelToShooterRatio,
+    projectileDiameter: queryParams.projectileDiameter,
+    projectileWeight,
+    efficiency,
+  });
+
   return (
     <div>
-      <CalcHeading title="Flywheel Calculator" />
+      <CalcHeading
+        title="Flywheel Calculator"
+        getSerializedState={() => serializedState}
+      />
       <div className="flex flex-row flex-wrap gap-x-4 px-1 *:flex-1">
         <div className="flex flex-col gap-x-4 gap-y-2">
           <Divider>Motor & Drive System</Divider>

@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function roundToNearestMulitple(
+export function roundToNearestMultiple(
   roundable: number,
   multipleOf: number,
 ): number {

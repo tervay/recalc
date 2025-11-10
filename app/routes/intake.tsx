@@ -9,7 +9,7 @@ import {
 import { MotorInput } from '~/components/recalc/io/motor';
 import { NumberOutput } from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
-import { useQueryParams } from '~/lib/hooks';
+import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import {
   calculateLinearSurfaceSpeed,
   calculateRecommendedRatio,
@@ -31,6 +31,14 @@ export function meta() {
   ];
 }
 
+const DEFAULT_PARAMS = {
+  motor: withDefault(MotorParam, Motor.KrakenX60sFOC(1)),
+  ratio: withDefault(RatioParam, new Ratio(2, RatioType.REDUCTION)),
+  rollerDiameter: withDefault(MeasurementParam, new Measurement(2, 'in')),
+  travelDistance: withDefault(MeasurementParam, new Measurement(15, 'in')),
+  drivetrainSpeed: withDefault(MeasurementParam, new Measurement(14, 'ft/s')),
+};
+
 export default function Intake() {
   const queryParams = useQueryParams<{
     motor: Motor;
@@ -38,13 +46,7 @@ export default function Intake() {
     rollerDiameter: Measurement;
     travelDistance: Measurement;
     drivetrainSpeed: Measurement;
-  }>({
-    motor: withDefault(MotorParam, Motor.KrakenX60sFOC(1)),
-    ratio: withDefault(RatioParam, new Ratio(2, RatioType.REDUCTION)),
-    rollerDiameter: withDefault(MeasurementParam, new Measurement(2, 'in')),
-    travelDistance: withDefault(MeasurementParam, new Measurement(15, 'in')),
-    drivetrainSpeed: withDefault(MeasurementParam, new Measurement(14, 'ft/s')),
-  });
+  }>(DEFAULT_PARAMS);
 
   const [motor, setMotor] = useState(queryParams.motor);
   const [ratio, setRatio] = useState(queryParams.ratio);
@@ -75,9 +77,20 @@ export default function Intake() {
     [motor, drivetrainSpeed, rollerDiameter],
   );
 
+  const serializedState = useSerializedState(DEFAULT_PARAMS, {
+    motor,
+    ratio,
+    rollerDiameter,
+    travelDistance,
+    drivetrainSpeed,
+  });
+
   return (
     <div>
-      <CalcHeading title="Intake Calculator" />
+      <CalcHeading
+        title="Intake Calculator"
+        getSerializedState={() => serializedState}
+      />
       <div
         className="flex flex-col gap-4 px-1 md:flex-row md:gap-x-4 [&>*]:flex-1"
       >

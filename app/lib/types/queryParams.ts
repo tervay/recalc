@@ -84,8 +84,17 @@ export const RatioPairListParam: QueryParam<RatioPair[]> = {
   decode: (value) => {
     try {
       const parsed: unknown = JSON.parse(value);
-      if (Array.isArray(parsed)) {
-        return parsed as RatioPair[];
+      if (
+        Array.isArray(parsed) &&
+        parsed.every(
+          (item): item is RatioPair =>
+            Array.isArray(item) &&
+            item.length === 2 &&
+            typeof item[0] === 'number' &&
+            typeof item[1] === 'number',
+        )
+      ) {
+        return parsed;
       }
       return [[1, 1]];
     } catch {

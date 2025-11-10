@@ -6,7 +6,7 @@ import CalcHeading from '~/components/recalc/calcHeading';
 import NumberInput, { NumberOutput } from '~/components/recalc/io/number';
 import { Button } from '~/components/ui/button';
 import { Label } from '~/components/ui/label';
-import { useQueryParams } from '~/lib/hooks';
+import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { calculateInverseRatio, calculateNetRatio } from '~/lib/math/ratio';
 import {
   type RatioPair,
@@ -26,15 +26,17 @@ interface RatioPairWithId {
   pair: RatioPair;
 }
 
+const DEFAULT_PARAMS = {
+  ratioPairs: withDefault(RatioPairListParam, [
+    [18, 72],
+    [24, 48],
+  ] as RatioPair[]),
+};
+
 export default function Ratio() {
   const queryParams = useQueryParams<{
     ratioPairs: RatioPair[];
-  }>({
-    ratioPairs: withDefault(RatioPairListParam, [
-      [18, 72],
-      [24, 48],
-    ]),
-  });
+  }>(DEFAULT_PARAMS);
 
   const idCounter = useRef(0);
   const [ratioPairsWithIds, setRatioPairsWithIds] = useState<RatioPairWithId[]>(
@@ -84,12 +86,17 @@ export default function Ratio() {
     });
   }, []);
 
+  const serializedState = useSerializedState(DEFAULT_PARAMS, {
+    ratioPairs,
+  });
+
   return (
     <div>
-      <CalcHeading title="Ratio Calculator" />
-      <div
-        className="flex flex-col gap-4 px-1 md:flex-row md:gap-x-4 [&>*]:flex-1"
-      >
+      <CalcHeading
+        title="Ratio Calculator"
+        getSerializedState={() => serializedState}
+      />
+      <div className="flex flex-col gap-4 px-1 *:flex-1 md:flex-row md:gap-x-4">
         <div className="flex flex-col gap-x-4 gap-y-2">
           <div
             className="mb-2 grid grid-cols-[auto_1fr_1fr_auto] items-center

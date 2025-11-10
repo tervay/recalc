@@ -3,6 +3,79 @@ import type Motor from '~/lib/models/Motor';
 import type Ratio from '~/lib/models/Ratio';
 import { MotorRules } from '~/lib/rules';
 
+export interface SheetExponentialProfile {
+  aLim: Measurement;
+  aStop: Measurement;
+  vLim: Measurement;
+  vFree: Measurement;
+  transitionTimes: {
+    t_12: Measurement;
+    t_13: Measurement;
+    t_14: Measurement;
+  };
+  phase1FinalCondition: TimePositionVelocityState;
+  phase2InitialCondition: Partial<TimePositionVelocityState>;
+  phase2TransitionTimes: Partial<Phase2TransitionTimes>;
+  phase2FinalCondition: Partial<TimePositionVelocityState>;
+  enterCoast: boolean;
+  phase3InitialCondition: Partial<TimePositionVelocityState>;
+  phase3FinalCondition: Partial<TimePositionVelocityState>;
+  phase4InitialCondition: TimePositionVelocityState;
+  phase4FinalCondition: TimePositionVelocityState;
+  samples: {
+    t: Measurement;
+    x: Measurement;
+    v: Measurement;
+    motorRPM: Measurement;
+    current: Measurement;
+    torque: Measurement;
+    power: Measurement;
+    efficiency: Measurement;
+  }[];
+}
+
+const ZERO_TXV: TimePositionVelocityState = {
+  t: new Measurement(0, 's'),
+  x: new Measurement(0, 'm'),
+  v: new Measurement(0, 'm/s'),
+};
+
+export const EMPTY_PROFILE: SheetExponentialProfile = {
+  aLim: new Measurement(0, 'm/s^2'),
+  aStop: new Measurement(0, 'm/s^2'),
+  vLim: new Measurement(0, 'm/s'),
+  vFree: new Measurement(0, 'm/s'),
+  transitionTimes: {
+    t_12: new Measurement(0, 's'),
+    t_13: new Measurement(0, 's'),
+    t_14: new Measurement(0, 's'),
+  },
+  phase1FinalCondition: ZERO_TXV,
+  phase2InitialCondition: ZERO_TXV,
+  phase2TransitionTimes: {
+    t_23: new Measurement(0, 's'),
+    t_24: new Measurement(0, 's'),
+  },
+  phase2FinalCondition: ZERO_TXV,
+  enterCoast: false,
+  phase3InitialCondition: ZERO_TXV,
+  phase3FinalCondition: ZERO_TXV,
+  phase4InitialCondition: ZERO_TXV,
+  phase4FinalCondition: ZERO_TXV,
+  samples: [
+    {
+      t: new Measurement(0, 's'),
+      x: new Measurement(0, 'm'),
+      v: new Measurement(0, 'm/s'),
+      motorRPM: new Measurement(0, 'rpm'),
+      current: new Measurement(0, 'A'),
+      torque: new Measurement(0, 'N*m'),
+      power: new Measurement(0, 'W'),
+      efficiency: new Measurement(0),
+    },
+  ],
+};
+
 export function generateProfile(
   targetDistance: Measurement,
   maxVelocity: Measurement,
@@ -15,49 +88,16 @@ export function generateProfile(
   wheelOrPulleyDiameter: Measurement,
   stopAtVelocity: Measurement | undefined = undefined,
   timeCutoff: Measurement = new Measurement(10, 's'),
-) {
-  if (statorLimit.lte(motor.freeCurrent)) {
-    const zerotxv = {
-      t: new Measurement(0, 's'),
-      x: new Measurement(0, 'm'),
-      v: new Measurement(0, 'm/s'),
-    };
-
-    return {
-      aLim: new Measurement(0, 'm/s^2'),
-      aStop: new Measurement(0, 'm/s^2'),
-      vLim: new Measurement(0, 'm/s'),
-      vFree: new Measurement(0, 'm/s'),
-      transitionTimes: {
-        t_12: new Measurement(0, 's'),
-        t_13: new Measurement(0, 's'),
-        t_14: new Measurement(0, 's'),
-      },
-      phase1FinalCondition: zerotxv,
-      phase2InitialCondition: zerotxv,
-      phase2TransitionTimes: {
-        t_23: new Measurement(0, 's'),
-        t_24: new Measurement(0, 's'),
-      },
-      phase2FinalCondition: zerotxv,
-      enterCoast: false,
-      phase3InitialCondition: zerotxv,
-      phase3FinalCondition: zerotxv,
-      phase4InitialCondition: zerotxv,
-      phase4FinalCondition: zerotxv,
-      samples: [
-        {
-          t: new Measurement(0, 's'),
-          x: new Measurement(0, 'm'),
-          v: new Measurement(0, 'm/s'),
-          motorRPM: new Measurement(0, 'rpm'),
-          current: new Measurement(0, 'A'),
-          torque: new Measurement(0, 'N*m'),
-          power: new Measurement(0, 'W'),
-          efficiency: new Measurement(0),
-        },
-      ],
-    };
+): SheetExponentialProfile {
+  if (
+    statorLimit.lte(motor.freeCurrent) ||
+    motor.quantity === 0 ||
+    ratio.asNumber() === 0 ||
+    efficiency === 0 ||
+    wheelOrPulleyDiameter.baseScalar === 0 ||
+    mass.baseScalar === 0
+  ) {
+    return EMPTY_PROFILE;
   }
 
   const r = wheelOrPulleyDiameter.div(2);
@@ -526,21 +566,30 @@ function evaluateExp(
   t: Measurement,
 ): Measurement {
   const toSum: Measurement[] = [];
-  toSum.push(B.mul(B).mul(Math.exp(C.mul(t).mul(2).scalar)));
+  const exp2CT = Math.exp(C.mul(t).mul(2).scalar);
+  if (isFinite(exp2CT)) {
+    toSum.push(B.mul(B).mul(exp2CT));
+  }
 
   // (D*B/C + 2*A*B)*Math.exp(C*t)
-  toSum.push(
-    D.mul(B)
-      .div(C)
-      .add(A.mul(B).mul(2))
-      .mul(Math.exp(C.mul(t).scalar)),
-  );
+  const expCT = Math.exp(C.mul(t).scalar);
+  if (isFinite(expCT)) {
+    try {
+      toSum.push(D.mul(B).div(C).add(A.mul(B).mul(2)).mul(expCT));
+    } catch {
+      // Skip if division produces invalid value
+    }
+  }
 
   // A*D*t
   toSum.push(A.mul(D).mul(t));
 
   // - D*B/C
-  toSum.push(D.mul(B).div(C).negate());
+  try {
+    toSum.push(D.mul(B).div(C).negate());
+  } catch {
+    // Skip if division produces invalid value
+  }
 
   // - Delta_X*D
   toSum.push(Delta_X.mul(D).negate());
@@ -549,7 +598,16 @@ function evaluateExp(
   toSum.push(A.mul(A));
 
   return toSum.reduce(
-    (acc, curr) => acc.add(curr),
+    (acc, curr) => {
+      try {
+        if (isFinite(curr.scalar)) {
+          return acc.add(curr);
+        }
+      } catch {
+        // Skip invalid term
+      }
+      return acc;
+    },
     new Measurement(0, 'm2/s2'),
   );
 }
@@ -566,18 +624,19 @@ function evaluateExpDerivative(
 
   // 2*B**2*C*Math.exp(2*C*t)
   const exp = Math.exp(C.mul(t).mul(2).baseScalar);
-  if (exp !== Infinity) {
+  if (isFinite(exp)) {
     toSum.push(B.mul(B).mul(C).mul(2).mul(exp));
   }
 
   // (B*D/C + 2*A*B)*C*Math.exp(C*t)
-  toSum.push(
-    B.mul(D)
-      .div(C)
-      .add(A.mul(B).mul(2))
-      .mul(C)
-      .mul(Math.exp(C.mul(t).scalar)),
-  );
+  const expCT = Math.exp(C.mul(t).scalar);
+  if (isFinite(expCT)) {
+    try {
+      toSum.push(B.mul(D).div(C).add(A.mul(B).mul(2)).mul(C).mul(expCT));
+    } catch {
+      // Skip if division produces invalid value
+    }
+  }
 
   // A*D
   toSum.push(A.mul(D));
@@ -614,7 +673,7 @@ function newtonsMethod(
     const nextX = x - fx / fpx;
 
     if (Math.abs(nextX - x) < tolerance) {
-      console.log('Converged in', i, 'iterations');
+      // console.log('Converged in', i, 'iterations');
       return nextX;
     }
 

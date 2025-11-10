@@ -24,6 +24,7 @@ pnpm run dev
 ## Testing
 
 - `pnpm run test` - Run unit tests (Vitest)
+- `pnpm run test -u` - Update snapshot tests (use when snapshot output changes)
 - `pnpm exec playwright test` - Run Playwright UI tests (requires build first: `pnpm run build`)
 
 ## Tech Stack
