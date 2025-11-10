@@ -15,6 +15,7 @@ pnpm run dev
 
 - `pnpm run dev` - Start development server
 - `pnpm run build` - Build for production
+- `pnpm run build:wpi` - Build WASM bindings from wpilib (requires Docker)
 - `pnpm run start` - Preview production build
 - `pnpm run lint` - Run linter
 - `pnpm run lint:fix` - Fix linting issues

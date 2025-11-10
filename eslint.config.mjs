@@ -19,7 +19,11 @@ export default tseslint.config([
   // Ignore files
   includeIgnoreFile(gitignorePath),
   {
-    ignores: ['pnpm-lock.yaml', 'app/components/ui/**'],
+    ignores: [
+      'pnpm-lock.yaml',
+      'app/components/ui/**',
+      '**/*.d.ts', // TypeScript definition files
+    ],
   },
 
   // Typescript config
@@ -124,6 +128,7 @@ export default tseslint.config([
     },
     rules: {
       'import/no-unresolved': ['error', { ignore: ['^~icons/', '^virtual:'] }],
+      'import/namespace': 'off', // Disabled due to parser issues with TypeScript
     },
   },
 
