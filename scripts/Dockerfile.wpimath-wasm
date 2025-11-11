@@ -1,0 +1,103 @@
+FROM emscripten/emsdk:latest
+
+# Install build dependencies
+RUN apt-get update -qq && \
+    apt-get install -y -qq \
+    git \
+    cmake \
+    build-essential \
+    python3 \
+    protobuf-compiler \
+    libprotobuf-dev \
+    ninja-build && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install TypeScript for generating .d.ts files
+RUN npm install -g typescript@latest
+
+# Build wpimath library during image build (cached)
+ARG WPILIB_REPO_URL=https://github.com/wpilibsuite/allwpilib.git
+ARG WPILIB_COMMIT=HEAD
+
+WORKDIR /build
+
+# Clone repository and checkout specific commit (cached if repo URL/commit unchanged)
+RUN REPO_DIR=/tmp/allwpilib && \
+    rm -rf "$REPO_DIR" && \
+    git clone --depth 1 "$WPILIB_REPO_URL" "$REPO_DIR" && \
+    cd "$REPO_DIR" && \
+    git fetch --unshallow 2>/dev/null || true && \
+    git checkout "$WPILIB_COMMIT"
+
+# Configure CMake (cached if CMake config unchanged)
+RUN REPO_DIR=/tmp/allwpilib && \
+    BUILD_DIR="$REPO_DIR/build-wasm" && \
+    mkdir -p "$BUILD_DIR" && \
+    cd "$REPO_DIR" && \
+    emcmake cmake -B "$BUILD_DIR" -S "$REPO_DIR" \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DBUILD_SHARED_LIBS=OFF \
+      -DWITH_SIMULATION_MODULES=OFF \
+      -DWITH_PROTOBUF=OFF \
+      -DWITH_GUI=OFF \
+      -DWITH_CSCORE=OFF \
+      -DWITH_WPIMATH=ON \
+      -DWITH_WPILIB=OFF \
+      -DWITH_NTCORE=OFF \
+      -DWITH_EXAMPLES=OFF \
+      -DWITH_JAVA=OFF \
+      -DWITH_TESTS=OFF \
+      -G Ninja
+
+# Build wpimath (cached if source unchanged)
+RUN REPO_DIR=/tmp/allwpilib && \
+    BUILD_DIR="$REPO_DIR/build-wasm" && \
+    cd "$BUILD_DIR" && \
+    emmake ninja wpimath -j$(nproc)
+
+# Copy libraries (cached if build unchanged)
+RUN REPO_DIR=/tmp/allwpilib && \
+    BUILD_DIR="$REPO_DIR/build-wasm" && \
+    mkdir -p /usr/local/lib/wpimath && \
+    cp "$BUILD_DIR/lib/libwpimath.a" /usr/local/lib/wpimath/ && \
+    cp "$BUILD_DIR/lib/libwpiutil.a" /usr/local/lib/wpimath/
+
+# Copy header files (cached if headers unchanged)
+RUN REPO_DIR=/tmp/allwpilib && \
+    mkdir -p /usr/local/include/wpimath && \
+    cp -r "$REPO_DIR/wpimath/src/main/native/include"/* /usr/local/include/wpimath/ && \
+    cp -r "$REPO_DIR/wpiutil/src/main/native/include"/* /usr/local/include/wpimath/
+
+# Copy thirdparty headers (cached if thirdparty unchanged)
+# Copy wpimath thirdparty (e.g., gcem)
+RUN REPO_DIR=/tmp/allwpilib && \
+    if [ -d "$REPO_DIR/wpimath/src/main/native/thirdparty" ]; then \
+      mkdir -p /usr/local/include/wpimath/wpimath/src/main/native && \
+      cp -r "$REPO_DIR/wpimath/src/main/native/thirdparty" /usr/local/include/wpimath/wpimath/src/main/native/; \
+    fi
+
+# Copy wpiutil thirdparty
+RUN REPO_DIR=/tmp/allwpilib && \
+    if [ -d "$REPO_DIR/wpiutil/src/main/native/thirdparty" ]; then \
+      mkdir -p /usr/local/include/wpimath/wpiutil/src/main/native && \
+      cp -r "$REPO_DIR/wpiutil/src/main/native/thirdparty" /usr/local/include/wpimath/wpiutil/src/main/native/; \
+    fi
+
+# Copy other thirdparty directories at repo root
+RUN REPO_DIR=/tmp/allwpilib && \
+    find "$REPO_DIR" -maxdepth 2 -type d -name "thirdparty" ! -path "*/wpimath/*" ! -path "*/wpiutil/*" | while read thirdpartydir; do \
+      relpath=$(echo "$thirdpartydir" | sed "s|$REPO_DIR/||"); \
+      mkdir -p "/usr/local/include/wpimath/$(dirname "$relpath")"; \
+      cp -r "$thirdpartydir" "/usr/local/include/wpimath/$relpath"; \
+    done
+
+# Clean up repository (always runs, but small)
+RUN rm -rf /tmp/allwpilib
+
+# Copy wrapper source files and build script into image
+COPY wpimath_wrapper.cpp /usr/local/bin/
+COPY build-wpimath-wasm-internal.sh /usr/local/bin/build-wpimath-wasm.sh
+RUN chmod +x /usr/local/bin/build-wpimath-wasm.sh
+
+# Default command runs the build script
+ENTRYPOINT ["/usr/local/bin/build-wpimath-wasm.sh"]
