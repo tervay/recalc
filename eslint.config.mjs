@@ -22,7 +22,8 @@ export default tseslint.config([
     ignores: [
       'pnpm-lock.yaml',
       'app/components/ui/**',
-      '**/*.d.ts', // TypeScript definition files
+      'app/lib/generated/**',
+      '**/*.d.ts', // TypeScript definition files,
     ],
   },
 

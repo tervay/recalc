@@ -1,6 +1,6 @@
 // TypeScript wrapper for wpimath WASM module
-import wpimathModuleFactory from 'app/lib/generated/wpimath/wpimath.js';
 import type { MainModule } from 'app/lib/generated/wpimath/wpimath.d';
+import wpimathModuleFactory from 'app/lib/generated/wpimath/wpimath.js';
 
 let moduleInstance: MainModule | null = null;
 let modulePromise: Promise<MainModule> | null = null;
@@ -27,7 +27,8 @@ export async function initWpimath(): Promise<MainModule> {
         // For now, use a path that works in both contexts
         try {
           // Try importing the WASM file directly (works in Vite/bundlers)
-          return new URL('../generated/wpimath/wpimath.wasm', import.meta.url).href;
+          return new URL('../generated/wpimath/wpimath.wasm', import.meta.url)
+            .href;
         } catch {
           // Fallback to relative path
           return './wpimath.wasm';
@@ -51,4 +52,3 @@ export function getWpimathModule(): Promise<MainModule> {
 
 // Re-export types
 export type { MainModule };
-
