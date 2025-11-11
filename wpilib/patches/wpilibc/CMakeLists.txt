@@ -1,0 +1,91 @@
+project(wpilibc)
+
+include(CompileWarnings)
+include(AddTest)
+
+configure_file(src/generate/WPILibVersion.cpp.in WPILibVersion.cpp)
+
+file(
+    GLOB_RECURSE wpilibc_native_src
+    src/main/native/cpp/*.cpp
+    src/main/native/cppcs/*.cpp
+    src/generated/main/native/cpp/*.cpp
+)
+
+add_library(wpilibc ${wpilibc_native_src} ${CMAKE_CURRENT_BINARY_DIR}/WPILibVersion.cpp)
+set_target_properties(wpilibc PROPERTIES DEBUG_POSTFIX "d")
+
+target_include_directories(
+    wpilibc
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/main/native/include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/generated/main/native/include>
+        $<INSTALL_INTERFACE:${include_dest}/wpilibc>
+)
+# For Emscripten builds, add ntcore headers directly (ntcore isn't built, but headers are needed)
+# Use PRIVATE since these are only needed for compiling wpilibc, not for consumers
+if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
+    target_include_directories(wpilibc PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/../ntcore/src/main/native/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/../ntcore/src/generated/main/native/include
+    )
+endif()
+wpilib_target_warnings(wpilibc)
+
+# For Emscripten builds, disable -Wunnecessary-virtual-specifier warning
+# This warning occurs because some final classes have virtual destructors
+if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
+    target_compile_options(wpilibc PRIVATE -Wno-unnecessary-virtual-specifier)
+endif()
+
+if(WITH_CSCORE)
+    target_link_libraries(wpilibc PUBLIC cameraserver cscore ${OpenCV_LIBS})
+else()
+    target_compile_definitions(wpilibc PRIVATE DYNAMIC_CAMERA_SERVER)
+    # Add just the camera server include directory
+    target_include_directories(
+        wpilibc
+        PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../cameraserver/src/main/native/include
+    )
+endif()
+
+# Conditionally link ntcore - use stub for WebAssembly builds if needed
+if(TARGET ntcore)
+    target_link_libraries(wpilibc PUBLIC hal ntcore wpimath wpiutil)
+elseif(TARGET ntcore_stub)
+    target_link_libraries(wpilibc PUBLIC hal ntcore_stub wpimath wpiutil)
+else()
+    target_link_libraries(wpilibc PUBLIC hal wpimath wpiutil)
+    # Define a macro to disable ntcore-dependent code if needed
+    target_compile_definitions(wpilibc PRIVATE WPILIB_NO_NTCORE)
+endif()
+
+set_property(TARGET wpilibc PROPERTY FOLDER "libraries")
+
+install(TARGETS wpilibc EXPORT wpilibc)
+export(TARGETS wpilibc FILE wpilibc.cmake NAMESPACE wpilibc::)
+install(DIRECTORY src/main/native/include/ DESTINATION "${include_dest}/wpilibc")
+install(DIRECTORY src/generated/main/native/include/ DESTINATION "${include_dest}/wpilibc")
+
+configure_file(wpilibc-config.cmake.in ${WPILIB_BINARY_DIR}/wpilibc-config.cmake)
+install(FILES ${WPILIB_BINARY_DIR}/wpilibc-config.cmake DESTINATION share/wpilibc)
+install(EXPORT wpilibc DESTINATION share/wpilibc)
+
+if(WITH_TESTS)
+    wpilib_add_test(wpilibc src/test/native/cpp)
+    target_include_directories(wpilibc_test PRIVATE src/test/native/include)
+    target_link_libraries(wpilibc_test wpilibc googletest)
+    if(NOT WITH_CSCORE)
+        target_compile_definitions(wpilibc_test PRIVATE DYNAMIC_CAMERA_SERVER)
+        # Add just the camera server include directory
+        target_include_directories(
+            wpilibc_test
+            PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../cameraserver/src/main/native/include
+        )
+    endif()
+endif()
+
+# Add WebAssembly subdirectory if Emscripten toolchain is being used
+if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
+    add_subdirectory(wasm)
+endif()

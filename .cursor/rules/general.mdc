@@ -31,3 +31,4 @@ ReCalc is a design calculator website primarily used for the FIRST Robotics Comp
 - If a component does exist in Shadcn, install it via the command line (`pnpm dlx shadcn@latest add <component>`).
 - When installing new NPM dependencies, always pin to a specific version.
 - Before running Playwright tests, make sure to build the app with `pnpm run build`.
+- ReCalc can call into WebAssembly compiled using Emscripten from WPILib (https://github.com/wpilibsuite/allwpilib).
