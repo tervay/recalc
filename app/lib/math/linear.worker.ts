@@ -3,6 +3,8 @@ import Measurement, { type MeasurementDict } from '~/lib/models/Measurement';
 import Motor, { type MotorDict } from '~/lib/models/Motor';
 import type { RatioDict } from '~/lib/models/Ratio';
 import Ratio from '~/lib/models/Ratio';
+import { arrayToVectorDouble } from '~/lib/wpilib/util';
+import { initWpilibc } from '~/lib/wpilib/wpilibc';
 
 export interface LinearODEResult {
   positionInches: number;
@@ -12,6 +14,9 @@ export interface LinearODEResult {
   powerWatts: number;
   efficiency: number;
 }
+
+const wpilibc = await initWpilibc();
+const SIM_TIMESTEP_SECONDS = 0.01;
 
 export function generateODEData(
   motor_: MotorDict,
@@ -91,4 +96,70 @@ export function generateODEData(
   });
 
   return ret;
+}
+
+interface WpilibElevatorSimState {
+  positionMeters: number;
+  velocityMetersPerSecond: number;
+  currentDrawAmps: number;
+  timeSeconds: number;
+  batteryVoltageVolts: number;
+}
+
+export function simulateElevatorWpilib(
+  motor: MotorDict,
+  ratio: RatioDict,
+  load: MeasurementDict,
+  spoolDiameter: MeasurementDict,
+  travelDistance: MeasurementDict,
+  _currentLimitDict: MeasurementDict,
+): WpilibElevatorSimState[] {
+  const states: WpilibElevatorSimState[] = [];
+
+  const elevatorSim = new wpilibc.ElevatorSim(
+    Motor.fromDict(motor).toWpilibMotor(),
+    Ratio.fromDict(ratio).asNumber(),
+    Measurement.fromDict(load).to('kg').scalar,
+    Measurement.fromDict(spoolDiameter).div(2).to('m').scalar,
+    0, // min height
+    Measurement.fromDict(travelDistance).to('m').scalar,
+    true,
+    0, // starting height
+  );
+
+  let timestamp = 0;
+  while (
+    elevatorSim.getPosition() <
+    Measurement.fromDict(travelDistance).to('m').scalar
+  ) {
+    elevatorSim.setInputVoltage(wpilibc.RobotController_getInputVoltage());
+    elevatorSim.update(SIM_TIMESTEP_SECONDS);
+    timestamp += SIM_TIMESTEP_SECONDS;
+
+    states.push({
+      positionMeters: elevatorSim.getPosition(),
+      velocityMetersPerSecond: elevatorSim.getVelocity(),
+      currentDrawAmps: elevatorSim.getCurrentDraw(),
+      timeSeconds: parseFloat(timestamp.toFixed(2)),
+      batteryVoltageVolts: wpilibc.BatterySim_calculateLoadedBatteryVoltage(
+        12,
+        0.015,
+        arrayToVectorDouble([elevatorSim.getCurrentDraw()]),
+      ),
+    });
+
+    wpilibc.RoboRioSim_setVInVoltage(
+      wpilibc.BatterySim_calculateLoadedBatteryVoltage(
+        12,
+        0.015,
+        arrayToVectorDouble([elevatorSim.getCurrentDraw()]),
+      ),
+    );
+
+    if (timestamp > 5) {
+      break;
+    }
+  }
+
+  return states;
 }
