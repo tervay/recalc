@@ -236,6 +236,7 @@ export default class Motor extends Model {
       freeCurrentAmps,
       freeSpeedRadPerSec,
       this.quantity,
+      // 1,
     );
   }
 }

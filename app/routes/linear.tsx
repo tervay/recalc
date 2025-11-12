@@ -1,16 +1,12 @@
-import { minBy } from 'lodash-es';
 import { useMemo, useState } from 'react';
 import {
   CartesianGrid,
-  Label,
-  Legend,
   Line,
   LineChart,
   Tooltip,
   XAxis,
   YAxis,
 } from 'recharts';
-import type { DataKey } from 'recharts/types/util/types';
 
 import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
@@ -25,14 +21,9 @@ import { RatioInput } from '~/components/recalc/io/ratio';
 import { ChartContainer } from '~/components/ui/chart';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { supplyLimitToStatorLimit } from '~/lib/math/common';
-import {
-  ExponentialProfile,
-  createState,
-  fromCharacteristics,
-  simProfile,
-} from '~/lib/math/exponentialProfile';
 import { calculateKa, calculateKg, calculateKv } from '~/lib/math/kVkA';
 import { calculateStallLoad } from '~/lib/math/linear';
+import { simulateElevatorWpilib } from '~/lib/math/linear.worker';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
@@ -54,7 +45,7 @@ export function meta() {
 }
 
 const DEFAULT_PARAMS = {
-  motor: withDefault(MotorParam, Motor.KrakenX60sFOC(2)),
+  motor: withDefault(MotorParam, Motor.KrakenX60sFOC(1)),
   travelDistance: withDefault(MeasurementParam, new Measurement(60, 'in')),
   spoolDiameter: withDefault(MeasurementParam, new Measurement(1, 'in')),
   load: withDefault(MeasurementParam, new Measurement(15, 'lb')),
@@ -62,8 +53,8 @@ const DEFAULT_PARAMS = {
   efficiency: withDefault(NumberParam, 100),
   statorLimit: withDefault(MeasurementParam, new Measurement(60, 'A')),
   supplyLimit: withDefault(MeasurementParam, new Measurement(90, 'A')),
-  supplyVoltage: withDefault(MeasurementParam, new Measurement(12.6, 'V')),
-  statorVoltage: withDefault(MeasurementParam, new Measurement(10, 'V')),
+  supplyVoltage: withDefault(MeasurementParam, new Measurement(12, 'V')),
+  statorVoltage: withDefault(MeasurementParam, new Measurement(12, 'V')),
   angle: withDefault(MeasurementParam, new Measurement(90, 'deg')),
   batteryResistance: withDefault(
     MeasurementParam,
@@ -106,9 +97,9 @@ export default function Linear() {
     queryParams.batteryResistance,
   );
   const [cascade, setCascade] = useState(queryParams.cascade);
-  const [hiddenChartLines, setHiddenChartLines] = useState<DataKey<unknown>[]>(
-    [],
-  );
+  // const [hiddenChartLines, setHiddenChartLines] = useState<DataKey<unknown>[]>(
+  //   [],
+  // );
   const supplyLimitInStatorTerms = useMemo(
     () =>
       supplyLimitToStatorLimit({
@@ -198,52 +189,6 @@ export default function Linear() {
     ],
   );
 
-  const profile = useMemo(() => {
-    const constraints = fromCharacteristics(
-      statorVoltage.sub(kG).to('V').scalar,
-      kV.to('V*s/in').scalar,
-      kA.to('V*s^2/in').scalar,
-    );
-    return new ExponentialProfile(constraints);
-  }, [kV, kA, kG, statorVoltage]);
-
-  const simulatedStates = useMemo(
-    () =>
-      simProfile(
-        profile,
-        createState(0, 0),
-        createState(travelDistance.to('in').scalar, 0),
-        0.005,
-        motor,
-        limitingCurrentLimit,
-        statorVoltage,
-        spoolDiameter,
-        ratio,
-        supplyVoltage,
-        batteryResistance,
-      ),
-    [
-      profile,
-      travelDistance,
-      motor,
-      limitingCurrentLimit,
-      statorVoltage,
-      spoolDiameter,
-      ratio,
-      supplyVoltage,
-      batteryResistance,
-    ],
-  );
-
-  const timeToGoal = useMemo(() => {
-    return new Measurement(
-      simulatedStates.find(
-        (state) => state.position >= travelDistance.to('in').scalar,
-      )?.time ?? 0,
-      's',
-    );
-  }, [simulatedStates, travelDistance]);
-
   const stallLoad = useMemo(() => {
     return calculateStallLoad(
       motor,
@@ -262,27 +207,32 @@ export default function Linear() {
     statorVoltage,
   ]);
 
-  const minimumBatteryVoltage = useMemo(
+  const wpilibSimStates = useMemo(
     () =>
-      new Measurement(
-        minBy(simulatedStates, (state) => state.batteryVoltage)
-          ?.batteryVoltage ?? 0,
-        'V',
+      simulateElevatorWpilib(
+        motor.toDict(),
+        ratio.toDict(),
+        load.toDict(),
+        spoolDiameter.toDict(),
+        travelDistance.toDict(),
+        limitingCurrentLimit.toDict(),
       ),
-    [simulatedStates],
+    [motor, ratio, load, spoolDiameter, travelDistance, limitingCurrentLimit],
   );
 
-  const batterySag = useMemo(
-    () => supplyVoltage.sub(minimumBatteryVoltage),
-    [supplyVoltage, minimumBatteryVoltage],
-  );
+  const timeToGoal = useMemo(() => {
+    return new Measurement(
+      wpilibSimStates[wpilibSimStates.length - 1].timeSeconds,
+      's',
+    );
+  }, [wpilibSimStates]);
 
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
     motor,
-    travelDistance,
-    spoolDiameter,
-    load,
     ratio,
+    load,
+    spoolDiameter,
+    travelDistance,
     efficiency,
     statorLimit,
     supplyLimit,
@@ -299,7 +249,7 @@ export default function Linear() {
         title="Linear Motion Calculator"
         getSerializedState={() => serializedState}
       />
-      <div className="flex flex-row flex-wrap gap-x-4 px-1 [&>*]:flex-1">
+      <div className="flex flex-row flex-wrap gap-x-4 px-1 *:flex-1">
         <div className="flex flex-col gap-x-4 gap-y-2">
           <IOLine>
             <MotorInput stateHook={[motor, setMotor]} />
@@ -401,7 +351,7 @@ export default function Linear() {
             />
           </IOLine>
 
-          <IOLine>
+          {/* <IOLine>
             <MeasurementOutput
               state={batterySag}
               label="Battery Sag"
@@ -414,10 +364,41 @@ export default function Linear() {
               defaultUnit="V"
               roundTo={2}
             />
-          </IOLine>
+          </IOLine> */}
         </div>
         <ChartContainer config={{}} className="min-h-[200px] w-full">
-          <LineChart data={simulatedStates}>
+          <LineChart data={wpilibSimStates}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="timeSeconds" />
+            <YAxis yAxisId="left" />
+            <YAxis yAxisId="right" orientation="right" />
+            <Tooltip />
+            <Line
+              dataKey="positionMeters"
+              yAxisId="right"
+              stroke="black"
+              dot={false}
+            />
+            <Line
+              dataKey="velocityMetersPerSecond"
+              yAxisId="left"
+              stroke="red"
+              dot={false}
+            />
+            <Line
+              dataKey="currentDrawAmps"
+              yAxisId="left"
+              stroke="goldenrod"
+              dot={false}
+            />
+            <Line
+              dataKey="batteryVoltageVolts"
+              yAxisId="right"
+              stroke="green"
+              dot={false}
+            />
+          </LineChart>
+          {/* <LineChart data={simulatedStates}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="time" />
             <YAxis yAxisId="left">
@@ -483,7 +464,7 @@ export default function Linear() {
                 }
               }}
             />
-          </LineChart>
+          </LineChart> */}
         </ChartContainer>
       </div>
     </div>

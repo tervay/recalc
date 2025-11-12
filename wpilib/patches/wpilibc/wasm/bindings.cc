@@ -26,8 +26,7 @@ using namespace frc::sim;
 
 // DCMotor bindings - constructor
 // We store DCMotor instances and pass them by reference
-class DCMotorWasm
-{
+class DCMotorWasm {
 public:
   DCMotorWasm(double nominalVoltageVolts, double stallTorqueNewtonMeters,
               double stallCurrentAmps, double freeCurrentAmps,
@@ -52,8 +51,7 @@ public:
 
   double getKvRadPerSecPerVolt() const { return motor.Kv.to<double>(); }
 
-  double getNominalVoltageVolts() const
-  {
+  double getNominalVoltageVolts() const {
     return motor.nominalVoltage.to<double>();
   }
 
@@ -61,35 +59,30 @@ public:
 
   double getStallCurrentAmps() const { return motor.stallCurrent.to<double>(); }
 
-  double getStallTorqueNewtonMeters() const
-  {
+  double getStallTorqueNewtonMeters() const {
     return motor.stallTorque.to<double>();
   }
 
   // DCMotor methods
   double currentFromSpeedAndVoltage(double speedRadPerSec,
-                                    double inputVoltageVolts) const
-  {
+                                    double inputVoltageVolts) const {
     return motor
         .Current(units::radians_per_second_t(speedRadPerSec),
                  units::volt_t(inputVoltageVolts))
         .to<double>();
   }
 
-  double currentFromTorque(double torqueNewtonMeters) const
-  {
+  double currentFromTorque(double torqueNewtonMeters) const {
     return motor.Current(units::newton_meter_t(torqueNewtonMeters))
         .to<double>();
   }
 
-  double torqueFromCurrent(double currentAmps) const
-  {
+  double torqueFromCurrent(double currentAmps) const {
     return motor.Torque(units::ampere_t(currentAmps)).to<double>();
   }
 
   double voltageFromTorqueAndSpeed(double torqueNewtonMeters,
-                                   double speedRadPerSec) const
-  {
+                                   double speedRadPerSec) const {
     return motor
         .Voltage(units::newton_meter_t(torqueNewtonMeters),
                  units::radians_per_second_t(speedRadPerSec))
@@ -97,16 +90,14 @@ public:
   }
 
   double speedFromTorqueAndVoltage(double torqueNewtonMeters,
-                                   double inputVoltageVolts) const
-  {
+                                   double inputVoltageVolts) const {
     return motor
         .Speed(units::newton_meter_t(torqueNewtonMeters),
                units::volt_t(inputVoltageVolts))
         .to<double>();
   }
 
-  DCMotorWasm *withReduction(double gearboxReduction)
-  {
+  DCMotorWasm *withReduction(double gearboxReduction) {
     return new DCMotorWasm(motor.WithReduction(gearboxReduction));
   }
 
@@ -115,8 +106,7 @@ private:
 };
 
 // ElevatorSim bindings
-class ElevatorSimWasm
-{
+class ElevatorSimWasm {
 public:
   // Constructor using the simpler form: DCMotor, gearing, mass, radius, etc.
   ElevatorSimWasm(DCMotorWasm *gearbox, double gearing, double carriageMassKg,
@@ -129,8 +119,7 @@ public:
             units::meter_t(maxHeightMeters), simulateGravity,
             units::meter_t(startingHeightMeters)) {}
 
-  void setInputVoltage(double voltageVolts)
-  {
+  void setInputVoltage(double voltageVolts) {
     elevator.SetInputVoltage(units::volt_t(voltageVolts));
   }
 
@@ -140,8 +129,7 @@ public:
 
   double getVelocity() const { return elevator.GetVelocity().to<double>(); }
 
-  double getCurrentDraw() const
-  {
+  double getCurrentDraw() const {
     return elevator.GetCurrentDraw().to<double>();
   }
 
@@ -154,25 +142,21 @@ private:
 };
 
 // RoboRioSim wrapper functions for WebAssembly
-void RoboRioSim_SetVInVoltage(double voltageVolts)
-{
+void RoboRioSim_SetVInVoltage(double voltageVolts) {
   RoboRioSim::SetVInVoltage(units::volt_t(voltageVolts));
 }
 
 // RobotController wrapper functions for WebAssembly
-double RobotController_GetInputVoltage()
-{
+double RobotController_GetInputVoltage() {
   return RobotController::GetInputVoltage();
 }
 
 // BatterySim wrapper functions for WebAssembly
-double BatterySim_Calculate(const std::vector<double> &currentDrawsAmps)
-{
+double BatterySim_Calculate(const std::vector<double> &currentDrawsAmps) {
   std::vector<units::ampere_t> currents;
 
   // Convert vector of doubles to vector of ampere_t
-  for (double currentAmps : currentDrawsAmps)
-  {
+  for (double currentAmps : currentDrawsAmps) {
     currents.push_back(units::ampere_t(currentAmps));
   }
 
@@ -182,13 +166,11 @@ double BatterySim_Calculate(const std::vector<double> &currentDrawsAmps)
 // calculateDefaultBatteryLoadedVoltage - uses default 12V nominal and 20mOhm
 // resistance
 double BatterySim_CalculateDefaultBatteryLoadedVoltage(
-    const std::vector<double> &currentDrawsAmps)
-{
+    const std::vector<double> &currentDrawsAmps) {
   std::vector<units::ampere_t> currents;
 
   // Convert vector of doubles to vector of ampere_t
-  for (double currentAmps : currentDrawsAmps)
-  {
+  for (double currentAmps : currentDrawsAmps) {
     currents.push_back(units::ampere_t(currentAmps));
   }
 
@@ -200,13 +182,11 @@ double BatterySim_CalculateDefaultBatteryLoadedVoltage(
 // current draws
 double BatterySim_CalculateLoadedBatteryVoltage(
     double nominalVoltageVolts, double resistanceOhms,
-    const std::vector<double> &currentDrawsAmps)
-{
+    const std::vector<double> &currentDrawsAmps) {
   std::vector<units::ampere_t> currents;
 
   // Convert vector of doubles to vector of ampere_t
-  for (double currentAmps : currentDrawsAmps)
-  {
+  for (double currentAmps : currentDrawsAmps) {
     currents.push_back(units::ampere_t(currentAmps));
   }
 
@@ -217,8 +197,7 @@ double BatterySim_CalculateLoadedBatteryVoltage(
 }
 
 // Emscripten bindings
-EMSCRIPTEN_BINDINGS(wpilibc)
-{
+EMSCRIPTEN_BINDINGS(wpilibc) {
   // Register vector<double> for automatic conversion from JavaScript arrays
   register_vector<double>("VectorDouble");
 
