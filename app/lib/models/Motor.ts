@@ -1,5 +1,7 @@
+import type { DCMotor } from '~/lib/generated/wpilibc/wpilibc_wasm';
 import Measurement from '~/lib/models/Measurement';
 import Model from '~/lib/models/Model';
+import { getWpilibcModuleSync } from '~/lib/wpilib/wpilibc';
 
 export const nominalVoltage = new Measurement(12, 'V');
 export const highCurrentLimit = new Measurement(1000, 'A');
@@ -205,6 +207,36 @@ export default class Motor extends Model {
 
   eq<M extends Model>(m: M): boolean {
     return m instanceof Motor && m.identifier === this.identifier;
+  }
+
+  toWpilibMotor(): DCMotor {
+    const module = getWpilibcModuleSync();
+
+    // Convert measurements to the units expected by DCMotor constructor:
+    // - nominalVoltageVolts: double (volts)
+    // - stallTorqueNewtonMeters: double (N*m)
+    // - stallCurrentAmps: double (amperes)
+    // - freeCurrentAmps: double (amperes)
+    // - freeSpeedRadPerSec: double (radians per second)
+    // - numMotors: int
+
+    const nominalVoltageVolts = this.voltage.to('V').scalar;
+    const stallTorqueNewtonMeters = this.stallTorque.to('N*m').scalar;
+    const stallCurrentAmps = this.stallCurrent.to('A').scalar;
+    const freeCurrentAmps = this.freeCurrent.to('A').scalar;
+
+    // Convert freeSpeed from rpm to rad/s
+    // 1 rpm = 2π/60 rad/s = π/30 rad/s
+    const freeSpeedRadPerSec = this.freeSpeed.to('rpm').scalar * (Math.PI / 30);
+
+    return new module.DCMotor(
+      nominalVoltageVolts,
+      stallTorqueNewtonMeters,
+      stallCurrentAmps,
+      freeCurrentAmps,
+      freeSpeedRadPerSec,
+      this.quantity,
+    );
   }
 }
 

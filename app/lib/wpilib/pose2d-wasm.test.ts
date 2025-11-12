@@ -1,7 +1,8 @@
 // Node.js test for Pose2d using WASM
-import type { MainModule } from 'app/lib/generated/wpimath/wpimath.d';
-import { getWpimathModule } from 'app/lib/wpimath/index';
+import type { MainModule } from 'app/lib/generated/wpimath/wpimath_wasm';
 import { beforeAll, describe, expect, it } from 'vitest';
+
+import { getWpimathModule } from '~/lib/wpilib/index';
 
 describe('Pose2d WASM', () => {
   let module: MainModule;

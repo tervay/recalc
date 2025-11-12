@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Links,
   Meta,
@@ -9,6 +10,7 @@ import {
 
 import '~/app.css';
 import Nav from '~/components/recalc/nav';
+import { initWpilibc } from '~/lib/wpilib/wpilibc';
 
 import type { Route } from '.react-router/types/app/+types/root';
 
@@ -45,6 +47,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  // Initialize wpilibc module early so it's available synchronously
+  useEffect(() => {
+    initWpilibc().catch((error) => {
+      console.error('Failed to initialize wpilibc module:', error);
+    });
+  }, []);
+
   return <Outlet />;
 }
 
