@@ -10,7 +10,7 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 OUTPUT_DIR="$PROJECT_ROOT/app/lib/generated/wpimath"
 DOCKER_IMAGE="wpilib-builder"
 DOCKERFILE="$SCRIPT_DIR/Dockerfile"
-WPILIB_COMMIT="02252b58d7bdf91d2c4c4ac38788c84087cba60b"
+WPILIB_COMMIT="2597c2b9e61d48ca1e441b8344fc94888af9b14c"
 
 # Colors for output
 RED='\033[0;31m'

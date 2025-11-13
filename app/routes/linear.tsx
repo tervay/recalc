@@ -216,8 +216,17 @@ export default function Linear() {
         spoolDiameter.toDict(),
         travelDistance.toDict(),
         limitingCurrentLimit.toDict(),
+        statorVoltage.toDict(),
       ),
-    [motor, ratio, load, spoolDiameter, travelDistance, limitingCurrentLimit],
+    [
+      motor,
+      ratio,
+      load,
+      spoolDiameter,
+      travelDistance,
+      limitingCurrentLimit,
+      statorVoltage,
+    ],
   );
 
   const timeToGoal = useMemo(() => {
@@ -386,17 +395,35 @@ export default function Linear() {
               dot={false}
             />
             <Line
-              dataKey="currentDrawAmps"
+              dataKey="statorCurrentDrawAmps"
               yAxisId="left"
               stroke="goldenrod"
               dot={false}
             />
             <Line
+              dataKey="supplyCurrentDrawAmps"
+              yAxisId="left"
+              stroke="purple"
+              dot={false}
+            />
+            {/* <Line
               dataKey="batteryVoltageVolts"
               yAxisId="right"
               stroke="green"
               dot={false}
-            />
+            /> */}
+            {/* <Line
+              dataKey="motorAppliedVoltageVolts"
+              yAxisId="right"
+              stroke="blue"
+              dot={false}
+            /> */}
+            {/* <Line
+              dataKey="motorRpm"
+              yAxisId="left"
+              stroke="orange"
+              dot={false}
+            /> */}
           </LineChart>
           {/* <LineChart data={simulatedStates}>
             <CartesianGrid strokeDasharray="3 3" />

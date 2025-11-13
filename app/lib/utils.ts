@@ -11,3 +11,18 @@ export function roundToNearestMultiple(
 ): number {
   return Math.ceil(roundable / multipleOf) * multipleOf;
 }
+
+export function obliterateArray<T>(array: T[], n: number): T[] {
+  if (array.length === 0) return [];
+  if (n <= 0) return array;
+
+  const result = array.filter((_, index) => index % n === 0);
+  const lastIndex = array.length - 1;
+
+  // Always include the last element if it's not already included
+  if (lastIndex > 0 && lastIndex % n !== 0) {
+    result.push(array[lastIndex]);
+  }
+
+  return result;
+}

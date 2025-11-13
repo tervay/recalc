@@ -22,7 +22,7 @@ RUN if [ "$WPILIB_COMMIT" = "HEAD" ]; then \
         git clone https://github.com/wpilibsuite/allwpilib.git --depth 1 && \
         cd allwpilib; \
     else \
-        git clone https://github.com/wpilibsuite/allwpilib.git && \
+        git clone https://github.com/bhall-ctre/allwpilib.git && \
         cd allwpilib && \
         git checkout $WPILIB_COMMIT; \
     fi
