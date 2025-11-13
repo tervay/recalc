@@ -2,7 +2,7 @@
   "name": "recalc4",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@10.20.0",
+  "packageManager": "pnpm@10.22.0",
   "engines": {
     "node": ">=22"
   },
@@ -61,7 +61,7 @@
     "@types/node": "24.10.1",
     "@types/react": "19.2.4",
     "@types/react-dom": "19.2.3",
-    "@typescript-eslint/parser": "^8.46.3",
+    "@typescript-eslint/parser": "8.46.4",
     "commander": "14.0.2",
     "eslint": "9.39.1",
     "eslint-config-prettier": "10.1.8",

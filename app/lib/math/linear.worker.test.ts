@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import { generateODEData } from '~/lib/math/linear.worker';
+import {
+  generateODEData,
+  simulateElevatorWpilib,
+} from '~/lib/math/linear.worker';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
@@ -306,5 +309,29 @@ describe('generateODEData', () => {
 
     expect(result.length).toBe(50);
     expect(result[0].timeSeconds).toBeCloseTo(0, 3);
+  });
+});
+
+describe('simulateElevatorWpilib', () => {
+  it('simulates a typical elevator correctly', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const ratio = new Ratio(2, RatioType.REDUCTION);
+    const load = new Measurement(10, 'lb');
+    const spoolDiameter = new Measurement(2, 'in');
+    const travelDistance = new Measurement(40, 'in');
+    const currentLimit = new Measurement(60, 'A');
+    const statorVoltage = new Measurement(12, 'V');
+
+    const result = simulateElevatorWpilib(
+      motor.toDict(),
+      ratio.toDict(),
+      load.toDict(),
+      spoolDiameter.toDict(),
+      travelDistance.toDict(),
+      currentLimit.toDict(),
+      statorVoltage.toDict(),
+    );
+
+    expect(result).toMatchSnapshot();
   });
 });
