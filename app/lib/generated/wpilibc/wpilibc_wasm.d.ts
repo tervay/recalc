@@ -78,6 +78,13 @@ export interface ElevatorSim extends ClassHandle {
   getCurrentDraw(): number;
 }
 
+export interface FlywheelSim extends ClassHandle {
+  setInputVoltage(voltageVolts: number): void;
+  update(dtSeconds: number): void;
+  getAngularVelocity(): number;
+  getCurrentDraw(): number;
+}
+
 interface EmbindModule {
   VectorDouble: {
     new(): VectorDouble;
@@ -87,6 +94,9 @@ interface EmbindModule {
   };
   ElevatorSim: {
     new(_0: DCMotor | null, _1: number, _2: number, _3: number, _4: number, _5: number, _6: boolean, _7: number): ElevatorSim;
+  };
+  FlywheelSim: {
+    new(_0: DCMotor | null, _1: number, _2: number): FlywheelSim;
   };
   RoboRioSim_setVInVoltage(voltageVolts: number): void;
   RobotController_getInputVoltage(): number;

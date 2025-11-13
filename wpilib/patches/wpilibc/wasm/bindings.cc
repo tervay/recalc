@@ -6,8 +6,10 @@
 #include "frc/RobotController.h"
 #include "frc/simulation/BatterySim.h"
 #include "frc/simulation/ElevatorSim.h"
+#include "frc/simulation/FlywheelSim.h"
 #include "frc/simulation/RoboRioSim.h"
 #include "frc/system/plant/DCMotor.h"
+#include "frc/system/plant/LinearSystemId.h"
 
 // Include wpimath headers (for units)
 #include "units/angular_velocity.h"
@@ -15,6 +17,7 @@
 #include "units/impedance.h"
 #include "units/length.h"
 #include "units/mass.h"
+#include "units/moment_of_inertia.h"
 #include "units/time.h"
 #include "units/torque.h"
 #include "units/velocity.h"
@@ -141,6 +144,36 @@ private:
   ElevatorSim elevator;
 };
 
+// FlywheelSim bindings
+class FlywheelSimWasm {
+public:
+  // Constructor using DCMotor, gearing, and moment of inertia
+  FlywheelSimWasm(DCMotorWasm *gearbox, double gearing,
+                  double momentOfInertiaKgMSquared)
+      : flywheel(LinearSystemId::FlywheelSystem(
+                     gearbox->getMotor(),
+                     units::kilogram_square_meter_t(momentOfInertiaKgMSquared),
+                     gearing),
+                 gearbox->getMotor()) {}
+
+  void setInputVoltage(double voltageVolts) {
+    flywheel.SetInputVoltage(units::volt_t(voltageVolts));
+  }
+
+  void update(double dtSeconds) { flywheel.Update(units::second_t(dtSeconds)); }
+
+  double getAngularVelocity() const {
+    return flywheel.GetAngularVelocity().to<double>();
+  }
+
+  double getCurrentDraw() const {
+    return flywheel.GetCurrentDraw().to<double>();
+  }
+
+private:
+  FlywheelSim flywheel;
+};
+
 // RoboRioSim wrapper functions for WebAssembly
 void RoboRioSim_SetVInVoltage(double voltageVolts) {
   RoboRioSim::SetVInVoltage(units::volt_t(voltageVolts));
@@ -239,6 +272,15 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
       .function("getCurrentDraw", &ElevatorSimWasm::getCurrentDraw)
       .function("hasHitLowerLimit", &ElevatorSimWasm::hasHitLowerLimit)
       .function("hasHitUpperLimit", &ElevatorSimWasm::hasHitUpperLimit);
+
+  // FlywheelSim
+  class_<FlywheelSimWasm>("FlywheelSim")
+      .constructor<DCMotorWasm *, double, double>(allow_raw_pointers())
+      .function("setInputVoltage(voltageVolts)",
+                &FlywheelSimWasm::setInputVoltage)
+      .function("update(dtSeconds)", &FlywheelSimWasm::update)
+      .function("getAngularVelocity", &FlywheelSimWasm::getAngularVelocity)
+      .function("getCurrentDraw", &FlywheelSimWasm::getCurrentDraw);
 
   // RoboRioSim static methods
   function("RoboRioSim_setVInVoltage(voltageVolts)", &RoboRioSim_SetVInVoltage);
