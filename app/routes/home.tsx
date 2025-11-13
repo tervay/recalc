@@ -1,5 +1,19 @@
 import { Bookmark, Calculator, ExternalLink, Info } from 'lucide-react';
 
+import ArcticonsFolderUtility from '~icons/arcticons/folder-utility';
+import CarbonTimingBelt from '~icons/carbon/timing-belt';
+import EmojioneMonotoneChains from '~icons/emojione-monotone/chains';
+import Fa7SolidGears from '~icons/fa7-solid/gears';
+import FluentDriveTrain24Regular from '~icons/fluent/drive-train-24-regular';
+import FluentElevator32Regular from '~icons/fluent/elevator-32-regular';
+import FluentRatioOneToOne24Regular from '~icons/fluent/ratio-one-to-one-24-regular';
+import MaterialSymbolsElectricBoltRounded from '~icons/material-symbols/electric-bolt-rounded';
+import MaterialSymbolsSearchRounded from '~icons/material-symbols/search-rounded';
+import MdiAbout from '~icons/mdi/about';
+import SolarWheelAngleOutline from '~icons/solar/wheel-angle-outline';
+import StreamlineUltimateFactoryIndustrialRobotArm1 from '~icons/streamline-ultimate/factory-industrial-robot-arm-1';
+import TablerWheel from '~icons/tabler/wheel';
+
 import Tile from '~/components/recalc/tile';
 
 import type { Route } from '.react-router/types/app/routes/+types/home';
@@ -62,108 +76,103 @@ function Section({ title, icon, children }: SectionProps) {
 
 export default function Home() {
   return (
-    <div className="py-8">
+    <div className="px-4 py-4 md:px-0 md:py-24">
       <Section title="Calculators" icon={<Calculator className="h-6 w-6" />}>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <Tile
-            to="/belts"
-            title="Belt Calculator"
-            description="Calculate belt drives and pulley systems"
-          />
-          <Tile
-            to="/chains"
-            title="Chain Calculator"
-            description="Design chain drive systems"
-          />
-          <Tile
-            to="/flywheel"
-            title="Flywheel Calculator"
-            description="Calculate flywheel energy storage"
-          />
-          <Tile
-            to="/arm"
-            title="Arm Calculator"
-            description="Design robot arms and pivots"
-          />
-          <Tile
-            to="/linear"
-            title="Linear Mechanism Calculator"
-            description="Calculate linear motion systems"
-          />
-          <Tile
-            to="/intake"
-            title="Intake Calculator"
-            description="Design intake mechanisms"
-          />
-          <Tile
-            to="/ratio"
-            title="Ratio Calculator"
-            description="Calculate gear ratios"
-          />
-          <Tile
-            to="/ratio-finder"
-            title="Ratio Finder"
-            description="Find optimal gear combinations"
-          />
-          <Tile
-            to="/drive"
-            title="Drivetrain Calculator"
-            description="Design your robot drivetrain"
-          />
-          <Tile
-            to="/pneumatics"
-            title="Pneumatics Calculator"
-            description="Calculate pneumatic systems"
-          />
-          <Tile
-            to="/gears"
-            title="Gears Calculator"
-            description="Design gear systems"
-          />
+        <div className="flex flex-col gap-2">
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Tile to="/belts" title="Belt Calculator" icon={CarbonTimingBelt} />
+            <Tile
+              to="/chains"
+              title="Chain Calculator"
+              icon={EmojioneMonotoneChains}
+            />
+          </div>
+          <div className="grid gap-2 sm:grid-cols-3">
+            <Tile
+              to="/linear"
+              title="Linear Mechanism Calculator"
+              icon={FluentElevator32Regular}
+            />
+            <Tile
+              to="/arm"
+              title="Arm Calculator"
+              icon={StreamlineUltimateFactoryIndustrialRobotArm1}
+            />
+            <Tile
+              to="/flywheel"
+              title="Flywheel Calculator"
+              icon={TablerWheel}
+            />
+          </div>
+          <div className="grid gap-2 sm:grid-cols-3">
+            <Tile
+              to="/ratio-finder"
+              title="Ratio Finder"
+              icon={MaterialSymbolsSearchRounded}
+            />
+            <Tile
+              to="/ratio"
+              title="Ratio Calculator"
+              icon={FluentRatioOneToOne24Regular}
+            />
+            <Tile to="/gears" title="Gears Calculator" icon={Fa7SolidGears} />
+          </div>
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Tile
+              to="/intake"
+              title="Intake Calculator"
+              icon={SolarWheelAngleOutline}
+            />
+            <Tile
+              to="/drive"
+              title="Drivetrain Calculator"
+              icon={FluentDriveTrain24Regular}
+            />
+          </div>
         </div>
       </Section>
 
       <Section title="Information" icon={<Info className="h-6 w-6" />}>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           <Tile
             to="/motors"
             title="Motors"
-            description="Motor specifications and data"
+            icon={MaterialSymbolsElectricBoltRounded}
           />
-          <Tile
-            to="/compressors"
-            title="Compressors"
-            description="Compressor specifications"
-          />
-          <Tile
-            to="/about"
-            title="About"
-            description="About ReCalc and contributors"
-          />
-          <Tile to="/util" title="Utilities" description="Useful tools" />
-          <Tile
-            to="/scouting"
-            title="Scouting"
-            description="Team scouting tools"
-          />
+          <Tile to="/util" title="Utilities" icon={ArcticonsFolderUtility} />
+          <Tile to="/about" title="About" icon={MdiAbout} />
         </div>
       </Section>
 
       <Section title="Shortcuts" icon={<Bookmark className="h-6 w-6" />}>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="space-y-2">
+        <div className="flex flex-col gap-2">
+          <div className="grid gap-2 sm:grid-cols-3">
             <Shortcut
               name="2025 Official PDF Manual"
               url="https://firstfrc.blob.core.windows.net/frc2025/Manual/2025GameManual.pdf"
             />
             <Shortcut
               name="2025 Unofficial Web Manual"
-              url="https://www.frcmanual.com/2025"
+              url="https://www.frcmanual.com/2025/introduction"
             />
             <Shortcut name="2025 Q&A" url="https://frc-qa.firstinspires.org/" />
           </div>
-
-          <div className="space-y-2">
+          <div className="grid gap-2 sm:grid-cols-3">
+            <Shortcut
+              name="2026 Team/Event Search"
+              url="https://www.firstinspires.org/team-event-search#type=teams&sort=name&programs=FRC&year=2026"
+            />
+            <Shortcut
+              name="2026 FRC-Events"
+              url="https://frc-events.firstinspires.org/2026/Events/EventList"
+            />
+            <Shortcut
+              name="2026 Events (TheBlueAlliance)"
+              url="https://www.thebluealliance.com/events/2026"
+            />
+          </div>
+          <div className="grid gap-2 sm:grid-cols-3">
+            <Shortcut name="frc.sh" url="https://frc.sh" />
             <Shortcut
               name="FRC Resources"
               url="https://www.firstinspires.org/resource-library/frc/technical-resources"
@@ -171,17 +180,6 @@ export default function Home() {
             <Shortcut
               name="Open Alliance"
               url="https://www.chiefdelphi.com/c/first/open-alliance/89"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Shortcut
-              name="2025 Team/Event Search"
-              url="https://www.firstinspires.org/team-event-search#type=teams&sort=name&programs=FRC&year=2025"
-            />
-            <Shortcut
-              name="2025 FRC-Events"
-              url="https://frc-events.firstinspires.org/2025/Events/EventList"
             />
           </div>
         </div>

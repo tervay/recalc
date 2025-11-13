@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   CartesianGrid,
   Line,
@@ -23,7 +23,7 @@ import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { supplyLimitToStatorLimit } from '~/lib/math/common';
 import { calculateKa, calculateKg, calculateKv } from '~/lib/math/kVkA';
 import { calculateStallLoad } from '~/lib/math/linear';
-import { simulateElevatorWpilib } from '~/lib/math/linear.worker';
+import type * as LinearWorker from '~/lib/math/linear.worker';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
@@ -36,6 +36,8 @@ import {
   RatioParam,
   withDefault,
 } from '~/lib/types/queryParams';
+
+type WpilibElevatorSimState = LinearWorker.WpilibElevatorSimState;
 
 export function meta() {
   return [
@@ -62,6 +64,10 @@ const DEFAULT_PARAMS = {
   ),
   cascade: withDefault(BooleanParam, false),
 };
+
+const worker = new ComlinkWorker<typeof LinearWorker>(
+  new URL('../lib/math/linear.worker.ts', import.meta.url),
+);
 
 export default function Linear() {
   const queryParams = useQueryParams<{
@@ -207,9 +213,22 @@ export default function Linear() {
     statorVoltage,
   ]);
 
-  const wpilibSimStates = useMemo(
-    () =>
-      simulateElevatorWpilib(
+  const [workerWpilibSimStates, setWorkerWpilibSimStates] = useState<
+    WpilibElevatorSimState[]
+  >([]);
+
+  const timeToGoal = useMemo(() => {
+    return new Measurement(
+      workerWpilibSimStates.length > 0
+        ? workerWpilibSimStates[workerWpilibSimStates.length - 1].timeSeconds
+        : 0,
+      's',
+    );
+  }, [workerWpilibSimStates]);
+
+  useEffect(() => {
+    worker
+      .simulateElevatorWpilib(
         motor.toDict(),
         ratio.toDict(),
         load.toDict(),
@@ -217,24 +236,26 @@ export default function Linear() {
         travelDistance.toDict(),
         limitingCurrentLimit.toDict(),
         statorVoltage.toDict(),
-      ),
-    [
-      motor,
-      ratio,
-      load,
-      spoolDiameter,
-      travelDistance,
-      limitingCurrentLimit,
-      statorVoltage,
-    ],
-  );
-
-  const timeToGoal = useMemo(() => {
-    return new Measurement(
-      wpilibSimStates[wpilibSimStates.length - 1].timeSeconds,
-      's',
-    );
-  }, [wpilibSimStates]);
+        batteryResistance.toDict(),
+        supplyVoltage.toDict(),
+      )
+      .then((states) => {
+        setWorkerWpilibSimStates(states);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [
+    motor,
+    ratio,
+    load,
+    spoolDiameter,
+    travelDistance,
+    limitingCurrentLimit,
+    statorVoltage,
+    batteryResistance,
+    supplyVoltage,
+  ]);
 
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
     motor,
@@ -359,24 +380,9 @@ export default function Linear() {
               defaultUnit="s"
             />
           </IOLine>
-
-          {/* <IOLine>
-            <MeasurementOutput
-              state={batterySag}
-              label="Battery Sag"
-              defaultUnit="V"
-              roundTo={2}
-            />
-            <MeasurementOutput
-              state={minimumBatteryVoltage}
-              label="Minimum Battery Voltage"
-              defaultUnit="V"
-              roundTo={2}
-            />
-          </IOLine> */}
         </div>
         <ChartContainer config={{}} className="min-h-[200px] w-full">
-          <LineChart data={wpilibSimStates}>
+          <LineChart data={workerWpilibSimStates}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="timeSeconds" />
             <YAxis yAxisId="left" />
@@ -406,77 +412,8 @@ export default function Linear() {
               stroke="purple"
               dot={false}
             />
-            {/* <Line
-              dataKey="batteryVoltageVolts"
-              yAxisId="right"
-              stroke="green"
-              dot={false}
-            /> */}
-            {/* <Line
-              dataKey="motorAppliedVoltageVolts"
-              yAxisId="right"
-              stroke="blue"
-              dot={false}
-            /> */}
-            {/* <Line
-              dataKey="motorRpm"
-              yAxisId="left"
-              stroke="orange"
-              dot={false}
-            /> */}
           </LineChart>
-          {/* <LineChart data={simulatedStates}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="time" />
-            <YAxis yAxisId="left">
-              <Label value="Current (A), Efficiency (%)" angle={-90} />
-            </YAxis>
-            <YAxis yAxisId="right" orientation="right">
-              <Label
-                value="Position (in), Velocity (in/s), Power (W)"
-                angle={90}
-                offset={10}
-              />
-            </YAxis>
-            <Tooltip />
-
-            <Line
-              dataKey="position"
-              yAxisId="right"
-              stroke="black"
-              dot={false}
-              hide={hiddenChartLines.includes('position')}
-            />
-
-            <Line
-              dataKey="velocity"
-              yAxisId="right"
-              stroke="red"
-              dot={false}
-              hide={hiddenChartLines.includes('velocity')}
-            />
-            <Line
-              dataKey="current"
-              yAxisId="left"
-              stroke="goldenrod"
-              dot={false}
-              hide={hiddenChartLines.includes('current')}
-            />
-            <Line
-              dataKey="power"
-              yAxisId="right"
-              stroke="green"
-              dot={false}
-              hide={hiddenChartLines.includes('power')}
-            />
-            <Line
-              dataKey="efficiency"
-              yAxisId="left"
-              stroke="purple"
-              dot={false}
-              hide={hiddenChartLines.includes('efficiency')}
-            />
-            <Legend
+          {/* <Legend
               onClick={(props) => {
                 if (props.dataKey === undefined) {
                   return;

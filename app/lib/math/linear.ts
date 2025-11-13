@@ -24,5 +24,6 @@ export function calculateStallLoad(
     .mul(ratio.asNumber())
     .mul(efficiency / 100)
     .div(spoolDiameter.div(2))
-    .div(Measurement.GRAVITY);
+    .div(Measurement.GRAVITY)
+    .negate();
 }

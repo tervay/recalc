@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { Suspense, lazy, useMemo, useState } from 'react';
 
 import { BeltTable } from '~/components/recalc/beltTable';
 import IOLine from '~/components/recalc/blocks';
@@ -10,7 +10,6 @@ import {
   MeasurementOutput,
 } from '~/components/recalc/io/measurement';
 import NumberInput, { NumberOutput } from '~/components/recalc/io/number';
-import Markdown from '~/components/recalc/markdown';
 import { PulleyTable } from '~/components/recalc/pulleyTable';
 import { Button } from '~/components/ui/button';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
@@ -24,6 +23,8 @@ import {
   withDefault,
 } from '~/lib/types/queryParams';
 import _beltsReadme from '~/routes/belts.md?raw';
+
+const Markdown = lazy(() => import('~/components/recalc/markdown'));
 
 export function meta() {
   return [
@@ -317,7 +318,9 @@ export default function Belts() {
         </div>
       </div>
       <div className="mt-8 space-y-4">
-        <Markdown markdownContent={_beltsReadme} />
+        <Suspense fallback={<div>Loading documentation...</div>}>
+          <Markdown markdownContent={_beltsReadme} />
+        </Suspense>
       </div>
     </div>
   );

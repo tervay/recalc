@@ -1,5 +1,4 @@
-import { minBy } from 'lodash-es';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   CartesianGrid,
   Line,
@@ -22,13 +21,9 @@ import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
 import { ChartContainer } from '~/components/ui/chart';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
-import { calculateLoadedBatteryVoltage } from '~/lib/math/batterySim';
 import { supplyLimitToStatorLimit } from '~/lib/math/common';
+import type * as FlywheelWorker from '~/lib/math/flywheel.worker';
 import { calculateKa, calculateKv } from '~/lib/math/kVkA';
-import {
-  EMPTY_PROFILE,
-  generateProfile,
-} from '~/lib/math/sheetExponentialProfile';
 import Measurement from '~/lib/models/Measurement';
 import Motor, { nominalVoltage } from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
@@ -85,6 +80,12 @@ const DEFAULT_PARAMS = {
   projectileWeight: withDefault(MeasurementParam, new Measurement(0.5, 'lb')),
   efficiency: withDefault(NumberParam, 100),
 };
+
+const worker = new ComlinkWorker<typeof FlywheelWorker>(
+  new URL('../lib/math/flywheel.worker.ts', import.meta.url),
+);
+
+type WpilibFlywheelSimState = FlywheelWorker.WpilibFlywheelSimState;
 
 export default function Flywheel() {
   const queryParams = useQueryParams<{
@@ -259,74 +260,46 @@ export default function Flywheel() {
     return Measurement.min(shooterTargetSpeed, maxAchievableShooterRPM);
   }, [shooterTargetSpeed, maxAchievableShooterRPM]);
 
-  const sheetData = useMemo(() => {
-    if (shooterDiameter.baseScalar === 0) {
-      return EMPTY_PROFILE;
-    }
-
-    return generateProfile(
-      new Measurement(100000, 'in'),
-      new Measurement(100000, 'in/s'),
-      motor,
-      efficiency,
-      ratio,
-      totalMomentOfInertia
-        .to('kg m2')
-        .div(shooterDiameter.div(2).mul(shooterDiameter.div(2))),
-      limitingCurrentLimit,
-      new Measurement(0, 'm/s^2'),
-      shooterDiameter,
-      clampedShooterTargetSpeed.mul(shooterDiameter.div(2)).removeRad(),
-    );
-  }, [
-    motor,
-    efficiency,
-    ratio,
-    limitingCurrentLimit,
-    shooterDiameter,
-    clampedShooterTargetSpeed,
-    totalMomentOfInertia,
-  ]);
-
-  const meterizedSamples = useMemo(() => {
-    return sheetData.samples.map((sample) => ({
-      t: sample.t.to('s').scalar.toFixed(2),
-      x: sample.x.to('m').scalar.toFixed(2),
-      v: sample.v.to('m/s').scalar.toFixed(2),
-      motorRPM: sample.motorRPM.to('rpm').scalar.toFixed(0),
-      current: sample.current.to('A').scalar.toFixed(2),
-      torque: sample.torque.to('N*m').scalar.toFixed(2),
-      power: sample.power.to('W').scalar.toFixed(2),
-      efficiency: sample.efficiency.scalar.toFixed(3),
-    }));
-  }, [sheetData.samples]);
+  const [workerWpilibSimStates, setWorkerWpilibSimStates] = useState<
+    WpilibFlywheelSimState[]
+  >([]);
 
   const spinupTime = useMemo(() => {
-    return sheetData.samples[sheetData.samples.length - 1].t.to('s');
-  }, [sheetData.samples]);
+    return workerWpilibSimStates.length > 0
+      ? new Measurement(
+          workerWpilibSimStates[workerWpilibSimStates.length - 1].timeSeconds,
+          's',
+        )
+      : new Measurement(0, 's');
+  }, [workerWpilibSimStates]);
 
-  const samplesWithBatteryVoltage = useMemo(() => {
-    return sheetData.samples.map((sample) => ({
-      ...sample,
-      batteryVoltage: calculateLoadedBatteryVoltage(
-        supplyVoltage,
-        batteryResistance,
-        [sample.current.mul(motor.quantity)],
-      ),
-    }));
-  }, [sheetData.samples, supplyVoltage, batteryResistance, motor.quantity]);
-
-  const minimumBatteryVoltage = useMemo(
-    () =>
-      new Measurement(
-        minBy(
-          samplesWithBatteryVoltage,
-          (sample) => sample.batteryVoltage.to('V').scalar,
-        )?.batteryVoltage.to('V').scalar ?? 0,
-        'V',
-      ),
-    [samplesWithBatteryVoltage],
-  );
+  useEffect(() => {
+    worker
+      .simulateFlywheelWpilib(
+        motor.toDict(),
+        ratio.toDict(),
+        limitingCurrentLimit.toDict(),
+        nominalVoltage.toDict(),
+        supplyVoltage.toDict(),
+        batteryResistance.toDict(),
+        totalMomentOfInertia.toDict(),
+        clampedShooterTargetSpeed.toDict(),
+      )
+      .then((states) => {
+        setWorkerWpilibSimStates(states);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [
+    motor,
+    ratio,
+    limitingCurrentLimit,
+    supplyVoltage,
+    batteryResistance,
+    totalMomentOfInertia,
+    clampedShooterTargetSpeed,
+  ]);
 
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
     motor,
@@ -436,12 +409,21 @@ export default function Flywheel() {
           </IOLine>
 
           <IOLine>
-            <MeasurementInput
-              stateHook={[customShooterMoi, setCustomShooterMoi]}
-              label="Custom Shooter MOI"
-              disabled={() => !useCustomShooterMoi}
-              testId="customShooterMoi"
-            />
+            {useCustomShooterMoi ? (
+              <MeasurementInput
+                stateHook={[customShooterMoi, setCustomShooterMoi]}
+                label="Custom Shooter MOI"
+                disabled={() => !useCustomShooterMoi}
+                testId="customShooterMoi"
+              />
+            ) : (
+              <MeasurementOutput
+                state={derivedShooterMOI}
+                label="Shooter MOI"
+                defaultUnit="in2*lbs"
+                testId="derivedShooterMoi"
+              />
+            )}
             <BooleanInput
               stateHook={[useCustomShooterMoi, setUseCustomShooterMoi]}
               label="Use Custom Shooter MOI"
@@ -471,12 +453,21 @@ export default function Flywheel() {
           </IOLine>
 
           <IOLine>
-            <MeasurementInput
-              stateHook={[customFlywheelMoi, setCustomFlywheelMoi]}
-              label="Custom Flywheel MOI"
-              disabled={() => !useCustomFlywheelMoi}
-              testId="customFlywheelMoi"
-            />
+            {useCustomFlywheelMoi ? (
+              <MeasurementInput
+                stateHook={[customFlywheelMoi, setCustomFlywheelMoi]}
+                label="Custom Flywheel MOI"
+                disabled={() => !useCustomFlywheelMoi}
+                testId="customFlywheelMoi"
+              />
+            ) : (
+              <MeasurementOutput
+                state={derivedFlywheelMOI}
+                label="Flywheel MOI"
+                defaultUnit="in2*lbs"
+                testId="derivedFlywheelMoi"
+              />
+            )}
             <BooleanInput
               stateHook={[useCustomFlywheelMoi, setUseCustomFlywheelMoi]}
               label="Use Custom Flywheel MOI"
@@ -507,13 +498,6 @@ export default function Flywheel() {
               defaultUnit="s"
               testId="spinupTime"
             />
-            <MeasurementOutput
-              state={minimumBatteryVoltage}
-              label="Minimum Battery Voltage"
-              defaultUnit="V"
-              roundTo={2}
-              testId="minimumBatteryVoltage"
-            />
           </IOLine>
 
           <IOLine>
@@ -526,26 +510,29 @@ export default function Flywheel() {
           </IOLine>
         </div>
         <ChartContainer config={{}} className="min-h-[200px] w-full">
-          <LineChart data={meterizedSamples}>
+          <LineChart data={workerWpilibSimStates}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="t" />
+            <XAxis dataKey="timeSeconds" />
             <YAxis yAxisId="left" />
             <YAxis yAxisId="right" orientation="right" />
             <Line
-              dataKey="motorRPM"
+              dataKey="angularVelocity"
               yAxisId="right"
               dot={false}
               stroke="blue"
             />
             <Line
-              dataKey="current"
+              dataKey="currentDraw"
               yAxisId="left"
               dot={false}
               stroke="yellow"
             />
-            {/* <Line dataKey="torque" yAxisId="left" dot={false} /> */}
-            {/* <Line dataKey="power" yAxisId="left" dot={false} /> */}
-            {/* <Line dataKey="efficiency" yAxisId="left" dot={false} /> */}
+            <Line
+              dataKey="batteryVoltage"
+              yAxisId="left"
+              dot={false}
+              stroke="green"
+            />
             <Tooltip />
           </LineChart>
         </ChartContainer>

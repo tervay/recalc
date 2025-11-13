@@ -1,5 +1,5 @@
-import type { MainModule } from 'app/lib/generated/wpilibc/wpilibc_wasm';
-import wpilibcModuleFactory from 'app/lib/generated/wpilibc/wpilibc_wasm.js';
+import type { MainModule } from '~/lib/generated/wpilibc/wpilibc_wasm';
+import wpilibcModuleFactory from '~/lib/generated/wpilibc/wpilibc_wasm.js';
 
 let moduleInstance: MainModule | null = null;
 let modulePromise: Promise<MainModule> | null = null;

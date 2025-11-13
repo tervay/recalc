@@ -9,7 +9,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.000005303429609158535,
     "statorCurrentDrawAmps": 59.35060880204658,
     "supplyCurrentDrawAmps": 7.479629253058815,
-    "timeSeconds": 0,
+    "timeSeconds": 0.001,
     "velocityMetersPerSecond": 0.010569914292751349,
   },
   {
@@ -19,7 +19,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.0006396830118020683,
     "statorCurrentDrawAmps": 59.35060880204657,
     "supplyCurrentDrawAmps": 8.289163486540701,
-    "timeSeconds": 0.01,
+    "timeSeconds": 0.011,
     "velocityMetersPerSecond": 0.11626905722026486,
   },
   {
@@ -29,7 +29,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.0023310540232701128,
     "statorCurrentDrawAmps": 59.350608802046565,
     "supplyCurrentDrawAmps": 9.09869772002259,
-    "timeSeconds": 0.02,
+    "timeSeconds": 0.021,
     "velocityMetersPerSecond": 0.22196820014777835,
   },
   {
@@ -39,7 +39,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.005079416464013293,
     "statorCurrentDrawAmps": 59.35060880204658,
     "supplyCurrentDrawAmps": 9.908231953504481,
-    "timeSeconds": 0.03,
+    "timeSeconds": 0.031,
     "velocityMetersPerSecond": 0.3276673430752917,
   },
   {
@@ -49,7 +49,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.008884770334031606,
     "statorCurrentDrawAmps": 59.350608802046594,
     "supplyCurrentDrawAmps": 10.717766186986372,
-    "timeSeconds": 0.04,
+    "timeSeconds": 0.041,
     "velocityMetersPerSecond": 0.4333664860028051,
   },
   {
@@ -59,7 +59,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.013747115633325053,
     "statorCurrentDrawAmps": 59.35060880204657,
     "supplyCurrentDrawAmps": 11.527300420468254,
-    "timeSeconds": 0.05,
+    "timeSeconds": 0.051,
     "velocityMetersPerSecond": 0.5390656289303185,
   },
   {
@@ -69,7 +69,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.01966645236189363,
     "statorCurrentDrawAmps": 59.35060880204659,
     "supplyCurrentDrawAmps": 12.33683465395014,
-    "timeSeconds": 0.06,
+    "timeSeconds": 0.061,
     "velocityMetersPerSecond": 0.6447647718578319,
   },
   {
@@ -79,7 +79,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.026642780519737348,
     "statorCurrentDrawAmps": 59.35060880204659,
     "supplyCurrentDrawAmps": 13.146368887432034,
-    "timeSeconds": 0.07,
+    "timeSeconds": 0.071,
     "velocityMetersPerSecond": 0.7504639147853452,
   },
   {
@@ -89,7 +89,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.03467610010685619,
     "statorCurrentDrawAmps": 59.35060880204662,
     "supplyCurrentDrawAmps": 13.955903120913934,
-    "timeSeconds": 0.08,
+    "timeSeconds": 0.081,
     "velocityMetersPerSecond": 0.8561630577128586,
   },
   {
@@ -99,7 +99,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.04376641112325017,
     "statorCurrentDrawAmps": 59.35060880204657,
     "supplyCurrentDrawAmps": 14.765437354395807,
-    "timeSeconds": 0.09,
+    "timeSeconds": 0.091,
     "velocityMetersPerSecond": 0.961862200640372,
   },
   {
@@ -109,7 +109,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.05391371356891929,
     "statorCurrentDrawAmps": 59.35060880204658,
     "supplyCurrentDrawAmps": 15.5749715878777,
-    "timeSeconds": 0.1,
+    "timeSeconds": 0.101,
     "velocityMetersPerSecond": 1.0675613435678855,
   },
   {
@@ -119,7 +119,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.06511800744386353,
     "statorCurrentDrawAmps": 59.35060880204661,
     "supplyCurrentDrawAmps": 16.3845058213596,
-    "timeSeconds": 0.11,
+    "timeSeconds": 0.111,
     "velocityMetersPerSecond": 1.1732604864953988,
   },
   {
@@ -129,7 +129,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.07737929274808292,
     "statorCurrentDrawAmps": 59.350608802046594,
     "supplyCurrentDrawAmps": 17.19404005484148,
-    "timeSeconds": 0.12,
+    "timeSeconds": 0.121,
     "velocityMetersPerSecond": 1.2789596294229122,
   },
   {
@@ -139,7 +139,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.09069756948157744,
     "statorCurrentDrawAmps": 59.35060880204655,
     "supplyCurrentDrawAmps": 18.00357428832335,
-    "timeSeconds": 0.13,
+    "timeSeconds": 0.131,
     "velocityMetersPerSecond": 1.3846587723504256,
   },
   {
@@ -149,7 +149,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.10507283764434708,
     "statorCurrentDrawAmps": 59.35060880204662,
     "supplyCurrentDrawAmps": 18.813108521805265,
-    "timeSeconds": 0.14,
+    "timeSeconds": 0.141,
     "velocityMetersPerSecond": 1.490357915277939,
   },
   {
@@ -159,7 +159,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.12050509723639187,
     "statorCurrentDrawAmps": 59.35060880204661,
     "supplyCurrentDrawAmps": 19.62264275528715,
-    "timeSeconds": 0.15,
+    "timeSeconds": 0.151,
     "velocityMetersPerSecond": 1.5960570582054523,
   },
   {
@@ -169,7 +169,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.13699434825771178,
     "statorCurrentDrawAmps": 59.35060880204664,
     "supplyCurrentDrawAmps": 20.432176988769047,
-    "timeSeconds": 0.16,
+    "timeSeconds": 0.161,
     "velocityMetersPerSecond": 1.7017562011329657,
   },
   {
@@ -179,7 +179,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.15454059070830684,
     "statorCurrentDrawAmps": 59.35060880204662,
     "supplyCurrentDrawAmps": 21.24171122225094,
-    "timeSeconds": 0.17,
+    "timeSeconds": 0.171,
     "velocityMetersPerSecond": 1.807455344060479,
   },
   {
@@ -189,7 +189,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.17314382458817704,
     "statorCurrentDrawAmps": 59.350608802046594,
     "supplyCurrentDrawAmps": 22.051245455732815,
-    "timeSeconds": 0.18,
+    "timeSeconds": 0.181,
     "velocityMetersPerSecond": 1.9131544869879924,
   },
   {
@@ -199,7 +199,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.19280404989732236,
     "statorCurrentDrawAmps": 59.350608802046594,
     "supplyCurrentDrawAmps": 22.8607796892147,
-    "timeSeconds": 0.19,
+    "timeSeconds": 0.191,
     "velocityMetersPerSecond": 2.018853629915506,
   },
   {
@@ -209,7 +209,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.21352126663574283,
     "statorCurrentDrawAmps": 59.350608802046565,
     "supplyCurrentDrawAmps": 23.670313922696593,
-    "timeSeconds": 0.2,
+    "timeSeconds": 0.201,
     "velocityMetersPerSecond": 2.1245527728430216,
   },
   {
@@ -219,7 +219,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.23529547480343846,
     "statorCurrentDrawAmps": 59.350608802046594,
     "supplyCurrentDrawAmps": 24.479848156178512,
-    "timeSeconds": 0.21,
+    "timeSeconds": 0.211,
     "velocityMetersPerSecond": 2.230251915770537,
   },
   {
@@ -229,7 +229,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.25812667440040926,
     "statorCurrentDrawAmps": 59.350608802046565,
     "supplyCurrentDrawAmps": 25.2893823896604,
-    "timeSeconds": 0.22,
+    "timeSeconds": 0.221,
     "velocityMetersPerSecond": 2.3359510586980528,
   },
   {
@@ -239,7 +239,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.2820148654266552,
     "statorCurrentDrawAmps": 59.350608802046565,
     "supplyCurrentDrawAmps": 26.0989166231423,
-    "timeSeconds": 0.23,
+    "timeSeconds": 0.231,
     "velocityMetersPerSecond": 2.4416502016255683,
   },
   {
@@ -249,7 +249,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.3069600478821763,
     "statorCurrentDrawAmps": 59.350608802046565,
     "supplyCurrentDrawAmps": 26.9084508566242,
-    "timeSeconds": 0.24,
+    "timeSeconds": 0.241,
     "velocityMetersPerSecond": 2.547349344553084,
   },
   {
@@ -259,7 +259,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.33296222176697254,
     "statorCurrentDrawAmps": 59.35060880204654,
     "supplyCurrentDrawAmps": 27.717985090106097,
-    "timeSeconds": 0.25,
+    "timeSeconds": 0.251,
     "velocityMetersPerSecond": 2.653048487480599,
   },
   {
@@ -269,7 +269,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.3600213870810439,
     "statorCurrentDrawAmps": 59.350608802046565,
     "supplyCurrentDrawAmps": 28.52751932358802,
-    "timeSeconds": 0.26,
+    "timeSeconds": 0.261,
     "velocityMetersPerSecond": 2.7587476304081147,
   },
   {
@@ -279,7 +279,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.3881375438243905,
     "statorCurrentDrawAmps": 59.35060880204654,
     "supplyCurrentDrawAmps": 29.3370535570699,
-    "timeSeconds": 0.27,
+    "timeSeconds": 0.271,
     "velocityMetersPerSecond": 2.86444677333563,
   },
   {
@@ -289,7 +289,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.41731069199701215,
     "statorCurrentDrawAmps": 59.350608802046565,
     "supplyCurrentDrawAmps": 30.14658779055182,
-    "timeSeconds": 0.28,
+    "timeSeconds": 0.281,
     "velocityMetersPerSecond": 2.9701459162631454,
   },
   {
@@ -299,7 +299,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.447540831598909,
     "statorCurrentDrawAmps": 59.350608802046594,
     "supplyCurrentDrawAmps": 30.956122024033746,
-    "timeSeconds": 0.29,
+    "timeSeconds": 0.291,
     "velocityMetersPerSecond": 3.075845059190661,
   },
   {
@@ -309,7 +309,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.47882796263008104,
     "statorCurrentDrawAmps": 59.35060880204668,
     "supplyCurrentDrawAmps": 31.76565625751571,
-    "timeSeconds": 0.3,
+    "timeSeconds": 0.301,
     "velocityMetersPerSecond": 3.181544202118176,
   },
   {
@@ -319,7 +319,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.5111720850905282,
     "statorCurrentDrawAmps": 59.350608802046565,
     "supplyCurrentDrawAmps": 32.57519049099754,
-    "timeSeconds": 0.31,
+    "timeSeconds": 0.311,
     "velocityMetersPerSecond": 3.2872433450456917,
   },
   {
@@ -329,7 +329,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.5445731989802505,
     "statorCurrentDrawAmps": 59.35060880204665,
     "supplyCurrentDrawAmps": 33.38472472447949,
-    "timeSeconds": 0.32,
+    "timeSeconds": 0.321,
     "velocityMetersPerSecond": 3.3929424879732073,
   },
   {
@@ -339,7 +339,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.5790313042992481,
     "statorCurrentDrawAmps": 59.35060880204662,
     "supplyCurrentDrawAmps": 34.19425895796139,
-    "timeSeconds": 0.33,
+    "timeSeconds": 0.331,
     "velocityMetersPerSecond": 3.498641630900723,
   },
   {
@@ -349,7 +349,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.6145464010475207,
     "statorCurrentDrawAmps": 59.35060880204654,
     "supplyCurrentDrawAmps": 35.00379319144323,
-    "timeSeconds": 0.34,
+    "timeSeconds": 0.341,
     "velocityMetersPerSecond": 3.604340773828238,
   },
   {
@@ -359,7 +359,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.6511184892250685,
     "statorCurrentDrawAmps": 59.35060880204662,
     "supplyCurrentDrawAmps": 35.81332742492519,
-    "timeSeconds": 0.35,
+    "timeSeconds": 0.351,
     "velocityMetersPerSecond": 3.7100399167557536,
   },
   {
@@ -369,7 +369,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.6887475688318915,
     "statorCurrentDrawAmps": 59.350608802046594,
     "supplyCurrentDrawAmps": 36.622861658407075,
-    "timeSeconds": 0.36,
+    "timeSeconds": 0.361,
     "velocityMetersPerSecond": 3.815739059683269,
   },
   {
@@ -379,7 +379,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.7274336398679896,
     "statorCurrentDrawAmps": 59.350608802046565,
     "supplyCurrentDrawAmps": 37.43239589188898,
-    "timeSeconds": 0.37,
+    "timeSeconds": 0.371,
     "velocityMetersPerSecond": 3.921438202610784,
   },
   {
@@ -389,7 +389,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.7671767023333629,
     "statorCurrentDrawAmps": 59.350608802046565,
     "supplyCurrentDrawAmps": 38.24193012537085,
-    "timeSeconds": 0.38,
+    "timeSeconds": 0.381,
     "velocityMetersPerSecond": 4.027137345538298,
   },
   {
@@ -399,7 +399,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.8079767562280111,
     "statorCurrentDrawAmps": 59.35060880204665,
     "supplyCurrentDrawAmps": 39.05146435885279,
-    "timeSeconds": 0.39,
+    "timeSeconds": 0.391,
     "velocityMetersPerSecond": 4.132836488465809,
   },
   {
@@ -409,7 +409,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.8498338015519347,
     "statorCurrentDrawAmps": 59.35060880204662,
     "supplyCurrentDrawAmps": 39.86099859233463,
-    "timeSeconds": 0.4,
+    "timeSeconds": 0.401,
     "velocityMetersPerSecond": 4.2385356313933205,
   },
   {
@@ -419,7 +419,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.8927478383051333,
     "statorCurrentDrawAmps": 59.35060880204662,
     "supplyCurrentDrawAmps": 40.67053282581652,
-    "timeSeconds": 0.41,
+    "timeSeconds": 0.411,
     "velocityMetersPerSecond": 4.344234774320832,
   },
   {
@@ -429,7 +429,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.9367188664876069,
     "statorCurrentDrawAmps": 59.35060880204662,
     "supplyCurrentDrawAmps": 41.48006705929838,
-    "timeSeconds": 0.42,
+    "timeSeconds": 0.421,
     "velocityMetersPerSecond": 4.449933917248343,
   },
   {
@@ -439,7 +439,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 0.9817468860993557,
     "statorCurrentDrawAmps": 59.350608802046565,
     "supplyCurrentDrawAmps": 42.28960129278021,
-    "timeSeconds": 0.43,
+    "timeSeconds": 0.431,
     "velocityMetersPerSecond": 4.555633060175854,
   },
   {
@@ -449,7 +449,7 @@ exports[`simulateElevatorWpilib > simulates a typical elevator correctly 1`] = `
     "positionMeters": 1.0138954097279984,
     "statorCurrentDrawAmps": 59.35060880204662,
     "supplyCurrentDrawAmps": 42.85627525621757,
-    "timeSeconds": 0.44,
+    "timeSeconds": 0.438,
     "velocityMetersPerSecond": 4.629622460225112,
   },
 ]

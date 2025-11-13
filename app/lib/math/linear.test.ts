@@ -23,7 +23,7 @@ describe('calculateStallLoad', () => {
       statorVoltage,
     );
 
-    expect(result.to('lb').scalar).toBeCloseTo(-17.695, 3);
+    expect(result.to('lb').scalar).toBeCloseTo(17.695, 3);
   });
 
   it('handles zero spool diameter', () => {
@@ -153,8 +153,8 @@ describe('calculateStallLoad', () => {
       statorVoltage,
     );
 
-    expect(result1.to('lb').scalar).toBeCloseTo(-8.848, 3);
-    expect(result2.to('lb').scalar).toBeCloseTo(-35.39, 3);
+    expect(result1.to('lb').scalar).toBeCloseTo(8.848, 3);
+    expect(result2.to('lb').scalar).toBeCloseTo(35.39, 3);
     expect(Math.abs(result2.to('lb').scalar)).toBeGreaterThan(
       Math.abs(result1.to('lb').scalar),
     );
@@ -187,8 +187,8 @@ describe('calculateStallLoad', () => {
       statorVoltage,
     );
 
-    expect(result1.to('lb').scalar).toBeCloseTo(-9.831, 3);
-    expect(result2.to('lb').scalar).toBeCloseTo(-19.661, 3);
+    expect(result1.to('lb').scalar).toBeCloseTo(9.831, 3);
+    expect(result2.to('lb').scalar).toBeCloseTo(19.661, 3);
     expect(Math.abs(result2.to('lb').scalar)).toBeGreaterThan(
       Math.abs(result1.to('lb').scalar),
     );
@@ -211,7 +211,7 @@ describe('calculateStallLoad', () => {
       statorVoltage,
     );
 
-    expect(result.to('lb').scalar).toBeCloseTo(-35.39, 3);
+    expect(result.to('lb').scalar).toBeCloseTo(35.39, 3);
   });
 
   it('handles very small spool diameter', () => {
@@ -231,6 +231,6 @@ describe('calculateStallLoad', () => {
       statorVoltage,
     );
 
-    expect(result.to('lb').scalar).toBeCloseTo(-35390.403, 3);
+    expect(result.to('lb').scalar).toBeCloseTo(35390.403, 3);
   });
 });

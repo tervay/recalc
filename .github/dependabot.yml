@@ -4,105 +4,66 @@ updates:
     directory: '/'
     schedule:
       interval: 'daily'
-    open-pull-requests-limit: 10
     groups:
-      # React ecosystem - core React packages
+      react-router:
+        patterns:
+          - '@react-router/*'
+          - '@vercel/react-router'
+          - 'react-router'
       react:
         patterns:
           - 'react'
           - 'react-dom'
           - '@types/react'
           - '@types/react-dom'
-
-      # React Router - framework packages
-      react-router:
+      radix-ui:
         patterns:
-          - 'react-router'
-          - '@react-router/*'
-          - '@vercel/react-router'
-
-      # Tailwind CSS - styling framework
+          - '@radix-ui/*'
+      typescript-eslint:
+        patterns:
+          - 'typescript'
+          - 'typescript-eslint'
+          - '@typescript-eslint/*'
+          - '@types/node'
+      eslint:
+        patterns:
+          - 'eslint'
+          - '@eslint/*'
+          - 'eslint-*'
+          - 'globals'
       tailwind:
         patterns:
           - 'tailwindcss'
           - '@tailwindcss/*'
-          - 'tw-animate-css'
           - 'tailwind-merge'
-
-      # TypeScript - language compiler
-      typescript:
-        patterns:
-          - 'typescript'
-
-      # Node.js type definitions
-      node-types:
-        patterns:
-          - '@types/node'
-
-      # Testing - test frameworks and tools
-      testing:
-        patterns:
-          - 'vitest'
-          - '@playwright/test'
-
-      # Build tools - Vite and related plugins
+          - 'tw-animate-css'
       vite:
         patterns:
           - 'vite'
           - 'vite-*'
-          - '@tailwindcss/vite'
-
-      # Linting and formatting - code quality tools
-      linting:
+      prettier:
         patterns:
-          - 'eslint'
-          - 'eslint-*'
-          - '@eslint/*'
-          - 'typescript-eslint'
-          - 'globals'
           - 'prettier'
-          - 'prettier-*'
-          - '@trivago/prettier-plugin-sort-imports'
-
-      # Radix UI - component library
-      radix:
+          - 'prettier-plugin-*'
+          - '@trivago/prettier-plugin-*'
+      testing:
         patterns:
-          - '@radix-ui/*'
-
-      # Markdown and math rendering
-      markdown-math:
+          - '@playwright/test'
+          - 'vitest'
+      markdown:
         patterns:
           - 'react-markdown'
-          - 'katex'
-          - 'rehype-katex'
-          - 'remark-math'
-
-      # Charts and visualization
-      charts:
+          - 'remark-*'
+          - 'rehype-*'
+      icons:
         patterns:
-          - 'recharts'
-
-      # Utility libraries - common helper packages
-      utilities:
-        patterns:
-          - 'clsx'
-          - 'class-variance-authority'
-          - 'query-string'
-          - 'comlink'
-          - 'zod'
-          - 'lodash-es'
-          - '@types/lodash-es'
-          - 'isbot'
+          - '@iconify/json'
+          - '@svgr/*'
+          - 'unplugin-icons'
           - 'lucide-react'
-
-      # Measurement and units
-      measurement:
+      math:
         patterns:
-          - 'js-quantities'
-          - '@types/js-quantities'
-
-      # Build and script tools
-      build-tools:
-        patterns:
-          - 'commander'
-          - 'node-fetch-cache'
+          - 'katex'
+          - 'remark-math'
+          - 'rehype-katex'
+    open-pull-requests-limit: 10
