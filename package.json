@@ -99,7 +99,7 @@
     "@types/tinycolor2": "1.4.6",
     "@typescript-eslint/eslint-plugin": "6.7.5",
     "@typescript-eslint/parser": "8.46.4",
-    "@vitejs/plugin-react": "5.1.0",
+    "@vitejs/plugin-react": "5.1.1",
     "eslint": "8.51.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.4",
