@@ -1,7 +1,12 @@
 import Logo from 'app/components/recalc/logo';
+import { Suspense, lazy } from 'react';
 import { Link } from 'react-router';
 
-import { ModeToggle } from '~/components/recalc/modeToggle';
+const _ModeToggle = lazy(() =>
+  import('~/components/recalc/modeToggle').then((m) => ({
+    default: m.ModeToggle,
+  })),
+);
 
 export default function Nav() {
   return (
@@ -12,7 +17,7 @@ export default function Nav() {
           <Logo color="white" />
         </Link>
         <div className="flex flex-1 justify-end">
-          <ModeToggle />
+          <Suspense fallback={null}>{/* <ModeToggle /> */}</Suspense>
         </div>
       </div>
     </nav>

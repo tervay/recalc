@@ -40,6 +40,19 @@ export async function simulateFlywheelWpilib(
   const momentOfInertia = Measurement.fromDict(momentOfInertia_);
   const targetRPM = Measurement.fromDict(targetRPM_);
 
+  if (
+    ratio.asNumber() === 0 ||
+    motor.quantity === 0 ||
+    currentLimit.scalar === 0 ||
+    momentOfInertia.scalar === 0 ||
+    statorVoltage.scalar === 0 ||
+    supplyVoltage.scalar === 0 ||
+    batteryResistance.scalar === 0 ||
+    targetRPM.scalar === 0
+  ) {
+    return [];
+  }
+
   const flywheelSim = new wpilibc.FlywheelSim(
     motor.toWpilibMotor(),
     ratio.asNumber(),

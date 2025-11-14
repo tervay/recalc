@@ -1,4 +1,5 @@
 import { Bookmark, Calculator, ExternalLink, Info } from 'lucide-react';
+import { type ReactNode } from 'react';
 
 import ArcticonsFolderUtility from '~icons/arcticons/folder-utility';
 import CarbonTimingBelt from '~icons/carbon/timing-belt';
@@ -55,8 +56,8 @@ function Shortcut({ name, url }: ShortcutProps) {
 
 interface SectionProps {
   title: string;
-  icon: React.ReactNode;
-  children: React.ReactNode;
+  icon: ReactNode;
+  children: ReactNode;
 }
 
 function Section({ title, icon, children }: SectionProps) {
