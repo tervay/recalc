@@ -10,6 +10,7 @@ import {
 
 import '~/app.css';
 import Nav from '~/components/recalc/nav';
+import { ThemeProvider } from '~/components/recalc/themeProvider';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
 
 import type { Route } from '.react-router/types/app/+types/root';
@@ -37,10 +38,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <Nav />
-        <div className="container mx-auto">{children}</div>
-        <ScrollRestoration />
-        <Scripts />
+        <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+          <Nav />
+          <div className="container mx-auto">{children}</div>
+          <ScrollRestoration />
+          <Scripts />
+        </ThemeProvider>
       </body>
     </html>
   );
