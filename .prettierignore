@@ -7,4 +7,3 @@ build/
 .DS_Store
 test-results/
 playwright-report/
-app/lib/generated/

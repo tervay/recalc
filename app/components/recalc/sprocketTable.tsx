@@ -39,14 +39,14 @@ export function SprocketTable({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead colSpan={6} className="text-center font-bold">
+            <TableHead colSpan={6} className="bg-blue-50 text-center font-bold">
               Matching COTS Sprockets
             </TableHead>
           </TableRow>
           <TableRow>
-            <TableHead>SKU</TableHead>
-            <TableHead>Teeth</TableHead>
-            <TableHead>Bore</TableHead>
+            <TableHead className="bg-blue-50/50">SKU</TableHead>
+            <TableHead className="bg-blue-50/50">Teeth</TableHead>
+            <TableHead className="bg-blue-50/50">Bore</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

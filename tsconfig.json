@@ -6,10 +6,10 @@
     ".react-router/types/**/*"
   ],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": ["node", "vite/client"],
-    "target": "ES2022",
-    "module": "ES2022",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "types": ["node", "vite/client", "unplugin-icons/types/react"],
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
     "rootDirs": [".", "./.react-router/types"],
@@ -24,5 +24,5 @@
     "skipLibCheck": true,
     "strict": true
   },
-  "exclude": [".jj"]
+  "exclude": [".jj", "wpilib", "build"]
 }

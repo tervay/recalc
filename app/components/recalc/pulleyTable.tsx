@@ -40,17 +40,17 @@ export function PulleyTable({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead colSpan={6} className="text-center font-bold">
+            <TableHead colSpan={6} className="bg-blue-50 text-center font-bold">
               Matching COTS Pulleys
             </TableHead>
           </TableRow>
           <TableRow>
-            <TableHead>SKU</TableHead>
-            <TableHead>Type</TableHead>
-            <TableHead>Pitch</TableHead>
-            <TableHead>Teeth</TableHead>
-            <TableHead>Width</TableHead>
-            <TableHead>Bore</TableHead>
+            <TableHead className="bg-blue-50/50">SKU</TableHead>
+            <TableHead className="bg-blue-50/50">Type</TableHead>
+            <TableHead className="bg-blue-50/50">Pitch</TableHead>
+            <TableHead className="bg-blue-50/50">Teeth</TableHead>
+            <TableHead className="bg-blue-50/50">Width</TableHead>
+            <TableHead className="bg-blue-50/50">Bore</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

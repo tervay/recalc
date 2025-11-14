@@ -5,13 +5,16 @@
 // Include wpilibc headers
 #include "frc/RobotController.h"
 #include "frc/simulation/BatterySim.h"
+#include "frc/simulation/DCMotorSim.h"
 #include "frc/simulation/ElevatorSim.h"
 #include "frc/simulation/FlywheelSim.h"
 #include "frc/simulation/RoboRioSim.h"
+#include "frc/simulation/SingleJointedArmSim.h"
 #include "frc/system/plant/DCMotor.h"
 #include "frc/system/plant/LinearSystemId.h"
 
 // Include wpimath headers (for units)
+#include "units/angle.h"
 #include "units/angular_velocity.h"
 #include "units/current.h"
 #include "units/impedance.h"
@@ -174,6 +177,88 @@ private:
   FlywheelSim flywheel;
 };
 
+// DCMotorSim bindings
+class DCMotorSimWasm {
+public:
+  // Constructor using DCMotor, gearing, and moment of inertia
+  DCMotorSimWasm(DCMotorWasm *gearbox, double gearing,
+                 double momentOfInertiaKgMSquared)
+      : motorSim(LinearSystemId::DCMotorSystem(
+                     gearbox->getMotor(),
+                     units::kilogram_square_meter_t(momentOfInertiaKgMSquared),
+                     gearing),
+                 gearbox->getMotor()) {}
+
+  void setInputVoltage(double voltageVolts) {
+    motorSim.SetInputVoltage(units::volt_t(voltageVolts));
+  }
+
+  void update(double dtSeconds) { motorSim.Update(units::second_t(dtSeconds)); }
+
+  double getAngularPosition() const {
+    return motorSim.GetAngularPosition().to<double>();
+  }
+
+  double getAngularVelocity() const {
+    return motorSim.GetAngularVelocity().to<double>();
+  }
+
+  double getAngularAcceleration() const {
+    return motorSim.GetAngularAcceleration().to<double>();
+  }
+
+  double getTorque() const { return motorSim.GetTorque().to<double>(); }
+
+  double getInputVoltage() const {
+    return motorSim.GetInputVoltage().to<double>();
+  }
+
+  double getJ() const { return motorSim.GetJ().to<double>(); }
+
+  double getCurrentDraw() const {
+    return motorSim.GetCurrentDraw().to<double>();
+  }
+
+private:
+  DCMotorSim motorSim;
+};
+
+// SingleJointedArmSim bindings
+class SingleJointedArmSimWasm {
+public:
+  // Constructor using DCMotor, gearing, moment of inertia, arm length, angle
+  // limits, and gravity simulation
+  SingleJointedArmSimWasm(DCMotorWasm *gearbox, double gearing,
+                          double momentOfInertiaKgMSquared,
+                          double armLengthMeters, double minAngleRadians,
+                          double maxAngleRadians, bool simulateGravity,
+                          double startingAngleRadians)
+      : arm(gearbox->getMotor(), gearing,
+            units::kilogram_square_meter_t(momentOfInertiaKgMSquared),
+            units::meter_t(armLengthMeters), units::radian_t(minAngleRadians),
+            units::radian_t(maxAngleRadians), simulateGravity,
+            units::radian_t(startingAngleRadians)) {}
+
+  void setInputVoltage(double voltageVolts) {
+    arm.SetInputVoltage(units::volt_t(voltageVolts));
+  }
+
+  void update(double dtSeconds) { arm.Update(units::second_t(dtSeconds)); }
+
+  double getAngle() const { return arm.GetAngle().to<double>(); }
+
+  double getAngularVelocity() const { return arm.GetVelocity().to<double>(); }
+
+  double getCurrentDraw() const { return arm.GetCurrentDraw().to<double>(); }
+
+  bool hasHitLowerLimit() const { return arm.HasHitLowerLimit(); }
+
+  bool hasHitUpperLimit() const { return arm.HasHitUpperLimit(); }
+
+private:
+  SingleJointedArmSim arm;
+};
+
 // RoboRioSim wrapper functions for WebAssembly
 void RoboRioSim_SetVInVoltage(double voltageVolts) {
   RoboRioSim::SetVInVoltage(units::volt_t(voltageVolts));
@@ -281,6 +366,35 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
       .function("update(dtSeconds)", &FlywheelSimWasm::update)
       .function("getAngularVelocity", &FlywheelSimWasm::getAngularVelocity)
       .function("getCurrentDraw", &FlywheelSimWasm::getCurrentDraw);
+
+  // DCMotorSim
+  class_<DCMotorSimWasm>("DCMotorSim")
+      .constructor<DCMotorWasm *, double, double>(allow_raw_pointers())
+      .function("setInputVoltage(voltageVolts)",
+                &DCMotorSimWasm::setInputVoltage)
+      .function("update(dtSeconds)", &DCMotorSimWasm::update)
+      .function("getAngularPosition", &DCMotorSimWasm::getAngularPosition)
+      .function("getAngularVelocity", &DCMotorSimWasm::getAngularVelocity)
+      .function("getAngularAcceleration",
+                &DCMotorSimWasm::getAngularAcceleration)
+      .function("getTorque", &DCMotorSimWasm::getTorque)
+      .function("getInputVoltage", &DCMotorSimWasm::getInputVoltage)
+      .function("getJ", &DCMotorSimWasm::getJ)
+      .function("getCurrentDraw", &DCMotorSimWasm::getCurrentDraw);
+
+  // SingleJointedArmSim
+  class_<SingleJointedArmSimWasm>("SingleJointedArmSim")
+      .constructor<DCMotorWasm *, double, double, double, double, double, bool,
+                   double>(allow_raw_pointers())
+      .function("setInputVoltage(voltageVolts)",
+                &SingleJointedArmSimWasm::setInputVoltage)
+      .function("update(dtSeconds)", &SingleJointedArmSimWasm::update)
+      .function("getAngle", &SingleJointedArmSimWasm::getAngle)
+      .function("getAngularVelocity",
+                &SingleJointedArmSimWasm::getAngularVelocity)
+      .function("getCurrentDraw", &SingleJointedArmSimWasm::getCurrentDraw)
+      .function("hasHitLowerLimit", &SingleJointedArmSimWasm::hasHitLowerLimit)
+      .function("hasHitUpperLimit", &SingleJointedArmSimWasm::hasHitUpperLimit);
 
   // RoboRioSim static methods
   function("RoboRioSim_setVInVoltage(voltageVolts)", &RoboRioSim_SetVInVoltage);

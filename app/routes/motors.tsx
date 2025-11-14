@@ -13,7 +13,6 @@ import IOLine from '~/components/recalc/blocks';
 import { MeasurementInput } from '~/components/recalc/io/measurement';
 import { StringSelectInput } from '~/components/recalc/io/stringSelect';
 import { ChartContainer } from '~/components/ui/chart';
-import { solveMotorODE } from '~/lib/math/ode';
 import Measurement from '~/lib/models/Measurement';
 import Motor, {
   ALL_MOTORS,
@@ -73,28 +72,6 @@ export default function Motors() {
       })),
     [motorCurve],
   );
-
-  const odeData = useMemo(() => {
-    const data = solveMotorODE(
-      Motor.fromName(selectedMotor, 1),
-      statorVoltage,
-      supplyVoltage,
-      supplyLimit,
-      statorLimit,
-      (info) => info.stepNumber >= 400,
-      new Measurement(0.0001, 'kg m2'),
-      new Measurement(0, 'N m'),
-      100,
-    );
-
-    return data.map((d) => ({
-      time: d.time.to('s').scalar,
-      velocity: d.velocityRPM.to('rpm').scalar,
-      currentDraw: d.statorDrawAmps.to('A').scalar,
-      torque: d.torque.to('N m').scalar,
-      power: d.power.to('W').scalar,
-    }));
-  }, [selectedMotor, supplyLimit, supplyVoltage, statorVoltage, statorLimit]);
 
   return (
     <div>
@@ -162,7 +139,7 @@ export default function Motors() {
           </LineChart>
         </ChartContainer>
 
-        <ChartContainer config={{}} className="min-h-[200px] w-full">
+        {/* <ChartContainer config={{}} className="min-h-[200px] w-full">
           <LineChart data={odeData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="time" />
@@ -179,15 +156,15 @@ export default function Motors() {
               yAxisId="right"
               stroke="yellow"
             />
-            {/* <Line
+             <Line
               dataKey="efficiency"
               dot={false}
               yAxisId="right"
               stroke="blue"
             />
-            <Line dataKey="losses" dot={false} yAxisId="left" stroke="purple" /> */}
+            <Line dataKey="losses" dot={false} yAxisId="left" stroke="purple" />
           </LineChart>
-        </ChartContainer>
+        </ChartContainer> */}
       </div>
     </div>
   );
