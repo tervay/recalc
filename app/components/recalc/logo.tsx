@@ -77,14 +77,14 @@ export default function Logo({
           )}
         />
       </div>
-      <div
+      {/* <div
         className={cn(
           'text-center text-lg font-extralight max-md:hidden',
           color === 'white' ? 'text-white' : 'text-black',
         )}
       >
         A collaboration focused mechanical design calculator.
-      </div>
+      </div> */}
     </span>
   );
 }
