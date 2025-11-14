@@ -74,9 +74,36 @@ function Section({ title, icon, children }: SectionProps) {
   );
 }
 
+function Heading() {
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <h1
+        className="group relative cursor-default overflow-hidden text-6xl
+          font-bold tracking-tight text-primary transition-all duration-300
+          hover:scale-105 md:text-8xl"
+      >
+        <span className="relative inline-block">
+          ReCalc
+          <span
+            className="absolute inset-0 -translate-x-full bg-linear-to-r
+              from-transparent via-white/60 to-transparent transition-transform
+              duration-1500 ease-in-out group-hover:translate-x-full"
+          />
+        </span>
+      </h1>
+      <p className="mt-4 text-lg text-muted-foreground md:text-xl">
+        A collaboration-focused mechanical design calculator for FIRST Robotics.
+      </p>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
-    <div className="px-4 py-4 md:px-0 md:py-24">
+    <div className="px-2 py-4 md:px-0 md:py-12">
+      <div className="mb-12">
+        <Heading />
+      </div>
       <Section title="Calculators" icon={<Calculator className="h-6 w-6" />}>
         <div className="flex flex-col gap-2">
           <div className="grid gap-2 sm:grid-cols-2">
