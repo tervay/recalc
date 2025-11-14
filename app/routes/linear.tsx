@@ -66,7 +66,10 @@ const DEFAULT_PARAMS = {
 };
 
 const worker = new ComlinkWorker<typeof LinearWorker>(
-  new URL('../lib/math/linear.worker.ts', import.meta.url),
+  new URL('../lib/math/linear.worker', import.meta.url),
+  {
+    type: 'module',
+  },
 );
 
 export default function Linear() {

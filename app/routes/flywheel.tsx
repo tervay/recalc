@@ -82,7 +82,10 @@ const DEFAULT_PARAMS = {
 };
 
 const worker = new ComlinkWorker<typeof FlywheelWorker>(
-  new URL('../lib/math/flywheel.worker.ts', import.meta.url),
+  new URL('../lib/math/flywheel.worker', import.meta.url),
+  {
+    type: 'module',
+  },
 );
 
 type WpilibFlywheelSimState = FlywheelWorker.WpilibFlywheelSimState;
