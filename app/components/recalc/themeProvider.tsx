@@ -1,9 +1,17 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import {
+  type ReactNode,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 type Theme = 'dark' | 'light' | 'system';
 
 type ThemeProviderProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   defaultTheme?: Theme;
   storageKey?: string;
 };
@@ -20,15 +28,26 @@ const initialState: ThemeProviderState = {
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
-export function ThemeProvider({
+function ThemeProviderInner({
   children,
   defaultTheme = 'system',
   storageKey = 'vite-ui-theme',
-  ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(defaultTheme);
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === 'undefined') {
+      return defaultTheme;
+    }
+    const stored = localStorage.getItem(storageKey) as Theme | null;
+    return stored && ['light', 'dark', 'system'].includes(stored)
+      ? stored
+      : defaultTheme;
+  });
 
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     const root = window.document.documentElement;
 
     root.classList.remove('light', 'dark');
@@ -46,25 +65,55 @@ export function ThemeProvider({
     root.classList.add(theme);
   }, [theme]);
 
-  useEffect(() => {
-    const theme = localStorage.getItem(storageKey) as Theme;
-    if (theme) {
-      setTheme(theme);
-    }
-  }, [storageKey]);
-
-  const value = {
-    theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme);
-      setTheme(theme);
+  const handleSetTheme = useCallback(
+    (newTheme: Theme) => {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(storageKey, newTheme);
+      }
+      setTheme(newTheme);
     },
-  };
+    [storageKey],
+  );
+
+  const value = useMemo(
+    () => ({
+      theme,
+      setTheme: handleSetTheme,
+    }),
+    [theme, handleSetTheme],
+  );
 
   return (
-    <ThemeProviderContext.Provider {...props} value={value}>
+    <ThemeProviderContext.Provider value={value}>
       {children}
     </ThemeProviderContext.Provider>
+  );
+}
+
+export function ThemeProvider({
+  children,
+  defaultTheme = 'system',
+  storageKey = 'vite-ui-theme',
+}: ThemeProviderProps) {
+  if (typeof window === 'undefined') {
+    return (
+      <ThemeProviderContext.Provider
+        value={{
+          theme: defaultTheme,
+          setTheme: () => {
+            // No-op during SSR
+          },
+        }}
+      >
+        {children}
+      </ThemeProviderContext.Provider>
+    );
+  }
+
+  return (
+    <ThemeProviderInner defaultTheme={defaultTheme} storageKey={storageKey}>
+      {children}
+    </ThemeProviderInner>
   );
 }
 

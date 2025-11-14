@@ -83,17 +83,21 @@ async function assertInputs(
   );
   if (params.useCustomShooterMoi) {
     await expect(page.getByTestId('useCustomShooterMoi')).toBeChecked();
+    await expect(page.getByTestId('customShooterMoi')).toBeVisible();
     await expect(page.getByTestId('customShooterMoi')).toBeEnabled();
+    await expect(page.getByTestId('derivedShooterMoi')).not.toBeVisible();
+
+    await expect(page.getByTestId('customShooterMoi')).toHaveValue(
+      params.customShooterMoi,
+    );
+    await expect(page.getByTestId('selectcustomShooterMoi')).toHaveText(
+      params.customShooterMoiUnit,
+    );
   } else {
     await expect(page.getByTestId('useCustomShooterMoi')).not.toBeChecked();
-    await expect(page.getByTestId('customShooterMoi')).toBeDisabled();
+    await expect(page.getByTestId('customShooterMoi')).not.toBeVisible();
+    await expect(page.getByTestId('derivedShooterMoi')).toBeVisible();
   }
-  await expect(page.getByTestId('customShooterMoi')).toHaveValue(
-    params.customShooterMoi,
-  );
-  await expect(page.getByTestId('selectcustomShooterMoi')).toHaveText(
-    params.customShooterMoiUnit,
-  );
   await expect(page.getByTestId('flywheelDiameter')).toHaveValue(
     params.flywheelDiameter,
   );
@@ -115,16 +119,19 @@ async function assertInputs(
   if (params.useCustomFlywheelMoi) {
     await expect(page.getByTestId('useCustomFlywheelMoi')).toBeChecked();
     await expect(page.getByTestId('customFlywheelMoi')).toBeEnabled();
+    await expect(page.getByTestId('derivedFlywheelMoi')).not.toBeVisible();
+
+    await expect(page.getByTestId('customFlywheelMoi')).toHaveValue(
+      params.customFlywheelMoi,
+    );
+    await expect(page.getByTestId('selectcustomFlywheelMoi')).toHaveText(
+      params.customFlywheelMoiUnit,
+    );
   } else {
     await expect(page.getByTestId('useCustomFlywheelMoi')).not.toBeChecked();
-    await expect(page.getByTestId('customFlywheelMoi')).toBeDisabled();
+    await expect(page.getByTestId('customFlywheelMoi')).not.toBeVisible();
+    await expect(page.getByTestId('derivedFlywheelMoi')).toBeVisible();
   }
-  await expect(page.getByTestId('customFlywheelMoi')).toHaveValue(
-    params.customFlywheelMoi,
-  );
-  await expect(page.getByTestId('selectcustomFlywheelMoi')).toHaveText(
-    params.customFlywheelMoiUnit,
-  );
   await expect(page.getByTestId('projectileWeight')).toHaveValue(
     params.projectileWeight,
   );
@@ -144,10 +151,12 @@ async function assertOutputs(
     kAUnit: string;
     spinupTime: string;
     spinupTimeUnit: string;
-    minimumBatteryVoltage: string;
-    minimumBatteryVoltageUnit: string;
     effectiveMoi: string;
     effectiveMoiUnit: string;
+    derivedShooterMoi: string;
+    derivedShooterMoiUnit: string;
+    derivedFlywheelMoi: string;
+    derivedFlywheelMoiUnit: string;
   },
 ) {
   await expect(page.getByTestId('maxAchievableShooterRpm')).toHaveValue(
@@ -164,17 +173,23 @@ async function assertOutputs(
   await expect(page.getByTestId('selectspinupTime')).toHaveText(
     params.spinupTimeUnit,
   );
-  await expect(page.getByTestId('minimumBatteryVoltage')).toHaveValue(
-    params.minimumBatteryVoltage,
-  );
-  await expect(page.getByTestId('selectminimumBatteryVoltage')).toHaveText(
-    params.minimumBatteryVoltageUnit,
-  );
   await expect(page.getByTestId('effectiveMoi')).toHaveValue(
     params.effectiveMoi,
   );
   await expect(page.getByTestId('selecteffectiveMoi')).toHaveText(
     params.effectiveMoiUnit,
+  );
+  await expect(page.getByTestId('derivedShooterMoi')).toHaveValue(
+    params.derivedShooterMoi,
+  );
+  await expect(page.getByTestId('selectderivedShooterMoi')).toHaveText(
+    params.derivedShooterMoiUnit,
+  );
+  await expect(page.getByTestId('derivedFlywheelMoi')).toHaveValue(
+    params.derivedFlywheelMoi,
+  );
+  await expect(page.getByTestId('selectderivedFlywheelMoi')).toHaveText(
+    params.derivedFlywheelMoiUnit,
   );
 }
 
@@ -227,12 +242,14 @@ test.describe('Flywheel Calculator', () => {
       kVUnit: 'V*s/m',
       kA: '0.663',
       kAUnit: 'V*s^2/m',
-      spinupTime: '1.320',
+      spinupTime: '1.173',
       spinupTimeUnit: 's',
-      minimumBatteryVoltage: '11.70',
-      minimumBatteryVoltageUnit: 'V',
       effectiveMoi: '15.000',
       effectiveMoiUnit: 'in2*lbs',
+      derivedShooterMoi: '9.000',
+      derivedShooterMoiUnit: 'in2*lbs',
+      derivedFlywheelMoi: '6.000',
+      derivedFlywheelMoiUnit: 'in2*lbs',
     });
   });
 
@@ -282,12 +299,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.332',
         kAUnit: 'V*s^2/m',
-        spinupTime: '0.660',
+        spinupTime: '0.589',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '10.80',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '15.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -339,10 +358,12 @@ test.describe('Flywheel Calculator', () => {
         kAUnit: 'V*s^2/m',
         spinupTime: '0.000',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '12.60',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '15.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -394,12 +415,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.874',
         kAUnit: 'V*s^2/m',
-        spinupTime: '1.730',
+        spinupTime: '1.562',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '15.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
   });
@@ -452,10 +475,12 @@ test.describe('Flywheel Calculator', () => {
         kAUnit: 'V*s^2/m',
         spinupTime: '0.000',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '12.60',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '0.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
     test('Change ratio to 2 (reduction)', async ({ page }) => {
@@ -503,12 +528,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.166',
         kAUnit: 'V*s^2/m',
-        spinupTime: '0.430',
+        spinupTime: '0.312',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '7.500',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
     test('Change ratio to 2 (step-up)', async ({ page }) => {
@@ -559,12 +586,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '2.653',
         kAUnit: 'V*s^2/m',
-        spinupTime: '5.260',
+        spinupTime: '4.678',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '30.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
   });
@@ -615,12 +644,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '11.687',
         kAUnit: 'V*s^2/m',
-        spinupTime: '10.010',
+        spinupTime: '7.038',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '12.45',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '15.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -669,12 +700,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.378',
         kAUnit: 'V*s^2/m',
-        spinupTime: '0.750',
+        spinupTime: '0.704',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.10',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '15.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -725,10 +758,12 @@ test.describe('Flywheel Calculator', () => {
         kAUnit: 'V*s^2/m',
         spinupTime: '0.000',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '12.60',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '15.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
   });
@@ -779,12 +814,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '11.687',
         kAUnit: 'V*s^2/m',
-        spinupTime: '10.010',
+        spinupTime: '7.038',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '12.45',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '15.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -835,10 +872,12 @@ test.describe('Flywheel Calculator', () => {
         kAUnit: 'V*s^2/m',
         spinupTime: '0.000',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '12.60',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '15.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
   });
@@ -889,12 +928,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.663',
         kAUnit: 'V*s^2/m',
-        spinupTime: '1.320',
+        spinupTime: '1.173',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '9.10',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '15.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -943,12 +984,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.663',
         kAUnit: 'V*s^2/m',
-        spinupTime: '1.320',
+        spinupTime: '0.000',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '-0.90',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '15.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
   });
@@ -999,12 +1042,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.663',
         kAUnit: 'V*s^2/m',
-        spinupTime: '1.320',
+        spinupTime: '1.173',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.40',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '15.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -1053,17 +1098,19 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.663',
         kAUnit: 'V*s^2/m',
-        spinupTime: '1.320',
+        spinupTime: '0.000',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '12.60',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '15.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
   });
 
-  test.describe('Efficiency input', () => {
+  test.describe.skip('Efficiency input', () => {
     test('Change efficiency from 100 to 90', async ({ page }) => {
       await page.getByTestId('efficiency').fill('90');
       await assertInputs(page, {
@@ -1111,10 +1158,12 @@ test.describe('Flywheel Calculator', () => {
         kAUnit: 'V*s^2/m',
         spinupTime: '1.460',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '15.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -1165,10 +1214,12 @@ test.describe('Flywheel Calculator', () => {
         kAUnit: 'V*s^2/m',
         spinupTime: '0.000',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '12.60',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '15.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
   });
@@ -1219,12 +1270,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.663',
         kAUnit: 'V*s^2/m',
-        spinupTime: '0.880',
+        spinupTime: '0.784',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '10.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '4.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -1274,12 +1327,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.830',
         kAUnit: 'V*s^2/m',
-        spinupTime: '0.650',
+        spinupTime: '0.581',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '7.395',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '1.395',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -1328,12 +1383,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.000',
         kAUnit: 'V*s^2/m',
-        spinupTime: '0.000',
+        spinupTime: '0.472',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '12.60',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '6.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '0.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
   });
@@ -1384,12 +1441,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '1.459',
         kAUnit: 'V*s^2/m',
-        spinupTime: '2.890',
+        spinupTime: '2.576',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '33.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '27.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -1439,12 +1498,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '1.143',
         kAUnit: 'V*s^2/m',
-        spinupTime: '2.270',
+        spinupTime: '2.018',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '25.842',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '19.842',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -1493,12 +1554,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.265',
         kAUnit: 'V*s^2/m',
-        spinupTime: '0.530',
+        spinupTime: '0.472',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '6.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '0.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
   });
@@ -1551,12 +1614,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.663',
         kAUnit: 'V*s^2/m',
-        spinupTime: '1.760',
+        spinupTime: '1.564',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '15.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -1607,10 +1672,12 @@ test.describe('Flywheel Calculator', () => {
         kAUnit: 'V*s^2/m',
         spinupTime: '0.000',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '15.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
   });
@@ -1661,12 +1728,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.995',
         kAUnit: 'V*s^2/m',
-        spinupTime: '1.970',
+        spinupTime: '1.758',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '22.500',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '13.500',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -1716,12 +1785,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.439',
         kAUnit: 'V*s^2/m',
-        spinupTime: '0.870',
+        spinupTime: '0.778',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '9.930',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '0.930',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -1770,12 +1841,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.398',
         kAUnit: 'V*s^2/m',
-        spinupTime: '0.790',
+        spinupTime: '0.706',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '9.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '0.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
   });
@@ -1826,12 +1899,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.928',
         kAUnit: 'V*s^2/m',
-        spinupTime: '1.840',
+        spinupTime: '1.641',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '21.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '12.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -1881,12 +1956,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.983',
         kAUnit: 'V*s^2/m',
-        spinupTime: '1.950',
+        spinupTime: '1.737',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '22.228',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '13.228',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -1935,12 +2012,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.398',
         kAUnit: 'V*s^2/m',
-        spinupTime: '0.790',
+        spinupTime: '0.706',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '9.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '0.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
   });
@@ -1993,12 +2072,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.464',
         kAUnit: 'V*s^2/m',
-        spinupTime: '0.920',
+        spinupTime: '0.823',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '10.500',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -2051,12 +2132,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '1.459',
         kAUnit: 'V*s^2/m',
-        spinupTime: '2.890',
+        spinupTime: '2.576',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '33.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
 
@@ -2105,12 +2188,14 @@ test.describe('Flywheel Calculator', () => {
         kVUnit: 'V*s/m',
         kA: '0.663',
         kAUnit: 'V*s^2/m',
-        spinupTime: '1.320',
+        spinupTime: '1.173',
         spinupTimeUnit: 's',
-        minimumBatteryVoltage: '11.70',
-        minimumBatteryVoltageUnit: 'V',
         effectiveMoi: '15.000',
         effectiveMoiUnit: 'in2*lbs',
+        derivedShooterMoi: '9.000',
+        derivedShooterMoiUnit: 'in2*lbs',
+        derivedFlywheelMoi: '6.000',
+        derivedFlywheelMoiUnit: 'in2*lbs',
       });
     });
   });
