@@ -58,7 +58,10 @@ const DEFAULT_PARAMS = {
 };
 
 const worker = new ComlinkWorker<typeof ArmWorker>(
-  new URL('../lib/math/arm.worker.ts', import.meta.url),
+  new URL('../lib/math/arm.worker', import.meta.url),
+  {
+    type: 'module',
+  },
 );
 
 type WpilibArmSimState = ArmWorker.WpilibArmSimState;
