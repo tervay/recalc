@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 
 import {
@@ -9,30 +9,41 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table';
-import thriftySprockets from '~/genData/Thrifty/sprockets.json';
-import wcpSprockets from '~/genData/WCP/sprockets.json';
 import Sprocket from '~/lib/models/Sprocket';
 import type { Bore } from '~/lib/types/common';
-import type { ChainType } from '~/lib/types/sprockets';
+import type { ChainType, JSONSprocket } from '~/lib/types/sprockets';
 
 export function SprocketTable({
   filterFn = () => true,
 }: {
   filterFn?: (sprocket: Sprocket) => boolean;
 }) {
+  const [allSprockets, setAllSprockets] = useState<JSONSprocket[] | null>(null);
+  useEffect(() => {
+    async function loadSprockets() {
+      const [wcpSprockets, thriftySprockets, revSprockets] = await Promise.all([
+        import('~/genData/WCP/sprockets.json').then((m) => m.default),
+        import('~/genData/Thrifty/sprockets.json').then((m) => m.default),
+        import('~/genData/REV/sprockets.json').then((m) => m.default),
+      ]);
+      setAllSprockets(
+        [...wcpSprockets, ...thriftySprockets, ...revSprockets].map((s) => ({
+          ...s,
+          bore: s.bore as Bore,
+          chainType: s.chainType as ChainType,
+        })),
+      );
+    }
+    void loadSprockets();
+  }, []);
+
   const sprockets = useMemo(() => {
-    return [...wcpSprockets, ...thriftySprockets]
-      .map((p) => {
-        const sprocketData = {
-          ...p,
-          bore: p.bore as Bore,
-          chainType: p.chainType as ChainType,
-        };
-        return Sprocket.fromJson(sprocketData);
-      })
+    if (!allSprockets) return [];
+    return allSprockets
+      .map((s) => Sprocket.fromJson(s))
       .filter(filterFn)
       .sort((a, b) => a.teeth - b.teeth || a.bore.localeCompare(b.bore));
-  }, [filterFn]);
+  }, [allSprockets, filterFn]);
 
   return (
     <div className="rounded-md border">

@@ -88,5 +88,25 @@
     "url": "https://www.revrobotics.com/RT25-Pulleys/",
     "bore": "MAXSpline",
     "vendor": "REV"
+  },
+  {
+    "teeth": 16,
+    "width": 25.4,
+    "profile": "GT2",
+    "pitch": 3,
+    "sku": "REV-21-1909",
+    "url": "https://www.revrobotics.com/neo-pinions/",
+    "bore": "8mm",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 12,
+    "width": 16,
+    "profile": "GT2",
+    "pitch": 3,
+    "sku": "REV-21-1908",
+    "url": "https://www.revrobotics.com/550-motor-pinions/",
+    "bore": "RS550",
+    "vendor": "REV"
   }
 ]

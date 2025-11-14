@@ -10,4 +10,6 @@ export default [
   route('linear', 'routes/linear.tsx'),
   route('motors', 'routes/motors.tsx'),
   route('ratio', 'routes/ratio.tsx'),
+  route('gears', 'routes/gears.tsx'),
+  route('ratio-finder', 'routes/ratio-finder.tsx'),
 ] satisfies RouteConfig;

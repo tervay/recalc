@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 
 import {
@@ -9,31 +9,46 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table';
-import revPulleys from '~/genData/REV/pulleys.json';
-import thriftyPulleys from '~/genData/Thrifty/pulleys.json';
-import wcpPulleys from '~/genData/WCP/pulleys.json';
 import Pulley from '~/lib/models/Pulley';
 import type { Bore } from '~/lib/types/common';
+import type { JSONPulley } from '~/lib/types/pulleys';
 
 export function PulleyTable({
   filterFn = () => true,
 }: {
   filterFn?: (pulley: Pulley) => boolean;
 }) {
+  const [allPulleys, setAllPulleys] = useState<JSONPulley[] | null>(null);
+  useEffect(() => {
+    async function loadPulleys() {
+      const [wcpPulleys, thriftyPulleys, revPulleys, andyMarkPulleys] =
+        await Promise.all([
+          import('~/genData/WCP/pulleys.json').then((m) => m.default),
+          import('~/genData/Thrifty/pulleys.json').then((m) => m.default),
+          import('~/genData/REV/pulleys.json').then((m) => m.default),
+          import('~/genData/AndyMark/pulleys.json').then((m) => m.default),
+        ]);
+
+      setAllPulleys(
+        [
+          ...wcpPulleys,
+          ...thriftyPulleys,
+          ...revPulleys,
+          ...andyMarkPulleys,
+        ].map((p) => ({ ...p, bore: p.bore as Bore })),
+      );
+    }
+    void loadPulleys();
+  }, []);
   const pulleys = useMemo(() => {
-    return [...wcpPulleys, ...thriftyPulleys, ...revPulleys]
-      .map((p) => {
-        const pulleyData = {
-          ...p,
-          bore: p.bore as Bore,
-        };
-        return Pulley.fromJson(pulleyData);
-      })
+    if (!allPulleys) return [];
+    return allPulleys
+      .map((p) => Pulley.fromJson(p))
       .filter(filterFn)
       .sort(
         (a, b) => a.teeth - b.teeth || a.width.baseScalar - b.width.baseScalar,
       );
-  }, [filterFn]);
+  }, [allPulleys, filterFn]);
 
   return (
     <div className="rounded-md border">

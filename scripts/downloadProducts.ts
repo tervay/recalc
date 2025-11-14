@@ -6,13 +6,22 @@ import { format } from 'prettier';
 
 import { SimpleBelt } from '~/lib/models/Belt';
 import Measurement from '~/lib/models/Measurement';
-import { type JSONBelt, wcpBeltToJsonBelt, zWCPBelt } from '~/lib/types/belts';
+import {
+  type JSONBelt,
+  andyMarkBeltToJsonBelt,
+  wcpBeltToJsonBelt,
+  zAndyMarkBelt,
+  zWCPBelt,
+} from '~/lib/types/belts';
 import { type JSONGear, wcpGearToJsonGear, zWCPGear } from '~/lib/types/gears';
 import {
+  type AndyMarkPulley,
   type JSONPulley,
+  andyMarkPulleyToJsonPulley,
   revPulleyToJsonPulley,
   thriftyPulleyToJsonPulley,
   wcpPulleyToJsonPulley,
+  zAndyMarkPulley,
   zREVPulley,
   zThriftyPulley,
   zWCPPulley,
@@ -56,6 +65,10 @@ const CONFIGS: ShopifyConfig[] = [
   {
     vendorName: 'VBeltGuys',
     rootDomain: 'https://www.vbeltguys.com',
+  },
+  {
+    vendorName: 'AndyMark',
+    rootDomain: 'https://www.andymark.com',
   },
 ];
 
@@ -515,7 +528,377 @@ async function revPulleys() {
     pulleys.push(revPulleyToJsonPulley(revPulley));
   }
 
+  pulleys.push({
+    teeth: 16,
+    width: 25.4,
+    profile: 'GT2',
+    pitch: 3,
+    sku: 'REV-21-1909',
+    url: 'https://www.revrobotics.com/neo-pinions/',
+    bore: '8mm',
+    vendor: 'REV',
+  });
+
+  pulleys.push({
+    teeth: 12,
+    width: 16,
+    profile: 'GT2',
+    pitch: 3,
+    sku: 'REV-21-1908',
+    url: 'https://www.revrobotics.com/550-motor-pinions/',
+    bore: 'RS550',
+    vendor: 'REV',
+  });
+
   await writeJson(pulleys, 'REV', 'pulleys');
+}
+
+async function revSprockets() {
+  const sprockets: JSONSprocket[] = [];
+
+  for (const [index, toothCount] of [9, 10, 11, 12, 16, 18, 20, 24].entries()) {
+    sprockets.push({
+      teeth: toothCount,
+      bore: '1/2" Hex',
+      chainType: '#35',
+      sku: `REV-21-${3706 + index}`,
+      url: 'https://www.revrobotics.com/ION-35-Sprockets/',
+      vendor: 'REV',
+    });
+  }
+
+  for (const [index, toothCount] of [
+    16, 18, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72, 76, 80,
+  ].entries()) {
+    sprockets.push({
+      teeth: toothCount,
+      bore: 'MAXSpline',
+      chainType: '#35',
+      sku: `REV-21-${3718 + index}`,
+      url: 'https://www.revrobotics.com/ION-35-Sprockets/',
+      vendor: 'REV',
+    });
+  }
+
+  const ion25Sprockets: Pick<JSONSprocket, 'teeth' | 'bore' | 'sku'>[] = [
+    {
+      teeth: 12,
+      bore: '1/2" Hex',
+      sku: 'REV-21-2014',
+    },
+    {
+      teeth: 16,
+      bore: '1/2" Hex',
+      sku: 'REV-21-2012',
+    },
+    {
+      teeth: 16,
+      bore: '1/2" Hex',
+      sku: 'REV-21-2016',
+    },
+    {
+      teeth: 24,
+      bore: '1/2" Hex',
+      sku: 'REV-21-2017',
+    },
+    {
+      teeth: 32,
+      bore: '1/2" Hex',
+      sku: 'REV-21-2018',
+    },
+    {
+      teeth: 24,
+      bore: 'MAXSpline',
+      sku: 'REV-21-2015',
+    },
+    {
+      teeth: 32,
+      bore: 'MAXSpline',
+      sku: 'REV-21-2019',
+    },
+    {
+      teeth: 48,
+      bore: 'MAXSpline',
+      sku: 'REV-21-1964',
+    },
+    {
+      teeth: 64,
+      bore: 'MAXSpline',
+      sku: 'REV-21-1972',
+    },
+    {
+      teeth: 40,
+      bore: 'MAXSpline',
+      sku: 'REV-21-3370',
+    },
+    {
+      teeth: 48,
+      bore: 'MAXSpline',
+      sku: 'REV-21-3374',
+    },
+    {
+      teeth: 56,
+      bore: 'MAXSpline',
+      sku: 'REV-21-3378',
+    },
+    {
+      teeth: 64,
+      bore: 'MAXSpline',
+      sku: 'REV-21-3382',
+    },
+    {
+      teeth: 72,
+      bore: 'MAXSpline',
+      sku: 'REV-21-3386',
+    },
+  ];
+
+  sprockets.push(
+    ...ion25Sprockets.map((sprocket) => ({
+      ...sprocket,
+      chainType: '#25' as const,
+      url: 'https://www.revrobotics.com/ION-25-Sprockets/',
+      vendor: 'REV',
+    })),
+  );
+
+  sprockets.push({
+    teeth: 10,
+    bore: '8mm',
+    chainType: '#25',
+    sku: 'REV-21-2020',
+    url: 'https://www.revrobotics.com/neo-pinions/',
+    vendor: 'REV',
+  });
+  sprockets.push({
+    teeth: 12,
+    bore: '8mm',
+    chainType: '#25',
+    sku: 'REV-21-3495',
+    url: 'https://www.revrobotics.com/neo-pinions/',
+    vendor: 'REV',
+  });
+
+  await writeJson(sprockets, 'REV', 'sprockets');
+}
+
+async function revGears() {
+  const gears: JSONGear[] = [];
+
+  for (const [index, toothCount] of [
+    32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68,
+  ].entries()) {
+    gears.push({
+      teeth: toothCount,
+      dp: 20,
+      bore: 'MAXSpline',
+      url: 'https://www.revrobotics.com/20DP-Gears-Maxspline/',
+      sku: `REV-21-${3010 + index}`,
+      vendor: 'REV',
+    });
+  }
+
+  gears.push({
+    teeth: 72,
+    dp: 20,
+    bore: 'MAXSpline',
+    url: 'https://www.revrobotics.com/20DP-Gears-Maxspline/',
+    sku: 'REV-21-3030',
+    vendor: 'REV',
+  });
+  gears.push({
+    teeth: 80,
+    dp: 20,
+    bore: 'MAXSpline',
+    url: 'https://www.revrobotics.com/20DP-Gears-Maxspline/',
+    sku: 'REV-21-3034',
+    vendor: 'REV',
+  });
+
+  for (const [index, toothCount] of [
+    18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54,
+    56, 58, 60, 62, 64, 66, 68,
+  ].entries()) {
+    gears.push({
+      teeth: toothCount,
+      dp: 20,
+      bore: '1/2" Hex',
+      url: 'https://www.revrobotics.com/20DP-Gears-0.5-Hex/',
+      sku: `REV-21-${1920 + index}`,
+      vendor: 'REV',
+    });
+  }
+
+  gears.push({
+    teeth: 16,
+    dp: 20,
+    bore: '1/2" Hex',
+    url: 'https://www.revrobotics.com/20DP-Gears-0.5-Hex/',
+    sku: 'REV-21-2196',
+    vendor: 'REV',
+  });
+  gears.push({
+    teeth: 72,
+    dp: 20,
+    bore: '1/2" Hex',
+    url: 'https://www.revrobotics.com/20DP-Gears-0.5-Hex/',
+    sku: 'REV-21-1947',
+    vendor: 'REV',
+  });
+  gears.push({
+    teeth: 80,
+    dp: 20,
+    bore: '1/2" Hex',
+    url: 'https://www.revrobotics.com/20DP-Gears-0.5-Hex/',
+    sku: 'REV-21-1951',
+    vendor: 'REV',
+  });
+
+  for (const [index, toothCount] of [10, 11, 12, 13, 14].entries()) {
+    gears.push({
+      teeth: toothCount,
+      dp: 20,
+      bore: '8mm',
+      url: 'https://www.revrobotics.com/neo-pinions/',
+      sku: `REV-21-${1998 + index}`,
+      vendor: 'REV',
+    });
+  }
+
+  gears.push({
+    teeth: 12,
+    dp: 32,
+    bore: 'RS550',
+    url: 'https://www.revrobotics.com/550-motor-pinions/',
+    sku: 'REV-41-1660-PK2',
+    vendor: 'REV',
+  });
+
+  await writeJson(gears, 'REV', 'gears');
+}
+
+async function andyMarkPulleys() {
+  const pulleys: JSONPulley[] = [];
+
+  const data: AndyMarkPulley[] = [
+    {
+      teeth: 24,
+      width: 9,
+      profile: 'HTD',
+      pitch: 5,
+      sku: 'AM-3402',
+      url: 'https://andymark.com/collections/pulleys/products/24t-plastic-htd-pulleys',
+      bore: '3/8" Hex',
+    },
+    {
+      teeth: 24,
+      width: 9,
+      profile: 'HTD',
+      pitch: 5,
+      sku: 'AM-3403',
+      url: 'https://andymark.com/collections/pulleys/products/24t-plastic-htd-pulleys',
+      bore: '1/2" Hex',
+    },
+    {
+      teeth: 42,
+      width: 15,
+      profile: 'HTD',
+      pitch: 5,
+      sku: 'AM-2234a',
+      url: 'https://andymark.com/collections/pulleys/products/42-tooth-5-mm-htd-15-mm-wide-bearing-bore-plastic-pulley',
+      bore: '1.125" Round',
+    },
+    {
+      teeth: 24,
+      width: 18,
+      profile: 'HTD',
+      pitch: 5,
+      sku: 'AM-2234b',
+      url: 'https://andymark.com/collections/pulleys/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley',
+      bore: '1/2" Hex',
+    },
+    {
+      teeth: 24,
+      width: 9,
+      profile: 'HTD',
+      pitch: 5,
+      sku: 'AM-4625',
+      url: 'https://andymark.com/collections/pulleys/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley',
+      bore: '1/2" Hex',
+    },
+    {
+      teeth: 14,
+      width: 9,
+      profile: 'HTD',
+      pitch: 5,
+      sku: 'AM-4960',
+      url: 'https://andymark.com/collections/pulleys/products/14-tooth-0-375-in-hex-bore-htd-pulley',
+      bore: '3/8" Hex',
+    },
+  ];
+
+  for (const item of data) {
+    const andyMarkPulley = zAndyMarkPulley.parse({
+      teeth: item.teeth,
+      width: item.width,
+      profile: item.profile,
+      pitch: item.pitch,
+      sku: item.sku,
+      url: item.url,
+      bore: item.bore,
+    });
+    pulleys.push(andyMarkPulleyToJsonPulley(andyMarkPulley));
+  }
+
+  await writeJson(pulleys, 'AndyMark', 'pulleys');
+}
+
+async function andyMarkBelts() {
+  const belts: JSONBelt[] = [];
+
+  const toothCounts9mm: number[] = [
+    30, 35, 40, 45, 48, 50, 55, 60, 64, 65, 70, 75, 80, 85, 90, 91, 93, 95, 100,
+    105, 106, 110, 115, 120, 121, 125, 130, 135, 136, 140, 145, 150, 152, 160,
+    167, 170, 180, 190, 200, 225, 250,
+  ];
+
+  for (const toothCount of toothCounts9mm) {
+    belts.push(
+      andyMarkBeltToJsonBelt(
+        zAndyMarkBelt.parse({
+          teeth: toothCount,
+          width: 9,
+          profile: 'HTD',
+          pitch: 5,
+          sku: `AM-5209_${toothCount}T`,
+          url: `https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts`,
+        }),
+      ),
+    );
+  }
+
+  const toothCounts15mm: number[] = [
+    30, 35, 40, 45, 50, 55, 60, 64, 65, 70, 75, 78, 80, 85, 90, 95, 100, 104,
+    105, 107, 110, 115, 117, 120, 125, 130, 131, 135, 140, 145, 150, 151, 160,
+    170, 180, 190, 200, 210, 220, 225, 230, 250,
+  ];
+
+  for (const toothCount of toothCounts15mm) {
+    belts.push(
+      andyMarkBeltToJsonBelt(
+        zAndyMarkBelt.parse({
+          teeth: toothCount,
+          width: 15,
+          profile: 'HTD',
+          pitch: 5,
+          sku: `AM-5215_${toothCount}T`,
+          url: `https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts`,
+        }),
+      ),
+    );
+  }
+
+  await writeJson(belts, 'AndyMark', 'belts');
 }
 
 async function dispatch(vendor: string, productType: string) {
@@ -558,6 +941,20 @@ async function dispatch(vendor: string, productType: string) {
     if (productType === 'pulleys') {
       await revPulleys();
     }
+    if (productType === 'sprockets') {
+      await revSprockets();
+    }
+    if (productType === 'gears') {
+      await revGears();
+    }
+  }
+  if (vendor === 'andymark') {
+    if (productType === 'pulleys') {
+      await andyMarkPulleys();
+    }
+    if (productType === 'belts') {
+      await andyMarkBelts();
+    }
   }
 
   if (vendor === 'all' && productType === 'all') {
@@ -572,6 +969,10 @@ async function dispatch(vendor: string, productType: string) {
       vbeltGuysBelts(),
       revBelts(),
       revPulleys(),
+      revSprockets(),
+      revGears(),
+      andyMarkPulleys(),
+      andyMarkBelts(),
     ]);
   }
 }
