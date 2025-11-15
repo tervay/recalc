@@ -1,5 +1,6 @@
 import { program } from 'commander';
 import { mkdir, writeFile } from 'fs/promises';
+import { isEqual, some } from 'lodash-es';
 import { FileSystemCache, NodeFetchCache } from 'node-fetch-cache';
 import { join } from 'path';
 import { format } from 'prettier';
@@ -14,6 +15,10 @@ import {
   zWCPBelt,
 } from '~/lib/types/belts';
 import { type JSONGear, wcpGearToJsonGear, zWCPGear } from '~/lib/types/gears';
+import type {
+  JSONPlanetary,
+  JSONPlanetaryInstance,
+} from '~/lib/types/planetary';
 import {
   type AndyMarkPulley,
   type JSONPulley,
@@ -104,7 +109,13 @@ async function getAllProducts(vendor: string): Promise<ShopifyProduct[]> {
 }
 
 async function writeJson(
-  data: (JSONBelt | JSONPulley | JSONGear | JSONSprocket)[],
+  data: (
+    | JSONBelt
+    | JSONPulley
+    | JSONGear
+    | JSONSprocket
+    | JSONPlanetaryInstance
+  )[],
   vendor: string,
   productType: string,
 ) {
@@ -777,6 +788,103 @@ async function revGears() {
   await writeJson(gears, 'REV', 'gears');
 }
 
+interface PlanetaryReductionOption {
+  slices: number[];
+  ratio: number;
+}
+function getAllPossibleReductions(
+  planetary: JSONPlanetary,
+): PlanetaryReductionOption[] {
+  const results: PlanetaryReductionOption[] = [];
+  const maxSlices = planetary.maxSlices;
+  const slices = planetary.slices;
+
+  const backtrack = (startIndex: number, current: number[]) => {
+    if (current.length > 0) {
+      const ratio = current.reduce((a, b) => a * b, 1);
+      results.push({ slices: [...current], ratio });
+    }
+
+    if (current.length === maxSlices) return;
+
+    for (let i = startIndex; i < slices.length; i++) {
+      current.push(slices[i]);
+      backtrack(i, current);
+      current.pop();
+    }
+  };
+
+  backtrack(0, []);
+  return results;
+}
+
+async function revPlanetaries() {
+  const planetaries: JSONPlanetary[] = [
+    {
+      slices: [3, 4, 5, 9],
+      maxSlices: 3,
+      inputBores: ['8mm', '1/2" Hex', 'Vortex', 'SplineXS', 'RS550', 'RS775'],
+      outputBores: ['1/2" Hex'],
+      sku: 'REV-25-2109',
+      url: 'https://www.revrobotics.com/maxplanetary-system-kit/',
+      vendor: 'REV',
+    },
+    {
+      slices: [3, 4, 5],
+      maxSlices: 3,
+      inputBores: ['RS550'],
+      outputBores: ['5mm Hex'],
+      sku: 'REV-41-1600',
+      url: 'https://www.revrobotics.com/rev-41-1600',
+      vendor: 'REV',
+    },
+  ];
+
+  const overloadedSlices: number[][] = [
+    [9, 4, 5],
+    [9, 5, 5],
+    [9, 9, 3],
+    [9, 9, 4],
+    [9, 9, 5],
+    [9, 9, 9],
+  ];
+
+  function containsPermutation(arrays: number[][], target: number[]): boolean {
+    const sortedTarget = [...target].sort((a, b) => a - b);
+    return some(arrays, (inner) =>
+      isEqual(
+        [...inner].sort((a, b) => a - b),
+        sortedTarget,
+      ),
+    );
+  }
+
+  const instances: JSONPlanetaryInstance[] = [];
+  for (const planetary of planetaries) {
+    for (const reduction of getAllPossibleReductions(planetary)) {
+      if (containsPermutation(overloadedSlices, reduction.slices)) {
+        continue;
+      }
+
+      for (const inputBore of planetary.inputBores) {
+        for (const outputBore of planetary.outputBores) {
+          instances.push({
+            slices: reduction.slices,
+            ratio: reduction.ratio,
+            inputBore,
+            outputBore,
+            sku: planetary.sku,
+            url: planetary.url,
+            vendor: planetary.vendor,
+          });
+        }
+      }
+    }
+  }
+
+  await writeJson(instances, 'REV', 'planetaries');
+}
+
 async function andyMarkPulleys() {
   const pulleys: JSONPulley[] = [];
 
@@ -947,6 +1055,9 @@ async function dispatch(vendor: string, productType: string) {
     if (productType === 'gears') {
       await revGears();
     }
+    if (productType === 'planetaries') {
+      await revPlanetaries();
+    }
   }
   if (vendor === 'andymark') {
     if (productType === 'pulleys') {
@@ -973,6 +1084,7 @@ async function dispatch(vendor: string, productType: string) {
       revGears(),
       andyMarkPulleys(),
       andyMarkBelts(),
+      revPlanetaries(),
     ]);
   }
 }
