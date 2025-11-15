@@ -12,7 +12,7 @@ export default function IOLine({
   return (
     <div
       className={cn(
-        'flex flex-row flex-wrap gap-x-4 md:flex-nowrap [&>*]:flex-1',
+        'flex flex-row flex-wrap gap-x-4 *:flex-1 md:flex-nowrap',
         className,
       )}
     >

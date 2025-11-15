@@ -6,9 +6,12 @@ import Pulley from '~/lib/models/Pulley';
 import type { RatioDict } from '~/lib/models/Ratio';
 import Ratio from '~/lib/models/Ratio';
 import Sprocket from '~/lib/models/Sprocket';
-import type { Bore } from '~/lib/types/common';
+import { type Bore, zBore } from '~/lib/types/common';
+import type { JSONGear } from '~/lib/types/gears';
 import type { JSONPlanetaryInstance } from '~/lib/types/planetary';
-import type { ChainType } from '~/lib/types/sprockets';
+import type { JSONPulley } from '~/lib/types/pulleys';
+import type { ChainType, JSONSprocket } from '~/lib/types/sprockets';
+import { range } from '~/lib/utils';
 
 const MOTOR_BORES: Bore[] = [
   '8mm',
@@ -49,7 +52,11 @@ export interface FindGearboxesFilters {
   enableBore1125: boolean;
   enableBoreMAXSpline: boolean;
   enableBoreSplineXL: boolean;
-  enablePrintedPulleys: boolean;
+  enableBore5mmHex: boolean;
+  enableBore14Round: boolean;
+  enableCustomGears: boolean;
+  enableCustomPulleys: boolean;
+  enableCustomSprockets: boolean;
   enablePlanetaries: boolean;
 }
 
@@ -273,6 +280,68 @@ function stageFromPlanetaries(
   return planetary;
 }
 
+function generateCustomGears(
+  minTeeth: number,
+  maxTeeth: number,
+  bores: Bore[],
+): JSONGear[] {
+  return fastCartesian([range(minTeeth, maxTeeth), [20, 32], bores]).map(
+    ([teeth, dp, bore]) => ({
+      teeth: teeth,
+      dp: dp,
+      bore: bore,
+      url: '#',
+      sku: `CSTM-${teeth}-${dp}-${bore}`,
+      vendor: 'Custom',
+    }),
+  );
+}
+
+function generateCustomPulleys(
+  minTeeth: number,
+  maxTeeth: number,
+  bores: Bore[],
+): JSONPulley[] {
+  return fastCartesian([
+    range(minTeeth, maxTeeth),
+    ['GT2', 'HTD', 'RT25'],
+    bores,
+  ]).map(([teeth, profile, bore]) => ({
+    teeth: teeth,
+    profile: profile,
+    bore: bore,
+    url: '#',
+    sku: `CSTM-${teeth}-${profile}-${bore}`,
+    vendor: 'Custom',
+    width: 15,
+    pitch:
+      profile === 'GT2'
+        ? 3
+        : profile === 'HTD'
+          ? 5
+          : new Measurement(0.25, 'in').to('mm').scalar,
+  }));
+}
+
+function generateCustomSprockets(
+  minTeeth: number,
+  maxTeeth: number,
+  bores: Bore[],
+): JSONSprocket[] {
+  return fastCartesian([
+    range(minTeeth, maxTeeth),
+    ['#25', '#35'] satisfies ChainType[],
+    bores,
+  ]).map(([teeth, chainType, bore]) => ({
+    teeth: teeth,
+    chainType: chainType,
+    bore: bore,
+    url: '#',
+    sku: `CSTM-${teeth}-${chainType}-${bore}`,
+    vendor: 'Custom',
+  }));
+}
+
 export async function findGearboxes(
   targetReduction_: RatioDict,
   targetReductionErrorThreshold: number,
@@ -286,14 +355,45 @@ export async function findGearboxes(
   const maybeSolutions: GearboxSolution[] = [];
   const skuInfoMap = new Map<string, SkuInfo>();
 
+  const vendorMap: Record<string, boolean> = {
+    REV: filters.enableREV,
+    WCP: filters.enableWCP,
+    AndyMark: filters.enableAM,
+    Thrifty: filters.enableTTB,
+  };
+  const boreFilters: Record<string, boolean> = {
+    '1/2" Hex': filters.enableBore12Hex,
+    '3/8" Hex': filters.enableBore38Hex,
+    '1.125" Round': filters.enableBore1125,
+    MAXSpline: filters.enableBoreMAXSpline,
+    SplineXL: filters.enableBoreSplineXL,
+    '5mm Hex': filters.enableBore5mmHex,
+    '1/4" Round': filters.enableBore14Round,
+  };
+
+  const vendorIsEnabled = (vendor: string) => {
+    return vendor in vendorMap ? vendorMap[vendor] : true;
+  };
+  const boreIsEnabled = (bore: Bore) => {
+    return bore in boreFilters ? boreFilters[bore] : true;
+  };
+
   const allPlanetaries: JSONPlanetaryInstance[] = await Promise.all([
     import('~/genData/REV/planetaries.json').then((m) => m.default),
   ]).then(([revPlanetaries]) =>
-    revPlanetaries.map((p) => ({
-      ...p,
-      inputBore: p.inputBore as Bore,
-      outputBore: p.outputBore as Bore,
-    })),
+    revPlanetaries
+      .map((p) => ({
+        ...p,
+        inputBore: p.inputBore as Bore,
+        outputBore: p.outputBore as Bore,
+      }))
+      .filter(
+        (p) =>
+          filters.enablePlanetaries &&
+          vendorIsEnabled(p.vendor) &&
+          boreIsEnabled(p.inputBore) &&
+          boreIsEnabled(p.outputBore),
+      ),
   );
 
   const toothRangeMin = Math.min(
@@ -307,9 +407,6 @@ export async function findGearboxes(
     filters.maxSprocketTeeth,
   );
 
-  const range = (min: number, max: number) => {
-    return Array.from({ length: max - min + 1 }, (_, i) => min + i);
-  };
   const rangeWith = (range: number[], extras: number[]) => {
     return [...new Set([...range, ...extras])];
   };
@@ -366,7 +463,7 @@ export async function findGearboxes(
   }
 
   allPlanetaries.forEach((p) => {
-    skuInfoMap.set(`${p.sku}-${p.inputBore}-${p.outputBore}-${p.ratio}`, {
+    skuInfoMap.set(`${p.sku}-${p.inputBore}-${p.slices.join(':')}`, {
       sku: p.sku,
       family: 'Planetary',
       pitch: p.slices.join(':'),
@@ -374,34 +471,34 @@ export async function findGearboxes(
       vendor: p.vendor,
       url: p.url,
     });
+    skuInfoMap.set(`${p.sku}-${p.outputBore}-${p.slices.join(':')}`, {
+      sku: p.sku,
+      family: 'Planetary',
+      pitch: p.slices.join(':'),
+      bore: p.outputBore,
+      vendor: p.vendor,
+      url: p.url,
+    });
   });
-
-  const vendorMap: Record<string, boolean> = {
-    REV: filters.enableREV,
-    WCP: filters.enableWCP,
-    AndyMark: filters.enableAM,
-    Thrifty: filters.enableTTB,
-  };
-  const boreFilters: Record<string, boolean> = {
-    '1/2" Hex': filters.enableBore12Hex,
-    '3/8" Hex': filters.enableBore38Hex,
-    '1.125" Round': filters.enableBore1125,
-    MAXSpline: filters.enableBoreMAXSpline,
-    SplineXL: filters.enableBoreSplineXL,
-  };
-
-  const vendorIsEnabled = (vendor: string) => {
-    return vendor in vendorMap ? vendorMap[vendor] : true;
-  };
-  const boreIsEnabled = (bore: Bore) => {
-    return bore in boreFilters ? boreFilters[bore] : true;
-  };
 
   const allGears = await Promise.all([
     import('~/genData/WCP/gears.json').then((m) => m.default),
     import('~/genData/REV/gears.json').then((m) => m.default),
+    Promise.resolve(
+      filters.enableCustomGears
+        ? generateCustomGears(
+            filters.minGearTeeth,
+            filters.maxGearTeeth,
+            zBore.options.filter((bore) => boreIsEnabled(bore)),
+          )
+        : [],
+    ),
   ])
-    .then(([wcpGears, revGears]) => [...wcpGears, ...revGears])
+    .then(([wcpGears, revGears, customGears]) => [
+      ...wcpGears,
+      ...revGears,
+      ...customGears,
+    ])
     .then((gears) => {
       gears.forEach((g) => {
         skuInfoMap.set(g.sku ?? '', {
@@ -450,18 +547,38 @@ export async function findGearboxes(
         }),
     );
 
+  console.log(allGears);
+
   const allPulleys = await Promise.all([
     import('~/genData/WCP/pulleys.json').then((m) => m.default),
     import('~/genData/REV/pulleys.json').then((m) => m.default),
     import('~/genData/AndyMark/pulleys.json').then((m) => m.default),
     import('~/genData/Thrifty/pulleys.json').then((m) => m.default),
+    Promise.resolve(
+      filters.enableCustomPulleys
+        ? generateCustomPulleys(
+            filters.minPulleyTeeth,
+            filters.maxPulleyTeeth,
+            zBore.options.filter((bore) => boreIsEnabled(bore)),
+          )
+        : [],
+    ),
   ])
-    .then(([wcpPulleys, revPulleys, andyMarkPulleys, thriftyPulleys]) => [
-      ...wcpPulleys,
-      ...revPulleys,
-      ...andyMarkPulleys,
-      ...thriftyPulleys,
-    ])
+    .then(
+      ([
+        wcpPulleys,
+        revPulleys,
+        andyMarkPulleys,
+        thriftyPulleys,
+        customPulleys,
+      ]) => [
+        ...wcpPulleys,
+        ...revPulleys,
+        ...andyMarkPulleys,
+        ...thriftyPulleys,
+        ...customPulleys,
+      ],
+    )
     .then((pulleys) => {
       pulleys.forEach((p) => {
         skuInfoMap.set(p.sku ?? '', {
@@ -511,11 +628,21 @@ export async function findGearboxes(
     import('~/genData/WCP/sprockets.json').then((m) => m.default),
     import('~/genData/REV/sprockets.json').then((m) => m.default),
     import('~/genData/Thrifty/sprockets.json').then((m) => m.default),
+    Promise.resolve(
+      filters.enableCustomSprockets
+        ? generateCustomSprockets(
+            filters.minSprocketTeeth,
+            filters.maxSprocketTeeth,
+            zBore.options.filter((bore) => boreIsEnabled(bore)),
+          )
+        : [],
+    ),
   ])
-    .then(([wcpSprockets, revSprockets, thriftySprockets]) => [
+    .then(([wcpSprockets, revSprockets, thriftySprockets, customSprockets]) => [
       ...wcpSprockets,
       ...revSprockets,
       ...thriftySprockets,
+      ...customSprockets,
     ])
     .then((sprockets) => {
       sprockets.forEach((s) => {
@@ -653,17 +780,13 @@ export async function findGearboxes(
         stage.from.skus.push(
           ...maybePlanetaries.map(
             (p) =>
-              skuInfoMap.get(
-                `${p.sku}-${p.inputBore}-${p.outputBore}-${p.ratio}`,
-              )!,
+              skuInfoMap.get(`${p.sku}-${p.inputBore}-${p.slices.join(':')}`)!,
           ),
         );
         stage.to.skus.push(
           ...maybePlanetaries.map(
             (p) =>
-              skuInfoMap.get(
-                `${p.sku}-${p.inputBore}-${p.outputBore}-${p.ratio}`,
-              )!,
+              skuInfoMap.get(`${p.sku}-${p.outputBore}-${p.slices.join(':')}`)!,
           ),
         );
       }

@@ -9,30 +9,39 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select';
+import { useDebounce } from '~/lib/hooks';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 import type { HasStateHook } from '~/lib/types/common';
 
 export function RatioInput({
   stateHook,
   testId,
-}: HasStateHook<Ratio> & { testId?: string }) {
+  debounceDelay = 0,
+}: HasStateHook<Ratio> & { testId?: string; debounceDelay?: number }) {
   const [ratio, setRatio] = stateHook;
   const [magnitude, setMagnitude] = useState(ratio.magnitude);
   const [type, setType] = useState(ratio.ratioType);
 
   const [proxyMagnitude, setProxyMagnitude] = useState(magnitude.toString());
+  const debouncedProxyMagnitude = useDebounce(proxyMagnitude, debounceDelay);
+
+  useEffect(() => {
+    setMagnitude(ratio.magnitude);
+    setType(ratio.ratioType);
+    setProxyMagnitude(ratio.magnitude.toString());
+  }, [ratio]);
 
   useEffect(() => {
     setRatio(new Ratio(magnitude, type));
   }, [magnitude, type, setRatio]);
 
   useEffect(() => {
-    if (proxyMagnitude !== '' && proxyMagnitude !== '0') {
-      setMagnitude(Number(proxyMagnitude));
+    if (debouncedProxyMagnitude !== '' && debouncedProxyMagnitude !== '0') {
+      setMagnitude(Number(debouncedProxyMagnitude));
     } else {
       setMagnitude(0);
     }
-  }, [proxyMagnitude, setMagnitude]);
+  }, [debouncedProxyMagnitude, setMagnitude]);
 
   return (
     <div className="flex flex-row">
