@@ -4,7 +4,8 @@ import { Link } from 'react-router';
 import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
 import Divider from '~/components/recalc/divider';
-import BooleanInput from '~/components/recalc/io/boolean';
+import BoreInput from '~/components/recalc/io/bore';
+import CheckboxBooleanInput from '~/components/recalc/io/checkboxBoolean';
 import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
 import { Spinner } from '~/components/ui/spinner';
@@ -52,10 +53,13 @@ const DEFAULT_PARAMS = {
   enableBoreMAXSpline: withDefault(BooleanParam, true),
   enableBoreSplineXL: withDefault(BooleanParam, true),
   enableBore5mmHex: withDefault(BooleanParam, false),
+  enableBore14Round: withDefault(BooleanParam, false),
   targetReduction: withDefault(RatioParam, new Ratio(20, RatioType.REDUCTION)),
-  targetReductionErrorThreshold: withDefault(NumberParam, 0.1),
-  enablePrintedPulleys: withDefault(BooleanParam, false),
-  startingBore: withDefault(BoreParam, '8mm'),
+  targetReductionErrorThreshold: withDefault(NumberParam, 0.25),
+  enableCustomGears: withDefault(BooleanParam, false),
+  enableCustomPulleys: withDefault(BooleanParam, false),
+  enableCustomSprockets: withDefault(BooleanParam, false),
+  startingBore: withDefault(BoreParam, 'SplineXS'),
 };
 
 const worker = new ComlinkWorker<typeof RatioFinderWorker>(
@@ -91,9 +95,12 @@ export default function RatioFinder() {
     enableBoreMAXSpline: boolean;
     enableBoreSplineXL: boolean;
     enableBore5mmHex: boolean;
+    enableBore14Round: boolean;
     targetReduction: Ratio;
     targetReductionErrorThreshold: number;
-    enablePrintedPulleys: boolean;
+    enableCustomGears: boolean;
+    enableCustomPulleys: boolean;
+    enableCustomSprockets: boolean;
     startingBore: Bore;
   }>(DEFAULT_PARAMS);
 
@@ -143,15 +150,24 @@ export default function RatioFinder() {
   const [enableBore5mmHex, setEnableBore5mmHex] = useState(
     queryParams.enableBore5mmHex,
   );
+  const [enableBore14Round, setEnableBore14Round] = useState(
+    queryParams.enableBore14Round,
+  );
   const [targetReduction, setTargetReduction] = useState(
     queryParams.targetReduction,
   );
-  const [targetReductionErrorThreshold, setTargetReductionErrorThreshold] =
+  const [targetReductionErrorThreshold, _setTargetReductionErrorThreshold] =
     useState(queryParams.targetReductionErrorThreshold);
-  const [enablePrintedPulleys, setEnablePrintedPulleys] = useState(
-    queryParams.enablePrintedPulleys,
+  const [enableCustomGears, setEnableCustomGears] = useState(
+    queryParams.enableCustomGears,
   );
-  const [startingBore, _setStartingBore] = useState(queryParams.startingBore);
+  const [enableCustomPulleys, setEnableCustomPulleys] = useState(
+    queryParams.enableCustomPulleys,
+  );
+  const [enableCustomSprockets, setEnableCustomSprockets] = useState(
+    queryParams.enableCustomSprockets,
+  );
+  const [startingBore, setStartingBore] = useState(queryParams.startingBore);
 
   const [solutions, setSolutions] = useState<
     RatioFinderWorker.GearboxSolution[]
@@ -185,7 +201,10 @@ export default function RatioFinder() {
       enableBore1125,
       enableBoreMAXSpline,
       enableBoreSplineXL,
-      enablePrintedPulleys,
+      enableBore14Round,
+      enableCustomGears,
+      enableCustomPulleys,
+      enableCustomSprockets,
     }),
     [
       minGearTeeth,
@@ -212,7 +231,10 @@ export default function RatioFinder() {
       enableBore1125,
       enableBoreMAXSpline,
       enableBoreSplineXL,
-      enablePrintedPulleys,
+      enableBore14Round,
+      enableCustomGears,
+      enableCustomPulleys,
+      enableCustomSprockets,
     ],
   );
 
@@ -266,9 +288,12 @@ export default function RatioFinder() {
     enableBoreMAXSpline,
     enableBoreSplineXL,
     enableBore5mmHex,
+    enableBore14Round,
     targetReduction,
     targetReductionErrorThreshold,
-    enablePrintedPulleys,
+    enableCustomGears,
+    enableCustomPulleys,
+    enableCustomSprockets,
     startingBore,
   });
 
@@ -282,13 +307,13 @@ export default function RatioFinder() {
         <div className="flex flex-col gap-x-4 gap-y-2">
           <Divider>Target Settings</Divider>
           <IOLine>
-            <RatioInput stateHook={[targetReduction, setTargetReduction]} />
-            <NumberInput
-              stateHook={[
-                targetReductionErrorThreshold,
-                setTargetReductionErrorThreshold,
-              ]}
-              label="Error Threshold"
+            <RatioInput
+              stateHook={[targetReduction, setTargetReduction]}
+              debounceDelay={300}
+            />
+            <BoreInput
+              stateHook={[startingBore, setStartingBore]}
+              label="Starting Bore"
             />
           </IOLine>
 
@@ -324,93 +349,157 @@ export default function RatioFinder() {
             />
           </IOLine>
 
-          <Divider>Vendor Filters</Divider>
-          <IOLine>
-            <BooleanInput stateHook={[enableREV, setEnableREV]} label="REV" />
-            <BooleanInput stateHook={[enableWCP, setEnableWCP]} label="WCP" />
-            <BooleanInput
-              stateHook={[enableAM, setEnableAM]}
-              label="AndyMark"
-            />
-            <BooleanInput
-              stateHook={[enableTTB, setEnableTTB]}
-              label="Thrifty"
-            />
-          </IOLine>
-
-          <Divider>Gear Pitch Filters</Divider>
-          <IOLine>
-            <BooleanInput
-              stateHook={[enable20DP, setEnable20DP]}
-              label="20DP"
-            />
-            <BooleanInput
-              stateHook={[enable32DP, setEnable32DP]}
-              label="32DP"
-            />
-          </IOLine>
-
-          <Divider>Pulley Profile Filters</Divider>
-          <IOLine>
-            <BooleanInput stateHook={[enableGT2, setEnableGT2]} label="GT2" />
-            <BooleanInput stateHook={[enableHTD, setEnableHTD]} label="HTD" />
-            <BooleanInput
-              stateHook={[enableRT25, setEnableRT25]}
-              label="RT25"
-            />
-          </IOLine>
-
-          <Divider>Chain Type Filters</Divider>
-          <IOLine>
-            <BooleanInput
-              stateHook={[enable25Chain, setEnable25Chain]}
-              label="#25"
-            />
-            <BooleanInput
-              stateHook={[enable35Chain, setEnable35Chain]}
-              label="#35"
-            />
-          </IOLine>
-
-          <Divider>Bore Filters</Divider>
-          <IOLine>
-            <BooleanInput
-              stateHook={[enableBore12Hex, setEnableBore12Hex]}
-              label='1/2" Hex'
-            />
-            <BooleanInput
-              stateHook={[enableBore38Hex, setEnableBore38Hex]}
-              label='3/8" Hex'
-            />
-            <BooleanInput
-              stateHook={[enableBore1125, setEnableBore1125]}
-              label='1.125" Round'
-            />
-            <BooleanInput
-              stateHook={[enableBoreMAXSpline, setEnableBoreMAXSpline]}
-              label="MAXSpline"
-            />
-            <BooleanInput
-              stateHook={[enableBoreSplineXL, setEnableBoreSplineXL]}
-              label="SplineXL"
-            />
-            <BooleanInput
-              stateHook={[enableBore5mmHex, setEnableBore5mmHex]}
-              label="5mm Hex"
-            />
-          </IOLine>
-
-          <Divider>Other</Divider>
-          <IOLine>
-            <BooleanInput
-              stateHook={[enablePlanetaries, setEnablePlanetaries]}
-              label="Enable Planetaries"
-            />
-            <BooleanInput
-              stateHook={[enablePrintedPulleys, setEnablePrintedPulleys]}
-              label="Enable Printed Pulleys"
-            />
-          </IOLine>
+          <Divider>Filters</Divider>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+            <div className="rounded-lg border bg-card p-3">
+              <h3
+                className="mb-2 text-center text-sm font-semibold
+                  text-muted-foreground"
+              >
+                Gears
+              </h3>
+              <div className="flex flex-col gap-2">
+                <CheckboxBooleanInput
+                  stateHook={[enable20DP, setEnable20DP]}
+                  label="20DP"
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enable32DP, setEnable32DP]}
+                  label="32DP"
+                />
+              </div>
+            </div>
+            <div className="rounded-lg border bg-card p-3">
+              <h3
+                className="mb-2 text-center text-sm font-semibold
+                  text-muted-foreground"
+              >
+                Pulleys
+              </h3>
+              <div className="flex flex-col gap-2">
+                <CheckboxBooleanInput
+                  stateHook={[enableGT2, setEnableGT2]}
+                  label="GT2"
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enableHTD, setEnableHTD]}
+                  label="HTD"
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enableRT25, setEnableRT25]}
+                  label="RT25"
+                />
+              </div>
+            </div>
+            <div className="rounded-lg border bg-card p-3">
+              <h3
+                className="mb-2 text-center text-sm font-semibold
+                  text-muted-foreground"
+              >
+                Sprockets
+              </h3>
+              <div className="flex flex-col gap-2">
+                <CheckboxBooleanInput
+                  stateHook={[enable25Chain, setEnable25Chain]}
+                  label="#25"
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enable35Chain, setEnable35Chain]}
+                  label="#35"
+                />
+              </div>
+            </div>
+            <div className="rounded-lg border bg-card p-3">
+              <h3
+                className="mb-2 text-center text-sm font-semibold
+                  text-muted-foreground"
+              >
+                Vendors
+              </h3>
+              <div className="flex flex-col gap-2">
+                <CheckboxBooleanInput
+                  stateHook={[enableAM, setEnableAM]}
+                  label="AndyMark"
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enableREV, setEnableREV]}
+                  label="REV"
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enableTTB, setEnableTTB]}
+                  label="Thrifty"
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enableWCP, setEnableWCP]}
+                  label="WCP"
+                />
+              </div>
+            </div>
+            <div className="rounded-lg border bg-card p-3">
+              <h3
+                className="mb-2 text-center text-sm font-semibold
+                  text-muted-foreground"
+              >
+                Bores
+              </h3>
+              <div className="flex flex-col gap-2">
+                <CheckboxBooleanInput
+                  stateHook={[enableBore12Hex, setEnableBore12Hex]}
+                  label='1/2" Hex'
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enableBoreMAXSpline, setEnableBoreMAXSpline]}
+                  label="MAXSpline"
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enableBoreSplineXL, setEnableBoreSplineXL]}
+                  label="SplineXL"
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enableBore38Hex, setEnableBore38Hex]}
+                  label='3/8" Hex'
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enableBore1125, setEnableBore1125]}
+                  label='1.125" Round'
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enableBore5mmHex, setEnableBore5mmHex]}
+                  label="5mm Hex"
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enableBore14Round, setEnableBore14Round]}
+                  label='1/4" Round'
+                />
+              </div>
+            </div>
+            <div className="rounded-lg border bg-card p-3">
+              <h3
+                className="mb-2 text-center text-sm font-semibold
+                  text-muted-foreground"
+              >
+                Other
+              </h3>
+              <div className="flex flex-col gap-2">
+                <CheckboxBooleanInput
+                  stateHook={[enablePlanetaries, setEnablePlanetaries]}
+                  label="Planetaries"
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enableCustomGears, setEnableCustomGears]}
+                  label="Custom Gears"
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enableCustomPulleys, setEnableCustomPulleys]}
+                  label="Custom Pulleys"
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enableCustomSprockets, setEnableCustomSprockets]}
+                  label="Custom Sprockets"
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-col gap-x-4 gap-y-2">
