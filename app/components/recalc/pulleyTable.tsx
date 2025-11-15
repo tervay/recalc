@@ -21,13 +21,19 @@ export function PulleyTable({
   const [allPulleys, setAllPulleys] = useState<JSONPulley[] | null>(null);
   useEffect(() => {
     async function loadPulleys() {
-      const [wcpPulleys, thriftyPulleys, revPulleys, andyMarkPulleys] =
-        await Promise.all([
-          import('~/genData/WCP/pulleys.json').then((m) => m.default),
-          import('~/genData/Thrifty/pulleys.json').then((m) => m.default),
-          import('~/genData/REV/pulleys.json').then((m) => m.default),
-          import('~/genData/AndyMark/pulleys.json').then((m) => m.default),
-        ]);
+      const [
+        wcpPulleys,
+        thriftyPulleys,
+        revPulleys,
+        andyMarkPulleys,
+        lastAnvilPulleys,
+      ] = await Promise.all([
+        import('~/genData/WCP/pulleys.json').then((m) => m.default),
+        import('~/genData/Thrifty/pulleys.json').then((m) => m.default),
+        import('~/genData/REV/pulleys.json').then((m) => m.default),
+        import('~/genData/AndyMark/pulleys.json').then((m) => m.default),
+        import('~/genData/LastAnvil/pulleys.json').then((m) => m.default),
+      ]);
 
       setAllPulleys(
         [
@@ -35,6 +41,7 @@ export function PulleyTable({
           ...thriftyPulleys,
           ...revPulleys,
           ...andyMarkPulleys,
+          ...lastAnvilPulleys,
         ].map((p) => ({ ...p, bore: p.bore as Bore })),
       );
     }

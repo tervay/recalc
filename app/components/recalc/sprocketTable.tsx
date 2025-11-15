@@ -21,13 +21,20 @@ export function SprocketTable({
   const [allSprockets, setAllSprockets] = useState<JSONSprocket[] | null>(null);
   useEffect(() => {
     async function loadSprockets() {
-      const [wcpSprockets, thriftySprockets, revSprockets] = await Promise.all([
-        import('~/genData/WCP/sprockets.json').then((m) => m.default),
-        import('~/genData/Thrifty/sprockets.json').then((m) => m.default),
-        import('~/genData/REV/sprockets.json').then((m) => m.default),
-      ]);
+      const [wcpSprockets, thriftySprockets, revSprockets, andyMarkSprockets] =
+        await Promise.all([
+          import('~/genData/WCP/sprockets.json').then((m) => m.default),
+          import('~/genData/Thrifty/sprockets.json').then((m) => m.default),
+          import('~/genData/REV/sprockets.json').then((m) => m.default),
+          import('~/genData/AndyMark/sprockets.json').then((m) => m.default),
+        ]);
       setAllSprockets(
-        [...wcpSprockets, ...thriftySprockets, ...revSprockets].map((s) => ({
+        [
+          ...wcpSprockets,
+          ...thriftySprockets,
+          ...revSprockets,
+          ...andyMarkSprockets,
+        ].map((s) => ({
           ...s,
           bore: s.bore as Bore,
           chainType: s.chainType as ChainType,
@@ -42,7 +49,13 @@ export function SprocketTable({
     return allSprockets
       .map((s) => Sprocket.fromJson(s))
       .filter(filterFn)
-      .sort((a, b) => a.teeth - b.teeth || a.bore.localeCompare(b.bore));
+      .sort(
+        (a, b) =>
+          a.teeth - b.teeth ||
+          a.bore.localeCompare(b.bore) ||
+          a.vendor.localeCompare(b.vendor) ||
+          (a.sku ?? '').localeCompare(b.sku ?? ''),
+      );
   }, [allSprockets, filterFn]);
 
   return (

@@ -21,20 +21,28 @@ export function BeltTable({
 
   useEffect(() => {
     async function loadBelts() {
-      const [wcpBelts, swyftBelts, vbgBelts, revBelts, andyMarkBelts] =
-        await Promise.all([
-          import('~/genData/WCP/belts.json').then((m) => m.default),
-          import('~/genData/Swyft/belts.json').then((m) => m.default),
-          import('~/genData/VBeltGuys/belts.json').then((m) => m.default),
-          import('~/genData/REV/belts.json').then((m) => m.default),
-          import('~/genData/AndyMark/belts.json').then((m) => m.default),
-        ]);
+      const [
+        wcpBelts,
+        swyftBelts,
+        vbgBelts,
+        revBelts,
+        andyMarkBelts,
+        lastAnvilBelts,
+      ] = await Promise.all([
+        import('~/genData/WCP/belts.json').then((m) => m.default),
+        import('~/genData/Swyft/belts.json').then((m) => m.default),
+        import('~/genData/VBeltGuys/belts.json').then((m) => m.default),
+        import('~/genData/REV/belts.json').then((m) => m.default),
+        import('~/genData/AndyMark/belts.json').then((m) => m.default),
+        import('~/genData/LastAnvil/belts.json').then((m) => m.default),
+      ]);
       setAllBelts([
         ...wcpBelts,
         ...swyftBelts,
         ...vbgBelts,
         ...revBelts,
         ...andyMarkBelts,
+        ...lastAnvilBelts,
       ]);
     }
     void loadBelts();
