@@ -36,6 +36,8 @@ export interface FindGearboxesFilters {
   enableWCP: boolean;
   enableAM: boolean;
   enableTTB: boolean;
+  enableLastAnvil: boolean;
+  enableSDS: boolean;
 
   enable20DP: boolean;
   enable32DP: boolean;
@@ -484,6 +486,7 @@ export async function findGearboxes(
   const allGears = await Promise.all([
     import('~/genData/WCP/gears.json').then((m) => m.default),
     import('~/genData/REV/gears.json').then((m) => m.default),
+    import('~/genData/SDS/gears.json').then((m) => m.default),
     Promise.resolve(
       filters.enableCustomGears
         ? generateCustomGears(
@@ -494,9 +497,10 @@ export async function findGearboxes(
         : [],
     ),
   ])
-    .then(([wcpGears, revGears, customGears]) => [
+    .then(([wcpGears, revGears, sdsGears, customGears]) => [
       ...wcpGears,
       ...revGears,
+      ...sdsGears,
       ...customGears,
     ])
     .then((gears) => {
@@ -547,13 +551,12 @@ export async function findGearboxes(
         }),
     );
 
-  console.log(allGears);
-
   const allPulleys = await Promise.all([
     import('~/genData/WCP/pulleys.json').then((m) => m.default),
     import('~/genData/REV/pulleys.json').then((m) => m.default),
     import('~/genData/AndyMark/pulleys.json').then((m) => m.default),
     import('~/genData/Thrifty/pulleys.json').then((m) => m.default),
+    import('~/genData/LastAnvil/pulleys.json').then((m) => m.default),
     Promise.resolve(
       filters.enableCustomPulleys
         ? generateCustomPulleys(
@@ -570,12 +573,14 @@ export async function findGearboxes(
         revPulleys,
         andyMarkPulleys,
         thriftyPulleys,
+        lastAnvilPulleys,
         customPulleys,
       ]) => [
         ...wcpPulleys,
         ...revPulleys,
         ...andyMarkPulleys,
         ...thriftyPulleys,
+        ...lastAnvilPulleys,
         ...customPulleys,
       ],
     )
@@ -628,6 +633,7 @@ export async function findGearboxes(
     import('~/genData/WCP/sprockets.json').then((m) => m.default),
     import('~/genData/REV/sprockets.json').then((m) => m.default),
     import('~/genData/Thrifty/sprockets.json').then((m) => m.default),
+    import('~/genData/AndyMark/sprockets.json').then((m) => m.default),
     Promise.resolve(
       filters.enableCustomSprockets
         ? generateCustomSprockets(
@@ -638,12 +644,21 @@ export async function findGearboxes(
         : [],
     ),
   ])
-    .then(([wcpSprockets, revSprockets, thriftySprockets, customSprockets]) => [
-      ...wcpSprockets,
-      ...revSprockets,
-      ...thriftySprockets,
-      ...customSprockets,
-    ])
+    .then(
+      ([
+        wcpSprockets,
+        revSprockets,
+        thriftySprockets,
+        andyMarkSprockets,
+        customSprockets,
+      ]) => [
+        ...wcpSprockets,
+        ...revSprockets,
+        ...thriftySprockets,
+        ...andyMarkSprockets,
+        ...customSprockets,
+      ],
+    )
     .then((sprockets) => {
       sprockets.forEach((s) => {
         skuInfoMap.set(s.sku ?? '', {

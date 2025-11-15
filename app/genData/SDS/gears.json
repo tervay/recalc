@@ -1,0 +1,66 @@
+[
+  {
+    "teeth": 16,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/16t-20dp-3-8-hex-gear",
+    "sku": "SDS-16T-20DP-38HEX",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 17,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/17t-20dp-3-8-hex-gear",
+    "sku": "SDS-17T-20DP-38HEX",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 19,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/19t-20dp-3-8-hex-gear",
+    "sku": "SDS-19T-20DP-38HEX",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 50,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/gear-20dp-50t-3-8-hex-bore",
+    "sku": "SDS-50T-20DP-38HEX",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 32,
+    "dp": 32,
+    "bore": "3/8\" Hex",
+    "url": "https://www.swervedrivespecialties.com/collections/32dp-3-8-hex-gears/products/32t-32dp-gear",
+    "sku": "SDS-32T-32DP-38HEX",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 14,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://www.swervedrivespecialties.com/collections/motor-pinions-8mm-bore/products/gear-20dp-14t-8mm-bore",
+    "sku": "SDS-14T-20DP-8MM",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 16,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://www.swervedrivespecialties.com/collections/motor-pinions-8mm-bore/products/gear-20dp-16t-8mm-bore",
+    "sku": "SDS-16T-20DP-8MM",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 15,
+    "dp": 32,
+    "bore": "8mm",
+    "url": "https://www.swervedrivespecialties.com/collections/motor-pinions-8mm-bore/products/gear-32dp-15t-8mm-bore",
+    "sku": "SDS-15T-32DP-8MM",
+    "vendor": "SDS"
+  }
+]

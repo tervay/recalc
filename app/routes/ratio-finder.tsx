@@ -39,6 +39,8 @@ const DEFAULT_PARAMS = {
   enableWCP: withDefault(BooleanParam, true),
   enableAM: withDefault(BooleanParam, true),
   enableTTB: withDefault(BooleanParam, true),
+  enableLastAnvil: withDefault(BooleanParam, true),
+  enableSDS: withDefault(BooleanParam, true),
   enablePlanetaries: withDefault(BooleanParam, true),
   enable20DP: withDefault(BooleanParam, true),
   enable32DP: withDefault(BooleanParam, false),
@@ -81,6 +83,8 @@ export default function RatioFinder() {
     enableWCP: boolean;
     enableAM: boolean;
     enableTTB: boolean;
+    enableLastAnvil: boolean;
+    enableSDS: boolean;
     enablePlanetaries: boolean;
     enable20DP: boolean;
     enable32DP: boolean;
@@ -122,6 +126,10 @@ export default function RatioFinder() {
   const [enableWCP, setEnableWCP] = useState(queryParams.enableWCP);
   const [enableAM, setEnableAM] = useState(queryParams.enableAM);
   const [enableTTB, setEnableTTB] = useState(queryParams.enableTTB);
+  const [enableLastAnvil, setEnableLastAnvil] = useState(
+    queryParams.enableLastAnvil,
+  );
+  const [enableSDS, setEnableSDS] = useState(queryParams.enableSDS);
   const [enablePlanetaries, setEnablePlanetaries] = useState(
     queryParams.enablePlanetaries,
   );
@@ -187,6 +195,8 @@ export default function RatioFinder() {
       enableWCP,
       enableAM,
       enableTTB,
+      enableLastAnvil,
+      enableSDS,
       enablePlanetaries,
       enableBore5mmHex,
       enable20DP,
@@ -217,6 +227,8 @@ export default function RatioFinder() {
       enableWCP,
       enableAM,
       enableTTB,
+      enableLastAnvil,
+      enableSDS,
       enablePlanetaries,
       enableBore5mmHex,
       enable20DP,
@@ -274,6 +286,8 @@ export default function RatioFinder() {
     enableWCP,
     enableAM,
     enableTTB,
+    enableLastAnvil,
+    enableSDS,
     enablePlanetaries,
     enable20DP,
     enable32DP,
@@ -420,6 +434,14 @@ export default function RatioFinder() {
                 <CheckboxBooleanInput
                   stateHook={[enableAM, setEnableAM]}
                   label="AndyMark"
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enableLastAnvil, setEnableLastAnvil]}
+                  label="LastAnvil"
+                />
+                <CheckboxBooleanInput
+                  stateHook={[enableSDS, setEnableSDS]}
+                  label="SDS"
                 />
                 <CheckboxBooleanInput
                   stateHook={[enableREV, setEnableREV]}

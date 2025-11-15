@@ -75,6 +75,14 @@ const CONFIGS: ShopifyConfig[] = [
     vendorName: 'AndyMark',
     rootDomain: 'https://www.andymark.com',
   },
+  {
+    vendorName: 'LastAnvil',
+    rootDomain: 'https://www.lastanvil.com',
+  },
+  {
+    vendorName: 'SDS',
+    rootDomain: 'https://www.swervedrivespecialties.com',
+  },
 ];
 
 const fetch = NodeFetchCache.create({
@@ -1009,83 +1017,271 @@ async function andyMarkBelts() {
   await writeJson(belts, 'AndyMark', 'belts');
 }
 
-async function dispatch(vendor: string, productType: string) {
-  if (vendor === 'wcp') {
-    if (productType === 'belts') {
-      await wcpBelts();
-    }
-    if (productType === 'pulleys') {
-      await wcpPulleys();
-    }
-    if (productType === 'gears') {
-      await wcpGears();
-    }
-    if (productType === 'sprockets') {
-      await wcpSprockets();
-    }
+async function andyMarkSprockets() {
+  const sprockets: JSONSprocket[] = [
+    {
+      teeth: 10,
+      bore: '8mm',
+      chainType: '#25',
+      url: 'https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets',
+      sku: 'AM-4772',
+      vendor: 'AndyMark',
+    },
+    {
+      teeth: 17,
+      bore: '1/2" Hex',
+      chainType: '#25',
+      url: 'https://andymark.com/collections/sprockets/products/25-series-17-tooth-0-5-in-hex-sprocket',
+      sku: 'AM-3999',
+      vendor: 'AndyMark',
+    },
+    {
+      teeth: 12,
+      bore: '8mm',
+      chainType: '#35',
+      url: 'https://andymark.com/collections/sprockets/products/35-series-12-tooth-0-5-in-key-bore-steel-sprocket',
+      sku: 'AM-0019',
+      vendor: 'AndyMark',
+    },
+  ];
+  for (const [index, toothCount] of [14, 18, 22, 26].entries()) {
+    sprockets.push({
+      teeth: toothCount,
+      bore: '1/2" Hex',
+      chainType: '#25',
+      url: 'https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets',
+      sku: `AM-${4773 + index * 2}`,
+      vendor: 'AndyMark',
+    });
+    sprockets.push({
+      teeth: toothCount,
+      bore: '3/8" Hex',
+      chainType: '#25',
+      url: 'https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets',
+      sku: `AM-${4774 + index * 2}`,
+      vendor: 'AndyMark',
+    });
   }
-  if (vendor === 'swyft') {
-    if (productType === 'belts') {
-      await swyftBelts();
-    }
+
+  for (const [index, toothCount] of [14, 14, 18].entries()) {
+    sprockets.push({
+      teeth: toothCount,
+      bore: '1/2" Hex',
+      chainType: '#35',
+      url: 'https://andymark.com/collections/sprockets/products/35-series-symmetrical-hub-sprockets',
+      sku: `AM-${4789 + index}`,
+      vendor: 'AndyMark',
+    });
   }
-  if (vendor === 'vbg') {
-    if (productType === 'belts') {
-      await vbeltGuysBelts();
-    }
+
+  for (const [index, toothCount] of [
+    32, 38, 44, 50, 56, 62, 68, 74,
+  ].entries()) {
+    sprockets.push({
+      teeth: toothCount,
+      bore: '1.125" Round',
+      chainType: '#25',
+      url: 'https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets',
+      sku: `AM-${4781 + index}`,
+      vendor: 'AndyMark',
+    });
   }
-  if (vendor === 'thrifty') {
-    if (productType === 'pulleys') {
-      await thriftyPulleys();
-    }
-    if (productType === 'sprockets') {
-      await thriftySprockets();
-    }
+
+  for (const [index, toothCount] of [
+    22, 28, 34, 40, 46, 52, 58, 64,
+  ].entries()) {
+    sprockets.push({
+      teeth: toothCount,
+      bore: '1.125" Round',
+      chainType: '#35',
+      url: 'https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets',
+      sku: `AM-${4792 + index}`,
+      vendor: 'AndyMark',
+    });
   }
-  if (vendor === 'rev') {
-    if (productType === 'belts') {
-      await revBelts();
-    }
-    if (productType === 'pulleys') {
-      await revPulleys();
-    }
-    if (productType === 'sprockets') {
-      await revSprockets();
-    }
-    if (productType === 'gears') {
-      await revGears();
-    }
-    if (productType === 'planetaries') {
-      await revPlanetaries();
-    }
-  }
-  if (vendor === 'andymark') {
-    if (productType === 'pulleys') {
-      await andyMarkPulleys();
-    }
-    if (productType === 'belts') {
-      await andyMarkBelts();
+
+  await writeJson(sprockets, 'AndyMark', 'sprockets');
+}
+
+async function lastAnvilBelts() {
+  const allProducts = await getAllProducts('LastAnvil');
+  const belts: JSONBelt[] = [];
+
+  for (const product of allProducts) {
+    if (!product.title.includes('Timing Belt')) continue;
+
+    // Parse width, e.g. "HTD Timing Belts (15mm)" → 15
+    const widthMatch = product.title.match(/\((\d+)mm\)/);
+    const width = widthMatch ? parseInt(widthMatch[1]) : null;
+
+    if (width === null) continue;
+
+    for (const variant of product.variants) {
+      // Parse tooth count, e.g. "35T (175 mm)" → 35
+      const toothMatch = variant.title.match(/(\d+)T/);
+      const toothCount = toothMatch ? parseInt(toothMatch[1]) : null;
+
+      if (toothCount === null) continue;
+
+      belts.push({
+        teeth: toothCount,
+        width,
+        profile: 'HTD',
+        pitch: 5,
+        sku: `LA-${variant.sku}`,
+        url: urlForHandle(product.handle, 'LastAnvil'),
+        vendor: 'LastAnvil',
+      });
     }
   }
 
+  await writeJson(belts, 'LastAnvil', 'belts');
+}
+
+async function lastAnvilPulleys() {
+  const allProducts = await getAllProducts('LastAnvil');
+  const pulleys: JSONPulley[] = [];
+
+  for (const product of allProducts) {
+    if (!product.title.includes('Pulley')) continue;
+
+    for (const variant of product.variants) {
+      // Parse tooth count like "24T", "30T", "36T"
+      const toothMatch = variant.title.match(/(\d+)T\b/i);
+      const toothCount = toothMatch ? Number(toothMatch[1]) : null;
+
+      if (toothCount === null) continue;
+
+      pulleys.push({
+        teeth: toothCount,
+        width: 9,
+        profile: 'HTD',
+        pitch: 5,
+        sku: `LA-${variant.sku}`,
+        url: urlForHandle(product.handle, 'LastAnvil'),
+        bore: '1/2" Hex',
+        vendor: 'LastAnvil',
+      });
+    }
+  }
+
+  await writeJson(pulleys, 'LastAnvil', 'pulleys');
+}
+
+async function sdsGears() {
+  const gears: JSONGear[] = [
+    {
+      teeth: 16,
+      dp: 20,
+      bore: '3/8" Hex',
+      url: 'https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/16t-20dp-3-8-hex-gear',
+      sku: 'SDS-16T-20DP-38HEX',
+      vendor: 'SDS',
+    },
+    {
+      teeth: 17,
+      dp: 20,
+      bore: '3/8" Hex',
+      url: 'https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/17t-20dp-3-8-hex-gear',
+      sku: 'SDS-17T-20DP-38HEX',
+      vendor: 'SDS',
+    },
+    {
+      teeth: 19,
+      dp: 20,
+      bore: '3/8" Hex',
+      url: 'https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/19t-20dp-3-8-hex-gear',
+      sku: 'SDS-19T-20DP-38HEX',
+      vendor: 'SDS',
+    },
+    {
+      teeth: 50,
+      dp: 20,
+      bore: '3/8" Hex',
+      url: 'https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/gear-20dp-50t-3-8-hex-bore',
+      sku: 'SDS-50T-20DP-38HEX',
+      vendor: 'SDS',
+    },
+    {
+      teeth: 32,
+      dp: 32,
+      bore: '3/8" Hex',
+      url: 'https://www.swervedrivespecialties.com/collections/32dp-3-8-hex-gears/products/32t-32dp-gear',
+      sku: 'SDS-32T-32DP-38HEX',
+      vendor: 'SDS',
+    },
+    {
+      teeth: 14,
+      dp: 20,
+      bore: '8mm',
+      url: 'https://www.swervedrivespecialties.com/collections/motor-pinions-8mm-bore/products/gear-20dp-14t-8mm-bore',
+      sku: 'SDS-14T-20DP-8MM',
+      vendor: 'SDS',
+    },
+    {
+      teeth: 16,
+      dp: 20,
+      bore: '8mm',
+      url: 'https://www.swervedrivespecialties.com/collections/motor-pinions-8mm-bore/products/gear-20dp-16t-8mm-bore',
+      sku: 'SDS-16T-20DP-8MM',
+      vendor: 'SDS',
+    },
+    {
+      teeth: 15,
+      dp: 32,
+      bore: '8mm',
+      url: 'https://www.swervedrivespecialties.com/collections/motor-pinions-8mm-bore/products/gear-32dp-15t-8mm-bore',
+      sku: 'SDS-15T-32DP-8MM',
+      vendor: 'SDS',
+    },
+  ];
+
+  await writeJson(gears, 'SDS', 'gears');
+}
+
+type DownloadFunction = () => Promise<void>;
+
+const downloadMap = new Map<string, DownloadFunction>([
+  ['wcp.belts', wcpBelts],
+  ['wcp.pulleys', wcpPulleys],
+  ['wcp.gears', wcpGears],
+  ['wcp.sprockets', wcpSprockets],
+  ['swyft.belts', swyftBelts],
+  ['vbg.belts', vbeltGuysBelts],
+  ['thrifty.pulleys', thriftyPulleys],
+  ['thrifty.sprockets', thriftySprockets],
+  ['rev.belts', revBelts],
+  ['rev.pulleys', revPulleys],
+  ['rev.sprockets', revSprockets],
+  ['rev.gears', revGears],
+  ['rev.planetaries', revPlanetaries],
+  ['andymark.pulleys', andyMarkPulleys],
+  ['andymark.belts', andyMarkBelts],
+  ['andymark.sprockets', andyMarkSprockets],
+  ['lastanvil.belts', lastAnvilBelts],
+  ['lastanvil.pulleys', lastAnvilPulleys],
+  ['sds.gears', sdsGears],
+]);
+
+async function dispatch(vendor: string, productType: string) {
   if (vendor === 'all' && productType === 'all') {
-    await Promise.all([
-      wcpBelts(),
-      wcpPulleys(),
-      wcpGears(),
-      wcpSprockets(),
-      swyftBelts(),
-      thriftyPulleys(),
-      thriftySprockets(),
-      vbeltGuysBelts(),
-      revBelts(),
-      revPulleys(),
-      revSprockets(),
-      revGears(),
-      andyMarkPulleys(),
-      andyMarkBelts(),
-      revPlanetaries(),
-    ]);
+    await Promise.all(Array.from(downloadMap.values()).map((fn) => fn()));
+    return;
+  }
+
+  if (productType === 'all') {
+    const vendorFunctions = Array.from(downloadMap.entries())
+      .filter(([key]) => key.startsWith(`${vendor}.`))
+      .map(([, fn]) => fn);
+    await Promise.all(vendorFunctions.map((fn) => fn()));
+    return;
+  }
+
+  const key = `${vendor}.${productType}`;
+  const downloadFn = downloadMap.get(key);
+
+  if (downloadFn) {
+    await downloadFn();
   }
 }
 
