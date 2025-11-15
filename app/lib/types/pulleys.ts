@@ -119,3 +119,28 @@ export function revPulleyToJsonPulley(pulley: REVPulley): JSONPulley {
     vendor: 'REV',
   };
 }
+
+export const zAndyMarkPulley = z.object({
+  teeth: z.number(),
+  width: z.number().min(1), // (mm)
+  profile: z.string(),
+  pitch: z.number().min(1), // (mm)
+  sku: z.string().nullable(),
+  url: z.string().url(),
+  bore: zBore,
+});
+
+export type AndyMarkPulley = z.infer<typeof zAndyMarkPulley>;
+
+export function andyMarkPulleyToJsonPulley(pulley: AndyMarkPulley): JSONPulley {
+  return {
+    teeth: pulley.teeth,
+    width: pulley.width,
+    profile: pulley.profile,
+    pitch: pulley.pitch,
+    sku: pulley.sku,
+    url: pulley.url,
+    bore: pulley.bore,
+    vendor: 'AndyMark',
+  };
+}

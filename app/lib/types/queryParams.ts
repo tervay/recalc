@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
+import type { Bore } from '~/lib/types/common';
 
 export interface DefaultAndQueryParamProvider<T> {
   queryParam: QueryParam<T>;
@@ -101,4 +102,9 @@ export const RatioPairListParam: QueryParam<RatioPair[]> = {
       return [[1, 1]];
     }
   },
+};
+
+export const BoreParam: QueryParam<Bore> = {
+  encode: (value) => value,
+  decode: (value) => value as Bore,
 };

@@ -1,0 +1,338 @@
+[
+  {
+    "teeth": 9,
+    "bore": "1/2\" Hex",
+    "chainType": "#35",
+    "sku": "REV-21-3706",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 10,
+    "bore": "1/2\" Hex",
+    "chainType": "#35",
+    "sku": "REV-21-3707",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 11,
+    "bore": "1/2\" Hex",
+    "chainType": "#35",
+    "sku": "REV-21-3708",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 12,
+    "bore": "1/2\" Hex",
+    "chainType": "#35",
+    "sku": "REV-21-3709",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 16,
+    "bore": "1/2\" Hex",
+    "chainType": "#35",
+    "sku": "REV-21-3710",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 18,
+    "bore": "1/2\" Hex",
+    "chainType": "#35",
+    "sku": "REV-21-3711",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 20,
+    "bore": "1/2\" Hex",
+    "chainType": "#35",
+    "sku": "REV-21-3712",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 24,
+    "bore": "1/2\" Hex",
+    "chainType": "#35",
+    "sku": "REV-21-3713",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 16,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3718",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 18,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3719",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 20,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3720",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 24,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3721",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 28,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3722",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 32,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3723",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 36,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3724",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 40,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3725",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 44,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3726",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 48,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3727",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 52,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3728",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 56,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3729",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 60,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3730",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 64,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3731",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 68,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3732",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 72,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3733",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 76,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3734",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 80,
+    "bore": "MAXSpline",
+    "chainType": "#35",
+    "sku": "REV-21-3735",
+    "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 12,
+    "bore": "1/2\" Hex",
+    "sku": "REV-21-2014",
+    "chainType": "#25",
+    "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 16,
+    "bore": "1/2\" Hex",
+    "sku": "REV-21-2012",
+    "chainType": "#25",
+    "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 16,
+    "bore": "1/2\" Hex",
+    "sku": "REV-21-2016",
+    "chainType": "#25",
+    "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 24,
+    "bore": "1/2\" Hex",
+    "sku": "REV-21-2017",
+    "chainType": "#25",
+    "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 32,
+    "bore": "1/2\" Hex",
+    "sku": "REV-21-2018",
+    "chainType": "#25",
+    "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 24,
+    "bore": "MAXSpline",
+    "sku": "REV-21-2015",
+    "chainType": "#25",
+    "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 32,
+    "bore": "MAXSpline",
+    "sku": "REV-21-2019",
+    "chainType": "#25",
+    "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 48,
+    "bore": "MAXSpline",
+    "sku": "REV-21-1964",
+    "chainType": "#25",
+    "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 64,
+    "bore": "MAXSpline",
+    "sku": "REV-21-1972",
+    "chainType": "#25",
+    "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 40,
+    "bore": "MAXSpline",
+    "sku": "REV-21-3370",
+    "chainType": "#25",
+    "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 48,
+    "bore": "MAXSpline",
+    "sku": "REV-21-3374",
+    "chainType": "#25",
+    "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 56,
+    "bore": "MAXSpline",
+    "sku": "REV-21-3378",
+    "chainType": "#25",
+    "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 64,
+    "bore": "MAXSpline",
+    "sku": "REV-21-3382",
+    "chainType": "#25",
+    "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 72,
+    "bore": "MAXSpline",
+    "sku": "REV-21-3386",
+    "chainType": "#25",
+    "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 10,
+    "bore": "8mm",
+    "chainType": "#25",
+    "sku": "REV-21-2020",
+    "url": "https://www.revrobotics.com/neo-pinions/",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 12,
+    "bore": "8mm",
+    "chainType": "#25",
+    "sku": "REV-21-3495",
+    "url": "https://www.revrobotics.com/neo-pinions/",
+    "vendor": "REV"
+  }
+]
