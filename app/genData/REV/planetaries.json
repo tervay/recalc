@@ -1,0 +1,1685 @@
+[
+  {
+    "slices": [3],
+    "ratio": 3,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3],
+    "ratio": 3,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3],
+    "ratio": 3,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3],
+    "ratio": 3,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3],
+    "ratio": 3,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3],
+    "ratio": 3,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3],
+    "ratio": 9,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3],
+    "ratio": 9,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3],
+    "ratio": 9,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3],
+    "ratio": 9,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3],
+    "ratio": 9,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3],
+    "ratio": 9,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 3],
+    "ratio": 27,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 3],
+    "ratio": 27,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 3],
+    "ratio": 27,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 3],
+    "ratio": 27,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 3],
+    "ratio": 27,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 3],
+    "ratio": 27,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 4],
+    "ratio": 36,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 4],
+    "ratio": 36,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 4],
+    "ratio": 36,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 4],
+    "ratio": 36,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 4],
+    "ratio": 36,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 4],
+    "ratio": 36,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 5],
+    "ratio": 45,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 5],
+    "ratio": 45,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 5],
+    "ratio": 45,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 5],
+    "ratio": 45,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 5],
+    "ratio": 45,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 5],
+    "ratio": 45,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 9],
+    "ratio": 81,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 9],
+    "ratio": 81,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 9],
+    "ratio": 81,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 9],
+    "ratio": 81,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 9],
+    "ratio": 81,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 9],
+    "ratio": 81,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4],
+    "ratio": 12,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4],
+    "ratio": 12,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4],
+    "ratio": 12,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4],
+    "ratio": 12,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4],
+    "ratio": 12,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4],
+    "ratio": 12,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 4],
+    "ratio": 48,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 4],
+    "ratio": 48,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 4],
+    "ratio": 48,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 4],
+    "ratio": 48,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 4],
+    "ratio": 48,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 4],
+    "ratio": 48,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 5],
+    "ratio": 60,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 5],
+    "ratio": 60,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 5],
+    "ratio": 60,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 5],
+    "ratio": 60,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 5],
+    "ratio": 60,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 5],
+    "ratio": 60,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 9],
+    "ratio": 108,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 9],
+    "ratio": 108,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 9],
+    "ratio": 108,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 9],
+    "ratio": 108,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 9],
+    "ratio": 108,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 9],
+    "ratio": 108,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5],
+    "ratio": 15,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5],
+    "ratio": 15,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5],
+    "ratio": 15,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5],
+    "ratio": 15,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5],
+    "ratio": 15,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5],
+    "ratio": 15,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5, 5],
+    "ratio": 75,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5, 5],
+    "ratio": 75,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5, 5],
+    "ratio": 75,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5, 5],
+    "ratio": 75,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5, 5],
+    "ratio": 75,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5, 5],
+    "ratio": 75,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5, 9],
+    "ratio": 135,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5, 9],
+    "ratio": 135,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5, 9],
+    "ratio": 135,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5, 9],
+    "ratio": 135,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5, 9],
+    "ratio": 135,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5, 9],
+    "ratio": 135,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 9],
+    "ratio": 27,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 9],
+    "ratio": 27,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 9],
+    "ratio": 27,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 9],
+    "ratio": 27,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 9],
+    "ratio": 27,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 9],
+    "ratio": 27,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4],
+    "ratio": 4,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4],
+    "ratio": 4,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4],
+    "ratio": 4,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4],
+    "ratio": 4,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4],
+    "ratio": 4,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4],
+    "ratio": 4,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4],
+    "ratio": 16,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4],
+    "ratio": 16,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4],
+    "ratio": 16,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4],
+    "ratio": 16,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4],
+    "ratio": 16,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4],
+    "ratio": 16,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 4],
+    "ratio": 64,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 4],
+    "ratio": 64,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 4],
+    "ratio": 64,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 4],
+    "ratio": 64,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 4],
+    "ratio": 64,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 4],
+    "ratio": 64,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 5],
+    "ratio": 80,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 5],
+    "ratio": 80,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 5],
+    "ratio": 80,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 5],
+    "ratio": 80,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 5],
+    "ratio": 80,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 5],
+    "ratio": 80,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 9],
+    "ratio": 144,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 9],
+    "ratio": 144,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 9],
+    "ratio": 144,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 9],
+    "ratio": 144,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 9],
+    "ratio": 144,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 9],
+    "ratio": 144,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 5],
+    "ratio": 20,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 5],
+    "ratio": 20,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 5],
+    "ratio": 20,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 5],
+    "ratio": 20,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 5],
+    "ratio": 20,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 5],
+    "ratio": 20,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 5, 5],
+    "ratio": 100,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 5, 5],
+    "ratio": 100,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 5, 5],
+    "ratio": 100,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 5, 5],
+    "ratio": 100,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 5, 5],
+    "ratio": 100,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 5, 5],
+    "ratio": 100,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 9],
+    "ratio": 36,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 9],
+    "ratio": 36,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 9],
+    "ratio": 36,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 9],
+    "ratio": 36,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 9],
+    "ratio": 36,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 9],
+    "ratio": 36,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5],
+    "ratio": 5,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5],
+    "ratio": 5,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5],
+    "ratio": 5,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5],
+    "ratio": 5,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5],
+    "ratio": 5,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5],
+    "ratio": 5,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 5],
+    "ratio": 25,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 5],
+    "ratio": 25,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 5],
+    "ratio": 25,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 5],
+    "ratio": 25,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 5],
+    "ratio": 25,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 5],
+    "ratio": 25,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 5, 5],
+    "ratio": 125,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 5, 5],
+    "ratio": 125,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 5, 5],
+    "ratio": 125,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 5, 5],
+    "ratio": 125,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 5, 5],
+    "ratio": 125,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 5, 5],
+    "ratio": 125,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 9],
+    "ratio": 45,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 9],
+    "ratio": 45,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 9],
+    "ratio": 45,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 9],
+    "ratio": 45,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 9],
+    "ratio": 45,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 9],
+    "ratio": 45,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [9],
+    "ratio": 9,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [9],
+    "ratio": 9,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [9],
+    "ratio": 9,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [9],
+    "ratio": 9,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [9],
+    "ratio": 9,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [9],
+    "ratio": 9,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [9, 9],
+    "ratio": 81,
+    "inputBore": "8mm",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [9, 9],
+    "ratio": 81,
+    "inputBore": "1/2\" Hex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [9, 9],
+    "ratio": 81,
+    "inputBore": "Vortex",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [9, 9],
+    "ratio": 81,
+    "inputBore": "SplineXS",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [9, 9],
+    "ratio": 81,
+    "inputBore": "RS550",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [9, 9],
+    "ratio": 81,
+    "inputBore": "RS775",
+    "outputBore": "1/2\" Hex",
+    "sku": "REV-25-2109",
+    "url": "https://www.revrobotics.com/maxplanetary-system-kit/",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3],
+    "ratio": 3,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3],
+    "ratio": 9,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 3],
+    "ratio": 27,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 4],
+    "ratio": 36,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 3, 5],
+    "ratio": 45,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4],
+    "ratio": 12,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 4],
+    "ratio": 48,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 4, 5],
+    "ratio": 60,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5],
+    "ratio": 15,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [3, 5, 5],
+    "ratio": 75,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4],
+    "ratio": 4,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4],
+    "ratio": 16,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 4],
+    "ratio": 64,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 4, 5],
+    "ratio": 80,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 5],
+    "ratio": 20,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [4, 5, 5],
+    "ratio": 100,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5],
+    "ratio": 5,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 5],
+    "ratio": 25,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  },
+  {
+    "slices": [5, 5, 5],
+    "ratio": 125,
+    "inputBore": "RS550",
+    "outputBore": "5mm Hex",
+    "sku": "REV-41-1600",
+    "url": "https://www.revrobotics.com/rev-41-1600",
+    "vendor": "REV"
+  }
+]

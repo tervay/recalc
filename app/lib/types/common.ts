@@ -14,6 +14,8 @@ export const zBore = z.enum([
   'RS775',
   'RS550',
   'BAG',
+  'Vortex',
+  '5mm Hex',
 ] as const);
 export type Bore = z.infer<typeof zBore>;
 
