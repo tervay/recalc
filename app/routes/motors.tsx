@@ -1,7 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   CartesianGrid,
-  Legend,
   Line,
   LineChart,
   Tooltip,
@@ -13,12 +12,9 @@ import IOLine from '~/components/recalc/blocks';
 import { MeasurementInput } from '~/components/recalc/io/measurement';
 import { StringSelectInput } from '~/components/recalc/io/stringSelect';
 import { ChartContainer } from '~/components/ui/chart';
+import type * as MotorsWorker from '~/lib/math/motors.worker';
 import Measurement from '~/lib/models/Measurement';
-import Motor, {
-  ALL_MOTORS,
-  completeMotorSpecs,
-  generateMotorCurves,
-} from '~/lib/models/Motor';
+import Motor, { ALL_MOTORS } from '~/lib/models/Motor';
 
 export function meta() {
   return [
@@ -26,6 +22,15 @@ export function meta() {
     { name: 'description', content: 'Motor Calculator' },
   ];
 }
+
+const worker = new ComlinkWorker<typeof MotorsWorker>(
+  new URL('../lib/math/motors.worker', import.meta.url),
+  {
+    type: 'module',
+  },
+);
+
+type WpilibMotorSimState = MotorsWorker.WpilibMotorSimState;
 
 export default function Motors() {
   const [selectedMotor, setSelectedMotor] = useState(ALL_MOTORS[0].name);
@@ -35,43 +40,28 @@ export default function Motors() {
   const [supplyVoltage, setSupplyVoltage] = useState(new Measurement(12, 'V'));
   const [statorVoltage, setStatorVoltage] = useState(new Measurement(12, 'V'));
 
-  const selectedMotorSpecs = useMemo(
-    () => ALL_MOTORS.find((m) => m.name === selectedMotor)!,
-    [selectedMotor],
-  );
+  const [workerWpilibSimStates, setWorkerWpilibSimStates] = useState<
+    WpilibMotorSimState[]
+  >([]);
 
-  const _motor = useMemo(
-    () => Motor.fromName(selectedMotor, 1),
-    [selectedMotor],
-  );
-
-  const motorCurve = useMemo(
-    () =>
-      generateMotorCurves(
-        {
-          ...completeMotorSpecs(selectedMotorSpecs),
-          voltage: supplyVoltage,
-        },
-        statorLimit,
-        supplyLimit,
-      ),
-    [selectedMotorSpecs, statorLimit, supplyLimit, supplyVoltage],
-  );
-
-  const numericalCurve = useMemo(
-    () =>
-      motorCurve.map((c) => ({
-        freeCurrent: c.freeCurrent.to('A').scalar,
-        speedPercentage: c.speedPercentage.baseScalar,
-        maxStator: c.maxStator.to('A').scalar,
-        statorCurrent: c.statorCurrent.to('A').scalar,
-        torque: c.torque.to('N m').scalar,
-        outputPower: c.outputPower.to('W').scalar,
-        losses: c.losses.to('W').scalar,
-        efficiency: c.efficiency.scalar,
-      })),
-    [motorCurve],
-  );
+  useEffect(() => {
+    setWorkerWpilibSimStates([]);
+    worker
+      .generateMotorCurve(
+        Motor.fromName(selectedMotor, 1).toDict(),
+        statorLimit.toDict(),
+        supplyLimit.toDict(),
+        supplyVoltage.toDict(),
+        statorVoltage.toDict(),
+      )
+      .then((states) => {
+        setWorkerWpilibSimStates(states);
+        console.log(states);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [selectedMotor, statorLimit, supplyLimit, supplyVoltage, statorVoltage]);
 
   return (
     <div>
@@ -110,6 +100,38 @@ export default function Motors() {
 
       <div className="mt-4 flex flex-row">
         <ChartContainer config={{}} className="min-h-[200px] w-full">
+          <LineChart data={workerWpilibSimStates}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="angularVelocityRPM" />
+            <YAxis yAxisId="left" />
+            <YAxis
+              yAxisId="right"
+              orientation="right"
+              domain={[0, 'dataMax']}
+              allowDataOverflow
+            />
+            <Tooltip />
+            <Line
+              dataKey="torqueNewtonMeters"
+              dot={false}
+              yAxisId="right"
+              stroke="green"
+            />
+            <Line
+              dataKey="currentDrawAmps"
+              dot={false}
+              yAxisId="left"
+              stroke="yellow"
+            />
+            <Line
+              dataKey="efficiency"
+              dot={false}
+              yAxisId="right"
+              stroke="blue"
+            />
+          </LineChart>
+        </ChartContainer>
+        {/* <ChartContainer config={{}} className="min-h-[200px] w-full">
           <LineChart data={numericalCurve}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="speedPercentage" />
@@ -137,7 +159,7 @@ export default function Motors() {
             />
             <Legend />
           </LineChart>
-        </ChartContainer>
+        </ChartContainer> */}
 
         {/* <ChartContainer config={{}} className="min-h-[200px] w-full">
           <LineChart data={odeData}>

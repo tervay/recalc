@@ -14,18 +14,8 @@ RUN apt-get update -qq && \
 RUN npm i -g typescript
 
 WORKDIR /build
-
-ARG WPILIB_COMMIT=HEAD
-
-# Clone repository - use shallow clone for HEAD, full clone for specific commits
-RUN if [ "$WPILIB_COMMIT" = "HEAD" ]; then \
-        git clone https://github.com/wpilibsuite/allwpilib.git --depth 1 && \
-        cd allwpilib; \
-    else \
-        git clone https://github.com/bhall-ctre/allwpilib.git && \
-        cd allwpilib && \
-        git checkout $WPILIB_COMMIT; \
-    fi
+COPY allwpilib /build/allwpilib
+WORKDIR /build/allwpilib
 
 # Copy over local patches
 COPY patches/wpimath/wasm/CMakeLists.txt /build/allwpilib/wpimath/wasm/CMakeLists.txt
@@ -41,7 +31,7 @@ COPY patches/wpilibc/wasm/stubs/ntcore_stub.cc /build/allwpilib/wpilibc/wasm/stu
 COPY patches/CMakeLists.txt /build/allwpilib/CMakeLists.txt
 
 # Build wpimath
-RUN cd allwpilib && \
+RUN cd /build/allwpilib && \
     emcmake cmake -B build -S . \
       -DCMAKE_BUILD_TYPE=Release \
       -DBUILD_SHARED_LIBS=OFF \
@@ -60,7 +50,7 @@ RUN cd allwpilib && \
     emmake ninja wpimath_wasm -j$(nproc)
 
 # Build wpilibc
-RUN cd allwpilib && \
+RUN cd /build/allwpilib && \
     emcmake cmake -B build -S . \
       -DCMAKE_BUILD_TYPE=Release \
       -DBUILD_SHARED_LIBS=OFF \
