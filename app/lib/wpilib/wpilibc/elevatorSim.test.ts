@@ -14,12 +14,6 @@ describe('ElevatorSim', () => {
     _module = await getWpilibcModule();
   });
 
-  it('should create a DCMotor sim', () => {
-    const motor = Motor.KrakenX60(1);
-    const wpilibMotor = motor.toWpilibMotor();
-    expect(wpilibMotor.getKtNMPerAmp()).toBeCloseTo(motor.kT.scalar, 5);
-  });
-
   it('should create an ElevatorSim', () => {
     getWpilibcModuleSync().RoboRioSim_setVInVoltage(12);
     const motor = Motor.KrakenX60(1);

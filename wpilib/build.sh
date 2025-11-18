@@ -10,7 +10,6 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 OUTPUT_DIR="$PROJECT_ROOT/app/lib/generated/wpimath"
 DOCKER_IMAGE="wpilib-builder"
 DOCKERFILE="$SCRIPT_DIR/Dockerfile"
-WPILIB_COMMIT="2597c2b9e61d48ca1e441b8344fc94888af9b14c"
 
 # Colors for output
 RED='\033[0;31m'
@@ -81,7 +80,7 @@ if ! command -v docker &> /dev/null; then
 fi
 
 log_info "Building Docker image..."
-docker build -f "$DOCKERFILE" -t "$DOCKER_IMAGE" --build-arg WPILIB_COMMIT="$WPILIB_COMMIT" "$SCRIPT_DIR"
+docker build -f "$DOCKERFILE" -t "$DOCKER_IMAGE" "$SCRIPT_DIR"
 
 log_info "Creating output directories..."
 mkdir -p "$OUTPUT_DIR"
