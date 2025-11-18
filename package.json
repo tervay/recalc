@@ -17,6 +17,7 @@
     "start": "vite preview --outDir build/client --port 3000",
     "typecheck": "react-router typegen && tsc",
     "downloadProducts": "tsx ./scripts/downloadProducts.ts",
+    "generateTests": "tsx ./scripts/generateTests.ts",
     "build:wpi": "./wpilib/build.sh",
     "test": "vitest",
     "lint": "eslint .",

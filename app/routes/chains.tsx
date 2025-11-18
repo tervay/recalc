@@ -88,7 +88,7 @@ export default function Chains() {
         getSerializedState={() => serializedState}
       />
 
-      <div className="flex flex-row flex-wrap gap-x-4 px-1 [&>*]:flex-1">
+      <div className="flex flex-row flex-wrap gap-x-4 px-1 *:flex-1">
         <div className="flex flex-col gap-x-4 gap-y-2">
           <IOLine>
             <StringSelectInput
@@ -98,6 +98,7 @@ export default function Chains() {
                 { label: '#25', value: '#25' },
                 { label: '#35', value: '#35' },
               ]}
+              testId="chainType"
             />
             <BooleanInput
               stateHook={[allowHalfLinks, setAllowHalfLinks]}
@@ -109,30 +110,42 @@ export default function Chains() {
             <MeasurementInput
               stateHook={[desiredCenter, setDesiredCenter]}
               label="Desired Center"
+              testId="desiredCenter"
             />
             <MeasurementInput
               stateHook={[extraCenter, setExtraCenter]}
               label="Extra Center"
+              testId="extraCenter"
             />
           </IOLine>
 
           <Divider>Sprocket 1</Divider>
           <IOLine>
-            <NumberInput stateHook={[p1Teeth, setP1Teeth]} label="Teeth" />
+            <NumberInput
+              stateHook={[p1Teeth, setP1Teeth]}
+              label="Teeth"
+              testId="p1Teeth"
+            />
             <MeasurementOutput
               state={p1PitchDiameter}
               label="Pitch Diameter"
               defaultUnit="in"
+              testId="p1PitchDiameter"
             />
           </IOLine>
 
           <Divider>Sprocket 2</Divider>
           <IOLine>
-            <NumberInput stateHook={[p2Teeth, setP2Teeth]} label="Teeth" />
+            <NumberInput
+              stateHook={[p2Teeth, setP2Teeth]}
+              label="Teeth"
+              testId="p2Teeth"
+            />
             <MeasurementOutput
               state={p2PitchDiameter}
               label="Pitch Diameter"
               defaultUnit="in"
+              testId="p2PitchDiameter"
             />
           </IOLine>
 
@@ -142,11 +155,13 @@ export default function Chains() {
               state={results.smaller.links}
               label="Chain Links"
               roundTo={0}
+              testId="smallerCenter"
             />
             <MeasurementOutput
               state={results.smaller.distance}
               label="Center Distance"
               defaultUnit="in"
+              testId="smallerDistance"
             />
           </IOLine>
 
@@ -156,11 +171,13 @@ export default function Chains() {
               state={results.larger.links}
               label="Chain Links"
               roundTo={0}
+              testId="largerCenter"
             />
             <MeasurementOutput
               state={results.larger.distance}
               label="Center Distance"
               defaultUnit="in"
+              testId="largerDistance"
             />
           </IOLine>
         </div>

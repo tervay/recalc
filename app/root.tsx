@@ -41,7 +41,9 @@ export function Layout({ children }: { children: ReactNode }) {
       <body>
         <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
           <Nav />
-          <div className="container mx-auto">{children}</div>
+          <div className="container mx-auto" role="main">
+            {children}
+          </div>
           <ScrollRestoration />
           <Scripts />
         </ThemeProvider>
@@ -51,7 +53,6 @@ export function Layout({ children }: { children: ReactNode }) {
 }
 
 export default function App() {
-  // Initialize wpilibc module early so it's available synchronously
   useEffect(() => {
     initWpilibc().catch((error) => {
       console.error('Failed to initialize wpilibc module:', error);

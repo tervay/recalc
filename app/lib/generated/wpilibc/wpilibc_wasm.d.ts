@@ -8,10 +8,10 @@ declare namespace RuntimeExports {
    */
   function ccall(
     ident: any,
-    returnType?: (string | null) | undefined,
-    argTypes?: any[] | undefined,
-    args?: any[] | undefined,
-    opts?: any | undefined,
+    returnType?: string,
+    argTypes?: any[],
+    args?: any[],
+    opts?: any,
   ): any;
   /**
    * @param {string=} returnType
@@ -20,9 +20,9 @@ declare namespace RuntimeExports {
    */
   function cwrap(
     ident: any,
-    returnType?: string | undefined,
-    argTypes?: any[] | undefined,
-    opts?: any | undefined,
+    returnType?: string,
+    argTypes?: any[],
+    opts?: any,
   ): any;
   /**
    * Given a pointer 'ptr' to a null-terminated UTF8-encoded string in the
@@ -39,8 +39,8 @@ declare namespace RuntimeExports {
    */
   function UTF8ToString(
     ptr: number,
-    maxBytesToRead?: number | undefined,
-    ignoreNul?: boolean | undefined,
+    maxBytesToRead?: number,
+    ignoreNul?: boolean,
   ): string;
   function stringToUTF8(str: any, outPtr: any, maxBytesToWrite: any): any;
 }

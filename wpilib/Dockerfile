@@ -1,17 +1,30 @@
-FROM emscripten/emsdk:4.0.19
+FROM emscripten/emsdk:4.0.20
 
 RUN apt-get update -qq && \
     apt-get install -y -qq \
     git \
-    cmake \
-    build-essential \
-    python3 \
-    protobuf-compiler \
     libprotobuf-dev \
-    ninja-build && \
-    rm -rf /var/lib/apt/lists/*
+    build-essential \
+    curl \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN npm i -g typescript
+# Set up mise environment variables
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+ENV MISE_DATA_DIR="/mise"
+ENV MISE_CONFIG_DIR="/mise"
+ENV MISE_CACHE_DIR="/mise/cache"
+ENV MISE_INSTALL_PATH="/usr/local/bin/mise"
+ENV PATH="/mise/shims:$PATH"
+
+RUN curl https://mise.run | MISE_INSTALL_PATH=/usr/local/bin/mise sh
+COPY .mise.toml /build/.mise.toml
+
+WORKDIR /build
+RUN mise trust && \
+    mise install
+
+RUN npm i -g typescript@5.3.3
 
 WORKDIR /build
 COPY allwpilib /build/allwpilib

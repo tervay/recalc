@@ -17,9 +17,11 @@ export function StringSelectInput({
   stateHook,
   choices,
   label,
+  testId,
 }: HasStateHook<string> & {
   choices: SelectStringInputChoice[];
   label: string;
+  testId?: string;
 }) {
   const [value, setValue] = stateHook;
 
@@ -27,7 +29,7 @@ export function StringSelectInput({
     <div className="flex flex-row">
       <Label className="mr-2 text-nowrap">{label}</Label>
       <Select value={value} onValueChange={setValue}>
-        <SelectTrigger className="w-[180px]">
+        <SelectTrigger className="w-[180px]" data-testid={testId}>
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
