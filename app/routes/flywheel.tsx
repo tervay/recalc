@@ -72,7 +72,7 @@ const DEFAULT_PARAMS = {
     new Measurement(3, 'in2*lbs'),
   ),
   useCustomFlywheelMoi: withDefault(BooleanParam, false),
-  flywhweelToShooterRatio: withDefault(
+  flywheelToShooterRatio: withDefault(
     RatioParam,
     new Ratio(1, RatioType.REDUCTION),
   ),
@@ -107,7 +107,7 @@ export default function Flywheel() {
     flywheelWeight: Measurement;
     customFlywheelMoi: Measurement;
     useCustomFlywheelMoi: boolean;
-    flywhweelToShooterRatio: Ratio;
+    flywheelToShooterRatio: Ratio;
     projectileDiameter: Measurement;
     projectileWeight: Measurement;
     efficiency: number;
@@ -146,8 +146,8 @@ export default function Flywheel() {
   const [useCustomFlywheelMoi, setUseCustomFlywheelMoi] = useState(
     queryParams.useCustomFlywheelMoi,
   );
-  const [flywhweelToShooterRatio, setFlywhweelToShooterRatio] = useState(
-    queryParams.flywhweelToShooterRatio,
+  const [flywheelToShooterRatio, setflywheelToShooterRatio] = useState(
+    queryParams.flywheelToShooterRatio,
   );
   const [_projectileDiameter] = useState(queryParams.projectileDiameter);
   const [projectileWeight, setProjectileWeight] = useState(
@@ -183,14 +183,14 @@ export default function Flywheel() {
         : usableShooterMOI
             .add(
               usableFlywheelMOI.div(
-                flywhweelToShooterRatio.asNumber() == 0
+                flywheelToShooterRatio.asNumber() == 0
                   ? 1
-                  : Math.pow(flywhweelToShooterRatio.asNumber(), 2),
+                  : Math.pow(flywheelToShooterRatio.asNumber(), 2),
               ),
             )
             .div(ratio.asNumber())
             .to('in2*lbs'),
-    [usableShooterMOI, usableFlywheelMOI, flywhweelToShooterRatio, ratio],
+    [usableShooterMOI, usableFlywheelMOI, flywheelToShooterRatio, ratio],
   );
 
   const supplyLimitInStatorTerms = useMemo(
@@ -320,7 +320,7 @@ export default function Flywheel() {
     flywheelWeight,
     customFlywheelMoi,
     useCustomFlywheelMoi,
-    flywhweelToShooterRatio,
+    flywheelToShooterRatio,
     projectileDiameter: queryParams.projectileDiameter,
     projectileWeight,
     efficiency,
@@ -450,7 +450,7 @@ export default function Flywheel() {
 
           <IOLine>
             <RatioInput
-              stateHook={[flywhweelToShooterRatio, setFlywhweelToShooterRatio]}
+              stateHook={[flywheelToShooterRatio, setflywheelToShooterRatio]}
               testId="flywheelToShooterRatio"
             />
           </IOLine>
@@ -512,7 +512,11 @@ export default function Flywheel() {
             />
           </IOLine>
         </div>
-        <ChartContainer config={{}} className="min-h-[200px] w-full">
+        <ChartContainer
+          config={{}}
+          className="min-h-[200px] w-full"
+          data-testid="chart"
+        >
           <LineChart data={workerWpilibSimStates}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="timeSeconds" />
