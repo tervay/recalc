@@ -1,0 +1,263 @@
+- main:
+  - heading "Belt Calculator" [level=1]
+  - button "Copy Link"
+  - button "GT2 (3mm)"
+  - button "HTD (5mm)"
+  - button "RT25 (0.25in)"
+  - text: Pitch
+  - spinbutton "Pitch Target Center Extra Center Pitch Diameter Pitch Diameter Belt Teeth Center Distance Pulley 1 Teeth in Mesh Pulley 2 Teeth in Mesh Gap Between Pulleys Difference From Target Belt Teeth Center Distance Pulley 1 Teeth in Mesh Pulley 2 Teeth in Mesh Gap Between Pulleys Difference From Target": "5"
+  - combobox: mm
+  - text: Tooth Increment
+  - spinbutton: "5"
+  - text: Target Center
+  - spinbutton: "5"
+  - combobox: in
+  - text: Extra Center
+  - spinbutton: "0"
+  - combobox: mm
+  - switch "Use Custom Belt"
+  - text: Use Custom Belt Custom Belt Teeth
+  - spinbutton: "125"
+  - text: Pulley 1 Teeth
+  - spinbutton: "16"
+  - text: Pitch Diameter
+  - spinbutton [disabled]: "1.003"
+  - combobox: in
+  - text: Pulley 2 Teeth
+  - spinbutton: "40"
+  - text: Pitch Diameter
+  - spinbutton [disabled]: "2.506"
+  - combobox: in
+  - text: Smaller Belt Belt Teeth
+  - spinbutton [disabled]: "75"
+  - text: Center Distance
+  - spinbutton [disabled]: "4.564"
+  - combobox: in
+  - text: Pulley 1 Teeth in Mesh
+  - spinbutton [disabled]: "8"
+  - text: Pulley 2 Teeth in Mesh
+  - spinbutton [disabled]: "19"
+  - text: Gap Between Pulleys
+  - spinbutton [disabled]: "2.810"
+  - combobox: in
+  - text: Difference From Target
+  - spinbutton [disabled]: "0.436"
+  - combobox: in
+  - text: Larger Belt Belt Teeth
+  - spinbutton [disabled]: "80"
+  - text: Center Distance
+  - spinbutton [disabled]: "5.062"
+  - combobox: in
+  - text: Pulley 1 Teeth in Mesh
+  - spinbutton [disabled]: "8"
+  - text: Pulley 2 Teeth in Mesh
+  - spinbutton [disabled]: "19"
+  - text: Gap Between Pulleys
+  - spinbutton [disabled]: "3.308"
+  - combobox: in
+  - text: Difference From Target
+  - spinbutton [disabled]: "-0.062"
+  - combobox: in
+  - table:
+    - rowgroup:
+      - row "Matching COTS Pulleys":
+        - cell "Matching COTS Pulleys"
+      - row "SKU Type Pitch Teeth Width Bore":
+        - cell "SKU"
+        - cell "Type"
+        - cell "Pitch"
+        - cell "Teeth"
+        - cell "Width"
+        - cell "Bore"
+    - rowgroup:
+      - row "WCP - WCP-1802 HTD 5 mm 16 9 mm SplineXS":
+        - cell "WCP - WCP-1802":
+          - link "WCP - WCP-1802":
+            - /url: https://wcproducts.com/products/wcp-1802
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "16"
+        - cell "9 mm"
+        - cell "SplineXS"
+      - row "WCP - WCP-1804 HTD 5 mm 16 15 mm SplineXS":
+        - cell "WCP - WCP-1804":
+          - link "WCP - WCP-1804":
+            - /url: https://wcproducts.com/products/wcp-1804
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "16"
+        - cell "15 mm"
+        - cell "SplineXS"
+  - table:
+    - rowgroup:
+      - row "Matching COTS Belts":
+        - cell "Matching COTS Belts"
+      - row "SKU Type Pitch Teeth Width":
+        - cell "SKU"
+        - cell "Type"
+        - cell "Pitch"
+        - cell "Teeth"
+        - cell "Width"
+    - rowgroup:
+      - row "AndyMark - AM-5209_75T HTD 5 mm 75 9 mm":
+        - cell "AndyMark - AM-5209_75T":
+          - link "AndyMark - AM-5209_75T":
+            - /url: https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "75"
+        - cell "9 mm"
+      - row "AndyMark - AM-5215_75T HTD 5 mm 75 15 mm":
+        - cell "AndyMark - AM-5215_75T":
+          - link "AndyMark - AM-5215_75T":
+            - /url: https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "75"
+        - cell "15 mm"
+      - row "LastAnvil - LA-240224 HTD 5 mm 75 9 mm":
+        - cell "LastAnvil - LA-240224":
+          - link "LastAnvil - LA-240224":
+            - /url: https://www.lastanvil.com/products/htd-timing-belts-9mm
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "75"
+        - cell "9 mm"
+      - row "LastAnvil - LA-240345 HTD 5 mm 75 15 mm":
+        - cell "LastAnvil - LA-240345":
+          - link "LastAnvil - LA-240345":
+            - /url: https://www.lastanvil.com/products/htd-timing-belt-15mm
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "75"
+        - cell "15 mm"
+      - row "Swyft - 375-5M-9 HTD 5 mm 75 15 mm":
+        - cell "Swyft - 375-5M-9":
+          - link "Swyft - 375-5M-9":
+            - /url: https://swyftrobotics.com/products/htd-timing-belts
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "75"
+        - cell "15 mm"
+      - row "Swyft - 375-5M-15 HTD 5 mm 75 15 mm":
+        - cell "Swyft - 375-5M-15":
+          - link "Swyft - 375-5M-15":
+            - /url: https://swyftrobotics.com/products/htd-timing-belts
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "75"
+        - cell "15 mm"
+      - row "VBeltGuys - 375-5m-09 HTD 5 mm 75 9 mm":
+        - cell "VBeltGuys - 375-5m-09":
+          - link "VBeltGuys - 375-5m-09":
+            - /url: https://www.vbeltguys.com/products/375-5m-09-synchronous-timing-belt
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "75"
+        - cell "9 mm"
+      - row "VBeltGuys - 375-5m-15 HTD 5 mm 75 15 mm":
+        - cell "VBeltGuys - 375-5m-15":
+          - link "VBeltGuys - 375-5m-15":
+            - /url: https://www.vbeltguys.com/products/375-5m-15-synchronous-timing-belt
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "75"
+        - cell "15 mm"
+      - row "WCP - WCP-0620 HTD 5 mm 75 9 mm":
+        - cell "WCP - WCP-0620":
+          - link "WCP - WCP-0620":
+            - /url: https://wcproducts.com/products/wcp-0620
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "75"
+        - cell "9 mm"
+      - row "WCP - WCP-0529 HTD 5 mm 75 15 mm":
+        - cell "WCP - WCP-0529":
+          - link "WCP - WCP-0529":
+            - /url: https://wcproducts.com/products/wcp-0529
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "75"
+        - cell "15 mm"
+      - row "AndyMark - AM-5209_80T HTD 5 mm 80 9 mm":
+        - cell "AndyMark - AM-5209_80T":
+          - link "AndyMark - AM-5209_80T":
+            - /url: https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "80"
+        - cell "9 mm"
+      - row "AndyMark - AM-5215_80T HTD 5 mm 80 15 mm":
+        - cell "AndyMark - AM-5215_80T":
+          - link "AndyMark - AM-5215_80T":
+            - /url: https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "80"
+        - cell "15 mm"
+      - row "LastAnvil - LA-240225 HTD 5 mm 80 9 mm":
+        - cell "LastAnvil - LA-240225":
+          - link "LastAnvil - LA-240225":
+            - /url: https://www.lastanvil.com/products/htd-timing-belts-9mm
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "80"
+        - cell "9 mm"
+      - row "LastAnvil - LA-240346 HTD 5 mm 80 15 mm":
+        - cell "LastAnvil - LA-240346":
+          - link "LastAnvil - LA-240346":
+            - /url: https://www.lastanvil.com/products/htd-timing-belt-15mm
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "80"
+        - cell "15 mm"
+      - row "Swyft - 400-5M-9 HTD 5 mm 80 15 mm":
+        - cell "Swyft - 400-5M-9":
+          - link "Swyft - 400-5M-9":
+            - /url: https://swyftrobotics.com/products/htd-timing-belts
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "80"
+        - cell "15 mm"
+      - row "Swyft - 400-5M-15 HTD 5 mm 80 15 mm":
+        - cell "Swyft - 400-5M-15":
+          - link "Swyft - 400-5M-15":
+            - /url: https://swyftrobotics.com/products/htd-timing-belts
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "80"
+        - cell "15 mm"
+      - row "VBeltGuys - 400-5m-09 HTD 5 mm 80 9 mm":
+        - cell "VBeltGuys - 400-5m-09":
+          - link "VBeltGuys - 400-5m-09":
+            - /url: https://www.vbeltguys.com/products/400-5m-09-synchronous-timing-belt
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "80"
+        - cell "9 mm"
+      - row "VBeltGuys - 400-5m-15 HTD 5 mm 80 15 mm":
+        - cell "VBeltGuys - 400-5m-15":
+          - link "VBeltGuys - 400-5m-15":
+            - /url: https://www.vbeltguys.com/products/400-5m-15-synchronous-timing-belt
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "80"
+        - cell "15 mm"
+      - row "WCP - WCP-0621 HTD 5 mm 80 9 mm":
+        - cell "WCP - WCP-0621":
+          - link "WCP - WCP-0621":
+            - /url: https://wcproducts.com/products/wcp-0621
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "80"
+        - cell "9 mm"
+      - row "WCP - WCP-0646 HTD 5 mm 80 15 mm":
+        - cell "WCP - WCP-0646":
+          - link "WCP - WCP-0646":
+            - /url: https://wcproducts.com/products/wcp-0646
+        - cell "HTD"
+        - cell "5 mm"
+        - cell "80"
+        - cell "15 mm"
+  - button "Docs":
+    - heading "Docs" [level=3]

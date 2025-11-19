@@ -1,0 +1,3 @@
+allwpilib/**/build/
+allwpilib/build-cmake/
+allwpilib/.*/

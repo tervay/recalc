@@ -30,39 +30,18 @@ export default defineConfig({
   },
 
   /* Configure projects for major browsers */
-  projects: process.env.CI
-    ? [
-        {
-          name: 'firefox',
-          use: { ...devices['Desktop Firefox'] },
+  projects: [
+    {
+      name: 'Google Chrome',
+      use: {
+        ...devices['Desktop Chrome'],
+        channel: 'chrome',
+        contextOptions: {
+          permissions: ['clipboard-read', 'clipboard-write'],
         },
-        {
-          name: 'webkit',
-          use: { ...devices['Desktop Safari'] },
-        },
-        {
-          name: 'Google Chrome',
-          use: {
-            ...devices['Desktop Chrome'],
-            channel: 'chrome',
-            contextOptions: {
-              permissions: ['clipboard-read', 'clipboard-write'],
-            },
-          },
-        },
-      ]
-    : [
-        {
-          name: 'Google Chrome',
-          use: {
-            ...devices['Desktop Chrome'],
-            channel: 'chrome',
-            contextOptions: {
-              permissions: ['clipboard-read', 'clipboard-write'],
-            },
-          },
-        },
-      ],
+      },
+    },
+  ],
 
   /* Run the built production server before starting the tests */
   webServer: {

@@ -1,0 +1,87 @@
+- main:
+  - heading "Belt Calculator" [level=1]
+  - button "Copy Link"
+  - button "GT2 (3mm)"
+  - button "HTD (5mm)"
+  - button "RT25 (0.25in)"
+  - text: Pitch
+  - spinbutton "Pitch Target Center Extra Center Pitch Diameter Pitch Diameter Belt Teeth Center Distance Pulley 1 Teeth in Mesh Pulley 2 Teeth in Mesh Gap Between Pulleys Difference From Target Belt Teeth Center Distance Pulley 1 Teeth in Mesh Pulley 2 Teeth in Mesh Gap Between Pulleys Difference From Target": "5"
+  - combobox: in
+  - text: Tooth Increment
+  - spinbutton: "5"
+  - text: Target Center
+  - spinbutton: "5"
+  - combobox: in
+  - text: Extra Center
+  - spinbutton: "0"
+  - combobox: mm
+  - switch "Use Custom Belt"
+  - text: Use Custom Belt Custom Belt Teeth
+  - spinbutton: "125"
+  - text: Pulley 1 Teeth
+  - spinbutton: "16"
+  - text: Pitch Diameter
+  - spinbutton [disabled]: "25.465"
+  - combobox: in
+  - text: Pulley 2 Teeth
+  - spinbutton: "24"
+  - text: Pitch Diameter
+  - spinbutton [disabled]: "38.197"
+  - combobox: in
+  - text: Smaller Belt Belt Teeth
+  - spinbutton [disabled]: "20"
+  - text: Center Distance
+  - spinbutton [disabled]: "0.000"
+  - combobox: in
+  - text: Pulley 1 Teeth in Mesh
+  - spinbutton [disabled]: "0"
+  - text: Pulley 2 Teeth in Mesh
+  - spinbutton [disabled]: "0"
+  - text: Gap Between Pulleys
+  - spinbutton [disabled]: "-31.831"
+  - combobox: in
+  - text: Difference From Target
+  - spinbutton [disabled]: "5.000"
+  - combobox: in
+  - text: Larger Belt Belt Teeth
+  - spinbutton [disabled]: "25"
+  - text: Center Distance
+  - spinbutton [disabled]: "10.586"
+  - combobox: in
+  - text: Pulley 1 Teeth in Mesh
+  - spinbutton [disabled]: "0"
+  - text: Pulley 2 Teeth in Mesh
+  - spinbutton [disabled]: "0"
+  - text: Gap Between Pulleys
+  - spinbutton [disabled]: "-21.245"
+  - combobox: in
+  - text: Difference From Target
+  - spinbutton [disabled]: "-5.586"
+  - combobox: in
+  - table:
+    - rowgroup:
+      - row "Matching COTS Pulleys":
+        - cell "Matching COTS Pulleys"
+      - row "SKU Type Pitch Teeth Width Bore":
+        - cell "SKU"
+        - cell "Type"
+        - cell "Pitch"
+        - cell "Teeth"
+        - cell "Width"
+        - cell "Bore"
+    - rowgroup
+  - table:
+    - rowgroup:
+      - row "Matching COTS Belts":
+        - cell "Matching COTS Belts"
+      - row "SKU Type Pitch Teeth Width":
+        - cell "SKU"
+        - cell "Type"
+        - cell "Pitch"
+        - cell "Teeth"
+        - cell "Width"
+    - rowgroup:
+      - row "No matching belts found":
+        - cell "No matching belts found"
+  - button "Docs":
+    - heading "Docs" [level=3]
