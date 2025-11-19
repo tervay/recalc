@@ -119,4 +119,26 @@ test.describe('Chain Calculator', () => {
       name: 'largerDistance-changed.yaml',
     });
   });
+
+  test('should match snapshot with smallerDiffFromTarget unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectsmallerDiffFromTarget').click();
+    await page.getByRole('option', { name: 'cm' }).click();
+    await page.waitForTimeout(CHART_DELAY_MS);
+    expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
+      name: 'smallerDiffFromTarget-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with largerDiffFromTarget unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectlargerDiffFromTarget').click();
+    await page.getByRole('option', { name: 'cm' }).click();
+    await page.waitForTimeout(CHART_DELAY_MS);
+    expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
+      name: 'largerDiffFromTarget-unit-changed.yaml',
+    });
+  });
 });

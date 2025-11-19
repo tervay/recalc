@@ -202,4 +202,23 @@ describe('calculateCenters', () => {
     expect(result.larger.distance.to('in').scalar).toBeCloseTo(100.124, 3);
     expect(result.smaller.distance.to('in').scalar).toBeCloseTo(99.874, 3);
   });
+
+  it('calculates difference from target correctly', () => {
+    const desiredCenter = new Measurement(10, 'in');
+    const result = calculateCenters('#25', 20, 30, desiredCenter, false);
+
+    expect(result.larger.differenceFromTarget.to('in').scalar).toBeCloseTo(
+      0.117,
+      3,
+    );
+    expect(result.smaller.differenceFromTarget.to('in').scalar).toBeCloseTo(
+      -0.133,
+      3,
+    );
+    expect(
+      result.larger.differenceFromTarget
+        .abs()
+        .lte(result.smaller.differenceFromTarget.abs()),
+    ).toBe(true);
+  });
 });

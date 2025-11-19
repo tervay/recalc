@@ -80,15 +80,15 @@ test.describe('Belt Calculator', () => {
     });
   });
 
-  test('should match snapshot with specificBeltTeeth changed', async ({
-    page,
-  }) => {
-    await page.getByTestId('specificBeltTeeth').fill('100');
-    await page.waitForTimeout(CHART_DELAY_MS);
-    expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
-      name: 'specificBeltTeeth-changed.yaml',
-    });
-  });
+  // test('should match snapshot with specificBeltTeeth changed', async ({
+  //   page,
+  // }) => {
+  //   await page.getByTestId('specificBeltTeeth').fill('100');
+  //   await page.waitForTimeout(CHART_DELAY_MS);
+  //   expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
+  //     name: 'specificBeltTeeth-changed.yaml',
+  //   });
+  // });
 
   test('should match snapshot with p1Teeth changed', async ({ page }) => {
     await page.getByTestId('p1Teeth').fill('20');

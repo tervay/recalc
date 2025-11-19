@@ -5,7 +5,7 @@
   - combobox: "#25"
   - switch "Allow Half Links"
   - text: Allow Half Links Desired Center
-  - spinbutton "Desired Center Extra Center Pitch Diameter Pitch Diameter Chain Links Center Distance Chain Links Center Distance": "10"
+  - spinbutton "Desired Center Extra Center Pitch Diameter Pitch Diameter Chain Links Center Distance Difference From Target Chain Links Center Distance Difference From Target": "10"
   - combobox: in
   - text: Extra Center
   - spinbutton: "0"
@@ -20,15 +20,21 @@
   - text: Pitch Diameter
   - spinbutton [disabled]: "2.865"
   - combobox: in
-  - text: Smaller Chain Chain Links
+  - text: Smaller Chain Suggested Chain Links
   - spinbutton [disabled]: "106"
   - text: Center Distance
   - spinbutton [disabled]: "9.968"
+  - combobox: in
+  - text: Difference From Target
+  - spinbutton [disabled]: "-0.032"
   - combobox: in
   - text: Larger Chain Chain Links
   - spinbutton [disabled]: "108"
   - text: Center Distance
   - spinbutton [disabled]: "10.219"
+  - combobox: in
+  - text: Difference From Target
+  - spinbutton [disabled]: "0.219"
   - combobox: in
   - table:
     - rowgroup:
@@ -39,69 +45,93 @@
         - cell "Teeth"
         - cell "Bore"
     - rowgroup:
-      - row "REV - REV-21-2012 16 1/2\" Hex":
-        - cell "REV - REV-21-2012":
-          - link "REV - REV-21-2012":
+      - row "REV REV-21-2012 16 1/2\" Hex":
+        - cell "REV REV-21-2012":
+          - link "REV":
+            - /url: https://www.revrobotics.com/ION-25-Sprockets/
+          - link "REV-21-2012":
             - /url: https://www.revrobotics.com/ION-25-Sprockets/
         - cell "16"
         - cell "1/2\" Hex"
-      - row "REV - REV-21-2016 16 1/2\" Hex":
-        - cell "REV - REV-21-2016":
-          - link "REV - REV-21-2016":
+      - row "REV REV-21-2016 16 1/2\" Hex":
+        - cell "REV REV-21-2016":
+          - link "REV":
+            - /url: https://www.revrobotics.com/ION-25-Sprockets/
+          - link "REV-21-2016":
             - /url: https://www.revrobotics.com/ION-25-Sprockets/
         - cell "16"
         - cell "1/2\" Hex"
-      - row "WCP - 217-2643 16 1/2\" Hex":
-        - cell "WCP - 217-2643":
-          - link "WCP - 217-2643":
+      - row "WCP 217-2643 16 1/2\" Hex":
+        - cell "WCP 217-2643":
+          - link "WCP":
+            - /url: https://wcproducts.com/products/217-2643
+          - link "217-2643":
             - /url: https://wcproducts.com/products/217-2643
         - cell "16"
         - cell "1/2\" Hex"
-      - row "WCP - WCP-0087 16 1/2\" Hex":
-        - cell "WCP - WCP-0087":
-          - link "WCP - WCP-0087":
+      - row "WCP WCP-0087 16 1/2\" Hex":
+        - cell "WCP WCP-0087":
+          - link "WCP":
+            - /url: https://wcproducts.com/products/wcp-0087
+          - link "WCP-0087":
             - /url: https://wcproducts.com/products/wcp-0087
         - cell "16"
         - cell "1/2\" Hex"
-      - row "WCP - WCP-0558 16 1/2\" Hex":
-        - cell "WCP - WCP-0558":
-          - link "WCP - WCP-0558":
+      - row "WCP WCP-0558 16 1/2\" Hex":
+        - cell "WCP WCP-0558":
+          - link "WCP":
+            - /url: https://wcproducts.com/products/wcp-0558
+          - link "WCP-0558":
             - /url: https://wcproducts.com/products/wcp-0558
         - cell "16"
         - cell "1/2\" Hex"
-      - row "WCP - WCP-0578 16 1/2\" Hex":
-        - cell "WCP - WCP-0578":
-          - link "WCP - WCP-0578":
+      - row "WCP WCP-0578 16 1/2\" Hex":
+        - cell "WCP WCP-0578":
+          - link "WCP":
+            - /url: https://wcproducts.com/products/wcp-0578
+          - link "WCP-0578":
             - /url: https://wcproducts.com/products/wcp-0578
         - cell "16"
         - cell "1/2\" Hex"
-      - row "WCP - 217-5833 16 3/8\" Hex":
-        - cell "WCP - 217-5833":
-          - link "WCP - 217-5833":
+      - row "WCP 217-5833 16 3/8\" Hex":
+        - cell "WCP 217-5833":
+          - link "WCP":
+            - /url: https://wcproducts.com/products/217-5833
+          - link "217-5833":
             - /url: https://wcproducts.com/products/217-5833
         - cell "16"
         - cell "3/8\" Hex"
-      - row "Thrifty - TTB-0248 36 1.125\" Round":
-        - cell "Thrifty - TTB-0248":
-          - link "Thrifty - TTB-0248":
+      - row:
+        - cell
+      - row "Thrifty TTB-0248 36 1.125\" Round":
+        - cell "Thrifty TTB-0248":
+          - link "Thrifty":
+            - /url: https://www.thethriftybot.com/products/25-chain-billet-sprockets
+          - link "TTB-0248":
             - /url: https://www.thethriftybot.com/products/25-chain-billet-sprockets
         - cell "36"
         - cell "1.125\" Round"
-      - row "Thrifty - TTB-0274 36 1.125\" Round":
-        - cell "Thrifty - TTB-0274":
-          - link "Thrifty - TTB-0274":
+      - row "Thrifty TTB-0274 36 1.125\" Round":
+        - cell "Thrifty TTB-0274":
+          - link "Thrifty":
+            - /url: https://www.thethriftybot.com/products/25-flat-plate-sprockets
+          - link "TTB-0274":
             - /url: https://www.thethriftybot.com/products/25-flat-plate-sprockets
         - cell "36"
         - cell "1.125\" Round"
-      - row "WCP - WCP-2106 36 1/2\" Hex":
-        - cell "WCP - WCP-2106":
-          - link "WCP - WCP-2106":
+      - row "WCP WCP-2106 36 1/2\" Hex":
+        - cell "WCP WCP-2106":
+          - link "WCP":
+            - /url: https://wcproducts.com/products/wcp-2106
+          - link "WCP-2106":
             - /url: https://wcproducts.com/products/wcp-2106
         - cell "36"
         - cell "1/2\" Hex"
-      - row "WCP - WCP-0966 36 SplineXL":
-        - cell "WCP - WCP-0966":
-          - link "WCP - WCP-0966":
+      - row "WCP WCP-0966 36 SplineXL":
+        - cell "WCP WCP-0966":
+          - link "WCP":
+            - /url: https://wcproducts.com/products/wcp-0966
+          - link "WCP-0966":
             - /url: https://wcproducts.com/products/wcp-0966
         - cell "36"
         - cell "SplineXL"

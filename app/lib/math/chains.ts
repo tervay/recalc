@@ -19,6 +19,7 @@ export function calculateCenterDistance(
 type Result = {
   links: number;
   distance: Measurement;
+  differenceFromTarget: Measurement;
 };
 export type ChainClosestCentersResult = {
   smaller: Result;
@@ -42,10 +43,12 @@ export function calculateCenters(
       smaller: {
         links: 0,
         distance: new Measurement(0, 'in'),
+        differenceFromTarget: new Measurement(0, 'in'),
       },
       larger: {
         links: 0,
         distance: new Measurement(0, 'in'),
+        differenceFromTarget: new Measurement(0, 'in'),
       },
     };
   }
@@ -64,14 +67,29 @@ export function calculateCenters(
   const roundLinksDown = (n: number) =>
     allowHalfLinks ? Math.floor(n) : Math.floor(n / 2) * 2;
 
+  const smallerDistance = calculateCenterDistance(
+    chainType,
+    z1,
+    z2,
+    roundLinksDown(x0),
+  );
+  const largerDistance = calculateCenterDistance(
+    chainType,
+    z1,
+    z2,
+    roundLinksUp(x0),
+  );
+
   return {
     smaller: {
       links: roundLinksDown(x0),
-      distance: calculateCenterDistance(chainType, z1, z2, roundLinksDown(x0)),
+      distance: smallerDistance,
+      differenceFromTarget: smallerDistance.sub(desiredCenter),
     },
     larger: {
       links: roundLinksUp(x0),
-      distance: calculateCenterDistance(chainType, z1, z2, roundLinksUp(x0)),
+      distance: largerDistance,
+      differenceFromTarget: largerDistance.sub(desiredCenter),
     },
   };
 }

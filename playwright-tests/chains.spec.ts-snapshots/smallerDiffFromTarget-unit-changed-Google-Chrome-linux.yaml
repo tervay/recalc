@@ -18,16 +18,16 @@
   - text: Sprocket 2 Teeth
   - spinbutton: "36"
   - text: Pitch Diameter
-  - spinbutton [disabled]: "72.766"
-  - combobox: mm
+  - spinbutton [disabled]: "2.865"
+  - combobox: in
   - text: Smaller Chain Suggested Chain Links
   - spinbutton [disabled]: "66"
   - text: Center Distance
   - spinbutton [disabled]: "4.936"
   - combobox: in
   - text: Difference From Target
-  - spinbutton [disabled]: "-0.064"
-  - combobox: in
+  - spinbutton [disabled]: "-0.163"
+  - combobox: cm
   - text: Larger Chain Chain Links
   - spinbutton [disabled]: "68"
   - text: Center Distance

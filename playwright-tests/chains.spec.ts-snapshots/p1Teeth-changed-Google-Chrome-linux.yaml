@@ -5,7 +5,7 @@
   - combobox: "#25"
   - switch "Allow Half Links"
   - text: Allow Half Links Desired Center
-  - spinbutton "Desired Center Extra Center Pitch Diameter Pitch Diameter Chain Links Center Distance Chain Links Center Distance": "5"
+  - spinbutton "Desired Center Extra Center Pitch Diameter Pitch Diameter Chain Links Center Distance Difference From Target Chain Links Center Distance Difference From Target": "5"
   - combobox: in
   - text: Extra Center
   - spinbutton: "0"
@@ -25,10 +25,16 @@
   - text: Center Distance
   - spinbutton [disabled]: "4.869"
   - combobox: in
-  - text: Larger Chain Chain Links
+  - text: Difference From Target
+  - spinbutton [disabled]: "-0.131"
+  - combobox: in
+  - text: Larger Chain Suggested Chain Links
   - spinbutton [disabled]: "74"
   - text: Center Distance
   - spinbutton [disabled]: "5.119"
+  - combobox: in
+  - text: Difference From Target
+  - spinbutton [disabled]: "0.119"
   - combobox: in
   - table:
     - rowgroup:
@@ -39,39 +45,53 @@
         - cell "Teeth"
         - cell "Bore"
     - rowgroup:
-      - row "WCP - WCP-2103 30 1/2\" Hex":
-        - cell "WCP - WCP-2103":
-          - link "WCP - WCP-2103":
+      - row "WCP WCP-2103 30 1/2\" Hex":
+        - cell "WCP WCP-2103":
+          - link "WCP":
+            - /url: https://wcproducts.com/products/wcp-2103
+          - link "WCP-2103":
             - /url: https://wcproducts.com/products/wcp-2103
         - cell "30"
         - cell "1/2\" Hex"
-      - row "WCP - WCP-0965 30 SplineXL":
-        - cell "WCP - WCP-0965":
-          - link "WCP - WCP-0965":
+      - row "WCP WCP-0965 30 SplineXL":
+        - cell "WCP WCP-0965":
+          - link "WCP":
+            - /url: https://wcproducts.com/products/wcp-0965
+          - link "WCP-0965":
             - /url: https://wcproducts.com/products/wcp-0965
         - cell "30"
         - cell "SplineXL"
-      - row "Thrifty - TTB-0248 36 1.125\" Round":
-        - cell "Thrifty - TTB-0248":
-          - link "Thrifty - TTB-0248":
+      - row:
+        - cell
+      - row "Thrifty TTB-0248 36 1.125\" Round":
+        - cell "Thrifty TTB-0248":
+          - link "Thrifty":
+            - /url: https://www.thethriftybot.com/products/25-chain-billet-sprockets
+          - link "TTB-0248":
             - /url: https://www.thethriftybot.com/products/25-chain-billet-sprockets
         - cell "36"
         - cell "1.125\" Round"
-      - row "Thrifty - TTB-0274 36 1.125\" Round":
-        - cell "Thrifty - TTB-0274":
-          - link "Thrifty - TTB-0274":
+      - row "Thrifty TTB-0274 36 1.125\" Round":
+        - cell "Thrifty TTB-0274":
+          - link "Thrifty":
+            - /url: https://www.thethriftybot.com/products/25-flat-plate-sprockets
+          - link "TTB-0274":
             - /url: https://www.thethriftybot.com/products/25-flat-plate-sprockets
         - cell "36"
         - cell "1.125\" Round"
-      - row "WCP - WCP-2106 36 1/2\" Hex":
-        - cell "WCP - WCP-2106":
-          - link "WCP - WCP-2106":
+      - row "WCP WCP-2106 36 1/2\" Hex":
+        - cell "WCP WCP-2106":
+          - link "WCP":
+            - /url: https://wcproducts.com/products/wcp-2106
+          - link "WCP-2106":
             - /url: https://wcproducts.com/products/wcp-2106
         - cell "36"
         - cell "1/2\" Hex"
-      - row "WCP - WCP-0966 36 SplineXL":
-        - cell "WCP - WCP-0966":
-          - link "WCP - WCP-0966":
+      - row "WCP WCP-0966 36 SplineXL":
+        - cell "WCP WCP-0966":
+          - link "WCP":
+            - /url: https://wcproducts.com/products/wcp-0966
+          - link "WCP-0966":
             - /url: https://wcproducts.com/products/wcp-0966
         - cell "36"
         - cell "SplineXL"

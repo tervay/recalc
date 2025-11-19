@@ -1,8 +1,8 @@
 - main:
   - heading "Flywheel Calculator" [level=1]
   - button "Copy Link"
-  - text: Motor & Drive System Motor
-  - spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Weight Shooter Target Speed Max Achievable Shooter RPM Projectile Weight Shooter MOI Flywheel Diameter Flywheel Weight Ratio Flywheel MOI kV kA Spinup Time Effective MOI": "2"
+  - text: Motors & Electrical Motor
+  - spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Weight Shooter Target Speed Max Achievable RPM Shooter MOI Flywheel Diameter Flywheel Weight Flywheel to Shooter Ratio Flywheel MOI Spinup Time Effective MOI kV kA": "2"
   - combobox: Kraken X60 (FOC)
   - text: Ratio
   - spinbutton: "1"
@@ -30,12 +30,9 @@
   - text: Shooter Target Speed
   - spinbutton: "3000"
   - combobox: rpm
-  - text: Max Achievable Shooter RPM
+  - text: Max Achievable RPM
   - spinbutton [disabled]: "5784"
   - combobox: rpm
-  - text: Projectile Weight
-  - spinbutton: "0.5"
-  - combobox: lbs
   - text: Shooter MOI
   - spinbutton [disabled]: "0.003"
   - combobox: kg*m2
@@ -46,23 +43,23 @@
   - text: Flywheel Weight
   - spinbutton: "1.5"
   - combobox: lbs
-  - text: Ratio
+  - text: Flywheel to Shooter Ratio
   - spinbutton: "1"
   - combobox: Reduction
   - text: Flywheel MOI
   - spinbutton [disabled]: "6.000"
   - combobox: in2*lbs
   - switch "Use Custom Flywheel MOI"
-  - text: Use Custom Flywheel MOI Outputs kV
-  - spinbutton [disabled]: "0.260"
-  - combobox: V*s/m
-  - text: kA
-  - spinbutton [disabled]: "0.663"
-  - combobox: V*s^2/m
-  - text: Spinup Time
+  - text: Use Custom Flywheel MOI Outputs Spinup Time
   - spinbutton [disabled]: "1.173"
   - combobox: s
   - text: Effective MOI
   - spinbutton [disabled]: "15.000"
   - combobox: in2*lbs
+  - text: kV
+  - spinbutton [disabled]: "0.260"
+  - combobox: V*s/m
+  - text: kA
+  - spinbutton [disabled]: "0.663"
+  - combobox: V*s^2/m
   - application: 0.061 0.141 0.221 0.311 0.401 0.491 0.581 0.671 0.761 0.851 0.941 1.031 1.111 1.173 0 15 30 45 60 0 800 1600 2400 3200
