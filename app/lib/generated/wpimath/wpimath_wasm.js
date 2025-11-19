@@ -99,7 +99,7 @@ async function createWpimathModule(moduleArg = {}) {
   }
   function initRuntime() {
     runtimeInitialized = true;
-    wasmExports['y']();
+    wasmExports['s']();
   }
   function postRun() {
     if (Module['postRun']) {
@@ -218,58 +218,6 @@ async function createWpimathModule(moduleArg = {}) {
   var noExitRuntime = true;
   var stackRestore = (val) => __emscripten_stack_restore(val);
   var stackSave = () => _emscripten_stack_get_current();
-  class ExceptionInfo {
-    constructor(excPtr) {
-      this.excPtr = excPtr;
-      this.ptr = excPtr - 24;
-    }
-    set_type(type) {
-      HEAPU32[(this.ptr + 4) >> 2] = type;
-    }
-    get_type() {
-      return HEAPU32[(this.ptr + 4) >> 2];
-    }
-    set_destructor(destructor) {
-      HEAPU32[(this.ptr + 8) >> 2] = destructor;
-    }
-    get_destructor() {
-      return HEAPU32[(this.ptr + 8) >> 2];
-    }
-    set_caught(caught) {
-      caught = caught ? 1 : 0;
-      HEAP8[this.ptr + 12] = caught;
-    }
-    get_caught() {
-      return HEAP8[this.ptr + 12] != 0;
-    }
-    set_rethrown(rethrown) {
-      rethrown = rethrown ? 1 : 0;
-      HEAP8[this.ptr + 13] = rethrown;
-    }
-    get_rethrown() {
-      return HEAP8[this.ptr + 13] != 0;
-    }
-    init(type, destructor) {
-      this.set_adjusted_ptr(0);
-      this.set_type(type);
-      this.set_destructor(destructor);
-    }
-    set_adjusted_ptr(adjustedPtr) {
-      HEAPU32[(this.ptr + 16) >> 2] = adjustedPtr;
-    }
-    get_adjusted_ptr() {
-      return HEAPU32[(this.ptr + 16) >> 2];
-    }
-  }
-  var exceptionLast = 0;
-  var uncaughtExceptionCount = 0;
-  var ___cxa_throw = (ptr, type, destructor) => {
-    var info = new ExceptionInfo(ptr);
-    info.init(type, destructor);
-    exceptionLast = ptr;
-    uncaughtExceptionCount++;
-    throw exceptionLast;
-  };
   var __abort_js = () => abort('');
   var AsciiToString = (ptr) => {
     var str = '';
@@ -1434,47 +1382,6 @@ async function createWpimathModule(moduleArg = {}) {
       destructorFunction: null,
     });
   };
-  var __embind_register_function = (
-    name,
-    argCount,
-    rawArgTypesAddr,
-    signature,
-    rawInvoker,
-    fn,
-    isAsync,
-    isNonnullReturn,
-  ) => {
-    var argTypes = heap32VectorToArray(argCount, rawArgTypesAddr);
-    name = AsciiToString(name);
-    name = getFunctionName(name);
-    rawInvoker = embind__requireFunction(signature, rawInvoker, isAsync);
-    exposePublicSymbol(
-      name,
-      function () {
-        throwUnboundTypeError(
-          `Cannot call ${name} due to unbound types`,
-          argTypes,
-        );
-      },
-      argCount - 1,
-    );
-    whenDependentTypesAreResolved([], argTypes, (argTypes) => {
-      var invokerArgsArray = [argTypes[0], null].concat(argTypes.slice(1));
-      replacePublicSymbol(
-        name,
-        craftInvokerFunction(
-          name,
-          invokerArgsArray,
-          null,
-          rawInvoker,
-          fn,
-          isAsync,
-        ),
-        argCount - 1,
-      );
-      return [];
-    });
-  };
   var __embind_register_integer = (
     primitiveType,
     name,
@@ -1875,56 +1782,6 @@ async function createWpimathModule(moduleArg = {}) {
     timers[which] = { id, timeout_ms };
     return 0;
   };
-  var __tzset_js = (timezone, daylight, std_name, dst_name) => {
-    var currentYear = new Date().getFullYear();
-    var winter = new Date(currentYear, 0, 1);
-    var summer = new Date(currentYear, 6, 1);
-    var winterOffset = winter.getTimezoneOffset();
-    var summerOffset = summer.getTimezoneOffset();
-    var stdTimezoneOffset = Math.max(winterOffset, summerOffset);
-    HEAPU32[timezone >> 2] = stdTimezoneOffset * 60;
-    HEAP32[daylight >> 2] = Number(winterOffset != summerOffset);
-    var extractZone = (timezoneOffset) => {
-      var sign = timezoneOffset >= 0 ? '-' : '+';
-      var absOffset = Math.abs(timezoneOffset);
-      var hours = String(Math.floor(absOffset / 60)).padStart(2, '0');
-      var minutes = String(absOffset % 60).padStart(2, '0');
-      return `UTC${sign}${hours}${minutes}`;
-    };
-    var winterName = extractZone(winterOffset);
-    var summerName = extractZone(summerOffset);
-    if (summerOffset < winterOffset) {
-      stringToUTF8(winterName, std_name, 17);
-      stringToUTF8(summerName, dst_name, 17);
-    } else {
-      stringToUTF8(winterName, dst_name, 17);
-      stringToUTF8(summerName, std_name, 17);
-    }
-  };
-  var _emscripten_date_now = () => Date.now();
-  var nowIsMonotonic = 1;
-  var checkWasiClock = (clock_id) => clock_id >= 0 && clock_id <= 3;
-  var INT53_MAX = 9007199254740992;
-  var INT53_MIN = -9007199254740992;
-  var bigintToI53Checked = (num) =>
-    num < INT53_MIN || num > INT53_MAX ? NaN : Number(num);
-  function _clock_time_get(clk_id, ignored_precision, ptime) {
-    ignored_precision = bigintToI53Checked(ignored_precision);
-    if (!checkWasiClock(clk_id)) {
-      return 28;
-    }
-    var now;
-    if (clk_id === 0) {
-      now = _emscripten_date_now();
-    } else if (nowIsMonotonic) {
-      now = _emscripten_get_now();
-    } else {
-      return 52;
-    }
-    var nsec = Math.round(now * 1e3 * 1e3);
-    HEAP64[ptime >> 3] = BigInt(nsec);
-    return 0;
-  }
   var getHeapMax = () => 268435456;
   var alignMemory = (size, alignment) =>
     Math.ceil(size / alignment) * alignment;
@@ -1960,57 +1817,6 @@ async function createWpimathModule(moduleArg = {}) {
       }
     }
     return false;
-  };
-  var ENV = {};
-  var getExecutableName = () => thisProgram || './this.program';
-  var getEnvStrings = () => {
-    if (!getEnvStrings.strings) {
-      var lang =
-        ((typeof navigator == 'object' && navigator.language) || 'C').replace(
-          '-',
-          '_',
-        ) + '.UTF-8';
-      var env = {
-        USER: 'web_user',
-        LOGNAME: 'web_user',
-        PATH: '/',
-        PWD: '/',
-        HOME: '/home/web_user',
-        LANG: lang,
-        _: getExecutableName(),
-      };
-      for (var x in ENV) {
-        if (ENV[x] === undefined) delete env[x];
-        else env[x] = ENV[x];
-      }
-      var strings = [];
-      for (var x in env) {
-        strings.push(`${x}=${env[x]}`);
-      }
-      getEnvStrings.strings = strings;
-    }
-    return getEnvStrings.strings;
-  };
-  var _environ_get = (__environ, environ_buf) => {
-    var bufSize = 0;
-    var envp = 0;
-    for (var string of getEnvStrings()) {
-      var ptr = environ_buf + bufSize;
-      HEAPU32[(__environ + envp) >> 2] = ptr;
-      bufSize += stringToUTF8(string, ptr, Infinity) + 1;
-      envp += 4;
-    }
-    return 0;
-  };
-  var _environ_sizes_get = (penviron_count, penviron_buf_size) => {
-    var strings = getEnvStrings();
-    HEAPU32[penviron_count >> 2] = strings.length;
-    var bufSize = 0;
-    for (var string of strings) {
-      bufSize += lengthBytesUTF8(string) + 1;
-    }
-    HEAPU32[penviron_buf_size >> 2] = bufSize;
-    return 0;
   };
   var getCFunc = (ident) => {
     var func = Module['_' + ident];
@@ -2102,9 +1908,9 @@ async function createWpimathModule(moduleArg = {}) {
   Module['UTF8ToString'] = UTF8ToString;
   Module['stringToUTF8'] = stringToUTF8;
   var ___getTypeName,
-    _free,
-    _malloc,
     __emscripten_timeout,
+    _malloc,
+    _free,
     __emscripten_stack_restore,
     __emscripten_stack_alloc,
     _emscripten_stack_get_current,
@@ -2113,40 +1919,34 @@ async function createWpimathModule(moduleArg = {}) {
     wasmMemory,
     wasmTable;
   function assignWasmExports(wasmExports) {
-    ___getTypeName = wasmExports['z'];
-    _free = Module['_free'] = wasmExports['B'];
-    _malloc = Module['_malloc'] = wasmExports['C'];
-    __emscripten_timeout = wasmExports['D'];
-    __emscripten_stack_restore = wasmExports['E'];
-    __emscripten_stack_alloc = wasmExports['F'];
-    _emscripten_stack_get_current = wasmExports['G'];
-    memory = wasmMemory = wasmExports['x'];
-    __indirect_function_table = wasmTable = wasmExports['A'];
+    ___getTypeName = wasmExports['t'];
+    __emscripten_timeout = wasmExports['u'];
+    _malloc = Module['_malloc'] = wasmExports['v'];
+    _free = Module['_free'] = wasmExports['x'];
+    __emscripten_stack_restore = wasmExports['y'];
+    __emscripten_stack_alloc = wasmExports['z'];
+    _emscripten_stack_get_current = wasmExports['A'];
+    memory = wasmMemory = wasmExports['r'];
+    __indirect_function_table = wasmTable = wasmExports['w'];
   }
   var wasmImports = {
-    c: ___cxa_throw,
-    w: __abort_js,
-    j: __embind_register_bigint,
-    m: __embind_register_bool,
-    f: __embind_register_class,
-    d: __embind_register_class_constructor,
+    p: __abort_js,
+    g: __embind_register_bigint,
+    k: __embind_register_bool,
+    e: __embind_register_class,
+    c: __embind_register_class_constructor,
     b: __embind_register_class_function,
-    k: __embind_register_emval,
-    i: __embind_register_float,
-    h: __embind_register_function,
-    e: __embind_register_integer,
+    i: __embind_register_emval,
+    h: __embind_register_float,
+    d: __embind_register_integer,
     a: __embind_register_memory_view,
-    l: __embind_register_std_string,
-    g: __embind_register_std_wstring,
-    n: __embind_register_void,
-    p: __emscripten_runtime_keepalive_clear,
-    q: __setitimer_js,
-    r: __tzset_js,
-    u: _clock_time_get,
-    v: _emscripten_resize_heap,
-    s: _environ_get,
-    t: _environ_sizes_get,
-    o: _proc_exit,
+    j: __embind_register_std_string,
+    f: __embind_register_std_wstring,
+    l: __embind_register_void,
+    n: __emscripten_runtime_keepalive_clear,
+    o: __setitimer_js,
+    q: _emscripten_resize_heap,
+    m: _proc_exit,
   };
   function run() {
     preRun();

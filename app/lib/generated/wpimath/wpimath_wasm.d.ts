@@ -45,8 +45,8 @@ declare namespace RuntimeExports {
   function stringToUTF8(str: any, outPtr: any, maxBytesToWrite: any): any;
 }
 interface WasmModule {
-  _free(_0: number): void;
   _malloc(_0: number): number;
+  _free(_0: number): void;
 }
 
 export interface ClassHandle {
@@ -58,72 +58,51 @@ export interface ClassHandle {
   [Symbol.dispose](): void;
   clone(): this;
 }
-export interface Translation2d extends ClassHandle {
+export interface Translation3d extends ClassHandle {
   getX(): number;
   getY(): number;
-  getDistance(_0: Translation2d): number;
+  getZ(): number;
+  getDistance(_0: Translation3d): number;
   getNorm(): number;
 }
 
-export interface Rotation2d extends ClassHandle {
-  getRadians(): number;
-  getDegrees(): number;
-  getCos(): number;
-  getSin(): number;
-}
-
-export interface Transform2d extends ClassHandle {}
-
-export interface Pose2d extends ClassHandle {
-  getTranslation(): Translation2d;
-  getRotation(): Rotation2d;
-  transformBy(_0: Transform2d): Pose2d;
-  relativeTo(_0: Pose2d): Pose2d;
+export interface Rotation3d extends ClassHandle {
   getX(): number;
   getY(): number;
+  getZ(): number;
 }
 
-export interface PIDController extends ClassHandle {
-  reset(): void;
-  calculate(_0: number, _1: number): number;
-}
+export interface Transform3d extends ClassHandle {}
 
-export interface ElevatorFeedforward extends ClassHandle {
-  calculate(_0: number): number;
+export interface Pose3d extends ClassHandle {
+  getTranslation(): Translation3d;
+  getRotation(): Rotation3d;
+  transformBy(_0: Transform3d): Pose3d;
+  relativeTo(_0: Pose3d): Pose3d;
+  getX(): number;
+  getY(): number;
+  getZ(): number;
 }
 
 interface EmbindModule {
-  Translation2d: {
-    new (): Translation2d;
+  Translation3d: {
+    new (): Translation3d;
+    new (_0: number, _1: number, _2: number): Translation3d;
+    new (_0: number, _1: Rotation3d): Translation3d;
   };
-  Rotation2d: {
-    new (): Rotation2d;
+  Rotation3d: {
+    new (): Rotation3d;
+    new (_0: number, _1: number, _2: number): Rotation3d;
   };
-  Transform2d: {
-    new (): Transform2d;
-    new (_0: Translation2d, _1: Rotation2d): Transform2d;
+  Transform3d: {
+    new (): Transform3d;
+    new (_0: Translation3d, _1: Rotation3d): Transform3d;
+    new (_0: number, _1: number, _2: number, _3: Rotation3d): Transform3d;
   };
-  Pose2d: {
-    new (): Pose2d;
-    new (_0: Translation2d, _1: Rotation2d): Pose2d;
+  Pose3d: {
+    new (): Pose3d;
+    new (_0: Translation3d, _1: Rotation3d): Pose3d;
   };
-  PIDController: {
-    new (_0: number, _1: number, _2: number): PIDController;
-  };
-  ElevatorFeedforward: {
-    new (
-      _0: number,
-      _1: number,
-      _2: number,
-      _3: number,
-      _4: number,
-    ): ElevatorFeedforward;
-    new (_0: number, _1: number, _2: number, _3: number): ElevatorFeedforward;
-    new (_0: number, _1: number, _2: number): ElevatorFeedforward;
-  };
-  createTranslation2d(_0: number, _1: number): Translation2d;
-  createRotation2dFromRadians(_0: number): Rotation2d;
-  createPose2d(_0: number, _1: number, _2: number): Pose2d;
 }
 
 export type MainModule = WasmModule & typeof RuntimeExports & EmbindModule;

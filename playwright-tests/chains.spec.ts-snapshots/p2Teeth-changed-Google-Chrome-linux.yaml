@@ -1,129 +1,129 @@
-- main:
-  - heading "Chain Calculator" [level=1]
-  - button "Copy Link"
-  - text: Chain Type
-  - combobox: "#25"
-  - switch "Allow Half Links"
-  - text: Allow Half Links Desired Center
-  - spinbutton "Desired Center Extra Center Pitch Diameter Pitch Diameter Chain Links Center Distance Difference From Target Chain Links Center Distance Difference From Target": "5"
-  - combobox: in
-  - text: Extra Center
-  - spinbutton: "0"
-  - combobox: in
-  - text: Sprocket 1 Teeth
-  - spinbutton: "16"
-  - text: Pitch Diameter
-  - spinbutton [disabled]: "1.273"
-  - combobox: in
-  - text: Sprocket 2 Teeth
-  - spinbutton: "60"
-  - text: Pitch Diameter
-  - spinbutton [disabled]: "4.775"
-  - combobox: in
-  - text: Smaller Chain Suggested Chain Links
-  - spinbutton [disabled]: "80"
-  - text: Center Distance
-  - spinbutton [disabled]: "4.940"
-  - combobox: in
-  - text: Difference From Target
-  - spinbutton [disabled]: "-0.060"
-  - combobox: in
-  - text: Larger Chain Chain Links
-  - spinbutton [disabled]: "82"
-  - text: Center Distance
-  - spinbutton [disabled]: "5.206"
-  - combobox: in
-  - text: Difference From Target
-  - spinbutton [disabled]: "0.206"
-  - combobox: in
-  - table:
-    - rowgroup:
-      - row "Matching COTS Sprockets":
-        - cell "Matching COTS Sprockets"
-      - row "SKU Teeth Bore":
-        - cell "SKU"
-        - cell "Teeth"
-        - cell "Bore"
-    - rowgroup:
-      - row "REV REV-21-2012 16 1/2\" Hex":
-        - cell "REV REV-21-2012":
-          - link "REV":
-            - /url: https://www.revrobotics.com/ION-25-Sprockets/
-          - link "REV-21-2012":
-            - /url: https://www.revrobotics.com/ION-25-Sprockets/
-        - cell "16"
-        - cell "1/2\" Hex"
-      - row "REV REV-21-2016 16 1/2\" Hex":
-        - cell "REV REV-21-2016":
-          - link "REV":
-            - /url: https://www.revrobotics.com/ION-25-Sprockets/
-          - link "REV-21-2016":
-            - /url: https://www.revrobotics.com/ION-25-Sprockets/
-        - cell "16"
-        - cell "1/2\" Hex"
-      - row "WCP 217-2643 16 1/2\" Hex":
-        - cell "WCP 217-2643":
-          - link "WCP":
-            - /url: https://wcproducts.com/products/217-2643
-          - link "217-2643":
-            - /url: https://wcproducts.com/products/217-2643
-        - cell "16"
-        - cell "1/2\" Hex"
-      - row "WCP WCP-0087 16 1/2\" Hex":
-        - cell "WCP WCP-0087":
-          - link "WCP":
-            - /url: https://wcproducts.com/products/wcp-0087
-          - link "WCP-0087":
-            - /url: https://wcproducts.com/products/wcp-0087
-        - cell "16"
-        - cell "1/2\" Hex"
-      - row "WCP WCP-0558 16 1/2\" Hex":
-        - cell "WCP WCP-0558":
-          - link "WCP":
-            - /url: https://wcproducts.com/products/wcp-0558
-          - link "WCP-0558":
-            - /url: https://wcproducts.com/products/wcp-0558
-        - cell "16"
-        - cell "1/2\" Hex"
-      - row "WCP WCP-0578 16 1/2\" Hex":
-        - cell "WCP WCP-0578":
-          - link "WCP":
-            - /url: https://wcproducts.com/products/wcp-0578
-          - link "WCP-0578":
-            - /url: https://wcproducts.com/products/wcp-0578
-        - cell "16"
-        - cell "1/2\" Hex"
-      - row "WCP 217-5833 16 3/8\" Hex":
-        - cell "WCP 217-5833":
-          - link "WCP":
-            - /url: https://wcproducts.com/products/217-5833
-          - link "217-5833":
-            - /url: https://wcproducts.com/products/217-5833
-        - cell "16"
-        - cell "3/8\" Hex"
-      - row:
-        - cell
-      - row "Thrifty ttb-0249 60 1.125\" Round":
-        - cell "Thrifty ttb-0249":
-          - link "Thrifty":
-            - /url: https://www.thethriftybot.com/products/25-chain-billet-sprockets
-          - link "ttb-0249":
-            - /url: https://www.thethriftybot.com/products/25-chain-billet-sprockets
-        - cell "60"
-        - cell "1.125\" Round"
-      - row "Thrifty TTB-0276 60 1.125\" Round":
-        - cell "Thrifty TTB-0276":
-          - link "Thrifty":
-            - /url: https://www.thethriftybot.com/products/25-flat-plate-sprockets
-          - link "TTB-0276":
-            - /url: https://www.thethriftybot.com/products/25-flat-plate-sprockets
-        - cell "60"
-        - cell "1.125\" Round"
-      - row "WCP WCP-0970 60 SplineXL":
-        - cell "WCP WCP-0970":
-          - link "WCP":
-            - /url: https://wcproducts.com/products/wcp-0970
-          - link "WCP-0970":
-            - /url: https://wcproducts.com/products/wcp-0970
-        - cell "60"
-        - cell "SplineXL"
+- heading "Chain Calculator" [level=1]
+- button "Copy Link"
+- text: Chain Type
+- combobox: "#25"
+- switch "Allow Half Links"
+- text: Allow Half Links Desired Center
+- spinbutton "Desired Center Extra Center Pitch Diameter Pitch Diameter Chain Links Center Distance Difference From Target Chain Links Center Distance Difference From Target": "5"
+- combobox: in
+- text: Extra Center
+- spinbutton: "0"
+- combobox: in
+- text: Sprocket 1 Teeth
+- spinbutton: "16"
+- text: Pitch Diameter
+- spinbutton [disabled]: "1.273"
+- combobox: in
+- text: Sprocket 2 Teeth
+- spinbutton: "60"
+- text: Pitch Diameter
+- spinbutton [disabled]: "4.775"
+- combobox: in
+- text: Smaller Chain Suggested Chain Links
+- spinbutton [disabled]: "80"
+- text: Center Distance
+- spinbutton [disabled]: "4.940"
+- combobox: in
+- text: Difference From Target
+- spinbutton [disabled]: "-0.060"
+- combobox: in
+- text: Larger Chain Chain Links
+- spinbutton [disabled]: "82"
+- text: Center Distance
+- spinbutton [disabled]: "5.206"
+- combobox: in
+- text: Difference From Target
+- spinbutton [disabled]: "0.206"
+- combobox: in
+- table:
+  - rowgroup:
+    - row "Matching COTS Sprockets":
+      - cell "Matching COTS Sprockets"
+    - row "SKU Teeth Bore":
+      - cell "SKU"
+      - cell "Teeth"
+      - cell "Bore"
+  - rowgroup:
+    - row "REV REV-21-2012 16 1/2\" Hex":
+      - cell "REV REV-21-2012":
+        - link "REV":
+          - /url: https://www.revrobotics.com/ION-25-Sprockets/
+        - link "REV-21-2012":
+          - /url: https://www.revrobotics.com/ION-25-Sprockets/
+      - cell "16"
+      - cell "1/2\" Hex"
+    - row "REV REV-21-2016 16 1/2\" Hex":
+      - cell "REV REV-21-2016":
+        - link "REV":
+          - /url: https://www.revrobotics.com/ION-25-Sprockets/
+        - link "REV-21-2016":
+          - /url: https://www.revrobotics.com/ION-25-Sprockets/
+      - cell "16"
+      - cell "1/2\" Hex"
+    - row "WCP 217-2643 16 1/2\" Hex":
+      - cell "WCP 217-2643":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/217-2643
+        - link "217-2643":
+          - /url: https://wcproducts.com/products/217-2643
+      - cell "16"
+      - cell "1/2\" Hex"
+    - row "WCP WCP-0087 16 1/2\" Hex":
+      - cell "WCP WCP-0087":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-0087
+        - link "WCP-0087":
+          - /url: https://wcproducts.com/products/wcp-0087
+      - cell "16"
+      - cell "1/2\" Hex"
+    - row "WCP WCP-0558 16 1/2\" Hex":
+      - cell "WCP WCP-0558":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-0558
+        - link "WCP-0558":
+          - /url: https://wcproducts.com/products/wcp-0558
+      - cell "16"
+      - cell "1/2\" Hex"
+    - row "WCP WCP-0578 16 1/2\" Hex":
+      - cell "WCP WCP-0578":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-0578
+        - link "WCP-0578":
+          - /url: https://wcproducts.com/products/wcp-0578
+      - cell "16"
+      - cell "1/2\" Hex"
+    - row "WCP 217-5833 16 3/8\" Hex":
+      - cell "WCP 217-5833":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/217-5833
+        - link "217-5833":
+          - /url: https://wcproducts.com/products/217-5833
+      - cell "16"
+      - cell "3/8\" Hex"
+    - row:
+      - cell
+    - row "Thrifty ttb-0249 60 1.125\" Round":
+      - cell "Thrifty ttb-0249":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/25-chain-billet-sprockets
+        - link "ttb-0249":
+          - /url: https://www.thethriftybot.com/products/25-chain-billet-sprockets
+      - cell "60"
+      - cell "1.125\" Round"
+    - row "Thrifty TTB-0276 60 1.125\" Round":
+      - cell "Thrifty TTB-0276":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/25-flat-plate-sprockets
+        - link "TTB-0276":
+          - /url: https://www.thethriftybot.com/products/25-flat-plate-sprockets
+      - cell "60"
+      - cell "1.125\" Round"
+    - row "WCP WCP-0970 60 SplineXL":
+      - cell "WCP WCP-0970":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-0970
+        - link "WCP-0970":
+          - /url: https://wcproducts.com/products/wcp-0970
+      - cell "60"
+      - cell "SplineXL"
+- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

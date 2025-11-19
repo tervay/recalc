@@ -15,6 +15,7 @@ describe('ratioFinderWorker', () => {
         enableAM: true,
         enableTTB: true,
         enableLastAnvil: true,
+        enableSDS: true,
         enablePlanetaries: true,
         enable20DP: true,
         enable32DP: true,

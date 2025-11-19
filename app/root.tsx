@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect } from 'react';
+import { type ReactNode } from 'react';
 import {
   Links,
   Meta,
@@ -9,9 +9,11 @@ import {
 } from 'react-router';
 
 import '~/app.css';
+import { AppSidebar } from '~/components/recalc/appSidebar';
 import Nav from '~/components/recalc/nav';
 import { ThemeProvider } from '~/components/recalc/themeProvider';
-import { initWpilibc } from '~/lib/wpilib/wpilibc';
+import { SidebarInset, SidebarProvider } from '~/components/ui/sidebar';
+import { Warning } from '~/components/ui/warning';
 
 import type { Route } from '.react-router/types/app/+types/root';
 
@@ -40,12 +42,20 @@ export function Layout({ children }: { children: ReactNode }) {
       </head>
       <body>
         <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-          <Nav />
-          <div className="container mx-auto" role="main">
-            {children}
-          </div>
-          <ScrollRestoration />
-          <Scripts />
+          <SidebarProvider defaultOpen={false}>
+            <AppSidebar />
+            <SidebarInset>
+              <Nav />
+              <div className="container mx-auto" data-testid="entrypoint">
+                {children}
+                <div className="mt-48">
+                  <Warning />
+                </div>
+              </div>
+            </SidebarInset>
+            <ScrollRestoration />
+            <Scripts />
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>
@@ -53,12 +63,6 @@ export function Layout({ children }: { children: ReactNode }) {
 }
 
 export default function App() {
-  useEffect(() => {
-    initWpilibc().catch((error) => {
-      console.error('Failed to initialize wpilibc module:', error);
-    });
-  }, []);
-
   return <Outlet />;
 }
 

@@ -35,3 +35,4 @@ pnpm run dev
 - Shadcn UI + Tailwind CSS
 - Comlink (for background workers)
 - Vitest + Playwright (testing)
+- Icons: https://icon-sets.iconify.design/

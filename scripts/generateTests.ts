@@ -33,7 +33,7 @@ function generateMeasurementInputChangeTest(dataTestId: string): string {
   return `
     test.skip('should match snapshot with ${dataTestId} magnitude changed', async ({ page }) => {
         await page.getByTestId('${dataTestId}').fill('FIXME');
-        expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
+        expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot({
           name: '${dataTestId}-magnitude-changed.yaml',
         });
     });
@@ -41,7 +41,7 @@ function generateMeasurementInputChangeTest(dataTestId: string): string {
     test.skip('should match snapshot with ${dataTestId} unit changed', async ({ page }) => {
         await page.getByTestId('select${dataTestId}').click();
         await page.getByRole('option', { name: 'FIXME' }).click();
-        expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
+        expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot({
           name: '${dataTestId}-unit-changed.yaml',
         });
     });
@@ -52,7 +52,7 @@ function generateNumberInputChangeTest(dataTestId: string): string {
   return `
     test.skip('should match snapshot with ${dataTestId} changed', async ({ page }) => {
         await page.getByTestId('${dataTestId}').fill('FIXME');
-        expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
+        expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot({
           name: '${dataTestId}-changed.yaml',
         });
     });
@@ -64,7 +64,7 @@ function generateSelectInputChangeTest(dataTestId: string): string {
     test.skip('should match snapshot with ${dataTestId} changed', async ({ page }) => {
         await page.getByTestId('${dataTestId}').click();
         await page.getByRole('option', { name: 'FIXME' }).click();
-        expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
+        expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot({
           name: '${dataTestId}-unit-changed.yaml',
         });
     });
@@ -76,7 +76,7 @@ function generateMeasurementOutputChangeTest(dataTestId: string): string {
     test.skip('should match snapshot with ${dataTestId} unit changed', async ({ page }) => {
         await page.getByTestId('select${dataTestId}').click();
         await page.getByRole('option', { name: 'FIXME' }).click();
-        expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
+        expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot({
           name: '${dataTestId}-changed.yaml',
         });
     });

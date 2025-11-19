@@ -1,65 +1,65 @@
-- main:
-  - heading "Flywheel Calculator" [level=1]
-  - button "Copy Link"
-  - text: Motors & Electrical Motor
-  - spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Weight Shooter Target Speed Max Achievable RPM Shooter MOI Flywheel Diameter Flywheel Weight Flywheel to Shooter Ratio Flywheel MOI Spinup Time Effective MOI kV kA": "2"
-  - combobox: Kraken X60 (FOC)
-  - text: Ratio
-  - spinbutton: "1"
-  - combobox: Reduction
-  - text: Stator Limit
-  - spinbutton: "30"
-  - combobox: A
-  - text: Supply Limit
-  - spinbutton: "90"
-  - combobox: A
-  - text: Supply Voltage
-  - spinbutton: "12.6"
-  - combobox: V
-  - text: Battery Resistance
-  - spinbutton: "0.015"
-  - combobox: Ohm
-  - text: Efficiency (%)
-  - spinbutton: "100"
-  - text: Shooter Wheel Properties Shooter Diameter
-  - spinbutton: "4"
-  - combobox: in
-  - text: Shooter Weight
-  - spinbutton: "1"
-  - combobox: lbs
-  - text: Shooter Target Speed
-  - spinbutton: "3000"
-  - combobox: rpm
-  - text: Max Achievable RPM
-  - spinbutton [disabled]: "5784"
-  - combobox: rpm
-  - text: Shooter MOI
-  - spinbutton [disabled]: "4.000"
-  - combobox: in2*lbs
-  - switch "Use Custom Shooter MOI"
-  - text: Use Custom Shooter MOI Flywheel Properties Flywheel Diameter
-  - spinbutton: "4"
-  - combobox: in
-  - text: Flywheel Weight
-  - spinbutton: "1.5"
-  - combobox: lbs
-  - text: Flywheel to Shooter Ratio
-  - spinbutton: "1"
-  - combobox: Reduction
-  - text: Flywheel MOI
-  - spinbutton [disabled]: "6.000"
-  - combobox: in2*lbs
-  - switch "Use Custom Flywheel MOI"
-  - text: Use Custom Flywheel MOI Outputs Spinup Time
-  - spinbutton [disabled]: "0.784"
-  - combobox: s
-  - text: Effective MOI
-  - spinbutton [disabled]: "10.000"
-  - combobox: in2*lbs
-  - text: kV
-  - spinbutton [disabled]: "0.390"
-  - combobox: V*s/m
-  - text: kA
-  - spinbutton [disabled]: "0.663"
-  - combobox: V*s^2/m
-  - application: 0.011 0.071 0.131 0.191 0.251 0.311 0.371 0.431 0.491 0.551 0.611 0.671 0.731 0.784 0 15 30 45 60 0 800 1600 2400 3200
+- heading "Flywheel Calculator" [level=1]
+- button "Copy Link"
+- text: Motors & Electrical Motor
+- spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Weight Shooter Target Speed Max Achievable RPM Shooter MOI Flywheel Diameter Flywheel Weight Flywheel to Shooter Ratio Flywheel MOI Spinup Time Effective MOI kV kA": "2"
+- combobox: Kraken X60 (FOC)
+- text: Ratio
+- spinbutton: "1"
+- combobox: Reduction
+- text: Stator Limit
+- spinbutton: "30"
+- combobox: A
+- text: Supply Limit
+- spinbutton: "90"
+- combobox: A
+- text: Supply Voltage
+- spinbutton: "12.6"
+- combobox: V
+- text: Battery Resistance
+- spinbutton: "0.015"
+- combobox: Ohm
+- text: Efficiency (%)
+- spinbutton: "100"
+- text: Shooter Wheel Properties Shooter Diameter
+- spinbutton: "4"
+- combobox: in
+- text: Shooter Weight
+- spinbutton: "1"
+- combobox: lbs
+- text: Shooter Target Speed
+- spinbutton: "3000"
+- combobox: rpm
+- text: Max Achievable RPM
+- spinbutton [disabled]: "5784"
+- combobox: rpm
+- text: Shooter MOI
+- spinbutton [disabled]: "4.000"
+- combobox: in2*lbs
+- switch "Use Custom Shooter MOI"
+- text: Use Custom Shooter MOI Flywheel Properties Flywheel Diameter
+- spinbutton: "4"
+- combobox: in
+- text: Flywheel Weight
+- spinbutton: "1.5"
+- combobox: lbs
+- text: Flywheel to Shooter Ratio
+- spinbutton: "1"
+- combobox: Reduction
+- text: Flywheel MOI
+- spinbutton [disabled]: "6.000"
+- combobox: in2*lbs
+- switch "Use Custom Flywheel MOI"
+- text: Use Custom Flywheel MOI Outputs Spinup Time
+- spinbutton [disabled]: "0.784"
+- combobox: s
+- text: Effective MOI
+- spinbutton [disabled]: "10.000"
+- combobox: in2*lbs
+- text: kV
+- spinbutton [disabled]: "0.390"
+- combobox: V*s/m
+- text: kA
+- spinbutton [disabled]: "0.663"
+- combobox: V*s^2/m
+- application: 0.011 0.071 0.131 0.191 0.251 0.311 0.371 0.431 0.491 0.551 0.611 0.671 0.731 0.784 0 15 30 45 60 0 800 1600 2400 3200
+- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

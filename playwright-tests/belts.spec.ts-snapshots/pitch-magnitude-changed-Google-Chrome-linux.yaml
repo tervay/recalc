@@ -1,195 +1,193 @@
-- main:
-  - heading "Belt Calculator" [level=1]
-  - button "Copy Link"
-  - group:
-    - button "GT2 (3mm)"
-    - button "HTD (5mm)"
-    - button "RT25 (0.25in)"
-  - switch "Use Custom Belt"
-  - text: Use Custom Belt Pitch
-  - spinbutton "Pitch Target Center Extra Center Pitch Diameter Pitch Diameter Belt Teeth Center Distance Pulley 1 Teeth in Mesh Pulley 2 Teeth in Mesh Gap Between Pulleys Difference From Target Belt Teeth Center Distance Pulley 1 Teeth in Mesh Pulley 2 Teeth in Mesh Gap Between Pulleys Difference From Target": "3"
-  - combobox: mm
-  - text: Tooth Increment
-  - spinbutton: "5"
-  - text: Target Center
-  - spinbutton: "5"
-  - combobox: in
-  - text: Extra Center
-  - spinbutton: "0"
-  - combobox: mm
-  - text: Pulley 1 Teeth
-  - spinbutton: "16"
-  - text: Pitch Diameter
-  - spinbutton [disabled]: "0.602"
-  - combobox: in
-  - text: Pulley 2 Teeth
-  - spinbutton: "24"
-  - text: Pitch Diameter
-  - spinbutton [disabled]: "0.902"
-  - combobox: in
-  - text: Smaller Belt Belt Teeth
-  - spinbutton [disabled]: "100"
-  - text: Center Distance
-  - spinbutton [disabled]: "4.722"
-  - combobox: in
-  - text: Pulley 1 Teeth in Mesh
-  - spinbutton [disabled]: "8"
-  - text: Pulley 2 Teeth in Mesh
-  - spinbutton [disabled]: "11"
-  - text: Gap Between Pulleys
-  - spinbutton [disabled]: "3.970"
-  - combobox: in
-  - text: Difference From Target
-  - spinbutton [disabled]: "0.278"
-  - combobox: in
-  - text: Larger Belt Suggested Belt Teeth
-  - spinbutton [disabled]: "105"
-  - text: Center Distance
-  - spinbutton [disabled]: "5.017"
-  - combobox: in
-  - text: Pulley 1 Teeth in Mesh
-  - spinbutton [disabled]: "8"
-  - text: Pulley 2 Teeth in Mesh
-  - spinbutton [disabled]: "11"
-  - text: Gap Between Pulleys
-  - spinbutton [disabled]: "4.266"
-  - combobox: in
-  - text: Difference From Target
-  - spinbutton [disabled]: "-0.017"
-  - combobox: in
-  - table:
-    - rowgroup:
-      - row "Matching COTS Pulleys":
-        - cell "Matching COTS Pulleys"
-      - row "SKU Teeth Width Bore":
-        - cell "SKU"
-        - cell "Teeth"
-        - cell "Width"
-        - cell "Bore"
-    - rowgroup:
-      - row "WCP WCP-1178 16 9 mm SplineXS":
-        - cell "WCP WCP-1178":
-          - link "WCP":
-            - /url: https://wcproducts.com/products/wcp-1178
-          - link "WCP-1178":
-            - /url: https://wcproducts.com/products/wcp-1178
-        - cell "16"
-        - cell "9 mm"
-        - cell "SplineXS"
-      - row "WCP WCP-0603 16 9 mm Falcon":
-        - cell "WCP WCP-0603":
-          - link "WCP":
-            - /url: https://wcproducts.com/products/wcp-0603
-          - link "WCP-0603":
-            - /url: https://wcproducts.com/products/wcp-0603
-        - cell "16"
-        - cell "9 mm"
-        - cell "Falcon"
-      - row "WCP WCP-0393 16 15 mm 8mm":
-        - cell "WCP WCP-0393":
-          - link "WCP":
-            - /url: https://wcproducts.com/products/wcp-0393
-          - link "WCP-0393":
-            - /url: https://wcproducts.com/products/wcp-0393
-        - cell "16"
-        - cell "15 mm"
-        - cell "8mm"
-      - row "WCP WCP-1179 16 15 mm SplineXS":
-        - cell "WCP WCP-1179":
-          - link "WCP":
-            - /url: https://wcproducts.com/products/wcp-1179
-          - link "WCP-1179":
-            - /url: https://wcproducts.com/products/wcp-1179
-        - cell "16"
-        - cell "15 mm"
-        - cell "SplineXS"
-      - row "WCP WCP-0318 16 15 mm Falcon":
-        - cell "WCP WCP-0318":
-          - link "WCP":
-            - /url: https://wcproducts.com/products/wcp-0318
-          - link "WCP-0318":
-            - /url: https://wcproducts.com/products/wcp-0318
-        - cell "16"
-        - cell "15 mm"
-        - cell "Falcon"
-      - row "REV REV-21-1909 16 25.4 mm 8mm":
-        - cell "REV REV-21-1909":
-          - link "REV":
-            - /url: https://www.revrobotics.com/neo-pinions/
-          - link "REV-21-1909":
-            - /url: https://www.revrobotics.com/neo-pinions/
-        - cell "16"
-        - cell "25.4 mm"
-        - cell "8mm"
-      - row:
-        - cell
-      - row "WCP WCP-0662 24 9 mm 1/2\" Hex":
-        - cell "WCP WCP-0662":
-          - link "WCP":
-            - /url: https://wcproducts.com/products/wcp-0662
-          - link "WCP-0662":
-            - /url: https://wcproducts.com/products/wcp-0662
-        - cell "24"
-        - cell "9 mm"
-        - cell "1/2\" Hex"
-  - table:
-    - rowgroup:
-      - row "Matching COTS Belts":
-        - cell "Matching COTS Belts"
-      - row "SKU Teeth Width":
-        - cell "SKU"
-        - cell "Teeth"
-        - cell "Width"
-    - rowgroup:
-      - row "VBeltGuys 300-3m-09 100 9 mm":
-        - cell "VBeltGuys 300-3m-09":
-          - link "VBeltGuys":
-            - /url: https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt
-          - link "300-3m-09":
-            - /url: https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt
-        - cell "100"
-        - cell "9 mm"
-      - row "VBeltGuys 300-3m-15 100 15 mm":
-        - cell "VBeltGuys 300-3m-15":
-          - link "VBeltGuys":
-            - /url: https://www.vbeltguys.com/products/300-3m-15-synchronous-timing-belt
-          - link "300-3m-15":
-            - /url: https://www.vbeltguys.com/products/300-3m-15-synchronous-timing-belt
-        - cell "100"
-        - cell "15 mm"
-      - row "WCP WCP-0673 100 9 mm":
-        - cell "WCP WCP-0673":
-          - link "WCP":
-            - /url: https://wcproducts.com/products/wcp-0673
-          - link "WCP-0673":
-            - /url: https://wcproducts.com/products/wcp-0673
-        - cell "100"
-        - cell "9 mm"
-      - row:
-        - cell
-      - row "VBeltGuys 315-3m-09 105 9 mm":
-        - cell "VBeltGuys 315-3m-09":
-          - link "VBeltGuys":
-            - /url: https://www.vbeltguys.com/products/315-3m-09-synchronous-timing-belt
-          - link "315-3m-09":
-            - /url: https://www.vbeltguys.com/products/315-3m-09-synchronous-timing-belt
-        - cell "105"
-        - cell "9 mm"
-      - row "VBeltGuys 315-3m-15 105 15 mm":
-        - cell "VBeltGuys 315-3m-15":
-          - link "VBeltGuys":
-            - /url: https://www.vbeltguys.com/products/315-3m-15-synchronous-timing-belt
-          - link "315-3m-15":
-            - /url: https://www.vbeltguys.com/products/315-3m-15-synchronous-timing-belt
-        - cell "105"
-        - cell "15 mm"
-      - row "WCP WCP-0674 105 9 mm":
-        - cell "WCP WCP-0674":
-          - link "WCP":
-            - /url: https://wcproducts.com/products/wcp-0674
-          - link "WCP-0674":
-            - /url: https://wcproducts.com/products/wcp-0674
-        - cell "105"
-        - cell "9 mm"
-  - button "Docs":
-    - heading "Docs" [level=3]
+- heading "Belt Calculator" [level=1]
+- button "Copy Link"
+- group:
+  - button "GT2 (3mm)"
+  - button "HTD (5mm)"
+  - button "RT25 (0.25in)"
+- switch "Use Custom Belt"
+- text: Use Custom Belt Pitch
+- spinbutton "Pitch Target Center Extra Center Pitch Diameter Pitch Diameter Belt Teeth Center Distance Pulley 1 Teeth in Mesh Pulley 2 Teeth in Mesh Gap Between Pulleys Difference From Target Belt Teeth Center Distance Pulley 1 Teeth in Mesh Pulley 2 Teeth in Mesh Gap Between Pulleys Difference From Target": "3"
+- combobox: mm
+- text: Tooth Increment
+- spinbutton: "5"
+- text: Target Center
+- spinbutton: "5"
+- combobox: in
+- text: Extra Center
+- spinbutton: "0"
+- combobox: mm
+- text: Pulley 1 Teeth
+- spinbutton: "16"
+- text: Pitch Diameter
+- spinbutton [disabled]: "0.602"
+- combobox: in
+- text: Pulley 2 Teeth
+- spinbutton: "24"
+- text: Pitch Diameter
+- spinbutton [disabled]: "0.902"
+- combobox: in
+- text: Smaller Belt Belt Teeth
+- spinbutton [disabled]: "100"
+- text: Center Distance
+- spinbutton [disabled]: "4.722"
+- combobox: in
+- text: Pulley 1 Teeth in Mesh
+- spinbutton [disabled]: "8"
+- text: Pulley 2 Teeth in Mesh
+- spinbutton [disabled]: "11"
+- text: Gap Between Pulleys
+- spinbutton [disabled]: "3.970"
+- combobox: in
+- text: Difference From Target
+- spinbutton [disabled]: "-0.278"
+- combobox: in
+- text: Larger Belt Suggested Belt Teeth
+- spinbutton [disabled]: "105"
+- text: Center Distance
+- spinbutton [disabled]: "5.017"
+- combobox: in
+- text: Pulley 1 Teeth in Mesh
+- spinbutton [disabled]: "8"
+- text: Pulley 2 Teeth in Mesh
+- spinbutton [disabled]: "11"
+- text: Gap Between Pulleys
+- spinbutton [disabled]: "4.266"
+- combobox: in
+- text: Difference From Target
+- spinbutton [disabled]: "0.017"
+- combobox: in
+- table:
+  - rowgroup:
+    - row "Matching COTS Pulleys":
+      - cell "Matching COTS Pulleys"
+    - row "SKU Teeth Width Bore":
+      - cell "SKU"
+      - cell "Teeth"
+      - cell "Width"
+      - cell "Bore"
+  - rowgroup:
+    - row "REV REV-21-1909 16 25.4 mm 8mm":
+      - cell "REV REV-21-1909":
+        - link "REV":
+          - /url: https://www.revrobotics.com/neo-pinions/
+        - link "REV-21-1909":
+          - /url: https://www.revrobotics.com/neo-pinions/
+      - cell "16"
+      - cell "25.4 mm"
+      - cell "8mm"
+    - row "WCP WCP-0393 16 15 mm 8mm":
+      - cell "WCP WCP-0393":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-0393
+        - link "WCP-0393":
+          - /url: https://wcproducts.com/products/wcp-0393
+      - cell "16"
+      - cell "15 mm"
+      - cell "8mm"
+    - row "WCP WCP-0603 16 9 mm Falcon":
+      - cell "WCP WCP-0603":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-0603
+        - link "WCP-0603":
+          - /url: https://wcproducts.com/products/wcp-0603
+      - cell "16"
+      - cell "9 mm"
+      - cell "Falcon"
+    - row "WCP WCP-0318 16 15 mm Falcon":
+      - cell "WCP WCP-0318":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-0318
+        - link "WCP-0318":
+          - /url: https://wcproducts.com/products/wcp-0318
+      - cell "16"
+      - cell "15 mm"
+      - cell "Falcon"
+    - row "WCP WCP-1178 16 9 mm SplineXS":
+      - cell "WCP WCP-1178":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-1178
+        - link "WCP-1178":
+          - /url: https://wcproducts.com/products/wcp-1178
+      - cell "16"
+      - cell "9 mm"
+      - cell "SplineXS"
+    - row "WCP WCP-1179 16 15 mm SplineXS":
+      - cell "WCP WCP-1179":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-1179
+        - link "WCP-1179":
+          - /url: https://wcproducts.com/products/wcp-1179
+      - cell "16"
+      - cell "15 mm"
+      - cell "SplineXS"
+    - row:
+      - cell
+    - row "WCP WCP-0662 24 9 mm 1/2\" Hex":
+      - cell "WCP WCP-0662":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-0662
+        - link "WCP-0662":
+          - /url: https://wcproducts.com/products/wcp-0662
+      - cell "24"
+      - cell "9 mm"
+      - cell "1/2\" Hex"
+- table:
+  - rowgroup:
+    - row "Matching COTS Belts":
+      - cell "Matching COTS Belts"
+    - row "SKU Teeth Width":
+      - cell "SKU"
+      - cell "Teeth"
+      - cell "Width"
+  - rowgroup:
+    - row "VBeltGuys 300-3m-09 100 9 mm":
+      - cell "VBeltGuys 300-3m-09":
+        - link "VBeltGuys":
+          - /url: https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt
+        - link "300-3m-09":
+          - /url: https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt
+      - cell "100"
+      - cell "9 mm"
+    - row "VBeltGuys 300-3m-15 100 15 mm":
+      - cell "VBeltGuys 300-3m-15":
+        - link "VBeltGuys":
+          - /url: https://www.vbeltguys.com/products/300-3m-15-synchronous-timing-belt
+        - link "300-3m-15":
+          - /url: https://www.vbeltguys.com/products/300-3m-15-synchronous-timing-belt
+      - cell "100"
+      - cell "15 mm"
+    - row "WCP WCP-0673 100 9 mm":
+      - cell "WCP WCP-0673":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-0673
+        - link "WCP-0673":
+          - /url: https://wcproducts.com/products/wcp-0673
+      - cell "100"
+      - cell "9 mm"
+    - row:
+      - cell
+    - row "VBeltGuys 315-3m-09 105 9 mm":
+      - cell "VBeltGuys 315-3m-09":
+        - link "VBeltGuys":
+          - /url: https://www.vbeltguys.com/products/315-3m-09-synchronous-timing-belt
+        - link "315-3m-09":
+          - /url: https://www.vbeltguys.com/products/315-3m-09-synchronous-timing-belt
+      - cell "105"
+      - cell "9 mm"
+    - row "VBeltGuys 315-3m-15 105 15 mm":
+      - cell "VBeltGuys 315-3m-15":
+        - link "VBeltGuys":
+          - /url: https://www.vbeltguys.com/products/315-3m-15-synchronous-timing-belt
+        - link "315-3m-15":
+          - /url: https://www.vbeltguys.com/products/315-3m-15-synchronous-timing-belt
+      - cell "105"
+      - cell "15 mm"
+    - row "WCP WCP-0674 105 9 mm":
+      - cell "WCP WCP-0674":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-0674
+        - link "WCP-0674":
+          - /url: https://wcproducts.com/products/wcp-0674
+      - cell "105"
+      - cell "9 mm"
+- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

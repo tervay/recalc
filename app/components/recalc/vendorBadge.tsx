@@ -5,18 +5,17 @@ import { Badge } from '~/components/ui/badge';
 import { cn } from '~/lib/utils';
 
 const vendorBadgeStyles: Record<string, string> = {
-  WCP: 'border-[#0075c9]/20 bg-[#0075c9]/10 text-[#0075c9] dark:text-[#0075c9] rounded',
-  Swyft:
-    'border-[#01a1ff]/20 bg-[#01a1ff]/10 text-[#01a1ff] dark:text-[#01a1ff] rounded',
+  WCP: 'border-wcp/20 bg-wcp/10 text-wcp dark:text-wcp rounded',
+  Swyft: 'border-swyft/20 bg-swyft/10 text-swyft dark:text-swyft rounded',
   VBeltGuys:
-    'border-[#f52121]/20 bg-[#f52121]/10 text-[#f52121] dark:text-[#f52121] rounded',
-  REV: 'border-[#f05a28]/20 bg-[#f05a28]/10 text-[#f05a28] dark:text-[#f05a28] rounded',
+    'border-vbeltguys/20 bg-vbeltguys/10 text-vbeltguys dark:text-vbeltguys rounded',
+  REV: 'border-rev/20 bg-rev/10 text-rev dark:text-rev rounded',
   AndyMark:
-    'border-[#034ea2]/20 bg-[#034ea2]/10 text-[#034ea2] dark:text-[#034ea2] rounded',
+    'border-andymark/20 bg-andymark/10 text-andymark dark:text-andymark rounded',
   LastAnvil:
-    'border-[#242833]/20 bg-[#242833]/10 text-[#242833] dark:text-[#ffffff] rounded',
+    'border-lastanvil/20 bg-lastanvil/10 text-lastanvil dark:text-lastanvil-text-dark rounded',
   Thrifty:
-    'border-[#1e7d39]/20 bg-[#1e7d39]/10 text-[#1e7d39] dark:text-[#1e7d39] rounded',
+    'border-thrifty/20 bg-thrifty/10 text-thrifty dark:text-thrifty rounded',
   default:
     'border-gray-500/20 bg-gray-500/10 text-gray-700 dark:text-gray-400 rounded',
 };
