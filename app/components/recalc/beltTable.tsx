@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 
+import { VendorBadge } from '~/components/recalc/vendorBadge';
 import {
   Table,
   TableBody,
@@ -72,8 +73,6 @@ export function BeltTable({
           </TableRow>
           <TableRow>
             <TableHead className="bg-blue-50/50">SKU</TableHead>
-            <TableHead className="bg-blue-50/50">Type</TableHead>
-            <TableHead className="bg-blue-50/50">Pitch</TableHead>
             <TableHead className="bg-blue-50/50">Teeth</TableHead>
             <TableHead className="bg-blue-50/50">Width</TableHead>
           </TableRow>
@@ -92,19 +91,33 @@ export function BeltTable({
               </TableCell>
             </TableRow>
           ) : (
-            belts.map((belt) => (
-              <TableRow key={belt.sku}>
-                <TableCell className="font-medium">
-                  <Link to={belt.url}>
-                    {belt.vendor} - {belt.sku}
-                  </Link>
-                </TableCell>
-                <TableCell>{belt.profile}</TableCell>
-                <TableCell>{belt.pitch.format()}</TableCell>
-                <TableCell>{belt.teeth}</TableCell>
-                <TableCell>{belt.width.format()}</TableCell>
-              </TableRow>
-            ))
+            belts.map((belt, index) => {
+              const prevBelt = index > 0 ? belts[index - 1] : null;
+              const showDivider =
+                prevBelt !== null && prevBelt.teeth !== belt.teeth;
+
+              return (
+                <>
+                  {showDivider && (
+                    <TableRow key={`divider-${belt.teeth}`}>
+                      <TableCell colSpan={3} className="h-px p-0">
+                        <div className="h-px bg-border" />
+                      </TableCell>
+                    </TableRow>
+                  )}
+                  <TableRow key={belt.sku}>
+                    <TableCell className="font-medium">
+                      <div className="flex items-center gap-2">
+                        <VendorBadge vendor={belt.vendor} url={belt.url} />
+                        <Link to={belt.url}>{belt.sku}</Link>
+                      </div>
+                    </TableCell>
+                    <TableCell>{belt.teeth}</TableCell>
+                    <TableCell>{belt.width.format()}</TableCell>
+                  </TableRow>
+                </>
+              );
+            })
           )}
         </TableBody>
       </Table>

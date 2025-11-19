@@ -10,7 +10,6 @@ import {
 
 import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
-import Divider from '~/components/recalc/divider';
 import BooleanInput from '~/components/recalc/io/boolean';
 import {
   MeasurementInput,
@@ -19,6 +18,7 @@ import {
 import { MotorInput } from '~/components/recalc/io/motor';
 import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { ChartContainer } from '~/components/ui/chart';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { supplyLimitToStatorLimit } from '~/lib/math/common';
@@ -334,183 +334,203 @@ export default function Flywheel() {
       />
       <div className="flex flex-row flex-wrap gap-x-4 px-1 *:flex-1">
         <div className="flex flex-col gap-x-4 gap-y-2">
-          <Divider>Motor & Drive System</Divider>
-          <IOLine>
-            <MotorInput stateHook={[motor, setMotor]} testId="motor" />
-            <RatioInput stateHook={[ratio, setRatio]} testId="ratio" />
-          </IOLine>
+          <Card>
+            <CardHeader>
+              <CardTitle>Motors & Electrical</CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-y-2">
+              <IOLine>
+                <MotorInput stateHook={[motor, setMotor]} testId="motor" />
+                <RatioInput stateHook={[ratio, setRatio]} testId="ratio" />
+              </IOLine>
 
-          <IOLine>
-            <MeasurementInput
-              stateHook={[statorLimit, setStatorLimit]}
-              label="Stator Limit"
-              testId="statorLimit"
-            />
-            <MeasurementInput
-              stateHook={[supplyLimit, setSupplyLimit]}
-              label="Supply Limit"
-              testId="supplyLimit"
-            />
-          </IOLine>
+              <IOLine>
+                <MeasurementInput
+                  stateHook={[statorLimit, setStatorLimit]}
+                  label="Stator Limit"
+                  testId="statorLimit"
+                />
+                <MeasurementInput
+                  stateHook={[supplyLimit, setSupplyLimit]}
+                  label="Supply Limit"
+                  testId="supplyLimit"
+                />
+              </IOLine>
 
-          <IOLine>
-            <MeasurementInput
-              stateHook={[supplyVoltage, setSupplyVoltage]}
-              label="Supply Voltage"
-              testId="supplyVoltage"
-            />
-            <MeasurementInput
-              stateHook={[batteryResistance, setBatteryResistance]}
-              label="Battery Resistance"
-              testId="batteryResistance"
-            />
-          </IOLine>
+              <IOLine>
+                <MeasurementInput
+                  stateHook={[supplyVoltage, setSupplyVoltage]}
+                  label="Supply Voltage"
+                  testId="supplyVoltage"
+                />
+                <MeasurementInput
+                  stateHook={[batteryResistance, setBatteryResistance]}
+                  label="Battery Resistance"
+                  testId="batteryResistance"
+                />
+              </IOLine>
 
-          <IOLine>
-            <NumberInput
-              stateHook={[efficiency, setEfficiency]}
-              label="Efficiency (%)"
-              testId="efficiency"
-            />
-          </IOLine>
+              <IOLine>
+                <NumberInput
+                  stateHook={[efficiency, setEfficiency]}
+                  label="Efficiency (%)"
+                  testId="efficiency"
+                />
+              </IOLine>
+            </CardContent>
+          </Card>
 
-          <Divider>Shooter Wheel Properties</Divider>
-          <IOLine>
-            <MeasurementInput
-              stateHook={[shooterDiameter, setShooterDiameter]}
-              label="Shooter Diameter"
-              testId="shooterDiameter"
-            />
-            <MeasurementInput
-              stateHook={[shooterWeight, setShooterWeight]}
-              label="Shooter Weight"
-              testId="shooterWeight"
-            />
-          </IOLine>
+          <Card>
+            <CardHeader>
+              <CardTitle>Shooter Wheel Properties</CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-y-2">
+              <IOLine>
+                <MeasurementInput
+                  stateHook={[shooterDiameter, setShooterDiameter]}
+                  label="Shooter Diameter"
+                  testId="shooterDiameter"
+                />
+                <MeasurementInput
+                  stateHook={[shooterWeight, setShooterWeight]}
+                  label="Shooter Weight"
+                  testId="shooterWeight"
+                />
+              </IOLine>
 
-          <IOLine>
-            <MeasurementInput
-              stateHook={[shooterTargetSpeed, setShooterTargetSpeed]}
-              label="Shooter Target Speed"
-              testId="shooterTargetSpeed"
-            />
-            <MeasurementOutput
-              state={maxAchievableShooterRPM}
-              label="Max Achievable Shooter RPM"
-              defaultUnit="rpm"
-              roundTo={0}
-              testId="maxAchievableShooterRpm"
-            />
-          </IOLine>
+              <IOLine>
+                <MeasurementInput
+                  stateHook={[shooterTargetSpeed, setShooterTargetSpeed]}
+                  label="Shooter Target Speed"
+                  testId="shooterTargetSpeed"
+                />
+                <MeasurementOutput
+                  state={maxAchievableShooterRPM}
+                  label="Max Achievable RPM"
+                  defaultUnit="rpm"
+                  roundTo={0}
+                  testId="maxAchievableShooterRpm"
+                />
+              </IOLine>
 
-          <IOLine>
-            <MeasurementInput
-              stateHook={[projectileWeight, setProjectileWeight]}
-              label="Projectile Weight"
-              testId="projectileWeight"
-            />
-          </IOLine>
+              <IOLine>
+                {useCustomShooterMoi ? (
+                  <MeasurementInput
+                    stateHook={[customShooterMoi, setCustomShooterMoi]}
+                    label="Custom Shooter MOI"
+                    disabled={() => !useCustomShooterMoi}
+                    testId="customShooterMoi"
+                  />
+                ) : (
+                  <MeasurementOutput
+                    state={derivedShooterMOI}
+                    label="Shooter MOI"
+                    defaultUnit="in2*lbs"
+                    testId="derivedShooterMoi"
+                  />
+                )}
+                <BooleanInput
+                  stateHook={[useCustomShooterMoi, setUseCustomShooterMoi]}
+                  label="Use Custom Shooter MOI"
+                  testId="useCustomShooterMoi"
+                />
+              </IOLine>
+            </CardContent>
+          </Card>
 
-          <IOLine>
-            {useCustomShooterMoi ? (
-              <MeasurementInput
-                stateHook={[customShooterMoi, setCustomShooterMoi]}
-                label="Custom Shooter MOI"
-                disabled={() => !useCustomShooterMoi}
-                testId="customShooterMoi"
-              />
-            ) : (
-              <MeasurementOutput
-                state={derivedShooterMOI}
-                label="Shooter MOI"
-                defaultUnit="in2*lbs"
-                testId="derivedShooterMoi"
-              />
-            )}
-            <BooleanInput
-              stateHook={[useCustomShooterMoi, setUseCustomShooterMoi]}
-              label="Use Custom Shooter MOI"
-              testId="useCustomShooterMoi"
-            />
-          </IOLine>
+          <Card>
+            <CardHeader>
+              <CardTitle>Flywheel Properties</CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-y-2">
+              <IOLine>
+                <MeasurementInput
+                  stateHook={[flywheelDiameter, setFlywheelDiameter]}
+                  label="Flywheel Diameter"
+                  testId="flywheelDiameter"
+                />
+                <MeasurementInput
+                  stateHook={[flywheelWeight, setFlywheelWeight]}
+                  label="Flywheel Weight"
+                  testId="flywheelWeight"
+                />
+              </IOLine>
 
-          <Divider>Flywheel Properties</Divider>
-          <IOLine>
-            <MeasurementInput
-              stateHook={[flywheelDiameter, setFlywheelDiameter]}
-              label="Flywheel Diameter"
-              testId="flywheelDiameter"
-            />
-            <MeasurementInput
-              stateHook={[flywheelWeight, setFlywheelWeight]}
-              label="Flywheel Weight"
-              testId="flywheelWeight"
-            />
-          </IOLine>
+              <IOLine>
+                <RatioInput
+                  label="Flywheel to Shooter Ratio"
+                  stateHook={[
+                    flywheelToShooterRatio,
+                    setflywheelToShooterRatio,
+                  ]}
+                  testId="flywheelToShooterRatio"
+                />
+              </IOLine>
 
-          <IOLine>
-            <RatioInput
-              stateHook={[flywheelToShooterRatio, setflywheelToShooterRatio]}
-              testId="flywheelToShooterRatio"
-            />
-          </IOLine>
+              <IOLine>
+                {useCustomFlywheelMoi ? (
+                  <MeasurementInput
+                    stateHook={[customFlywheelMoi, setCustomFlywheelMoi]}
+                    label="Custom Flywheel MOI"
+                    disabled={() => !useCustomFlywheelMoi}
+                    testId="customFlywheelMoi"
+                  />
+                ) : (
+                  <MeasurementOutput
+                    state={derivedFlywheelMOI}
+                    label="Flywheel MOI"
+                    defaultUnit="in2*lbs"
+                    testId="derivedFlywheelMoi"
+                  />
+                )}
+                <BooleanInput
+                  stateHook={[useCustomFlywheelMoi, setUseCustomFlywheelMoi]}
+                  label="Use Custom Flywheel MOI"
+                  testId="useCustomFlywheelMoi"
+                />
+              </IOLine>
+            </CardContent>
+          </Card>
 
-          <IOLine>
-            {useCustomFlywheelMoi ? (
-              <MeasurementInput
-                stateHook={[customFlywheelMoi, setCustomFlywheelMoi]}
-                label="Custom Flywheel MOI"
-                disabled={() => !useCustomFlywheelMoi}
-                testId="customFlywheelMoi"
-              />
-            ) : (
-              <MeasurementOutput
-                state={derivedFlywheelMOI}
-                label="Flywheel MOI"
-                defaultUnit="in2*lbs"
-                testId="derivedFlywheelMoi"
-              />
-            )}
-            <BooleanInput
-              stateHook={[useCustomFlywheelMoi, setUseCustomFlywheelMoi]}
-              label="Use Custom Flywheel MOI"
-              testId="useCustomFlywheelMoi"
-            />
-          </IOLine>
+          <Card>
+            <CardHeader>
+              <CardTitle>Outputs</CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-y-2">
+              <IOLine>
+                <MeasurementOutput
+                  state={spinupTime}
+                  label="Spinup Time"
+                  defaultUnit="s"
+                  testId="spinupTime"
+                />
+              </IOLine>
 
-          <Divider>Outputs</Divider>
-          <IOLine>
-            <MeasurementOutput
-              state={kV}
-              label="kV"
-              defaultUnit="V*s/m"
-              testId="kV"
-            />
-            <MeasurementOutput
-              state={kA}
-              label="kA"
-              defaultUnit="V*s^2/m"
-              testId="kA"
-            />
-          </IOLine>
+              <IOLine>
+                <MeasurementOutput
+                  state={totalMomentOfInertia}
+                  label="Effective MOI"
+                  defaultUnit="in2*lbs"
+                  testId="effectiveMoi"
+                />
+              </IOLine>
 
-          <IOLine>
-            <MeasurementOutput
-              state={spinupTime}
-              label="Spinup Time"
-              defaultUnit="s"
-              testId="spinupTime"
-            />
-          </IOLine>
-
-          <IOLine>
-            <MeasurementOutput
-              state={totalMomentOfInertia}
-              label="Effective MOI"
-              defaultUnit="in2*lbs"
-              testId="effectiveMoi"
-            />
-          </IOLine>
+              <IOLine>
+                <MeasurementOutput
+                  state={kV}
+                  label="kV"
+                  defaultUnit="V*s/m"
+                  testId="kV"
+                />
+                <MeasurementOutput
+                  state={kA}
+                  label="kA"
+                  defaultUnit="V*s^2/m"
+                  testId="kA"
+                />
+              </IOLine>
+            </CardContent>
+          </Card>
         </div>
         <ChartContainer
           config={{}}

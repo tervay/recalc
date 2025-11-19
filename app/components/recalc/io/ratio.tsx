@@ -17,7 +17,12 @@ export function RatioInput({
   stateHook,
   testId,
   debounceDelay = 0,
-}: HasStateHook<Ratio> & { testId?: string; debounceDelay?: number }) {
+  label = 'Ratio',
+}: HasStateHook<Ratio> & {
+  testId?: string;
+  debounceDelay?: number;
+  label?: string;
+}) {
   const [ratio, setRatio] = stateHook;
   const [magnitude, setMagnitude] = useState(ratio.magnitude);
   const [type, setType] = useState(ratio.ratioType);
@@ -46,7 +51,7 @@ export function RatioInput({
   return (
     <div className="flex flex-row">
       <Label htmlFor="measurement" className="mr-2 text-nowrap">
-        Ratio
+        {label}
       </Label>
       <div className="flex w-full flex-row">
         <Input

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 
+import { VendorBadge } from '~/components/recalc/vendorBadge';
 import {
   Table,
   TableBody,
@@ -68,28 +69,40 @@ export function PulleyTable({
           </TableRow>
           <TableRow>
             <TableHead className="bg-blue-50/50">SKU</TableHead>
-            <TableHead className="bg-blue-50/50">Type</TableHead>
-            <TableHead className="bg-blue-50/50">Pitch</TableHead>
             <TableHead className="bg-blue-50/50">Teeth</TableHead>
             <TableHead className="bg-blue-50/50">Width</TableHead>
             <TableHead className="bg-blue-50/50">Bore</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {pulleys.map((pulley) => (
-            <TableRow key={pulley.sku}>
-              <TableCell className="font-medium">
-                <Link to={pulley.url}>
-                  {pulley.vendor} - {pulley.sku}
-                </Link>
-              </TableCell>
-              <TableCell>{pulley.profile}</TableCell>
-              <TableCell>{pulley.pitch.toString()}</TableCell>
-              <TableCell>{pulley.teeth}</TableCell>
-              <TableCell>{pulley.width.toString()}</TableCell>
-              <TableCell>{pulley.bore}</TableCell>
-            </TableRow>
-          ))}
+          {pulleys.map((pulley, index) => {
+            const prevPulley = index > 0 ? pulleys[index - 1] : null;
+            const showDivider =
+              prevPulley !== null && prevPulley.teeth !== pulley.teeth;
+
+            return (
+              <>
+                {showDivider && (
+                  <TableRow key={`divider-${pulley.teeth}`}>
+                    <TableCell colSpan={4} className="h-px p-0">
+                      <div className="h-px bg-border" />
+                    </TableCell>
+                  </TableRow>
+                )}
+                <TableRow key={pulley.sku}>
+                  <TableCell className="font-medium">
+                    <div className="flex items-center gap-2">
+                      <VendorBadge vendor={pulley.vendor} url={pulley.url} />
+                      <Link to={pulley.url}>{pulley.sku}</Link>
+                    </div>
+                  </TableCell>
+                  <TableCell>{pulley.teeth}</TableCell>
+                  <TableCell>{pulley.width.toString()}</TableCell>
+                  <TableCell>{pulley.bore}</TableCell>
+                </TableRow>
+              </>
+            );
+          })}
         </TableBody>
       </Table>
     </div>

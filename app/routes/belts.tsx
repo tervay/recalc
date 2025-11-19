@@ -1,9 +1,9 @@
+import { CheckIcon } from 'lucide-react';
 import { Suspense, lazy, useMemo, useState } from 'react';
 
 import { BeltTable } from '~/components/recalc/beltTable';
 import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
-import Divider from '~/components/recalc/divider';
 import BooleanInput from '~/components/recalc/io/boolean';
 import {
   MeasurementInput,
@@ -12,6 +12,8 @@ import {
 import NumberInput, { NumberOutput } from '~/components/recalc/io/number';
 import { PulleyTable } from '~/components/recalc/pulleyTable';
 import { Button } from '~/components/ui/button';
+import { ButtonGroup } from '~/components/ui/button-group';
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { calculateClosestCenters } from '~/lib/math/belts';
 import Measurement from '~/lib/models/Measurement';
@@ -90,6 +92,14 @@ export default function Belts() {
     [p2Teeth, pitch],
   );
 
+  const isSmallerBeltSuggested = useMemo(
+    () =>
+      results.smaller.differenceFromTarget
+        .abs()
+        .lte(results.larger.differenceFromTarget.abs()),
+    [results.smaller.differenceFromTarget, results.larger.differenceFromTarget],
+  );
+
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
     pitch,
     toothIncrement,
@@ -101,6 +111,19 @@ export default function Belts() {
     p2Teeth,
   });
 
+  function SuggestedBadge() {
+    return (
+      <span
+        className="flex items-center gap-1 rounded border border-green-500/20
+          bg-green-500/10 px-1.5 py-0.5 text-xs text-green-700
+          dark:text-green-400"
+      >
+        <CheckIcon className="size-3" />
+        Suggested
+      </span>
+    );
+  }
+
   return (
     <div>
       <CalcHeading
@@ -109,37 +132,43 @@ export default function Belts() {
       />
       <div className="flex flex-row flex-wrap gap-x-4 px-1 *:flex-1">
         <div className="flex flex-col gap-x-4 gap-y-2">
-          <div className="flex flex-wrap gap-2 px-1">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                setPitch(new Measurement(3, 'mm'));
-                setToothIncrement(5);
-              }}
-            >
-              GT2 (3mm)
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                setPitch(new Measurement(5, 'mm'));
-                setToothIncrement(5);
-              }}
-            >
-              HTD (5mm)
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                setPitch(new Measurement(0.25, 'in'));
-                setToothIncrement(8);
-              }}
-            >
-              RT25 (0.25in)
-            </Button>
+          <div
+            className="flex flex-wrap items-center justify-between gap-2 px-1"
+          >
+            <ButtonGroup>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setPitch(new Measurement(3, 'mm'));
+                  setToothIncrement(5);
+                }}
+              >
+                GT2 (3mm)
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setPitch(new Measurement(5, 'mm'));
+                  setToothIncrement(5);
+                }}
+              >
+                HTD (5mm)
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setPitch(new Measurement(0.25, 'in'));
+                  setToothIncrement(8);
+                }}
+              >
+                RT25 (0.25in)
+              </Button>
+            </ButtonGroup>
+            <BooleanInput
+              stateHook={[useCustomBelt, setUseCustomBelt]}
+              label="Use Custom Belt"
+              testId="enableCustomBelt"
+            />
           </div>
           <IOLine>
             <MeasurementInput
@@ -153,153 +182,188 @@ export default function Belts() {
               testId="beltToothIncrement"
             />
           </IOLine>
-          <IOLine>
-            <MeasurementInput
-              stateHook={[desiredCenter, setDesiredCenter]}
-              label="Target Center"
-              testId="desiredCenter"
-            />
-            <MeasurementInput
-              stateHook={[extraCenter, setExtraCenter]}
-              label="Extra Center"
-              testId="extraCenter"
-            />
-          </IOLine>
+          {!useCustomBelt && (
+            <IOLine>
+              <MeasurementInput
+                stateHook={[desiredCenter, setDesiredCenter]}
+                label="Target Center"
+                testId="desiredCenter"
+              />
+              <MeasurementInput
+                stateHook={[extraCenter, setExtraCenter]}
+                label="Extra Center"
+                testId="extraCenter"
+              />
+            </IOLine>
+          )}
 
-          <IOLine>
-            <BooleanInput
-              stateHook={[useCustomBelt, setUseCustomBelt]}
-              label="Use Custom Belt"
-              testId="enableCustomBelt"
-            />
-            <NumberInput
-              stateHook={[customBeltTeeth, setCustomBeltTeeth]}
-              label="Custom Belt Teeth"
-              testId="specificBeltTeeth"
-            />
-          </IOLine>
+          {useCustomBelt && (
+            <IOLine>
+              <NumberInput
+                stateHook={[customBeltTeeth, setCustomBeltTeeth]}
+                label="Custom Belt Teeth"
+                testId="specificBeltTeeth"
+              />
+            </IOLine>
+          )}
 
-          <Divider className="">Pulley 1</Divider>
-          <IOLine>
-            <NumberInput
-              stateHook={[p1Teeth, setP1Teeth]}
-              label="Teeth"
-              testId="p1Teeth"
-            />
-            <MeasurementOutput
-              state={p1PitchDiameter}
-              label="Pitch Diameter"
-              defaultUnit="in"
-              testId="p1PitchDiameter"
-            />
-          </IOLine>
+          <div className="flex flex-col gap-2 md:flex-row">
+            <Card className="flex-1">
+              <CardHeader>
+                <CardTitle>Pulley 1</CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-col gap-y-2">
+                <IOLine>
+                  <NumberInput
+                    stateHook={[p1Teeth, setP1Teeth]}
+                    label="Teeth"
+                    testId="p1Teeth"
+                  />
+                </IOLine>
+                <IOLine>
+                  <MeasurementOutput
+                    state={p1PitchDiameter}
+                    label="Pitch Diameter"
+                    defaultUnit="in"
+                    testId="p1PitchDiameter"
+                  />
+                </IOLine>
+              </CardContent>
+            </Card>
 
-          <Divider className="">Pulley 2</Divider>
-          <IOLine>
-            <NumberInput
-              stateHook={[p2Teeth, setP2Teeth]}
-              label="Teeth"
-              testId="p2Teeth"
-            />
-            <MeasurementOutput
-              state={p2PitchDiameter}
-              label="Pitch Diameter"
-              defaultUnit="in"
-              testId="p2PitchDiameter"
-            />
-          </IOLine>
+            <Card className="flex-1">
+              <CardHeader>
+                <CardTitle>Pulley 2</CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-col gap-y-2">
+                <IOLine>
+                  <NumberInput
+                    stateHook={[p2Teeth, setP2Teeth]}
+                    label="Teeth"
+                    testId="p2Teeth"
+                  />
+                </IOLine>
+                <IOLine>
+                  <MeasurementOutput
+                    state={p2PitchDiameter}
+                    label="Pitch Diameter"
+                    defaultUnit="in"
+                    testId="p2PitchDiameter"
+                  />
+                </IOLine>
+              </CardContent>
+            </Card>
+          </div>
 
-          <Divider className="">Smaller Belt</Divider>
-          <IOLine>
-            <NumberOutput
-              state={results.smaller.belt.teeth}
-              label="Belt Teeth"
-              roundTo={0}
-              testId="smallerBeltTeeth"
-            />
-            <MeasurementOutput
-              state={results.smaller.distance}
-              label="Center Distance"
-              defaultUnit="in"
-              testId="smallerCenter"
-            />
-          </IOLine>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex min-h-7 items-center gap-2">
+                Smaller Belt
+                {isSmallerBeltSuggested && <SuggestedBadge />}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-y-2">
+              <IOLine>
+                <NumberOutput
+                  state={results.smaller.belt.teeth}
+                  label="Belt Teeth"
+                  roundTo={0}
+                  testId="smallerBeltTeeth"
+                />
+                <MeasurementOutput
+                  state={results.smaller.distance}
+                  label="Center Distance"
+                  defaultUnit="in"
+                  testId="smallerCenter"
+                />
+              </IOLine>
 
-          <IOLine>
-            <NumberOutput
-              state={results.smaller.p1TeethInMesh}
-              label="Pulley 1 Teeth in Mesh"
-              roundTo={0}
-              testId="smallerP1TeethInMesh"
-            />
-            <NumberOutput
-              state={results.smaller.p2TeethInMesh}
-              label="Pulley 2 Teeth in Mesh"
-              roundTo={0}
-              testId="smallerP2TeethInMesh"
-            />
-          </IOLine>
+              <IOLine>
+                <NumberOutput
+                  state={results.smaller.p1TeethInMesh}
+                  label="Pulley 1 Teeth in Mesh"
+                  roundTo={0}
+                  testId="smallerP1TeethInMesh"
+                />
+                <NumberOutput
+                  state={results.smaller.p2TeethInMesh}
+                  label="Pulley 2 Teeth in Mesh"
+                  roundTo={0}
+                  testId="smallerP2TeethInMesh"
+                />
+              </IOLine>
 
-          <IOLine>
-            <MeasurementOutput
-              state={results.smaller.gapBetweenPulleys}
-              label="Gap Between Pulleys"
-              defaultUnit="in"
-              testId="smallerPulleyGap"
-            />
-            <MeasurementOutput
-              state={results.smaller.differenceFromTarget}
-              label="Difference From Target"
-              defaultUnit="in"
-              testId="smallerDiffFromTarget"
-            />
-          </IOLine>
+              <IOLine>
+                <MeasurementOutput
+                  state={results.smaller.gapBetweenPulleys}
+                  label="Gap Between Pulleys"
+                  defaultUnit="in"
+                  testId="smallerPulleyGap"
+                />
+                <MeasurementOutput
+                  state={results.smaller.differenceFromTarget}
+                  label="Difference From Target"
+                  defaultUnit="in"
+                  testId="smallerDiffFromTarget"
+                />
+              </IOLine>
+            </CardContent>
+          </Card>
 
-          <Divider className="">Larger Belt</Divider>
-          <IOLine>
-            <NumberOutput
-              state={results.larger.belt.teeth}
-              label="Belt Teeth"
-              roundTo={0}
-              testId="largerBeltTeeth"
-            />
-            <MeasurementOutput
-              state={results.larger.distance}
-              label="Center Distance"
-              defaultUnit="in"
-              testId="largerCenter"
-            />
-          </IOLine>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex min-h-7 items-center gap-2">
+                Larger Belt
+                {!isSmallerBeltSuggested && <SuggestedBadge />}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-y-2">
+              <IOLine>
+                <NumberOutput
+                  state={results.larger.belt.teeth}
+                  label="Belt Teeth"
+                  roundTo={0}
+                  testId="largerBeltTeeth"
+                />
+                <MeasurementOutput
+                  state={results.larger.distance}
+                  label="Center Distance"
+                  defaultUnit="in"
+                  testId="largerCenter"
+                />
+              </IOLine>
 
-          <IOLine>
-            <NumberOutput
-              state={results.larger.p1TeethInMesh}
-              label="Pulley 1 Teeth in Mesh"
-              roundTo={0}
-              testId="largerP1TeethInMesh"
-            />
-            <NumberOutput
-              state={results.larger.p2TeethInMesh}
-              label="Pulley 2 Teeth in Mesh"
-              roundTo={0}
-              testId="largerP2TeethInMesh"
-            />
-          </IOLine>
+              <IOLine>
+                <NumberOutput
+                  state={results.larger.p1TeethInMesh}
+                  label="Pulley 1 Teeth in Mesh"
+                  roundTo={0}
+                  testId="largerP1TeethInMesh"
+                />
+                <NumberOutput
+                  state={results.larger.p2TeethInMesh}
+                  label="Pulley 2 Teeth in Mesh"
+                  roundTo={0}
+                  testId="largerP2TeethInMesh"
+                />
+              </IOLine>
 
-          <IOLine>
-            <MeasurementOutput
-              state={results.larger.gapBetweenPulleys}
-              label="Gap Between Pulleys"
-              defaultUnit="in"
-              testId="largerPulleyGap"
-            />
-            <MeasurementOutput
-              state={results.larger.differenceFromTarget}
-              label="Difference From Target"
-              defaultUnit="in"
-              testId="largerDiffFromTarget"
-            />
-          </IOLine>
+              <IOLine>
+                <MeasurementOutput
+                  state={results.larger.gapBetweenPulleys}
+                  label="Gap Between Pulleys"
+                  defaultUnit="in"
+                  testId="largerPulleyGap"
+                />
+                <MeasurementOutput
+                  state={results.larger.differenceFromTarget}
+                  label="Difference From Target"
+                  defaultUnit="in"
+                  testId="largerDiffFromTarget"
+                />
+              </IOLine>
+            </CardContent>
+          </Card>
         </div>
         <div className="flex w-auto flex-col gap-x-4 gap-y-4">
           <PulleyTable

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 
+import { VendorBadge } from '~/components/recalc/vendorBadge';
 import {
   Table,
   TableBody,
@@ -74,17 +75,36 @@ export function SprocketTable({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {sprockets.map((sprocket) => (
-            <TableRow key={sprocket.sku}>
-              <TableCell className="font-medium">
-                <Link to={sprocket.url}>
-                  {sprocket.vendor} - {sprocket.sku}
-                </Link>
-              </TableCell>
-              <TableCell>{sprocket.teeth}</TableCell>
-              <TableCell>{sprocket.bore}</TableCell>
-            </TableRow>
-          ))}
+          {sprockets.map((sprocket, index) => {
+            const prevSprocket = index > 0 ? sprockets[index - 1] : null;
+            const showDivider =
+              prevSprocket !== null && prevSprocket.teeth !== sprocket.teeth;
+
+            return (
+              <>
+                {showDivider && (
+                  <TableRow key={`divider-${sprocket.teeth}`}>
+                    <TableCell colSpan={3} className="h-px p-0">
+                      <div className="h-px bg-border" />
+                    </TableCell>
+                  </TableRow>
+                )}
+                <TableRow key={sprocket.sku}>
+                  <TableCell className="font-medium">
+                    <div className="flex items-center gap-2">
+                      <VendorBadge
+                        vendor={sprocket.vendor}
+                        url={sprocket.url}
+                      />
+                      <Link to={sprocket.url}>{sprocket.sku}</Link>
+                    </div>
+                  </TableCell>
+                  <TableCell>{sprocket.teeth}</TableCell>
+                  <TableCell>{sprocket.bore}</TableCell>
+                </TableRow>
+              </>
+            );
+          })}
         </TableBody>
       </Table>
     </div>
