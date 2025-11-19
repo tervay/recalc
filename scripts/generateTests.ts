@@ -1,12 +1,32 @@
-const MEASUREMENT_INPUTS: string[] = ['desiredCenter', 'extraCenter'];
-const NUMBER_INPUTS: string[] = ['p1Teeth', 'p2Teeth'];
-const SELECT_INPUTS: string[] = ['chain'];
+const MEASUREMENT_INPUTS: string[] = [
+  'statorLimit',
+  'supplyLimit',
+  'supplyVoltage',
+  'batteryResistance',
+  'shooterDiameter',
+  'shooterWeight',
+  'shooterTargetSpeed',
+  'customShooterMoi',
+  'flywheelDiameter',
+  'flywheelWeight',
+  'customFlywheelMoi',
+  'projectileDiameter',
+  'projectileWeight',
+  'motor',
+  'ratio',
+  'flywheelToShooterRatio',
+];
+const NUMBER_INPUTS: string[] = ['efficiency'];
+const SELECT_INPUTS: string[] = [];
 
 const MEASUREMENT_OUTPUTS: string[] = [
-  'p1PitchDiameter',
-  'p2PitchDiameter',
-  'smallerDistance',
-  'largerDistance',
+  'maxAchievableShooterRpm',
+  'derivedShooterMoi',
+  'derivedFlywheelMoi',
+  'kV',
+  'kA',
+  'spinupTime',
+  'totalMomentOfInertia',
 ];
 
 function generateMeasurementInputChangeTest(dataTestId: string): string {

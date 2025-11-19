@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
 
+const CHART_DELAY_MS = 750;
+
 test.describe('Chain Calculator', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/chains');
@@ -10,6 +12,7 @@ test.describe('Chain Calculator', () => {
     page,
   }) => {
     await page.getByTestId('desiredCenter').fill('10');
+    await page.waitForTimeout(CHART_DELAY_MS);
     expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
       name: 'desiredCenter-magnitude-changed.yaml',
     });
@@ -20,6 +23,7 @@ test.describe('Chain Calculator', () => {
   }) => {
     await page.getByTestId('selectdesiredCenter').click();
     await page.getByRole('option', { name: 'ft' }).click();
+    await page.waitForTimeout(CHART_DELAY_MS);
     expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
       name: 'desiredCenter-unit-changed.yaml',
     });
@@ -29,6 +33,7 @@ test.describe('Chain Calculator', () => {
     page,
   }) => {
     await page.getByTestId('extraCenter').fill('1');
+    await page.waitForTimeout(CHART_DELAY_MS);
     expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
       name: 'extraCenter-magnitude-changed.yaml',
     });
@@ -40,6 +45,7 @@ test.describe('Chain Calculator', () => {
     await page.getByTestId('extraCenter').fill('1');
     await page.getByTestId('selectextraCenter').click();
     await page.getByRole('option', { name: 'cm' }).click();
+    await page.waitForTimeout(CHART_DELAY_MS);
     expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
       name: 'extraCenter-unit-changed.yaml',
     });
@@ -48,6 +54,7 @@ test.describe('Chain Calculator', () => {
   test('should match snapshot with chain changed', async ({ page }) => {
     await page.getByTestId('chainType').click();
     await page.getByRole('option', { name: '#35' }).click();
+    await page.waitForTimeout(CHART_DELAY_MS);
     expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
       name: 'chain-unit-changed.yaml',
     });
@@ -55,6 +62,7 @@ test.describe('Chain Calculator', () => {
 
   test('should match snapshot with p1Teeth changed', async ({ page }) => {
     await page.getByTestId('p1Teeth').fill('30');
+    await page.waitForTimeout(CHART_DELAY_MS);
     expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
       name: 'p1Teeth-changed.yaml',
     });
@@ -62,6 +70,7 @@ test.describe('Chain Calculator', () => {
 
   test('should match snapshot with p2Teeth changed', async ({ page }) => {
     await page.getByTestId('p2Teeth').fill('60');
+    await page.waitForTimeout(CHART_DELAY_MS);
     expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
       name: 'p2Teeth-changed.yaml',
     });
@@ -72,6 +81,7 @@ test.describe('Chain Calculator', () => {
   }) => {
     await page.getByTestId('selectp1PitchDiameter').click();
     await page.getByRole('option', { name: 'mm' }).click();
+    await page.waitForTimeout(CHART_DELAY_MS);
     expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
       name: 'p1PitchDiameter-changed.yaml',
     });
@@ -82,6 +92,7 @@ test.describe('Chain Calculator', () => {
   }) => {
     await page.getByTestId('selectp2PitchDiameter').click();
     await page.getByRole('option', { name: 'mm' }).click();
+    await page.waitForTimeout(CHART_DELAY_MS);
     expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
       name: 'p2PitchDiameter-changed.yaml',
     });
@@ -92,6 +103,7 @@ test.describe('Chain Calculator', () => {
   }) => {
     await page.getByTestId('selectsmallerDistance').click();
     await page.getByRole('option', { name: 'cm' }).click();
+    await page.waitForTimeout(CHART_DELAY_MS);
     expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
       name: 'smallerDistance-changed.yaml',
     });
@@ -102,6 +114,7 @@ test.describe('Chain Calculator', () => {
   }) => {
     await page.getByTestId('selectlargerDistance').click();
     await page.getByRole('option', { name: 'cm' }).click();
+    await page.waitForTimeout(CHART_DELAY_MS);
     expect(await page.getByRole('main').ariaSnapshot()).toMatchSnapshot({
       name: 'largerDistance-changed.yaml',
     });
