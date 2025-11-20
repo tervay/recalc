@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 
+import { BoreBadge } from '~/components/recalc/boreBadge';
 import { VendorBadge } from '~/components/recalc/vendorBadge';
 import {
   Table,
@@ -100,7 +101,9 @@ export function SprocketTable({
                     </div>
                   </TableCell>
                   <TableCell>{sprocket.teeth}</TableCell>
-                  <TableCell>{sprocket.bore}</TableCell>
+                  <TableCell>
+                    <BoreBadge bore={sprocket.bore} />
+                  </TableCell>
                 </TableRow>
               </>
             );

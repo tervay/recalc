@@ -150,7 +150,7 @@ export default function Flywheel() {
     queryParams.flywheelToShooterRatio,
   );
   const [_projectileDiameter] = useState(queryParams.projectileDiameter);
-  const [projectileWeight, setProjectileWeight] = useState(
+  const [projectileWeight, _setProjectileWeight] = useState(
     queryParams.projectileWeight,
   );
   const [efficiency, setEfficiency] = useState(queryParams.efficiency);

@@ -109,34 +109,33 @@ export function calculateClosestCenters(
   const smallerTeeth = largerTeeth - multipleOf;
   const smallerBelt = new SimpleBelt(smallerTeeth, p1.pitch);
 
+  const smallerDistance = calculateDistance(p1, p2, smallerBelt);
+  const largerDistance = calculateDistance(p1, p2, largerBelt);
+
   return {
     larger: {
       belt: largerBelt,
-      distance: calculateDistance(p1, p2, largerBelt),
+      distance: largerDistance,
       p1TeethInMesh: teethInMesh(p1, p2, desiredCenter, p1),
       p2TeethInMesh: teethInMesh(p1, p2, desiredCenter, p2),
       gapBetweenPulleys: calculateDistanceBetweenPulleys(
         p1,
         p2,
-        calculateDistance(p1, p2, largerBelt),
+        largerDistance,
       ),
-      differenceFromTarget: desiredCenter.sub(
-        calculateDistance(p1, p2, largerBelt),
-      ),
+      differenceFromTarget: largerDistance.sub(desiredCenter),
     },
     smaller: {
       belt: smallerBelt,
-      distance: calculateDistance(p1, p2, smallerBelt),
+      distance: smallerDistance,
       p1TeethInMesh: teethInMesh(p1, p2, desiredCenter, p1),
       p2TeethInMesh: teethInMesh(p1, p2, desiredCenter, p2),
       gapBetweenPulleys: calculateDistanceBetweenPulleys(
         p1,
         p2,
-        calculateDistance(p1, p2, smallerBelt),
+        smallerDistance,
       ),
-      differenceFromTarget: desiredCenter.sub(
-        calculateDistance(p1, p2, smallerBelt),
-      ),
+      differenceFromTarget: smallerDistance.sub(desiredCenter),
     },
   };
 }

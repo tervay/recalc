@@ -22,7 +22,7 @@ export async function initWpimath(): Promise<MainModule> {
       // Resolve WASM file path relative to the generated directory
       if (path.endsWith('.wasm')) {
         // Use URL constructor which works in both browser and Node.js
-        return new URL(`../generated/wpimath/${path}`, import.meta.url).href;
+        return new URL(`../../generated/wpimath/${path}`, import.meta.url).href;
       }
       return path;
     },

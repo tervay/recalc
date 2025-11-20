@@ -1,5 +1,5 @@
 import { CheckIcon } from 'lucide-react';
-import { Suspense, lazy, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { BeltTable } from '~/components/recalc/beltTable';
 import IOLine from '~/components/recalc/blocks';
@@ -24,9 +24,6 @@ import {
   NumberParam,
   withDefault,
 } from '~/lib/types/queryParams';
-import _beltsReadme from '~/routes/belts.md?raw';
-
-const Markdown = lazy(() => import('~/components/recalc/markdown'));
 
 export function meta() {
   return [
@@ -381,11 +378,11 @@ export default function Belts() {
           />
         </div>
       </div>
-      <div className="mt-8 space-y-4">
+      {/* <div className="mt-8 space-y-4">
         <Suspense fallback={<div>Loading documentation...</div>}>
           <Markdown markdownContent={_beltsReadme} />
         </Suspense>
-      </div>
+      </div> */}
     </div>
   );
 }

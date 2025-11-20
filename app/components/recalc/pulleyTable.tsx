@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 
+import { BoreBadge } from '~/components/recalc/boreBadge';
 import { VendorBadge } from '~/components/recalc/vendorBadge';
 import {
   Table,
@@ -48,13 +49,18 @@ export function PulleyTable({
     }
     void loadPulleys();
   }, []);
+
   const pulleys = useMemo(() => {
     if (!allPulleys) return [];
     return allPulleys
       .map((p) => Pulley.fromJson(p))
       .filter(filterFn)
       .sort(
-        (a, b) => a.teeth - b.teeth || a.width.baseScalar - b.width.baseScalar,
+        (a, b) =>
+          a.teeth - b.teeth ||
+          a.vendor.localeCompare(b.vendor) ||
+          a.bore.localeCompare(b.bore) ||
+          a.width.baseScalar - b.width.baseScalar,
       );
   }, [allPulleys, filterFn]);
 
@@ -98,7 +104,9 @@ export function PulleyTable({
                   </TableCell>
                   <TableCell>{pulley.teeth}</TableCell>
                   <TableCell>{pulley.width.toString()}</TableCell>
-                  <TableCell>{pulley.bore}</TableCell>
+                  <TableCell>
+                    <BoreBadge bore={pulley.bore} />
+                  </TableCell>
                 </TableRow>
               </>
             );

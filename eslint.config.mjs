@@ -1,4 +1,5 @@
 import { includeIgnoreFile } from '@eslint/compat';
+import threeJsPlugin from '@react-three/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import importPlugin from 'eslint-plugin-import';
@@ -31,6 +32,9 @@ export default tseslint.config([
   {
     files: ['**/*.{ts,tsx}'],
     extends: [tseslint.configs.recommendedTypeChecked],
+    plugins: {
+      'react-three': threeJsPlugin,
+    },
     languageOptions: {
       parserOptions: {
         projectService: {
@@ -88,6 +92,14 @@ export default tseslint.config([
         'error',
         { ignore: ['vaul-drawer-wrapper'] },
       ],
+    },
+  },
+
+  // Disable no-unknown-property for visualizer.tsx (React Three Fiber)
+  {
+    files: ['app/routes/visualizer.tsx'],
+    rules: {
+      'react/no-unknown-property': 'off',
     },
   },
 

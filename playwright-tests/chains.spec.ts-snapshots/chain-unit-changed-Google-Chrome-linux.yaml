@@ -1,97 +1,97 @@
-- main:
-  - heading "Chain Calculator" [level=1]
-  - button "Copy Link"
-  - text: Chain Type
-  - combobox: "#35"
-  - switch "Allow Half Links"
-  - text: Allow Half Links Desired Center
-  - spinbutton "Desired Center Extra Center Pitch Diameter Pitch Diameter Chain Links Center Distance Difference From Target Chain Links Center Distance Difference From Target": "5"
-  - combobox: in
-  - text: Extra Center
-  - spinbutton: "0"
-  - combobox: in
-  - text: Sprocket 1 Teeth
-  - spinbutton: "16"
-  - text: Pitch Diameter
-  - spinbutton [disabled]: "1.910"
-  - combobox: in
-  - text: Sprocket 2 Teeth
-  - spinbutton: "36"
-  - text: Pitch Diameter
-  - spinbutton [disabled]: "4.297"
-  - combobox: in
-  - text: Smaller Chain Chain Links
-  - spinbutton [disabled]: "52"
-  - text: Center Distance
-  - spinbutton [disabled]: "4.724"
-  - combobox: in
-  - text: Difference From Target
-  - spinbutton [disabled]: "-0.276"
-  - combobox: in
-  - text: Larger Chain Suggested Chain Links
-  - spinbutton [disabled]: "54"
-  - text: Center Distance
-  - spinbutton [disabled]: "5.111"
-  - combobox: in
-  - text: Difference From Target
-  - spinbutton [disabled]: "0.111"
-  - combobox: in
-  - table:
-    - rowgroup:
-      - row "Matching COTS Sprockets":
-        - cell "Matching COTS Sprockets"
-      - row "SKU Teeth Bore":
-        - cell "SKU"
-        - cell "Teeth"
-        - cell "Bore"
-    - rowgroup:
-      - row "REV REV-21-3710 16 1/2\" Hex":
-        - cell "REV REV-21-3710":
-          - link "REV":
-            - /url: https://www.revrobotics.com/ION-35-Sprockets/
-          - link "REV-21-3710":
-            - /url: https://www.revrobotics.com/ION-35-Sprockets/
-        - cell "16"
-        - cell "1/2\" Hex"
-      - row "REV REV-21-3718 16 MAXSpline":
-        - cell "REV REV-21-3718":
-          - link "REV":
-            - /url: https://www.revrobotics.com/ION-35-Sprockets/
-          - link "REV-21-3718":
-            - /url: https://www.revrobotics.com/ION-35-Sprockets/
-        - cell "16"
-        - cell "MAXSpline"
-      - row:
-        - cell
-      - row "Thrifty TTB-0245 36 1.125\" Round":
-        - cell "Thrifty TTB-0245":
-          - link "Thrifty":
-            - /url: https://www.thethriftybot.com/products/35-chain-billet-sprockets
-          - link "TTB-0245":
-            - /url: https://www.thethriftybot.com/products/35-chain-billet-sprockets
-        - cell "36"
-        - cell "1.125\" Round"
-      - row "Thrifty TTB-0280 36 1.125\" Round":
-        - cell "Thrifty TTB-0280":
-          - link "Thrifty":
-            - /url: https://www.thethriftybot.com/products/35-flat-plate-sprockets
-          - link "TTB-0280":
-            - /url: https://www.thethriftybot.com/products/35-flat-plate-sprockets
-        - cell "36"
-        - cell "1.125\" Round"
-      - row "REV REV-21-3724 36 MAXSpline":
-        - cell "REV REV-21-3724":
-          - link "REV":
-            - /url: https://www.revrobotics.com/ION-35-Sprockets/
-          - link "REV-21-3724":
-            - /url: https://www.revrobotics.com/ION-35-Sprockets/
-        - cell "36"
-        - cell "MAXSpline"
-      - row "WCP WCP-0983 36 SplineXL":
-        - cell "WCP WCP-0983":
-          - link "WCP":
-            - /url: https://wcproducts.com/products/wcp-0983
-          - link "WCP-0983":
-            - /url: https://wcproducts.com/products/wcp-0983
-        - cell "36"
-        - cell "SplineXL"
+- heading "Chain Calculator" [level=1]
+- button "Copy Link"
+- text: Chain Type
+- combobox: "#35"
+- switch "Allow Half Links"
+- text: Allow Half Links Desired Center
+- spinbutton "Desired Center Extra Center Pitch Diameter Pitch Diameter Chain Links Center Distance Difference From Target Chain Links Center Distance Difference From Target": "5"
+- combobox: in
+- text: Extra Center
+- spinbutton: "0"
+- combobox: in
+- text: Sprocket 1 Teeth
+- spinbutton: "16"
+- text: Pitch Diameter
+- spinbutton [disabled]: "1.910"
+- combobox: in
+- text: Sprocket 2 Teeth
+- spinbutton: "36"
+- text: Pitch Diameter
+- spinbutton [disabled]: "4.297"
+- combobox: in
+- text: Smaller Chain Chain Links
+- spinbutton [disabled]: "52"
+- text: Center Distance
+- spinbutton [disabled]: "4.724"
+- combobox: in
+- text: Difference From Target
+- spinbutton [disabled]: "-0.276"
+- combobox: in
+- text: Larger Chain Suggested Chain Links
+- spinbutton [disabled]: "54"
+- text: Center Distance
+- spinbutton [disabled]: "5.111"
+- combobox: in
+- text: Difference From Target
+- spinbutton [disabled]: "0.111"
+- combobox: in
+- table:
+  - rowgroup:
+    - row "Matching COTS Sprockets":
+      - cell "Matching COTS Sprockets"
+    - row "SKU Teeth Bore":
+      - cell "SKU"
+      - cell "Teeth"
+      - cell "Bore"
+  - rowgroup:
+    - row "REV REV-21-3710 16 1/2\" Hex":
+      - cell "REV REV-21-3710":
+        - link "REV":
+          - /url: https://www.revrobotics.com/ION-35-Sprockets/
+        - link "REV-21-3710":
+          - /url: https://www.revrobotics.com/ION-35-Sprockets/
+      - cell "16"
+      - cell "1/2\" Hex"
+    - row "REV REV-21-3718 16 MAXSpline":
+      - cell "REV REV-21-3718":
+        - link "REV":
+          - /url: https://www.revrobotics.com/ION-35-Sprockets/
+        - link "REV-21-3718":
+          - /url: https://www.revrobotics.com/ION-35-Sprockets/
+      - cell "16"
+      - cell "MAXSpline"
+    - row:
+      - cell
+    - row "Thrifty TTB-0245 36 1.125\" Round":
+      - cell "Thrifty TTB-0245":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/35-chain-billet-sprockets
+        - link "TTB-0245":
+          - /url: https://www.thethriftybot.com/products/35-chain-billet-sprockets
+      - cell "36"
+      - cell "1.125\" Round"
+    - row "Thrifty TTB-0280 36 1.125\" Round":
+      - cell "Thrifty TTB-0280":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/35-flat-plate-sprockets
+        - link "TTB-0280":
+          - /url: https://www.thethriftybot.com/products/35-flat-plate-sprockets
+      - cell "36"
+      - cell "1.125\" Round"
+    - row "REV REV-21-3724 36 MAXSpline":
+      - cell "REV REV-21-3724":
+        - link "REV":
+          - /url: https://www.revrobotics.com/ION-35-Sprockets/
+        - link "REV-21-3724":
+          - /url: https://www.revrobotics.com/ION-35-Sprockets/
+      - cell "36"
+      - cell "MAXSpline"
+    - row "WCP WCP-0983 36 SplineXL":
+      - cell "WCP WCP-0983":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-0983
+        - link "WCP-0983":
+          - /url: https://wcproducts.com/products/wcp-0983
+      - cell "36"
+      - cell "SplineXL"
+- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
