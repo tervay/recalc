@@ -59,6 +59,10 @@ body {
   --lastanvil: #242833;
   --lastanvil-text-dark: #ffffff;
   --thrifty: #1e7d39;
+  --sds: #ffffff;
+  --banebots: #dc3700;
+  --ctre: #97d700;
+  --vex: #d7282f;
   --font-sans: Inter, ui-sans-serif, sans-serif, system-ui;
   --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
   --font-mono: JetBrains Mono, ui-monospace, monospace;
@@ -122,6 +126,10 @@ body {
   --lastanvil: #242833;
   --lastanvil-text-dark: #ffffff;
   --thrifty: #1e7d39;
+  --sds: #ffffff;
+  --banebots: #dc3700;
+  --ctre: #97d700;
+  --vex: #d7282f;
   --font-sans: Inter, ui-sans-serif, sans-serif, system-ui;
   --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
   --font-mono: JetBrains Mono, ui-monospace, monospace;
@@ -183,6 +191,10 @@ body {
   --color-lastanvil: var(--lastanvil);
   --color-lastanvil-text-dark: var(--lastanvil-text-dark);
   --color-thrifty: var(--thrifty);
+  --color-sds: var(--sds);
+  --color-banebots: var(--banebots);
+  --color-ctre: var(--ctre);
+  --color-vex: var(--vex);
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
