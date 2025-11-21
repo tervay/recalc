@@ -11,6 +11,7 @@ import {
 import IOLine from '~/components/recalc/blocks';
 import { MeasurementInput } from '~/components/recalc/io/measurement';
 import { StringSelectInput } from '~/components/recalc/io/stringSelect';
+import MotorTable from '~/components/recalc/motorTable';
 import { ChartContainer } from '~/components/ui/chart';
 import type * as MotorsWorker from '~/lib/math/motors.worker';
 import Measurement from '~/lib/models/Measurement';
@@ -188,6 +189,8 @@ export default function Motors() {
           </LineChart>
         </ChartContainer> */}
       </div>
+
+      <MotorTable />
     </div>
   );
 }

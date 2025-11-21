@@ -1,6 +1,7 @@
 import type { DCMotor } from '~/lib/generated/wpilibc/wpilibc_wasm';
 import Measurement from '~/lib/models/Measurement';
 import Model from '~/lib/models/Model';
+import type { Vendor } from '~/lib/types/common';
 import { getWpilibcModuleSync } from '~/lib/wpilib/wpilibc';
 
 export const nominalVoltage = new Measurement(12, 'V');
@@ -12,10 +13,15 @@ interface MotorSpecs {
   stallCurrent: Measurement;
   freeCurrent: Measurement;
   freeSpeed: Measurement;
+  motorWeight: Measurement;
+  controllerWeight: Measurement;
   name: string;
+  type: 'Brushless' | 'Brushed';
+  dataSource: Vendor;
+  vendors: Vendor[];
 }
 
-interface FullMotorSpecs extends MotorSpecs {
+export interface FullMotorSpecs extends MotorSpecs {
   resistance: Measurement;
   kV: Measurement;
   kT: Measurement;
@@ -241,6 +247,12 @@ export default class Motor extends Model {
   }
 }
 
+const NO_CONTROLLER_WEIGHT = new Measurement(0, 'lb');
+const SPARK_MAX_WEIGHT = new Measurement(0.25, 'lb');
+const SPARK_FLEX_WEIGHT = new Measurement(0.31, 'lb');
+const TALON_FXS_WEIGHT = new Measurement(0.3, 'lb');
+const THRIFTY_NOVA_WEIGHT = new Measurement(0.21, 'lb');
+
 export const ALL_MOTORS: MotorSpecs[] = [
   {
     name: 'Kraken X60',
@@ -249,6 +261,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(374.383, 'A'),
     freeCurrent: new Measurement(2.83, 'A'),
     freeSpeed: new Measurement(6065, 'rpm'),
+    motorWeight: new Measurement(1.2, 'lb'),
+    controllerWeight: NO_CONTROLLER_WEIGHT,
+    type: 'Brushless',
+    dataSource: 'CTRE',
+    vendors: ['CTRE', 'WCP'],
   },
   {
     name: 'Kraken X60 (FOC)',
@@ -257,6 +274,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(476.098, 'A'),
     freeCurrent: new Measurement(3.496, 'A'),
     freeSpeed: new Measurement(5784, 'rpm'),
+    motorWeight: new Measurement(1.2, 'lb'),
+    controllerWeight: NO_CONTROLLER_WEIGHT,
+    type: 'Brushless',
+    dataSource: 'CTRE',
+    vendors: ['CTRE', 'WCP'],
   },
   {
     name: 'NEO Vortex',
@@ -265,6 +287,24 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(391.091, 'A'),
     freeCurrent: new Measurement(5.434, 'A'),
     freeSpeed: new Measurement(6825, 'rpm'),
+    motorWeight: new Measurement(0.98, 'lb'),
+    controllerWeight: SPARK_FLEX_WEIGHT,
+    type: 'Brushless',
+    dataSource: 'CTRE',
+    vendors: ['REV'],
+  },
+  {
+    name: 'NEO 2.0',
+    voltage: new Measurement(12, 'V'),
+    stallTorque: new Measurement(4.201, 'N*m'),
+    stallCurrent: new Measurement(216.269, 'A'),
+    freeCurrent: new Measurement(1.782, 'A'),
+    freeSpeed: new Measurement(5906, 'rpm'),
+    motorWeight: new Measurement(0.8, 'lb'),
+    controllerWeight: SPARK_FLEX_WEIGHT,
+    type: 'Brushless',
+    dataSource: 'CTRE',
+    vendors: ['REV'],
   },
   {
     name: 'NEO',
@@ -273,6 +313,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(216.269, 'A'),
     freeCurrent: new Measurement(1.782, 'A'),
     freeSpeed: new Measurement(5906, 'rpm'),
+    motorWeight: new Measurement(0.938, 'lb'),
+    controllerWeight: SPARK_MAX_WEIGHT,
+    type: 'Brushless',
+    dataSource: 'CTRE',
+    vendors: ['REV'],
   },
   {
     name: 'Kraken X44',
@@ -281,6 +326,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(279.099, 'A'),
     freeCurrent: new Measurement(3.156, 'A'),
     freeSpeed: new Measurement(7757, 'rpm'),
+    motorWeight: new Measurement(0.75, 'lb'),
+    controllerWeight: NO_CONTROLLER_WEIGHT,
+    type: 'Brushless',
+    dataSource: 'CTRE',
+    vendors: ['CTRE', 'WCP'],
   },
   {
     name: 'Kraken X44 (FOC)',
@@ -289,6 +339,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(329.188, 'A'),
     freeCurrent: new Measurement(3.231, 'A'),
     freeSpeed: new Measurement(7367, 'rpm'),
+    motorWeight: new Measurement(0.75, 'lb'),
+    controllerWeight: NO_CONTROLLER_WEIGHT,
+    type: 'Brushless',
+    dataSource: 'CTRE',
+    vendors: ['CTRE', 'WCP'],
   },
   {
     name: 'Falcon 500',
@@ -297,6 +352,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(257, 'A'),
     freeCurrent: new Measurement(1.5, 'A'),
     freeSpeed: new Measurement(6380, 'rpm'),
+    motorWeight: new Measurement(1.25, 'lb'),
+    controllerWeight: NO_CONTROLLER_WEIGHT,
+    type: 'Brushless',
+    dataSource: 'CTRE',
+    vendors: ['CTRE', 'VEX'],
   },
   {
     name: 'Falcon 500 (FOC)',
@@ -305,6 +365,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(304, 'A'),
     freeCurrent: new Measurement(1.5, 'A'),
     freeSpeed: new Measurement(6080, 'rpm'),
+    motorWeight: new Measurement(1.25, 'lb'),
+    controllerWeight: NO_CONTROLLER_WEIGHT,
+    type: 'Brushless',
+    dataSource: 'VEX',
+    vendors: ['CTRE', 'VEX'],
   },
   {
     name: 'Minion',
@@ -313,6 +378,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(211.607, 'A'),
     freeCurrent: new Measurement(2.206, 'A'),
     freeSpeed: new Measurement(7703, 'rpm'),
+    motorWeight: new Measurement(0.65, 'lb'),
+    controllerWeight: TALON_FXS_WEIGHT,
+    type: 'Brushless',
+    dataSource: 'CTRE',
+    vendors: ['CTRE'],
   },
   {
     name: 'Minion (Adv Hall)',
@@ -321,6 +391,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(207.18, 'A'),
     freeCurrent: new Measurement(2.384, 'A'),
     freeSpeed: new Measurement(7644, 'rpm'),
+    motorWeight: new Measurement(0.65, 'lb'),
+    controllerWeight: TALON_FXS_WEIGHT,
+    type: 'Brushless',
+    dataSource: 'CTRE',
+    vendors: ['CTRE'],
   },
   {
     name: 'Thrifty Pulsar',
@@ -329,6 +404,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(189, 'A'),
     freeCurrent: new Measurement(1, 'A'),
     freeSpeed: new Measurement(7500, 'rpm'),
+    motorWeight: new Measurement(0.65, 'lb'),
+    controllerWeight: THRIFTY_NOVA_WEIGHT,
+    type: 'Brushless',
+    dataSource: 'Thrifty',
+    vendors: ['Thrifty'],
   },
   {
     name: 'NEO 550',
@@ -337,6 +417,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(111, 'A'),
     freeCurrent: new Measurement(1.1, 'A'),
     freeSpeed: new Measurement(11710, 'rpm'),
+    motorWeight: new Measurement(0.313, 'lb'),
+    controllerWeight: SPARK_MAX_WEIGHT,
+    type: 'Brushless',
+    dataSource: 'REV',
+    vendors: ['REV'],
   },
   {
     name: '775pro',
@@ -345,6 +430,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(134, 'A'),
     freeCurrent: new Measurement(0.7, 'A'),
     freeSpeed: new Measurement(18730, 'rpm'),
+    motorWeight: new Measurement(1.0, 'lb'),
+    controllerWeight: SPARK_MAX_WEIGHT,
+    type: 'Brushed',
+    dataSource: 'VEX',
+    vendors: ['VEX', 'WCP'],
   },
   {
     name: '775 RedLine',
@@ -353,6 +443,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(122, 'A'),
     freeCurrent: new Measurement(2.6, 'A'),
     freeSpeed: new Measurement(19500, 'rpm'),
+    motorWeight: new Measurement(1.0, 'lb'),
+    controllerWeight: SPARK_MAX_WEIGHT,
+    type: 'Brushed',
+    dataSource: 'VEX',
+    vendors: ['AndyMark'],
   },
   {
     name: 'CIM',
@@ -361,6 +456,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(131, 'A'),
     freeCurrent: new Measurement(2.7, 'A'),
     freeSpeed: new Measurement(5330, 'rpm'),
+    motorWeight: new Measurement(1.0, 'lb'),
+    controllerWeight: SPARK_MAX_WEIGHT,
+    type: 'Brushed',
+    dataSource: 'VEX',
+    vendors: ['AndyMark'],
   },
   {
     name: 'MiniCIM',
@@ -369,6 +469,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(89, 'A'),
     freeCurrent: new Measurement(3, 'A'),
     freeSpeed: new Measurement(5840, 'rpm'),
+    motorWeight: new Measurement(1.0, 'lb'),
+    controllerWeight: SPARK_MAX_WEIGHT,
+    type: 'Brushed',
+    dataSource: 'VEX',
+    vendors: ['VEX'],
   },
   {
     name: 'BAG',
@@ -377,6 +482,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(53, 'A'),
     freeCurrent: new Measurement(1.8, 'A'),
     freeSpeed: new Measurement(13180, 'rpm'),
+    motorWeight: new Measurement(1.0, 'lb'),
+    controllerWeight: SPARK_MAX_WEIGHT,
+    type: 'Brushed',
+    dataSource: 'VEX',
+    vendors: ['VEX'],
   },
   {
     name: 'AM-9015',
@@ -385,6 +495,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(71, 'A'),
     freeCurrent: new Measurement(3.7, 'A'),
     freeSpeed: new Measurement(14270, 'rpm'),
+    motorWeight: new Measurement(1.0, 'lb'),
+    controllerWeight: SPARK_MAX_WEIGHT,
+    type: 'Brushed',
+    dataSource: 'VEX',
+    vendors: ['AndyMark'],
   },
   {
     name: 'BaneBots 550',
@@ -393,6 +508,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(85, 'A'),
     freeCurrent: new Measurement(1.4, 'A'),
     freeSpeed: new Measurement(19300, 'rpm'),
+    motorWeight: new Measurement(1.0, 'lb'),
+    controllerWeight: SPARK_MAX_WEIGHT,
+    type: 'Brushed',
+    dataSource: 'VEX',
+    vendors: ['BaneBots'],
   },
   {
     name: 'NeveRest',
@@ -401,6 +521,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(9.8, 'A'),
     freeCurrent: new Measurement(0.355, 'A'),
     freeSpeed: new Measurement(5480, 'rpm'),
+    motorWeight: new Measurement(1.0, 'lb'),
+    controllerWeight: SPARK_MAX_WEIGHT,
+    type: 'Brushed',
+    dataSource: 'VEX',
+    vendors: ['AndyMark'],
   },
   {
     name: 'Snowblower',
@@ -409,6 +534,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(24, 'A'),
     freeCurrent: new Measurement(5, 'A'),
     freeSpeed: new Measurement(100, 'rpm'),
+    motorWeight: new Measurement(1.0, 'lb'),
+    controllerWeight: SPARK_MAX_WEIGHT,
+    type: 'Brushed',
+    dataSource: 'VEX',
+    vendors: ['AndyMark'],
   },
   {
     name: 'HD Hex',
@@ -417,6 +547,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(8.5, 'A'),
     freeCurrent: new Measurement(0.4, 'A'),
     freeSpeed: new Measurement(6000, 'rpm'),
+    motorWeight: new Measurement(1.0, 'lb'),
+    controllerWeight: SPARK_MAX_WEIGHT,
+    type: 'Brushed',
+    dataSource: 'VEX',
+    vendors: ['REV'],
   },
   {
     name: 'Core Hex',
@@ -425,6 +560,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(4.4, 'A'),
     freeCurrent: new Measurement(0.5, 'A'),
     freeSpeed: new Measurement(125, 'rpm'),
+    motorWeight: new Measurement(1.0, 'lb'),
+    controllerWeight: SPARK_MAX_WEIGHT,
+    type: 'Brushed',
+    dataSource: 'VEX',
+    vendors: ['REV'],
   },
   {
     name: 'V5 Smart Motor (Red)',
@@ -433,6 +573,11 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(2.5, 'A'),
     freeCurrent: new Measurement(0.9, 'A'),
     freeSpeed: new Measurement(100, 'rpm'),
+    motorWeight: new Measurement(1.0, 'lb'),
+    controllerWeight: SPARK_MAX_WEIGHT,
+    type: 'Brushed',
+    dataSource: 'VEX',
+    vendors: ['VEX'],
   },
   {
     name: 'Modern Robotics',
@@ -441,5 +586,10 @@ export const ALL_MOTORS: MotorSpecs[] = [
     stallCurrent: new Measurement(11, 'A'),
     freeCurrent: new Measurement(0.3, 'A'),
     freeSpeed: new Measurement(5900, 'rpm'),
+    motorWeight: new Measurement(1.0, 'lb'),
+    controllerWeight: SPARK_MAX_WEIGHT,
+    type: 'Brushed',
+    dataSource: 'VEX',
+    vendors: [],
   },
 ];

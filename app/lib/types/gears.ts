@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { type Bore, zBore } from '~/lib/types/common';
+import { type Bore, zBore, zVendor } from '~/lib/types/common';
 
 export const zJSONGear = z.object({
   teeth: z.number().min(1),
@@ -8,7 +8,7 @@ export const zJSONGear = z.object({
   bore: zBore,
   url: z.string().url(),
   sku: z.string().nullable(),
-  vendor: z.string(),
+  vendor: zVendor,
 });
 
 export type JSONGear = z.infer<typeof zJSONGear>;

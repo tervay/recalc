@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { zVendor } from '~/lib/types/common';
+
 export const zJSONBelt = z.object({
   teeth: z.number(),
   width: z.number().min(1), // mm
@@ -7,7 +9,7 @@ export const zJSONBelt = z.object({
   pitch: z.number().min(1), // mm
   sku: z.string().nullable(),
   url: z.string().url(),
-  vendor: z.string(),
+  vendor: zVendor,
 });
 
 export type JSONBelt = z.infer<typeof zJSONBelt>;

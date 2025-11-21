@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import Measurement from '~/lib/models/Measurement';
-import { type Bore, zBore } from '~/lib/types/common';
+import { type Bore, zBore, zVendor } from '~/lib/types/common';
 
 export const zJSONPulley = z.object({
   teeth: z.number(),
@@ -11,7 +11,7 @@ export const zJSONPulley = z.object({
   sku: z.string().nullable(),
   url: z.string().url(),
   bore: zBore,
-  vendor: z.string(),
+  vendor: zVendor,
 });
 
 export type JSONPulley = z.infer<typeof zJSONPulley>;
