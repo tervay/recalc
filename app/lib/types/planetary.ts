@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { zBore } from '~/lib/types/common';
+import { zBore, zVendor } from '~/lib/types/common';
 
 export const zJSONPlanetary = z.object({
   slices: z.array(z.number().min(1).max(9)),
@@ -9,7 +9,7 @@ export const zJSONPlanetary = z.object({
   outputBores: z.array(zBore),
   sku: z.string(),
   url: z.url(),
-  vendor: z.string(),
+  vendor: zVendor,
 });
 
 export const zJSONPlanetaryInstance = z.object({
@@ -19,7 +19,7 @@ export const zJSONPlanetaryInstance = z.object({
   outputBore: zBore,
   sku: z.string(),
   url: z.url(),
-  vendor: z.string(),
+  vendor: zVendor,
 });
 
 export type JSONPlanetary = z.infer<typeof zJSONPlanetary>;

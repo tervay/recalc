@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { type Bore, zBore } from '~/lib/types/common';
+import { type Bore, zBore, zVendor } from '~/lib/types/common';
 
 const zChainType = z.enum(['#25', '#35']);
 export type ChainType = z.infer<typeof zChainType>;
@@ -11,7 +11,7 @@ export const zJSONSprocket = z.object({
   chainType: zChainType,
   url: z.string().url(),
   sku: z.string().nullable(),
-  vendor: z.string(),
+  vendor: zVendor,
 });
 
 export type JSONSprocket = z.infer<typeof zJSONSprocket>;

@@ -2,9 +2,10 @@ import * as React from 'react';
 import { Link } from 'react-router';
 
 import { Badge } from '~/components/ui/badge';
+import type { Vendor } from '~/lib/types/common';
 import { cn } from '~/lib/utils';
 
-const vendorBadgeStyles: Record<string, string> = {
+const vendorBadgeStyles: Record<Vendor, string> = {
   WCP: 'border-wcp/20 bg-wcp/10 text-wcp dark:text-wcp rounded',
   Swyft: 'border-swyft/20 bg-swyft/10 text-swyft dark:text-swyft rounded',
   VBeltGuys:
@@ -16,29 +17,16 @@ const vendorBadgeStyles: Record<string, string> = {
     'border-lastanvil/20 bg-lastanvil/10 text-lastanvil dark:text-lastanvil-text-dark rounded',
   Thrifty:
     'border-thrifty/20 bg-thrifty/10 text-thrifty dark:text-thrifty rounded',
-  default:
-    'border-gray-500/20 bg-gray-500/10 text-gray-700 dark:text-gray-400 rounded',
+  SDS: 'border-sds/20 bg-sds/10 text-sds dark:text-sds rounded',
+  BaneBots:
+    'border-banebots/20 bg-banebots/10 text-banebots dark:text-banebots rounded',
+  CTRE: 'border-ctre/20 bg-ctre/10 text-ctre dark:text-ctre rounded',
+  VEX: 'border-vex/20 bg-vex/10 text-vex dark:text-vex rounded',
 };
 
 interface VendorBadgeProps extends React.ComponentProps<typeof Badge> {
-  vendor: string;
+  vendor: Vendor;
   url?: string;
-}
-
-const validVendors = [
-  'WCP',
-  'Swyft',
-  'VBeltGuys',
-  'REV',
-  'AndyMark',
-  'LastAnvil',
-  'Thrifty',
-] as const;
-
-type ValidVendor = (typeof validVendors)[number];
-
-function isValidVendor(vendor: string): vendor is ValidVendor {
-  return validVendors.includes(vendor as ValidVendor);
 }
 
 export function VendorBadge({
@@ -47,8 +35,7 @@ export function VendorBadge({
   className,
   ...props
 }: VendorBadgeProps) {
-  const vendorKey = isValidVendor(vendor) ? vendor : 'default';
-  const vendorStyle = vendorBadgeStyles[vendorKey] ?? vendorBadgeStyles.default;
+  const vendorStyle = vendorBadgeStyles[vendor];
 
   if (url) {
     return (
