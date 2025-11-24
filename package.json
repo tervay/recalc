@@ -55,7 +55,7 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-router": "7.9.6",
-    "recharts": "3.4.1",
+    "recharts": "3.5.0",
     "tailwind-merge": "3.4.0",
     "three": "0.181.2"
   },
@@ -104,6 +104,6 @@
     "vite-plugin-top-level-await": "1.6.0",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "4.0.13",
-    "zod": "4.1.12"
+    "zod": "4.1.13"
   }
 }
