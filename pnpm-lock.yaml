@@ -78,8 +78,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: 0.554.0
-        version: 0.554.0(react@19.2.0)
+        specifier: 0.555.0
+        version: 0.555.0(react@19.2.0)
       query-string:
         specifier: 9.3.1
         version: 9.3.1
@@ -109,8 +109,8 @@ importers:
         specifier: 9.39.1
         version: 9.39.1
       '@iconify/json':
-        specifier: 2.2.410
-        version: 2.2.410
+        specifier: 2.2.411
+        version: 2.2.411
       '@playwright/test':
         specifier: 1.56.1
         version: 1.56.1
@@ -660,8 +660,8 @@ packages:
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
 
-  '@iconify/json@2.2.410':
-    resolution: {integrity: sha512-0IhW9Sfudf3cPQHoCwr2gJMMUUkLW01WIkGoP9PbwVKXl1I/KTRHtM9IchLufT8M86QHBWRcinApzkL60TH9vA==}
+  '@iconify/json@2.2.411':
+    resolution: {integrity: sha512-lbNY5utR46XT2seUTBNiqKwd0uxSq2lJfyg8WRxpThmlS1bk79eSToT9biraG1wzKKt0tCjJos9aZxj5Us9RTw==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -3667,8 +3667,8 @@ packages:
     resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
     engines: {node: '>=12'}
 
-  lucide-react@0.554.0:
-    resolution: {integrity: sha512-St+z29uthEJVx0Is7ellNkgTEhaeSoA42I7JjOCBCrc5X6LYMGSv0P/2uS5HDLTExP5tpiqRD2PyUEOS6s9UXA==}
+  lucide-react@0.555.0:
+    resolution: {integrity: sha512-D8FvHUGbxWBRQM90NZeIyhAvkFfsh3u9ekrMvJ30Z6gnpBHS6HC6ldLg7tL45hwiIz/u66eKDtdA23gwwGsAHA==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -5676,7 +5676,7 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@iconify/json@2.2.410':
+  '@iconify/json@2.2.411':
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 2.0.3
@@ -8857,7 +8857,7 @@ snapshots:
 
   lru-cache@7.18.3: {}
 
-  lucide-react@0.554.0(react@19.2.0):
+  lucide-react@0.555.0(react@19.2.0):
     dependencies:
       react: 19.2.0
 
