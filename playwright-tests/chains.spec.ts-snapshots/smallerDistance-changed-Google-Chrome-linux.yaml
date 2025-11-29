@@ -38,11 +38,11 @@
 - table:
   - rowgroup:
     - row "Matching COTS Sprockets":
-      - cell "Matching COTS Sprockets"
+      - columnheader "Matching COTS Sprockets"
     - row "SKU Teeth Bore":
-      - cell "SKU"
-      - cell "Teeth"
-      - cell "Bore"
+      - columnheader "SKU"
+      - columnheader "Teeth"
+      - columnheader "Bore"
   - rowgroup:
     - row "REV REV-21-2012 16 1/2\" Hex":
       - cell "REV REV-21-2012":

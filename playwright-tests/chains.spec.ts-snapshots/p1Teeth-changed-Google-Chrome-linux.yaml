@@ -38,11 +38,11 @@
 - table:
   - rowgroup:
     - row "Matching COTS Sprockets":
-      - cell "Matching COTS Sprockets"
+      - columnheader "Matching COTS Sprockets"
     - row "SKU Teeth Bore":
-      - cell "SKU"
-      - cell "Teeth"
-      - cell "Bore"
+      - columnheader "SKU"
+      - columnheader "Teeth"
+      - columnheader "Bore"
   - rowgroup:
     - row "WCP WCP-2103 30 1/2\" Hex":
       - cell "WCP WCP-2103":
