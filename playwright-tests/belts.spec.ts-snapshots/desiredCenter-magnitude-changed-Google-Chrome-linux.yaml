@@ -59,12 +59,12 @@
 - table:
   - rowgroup:
     - row "Matching COTS Pulleys":
-      - cell "Matching COTS Pulleys"
+      - columnheader "Matching COTS Pulleys"
     - row "SKU Teeth Width Bore":
-      - cell "SKU"
-      - cell "Teeth"
-      - cell "Width"
-      - cell "Bore"
+      - columnheader "SKU"
+      - columnheader "Teeth"
+      - columnheader "Width"
+      - columnheader "Bore"
   - rowgroup:
     - row "WCP WCP-1802 16 9 mm SplineXS":
       - cell "WCP WCP-1802":
@@ -170,11 +170,11 @@
 - table:
   - rowgroup:
     - row "Matching COTS Belts":
-      - cell "Matching COTS Belts"
+      - columnheader "Matching COTS Belts"
     - row "SKU Teeth Width":
-      - cell "SKU"
-      - cell "Teeth"
-      - cell "Width"
+      - columnheader "SKU"
+      - columnheader "Teeth"
+      - columnheader "Width"
   - rowgroup:
     - row "AndyMark AM-5209_120T 120 9 mm":
       - cell "AndyMark AM-5209_120T":

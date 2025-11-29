@@ -13,11 +13,8 @@ export function calculateRecommendedRatio(
   }
 
   return new Ratio(
-    rollerDiameter
-      .div(2)
-      .mul(motor.freeSpeed)
-      .removeRad()
-      .div(targetSpeed).scalar,
+    rollerDiameter.div(2).mul(motor.freeSpeed).removeRad().div(targetSpeed)
+      .scalar,
     RatioType.REDUCTION,
   );
 }

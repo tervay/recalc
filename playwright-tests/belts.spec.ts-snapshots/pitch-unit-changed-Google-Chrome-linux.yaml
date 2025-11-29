@@ -59,21 +59,21 @@
 - table:
   - rowgroup:
     - row "Matching COTS Pulleys":
-      - cell "Matching COTS Pulleys"
+      - columnheader "Matching COTS Pulleys"
     - row "SKU Teeth Width Bore":
-      - cell "SKU"
-      - cell "Teeth"
-      - cell "Width"
-      - cell "Bore"
+      - columnheader "SKU"
+      - columnheader "Teeth"
+      - columnheader "Width"
+      - columnheader "Bore"
   - rowgroup
 - table:
   - rowgroup:
     - row "Matching COTS Belts":
-      - cell "Matching COTS Belts"
+      - columnheader "Matching COTS Belts"
     - row "SKU Teeth Width":
-      - cell "SKU"
-      - cell "Teeth"
-      - cell "Width"
+      - columnheader "SKU"
+      - columnheader "Teeth"
+      - columnheader "Width"
   - rowgroup:
     - row "No matching belts found":
       - cell "No matching belts found"
