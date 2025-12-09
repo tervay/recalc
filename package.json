@@ -98,7 +98,7 @@
     "@types/react-table": "7.7.20",
     "@types/tinycolor2": "1.4.6",
     "@typescript-eslint/eslint-plugin": "6.7.5",
-    "@typescript-eslint/parser": "8.48.1",
+    "@typescript-eslint/parser": "8.49.0",
     "@vitejs/plugin-react": "5.1.1",
     "eslint": "8.51.0",
     "eslint-config-prettier": "10.1.8",
