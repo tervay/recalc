@@ -62,7 +62,7 @@
   },
   "devDependencies": {
     "@eslint/compat": "2.0.0",
-    "@eslint/js": "9.39.1",
+    "@eslint/js": "9.39.2",
     "@iconify/json": "2.2.417",
     "@playwright/test": "1.57.0",
     "@react-router/dev": "7.10.1",
@@ -79,7 +79,7 @@
     "@types/three": "0.182.0",
     "@typescript-eslint/parser": "8.49.0",
     "commander": "14.0.2",
-    "eslint": "9.39.1",
+    "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-import": "2.32.0",
