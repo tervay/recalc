@@ -235,8 +235,8 @@ importers:
         specifier: 1.6.0
         version: 1.6.0(rollup@4.53.3)(vite@7.2.7(@types/node@25.0.3)(sass@1.77.2)(yaml@2.8.1))
       vite-tsconfig-paths:
-        specifier: 6.0.1
-        version: 6.0.1(typescript@5.9.3)(vite@7.2.7(@types/node@25.0.3)(sass@1.77.2)(yaml@2.8.1))
+        specifier: 6.0.3
+        version: 6.0.3(typescript@5.9.3)(vite@7.2.7(@types/node@25.0.3)(sass@1.77.2)(yaml@2.8.1))
 
 packages:
 
@@ -3604,8 +3604,8 @@ packages:
     peerDependencies:
       vite: '>=2.8'
 
-  vite-tsconfig-paths@6.0.1:
-    resolution: {integrity: sha512-OQuYkfCQhc2T+n//0N7/oogTosgiSyZQ7dydrpUlH5SbnFTtplpekdY4GMi6jDwEpiwWlqeUJMyPfC2ePM1+2A==}
+  vite-tsconfig-paths@6.0.3:
+    resolution: {integrity: sha512-7bL7FPX/DSviaZGYUKowWF1AiDVWjMjxNbE8lyaVGDezkedWqfGhlnQ4BZXre0ZN5P4kAgIJfAlgFDVyjrCIyg==}
     peerDependencies:
       vite: '*'
     peerDependenciesMeta:
@@ -7322,7 +7322,7 @@ snapshots:
       - '@swc/helpers'
       - rollup
 
-  vite-tsconfig-paths@6.0.1(typescript@5.9.3)(vite@7.2.7(@types/node@25.0.3)(sass@1.77.2)(yaml@2.8.1)):
+  vite-tsconfig-paths@6.0.3(typescript@5.9.3)(vite@7.2.7(@types/node@25.0.3)(sass@1.77.2)(yaml@2.8.1)):
     dependencies:
       debug: 4.4.3
       globrex: 0.1.2
