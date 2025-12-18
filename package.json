@@ -105,6 +105,6 @@
     "vite-plugin-top-level-await": "1.6.0",
     "vite-tsconfig-paths": "6.0.1",
     "vitest": "4.0.16",
-    "zod": "4.2.0"
+    "zod": "4.2.1"
   }
 }
