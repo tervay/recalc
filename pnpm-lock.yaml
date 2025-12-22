@@ -109,8 +109,8 @@ importers:
         specifier: 9.39.2
         version: 9.39.2
       '@iconify/json':
-        specifier: 2.2.419
-        version: 2.2.419
+        specifier: 2.2.420
+        version: 2.2.420
       '@playwright/test':
         specifier: 1.57.0
         version: 1.57.0
@@ -822,8 +822,8 @@ packages:
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
 
-  '@iconify/json@2.2.419':
-    resolution: {integrity: sha512-50GipvrxOs/b03MP0GxCTn65o4S/DDEXbf03oXbglp0m552TcT8yAidLl7kyQ1fiI+rx3LbvZ6hNSU3CrXZnIQ==}
+  '@iconify/json@2.2.420':
+    resolution: {integrity: sha512-3dgvkB8eiUA/PkGHaRB+x17MS1u22V2O1YtFpdpdFpbXp/fAdloOMbxeMXXgNlcGgjk7x4hUIeDunic/diHYqg==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -5888,7 +5888,7 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@iconify/json@2.2.419':
+  '@iconify/json@2.2.420':
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 2.0.3
