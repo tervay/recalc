@@ -41,7 +41,7 @@
     "@react-router/node": "7.10.1",
     "@react-router/serve": "7.10.1",
     "@react-three/drei": "10.7.7",
-    "@react-three/fiber": "9.4.2",
+    "@react-three/fiber": "9.5.0",
     "@tanstack/react-table": "8.21.3",
     "@vercel/react-router": "1.2.4",
     "class-variance-authority": "0.7.1",
