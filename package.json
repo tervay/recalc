@@ -63,7 +63,7 @@
   "devDependencies": {
     "@eslint/compat": "2.0.0",
     "@eslint/js": "9.39.2",
-    "@iconify/json": "2.2.426",
+    "@iconify/json": "2.2.427",
     "@playwright/test": "1.57.0",
     "@react-router/dev": "7.12.0",
     "@react-three/eslint-plugin": "0.1.2",
