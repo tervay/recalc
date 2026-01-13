@@ -104,7 +104,7 @@
     "vite-plugin-comlink": "5.3.0",
     "vite-plugin-top-level-await": "1.6.0",
     "vite-tsconfig-paths": "6.0.3",
-    "vitest": "4.0.16",
+    "vitest": "4.0.17",
     "zod": "4.3.5"
   }
 }
