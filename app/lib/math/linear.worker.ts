@@ -6,7 +6,7 @@ import { obliterateArray } from '~/lib/utils';
 import { arrayToVectorDouble } from '~/lib/wpilib/util';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
 
-const SIM_TIMESTEP_SECONDS = 0.001;
+const SIM_TIMESTEP_SECONDS = 0.0005;
 
 export interface WpilibElevatorSimState {
   positionMeters: number;
