@@ -101,14 +101,14 @@ export default function Home(): JSX.Element {
         <Columns multiline gapless>
           <Column>
             <Shortcut
-              name="2025 Official PDF Manual"
-              url="https://firstfrc.blob.core.windows.net/frc2025/Manual/2025GameManual.pdf"
+              name="2026 Official PDF Manual"
+              url="https://firstfrc.blob.core.windows.net/frc2026/Manual/2026GameManual.pdf"
             />
             <Shortcut
-              name="2025 Unofficial Web Manual"
-              url="https://www.frcmanual.com/2025"
+              name="2026 Unofficial Web Manual"
+              url="https://www.frcmanual.com/2026"
             />
-            <Shortcut name="2025 Q&A" url="https://frc-qa.firstinspires.org/" />
+            <Shortcut name="2026 Q&A" url="https://frc-qa.firstinspires.org/" />
           </Column>
 
           <Column>
@@ -125,12 +125,12 @@ export default function Home(): JSX.Element {
 
           <Column>
             <Shortcut
-              name="2025 Team/Event Search"
-              url="https://www.firstinspires.org/team-event-search#type=teams&sort=name&programs=FRC&year=2025"
+              name="2026 Team/Event Search"
+              url="https://www.firstinspires.org/team-event-search#type=teams&sort=name&programs=FRC&year=2026"
             />
             <Shortcut
-              name="2025 FRC-Events"
-              url="https://frc-events.firstinspires.org/2025/Events/EventList"
+              name="2026 FRC-Events"
+              url="https://frc-events.firstinspires.org/2026/Events/EventList"
             />
           </Column>
         </Columns>
