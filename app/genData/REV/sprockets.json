@@ -322,16 +322,16 @@
   {
     "teeth": 10,
     "bore": "8mm",
-    "chainType": "#25",
     "sku": "REV-21-2020",
+    "chainType": "#25",
     "url": "https://www.revrobotics.com/neo-pinions/",
     "vendor": "REV"
   },
   {
     "teeth": 12,
     "bore": "8mm",
-    "chainType": "#25",
     "sku": "REV-21-3495",
+    "chainType": "#25",
     "url": "https://www.revrobotics.com/neo-pinions/",
     "vendor": "REV"
   }

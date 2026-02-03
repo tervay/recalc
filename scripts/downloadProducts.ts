@@ -1,1297 +1,262 @@
 import { program } from 'commander';
-import { mkdir, writeFile } from 'fs/promises';
-import { isEqual, some } from 'lodash-es';
-import { FileSystemCache, NodeFetchCache } from 'node-fetch-cache';
-import { join } from 'path';
-import { format } from 'prettier';
-
-import { SimpleBelt } from '~/lib/models/Belt';
-import Measurement from '~/lib/models/Measurement';
+import { alertUnparsedProducts } from 'scripts/downloadProducts/alert';
 import {
-  type JSONBelt,
-  andyMarkBeltToJsonBelt,
-  wcpBeltToJsonBelt,
-  zAndyMarkBelt,
-  zWCPBelt,
-} from '~/lib/types/belts';
-import { type JSONGear, wcpGearToJsonGear, zWCPGear } from '~/lib/types/gears';
+  compareAndMerge,
+  loadCache,
+  saveCache,
+} from 'scripts/downloadProducts/cache';
+import { CONFIGS, downloadAllVendors } from 'scripts/downloadProducts/download';
+import { generateAllOutputFiles } from 'scripts/downloadProducts/generate';
+import { parseVendorBelts } from 'scripts/downloadProducts/parsers/belts';
+import { parseVendorGears } from 'scripts/downloadProducts/parsers/gears';
+import { parseVendorPlanetaries } from 'scripts/downloadProducts/parsers/planetaries';
+import { parseVendorPulleys } from 'scripts/downloadProducts/parsers/pulleys';
+import { parseVendorSprockets } from 'scripts/downloadProducts/parsers/sprockets';
 import type {
-  JSONPlanetary,
-  JSONPlanetaryInstance,
-} from '~/lib/types/planetary';
-import {
-  type AndyMarkPulley,
-  type JSONPulley,
-  andyMarkPulleyToJsonPulley,
-  revPulleyToJsonPulley,
-  thriftyPulleyToJsonPulley,
-  wcpPulleyToJsonPulley,
-  zAndyMarkPulley,
-  zREVPulley,
-  zThriftyPulley,
-  zWCPPulley,
-} from '~/lib/types/pulleys';
-import type {
-  ShopifyConfig,
-  ShopifyProduct,
-  ShopifyResponse,
-} from '~/lib/types/shopify';
-import {
-  type ChainType,
-  type JSONSprocket,
-  type ThriftySprocketBore,
-  thriftySprocketToJsonSprocket,
-  wcpSprocketToJsonSprocket,
-  zThriftySprocket,
-  zWCPSprocket,
-} from '~/lib/types/sprockets';
+  CacheEntry,
+  ProductType,
+  VendorCache,
+  VendorName,
+} from 'scripts/downloadProducts/types';
 
-function urlForHandle(handle: string, vendor: string) {
-  const conf = CONFIGS.find((c) => c.vendorName === vendor);
-  if (!conf) {
-    throw new Error(`Config not found for vendor: ${vendor}`);
-  }
-  return `${conf.rootDomain}/products/${handle}`;
-}
+import type { ShopifyProduct } from '~/lib/types/shopify';
 
-const CONFIGS: ShopifyConfig[] = [
-  {
-    vendorName: 'WCP',
-    rootDomain: 'https://wcproducts.com',
-  },
-  {
-    vendorName: 'Swyft',
-    rootDomain: 'https://swyftrobotics.com',
-  },
-  {
-    vendorName: 'TheThriftyBot',
-    rootDomain: 'https://www.thethriftybot.com',
-  },
-  {
-    vendorName: 'VBeltGuys',
-    rootDomain: 'https://www.vbeltguys.com',
-  },
-  {
-    vendorName: 'AndyMark',
-    rootDomain: 'https://www.andymark.com',
-  },
-  {
-    vendorName: 'LastAnvil',
-    rootDomain: 'https://www.lastanvil.com',
-  },
-  {
-    vendorName: 'SDS',
-    rootDomain: 'https://www.swervedrivespecialties.com',
-  },
-];
+/**
+ * Process a single vendor and product type
+ */
+async function processVendorProductType(
+  vendor: VendorName,
+  productType: ProductType,
+  vendorProducts: Map<VendorName, ShopifyProduct[]>,
+): Promise<{
+  cache: VendorCache;
+  newProducts: CacheEntry[];
+}> {
+  console.log(`\nProcessing ${vendor} - ${productType}...`);
 
-const fetch = NodeFetchCache.create({
-  cache: new FileSystemCache({
-    cacheDirectory: join(process.cwd(), '.cache'),
-  }),
-  shouldCacheResponse: (response) => [200, 404].includes(response.status),
-});
+  // Get products for this vendor
+  const products = vendorProducts.get(vendor) ?? [];
 
-async function getAllProducts(vendor: string): Promise<ShopifyProduct[]> {
-  const config = CONFIGS.find((c) => c.vendorName === vendor);
-  if (!config) {
-    throw new Error(`Config not found for vendor: ${vendor}`);
-  }
+  // Parse products based on product type
+  let parsedEntries: CacheEntry[] = [];
 
-  let pageNum = 1;
-  const products: ShopifyProduct[] = [];
-
-  while (true) {
-    const response = await fetch(
-      `${config.rootDomain}/products.json?page=${pageNum}&limit=250`,
-    );
-    const data = (await response.json()) as ShopifyResponse;
-    if (data.products.length === 0) {
+  switch (productType) {
+    case 'pulleys':
+      parsedEntries = parseVendorPulleys(vendor, products);
       break;
-    }
-    products.push(...data.products);
-    pageNum++;
+    case 'belts':
+      parsedEntries = parseVendorBelts(vendor, products);
+      break;
+    case 'sprockets':
+      parsedEntries = parseVendorSprockets(vendor, products);
+      break;
+    case 'gears':
+      parsedEntries = parseVendorGears(vendor, products);
+      break;
+    case 'planetaries':
+      parsedEntries = parseVendorPlanetaries(vendor, products);
+      break;
   }
 
-  return products;
+  if (parsedEntries.length === 0) {
+    console.log(`  No ${productType} found for ${vendor}`);
+    return { cache: {}, newProducts: [] };
+  }
+
+  // Load existing cache
+  const oldCache = await loadCache(vendor, productType);
+
+  // Compare and merge
+  const { merged, newProducts } = compareAndMerge(oldCache, parsedEntries);
+
+  // Save updated cache
+  await saveCache(vendor, productType, merged);
+
+  console.log(`  Cached ${Object.keys(merged).length} ${productType}`);
+  if (newProducts.length > 0) {
+    console.log(`  Found ${newProducts.length} new ${productType}`);
+  }
+
+  return { cache: merged, newProducts };
 }
 
-async function writeJson(
-  data: (
-    | JSONBelt
-    | JSONPulley
-    | JSONGear
-    | JSONSprocket
-    | JSONPlanetaryInstance
-  )[],
+/**
+ * Process a single vendor for all product types
+ */
+async function processVendor(
+  vendor: VendorName,
+  vendorProducts: Map<VendorName, ShopifyProduct[]>,
+): Promise<{
+  caches: Map<string, VendorCache>;
+}> {
+  const productTypes: ProductType[] = [
+    'pulleys',
+    'belts',
+    'sprockets',
+    'gears',
+    'planetaries',
+  ];
+
+  const caches = new Map<string, VendorCache>();
+
+  for (const productType of productTypes) {
+    const result = await processVendorProductType(
+      vendor,
+      productType,
+      vendorProducts,
+    );
+
+    if (Object.keys(result.cache).length > 0) {
+      caches.set(`${vendor}_${productType}`, result.cache);
+    }
+  }
+
+  return { caches };
+}
+
+/**
+ * Load vendor data from existing JSON files
+ */
+async function loadVendorData(
+  vendors: VendorName[],
+): Promise<Map<VendorName, ShopifyProduct[]>> {
+  const { readFile } = await import('fs/promises');
+  const { join } = await import('path');
+  const vendorProducts = new Map<VendorName, ShopifyProduct[]>();
+
+  for (const vendor of vendors) {
+    try {
+      const vendorFile = join(process.cwd(), 'vendors', `${vendor}.json`);
+      const content = await readFile(vendorFile, 'utf-8');
+      const products = JSON.parse(content) as ShopifyProduct[];
+      vendorProducts.set(vendor, products);
+      console.log(`Loaded ${products.length} products from ${vendor}.json`);
+    } catch (error) {
+      console.error(`Failed to load ${vendor}.json:`, error);
+      vendorProducts.set(vendor, []);
+    }
+  }
+
+  return vendorProducts;
+}
+
+/**
+ * Main dispatch function
+ */
+async function dispatch(
   vendor: string,
-  productType: string,
-) {
-  const outdir = join(process.cwd(), 'app/genData', vendor);
-  const outFile = join(outdir, `${productType}.json`);
+  _productType: string,
+  options: { skipDownload?: boolean },
+): Promise<void> {
+  const vendorLower = vendor.toLowerCase();
 
-  await mkdir(outdir, { recursive: true });
-  const jsonString = JSON.stringify(data, null, 2);
-  const formatted = await format(jsonString, {
-    filepath: outFile,
-  });
-  await writeFile(outFile, formatted);
-}
+  console.log('='.repeat(60));
+  console.log('ReCalc Product Download & Cache System');
+  console.log('='.repeat(60));
 
-async function wcpBelts() {
-  const regex =
-    /(?<teeth>\d+)t\s*x\s*(?<width>\d+)mm.*\((?<profile>HTD|GT2)\s*(?<pitch>\d+)mm\)/;
-  const allProducts = await getAllProducts('WCP');
-  const belts: JSONBelt[] = [];
+  // Determine which vendors to process
+  let vendorsToProcess: VendorName[];
+  let includesREV = false;
 
-  for (const product of allProducts) {
-    if (product.title.includes('Timing Belt')) {
-      const match = product.title.match(regex);
-      if (match?.groups) {
-        const { teeth, width, profile, pitch } = match.groups;
-        const wcpBelt = zWCPBelt.parse({
-          teeth: parseInt(teeth),
-          width: parseInt(width),
-          profile,
-          pitch: parseInt(pitch),
-          url: urlForHandle(product.handle, 'WCP'),
-          sku: product.variants[0].sku,
-          vendor: 'WCP',
-        });
-        belts.push(wcpBeltToJsonBelt(wcpBelt));
-      }
+  if (vendorLower === 'all') {
+    vendorsToProcess = CONFIGS.map((c) => c.vendorName);
+    // Add REV to the list since it's hardcoded
+    vendorsToProcess.push('REV');
+    includesREV = true;
+  } else if (vendorLower === 'rev') {
+    // REV has no Shopify store, products are hardcoded in parsers
+    vendorsToProcess = ['REV'];
+    includesREV = true;
+  } else {
+    const matchedVendor = CONFIGS.find(
+      (c) => c.vendorName.toLowerCase() === vendorLower,
+    );
+    if (!matchedVendor) {
+      throw new Error(`Unknown vendor: ${vendor}`);
     }
+    vendorsToProcess = [matchedVendor.vendorName];
   }
 
-  await writeJson(belts, 'WCP', 'belts');
-}
-
-async function wcpPulleys() {
-  const regex =
-    /(?<teeth>\d+)t\s*x\s*(?<width>\d+)mm\s*Wide\s*(?<flangeType>.*)\s*(?<profile>GT2|HTD)\s*(?<pitch>\d+)mm(?:.*,\s*(?<bore>.*?) Bore\))?/;
-  const allProducts = await getAllProducts('WCP');
-  const pulleys: JSONPulley[] = [];
-
-  for (const product of allProducts) {
-    if (product.title.includes('Pulley')) {
-      const match = product.title.match(regex);
-      if (match?.groups) {
-        const { teeth, width, profile, pitch, bore } = match.groups;
-        if (bore === undefined) {
-          continue;
-        }
-
-        const wcpPulley = zWCPPulley.parse({
-          teeth: parseInt(teeth),
-          width: parseInt(width),
-          profile,
-          pitch: parseInt(pitch),
-          bore,
-          url: urlForHandle(product.handle, 'WCP'),
-          sku: product.variants[0].sku,
-        });
-        pulleys.push(wcpPulleyToJsonPulley(wcpPulley));
-      }
-    }
-  }
-
-  await writeJson(pulleys, 'WCP', 'pulleys');
-}
-
-async function wcpGears() {
-  const allProducts = await getAllProducts('WCP');
-  const gears: JSONGear[] = [];
-  const regex =
-    /(?<toothCount>\d+)t.*?\(\s*(?<dp>\d+)\s*DP(?:,\s*[^,]+)?,\s*(?<bore>[^)]+)\)/;
-
-  for (const product of allProducts) {
-    if (product.title.includes('Gear')) {
-      const match = product.title.match(regex);
-      if (match?.groups) {
-        const { toothCount, dp, bore } = match.groups;
-        try {
-          const wcpGear = zWCPGear.parse({
-            teeth: parseInt(toothCount),
-            dp: parseInt(dp),
-            bore,
-            url: urlForHandle(product.handle, 'WCP'),
-            sku: product.variants[0].sku,
-          });
-          gears.push(wcpGearToJsonGear(wcpGear));
-        } catch {
-          console.error(`Error parsing gear: ${product.title}`);
-        }
-      }
-    }
-  }
-
-  await writeJson(gears, 'WCP', 'gears');
-}
-
-async function wcpSprockets() {
-  const allProducts = await getAllProducts('WCP');
-  const sprockets: JSONSprocket[] = [];
-  const regex = /(?<tooth>\d+)t.*?\((?<chain>#\d+)[^)]+,\s*(?<bore>[^)]+)\)/;
-
-  for (const product of allProducts) {
-    if (product.title.includes('Sprocket')) {
-      const match = product.title.match(regex);
-      if (match?.groups) {
-        const { tooth, chain, bore } = match.groups;
-
-        const wcpSprocket = zWCPSprocket.parse({
-          teeth: parseInt(tooth),
-          chainType: chain,
-          bore,
-          url: urlForHandle(product.handle, 'WCP'),
-          sku: product.variants[0].sku,
-        });
-        sprockets.push(wcpSprocketToJsonSprocket(wcpSprocket));
-      }
-    }
-  }
-
-  await writeJson(sprockets, 'WCP', 'sprockets');
-}
-
-async function swyftBelts() {
-  const allProducts = await getAllProducts('Swyft');
-
-  const belts: JSONBelt[] = [];
-
-  for (const product of allProducts) {
-    if (product.title.includes('Timing Belt')) {
-      const width = product.title.includes('9mm Width') ? 9 : 15;
-
-      for (const variant of product.variants) {
-        const teeth = Number(variant.title.split(' ')[0]);
-        if (!isNaN(teeth) && teeth > 0) {
-          belts.push({
-            teeth,
-            width,
-            profile: 'HTD',
-            pitch: 5,
-            sku: variant.sku,
-            url: urlForHandle(product.handle, 'Swyft'),
-            vendor: 'Swyft',
-          });
-        }
-      }
-    }
-  }
-
-  await writeJson(belts, 'Swyft', 'belts');
-}
-
-async function vbeltGuysBelts() {
-  const belts: JSONBelt[] = [];
-  const toothIncrement = 5;
-
-  for (const pitchMm of [3, 5]) {
-    for (const widthMm of [9, 15]) {
-      let toothCount = 5;
-
-      while (toothCount <= 1000) {
-        const simpleBelt = new SimpleBelt(
-          toothCount,
-          new Measurement(pitchMm, 'mm'),
-        );
-        const beltLength = Math.round(simpleBelt.length.to('mm').scalar);
-        const pitchStr = simpleBelt.pitch.format().replace(' mm', 'm');
-        const widthStr = new Measurement(widthMm, 'mm')
-          .format()
-          .replace(' mm', '')
-          .padStart(2, '0');
-
-        const url = `https://www.vbeltguys.com/products/${beltLength}-${pitchStr}-${widthStr}-synchronous-timing-belt`;
-
-        const response = await fetch(url);
-        if (response.status === 200) {
-          belts.push({
-            teeth: toothCount,
-            width: widthMm,
-            profile: pitchMm === 3 ? 'GT2' : 'HTD',
-            pitch: pitchMm,
-            sku: `${beltLength}-${pitchStr}-${widthStr}`,
-            url: url,
-            vendor: 'VBeltGuys',
-          });
-        }
-
-        toothCount += toothIncrement;
-        console.log(`${url} // ${response.status}`);
-      }
-    }
-  }
-
-  await writeJson(belts, 'VBeltGuys', 'belts');
-}
-
-async function thriftyPulleys() {
-  const allProducts = await getAllProducts('TheThriftyBot');
-  const pulleys: JSONPulley[] = [];
-
-  for (const product of allProducts) {
-    if (product.title.includes('Pulley')) {
-      /* 2 cases:
-      QTY 1 - 48 Tooth HTD Pulley - Bearing / Hub Bore
-      QTY 1 - 36 Tooth HTD Pulley 1/2" Hex Bore
-      QTY 1 - 24 Tooth HTD Pulley 1/2" Hex Bore
-
-      or
-
-      QTY 1 - 11 Tooth HTD Falcon Motor Output Pulley
-      QTY 1 - 11 Tooth HTD 8mm Keyed Motor Output Pulley
-      */
-
-      if (product.title.endsWith('Pulley')) {
-        const regex =
-          /QTY \d+ - (?<tooth>\d+) Tooth (?<profile>\w+) (?<bore>[\w\s]+) Motor Output Pulley/i;
-
-        const match = product.title.match(regex);
-        if (match?.groups) {
-          const { tooth, profile, bore } = match.groups;
-          try {
-            const thriftyPulley = zThriftyPulley.parse({
-              teeth: parseInt(tooth),
-              profile,
-              bore,
-              sku: product.variants[0].sku,
-              url: urlForHandle(product.handle, 'TheThriftyBot'),
-            });
-            pulleys.push(thriftyPulleyToJsonPulley(thriftyPulley));
-          } catch {
-            console.log(`Error parsing pulley: ${product.title}`);
-          }
-        }
-      } else {
-        const regex =
-          /QTY \d+ - (?<tooth>\d+) Tooth (?<profile>\w+) Pulley(?: - (?<bore1>.+?)| (?<bore2>.+?)) Bore/i;
-
-        const match = product.title.match(regex);
-        if (match?.groups) {
-          const { tooth, profile, bore1, bore2 } = match.groups;
-          const bore = bore1 ?? bore2;
-          try {
-            const thriftyPulley = zThriftyPulley.parse({
-              teeth: parseInt(tooth),
-              profile,
-              bore,
-              sku: product.variants[0].sku,
-              url: urlForHandle(product.handle, 'TheThriftyBot'),
-            });
-            pulleys.push(thriftyPulleyToJsonPulley(thriftyPulley));
-          } catch {
-            console.log(`Error parsing pulley: ${product.title}`);
-          }
-        }
-      }
-    }
-  }
-
-  await writeJson(pulleys, 'Thrifty', 'pulleys');
-}
-
-async function thriftySprockets() {
-  const allProducts = await getAllProducts('TheThriftyBot');
-  const sprockets: JSONSprocket[] = [];
-
-  for (const product of allProducts) {
-    for (const variant of product.variants) {
-      if (
-        product.title === '#35 Chain Billet Sprockets' ||
-        product.title === '#35 Flat Plate Sprockets'
-      ) {
-        sprockets.push({
-          teeth: parseInt(variant.title.split(' ')[0]),
-          bore: '1.125" Round',
-          chainType: '#35',
-          sku: variant.sku,
-          url: urlForHandle(product.handle, 'TheThriftyBot'),
-          vendor: 'Thrifty',
-        });
-      } else if (
-        product.title === '#25 Chain Billet Sprockets' ||
-        product.title === '#25 Flat Plate Sprockets'
-      ) {
-        sprockets.push({
-          teeth: parseInt(variant.title.split(' ')[0]),
-          bore: '1.125" Round',
-          chainType: '#25',
-          sku: variant.sku,
-          url: urlForHandle(product.handle, 'TheThriftyBot'),
-          vendor: 'Thrifty',
-        });
-      } else {
-        const regex =
-          /(?<chainType>#\d+).*?(?<toothCount>\d+)\s+Tooth\s+(?<boreType>.+? Bore)/;
-        if (variant.title.includes('Sprocket')) {
-          for (const variant of product.variants) {
-            const match = `${product.title} // ${variant.title}`.match(regex);
-            if (match?.groups) {
-              const { chainType, toothCount, boreType } = match.groups;
-              const thriftySprocket = zThriftySprocket.parse({
-                chainType: chainType as ChainType,
-                teeth: Number(toothCount),
-                bore: boreType as ThriftySprocketBore,
-                sku: variant.sku,
-                url: urlForHandle(product.handle, 'TheThriftyBot'),
-              });
-              sprockets.push(thriftySprocketToJsonSprocket(thriftySprocket));
-            }
-          }
-        }
-      }
-    }
-  }
-
-  await writeJson(sprockets, 'Thrifty', 'sprockets');
-}
-
-async function revBelts() {
-  const toothCounts: number[] = [
-    32, 36, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152,
-    160, 168, 176, 184, 192, 200, 208, 216,
-  ];
-
-  const belts: JSONBelt[] = [];
-
-  for (const toothCount of toothCounts) {
-    belts.push({
-      teeth: toothCount,
-      width: new Measurement(0.5, 'in').to('mm').scalar,
-      profile: 'RT25',
-      pitch: new Measurement(0.25, 'in').to('mm').scalar,
-      sku: `REV-21-${toothCount + 4000}`,
-      url: 'https://www.revrobotics.com/RT25-Belts-1/2in-Width',
-      vendor: 'REV',
-    });
-  }
-
-  await writeJson(belts, 'REV', 'belts');
-}
-
-async function revPulleys() {
-  const data: {
-    teeth: number;
-    bore: '8mm' | '1/2" Hex' | 'MAXSpline';
-    width: number;
-    sku: string;
-  }[] = [
-    {
-      teeth: 12,
-      bore: '8mm',
-      width: 0.5,
-      sku: 'REV-21-2200',
-    },
-    {
-      teeth: 16,
-      bore: '1/2" Hex',
-      width: 0.5,
-      sku: 'REV-21-2205',
-    },
-    {
-      teeth: 16,
-      bore: '1/2" Hex',
-      width: 1,
-      sku: 'REV-21-2206',
-    },
-    {
-      teeth: 24,
-      bore: 'MAXSpline',
-      width: 0.5,
-      sku: 'REV-21-2224',
-    },
-    {
-      teeth: 32,
-      bore: 'MAXSpline',
-      width: 0.5,
-      sku: 'REV-21-2236',
-    },
-    {
-      teeth: 40,
-      bore: 'MAXSpline',
-      width: 0.5,
-      sku: 'REV-21-2248',
-    },
-    {
-      teeth: 48,
-      bore: 'MAXSpline',
-      width: 0.5,
-      sku: 'REV-21-2260',
-    },
-    {
-      teeth: 56,
-      bore: 'MAXSpline',
-      width: 0.5,
-      sku: 'REV-21-2272',
-    },
-    {
-      teeth: 64,
-      bore: 'MAXSpline',
-      width: 0.5,
-      sku: 'REV-21-2284',
-    },
-  ];
-
-  const pulleys: JSONPulley[] = [];
-
-  for (const item of data) {
-    const revPulley = zREVPulley.parse({
-      teeth: item.teeth,
-      width: item.width,
-      bore: item.bore,
-      sku: item.sku,
-      url: 'https://www.revrobotics.com/RT25-Pulleys/',
-    });
-    pulleys.push(revPulleyToJsonPulley(revPulley));
-  }
-
-  pulleys.push({
-    teeth: 16,
-    width: 25.4,
-    profile: 'GT2',
-    pitch: 3,
-    sku: 'REV-21-1909',
-    url: 'https://www.revrobotics.com/neo-pinions/',
-    bore: '8mm',
-    vendor: 'REV',
-  });
-
-  pulleys.push({
-    teeth: 12,
-    width: 16,
-    profile: 'GT2',
-    pitch: 3,
-    sku: 'REV-21-1908',
-    url: 'https://www.revrobotics.com/550-motor-pinions/',
-    bore: 'RS550',
-    vendor: 'REV',
-  });
-
-  await writeJson(pulleys, 'REV', 'pulleys');
-}
-
-async function revSprockets() {
-  const sprockets: JSONSprocket[] = [];
-
-  for (const [index, toothCount] of [9, 10, 11, 12, 16, 18, 20, 24].entries()) {
-    sprockets.push({
-      teeth: toothCount,
-      bore: '1/2" Hex',
-      chainType: '#35',
-      sku: `REV-21-${3706 + index}`,
-      url: 'https://www.revrobotics.com/ION-35-Sprockets/',
-      vendor: 'REV',
-    });
-  }
-
-  for (const [index, toothCount] of [
-    16, 18, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72, 76, 80,
-  ].entries()) {
-    sprockets.push({
-      teeth: toothCount,
-      bore: 'MAXSpline',
-      chainType: '#35',
-      sku: `REV-21-${3718 + index}`,
-      url: 'https://www.revrobotics.com/ION-35-Sprockets/',
-      vendor: 'REV',
-    });
-  }
-
-  const ion25Sprockets: Pick<JSONSprocket, 'teeth' | 'bore' | 'sku'>[] = [
-    {
-      teeth: 12,
-      bore: '1/2" Hex',
-      sku: 'REV-21-2014',
-    },
-    {
-      teeth: 16,
-      bore: '1/2" Hex',
-      sku: 'REV-21-2012',
-    },
-    {
-      teeth: 16,
-      bore: '1/2" Hex',
-      sku: 'REV-21-2016',
-    },
-    {
-      teeth: 24,
-      bore: '1/2" Hex',
-      sku: 'REV-21-2017',
-    },
-    {
-      teeth: 32,
-      bore: '1/2" Hex',
-      sku: 'REV-21-2018',
-    },
-    {
-      teeth: 24,
-      bore: 'MAXSpline',
-      sku: 'REV-21-2015',
-    },
-    {
-      teeth: 32,
-      bore: 'MAXSpline',
-      sku: 'REV-21-2019',
-    },
-    {
-      teeth: 48,
-      bore: 'MAXSpline',
-      sku: 'REV-21-1964',
-    },
-    {
-      teeth: 64,
-      bore: 'MAXSpline',
-      sku: 'REV-21-1972',
-    },
-    {
-      teeth: 40,
-      bore: 'MAXSpline',
-      sku: 'REV-21-3370',
-    },
-    {
-      teeth: 48,
-      bore: 'MAXSpline',
-      sku: 'REV-21-3374',
-    },
-    {
-      teeth: 56,
-      bore: 'MAXSpline',
-      sku: 'REV-21-3378',
-    },
-    {
-      teeth: 64,
-      bore: 'MAXSpline',
-      sku: 'REV-21-3382',
-    },
-    {
-      teeth: 72,
-      bore: 'MAXSpline',
-      sku: 'REV-21-3386',
-    },
-  ];
-
-  sprockets.push(
-    ...ion25Sprockets.map((sprocket) => ({
-      ...sprocket,
-      chainType: '#25' as const,
-      url: 'https://www.revrobotics.com/ION-25-Sprockets/',
-      vendor: 'REV',
-    })),
+  // Download or load vendor data (skip for REV and VBeltGuys)
+  let vendorProducts: Map<VendorName, ShopifyProduct[]>;
+  const vendorsNeedingData = vendorsToProcess.filter(
+    (v) => v !== 'REV' && v !== 'VBeltGuys',
   );
 
-  sprockets.push({
-    teeth: 10,
-    bore: '8mm',
-    chainType: '#25',
-    sku: 'REV-21-2020',
-    url: 'https://www.revrobotics.com/neo-pinions/',
-    vendor: 'REV',
-  });
-  sprockets.push({
-    teeth: 12,
-    bore: '8mm',
-    chainType: '#25',
-    sku: 'REV-21-3495',
-    url: 'https://www.revrobotics.com/neo-pinions/',
-    vendor: 'REV',
-  });
-
-  await writeJson(sprockets, 'REV', 'sprockets');
-}
-
-async function revGears() {
-  const gears: JSONGear[] = [];
-
-  for (const [index, toothCount] of [
-    32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68,
-  ].entries()) {
-    gears.push({
-      teeth: toothCount,
-      dp: 20,
-      bore: 'MAXSpline',
-      url: 'https://www.revrobotics.com/20DP-Gears-Maxspline/',
-      sku: `REV-21-${3010 + index}`,
-      vendor: 'REV',
-    });
-  }
-
-  gears.push({
-    teeth: 72,
-    dp: 20,
-    bore: 'MAXSpline',
-    url: 'https://www.revrobotics.com/20DP-Gears-Maxspline/',
-    sku: 'REV-21-3030',
-    vendor: 'REV',
-  });
-  gears.push({
-    teeth: 80,
-    dp: 20,
-    bore: 'MAXSpline',
-    url: 'https://www.revrobotics.com/20DP-Gears-Maxspline/',
-    sku: 'REV-21-3034',
-    vendor: 'REV',
-  });
-
-  for (const [index, toothCount] of [
-    18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54,
-    56, 58, 60, 62, 64, 66, 68,
-  ].entries()) {
-    gears.push({
-      teeth: toothCount,
-      dp: 20,
-      bore: '1/2" Hex',
-      url: 'https://www.revrobotics.com/20DP-Gears-0.5-Hex/',
-      sku: `REV-21-${1920 + index}`,
-      vendor: 'REV',
-    });
-  }
-
-  gears.push({
-    teeth: 16,
-    dp: 20,
-    bore: '1/2" Hex',
-    url: 'https://www.revrobotics.com/20DP-Gears-0.5-Hex/',
-    sku: 'REV-21-2196',
-    vendor: 'REV',
-  });
-  gears.push({
-    teeth: 72,
-    dp: 20,
-    bore: '1/2" Hex',
-    url: 'https://www.revrobotics.com/20DP-Gears-0.5-Hex/',
-    sku: 'REV-21-1947',
-    vendor: 'REV',
-  });
-  gears.push({
-    teeth: 80,
-    dp: 20,
-    bore: '1/2" Hex',
-    url: 'https://www.revrobotics.com/20DP-Gears-0.5-Hex/',
-    sku: 'REV-21-1951',
-    vendor: 'REV',
-  });
-
-  for (const [index, toothCount] of [10, 11, 12, 13, 14].entries()) {
-    gears.push({
-      teeth: toothCount,
-      dp: 20,
-      bore: '8mm',
-      url: 'https://www.revrobotics.com/neo-pinions/',
-      sku: `REV-21-${1998 + index}`,
-      vendor: 'REV',
-    });
-  }
-
-  gears.push({
-    teeth: 12,
-    dp: 32,
-    bore: 'RS550',
-    url: 'https://www.revrobotics.com/550-motor-pinions/',
-    sku: 'REV-41-1660-PK2',
-    vendor: 'REV',
-  });
-
-  await writeJson(gears, 'REV', 'gears');
-}
-
-interface PlanetaryReductionOption {
-  slices: number[];
-  ratio: number;
-}
-function getAllPossibleReductions(
-  planetary: JSONPlanetary,
-): PlanetaryReductionOption[] {
-  const results: PlanetaryReductionOption[] = [];
-  const maxSlices = planetary.maxSlices;
-  const slices = planetary.slices;
-
-  const backtrack = (startIndex: number, current: number[]) => {
-    if (current.length > 0) {
-      const ratio = current.reduce((a, b) => a * b, 1);
-      results.push({ slices: [...current], ratio });
+  if (vendorsNeedingData.length > 0) {
+    if (options.skipDownload) {
+      console.log(
+        '\n--- STAGE 1: Loading Vendor Data from Disk (--skip-download) ---',
+      );
+      vendorProducts = await loadVendorData(vendorsNeedingData);
+    } else {
+      console.log('\n--- STAGE 1: Downloading Vendor Data ---');
+      vendorProducts = await downloadAllVendors(vendorsNeedingData);
     }
-
-    if (current.length === maxSlices) return;
-
-    for (let i = startIndex; i < slices.length; i++) {
-      current.push(slices[i]);
-      backtrack(i, current);
-      current.pop();
-    }
-  };
-
-  backtrack(0, []);
-  return results;
-}
-
-async function revPlanetaries() {
-  const planetaries: JSONPlanetary[] = [
-    {
-      slices: [3, 4, 5, 9],
-      maxSlices: 3,
-      inputBores: ['8mm', '1/2" Hex', 'Vortex', 'SplineXS', 'RS550', 'RS775'],
-      outputBores: ['1/2" Hex'],
-      sku: 'REV-25-2109',
-      url: 'https://www.revrobotics.com/maxplanetary-system-kit/',
-      vendor: 'REV',
-    },
-    {
-      slices: [3, 4, 5],
-      maxSlices: 3,
-      inputBores: ['RS550'],
-      outputBores: ['5mm Hex'],
-      sku: 'REV-41-1600',
-      url: 'https://www.revrobotics.com/rev-41-1600',
-      vendor: 'REV',
-    },
-  ];
-
-  const overloadedSlices: number[][] = [
-    [9, 4, 5],
-    [9, 5, 5],
-    [9, 9, 3],
-    [9, 9, 4],
-    [9, 9, 5],
-    [9, 9, 9],
-  ];
-
-  function containsPermutation(arrays: number[][], target: number[]): boolean {
-    const sortedTarget = [...target].sort((a, b) => a - b);
-    return some(arrays, (inner) =>
-      isEqual(
-        [...inner].sort((a, b) => a - b),
-        sortedTarget,
-      ),
+  } else {
+    console.log(
+      '\n--- STAGE 1: Skipping Data Download (REV and VBeltGuys products are handled specially) ---',
     );
+    vendorProducts = new Map();
   }
 
-  const instances: JSONPlanetaryInstance[] = [];
-  for (const planetary of planetaries) {
-    for (const reduction of getAllPossibleReductions(planetary)) {
-      if (containsPermutation(overloadedSlices, reduction.slices)) {
-        continue;
-      }
+  // Add empty data for REV if processing it (products are hardcoded in parsers)
+  if (includesREV) {
+    vendorProducts.set('REV', []);
+  }
 
-      for (const inputBore of planetary.inputBores) {
-        for (const outputBore of planetary.outputBores) {
-          instances.push({
-            slices: reduction.slices,
-            ratio: reduction.ratio,
-            inputBore,
-            outputBore,
-            sku: planetary.sku,
-            url: planetary.url,
-            vendor: planetary.vendor,
-          });
-        }
-      }
+  // Add empty data for VBeltGuys if processing it (requires manual curation, too many products to download)
+  if (vendorsToProcess.includes('VBeltGuys')) {
+    vendorProducts.set('VBeltGuys', []);
+  }
+
+  // Process each vendor
+  console.log('\n--- STAGE 2: Processing and Caching Products ---');
+  const allCaches = new Map<string, VendorCache>();
+
+  for (const v of vendorsToProcess) {
+    const { caches } = await processVendor(v, vendorProducts);
+
+    // Merge caches
+    for (const [key, cache] of caches.entries()) {
+      allCaches.set(key, cache);
     }
   }
 
-  await writeJson(instances, 'REV', 'planetaries');
-}
+  // Generate output files
+  console.log('\n--- STAGE 3: Generating Output Files ---');
+  await generateAllOutputFiles(allCaches);
 
-async function andyMarkPulleys() {
-  const pulleys: JSONPulley[] = [];
-
-  const data: AndyMarkPulley[] = [
-    {
-      teeth: 24,
-      width: 9,
-      profile: 'HTD',
-      pitch: 5,
-      sku: 'AM-3402',
-      url: 'https://andymark.com/collections/pulleys/products/24t-plastic-htd-pulleys',
-      bore: '3/8" Hex',
-    },
-    {
-      teeth: 24,
-      width: 9,
-      profile: 'HTD',
-      pitch: 5,
-      sku: 'AM-3403',
-      url: 'https://andymark.com/collections/pulleys/products/24t-plastic-htd-pulleys',
-      bore: '1/2" Hex',
-    },
-    {
-      teeth: 42,
-      width: 15,
-      profile: 'HTD',
-      pitch: 5,
-      sku: 'AM-2234a',
-      url: 'https://andymark.com/collections/pulleys/products/42-tooth-5-mm-htd-15-mm-wide-bearing-bore-plastic-pulley',
-      bore: '1.125" Round',
-    },
-    {
-      teeth: 24,
-      width: 18,
-      profile: 'HTD',
-      pitch: 5,
-      sku: 'AM-2234b',
-      url: 'https://andymark.com/collections/pulleys/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley',
-      bore: '1/2" Hex',
-    },
-    {
-      teeth: 24,
-      width: 9,
-      profile: 'HTD',
-      pitch: 5,
-      sku: 'AM-4625',
-      url: 'https://andymark.com/collections/pulleys/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley',
-      bore: '1/2" Hex',
-    },
-    {
-      teeth: 14,
-      width: 9,
-      profile: 'HTD',
-      pitch: 5,
-      sku: 'AM-4960',
-      url: 'https://andymark.com/collections/pulleys/products/14-tooth-0-375-in-hex-bore-htd-pulley',
-      bore: '3/8" Hex',
-    },
-  ];
-
-  for (const item of data) {
-    const andyMarkPulley = zAndyMarkPulley.parse({
-      teeth: item.teeth,
-      width: item.width,
-      profile: item.profile,
-      pitch: item.pitch,
-      sku: item.sku,
-      url: item.url,
-      bore: item.bore,
-    });
-    pulleys.push(andyMarkPulleyToJsonPulley(andyMarkPulley));
-  }
-
-  await writeJson(pulleys, 'AndyMark', 'pulleys');
-}
-
-async function andyMarkBelts() {
-  const belts: JSONBelt[] = [];
-
-  const toothCounts9mm: number[] = [
-    30, 35, 40, 45, 48, 50, 55, 60, 64, 65, 70, 75, 80, 85, 90, 91, 93, 95, 100,
-    105, 106, 110, 115, 120, 121, 125, 130, 135, 136, 140, 145, 150, 152, 160,
-    167, 170, 180, 190, 200, 225, 250,
-  ];
-
-  for (const toothCount of toothCounts9mm) {
-    belts.push(
-      andyMarkBeltToJsonBelt(
-        zAndyMarkBelt.parse({
-          teeth: toothCount,
-          width: 9,
-          profile: 'HTD',
-          pitch: 5,
-          sku: `AM-5209_${toothCount}T`,
-          url: `https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts`,
-        }),
-      ),
-    );
-  }
-
-  const toothCounts15mm: number[] = [
-    30, 35, 40, 45, 50, 55, 60, 64, 65, 70, 75, 78, 80, 85, 90, 95, 100, 104,
-    105, 107, 110, 115, 117, 120, 125, 130, 131, 135, 140, 145, 150, 151, 160,
-    170, 180, 190, 200, 210, 220, 225, 230, 250,
-  ];
-
-  for (const toothCount of toothCounts15mm) {
-    belts.push(
-      andyMarkBeltToJsonBelt(
-        zAndyMarkBelt.parse({
-          teeth: toothCount,
-          width: 15,
-          profile: 'HTD',
-          pitch: 5,
-          sku: `AM-5215_${toothCount}T`,
-          url: `https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts`,
-        }),
-      ),
-    );
-  }
-
-  await writeJson(belts, 'AndyMark', 'belts');
-}
-
-async function andyMarkSprockets() {
-  const sprockets: JSONSprocket[] = [
-    {
-      teeth: 10,
-      bore: '8mm',
-      chainType: '#25',
-      url: 'https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets',
-      sku: 'AM-4772',
-      vendor: 'AndyMark',
-    },
-    {
-      teeth: 17,
-      bore: '1/2" Hex',
-      chainType: '#25',
-      url: 'https://andymark.com/collections/sprockets/products/25-series-17-tooth-0-5-in-hex-sprocket',
-      sku: 'AM-3999',
-      vendor: 'AndyMark',
-    },
-    {
-      teeth: 12,
-      bore: '8mm',
-      chainType: '#35',
-      url: 'https://andymark.com/collections/sprockets/products/35-series-12-tooth-0-5-in-key-bore-steel-sprocket',
-      sku: 'AM-0019',
-      vendor: 'AndyMark',
-    },
-  ];
-  for (const [index, toothCount] of [14, 18, 22, 26].entries()) {
-    sprockets.push({
-      teeth: toothCount,
-      bore: '1/2" Hex',
-      chainType: '#25',
-      url: 'https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets',
-      sku: `AM-${4773 + index * 2}`,
-      vendor: 'AndyMark',
-    });
-    sprockets.push({
-      teeth: toothCount,
-      bore: '3/8" Hex',
-      chainType: '#25',
-      url: 'https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets',
-      sku: `AM-${4774 + index * 2}`,
-      vendor: 'AndyMark',
-    });
-  }
-
-  for (const [index, toothCount] of [14, 14, 18].entries()) {
-    sprockets.push({
-      teeth: toothCount,
-      bore: '1/2" Hex',
-      chainType: '#35',
-      url: 'https://andymark.com/collections/sprockets/products/35-series-symmetrical-hub-sprockets',
-      sku: `AM-${4789 + index}`,
-      vendor: 'AndyMark',
-    });
-  }
-
-  for (const [index, toothCount] of [
-    32, 38, 44, 50, 56, 62, 68, 74,
-  ].entries()) {
-    sprockets.push({
-      teeth: toothCount,
-      bore: '1.125" Round',
-      chainType: '#25',
-      url: 'https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets',
-      sku: `AM-${4781 + index}`,
-      vendor: 'AndyMark',
-    });
-  }
-
-  for (const [index, toothCount] of [
-    22, 28, 34, 40, 46, 52, 58, 64,
-  ].entries()) {
-    sprockets.push({
-      teeth: toothCount,
-      bore: '1.125" Round',
-      chainType: '#35',
-      url: 'https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets',
-      sku: `AM-${4792 + index}`,
-      vendor: 'AndyMark',
-    });
-  }
-
-  await writeJson(sprockets, 'AndyMark', 'sprockets');
-}
-
-async function lastAnvilBelts() {
-  const allProducts = await getAllProducts('LastAnvil');
-  const belts: JSONBelt[] = [];
-
-  for (const product of allProducts) {
-    if (!product.title.includes('Timing Belt')) continue;
-
-    // Parse width, e.g. "HTD Timing Belts (15mm)" → 15
-    const widthMatch = product.title.match(/\((\d+)mm\)/);
-    const width = widthMatch ? parseInt(widthMatch[1]) : null;
-
-    if (width === null) continue;
-
-    for (const variant of product.variants) {
-      // Parse tooth count, e.g. "35T (175 mm)" → 35
-      const toothMatch = variant.title.match(/(\d+)T/);
-      const toothCount = toothMatch ? parseInt(toothMatch[1]) : null;
-
-      if (toothCount === null) continue;
-
-      belts.push({
-        teeth: toothCount,
-        width,
-        profile: 'HTD',
-        pitch: 5,
-        sku: `LA-${variant.sku}`,
-        url: urlForHandle(product.handle, 'LastAnvil'),
-        vendor: 'LastAnvil',
-      });
-    }
-  }
-
-  await writeJson(belts, 'LastAnvil', 'belts');
-}
-
-async function lastAnvilPulleys() {
-  const allProducts = await getAllProducts('LastAnvil');
-  const pulleys: JSONPulley[] = [];
-
-  for (const product of allProducts) {
-    if (!product.title.includes('Pulley')) continue;
-
-    for (const variant of product.variants) {
-      // Parse tooth count like "24T", "30T", "36T"
-      const toothMatch = variant.title.match(/(\d+)T\b/i);
-      const toothCount = toothMatch ? Number(toothMatch[1]) : null;
-
-      if (toothCount === null) continue;
-
-      pulleys.push({
-        teeth: toothCount,
-        width: 9,
-        profile: 'HTD',
-        pitch: 5,
-        sku: `LA-${variant.sku}`,
-        url: urlForHandle(product.handle, 'LastAnvil'),
-        bore: '1/2" Hex',
-        vendor: 'LastAnvil',
-      });
-    }
-  }
-
-  await writeJson(pulleys, 'LastAnvil', 'pulleys');
-}
-
-async function sdsGears() {
-  const gears: JSONGear[] = [
-    {
-      teeth: 16,
-      dp: 20,
-      bore: '3/8" Hex',
-      url: 'https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/16t-20dp-3-8-hex-gear',
-      sku: 'SDS-16T-20DP-38HEX',
-      vendor: 'SDS',
-    },
-    {
-      teeth: 17,
-      dp: 20,
-      bore: '3/8" Hex',
-      url: 'https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/17t-20dp-3-8-hex-gear',
-      sku: 'SDS-17T-20DP-38HEX',
-      vendor: 'SDS',
-    },
-    {
-      teeth: 19,
-      dp: 20,
-      bore: '3/8" Hex',
-      url: 'https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/19t-20dp-3-8-hex-gear',
-      sku: 'SDS-19T-20DP-38HEX',
-      vendor: 'SDS',
-    },
-    {
-      teeth: 50,
-      dp: 20,
-      bore: '3/8" Hex',
-      url: 'https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/gear-20dp-50t-3-8-hex-bore',
-      sku: 'SDS-50T-20DP-38HEX',
-      vendor: 'SDS',
-    },
-    {
-      teeth: 32,
-      dp: 32,
-      bore: '3/8" Hex',
-      url: 'https://www.swervedrivespecialties.com/collections/32dp-3-8-hex-gears/products/32t-32dp-gear',
-      sku: 'SDS-32T-32DP-38HEX',
-      vendor: 'SDS',
-    },
-    {
-      teeth: 14,
-      dp: 20,
-      bore: '8mm',
-      url: 'https://www.swervedrivespecialties.com/collections/motor-pinions-8mm-bore/products/gear-20dp-14t-8mm-bore',
-      sku: 'SDS-14T-20DP-8MM',
-      vendor: 'SDS',
-    },
-    {
-      teeth: 16,
-      dp: 20,
-      bore: '8mm',
-      url: 'https://www.swervedrivespecialties.com/collections/motor-pinions-8mm-bore/products/gear-20dp-16t-8mm-bore',
-      sku: 'SDS-16T-20DP-8MM',
-      vendor: 'SDS',
-    },
-    {
-      teeth: 15,
-      dp: 32,
-      bore: '8mm',
-      url: 'https://www.swervedrivespecialties.com/collections/motor-pinions-8mm-bore/products/gear-32dp-15t-8mm-bore',
-      sku: 'SDS-15T-32DP-8MM',
-      vendor: 'SDS',
-    },
-  ];
-
-  await writeJson(gears, 'SDS', 'gears');
-}
-
-type DownloadFunction = () => Promise<void>;
-
-const downloadMap = new Map<string, DownloadFunction>([
-  ['wcp.belts', wcpBelts],
-  ['wcp.pulleys', wcpPulleys],
-  ['wcp.gears', wcpGears],
-  ['wcp.sprockets', wcpSprockets],
-  ['swyft.belts', swyftBelts],
-  ['vbg.belts', vbeltGuysBelts],
-  ['thrifty.pulleys', thriftyPulleys],
-  ['thrifty.sprockets', thriftySprockets],
-  ['rev.belts', revBelts],
-  ['rev.pulleys', revPulleys],
-  ['rev.sprockets', revSprockets],
-  ['rev.gears', revGears],
-  ['rev.planetaries', revPlanetaries],
-  ['andymark.pulleys', andyMarkPulleys],
-  ['andymark.belts', andyMarkBelts],
-  ['andymark.sprockets', andyMarkSprockets],
-  ['lastanvil.belts', lastAnvilBelts],
-  ['lastanvil.pulleys', lastAnvilPulleys],
-  ['sds.gears', sdsGears],
-]);
-
-async function dispatch(vendor: string, productType: string) {
-  if (vendor === 'all' && productType === 'all') {
-    await Promise.all(Array.from(downloadMap.values()).map((fn) => fn()));
-    return;
-  }
-
-  if (productType === 'all') {
-    const vendorFunctions = Array.from(downloadMap.entries())
-      .filter(([key]) => key.startsWith(`${vendor}.`))
-      .map(([, fn]) => fn);
-    await Promise.all(vendorFunctions.map((fn) => fn()));
-    return;
-  }
-
-  const key = `${vendor}.${productType}`;
-  const downloadFn = downloadMap.get(key);
-
-  if (downloadFn) {
-    await downloadFn();
-  }
+  // Alert about unparsed relevant products
+  console.log('\n--- STAGE 4: Unparsed Product Detection ---');
+  alertUnparsedProducts(vendorProducts, allCaches);
 }
 
 program
   .name('download-products')
-  .description('Download products from Shopify')
-  .argument('<vendor>', 'Vendor name (e.g. WCP, TTB, SDS')
-  .argument('<productType>', 'Product type (e.g. belts)')
-  .action(async (vendor: string, productType: string) => {
-    await dispatch(vendor.toLowerCase(), productType.toLowerCase());
-  });
+  .description('Download products from vendors and cache them')
+  .argument('<vendor>', 'Vendor name (e.g. WCP, REV, AndyMark) or "all"')
+  .argument(
+    '<productType>',
+    'Product type (e.g. belts, pulleys, sprockets, gears, planetaries) or "all"',
+  )
+  .option(
+    '--skip-download',
+    'Skip downloading vendor data and use existing vendor JSON files',
+  )
+  .action(
+    async (
+      vendor: string,
+      productType: string,
+      options: { skipDownload?: boolean },
+    ) => {
+      try {
+        await dispatch(vendor, productType, options);
+      } catch (error) {
+        console.error('Error:', error);
+        process.exit(1);
+      }
+    },
+  );
 
 program.parse();

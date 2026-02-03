@@ -138,6 +138,9 @@ importers:
       eslint-plugin-react-hooks:
         specifier: 7.0.1
         version: 7.0.1(eslint@9.39.2(jiti@2.6.1))
+      eslint-plugin-zod:
+        specifier: 3.0.2
+        version: 3.0.2(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)(zod@4.3.6)
       globals:
         specifier: 17.3.0
         version: 17.3.0
@@ -2870,6 +2873,16 @@ packages:
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
+
+  eslint-plugin-zod@3.0.2:
+    resolution: {integrity: sha512-7kSjTV31ThWfosyVqi4n1dcd2Egle6oO9Vntql0EXCytbSFPF4K1id2+E+e0sb/EZIAI4OznLHLzj/v9a1yW/g==}
+    engines: {node: ^20 || ^22 || >=24}
+    peerDependencies:
+      eslint: ^9
+      zod: ^4
+    peerDependenciesMeta:
+      zod:
+        optional: true
 
   eslint-scope@8.4.0:
     resolution: {integrity: sha512-sNXOfKCn74rt8RICKMvJS7XKV/Xk9kA7DyJr8mJik3S7Cwgy3qlkkmyS2uQB3jiJg6VNdZd/pDBJu0nvG2NlTg==}
@@ -7844,6 +7857,17 @@ snapshots:
       semver: 6.3.1
       string.prototype.matchall: 4.0.12
       string.prototype.repeat: 1.0.0
+
+  eslint-plugin-zod@3.0.2(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)(zod@4.3.6):
+    dependencies:
+      '@typescript-eslint/utils': 8.54.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+      eslint: 9.39.2(jiti@2.6.1)
+      esquery: 1.7.0
+    optionalDependencies:
+      zod: 4.3.6
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
 
   eslint-scope@8.4.0:
     dependencies:

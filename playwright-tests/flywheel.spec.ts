@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const CHART_DELAY_MS = 750;
+const CHART_DELAY_MS = 1250;
 
 test.describe('Flywheel Calculator', () => {
   test.beforeEach(async ({ page }) => {

@@ -1,19 +1,19 @@
-import { z } from 'zod';
+import * as z from 'zod';
 
-import { type Bore, zBore, zVendor } from '~/lib/types/common';
+import { type Bore, zBoreSchema, zVendorSchema } from '~/lib/types/common';
 
-export const zJSONGear = z.object({
+export const zJSONGearSchema = z.object({
   teeth: z.number().min(1),
   dp: z.number().min(1),
-  bore: zBore,
+  bore: zBoreSchema,
   url: z.string().url(),
   sku: z.string().nullable(),
-  vendor: zVendor,
+  vendor: zVendorSchema,
 });
 
-export type JSONGear = z.infer<typeof zJSONGear>;
+export type JSONGear = z.infer<typeof zJSONGearSchema>;
 
-export const zWCPGearBore = z.enum([
+export const zWCPGearBoreSchema = z.enum([
   'BAG Bore',
   'Falcon Bore',
   '1/2" Hex Bore',
@@ -29,16 +29,16 @@ export const zWCPGearBore = z.enum([
   '8mm Round Bore',
   'Pinion Only',
 ] as const);
-export type WCPGearBore = z.infer<typeof zWCPGearBore>;
+export type WCPGearBore = z.infer<typeof zWCPGearBoreSchema>;
 
-export const zWCPGear = z.object({
+export const zWCPGearSchema = z.object({
   teeth: z.number().min(1),
   dp: z.number().min(1),
-  bore: zWCPGearBore,
+  bore: zWCPGearBoreSchema,
   url: z.string().url(),
   sku: z.string().nullable(),
 });
-export type WCPGear = z.infer<typeof zWCPGear>;
+export type WCPGear = z.infer<typeof zWCPGearSchema>;
 
 export function wcpGearToJsonGear(gear: WCPGear): JSONGear {
   const wcpBoreToJsonBore: Record<WCPGearBore, Bore> = {

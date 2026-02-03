@@ -2,7 +2,7 @@ import Measurement, { type MeasurementDict } from '~/lib/models/Measurement';
 import Motor, { type MotorDict } from '~/lib/models/Motor';
 import type { RatioDict } from '~/lib/models/Ratio';
 import Ratio from '~/lib/models/Ratio';
-import { obliterateArray } from '~/lib/utils';
+import { SNAPSHOT_PRECISION, obliterateArray, toFixed } from '~/lib/utils';
 import { arrayToVectorDouble } from '~/lib/wpilib/util';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
 
@@ -93,18 +93,21 @@ export async function simulateElevatorWpilib(
 
     if (!elevatorSim.hasHitUpperLimit()) {
       states.push({
-        positionMeters: elevatorSim.getPosition(),
-        velocityMetersPerSecond: elevatorSim.getVelocity(),
-        statorCurrentDrawAmps: statorCurrent.to('A').scalar,
-        supplyCurrentDrawAmps: supplyCurrent.to('A').scalar,
-        timeSeconds: parseFloat(timestamp.toFixed(3)),
-        batteryVoltageVolts: wpilibc.BatterySim_calculateLoadedBatteryVoltage(
-          Measurement.fromDict(batteryVoltage).to('V').scalar,
-          Measurement.fromDict(batteryResistance).to('Ohm').scalar,
-          arrayToVectorDouble([supplyCurrent.to('A').scalar]),
+        positionMeters: toFixed(elevatorSim.getPosition()),
+        velocityMetersPerSecond: toFixed(elevatorSim.getVelocity()),
+        statorCurrentDrawAmps: toFixed(statorCurrent.to('A').scalar),
+        supplyCurrentDrawAmps: toFixed(supplyCurrent.to('A').scalar),
+        timeSeconds: toFixed(timestamp, 3),
+        batteryVoltageVolts: toFixed(
+          wpilibc.BatterySim_calculateLoadedBatteryVoltage(
+            Measurement.fromDict(batteryVoltage).to('V').scalar,
+            Measurement.fromDict(batteryResistance).to('Ohm').scalar,
+            arrayToVectorDouble([supplyCurrent.to('A').scalar]),
+          ),
         ),
-        motorAppliedVoltageVolts: vApplied.to('V').scalar,
-        motorRpm: w.to('rpm').scalar,
+        motorAppliedVoltageVolts: vApplied.to('V').round(SNAPSHOT_PRECISION)
+          .scalar,
+        motorRpm: w.to('rpm').round(SNAPSHOT_PRECISION).scalar,
       });
     }
 

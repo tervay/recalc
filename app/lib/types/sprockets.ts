@@ -1,22 +1,22 @@
-import { z } from 'zod';
+import * as z from 'zod';
 
-import { type Bore, zBore, zVendor } from '~/lib/types/common';
+import { type Bore, zBoreSchema, zVendorSchema } from '~/lib/types/common';
 
-const zChainType = z.enum(['#25', '#35']);
-export type ChainType = z.infer<typeof zChainType>;
+const zChainTypeSchema = z.enum(['#25', '#35']);
+export type ChainType = z.infer<typeof zChainTypeSchema>;
 
-export const zJSONSprocket = z.object({
+export const zJSONSprocketSchema = z.object({
   teeth: z.number(),
-  bore: zBore,
-  chainType: zChainType,
+  bore: zBoreSchema,
+  chainType: zChainTypeSchema,
   url: z.string().url(),
   sku: z.string().nullable(),
-  vendor: zVendor,
+  vendor: zVendorSchema,
 });
 
-export type JSONSprocket = z.infer<typeof zJSONSprocket>;
+export type JSONSprocket = z.infer<typeof zJSONSprocketSchema>;
 
-export const zWCPSprocketBore = z.enum([
+export const zWCPSprocketBoreSchema = z.enum([
   '1/2" Hex Bore',
   'SplineXL Bore',
   '8mm Key Bore',
@@ -26,17 +26,17 @@ export const zWCPSprocketBore = z.enum([
   '1/2" ID',
   '3/8" Hex Bore',
 ]);
-export type WCPSprocketBore = z.infer<typeof zWCPSprocketBore>;
+export type WCPSprocketBore = z.infer<typeof zWCPSprocketBoreSchema>;
 
-export const zWCPSprocket = z.object({
+export const zWCPSprocketSchema = z.object({
   teeth: z.number(),
-  bore: zWCPSprocketBore,
-  chainType: zChainType,
+  bore: zWCPSprocketBoreSchema,
+  chainType: zChainTypeSchema,
   url: z.string().url(),
   sku: z.string().nullable(),
 });
 
-export type WCPSprocket = z.infer<typeof zWCPSprocket>;
+export type WCPSprocket = z.infer<typeof zWCPSprocketSchema>;
 
 export function wcpSprocketToJsonSprocket(sprocket: WCPSprocket): JSONSprocket {
   const wcpBoreToJsonBore: Record<WCPSprocketBore, Bore> = {
@@ -57,22 +57,22 @@ export function wcpSprocketToJsonSprocket(sprocket: WCPSprocket): JSONSprocket {
   };
 }
 
-export const zThriftySprocketBore = z.enum([
+export const zThriftySprocketBoreSchema = z.enum([
   '3/8\" Hex Bore',
   '1/2\" Hex Bore',
   '8mm Keyed Bore',
 ]);
-export type ThriftySprocketBore = z.infer<typeof zThriftySprocketBore>;
+export type ThriftySprocketBore = z.infer<typeof zThriftySprocketBoreSchema>;
 
-export const zThriftySprocket = z.object({
+export const zThriftySprocketSchema = z.object({
   teeth: z.number(),
-  bore: zThriftySprocketBore,
-  chainType: zChainType,
+  bore: zThriftySprocketBoreSchema,
+  chainType: zChainTypeSchema,
   sku: z.string(),
   url: z.string().url(),
 });
 
-export type ThriftySprocket = z.infer<typeof zThriftySprocket>;
+export type ThriftySprocket = z.infer<typeof zThriftySprocketSchema>;
 
 export function thriftySprocketToJsonSprocket(
   sprocket: ThriftySprocket,

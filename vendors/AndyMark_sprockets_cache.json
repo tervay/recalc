@@ -1,0 +1,1172 @@
+{
+  "-6000_-6000": {
+    "productId": -6000,
+    "variantId": -6000,
+    "rawProduct": {
+      "id": -6000,
+      "title": "10T 8mm AndyMark #25 Sprocket",
+      "handle": "synthetic--6000",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6000,
+          "title": "AM-4772",
+          "option1": "AM-4772",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4772",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6000
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 10,
+      "bore": "8mm",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
+      "sku": "AM-4772",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6001_-6001": {
+    "productId": -6001,
+    "variantId": -6001,
+    "rawProduct": {
+      "id": -6001,
+      "title": "17T 1/2\" Hex AndyMark #25 Sprocket",
+      "handle": "synthetic--6001",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6001,
+          "title": "AM-3999",
+          "option1": "AM-3999",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-3999",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6001
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 17,
+      "bore": "1/2\" Hex",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-17-tooth-0-5-in-hex-sprocket",
+      "sku": "AM-3999",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6002_-6002": {
+    "productId": -6002,
+    "variantId": -6002,
+    "rawProduct": {
+      "id": -6002,
+      "title": "12T 8mm AndyMark #35 Sprocket",
+      "handle": "synthetic--6002",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6002,
+          "title": "AM-0019",
+          "option1": "AM-0019",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-0019",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6002
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 12,
+      "bore": "8mm",
+      "chainType": "#35",
+      "url": "https://andymark.com/collections/sprockets/products/35-series-12-tooth-0-5-in-key-bore-steel-sprocket",
+      "sku": "AM-0019",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6003_-6003": {
+    "productId": -6003,
+    "variantId": -6003,
+    "rawProduct": {
+      "id": -6003,
+      "title": "14T 1/2\" Hex AndyMark #25 Sprocket",
+      "handle": "synthetic--6003",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6003,
+          "title": "AM-4773",
+          "option1": "AM-4773",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4773",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6003
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 14,
+      "bore": "1/2\" Hex",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
+      "sku": "AM-4773",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6004_-6004": {
+    "productId": -6004,
+    "variantId": -6004,
+    "rawProduct": {
+      "id": -6004,
+      "title": "14T 3/8\" Hex AndyMark #25 Sprocket",
+      "handle": "synthetic--6004",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6004,
+          "title": "AM-4774",
+          "option1": "AM-4774",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4774",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6004
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 14,
+      "bore": "3/8\" Hex",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
+      "sku": "AM-4774",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6005_-6005": {
+    "productId": -6005,
+    "variantId": -6005,
+    "rawProduct": {
+      "id": -6005,
+      "title": "18T 1/2\" Hex AndyMark #25 Sprocket",
+      "handle": "synthetic--6005",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6005,
+          "title": "AM-4775",
+          "option1": "AM-4775",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4775",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6005
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 18,
+      "bore": "1/2\" Hex",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
+      "sku": "AM-4775",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6006_-6006": {
+    "productId": -6006,
+    "variantId": -6006,
+    "rawProduct": {
+      "id": -6006,
+      "title": "18T 3/8\" Hex AndyMark #25 Sprocket",
+      "handle": "synthetic--6006",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6006,
+          "title": "AM-4776",
+          "option1": "AM-4776",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4776",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6006
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 18,
+      "bore": "3/8\" Hex",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
+      "sku": "AM-4776",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6007_-6007": {
+    "productId": -6007,
+    "variantId": -6007,
+    "rawProduct": {
+      "id": -6007,
+      "title": "22T 1/2\" Hex AndyMark #25 Sprocket",
+      "handle": "synthetic--6007",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6007,
+          "title": "AM-4777",
+          "option1": "AM-4777",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4777",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6007
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 22,
+      "bore": "1/2\" Hex",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
+      "sku": "AM-4777",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6008_-6008": {
+    "productId": -6008,
+    "variantId": -6008,
+    "rawProduct": {
+      "id": -6008,
+      "title": "22T 3/8\" Hex AndyMark #25 Sprocket",
+      "handle": "synthetic--6008",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6008,
+          "title": "AM-4778",
+          "option1": "AM-4778",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4778",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6008
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 22,
+      "bore": "3/8\" Hex",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
+      "sku": "AM-4778",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6009_-6009": {
+    "productId": -6009,
+    "variantId": -6009,
+    "rawProduct": {
+      "id": -6009,
+      "title": "26T 1/2\" Hex AndyMark #25 Sprocket",
+      "handle": "synthetic--6009",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6009,
+          "title": "AM-4779",
+          "option1": "AM-4779",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4779",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6009
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 26,
+      "bore": "1/2\" Hex",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
+      "sku": "AM-4779",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6010_-6010": {
+    "productId": -6010,
+    "variantId": -6010,
+    "rawProduct": {
+      "id": -6010,
+      "title": "26T 3/8\" Hex AndyMark #25 Sprocket",
+      "handle": "synthetic--6010",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6010,
+          "title": "AM-4780",
+          "option1": "AM-4780",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4780",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6010
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 26,
+      "bore": "3/8\" Hex",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
+      "sku": "AM-4780",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6011_-6011": {
+    "productId": -6011,
+    "variantId": -6011,
+    "rawProduct": {
+      "id": -6011,
+      "title": "14T 1/2\" Hex AndyMark #35 Sprocket",
+      "handle": "synthetic--6011",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6011,
+          "title": "AM-4789",
+          "option1": "AM-4789",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4789",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6011
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 14,
+      "bore": "1/2\" Hex",
+      "chainType": "#35",
+      "url": "https://andymark.com/collections/sprockets/products/35-series-symmetrical-hub-sprockets",
+      "sku": "AM-4789",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6012_-6012": {
+    "productId": -6012,
+    "variantId": -6012,
+    "rawProduct": {
+      "id": -6012,
+      "title": "14T 1/2\" Hex AndyMark #35 Sprocket",
+      "handle": "synthetic--6012",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6012,
+          "title": "AM-4790",
+          "option1": "AM-4790",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4790",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6012
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 14,
+      "bore": "1/2\" Hex",
+      "chainType": "#35",
+      "url": "https://andymark.com/collections/sprockets/products/35-series-symmetrical-hub-sprockets",
+      "sku": "AM-4790",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6013_-6013": {
+    "productId": -6013,
+    "variantId": -6013,
+    "rawProduct": {
+      "id": -6013,
+      "title": "18T 1/2\" Hex AndyMark #35 Sprocket",
+      "handle": "synthetic--6013",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6013,
+          "title": "AM-4791",
+          "option1": "AM-4791",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4791",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6013
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 18,
+      "bore": "1/2\" Hex",
+      "chainType": "#35",
+      "url": "https://andymark.com/collections/sprockets/products/35-series-symmetrical-hub-sprockets",
+      "sku": "AM-4791",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6014_-6014": {
+    "productId": -6014,
+    "variantId": -6014,
+    "rawProduct": {
+      "id": -6014,
+      "title": "32T Bearing Bore AndyMark #25 Plate Sprocket",
+      "handle": "synthetic--6014",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6014,
+          "title": "AM-4781",
+          "option1": "AM-4781",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4781",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6014
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 32,
+      "bore": "1.125\" Round",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets",
+      "sku": "AM-4781",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6015_-6015": {
+    "productId": -6015,
+    "variantId": -6015,
+    "rawProduct": {
+      "id": -6015,
+      "title": "38T Bearing Bore AndyMark #25 Plate Sprocket",
+      "handle": "synthetic--6015",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6015,
+          "title": "AM-4782",
+          "option1": "AM-4782",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4782",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6015
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 38,
+      "bore": "1.125\" Round",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets",
+      "sku": "AM-4782",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6016_-6016": {
+    "productId": -6016,
+    "variantId": -6016,
+    "rawProduct": {
+      "id": -6016,
+      "title": "44T Bearing Bore AndyMark #25 Plate Sprocket",
+      "handle": "synthetic--6016",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6016,
+          "title": "AM-4783",
+          "option1": "AM-4783",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4783",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6016
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 44,
+      "bore": "1.125\" Round",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets",
+      "sku": "AM-4783",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6017_-6017": {
+    "productId": -6017,
+    "variantId": -6017,
+    "rawProduct": {
+      "id": -6017,
+      "title": "50T Bearing Bore AndyMark #25 Plate Sprocket",
+      "handle": "synthetic--6017",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6017,
+          "title": "AM-4784",
+          "option1": "AM-4784",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4784",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6017
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 50,
+      "bore": "1.125\" Round",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets",
+      "sku": "AM-4784",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6018_-6018": {
+    "productId": -6018,
+    "variantId": -6018,
+    "rawProduct": {
+      "id": -6018,
+      "title": "56T Bearing Bore AndyMark #25 Plate Sprocket",
+      "handle": "synthetic--6018",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6018,
+          "title": "AM-4785",
+          "option1": "AM-4785",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4785",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6018
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 56,
+      "bore": "1.125\" Round",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets",
+      "sku": "AM-4785",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6019_-6019": {
+    "productId": -6019,
+    "variantId": -6019,
+    "rawProduct": {
+      "id": -6019,
+      "title": "62T Bearing Bore AndyMark #25 Plate Sprocket",
+      "handle": "synthetic--6019",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6019,
+          "title": "AM-4786",
+          "option1": "AM-4786",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4786",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6019
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 62,
+      "bore": "1.125\" Round",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets",
+      "sku": "AM-4786",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6020_-6020": {
+    "productId": -6020,
+    "variantId": -6020,
+    "rawProduct": {
+      "id": -6020,
+      "title": "68T Bearing Bore AndyMark #25 Plate Sprocket",
+      "handle": "synthetic--6020",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6020,
+          "title": "AM-4787",
+          "option1": "AM-4787",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4787",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6020
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 68,
+      "bore": "1.125\" Round",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets",
+      "sku": "AM-4787",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6021_-6021": {
+    "productId": -6021,
+    "variantId": -6021,
+    "rawProduct": {
+      "id": -6021,
+      "title": "74T Bearing Bore AndyMark #25 Plate Sprocket",
+      "handle": "synthetic--6021",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6021,
+          "title": "AM-4788",
+          "option1": "AM-4788",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4788",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6021
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 74,
+      "bore": "1.125\" Round",
+      "chainType": "#25",
+      "url": "https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets",
+      "sku": "AM-4788",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6022_-6022": {
+    "productId": -6022,
+    "variantId": -6022,
+    "rawProduct": {
+      "id": -6022,
+      "title": "22T Bearing Bore AndyMark #35 Plate Sprocket",
+      "handle": "synthetic--6022",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6022,
+          "title": "AM-4792",
+          "option1": "AM-4792",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4792",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6022
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 22,
+      "bore": "1.125\" Round",
+      "chainType": "#35",
+      "url": "https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets",
+      "sku": "AM-4792",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6023_-6023": {
+    "productId": -6023,
+    "variantId": -6023,
+    "rawProduct": {
+      "id": -6023,
+      "title": "28T Bearing Bore AndyMark #35 Plate Sprocket",
+      "handle": "synthetic--6023",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6023,
+          "title": "AM-4793",
+          "option1": "AM-4793",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4793",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6023
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 28,
+      "bore": "1.125\" Round",
+      "chainType": "#35",
+      "url": "https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets",
+      "sku": "AM-4793",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6024_-6024": {
+    "productId": -6024,
+    "variantId": -6024,
+    "rawProduct": {
+      "id": -6024,
+      "title": "34T Bearing Bore AndyMark #35 Plate Sprocket",
+      "handle": "synthetic--6024",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6024,
+          "title": "AM-4794",
+          "option1": "AM-4794",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4794",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6024
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 34,
+      "bore": "1.125\" Round",
+      "chainType": "#35",
+      "url": "https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets",
+      "sku": "AM-4794",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6025_-6025": {
+    "productId": -6025,
+    "variantId": -6025,
+    "rawProduct": {
+      "id": -6025,
+      "title": "40T Bearing Bore AndyMark #35 Plate Sprocket",
+      "handle": "synthetic--6025",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6025,
+          "title": "AM-4795",
+          "option1": "AM-4795",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4795",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6025
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 40,
+      "bore": "1.125\" Round",
+      "chainType": "#35",
+      "url": "https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets",
+      "sku": "AM-4795",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6026_-6026": {
+    "productId": -6026,
+    "variantId": -6026,
+    "rawProduct": {
+      "id": -6026,
+      "title": "46T Bearing Bore AndyMark #35 Plate Sprocket",
+      "handle": "synthetic--6026",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6026,
+          "title": "AM-4796",
+          "option1": "AM-4796",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4796",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6026
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 46,
+      "bore": "1.125\" Round",
+      "chainType": "#35",
+      "url": "https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets",
+      "sku": "AM-4796",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6027_-6027": {
+    "productId": -6027,
+    "variantId": -6027,
+    "rawProduct": {
+      "id": -6027,
+      "title": "52T Bearing Bore AndyMark #35 Plate Sprocket",
+      "handle": "synthetic--6027",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6027,
+          "title": "AM-4797",
+          "option1": "AM-4797",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4797",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6027
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 52,
+      "bore": "1.125\" Round",
+      "chainType": "#35",
+      "url": "https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets",
+      "sku": "AM-4797",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6028_-6028": {
+    "productId": -6028,
+    "variantId": -6028,
+    "rawProduct": {
+      "id": -6028,
+      "title": "58T Bearing Bore AndyMark #35 Plate Sprocket",
+      "handle": "synthetic--6028",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6028,
+          "title": "AM-4798",
+          "option1": "AM-4798",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4798",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6028
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 58,
+      "bore": "1.125\" Round",
+      "chainType": "#35",
+      "url": "https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets",
+      "sku": "AM-4798",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  },
+  "-6029_-6029": {
+    "productId": -6029,
+    "variantId": -6029,
+    "rawProduct": {
+      "id": -6029,
+      "title": "64T Bearing Bore AndyMark #35 Plate Sprocket",
+      "handle": "synthetic--6029",
+      "vendor": "AndyMark",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -6029,
+          "title": "AM-4799",
+          "option1": "AM-4799",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4799",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -6029
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 64,
+      "bore": "1.125\" Round",
+      "chainType": "#35",
+      "url": "https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets",
+      "sku": "AM-4799",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.603Z",
+    "lastSeen": "2026-02-04T00:01:24.453Z"
+  }
+}

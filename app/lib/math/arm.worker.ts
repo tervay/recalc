@@ -4,7 +4,7 @@ import type { MotorDict } from '~/lib/models/Motor';
 import Motor from '~/lib/models/Motor';
 import type { RatioDict } from '~/lib/models/Ratio';
 import Ratio from '~/lib/models/Ratio';
-import { obliterateArray } from '~/lib/utils';
+import { SNAPSHOT_PRECISION, obliterateArray, toFixed } from '~/lib/utils';
 import { arrayToVectorDouble } from '~/lib/wpilib/util';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
 
@@ -101,16 +101,17 @@ export async function simulateArmWpilib(
       (goingDownOrUp === 'down' && !armSim.hasHitLowerLimit())
     ) {
       states.push({
-        timeSeconds: parseFloat(timestamp.toFixed(3)),
-        angularVelocity: new Measurement(
-          armSim.getAngularVelocity(),
-          'rad/s',
-        ).to('rpm').scalar,
-        currentDraw: armSim.getCurrentDraw(),
-        batteryVoltage: wpilibc.BatterySim_calculateLoadedBatteryVoltage(
-          supplyVoltage.to('V').scalar,
-          batteryResistance.to('Ohm').scalar,
-          arrayToVectorDouble([supplyCurrent.to('A').scalar]),
+        timeSeconds: toFixed(timestamp, 3),
+        angularVelocity: new Measurement(armSim.getAngularVelocity(), 'rad/s')
+          .to('rpm')
+          .round(SNAPSHOT_PRECISION).scalar,
+        currentDraw: toFixed(armSim.getCurrentDraw()),
+        batteryVoltage: toFixed(
+          wpilibc.BatterySim_calculateLoadedBatteryVoltage(
+            supplyVoltage.to('V').scalar,
+            batteryResistance.to('Ohm').scalar,
+            arrayToVectorDouble([supplyCurrent.to('A').scalar]),
+          ),
         ),
       });
     }

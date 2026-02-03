@@ -1,26 +1,28 @@
-import { z } from 'zod';
+import * as z from 'zod';
 
-import { zBore, zVendor } from '~/lib/types/common';
+import { zBoreSchema, zVendorSchema } from '~/lib/types/common';
 
-export const zJSONPlanetary = z.object({
+export const zJSONPlanetarySchema = z.object({
   slices: z.array(z.number().min(1).max(9)),
   maxSlices: z.number().min(1).max(3),
-  inputBores: z.array(zBore),
-  outputBores: z.array(zBore),
+  inputBores: z.array(zBoreSchema),
+  outputBores: z.array(zBoreSchema),
   sku: z.string(),
   url: z.url(),
-  vendor: zVendor,
+  vendor: zVendorSchema,
 });
 
-export const zJSONPlanetaryInstance = z.object({
+export const zJSONPlanetaryInstanceSchema = z.object({
   slices: z.array(z.number().min(1).max(3)),
   ratio: z.number().min(1),
-  inputBore: zBore,
-  outputBore: zBore,
+  inputBore: zBoreSchema,
+  outputBore: zBoreSchema,
   sku: z.string(),
   url: z.url(),
-  vendor: zVendor,
+  vendor: zVendorSchema,
 });
 
-export type JSONPlanetary = z.infer<typeof zJSONPlanetary>;
-export type JSONPlanetaryInstance = z.infer<typeof zJSONPlanetaryInstance>;
+export type JSONPlanetary = z.infer<typeof zJSONPlanetarySchema>;
+export type JSONPlanetaryInstance = z.infer<
+  typeof zJSONPlanetaryInstanceSchema
+>;

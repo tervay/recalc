@@ -6,6 +6,7 @@ import jsxA11y from 'eslint-plugin-jsx-a11y';
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
 import pluginReact from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
+import pluginZod from 'eslint-plugin-zod';
 import globals from 'globals';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -150,6 +151,17 @@ export default tseslint.config([
     },
     rules: {
       'no-relative-import-paths/no-relative-import-paths': 'error',
+    },
+  },
+
+  // Zod
+  {
+    files: ['**/*.{ts,tsx}'],
+    plugins: {
+      zod: pluginZod,
+    },
+    rules: {
+      ...pluginZod.configs.recommended.rules,
     },
   },
 

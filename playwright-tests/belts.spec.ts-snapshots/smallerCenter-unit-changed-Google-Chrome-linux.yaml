@@ -140,14 +140,14 @@
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
-    - row "Thrifty TTB-0126 24 18.5 mm 1/2\" Hex":
-      - cell "Thrifty TTB-0126":
-        - link "Thrifty":
-          - /url: https://www.thethriftybot.com/products/qty-1-24-tooth-htd-pulley-1-2-hex-bore
-        - link "TTB-0126":
-          - /url: https://www.thethriftybot.com/products/qty-1-24-tooth-htd-pulley-1-2-hex-bore
+    - row "WCP WCP-1444 24 9 mm 1/2\" Hex":
+      - cell "WCP WCP-1444":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-1444
+        - link "WCP-1444":
+          - /url: https://wcproducts.com/products/wcp-1444
       - cell "24"
-      - cell "18.5 mm"
+      - cell "9 mm"
       - cell "1/2\" Hex"
     - row "WCP WCP-0564 24 9 mm 1/2\" Hex":
       - cell "WCP WCP-0564":

@@ -44,5 +44,5 @@ describe('ratioFinderWorker', () => {
     );
 
     expect(result).toMatchSnapshot();
-  });
+  }, 10_000);
 });

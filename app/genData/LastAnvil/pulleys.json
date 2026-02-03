@@ -1,5 +1,15 @@
 [
   {
+    "teeth": 14,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "LA-250154",
+    "url": "https://www.lastanvil.com/products/idler-pulley",
+    "bore": "1/2\" Hex",
+    "vendor": "LastAnvil"
+  },
+  {
     "teeth": 24,
     "width": 9,
     "profile": "HTD",

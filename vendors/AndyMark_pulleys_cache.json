@@ -1,0 +1,248 @@
+{
+  "-2000_-2000": {
+    "productId": -2000,
+    "variantId": -2000,
+    "rawProduct": {
+      "id": -2000,
+      "title": "24T 3/8\" Hex AndyMark Pulley",
+      "handle": "synthetic--2000",
+      "vendor": "AndyMark",
+      "product_type": "Pulley",
+      "tags": [],
+      "variants": [
+        {
+          "id": -2000,
+          "title": "AM-3402",
+          "option1": "AM-3402",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-3402",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -2000
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 24,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-3402",
+      "url": "https://andymark.com/collections/pulleys/products/24t-plastic-htd-pulleys",
+      "bore": "3/8\" Hex",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.525Z",
+    "lastSeen": "2026-02-04T00:01:24.339Z"
+  },
+  "-2001_-2001": {
+    "productId": -2001,
+    "variantId": -2001,
+    "rawProduct": {
+      "id": -2001,
+      "title": "24T 1/2\" Hex AndyMark Pulley",
+      "handle": "synthetic--2001",
+      "vendor": "AndyMark",
+      "product_type": "Pulley",
+      "tags": [],
+      "variants": [
+        {
+          "id": -2001,
+          "title": "AM-3403",
+          "option1": "AM-3403",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-3403",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -2001
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 24,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-3403",
+      "url": "https://andymark.com/collections/pulleys/products/24t-plastic-htd-pulleys",
+      "bore": "1/2\" Hex",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.525Z",
+    "lastSeen": "2026-02-04T00:01:24.339Z"
+  },
+  "-2002_-2002": {
+    "productId": -2002,
+    "variantId": -2002,
+    "rawProduct": {
+      "id": -2002,
+      "title": "42T 1.125\" Round AndyMark Pulley",
+      "handle": "synthetic--2002",
+      "vendor": "AndyMark",
+      "product_type": "Pulley",
+      "tags": [],
+      "variants": [
+        {
+          "id": -2002,
+          "title": "AM-2234a",
+          "option1": "AM-2234a",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-2234a",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -2002
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 42,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-2234a",
+      "url": "https://andymark.com/collections/pulleys/products/42-tooth-5-mm-htd-15-mm-wide-bearing-bore-plastic-pulley",
+      "bore": "1.125\" Round",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.525Z",
+    "lastSeen": "2026-02-04T00:01:24.339Z"
+  },
+  "-2003_-2003": {
+    "productId": -2003,
+    "variantId": -2003,
+    "rawProduct": {
+      "id": -2003,
+      "title": "24T 1/2\" Hex AndyMark Pulley",
+      "handle": "synthetic--2003",
+      "vendor": "AndyMark",
+      "product_type": "Pulley",
+      "tags": [],
+      "variants": [
+        {
+          "id": -2003,
+          "title": "AM-2234b",
+          "option1": "AM-2234b",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-2234b",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -2003
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 24,
+      "width": 18,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-2234b",
+      "url": "https://andymark.com/collections/pulleys/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley",
+      "bore": "1/2\" Hex",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.525Z",
+    "lastSeen": "2026-02-04T00:01:24.339Z"
+  },
+  "-2004_-2004": {
+    "productId": -2004,
+    "variantId": -2004,
+    "rawProduct": {
+      "id": -2004,
+      "title": "24T 1/2\" Hex AndyMark Pulley",
+      "handle": "synthetic--2004",
+      "vendor": "AndyMark",
+      "product_type": "Pulley",
+      "tags": [],
+      "variants": [
+        {
+          "id": -2004,
+          "title": "AM-4625",
+          "option1": "AM-4625",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4625",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -2004
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 24,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-4625",
+      "url": "https://andymark.com/collections/pulleys/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley",
+      "bore": "1/2\" Hex",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.525Z",
+    "lastSeen": "2026-02-04T00:01:24.339Z"
+  },
+  "-2005_-2005": {
+    "productId": -2005,
+    "variantId": -2005,
+    "rawProduct": {
+      "id": -2005,
+      "title": "14T 3/8\" Hex AndyMark Pulley",
+      "handle": "synthetic--2005",
+      "vendor": "AndyMark",
+      "product_type": "Pulley",
+      "tags": [],
+      "variants": [
+        {
+          "id": -2005,
+          "title": "AM-4960",
+          "option1": "AM-4960",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-4960",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -2005
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 14,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-4960",
+      "url": "https://andymark.com/collections/pulleys/products/14-tooth-0-375-in-hex-bore-htd-pulley",
+      "bore": "3/8\" Hex",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.525Z",
+    "lastSeen": "2026-02-04T00:01:24.339Z"
+  }
+}

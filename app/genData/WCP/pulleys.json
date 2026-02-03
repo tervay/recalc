@@ -1,5 +1,15 @@
 [
   {
+    "teeth": 24,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "WCP-1444",
+    "url": "https://wcproducts.com/products/wcp-1444",
+    "bore": "1/2\" Hex",
+    "vendor": "WCP"
+  },
+  {
     "teeth": 20,
     "width": 9,
     "profile": "HTD",

@@ -1,0 +1,453 @@
+{
+  "-1000_-1000": {
+    "productId": -1000,
+    "variantId": -1000,
+    "rawProduct": {
+      "id": -1000,
+      "title": "12T 8mm REV Pulley",
+      "handle": "synthetic--1000",
+      "vendor": "REV",
+      "product_type": "Pulley",
+      "tags": [],
+      "variants": [
+        {
+          "id": -1000,
+          "title": "REV-21-2200",
+          "option1": "REV-21-2200",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2200",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -1000
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 12,
+      "width": 12.7,
+      "profile": "RT25",
+      "pitch": 6.35,
+      "sku": "REV-21-2200",
+      "url": "https://www.revrobotics.com/RT25-Pulleys/",
+      "bore": "8mm",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.913Z",
+    "lastSeen": "2026-02-04T00:01:19.394Z"
+  },
+  "-1001_-1001": {
+    "productId": -1001,
+    "variantId": -1001,
+    "rawProduct": {
+      "id": -1001,
+      "title": "16T 1/2\" Hex REV Pulley",
+      "handle": "synthetic--1001",
+      "vendor": "REV",
+      "product_type": "Pulley",
+      "tags": [],
+      "variants": [
+        {
+          "id": -1001,
+          "title": "REV-21-2205",
+          "option1": "REV-21-2205",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2205",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -1001
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 16,
+      "width": 12.7,
+      "profile": "RT25",
+      "pitch": 6.35,
+      "sku": "REV-21-2205",
+      "url": "https://www.revrobotics.com/RT25-Pulleys/",
+      "bore": "1/2\" Hex",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.913Z",
+    "lastSeen": "2026-02-04T00:01:19.394Z"
+  },
+  "-1002_-1002": {
+    "productId": -1002,
+    "variantId": -1002,
+    "rawProduct": {
+      "id": -1002,
+      "title": "16T 1/2\" Hex REV Pulley",
+      "handle": "synthetic--1002",
+      "vendor": "REV",
+      "product_type": "Pulley",
+      "tags": [],
+      "variants": [
+        {
+          "id": -1002,
+          "title": "REV-21-2206",
+          "option1": "REV-21-2206",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2206",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -1002
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 16,
+      "width": 25.4,
+      "profile": "RT25",
+      "pitch": 6.35,
+      "sku": "REV-21-2206",
+      "url": "https://www.revrobotics.com/RT25-Pulleys/",
+      "bore": "1/2\" Hex",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.913Z",
+    "lastSeen": "2026-02-04T00:01:19.394Z"
+  },
+  "-1003_-1003": {
+    "productId": -1003,
+    "variantId": -1003,
+    "rawProduct": {
+      "id": -1003,
+      "title": "24T MAXSpline REV Pulley",
+      "handle": "synthetic--1003",
+      "vendor": "REV",
+      "product_type": "Pulley",
+      "tags": [],
+      "variants": [
+        {
+          "id": -1003,
+          "title": "REV-21-2224",
+          "option1": "REV-21-2224",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2224",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -1003
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 24,
+      "width": 12.7,
+      "profile": "RT25",
+      "pitch": 6.35,
+      "sku": "REV-21-2224",
+      "url": "https://www.revrobotics.com/RT25-Pulleys/",
+      "bore": "MAXSpline",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.913Z",
+    "lastSeen": "2026-02-04T00:01:19.394Z"
+  },
+  "-1004_-1004": {
+    "productId": -1004,
+    "variantId": -1004,
+    "rawProduct": {
+      "id": -1004,
+      "title": "32T MAXSpline REV Pulley",
+      "handle": "synthetic--1004",
+      "vendor": "REV",
+      "product_type": "Pulley",
+      "tags": [],
+      "variants": [
+        {
+          "id": -1004,
+          "title": "REV-21-2236",
+          "option1": "REV-21-2236",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2236",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -1004
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 32,
+      "width": 12.7,
+      "profile": "RT25",
+      "pitch": 6.35,
+      "sku": "REV-21-2236",
+      "url": "https://www.revrobotics.com/RT25-Pulleys/",
+      "bore": "MAXSpline",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.913Z",
+    "lastSeen": "2026-02-04T00:01:19.394Z"
+  },
+  "-1005_-1005": {
+    "productId": -1005,
+    "variantId": -1005,
+    "rawProduct": {
+      "id": -1005,
+      "title": "40T MAXSpline REV Pulley",
+      "handle": "synthetic--1005",
+      "vendor": "REV",
+      "product_type": "Pulley",
+      "tags": [],
+      "variants": [
+        {
+          "id": -1005,
+          "title": "REV-21-2248",
+          "option1": "REV-21-2248",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2248",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -1005
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 40,
+      "width": 12.7,
+      "profile": "RT25",
+      "pitch": 6.35,
+      "sku": "REV-21-2248",
+      "url": "https://www.revrobotics.com/RT25-Pulleys/",
+      "bore": "MAXSpline",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.913Z",
+    "lastSeen": "2026-02-04T00:01:19.394Z"
+  },
+  "-1006_-1006": {
+    "productId": -1006,
+    "variantId": -1006,
+    "rawProduct": {
+      "id": -1006,
+      "title": "48T MAXSpline REV Pulley",
+      "handle": "synthetic--1006",
+      "vendor": "REV",
+      "product_type": "Pulley",
+      "tags": [],
+      "variants": [
+        {
+          "id": -1006,
+          "title": "REV-21-2260",
+          "option1": "REV-21-2260",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2260",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -1006
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 48,
+      "width": 12.7,
+      "profile": "RT25",
+      "pitch": 6.35,
+      "sku": "REV-21-2260",
+      "url": "https://www.revrobotics.com/RT25-Pulleys/",
+      "bore": "MAXSpline",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.913Z",
+    "lastSeen": "2026-02-04T00:01:19.394Z"
+  },
+  "-1007_-1007": {
+    "productId": -1007,
+    "variantId": -1007,
+    "rawProduct": {
+      "id": -1007,
+      "title": "56T MAXSpline REV Pulley",
+      "handle": "synthetic--1007",
+      "vendor": "REV",
+      "product_type": "Pulley",
+      "tags": [],
+      "variants": [
+        {
+          "id": -1007,
+          "title": "REV-21-2272",
+          "option1": "REV-21-2272",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2272",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -1007
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 56,
+      "width": 12.7,
+      "profile": "RT25",
+      "pitch": 6.35,
+      "sku": "REV-21-2272",
+      "url": "https://www.revrobotics.com/RT25-Pulleys/",
+      "bore": "MAXSpline",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.913Z",
+    "lastSeen": "2026-02-04T00:01:19.394Z"
+  },
+  "-1008_-1008": {
+    "productId": -1008,
+    "variantId": -1008,
+    "rawProduct": {
+      "id": -1008,
+      "title": "64T MAXSpline REV Pulley",
+      "handle": "synthetic--1008",
+      "vendor": "REV",
+      "product_type": "Pulley",
+      "tags": [],
+      "variants": [
+        {
+          "id": -1008,
+          "title": "REV-21-2284",
+          "option1": "REV-21-2284",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2284",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -1008
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 64,
+      "width": 12.7,
+      "profile": "RT25",
+      "pitch": 6.35,
+      "sku": "REV-21-2284",
+      "url": "https://www.revrobotics.com/RT25-Pulleys/",
+      "bore": "MAXSpline",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.913Z",
+    "lastSeen": "2026-02-04T00:01:19.394Z"
+  },
+  "-1009_-1009": {
+    "productId": -1009,
+    "variantId": -1009,
+    "rawProduct": {
+      "id": -1009,
+      "title": "16T 8mm REV GT2 Pulley",
+      "handle": "synthetic--1009",
+      "vendor": "REV",
+      "product_type": "Pulley",
+      "tags": [],
+      "variants": [
+        {
+          "id": -1009,
+          "title": "REV-21-1909",
+          "option1": "REV-21-1909",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1909",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -1009
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 16,
+      "width": 25.4,
+      "profile": "GT2",
+      "pitch": 3,
+      "sku": "REV-21-1909",
+      "url": "https://www.revrobotics.com/neo-pinions/",
+      "bore": "8mm",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.913Z",
+    "lastSeen": "2026-02-04T00:01:19.394Z"
+  },
+  "-1010_-1010": {
+    "productId": -1010,
+    "variantId": -1010,
+    "rawProduct": {
+      "id": -1010,
+      "title": "12T RS550 REV GT2 Pulley",
+      "handle": "synthetic--1010",
+      "vendor": "REV",
+      "product_type": "Pulley",
+      "tags": [],
+      "variants": [
+        {
+          "id": -1010,
+          "title": "REV-21-1908",
+          "option1": "REV-21-1908",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1908",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -1010
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 12,
+      "width": 16,
+      "profile": "GT2",
+      "pitch": 3,
+      "sku": "REV-21-1908",
+      "url": "https://www.revrobotics.com/550-motor-pinions/",
+      "bore": "RS550",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.913Z",
+    "lastSeen": "2026-02-04T00:01:19.394Z"
+  }
+}
