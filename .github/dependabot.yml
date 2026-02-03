@@ -16,9 +16,7 @@ updates:
           - 'react-dom'
           - '@types/react'
           - '@types/react-dom'
-      radix-ui:
-        patterns:
-          - '@radix-ui/*'
+          - 'radix-ui'
       typescript-eslint:
         patterns:
           - 'typescript'
@@ -41,11 +39,17 @@ updates:
         patterns:
           - 'vite'
           - 'vite-*'
+          - 'vite-plugin-top-level-await'
+          - 'vite-tsconfig-paths'
+          - '@tailwindcss/vite'
+          - 'vite-plugin-comlink'
       prettier:
         patterns:
           - 'prettier'
           - 'prettier-plugin-*'
           - '@trivago/prettier-plugin-*'
+          - 'prettier-plugin-classnames'
+          - 'prettier-plugin-merge'
       testing:
         patterns:
           - '@playwright/test'
@@ -66,4 +70,11 @@ updates:
           - 'katex'
           - 'remark-math'
           - 'rehype-katex'
+          - 'js-quantities'
+          - '@types/js-quantities'
+      shadcn:
+        patterns:
+          - 'shadcn'
+          - 'class-variance-authority'
+          - 'clsx'
     open-pull-requests-limit: 10
