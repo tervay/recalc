@@ -1,0 +1,1065 @@
+{
+  "7640303435982_43296131088590": {
+    "productId": 7640303435982,
+    "variantId": 43296131088590,
+    "rawProduct": {
+      "id": 7640303435982,
+      "title": "Idler Pulleys",
+      "handle": "idler-pulley",
+      "vendor": "Last Anvil Innovations",
+      "product_type": "Idler Pulley",
+      "tags": [
+        "Aluminum",
+        "Belts",
+        "HTD",
+        "HTD Belt",
+        "HTD Pulley",
+        "Intake Mechanism",
+        "neoprene belt",
+        "Pulley",
+        "Pulley Subsystem",
+        "Robotics",
+        "Structure",
+        "Structuring",
+        "Timing Belts"
+      ],
+      "variants": [
+        {
+          "id": 43296131055822,
+          "title": "Smooth",
+          "option1": "Smooth",
+          "option2": null,
+          "option3": null,
+          "sku": "250152",
+          "available": true,
+          "price": "12.99",
+          "grams": 29,
+          "position": 1,
+          "product_id": 7640303435982
+        },
+        {
+          "id": 43296131088590,
+          "title": "14T",
+          "option1": "14T",
+          "option2": null,
+          "option3": null,
+          "sku": "250154",
+          "available": true,
+          "price": "16.99",
+          "grams": 22,
+          "position": 2,
+          "product_id": 7640303435982
+        }
+      ],
+      "images": [
+        {
+          "id": 38308421959886,
+          "created_at": "2025-11-30T21:29:09-06:00",
+          "position": 1,
+          "updated_at": "2025-11-30T21:52:19-06:00",
+          "product_id": 7640303435982,
+          "variant_ids": [43296131055822],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/Idler_Pulley_-_Smooth_2_Stock.jpg?v=1764561139",
+          "width": 1648,
+          "height": 848
+        },
+        {
+          "id": 38308409147598,
+          "created_at": "2025-11-30T21:25:30-06:00",
+          "position": 2,
+          "updated_at": "2025-11-30T21:52:19-06:00",
+          "product_id": 7640303435982,
+          "variant_ids": [43296131088590],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/Idler_Pulley_-_14T_2_Stock.jpg?v=1764561139",
+          "width": 1648,
+          "height": 848
+        },
+        {
+          "id": 38330613825742,
+          "created_at": "2025-12-05T14:55:03-06:00",
+          "position": 3,
+          "updated_at": "2025-12-05T14:58:53-06:00",
+          "product_id": 7640303435982,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/Idley_Pulleys_-_14T_and_Smooth_Stock.jpg?v=1764968333",
+          "width": 1682,
+          "height": 848
+        }
+      ],
+      "options": [
+        {
+          "name": "Type",
+          "position": 1,
+          "values": ["Smooth", "14T"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 14,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "LA-250154",
+      "url": "https://www.lastanvil.com/products/idler-pulley",
+      "bore": "1/2\" Hex",
+      "vendor": "LastAnvil"
+    },
+    "firstSeen": "2026-02-03T23:02:50.999Z",
+    "lastSeen": "2026-02-04T00:01:19.329Z"
+  },
+  "7507499843790_42837321056462": {
+    "productId": 7507499843790,
+    "variantId": 42837321056462,
+    "rawProduct": {
+      "id": 7507499843790,
+      "title": "Reinforced HTD Pulley 5mm",
+      "handle": "reinforced-htd-pulley-5mm",
+      "vendor": "Last Anvil Innovations",
+      "product_type": "HTD Pulley",
+      "tags": [
+        "Aluminum",
+        "Belts",
+        "HTD",
+        "HTD Belt",
+        "HTD Pulley",
+        "Intake Mechanism",
+        "Pulley",
+        "Pulley Subsystem",
+        "Robotics"
+      ],
+      "variants": [
+        {
+          "id": 42837321056462,
+          "title": "24T",
+          "option1": "24T",
+          "option2": null,
+          "option3": null,
+          "sku": "240328",
+          "available": true,
+          "price": "18.99",
+          "grams": 39,
+          "position": 3,
+          "product_id": 7507499843790
+        },
+        {
+          "id": 42837321089230,
+          "title": "30T",
+          "option1": "30T",
+          "option2": null,
+          "option3": null,
+          "sku": "240329",
+          "available": true,
+          "price": "21.99",
+          "grams": 65,
+          "position": 4,
+          "product_id": 7507499843790
+        },
+        {
+          "id": 42837321121998,
+          "title": "36T",
+          "option1": "36T",
+          "option2": null,
+          "option3": null,
+          "sku": "240330",
+          "available": true,
+          "price": "23.99",
+          "grams": 95,
+          "position": 5,
+          "product_id": 7507499843790
+        }
+      ],
+      "images": [
+        {
+          "id": 36939322753230,
+          "created_at": "2024-12-22T16:40:48-06:00",
+          "position": 1,
+          "updated_at": "2024-12-22T16:45:29-06:00",
+          "product_id": 7507499843790,
+          "variant_ids": [42837321056462],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/24_RHTD_1.jpg?v=1734907529",
+          "width": 1648,
+          "height": 848
+        },
+        {
+          "id": 36939322720462,
+          "created_at": "2024-12-22T16:40:48-06:00",
+          "position": 2,
+          "updated_at": "2024-12-22T16:45:29-06:00",
+          "product_id": 7507499843790,
+          "variant_ids": [42837321089230],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/30_RHTD_1.jpg?v=1734907529",
+          "width": 1648,
+          "height": 848
+        },
+        {
+          "id": 36939322785998,
+          "created_at": "2024-12-22T16:40:48-06:00",
+          "position": 3,
+          "updated_at": "2024-12-22T16:41:41-06:00",
+          "product_id": 7507499843790,
+          "variant_ids": [42837321121998],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/36_RHTD_1.jpg?v=1734907301",
+          "width": 1648,
+          "height": 848
+        }
+      ],
+      "options": [
+        {
+          "name": "Size",
+          "position": 1,
+          "values": ["24T", "30T", "36T"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 24,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "LA-240328",
+      "url": "https://www.lastanvil.com/products/reinforced-htd-pulley-5mm",
+      "bore": "1/2\" Hex",
+      "vendor": "LastAnvil"
+    },
+    "firstSeen": "2026-02-03T23:02:50.999Z",
+    "lastSeen": "2026-02-04T00:01:19.329Z"
+  },
+  "7507499843790_42837321089230": {
+    "productId": 7507499843790,
+    "variantId": 42837321089230,
+    "rawProduct": {
+      "id": 7507499843790,
+      "title": "Reinforced HTD Pulley 5mm",
+      "handle": "reinforced-htd-pulley-5mm",
+      "vendor": "Last Anvil Innovations",
+      "product_type": "HTD Pulley",
+      "tags": [
+        "Aluminum",
+        "Belts",
+        "HTD",
+        "HTD Belt",
+        "HTD Pulley",
+        "Intake Mechanism",
+        "Pulley",
+        "Pulley Subsystem",
+        "Robotics"
+      ],
+      "variants": [
+        {
+          "id": 42837321056462,
+          "title": "24T",
+          "option1": "24T",
+          "option2": null,
+          "option3": null,
+          "sku": "240328",
+          "available": true,
+          "price": "18.99",
+          "grams": 39,
+          "position": 3,
+          "product_id": 7507499843790
+        },
+        {
+          "id": 42837321089230,
+          "title": "30T",
+          "option1": "30T",
+          "option2": null,
+          "option3": null,
+          "sku": "240329",
+          "available": true,
+          "price": "21.99",
+          "grams": 65,
+          "position": 4,
+          "product_id": 7507499843790
+        },
+        {
+          "id": 42837321121998,
+          "title": "36T",
+          "option1": "36T",
+          "option2": null,
+          "option3": null,
+          "sku": "240330",
+          "available": true,
+          "price": "23.99",
+          "grams": 95,
+          "position": 5,
+          "product_id": 7507499843790
+        }
+      ],
+      "images": [
+        {
+          "id": 36939322753230,
+          "created_at": "2024-12-22T16:40:48-06:00",
+          "position": 1,
+          "updated_at": "2024-12-22T16:45:29-06:00",
+          "product_id": 7507499843790,
+          "variant_ids": [42837321056462],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/24_RHTD_1.jpg?v=1734907529",
+          "width": 1648,
+          "height": 848
+        },
+        {
+          "id": 36939322720462,
+          "created_at": "2024-12-22T16:40:48-06:00",
+          "position": 2,
+          "updated_at": "2024-12-22T16:45:29-06:00",
+          "product_id": 7507499843790,
+          "variant_ids": [42837321089230],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/30_RHTD_1.jpg?v=1734907529",
+          "width": 1648,
+          "height": 848
+        },
+        {
+          "id": 36939322785998,
+          "created_at": "2024-12-22T16:40:48-06:00",
+          "position": 3,
+          "updated_at": "2024-12-22T16:41:41-06:00",
+          "product_id": 7507499843790,
+          "variant_ids": [42837321121998],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/36_RHTD_1.jpg?v=1734907301",
+          "width": 1648,
+          "height": 848
+        }
+      ],
+      "options": [
+        {
+          "name": "Size",
+          "position": 1,
+          "values": ["24T", "30T", "36T"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 30,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "LA-240329",
+      "url": "https://www.lastanvil.com/products/reinforced-htd-pulley-5mm",
+      "bore": "1/2\" Hex",
+      "vendor": "LastAnvil"
+    },
+    "firstSeen": "2026-02-03T23:02:50.999Z",
+    "lastSeen": "2026-02-04T00:01:19.329Z"
+  },
+  "7507499843790_42837321121998": {
+    "productId": 7507499843790,
+    "variantId": 42837321121998,
+    "rawProduct": {
+      "id": 7507499843790,
+      "title": "Reinforced HTD Pulley 5mm",
+      "handle": "reinforced-htd-pulley-5mm",
+      "vendor": "Last Anvil Innovations",
+      "product_type": "HTD Pulley",
+      "tags": [
+        "Aluminum",
+        "Belts",
+        "HTD",
+        "HTD Belt",
+        "HTD Pulley",
+        "Intake Mechanism",
+        "Pulley",
+        "Pulley Subsystem",
+        "Robotics"
+      ],
+      "variants": [
+        {
+          "id": 42837321056462,
+          "title": "24T",
+          "option1": "24T",
+          "option2": null,
+          "option3": null,
+          "sku": "240328",
+          "available": true,
+          "price": "18.99",
+          "grams": 39,
+          "position": 3,
+          "product_id": 7507499843790
+        },
+        {
+          "id": 42837321089230,
+          "title": "30T",
+          "option1": "30T",
+          "option2": null,
+          "option3": null,
+          "sku": "240329",
+          "available": true,
+          "price": "21.99",
+          "grams": 65,
+          "position": 4,
+          "product_id": 7507499843790
+        },
+        {
+          "id": 42837321121998,
+          "title": "36T",
+          "option1": "36T",
+          "option2": null,
+          "option3": null,
+          "sku": "240330",
+          "available": true,
+          "price": "23.99",
+          "grams": 95,
+          "position": 5,
+          "product_id": 7507499843790
+        }
+      ],
+      "images": [
+        {
+          "id": 36939322753230,
+          "created_at": "2024-12-22T16:40:48-06:00",
+          "position": 1,
+          "updated_at": "2024-12-22T16:45:29-06:00",
+          "product_id": 7507499843790,
+          "variant_ids": [42837321056462],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/24_RHTD_1.jpg?v=1734907529",
+          "width": 1648,
+          "height": 848
+        },
+        {
+          "id": 36939322720462,
+          "created_at": "2024-12-22T16:40:48-06:00",
+          "position": 2,
+          "updated_at": "2024-12-22T16:45:29-06:00",
+          "product_id": 7507499843790,
+          "variant_ids": [42837321089230],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/30_RHTD_1.jpg?v=1734907529",
+          "width": 1648,
+          "height": 848
+        },
+        {
+          "id": 36939322785998,
+          "created_at": "2024-12-22T16:40:48-06:00",
+          "position": 3,
+          "updated_at": "2024-12-22T16:41:41-06:00",
+          "product_id": 7507499843790,
+          "variant_ids": [42837321121998],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/36_RHTD_1.jpg?v=1734907301",
+          "width": 1648,
+          "height": 848
+        }
+      ],
+      "options": [
+        {
+          "name": "Size",
+          "position": 1,
+          "values": ["24T", "30T", "36T"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 36,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "LA-240330",
+      "url": "https://www.lastanvil.com/products/reinforced-htd-pulley-5mm",
+      "bore": "1/2\" Hex",
+      "vendor": "LastAnvil"
+    },
+    "firstSeen": "2026-02-03T23:02:50.999Z",
+    "lastSeen": "2026-02-04T00:01:19.329Z"
+  },
+  "7298621931726_42303470436558": {
+    "productId": 7298621931726,
+    "variantId": 42303470436558,
+    "rawProduct": {
+      "id": 7298621931726,
+      "title": "HTD Pulley 5mm",
+      "handle": "pulley-htd-5-mm",
+      "vendor": "Last Anvil Innovations",
+      "product_type": "HTD Pulley",
+      "tags": [
+        "Belts",
+        "HTD",
+        "HTD Pulley",
+        "Intake Mechanism",
+        "Pulley",
+        "Pulley Subsystem",
+        "Robotics",
+        "Timing Belts"
+      ],
+      "variants": [
+        {
+          "id": 42303470436558,
+          "title": "18T",
+          "option1": "18T",
+          "option2": null,
+          "option3": null,
+          "sku": "240107",
+          "available": true,
+          "price": "12.99",
+          "grams": 15,
+          "position": 1,
+          "product_id": 7298621931726
+        },
+        {
+          "id": 42303470469326,
+          "title": "24T",
+          "option1": "24T",
+          "option2": null,
+          "option3": null,
+          "sku": "240108",
+          "available": true,
+          "price": "12.99",
+          "grams": 33,
+          "position": 2,
+          "product_id": 7298621931726
+        },
+        {
+          "id": 42303470502094,
+          "title": "30T",
+          "option1": "30T",
+          "option2": null,
+          "option3": null,
+          "sku": "240109",
+          "available": true,
+          "price": "15.99",
+          "grams": 57,
+          "position": 3,
+          "product_id": 7298621931726
+        },
+        {
+          "id": 42303470534862,
+          "title": "36T",
+          "option1": "36T",
+          "option2": null,
+          "option3": null,
+          "sku": "240110",
+          "available": true,
+          "price": "16.99",
+          "grams": 86,
+          "position": 4,
+          "product_id": 7298621931726
+        }
+      ],
+      "images": [
+        {
+          "id": 35677597499598,
+          "created_at": "2023-12-07T00:40:45-06:00",
+          "position": 1,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [42303470436558],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/18TPulleyHTD-5mm.jpg?v=1764562528",
+          "width": 1684,
+          "height": 848
+        },
+        {
+          "id": 35677597892814,
+          "created_at": "2023-12-07T00:40:52-06:00",
+          "position": 2,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [42303470469326],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/24TPulleyHTD-5mm.jpg?v=1764562528",
+          "width": 1684,
+          "height": 848
+        },
+        {
+          "id": 35677598318798,
+          "created_at": "2023-12-07T00:40:59-06:00",
+          "position": 3,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [42303470502094, 42303470534862],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/30TPulleyHTD-5mm.jpg?v=1764562528",
+          "width": 1684,
+          "height": 848
+        },
+        {
+          "id": 35677598941390,
+          "created_at": "2023-12-07T00:41:06-06:00",
+          "position": 4,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/36TPulleyHTD-5mm.jpg?v=1764562528",
+          "width": 1684,
+          "height": 848
+        },
+        {
+          "id": 35677610148046,
+          "created_at": "2023-12-07T00:44:36-06:00",
+          "position": 5,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/ProductImagescopy.png?v=1764562528",
+          "width": 2292,
+          "height": 1520
+        }
+      ],
+      "options": [
+        {
+          "name": "Size",
+          "position": 1,
+          "values": ["18T", "24T", "30T", "36T"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 18,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "LA-240107",
+      "url": "https://www.lastanvil.com/products/pulley-htd-5-mm",
+      "bore": "1/2\" Hex",
+      "vendor": "LastAnvil"
+    },
+    "firstSeen": "2026-02-03T23:02:50.999Z",
+    "lastSeen": "2026-02-04T00:01:19.329Z"
+  },
+  "7298621931726_42303470469326": {
+    "productId": 7298621931726,
+    "variantId": 42303470469326,
+    "rawProduct": {
+      "id": 7298621931726,
+      "title": "HTD Pulley 5mm",
+      "handle": "pulley-htd-5-mm",
+      "vendor": "Last Anvil Innovations",
+      "product_type": "HTD Pulley",
+      "tags": [
+        "Belts",
+        "HTD",
+        "HTD Pulley",
+        "Intake Mechanism",
+        "Pulley",
+        "Pulley Subsystem",
+        "Robotics",
+        "Timing Belts"
+      ],
+      "variants": [
+        {
+          "id": 42303470436558,
+          "title": "18T",
+          "option1": "18T",
+          "option2": null,
+          "option3": null,
+          "sku": "240107",
+          "available": true,
+          "price": "12.99",
+          "grams": 15,
+          "position": 1,
+          "product_id": 7298621931726
+        },
+        {
+          "id": 42303470469326,
+          "title": "24T",
+          "option1": "24T",
+          "option2": null,
+          "option3": null,
+          "sku": "240108",
+          "available": true,
+          "price": "12.99",
+          "grams": 33,
+          "position": 2,
+          "product_id": 7298621931726
+        },
+        {
+          "id": 42303470502094,
+          "title": "30T",
+          "option1": "30T",
+          "option2": null,
+          "option3": null,
+          "sku": "240109",
+          "available": true,
+          "price": "15.99",
+          "grams": 57,
+          "position": 3,
+          "product_id": 7298621931726
+        },
+        {
+          "id": 42303470534862,
+          "title": "36T",
+          "option1": "36T",
+          "option2": null,
+          "option3": null,
+          "sku": "240110",
+          "available": true,
+          "price": "16.99",
+          "grams": 86,
+          "position": 4,
+          "product_id": 7298621931726
+        }
+      ],
+      "images": [
+        {
+          "id": 35677597499598,
+          "created_at": "2023-12-07T00:40:45-06:00",
+          "position": 1,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [42303470436558],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/18TPulleyHTD-5mm.jpg?v=1764562528",
+          "width": 1684,
+          "height": 848
+        },
+        {
+          "id": 35677597892814,
+          "created_at": "2023-12-07T00:40:52-06:00",
+          "position": 2,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [42303470469326],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/24TPulleyHTD-5mm.jpg?v=1764562528",
+          "width": 1684,
+          "height": 848
+        },
+        {
+          "id": 35677598318798,
+          "created_at": "2023-12-07T00:40:59-06:00",
+          "position": 3,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [42303470502094, 42303470534862],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/30TPulleyHTD-5mm.jpg?v=1764562528",
+          "width": 1684,
+          "height": 848
+        },
+        {
+          "id": 35677598941390,
+          "created_at": "2023-12-07T00:41:06-06:00",
+          "position": 4,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/36TPulleyHTD-5mm.jpg?v=1764562528",
+          "width": 1684,
+          "height": 848
+        },
+        {
+          "id": 35677610148046,
+          "created_at": "2023-12-07T00:44:36-06:00",
+          "position": 5,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/ProductImagescopy.png?v=1764562528",
+          "width": 2292,
+          "height": 1520
+        }
+      ],
+      "options": [
+        {
+          "name": "Size",
+          "position": 1,
+          "values": ["18T", "24T", "30T", "36T"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 24,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "LA-240108",
+      "url": "https://www.lastanvil.com/products/pulley-htd-5-mm",
+      "bore": "1/2\" Hex",
+      "vendor": "LastAnvil"
+    },
+    "firstSeen": "2026-02-03T23:02:50.999Z",
+    "lastSeen": "2026-02-04T00:01:19.329Z"
+  },
+  "7298621931726_42303470502094": {
+    "productId": 7298621931726,
+    "variantId": 42303470502094,
+    "rawProduct": {
+      "id": 7298621931726,
+      "title": "HTD Pulley 5mm",
+      "handle": "pulley-htd-5-mm",
+      "vendor": "Last Anvil Innovations",
+      "product_type": "HTD Pulley",
+      "tags": [
+        "Belts",
+        "HTD",
+        "HTD Pulley",
+        "Intake Mechanism",
+        "Pulley",
+        "Pulley Subsystem",
+        "Robotics",
+        "Timing Belts"
+      ],
+      "variants": [
+        {
+          "id": 42303470436558,
+          "title": "18T",
+          "option1": "18T",
+          "option2": null,
+          "option3": null,
+          "sku": "240107",
+          "available": true,
+          "price": "12.99",
+          "grams": 15,
+          "position": 1,
+          "product_id": 7298621931726
+        },
+        {
+          "id": 42303470469326,
+          "title": "24T",
+          "option1": "24T",
+          "option2": null,
+          "option3": null,
+          "sku": "240108",
+          "available": true,
+          "price": "12.99",
+          "grams": 33,
+          "position": 2,
+          "product_id": 7298621931726
+        },
+        {
+          "id": 42303470502094,
+          "title": "30T",
+          "option1": "30T",
+          "option2": null,
+          "option3": null,
+          "sku": "240109",
+          "available": true,
+          "price": "15.99",
+          "grams": 57,
+          "position": 3,
+          "product_id": 7298621931726
+        },
+        {
+          "id": 42303470534862,
+          "title": "36T",
+          "option1": "36T",
+          "option2": null,
+          "option3": null,
+          "sku": "240110",
+          "available": true,
+          "price": "16.99",
+          "grams": 86,
+          "position": 4,
+          "product_id": 7298621931726
+        }
+      ],
+      "images": [
+        {
+          "id": 35677597499598,
+          "created_at": "2023-12-07T00:40:45-06:00",
+          "position": 1,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [42303470436558],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/18TPulleyHTD-5mm.jpg?v=1764562528",
+          "width": 1684,
+          "height": 848
+        },
+        {
+          "id": 35677597892814,
+          "created_at": "2023-12-07T00:40:52-06:00",
+          "position": 2,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [42303470469326],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/24TPulleyHTD-5mm.jpg?v=1764562528",
+          "width": 1684,
+          "height": 848
+        },
+        {
+          "id": 35677598318798,
+          "created_at": "2023-12-07T00:40:59-06:00",
+          "position": 3,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [42303470502094, 42303470534862],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/30TPulleyHTD-5mm.jpg?v=1764562528",
+          "width": 1684,
+          "height": 848
+        },
+        {
+          "id": 35677598941390,
+          "created_at": "2023-12-07T00:41:06-06:00",
+          "position": 4,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/36TPulleyHTD-5mm.jpg?v=1764562528",
+          "width": 1684,
+          "height": 848
+        },
+        {
+          "id": 35677610148046,
+          "created_at": "2023-12-07T00:44:36-06:00",
+          "position": 5,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/ProductImagescopy.png?v=1764562528",
+          "width": 2292,
+          "height": 1520
+        }
+      ],
+      "options": [
+        {
+          "name": "Size",
+          "position": 1,
+          "values": ["18T", "24T", "30T", "36T"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 30,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "LA-240109",
+      "url": "https://www.lastanvil.com/products/pulley-htd-5-mm",
+      "bore": "1/2\" Hex",
+      "vendor": "LastAnvil"
+    },
+    "firstSeen": "2026-02-03T23:02:50.999Z",
+    "lastSeen": "2026-02-04T00:01:19.329Z"
+  },
+  "7298621931726_42303470534862": {
+    "productId": 7298621931726,
+    "variantId": 42303470534862,
+    "rawProduct": {
+      "id": 7298621931726,
+      "title": "HTD Pulley 5mm",
+      "handle": "pulley-htd-5-mm",
+      "vendor": "Last Anvil Innovations",
+      "product_type": "HTD Pulley",
+      "tags": [
+        "Belts",
+        "HTD",
+        "HTD Pulley",
+        "Intake Mechanism",
+        "Pulley",
+        "Pulley Subsystem",
+        "Robotics",
+        "Timing Belts"
+      ],
+      "variants": [
+        {
+          "id": 42303470436558,
+          "title": "18T",
+          "option1": "18T",
+          "option2": null,
+          "option3": null,
+          "sku": "240107",
+          "available": true,
+          "price": "12.99",
+          "grams": 15,
+          "position": 1,
+          "product_id": 7298621931726
+        },
+        {
+          "id": 42303470469326,
+          "title": "24T",
+          "option1": "24T",
+          "option2": null,
+          "option3": null,
+          "sku": "240108",
+          "available": true,
+          "price": "12.99",
+          "grams": 33,
+          "position": 2,
+          "product_id": 7298621931726
+        },
+        {
+          "id": 42303470502094,
+          "title": "30T",
+          "option1": "30T",
+          "option2": null,
+          "option3": null,
+          "sku": "240109",
+          "available": true,
+          "price": "15.99",
+          "grams": 57,
+          "position": 3,
+          "product_id": 7298621931726
+        },
+        {
+          "id": 42303470534862,
+          "title": "36T",
+          "option1": "36T",
+          "option2": null,
+          "option3": null,
+          "sku": "240110",
+          "available": true,
+          "price": "16.99",
+          "grams": 86,
+          "position": 4,
+          "product_id": 7298621931726
+        }
+      ],
+      "images": [
+        {
+          "id": 35677597499598,
+          "created_at": "2023-12-07T00:40:45-06:00",
+          "position": 1,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [42303470436558],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/18TPulleyHTD-5mm.jpg?v=1764562528",
+          "width": 1684,
+          "height": 848
+        },
+        {
+          "id": 35677597892814,
+          "created_at": "2023-12-07T00:40:52-06:00",
+          "position": 2,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [42303470469326],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/24TPulleyHTD-5mm.jpg?v=1764562528",
+          "width": 1684,
+          "height": 848
+        },
+        {
+          "id": 35677598318798,
+          "created_at": "2023-12-07T00:40:59-06:00",
+          "position": 3,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [42303470502094, 42303470534862],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/30TPulleyHTD-5mm.jpg?v=1764562528",
+          "width": 1684,
+          "height": 848
+        },
+        {
+          "id": 35677598941390,
+          "created_at": "2023-12-07T00:41:06-06:00",
+          "position": 4,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/36TPulleyHTD-5mm.jpg?v=1764562528",
+          "width": 1684,
+          "height": 848
+        },
+        {
+          "id": 35677610148046,
+          "created_at": "2023-12-07T00:44:36-06:00",
+          "position": 5,
+          "updated_at": "2025-11-30T22:15:28-06:00",
+          "product_id": 7298621931726,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0629/2842/1070/files/ProductImagescopy.png?v=1764562528",
+          "width": 2292,
+          "height": 1520
+        }
+      ],
+      "options": [
+        {
+          "name": "Size",
+          "position": 1,
+          "values": ["18T", "24T", "30T", "36T"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 36,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "LA-240110",
+      "url": "https://www.lastanvil.com/products/pulley-htd-5-mm",
+      "bore": "1/2\" Hex",
+      "vendor": "LastAnvil"
+    },
+    "firstSeen": "2026-02-03T23:02:50.999Z",
+    "lastSeen": "2026-02-04T00:01:19.329Z"
+  }
+}

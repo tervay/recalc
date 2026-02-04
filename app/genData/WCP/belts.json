@@ -1,5 +1,23 @@
 [
   {
+    "teeth": 44,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "WCP-2433",
+    "url": "https://wcproducts.com/products/wcp-2433",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 44,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "WCP-2434",
+    "url": "https://wcproducts.com/products/wcp-2434",
+    "vendor": "WCP"
+  },
+  {
     "teeth": 51,
     "width": 6,
     "profile": "GT2",

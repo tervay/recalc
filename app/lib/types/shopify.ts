@@ -44,9 +44,9 @@ export interface ShopifyOption {
 export interface ShopifyVariant {
   id: number;
   title: string;
-  option1: string;
-  option2: null;
-  option3: null;
+  option1: string | null;
+  option2: string | null;
+  option3: string | null;
   sku: null | string;
   requires_shipping: boolean;
   taxable: boolean;

@@ -6,7 +6,7 @@ import Pulley from '~/lib/models/Pulley';
 import type { RatioDict } from '~/lib/models/Ratio';
 import Ratio from '~/lib/models/Ratio';
 import Sprocket from '~/lib/models/Sprocket';
-import { type Bore, zBore } from '~/lib/types/common';
+import { type Bore, type Vendor, zBoreSchema } from '~/lib/types/common';
 import type { JSONGear } from '~/lib/types/gears';
 import type { JSONPlanetaryInstance } from '~/lib/types/planetary';
 import type { JSONPulley } from '~/lib/types/pulleys';
@@ -388,6 +388,7 @@ export async function findGearboxes(
         ...p,
         inputBore: p.inputBore as Bore,
         outputBore: p.outputBore as Bore,
+        vendor: p.vendor as Vendor,
       }))
       .filter(
         (p) =>
@@ -492,7 +493,7 @@ export async function findGearboxes(
         ? generateCustomGears(
             filters.minGearTeeth,
             filters.maxGearTeeth,
-            zBore.options.filter((bore) => boreIsEnabled(bore)),
+            zBoreSchema.options.filter((bore) => boreIsEnabled(bore)),
           )
         : [],
     ),
@@ -522,6 +523,7 @@ export async function findGearboxes(
           Gear.fromJson({
             ...g,
             bore: g.bore as Bore,
+            vendor: g.vendor as Vendor,
           }),
         )
         .filter((g) => {
@@ -562,7 +564,7 @@ export async function findGearboxes(
         ? generateCustomPulleys(
             filters.minPulleyTeeth,
             filters.maxPulleyTeeth,
-            zBore.options.filter((bore) => boreIsEnabled(bore)),
+            zBoreSchema.options.filter((bore) => boreIsEnabled(bore)),
           )
         : [],
     ),
@@ -599,7 +601,13 @@ export async function findGearboxes(
     })
     .then((pulleys) =>
       pulleys
-        .map((p) => Pulley.fromJson({ ...p, bore: p.bore as Bore }))
+        .map((p) =>
+          Pulley.fromJson({
+            ...p,
+            bore: p.bore as Bore,
+            vendor: p.vendor as Vendor,
+          }),
+        )
         .filter((p) => {
           if (
             p.teeth < filters.minPulleyTeeth ||
@@ -639,7 +647,7 @@ export async function findGearboxes(
         ? generateCustomSprockets(
             filters.minSprocketTeeth,
             filters.maxSprocketTeeth,
-            zBore.options.filter((bore) => boreIsEnabled(bore)),
+            zBoreSchema.options.filter((bore) => boreIsEnabled(bore)),
           )
         : [],
     ),
@@ -679,6 +687,7 @@ export async function findGearboxes(
             ...s,
             bore: s.bore as Bore,
             chainType: s.chainType as ChainType,
+            vendor: s.vendor as Vendor,
           }),
         )
         .filter((s) => {

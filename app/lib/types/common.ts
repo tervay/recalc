@@ -1,7 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
-import { z } from 'zod';
+import * as z from 'zod';
 
-export const zBore = z.enum([
+export const zBoreSchema = z.enum([
   '8mm',
   '1.125" Round',
   '1/4" Round',
@@ -17,12 +17,13 @@ export const zBore = z.enum([
   'Vortex',
   '5mm Hex',
 ] as const);
-export type Bore = z.infer<typeof zBore>;
+export type Bore = z.infer<typeof zBoreSchema>;
 
-export const zVendor = z.enum([
+export const zVendorSchema = z.enum([
   'AndyMark',
   'BaneBots',
   'CTRE',
+  'Custom',
   'LastAnvil',
   'REV',
   'SDS',
@@ -32,7 +33,7 @@ export const zVendor = z.enum([
   'VEX',
   'WCP',
 ] as const);
-export type Vendor = z.infer<typeof zVendor>;
+export type Vendor = z.infer<typeof zVendorSchema>;
 
 export type StateHook<T> = [T, Dispatch<SetStateAction<T>>];
 

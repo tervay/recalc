@@ -2,6 +2,7 @@ import Qty from 'js-quantities';
 import { maxBy, minBy } from 'lodash-es';
 
 import Model from '~/lib/models/Model';
+import { SNAPSHOT_PRECISION } from '~/lib/utils';
 
 export type MeasurementDict = {
   readonly s: number;
@@ -220,7 +221,7 @@ export default class Measurement extends Model {
     return new Measurement(Math.max(0, this.scalar), this.units());
   }
 
-  round(n: number): Measurement {
+  round(n: number = SNAPSHOT_PRECISION): Measurement {
     return new Measurement(Number(this.scalar.toFixed(n)), this.units());
   }
 

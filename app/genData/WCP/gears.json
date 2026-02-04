@@ -1,5 +1,21 @@
 [
   {
+    "teeth": 18,
+    "dp": 20,
+    "bore": "1/4\" Round",
+    "url": "https://wcproducts.com/products/wcp-2093",
+    "sku": "WCP-2093",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 18,
+    "dp": 20,
+    "bore": "1/4\" Round",
+    "url": "https://wcproducts.com/products/wcp-2092",
+    "sku": "WCP-2092",
+    "vendor": "WCP"
+  },
+  {
     "teeth": 54,
     "dp": 20,
     "bore": "1/2\" Hex",

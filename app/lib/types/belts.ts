@@ -1,27 +1,27 @@
-import { z } from 'zod';
+import * as z from 'zod';
 
-import { zVendor } from '~/lib/types/common';
+import { zVendorSchema } from '~/lib/types/common';
 
-export const zJSONBelt = z.object({
+export const zJSONBeltSchema = z.object({
   teeth: z.number(),
   width: z.number().min(1), // mm
   profile: z.string(),
   pitch: z.number().min(1), // mm
   sku: z.string().nullable(),
   url: z.string().url(),
-  vendor: zVendor,
+  vendor: zVendorSchema,
 });
 
-export type JSONBelt = z.infer<typeof zJSONBelt>;
+export type JSONBelt = z.infer<typeof zJSONBeltSchema>;
 
-export const zWCPBelt = zJSONBelt;
-export type WCPBelt = z.infer<typeof zWCPBelt>;
+export const zWCPBeltSchema = zJSONBeltSchema;
+export type WCPBelt = z.infer<typeof zWCPBeltSchema>;
 
 export function wcpBeltToJsonBelt(belt: WCPBelt): JSONBelt {
   return { ...belt, vendor: 'WCP' };
 }
 
-export const zAndyMarkBelt = z.object({
+export const zAndyMarkBeltSchema = z.object({
   teeth: z.number(),
   width: z.number().min(1), // (mm)
   profile: z.string(),
@@ -29,7 +29,7 @@ export const zAndyMarkBelt = z.object({
   sku: z.string().nullable(),
   url: z.string().url(),
 });
-export type AndyMarkBelt = z.infer<typeof zAndyMarkBelt>;
+export type AndyMarkBelt = z.infer<typeof zAndyMarkBeltSchema>;
 
 export function andyMarkBeltToJsonBelt(belt: AndyMarkBelt): JSONBelt {
   return { ...belt, vendor: 'AndyMark' };

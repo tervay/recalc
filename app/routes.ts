@@ -12,7 +12,6 @@ export default [
   route('ratio', 'routes/ratio.tsx'),
   route('gears', 'routes/gears.tsx'),
   route('ratio-finder', 'routes/ratio-finder.tsx'),
-  route('visualizer', 'routes/visualizer.tsx'),
   route('privacy', 'routes/privacy.tsx'),
   route('about', 'routes/about.tsx'),
 ] satisfies RouteConfig;

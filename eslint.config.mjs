@@ -1,5 +1,4 @@
 import { includeIgnoreFile } from '@eslint/compat';
-import threeJsPlugin from '@react-three/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import importPlugin from 'eslint-plugin-import';
@@ -7,6 +6,7 @@ import jsxA11y from 'eslint-plugin-jsx-a11y';
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
 import pluginReact from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
+import pluginZod from 'eslint-plugin-zod';
 import globals from 'globals';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -32,9 +32,6 @@ export default tseslint.config([
   {
     files: ['**/*.{ts,tsx}'],
     extends: [tseslint.configs.recommendedTypeChecked],
-    plugins: {
-      'react-three': threeJsPlugin,
-    },
     languageOptions: {
       parserOptions: {
         projectService: {
@@ -92,14 +89,6 @@ export default tseslint.config([
         'error',
         { ignore: ['vaul-drawer-wrapper'] },
       ],
-    },
-  },
-
-  // Disable no-unknown-property for visualizer.tsx (React Three Fiber)
-  {
-    files: ['app/routes/visualizer.tsx'],
-    rules: {
-      'react/no-unknown-property': 'off',
     },
   },
 
@@ -162,6 +151,17 @@ export default tseslint.config([
     },
     rules: {
       'no-relative-import-paths/no-relative-import-paths': 'error',
+    },
+  },
+
+  // Zod
+  {
+    files: ['**/*.{ts,tsx}'],
+    plugins: {
+      zod: pluginZod,
+    },
+    rules: {
+      ...pluginZod.configs.recommended.rules,
     },
   },
 

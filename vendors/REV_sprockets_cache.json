@@ -1,0 +1,1640 @@
+{
+  "-5000_-5000": {
+    "productId": -5000,
+    "variantId": -5000,
+    "rawProduct": {
+      "id": -5000,
+      "title": "9T 1/2\" Hex REV ION 35 Sprocket",
+      "handle": "synthetic--5000",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5000,
+          "title": "REV-21-3706",
+          "option1": "REV-21-3706",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3706",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5000
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 9,
+      "bore": "1/2\" Hex",
+      "chainType": "#35",
+      "sku": "REV-21-3706",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5001_-5001": {
+    "productId": -5001,
+    "variantId": -5001,
+    "rawProduct": {
+      "id": -5001,
+      "title": "10T 1/2\" Hex REV ION 35 Sprocket",
+      "handle": "synthetic--5001",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5001,
+          "title": "REV-21-3707",
+          "option1": "REV-21-3707",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3707",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5001
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 10,
+      "bore": "1/2\" Hex",
+      "chainType": "#35",
+      "sku": "REV-21-3707",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5002_-5002": {
+    "productId": -5002,
+    "variantId": -5002,
+    "rawProduct": {
+      "id": -5002,
+      "title": "11T 1/2\" Hex REV ION 35 Sprocket",
+      "handle": "synthetic--5002",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5002,
+          "title": "REV-21-3708",
+          "option1": "REV-21-3708",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3708",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5002
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 11,
+      "bore": "1/2\" Hex",
+      "chainType": "#35",
+      "sku": "REV-21-3708",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5003_-5003": {
+    "productId": -5003,
+    "variantId": -5003,
+    "rawProduct": {
+      "id": -5003,
+      "title": "12T 1/2\" Hex REV ION 35 Sprocket",
+      "handle": "synthetic--5003",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5003,
+          "title": "REV-21-3709",
+          "option1": "REV-21-3709",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3709",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5003
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 12,
+      "bore": "1/2\" Hex",
+      "chainType": "#35",
+      "sku": "REV-21-3709",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5004_-5004": {
+    "productId": -5004,
+    "variantId": -5004,
+    "rawProduct": {
+      "id": -5004,
+      "title": "16T 1/2\" Hex REV ION 35 Sprocket",
+      "handle": "synthetic--5004",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5004,
+          "title": "REV-21-3710",
+          "option1": "REV-21-3710",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3710",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5004
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 16,
+      "bore": "1/2\" Hex",
+      "chainType": "#35",
+      "sku": "REV-21-3710",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5005_-5005": {
+    "productId": -5005,
+    "variantId": -5005,
+    "rawProduct": {
+      "id": -5005,
+      "title": "18T 1/2\" Hex REV ION 35 Sprocket",
+      "handle": "synthetic--5005",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5005,
+          "title": "REV-21-3711",
+          "option1": "REV-21-3711",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3711",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5005
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 18,
+      "bore": "1/2\" Hex",
+      "chainType": "#35",
+      "sku": "REV-21-3711",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5006_-5006": {
+    "productId": -5006,
+    "variantId": -5006,
+    "rawProduct": {
+      "id": -5006,
+      "title": "20T 1/2\" Hex REV ION 35 Sprocket",
+      "handle": "synthetic--5006",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5006,
+          "title": "REV-21-3712",
+          "option1": "REV-21-3712",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3712",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5006
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 20,
+      "bore": "1/2\" Hex",
+      "chainType": "#35",
+      "sku": "REV-21-3712",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5007_-5007": {
+    "productId": -5007,
+    "variantId": -5007,
+    "rawProduct": {
+      "id": -5007,
+      "title": "24T 1/2\" Hex REV ION 35 Sprocket",
+      "handle": "synthetic--5007",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5007,
+          "title": "REV-21-3713",
+          "option1": "REV-21-3713",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3713",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5007
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 24,
+      "bore": "1/2\" Hex",
+      "chainType": "#35",
+      "sku": "REV-21-3713",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5008_-5008": {
+    "productId": -5008,
+    "variantId": -5008,
+    "rawProduct": {
+      "id": -5008,
+      "title": "16T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5008",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5008,
+          "title": "REV-21-3718",
+          "option1": "REV-21-3718",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3718",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5008
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 16,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3718",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5009_-5009": {
+    "productId": -5009,
+    "variantId": -5009,
+    "rawProduct": {
+      "id": -5009,
+      "title": "18T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5009",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5009,
+          "title": "REV-21-3719",
+          "option1": "REV-21-3719",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3719",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5009
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 18,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3719",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5010_-5010": {
+    "productId": -5010,
+    "variantId": -5010,
+    "rawProduct": {
+      "id": -5010,
+      "title": "20T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5010",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5010,
+          "title": "REV-21-3720",
+          "option1": "REV-21-3720",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3720",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5010
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 20,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3720",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5011_-5011": {
+    "productId": -5011,
+    "variantId": -5011,
+    "rawProduct": {
+      "id": -5011,
+      "title": "24T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5011",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5011,
+          "title": "REV-21-3721",
+          "option1": "REV-21-3721",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3721",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5011
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 24,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3721",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5012_-5012": {
+    "productId": -5012,
+    "variantId": -5012,
+    "rawProduct": {
+      "id": -5012,
+      "title": "28T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5012",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5012,
+          "title": "REV-21-3722",
+          "option1": "REV-21-3722",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3722",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5012
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 28,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3722",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5013_-5013": {
+    "productId": -5013,
+    "variantId": -5013,
+    "rawProduct": {
+      "id": -5013,
+      "title": "32T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5013",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5013,
+          "title": "REV-21-3723",
+          "option1": "REV-21-3723",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3723",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5013
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 32,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3723",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5014_-5014": {
+    "productId": -5014,
+    "variantId": -5014,
+    "rawProduct": {
+      "id": -5014,
+      "title": "36T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5014",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5014,
+          "title": "REV-21-3724",
+          "option1": "REV-21-3724",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3724",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5014
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 36,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3724",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5015_-5015": {
+    "productId": -5015,
+    "variantId": -5015,
+    "rawProduct": {
+      "id": -5015,
+      "title": "40T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5015",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5015,
+          "title": "REV-21-3725",
+          "option1": "REV-21-3725",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3725",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5015
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 40,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3725",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5016_-5016": {
+    "productId": -5016,
+    "variantId": -5016,
+    "rawProduct": {
+      "id": -5016,
+      "title": "44T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5016",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5016,
+          "title": "REV-21-3726",
+          "option1": "REV-21-3726",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3726",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5016
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 44,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3726",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5017_-5017": {
+    "productId": -5017,
+    "variantId": -5017,
+    "rawProduct": {
+      "id": -5017,
+      "title": "48T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5017",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5017,
+          "title": "REV-21-3727",
+          "option1": "REV-21-3727",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3727",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5017
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 48,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3727",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5018_-5018": {
+    "productId": -5018,
+    "variantId": -5018,
+    "rawProduct": {
+      "id": -5018,
+      "title": "52T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5018",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5018,
+          "title": "REV-21-3728",
+          "option1": "REV-21-3728",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3728",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5018
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 52,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3728",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5019_-5019": {
+    "productId": -5019,
+    "variantId": -5019,
+    "rawProduct": {
+      "id": -5019,
+      "title": "56T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5019",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5019,
+          "title": "REV-21-3729",
+          "option1": "REV-21-3729",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3729",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5019
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 56,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3729",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5020_-5020": {
+    "productId": -5020,
+    "variantId": -5020,
+    "rawProduct": {
+      "id": -5020,
+      "title": "60T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5020",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5020,
+          "title": "REV-21-3730",
+          "option1": "REV-21-3730",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3730",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5020
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 60,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3730",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5021_-5021": {
+    "productId": -5021,
+    "variantId": -5021,
+    "rawProduct": {
+      "id": -5021,
+      "title": "64T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5021",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5021,
+          "title": "REV-21-3731",
+          "option1": "REV-21-3731",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3731",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5021
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 64,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3731",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5022_-5022": {
+    "productId": -5022,
+    "variantId": -5022,
+    "rawProduct": {
+      "id": -5022,
+      "title": "68T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5022",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5022,
+          "title": "REV-21-3732",
+          "option1": "REV-21-3732",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3732",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5022
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 68,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3732",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5023_-5023": {
+    "productId": -5023,
+    "variantId": -5023,
+    "rawProduct": {
+      "id": -5023,
+      "title": "72T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5023",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5023,
+          "title": "REV-21-3733",
+          "option1": "REV-21-3733",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3733",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5023
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 72,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3733",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5024_-5024": {
+    "productId": -5024,
+    "variantId": -5024,
+    "rawProduct": {
+      "id": -5024,
+      "title": "76T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5024",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5024,
+          "title": "REV-21-3734",
+          "option1": "REV-21-3734",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3734",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5024
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 76,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3734",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5025_-5025": {
+    "productId": -5025,
+    "variantId": -5025,
+    "rawProduct": {
+      "id": -5025,
+      "title": "80T MAXSpline REV ION 35 Sprocket",
+      "handle": "synthetic--5025",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5025,
+          "title": "REV-21-3735",
+          "option1": "REV-21-3735",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3735",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5025
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 80,
+      "bore": "MAXSpline",
+      "chainType": "#35",
+      "sku": "REV-21-3735",
+      "url": "https://www.revrobotics.com/ION-35-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5026_-5026": {
+    "productId": -5026,
+    "variantId": -5026,
+    "rawProduct": {
+      "id": -5026,
+      "title": "12T 1/2\" Hex REV ION 25 Sprocket",
+      "handle": "synthetic--5026",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5026,
+          "title": "REV-21-2014",
+          "option1": "REV-21-2014",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2014",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5026
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 12,
+      "bore": "1/2\" Hex",
+      "sku": "REV-21-2014",
+      "chainType": "#25",
+      "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5027_-5027": {
+    "productId": -5027,
+    "variantId": -5027,
+    "rawProduct": {
+      "id": -5027,
+      "title": "16T 1/2\" Hex REV ION 25 Sprocket",
+      "handle": "synthetic--5027",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5027,
+          "title": "REV-21-2012",
+          "option1": "REV-21-2012",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2012",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5027
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 16,
+      "bore": "1/2\" Hex",
+      "sku": "REV-21-2012",
+      "chainType": "#25",
+      "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5028_-5028": {
+    "productId": -5028,
+    "variantId": -5028,
+    "rawProduct": {
+      "id": -5028,
+      "title": "16T 1/2\" Hex REV ION 25 Sprocket",
+      "handle": "synthetic--5028",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5028,
+          "title": "REV-21-2016",
+          "option1": "REV-21-2016",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2016",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5028
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 16,
+      "bore": "1/2\" Hex",
+      "sku": "REV-21-2016",
+      "chainType": "#25",
+      "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5029_-5029": {
+    "productId": -5029,
+    "variantId": -5029,
+    "rawProduct": {
+      "id": -5029,
+      "title": "24T 1/2\" Hex REV ION 25 Sprocket",
+      "handle": "synthetic--5029",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5029,
+          "title": "REV-21-2017",
+          "option1": "REV-21-2017",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2017",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5029
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 24,
+      "bore": "1/2\" Hex",
+      "sku": "REV-21-2017",
+      "chainType": "#25",
+      "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5030_-5030": {
+    "productId": -5030,
+    "variantId": -5030,
+    "rawProduct": {
+      "id": -5030,
+      "title": "32T 1/2\" Hex REV ION 25 Sprocket",
+      "handle": "synthetic--5030",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5030,
+          "title": "REV-21-2018",
+          "option1": "REV-21-2018",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2018",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5030
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 32,
+      "bore": "1/2\" Hex",
+      "sku": "REV-21-2018",
+      "chainType": "#25",
+      "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5031_-5031": {
+    "productId": -5031,
+    "variantId": -5031,
+    "rawProduct": {
+      "id": -5031,
+      "title": "24T MAXSpline REV ION 25 Sprocket",
+      "handle": "synthetic--5031",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5031,
+          "title": "REV-21-2015",
+          "option1": "REV-21-2015",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2015",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5031
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 24,
+      "bore": "MAXSpline",
+      "sku": "REV-21-2015",
+      "chainType": "#25",
+      "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5032_-5032": {
+    "productId": -5032,
+    "variantId": -5032,
+    "rawProduct": {
+      "id": -5032,
+      "title": "32T MAXSpline REV ION 25 Sprocket",
+      "handle": "synthetic--5032",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5032,
+          "title": "REV-21-2019",
+          "option1": "REV-21-2019",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2019",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5032
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 32,
+      "bore": "MAXSpline",
+      "sku": "REV-21-2019",
+      "chainType": "#25",
+      "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5033_-5033": {
+    "productId": -5033,
+    "variantId": -5033,
+    "rawProduct": {
+      "id": -5033,
+      "title": "48T MAXSpline REV ION 25 Sprocket",
+      "handle": "synthetic--5033",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5033,
+          "title": "REV-21-1964",
+          "option1": "REV-21-1964",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1964",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5033
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 48,
+      "bore": "MAXSpline",
+      "sku": "REV-21-1964",
+      "chainType": "#25",
+      "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5034_-5034": {
+    "productId": -5034,
+    "variantId": -5034,
+    "rawProduct": {
+      "id": -5034,
+      "title": "64T MAXSpline REV ION 25 Sprocket",
+      "handle": "synthetic--5034",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5034,
+          "title": "REV-21-1972",
+          "option1": "REV-21-1972",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1972",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5034
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 64,
+      "bore": "MAXSpline",
+      "sku": "REV-21-1972",
+      "chainType": "#25",
+      "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5035_-5035": {
+    "productId": -5035,
+    "variantId": -5035,
+    "rawProduct": {
+      "id": -5035,
+      "title": "40T MAXSpline REV ION 25 Sprocket",
+      "handle": "synthetic--5035",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5035,
+          "title": "REV-21-3370",
+          "option1": "REV-21-3370",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3370",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5035
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 40,
+      "bore": "MAXSpline",
+      "sku": "REV-21-3370",
+      "chainType": "#25",
+      "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5036_-5036": {
+    "productId": -5036,
+    "variantId": -5036,
+    "rawProduct": {
+      "id": -5036,
+      "title": "48T MAXSpline REV ION 25 Sprocket",
+      "handle": "synthetic--5036",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5036,
+          "title": "REV-21-3374",
+          "option1": "REV-21-3374",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3374",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5036
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 48,
+      "bore": "MAXSpline",
+      "sku": "REV-21-3374",
+      "chainType": "#25",
+      "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5037_-5037": {
+    "productId": -5037,
+    "variantId": -5037,
+    "rawProduct": {
+      "id": -5037,
+      "title": "56T MAXSpline REV ION 25 Sprocket",
+      "handle": "synthetic--5037",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5037,
+          "title": "REV-21-3378",
+          "option1": "REV-21-3378",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3378",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5037
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 56,
+      "bore": "MAXSpline",
+      "sku": "REV-21-3378",
+      "chainType": "#25",
+      "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5038_-5038": {
+    "productId": -5038,
+    "variantId": -5038,
+    "rawProduct": {
+      "id": -5038,
+      "title": "64T MAXSpline REV ION 25 Sprocket",
+      "handle": "synthetic--5038",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5038,
+          "title": "REV-21-3382",
+          "option1": "REV-21-3382",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3382",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5038
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 64,
+      "bore": "MAXSpline",
+      "sku": "REV-21-3382",
+      "chainType": "#25",
+      "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5039_-5039": {
+    "productId": -5039,
+    "variantId": -5039,
+    "rawProduct": {
+      "id": -5039,
+      "title": "72T MAXSpline REV ION 25 Sprocket",
+      "handle": "synthetic--5039",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5039,
+          "title": "REV-21-3386",
+          "option1": "REV-21-3386",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3386",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5039
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 72,
+      "bore": "MAXSpline",
+      "sku": "REV-21-3386",
+      "chainType": "#25",
+      "url": "https://www.revrobotics.com/ION-25-Sprockets/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5040_-5040": {
+    "productId": -5040,
+    "variantId": -5040,
+    "rawProduct": {
+      "id": -5040,
+      "title": "10T 8mm REV NEO Pinion",
+      "handle": "synthetic--5040",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5040,
+          "title": "REV-21-2020",
+          "option1": "REV-21-2020",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2020",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5040
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 10,
+      "bore": "8mm",
+      "sku": "REV-21-2020",
+      "chainType": "#25",
+      "url": "https://www.revrobotics.com/neo-pinions/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  },
+  "-5041_-5041": {
+    "productId": -5041,
+    "variantId": -5041,
+    "rawProduct": {
+      "id": -5041,
+      "title": "12T 8mm REV NEO Pinion",
+      "handle": "synthetic--5041",
+      "vendor": "REV",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": -5041,
+          "title": "REV-21-3495",
+          "option1": "REV-21-3495",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3495",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -5041
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 12,
+      "bore": "8mm",
+      "sku": "REV-21-3495",
+      "chainType": "#25",
+      "url": "https://www.revrobotics.com/neo-pinions/",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:07.978Z",
+    "lastSeen": "2026-02-04T00:01:19.405Z"
+  }
+}

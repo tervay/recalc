@@ -1,0 +1,3322 @@
+{
+  "-4000_-4000": {
+    "productId": -4000,
+    "variantId": -4000,
+    "rawProduct": {
+      "id": -4000,
+      "title": "30T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4000",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4000,
+          "title": "AM-5209_30T",
+          "option1": "AM-5209_30T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_30T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4000
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 30,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_30T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4001_-4001": {
+    "productId": -4001,
+    "variantId": -4001,
+    "rawProduct": {
+      "id": -4001,
+      "title": "35T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4001",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4001,
+          "title": "AM-5209_35T",
+          "option1": "AM-5209_35T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_35T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4001
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 35,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_35T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4002_-4002": {
+    "productId": -4002,
+    "variantId": -4002,
+    "rawProduct": {
+      "id": -4002,
+      "title": "40T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4002",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4002,
+          "title": "AM-5209_40T",
+          "option1": "AM-5209_40T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_40T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4002
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 40,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_40T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4003_-4003": {
+    "productId": -4003,
+    "variantId": -4003,
+    "rawProduct": {
+      "id": -4003,
+      "title": "45T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4003",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4003,
+          "title": "AM-5209_45T",
+          "option1": "AM-5209_45T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_45T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4003
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 45,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_45T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4004_-4004": {
+    "productId": -4004,
+    "variantId": -4004,
+    "rawProduct": {
+      "id": -4004,
+      "title": "48T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4004",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4004,
+          "title": "AM-5209_48T",
+          "option1": "AM-5209_48T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_48T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4004
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 48,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_48T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4005_-4005": {
+    "productId": -4005,
+    "variantId": -4005,
+    "rawProduct": {
+      "id": -4005,
+      "title": "50T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4005",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4005,
+          "title": "AM-5209_50T",
+          "option1": "AM-5209_50T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_50T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4005
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 50,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_50T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4006_-4006": {
+    "productId": -4006,
+    "variantId": -4006,
+    "rawProduct": {
+      "id": -4006,
+      "title": "55T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4006",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4006,
+          "title": "AM-5209_55T",
+          "option1": "AM-5209_55T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_55T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4006
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 55,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_55T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4007_-4007": {
+    "productId": -4007,
+    "variantId": -4007,
+    "rawProduct": {
+      "id": -4007,
+      "title": "60T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4007",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4007,
+          "title": "AM-5209_60T",
+          "option1": "AM-5209_60T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_60T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4007
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 60,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_60T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4008_-4008": {
+    "productId": -4008,
+    "variantId": -4008,
+    "rawProduct": {
+      "id": -4008,
+      "title": "64T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4008",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4008,
+          "title": "AM-5209_64T",
+          "option1": "AM-5209_64T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_64T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4008
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 64,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_64T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4009_-4009": {
+    "productId": -4009,
+    "variantId": -4009,
+    "rawProduct": {
+      "id": -4009,
+      "title": "65T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4009",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4009,
+          "title": "AM-5209_65T",
+          "option1": "AM-5209_65T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_65T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4009
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 65,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_65T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4010_-4010": {
+    "productId": -4010,
+    "variantId": -4010,
+    "rawProduct": {
+      "id": -4010,
+      "title": "70T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4010",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4010,
+          "title": "AM-5209_70T",
+          "option1": "AM-5209_70T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_70T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4010
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 70,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_70T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4011_-4011": {
+    "productId": -4011,
+    "variantId": -4011,
+    "rawProduct": {
+      "id": -4011,
+      "title": "75T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4011",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4011,
+          "title": "AM-5209_75T",
+          "option1": "AM-5209_75T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_75T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4011
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 75,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_75T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4012_-4012": {
+    "productId": -4012,
+    "variantId": -4012,
+    "rawProduct": {
+      "id": -4012,
+      "title": "80T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4012",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4012,
+          "title": "AM-5209_80T",
+          "option1": "AM-5209_80T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_80T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4012
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 80,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_80T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4013_-4013": {
+    "productId": -4013,
+    "variantId": -4013,
+    "rawProduct": {
+      "id": -4013,
+      "title": "85T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4013",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4013,
+          "title": "AM-5209_85T",
+          "option1": "AM-5209_85T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_85T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4013
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 85,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_85T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4014_-4014": {
+    "productId": -4014,
+    "variantId": -4014,
+    "rawProduct": {
+      "id": -4014,
+      "title": "90T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4014",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4014,
+          "title": "AM-5209_90T",
+          "option1": "AM-5209_90T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_90T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4014
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 90,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_90T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4015_-4015": {
+    "productId": -4015,
+    "variantId": -4015,
+    "rawProduct": {
+      "id": -4015,
+      "title": "91T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4015",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4015,
+          "title": "AM-5209_91T",
+          "option1": "AM-5209_91T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_91T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4015
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 91,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_91T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4016_-4016": {
+    "productId": -4016,
+    "variantId": -4016,
+    "rawProduct": {
+      "id": -4016,
+      "title": "93T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4016",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4016,
+          "title": "AM-5209_93T",
+          "option1": "AM-5209_93T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_93T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4016
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 93,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_93T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4017_-4017": {
+    "productId": -4017,
+    "variantId": -4017,
+    "rawProduct": {
+      "id": -4017,
+      "title": "95T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4017",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4017,
+          "title": "AM-5209_95T",
+          "option1": "AM-5209_95T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_95T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4017
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 95,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_95T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4018_-4018": {
+    "productId": -4018,
+    "variantId": -4018,
+    "rawProduct": {
+      "id": -4018,
+      "title": "100T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4018",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4018,
+          "title": "AM-5209_100T",
+          "option1": "AM-5209_100T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_100T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4018
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 100,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_100T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4019_-4019": {
+    "productId": -4019,
+    "variantId": -4019,
+    "rawProduct": {
+      "id": -4019,
+      "title": "105T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4019",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4019,
+          "title": "AM-5209_105T",
+          "option1": "AM-5209_105T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_105T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4019
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 105,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_105T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4020_-4020": {
+    "productId": -4020,
+    "variantId": -4020,
+    "rawProduct": {
+      "id": -4020,
+      "title": "106T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4020",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4020,
+          "title": "AM-5209_106T",
+          "option1": "AM-5209_106T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_106T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4020
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 106,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_106T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4021_-4021": {
+    "productId": -4021,
+    "variantId": -4021,
+    "rawProduct": {
+      "id": -4021,
+      "title": "110T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4021",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4021,
+          "title": "AM-5209_110T",
+          "option1": "AM-5209_110T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_110T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4021
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 110,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_110T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4022_-4022": {
+    "productId": -4022,
+    "variantId": -4022,
+    "rawProduct": {
+      "id": -4022,
+      "title": "115T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4022",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4022,
+          "title": "AM-5209_115T",
+          "option1": "AM-5209_115T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_115T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4022
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 115,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_115T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4023_-4023": {
+    "productId": -4023,
+    "variantId": -4023,
+    "rawProduct": {
+      "id": -4023,
+      "title": "120T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4023",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4023,
+          "title": "AM-5209_120T",
+          "option1": "AM-5209_120T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_120T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4023
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 120,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_120T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4024_-4024": {
+    "productId": -4024,
+    "variantId": -4024,
+    "rawProduct": {
+      "id": -4024,
+      "title": "121T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4024",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4024,
+          "title": "AM-5209_121T",
+          "option1": "AM-5209_121T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_121T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4024
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 121,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_121T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4025_-4025": {
+    "productId": -4025,
+    "variantId": -4025,
+    "rawProduct": {
+      "id": -4025,
+      "title": "125T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4025",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4025,
+          "title": "AM-5209_125T",
+          "option1": "AM-5209_125T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_125T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4025
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 125,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_125T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4026_-4026": {
+    "productId": -4026,
+    "variantId": -4026,
+    "rawProduct": {
+      "id": -4026,
+      "title": "130T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4026",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4026,
+          "title": "AM-5209_130T",
+          "option1": "AM-5209_130T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_130T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4026
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 130,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_130T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4027_-4027": {
+    "productId": -4027,
+    "variantId": -4027,
+    "rawProduct": {
+      "id": -4027,
+      "title": "135T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4027",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4027,
+          "title": "AM-5209_135T",
+          "option1": "AM-5209_135T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_135T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4027
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 135,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_135T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4028_-4028": {
+    "productId": -4028,
+    "variantId": -4028,
+    "rawProduct": {
+      "id": -4028,
+      "title": "136T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4028",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4028,
+          "title": "AM-5209_136T",
+          "option1": "AM-5209_136T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_136T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4028
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 136,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_136T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4029_-4029": {
+    "productId": -4029,
+    "variantId": -4029,
+    "rawProduct": {
+      "id": -4029,
+      "title": "140T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4029",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4029,
+          "title": "AM-5209_140T",
+          "option1": "AM-5209_140T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_140T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4029
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 140,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_140T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4030_-4030": {
+    "productId": -4030,
+    "variantId": -4030,
+    "rawProduct": {
+      "id": -4030,
+      "title": "145T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4030",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4030,
+          "title": "AM-5209_145T",
+          "option1": "AM-5209_145T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_145T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4030
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 145,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_145T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4031_-4031": {
+    "productId": -4031,
+    "variantId": -4031,
+    "rawProduct": {
+      "id": -4031,
+      "title": "150T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4031",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4031,
+          "title": "AM-5209_150T",
+          "option1": "AM-5209_150T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_150T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4031
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 150,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_150T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4032_-4032": {
+    "productId": -4032,
+    "variantId": -4032,
+    "rawProduct": {
+      "id": -4032,
+      "title": "152T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4032",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4032,
+          "title": "AM-5209_152T",
+          "option1": "AM-5209_152T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_152T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4032
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 152,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_152T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4033_-4033": {
+    "productId": -4033,
+    "variantId": -4033,
+    "rawProduct": {
+      "id": -4033,
+      "title": "160T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4033",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4033,
+          "title": "AM-5209_160T",
+          "option1": "AM-5209_160T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_160T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4033
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 160,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_160T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4034_-4034": {
+    "productId": -4034,
+    "variantId": -4034,
+    "rawProduct": {
+      "id": -4034,
+      "title": "167T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4034",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4034,
+          "title": "AM-5209_167T",
+          "option1": "AM-5209_167T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_167T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4034
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 167,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_167T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4035_-4035": {
+    "productId": -4035,
+    "variantId": -4035,
+    "rawProduct": {
+      "id": -4035,
+      "title": "170T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4035",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4035,
+          "title": "AM-5209_170T",
+          "option1": "AM-5209_170T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_170T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4035
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 170,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_170T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4036_-4036": {
+    "productId": -4036,
+    "variantId": -4036,
+    "rawProduct": {
+      "id": -4036,
+      "title": "180T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4036",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4036,
+          "title": "AM-5209_180T",
+          "option1": "AM-5209_180T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_180T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4036
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 180,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_180T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4037_-4037": {
+    "productId": -4037,
+    "variantId": -4037,
+    "rawProduct": {
+      "id": -4037,
+      "title": "190T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4037",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4037,
+          "title": "AM-5209_190T",
+          "option1": "AM-5209_190T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_190T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4037
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 190,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_190T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4038_-4038": {
+    "productId": -4038,
+    "variantId": -4038,
+    "rawProduct": {
+      "id": -4038,
+      "title": "200T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4038",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4038,
+          "title": "AM-5209_200T",
+          "option1": "AM-5209_200T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_200T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4038
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 200,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_200T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4039_-4039": {
+    "productId": -4039,
+    "variantId": -4039,
+    "rawProduct": {
+      "id": -4039,
+      "title": "225T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4039",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4039,
+          "title": "AM-5209_225T",
+          "option1": "AM-5209_225T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_225T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4039
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 225,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_225T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4040_-4040": {
+    "productId": -4040,
+    "variantId": -4040,
+    "rawProduct": {
+      "id": -4040,
+      "title": "250T 9mm AndyMark HTD Belt",
+      "handle": "synthetic--4040",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4040,
+          "title": "AM-5209_250T",
+          "option1": "AM-5209_250T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5209_250T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4040
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 250,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5209_250T",
+      "url": "https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4041_-4041": {
+    "productId": -4041,
+    "variantId": -4041,
+    "rawProduct": {
+      "id": -4041,
+      "title": "30T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4041",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4041,
+          "title": "AM-5215_30T",
+          "option1": "AM-5215_30T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_30T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4041
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 30,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_30T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4042_-4042": {
+    "productId": -4042,
+    "variantId": -4042,
+    "rawProduct": {
+      "id": -4042,
+      "title": "35T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4042",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4042,
+          "title": "AM-5215_35T",
+          "option1": "AM-5215_35T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_35T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4042
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 35,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_35T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4043_-4043": {
+    "productId": -4043,
+    "variantId": -4043,
+    "rawProduct": {
+      "id": -4043,
+      "title": "40T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4043",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4043,
+          "title": "AM-5215_40T",
+          "option1": "AM-5215_40T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_40T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4043
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 40,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_40T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4044_-4044": {
+    "productId": -4044,
+    "variantId": -4044,
+    "rawProduct": {
+      "id": -4044,
+      "title": "45T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4044",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4044,
+          "title": "AM-5215_45T",
+          "option1": "AM-5215_45T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_45T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4044
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 45,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_45T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4045_-4045": {
+    "productId": -4045,
+    "variantId": -4045,
+    "rawProduct": {
+      "id": -4045,
+      "title": "50T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4045",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4045,
+          "title": "AM-5215_50T",
+          "option1": "AM-5215_50T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_50T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4045
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 50,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_50T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4046_-4046": {
+    "productId": -4046,
+    "variantId": -4046,
+    "rawProduct": {
+      "id": -4046,
+      "title": "55T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4046",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4046,
+          "title": "AM-5215_55T",
+          "option1": "AM-5215_55T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_55T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4046
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 55,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_55T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4047_-4047": {
+    "productId": -4047,
+    "variantId": -4047,
+    "rawProduct": {
+      "id": -4047,
+      "title": "60T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4047",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4047,
+          "title": "AM-5215_60T",
+          "option1": "AM-5215_60T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_60T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4047
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 60,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_60T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4048_-4048": {
+    "productId": -4048,
+    "variantId": -4048,
+    "rawProduct": {
+      "id": -4048,
+      "title": "64T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4048",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4048,
+          "title": "AM-5215_64T",
+          "option1": "AM-5215_64T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_64T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4048
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 64,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_64T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4049_-4049": {
+    "productId": -4049,
+    "variantId": -4049,
+    "rawProduct": {
+      "id": -4049,
+      "title": "65T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4049",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4049,
+          "title": "AM-5215_65T",
+          "option1": "AM-5215_65T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_65T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4049
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 65,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_65T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4050_-4050": {
+    "productId": -4050,
+    "variantId": -4050,
+    "rawProduct": {
+      "id": -4050,
+      "title": "70T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4050",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4050,
+          "title": "AM-5215_70T",
+          "option1": "AM-5215_70T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_70T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4050
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 70,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_70T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4051_-4051": {
+    "productId": -4051,
+    "variantId": -4051,
+    "rawProduct": {
+      "id": -4051,
+      "title": "75T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4051",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4051,
+          "title": "AM-5215_75T",
+          "option1": "AM-5215_75T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_75T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4051
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 75,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_75T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4052_-4052": {
+    "productId": -4052,
+    "variantId": -4052,
+    "rawProduct": {
+      "id": -4052,
+      "title": "78T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4052",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4052,
+          "title": "AM-5215_78T",
+          "option1": "AM-5215_78T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_78T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4052
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 78,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_78T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4053_-4053": {
+    "productId": -4053,
+    "variantId": -4053,
+    "rawProduct": {
+      "id": -4053,
+      "title": "80T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4053",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4053,
+          "title": "AM-5215_80T",
+          "option1": "AM-5215_80T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_80T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4053
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 80,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_80T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4054_-4054": {
+    "productId": -4054,
+    "variantId": -4054,
+    "rawProduct": {
+      "id": -4054,
+      "title": "85T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4054",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4054,
+          "title": "AM-5215_85T",
+          "option1": "AM-5215_85T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_85T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4054
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 85,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_85T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4055_-4055": {
+    "productId": -4055,
+    "variantId": -4055,
+    "rawProduct": {
+      "id": -4055,
+      "title": "90T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4055",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4055,
+          "title": "AM-5215_90T",
+          "option1": "AM-5215_90T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_90T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4055
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 90,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_90T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4056_-4056": {
+    "productId": -4056,
+    "variantId": -4056,
+    "rawProduct": {
+      "id": -4056,
+      "title": "95T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4056",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4056,
+          "title": "AM-5215_95T",
+          "option1": "AM-5215_95T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_95T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4056
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 95,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_95T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4057_-4057": {
+    "productId": -4057,
+    "variantId": -4057,
+    "rawProduct": {
+      "id": -4057,
+      "title": "100T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4057",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4057,
+          "title": "AM-5215_100T",
+          "option1": "AM-5215_100T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_100T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4057
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 100,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_100T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4058_-4058": {
+    "productId": -4058,
+    "variantId": -4058,
+    "rawProduct": {
+      "id": -4058,
+      "title": "104T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4058",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4058,
+          "title": "AM-5215_104T",
+          "option1": "AM-5215_104T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_104T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4058
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 104,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_104T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4059_-4059": {
+    "productId": -4059,
+    "variantId": -4059,
+    "rawProduct": {
+      "id": -4059,
+      "title": "105T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4059",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4059,
+          "title": "AM-5215_105T",
+          "option1": "AM-5215_105T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_105T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4059
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 105,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_105T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4060_-4060": {
+    "productId": -4060,
+    "variantId": -4060,
+    "rawProduct": {
+      "id": -4060,
+      "title": "107T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4060",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4060,
+          "title": "AM-5215_107T",
+          "option1": "AM-5215_107T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_107T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4060
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 107,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_107T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4061_-4061": {
+    "productId": -4061,
+    "variantId": -4061,
+    "rawProduct": {
+      "id": -4061,
+      "title": "110T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4061",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4061,
+          "title": "AM-5215_110T",
+          "option1": "AM-5215_110T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_110T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4061
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 110,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_110T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4062_-4062": {
+    "productId": -4062,
+    "variantId": -4062,
+    "rawProduct": {
+      "id": -4062,
+      "title": "115T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4062",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4062,
+          "title": "AM-5215_115T",
+          "option1": "AM-5215_115T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_115T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4062
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 115,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_115T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4063_-4063": {
+    "productId": -4063,
+    "variantId": -4063,
+    "rawProduct": {
+      "id": -4063,
+      "title": "117T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4063",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4063,
+          "title": "AM-5215_117T",
+          "option1": "AM-5215_117T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_117T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4063
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 117,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_117T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4064_-4064": {
+    "productId": -4064,
+    "variantId": -4064,
+    "rawProduct": {
+      "id": -4064,
+      "title": "120T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4064",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4064,
+          "title": "AM-5215_120T",
+          "option1": "AM-5215_120T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_120T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4064
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 120,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_120T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4065_-4065": {
+    "productId": -4065,
+    "variantId": -4065,
+    "rawProduct": {
+      "id": -4065,
+      "title": "125T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4065",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4065,
+          "title": "AM-5215_125T",
+          "option1": "AM-5215_125T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_125T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4065
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 125,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_125T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4066_-4066": {
+    "productId": -4066,
+    "variantId": -4066,
+    "rawProduct": {
+      "id": -4066,
+      "title": "130T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4066",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4066,
+          "title": "AM-5215_130T",
+          "option1": "AM-5215_130T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_130T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4066
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 130,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_130T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4067_-4067": {
+    "productId": -4067,
+    "variantId": -4067,
+    "rawProduct": {
+      "id": -4067,
+      "title": "131T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4067",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4067,
+          "title": "AM-5215_131T",
+          "option1": "AM-5215_131T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_131T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4067
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 131,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_131T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4068_-4068": {
+    "productId": -4068,
+    "variantId": -4068,
+    "rawProduct": {
+      "id": -4068,
+      "title": "135T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4068",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4068,
+          "title": "AM-5215_135T",
+          "option1": "AM-5215_135T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_135T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4068
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 135,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_135T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4069_-4069": {
+    "productId": -4069,
+    "variantId": -4069,
+    "rawProduct": {
+      "id": -4069,
+      "title": "140T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4069",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4069,
+          "title": "AM-5215_140T",
+          "option1": "AM-5215_140T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_140T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4069
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 140,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_140T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4070_-4070": {
+    "productId": -4070,
+    "variantId": -4070,
+    "rawProduct": {
+      "id": -4070,
+      "title": "145T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4070",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4070,
+          "title": "AM-5215_145T",
+          "option1": "AM-5215_145T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_145T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4070
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 145,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_145T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4071_-4071": {
+    "productId": -4071,
+    "variantId": -4071,
+    "rawProduct": {
+      "id": -4071,
+      "title": "150T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4071",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4071,
+          "title": "AM-5215_150T",
+          "option1": "AM-5215_150T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_150T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4071
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 150,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_150T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4072_-4072": {
+    "productId": -4072,
+    "variantId": -4072,
+    "rawProduct": {
+      "id": -4072,
+      "title": "151T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4072",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4072,
+          "title": "AM-5215_151T",
+          "option1": "AM-5215_151T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_151T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4072
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 151,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_151T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4073_-4073": {
+    "productId": -4073,
+    "variantId": -4073,
+    "rawProduct": {
+      "id": -4073,
+      "title": "160T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4073",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4073,
+          "title": "AM-5215_160T",
+          "option1": "AM-5215_160T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_160T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4073
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 160,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_160T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4074_-4074": {
+    "productId": -4074,
+    "variantId": -4074,
+    "rawProduct": {
+      "id": -4074,
+      "title": "170T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4074",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4074,
+          "title": "AM-5215_170T",
+          "option1": "AM-5215_170T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_170T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4074
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 170,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_170T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4075_-4075": {
+    "productId": -4075,
+    "variantId": -4075,
+    "rawProduct": {
+      "id": -4075,
+      "title": "180T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4075",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4075,
+          "title": "AM-5215_180T",
+          "option1": "AM-5215_180T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_180T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4075
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 180,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_180T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4076_-4076": {
+    "productId": -4076,
+    "variantId": -4076,
+    "rawProduct": {
+      "id": -4076,
+      "title": "190T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4076",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4076,
+          "title": "AM-5215_190T",
+          "option1": "AM-5215_190T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_190T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4076
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 190,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_190T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4077_-4077": {
+    "productId": -4077,
+    "variantId": -4077,
+    "rawProduct": {
+      "id": -4077,
+      "title": "200T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4077",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4077,
+          "title": "AM-5215_200T",
+          "option1": "AM-5215_200T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_200T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4077
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 200,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_200T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4078_-4078": {
+    "productId": -4078,
+    "variantId": -4078,
+    "rawProduct": {
+      "id": -4078,
+      "title": "210T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4078",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4078,
+          "title": "AM-5215_210T",
+          "option1": "AM-5215_210T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_210T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4078
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 210,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_210T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4079_-4079": {
+    "productId": -4079,
+    "variantId": -4079,
+    "rawProduct": {
+      "id": -4079,
+      "title": "220T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4079",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4079,
+          "title": "AM-5215_220T",
+          "option1": "AM-5215_220T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_220T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4079
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 220,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_220T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4080_-4080": {
+    "productId": -4080,
+    "variantId": -4080,
+    "rawProduct": {
+      "id": -4080,
+      "title": "225T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4080",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4080,
+          "title": "AM-5215_225T",
+          "option1": "AM-5215_225T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_225T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4080
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 225,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_225T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4081_-4081": {
+    "productId": -4081,
+    "variantId": -4081,
+    "rawProduct": {
+      "id": -4081,
+      "title": "230T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4081",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4081,
+          "title": "AM-5215_230T",
+          "option1": "AM-5215_230T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_230T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4081
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 230,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_230T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  },
+  "-4082_-4082": {
+    "productId": -4082,
+    "variantId": -4082,
+    "rawProduct": {
+      "id": -4082,
+      "title": "250T 15mm AndyMark HTD Belt",
+      "handle": "synthetic--4082",
+      "vendor": "AndyMark",
+      "product_type": "Belt",
+      "tags": [],
+      "variants": [
+        {
+          "id": -4082,
+          "title": "AM-5215_250T",
+          "option1": "AM-5215_250T",
+          "option2": null,
+          "option3": null,
+          "sku": "AM-5215_250T",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -4082
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 250,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "AM-5215_250T",
+      "url": "https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
+      "vendor": "AndyMark"
+    },
+    "firstSeen": "2026-02-03T23:00:58.564Z",
+    "lastSeen": "2026-02-04T00:01:24.386Z"
+  }
+}

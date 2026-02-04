@@ -1,22 +1,22 @@
-import { z } from 'zod';
+import * as z from 'zod';
 
 import Measurement from '~/lib/models/Measurement';
-import { type Bore, zBore, zVendor } from '~/lib/types/common';
+import { type Bore, zBoreSchema, zVendorSchema } from '~/lib/types/common';
 
-export const zJSONPulley = z.object({
+export const zJSONPulleySchema = z.object({
   teeth: z.number(),
   width: z.number().min(1), // (mm)
   profile: z.string(),
   pitch: z.number().min(1), // (mm)
   sku: z.string().nullable(),
   url: z.string().url(),
-  bore: zBore,
-  vendor: zVendor,
+  bore: zBoreSchema,
+  vendor: zVendorSchema,
 });
 
-export type JSONPulley = z.infer<typeof zJSONPulley>;
+export type JSONPulley = z.infer<typeof zJSONPulleySchema>;
 
-export const zWCPPulleyBore = z.enum([
+export const zWCPPulleyBoreSchema = z.enum([
   '1/2" Hex',
   '8mm',
   '8mm Key',
@@ -25,19 +25,19 @@ export const zWCPPulleyBore = z.enum([
   'RS775',
   'RS550',
 ] as const);
-export type WCPPulleyBore = z.infer<typeof zWCPPulleyBore>;
+export type WCPPulleyBore = z.infer<typeof zWCPPulleyBoreSchema>;
 
-export const zWCPPulley = z.object({
+export const zWCPPulleySchema = z.object({
   teeth: z.number(),
   width: z.number().min(1), // (mm)
   profile: z.string(),
   pitch: z.number().min(1), // (mm)
   sku: z.string().nullable(),
   url: z.string().url(),
-  bore: zWCPPulleyBore,
+  bore: zWCPPulleyBoreSchema,
 });
 
-export type WCPPulley = z.infer<typeof zWCPPulley>;
+export type WCPPulley = z.infer<typeof zWCPPulleySchema>;
 
 export function wcpPulleyToJsonPulley(pulley: WCPPulley): JSONPulley {
   const wcpBoreToJsonBore: Record<WCPPulleyBore, Bore> = {
@@ -57,24 +57,24 @@ export function wcpPulleyToJsonPulley(pulley: WCPPulley): JSONPulley {
   };
 }
 
-export const zThriftyPulleyBore = z.enum([
+export const zThriftyPulleyBoreSchema = z.enum([
   'Kraken Spline',
   'Falcon',
   '8mm Keyed',
   'Bearing / Hub',
   '1/2" Hex',
 ] as const);
-export type ThriftyPulleyBore = z.infer<typeof zThriftyPulleyBore>;
+export type ThriftyPulleyBore = z.infer<typeof zThriftyPulleyBoreSchema>;
 
-export const zThriftyPulley = z.object({
+export const zThriftyPulleySchema = z.object({
   teeth: z.number(),
   profile: z.enum(['HTD']),
-  bore: zThriftyPulleyBore,
+  bore: zThriftyPulleyBoreSchema,
   sku: z.string(),
   url: z.string().url(),
 });
 
-export type ThriftyPulley = z.infer<typeof zThriftyPulley>;
+export type ThriftyPulley = z.infer<typeof zThriftyPulleySchema>;
 
 export function thriftyPulleyToJsonPulley(pulley: ThriftyPulley): JSONPulley {
   const thriftyBoreToJsonBore: Record<ThriftyPulleyBore, Bore> = {
@@ -94,18 +94,18 @@ export function thriftyPulleyToJsonPulley(pulley: ThriftyPulley): JSONPulley {
   };
 }
 
-export const zREVPulleyBore = z.enum(['8mm', '1/2" Hex', 'MAXSpline']);
-export type REVPulleyBore = z.infer<typeof zREVPulleyBore>;
+export const zREVPulleyBoreSchema = z.enum(['8mm', '1/2" Hex', 'MAXSpline']);
+export type REVPulleyBore = z.infer<typeof zREVPulleyBoreSchema>;
 
-export const zREVPulley = z.object({
+export const zREVPulleySchema = z.object({
   teeth: z.number(),
   width: z.number().min(0.25), // (inches)
-  bore: zREVPulleyBore,
+  bore: zREVPulleyBoreSchema,
   sku: z.string(),
   url: z.string().url(),
 });
 
-export type REVPulley = z.infer<typeof zREVPulley>;
+export type REVPulley = z.infer<typeof zREVPulleySchema>;
 
 export function revPulleyToJsonPulley(pulley: REVPulley): JSONPulley {
   return {
@@ -120,17 +120,17 @@ export function revPulleyToJsonPulley(pulley: REVPulley): JSONPulley {
   };
 }
 
-export const zAndyMarkPulley = z.object({
+export const zAndyMarkPulleySchema = z.object({
   teeth: z.number(),
   width: z.number().min(1), // (mm)
   profile: z.string(),
   pitch: z.number().min(1), // (mm)
   sku: z.string().nullable(),
   url: z.string().url(),
-  bore: zBore,
+  bore: zBoreSchema,
 });
 
-export type AndyMarkPulley = z.infer<typeof zAndyMarkPulley>;
+export type AndyMarkPulley = z.infer<typeof zAndyMarkPulleySchema>;
 
 export function andyMarkPulleyToJsonPulley(pulley: AndyMarkPulley): JSONPulley {
   return {

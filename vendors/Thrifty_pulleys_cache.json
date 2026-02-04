@@ -1,0 +1,212 @@
+{
+  "9635412902187_49448531034411": {
+    "productId": 9635412902187,
+    "variantId": 49448531034411,
+    "rawProduct": {
+      "id": 9635412902187,
+      "title": "QTY 1 - 48 Tooth HTD Pulley - Bearing / Hub Bore",
+      "handle": "qty-1-48-tooth-htd-pulley-bearing-hub-bore",
+      "vendor": "The Thrifty Bot",
+      "product_type": "",
+      "tags": [],
+      "variants": [
+        {
+          "id": 49448531034411,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "TTB-0128",
+          "available": true,
+          "price": "24.99",
+          "grams": 340,
+          "position": 2,
+          "product_id": 9635412902187
+        }
+      ],
+      "images": [
+        {
+          "id": 47031816323371,
+          "created_at": "2024-08-09T20:22:36-04:00",
+          "position": 1,
+          "updated_at": "2024-08-09T20:22:39-04:00",
+          "product_id": 9635412902187,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0795/8446/1099/files/PXL_20240809_154755738.jpg?v=1723249359",
+          "width": 3072,
+          "height": 4080
+        },
+        {
+          "id": 47031816290603,
+          "created_at": "2024-08-09T20:22:36-04:00",
+          "position": 2,
+          "updated_at": "2024-08-09T20:22:39-04:00",
+          "product_id": 9635412902187,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0795/8446/1099/files/PXL_20240809_154732125.jpg?v=1723249359",
+          "width": 3072,
+          "height": 4080
+        }
+      ],
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": ["Default Title"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 48,
+      "profile": "HTD",
+      "bore": "1.125\" Round",
+      "sku": "TTB-0128",
+      "url": "https://www.thethriftybot.com/products/qty-1-48-tooth-htd-pulley-bearing-hub-bore",
+      "vendor": "Thrifty",
+      "width": 18.5,
+      "pitch": 5
+    },
+    "firstSeen": "2026-02-03T23:02:50.884Z",
+    "lastSeen": "2026-02-04T00:01:24.992Z"
+  },
+  "8493575504171_45951165727019": {
+    "productId": 8493575504171,
+    "variantId": 45951165727019,
+    "rawProduct": {
+      "id": 8493575504171,
+      "title": "QTY 1 - 11 Tooth HTD Falcon Motor Output Pulley",
+      "handle": "qty-1-11-tooth-htd-falcon-motor-output-pulley",
+      "vendor": "The Thrifty Bot",
+      "product_type": "",
+      "tags": [],
+      "variants": [
+        {
+          "id": 45951165727019,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "TTB-0062",
+          "available": true,
+          "price": "11.99",
+          "grams": 7,
+          "position": 1,
+          "product_id": 8493575504171
+        }
+      ],
+      "images": [
+        {
+          "id": 42023941472555,
+          "created_at": "2023-07-31T13:25:19-04:00",
+          "position": 1,
+          "updated_at": "2023-07-31T13:25:21-04:00",
+          "product_id": 8493575504171,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0795/8446/1099/files/3459128773.jpg?v=1690824321",
+          "width": 1129,
+          "height": 1500
+        },
+        {
+          "id": 42028345590059,
+          "created_at": "2023-07-31T20:14:21-04:00",
+          "position": 2,
+          "updated_at": "2023-07-31T20:14:22-04:00",
+          "product_id": 8493575504171,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0795/8446/1099/files/3459071662_665a5739-7398-4286-a0bc-66c5204792ff.png?v=1690848862",
+          "width": 1129,
+          "height": 1500
+        }
+      ],
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": ["Default Title"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 11,
+      "profile": "HTD",
+      "bore": "Falcon",
+      "sku": "TTB-0062",
+      "url": "https://www.thethriftybot.com/products/qty-1-11-tooth-htd-falcon-motor-output-pulley",
+      "vendor": "Thrifty",
+      "width": 18.5,
+      "pitch": 5
+    },
+    "firstSeen": "2026-02-03T23:02:50.884Z",
+    "lastSeen": "2026-02-04T00:01:24.992Z"
+  },
+  "8493575471403_45951165694251": {
+    "productId": 8493575471403,
+    "variantId": 45951165694251,
+    "rawProduct": {
+      "id": 8493575471403,
+      "title": "QTY 1 - 11 Tooth HTD 8mm Keyed Motor Output Pulley",
+      "handle": "qty-1-11-tooth-htd-8mm-keyed-motor-output-pulley",
+      "vendor": "The Thrifty Bot",
+      "product_type": "",
+      "tags": [],
+      "variants": [
+        {
+          "id": 45951165694251,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "TTB-0061",
+          "available": true,
+          "price": "11.99",
+          "grams": 113,
+          "position": 1,
+          "product_id": 8493575471403
+        }
+      ],
+      "images": [
+        {
+          "id": 42028333367595,
+          "created_at": "2023-07-31T20:12:58-04:00",
+          "position": 1,
+          "updated_at": "2023-07-31T20:12:59-04:00",
+          "product_id": 8493575471403,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0795/8446/1099/files/3459104693.jpg?v=1690848779",
+          "width": 1129,
+          "height": 1500
+        },
+        {
+          "id": 42028334219563,
+          "created_at": "2023-07-31T20:13:05-04:00",
+          "position": 2,
+          "updated_at": "2023-07-31T20:13:07-04:00",
+          "product_id": 8493575471403,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0795/8446/1099/files/3459071662.png?v=1690848787",
+          "width": 1129,
+          "height": 1500
+        }
+      ],
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": ["Default Title"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 11,
+      "profile": "HTD",
+      "bore": "8mm",
+      "sku": "TTB-0061",
+      "url": "https://www.thethriftybot.com/products/qty-1-11-tooth-htd-8mm-keyed-motor-output-pulley",
+      "vendor": "Thrifty",
+      "width": 18.5,
+      "pitch": 5
+    },
+    "firstSeen": "2026-02-03T23:02:50.884Z",
+    "lastSeen": "2026-02-04T00:01:24.992Z"
+  }
+}

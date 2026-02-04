@@ -4,7 +4,7 @@ import type { MotorDict } from '~/lib/models/Motor';
 import Motor from '~/lib/models/Motor';
 import type { RatioDict } from '~/lib/models/Ratio';
 import Ratio from '~/lib/models/Ratio';
-import { obliterateArray } from '~/lib/utils';
+import { SNAPSHOT_PRECISION, obliterateArray, toFixed } from '~/lib/utils';
 import { arrayToVectorDouble } from '~/lib/wpilib/util';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
 
@@ -84,16 +84,20 @@ export async function simulateFlywheelWpilib(
     timestamp += SIM_TIMESTEP_SECONDS;
 
     states.push({
-      timeSeconds: parseFloat(timestamp.toFixed(3)),
+      timeSeconds: toFixed(timestamp, 3),
       angularVelocity: new Measurement(
         flywheelSim.getAngularVelocity(),
         'rad/s',
-      ).to('rpm').scalar,
-      currentDraw: flywheelSim.getCurrentDraw(),
-      batteryVoltage: wpilibc.BatterySim_calculateLoadedBatteryVoltage(
-        supplyVoltage.to('V').scalar,
-        batteryResistance.to('Ohm').scalar,
-        arrayToVectorDouble([flywheelSim.getCurrentDraw()]),
+      )
+        .to('rpm')
+        .round(SNAPSHOT_PRECISION).scalar,
+      currentDraw: toFixed(flywheelSim.getCurrentDraw()),
+      batteryVoltage: toFixed(
+        wpilibc.BatterySim_calculateLoadedBatteryVoltage(
+          supplyVoltage.to('V').scalar,
+          batteryResistance.to('Ohm').scalar,
+          arrayToVectorDouble([flywheelSim.getCurrentDraw()]),
+        ),
       ),
     });
   }

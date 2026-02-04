@@ -1,0 +1,2186 @@
+{
+  "-7000_-7000": {
+    "productId": -7000,
+    "variantId": -7000,
+    "rawProduct": {
+      "id": -7000,
+      "title": "32T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7000",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7000,
+          "title": "REV-21-3010",
+          "option1": "REV-21-3010",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3010",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7000
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 32,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3010",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7001_-7001": {
+    "productId": -7001,
+    "variantId": -7001,
+    "rawProduct": {
+      "id": -7001,
+      "title": "34T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7001",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7001,
+          "title": "REV-21-3011",
+          "option1": "REV-21-3011",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3011",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7001
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 34,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3011",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7002_-7002": {
+    "productId": -7002,
+    "variantId": -7002,
+    "rawProduct": {
+      "id": -7002,
+      "title": "36T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7002",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7002,
+          "title": "REV-21-3012",
+          "option1": "REV-21-3012",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3012",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7002
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 36,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3012",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7003_-7003": {
+    "productId": -7003,
+    "variantId": -7003,
+    "rawProduct": {
+      "id": -7003,
+      "title": "38T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7003",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7003,
+          "title": "REV-21-3013",
+          "option1": "REV-21-3013",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3013",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7003
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 38,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3013",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7004_-7004": {
+    "productId": -7004,
+    "variantId": -7004,
+    "rawProduct": {
+      "id": -7004,
+      "title": "40T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7004",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7004,
+          "title": "REV-21-3014",
+          "option1": "REV-21-3014",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3014",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7004
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 40,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3014",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7005_-7005": {
+    "productId": -7005,
+    "variantId": -7005,
+    "rawProduct": {
+      "id": -7005,
+      "title": "42T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7005",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7005,
+          "title": "REV-21-3015",
+          "option1": "REV-21-3015",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3015",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7005
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 42,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3015",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7006_-7006": {
+    "productId": -7006,
+    "variantId": -7006,
+    "rawProduct": {
+      "id": -7006,
+      "title": "44T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7006",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7006,
+          "title": "REV-21-3016",
+          "option1": "REV-21-3016",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3016",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7006
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 44,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3016",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7007_-7007": {
+    "productId": -7007,
+    "variantId": -7007,
+    "rawProduct": {
+      "id": -7007,
+      "title": "46T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7007",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7007,
+          "title": "REV-21-3017",
+          "option1": "REV-21-3017",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3017",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7007
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 46,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3017",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7008_-7008": {
+    "productId": -7008,
+    "variantId": -7008,
+    "rawProduct": {
+      "id": -7008,
+      "title": "48T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7008",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7008,
+          "title": "REV-21-3018",
+          "option1": "REV-21-3018",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3018",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7008
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 48,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3018",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7009_-7009": {
+    "productId": -7009,
+    "variantId": -7009,
+    "rawProduct": {
+      "id": -7009,
+      "title": "50T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7009",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7009,
+          "title": "REV-21-3019",
+          "option1": "REV-21-3019",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3019",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7009
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 50,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3019",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7010_-7010": {
+    "productId": -7010,
+    "variantId": -7010,
+    "rawProduct": {
+      "id": -7010,
+      "title": "52T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7010",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7010,
+          "title": "REV-21-3020",
+          "option1": "REV-21-3020",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3020",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7010
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 52,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3020",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7011_-7011": {
+    "productId": -7011,
+    "variantId": -7011,
+    "rawProduct": {
+      "id": -7011,
+      "title": "54T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7011",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7011,
+          "title": "REV-21-3021",
+          "option1": "REV-21-3021",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3021",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7011
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 54,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3021",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7012_-7012": {
+    "productId": -7012,
+    "variantId": -7012,
+    "rawProduct": {
+      "id": -7012,
+      "title": "56T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7012",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7012,
+          "title": "REV-21-3022",
+          "option1": "REV-21-3022",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3022",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7012
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 56,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3022",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7013_-7013": {
+    "productId": -7013,
+    "variantId": -7013,
+    "rawProduct": {
+      "id": -7013,
+      "title": "58T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7013",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7013,
+          "title": "REV-21-3023",
+          "option1": "REV-21-3023",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3023",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7013
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 58,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3023",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7014_-7014": {
+    "productId": -7014,
+    "variantId": -7014,
+    "rawProduct": {
+      "id": -7014,
+      "title": "60T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7014",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7014,
+          "title": "REV-21-3024",
+          "option1": "REV-21-3024",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3024",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7014
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 60,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3024",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7015_-7015": {
+    "productId": -7015,
+    "variantId": -7015,
+    "rawProduct": {
+      "id": -7015,
+      "title": "62T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7015",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7015,
+          "title": "REV-21-3025",
+          "option1": "REV-21-3025",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3025",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7015
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 62,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3025",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7016_-7016": {
+    "productId": -7016,
+    "variantId": -7016,
+    "rawProduct": {
+      "id": -7016,
+      "title": "64T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7016",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7016,
+          "title": "REV-21-3026",
+          "option1": "REV-21-3026",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3026",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7016
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 64,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3026",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7017_-7017": {
+    "productId": -7017,
+    "variantId": -7017,
+    "rawProduct": {
+      "id": -7017,
+      "title": "66T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7017",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7017,
+          "title": "REV-21-3027",
+          "option1": "REV-21-3027",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3027",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7017
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 66,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3027",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7018_-7018": {
+    "productId": -7018,
+    "variantId": -7018,
+    "rawProduct": {
+      "id": -7018,
+      "title": "68T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7018",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7018,
+          "title": "REV-21-3028",
+          "option1": "REV-21-3028",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3028",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7018
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 68,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3028",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7019_-7019": {
+    "productId": -7019,
+    "variantId": -7019,
+    "rawProduct": {
+      "id": -7019,
+      "title": "72T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7019",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7019,
+          "title": "REV-21-3030",
+          "option1": "REV-21-3030",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3030",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7019
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 72,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3030",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7020_-7020": {
+    "productId": -7020,
+    "variantId": -7020,
+    "rawProduct": {
+      "id": -7020,
+      "title": "80T 20DP MAXSpline REV Gear",
+      "handle": "synthetic--7020",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7020,
+          "title": "REV-21-3034",
+          "option1": "REV-21-3034",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-3034",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7020
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 80,
+      "dp": 20,
+      "bore": "MAXSpline",
+      "url": "https://www.revrobotics.com/20DP-Gears-Maxspline/",
+      "sku": "REV-21-3034",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7021_-7021": {
+    "productId": -7021,
+    "variantId": -7021,
+    "rawProduct": {
+      "id": -7021,
+      "title": "18T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7021",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7021,
+          "title": "REV-21-1920",
+          "option1": "REV-21-1920",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1920",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7021
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 18,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1920",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7022_-7022": {
+    "productId": -7022,
+    "variantId": -7022,
+    "rawProduct": {
+      "id": -7022,
+      "title": "20T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7022",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7022,
+          "title": "REV-21-1921",
+          "option1": "REV-21-1921",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1921",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7022
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 20,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1921",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7023_-7023": {
+    "productId": -7023,
+    "variantId": -7023,
+    "rawProduct": {
+      "id": -7023,
+      "title": "22T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7023",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7023,
+          "title": "REV-21-1922",
+          "option1": "REV-21-1922",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1922",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7023
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 22,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1922",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7024_-7024": {
+    "productId": -7024,
+    "variantId": -7024,
+    "rawProduct": {
+      "id": -7024,
+      "title": "24T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7024",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7024,
+          "title": "REV-21-1923",
+          "option1": "REV-21-1923",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1923",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7024
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 24,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1923",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7025_-7025": {
+    "productId": -7025,
+    "variantId": -7025,
+    "rawProduct": {
+      "id": -7025,
+      "title": "26T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7025",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7025,
+          "title": "REV-21-1924",
+          "option1": "REV-21-1924",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1924",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7025
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 26,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1924",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7026_-7026": {
+    "productId": -7026,
+    "variantId": -7026,
+    "rawProduct": {
+      "id": -7026,
+      "title": "28T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7026",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7026,
+          "title": "REV-21-1925",
+          "option1": "REV-21-1925",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1925",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7026
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 28,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1925",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7027_-7027": {
+    "productId": -7027,
+    "variantId": -7027,
+    "rawProduct": {
+      "id": -7027,
+      "title": "30T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7027",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7027,
+          "title": "REV-21-1926",
+          "option1": "REV-21-1926",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1926",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7027
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 30,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1926",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7028_-7028": {
+    "productId": -7028,
+    "variantId": -7028,
+    "rawProduct": {
+      "id": -7028,
+      "title": "32T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7028",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7028,
+          "title": "REV-21-1927",
+          "option1": "REV-21-1927",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1927",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7028
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 32,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1927",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7029_-7029": {
+    "productId": -7029,
+    "variantId": -7029,
+    "rawProduct": {
+      "id": -7029,
+      "title": "34T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7029",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7029,
+          "title": "REV-21-1928",
+          "option1": "REV-21-1928",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1928",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7029
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 34,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1928",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7030_-7030": {
+    "productId": -7030,
+    "variantId": -7030,
+    "rawProduct": {
+      "id": -7030,
+      "title": "36T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7030",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7030,
+          "title": "REV-21-1929",
+          "option1": "REV-21-1929",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1929",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7030
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 36,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1929",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7031_-7031": {
+    "productId": -7031,
+    "variantId": -7031,
+    "rawProduct": {
+      "id": -7031,
+      "title": "38T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7031",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7031,
+          "title": "REV-21-1930",
+          "option1": "REV-21-1930",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1930",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7031
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 38,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1930",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7032_-7032": {
+    "productId": -7032,
+    "variantId": -7032,
+    "rawProduct": {
+      "id": -7032,
+      "title": "40T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7032",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7032,
+          "title": "REV-21-1931",
+          "option1": "REV-21-1931",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1931",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7032
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 40,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1931",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7033_-7033": {
+    "productId": -7033,
+    "variantId": -7033,
+    "rawProduct": {
+      "id": -7033,
+      "title": "42T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7033",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7033,
+          "title": "REV-21-1932",
+          "option1": "REV-21-1932",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1932",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7033
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 42,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1932",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7034_-7034": {
+    "productId": -7034,
+    "variantId": -7034,
+    "rawProduct": {
+      "id": -7034,
+      "title": "44T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7034",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7034,
+          "title": "REV-21-1933",
+          "option1": "REV-21-1933",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1933",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7034
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 44,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1933",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7035_-7035": {
+    "productId": -7035,
+    "variantId": -7035,
+    "rawProduct": {
+      "id": -7035,
+      "title": "46T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7035",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7035,
+          "title": "REV-21-1934",
+          "option1": "REV-21-1934",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1934",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7035
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 46,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1934",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7036_-7036": {
+    "productId": -7036,
+    "variantId": -7036,
+    "rawProduct": {
+      "id": -7036,
+      "title": "48T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7036",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7036,
+          "title": "REV-21-1935",
+          "option1": "REV-21-1935",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1935",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7036
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 48,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1935",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7037_-7037": {
+    "productId": -7037,
+    "variantId": -7037,
+    "rawProduct": {
+      "id": -7037,
+      "title": "50T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7037",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7037,
+          "title": "REV-21-1936",
+          "option1": "REV-21-1936",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1936",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7037
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 50,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1936",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7038_-7038": {
+    "productId": -7038,
+    "variantId": -7038,
+    "rawProduct": {
+      "id": -7038,
+      "title": "52T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7038",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7038,
+          "title": "REV-21-1937",
+          "option1": "REV-21-1937",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1937",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7038
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 52,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1937",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7039_-7039": {
+    "productId": -7039,
+    "variantId": -7039,
+    "rawProduct": {
+      "id": -7039,
+      "title": "54T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7039",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7039,
+          "title": "REV-21-1938",
+          "option1": "REV-21-1938",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1938",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7039
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 54,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1938",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7040_-7040": {
+    "productId": -7040,
+    "variantId": -7040,
+    "rawProduct": {
+      "id": -7040,
+      "title": "56T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7040",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7040,
+          "title": "REV-21-1939",
+          "option1": "REV-21-1939",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1939",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7040
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 56,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1939",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7041_-7041": {
+    "productId": -7041,
+    "variantId": -7041,
+    "rawProduct": {
+      "id": -7041,
+      "title": "58T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7041",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7041,
+          "title": "REV-21-1940",
+          "option1": "REV-21-1940",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1940",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7041
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 58,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1940",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7042_-7042": {
+    "productId": -7042,
+    "variantId": -7042,
+    "rawProduct": {
+      "id": -7042,
+      "title": "60T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7042",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7042,
+          "title": "REV-21-1941",
+          "option1": "REV-21-1941",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1941",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7042
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 60,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1941",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7043_-7043": {
+    "productId": -7043,
+    "variantId": -7043,
+    "rawProduct": {
+      "id": -7043,
+      "title": "62T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7043",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7043,
+          "title": "REV-21-1942",
+          "option1": "REV-21-1942",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1942",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7043
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 62,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1942",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7044_-7044": {
+    "productId": -7044,
+    "variantId": -7044,
+    "rawProduct": {
+      "id": -7044,
+      "title": "64T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7044",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7044,
+          "title": "REV-21-1943",
+          "option1": "REV-21-1943",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1943",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7044
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 64,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1943",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7045_-7045": {
+    "productId": -7045,
+    "variantId": -7045,
+    "rawProduct": {
+      "id": -7045,
+      "title": "66T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7045",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7045,
+          "title": "REV-21-1944",
+          "option1": "REV-21-1944",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1944",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7045
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 66,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1944",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7046_-7046": {
+    "productId": -7046,
+    "variantId": -7046,
+    "rawProduct": {
+      "id": -7046,
+      "title": "68T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7046",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7046,
+          "title": "REV-21-1945",
+          "option1": "REV-21-1945",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1945",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7046
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 68,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1945",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7047_-7047": {
+    "productId": -7047,
+    "variantId": -7047,
+    "rawProduct": {
+      "id": -7047,
+      "title": "16T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7047",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7047,
+          "title": "REV-21-2196",
+          "option1": "REV-21-2196",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2196",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7047
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 16,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-2196",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7048_-7048": {
+    "productId": -7048,
+    "variantId": -7048,
+    "rawProduct": {
+      "id": -7048,
+      "title": "72T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7048",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7048,
+          "title": "REV-21-1947",
+          "option1": "REV-21-1947",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1947",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7048
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 72,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1947",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7049_-7049": {
+    "productId": -7049,
+    "variantId": -7049,
+    "rawProduct": {
+      "id": -7049,
+      "title": "80T 20DP 1/2\" Hex REV Gear",
+      "handle": "synthetic--7049",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7049,
+          "title": "REV-21-1951",
+          "option1": "REV-21-1951",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1951",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7049
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 80,
+      "dp": 20,
+      "bore": "1/2\" Hex",
+      "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+      "sku": "REV-21-1951",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7050_-7050": {
+    "productId": -7050,
+    "variantId": -7050,
+    "rawProduct": {
+      "id": -7050,
+      "title": "10T 20DP 8mm REV NEO Pinion",
+      "handle": "synthetic--7050",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7050,
+          "title": "REV-21-1998",
+          "option1": "REV-21-1998",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1998",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7050
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 10,
+      "dp": 20,
+      "bore": "8mm",
+      "url": "https://www.revrobotics.com/neo-pinions/",
+      "sku": "REV-21-1998",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7051_-7051": {
+    "productId": -7051,
+    "variantId": -7051,
+    "rawProduct": {
+      "id": -7051,
+      "title": "11T 20DP 8mm REV NEO Pinion",
+      "handle": "synthetic--7051",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7051,
+          "title": "REV-21-1999",
+          "option1": "REV-21-1999",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-1999",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7051
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 11,
+      "dp": 20,
+      "bore": "8mm",
+      "url": "https://www.revrobotics.com/neo-pinions/",
+      "sku": "REV-21-1999",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7052_-7052": {
+    "productId": -7052,
+    "variantId": -7052,
+    "rawProduct": {
+      "id": -7052,
+      "title": "12T 20DP 8mm REV NEO Pinion",
+      "handle": "synthetic--7052",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7052,
+          "title": "REV-21-2000",
+          "option1": "REV-21-2000",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2000",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7052
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 12,
+      "dp": 20,
+      "bore": "8mm",
+      "url": "https://www.revrobotics.com/neo-pinions/",
+      "sku": "REV-21-2000",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7053_-7053": {
+    "productId": -7053,
+    "variantId": -7053,
+    "rawProduct": {
+      "id": -7053,
+      "title": "13T 20DP 8mm REV NEO Pinion",
+      "handle": "synthetic--7053",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7053,
+          "title": "REV-21-2001",
+          "option1": "REV-21-2001",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2001",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7053
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 13,
+      "dp": 20,
+      "bore": "8mm",
+      "url": "https://www.revrobotics.com/neo-pinions/",
+      "sku": "REV-21-2001",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7054_-7054": {
+    "productId": -7054,
+    "variantId": -7054,
+    "rawProduct": {
+      "id": -7054,
+      "title": "14T 20DP 8mm REV NEO Pinion",
+      "handle": "synthetic--7054",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7054,
+          "title": "REV-21-2002",
+          "option1": "REV-21-2002",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-21-2002",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7054
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 14,
+      "dp": 20,
+      "bore": "8mm",
+      "url": "https://www.revrobotics.com/neo-pinions/",
+      "sku": "REV-21-2002",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  },
+  "-7055_-7055": {
+    "productId": -7055,
+    "variantId": -7055,
+    "rawProduct": {
+      "id": -7055,
+      "title": "12T 32DP RS550 REV Pinion",
+      "handle": "synthetic--7055",
+      "vendor": "REV",
+      "product_type": "Gear",
+      "tags": [],
+      "variants": [
+        {
+          "id": -7055,
+          "title": "REV-41-1660-PK2",
+          "option1": "REV-41-1660-PK2",
+          "option2": null,
+          "option3": null,
+          "sku": "REV-41-1660-PK2",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": -7055
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 12,
+      "dp": 32,
+      "bore": "RS550",
+      "url": "https://www.revrobotics.com/550-motor-pinions/",
+      "sku": "REV-41-1660-PK2",
+      "vendor": "REV"
+    },
+    "firstSeen": "2026-02-03T23:01:08.004Z",
+    "lastSeen": "2026-02-04T00:01:19.414Z"
+  }
+}
