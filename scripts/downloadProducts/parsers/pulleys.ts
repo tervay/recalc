@@ -5,7 +5,7 @@ import {
   createSyntheticProduct,
 } from 'scripts/downloadProducts/types';
 
-import type { AndyMarkPulley, JSONPulley } from '~/lib/types/pulleys';
+import type { JSONPulley } from '~/lib/types/pulleys';
 import {
   andyMarkPulleyToJsonPulley,
   revPulleyToJsonPulley,
@@ -51,7 +51,6 @@ export function parseWCPPulleys(products: ShopifyProduct[]): CacheEntry[] {
             rawProduct: cleanProductForCache(product),
             parsedData,
             firstSeen: now,
-            lastSeen: now,
           });
         } catch (error) {
           console.error(`Error parsing WCP pulley: ${product.title}`, error);
@@ -69,7 +68,60 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): CacheEntry[] {
 
   for (const product of products) {
     if (product.title.includes('Pulley')) {
-      if (product.title.endsWith('Pulley')) {
+      // Handle new variant-based pulley products (Kraken Spline, 1/2" Hex)
+      if (
+        product.title === 'Kraken Spline Bore Aluminum HTD Pulleys' ||
+        product.title === '1/2" Hex Bore Aluminum HTD Pulleys'
+      ) {
+        // Determine default bore from product title
+        const defaultBore =
+          product.title === 'Kraken Spline Bore Aluminum HTD Pulleys'
+            ? 'Kraken Spline'
+            : '1/2" Hex';
+
+        // Pattern: "18.5mm Wide 15 Tooth 1/2" Hex" or "18.5mm Wide 11 Tooth SplineXS"
+        // May also have suffixes like "(Lightened)" or no bore type at all
+        const variantRegex =
+          /(?<width>[\d.]+)mm Wide (?<tooth>\d+) Tooth(?:\s+(?<bore>[^(]+?))?(?:\s*\(.*?\))?$/i;
+
+        for (const variant of product.variants) {
+          const match = variant.title.match(variantRegex);
+          if (match?.groups) {
+            const { tooth, bore } = match.groups;
+            // Use bore from variant if present, otherwise use default from product title
+            let mappedBore = bore ? bore.trim() : defaultBore;
+
+            // Map bore types to schema values
+            if (mappedBore === 'Spline XS' || mappedBore === 'SplineXS') {
+              mappedBore = 'Kraken Spline';
+            }
+
+            try {
+              const thriftyPulley = zThriftyPulleySchema.parse({
+                teeth: parseInt(tooth),
+                profile: 'HTD',
+                bore: mappedBore,
+                sku: variant.sku,
+                url: urlForHandle(product.handle, 'Thrifty'),
+              });
+              const parsedData = thriftyPulleyToJsonPulley(thriftyPulley);
+
+              pulleys.push({
+                productId: product.id,
+                variantId: variant.id,
+                rawProduct: cleanProductForCache(product),
+                parsedData,
+                firstSeen: now,
+              });
+            } catch (error) {
+              console.error(
+                `Error parsing Thrifty pulley variant: ${product.title} - ${variant.title}`,
+                error,
+              );
+            }
+          }
+        }
+      } else if (product.title.endsWith('Pulley')) {
         const regex =
           /QTY \d+ - (?<tooth>\d+) Tooth (?<profile>\w+) (?<bore>[\w\s]+) Motor Output Pulley/i;
 
@@ -92,7 +144,6 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): CacheEntry[] {
               rawProduct: cleanProductForCache(product),
               parsedData,
               firstSeen: now,
-              lastSeen: now,
             });
           } catch (error) {
             console.error(
@@ -125,7 +176,6 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): CacheEntry[] {
               rawProduct: cleanProductForCache(product),
               parsedData,
               firstSeen: now,
-              lastSeen: now,
             });
           } catch (error) {
             console.error(
@@ -232,7 +282,6 @@ export function parseREVPulleys(): CacheEntry[] {
       ),
       parsedData,
       firstSeen: now,
-      lastSeen: now,
     });
   }
 
@@ -274,94 +323,150 @@ export function parseREVPulleys(): CacheEntry[] {
       ),
       parsedData: pulley,
       firstSeen: now,
-      lastSeen: now,
     });
   }
 
   return pulleys;
 }
 
-export function parseAndyMarkPulleys(): CacheEntry[] {
-  const data: AndyMarkPulley[] = [
-    {
-      teeth: 24,
-      width: 9,
-      profile: 'HTD',
-      pitch: 5,
-      sku: 'AM-3402',
-      url: 'https://andymark.com/collections/pulleys/products/24t-plastic-htd-pulleys',
-      bore: '3/8" Hex',
-    },
-    {
-      teeth: 24,
-      width: 9,
-      profile: 'HTD',
-      pitch: 5,
-      sku: 'AM-3403',
-      url: 'https://andymark.com/collections/pulleys/products/24t-plastic-htd-pulleys',
-      bore: '1/2" Hex',
-    },
-    {
-      teeth: 42,
-      width: 15,
-      profile: 'HTD',
-      pitch: 5,
-      sku: 'AM-2234a',
-      url: 'https://andymark.com/collections/pulleys/products/42-tooth-5-mm-htd-15-mm-wide-bearing-bore-plastic-pulley',
-      bore: '1.125" Round',
-    },
-    {
-      teeth: 24,
-      width: 18,
-      profile: 'HTD',
-      pitch: 5,
-      sku: 'AM-2234b',
-      url: 'https://andymark.com/collections/pulleys/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley',
-      bore: '1/2" Hex',
-    },
-    {
-      teeth: 24,
-      width: 9,
-      profile: 'HTD',
-      pitch: 5,
-      sku: 'AM-4625',
-      url: 'https://andymark.com/collections/pulleys/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley',
-      bore: '1/2" Hex',
-    },
-    {
-      teeth: 14,
-      width: 9,
-      profile: 'HTD',
-      pitch: 5,
-      sku: 'AM-4960',
-      url: 'https://andymark.com/collections/pulleys/products/14-tooth-0-375-in-hex-bore-htd-pulley',
-      bore: '3/8" Hex',
-    },
-  ];
+function normalizeAndyMarkPulleyBore(
+  boreText: string,
+): '8mm' | '1/2" Hex' | '3/8" Hex' | '1.125" Round' | null {
+  const lower = boreText.trim().toLowerCase();
 
+  if (/8\s*mm/.test(lower)) return '8mm';
+  if (/0\.5|1\/2|half/.test(lower) && /hex/.test(lower)) return '1/2" Hex';
+  if (/0\.375|3\/8/.test(lower) && /hex/.test(lower)) return '3/8" Hex';
+  if (/1\.125/.test(lower) && /round/.test(lower)) return '1.125" Round';
+  if (/bearing/.test(lower)) return '1.125" Round';
+
+  return null;
+}
+
+export function parseAndyMarkPulleys(products: ShopifyProduct[]): CacheEntry[] {
   const pulleys: CacheEntry[] = [];
   const now = new Date().toISOString();
 
-  for (const item of data) {
-    const andyMarkPulley = zAndyMarkPulleySchema.parse(item);
-    const parsedData = andyMarkPulleyToJsonPulley(andyMarkPulley);
+  for (const product of products) {
+    if (!product.title.includes('Pulley') && !product.title.includes('pulley'))
+      continue;
 
-    const syntheticId = -2000 - pulleys.length;
+    // Skip collection URLs to avoid duplicates
+    if (product.handle?.includes('collections/')) continue;
 
-    pulleys.push({
-      productId: syntheticId,
-      variantId: syntheticId,
-      rawProduct: createSyntheticProduct(
-        syntheticId,
-        `${item.teeth}T ${item.bore} AndyMark Pulley`,
-        'AndyMark',
-        'Pulley',
-        item.sku,
-      ),
-      parsedData,
-      firstSeen: now,
-      lastSeen: now,
-    });
+    // Extract tooth count from title
+    const toothMatch = product.title.match(/(\d+)\s*T(?:ooth)?/i);
+    if (!toothMatch) continue;
+    const teeth = parseInt(toothMatch[1]);
+
+    // Try to extract width and pitch from title
+    // Pattern 1: "XX Tooth YY mm ... ZZ mm ... HTD" (explicit width and pitch)
+    const fullMatch = product.title.match(/(\d+)\s*mm.*?(\d+)\s*mm/i);
+    let width: number;
+    let pitch: number;
+
+    if (fullMatch) {
+      const val1 = parseInt(fullMatch[1]);
+      const val2 = parseInt(fullMatch[2]);
+      width = Math.max(val1, val2);
+      pitch = Math.min(val1, val2);
+    } else {
+      // Default values for HTD pulleys (common for AndyMark)
+      width = 9; // Most common width
+      pitch = 5; // HTD pitch
+    }
+
+    // Extract bore from title
+    const boreMatch = product.title.match(
+      /(\d+\.?\d*\s*(?:in\.|mm))\s*(?:Hex|Round)|(?:with|bore)\s+(\d+\s*mm)|bearing\s+bore/i,
+    );
+
+    // For multi-variant products, parse each variant
+    if (product.variants.length > 1) {
+      for (const variant of product.variants) {
+        // Skip variants with "Universal Pulley Extension" or "Nub Bore"
+        if (
+          variant.title.toLowerCase().includes('extension') ||
+          variant.title.toLowerCase().includes('nub')
+        )
+          continue;
+
+        // Variant might specify bore: "Bore=0.375 in. Hex" or "0.375 in. Hex"
+        const variantBoreMatch = variant.title.match(
+          /Bore\s*=\s*([^-]+)|(\d+\.?\d*\s*(?:in\.|mm)\s*(?:Hex|Round))/i,
+        );
+        let bore: '8mm' | '1/2" Hex' | '3/8" Hex' | '1.125" Round' | null =
+          null;
+
+        if (variantBoreMatch) {
+          const boreText =
+            variantBoreMatch[1] ?? variantBoreMatch[2] ?? variantBoreMatch[0];
+          bore = normalizeAndyMarkPulleyBore(boreText);
+        } else if (boreMatch) {
+          bore = normalizeAndyMarkPulleyBore(boreMatch[0]);
+        }
+
+        if (!bore) continue;
+
+        const sku = variant.sku ?? `AM-${teeth}T`;
+
+        try {
+          const andyMarkPulley = zAndyMarkPulleySchema.parse({
+            teeth,
+            width,
+            profile: 'HTD',
+            pitch,
+            sku,
+            url: urlForHandle(product.handle, 'AndyMark'),
+            bore,
+          });
+          const parsedData = andyMarkPulleyToJsonPulley(andyMarkPulley);
+
+          pulleys.push({
+            productId: product.id,
+            variantId: variant.id,
+            rawProduct: cleanProductForCache(product),
+            parsedData,
+            firstSeen: now,
+          });
+        } catch (error) {
+          console.error(
+            `Error parsing AndyMark pulley: ${product.title} - ${variant.title}`,
+            error,
+          );
+        }
+      }
+    } else {
+      // Single variant
+      const bore = boreMatch ? normalizeAndyMarkPulleyBore(boreMatch[0]) : null;
+      if (!bore) continue;
+
+      const variant = product.variants[0];
+      const sku = variant.sku ?? `AM-${teeth}T`;
+
+      try {
+        const andyMarkPulley = zAndyMarkPulleySchema.parse({
+          teeth,
+          width,
+          profile: 'HTD',
+          pitch,
+          sku,
+          url: urlForHandle(product.handle, 'AndyMark'),
+          bore,
+        });
+        const parsedData = andyMarkPulleyToJsonPulley(andyMarkPulley);
+
+        pulleys.push({
+          productId: product.id,
+          variantId: variant.id,
+          rawProduct: cleanProductForCache(product),
+          parsedData,
+          firstSeen: now,
+        });
+      } catch (error) {
+        console.error(`Error parsing AndyMark pulley: ${product.title}`, error);
+      }
+    }
   }
 
   return pulleys;
@@ -399,7 +504,6 @@ export function parseLastAnvilPulleys(
         rawProduct: cleanProductForCache(product),
         parsedData,
         firstSeen: now,
-        lastSeen: now,
       });
     }
   }
@@ -419,7 +523,7 @@ export function parseVendorPulleys(
     case 'REV':
       return parseREVPulleys();
     case 'AndyMark':
-      return parseAndyMarkPulleys();
+      return parseAndyMarkPulleys(products);
     case 'LastAnvil':
       return parseLastAnvilPulleys(products);
     default:

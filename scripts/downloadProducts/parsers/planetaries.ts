@@ -120,7 +120,6 @@ export function parseREVPlanetaries(): CacheEntry[] {
             ),
             parsedData,
             firstSeen: now,
-            lastSeen: now,
           });
         }
       }

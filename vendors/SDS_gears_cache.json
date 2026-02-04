@@ -1,316 +1,4 @@
 {
-  "-8000_-8000": {
-    "productId": -8000,
-    "variantId": -8000,
-    "rawProduct": {
-      "id": -8000,
-      "title": "16T 20DP 3/8\" Hex SDS Gear",
-      "handle": "synthetic--8000",
-      "vendor": "SDS",
-      "product_type": "Gear",
-      "tags": [],
-      "variants": [
-        {
-          "id": -8000,
-          "title": "SDS-16T-20DP-38HEX",
-          "option1": "SDS-16T-20DP-38HEX",
-          "option2": null,
-          "option3": null,
-          "sku": "SDS-16T-20DP-38HEX",
-          "available": true,
-          "price": "0",
-          "grams": 0,
-          "position": 1,
-          "product_id": -8000
-        }
-      ],
-      "images": [],
-      "options": []
-    },
-    "parsedData": {
-      "teeth": 16,
-      "dp": 20,
-      "bore": "3/8\" Hex",
-      "url": "https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/16t-20dp-3-8-hex-gear",
-      "sku": "SDS-16T-20DP-38HEX",
-      "vendor": "SDS"
-    },
-    "firstSeen": "2026-02-03T23:02:51.069Z",
-    "lastSeen": "2026-02-04T04:03:06.962Z"
-  },
-  "-8001_-8001": {
-    "productId": -8001,
-    "variantId": -8001,
-    "rawProduct": {
-      "id": -8001,
-      "title": "17T 20DP 3/8\" Hex SDS Gear",
-      "handle": "synthetic--8001",
-      "vendor": "SDS",
-      "product_type": "Gear",
-      "tags": [],
-      "variants": [
-        {
-          "id": -8001,
-          "title": "SDS-17T-20DP-38HEX",
-          "option1": "SDS-17T-20DP-38HEX",
-          "option2": null,
-          "option3": null,
-          "sku": "SDS-17T-20DP-38HEX",
-          "available": true,
-          "price": "0",
-          "grams": 0,
-          "position": 1,
-          "product_id": -8001
-        }
-      ],
-      "images": [],
-      "options": []
-    },
-    "parsedData": {
-      "teeth": 17,
-      "dp": 20,
-      "bore": "3/8\" Hex",
-      "url": "https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/17t-20dp-3-8-hex-gear",
-      "sku": "SDS-17T-20DP-38HEX",
-      "vendor": "SDS"
-    },
-    "firstSeen": "2026-02-03T23:02:51.069Z",
-    "lastSeen": "2026-02-04T04:03:06.962Z"
-  },
-  "-8002_-8002": {
-    "productId": -8002,
-    "variantId": -8002,
-    "rawProduct": {
-      "id": -8002,
-      "title": "19T 20DP 3/8\" Hex SDS Gear",
-      "handle": "synthetic--8002",
-      "vendor": "SDS",
-      "product_type": "Gear",
-      "tags": [],
-      "variants": [
-        {
-          "id": -8002,
-          "title": "SDS-19T-20DP-38HEX",
-          "option1": "SDS-19T-20DP-38HEX",
-          "option2": null,
-          "option3": null,
-          "sku": "SDS-19T-20DP-38HEX",
-          "available": true,
-          "price": "0",
-          "grams": 0,
-          "position": 1,
-          "product_id": -8002
-        }
-      ],
-      "images": [],
-      "options": []
-    },
-    "parsedData": {
-      "teeth": 19,
-      "dp": 20,
-      "bore": "3/8\" Hex",
-      "url": "https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/19t-20dp-3-8-hex-gear",
-      "sku": "SDS-19T-20DP-38HEX",
-      "vendor": "SDS"
-    },
-    "firstSeen": "2026-02-03T23:02:51.069Z",
-    "lastSeen": "2026-02-04T04:03:06.962Z"
-  },
-  "-8003_-8003": {
-    "productId": -8003,
-    "variantId": -8003,
-    "rawProduct": {
-      "id": -8003,
-      "title": "50T 20DP 3/8\" Hex SDS Gear",
-      "handle": "synthetic--8003",
-      "vendor": "SDS",
-      "product_type": "Gear",
-      "tags": [],
-      "variants": [
-        {
-          "id": -8003,
-          "title": "SDS-50T-20DP-38HEX",
-          "option1": "SDS-50T-20DP-38HEX",
-          "option2": null,
-          "option3": null,
-          "sku": "SDS-50T-20DP-38HEX",
-          "available": true,
-          "price": "0",
-          "grams": 0,
-          "position": 1,
-          "product_id": -8003
-        }
-      ],
-      "images": [],
-      "options": []
-    },
-    "parsedData": {
-      "teeth": 50,
-      "dp": 20,
-      "bore": "3/8\" Hex",
-      "url": "https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/gear-20dp-50t-3-8-hex-bore",
-      "sku": "SDS-50T-20DP-38HEX",
-      "vendor": "SDS"
-    },
-    "firstSeen": "2026-02-03T23:02:51.069Z",
-    "lastSeen": "2026-02-04T04:03:06.962Z"
-  },
-  "-8004_-8004": {
-    "productId": -8004,
-    "variantId": -8004,
-    "rawProduct": {
-      "id": -8004,
-      "title": "32T 32DP 3/8\" Hex SDS Gear",
-      "handle": "synthetic--8004",
-      "vendor": "SDS",
-      "product_type": "Gear",
-      "tags": [],
-      "variants": [
-        {
-          "id": -8004,
-          "title": "SDS-32T-32DP-38HEX",
-          "option1": "SDS-32T-32DP-38HEX",
-          "option2": null,
-          "option3": null,
-          "sku": "SDS-32T-32DP-38HEX",
-          "available": true,
-          "price": "0",
-          "grams": 0,
-          "position": 1,
-          "product_id": -8004
-        }
-      ],
-      "images": [],
-      "options": []
-    },
-    "parsedData": {
-      "teeth": 32,
-      "dp": 32,
-      "bore": "3/8\" Hex",
-      "url": "https://www.swervedrivespecialties.com/collections/32dp-3-8-hex-gears/products/32t-32dp-gear",
-      "sku": "SDS-32T-32DP-38HEX",
-      "vendor": "SDS"
-    },
-    "firstSeen": "2026-02-03T23:02:51.069Z",
-    "lastSeen": "2026-02-04T04:03:06.962Z"
-  },
-  "-8005_-8005": {
-    "productId": -8005,
-    "variantId": -8005,
-    "rawProduct": {
-      "id": -8005,
-      "title": "14T 20DP 8mm SDS Gear",
-      "handle": "synthetic--8005",
-      "vendor": "SDS",
-      "product_type": "Gear",
-      "tags": [],
-      "variants": [
-        {
-          "id": -8005,
-          "title": "SDS-14T-20DP-8MM",
-          "option1": "SDS-14T-20DP-8MM",
-          "option2": null,
-          "option3": null,
-          "sku": "SDS-14T-20DP-8MM",
-          "available": true,
-          "price": "0",
-          "grams": 0,
-          "position": 1,
-          "product_id": -8005
-        }
-      ],
-      "images": [],
-      "options": []
-    },
-    "parsedData": {
-      "teeth": 14,
-      "dp": 20,
-      "bore": "8mm",
-      "url": "https://www.swervedrivespecialties.com/collections/motor-pinions-8mm-bore/products/gear-20dp-14t-8mm-bore",
-      "sku": "SDS-14T-20DP-8MM",
-      "vendor": "SDS"
-    },
-    "firstSeen": "2026-02-03T23:02:51.069Z",
-    "lastSeen": "2026-02-04T04:03:06.962Z"
-  },
-  "-8006_-8006": {
-    "productId": -8006,
-    "variantId": -8006,
-    "rawProduct": {
-      "id": -8006,
-      "title": "16T 20DP 8mm SDS Gear",
-      "handle": "synthetic--8006",
-      "vendor": "SDS",
-      "product_type": "Gear",
-      "tags": [],
-      "variants": [
-        {
-          "id": -8006,
-          "title": "SDS-16T-20DP-8MM",
-          "option1": "SDS-16T-20DP-8MM",
-          "option2": null,
-          "option3": null,
-          "sku": "SDS-16T-20DP-8MM",
-          "available": true,
-          "price": "0",
-          "grams": 0,
-          "position": 1,
-          "product_id": -8006
-        }
-      ],
-      "images": [],
-      "options": []
-    },
-    "parsedData": {
-      "teeth": 16,
-      "dp": 20,
-      "bore": "8mm",
-      "url": "https://www.swervedrivespecialties.com/collections/motor-pinions-8mm-bore/products/gear-20dp-16t-8mm-bore",
-      "sku": "SDS-16T-20DP-8MM",
-      "vendor": "SDS"
-    },
-    "firstSeen": "2026-02-03T23:02:51.069Z",
-    "lastSeen": "2026-02-04T04:03:06.962Z"
-  },
-  "-8007_-8007": {
-    "productId": -8007,
-    "variantId": -8007,
-    "rawProduct": {
-      "id": -8007,
-      "title": "15T 32DP 8mm SDS Gear",
-      "handle": "synthetic--8007",
-      "vendor": "SDS",
-      "product_type": "Gear",
-      "tags": [],
-      "variants": [
-        {
-          "id": -8007,
-          "title": "SDS-15T-32DP-8MM",
-          "option1": "SDS-15T-32DP-8MM",
-          "option2": null,
-          "option3": null,
-          "sku": "SDS-15T-32DP-8MM",
-          "available": true,
-          "price": "0",
-          "grams": 0,
-          "position": 1,
-          "product_id": -8007
-        }
-      ],
-      "images": [],
-      "options": []
-    },
-    "parsedData": {
-      "teeth": 15,
-      "dp": 32,
-      "bore": "8mm",
-      "url": "https://www.swervedrivespecialties.com/collections/motor-pinions-8mm-bore/products/gear-32dp-15t-8mm-bore",
-      "sku": "SDS-15T-32DP-8MM",
-      "vendor": "SDS"
-    },
-    "firstSeen": "2026-02-03T23:02:51.069Z",
-    "lastSeen": "2026-02-04T04:03:06.962Z"
-  },
   "9940243939629_50435655827757": {
     "productId": 9940243939629,
     "variantId": 50435655827757,
@@ -365,8 +53,7 @@
       "sku": "SDS-16T-20DP-FALCON",
       "vendor": "SDS"
     },
-    "firstSeen": "2026-02-04T04:16:20.226Z",
-    "lastSeen": "2026-02-04T04:38:00.574Z"
+    "firstSeen": "2026-02-04T04:16:20.226Z"
   },
   "8054082928941_44151199400237": {
     "productId": 8054082928941,
@@ -422,8 +109,7 @@
       "sku": "",
       "vendor": "SDS"
     },
-    "firstSeen": "2026-02-04T04:16:20.226Z",
-    "lastSeen": "2026-02-04T04:38:00.574Z"
+    "firstSeen": "2026-02-04T04:16:20.226Z"
   },
   "8054075130157_44151191896365": {
     "productId": 8054075130157,
@@ -479,8 +165,7 @@
       "sku": "",
       "vendor": "SDS"
     },
-    "firstSeen": "2026-02-04T04:16:20.226Z",
-    "lastSeen": "2026-02-04T04:38:00.574Z"
+    "firstSeen": "2026-02-04T04:16:20.226Z"
   },
   "8054066676013_44151174136109": {
     "productId": 8054066676013,
@@ -536,8 +221,7 @@
       "sku": "",
       "vendor": "SDS"
     },
-    "firstSeen": "2026-02-04T04:16:20.226Z",
-    "lastSeen": "2026-02-04T04:38:00.574Z"
+    "firstSeen": "2026-02-04T04:16:20.226Z"
   },
   "8054064808237_44151169057069": {
     "productId": 8054064808237,
@@ -593,8 +277,7 @@
       "sku": "",
       "vendor": "SDS"
     },
-    "firstSeen": "2026-02-04T04:16:20.226Z",
-    "lastSeen": "2026-02-04T04:38:00.574Z"
+    "firstSeen": "2026-02-04T04:16:20.226Z"
   },
   "6664925315185_39620029874289": {
     "productId": 6664925315185,
@@ -650,8 +333,7 @@
       "sku": "",
       "vendor": "SDS"
     },
-    "firstSeen": "2026-02-04T04:16:20.226Z",
-    "lastSeen": "2026-02-04T04:38:00.574Z"
+    "firstSeen": "2026-02-04T04:16:20.226Z"
   },
   "6664924659825_39620028072049": {
     "productId": 6664924659825,
@@ -707,8 +389,7 @@
       "sku": "",
       "vendor": "SDS"
     },
-    "firstSeen": "2026-02-04T04:16:20.226Z",
-    "lastSeen": "2026-02-04T04:38:00.574Z"
+    "firstSeen": "2026-02-04T04:16:20.226Z"
   },
   "6633197764721_39535614492785": {
     "productId": 6633197764721,
@@ -764,8 +445,7 @@
       "sku": "",
       "vendor": "SDS"
     },
-    "firstSeen": "2026-02-04T04:16:20.226Z",
-    "lastSeen": "2026-02-04T04:38:00.574Z"
+    "firstSeen": "2026-02-04T04:16:20.226Z"
   },
   "6586745159793_39377998348401": {
     "productId": 6586745159793,
@@ -821,8 +501,7 @@
       "sku": "",
       "vendor": "SDS"
     },
-    "firstSeen": "2026-02-04T04:16:20.226Z",
-    "lastSeen": "2026-02-04T04:38:00.574Z"
+    "firstSeen": "2026-02-04T04:16:20.226Z"
   },
   "6586745684081_39377999626353": {
     "productId": 6586745684081,
@@ -878,8 +557,7 @@
       "sku": "",
       "vendor": "SDS"
     },
-    "firstSeen": "2026-02-04T04:16:20.226Z",
-    "lastSeen": "2026-02-04T04:38:00.574Z"
+    "firstSeen": "2026-02-04T04:16:20.226Z"
   },
   "4576545243249_32068211998833": {
     "productId": 4576545243249,
@@ -935,7 +613,6 @@
       "sku": "",
       "vendor": "SDS"
     },
-    "firstSeen": "2026-02-04T04:16:20.226Z",
-    "lastSeen": "2026-02-04T04:38:00.574Z"
+    "firstSeen": "2026-02-04T04:16:20.226Z"
   }
 }

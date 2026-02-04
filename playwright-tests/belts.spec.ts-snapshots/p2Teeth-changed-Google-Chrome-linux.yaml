@@ -93,20 +93,20 @@
       - columnheader "Teeth"
       - columnheader "Width"
   - rowgroup:
-    - row "AndyMark AM-5209_75T 75 9 mm":
-      - cell "AndyMark AM-5209_75T":
+    - row "AndyMark am-5209_75T 75 9 mm":
+      - cell "AndyMark am-5209_75T":
         - link "AndyMark":
-          - /url: https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts
-        - link "AM-5209_75T":
-          - /url: https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+        - link "am-5209_75T":
+          - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "75"
       - cell "9 mm"
-    - row "AndyMark AM-5215_75T 75 15 mm":
-      - cell "AndyMark AM-5215_75T":
+    - row "AndyMark am-5215_75T 75 15 mm":
+      - cell "AndyMark am-5215_75T":
         - link "AndyMark":
-          - /url: https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts
-        - link "AM-5215_75T":
-          - /url: https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+        - link "am-5215_75T":
+          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "75"
       - cell "15 mm"
     - row "LastAnvil LA-240224 75 9 mm":
@@ -139,6 +139,22 @@
           - /url: https://swyftrobotics.com/products/htd-timing-belts
         - link "375-5M-15":
           - /url: https://swyftrobotics.com/products/htd-timing-belts
+      - cell "75"
+      - cell "15 mm"
+    - row "Thrifty TTB-0139 75 9 mm":
+      - cell "Thrifty TTB-0139":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
+        - link "TTB-0139":
+          - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
+      - cell "75"
+      - cell "9 mm"
+    - row "Thrifty TTB-0184 75 15 mm":
+      - cell "Thrifty TTB-0184":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
+        - link "TTB-0184":
+          - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
       - cell "75"
       - cell "15 mm"
     - row "VBeltGuys 375-5m-09 75 9 mm":
@@ -175,20 +191,20 @@
       - cell "15 mm"
     - row:
       - cell
-    - row "AndyMark AM-5209_80T 80 9 mm":
-      - cell "AndyMark AM-5209_80T":
+    - row "AndyMark am-5209_80T 80 9 mm":
+      - cell "AndyMark am-5209_80T":
         - link "AndyMark":
-          - /url: https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts
-        - link "AM-5209_80T":
-          - /url: https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+        - link "am-5209_80T":
+          - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "80"
       - cell "9 mm"
-    - row "AndyMark AM-5215_80T 80 15 mm":
-      - cell "AndyMark AM-5215_80T":
+    - row "AndyMark am-5215_80T 80 15 mm":
+      - cell "AndyMark am-5215_80T":
         - link "AndyMark":
-          - /url: https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts
-        - link "AM-5215_80T":
-          - /url: https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+        - link "am-5215_80T":
+          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "80"
       - cell "15 mm"
     - row "LastAnvil LA-240225 80 9 mm":
@@ -221,6 +237,22 @@
           - /url: https://swyftrobotics.com/products/htd-timing-belts
         - link "400-5M-15":
           - /url: https://swyftrobotics.com/products/htd-timing-belts
+      - cell "80"
+      - cell "15 mm"
+    - row "Thrifty TTB-0140 80 9 mm":
+      - cell "Thrifty TTB-0140":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
+        - link "TTB-0140":
+          - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
+      - cell "80"
+      - cell "9 mm"
+    - row "Thrifty TTB-0185 80 15 mm":
+      - cell "Thrifty TTB-0185":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
+        - link "TTB-0185":
+          - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
       - cell "80"
       - cell "15 mm"
     - row "VBeltGuys 400-5m-09 80 9 mm":

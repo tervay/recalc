@@ -206,5 +206,13 @@
     "sku": "TTB-0258",
     "url": "https://www.thethriftybot.com/products/35-small-sprockets",
     "vendor": "Thrifty"
+  },
+  {
+    "teeth": 22,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "sku": "ELEV-DRIVE-003",
+    "url": "https://www.thethriftybot.com/products/qty-2-half-inch-hex-22-tooth-25-sprocket",
+    "vendor": "Thrifty"
   }
 ]
