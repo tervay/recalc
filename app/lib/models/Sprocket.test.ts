@@ -267,7 +267,7 @@ describe('Sprocket', () => {
         chainType: '#25',
         url: 'https://example.com',
         sku: 'SKU123',
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const sprocket = Sprocket.fromJson(json);
       expect(sprocket.teeth).toBe(100);
@@ -275,7 +275,7 @@ describe('Sprocket', () => {
       expect(sprocket.chainType).toBe('#25');
       expect(sprocket.url).toBe('https://example.com');
       expect(sprocket.sku).toBe('SKU123');
-      expect(sprocket.vendor).toBe('Vendor');
+      expect(sprocket.vendor).toBe('Custom');
     });
 
     it('handles null sku', () => {
@@ -285,7 +285,7 @@ describe('Sprocket', () => {
         chainType: '#25',
         url: 'https://example.com',
         sku: null,
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const sprocket = Sprocket.fromJson(json);
       expect(sprocket.sku).toBeNull();
@@ -298,7 +298,7 @@ describe('Sprocket', () => {
         chainType: '#25',
         url: 'https://example.com',
         sku: null,
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const sprocket = Sprocket.fromJson(json);
       expect(sprocket.teeth).toBe(0);
@@ -312,7 +312,7 @@ describe('Sprocket', () => {
         chainType: '#25',
         url: 'https://example.com',
         sku: null,
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const sprocket = Sprocket.fromJson(json);
       expect(sprocket.teeth).toBe(-5);
@@ -326,7 +326,7 @@ describe('Sprocket', () => {
         chainType: '#25',
         url: 'https://example.com',
         sku: null,
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const sprocket = Sprocket.fromJson(json);
       expect(sprocket.chainType).toBe('#25');
@@ -340,24 +340,11 @@ describe('Sprocket', () => {
         chainType: '#35',
         url: 'https://example.com',
         sku: null,
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const sprocket = Sprocket.fromJson(json);
       expect(sprocket.chainType).toBe('#35');
       expect(sprocket.pitch.scalar).toBe(0.375);
-    });
-
-    it('handles empty vendor string', () => {
-      const json: JSONSprocket = {
-        teeth: 100,
-        bore: '8mm',
-        chainType: '#25',
-        url: 'https://example.com',
-        sku: null,
-        vendor: '',
-      };
-      const sprocket = Sprocket.fromJson(json);
-      expect(sprocket.vendor).toBe('');
     });
 
     it('handles all valid bore types', () => {
@@ -381,7 +368,7 @@ describe('Sprocket', () => {
           chainType: '#25',
           url: 'https://example.com',
           sku: null,
-          vendor: 'Vendor',
+          vendor: 'Custom',
         };
         const sprocket = Sprocket.fromJson(json);
         expect(sprocket.bore).toBe(bore);

@@ -4,18 +4,10 @@ import Measurement from '~/lib/models/Measurement';
 import Model from '~/lib/models/Model';
 import Motor, {
   ALL_MOTORS,
+  type MotorSpecs,
   completeMotorSpecs,
   generateMotorCurves,
 } from '~/lib/models/Motor';
-
-interface MotorSpecs {
-  voltage: Measurement;
-  stallTorque: Measurement;
-  stallCurrent: Measurement;
-  freeCurrent: Measurement;
-  freeSpeed: Measurement;
-  name: string;
-}
 
 describe('Motor', () => {
   describe('constructor', () => {
@@ -244,6 +236,11 @@ describe('Motor', () => {
         stallCurrent: new Measurement(257, 'A'),
         freeCurrent: new Measurement(1.5, 'A'),
         voltage: new Measurement(12, 'V'),
+        motorWeight: new Measurement(1, 'kg'),
+        controllerWeight: new Measurement(1, 'kg'),
+        type: 'Brushless',
+        dataSource: 'Custom',
+        vendors: ['Custom'],
       };
       const motor = Motor.fromSpecs(specs, 1);
       expect(motor.identifier).toBe('Test Motor');
@@ -258,6 +255,11 @@ describe('Motor', () => {
         stallCurrent: new Measurement(257, 'A'),
         freeCurrent: new Measurement(1.5, 'A'),
         voltage: new Measurement(12, 'V'),
+        motorWeight: new Measurement(1, 'kg'),
+        controllerWeight: new Measurement(1, 'kg'),
+        type: 'Brushless',
+        dataSource: 'Custom',
+        vendors: ['Custom'],
       };
       const motor = Motor.fromSpecs(specs, 0);
       expect(motor.quantity).toBe(0);
@@ -271,6 +273,11 @@ describe('Motor', () => {
         stallCurrent: new Measurement(257, 'A'),
         freeCurrent: new Measurement(1.5, 'A'),
         voltage: new Measurement(12, 'V'),
+        motorWeight: new Measurement(1, 'kg'),
+        controllerWeight: new Measurement(1, 'kg'),
+        type: 'Brushless',
+        dataSource: 'Custom',
+        vendors: ['Custom'],
       };
       const motor = Motor.fromSpecs(specs, -5);
       expect(motor.quantity).toBe(-5);
@@ -284,6 +291,11 @@ describe('Motor', () => {
         stallCurrent: new Measurement(257, 'A'),
         freeCurrent: new Measurement(1.5, 'A'),
         voltage: new Measurement(12, 'V'),
+        motorWeight: new Measurement(1, 'kg'),
+        controllerWeight: new Measurement(1, 'kg'),
+        type: 'Brushless',
+        dataSource: 'Custom',
+        vendors: ['Custom'],
       };
       const motor = Motor.fromSpecs(specs, 1e6);
       expect(motor.quantity).toBe(1e6);
@@ -423,6 +435,11 @@ describe('Motor', () => {
         stallCurrent: new Measurement(257, 'A'),
         freeCurrent: new Measurement(1.5, 'A'),
         voltage: new Measurement(12, 'V'),
+        motorWeight: new Measurement(1, 'kg'),
+        controllerWeight: new Measurement(1, 'kg'),
+        type: 'Brushless',
+        dataSource: 'Custom',
+        vendors: ['Custom'],
       };
       const complete = completeMotorSpecs(specs);
       expect(complete.resistance.scalar).toBeCloseTo(12 / 257, 5);
@@ -437,6 +454,11 @@ describe('Motor', () => {
         stallCurrent: new Measurement(0, 'A'),
         freeCurrent: new Measurement(1.5, 'A'),
         voltage: new Measurement(12, 'V'),
+        motorWeight: new Measurement(1, 'kg'),
+        controllerWeight: new Measurement(1, 'kg'),
+        type: 'Brushless',
+        dataSource: 'Custom',
+        vendors: ['Custom'],
       };
       expect(() => completeMotorSpecs(specs)).toThrow();
     });
@@ -449,6 +471,11 @@ describe('Motor', () => {
         stallCurrent: new Measurement(257, 'A'),
         freeCurrent: new Measurement(1.5, 'A'),
         voltage: new Measurement(0, 'V'),
+        motorWeight: new Measurement(1, 'kg'),
+        controllerWeight: new Measurement(1, 'kg'),
+        type: 'Brushless',
+        dataSource: 'Custom',
+        vendors: ['Custom'],
       };
       expect(() => completeMotorSpecs(specs)).toThrow();
     });
@@ -461,6 +488,11 @@ describe('Motor', () => {
         stallCurrent: new Measurement(257, 'A'),
         freeCurrent: new Measurement(1.5, 'A'),
         voltage: new Measurement(12, 'V'),
+        motorWeight: new Measurement(1, 'kg'),
+        controllerWeight: new Measurement(1, 'kg'),
+        type: 'Brushless',
+        dataSource: 'Custom',
+        vendors: ['Custom'],
       };
       const complete = completeMotorSpecs(specs);
       expect(complete.kT.scalar).toBe(0);
@@ -474,6 +506,11 @@ describe('Motor', () => {
         stallCurrent: new Measurement(257, 'A'),
         freeCurrent: new Measurement(0, 'A'),
         voltage: new Measurement(12, 'V'),
+        motorWeight: new Measurement(1, 'kg'),
+        controllerWeight: new Measurement(1, 'kg'),
+        type: 'Brushless',
+        dataSource: 'Custom',
+        vendors: ['Custom'],
       };
       const complete = completeMotorSpecs(specs);
       expect(complete.freeCurrent.scalar).toBe(0);
@@ -489,6 +526,11 @@ describe('Motor', () => {
         stallCurrent: new Measurement(257, 'A'),
         freeCurrent: new Measurement(1.5, 'A'),
         voltage: new Measurement(12, 'V'),
+        motorWeight: new Measurement(1, 'kg'),
+        controllerWeight: new Measurement(1, 'kg'),
+        type: 'Brushless',
+        dataSource: 'Custom',
+        vendors: ['Custom'],
       });
       const curves = generateMotorCurves(
         specs,
@@ -506,6 +548,11 @@ describe('Motor', () => {
         stallCurrent: new Measurement(257, 'A'),
         freeCurrent: new Measurement(1.5, 'A'),
         voltage: new Measurement(12, 'V'),
+        motorWeight: new Measurement(1, 'kg'),
+        controllerWeight: new Measurement(1, 'kg'),
+        type: 'Brushless',
+        dataSource: 'Custom',
+        vendors: ['Custom'],
       });
       const curves = generateMotorCurves(
         specs,
@@ -523,6 +570,11 @@ describe('Motor', () => {
         stallCurrent: new Measurement(257, 'A'),
         freeCurrent: new Measurement(1.5, 'A'),
         voltage: new Measurement(12, 'V'),
+        motorWeight: new Measurement(1, 'kg'),
+        controllerWeight: new Measurement(1, 'kg'),
+        type: 'Brushless',
+        dataSource: 'Custom',
+        vendors: ['Custom'],
       });
       const curves = generateMotorCurves(
         specs,
@@ -540,6 +592,11 @@ describe('Motor', () => {
         stallCurrent: new Measurement(257, 'A'),
         freeCurrent: new Measurement(1.5, 'A'),
         voltage: new Measurement(12, 'V'),
+        motorWeight: new Measurement(1, 'kg'),
+        controllerWeight: new Measurement(1, 'kg'),
+        type: 'Brushless',
+        dataSource: 'Custom',
+        vendors: ['Custom'],
       });
       const curves = generateMotorCurves(
         specs,
@@ -557,6 +614,11 @@ describe('Motor', () => {
         stallCurrent: new Measurement(257, 'A'),
         freeCurrent: new Measurement(1.5, 'A'),
         voltage: new Measurement(12, 'V'),
+        motorWeight: new Measurement(1, 'kg'),
+        controllerWeight: new Measurement(1, 'kg'),
+        type: 'Brushless',
+        dataSource: 'Custom',
+        vendors: ['Custom'],
       });
       const curves = generateMotorCurves(
         specs,

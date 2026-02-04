@@ -1,0 +1,176 @@
+{
+  "9661675667757_49612192481581": {
+    "productId": 9661675667757,
+    "variantId": 49612192481581,
+    "rawProduct": {
+      "id": 9661675667757,
+      "title": "Belt, Timing, HTD 390-5M-15",
+      "handle": "belt-timing-htd-390-5m-15",
+      "vendor": "Swerve Drive Specialties",
+      "product_type": "",
+      "tags": [],
+      "variants": [
+        {
+          "id": 49612192481581,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": null,
+          "available": true,
+          "price": "14.00",
+          "grams": 41,
+          "position": 1,
+          "product_id": 9661675667757
+        }
+      ],
+      "images": [
+        {
+          "id": 47991323590957,
+          "created_at": "2024-06-25T19:37:18-07:00",
+          "position": 1,
+          "updated_at": "2024-06-25T19:37:20-07:00",
+          "product_id": 9661675667757,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0065/4308/1590/files/IMG_4555_0970de5d-bd3b-4e4e-b70b-2e706e2e0064.jpg?v=1719369440",
+          "width": 4032,
+          "height": 3024
+        }
+      ],
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": ["Default Title"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 78,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": null,
+      "url": "https://www.swervedrivespecialties.com/products/belt-timing-htd-390-5m-15",
+      "vendor": "SDS"
+    },
+    "firstSeen": "2026-02-04T04:16:20.196Z",
+    "lastSeen": "2026-02-04T04:38:00.571Z"
+  },
+  "6661846925425_39611936931953": {
+    "productId": 6661846925425,
+    "variantId": 39611936931953,
+    "rawProduct": {
+      "id": 6661846925425,
+      "title": "Belt, Timing, HTD 320-5M-15",
+      "handle": "mk4i-steering-belt-64t-x-15mm-htd",
+      "vendor": "Swerve Drive Specialties",
+      "product_type": "",
+      "tags": [],
+      "variants": [
+        {
+          "id": 39611936931953,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "",
+          "available": true,
+          "price": "14.00",
+          "grams": 32,
+          "position": 1,
+          "product_id": 6661846925425
+        }
+      ],
+      "images": [
+        {
+          "id": 29327765209201,
+          "created_at": "2021-12-05T23:28:56-08:00",
+          "position": 1,
+          "updated_at": "2021-12-05T23:28:58-08:00",
+          "product_id": 6661846925425,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0065/4308/1590/products/BeltHTD320-5M-15.jpg?v=1638775738",
+          "width": 2765,
+          "height": 2765
+        }
+      ],
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": ["Default Title"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 64,
+      "width": 15,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "",
+      "url": "https://www.swervedrivespecialties.com/products/mk4i-steering-belt-64t-x-15mm-htd",
+      "vendor": "SDS"
+    },
+    "firstSeen": "2026-02-04T04:16:20.196Z",
+    "lastSeen": "2026-02-04T04:38:00.571Z"
+  },
+  "2660972658806_22616456724598": {
+    "productId": 2660972658806,
+    "variantId": 22616456724598,
+    "rawProduct": {
+      "id": 2660972658806,
+      "title": "Belt, Timing, HTD 320-5M-9",
+      "handle": "mk2-steering-belt-64t-x-9mm-htd",
+      "vendor": "Swerve Drive Specialties",
+      "product_type": "",
+      "tags": [],
+      "variants": [
+        {
+          "id": 22616456724598,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "",
+          "available": true,
+          "price": "13.00",
+          "grams": 32,
+          "position": 1,
+          "product_id": 2660972658806
+        }
+      ],
+      "images": [
+        {
+          "id": 8331926241398,
+          "created_at": "2019-05-28T23:00:45-07:00",
+          "position": 1,
+          "updated_at": "2019-05-28T23:00:45-07:00",
+          "product_id": 2660972658806,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0065/4308/1590/products/IMG_2542.JPG?v=1559109645",
+          "width": 4032,
+          "height": 3024
+        }
+      ],
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": ["Default Title"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 64,
+      "width": 9,
+      "profile": "HTD",
+      "pitch": 5,
+      "sku": "",
+      "url": "https://www.swervedrivespecialties.com/products/mk2-steering-belt-64t-x-9mm-htd",
+      "vendor": "SDS"
+    },
+    "firstSeen": "2026-02-04T04:16:20.196Z",
+    "lastSeen": "2026-02-04T04:38:00.571Z"
+  }
+}

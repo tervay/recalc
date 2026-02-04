@@ -295,6 +295,42 @@ export function parseREVSprockets(): CacheEntry[] {
   return sprockets;
 }
 
+export function parseLastAnvilSprockets(): CacheEntry[] {
+  const sprockets: CacheEntry[] = [];
+  const now = new Date().toISOString();
+
+  const productId = 7640313233614;
+  const variantId = 43296203997390;
+  const parsedData: JSONSprocket = {
+    teeth: 12,
+    bore: '1/4" Round',
+    chainType: '#25',
+    url: urlForHandle('idler-sprocket', 'LastAnvil'),
+    sku: '250153',
+    vendor: 'LastAnvil',
+  };
+  const rawProduct = createSyntheticProduct(
+    productId,
+    '12T 1/4" Round LastAnvil #25 Sprocket',
+    'LastAnvil',
+    'Sprocket',
+    '250153',
+  );
+  rawProduct.variants[0].id = variantId;
+  rawProduct.variants[0].product_id = productId;
+
+  sprockets.push({
+    productId,
+    variantId,
+    rawProduct,
+    parsedData,
+    firstSeen: now,
+    lastSeen: now,
+  });
+
+  return sprockets;
+}
+
 export function parseAndyMarkSprockets(): CacheEntry[] {
   const sprockets: CacheEntry[] = [];
   const now = new Date().toISOString();
@@ -486,6 +522,8 @@ export function parseVendorSprockets(
       return parseREVSprockets();
     case 'AndyMark':
       return parseAndyMarkSprockets();
+    case 'LastAnvil':
+      return parseLastAnvilSprockets();
     default:
       return [];
   }

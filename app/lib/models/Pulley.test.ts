@@ -282,7 +282,7 @@ describe('Pulley', () => {
         sku: 'SKU123',
         url: 'https://example.com',
         bore: '8mm',
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const pulley = Pulley.fromJson(json);
       expect(pulley.teeth).toBe(100);
@@ -292,7 +292,7 @@ describe('Pulley', () => {
       expect(pulley.sku).toBe('SKU123');
       expect(pulley.url).toBe('https://example.com');
       expect(pulley.bore).toBe('8mm');
-      expect(pulley.vendor).toBe('Vendor');
+      expect(pulley.vendor).toBe('Custom');
     });
 
     it('handles null sku', () => {
@@ -304,7 +304,7 @@ describe('Pulley', () => {
         sku: null,
         url: 'https://example.com',
         bore: '8mm',
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const pulley = Pulley.fromJson(json);
       expect(pulley.sku).toBeNull();
@@ -319,7 +319,7 @@ describe('Pulley', () => {
         sku: null,
         url: 'https://example.com',
         bore: '8mm',
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const pulley = Pulley.fromJson(json);
       expect(pulley.teeth).toBe(0);
@@ -335,7 +335,7 @@ describe('Pulley', () => {
         sku: null,
         url: 'https://example.com',
         bore: '8mm',
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const pulley = Pulley.fromJson(json);
       expect(pulley.teeth).toBe(-5);
@@ -351,7 +351,7 @@ describe('Pulley', () => {
         sku: null,
         url: 'https://example.com',
         bore: '8mm',
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const pulley = Pulley.fromJson(json);
       expect(pulley.pitch.scalar).toBe(1);
@@ -366,7 +366,7 @@ describe('Pulley', () => {
         sku: null,
         url: 'https://example.com',
         bore: '8mm',
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const pulley = Pulley.fromJson(json);
       expect(pulley.pitch.scalar).toBe(1e6);
@@ -382,7 +382,7 @@ describe('Pulley', () => {
         sku: null,
         url: 'https://example.com',
         bore: '8mm',
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const pulley = Pulley.fromJson(json);
       expect(pulley.width.scalar).toBe(1);
@@ -397,25 +397,10 @@ describe('Pulley', () => {
         sku: null,
         url: 'https://example.com',
         bore: '8mm',
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const pulley = Pulley.fromJson(json);
       expect(pulley.profile).toBe('');
-    });
-
-    it('handles empty vendor string', () => {
-      const json: JSONPulley = {
-        teeth: 100,
-        pitch: 5,
-        width: 10,
-        profile: 'HTD',
-        sku: null,
-        url: 'https://example.com',
-        bore: '8mm',
-        vendor: '',
-      };
-      const pulley = Pulley.fromJson(json);
-      expect(pulley.vendor).toBe('');
     });
 
     it('handles all valid bore types', () => {
@@ -441,7 +426,7 @@ describe('Pulley', () => {
           sku: null,
           url: 'https://example.com',
           bore,
-          vendor: 'Vendor',
+          vendor: 'Custom',
         };
         const pulley = Pulley.fromJson(json);
         expect(pulley.bore).toBe(bore);

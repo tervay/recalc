@@ -22,6 +22,7 @@ const vendorBadgeStyles: Record<Vendor, string> = {
     'border-banebots/20 bg-banebots/10 text-banebots dark:text-banebots rounded',
   CTRE: 'border-ctre/20 bg-ctre/10 text-ctre dark:text-ctre rounded',
   VEX: 'border-vex/20 bg-vex/10 text-vex dark:text-vex rounded',
+  Custom: 'border-custom/20 bg-custom/10 text-custom dark:text-custom rounded',
 };
 
 interface VendorBadgeProps extends React.ComponentProps<typeof Badge> {

@@ -1,0 +1,41 @@
+{
+  "7640313233614_43296203997390": {
+    "productId": 7640313233614,
+    "variantId": 43296203997390,
+    "rawProduct": {
+      "id": 7640313233614,
+      "title": "12T 1/4\" Round LastAnvil #25 Sprocket",
+      "handle": "synthetic-7640313233614",
+      "vendor": "LastAnvil",
+      "product_type": "Sprocket",
+      "tags": [],
+      "variants": [
+        {
+          "id": 43296203997390,
+          "title": "250153",
+          "option1": "250153",
+          "option2": null,
+          "option3": null,
+          "sku": "250153",
+          "available": true,
+          "price": "0",
+          "grams": 0,
+          "position": 1,
+          "product_id": 7640313233614
+        }
+      ],
+      "images": [],
+      "options": []
+    },
+    "parsedData": {
+      "teeth": 12,
+      "bore": "1/4\" Round",
+      "chainType": "#25",
+      "url": "https://www.lastanvil.com/products/idler-sprocket",
+      "sku": "250153",
+      "vendor": "LastAnvil"
+    },
+    "firstSeen": "2026-02-04T03:59:46.865Z",
+    "lastSeen": "2026-02-04T04:38:00.569Z"
+  }
+}

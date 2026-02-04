@@ -11,7 +11,8 @@ import {
   TableRow,
 } from '~/components/ui/table';
 import { Belt } from '~/lib/models/Belt';
-import type { JSONBelt } from '~/lib/types/belts';
+import { type JSONBelt, zJSONBeltSchema } from '~/lib/types/belts';
+import type { Vendor } from '~/lib/types/common';
 
 export function BeltTable({
   filterFn = () => true,
@@ -29,6 +30,7 @@ export function BeltTable({
         revBelts,
         andyMarkBelts,
         lastAnvilBelts,
+        sdsBelts,
       ] = await Promise.all([
         import('~/genData/WCP/belts.json').then((m) => m.default),
         import('~/genData/Swyft/belts.json').then((m) => m.default),
@@ -36,15 +38,21 @@ export function BeltTable({
         import('~/genData/REV/belts.json').then((m) => m.default),
         import('~/genData/AndyMark/belts.json').then((m) => m.default),
         import('~/genData/LastAnvil/belts.json').then((m) => m.default),
+        import('~/genData/SDS/belts.json').then((m) => m.default),
       ]);
-      setAllBelts([
-        ...wcpBelts,
-        ...swyftBelts,
-        ...vbgBelts,
-        ...revBelts,
-        ...andyMarkBelts,
-        ...lastAnvilBelts,
-      ]);
+      setAllBelts(
+        zJSONBeltSchema
+          .array()
+          .parse([
+            ...wcpBelts,
+            ...swyftBelts,
+            ...vbgBelts,
+            ...revBelts,
+            ...andyMarkBelts,
+            ...lastAnvilBelts,
+            ...sdsBelts,
+          ]),
+      );
     }
     void loadBelts();
   }, []);
@@ -96,6 +104,9 @@ export function BeltTable({
               const showDivider =
                 prevBelt !== null && prevBelt.teeth !== belt.teeth;
 
+              const defaultSku = `${belt.vendor}-${belt.teeth}T-${belt.width.format().replace(' ', '')}`;
+              const sku = belt.sku || defaultSku;
+
               return (
                 <>
                   {showDivider && (
@@ -105,11 +116,14 @@ export function BeltTable({
                       </TableCell>
                     </TableRow>
                   )}
-                  <TableRow key={belt.sku}>
+                  <TableRow key={sku}>
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-2">
-                        <VendorBadge vendor={belt.vendor} url={belt.url} />
-                        <Link to={belt.url}>{belt.sku}</Link>
+                        <VendorBadge
+                          vendor={belt.vendor as Vendor}
+                          url={belt.url}
+                        />
+                        <Link to={belt.url}>{sku}</Link>
                       </div>
                     </TableCell>
                     <TableCell>{belt.teeth}</TableCell>

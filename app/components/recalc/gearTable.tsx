@@ -10,7 +10,7 @@ import {
   TableRow,
 } from '~/components/ui/table';
 import Gear from '~/lib/models/Gear';
-import type { Bore } from '~/lib/types/common';
+import type { Bore, Vendor } from '~/lib/types/common';
 import type { JSONGear } from '~/lib/types/gears';
 
 export function GearTable({
@@ -29,6 +29,7 @@ export function GearTable({
         [...wcpGears, ...revGears].map((g) => ({
           ...g,
           bore: g.bore as Bore,
+          vendor: g.vendor as Vendor,
         })),
       );
     }

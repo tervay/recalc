@@ -5,9 +5,33 @@ import {
   createSyntheticProduct,
 } from 'scripts/downloadProducts/types';
 
+import type { Bore } from '~/lib/types/common';
 import type { JSONGear } from '~/lib/types/gears';
-import { wcpGearToJsonGear, zWCPGearSchema } from '~/lib/types/gears';
+import {
+  wcpGearToJsonGear,
+  zJSONGearSchema,
+  zWCPGearSchema,
+} from '~/lib/types/gears';
 import type { ShopifyProduct } from '~/lib/types/shopify';
+
+const SDS_GEAR_TITLE_REGEX = /Gear,\s*(\d+)DP,\s*(\d+)T\s*,?\s*(.+)/i;
+
+const SDS_GEAR_HANDLE_REGEX = /^(\d+)t-(\d+)dp-(.*?)-?gear$/i;
+
+function normalizeSDSBore(boreText: string): Bore | null {
+  const lower = boreText.trim().toLowerCase();
+  if (/falcon/.test(lower)) return 'Falcon';
+  if (/8\s*mm|8mm/.test(lower)) return '8mm';
+  if (/3\/8|3-8.*hex/.test(lower)) return '3/8" Hex';
+  return null;
+}
+
+function sdsBoreToSkuSuffix(bore: Bore): string {
+  if (bore === '3/8" Hex') return '38HEX';
+  if (bore === '8mm') return '8MM';
+  if (bore === 'Falcon') return 'FALCON';
+  return bore.toUpperCase().replace(/\s+/g, '');
+}
 
 export function parseWCPGears(products: ShopifyProduct[]): CacheEntry[] {
   const gears: CacheEntry[] = [];
@@ -239,94 +263,65 @@ export function parseREVGears(): CacheEntry[] {
   return gears;
 }
 
-export function parseSDSGears(): CacheEntry[] {
-  const gears: JSONGear[] = [
-    {
-      teeth: 16,
-      dp: 20,
-      bore: '3/8" Hex',
-      url: 'https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/16t-20dp-3-8-hex-gear',
-      sku: 'SDS-16T-20DP-38HEX',
-      vendor: 'SDS',
-    },
-    {
-      teeth: 17,
-      dp: 20,
-      bore: '3/8" Hex',
-      url: 'https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/17t-20dp-3-8-hex-gear',
-      sku: 'SDS-17T-20DP-38HEX',
-      vendor: 'SDS',
-    },
-    {
-      teeth: 19,
-      dp: 20,
-      bore: '3/8" Hex',
-      url: 'https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/19t-20dp-3-8-hex-gear',
-      sku: 'SDS-19T-20DP-38HEX',
-      vendor: 'SDS',
-    },
-    {
-      teeth: 50,
-      dp: 20,
-      bore: '3/8" Hex',
-      url: 'https://www.swervedrivespecialties.com/collections/20dp-3-8-hex-gears/products/gear-20dp-50t-3-8-hex-bore',
-      sku: 'SDS-50T-20DP-38HEX',
-      vendor: 'SDS',
-    },
-    {
-      teeth: 32,
-      dp: 32,
-      bore: '3/8" Hex',
-      url: 'https://www.swervedrivespecialties.com/collections/32dp-3-8-hex-gears/products/32t-32dp-gear',
-      sku: 'SDS-32T-32DP-38HEX',
-      vendor: 'SDS',
-    },
-    {
-      teeth: 14,
-      dp: 20,
-      bore: '8mm',
-      url: 'https://www.swervedrivespecialties.com/collections/motor-pinions-8mm-bore/products/gear-20dp-14t-8mm-bore',
-      sku: 'SDS-14T-20DP-8MM',
-      vendor: 'SDS',
-    },
-    {
-      teeth: 16,
-      dp: 20,
-      bore: '8mm',
-      url: 'https://www.swervedrivespecialties.com/collections/motor-pinions-8mm-bore/products/gear-20dp-16t-8mm-bore',
-      sku: 'SDS-16T-20DP-8MM',
-      vendor: 'SDS',
-    },
-    {
-      teeth: 15,
-      dp: 32,
-      bore: '8mm',
-      url: 'https://www.swervedrivespecialties.com/collections/motor-pinions-8mm-bore/products/gear-32dp-15t-8mm-bore',
-      sku: 'SDS-15T-32DP-8MM',
-      vendor: 'SDS',
-    },
-  ];
-
+export function parseSDSGears(products: ShopifyProduct[]): CacheEntry[] {
   const cacheEntries: CacheEntry[] = [];
   const now = new Date().toISOString();
 
-  for (const parsedData of gears) {
-    const syntheticId = -8000 - cacheEntries.length;
+  for (const product of products) {
+    if (!product.title.includes('Gear')) continue;
 
-    cacheEntries.push({
-      productId: syntheticId,
-      variantId: syntheticId,
-      rawProduct: createSyntheticProduct(
-        syntheticId,
-        `${parsedData.teeth}T ${parsedData.dp}DP ${parsedData.bore} SDS Gear`,
-        'SDS',
-        'Gear',
-        parsedData.sku,
-      ),
-      parsedData,
-      firstSeen: now,
-      lastSeen: now,
-    });
+    let teeth: number;
+    let dp: number;
+    let bore: Bore | null = null;
+
+    const titleMatch = product.title.match(SDS_GEAR_TITLE_REGEX);
+    if (titleMatch) {
+      dp = parseInt(titleMatch[1], 10);
+      teeth = parseInt(titleMatch[2], 10);
+      bore = normalizeSDSBore(titleMatch[3]);
+    } else {
+      const handleMatch = product.handle.match(SDS_GEAR_HANDLE_REGEX);
+      if (!handleMatch) continue;
+      teeth = parseInt(handleMatch[1], 10);
+      dp = parseInt(handleMatch[2], 10);
+      const handleBorePart = (handleMatch[3] ?? '').toLowerCase();
+      if (/falcon/.test(handleBorePart)) bore = 'Falcon';
+      else if (/8mm/.test(handleBorePart)) bore = '8mm';
+      else if (/3-8-hex/.test(handleBorePart)) bore = '3/8" Hex';
+      else if (handleBorePart === '' || handleBorePart === 'gear')
+        bore = '3/8" Hex';
+      else continue;
+    }
+
+    if (bore === null) continue;
+
+    const url = urlForHandle(product.handle, 'SDS');
+    const variant = product.variants[0];
+    if (!variant) continue;
+    const skuSuffix = sdsBoreToSkuSuffix(bore);
+    const sku = variant.sku ?? `SDS-${teeth}T-${dp}DP-${skuSuffix}`;
+
+    try {
+      const parsedData = zJSONGearSchema.parse({
+        teeth,
+        dp,
+        bore,
+        url,
+        sku,
+        vendor: 'SDS',
+      });
+
+      cacheEntries.push({
+        productId: product.id,
+        variantId: variant.id,
+        rawProduct: cleanProductForCache(product),
+        parsedData,
+        firstSeen: now,
+        lastSeen: now,
+      });
+    } catch (error) {
+      console.error(`Error parsing SDS gear: ${product.title}`, error);
+    }
   }
 
   return cacheEntries;
@@ -342,7 +337,7 @@ export function parseVendorGears(
     case 'REV':
       return parseREVGears();
     case 'SDS':
-      return parseSDSGears();
+      return parseSDSGears(products);
     default:
       return [];
   }

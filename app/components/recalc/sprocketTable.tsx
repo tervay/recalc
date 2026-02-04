@@ -12,7 +12,7 @@ import {
   TableRow,
 } from '~/components/ui/table';
 import Sprocket from '~/lib/models/Sprocket';
-import type { Bore } from '~/lib/types/common';
+import type { Bore, Vendor } from '~/lib/types/common';
 import type { ChainType, JSONSprocket } from '~/lib/types/sprockets';
 
 export function SprocketTable({
@@ -23,23 +23,31 @@ export function SprocketTable({
   const [allSprockets, setAllSprockets] = useState<JSONSprocket[] | null>(null);
   useEffect(() => {
     async function loadSprockets() {
-      const [wcpSprockets, thriftySprockets, revSprockets, andyMarkSprockets] =
-        await Promise.all([
-          import('~/genData/WCP/sprockets.json').then((m) => m.default),
-          import('~/genData/Thrifty/sprockets.json').then((m) => m.default),
-          import('~/genData/REV/sprockets.json').then((m) => m.default),
-          import('~/genData/AndyMark/sprockets.json').then((m) => m.default),
-        ]);
+      const [
+        wcpSprockets,
+        thriftySprockets,
+        revSprockets,
+        andyMarkSprockets,
+        lastAnvilSprockets,
+      ] = await Promise.all([
+        import('~/genData/WCP/sprockets.json').then((m) => m.default),
+        import('~/genData/Thrifty/sprockets.json').then((m) => m.default),
+        import('~/genData/REV/sprockets.json').then((m) => m.default),
+        import('~/genData/AndyMark/sprockets.json').then((m) => m.default),
+        import('~/genData/LastAnvil/sprockets.json').then((m) => m.default),
+      ]);
       setAllSprockets(
         [
           ...wcpSprockets,
           ...thriftySprockets,
           ...revSprockets,
           ...andyMarkSprockets,
+          ...lastAnvilSprockets,
         ].map((s) => ({
           ...s,
           bore: s.bore as Bore,
           chainType: s.chainType as ChainType,
+          vendor: s.vendor as Vendor,
         })),
       );
     }
@@ -94,7 +102,7 @@ export function SprocketTable({
                   <TableCell className="font-medium">
                     <div className="flex items-center gap-2">
                       <VendorBadge
-                        vendor={sprocket.vendor}
+                        vendor={sprocket.vendor as Vendor}
                         url={sprocket.url}
                       />
                       <Link to={sprocket.url}>{sprocket.sku}</Link>
