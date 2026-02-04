@@ -7,7 +7,7 @@ import { getWpilibcModuleSync } from '~/lib/wpilib/wpilibc';
 export const nominalVoltage = new Measurement(12, 'V');
 export const highCurrentLimit = new Measurement(1000, 'A');
 
-interface MotorSpecs {
+export interface MotorSpecs {
   voltage: Measurement;
   stallTorque: Measurement;
   stallCurrent: Measurement;

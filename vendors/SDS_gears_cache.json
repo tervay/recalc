@@ -36,7 +36,7 @@
       "vendor": "SDS"
     },
     "firstSeen": "2026-02-03T23:02:51.069Z",
-    "lastSeen": "2026-02-04T00:01:19.385Z"
+    "lastSeen": "2026-02-04T04:03:06.962Z"
   },
   "-8001_-8001": {
     "productId": -8001,
@@ -75,7 +75,7 @@
       "vendor": "SDS"
     },
     "firstSeen": "2026-02-03T23:02:51.069Z",
-    "lastSeen": "2026-02-04T00:01:19.385Z"
+    "lastSeen": "2026-02-04T04:03:06.962Z"
   },
   "-8002_-8002": {
     "productId": -8002,
@@ -114,7 +114,7 @@
       "vendor": "SDS"
     },
     "firstSeen": "2026-02-03T23:02:51.069Z",
-    "lastSeen": "2026-02-04T00:01:19.385Z"
+    "lastSeen": "2026-02-04T04:03:06.962Z"
   },
   "-8003_-8003": {
     "productId": -8003,
@@ -153,7 +153,7 @@
       "vendor": "SDS"
     },
     "firstSeen": "2026-02-03T23:02:51.069Z",
-    "lastSeen": "2026-02-04T00:01:19.385Z"
+    "lastSeen": "2026-02-04T04:03:06.962Z"
   },
   "-8004_-8004": {
     "productId": -8004,
@@ -192,7 +192,7 @@
       "vendor": "SDS"
     },
     "firstSeen": "2026-02-03T23:02:51.069Z",
-    "lastSeen": "2026-02-04T00:01:19.385Z"
+    "lastSeen": "2026-02-04T04:03:06.962Z"
   },
   "-8005_-8005": {
     "productId": -8005,
@@ -231,7 +231,7 @@
       "vendor": "SDS"
     },
     "firstSeen": "2026-02-03T23:02:51.069Z",
-    "lastSeen": "2026-02-04T00:01:19.385Z"
+    "lastSeen": "2026-02-04T04:03:06.962Z"
   },
   "-8006_-8006": {
     "productId": -8006,
@@ -270,7 +270,7 @@
       "vendor": "SDS"
     },
     "firstSeen": "2026-02-03T23:02:51.069Z",
-    "lastSeen": "2026-02-04T00:01:19.385Z"
+    "lastSeen": "2026-02-04T04:03:06.962Z"
   },
   "-8007_-8007": {
     "productId": -8007,
@@ -309,6 +309,633 @@
       "vendor": "SDS"
     },
     "firstSeen": "2026-02-03T23:02:51.069Z",
-    "lastSeen": "2026-02-04T00:01:19.385Z"
+    "lastSeen": "2026-02-04T04:03:06.962Z"
+  },
+  "9940243939629_50435655827757": {
+    "productId": 9940243939629,
+    "variantId": 50435655827757,
+    "rawProduct": {
+      "id": 9940243939629,
+      "title": "Gear, 20DP, 16T Falcon Spline Bore",
+      "handle": "gear-20dp-16t-falcon-spline-bore",
+      "vendor": "Swerve Drive Specialties",
+      "product_type": "",
+      "tags": [],
+      "variants": [
+        {
+          "id": 50435655827757,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": null,
+          "available": true,
+          "price": "10.00",
+          "grams": 23,
+          "position": 1,
+          "product_id": 9940243939629
+        }
+      ],
+      "images": [
+        {
+          "id": 50380504891693,
+          "created_at": "2025-01-28T22:04:12-08:00",
+          "position": 1,
+          "updated_at": "2025-01-28T22:04:14-08:00",
+          "product_id": 9940243939629,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0065/4308/1590/files/IMG_6032.jpg?v=1738130654",
+          "width": 4032,
+          "height": 3024
+        }
+      ],
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": ["Default Title"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 16,
+      "dp": 20,
+      "bore": "Falcon",
+      "url": "https://www.swervedrivespecialties.com/products/gear-20dp-16t-falcon-spline-bore",
+      "sku": "SDS-16T-20DP-FALCON",
+      "vendor": "SDS"
+    },
+    "firstSeen": "2026-02-04T04:16:20.226Z",
+    "lastSeen": "2026-02-04T04:38:00.574Z"
+  },
+  "8054082928941_44151199400237": {
+    "productId": 8054082928941,
+    "variantId": 44151199400237,
+    "rawProduct": {
+      "id": 8054082928941,
+      "title": "Gear, 32DP, 15T, 8mm Bore",
+      "handle": "gear-32dp-15t-8mm-bore",
+      "vendor": "Swerve Drive Specialties",
+      "product_type": "",
+      "tags": [],
+      "variants": [
+        {
+          "id": 44151199400237,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "",
+          "available": true,
+          "price": "10.00",
+          "grams": 14,
+          "position": 1,
+          "product_id": 8054082928941
+        }
+      ],
+      "images": [
+        {
+          "id": 40092231172397,
+          "created_at": "2022-12-12T15:09:53-08:00",
+          "position": 1,
+          "updated_at": "2022-12-12T15:09:55-08:00",
+          "product_id": 8054082928941,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0065/4308/1590/products/IMG_0781.jpg?v=1670886595",
+          "width": 4032,
+          "height": 3024
+        }
+      ],
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": ["Default Title"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 15,
+      "dp": 32,
+      "bore": "8mm",
+      "url": "https://www.swervedrivespecialties.com/products/gear-32dp-15t-8mm-bore",
+      "sku": "",
+      "vendor": "SDS"
+    },
+    "firstSeen": "2026-02-04T04:16:20.226Z",
+    "lastSeen": "2026-02-04T04:38:00.574Z"
+  },
+  "8054075130157_44151191896365": {
+    "productId": 8054075130157,
+    "variantId": 44151191896365,
+    "rawProduct": {
+      "id": 8054075130157,
+      "title": "Gear, 20DP, 50T, 3/8\" Hex Bore",
+      "handle": "gear-20dp-50t-3-8-hex-bore",
+      "vendor": "Swerve Drive Specialties",
+      "product_type": "",
+      "tags": [],
+      "variants": [
+        {
+          "id": 44151191896365,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "",
+          "available": true,
+          "price": "20.00",
+          "grams": 82,
+          "position": 1,
+          "product_id": 8054075130157
+        }
+      ],
+      "images": [
+        {
+          "id": 40092197323053,
+          "created_at": "2022-12-12T15:00:51-08:00",
+          "position": 1,
+          "updated_at": "2022-12-12T15:00:53-08:00",
+          "product_id": 8054075130157,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0065/4308/1590/products/IMG_0780.jpg?v=1670886053",
+          "width": 4032,
+          "height": 3024
+        }
+      ],
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": ["Default Title"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 50,
+      "dp": 20,
+      "bore": "3/8\" Hex",
+      "url": "https://www.swervedrivespecialties.com/products/gear-20dp-50t-3-8-hex-bore",
+      "sku": "",
+      "vendor": "SDS"
+    },
+    "firstSeen": "2026-02-04T04:16:20.226Z",
+    "lastSeen": "2026-02-04T04:38:00.574Z"
+  },
+  "8054066676013_44151174136109": {
+    "productId": 8054066676013,
+    "variantId": 44151174136109,
+    "rawProduct": {
+      "id": 8054066676013,
+      "title": "Gear, 20DP, 16T 8mm Bore",
+      "handle": "gear-20dp-16t-8mm-bore",
+      "vendor": "Swerve Drive Specialties",
+      "product_type": "",
+      "tags": [],
+      "variants": [
+        {
+          "id": 44151174136109,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "",
+          "available": true,
+          "price": "10.00",
+          "grams": 27,
+          "position": 1,
+          "product_id": 8054066676013
+        }
+      ],
+      "images": [
+        {
+          "id": 40092148367661,
+          "created_at": "2022-12-12T14:51:45-08:00",
+          "position": 1,
+          "updated_at": "2022-12-12T14:51:47-08:00",
+          "product_id": 8054066676013,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0065/4308/1590/products/IMG_0778.jpg?v=1670885507",
+          "width": 4032,
+          "height": 3024
+        }
+      ],
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": ["Default Title"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 16,
+      "dp": 20,
+      "bore": "8mm",
+      "url": "https://www.swervedrivespecialties.com/products/gear-20dp-16t-8mm-bore",
+      "sku": "",
+      "vendor": "SDS"
+    },
+    "firstSeen": "2026-02-04T04:16:20.226Z",
+    "lastSeen": "2026-02-04T04:38:00.574Z"
+  },
+  "8054064808237_44151169057069": {
+    "productId": 8054064808237,
+    "variantId": 44151169057069,
+    "rawProduct": {
+      "id": 8054064808237,
+      "title": "Gear, 20DP, 14T 8mm Bore",
+      "handle": "gear-20dp-14t-8mm-bore",
+      "vendor": "Swerve Drive Specialties",
+      "product_type": "",
+      "tags": [],
+      "variants": [
+        {
+          "id": 44151169057069,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "",
+          "available": true,
+          "price": "10.00",
+          "grams": 18,
+          "position": 1,
+          "product_id": 8054064808237
+        }
+      ],
+      "images": [
+        {
+          "id": 40092133851437,
+          "created_at": "2022-12-12T14:48:54-08:00",
+          "position": 1,
+          "updated_at": "2022-12-12T14:48:57-08:00",
+          "product_id": 8054064808237,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0065/4308/1590/products/IMG_0776_bfee6f99-14d3-43d2-8736-1ba4dcd85d87.jpg?v=1670885337",
+          "width": 4032,
+          "height": 3024
+        }
+      ],
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": ["Default Title"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 14,
+      "dp": 20,
+      "bore": "8mm",
+      "url": "https://www.swervedrivespecialties.com/products/gear-20dp-14t-8mm-bore",
+      "sku": "",
+      "vendor": "SDS"
+    },
+    "firstSeen": "2026-02-04T04:16:20.226Z",
+    "lastSeen": "2026-02-04T04:38:00.574Z"
+  },
+  "6664925315185_39620029874289": {
+    "productId": 6664925315185,
+    "variantId": 39620029874289,
+    "rawProduct": {
+      "id": 6664925315185,
+      "title": "Gear, 32DP, 15T, Falcon Spline Bore",
+      "handle": "15t-32dp-falcon-500-gear",
+      "vendor": "Swerve Drive Specialties",
+      "product_type": "",
+      "tags": [],
+      "variants": [
+        {
+          "id": 39620029874289,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "",
+          "available": true,
+          "price": "10.00",
+          "grams": 14,
+          "position": 1,
+          "product_id": 6664925315185
+        }
+      ],
+      "images": [
+        {
+          "id": 40092204695853,
+          "created_at": "2022-12-12T15:04:21-08:00",
+          "position": 1,
+          "updated_at": "2022-12-12T15:04:23-08:00",
+          "product_id": 6664925315185,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0065/4308/1590/products/IMG_0782.jpg?v=1670886263",
+          "width": 4032,
+          "height": 3024
+        }
+      ],
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": ["Default Title"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 15,
+      "dp": 32,
+      "bore": "Falcon",
+      "url": "https://www.swervedrivespecialties.com/products/15t-32dp-falcon-500-gear",
+      "sku": "",
+      "vendor": "SDS"
+    },
+    "firstSeen": "2026-02-04T04:16:20.226Z",
+    "lastSeen": "2026-02-04T04:38:00.574Z"
+  },
+  "6664924659825_39620028072049": {
+    "productId": 6664924659825,
+    "variantId": 39620028072049,
+    "rawProduct": {
+      "id": 6664924659825,
+      "title": "Gear, 20DP, 14T Falcon Spline Bore",
+      "handle": "14t-20dp-falcon-500-gear",
+      "vendor": "Swerve Drive Specialties",
+      "product_type": "",
+      "tags": [],
+      "variants": [
+        {
+          "id": 39620028072049,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "",
+          "available": true,
+          "price": "10.00",
+          "grams": 23,
+          "position": 1,
+          "product_id": 6664924659825
+        }
+      ],
+      "images": [
+        {
+          "id": 40092105376045,
+          "created_at": "2022-12-12T14:40:31-08:00",
+          "position": 1,
+          "updated_at": "2022-12-12T14:40:33-08:00",
+          "product_id": 6664924659825,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0065/4308/1590/products/IMG_0777.jpg?v=1670884833",
+          "width": 4032,
+          "height": 3024
+        }
+      ],
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": ["Default Title"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 14,
+      "dp": 20,
+      "bore": "Falcon",
+      "url": "https://www.swervedrivespecialties.com/products/14t-20dp-falcon-500-gear",
+      "sku": "",
+      "vendor": "SDS"
+    },
+    "firstSeen": "2026-02-04T04:16:20.226Z",
+    "lastSeen": "2026-02-04T04:38:00.574Z"
+  },
+  "6633197764721_39535614492785": {
+    "productId": 6633197764721,
+    "variantId": 39535614492785,
+    "rawProduct": {
+      "id": 6633197764721,
+      "title": "Gear, 20DP, 16T, 3/8\" Hex Bore",
+      "handle": "16t-20dp-3-8-hex-gear",
+      "vendor": "Swerve Drive Specialties",
+      "product_type": "",
+      "tags": [],
+      "variants": [
+        {
+          "id": 39535614492785,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "",
+          "available": true,
+          "price": "14.00",
+          "grams": 32,
+          "position": 1,
+          "product_id": 6633197764721
+        }
+      ],
+      "images": [
+        {
+          "id": 29327761965169,
+          "created_at": "2021-12-05T23:27:26-08:00",
+          "position": 1,
+          "updated_at": "2021-12-05T23:27:27-08:00",
+          "product_id": 6633197764721,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0065/4308/1590/products/16T20DP.375HexgearPhoto.jpg?v=1638775647",
+          "width": 1805,
+          "height": 1805
+        }
+      ],
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": ["Default Title"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 16,
+      "dp": 20,
+      "bore": "3/8\" Hex",
+      "url": "https://www.swervedrivespecialties.com/products/16t-20dp-3-8-hex-gear",
+      "sku": "",
+      "vendor": "SDS"
+    },
+    "firstSeen": "2026-02-04T04:16:20.226Z",
+    "lastSeen": "2026-02-04T04:38:00.574Z"
+  },
+  "6586745159793_39377998348401": {
+    "productId": 6586745159793,
+    "variantId": 39377998348401,
+    "rawProduct": {
+      "id": 6586745159793,
+      "title": "Gear, 20DP, 19T, 3/8\" Hex Bore",
+      "handle": "19t-20dp-3-8-hex-gear",
+      "vendor": "Swerve Drive Specialties",
+      "product_type": "",
+      "tags": [],
+      "variants": [
+        {
+          "id": 39377998348401,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "",
+          "available": false,
+          "price": "14.00",
+          "grams": 32,
+          "position": 1,
+          "product_id": 6586745159793
+        }
+      ],
+      "images": [
+        {
+          "id": 28516934516849,
+          "created_at": "2021-06-09T14:44:31-07:00",
+          "position": 1,
+          "updated_at": "2021-06-09T14:44:31-07:00",
+          "product_id": 6586745159793,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0065/4308/1590/products/19tgearimage.jpg?v=1623275071",
+          "width": 1724,
+          "height": 1724
+        }
+      ],
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": ["Default Title"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 19,
+      "dp": 20,
+      "bore": "3/8\" Hex",
+      "url": "https://www.swervedrivespecialties.com/products/19t-20dp-3-8-hex-gear",
+      "sku": "",
+      "vendor": "SDS"
+    },
+    "firstSeen": "2026-02-04T04:16:20.226Z",
+    "lastSeen": "2026-02-04T04:38:00.574Z"
+  },
+  "6586745684081_39377999626353": {
+    "productId": 6586745684081,
+    "variantId": 39377999626353,
+    "rawProduct": {
+      "id": 6586745684081,
+      "title": "Gear, 20DP, 17T, 3/8\" Hex Bore",
+      "handle": "17t-20dp-3-8-hex-gear",
+      "vendor": "Swerve Drive Specialties",
+      "product_type": "",
+      "tags": [],
+      "variants": [
+        {
+          "id": 39377999626353,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "",
+          "available": true,
+          "price": "14.00",
+          "grams": 32,
+          "position": 1,
+          "product_id": 6586745684081
+        }
+      ],
+      "images": [
+        {
+          "id": 28516944511089,
+          "created_at": "2021-06-09T14:47:23-07:00",
+          "position": 1,
+          "updated_at": "2021-06-09T14:47:23-07:00",
+          "product_id": 6586745684081,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0065/4308/1590/products/17tGearImage.jpg?v=1623275243",
+          "width": 1533,
+          "height": 1535
+        }
+      ],
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": ["Default Title"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 17,
+      "dp": 20,
+      "bore": "3/8\" Hex",
+      "url": "https://www.swervedrivespecialties.com/products/17t-20dp-3-8-hex-gear",
+      "sku": "",
+      "vendor": "SDS"
+    },
+    "firstSeen": "2026-02-04T04:16:20.226Z",
+    "lastSeen": "2026-02-04T04:38:00.574Z"
+  },
+  "4576545243249_32068211998833": {
+    "productId": 4576545243249,
+    "variantId": 32068211998833,
+    "rawProduct": {
+      "id": 4576545243249,
+      "title": "Gear, 32DP, 32T, 3/8\" Hex Bore",
+      "handle": "32t-32dp-gear",
+      "vendor": "Swerve Drive Specialties",
+      "product_type": "",
+      "tags": [],
+      "variants": [
+        {
+          "id": 32068211998833,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "",
+          "available": true,
+          "price": "15.00",
+          "grams": 32,
+          "position": 1,
+          "product_id": 4576545243249
+        }
+      ],
+      "images": [
+        {
+          "id": 15558016073841,
+          "created_at": "2020-09-23T20:39:00-07:00",
+          "position": 1,
+          "updated_at": "2020-09-23T20:39:00-07:00",
+          "product_id": 4576545243249,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0065/4308/1590/products/ImagefromiOS_25.jpg?v=1600918740",
+          "width": 3024,
+          "height": 3023
+        }
+      ],
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": ["Default Title"]
+        }
+      ]
+    },
+    "parsedData": {
+      "teeth": 32,
+      "dp": 32,
+      "bore": "3/8\" Hex",
+      "url": "https://www.swervedrivespecialties.com/products/32t-32dp-gear",
+      "sku": "",
+      "vendor": "SDS"
+    },
+    "firstSeen": "2026-02-04T04:16:20.226Z",
+    "lastSeen": "2026-02-04T04:38:00.574Z"
   }
 }

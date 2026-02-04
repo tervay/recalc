@@ -38,7 +38,7 @@ describe('Cache Management', () => {
         published_at: '',
         created_at: '',
         updated_at: '',
-        vendor: 'TestVendor',
+        vendor: 'Custom',
         product_type: 'Test',
         tags: [],
         variants: [
@@ -73,7 +73,7 @@ describe('Cache Management', () => {
         sku,
         url: 'https://example.com',
         bore: '1/2" Hex',
-        vendor: 'TestVendor',
+        vendor: 'Custom',
       },
       firstSeen: '2024-01-01T00:00:00.000Z',
       lastSeen: '2024-01-01T00:00:00.000Z',

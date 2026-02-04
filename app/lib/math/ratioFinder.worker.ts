@@ -642,6 +642,7 @@ export async function findGearboxes(
     import('~/genData/REV/sprockets.json').then((m) => m.default),
     import('~/genData/Thrifty/sprockets.json').then((m) => m.default),
     import('~/genData/AndyMark/sprockets.json').then((m) => m.default),
+    import('~/genData/LastAnvil/sprockets.json').then((m) => m.default),
     Promise.resolve(
       filters.enableCustomSprockets
         ? generateCustomSprockets(
@@ -658,12 +659,14 @@ export async function findGearboxes(
         revSprockets,
         thriftySprockets,
         andyMarkSprockets,
+        lastAnvilSprockets,
         customSprockets,
       ]) => [
         ...wcpSprockets,
         ...revSprockets,
         ...thriftySprockets,
         ...andyMarkSprockets,
+        ...lastAnvilSprockets,
         ...customSprockets,
       ],
     )

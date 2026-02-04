@@ -12,7 +12,7 @@ import {
   TableRow,
 } from '~/components/ui/table';
 import Pulley from '~/lib/models/Pulley';
-import type { Bore } from '~/lib/types/common';
+import type { Bore, Vendor } from '~/lib/types/common';
 import type { JSONPulley } from '~/lib/types/pulleys';
 
 export function PulleyTable({
@@ -44,7 +44,11 @@ export function PulleyTable({
           ...revPulleys,
           ...andyMarkPulleys,
           ...lastAnvilPulleys,
-        ].map((p) => ({ ...p, bore: p.bore as Bore })),
+        ].map((p) => ({
+          ...p,
+          bore: p.bore as Bore,
+          vendor: p.vendor as Vendor,
+        })),
       );
     }
     void loadPulleys();
@@ -98,7 +102,10 @@ export function PulleyTable({
                 <TableRow key={pulley.sku}>
                   <TableCell className="font-medium">
                     <div className="flex items-center gap-2">
-                      <VendorBadge vendor={pulley.vendor} url={pulley.url} />
+                      <VendorBadge
+                        vendor={pulley.vendor as Vendor}
+                        url={pulley.url}
+                      />
                       <Link to={pulley.url}>{pulley.sku}</Link>
                     </div>
                   </TableCell>

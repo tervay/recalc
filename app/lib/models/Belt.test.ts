@@ -241,7 +241,7 @@ describe('Belt', () => {
         profile: 'HTD',
         sku: 'SKU123',
         url: 'https://example.com',
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const belt = Belt.fromJson(json);
       expect(belt.teeth).toBe(100);
@@ -250,7 +250,7 @@ describe('Belt', () => {
       expect(belt.profile).toBe('HTD');
       expect(belt.sku).toBe('SKU123');
       expect(belt.url).toBe('https://example.com');
-      expect(belt.vendor).toBe('Vendor');
+      expect(belt.vendor).toBe('Custom');
     });
 
     it('handles null sku', () => {
@@ -261,7 +261,7 @@ describe('Belt', () => {
         profile: 'HTD',
         sku: null,
         url: 'https://example.com',
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const belt = Belt.fromJson(json);
       expect(belt.sku).toBeNull();
@@ -275,7 +275,7 @@ describe('Belt', () => {
         profile: 'HTD',
         sku: null,
         url: 'https://example.com',
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const belt = Belt.fromJson(json);
       expect(belt.teeth).toBe(0);
@@ -290,7 +290,7 @@ describe('Belt', () => {
         profile: 'HTD',
         sku: null,
         url: 'https://example.com',
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const belt = Belt.fromJson(json);
       expect(belt.teeth).toBe(-5);
@@ -305,7 +305,7 @@ describe('Belt', () => {
         profile: 'HTD',
         sku: null,
         url: 'https://example.com',
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const belt = Belt.fromJson(json);
       expect(belt.pitch.scalar).toBe(1);
@@ -319,7 +319,7 @@ describe('Belt', () => {
         profile: 'HTD',
         sku: null,
         url: 'https://example.com',
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const belt = Belt.fromJson(json);
       expect(belt.pitch.scalar).toBe(1e6);
@@ -334,7 +334,7 @@ describe('Belt', () => {
         profile: 'HTD',
         sku: null,
         url: 'https://example.com',
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const belt = Belt.fromJson(json);
       expect(belt.width.scalar).toBe(1);
@@ -348,24 +348,10 @@ describe('Belt', () => {
         profile: '',
         sku: null,
         url: 'https://example.com',
-        vendor: 'Vendor',
+        vendor: 'Custom',
       };
       const belt = Belt.fromJson(json);
       expect(belt.profile).toBe('');
-    });
-
-    it('handles empty vendor string', () => {
-      const json: JSONBelt = {
-        teeth: 100,
-        pitch: 5,
-        width: 10,
-        profile: 'HTD',
-        sku: null,
-        url: 'https://example.com',
-        vendor: '',
-      };
-      const belt = Belt.fromJson(json);
-      expect(belt.vendor).toBe('');
     });
   });
 
