@@ -7,10 +7,18 @@ import type { ShopifyProduct } from '~/lib/types/shopify';
  * Ignorelist for specific products that are known to be unparseable.
  * Each entry is a tuple of [productId, variantId].
  */
-const UNPARSEABLE_IGNORELIST: Record<VendorName, Array<[string, string]>> = {
+export const UNPARSEABLE_IGNORELIST: Record<
+  VendorName,
+  Array<[string, string]>
+> = {
   WCP: [],
   Thrifty: [],
-  AndyMark: [['8263438729388', '44495365636268']],
+  AndyMark: [
+    ['8263438729388', '44495365636268'],
+    ['8263478608044', '44495536292012'],
+    ['8263479885996', '44495544778924'],
+    ['8262927810732', '44493482623148'],
+  ],
   REV: [],
   VBeltGuys: [],
   LastAnvil: [],
@@ -22,9 +30,62 @@ const UNPARSEABLE_IGNORELIST: Record<VendorName, Array<[string, string]>> = {
 };
 
 /**
+ * Exclusion keywords for products that should not be parsed
+ */
+export const EXCLUSION_KEYWORDS = [
+  'swerve',
+  'gearbox',
+  'polybelt',
+  'gearmotor',
+  'kit',
+  'tensioner',
+  'clamping',
+  'toughbox',
+  'grinder',
+  'pulley block',
+  'bevel',
+  'double,',
+  'robits',
+  'mk3',
+  'mk4',
+  'mk5',
+  'miter',
+  'timing belt tread',
+  'nitrile track',
+  'track drive',
+  'round groove',
+  'crowned roller',
+  'flat belt',
+  'open ended',
+  'steamworks',
+  'spacer',
+  'servo spline',
+  ' worm ',
+  '0.6 module',
+  '0.5 in. key bore',
+  'sport gear',
+  'pulley plate',
+  'pulley bearing',
+  'spool pulley',
+  'picobox',
+  'nub bore',
+  'gears graphic',
+  'pulley stock',
+  'neverest',
+  'gear stock',
+  'dog pattern',
+  'samurai',
+  'ninja star',
+  'ships from sydney',
+  'base pulley',
+  'for dart',
+  'pulley extension',
+];
+
+/**
  * Check if a product/variant combination is in the unparseable ignorelist
  */
-function isInIgnorelist(
+export function isInIgnorelist(
   vendor: VendorName,
   productId: number,
   variantId: number,
@@ -41,8 +102,30 @@ function isInIgnorelist(
 }
 
 /**
+ * Check if a product should be skipped during parsing
+ */
+export function shouldSkipProduct(
+  product: ShopifyProduct,
+  vendor: VendorName,
+): boolean {
+  const title = product.title.toLowerCase();
+
+  // Check exclusion keywords
+  if (EXCLUSION_KEYWORDS.some((exclusion) => title.includes(exclusion))) {
+    return true;
+  }
+
+  // WCP-specific: skip products that don't start with "wcp-"
+  if (vendor === 'WCP' && !title.startsWith('wcp-')) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
  * Check if a product title contains relevant keywords (belt, pulley, sprocket, gear)
- * and does not contain exclusion keywords (swerve, gearbox, polybelt, gearmotor)
+ * and does not contain exclusion keywords
  */
 function isRelevantProduct(
   product: ShopifyProduct,
@@ -50,54 +133,8 @@ function isRelevantProduct(
 ): boolean {
   const title = product.title.toLowerCase();
 
-  // WCP-specific: only include products that start with "wcp-"
-  if (vendor === 'WCP') {
-    if (!title.startsWith('wcp-')) {
-      return false;
-    }
-  }
-
-  // Exclude products containing certain keywords
-  const exclusions = [
-    'swerve',
-    'gearbox',
-    'polybelt',
-    'gearmotor',
-    'kit',
-    'tensioner',
-    'clamping',
-    'toughbox',
-    'grinder',
-    'pulley block',
-    'bevel',
-    'double,',
-    'robits',
-    'mk3',
-    'mk4',
-    'mk5',
-    'miter',
-    'timing belt tread',
-    'nitrile track',
-    'track drive',
-    'round groove',
-    'crowned roller',
-    'flat belt',
-    'open ended',
-    'steamworks',
-    'spacer',
-    'servo spline',
-    ' worm ',
-    '0.6 module',
-    '0.5 in. key bore',
-    'sport gear',
-    'pulley plate',
-    'pulley bearing',
-    'spool pulley',
-    'picobox',
-    'nub bore',
-    'gears graphic',
-  ];
-  if (exclusions.some((exclusion) => title.includes(exclusion))) {
+  // Check if should be skipped
+  if (shouldSkipProduct(product, vendor)) {
     return false;
   }
 

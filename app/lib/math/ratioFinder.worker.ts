@@ -488,6 +488,7 @@ export async function findGearboxes(
     import('~/genData/WCP/gears.json').then((m) => m.default),
     import('~/genData/REV/gears.json').then((m) => m.default),
     import('~/genData/SDS/gears.json').then((m) => m.default),
+    import('~/genData/AndyMark/gears.json').then((m) => m.default),
     Promise.resolve(
       filters.enableCustomGears
         ? generateCustomGears(
@@ -498,10 +499,11 @@ export async function findGearboxes(
         : [],
     ),
   ])
-    .then(([wcpGears, revGears, sdsGears, customGears]) => [
+    .then(([wcpGears, revGears, sdsGears, andymarkGears, customGears]) => [
       ...wcpGears,
       ...revGears,
       ...sdsGears,
+      ...andymarkGears,
       ...customGears,
     ])
     .then((gears) => {

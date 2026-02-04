@@ -45,7 +45,6 @@ export function parseWCPSprockets(products: ShopifyProduct[]): CacheEntry[] {
             rawProduct: cleanProductForCache(product),
             parsedData,
             firstSeen: now,
-            lastSeen: now,
           });
         } catch (error) {
           console.error(`Error parsing WCP sprocket: ${product.title}`, error);
@@ -84,7 +83,6 @@ export function parseThriftySprockets(
           rawProduct: cleanProductForCache(product),
           parsedData,
           firstSeen: now,
-          lastSeen: now,
         });
       } else if (
         product.title === '#25 Chain Billet Sprockets' ||
@@ -105,7 +103,26 @@ export function parseThriftySprockets(
           rawProduct: cleanProductForCache(product),
           parsedData,
           firstSeen: now,
-          lastSeen: now,
+        });
+      } else if (
+        product.title === 'QTY 2 - Half Inch Hex 22 Tooth #25 Sprocket'
+      ) {
+        // Special case for this product
+        const parsedData: JSONSprocket = {
+          teeth: 22,
+          bore: '1/2" Hex',
+          chainType: '#25',
+          sku: variant.sku,
+          url: urlForHandle(product.handle, 'Thrifty'),
+          vendor: 'Thrifty',
+        };
+
+        sprockets.push({
+          productId: product.id,
+          variantId: variant.id,
+          rawProduct: cleanProductForCache(product),
+          parsedData,
+          firstSeen: now,
         });
       } else {
         const regex =
@@ -134,7 +151,6 @@ export function parseThriftySprockets(
                   rawProduct: product,
                   parsedData,
                   firstSeen: now,
-                  lastSeen: now,
                 });
               } catch (error) {
                 console.error(
@@ -181,7 +197,6 @@ export function parseREVSprockets(): CacheEntry[] {
       ),
       parsedData,
       firstSeen: now,
-      lastSeen: now,
     });
   }
 
@@ -212,7 +227,6 @@ export function parseREVSprockets(): CacheEntry[] {
       ),
       parsedData,
       firstSeen: now,
-      lastSeen: now,
     });
   }
 
@@ -256,7 +270,6 @@ export function parseREVSprockets(): CacheEntry[] {
       ),
       parsedData,
       firstSeen: now,
-      lastSeen: now,
     });
   }
 
@@ -288,7 +301,6 @@ export function parseREVSprockets(): CacheEntry[] {
       ),
       parsedData,
       firstSeen: now,
-      lastSeen: now,
     });
   }
 
@@ -325,185 +337,192 @@ export function parseLastAnvilSprockets(): CacheEntry[] {
     rawProduct,
     parsedData,
     firstSeen: now,
-    lastSeen: now,
   });
 
   return sprockets;
 }
 
-export function parseAndyMarkSprockets(): CacheEntry[] {
+function normalizeAndyMarkSprocketBore(
+  boreText: string,
+): '8mm' | '1/2" Hex' | '3/8" Hex' | '1.125" Round' | null {
+  const lower = boreText.trim().toLowerCase();
+
+  if (/8\s*mm/.test(lower)) return '8mm';
+  if (/0\.5|1\/2|half/.test(lower) && /hex/.test(lower)) return '1/2" Hex';
+  if (/0\.375|3\/8/.test(lower) && /hex/.test(lower)) return '3/8" Hex';
+  if (/1\.125/.test(lower) && /round/.test(lower)) return '1.125" Round';
+  if (/bearing/.test(lower)) return '1.125" Round';
+
+  return null;
+}
+
+export function parseAndyMarkSprockets(
+  products: ShopifyProduct[],
+): CacheEntry[] {
   const sprockets: CacheEntry[] = [];
   const now = new Date().toISOString();
 
-  const staticSprockets: JSONSprocket[] = [
-    {
-      teeth: 10,
-      bore: '8mm',
-      chainType: '#25',
-      url: 'https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets',
-      sku: 'AM-4772',
-      vendor: 'AndyMark',
-    },
-    {
-      teeth: 17,
-      bore: '1/2" Hex',
-      chainType: '#25',
-      url: 'https://andymark.com/collections/sprockets/products/25-series-17-tooth-0-5-in-hex-sprocket',
-      sku: 'AM-3999',
-      vendor: 'AndyMark',
-    },
-    {
-      teeth: 12,
-      bore: '8mm',
-      chainType: '#35',
-      url: 'https://andymark.com/collections/sprockets/products/35-series-12-tooth-0-5-in-key-bore-steel-sprocket',
-      sku: 'AM-0019',
-      vendor: 'AndyMark',
-    },
-  ];
+  for (const product of products) {
+    if (
+      !product.title.includes('Sprocket') &&
+      !product.title.includes('sprocket')
+    )
+      continue;
 
-  for (const parsedData of staticSprockets) {
-    const syntheticId = -6000 - sprockets.length;
+    // Skip collection URLs to avoid duplicates
+    if (product.handle?.includes('collections/')) continue;
 
-    sprockets.push({
-      productId: syntheticId,
-      variantId: syntheticId,
-      rawProduct: createSyntheticProduct(
-        syntheticId,
-        `${parsedData.teeth}T ${parsedData.bore} AndyMark ${parsedData.chainType} Sprocket`,
-        'AndyMark',
-        'Sprocket',
-        parsedData.sku,
-      ),
-      parsedData,
-      firstSeen: now,
-      lastSeen: now,
-    });
-  }
+    // Pattern 1: Single-variant sprockets with series and tooth in title
+    // Format: "XX Series YY Tooth ... Sprocket" or "YY Tooth XX Series ... Sprocket"
+    const seriesAndToothMatch = product.title.match(
+      /(#?\d+)\s+Series\s+(\d+)\s+Tooth|((\d+)\s+Tooth.*?(#?\d+)\s+Series)/i,
+    );
 
-  // #25 Symmetrical Hub Sprockets
-  for (const [index, toothCount] of [14, 18, 22, 26].entries()) {
-    for (const bore of ['1/2" Hex', '3/8" Hex'] as const) {
-      const parsedData: JSONSprocket = {
-        teeth: toothCount,
-        bore,
-        chainType: '#25',
-        url: 'https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets',
-        sku:
-          bore === '1/2" Hex'
-            ? `AM-${4773 + index * 2}`
-            : `AM-${4774 + index * 2}`,
-        vendor: 'AndyMark',
-      };
+    if (seriesAndToothMatch && product.variants.length === 1) {
+      let teeth: number;
+      let chainNum: string;
 
-      const syntheticId = -6000 - sprockets.length;
+      if (seriesAndToothMatch[1] && seriesAndToothMatch[2]) {
+        // Format: "XX Series YY Tooth"
+        chainNum = seriesAndToothMatch[1].replace('#', '');
+        teeth = parseInt(seriesAndToothMatch[2]);
+      } else if (seriesAndToothMatch[4] && seriesAndToothMatch[5]) {
+        // Format: "YY Tooth XX Series"
+        teeth = parseInt(seriesAndToothMatch[4]);
+        chainNum = seriesAndToothMatch[5].replace('#', '');
+      } else {
+        continue;
+      }
 
-      sprockets.push({
-        productId: syntheticId,
-        variantId: syntheticId,
-        rawProduct: createSyntheticProduct(
-          syntheticId,
-          `${toothCount}T ${bore} AndyMark #25 Sprocket`,
-          'AndyMark',
-          'Sprocket',
-          parsedData.sku,
-        ),
-        parsedData,
-        firstSeen: now,
-        lastSeen: now,
-      });
+      const chainType: ChainType = `#${chainNum}` as ChainType;
+
+      // Extract bore from title - patterns: "8 mm Bore", "0.5 in. Hex", etc.
+      const boreMatch = product.title.match(
+        /(\d+\.?\d*\s*(?:in\.|mm))\s+(?:Hex|Round|Bore)/i,
+      );
+      let bore = boreMatch ? normalizeAndyMarkSprocketBore(boreMatch[0]) : null;
+
+      // If no bore in title and title contains "Round" (without specific measurement), it's 1.125" Round bearing bore
+      if (
+        !bore &&
+        product.title.toLowerCase().includes('round') &&
+        !product.title.match(/\d+\.?\d*\s*(?:in\.|mm)\s+round/i)
+      ) {
+        bore = '1.125" Round';
+      }
+
+      // If no bore but it's an aluminum sprocket without explicit bore info, it's likely 1.125" Round
+      if (
+        !bore &&
+        product.title.toLowerCase().includes('aluminum') &&
+        !product.title.toLowerCase().includes('hex')
+      ) {
+        bore = '1.125" Round';
+      }
+
+      if (!bore) continue;
+
+      const variant = product.variants[0];
+      const sku = variant.sku ?? `AM-${teeth}T-${chainType}`;
+
+      try {
+        const parsedData: JSONSprocket = {
+          teeth,
+          bore,
+          chainType,
+          url: urlForHandle(product.handle, 'AndyMark'),
+          sku,
+          vendor: 'AndyMark',
+        };
+
+        sprockets.push({
+          productId: product.id,
+          variantId: variant.id,
+          rawProduct: cleanProductForCache(product),
+          parsedData,
+          firstSeen: now,
+        });
+      } catch (error) {
+        console.error(
+          `Error parsing AndyMark sprocket: ${product.title}`,
+          error,
+        );
+      }
+      continue;
     }
-  }
 
-  // #35 Symmetrical Hub Sprockets
-  for (const [index, toothCount] of [14, 14, 18].entries()) {
-    const parsedData: JSONSprocket = {
-      teeth: toothCount,
-      bore: '1/2" Hex',
-      chainType: '#35',
-      url: 'https://andymark.com/collections/sprockets/products/35-series-symmetrical-hub-sprockets',
-      sku: `AM-${4789 + index}`,
-      vendor: 'AndyMark',
-    };
+    // Pattern 2: Multi-variant sprockets with format "XX Series ... Sprockets"
+    const seriesMatch = product.title.match(/(#?\d+)\s+Series/i);
+    if (!seriesMatch) continue;
 
-    const syntheticId = -6000 - sprockets.length;
+    const chainNum = seriesMatch[1].replace('#', '');
+    const chainType: ChainType = `#${chainNum}` as ChainType;
 
-    sprockets.push({
-      productId: syntheticId,
-      variantId: syntheticId,
-      rawProduct: createSyntheticProduct(
-        syntheticId,
-        `${toothCount}T 1/2" Hex AndyMark #35 Sprocket`,
-        'AndyMark',
-        'Sprocket',
-        parsedData.sku,
-      ),
-      parsedData,
-      firstSeen: now,
-      lastSeen: now,
-    });
-  }
+    // Determine if this is a bearing bore / plate sprocket
+    const isBearingBore = /bearing.*bore|plate.*sprocket/i.test(product.title);
+    // Symmetrical Hub Sprockets have 1/2" Hex bore by default
+    const isSymmetricalHub = /symmetrical.*hub/i.test(product.title);
+    const defaultBore = isBearingBore
+      ? '1.125" Round'
+      : isSymmetricalHub
+        ? '1/2" Hex'
+        : null;
 
-  // #25 Bearing Bore Plate Sprockets
-  for (const [index, toothCount] of [
-    32, 38, 44, 50, 56, 62, 68, 74,
-  ].entries()) {
-    const parsedData: JSONSprocket = {
-      teeth: toothCount,
-      bore: '1.125" Round',
-      chainType: '#25',
-      url: 'https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets',
-      sku: `AM-${4781 + index}`,
-      vendor: 'AndyMark',
-    };
+    // Parse each variant
+    for (const variant of product.variants) {
+      // Variant title patterns:
+      // "22 Tooth - 3/8 in. Hex"
+      // "Tooth Count: 22, Bore: 0.375 in. Hex"
+      let teeth: number | null = null;
+      let bore: '8mm' | '1/2" Hex' | '3/8" Hex' | '1.125" Round' | null =
+        defaultBore;
 
-    const syntheticId = -6000 - sprockets.length;
+      const variantToothMatch =
+        variant.title.match(/(?:Tooth Count:\s*|)(\d+)\s+Tooth/i) ||
+        variant.title.match(/^(\d+)/);
+      if (variantToothMatch) {
+        teeth = parseInt(variantToothMatch[1]);
+      }
 
-    sprockets.push({
-      productId: syntheticId,
-      variantId: syntheticId,
-      rawProduct: createSyntheticProduct(
-        syntheticId,
-        `${toothCount}T Bearing Bore AndyMark #25 Plate Sprocket`,
-        'AndyMark',
-        'Sprocket',
-        parsedData.sku,
-      ),
-      parsedData,
-      firstSeen: now,
-      lastSeen: now,
-    });
-  }
+      // Try to extract bore from variant title if not set
+      if (!bore) {
+        const variantBoreMatch =
+          variant.title.match(
+            /([0-9.\/]+\s*(?:in\.|mm)\s*(?:Hex|Round|hex|round))/i,
+          ) || variant.title.match(/(8\s*mm)/i);
+        if (variantBoreMatch) {
+          bore = normalizeAndyMarkSprocketBore(variantBoreMatch[1]);
+        }
+      }
 
-  // #35 Bearing Bore Plate Sprockets
-  for (const [index, toothCount] of [
-    22, 28, 34, 40, 46, 52, 58, 64,
-  ].entries()) {
-    const parsedData: JSONSprocket = {
-      teeth: toothCount,
-      bore: '1.125" Round',
-      chainType: '#35',
-      url: 'https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets',
-      sku: `AM-${4792 + index}`,
-      vendor: 'AndyMark',
-    };
+      if (teeth === null || bore === null) continue;
 
-    const syntheticId = -6000 - sprockets.length;
+      const sku = variant.sku ?? `AM-${teeth}T-${chainType}`;
 
-    sprockets.push({
-      productId: syntheticId,
-      variantId: syntheticId,
-      rawProduct: createSyntheticProduct(
-        syntheticId,
-        `${toothCount}T Bearing Bore AndyMark #35 Plate Sprocket`,
-        'AndyMark',
-        'Sprocket',
-        parsedData.sku,
-      ),
-      parsedData,
-      firstSeen: now,
-      lastSeen: now,
-    });
+      try {
+        const parsedData: JSONSprocket = {
+          teeth,
+          bore,
+          chainType,
+          url: urlForHandle(product.handle, 'AndyMark'),
+          sku,
+          vendor: 'AndyMark',
+        };
+
+        sprockets.push({
+          productId: product.id,
+          variantId: variant.id,
+          rawProduct: cleanProductForCache(product),
+          parsedData,
+          firstSeen: now,
+        });
+      } catch (error) {
+        console.error(
+          `Error parsing AndyMark sprocket: ${product.title} - ${variant.title}`,
+          error,
+        );
+      }
+    }
   }
 
   return sprockets;
@@ -521,7 +540,7 @@ export function parseVendorSprockets(
     case 'REV':
       return parseREVSprockets();
     case 'AndyMark':
-      return parseAndyMarkSprockets();
+      return parseAndyMarkSprockets(products);
     case 'LastAnvil':
       return parseLastAnvilSprockets();
     default:

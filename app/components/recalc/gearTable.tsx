@@ -21,12 +21,14 @@ export function GearTable({
   const [allGears, setAllGears] = useState<JSONGear[] | null>(null);
   useEffect(() => {
     async function loadGears() {
-      const [wcpGears, revGears] = await Promise.all([
+      const [wcpGears, revGears, sdsGears, andyMarkGears] = await Promise.all([
         import('~/genData/WCP/gears.json').then((m) => m.default),
         import('~/genData/REV/gears.json').then((m) => m.default),
+        import('~/genData/SDS/gears.json').then((m) => m.default),
+        import('~/genData/AndyMark/gears.json').then((m) => m.default),
       ]);
       setAllGears(
-        [...wcpGears, ...revGears].map((g) => ({
+        [...wcpGears, ...revGears, ...sdsGears, ...andyMarkGears].map((g) => ({
           ...g,
           bore: g.bore as Bore,
           vendor: g.vendor as Vendor,

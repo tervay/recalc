@@ -86,39 +86,39 @@
       - cell "SplineXS"
     - row:
       - cell
-    - row "AndyMark AM-3403 24 9 mm 1/2\" Hex":
-      - cell "AndyMark AM-3403":
+    - row "AndyMark am-4625 24 9 mm 1/2\" Hex":
+      - cell "AndyMark am-4625":
         - link "AndyMark":
-          - /url: https://andymark.com/collections/pulleys/products/24t-plastic-htd-pulleys
-        - link "AM-3403":
-          - /url: https://andymark.com/collections/pulleys/products/24t-plastic-htd-pulleys
+          - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley
+        - link "am-4625":
+          - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
-    - row "AndyMark AM-4625 24 9 mm 1/2\" Hex":
-      - cell "AndyMark AM-4625":
+    - row "AndyMark am-3403 24 9 mm 1/2\" Hex":
+      - cell "AndyMark am-3403":
         - link "AndyMark":
-          - /url: https://andymark.com/collections/pulleys/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley
-        - link "AM-4625":
-          - /url: https://andymark.com/collections/pulleys/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley
+          - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys
+        - link "am-3403":
+          - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
-    - row "AndyMark AM-2234b 24 18 mm 1/2\" Hex":
-      - cell "AndyMark AM-2234b":
+    - row "AndyMark am-4626 24 18 mm 1/2\" Hex":
+      - cell "AndyMark am-4626":
         - link "AndyMark":
-          - /url: https://andymark.com/collections/pulleys/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley
-        - link "AM-2234b":
-          - /url: https://andymark.com/collections/pulleys/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley
+          - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley
+        - link "am-4626":
+          - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley
       - cell "24"
       - cell "18 mm"
       - cell "1/2\" Hex"
-    - row "AndyMark AM-3402 24 9 mm 3/8\" Hex":
-      - cell "AndyMark AM-3402":
+    - row "AndyMark am-3402 24 9 mm 3/8\" Hex":
+      - cell "AndyMark am-3402":
         - link "AndyMark":
-          - /url: https://andymark.com/collections/pulleys/products/24t-plastic-htd-pulleys
-        - link "AM-3402":
-          - /url: https://andymark.com/collections/pulleys/products/24t-plastic-htd-pulleys
+          - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys
+        - link "am-3402":
+          - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys
       - cell "24"
       - cell "9 mm"
       - cell "3/8\" Hex"
@@ -140,6 +140,42 @@
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
+    - row "Thrifty TTB-0348 24 18.5 mm 1/2\" Hex":
+      - cell "Thrifty TTB-0348":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+        - link "TTB-0348":
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+      - cell "24"
+      - cell "18.5 mm"
+      - cell "1/2\" Hex"
+    - row "Thrifty TTB-0126 24 18.5 mm 1/2\" Hex":
+      - cell "Thrifty TTB-0126":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+        - link "TTB-0126":
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+      - cell "24"
+      - cell "18.5 mm"
+      - cell "1/2\" Hex"
+    - row "Thrifty TTB-0341 24 18.5 mm SplineXS":
+      - cell "Thrifty TTB-0341":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys
+        - link "TTB-0341":
+          - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys
+      - cell "24"
+      - cell "18.5 mm"
+      - cell "SplineXS"
+    - row "Thrifty TTB-0342 24 18.5 mm SplineXS":
+      - cell "Thrifty TTB-0342":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys
+        - link "TTB-0342":
+          - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys
+      - cell "24"
+      - cell "18.5 mm"
+      - cell "SplineXS"
     - row "WCP WCP-1444 24 9 mm 1/2\" Hex":
       - cell "WCP WCP-1444":
         - link "WCP":
@@ -176,20 +212,20 @@
       - columnheader "Teeth"
       - columnheader "Width"
   - rowgroup:
-    - row "AndyMark AM-5209_40T 40 9 mm":
-      - cell "AndyMark AM-5209_40T":
+    - row "AndyMark am-5209_40T 40 9 mm":
+      - cell "AndyMark am-5209_40T":
         - link "AndyMark":
-          - /url: https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts
-        - link "AM-5209_40T":
-          - /url: https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+        - link "am-5209_40T":
+          - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "40"
       - cell "9 mm"
-    - row "AndyMark AM-5215_40T 40 15 mm":
-      - cell "AndyMark AM-5215_40T":
+    - row "AndyMark am-5215_40T 40 15 mm":
+      - cell "AndyMark am-5215_40T":
         - link "AndyMark":
-          - /url: https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts
-        - link "AM-5215_40T":
-          - /url: https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+        - link "am-5215_40T":
+          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "40"
       - cell "15 mm"
     - row "LastAnvil LA-240220 40 9 mm":
@@ -222,6 +258,22 @@
           - /url: https://swyftrobotics.com/products/htd-timing-belts
         - link "200-5M-15":
           - /url: https://swyftrobotics.com/products/htd-timing-belts
+      - cell "40"
+      - cell "15 mm"
+    - row "Thrifty TTB-0132 40 9 mm":
+      - cell "Thrifty TTB-0132":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
+        - link "TTB-0132":
+          - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
+      - cell "40"
+      - cell "9 mm"
+    - row "Thrifty TTB-0176 40 15 mm":
+      - cell "Thrifty TTB-0176":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
+        - link "TTB-0176":
+          - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
       - cell "40"
       - cell "15 mm"
     - row "VBeltGuys 200-5m-09 40 9 mm":
@@ -258,20 +310,20 @@
       - cell "15 mm"
     - row:
       - cell
-    - row "AndyMark AM-5209_45T 45 9 mm":
-      - cell "AndyMark AM-5209_45T":
+    - row "AndyMark am-5209_45T 45 9 mm":
+      - cell "AndyMark am-5209_45T":
         - link "AndyMark":
-          - /url: https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts
-        - link "AM-5209_45T":
-          - /url: https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+        - link "am-5209_45T":
+          - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "45"
       - cell "9 mm"
-    - row "AndyMark AM-5215_45T 45 15 mm":
-      - cell "AndyMark AM-5215_45T":
+    - row "AndyMark am-5215_45T 45 15 mm":
+      - cell "AndyMark am-5215_45T":
         - link "AndyMark":
-          - /url: https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts
-        - link "AM-5215_45T":
-          - /url: https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+        - link "am-5215_45T":
+          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "45"
       - cell "15 mm"
     - row "LastAnvil LA-240221 45 9 mm":
@@ -304,6 +356,22 @@
           - /url: https://swyftrobotics.com/products/htd-timing-belts
         - link "225-5M-15":
           - /url: https://swyftrobotics.com/products/htd-timing-belts
+      - cell "45"
+      - cell "15 mm"
+    - row "Thrifty TTB-0133 45 9 mm":
+      - cell "Thrifty TTB-0133":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
+        - link "TTB-0133":
+          - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
+      - cell "45"
+      - cell "9 mm"
+    - row "Thrifty TTB-0177 45 15 mm":
+      - cell "Thrifty TTB-0177":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
+        - link "TTB-0177":
+          - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
       - cell "45"
       - cell "15 mm"
     - row "VBeltGuys 225-5m-09 45 9 mm":

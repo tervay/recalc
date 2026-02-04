@@ -1,3 +1,4 @@
+import { shouldSkipProduct } from 'scripts/downloadProducts/alert';
 import { urlForHandle } from 'scripts/downloadProducts/download';
 import type { CacheEntry, VendorName } from 'scripts/downloadProducts/types';
 import {
@@ -47,7 +48,6 @@ export function parseWCPBelts(products: ShopifyProduct[]): CacheEntry[] {
             rawProduct: cleanProductForCache(product),
             parsedData,
             firstSeen: now,
-            lastSeen: now,
           });
         } catch (error) {
           console.error(`Error parsing WCP belt: ${product.title}`, error);
@@ -86,9 +86,51 @@ export function parseSwyftBelts(products: ShopifyProduct[]): CacheEntry[] {
             rawProduct: cleanProductForCache(product),
             parsedData,
             firstSeen: now,
-            lastSeen: now,
           });
         }
+      }
+    }
+  }
+
+  return belts;
+}
+
+export function parseThriftyBelts(products: ShopifyProduct[]): CacheEntry[] {
+  const belts: CacheEntry[] = [];
+  const now = new Date().toISOString();
+
+  for (const product of products) {
+    if (product.title.includes('HTD Timing Belts')) {
+      // Extract width from product title
+      const widthMatch = product.title.match(/(\d+)mm Wide/);
+      const width = widthMatch ? parseInt(widthMatch[1]) : null;
+
+      if (width === null) continue;
+
+      // Variant title pattern: "100 Tooth - 500-D5M-15" or "35 Tooth - 175-5M-09"
+      for (const variant of product.variants) {
+        const toothMatch = variant.title.match(/^(\d+) Tooth/);
+        const teeth = toothMatch ? parseInt(toothMatch[1]) : null;
+
+        if (teeth === null) continue;
+
+        const parsedData: JSONBelt = {
+          teeth,
+          width,
+          profile: 'HTD',
+          pitch: 5,
+          sku: variant.sku,
+          url: urlForHandle(product.handle, 'Thrifty'),
+          vendor: 'Thrifty',
+        };
+
+        belts.push({
+          productId: product.id,
+          variantId: variant.id,
+          rawProduct: cleanProductForCache(product),
+          parsedData,
+          firstSeen: now,
+        });
       }
     }
   }
@@ -138,85 +180,71 @@ export function parseREVBelts(): CacheEntry[] {
       ),
       parsedData,
       firstSeen: now,
-      lastSeen: now,
     });
   }
 
   return belts;
 }
 
-export function parseAndyMarkBelts(): CacheEntry[] {
+export function parseAndyMarkBelts(products: ShopifyProduct[]): CacheEntry[] {
   const belts: CacheEntry[] = [];
   const now = new Date().toISOString();
 
-  const toothCounts9mm: number[] = [
-    30, 35, 40, 45, 48, 50, 55, 60, 64, 65, 70, 75, 80, 85, 90, 91, 93, 95, 100,
-    105, 106, 110, 115, 120, 121, 125, 130, 135, 136, 140, 145, 150, 152, 160,
-    167, 170, 180, 190, 200, 225, 250,
-  ];
+  for (const product of products) {
+    // Skip products that should not be parsed
+    if (shouldSkipProduct(product, 'AndyMark')) continue;
 
-  for (const toothCount of toothCounts9mm) {
-    const andyMarkBelt = zAndyMarkBeltSchema.parse({
-      teeth: toothCount,
-      width: 9,
-      profile: 'HTD',
-      pitch: 5,
-      sku: `AM-5209_${toothCount}T`,
-      url: 'https://andymark.com/collections/belts/products/9-mm-wide-5-mm-pitch-htd-timing-belts',
-    });
-    const parsedData = andyMarkBeltToJsonBelt(andyMarkBelt);
+    // Skip collection URLs to avoid duplicates
+    if (product.handle?.includes('collections/')) continue;
 
-    const syntheticId = -4000 - belts.length;
+    // Match products like "15 mm Wide 5 mm Pitch HTD Timing Belts" or "9 mm Wide 5 mm Pitch HTD Timing Belts"
+    const widthMatch = product.title.match(
+      /(\d+)\s*mm\s+Wide\s+5\s*mm\s+Pitch\s+HTD\s+Timing\s+Belts/i,
+    );
+    if (!widthMatch) continue;
 
-    belts.push({
-      productId: syntheticId,
-      variantId: syntheticId,
-      rawProduct: createSyntheticProduct(
-        syntheticId,
-        `${toothCount}T 9mm AndyMark HTD Belt`,
-        'AndyMark',
-        'Belt',
-        parsedData.sku,
-      ),
-      parsedData,
-      firstSeen: now,
-      lastSeen: now,
-    });
-  }
+    const width = parseInt(widthMatch[1]);
 
-  const toothCounts15mm: number[] = [
-    30, 35, 40, 45, 50, 55, 60, 64, 65, 70, 75, 78, 80, 85, 90, 95, 100, 104,
-    105, 107, 110, 115, 117, 120, 125, 130, 131, 135, 140, 145, 150, 151, 160,
-    170, 180, 190, 200, 210, 220, 225, 230, 250,
-  ];
+    // Parse each variant to extract tooth count
+    for (const variant of product.variants) {
+      // Variant title patterns:
+      // "30 Tooth - 150-5M-09"
+      // "Tooth Count=30, Brand=AndyMark"
+      // "AndyMark / 30"
+      const toothMatch = variant.title.match(/(?:Tooth Count=|^|\/\s*)(\d+)/);
+      if (!toothMatch) continue;
 
-  for (const toothCount of toothCounts15mm) {
-    const andyMarkBelt = zAndyMarkBeltSchema.parse({
-      teeth: toothCount,
-      width: 15,
-      profile: 'HTD',
-      pitch: 5,
-      sku: `AM-5215_${toothCount}T`,
-      url: 'https://andymark.com/collections/belts/products/15-mm-wide-5-mm-pitch-htd-timing-belts',
-    });
-    const parsedData = andyMarkBeltToJsonBelt(andyMarkBelt);
+      const teeth = parseInt(toothMatch[1]);
 
-    const syntheticId = -4000 - belts.length;
+      // Generate SKU in format AM-5209_{teeth}T or AM-5215_{teeth}T
+      const skuPrefix = width === 9 ? 'AM-5209' : 'AM-5215';
+      const sku = variant.sku ?? `${skuPrefix}_${teeth}T`;
 
-    belts.push({
-      productId: syntheticId,
-      variantId: syntheticId,
-      rawProduct: createSyntheticProduct(
-        syntheticId,
-        `${toothCount}T 15mm AndyMark HTD Belt`,
-        'AndyMark',
-        'Belt',
-        parsedData.sku,
-      ),
-      parsedData,
-      firstSeen: now,
-      lastSeen: now,
-    });
+      try {
+        const andyMarkBelt = zAndyMarkBeltSchema.parse({
+          teeth,
+          width,
+          profile: 'HTD',
+          pitch: 5,
+          sku,
+          url: urlForHandle(product.handle, 'AndyMark'),
+        });
+        const parsedData = andyMarkBeltToJsonBelt(andyMarkBelt);
+
+        belts.push({
+          productId: product.id,
+          variantId: variant.id,
+          rawProduct: cleanProductForCache(product),
+          parsedData,
+          firstSeen: now,
+        });
+      } catch (error) {
+        console.error(
+          `Error parsing AndyMark belt: ${product.title} - ${variant.title}`,
+          error,
+        );
+      }
+    }
   }
 
   return belts;
@@ -256,7 +284,6 @@ export function parseLastAnvilBelts(products: ShopifyProduct[]): CacheEntry[] {
         rawProduct: cleanProductForCache(product),
         parsedData,
         firstSeen: now,
-        lastSeen: now,
       });
     }
   }
@@ -300,7 +327,6 @@ export function parseSDSBelts(products: ShopifyProduct[]): CacheEntry[] {
         rawProduct: cleanProductForCache(product),
         parsedData,
         firstSeen: now,
-        lastSeen: now,
       });
     } catch (error) {
       console.error(`Error parsing SDS belt: ${product.title}`, error);
@@ -317,6 +343,8 @@ export function parseVendorBelts(
   switch (vendor) {
     case 'WCP':
       return parseWCPBelts(products);
+    case 'Thrifty':
+      return parseThriftyBelts(products);
     case 'Swyft':
       return parseSwyftBelts(products);
     case 'VBeltGuys':
@@ -324,7 +352,7 @@ export function parseVendorBelts(
     case 'REV':
       return parseREVBelts();
     case 'AndyMark':
-      return parseAndyMarkBelts();
+      return parseAndyMarkBelts(products);
     case 'LastAnvil':
       return parseLastAnvilBelts(products);
     case 'SDS':

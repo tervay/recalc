@@ -19,7 +19,6 @@ export interface CacheEntry {
     | JSONGear
     | JSONPlanetaryInstance;
   firstSeen: string;
-  lastSeen: string;
 }
 
 /**

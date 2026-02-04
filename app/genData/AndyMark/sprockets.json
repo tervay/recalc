@@ -1,242 +1,330 @@
 [
   {
-    "teeth": 10,
-    "bore": "8mm",
-    "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
-    "sku": "AM-4772",
-    "vendor": "AndyMark"
-  },
-  {
-    "teeth": 17,
-    "bore": "1/2\" Hex",
-    "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-17-tooth-0-5-in-hex-sprocket",
-    "sku": "AM-3999",
-    "vendor": "AndyMark"
-  },
-  {
     "teeth": 12,
-    "bore": "8mm",
+    "bore": "1.125\" Round",
     "chainType": "#35",
-    "url": "https://andymark.com/collections/sprockets/products/35-series-12-tooth-0-5-in-key-bore-steel-sprocket",
-    "sku": "AM-0019",
-    "vendor": "AndyMark"
-  },
-  {
-    "teeth": 14,
-    "bore": "1/2\" Hex",
-    "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
-    "sku": "AM-4773",
-    "vendor": "AndyMark"
-  },
-  {
-    "teeth": 14,
-    "bore": "3/8\" Hex",
-    "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
-    "sku": "AM-4774",
-    "vendor": "AndyMark"
-  },
-  {
-    "teeth": 18,
-    "bore": "1/2\" Hex",
-    "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
-    "sku": "AM-4775",
-    "vendor": "AndyMark"
-  },
-  {
-    "teeth": 18,
-    "bore": "3/8\" Hex",
-    "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
-    "sku": "AM-4776",
+    "url": "https://www.andymark.com/products/35-series-12-tooth-0-5-in-key-bore-aluminum-sprocket",
+    "sku": "am-0166",
     "vendor": "AndyMark"
   },
   {
     "teeth": 22,
-    "bore": "1/2\" Hex",
-    "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
-    "sku": "AM-4777",
-    "vendor": "AndyMark"
-  },
-  {
-    "teeth": 22,
-    "bore": "3/8\" Hex",
-    "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
-    "sku": "AM-4778",
-    "vendor": "AndyMark"
-  },
-  {
-    "teeth": 26,
-    "bore": "1/2\" Hex",
-    "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
-    "sku": "AM-4779",
-    "vendor": "AndyMark"
-  },
-  {
-    "teeth": 26,
-    "bore": "3/8\" Hex",
-    "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-symmetrical-hub-sprockets",
-    "sku": "AM-4780",
-    "vendor": "AndyMark"
-  },
-  {
-    "teeth": 14,
-    "bore": "1/2\" Hex",
+    "bore": "1.125\" Round",
     "chainType": "#35",
-    "url": "https://andymark.com/collections/sprockets/products/35-series-symmetrical-hub-sprockets",
-    "sku": "AM-4789",
+    "url": "https://www.andymark.com/products/35-series-22-tooth-round-aluminum-sprocket",
+    "sku": "am-0216",
     "vendor": "AndyMark"
   },
   {
-    "teeth": 14,
-    "bore": "1/2\" Hex",
+    "teeth": 24,
+    "bore": "1.125\" Round",
     "chainType": "#35",
-    "url": "https://andymark.com/collections/sprockets/products/35-series-symmetrical-hub-sprockets",
-    "sku": "AM-4790",
-    "vendor": "AndyMark"
-  },
-  {
-    "teeth": 18,
-    "bore": "1/2\" Hex",
-    "chainType": "#35",
-    "url": "https://andymark.com/collections/sprockets/products/35-series-symmetrical-hub-sprockets",
-    "sku": "AM-4791",
+    "url": "https://www.andymark.com/products/35-series-24-tooth-aluminum-sprocket",
+    "sku": "am-0217",
     "vendor": "AndyMark"
   },
   {
     "teeth": 32,
     "bore": "1.125\" Round",
     "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets",
-    "sku": "AM-4781",
+    "url": "https://www.andymark.com/products/25-series-32-tooth-aluminum-sprocket",
+    "sku": "am-0233",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 66,
+    "bore": "1.125\" Round",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-66-tooth-round-aluminum-sprocket",
+    "sku": "am-0238",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 22,
+    "bore": "1.125\" Round",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-22-tooth-0-5-in-key-bore-aluminum-sprocket",
+    "sku": "am-0280",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 22,
+    "bore": "1.125\" Round",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-22-tooth-0-25-in-round-bore-aluminum-sprocket",
+    "sku": "am-0281",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 10,
+    "bore": "8mm",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-10-tooth-8-mm-bore-aluminum-sprocket",
+    "sku": "am-0505",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 10,
+    "bore": "1.125\" Round",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-10-tooth-dd-bore-aluminum-sprocket",
+    "sku": "am-2280",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 32,
+    "bore": "1.125\" Round",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-bearing-bore-plate-sprockets",
+    "sku": "am-4781",
     "vendor": "AndyMark"
   },
   {
     "teeth": 38,
     "bore": "1.125\" Round",
     "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets",
-    "sku": "AM-4782",
+    "url": "https://www.andymark.com/products/25-series-bearing-bore-plate-sprockets",
+    "sku": "am-4782",
     "vendor": "AndyMark"
   },
   {
     "teeth": 44,
     "bore": "1.125\" Round",
     "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets",
-    "sku": "AM-4783",
+    "url": "https://www.andymark.com/products/25-series-bearing-bore-plate-sprockets",
+    "sku": "am-4783",
     "vendor": "AndyMark"
   },
   {
     "teeth": 50,
     "bore": "1.125\" Round",
     "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets",
-    "sku": "AM-4784",
+    "url": "https://www.andymark.com/products/25-series-bearing-bore-plate-sprockets",
+    "sku": "am-4784",
     "vendor": "AndyMark"
   },
   {
     "teeth": 56,
     "bore": "1.125\" Round",
     "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets",
-    "sku": "AM-4785",
+    "url": "https://www.andymark.com/products/25-series-bearing-bore-plate-sprockets",
+    "sku": "am-4785",
     "vendor": "AndyMark"
   },
   {
     "teeth": 62,
     "bore": "1.125\" Round",
     "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets",
-    "sku": "AM-4786",
+    "url": "https://www.andymark.com/products/25-series-bearing-bore-plate-sprockets",
+    "sku": "am-4786",
     "vendor": "AndyMark"
   },
   {
     "teeth": 68,
     "bore": "1.125\" Round",
     "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets",
-    "sku": "AM-4787",
+    "url": "https://www.andymark.com/products/25-series-bearing-bore-plate-sprockets",
+    "sku": "am-4787",
     "vendor": "AndyMark"
   },
   {
     "teeth": 74,
     "bore": "1.125\" Round",
     "chainType": "#25",
-    "url": "https://andymark.com/collections/sprockets/products/25-series-bearing-bore-plate-sprockets",
-    "sku": "AM-4788",
+    "url": "https://www.andymark.com/products/25-series-bearing-bore-plate-sprockets",
+    "sku": "am-4788",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 8,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-symmetrical-hub-sprockets",
+    "sku": "am-4772",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 500,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-symmetrical-hub-sprockets",
+    "sku": "am-4773",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 375,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-symmetrical-hub-sprockets",
+    "sku": "am-4774",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 500,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-symmetrical-hub-sprockets",
+    "sku": "am-4775",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 375,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-symmetrical-hub-sprockets",
+    "sku": "am-4776",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 500,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-symmetrical-hub-sprockets",
+    "sku": "am-4777",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 375,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-symmetrical-hub-sprockets",
+    "sku": "am-4778",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 500,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-symmetrical-hub-sprockets",
+    "sku": "am-4779",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 375,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-symmetrical-hub-sprockets",
+    "sku": "am-4780",
     "vendor": "AndyMark"
   },
   {
     "teeth": 22,
     "bore": "1.125\" Round",
     "chainType": "#35",
-    "url": "https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets",
-    "sku": "AM-4792",
+    "url": "https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets",
+    "sku": "am-4792",
     "vendor": "AndyMark"
   },
   {
     "teeth": 28,
     "bore": "1.125\" Round",
     "chainType": "#35",
-    "url": "https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets",
-    "sku": "AM-4793",
+    "url": "https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets",
+    "sku": "am-4793",
     "vendor": "AndyMark"
   },
   {
     "teeth": 34,
     "bore": "1.125\" Round",
     "chainType": "#35",
-    "url": "https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets",
-    "sku": "AM-4794",
+    "url": "https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets",
+    "sku": "am-4794",
     "vendor": "AndyMark"
   },
   {
     "teeth": 40,
     "bore": "1.125\" Round",
     "chainType": "#35",
-    "url": "https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets",
-    "sku": "AM-4795",
+    "url": "https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets",
+    "sku": "am-4795",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 40,
+    "bore": "1.125\" Round",
+    "chainType": "#35",
+    "url": "https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets",
+    "sku": "am-4795_black",
     "vendor": "AndyMark"
   },
   {
     "teeth": 46,
     "bore": "1.125\" Round",
     "chainType": "#35",
-    "url": "https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets",
-    "sku": "AM-4796",
+    "url": "https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets",
+    "sku": "am-4796",
     "vendor": "AndyMark"
   },
   {
     "teeth": 52,
     "bore": "1.125\" Round",
     "chainType": "#35",
-    "url": "https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets",
-    "sku": "AM-4797",
+    "url": "https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets",
+    "sku": "am-4797",
     "vendor": "AndyMark"
   },
   {
     "teeth": 58,
     "bore": "1.125\" Round",
     "chainType": "#35",
-    "url": "https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets",
-    "sku": "AM-4798",
+    "url": "https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets",
+    "sku": "am-4798",
     "vendor": "AndyMark"
   },
   {
     "teeth": 64,
     "bore": "1.125\" Round",
     "chainType": "#35",
-    "url": "https://andymark.com/collections/sprockets/products/35-series-bearing-bore-plate-sprockets",
-    "sku": "AM-4799",
+    "url": "https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets",
+    "sku": "am-4799",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 10,
+    "bore": "1/2\" Hex",
+    "chainType": "#35",
+    "url": "https://www.andymark.com/products/35-series-symmetrical-hub-sprockets",
+    "sku": "am-4789",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 14,
+    "bore": "1/2\" Hex",
+    "chainType": "#35",
+    "url": "https://www.andymark.com/products/35-series-symmetrical-hub-sprockets",
+    "sku": "am-4790",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 18,
+    "bore": "1/2\" Hex",
+    "chainType": "#35",
+    "url": "https://www.andymark.com/products/35-series-symmetrical-hub-sprockets",
+    "sku": "am-4791",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 18,
+    "bore": "1.125\" Round",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-18-tooth-0-5-in-key-bore-aluminum-sprocket",
+    "sku": "am-3618",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 24,
+    "bore": "3/8\" Hex",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-24-tooth-0-375-in-hex-bore-aluminum-sprocket",
+    "sku": "am-3630",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 17,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "url": "https://www.andymark.com/products/25-series-17-tooth-0-5-in-hex-sprocket",
+    "sku": "am-3999",
     "vendor": "AndyMark"
   }
 ]

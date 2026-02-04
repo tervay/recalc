@@ -31,6 +31,7 @@ export function BeltTable({
         andyMarkBelts,
         lastAnvilBelts,
         sdsBelts,
+        thriftyBelts,
       ] = await Promise.all([
         import('~/genData/WCP/belts.json').then((m) => m.default),
         import('~/genData/Swyft/belts.json').then((m) => m.default),
@@ -39,6 +40,7 @@ export function BeltTable({
         import('~/genData/AndyMark/belts.json').then((m) => m.default),
         import('~/genData/LastAnvil/belts.json').then((m) => m.default),
         import('~/genData/SDS/belts.json').then((m) => m.default),
+        import('~/genData/Thrifty/belts.json').then((m) => m.default),
       ]);
       setAllBelts(
         zJSONBeltSchema
@@ -51,6 +53,7 @@ export function BeltTable({
             ...andyMarkBelts,
             ...lastAnvilBelts,
             ...sdsBelts,
+            ...thriftyBelts,
           ]),
       );
     }

@@ -76,7 +76,6 @@ describe('Cache Management', () => {
         vendor: 'Custom',
       },
       firstSeen: '2024-01-01T00:00:00.000Z',
-      lastSeen: '2024-01-01T00:00:00.000Z',
     });
 
     it('should create new cache when oldCache is null', () => {
@@ -118,7 +117,6 @@ describe('Cache Management', () => {
         '1_1': {
           ...createMockEntry(1, 1, 'SKU-001'),
           firstSeen: originalFirstSeen,
-          lastSeen: '2023-06-01T00:00:00.000Z',
         },
       };
 
@@ -129,23 +127,6 @@ describe('Cache Management', () => {
       expect(merged['1_1'].firstSeen).toBe(originalFirstSeen);
     });
 
-    it('should update lastSeen for existing entries', () => {
-      const oldLastSeen = '2023-01-01T00:00:00.000Z';
-      const oldCache: VendorCache = {
-        '1_1': {
-          ...createMockEntry(1, 1, 'SKU-001'),
-          lastSeen: oldLastSeen,
-        },
-      };
-
-      const newEntries = [createMockEntry(1, 1, 'SKU-001')];
-
-      const { merged } = compareAndMerge(oldCache, newEntries);
-
-      // lastSeen should be updated to current time (not the old value)
-      expect(merged['1_1'].lastSeen).not.toBe(oldLastSeen);
-    });
-
     it('should handle empty new entries', () => {
       const oldCache: VendorCache = {
         '1_1': createMockEntry(1, 1, 'SKU-001'),
@@ -153,7 +134,7 @@ describe('Cache Management', () => {
 
       const { merged, newProducts } = compareAndMerge(oldCache, []);
 
-      expect(Object.keys(merged).length).toBe(1);
+      expect(Object.keys(merged).length).toBe(0);
       expect(newProducts.length).toBe(0);
     });
 

@@ -62,26 +62,24 @@ export function compareAndMerge(
   oldCache: VendorCache | null,
   newEntries: CacheEntry[],
 ): { merged: VendorCache; newProducts: CacheEntry[] } {
-  const merged: VendorCache = oldCache ? { ...oldCache } : {};
+  const merged: VendorCache = {};
   const newProducts: CacheEntry[] = [];
   const now = new Date().toISOString();
 
   for (const entry of newEntries) {
     const key = getCacheKey(entry.productId, entry.variantId);
 
-    if (merged[key]) {
-      // Existing entry - update lastSeen timestamp
+    if (oldCache && oldCache[key]) {
+      // Existing entry - preserve original firstSeen
       merged[key] = {
         ...entry,
-        firstSeen: merged[key].firstSeen, // Preserve original firstSeen
-        lastSeen: now,
+        firstSeen: oldCache[key].firstSeen,
       };
     } else {
       // New entry - this is a new product
       merged[key] = {
         ...entry,
         firstSeen: now,
-        lastSeen: now,
       };
       newProducts.push(merged[key]);
     }
