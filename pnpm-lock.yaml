@@ -48,8 +48,8 @@ importers:
         specifier: 1.3.1
         version: 1.3.1(react@18.3.1)
       adze:
-        specifier: 1.9.1
-        version: 1.9.1
+        specifier: 2.3.0
+        version: 2.3.0
       bulma:
         specifier: 0.9.4
         version: 0.9.4
@@ -1035,12 +1035,6 @@ packages:
   '@types/keyv@3.1.4':
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
 
-  '@types/lodash.clonedeep@4.5.9':
-    resolution: {integrity: sha512-19429mWC+FyaAhOLzsS8kZUsI+/GmBAQ0HFiCPsKGU+7pBXOQWhyrY6xNNDwUSX8SMZMJvuFVMF9O5dQOlQK9Q==}
-
-  '@types/lodash.defaultsdeep@4.6.9':
-    resolution: {integrity: sha512-pLtCFK0YkHfGtGLYLNMTbFB5/G5+RsmQCIbbHH8GOAXjv+gDkVilY98kILfe8JH2Kev0OCReYxp1AjxEjP8ixA==}
-
   '@types/lodash@4.17.4':
     resolution: {integrity: sha512-wYCP26ZLxaT3R39kiN2+HcJ4kTd3U1waI/cY7ivWYqFP6pW3ZNpvi6Wd6PHZx7T/t8z0vlkXMg3QYLa7DZ/IJQ==}
 
@@ -1051,9 +1045,6 @@ packages:
   '@types/marked@6.0.0':
     resolution: {integrity: sha512-jmjpa4BwUsmhxcfsgUit/7A9KbrC48Q0q8KvnY107ogcjGgTFDlIL3RpihNpx2Mu1hM4mdFQjoVc4O6JoGKHsA==}
     deprecated: This is a stub types definition. marked provides its own type definitions, so you do not need this installed.
-
-  '@types/node@12.20.55':
-    resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
 
   '@types/node@25.2.1':
     resolution: {integrity: sha512-CPrnr8voK8vC6eEtyRzvMpgp3VyVRhgclonE7qYi6P9sXwYb59ucfrnmFBTaP0yUi8Gk4yZg/LlTJULGxvTNsg==}
@@ -1173,6 +1164,9 @@ packages:
     resolution: {integrity: sha512-VFlhGSl4opC0bprJiItPQ1RfUhGDIBokcPwaFH4yiBCaNPeld/9VeXbiPO1cLyorQi1G1vL+ecBk1x8o1axORA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
+  '@ungap/structured-clone@1.2.0':
+    resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
+
   '@vercel/analytics@1.6.1':
     resolution: {integrity: sha512-oH9He/bEM+6oKlv3chWuOOcp8Y6fo6/PSro8hEkgCW3pu9/OiCXiUpRUogDh3Fs3LH2sosDrx8CxeOLBEE+afg==}
     peerDependencies:
@@ -1267,9 +1261,9 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
-  adze@1.9.1:
-    resolution: {integrity: sha512-Ae/qZDHY8pyybVNoSHYnCUf6YNkSaICf+uo1UvVEQYGpQH0J7sKUUQWby92N+u5Deo0rt6lH/tu7TQsUtQb5tg==}
-    engines: {node: '>=10'}
+  adze@2.3.0:
+    resolution: {integrity: sha512-c5I7uXn5jZ075LbW0lhkmllq4OLQsLHbEV63MbykOQr/VPIOdTgbxGH4QoXHqakAUO3rUSEmURd5eM9GgpJB6g==}
+    engines: {node: '>=18.19.0'}
 
   agent-base@7.1.4:
     resolution: {integrity: sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==}
@@ -2548,12 +2542,6 @@ packages:
   locate-path@6.0.0:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
-
-  lodash.clonedeep@4.5.0:
-    resolution: {integrity: sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==}
-
-  lodash.defaultsdeep@4.6.1:
-    resolution: {integrity: sha512-3j8wdDzYuWO3lM3Reg03MuQR957t287Rpcxp1njpEa8oDrikb+FwGdW3n+FELh/A6qib6yPit0j/pv9G/yeAqA==}
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
@@ -4466,14 +4454,6 @@ snapshots:
     dependencies:
       '@types/node': 25.2.1
 
-  '@types/lodash.clonedeep@4.5.9':
-    dependencies:
-      '@types/lodash': 4.17.4
-
-  '@types/lodash.defaultsdeep@4.6.9':
-    dependencies:
-      '@types/lodash': 4.17.4
-
   '@types/lodash@4.17.4': {}
 
   '@types/lz-string@1.5.0':
@@ -4483,8 +4463,6 @@ snapshots:
   '@types/marked@6.0.0':
     dependencies:
       marked: 12.0.2
-
-  '@types/node@12.20.55': {}
 
   '@types/node@25.2.1':
     dependencies:
@@ -4652,6 +4630,8 @@ snapshots:
       '@typescript-eslint/types': 8.54.0
       eslint-visitor-keys: 4.2.1
 
+  '@ungap/structured-clone@1.2.0': {}
+
   '@vercel/analytics@1.6.1(react@18.3.1)':
     optionalDependencies:
       react: 18.3.1
@@ -4717,14 +4697,10 @@ snapshots:
 
   acorn@8.15.0: {}
 
-  adze@1.9.1:
+  adze@2.3.0:
     dependencies:
-      '@types/lodash.clonedeep': 4.5.9
-      '@types/lodash.defaultsdeep': 4.6.9
-      '@types/node': 12.20.55
-      chalk: 4.1.2
-      lodash.clonedeep: 4.5.0
-      lodash.defaultsdeep: 4.6.1
+      '@ungap/structured-clone': 1.2.0
+      picocolors: 1.1.1
 
   agent-base@7.1.4: {}
 
@@ -6259,10 +6235,6 @@ snapshots:
   locate-path@6.0.0:
     dependencies:
       p-locate: 5.0.0
-
-  lodash.clonedeep@4.5.0: {}
-
-  lodash.defaultsdeep@4.6.1: {}
 
   lodash.merge@4.6.2: {}
 
