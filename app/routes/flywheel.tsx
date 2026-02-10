@@ -156,13 +156,18 @@ export default function Flywheel() {
   const [efficiency, setEfficiency] = useState(queryParams.efficiency);
 
   const derivedShooterMOI = useMemo(
-    () => shooterWeight.mul(shooterDiameter.div(2).mul(shooterDiameter.div(2))),
+    () =>
+      shooterWeight
+        .mul(shooterDiameter.div(2).mul(shooterDiameter.div(2)))
+        .div(2),
     [shooterWeight, shooterDiameter],
   );
 
   const derivedFlywheelMOI = useMemo(
     () =>
-      flywheelWeight.mul(flywheelDiameter.div(2).mul(flywheelDiameter.div(2))),
+      flywheelWeight
+        .mul(flywheelDiameter.div(2).mul(flywheelDiameter.div(2)))
+        .div(2),
     [flywheelWeight, flywheelDiameter],
   );
 
