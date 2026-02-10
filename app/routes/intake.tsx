@@ -91,16 +91,14 @@ export default function Intake() {
         title="Intake Calculator"
         getSerializedState={() => serializedState}
       />
-      <div
-        className="flex flex-col gap-4 px-1 md:flex-row md:gap-x-4 [&>*]:flex-1"
-      >
+      <div className="flex flex-col gap-4 px-1 *:flex-1 md:flex-row md:gap-x-4">
         <div className="flex flex-col gap-x-4 gap-y-2">
           <IOLine>
-            <MotorInput stateHook={[motor, setMotor]} />
+            <MotorInput stateHook={[motor, setMotor]} testId="motor" />
           </IOLine>
 
           <IOLine>
-            <RatioInput stateHook={[ratio, setRatio]} />
+            <RatioInput stateHook={[ratio, setRatio]} testId="ratio" />
           </IOLine>
 
           <IOLine>
@@ -108,6 +106,7 @@ export default function Intake() {
               stateHook={[rollerDiameter, setRollerDiameter]}
               label="Roller Diameter"
               tooltip="Diameter of the roller wheels/drum/etc that is moving the game piece."
+              testId="rollerDiameter"
             />
           </IOLine>
 
@@ -116,6 +115,7 @@ export default function Intake() {
               stateHook={[travelDistance, setTravelDistance]}
               label="Travel Distance"
               tooltip="Distance the game piece is intended to travel across the intake."
+              testId="travelDistance"
             />
           </IOLine>
 
@@ -128,6 +128,7 @@ export default function Intake() {
               stateHook={[drivetrainSpeed, setDrivetrainSpeed]}
               label="Drivetrain Speed"
               tooltip="The floor speed of your drivetrain."
+              testId="drivetrainSpeed"
             />
           </IOLine>
 
@@ -136,6 +137,7 @@ export default function Intake() {
               state={recommendedRatio.asNumber()}
               label="Recommended Reduction"
               roundTo={2}
+              testId="recommendedRatio"
             />
           </IOLine>
         </div>
@@ -148,6 +150,7 @@ export default function Intake() {
               tooltip="Surface speed of the wheels moving the game piece."
               defaultUnit="ft/s"
               roundTo={1}
+              testId="surfaceSpeed"
             />
           </IOLine>
 
@@ -158,6 +161,7 @@ export default function Intake() {
               tooltip="Time required for the game piece to travel the distance specified."
               defaultUnit="s"
               roundTo={2}
+              testId="timeToGoal"
             />
           </IOLine>
         </div>

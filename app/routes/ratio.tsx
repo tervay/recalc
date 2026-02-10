@@ -118,21 +118,36 @@ export default function Ratio() {
               onUpdate={updatePair}
               onRemove={removeStage}
               canRemove={ratioPairsWithIds.length > 1}
+              drivingTestId={`driving${index}`}
+              drivenTestId={`driven${index}`}
+              removeTestId={`removeStage${index}`}
             />
           ))}
 
           <div className="mt-2">
-            <Button onClick={addStage}>Add Stage</Button>
+            <Button onClick={addStage} data-testid="addStage">
+              Add Stage
+            </Button>
           </div>
         </div>
 
         <div className="flex flex-col gap-x-4 gap-y-2">
           <IOLine>
-            <NumberOutput state={netRatio} label="Net Reduction" roundTo={4} />
+            <NumberOutput
+              state={netRatio}
+              label="Net Reduction"
+              roundTo={4}
+              testId="netRatio"
+            />
           </IOLine>
 
           <IOLine>
-            <NumberOutput state={invNetRatio} label="Net Step-Up" roundTo={4} />
+            <NumberOutput
+              state={invNetRatio}
+              label="Net Step-Up"
+              roundTo={4}
+              testId="invNetRatio"
+            />
           </IOLine>
         </div>
       </div>
@@ -148,6 +163,9 @@ interface RatioPairRowProps {
   onUpdate: (id: string, driving: number, driven: number) => void;
   onRemove: (id: string) => void;
   canRemove: boolean;
+  drivingTestId: string;
+  drivenTestId: string;
+  removeTestId: string;
 }
 
 function RatioPairRow({
@@ -158,6 +176,9 @@ function RatioPairRow({
   onUpdate,
   onRemove,
   canRemove,
+  drivingTestId,
+  drivenTestId,
+  removeTestId,
 }: RatioPairRowProps) {
   const [drivingValue, setDrivingValue] = useState(driving);
   const [drivenValue, setDrivenValue] = useState(driven);
@@ -178,10 +199,18 @@ function RatioPairRow({
     <div className="grid grid-cols-[auto_1fr_1fr_auto] items-center gap-2">
       <Label className="text-sm">Stage {index}</Label>
       <div>
-        <NumberInput stateHook={[drivingValue, setDrivingValue]} label="" />
+        <NumberInput
+          stateHook={[drivingValue, setDrivingValue]}
+          label=""
+          testId={drivingTestId}
+        />
       </div>
       <div>
-        <NumberInput stateHook={[drivenValue, setDrivenValue]} label="" />
+        <NumberInput
+          stateHook={[drivenValue, setDrivenValue]}
+          label=""
+          testId={drivenTestId}
+        />
       </div>
       <Button
         variant="ghost"
@@ -189,6 +218,7 @@ function RatioPairRow({
         onClick={() => onRemove(id)}
         disabled={!canRemove}
         className="h-9 w-9"
+        data-testid={removeTestId}
       >
         <Trash2 className="h-4 w-4" />
       </Button>

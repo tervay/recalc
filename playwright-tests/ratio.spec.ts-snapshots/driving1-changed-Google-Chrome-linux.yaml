@@ -1,0 +1,16 @@
+- heading "Ratio Calculator" [level=1]
+- button "Copy Link"
+- text: Stage Driving Driven Stage 0
+- spinbutton: "18"
+- spinbutton: "72"
+- button
+- text: Stage 1
+- spinbutton: "15"
+- spinbutton: "48"
+- button
+- button "Add Stage"
+- text: Net Reduction
+- spinbutton "Net Reduction Net Step-Up" [disabled]: "0.0781"
+- text: Net Step-Up
+- spinbutton [disabled]: "12.8000"
+- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

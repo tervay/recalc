@@ -58,22 +58,29 @@ export default function Gears() {
             <NumberInput
               stateHook={[gear1Teeth, setGear1Teeth]}
               label="Gear 1 Teeth"
+              testId="gear1Teeth"
             />
           </IOLine>
           <IOLine>
             <NumberInput
               stateHook={[gear2Teeth, setGear2Teeth]}
               label="Gear 2 Teeth"
+              testId="gear2Teeth"
             />
           </IOLine>
           <IOLine>
-            <NumberInput stateHook={[gearDP, setGearDP]} label="Gear DP" />
+            <NumberInput
+              stateHook={[gearDP, setGearDP]}
+              label="Gear DP"
+              testId="gearDP"
+            />
           </IOLine>
           <IOLine>
             <MeasurementOutput
               state={spacing}
               label="Center Distance"
               defaultUnit="in"
+              testId="spacing"
             />
           </IOLine>
           <div className="mt-12 w-full">

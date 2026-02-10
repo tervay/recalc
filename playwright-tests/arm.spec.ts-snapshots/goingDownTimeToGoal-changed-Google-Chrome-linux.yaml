@@ -1,0 +1,52 @@
+- heading "Arm Calculator" [level=1]
+- button "Copy Link"
+- text: Motor
+- spinbutton "Motor Ratio Arm Length Load Min Angle Max Angle Stator Limit Supply Limit Stator Voltage Supply Voltage Stator Power Limit Supply Power Limit Battery Resistance Time to Goal (Up) Time to Goal (Down)": "1"
+- combobox: Kraken X60 (FOC)
+- text: Ratio
+- spinbutton: "100"
+- combobox: Reduction
+- button "Arm Length"
+- spinbutton: "24"
+- combobox: in
+- button "Load"
+- spinbutton: "5"
+- combobox: lbs
+- button "Min Angle"
+- spinbutton: "0"
+- combobox: deg
+- button "Max Angle"
+- spinbutton: "90"
+- combobox: deg
+- button "Stator Limit"
+- spinbutton: "60"
+- combobox: A
+- button "Supply Limit"
+- spinbutton: "90"
+- combobox: A
+- button "Stator Voltage"
+- spinbutton: "12"
+- combobox: V
+- button "Supply Voltage"
+- spinbutton: "12"
+- combobox: V
+- text: Stator Power Limit
+- spinbutton [disabled]: "720"
+- combobox: W
+- text: Supply Power Limit
+- spinbutton [disabled]: "1080"
+- combobox: W
+- button "Efficiency"
+- spinbutton: "100"
+- button "Battery Resistance"
+- spinbutton: "0.015"
+- combobox: Ohm
+- text: Time to Goal (Up)
+- spinbutton [disabled]: "0.289"
+- combobox: s
+- text: Time to Goal (Down)
+- spinbutton [disabled]: "0.005"
+- combobox: min
+- application: 0.011 0.031 0.061 0.091 0.111 0.131 0.151 0.171 0.191 0.211 0.231 0.261 0.289 0 15 30 45 60 0 15 30 45 60
+- application: 0.011 0.031 0.051 0.071 0.091 0.111 0.131 0.151 0.171 0.191 0.211 0.231 0.251 0.278 -20 0 20 40 60 -60 -45 -30 -15 0
+- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

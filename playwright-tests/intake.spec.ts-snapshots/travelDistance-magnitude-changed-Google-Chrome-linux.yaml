@@ -1,0 +1,27 @@
+- heading "Intake Calculator" [level=1]
+- button "Copy Link"
+- text: Motor
+- spinbutton "Motor Ratio Roller Diameter Travel Distance Drivetrain Speed Recommended Reduction Linear Speed Time to Goal": "1"
+- combobox: Kraken X60 (FOC)
+- text: Ratio
+- spinbutton: "2"
+- combobox: Reduction
+- button "Roller Diameter"
+- spinbutton: "2"
+- combobox: in
+- button "Travel Distance"
+- spinbutton: "10"
+- combobox: in
+- heading "Reverse Calculation" [level=3]
+- button "Drivetrain Speed"
+- spinbutton: "14"
+- combobox: ft/s
+- text: Recommended Reduction
+- spinbutton [disabled]: "1.80"
+- button "Linear Speed"
+- spinbutton [disabled]: "25.2"
+- combobox: ft/s
+- button "Time to Goal"
+- spinbutton [disabled]: "0.03"
+- combobox: s
+- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
