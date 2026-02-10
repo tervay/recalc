@@ -285,8 +285,8 @@ export default function Linear() {
       <div className="flex flex-row flex-wrap gap-x-4 px-1 *:flex-1">
         <div className="flex flex-col gap-x-4 gap-y-2">
           <IOLine>
-            <MotorInput stateHook={[motor, setMotor]} />
-            <RatioInput stateHook={[ratio, setRatio]} />
+            <MotorInput stateHook={[motor, setMotor]} testId="motor" />
+            <RatioInput stateHook={[ratio, setRatio]} testId="ratio" />
           </IOLine>
 
           <IOLine>
@@ -294,21 +294,32 @@ export default function Linear() {
               stateHook={[efficiency, setEfficiency]}
               label="Efficiency %"
               tooltip="The efficiency of the motor and gearbox. Typically ~92-97% per stage."
+              testId="efficiency"
             />
             <MeasurementInput
               stateHook={[spoolDiameter, setSpoolDiameter]}
               label="Spool Diameter"
               tooltip="The diameter of the spool or wheel that the elevator rigging is wrapped around. If a pulley or sprocket, use the pitch diameter."
+              testId="spoolDiameter"
             />
             <BooleanInput
               stateHook={[cascade, setCascade]}
               label="Cascade Mechanism"
+              testId="cascade"
             />
           </IOLine>
 
           <IOLine>
-            <MeasurementInput stateHook={[load, setLoad]} label="Load" />
-            <MeasurementInput stateHook={[angle, setAngle]} label="Angle" />
+            <MeasurementInput
+              stateHook={[load, setLoad]}
+              label="Load"
+              testId="load"
+            />
+            <MeasurementInput
+              stateHook={[angle, setAngle]}
+              label="Angle"
+              testId="angle"
+            />
           </IOLine>
 
           <IOLine>
@@ -316,11 +327,13 @@ export default function Linear() {
               stateHook={[travelDistance, setTravelDistance]}
               label="Travel Distance"
               tooltip="The distance the elevator will travel. This is the distance from the starting position to the end position."
+              testId="travelDistance"
             />
             <MeasurementInput
               stateHook={[batteryResistance, setBatteryResistance]}
               label="Battery Resistance"
               tooltip="The effective resistance of the battery. Includes wire runs."
+              testId="batteryResistance"
             />
           </IOLine>
 
@@ -329,11 +342,13 @@ export default function Linear() {
               stateHook={[statorLimit, setStatorLimit]}
               label="Stator Limit"
               tooltip="The current limit applied to the stator."
+              testId="statorLimit"
             />
             <MeasurementInput
               stateHook={[supplyLimit, setSupplyLimit]}
               label="Supply Limit"
               tooltip="The current limit applied to the supply (battery). This is *not* supported by REVLib, so make sure the supply power limit is higher than the stator power limit for REV motors."
+              testId="supplyLimit"
             />
           </IOLine>
 
@@ -342,11 +357,13 @@ export default function Linear() {
               stateHook={[statorVoltage, setStatorVoltage]}
               label="Stator Voltage"
               tooltip="The voltage applied to the stator."
+              testId="statorVoltage"
             />
             <MeasurementInput
               stateHook={[supplyVoltage, setSupplyVoltage]}
               label="Supply Voltage"
               tooltip="The voltage available from the supply (battery) at rest."
+              testId="supplyVoltage"
             />
           </IOLine>
 
@@ -356,19 +373,36 @@ export default function Linear() {
               label="Stator Power Limit"
               defaultUnit="W"
               roundTo={0}
+              testId="statorPowerLimit"
             />
             <MeasurementOutput
               state={supplyPowerLimit}
               label="Supply Power Limit"
               defaultUnit="W"
               roundTo={0}
+              testId="supplyPowerLimit"
             />
           </IOLine>
 
           <IOLine>
-            <MeasurementOutput state={kV} label="kV" defaultUnit="V*s/m" />
-            <MeasurementOutput state={kA} label="kA" defaultUnit="V*s^2/m" />
-            <MeasurementOutput state={kG} label="kG" defaultUnit="V" />
+            <MeasurementOutput
+              state={kV}
+              label="kV"
+              defaultUnit="V*s/m"
+              testId="kV"
+            />
+            <MeasurementOutput
+              state={kA}
+              label="kA"
+              defaultUnit="V*s^2/m"
+              testId="kA"
+            />
+            <MeasurementOutput
+              state={kG}
+              label="kG"
+              defaultUnit="V"
+              testId="kG"
+            />
           </IOLine>
 
           <IOLine>
@@ -376,11 +410,13 @@ export default function Linear() {
               state={stallLoad}
               label="Stall Load"
               defaultUnit="lbs"
+              testId="stallLoad"
             />
             <MeasurementOutput
               state={timeToGoal}
               label="Time to Goal"
               defaultUnit="s"
+              testId="timeToGoal"
             />
           </IOLine>
         </div>

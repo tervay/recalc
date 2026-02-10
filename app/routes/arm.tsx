@@ -240,8 +240,8 @@ export default function Arm() {
       <div className="flex flex-row flex-wrap gap-x-4 px-1 *:flex-1">
         <div className="flex flex-col gap-x-4 gap-y-2">
           <IOLine>
-            <MotorInput stateHook={[motor, setMotor]} />
-            <RatioInput stateHook={[ratio, setRatio]} />
+            <MotorInput stateHook={[motor, setMotor]} testId="motor" />
+            <RatioInput stateHook={[ratio, setRatio]} testId="ratio" />
           </IOLine>
 
           <IOLine>
@@ -249,11 +249,13 @@ export default function Arm() {
               stateHook={[armLength, setArmLength]}
               label="Arm Length"
               tooltip="The length of the arm from the motor to the center of the load."
+              testId="armLength"
             />
             <MeasurementInput
               stateHook={[load, setLoad]}
               label="Load"
               tooltip="The weight of the load."
+              testId="load"
             />
           </IOLine>
 
@@ -262,11 +264,13 @@ export default function Arm() {
               stateHook={[minAngle, setMinAngle]}
               label="Min Angle"
               tooltip="The minimum angle the arm can move to."
+              testId="minAngle"
             />
             <MeasurementInput
               stateHook={[maxAngle, setMaxAngle]}
               label="Max Angle"
               tooltip="The maximum angle the arm can move to."
+              testId="maxAngle"
             />
           </IOLine>
 
@@ -275,11 +279,13 @@ export default function Arm() {
               stateHook={[statorLimit, setStatorLimit]}
               label="Stator Limit"
               tooltip="The current limit applied to the stator."
+              testId="statorLimit"
             />
             <MeasurementInput
               stateHook={[supplyLimit, setSupplyLimit]}
               label="Supply Limit"
               tooltip="The current limit applied to the supply (battery). This is *not* supported by REVLib, so make sure the supply power limit is higher than the stator power limit for REV motors."
+              testId="supplyLimit"
             />
           </IOLine>
 
@@ -288,11 +294,13 @@ export default function Arm() {
               stateHook={[statorVoltage, setStatorVoltage]}
               label="Stator Voltage"
               tooltip="The voltage applied to the stator."
+              testId="statorVoltage"
             />
             <MeasurementInput
               stateHook={[supplyVoltage, setSupplyVoltage]}
               label="Supply Voltage"
               tooltip="The voltage available from the supply (battery) at rest."
+              testId="supplyVoltage"
             />
           </IOLine>
 
@@ -302,12 +310,14 @@ export default function Arm() {
               label="Stator Power Limit"
               defaultUnit="W"
               roundTo={0}
+              testId="statorPowerLimit"
             />
             <MeasurementOutput
               state={supplyPowerLimit}
               label="Supply Power Limit"
               defaultUnit="W"
               roundTo={0}
+              testId="supplyPowerLimit"
             />
           </IOLine>
 
@@ -316,11 +326,13 @@ export default function Arm() {
               stateHook={[efficiency, setEfficiency]}
               label="Efficiency"
               tooltip="The efficiency of the arm and gearbox. Typically ~92-97% per stage."
+              testId="efficiency"
             />
             <MeasurementInput
               stateHook={[batteryResistance, setBatteryResistance]}
               label="Battery Resistance"
               tooltip="The resistance of the battery."
+              testId="batteryResistance"
             />
           </IOLine>
 
@@ -329,11 +341,13 @@ export default function Arm() {
               state={goingUpTimeToGoal}
               label="Time to Goal (Up)"
               defaultUnit="s"
+              testId="goingUpTimeToGoal"
             />
             <MeasurementOutput
               state={goingDownTimeToGoal}
               label="Time to Goal (Down)"
               defaultUnit="s"
+              testId="goingDownTimeToGoal"
             />
           </IOLine>
         </div>

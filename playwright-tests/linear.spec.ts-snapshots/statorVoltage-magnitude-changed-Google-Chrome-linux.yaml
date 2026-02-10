@@ -1,0 +1,61 @@
+- heading "Linear Motion Calculator" [level=1]
+- button "Copy Link"
+- text: Motor
+- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Stator Limit Supply Limit Stator Voltage Supply Voltage Stator Power Limit Supply Power Limit kV kA kG Stall Load Time to Goal": "1"
+- combobox: Kraken X60 (FOC)
+- text: Ratio
+- spinbutton: "2"
+- combobox: Reduction
+- button "Efficiency %"
+- spinbutton: "100"
+- button "Spool Diameter"
+- spinbutton: "1"
+- combobox: in
+- switch "Cascade Mechanism"
+- text: Cascade Mechanism Load
+- spinbutton: "15"
+- combobox: lbs
+- text: Angle
+- spinbutton: "90"
+- combobox: deg
+- button "Travel Distance"
+- spinbutton: "60"
+- combobox: in
+- button "Battery Resistance"
+- spinbutton: "0.015"
+- combobox: Ohm
+- button "Stator Limit"
+- spinbutton: "60"
+- combobox: A
+- button "Supply Limit"
+- spinbutton: "90"
+- combobox: A
+- button "Stator Voltage"
+- spinbutton: "10"
+- combobox: V
+- button "Supply Voltage"
+- spinbutton: "12"
+- combobox: V
+- text: Stator Power Limit
+- spinbutton [disabled]: "600"
+- combobox: W
+- text: Supply Power Limit
+- spinbutton [disabled]: "1080"
+- combobox: W
+- text: kV
+- spinbutton [disabled]: "3.120"
+- combobox: V*s/m
+- text: kA
+- spinbutton [disabled]: "0.439"
+- combobox: V*s^2/m
+- text: kG
+- spinbutton [disabled]: "4.576"
+- combobox: V
+- text: Stall Load
+- spinbutton [disabled]: "39.323"
+- combobox: lbs
+- text: Time to Goal
+- spinbutton [disabled]: "0.587"
+- combobox: s
+- application: 0.02 0.061 0.101 0.141 0.181 0.221 0.26 0.301 0.34 0.381 0.42 0.463 0.5 0.543 0.587 0 15 30 45 60 0 0.4 0.8 1.2 1.6
+- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
