@@ -33,7 +33,7 @@
 - spinbutton [disabled]: "5784"
 - combobox: rpm
 - text: Shooter MOI
-- spinbutton [disabled]: "9.000"
+- spinbutton [disabled]: "4.500"
 - combobox: in2*lbs
 - switch "Use Custom Shooter MOI"
 - text: Use Custom Shooter MOI Flywheel Properties Flywheel Diameter
@@ -46,20 +46,20 @@
 - spinbutton: "1"
 - combobox: Reduction
 - text: Flywheel MOI
-- spinbutton [disabled]: "6.000"
+- spinbutton [disabled]: "3.000"
 - combobox: in2*lbs
 - switch "Use Custom Flywheel MOI"
 - text: Use Custom Flywheel MOI Outputs Spinup Time
-- spinbutton [disabled]: "2.342"
+- spinbutton [disabled]: "1.173"
 - combobox: s
 - text: Effective MOI
-- spinbutton [disabled]: "15.000"
+- spinbutton [disabled]: "7.500"
 - combobox: in2*lbs
 - text: kV
 - spinbutton [disabled]: "0.260"
 - combobox: V*s/m
 - text: kA
-- spinbutton [disabled]: "1.326"
+- spinbutton [disabled]: "0.663"
 - combobox: V*s^2/m
-- application: 0.051 0.211 0.381 0.551 0.721 0.891 1.061 1.211 1.371 1.531 1.691 1.851 2.021 2.181 2.342 0 8 16 24 32 0 800 1600 2400 3200
+- application: 0.061 0.141 0.221 0.311 0.401 0.491 0.581 0.671 0.761 0.851 0.941 1.031 1.111 1.173 0 8 16 24 32 0 800 1600 2400 3200
 - alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
