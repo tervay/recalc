@@ -84,7 +84,7 @@ export default class Measurement extends Model {
       case 'resistance':
         return ['Ohm'];
       case 'energy':
-        return ['J'];
+        return ['J', 'N*m'];
       case 'force':
         return ['N', 'lbf'];
       case 'frequency':
