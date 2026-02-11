@@ -11,8 +11,8 @@ import { NumberOutput } from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import {
+  calculateAllRecommendedRatiosAndStallTorques,
   calculateLinearSurfaceSpeed,
-  calculateRecommendedRatio,
 } from '~/lib/math/intake';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
@@ -23,6 +23,7 @@ import {
   RatioParam,
   withDefault,
 } from '~/lib/types/queryParams';
+import { cn } from '~/lib/utils';
 
 export function meta() {
   return [
@@ -37,6 +38,7 @@ const DEFAULT_PARAMS = {
   rollerDiameter: withDefault(MeasurementParam, new Measurement(2, 'in')),
   travelDistance: withDefault(MeasurementParam, new Measurement(15, 'in')),
   drivetrainSpeed: withDefault(MeasurementParam, new Measurement(14, 'ft/s')),
+  statorCurrentLimit: withDefault(MeasurementParam, new Measurement(30, 'A')),
 };
 
 export default function Intake() {
@@ -46,6 +48,7 @@ export default function Intake() {
     rollerDiameter: Measurement;
     travelDistance: Measurement;
     drivetrainSpeed: Measurement;
+    statorCurrentLimit: Measurement;
   }>(DEFAULT_PARAMS);
 
   const [motor, setMotor] = useState(queryParams.motor);
@@ -58,6 +61,9 @@ export default function Intake() {
   );
   const [drivetrainSpeed, setDrivetrainSpeed] = useState(
     queryParams.drivetrainSpeed,
+  );
+  const [statorCurrentLimit, setStatorCurrentLimit] = useState(
+    queryParams.statorCurrentLimit,
   );
 
   const surfaceSpeed = useMemo(
@@ -72,10 +78,14 @@ export default function Intake() {
     return travelDistance.div(surfaceSpeed);
   }, [travelDistance, surfaceSpeed]);
 
-  const recommendedRatio = useMemo(
-    () => calculateRecommendedRatio(motor, drivetrainSpeed, rollerDiameter),
-    [motor, drivetrainSpeed, rollerDiameter],
-  );
+  const allRecommendedRatiosAndStallTorques = useMemo(() => {
+    return calculateAllRecommendedRatiosAndStallTorques(
+      drivetrainSpeed,
+      rollerDiameter,
+      motor.quantity,
+      statorCurrentLimit,
+    );
+  }, [drivetrainSpeed, rollerDiameter, motor.quantity, statorCurrentLimit]);
 
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
     motor,
@@ -83,6 +93,7 @@ export default function Intake() {
     rollerDiameter,
     travelDistance,
     drivetrainSpeed,
+    statorCurrentLimit,
   });
 
   return (
@@ -119,8 +130,17 @@ export default function Intake() {
             />
           </IOLine>
 
-          <div className="my-4 border-t border-primary pt-4">
-            <h3 className="mb-2 text-lg font-semibold">Reverse Calculation</h3>
+          <IOLine>
+            <MeasurementInput
+              stateHook={[statorCurrentLimit, setStatorCurrentLimit]}
+              label="Stator Current Limit"
+              tooltip="The maximum current the stator can draw."
+              testId="statorCurrentLimit"
+            />
+          </IOLine>
+
+          <div className="border-t border-primary pt-4">
+            <h3 className="text-lg font-semibold">Reverse Calculation</h3>
           </div>
 
           <IOLine>
@@ -132,14 +152,43 @@ export default function Intake() {
             />
           </IOLine>
 
-          <IOLine>
-            <NumberOutput
-              state={recommendedRatio.asNumber()}
-              label="Recommended Reduction"
-              roundTo={2}
-              testId="recommendedRatio"
-            />
-          </IOLine>
+          <div className="">
+            <h3 className="text-lg font-semibold">
+              Recommended Ratios per Motor
+            </h3>
+            <h6 className="mb-2 text-sm text-gray-500">
+              The recommended ratio is the ratio at which the rollers will spin
+              at twice the drivetrain speed.
+            </h6>
+            <div className="flex flex-col gap-y-2">
+              {allRecommendedRatiosAndStallTorques
+                .sort((a, b) => b.stallTorque.sub(a.stallTorque).baseScalar)
+                .map((rts) => (
+                  <IOLine
+                    key={rts.motor.identifier}
+                    className={cn({
+                      'rounded-md border border-green-400 px-2 py-2':
+                        rts.motor.eq(motor),
+                    })}
+                  >
+                    <NumberOutput
+                      state={rts.ratio.asNumber()}
+                      label={`${rts.motor.identifier}`}
+                      roundTo={2}
+                      testId={`${rts.motor.identifier}-ratio`}
+                    />
+                    <MeasurementOutput
+                      state={rts.stallTorque}
+                      label="Stall Torque"
+                      tooltip="Stall torque of the motor at the recommended ratio."
+                      defaultUnit="N*m"
+                      roundTo={2}
+                      testId={`${rts.motor.identifier}-stallTorque`}
+                    />
+                  </IOLine>
+                ))}
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-col gap-x-4 gap-y-2">

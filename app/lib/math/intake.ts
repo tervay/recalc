@@ -1,5 +1,5 @@
 import Measurement from '~/lib/models/Measurement';
-import type Motor from '~/lib/models/Motor';
+import Motor, { ALL_MOTORS } from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 
 export function calculateRecommendedRatio(
@@ -17,6 +17,32 @@ export function calculateRecommendedRatio(
       .scalar,
     RatioType.REDUCTION,
   );
+}
+
+export function calculateAllRecommendedRatiosAndStallTorques(
+  drivetrainSpeed: Measurement,
+  rollerDiameter: Measurement,
+  motorQuantity: number,
+  statorCurrentLimit: Measurement,
+): {
+  ratio: Ratio;
+  stallTorque: Measurement;
+  motor: Motor;
+}[] {
+  return ALL_MOTORS.map((ms) => Motor.fromSpecs(ms, motorQuantity)).map((m) => {
+    const ratio = calculateRecommendedRatio(m, drivetrainSpeed, rollerDiameter);
+    const stallTorque = m.kT
+      .mul(statorCurrentLimit)
+      .mul(motorQuantity)
+      .mul(ratio.asNumber())
+      .to('N*m');
+
+    return {
+      ratio,
+      stallTorque,
+      motor: m,
+    };
+  });
 }
 
 export function calculateLinearSurfaceSpeed(
