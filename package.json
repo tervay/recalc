@@ -9,7 +9,7 @@
     "url": "https://github.com/tervay/recalc2.git"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=24"
   },
   "scripts": {
     "build": "react-router build",

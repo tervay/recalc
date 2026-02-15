@@ -4,7 +4,7 @@ A design calculator website for FIRST Robotics Competition (FRC) and FIRST Tech 
 
 ## Quick Start
 
-Requires Node.js 22+ and pnpm.
+Requires Node.js 24+ (although other versions should work) and pnpm.
 
 ```sh
 pnpm install

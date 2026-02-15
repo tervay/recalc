@@ -1,9 +1,8 @@
 import { Trash2 } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
-import NumberInput, { NumberOutput } from '~/components/recalc/io/number';
+import NumberInput from '~/components/recalc/io/number';
 import { Button } from '~/components/ui/button';
 import { Label } from '~/components/ui/label';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
@@ -133,23 +132,22 @@ export default function Ratio() {
         </div>
 
         <div className="flex flex-col gap-x-4 gap-y-2">
-          <IOLine>
-            <NumberOutput
-              state={netRatio}
-              label="Net Reduction"
-              roundTo={4}
-              testId="netRatio"
-            />
-          </IOLine>
-
-          <IOLine>
-            <NumberOutput
-              state={invNetRatio}
-              label="Net Step-Up"
-              roundTo={4}
-              testId="invNetRatio"
-            />
-          </IOLine>
+          <div
+            className="rounded-lg border bg-card p-4 text-card-foreground
+              shadow-sm"
+          >
+            <div className="text-sm font-medium text-muted-foreground">
+              Net {netRatio < 1 ? 'Reduction' : 'Step-Up'}
+            </div>
+            <div
+              className="mt-2 font-mono text-3xl font-bold tabular-nums"
+              data-testid="netRatio"
+            >
+              {netRatio < 1
+                ? `${invNetRatio.toFixed(3)}:1`
+                : `1:${netRatio.toFixed(3)}`}
+            </div>
+          </div>
 
           <div className="mt-4">
             <Label className="mb-2 block text-sm font-semibold">
