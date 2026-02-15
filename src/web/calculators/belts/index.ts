@@ -1,8 +1,7 @@
 import { Stateify } from "common/models/ExtraTypes";
 import Measurement from "common/models/Measurement";
 import PageConfig from "common/models/PageConfig";
-import { MeasurementParam, PulleyParam } from "common/models/Params";
-import Pulley from "common/models/Pulley";
+import { MeasurementParam } from "common/models/Params";
 import { lazy } from "react";
 import { BooleanParam, NumberParam, withDefault } from "serialize-query-params";
 
@@ -28,11 +27,3 @@ export const BeltsParamsV1 = {
   useCustomBelt: withDefault(BooleanParam, false),
 };
 export type BeltsStateV1 = Stateify<typeof BeltsParamsV1>;
-
-export const BeltParamsV2 = {
-  pulley: withDefault(
-    PulleyParam,
-    Pulley.fromTeeth(100, new Measurement(15, "mm")),
-  ),
-};
-export type BeltStateV2 = Stateify<typeof BeltParamsV2>;

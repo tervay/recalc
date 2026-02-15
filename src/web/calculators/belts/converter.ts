@@ -1,20 +1,6 @@
-import { BaseState, ConversionFn } from "common/models/ExtraTypes";
-import Pulley from "common/models/Pulley";
+import { BaseState } from "common/models/ExtraTypes";
 import { StateMaker } from "common/tooling/conversion";
-import beltsConfig, {
-  BeltParamsV2,
-  BeltStateV2,
-  BeltsParamsV1,
-  BeltsStateV1,
-} from "web/calculators/belts";
-
-export class Converters {
-  static v1ToV2: ConversionFn<BeltsStateV1, BeltStateV2> = (s) => {
-    return {
-      pulley: Pulley.fromTeeth(s.p1Teeth, s.pitch),
-    };
-  };
-}
+import beltsConfig, { BeltsParamsV1 } from "web/calculators/belts";
 
 export class BeltState {
   static getState(): BaseState {
@@ -22,10 +8,6 @@ export class BeltState {
       throw Error("Config did not set version! " + beltsConfig.url);
     }
 
-    return StateMaker.BumpState(
-      beltsConfig.version,
-      [BeltsParamsV1, BeltParamsV2],
-      [Converters.v1ToV2],
-    );
+    return StateMaker.BumpState(beltsConfig.version, [BeltsParamsV1], []);
   }
 }
