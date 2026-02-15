@@ -347,7 +347,6 @@ export default function BeltsCalculator(): JSX.Element {
                 tooltip="Desired distance between the centers of each pulley."
               >
                 <MeasurementInput
-                  numberRoundTo={0}
                   stateHook={[get.desiredCenter, set.setDesiredCenter]}
                   numberDisabledIf={() => get.useCustomBelt}
                 />
