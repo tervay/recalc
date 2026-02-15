@@ -8,6 +8,7 @@ import { Button } from '~/components/ui/button';
 import { Label } from '~/components/ui/label';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { calculateInverseRatio, calculateNetRatio } from '~/lib/math/ratio';
+import { ALL_MOTORS } from '~/lib/models/Motor';
 import {
   type RatioPair,
   RatioPairListParam,
@@ -149,6 +150,29 @@ export default function Ratio() {
               testId="invNetRatio"
             />
           </IOLine>
+
+          <div className="mt-4">
+            <Label className="mb-2 block text-sm font-semibold">
+              Motor Speeds at {netRatio.toFixed(3)}:1
+            </Label>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
+              {ALL_MOTORS.toSorted((a, b) => a.name.localeCompare(b.name)).map(
+                (motor) => (
+                  <div key={motor.name} className="flex justify-between gap-2">
+                    <span className="truncate text-muted-foreground">
+                      {motor.name}
+                    </span>
+                    <span className="font-mono tabular-nums">
+                      {Math.round(
+                        motor.freeSpeed.mul(netRatio).to('rpm').scalar,
+                      )}{' '}
+                      rpm
+                    </span>
+                  </div>
+                ),
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
