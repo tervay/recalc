@@ -154,8 +154,8 @@ importers:
         specifier: 0.9.0
         version: 0.9.0(prettier@3.8.1)
       prettier-plugin-merge:
-        specifier: 0.9.0
-        version: 0.9.0(prettier@3.8.1)
+        specifier: 0.9.1
+        version: 0.9.1(prettier@3.8.1)
       prettier-plugin-tailwindcss:
         specifier: 0.7.2
         version: 0.7.2(@trivago/prettier-plugin-sort-imports@6.0.2(prettier@3.8.1))(prettier@3.8.1)
@@ -2717,8 +2717,8 @@ packages:
   detect-node-es@1.1.0:
     resolution: {integrity: sha512-ypdmJU/TbBby2Dxibuv7ZLW3Bs1QEmM7nHjEANfohJLvE0XVujisn1qPJcZxg+qDucsr+bP6fLD1rPS3AhJ7EQ==}
 
-  diff@5.1.0:
-    resolution: {integrity: sha512-D+mk+qE8VC/PAUrlAU34N+VfXev0ghe5ywmpqrawphmVZc1bEfn56uo9qpyGp1p4xpzOHkSW4ztBd6L7Xx4ACw==}
+  diff@5.2.2:
+    resolution: {integrity: sha512-vtcDfH3TOjP8UekytvnHH1o1P4FcUdt4eQ1Y+Abap1tk/OB2MWQvcwS2ClCd1zuIhc3JKOx6p3kod8Vfys3E+A==}
     engines: {node: '>=0.3.1'}
 
   diff@8.0.3:
@@ -4148,8 +4148,8 @@ packages:
       prettier-plugin-svelte:
         optional: true
 
-  prettier-plugin-merge@0.9.0:
-    resolution: {integrity: sha512-bWd9Gw05GC55wOiDL52CNM0GlvEww10oc+VhptbMhz091SrlM/F9M86WZ94VWnv732rUlu9i9FzZ4wWFzTYZsw==}
+  prettier-plugin-merge@0.9.1:
+    resolution: {integrity: sha512-xD10WwAIzwDWipGRNO6Yxo3QfpgoUqSUPmxZafgI/4dgns52/4+L6aOj76LTjN2VEFdfahYnLD8aUp0g2JjdQg==}
     engines: {node: '>=18'}
     peerDependencies:
       prettier: ^3
@@ -7651,7 +7651,7 @@ snapshots:
 
   detect-node-es@1.1.0: {}
 
-  diff@5.1.0: {}
+  diff@5.2.2: {}
 
   diff@8.0.3: {}
 
@@ -9189,9 +9189,9 @@ snapshots:
       prettier: 3.8.1
       zod: 3.22.4
 
-  prettier-plugin-merge@0.9.0(prettier@3.8.1):
+  prettier-plugin-merge@0.9.1(prettier@3.8.1):
     dependencies:
-      diff: 5.1.0
+      diff: 5.2.2
       prettier: 3.8.1
 
   prettier-plugin-tailwindcss@0.7.2(@trivago/prettier-plugin-sort-imports@6.0.2(prettier@3.8.1))(prettier@3.8.1):
