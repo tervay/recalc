@@ -39,7 +39,7 @@
     "isbot": "5.1.35",
     "js-quantities": "1.8.0",
     "lodash-es": "4.17.23",
-    "lucide-react": "0.574.0",
+    "lucide-react": "0.575.0",
     "query-string": "9.3.1",
     "radix-ui": "1.4.3",
     "react": "19.2.4",
@@ -51,7 +51,7 @@
   "devDependencies": {
     "@eslint/compat": "2.0.2",
     "@eslint/js": "9.39.2",
-    "@iconify/json": "2.2.440",
+    "@iconify/json": "2.2.441",
     "@playwright/test": "1.58.2",
     "@react-router/dev": "7.13.0",
     "@svgr/core": "8.1.0",
