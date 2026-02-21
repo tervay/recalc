@@ -26,6 +26,7 @@ import {
   calculateRecoveryTime,
   calculateShooterWheelSurfaceSpeed,
   calculateSpeedAfterShot,
+  calculateVPerRps,
   calculateWindupTime,
 } from "web/calculators/flywheel/flywheelMath";
 import VelocityControlGainsAnalysis from "web/calculators/shared/components/VelocityControlGainsAnalysis";
@@ -207,6 +208,14 @@ export default function FlywheelCalculator(): JSX.Element {
     );
   }, [get.motor.freeSpeed, get.motorRatio, get.shooterRadius]);
 
+  const kVAngular = useMemo(() => {
+    if (get.motorRatio.asNumber() == 0) {
+      return new Measurement(0, "V*s/rotation");
+    }
+
+    return calculateVPerRps(get.motor, get.motorRatio);
+  }, [get.motor, get.motorRatio]);
+
   const kA = useMemo(() => {
     if (get.flywheelRadius.scalar == 0) {
       return new Measurement(0, "V*s^2/m");
@@ -233,6 +242,39 @@ export default function FlywheelCalculator(): JSX.Element {
     totalMomentOfInertia,
     get.shooterRadius,
     get.currentLimit,
+  ]);
+
+  const kAAngular = useMemo(() => {
+    if (get.motorRatio.asNumber() == 0) {
+      return new Measurement(0, "V*s^2/rotation");
+    }
+
+    const stallTorqueAtShooter = new MotorRules(get.motor, get.currentLimit, {
+      voltage: nominalVoltage,
+      rpm: new Measurement(0, "rpm"),
+    })
+      .solve()
+      .torque.mul(get.motor.quantity)
+      .mul(get.motorRatio.asNumber())
+      .mul(get.efficiency / 100);
+
+    // Convert moment of inertia to kg*m^2 for proper unit calculation
+    const moiInSI = totalMomentOfInertia.to("kg*m^2");
+
+    // kA = V_nominal * I / tau_stall
+    // Units: V * kg*m^2 / (N*m) = V * s^2
+    const kAInSec = nominalVoltage.mul(moiInSI).div(stallTorqueAtShooter);
+
+    // Convert to rotations: V*s^2/rotation
+    // Since 1 rotation = 2*pi rad, and rad is dimensionless in this context,
+    // V*s^2/rad = V*s^2, so we just need to format it properly
+    return new Measurement(kAInSec.scalar, "V*s^2/rotation");
+  }, [
+    get.motor,
+    get.currentLimit,
+    get.motorRatio,
+    get.efficiency,
+    totalMomentOfInertia,
   ]);
 
   useEffect(() => {
@@ -515,7 +557,12 @@ export default function FlywheelCalculator(): JSX.Element {
               numberRoundTo={0}
             />
           </SingleInputLine>
-          <VelocityControlGainsAnalysis kv={kV} ka={kA} />
+          <VelocityControlGainsAnalysis
+            kv={kV}
+            ka={kA}
+            kVAlt={kVAngular}
+            kAAlt={kAAngular}
+          />
         </Column>
       </Columns>
     </>

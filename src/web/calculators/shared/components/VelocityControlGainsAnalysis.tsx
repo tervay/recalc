@@ -9,11 +9,13 @@ interface VelocityControlGainsAnalysisProps {
   ka: Measurement;
   dt?: Measurement;
   velTolerance?: Measurement;
+  kVAlt?: Measurement;
+  kAAlt?: Measurement;
 }
 
 const VelocityControlGainsAnalysis: React.FC<
   VelocityControlGainsAnalysisProps
-> = ({ kv, ka, dt, velTolerance }) => {
+> = ({ kv, ka, dt, velTolerance, kVAlt, kAAlt }) => {
   return (
     <div>
       <Divider color="primary">Estimated Control Gains</Divider>
@@ -23,7 +25,13 @@ const VelocityControlGainsAnalysis: React.FC<
         particular attention to units. Always be careful the first time you
         enable closed-loop control of a mechanism.
       </Message>
-      <FeedforwardAnalysis kV={kv} kA={ka} distanceType={"linear"} />
+      <FeedforwardAnalysis
+        kV={kv}
+        kA={ka}
+        distanceType={"linear"}
+        kVAlt={kVAlt}
+        kAAlt={kAAlt}
+      />
       <VelocityFeedbackAnalysis
         kv={kv}
         ka={ka}

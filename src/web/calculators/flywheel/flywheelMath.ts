@@ -3,6 +3,15 @@ import Motor, { nominalVoltage } from "common/models/Motor";
 import Ratio from "common/models/Ratio";
 import { MotorRules } from "common/models/Rules";
 
+export function calculateVPerRps(motor: Motor, ratio: Ratio): Measurement {
+  if (motor.quantity === 0 || ratio.asNumber() === 0) {
+    return new Measurement(0, "V*s/rotation");
+  }
+
+  const maxShooterRps = motor.freeSpeed.div(ratio.asNumber()).to("rotation/s");
+  return nominalVoltage.div(maxShooterRps).to("V*s/rotation");
+}
+
 export function calculateWindupTime(
   momentOfInertia: Measurement,
   motor: Motor,

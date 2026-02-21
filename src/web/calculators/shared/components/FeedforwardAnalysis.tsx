@@ -9,6 +9,8 @@ export interface FeedforwardAnalysisProps {
   kA: Measurement;
   distanceType: "linear" | "angular";
   kG?: Measurement;
+  kVAlt?: Measurement;
+  kAAlt?: Measurement;
 }
 
 const FeedforwardAnalysis: React.FC<FeedforwardAnalysisProps> = ({
@@ -16,6 +18,8 @@ const FeedforwardAnalysis: React.FC<FeedforwardAnalysisProps> = ({
   kV,
   kA,
   distanceType,
+  kVAlt,
+  kAAlt,
 }) => {
   return (
     <div>
@@ -44,6 +48,19 @@ const FeedforwardAnalysis: React.FC<FeedforwardAnalysisProps> = ({
           defaultUnit={distanceType === "angular" ? "V*s/rotation" : "V*s/m"}
         />
       </SingleInputLine>
+      {kVAlt !== undefined && (
+        <SingleInputLine
+          label="kV (angular)"
+          id="kVAlt"
+          tooltip="Velocity feedforward gain in angular units. Use this for RPM-based velocity control."
+        >
+          <MeasurementOutput
+            stateHook={[kVAlt, () => undefined]}
+            numberRoundTo={4}
+            defaultUnit="V*s/rotation"
+          />
+        </SingleInputLine>
+      )}
       <SingleInputLine
         label="kA"
         id="kA"
@@ -57,6 +74,19 @@ const FeedforwardAnalysis: React.FC<FeedforwardAnalysisProps> = ({
           }
         />
       </SingleInputLine>
+      {kAAlt !== undefined && (
+        <SingleInputLine
+          label="kA (angular)"
+          id="kAAlt"
+          tooltip="Acceleration feedforward gain in angular units. Use this for RPM-based velocity control."
+        >
+          <MeasurementOutput
+            stateHook={[kAAlt, () => undefined]}
+            numberRoundTo={4}
+            defaultUnit="V*s^2/rotation"
+          />
+        </SingleInputLine>
+      )}
       <SingleInputLine
         label="System Response Time"
         id="systemResponseTime"
