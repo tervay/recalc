@@ -28,8 +28,8 @@
     "format:wpi": "./wpilib/format.sh"
   },
   "dependencies": {
-    "@react-router/node": "7.13.0",
-    "@react-router/serve": "7.13.0",
+    "@react-router/node": "7.13.1",
+    "@react-router/serve": "7.13.1",
     "@tanstack/react-table": "8.21.3",
     "@vercel/react-router": "1.2.5",
     "class-variance-authority": "0.7.1",
@@ -44,7 +44,7 @@
     "radix-ui": "1.4.3",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "react-router": "7.13.0",
+    "react-router": "7.13.1",
     "recharts": "3.7.0",
     "tailwind-merge": "3.5.0"
   },
@@ -53,7 +53,7 @@
     "@eslint/js": "9.39.2",
     "@iconify/json": "2.2.442",
     "@playwright/test": "1.58.2",
-    "@react-router/dev": "7.13.0",
+    "@react-router/dev": "7.13.1",
     "@svgr/core": "8.1.0",
     "@svgr/plugin-jsx": "8.1.0",
     "@tailwindcss/vite": "4.2.0",
