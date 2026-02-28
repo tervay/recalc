@@ -51,7 +51,7 @@
   "devDependencies": {
     "@eslint/compat": "2.0.2",
     "@eslint/js": "9.39.2",
-    "@iconify/json": "2.2.442",
+    "@iconify/json": "2.2.443",
     "@playwright/test": "1.58.2",
     "@react-router/dev": "7.13.1",
     "@svgr/core": "8.1.0",
