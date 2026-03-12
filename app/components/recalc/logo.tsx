@@ -32,8 +32,7 @@ export default function Logo({
             <>
               {/* Shiny gradient overlay */}
               <span
-                className="absolute inset-0 z-20 block overflow-hidden opacity-0
-                  transition-opacity duration-300 group-hover:opacity-100"
+                className="absolute inset-0 z-20 block overflow-hidden opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                 style={{
                   background:
                     'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
@@ -51,8 +50,7 @@ export default function Logo({
             <>
               {/* Shiny gradient overlay for black text */}
               <span
-                className="absolute inset-0 z-20 block overflow-hidden opacity-0
-                  transition-opacity duration-300 group-hover:opacity-100"
+                className="absolute inset-0 z-20 block overflow-hidden opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                 style={{
                   background:
                     'linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%)',
@@ -71,8 +69,7 @@ export default function Logo({
         {/* Animated underline spanning both SVG and text */}
         <span
           className={cn(
-            `absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2
-            transition-all duration-500 group-hover:w-full`,
+            `absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 transition-all duration-500 group-hover:w-full`,
             color === 'white' ? 'bg-white' : 'bg-black',
           )}
         />

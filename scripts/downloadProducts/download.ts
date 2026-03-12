@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from 'fs/promises';
-import { FileSystemCache, NodeFetchCache } from 'node-fetch-cache';
 import { join } from 'path';
-import { format } from 'prettier';
+
+import { FileSystemCache, NodeFetchCache } from 'node-fetch-cache';
 import type { VendorName } from 'scripts/downloadProducts/types';
 
 import type { ShopifyProduct, ShopifyResponse } from '~/lib/types/shopify';
@@ -98,11 +98,7 @@ export async function downloadAllVendors(
 
       // Save raw vendor JSON
       const vendorFile = join(vendorDir, `${vendor}.json`);
-      const jsonString = JSON.stringify(products, null, 2);
-      const formatted = await format(jsonString, {
-        filepath: vendorFile,
-      });
-      await writeFile(vendorFile, formatted);
+      await writeFile(vendorFile, JSON.stringify(products, null, 2) + '\n');
       console.log(
         `Saved ${products.length} products from ${vendor} to ${vendorFile}`,
       );

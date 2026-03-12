@@ -1,6 +1,5 @@
 import { Bookmark, Calculator, ExternalLink, Info } from 'lucide-react';
 import { type ReactNode } from 'react';
-
 import ArcticonsFolderUtility from '~icons/arcticons/folder-utility';
 import CarbonTimingBelt from '~icons/carbon/timing-belt';
 import EmojioneMonotoneChains from '~icons/emojione-monotone/chains';
@@ -19,7 +18,7 @@ import Tile from '~/components/recalc/tile';
 
 import type { Route } from '.react-router/types/app/routes/+types/home';
 
-export function meta({}: Route.MetaArgs) {
+export function meta(_: Route.MetaArgs) {
   return [
     { title: 'ReCalc - A collaboration focused mechanical design calculator' },
     {
@@ -41,15 +40,12 @@ function Shortcut({ name, url }: ShortcutProps) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex items-center gap-2 rounded-lg border bg-card p-3
-        text-sm transition-all hover:border-primary/50 hover:bg-accent"
+      className="group flex items-center gap-2 rounded-lg border bg-card p-3 text-sm transition-all hover:border-primary/50 hover:bg-accent"
     >
       <span className="flex-1 text-foreground group-hover:text-primary">
         {name}
       </span>
-      <ExternalLink
-        className="h-4 w-4 text-muted-foreground group-hover:text-primary"
-      />
+      <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary" />
     </a>
   );
 }
@@ -63,10 +59,7 @@ interface SectionProps {
 function Section({ title, icon, children }: SectionProps) {
   return (
     <section className="mb-12">
-      <h2
-        className="mb-6 flex items-center gap-2 text-2xl font-semibold
-          text-foreground"
-      >
+      <h2 className="mb-6 flex items-center gap-2 text-2xl font-semibold text-foreground">
         {icon}
         {title}
       </h2>
@@ -78,18 +71,10 @@ function Section({ title, icon, children }: SectionProps) {
 function Heading() {
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1
-        className="group relative cursor-default overflow-hidden text-6xl
-          font-bold tracking-tight text-primary transition-all duration-300
-          hover:scale-105 md:text-8xl"
-      >
+      <h1 className="group relative cursor-default overflow-hidden text-6xl font-bold tracking-tight text-primary transition-all duration-300 hover:scale-105 md:text-8xl">
         <span className="relative inline-block">
           ReCalc
-          <span
-            className="absolute inset-0 -translate-x-full bg-linear-to-r
-              from-transparent via-white/60 to-transparent transition-transform
-              duration-1500 ease-in-out group-hover:translate-x-full"
-          />
+          <span className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/60 to-transparent transition-transform duration-1500 ease-in-out group-hover:translate-x-full" />
         </span>
       </h1>
       <p className="mt-4 text-lg text-muted-foreground md:text-xl">

@@ -445,6 +445,7 @@ describe('Measurement', () => {
   describe('toPrecision', () => {
     it('handles zero precision', () => {
       const m = new Measurement(5.678, 'in');
+      // oxlint-disable-next-line oxc/number-arg-out-of-range
       expect(() => m.toPrecision(0)).toThrow();
     });
 

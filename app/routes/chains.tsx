@@ -92,11 +92,7 @@ export default function Chains() {
 
   function SuggestedBadge() {
     return (
-      <span
-        className="flex items-center gap-1 rounded border border-green-500/20
-          bg-green-500/10 px-1.5 py-0.5 text-xs text-green-700
-          dark:text-green-400"
-      >
+      <span className="flex items-center gap-1 rounded border border-green-500/20 bg-green-500/10 px-1.5 py-0.5 text-xs text-green-700 dark:text-green-400">
         <CheckIcon className="size-3" />
         Suggested
       </span>

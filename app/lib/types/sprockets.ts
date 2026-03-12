@@ -20,7 +20,7 @@ export const zWCPSprocketBoreSchema = z.enum([
   '1/2" Hex Bore',
   'SplineXL Bore',
   '8mm Key Bore',
-  '1/2\" Rounded Hex Bore',
+  '1/2" Rounded Hex Bore',
   '8mm SplineXS Bore',
   'Falcon Bore',
   '1/2" ID',
@@ -43,7 +43,7 @@ export function wcpSprocketToJsonSprocket(sprocket: WCPSprocket): JSONSprocket {
     '1/2" Hex Bore': '1/2" Hex',
     'SplineXL Bore': 'SplineXL',
     '8mm Key Bore': '8mm',
-    '1/2\" Rounded Hex Bore': '1/2" Hex',
+    '1/2" Rounded Hex Bore': '1/2" Hex',
     '8mm SplineXS Bore': 'SplineXS',
     'Falcon Bore': 'Falcon',
     '1/2" ID': '1/2" Hex',
@@ -58,8 +58,8 @@ export function wcpSprocketToJsonSprocket(sprocket: WCPSprocket): JSONSprocket {
 }
 
 export const zThriftySprocketBoreSchema = z.enum([
-  '3/8\" Hex Bore',
-  '1/2\" Hex Bore',
+  '3/8" Hex Bore',
+  '1/2" Hex Bore',
   '8mm Keyed Bore',
 ]);
 export type ThriftySprocketBore = z.infer<typeof zThriftySprocketBoreSchema>;
@@ -78,8 +78,8 @@ export function thriftySprocketToJsonSprocket(
   sprocket: ThriftySprocket,
 ): JSONSprocket {
   const thriftyBoreToJsonBore: Record<ThriftySprocketBore, Bore> = {
-    '3/8\" Hex Bore': '3/8" Hex',
-    '1/2\" Hex Bore': '1/2" Hex',
+    '3/8" Hex Bore': '3/8" Hex',
+    '1/2" Hex Bore': '1/2" Hex',
     '8mm Keyed Bore': '8mm',
   };
 

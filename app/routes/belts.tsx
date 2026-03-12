@@ -110,11 +110,7 @@ export default function Belts() {
 
   function SuggestedBadge() {
     return (
-      <span
-        className="flex items-center gap-1 rounded border border-green-500/20
-          bg-green-500/10 px-1.5 py-0.5 text-xs text-green-700
-          dark:text-green-400"
-      >
+      <span className="flex items-center gap-1 rounded border border-green-500/20 bg-green-500/10 px-1.5 py-0.5 text-xs text-green-700 dark:text-green-400">
         <CheckIcon className="size-3" />
         Suggested
       </span>
@@ -129,9 +125,7 @@ export default function Belts() {
       />
       <div className="flex flex-row flex-wrap gap-x-4 px-1 *:flex-1">
         <div className="flex flex-col gap-x-4 gap-y-2">
-          <div
-            className="flex flex-wrap items-center justify-between gap-2 px-1"
-          >
+          <div className="flex flex-wrap items-center justify-between gap-2 px-1">
             <ButtonGroup>
               <Button
                 variant="outline"

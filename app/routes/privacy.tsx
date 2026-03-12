@@ -9,7 +9,7 @@ import {
 
 import type { Route } from '.react-router/types/app/routes/+types/privacy';
 
-export function meta({}: Route.MetaArgs) {
+export function meta(_: Route.MetaArgs) {
   return [
     { title: 'Privacy Policy - ReCalc' },
     {
@@ -41,10 +41,7 @@ export default function Privacy() {
         {/* Main Content */}
         <div className="space-y-4">
           {/* Information We Collect */}
-          <div
-            className="group rounded-xl border bg-card p-5 shadow-sm
-              transition-all hover:shadow-md"
-          >
+          <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
             <div className="mb-4 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
                 <FileText className="h-5 w-5 text-primary" />
@@ -67,8 +64,7 @@ export default function Privacy() {
                     href="https://umami.is"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 font-medium
-                      text-primary underline-offset-4 hover:underline"
+                    className="inline-flex items-center gap-1 font-medium text-primary underline-offset-4 hover:underline"
                   >
                     Umami Analytics
                     <ExternalLink className="h-3 w-3" />
@@ -94,8 +90,7 @@ export default function Privacy() {
                     href="https://sentry.io"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 font-medium
-                      text-primary underline-offset-4 hover:underline"
+                    className="inline-flex items-center gap-1 font-medium text-primary underline-offset-4 hover:underline"
                   >
                     Sentry
                     <ExternalLink className="h-3 w-3" />
@@ -113,10 +108,7 @@ export default function Privacy() {
           </div>
 
           {/* How We Use This Information */}
-          <div
-            className="group rounded-xl border bg-card p-5 shadow-sm
-              transition-all hover:shadow-md"
-          >
+          <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
             <div className="mb-3 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
                 <BarChart3 className="h-5 w-5 text-primary" />
@@ -135,10 +127,7 @@ export default function Privacy() {
           </div>
 
           {/* Cookies */}
-          <div
-            className="group rounded-xl border bg-card p-5 shadow-sm
-              transition-all hover:shadow-md"
-          >
+          <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
             <div className="mb-3 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
                 <Cookie className="h-5 w-5 text-primary" />
@@ -152,10 +141,7 @@ export default function Privacy() {
           </div>
 
           {/* Contact */}
-          <div
-            className="group rounded-xl border bg-card p-5 shadow-sm
-              transition-all hover:shadow-md"
-          >
+          <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
             <div className="mb-3 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
                 <Mail className="h-5 w-5 text-primary" />
@@ -168,8 +154,7 @@ export default function Privacy() {
                 href="https://www.chiefdelphi.com/u/jtrv"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 font-medium
-                  text-primary underline-offset-4 hover:underline"
+                className="inline-flex items-center gap-1 font-medium text-primary underline-offset-4 hover:underline"
               >
                 on ChiefDelphi
                 <ExternalLink className="h-3 w-3" />
@@ -179,10 +164,7 @@ export default function Privacy() {
           </div>
 
           {/* Third-Party Services */}
-          <div
-            className="group rounded-xl border bg-card p-5 shadow-sm
-              transition-all hover:shadow-md"
-          >
+          <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
             <div className="mb-3 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
                 <Shield className="h-5 w-5 text-primary" />
@@ -190,10 +172,7 @@ export default function Privacy() {
               <h2 className="text-xl font-semibold">Third-Party Services</h2>
             </div>
             <div className="space-y-2">
-              <div
-                className="flex items-start gap-3 rounded-lg bg-muted/50 p-3
-                  transition-colors hover:bg-muted"
-              >
+              <div className="flex items-start gap-3 rounded-lg bg-muted/50 p-3 transition-colors hover:bg-muted">
                 <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-primary" />
                 <p className="text-sm leading-relaxed text-muted-foreground">
                   <span className="font-medium text-foreground">
@@ -202,10 +181,7 @@ export default function Privacy() {
                   — anonymous usage data
                 </p>
               </div>
-              <div
-                className="flex items-start gap-3 rounded-lg bg-muted/50 p-3
-                  transition-colors hover:bg-muted"
-              >
+              <div className="flex items-start gap-3 rounded-lg bg-muted/50 p-3 transition-colors hover:bg-muted">
                 <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-primary" />
                 <p className="text-sm leading-relaxed text-muted-foreground">
                   <span className="font-medium text-foreground">Sentry</span> —
@@ -216,10 +192,7 @@ export default function Privacy() {
           </div>
 
           {/* Changes to This Policy */}
-          <div
-            className="group rounded-xl border bg-card p-5 shadow-sm
-              transition-all hover:shadow-md"
-          >
+          <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
             <div className="mb-3 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
                 <FileText className="h-5 w-5 text-primary" />
