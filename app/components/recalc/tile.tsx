@@ -22,25 +22,17 @@ export default function Tile({
     <Link to={to} className="block">
       <div
         className={cn(
-          `group relative overflow-hidden rounded-lg border bg-card p-6
-          shadow-sm transition-all duration-200 hover:-translate-y-1
-          hover:border-primary/50 hover:shadow-md`,
+          `group relative overflow-hidden rounded-lg border bg-card p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-primary/50 hover:shadow-md`,
           className,
         )}
       >
         <div className="flex items-center justify-between">
           <div className="flex flex-1 items-center gap-3">
             {Icon && (
-              <Icon
-                className="h-6 w-6 shrink-0 text-muted-foreground
-                  transition-colors group-hover:text-primary"
-              />
+              <Icon className="h-6 w-6 shrink-0 text-muted-foreground transition-colors group-hover:text-primary" />
             )}
             <div className="flex-1">
-              <h3
-                className="text-lg font-medium text-foreground
-                  group-hover:text-primary"
-              >
+              <h3 className="text-lg font-medium text-foreground group-hover:text-primary">
                 {title}
               </h3>
               {description && (
@@ -50,10 +42,7 @@ export default function Tile({
               )}
             </div>
           </div>
-          <ArrowRight
-            className="h-5 w-5 text-muted-foreground transition-transform
-              group-hover:translate-x-1 group-hover:text-primary"
-          />
+          <ArrowRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-primary" />
         </div>
       </div>
     </Link>

@@ -366,10 +366,7 @@ export default function RatioFinder() {
           <Divider>Filters</Divider>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
             <div className="rounded-lg border bg-card p-3">
-              <h3
-                className="mb-2 text-center text-sm font-semibold
-                  text-muted-foreground"
-              >
+              <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
                 Gears
               </h3>
               <div className="flex flex-col gap-2">
@@ -384,10 +381,7 @@ export default function RatioFinder() {
               </div>
             </div>
             <div className="rounded-lg border bg-card p-3">
-              <h3
-                className="mb-2 text-center text-sm font-semibold
-                  text-muted-foreground"
-              >
+              <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
                 Pulleys
               </h3>
               <div className="flex flex-col gap-2">
@@ -406,10 +400,7 @@ export default function RatioFinder() {
               </div>
             </div>
             <div className="rounded-lg border bg-card p-3">
-              <h3
-                className="mb-2 text-center text-sm font-semibold
-                  text-muted-foreground"
-              >
+              <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
                 Sprockets
               </h3>
               <div className="flex flex-col gap-2">
@@ -424,10 +415,7 @@ export default function RatioFinder() {
               </div>
             </div>
             <div className="rounded-lg border bg-card p-3">
-              <h3
-                className="mb-2 text-center text-sm font-semibold
-                  text-muted-foreground"
-              >
+              <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
                 Vendors
               </h3>
               <div className="flex flex-col gap-2">
@@ -458,10 +446,7 @@ export default function RatioFinder() {
               </div>
             </div>
             <div className="rounded-lg border bg-card p-3">
-              <h3
-                className="mb-2 text-center text-sm font-semibold
-                  text-muted-foreground"
-              >
+              <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
                 Bores
               </h3>
               <div className="flex flex-col gap-2">
@@ -496,10 +481,7 @@ export default function RatioFinder() {
               </div>
             </div>
             <div className="rounded-lg border bg-card p-3">
-              <h3
-                className="mb-2 text-center text-sm font-semibold
-                  text-muted-foreground"
-              >
+              <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
                 Other
               </h3>
               <div className="flex flex-col gap-2">
@@ -570,22 +552,13 @@ export function GearboxList({
           <table className="w-full">
             <thead className="border-b bg-muted/50">
               <tr>
-                <th
-                  className="px-3 py-2 text-left text-xs font-semibold
-                    tracking-wider text-muted-foreground uppercase"
-                >
+                <th className="px-3 py-2 text-left text-xs font-semibold tracking-wider text-muted-foreground uppercase">
                   Ratio
                 </th>
-                <th
-                  className="px-3 py-2 text-left text-xs font-semibold
-                    tracking-wider text-muted-foreground uppercase"
-                >
+                <th className="px-3 py-2 text-left text-xs font-semibold tracking-wider text-muted-foreground uppercase">
                   Stages
                 </th>
-                <th
-                  className="px-3 py-2 text-left text-xs font-semibold
-                    tracking-wider text-muted-foreground uppercase"
-                >
+                <th className="px-3 py-2 text-left text-xs font-semibold tracking-wider text-muted-foreground uppercase">
                   Components
                 </th>
               </tr>
@@ -594,11 +567,7 @@ export function GearboxList({
               {gearboxes.map((gearbox, index) => (
                 <tr key={index} className="transition-colors hover:bg-muted/30">
                   <td className="px-3 py-3">
-                    <div
-                      className="inline-flex items-center gap-1 rounded
-                        bg-primary/10 px-2 py-1 text-sm font-semibold
-                        text-primary"
-                    >
+                    <div className="inline-flex items-center gap-1 rounded bg-primary/10 px-2 py-1 text-sm font-semibold text-primary">
                       {gearbox.ratio.toFixed(2)}:1
                     </div>
                   </td>
@@ -618,17 +587,12 @@ export function GearboxList({
                     <div className="space-y-2">
                       {gearbox.stages.map((stage, stageIndex) => (
                         <div key={stageIndex} className="text-xs">
-                          <div
-                            className="mb-1 font-medium text-muted-foreground"
-                          >
+                          <div className="mb-1 font-medium text-muted-foreground">
                             Stage {stageIndex + 1}
                           </div>
                           <div className="grid grid-cols-2 gap-2">
                             <div className="space-y-1">
-                              <div
-                                className="text-[10px] tracking-wide
-                                  text-muted-foreground uppercase"
-                              >
+                              <div className="text-[10px] tracking-wide text-muted-foreground uppercase">
                                 {stage.from.teeth}T
                               </div>
                               {stage.from.skus.map((sku, skuIndex) => (
@@ -637,9 +601,7 @@ export function GearboxList({
                                   to={sku.url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="block rounded border border-border
-                                    bg-muted/50 p-1.5 text-[11px]
-                                    transition-colors hover:bg-muted"
+                                  className="block rounded border border-border bg-muted/50 p-1.5 text-[11px] transition-colors hover:bg-muted"
                                 >
                                   <span className="font-semibold">
                                     {sku.sku}
@@ -653,10 +615,7 @@ export function GearboxList({
                               ))}
                             </div>
                             <div className="space-y-1">
-                              <div
-                                className="text-[10px] tracking-wide
-                                  text-muted-foreground uppercase"
-                              >
+                              <div className="text-[10px] tracking-wide text-muted-foreground uppercase">
                                 {stage.to.teeth}T
                               </div>
                               {stage.to.skus.map((sku, skuIndex) => (
@@ -665,9 +624,7 @@ export function GearboxList({
                                   to={sku.url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="block rounded border border-border
-                                    bg-muted/50 p-1.5 text-[11px]
-                                    transition-colors hover:bg-muted"
+                                  className="block rounded border border-border bg-muted/50 p-1.5 text-[11px] transition-colors hover:bg-muted"
                                 >
                                   <span className="font-semibold">
                                     {sku.sku}

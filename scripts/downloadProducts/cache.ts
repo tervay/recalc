@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import { join } from 'path';
-import { format } from 'prettier';
+
 import type {
   CacheEntry,
   ProductType,
@@ -46,12 +46,7 @@ export async function saveCache(
 
   const cacheFile = join(vendorDir, `${vendor}_${productType}_cache.json`);
 
-  const jsonString = JSON.stringify(cache, null, 2);
-  const formatted = await format(jsonString, {
-    filepath: cacheFile,
-  });
-
-  await writeFile(cacheFile, formatted);
+  await writeFile(cacheFile, JSON.stringify(cache, null, 2) + '\n');
 }
 
 /**

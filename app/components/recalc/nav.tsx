@@ -1,7 +1,7 @@
-import Logo from 'app/components/recalc/logo';
 import { Suspense, lazy } from 'react';
 import { Link } from 'react-router';
 
+import Logo from '~/components/recalc/logo';
 import { SidebarTrigger } from '~/components/ui/sidebar';
 
 const _ModeToggle = lazy(() =>

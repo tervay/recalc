@@ -1,6 +1,7 @@
+import path from 'path';
+
 import { reactRouter } from '@react-router/dev/vite';
 import tailwindcss from '@tailwindcss/vite';
-import path from 'path';
 import Icons from 'unplugin-icons/vite';
 import { comlink } from 'vite-plugin-comlink';
 import topLevelAwait from 'vite-plugin-top-level-await';

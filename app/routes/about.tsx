@@ -1,12 +1,11 @@
 import { AlertCircle, Code, ExternalLink, Shield } from 'lucide-react';
 import { Link } from 'react-router';
-
 import LineMdHeartFilled from '~icons/line-md/heart-filled';
 import MaterialSymbolsInfoOutlineRounded from '~icons/material-symbols/info-outline-rounded';
 
 import type { Route } from '.react-router/types/app/routes/+types/about';
 
-export function meta({}: Route.MetaArgs) {
+export function meta(_: Route.MetaArgs) {
   return [
     { title: 'About - ReCalc' },
     {
@@ -30,15 +29,10 @@ export default function About() {
         {/* Main Content Grid */}
         <div className="space-y-4">
           {/* What is ReCalc */}
-          <div
-            className="group rounded-xl border bg-card p-5 shadow-sm
-              transition-all hover:shadow-md"
-          >
+          <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
             <div className="mb-3 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
-                <MaterialSymbolsInfoOutlineRounded
-                  className="h-5 w-5 text-primary"
-                />
+                <MaterialSymbolsInfoOutlineRounded className="h-5 w-5 text-primary" />
               </div>
               <h2 className="text-xl font-semibold">What is ReCalc?</h2>
             </div>
@@ -51,8 +45,7 @@ export default function About() {
                 href="https://www.firstinspires.org/programs/frc/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 font-medium
-                  text-primary underline-offset-4 hover:underline"
+                className="inline-flex items-center gap-1 font-medium text-primary underline-offset-4 hover:underline"
               >
                 FIRST Robotics Competition (FRC)
                 <ExternalLink className="h-3 w-3" />
@@ -62,8 +55,7 @@ export default function About() {
                 href="https://www.firstinspires.org/programs/ftc/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 font-medium
-                  text-primary underline-offset-4 hover:underline"
+                className="inline-flex items-center gap-1 font-medium text-primary underline-offset-4 hover:underline"
               >
                 FIRST Tech Challenge (FTC)
                 <ExternalLink className="h-3 w-3" />
@@ -73,10 +65,7 @@ export default function About() {
           </div>
 
           {/* Thanks & Credits */}
-          <div
-            className="group rounded-xl border bg-card p-5 shadow-sm
-              transition-all hover:shadow-md"
-          >
+          <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
             <div className="mb-3 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
                 <LineMdHeartFilled className="h-5 w-5 text-primary" />
@@ -127,8 +116,7 @@ export default function About() {
               ].map((credit, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-3 rounded-lg bg-muted/50 p-3
-                    transition-colors hover:bg-muted"
+                  className="flex items-start gap-3 rounded-lg bg-muted/50 p-3 transition-colors hover:bg-muted"
                 >
                   <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-primary" />
                   <p className="text-sm leading-relaxed">
@@ -142,8 +130,7 @@ export default function About() {
                         href={credit.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 font-medium
-                          text-primary underline-offset-4 hover:underline"
+                        className="inline-flex items-center gap-1 font-medium text-primary underline-offset-4 hover:underline"
                       >
                         {credit.linkText}
                         <ExternalLink className="h-3 w-3" />
@@ -165,8 +152,7 @@ export default function About() {
                   href="https://iconscout.com/icon/dc-motor-2915251"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-medium
-                    text-primary underline-offset-4 hover:underline"
+                  className="inline-flex items-center gap-1 font-medium text-primary underline-offset-4 hover:underline"
                 >
                   ic2icon on iconscout
                   <ExternalLink className="h-3 w-3" />
@@ -177,10 +163,7 @@ export default function About() {
           </div>
 
           {/* Accuracy Section */}
-          <div
-            className="group rounded-xl border bg-card p-5 shadow-sm
-              transition-all hover:shadow-md"
-          >
+          <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
             <div className="mb-3 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
                 <AlertCircle className="h-5 w-5 text-primary" />
@@ -203,8 +186,7 @@ export default function About() {
                   href="https://www.chiefdelphi.com/u/jtrv/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-medium
-                    text-primary underline-offset-4 hover:underline"
+                  className="inline-flex items-center gap-1 font-medium text-primary underline-offset-4 hover:underline"
                 >
                   send a message on CD
                   <ExternalLink className="h-3 w-3" />
@@ -214,8 +196,7 @@ export default function About() {
                   href="https://github.com/tervay/recalc/issues"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-medium
-                    text-primary underline-offset-4 hover:underline"
+                  className="inline-flex items-center gap-1 font-medium text-primary underline-offset-4 hover:underline"
                 >
                   open an issue on GitHub
                   <ExternalLink className="h-3 w-3" />
@@ -226,10 +207,7 @@ export default function About() {
           </div>
 
           {/* Source Code */}
-          <div
-            className="group rounded-xl border bg-card p-5 shadow-sm
-              transition-all hover:shadow-md"
-          >
+          <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
             <div className="mb-3 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
                 <Code className="h-5 w-5 text-primary" />
@@ -245,8 +223,7 @@ export default function About() {
                   href="https://github.com/tervay/recalc"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-medium
-                    text-primary underline-offset-4 hover:underline"
+                  className="inline-flex items-center gap-1 font-medium text-primary underline-offset-4 hover:underline"
                 >
                   on GitHub
                   <ExternalLink className="h-3 w-3" />
@@ -257,10 +234,7 @@ export default function About() {
           </div>
 
           {/* Privacy Policy */}
-          <div
-            className="group rounded-xl border bg-card p-5 shadow-sm
-              transition-all hover:shadow-md"
-          >
+          <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
             <div className="mb-3 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
                 <Shield className="h-5 w-5 text-primary" />
@@ -271,8 +245,7 @@ export default function About() {
               Our privacy policy is available{' '}
               <Link
                 to="/privacy"
-                className="font-medium text-primary underline-offset-4
-                  hover:underline"
+                className="font-medium text-primary underline-offset-4 hover:underline"
               >
                 here
               </Link>
@@ -281,10 +254,7 @@ export default function About() {
           </div>
 
           {/* Disclaimer */}
-          <div
-            className="rounded-xl border border-muted-foreground/20 bg-muted/30
-              p-5"
-          >
+          <div className="rounded-xl border border-muted-foreground/20 bg-muted/30 p-5">
             <h2 className="mb-3 text-lg font-semibold">Disclaimer</h2>
             <p className="text-sm leading-relaxed text-muted-foreground">
               This site is not in any way affiliated or endorsed by FIRST, any

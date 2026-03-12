@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from 'fs/promises';
 import { join } from 'path';
-import { format } from 'prettier';
+
 import type {
   ProductType,
   VendorCache,
@@ -31,11 +31,7 @@ async function writeJson(
   const outFile = join(outdir, `${productType}.json`);
 
   await mkdir(outdir, { recursive: true });
-  const jsonString = JSON.stringify(data, null, 2);
-  const formatted = await format(jsonString, {
-    filepath: outFile,
-  });
-  await writeFile(outFile, formatted);
+  await writeFile(outFile, JSON.stringify(data, null, 2) + '\n');
 }
 
 /**

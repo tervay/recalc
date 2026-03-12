@@ -380,24 +380,25 @@ export async function findGearboxes(
     return bore in boreFilters ? boreFilters[bore] : true;
   };
 
-  const allPlanetaries: JSONPlanetaryInstance[] = await Promise.all([
-    import('~/genData/REV/planetaries.json').then((m) => m.default),
-  ]).then(([revPlanetaries]) =>
-    revPlanetaries
-      .map((p) => ({
-        ...p,
-        inputBore: p.inputBore as Bore,
-        outputBore: p.outputBore as Bore,
-        vendor: p.vendor as Vendor,
-      }))
-      .filter(
-        (p) =>
-          filters.enablePlanetaries &&
-          vendorIsEnabled(p.vendor) &&
-          boreIsEnabled(p.inputBore) &&
-          boreIsEnabled(p.outputBore),
-      ),
-  );
+  const allPlanetaries: JSONPlanetaryInstance[] =
+    await import('~/genData/REV/planetaries.json')
+      .then((m) => m.default)
+      .then((revPlanetaries) =>
+        revPlanetaries
+          .map((p) => ({
+            ...p,
+            inputBore: p.inputBore as Bore,
+            outputBore: p.outputBore as Bore,
+            vendor: p.vendor as Vendor,
+          }))
+          .filter(
+            (p) =>
+              filters.enablePlanetaries &&
+              vendorIsEnabled(p.vendor) &&
+              boreIsEnabled(p.inputBore) &&
+              boreIsEnabled(p.outputBore),
+          ),
+      );
 
   const toothRangeMin = Math.min(
     filters.minGearTeeth,

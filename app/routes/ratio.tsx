@@ -98,10 +98,7 @@ export default function Ratio() {
       />
       <div className="flex flex-col gap-4 px-1 *:flex-1 md:flex-row md:gap-x-4">
         <div className="flex flex-col gap-x-4 gap-y-2">
-          <div
-            className="mb-2 grid grid-cols-[auto_1fr_1fr_auto] items-center
-              gap-2 font-semibold"
-          >
+          <div className="mb-2 grid grid-cols-[auto_1fr_1fr_auto] items-center gap-2 font-semibold">
             <Label>Stage</Label>
             <Label>Driving</Label>
             <Label>Driven</Label>
@@ -132,10 +129,7 @@ export default function Ratio() {
         </div>
 
         <div className="flex flex-col gap-x-4 gap-y-2">
-          <div
-            className="rounded-lg border bg-card p-4 text-card-foreground
-              shadow-sm"
-          >
+          <div className="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
             <div className="text-sm font-medium text-muted-foreground">
               Net {netRatio < 1 ? 'Reduction' : 'Step-Up'}
             </div>

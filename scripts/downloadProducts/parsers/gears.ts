@@ -439,7 +439,7 @@ export function parseAndyMarkGears(products: ShopifyProduct[]): CacheEntry[] {
         // Try to extract bore from variant title if not set
         if (!bore) {
           const variantBoreMatch = variant.title.match(
-            /(?:Bore:\s*|)([0-9.\/]+\s*(?:in\.|mm)\s*(?:Hex|Round|hex|round))/i,
+            /(?:Bore:\s*|)([0-9./]+\s*(?:in\.|mm)\s*(?:Hex|Round|hex|round))/i,
           );
           if (variantBoreMatch) {
             bore = normalizeAndyMarkBore(variantBoreMatch[1]);

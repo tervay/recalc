@@ -488,7 +488,7 @@ export function parseAndyMarkSprockets(
       if (!bore) {
         const variantBoreMatch =
           variant.title.match(
-            /([0-9.\/]+\s*(?:in\.|mm)\s*(?:Hex|Round|hex|round))/i,
+            /([0-9./]+\s*(?:in\.|mm)\s*(?:Hex|Round|hex|round))/i,
           ) || variant.title.match(/(8\s*mm)/i);
         if (variantBoreMatch) {
           bore = normalizeAndyMarkSprocketBore(variantBoreMatch[1]);

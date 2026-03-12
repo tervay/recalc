@@ -3,62 +3,10 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'daily'
+      interval: 'cron'
+      cronjob: '0 12 * * 1,4'
+      timezone: 'America/New_York'
     groups:
-      react-router:
-        patterns:
-          - '@react-router/*'
-          - '@vercel/react-router'
-          - 'react-router'
-      react:
-        patterns:
-          - 'react'
-          - 'react-dom'
-          - '@types/react'
-          - '@types/react-dom'
-          - 'radix-ui'
-      typescript-eslint:
-        patterns:
-          - 'typescript'
-          - 'typescript-eslint'
-          - '@typescript-eslint/*'
-          - '@types/node'
-      eslint:
-        patterns:
-          - 'eslint'
-          - '@eslint/*'
-          - 'eslint-*'
-          - 'globals'
-      tailwind:
-        patterns:
-          - 'tailwindcss'
-          - '@tailwindcss/*'
-          - 'tailwind-merge'
-          - 'tw-animate-css'
-      vite:
-        patterns:
-          - 'vite'
-          - 'vite-*'
-          - 'vite-plugin-top-level-await'
-          - 'vite-tsconfig-paths'
-          - '@tailwindcss/vite'
-          - 'vite-plugin-comlink'
-      prettier:
-        patterns:
-          - 'prettier'
-          - 'prettier-plugin-*'
-          - '@trivago/prettier-plugin-*'
-          - 'prettier-plugin-classnames'
-          - 'prettier-plugin-merge'
-      testing:
-        patterns:
-          - '@playwright/test'
-          - 'vitest'
-      markdown:
-        patterns:
-          - 'react-markdown'
-          - 'remark-*'
-          - 'rehype-*'
       icons:
         patterns:
           - '@iconify/json'
@@ -67,14 +15,52 @@ updates:
           - 'lucide-react'
       math:
         patterns:
-          - 'katex'
-          - 'remark-math'
-          - 'rehype-katex'
           - 'js-quantities'
           - '@types/js-quantities'
+      oxc:
+        patterns:
+          - 'oxfmt'
+          - 'oxlint'
+          - 'oxlint-tsgolint'
+          - 'eslint-plugin-no-relative-import-paths'
+          - 'eslint-plugin-zod'
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - '@types/react'
+          - '@types/react-dom'
+          - 'radix-ui'
+      react-router:
+        patterns:
+          - '@react-router/*'
+          - '@vercel/react-router'
+          - 'react-router'
       shadcn:
         patterns:
           - 'shadcn'
           - 'class-variance-authority'
           - 'clsx'
+      tailwind:
+        patterns:
+          - 'tailwindcss'
+          - '@tailwindcss/*'
+          - 'tailwind-merge'
+          - 'tw-animate-css'
+      testing:
+        patterns:
+          - '@playwright/test'
+          - 'vitest'
+      typescript:
+        patterns:
+          - 'typescript'
+          - '@types/node'
+      vite:
+        patterns:
+          - 'vite'
+          - 'vite-*'
+          - 'vite-plugin-top-level-await'
+          - 'vite-tsconfig-paths'
+          - '@tailwindcss/vite'
+          - 'vite-plugin-comlink'
     open-pull-requests-limit: 10
