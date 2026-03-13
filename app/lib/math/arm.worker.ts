@@ -47,8 +47,9 @@ export async function simulateArmWpilib(
   const batteryResistance = Measurement.fromDict(batteryResistance_);
   const statorVoltage = Measurement.fromDict(statorVoltage_);
 
+  const wasmMotor = motor.toWpilibMotor();
   const armSim = new wpilibc.SingleJointedArmSim(
-    motor.toWpilibMotor(),
+    wasmMotor,
     ratio.asNumber(),
     momentOfInertia.to('kg m^2').scalar,
     armLength.to('m').scalar,
@@ -57,9 +58,10 @@ export async function simulateArmWpilib(
     true,
     startingAngle.to('rad').scalar,
   );
+  wasmMotor.delete();
 
   const iMax = currentLimit.mul(motor.quantity);
-  const resistance = new Measurement(motor.toWpilibMotor().getROhms(), 'Ohm');
+  const resistance = motor.resistance.div(motor.quantity);
 
   let vApplied = statorVoltage;
   let timestamp = 0;
@@ -100,22 +102,26 @@ export async function simulateArmWpilib(
       (goingDownOrUp === 'up' && !armSim.hasHitUpperLimit()) ||
       (goingDownOrUp === 'down' && !armSim.hasHitLowerLimit())
     ) {
+      const currentVec = arrayToVectorDouble([supplyCurrent.to('A').scalar]);
+      const batteryVoltage = toFixed(
+        wpilibc.BatterySim_calculateLoadedBatteryVoltage(
+          supplyVoltage.to('V').scalar,
+          batteryResistance.to('Ohm').scalar,
+          currentVec,
+        ),
+      );
+      currentVec.delete();
       states.push({
         timeSeconds: toFixed(timestamp, 3),
         angularVelocity: new Measurement(armSim.getAngularVelocity(), 'rad/s')
           .to('rpm')
           .round(SNAPSHOT_PRECISION).scalar,
         currentDraw: toFixed(armSim.getCurrentDraw()),
-        batteryVoltage: toFixed(
-          wpilibc.BatterySim_calculateLoadedBatteryVoltage(
-            supplyVoltage.to('V').scalar,
-            batteryResistance.to('Ohm').scalar,
-            arrayToVectorDouble([supplyCurrent.to('A').scalar]),
-          ),
-        ),
+        batteryVoltage,
       });
     }
   }
 
+  armSim.delete();
   return obliterateArray(states, 10);
 }

@@ -30,7 +30,7 @@ body {
   --secondary: #ebeff1;
   --secondary-foreground: #243037;
   --muted: #f0f2f4;
-  --muted-foreground: #5e6468;
+  --muted-foreground: #3d4347;
   --accent: #ebeff1;
   --accent-foreground: #243037;
   --destructive: #b9463f;
@@ -97,7 +97,7 @@ body {
   --secondary: #161b1f;
   --secondary-foreground: #edeff0;
   --muted: #131719;
-  --muted-foreground: #7b8186;
+  --muted-foreground: #a8adb1;
   --accent: #161b1f;
   --accent-foreground: #edeff0;
   --destructive: #9c443c;

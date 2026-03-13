@@ -3,7 +3,7 @@
 - heading "Motor & Gearing" [level=2]
 - switch "Cascade"
 - text: Cascade Motor
-- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Stator Limit Supply Limit Stator Voltage Supply Voltage": "1"
+- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Target Time to Goal Stator Limit Supply Limit Stator Voltage Supply Voltage Maximum Comfortable Stator Limit Maximum Comfortable Supply Limit": "1"
 - combobox: Kraken X60 (FOC)
 - button "Efficiency %"
 - spinbutton: "100"
@@ -26,6 +26,9 @@
 - button "Battery Resistance"
 - spinbutton: "0.015"
 - combobox: Ohm
+- button "Target Time to Goal"
+- spinbutton: "0.5"
+- combobox: s
 - heading "Limits" [level=2]
 - button "Stator Limit"
 - spinbutton: "60"
@@ -39,23 +42,34 @@
 - button "Supply Voltage"
 - spinbutton: "12"
 - combobox: V
-- heading "Results" [level=2]
+- button "Maximum Comfortable Stator Limit"
+- spinbutton: "100"
+- combobox: A
+- button "Maximum Comfortable Supply Limit"
+- spinbutton: "85"
+- combobox: A
 - text: Time to Goal 0.529
 - combobox: s
 - text: Stall Load 39.323
 - combobox: lbs
+- heading "Simulation" [level=2]
+- list:
+  - listitem:
+    - img "Position (m) legend icon"
+    - text: Position (m)
+  - listitem:
+    - img "Stator Current (A) legend icon"
+    - text: Stator Current (A)
+  - listitem:
+    - img "Supply Current (A) legend icon"
+    - text: Supply Current (A)
+  - listitem:
+    - img "Velocity (m/s) legend icon"
+    - text: Velocity (m/s)
+- application: 0.02909999999999988 0.20109999999999417 0.3680999999999758 0.529099999999958 Time (s) 0 15 30 45 60 Velocity (m/s) / Current (A) 0 0.4 0.8 1.2 1.6 Position (m)
 - text: kV 0.079
 - combobox: V*s/in
 - text: kA 0.439
 - combobox: V*s^2/m
 - text: kG 4.576
 - combobox: V
-- status:
-  - paragraph: "0.096"
-  - list:
-    - listitem: "positionMeters : 0.08062"
-    - listitem: "statorCurrentDrawAmps : 59.78547"
-    - listitem: "supplyCurrentDrawAmps : 34.91938"
-    - listitem: "velocityMetersPerSecond : 1.67784"
-- application: 0.002 0.043 0.08 0.11 0.14 0.17 0.2 0.233 0.27 0.3 0.334 0.374 0.413 0.453 0.49 0.529 0 15 30 45 60 0 0.4 0.8 1.2 1.6
-- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

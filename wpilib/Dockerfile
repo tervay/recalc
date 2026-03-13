@@ -44,23 +44,23 @@ COPY patches/wpilibc/wasm/stubs/ntcore_stub.cc /build/allwpilib/wpilibc/wasm/stu
 COPY patches/CMakeLists.txt /build/allwpilib/CMakeLists.txt
 
 # Build wpimath
-RUN cd /build/allwpilib && \
-    emcmake cmake -B build -S . \
-      -DCMAKE_BUILD_TYPE=Release \
-      -DBUILD_SHARED_LIBS=OFF \
-      -DWITH_SIMULATION_MODULES=OFF \
-      -DWITH_PROTOBUF=OFF \
-      -DWITH_GUI=OFF \
-      -DWITH_CSCORE=OFF \
-      -DWITH_WPIMATH=ON \
-      -DWITH_WPILIB=OFF \
-      -DWITH_NTCORE=OFF \
-      -DWITH_EXAMPLES=OFF \
-      -DWITH_JAVA=OFF \
-      -DWITH_TESTS=OFF \
-      -G Ninja && \
-    cd build && \
-    emmake ninja wpimath_wasm -j$(nproc)
+# RUN cd /build/allwpilib && \
+#     emcmake cmake -B build -S . \
+#       -DCMAKE_BUILD_TYPE=Release \
+#       -DBUILD_SHARED_LIBS=OFF \
+#       -DWITH_SIMULATION_MODULES=OFF \
+#       -DWITH_PROTOBUF=OFF \
+#       -DWITH_GUI=OFF \
+#       -DWITH_CSCORE=OFF \
+#       -DWITH_WPIMATH=ON \
+#       -DWITH_WPILIB=OFF \
+#       -DWITH_NTCORE=OFF \
+#       -DWITH_EXAMPLES=OFF \
+#       -DWITH_JAVA=OFF \
+#       -DWITH_TESTS=OFF \
+#       -G Ninja && \
+#     cd build && \
+#     emmake ninja wpimath_wasm -j$(nproc)
 
 # Build wpilibc
 RUN cd /build/allwpilib && \

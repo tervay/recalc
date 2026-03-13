@@ -1,3 +1,4 @@
+#include <cmath>
 #include <emscripten/bind.h>
 #include <emscripten/val.h>
 #include <vector>
@@ -314,6 +315,137 @@ double BatterySim_CalculateLoadedBatteryVoltage(
       .to<double>();
 }
 
+// Elevator simulation state struct
+struct ElevatorSimStateInternal {
+  double positionMeters;
+  double velocityMetersPerSecond;
+  double statorCurrentDrawAmps;
+  double supplyCurrentDrawAmps;
+  double timeSeconds;
+  double batteryVoltageVolts;
+  double motorAppliedVoltageVolts;
+  double motorRpm;
+  double energyJoules;
+  bool success;
+};
+
+// Full elevator simulation loop — equivalent to simulateElevatorWpilib in
+// linear.worker.ts. Parameters must already be in SI units:
+//   statorLimitAmps  — total stator current limit (per-motor limit × quantity)
+//   spoolRadiusMeters — spool radius (not diameter)
+// Returns a JS array of state objects, decimated 1:10 (every 10th step),
+// with the last state always included, matching obliterateArray behaviour.
+emscripten::val SimulateElevator(DCMotorWasm *motor, double gearing,
+                                 double loadKg, double spoolRadiusMeters,
+                                 double travelDistanceMeters,
+                                 double statorLimitAmps, double supplyLimitAmps,
+                                 double statorVoltageVolts,
+                                 double batteryResistanceOhms,
+                                 double batteryVoltageVolts, double simTimestep,
+                                 int decimation, double maxSimSeconds) {
+
+  ElevatorSim elevator(motor->getMotor(), gearing, units::kilogram_t(loadKg),
+                       units::meter_t(spoolRadiusMeters), units::meter_t(0.0),
+                       units::meter_t(travelDistanceMeters), true,
+                       units::meter_t(0.0));
+
+  RoboRioSim::SetVInVoltage(units::volt_t(batteryVoltageVolts));
+
+  const double rOhms = motor->getROhms();
+  const double kvRadPerSecPerVolt = motor->getKvRadPerSecPerVolt();
+  double timestamp = 0.0;
+  double energyJoules = 0.0;
+
+  std::vector<ElevatorSimStateInternal> states;
+
+  while (elevator.GetPosition().to<double>() < travelDistanceMeters) {
+    double vApplied = statorVoltageVolts;
+
+    // Motor shaft angular velocity (rad/s) from carriage velocity
+    const double velocityMPS = elevator.GetVelocity().to<double>();
+    const double motorShaftRadPerSec =
+        velocityMPS / spoolRadiusMeters * gearing;
+    const double vBackEmf = motorShaftRadPerSec / kvRadPerSecPerVolt;
+
+    const double vSupply = RobotController::GetInputVoltage();
+
+    // Clamp applied voltage to stator + supply current limits
+    // (mirrors getvAppliedMinAndMax in currentLimits.ts)
+    const double minATerm = vBackEmf - statorLimitAmps * rOhms;
+    const double maxATerm = vBackEmf + statorLimitAmps * rOhms;
+
+    const double toSqrt =
+        (vBackEmf * vBackEmf) / 4.0 + supplyLimitAmps * rOhms * vSupply;
+    const double sqrted = std::sqrt(std::max(0.0, toSqrt));
+
+    const double minBTerm = vBackEmf / 2.0 - sqrted;
+    const double maxBTerm = vBackEmf / 2.0 + sqrted;
+
+    const double vMin = std::max(minATerm, minBTerm);
+    const double vMax = std::min(maxATerm, maxBTerm);
+
+    vApplied = std::max(vMin, std::min(vApplied, vMax));
+
+    elevator.SetInputVoltage(units::volt_t(vApplied));
+    elevator.Update(units::second_t(simTimestep));
+    timestamp += simTimestep;
+
+    const double statorCurrent = elevator.GetCurrentDraw().to<double>();
+    const double supplyCurrent = statorCurrent * vApplied / vSupply;
+    energyJoules += supplyCurrent * vSupply * simTimestep;
+
+    // Battery voltage under load
+    std::vector<units::ampere_t> currents = {units::ampere_t(supplyCurrent)};
+    const double newBatteryVoltage =
+        BatterySim::Calculate(units::volt_t(batteryVoltageVolts),
+                              units::ohm_t(batteryResistanceOhms), currents)
+            .to<double>();
+
+    if (!elevator.HasHitUpperLimit()) {
+      const double motorRpm = motorShaftRadPerSec * 60.0 / (2.0 * M_PI);
+      states.push_back({elevator.GetPosition().to<double>(),
+                        elevator.GetVelocity().to<double>(), statorCurrent,
+                        supplyCurrent, timestamp, newBatteryVoltage, vApplied,
+                        motorRpm, energyJoules, true});
+    }
+
+    RoboRioSim::SetVInVoltage(units::volt_t(newBatteryVoltage));
+
+    if (timestamp > maxSimSeconds) {
+      if (!states.empty()) {
+        states.back().success = false;
+      }
+      break;
+    }
+  }
+
+  // Build JS array with decimation, always including the last element
+  // (matches obliterateArray(states, decimation) in utils.ts)
+  emscripten::val result = emscripten::val::array();
+  const int n = static_cast<int>(states.size());
+  for (int i = 0; i < n; ++i) {
+    const bool isDecimated = (i % decimation == 0);
+    const bool isLast = (i == n - 1) && (i > 0) && (i % decimation != 0);
+    if (!isDecimated && !isLast)
+      continue;
+
+    const auto &s = states[i];
+    emscripten::val state = emscripten::val::object();
+    state.set("positionMeters", s.positionMeters);
+    state.set("velocityMetersPerSecond", s.velocityMetersPerSecond);
+    state.set("statorCurrentDrawAmps", s.statorCurrentDrawAmps);
+    state.set("supplyCurrentDrawAmps", s.supplyCurrentDrawAmps);
+    state.set("timeSeconds", s.timeSeconds);
+    state.set("batteryVoltageVolts", s.batteryVoltageVolts);
+    state.set("motorAppliedVoltageVolts", s.motorAppliedVoltageVolts);
+    state.set("motorRpm", s.motorRpm);
+    state.set("energyJoules", s.energyJoules);
+    state.set("success", s.success);
+    result.call<void>("push", state);
+  }
+  return result;
+}
+
 // Emscripten bindings
 EMSCRIPTEN_BINDINGS(wpilibc) {
   // Register vector<double> for automatic conversion from JavaScript arrays
@@ -409,4 +541,11 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
   function("BatterySim_calculateLoadedBatteryVoltage(nominalVoltageVolts, "
            "resistanceOhms, currentDrawsAmps)",
            &BatterySim_CalculateLoadedBatteryVoltage);
+
+  // Full elevator simulation — runs the complete physics loop in WASM
+  function("simulateElevator(motor, gearing, loadKg, spoolRadiusMeters, "
+           "travelDistanceMeters, statorLimitAmps, supplyLimitAmps, "
+           "statorVoltageVolts, batteryResistanceOhms, batteryVoltageVolts, "
+           "simTimestep, decimation, maxSimSeconds)",
+           &SimulateElevator, allow_raw_pointers());
 }

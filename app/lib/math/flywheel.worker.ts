@@ -53,14 +53,16 @@ export async function simulateFlywheelWpilib(
     return [];
   }
 
+  const wasmMotor = motor.toWpilibMotor();
   const flywheelSim = new wpilibc.FlywheelSim(
-    motor.toWpilibMotor(),
+    wasmMotor,
     ratio.asNumber(),
     momentOfInertia.to('kg m^2').scalar,
   );
+  wasmMotor.delete();
 
   wpilibc.RoboRioSim_setVInVoltage(supplyVoltage.to('V').scalar);
-  const resistance = new Measurement(motor.toWpilibMotor().getROhms(), 'Ohm');
+  const resistance = motor.resistance.div(motor.quantity);
   let vApplied = statorVoltage;
   const iMax = currentLimit.mul(motor.quantity);
   let timestamp = 0;
@@ -83,6 +85,16 @@ export async function simulateFlywheelWpilib(
     flywheelSim.update(SIM_TIMESTEP_SECONDS);
     timestamp += SIM_TIMESTEP_SECONDS;
 
+    const currentDraw = flywheelSim.getCurrentDraw();
+    const currentVec = arrayToVectorDouble([currentDraw]);
+    const batteryVoltage = toFixed(
+      wpilibc.BatterySim_calculateLoadedBatteryVoltage(
+        supplyVoltage.to('V').scalar,
+        batteryResistance.to('Ohm').scalar,
+        currentVec,
+      ),
+    );
+    currentVec.delete();
     states.push({
       timeSeconds: toFixed(timestamp, 3),
       angularVelocity: new Measurement(
@@ -91,16 +103,11 @@ export async function simulateFlywheelWpilib(
       )
         .to('rpm')
         .round(SNAPSHOT_PRECISION).scalar,
-      currentDraw: toFixed(flywheelSim.getCurrentDraw()),
-      batteryVoltage: toFixed(
-        wpilibc.BatterySim_calculateLoadedBatteryVoltage(
-          supplyVoltage.to('V').scalar,
-          batteryResistance.to('Ohm').scalar,
-          arrayToVectorDouble([flywheelSim.getCurrentDraw()]),
-        ),
-      ),
+      currentDraw: toFixed(currentDraw),
+      batteryVoltage,
     });
   }
 
+  flywheelSim.delete();
   return obliterateArray(states, 10);
 }
