@@ -24,11 +24,13 @@ export function MeasurementInput({
   tooltip,
   disabled,
   testId,
+  labelAbove,
 }: HasStateHook<Measurement> & {
   label: string;
   tooltip?: string;
   disabled?: () => boolean;
   testId?: string;
+  labelAbove?: boolean;
 }) {
   const [meas, setMeas] = stateHook;
 
@@ -66,24 +68,39 @@ export function MeasurementInput({
     }
   }, [proxyValue, setScalar]);
 
+  const labelEl =
+    tooltip === undefined ? (
+      <Label
+        htmlFor="measurement"
+        className={
+          labelAbove ? 'mb-1 text-xs text-muted-foreground' : 'mr-2 text-nowrap'
+        }
+      >
+        {label}
+      </Label>
+    ) : (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger>
+            <Label
+              htmlFor="measurement"
+              className={
+                labelAbove
+                  ? 'mb-1 text-xs text-muted-foreground'
+                  : 'mr-2 text-nowrap'
+              }
+            >
+              {label}
+            </Label>
+          </TooltipTrigger>
+          <TooltipContent>{tooltip}</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    );
+
   return (
-    <div className="flex flex-row">
-      {tooltip === undefined ? (
-        <Label htmlFor="measurement" className="mr-2 text-nowrap">
-          {label}
-        </Label>
-      ) : (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <Label htmlFor="measurement" className="mr-2 text-nowrap">
-                {label}
-              </Label>
-            </TooltipTrigger>
-            <TooltipContent>{tooltip}</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      )}
+    <div className={labelAbove ? 'flex flex-col' : 'flex flex-row'}>
+      {labelEl}
       <div className="flex w-full flex-row">
         <Input
           type="number"
@@ -195,4 +212,75 @@ export function MeasurementOutput({
       </div>
     </div>
   );
+}
+
+export function MeasurementDisplayOutput({
+  state,
+  label,
+  defaultUnit,
+  tooltip,
+  roundTo = 3,
+  testId,
+}: {
+  state: Measurement;
+  label: string;
+  defaultUnit?: string;
+  tooltip?: string;
+  roundTo?: number;
+  testId?: string;
+}) {
+  const [unit, setUnit] = useState(defaultUnit ?? state.units());
+  const kinds = useMemo(() => Measurement.choices(state), [state]);
+  const [scalar, setScalar] = useState(state.to(unit).scalar);
+  const [stringified, setStringified] = useState(scalar.toFixed(roundTo));
+
+  useEffect(() => {
+    setScalar(state.to(unit).scalar);
+  }, [state, unit]);
+
+  useEffect(() => {
+    setStringified(scalar.toFixed(roundTo));
+  }, [scalar, roundTo]);
+
+  const inner = (
+    <div className="flex flex-col gap-0.5 rounded-lg border bg-muted/30 px-3 py-2">
+      <span className="text-xs font-medium text-muted-foreground">{label}</span>
+      <div className="flex items-baseline gap-1">
+        <span
+          className="text-xl font-semibold tabular-nums"
+          data-testid={testId}
+        >
+          {stringified}
+        </span>
+        <Select value={unit} onValueChange={setUnit}>
+          <SelectTrigger
+            className="h-auto w-auto border-none bg-transparent p-0 text-sm text-muted-foreground shadow-none focus-visible:ring-0"
+            data-testid={testId ? `select${testId}` : undefined}
+          >
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {kinds.map((kind) => (
+              <SelectItem key={kind} value={kind}>
+                {kind}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
+  );
+
+  if (tooltip) {
+    return (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>{inner}</TooltipTrigger>
+          <TooltipContent>{tooltip}</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    );
+  }
+
+  return inner;
 }

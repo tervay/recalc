@@ -12,15 +12,14 @@ import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
 import BooleanInput from '~/components/recalc/io/boolean';
 import {
+  MeasurementDisplayOutput,
   MeasurementInput,
-  MeasurementOutput,
 } from '~/components/recalc/io/measurement';
 import { MotorInput } from '~/components/recalc/io/motor';
 import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
 import { ChartContainer } from '~/components/ui/chart';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
-import { supplyLimitToStatorLimit } from '~/lib/math/common';
 import { calculateKa, calculateKg, calculateKv } from '~/lib/math/kVkA';
 import { calculateStallLoad } from '~/lib/math/linear';
 import type * as LinearWorker from '~/lib/math/linear.worker';
@@ -106,38 +105,6 @@ export default function Linear() {
     queryParams.batteryResistance,
   );
   const [cascade, setCascade] = useState(queryParams.cascade);
-  // const [hiddenChartLines, setHiddenChartLines] = useState<DataKey<unknown>[]>(
-  //   [],
-  // );
-  const supplyLimitInStatorTerms = useMemo(
-    () =>
-      supplyLimitToStatorLimit({
-        supplyLimit,
-        supplyVoltage,
-        statorVoltage,
-      }),
-    [supplyLimit, supplyVoltage, statorVoltage],
-  );
-
-  const isUsingStatorLimit = useMemo(
-    () => supplyLimitInStatorTerms.gt(statorLimit),
-    [supplyLimitInStatorTerms, statorLimit],
-  );
-
-  const limitingCurrentLimit = useMemo(
-    () => (isUsingStatorLimit ? statorLimit : supplyLimitInStatorTerms),
-    [isUsingStatorLimit, statorLimit, supplyLimitInStatorTerms],
-  );
-
-  const statorPowerLimit = useMemo(
-    () => statorVoltage.mul(statorLimit),
-    [statorVoltage, statorLimit],
-  );
-
-  const supplyPowerLimit = useMemo(
-    () => supplyVoltage.mul(supplyLimit),
-    [supplyVoltage, supplyLimit],
-  );
 
   const kV = useMemo(
     () =>
@@ -154,7 +121,7 @@ export default function Linear() {
     () =>
       calculateKa(
         motor.kT
-          .mul(limitingCurrentLimit)
+          .mul(statorLimit)
           .mul(motor.quantity)
           .mul(ratio.asNumber())
           .mul(efficiency / 100),
@@ -163,7 +130,7 @@ export default function Linear() {
       ),
     [
       motor.kT,
-      limitingCurrentLimit,
+      statorLimit,
       motor.quantity,
       efficiency,
       ratio,
@@ -175,8 +142,8 @@ export default function Linear() {
   const kG = useMemo(
     () =>
       calculateKg(
-        new MotorRules(motor, limitingCurrentLimit, {
-          current: limitingCurrentLimit,
+        new MotorRules(motor, statorLimit, {
+          current: statorLimit,
           voltage: statorVoltage,
         })
           .solve()
@@ -188,7 +155,7 @@ export default function Linear() {
       ).mul(Math.sin(angle.to('rad').scalar)),
     [
       motor,
-      limitingCurrentLimit,
+      statorLimit,
       statorVoltage,
       ratio,
       efficiency,
@@ -201,20 +168,13 @@ export default function Linear() {
   const stallLoad = useMemo(() => {
     return calculateStallLoad(
       motor,
-      limitingCurrentLimit,
+      statorLimit,
       spoolDiameter,
       ratio,
       efficiency,
       statorVoltage,
     );
-  }, [
-    motor,
-    limitingCurrentLimit,
-    spoolDiameter,
-    ratio,
-    efficiency,
-    statorVoltage,
-  ]);
+  }, [motor, statorLimit, spoolDiameter, ratio, efficiency, statorVoltage]);
 
   const [workerWpilibSimStates, setWorkerWpilibSimStates] = useState<
     WpilibElevatorSimState[]
@@ -237,7 +197,8 @@ export default function Linear() {
         load.toDict(),
         spoolDiameter.toDict(),
         travelDistance.toDict(),
-        limitingCurrentLimit.toDict(),
+        statorLimit.toDict(),
+        supplyLimit.toDict(),
         statorVoltage.toDict(),
         batteryResistance.toDict(),
         supplyVoltage.toDict(),
@@ -254,7 +215,8 @@ export default function Linear() {
     load,
     spoolDiameter,
     travelDistance,
-    limitingCurrentLimit,
+    statorLimit,
+    supplyLimit,
     statorVoltage,
     batteryResistance,
     supplyVoltage,
@@ -282,193 +244,206 @@ export default function Linear() {
         title="Linear Motion Calculator"
         getSerializedState={() => serializedState}
       />
-      <div className="flex flex-row flex-wrap gap-x-4 px-1 *:flex-1">
-        <div className="flex flex-col gap-x-4 gap-y-2">
-          <IOLine>
-            <MotorInput stateHook={[motor, setMotor]} testId="motor" />
-            <RatioInput stateHook={[ratio, setRatio]} testId="ratio" />
-          </IOLine>
+      <div className="flex flex-row flex-wrap gap-6 px-1">
+        {/* Left column: inputs */}
+        <div className="flex min-w-[300px] flex-1 flex-col gap-4">
+          {/* Motor & Gearing section */}
+          <section className="flex flex-col gap-3 rounded-lg border p-4">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                Motor &amp; Gearing
+              </h2>
+              <BooleanInput
+                stateHook={[cascade, setCascade]}
+                label="Cascade"
+                testId="cascade"
+              />
+            </div>
+            <IOLine>
+              <MotorInput
+                stateHook={[motor, setMotor]}
+                testId="motor"
+                labelAbove
+              />
+              <NumberInput
+                stateHook={[efficiency, setEfficiency]}
+                label="Efficiency %"
+                tooltip="The efficiency of the motor and gearbox. Typically ~92-97% per stage."
+                testId="efficiency"
+                labelAbove
+              />
+            </IOLine>
+            <IOLine>
+              <RatioInput
+                stateHook={[ratio, setRatio]}
+                testId="ratio"
+                labelAbove
+              />
+              <MeasurementInput
+                stateHook={[spoolDiameter, setSpoolDiameter]}
+                label="Spool Diameter"
+                tooltip="The diameter of the spool or wheel that the elevator rigging is wrapped around. If a pulley or sprocket, use the pitch diameter."
+                testId="spoolDiameter"
+                labelAbove
+              />
+            </IOLine>
+          </section>
 
-          <IOLine>
-            <NumberInput
-              stateHook={[efficiency, setEfficiency]}
-              label="Efficiency %"
-              tooltip="The efficiency of the motor and gearbox. Typically ~92-97% per stage."
-              testId="efficiency"
-            />
-            <MeasurementInput
-              stateHook={[spoolDiameter, setSpoolDiameter]}
-              label="Spool Diameter"
-              tooltip="The diameter of the spool or wheel that the elevator rigging is wrapped around. If a pulley or sprocket, use the pitch diameter."
-              testId="spoolDiameter"
-            />
-            <BooleanInput
-              stateHook={[cascade, setCascade]}
-              label="Cascade Mechanism"
-              testId="cascade"
-            />
-          </IOLine>
+          {/* Load & Travel section */}
+          <section className="flex flex-col gap-3 rounded-lg border p-4">
+            <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+              Load &amp; Travel
+            </h2>
+            <IOLine>
+              <MeasurementInput
+                stateHook={[load, setLoad]}
+                label="Load"
+                testId="load"
+                labelAbove
+              />
+              <MeasurementInput
+                stateHook={[angle, setAngle]}
+                label="Angle"
+                testId="angle"
+                labelAbove
+              />
+            </IOLine>
+            <IOLine>
+              <MeasurementInput
+                stateHook={[travelDistance, setTravelDistance]}
+                label="Travel Distance"
+                tooltip="The distance the elevator will travel. This is the distance from the starting position to the end position."
+                testId="travelDistance"
+                labelAbove
+              />
+              <MeasurementInput
+                stateHook={[batteryResistance, setBatteryResistance]}
+                label="Battery Resistance"
+                tooltip="The effective resistance of the battery. Includes wire runs."
+                testId="batteryResistance"
+                labelAbove
+              />
+            </IOLine>
+          </section>
 
-          <IOLine>
-            <MeasurementInput
-              stateHook={[load, setLoad]}
-              label="Load"
-              testId="load"
-            />
-            <MeasurementInput
-              stateHook={[angle, setAngle]}
-              label="Angle"
-              testId="angle"
-            />
-          </IOLine>
-
-          <IOLine>
-            <MeasurementInput
-              stateHook={[travelDistance, setTravelDistance]}
-              label="Travel Distance"
-              tooltip="The distance the elevator will travel. This is the distance from the starting position to the end position."
-              testId="travelDistance"
-            />
-            <MeasurementInput
-              stateHook={[batteryResistance, setBatteryResistance]}
-              label="Battery Resistance"
-              tooltip="The effective resistance of the battery. Includes wire runs."
-              testId="batteryResistance"
-            />
-          </IOLine>
-
-          <IOLine>
-            <MeasurementInput
-              stateHook={[statorLimit, setStatorLimit]}
-              label="Stator Limit"
-              tooltip="The current limit applied to the stator."
-              testId="statorLimit"
-            />
-            <MeasurementInput
-              stateHook={[supplyLimit, setSupplyLimit]}
-              label="Supply Limit"
-              tooltip="The current limit applied to the supply (battery). This is *not* supported by REVLib, so make sure the supply power limit is higher than the stator power limit for REV motors."
-              testId="supplyLimit"
-            />
-          </IOLine>
-
-          <IOLine>
-            <MeasurementInput
-              stateHook={[statorVoltage, setStatorVoltage]}
-              label="Stator Voltage"
-              tooltip="The voltage applied to the stator."
-              testId="statorVoltage"
-            />
-            <MeasurementInput
-              stateHook={[supplyVoltage, setSupplyVoltage]}
-              label="Supply Voltage"
-              tooltip="The voltage available from the supply (battery) at rest."
-              testId="supplyVoltage"
-            />
-          </IOLine>
-
-          <IOLine>
-            <MeasurementOutput
-              state={statorPowerLimit}
-              label="Stator Power Limit"
-              defaultUnit="W"
-              roundTo={0}
-              testId="statorPowerLimit"
-            />
-            <MeasurementOutput
-              state={supplyPowerLimit}
-              label="Supply Power Limit"
-              defaultUnit="W"
-              roundTo={0}
-              testId="supplyPowerLimit"
-            />
-          </IOLine>
-
-          <IOLine>
-            <MeasurementOutput
-              state={kV}
-              label="kV"
-              defaultUnit="V*s/m"
-              testId="kV"
-            />
-            <MeasurementOutput
-              state={kA}
-              label="kA"
-              defaultUnit="V*s^2/m"
-              testId="kA"
-            />
-            <MeasurementOutput
-              state={kG}
-              label="kG"
-              defaultUnit="V"
-              testId="kG"
-            />
-          </IOLine>
-
-          <IOLine>
-            <MeasurementOutput
-              state={stallLoad}
-              label="Stall Load"
-              defaultUnit="lbs"
-              testId="stallLoad"
-            />
-            <MeasurementOutput
-              state={timeToGoal}
-              label="Time to Goal"
-              defaultUnit="s"
-              testId="timeToGoal"
-            />
-          </IOLine>
+          {/* Limits section */}
+          <section className="flex flex-col gap-3 rounded-lg border p-4">
+            <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+              Limits
+            </h2>
+            <IOLine>
+              <MeasurementInput
+                stateHook={[statorLimit, setStatorLimit]}
+                label="Stator Limit"
+                tooltip="The current limit applied to the stator."
+                testId="statorLimit"
+                labelAbove
+              />
+              <MeasurementInput
+                stateHook={[supplyLimit, setSupplyLimit]}
+                label="Supply Limit"
+                tooltip="The current limit applied to the supply (battery). This is *not* supported by REVLib, so make sure the supply power limit is higher than the stator power limit for REV motors."
+                testId="supplyLimit"
+                labelAbove
+              />
+            </IOLine>
+            <IOLine>
+              <MeasurementInput
+                stateHook={[statorVoltage, setStatorVoltage]}
+                label="Stator Voltage"
+                tooltip="The voltage applied to the stator."
+                testId="statorVoltage"
+                labelAbove
+              />
+              <MeasurementInput
+                stateHook={[supplyVoltage, setSupplyVoltage]}
+                label="Supply Voltage"
+                tooltip="The voltage available from the supply (battery) at rest."
+                testId="supplyVoltage"
+                labelAbove
+              />
+            </IOLine>
+          </section>
         </div>
-        <ChartContainer config={{}} className="min-h-[200px] w-full">
-          <LineChart data={workerWpilibSimStates}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="timeSeconds" />
-            <YAxis yAxisId="left" />
-            <YAxis yAxisId="right" orientation="right" />
-            <Tooltip />
-            <Line
-              dataKey="positionMeters"
-              yAxisId="right"
-              stroke="black"
-              dot={false}
-            />
-            <Line
-              dataKey="velocityMetersPerSecond"
-              yAxisId="left"
-              stroke="red"
-              dot={false}
-            />
-            <Line
-              dataKey="statorCurrentDrawAmps"
-              yAxisId="left"
-              stroke="goldenrod"
-              dot={false}
-            />
-            <Line
-              dataKey="supplyCurrentDrawAmps"
-              yAxisId="left"
-              stroke="purple"
-              dot={false}
-            />
-          </LineChart>
-          {/* <Legend
-              onClick={(props) => {
-                if (props.dataKey === undefined) {
-                  return;
-                }
 
-                if (hiddenChartLines.includes(props.dataKey)) {
-                  setHiddenChartLines(
-                    hiddenChartLines.filter((line) => line !== props.dataKey),
-                  );
-                } else {
-                  setHiddenChartLines([...hiddenChartLines, props.dataKey]);
-                }
-              }}
-            />
-          </LineChart> */}
-        </ChartContainer>
+        {/* Right column: outputs + chart */}
+        <div className="flex min-w-[300px] flex-1 flex-col gap-4">
+          {/* Results grid */}
+          <section className="flex flex-col gap-3 rounded-lg border p-4">
+            <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+              Results
+            </h2>
+            <div className="grid grid-cols-2 gap-2">
+              <MeasurementDisplayOutput
+                state={timeToGoal}
+                label="Time to Goal"
+                defaultUnit="s"
+                testId="timeToGoal"
+              />
+              <MeasurementDisplayOutput
+                state={stallLoad}
+                label="Stall Load"
+                defaultUnit="lbs"
+                testId="stallLoad"
+              />
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              <MeasurementDisplayOutput
+                state={kV}
+                label="kV"
+                defaultUnit="V*s/m"
+                testId="kV"
+              />
+              <MeasurementDisplayOutput
+                state={kA}
+                label="kA"
+                defaultUnit="V*s^2/m"
+                testId="kA"
+              />
+              <MeasurementDisplayOutput
+                state={kG}
+                label="kG"
+                defaultUnit="V"
+                testId="kG"
+              />
+            </div>
+          </section>
+
+          {/* Chart */}
+          <ChartContainer config={{}} className="min-h-[200px] w-full">
+            <LineChart data={workerWpilibSimStates}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="timeSeconds" />
+              <YAxis yAxisId="left" />
+              <YAxis yAxisId="right" orientation="right" />
+              <Tooltip />
+              <Line
+                dataKey="positionMeters"
+                yAxisId="right"
+                stroke="black"
+                dot={false}
+              />
+              <Line
+                dataKey="velocityMetersPerSecond"
+                yAxisId="left"
+                stroke="red"
+                dot={false}
+              />
+              <Line
+                dataKey="statorCurrentDrawAmps"
+                yAxisId="left"
+                stroke="goldenrod"
+                dot={false}
+              />
+              <Line
+                dataKey="supplyCurrentDrawAmps"
+                yAxisId="left"
+                stroke="purple"
+                dot={false}
+              />
+            </LineChart>
+          </ChartContainer>
+        </div>
       </div>
     </div>
   );

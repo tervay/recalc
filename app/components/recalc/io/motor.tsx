@@ -15,7 +15,8 @@ import type { HasStateHook } from '~/lib/types/common';
 export function MotorInput({
   stateHook,
   testId,
-}: HasStateHook<Motor> & { testId?: string }) {
+  labelAbove,
+}: HasStateHook<Motor> & { testId?: string; labelAbove?: boolean }) {
   const [motor, setMotor] = stateHook;
   const [name, setName] = useState(motor.identifier);
   const [quantity, setQuantity] = useState(motor.quantity);
@@ -35,8 +36,13 @@ export function MotorInput({
   }, [proxyQuantity, setQuantity]);
 
   return (
-    <div className="flex flex-row">
-      <Label htmlFor="measurement" className="mr-2 text-nowrap">
+    <div className={labelAbove ? 'flex flex-col' : 'flex flex-row'}>
+      <Label
+        htmlFor="measurement"
+        className={
+          labelAbove ? 'mb-1 text-xs text-muted-foreground' : 'mr-2 text-nowrap'
+        }
+      >
         Motor
       </Label>
       <div className="flex w-full flex-row">

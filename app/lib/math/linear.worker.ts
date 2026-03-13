@@ -1,3 +1,4 @@
+import { getvAppliedMinAndMax } from '~/lib/math/currentLimits';
 import Measurement, { type MeasurementDict } from '~/lib/models/Measurement';
 import Motor, { type MotorDict } from '~/lib/models/Motor';
 import type { RatioDict } from '~/lib/models/Ratio';
@@ -25,7 +26,8 @@ export async function simulateElevatorWpilib(
   load: MeasurementDict,
   spoolDiameter: MeasurementDict,
   travelDistance: MeasurementDict,
-  currentLimitDict: MeasurementDict,
+  statorLimitDict: MeasurementDict,
+  supplyLimitDict: MeasurementDict,
   statorVoltageDict: MeasurementDict,
   batteryResistance: MeasurementDict,
   batteryVoltage: MeasurementDict,
@@ -46,7 +48,8 @@ export async function simulateElevatorWpilib(
   );
 
   const statorVoltage = Measurement.fromDict(statorVoltageDict);
-  const iMax = Measurement.fromDict(currentLimitDict).mul(motor.quantity);
+  const iMax = Measurement.fromDict(statorLimitDict).mul(motor.quantity);
+  const iMaxSupply = Measurement.fromDict(supplyLimitDict);
   let vApplied = statorVoltage;
   const resistance = new Measurement(
     Motor.fromDict(motor).toWpilibMotor().getROhms(),
@@ -72,15 +75,18 @@ export async function simulateElevatorWpilib(
 
     const vBackEmf = Motor.fromDict(motor).kV.inverse().mul(w);
 
-    vApplied = Measurement.max(
-      vBackEmf.sub(iMax.mul(resistance)),
-      Measurement.min(vApplied, vBackEmf.add(iMax.mul(resistance))),
-    );
+    const { vAppliedMin, vAppliedMax } = getvAppliedMinAndMax({
+      resistance,
+      iMaxStator: iMax,
+      iMaxSupply,
+      vBackEmf,
+      vSupply: new Measurement(wpilibc.RobotController_getInputVoltage(), 'V'),
+    });
 
-    // vApplied = Measurement.min(
-    //   vApplied,
-    //   new Measurement(wpilibc.RobotController_getInputVoltage(), 'V'),
-    // );
+    vApplied = Measurement.max(
+      vAppliedMin,
+      Measurement.min(vApplied, vAppliedMax),
+    );
 
     elevatorSim.setInputVoltage(vApplied.to('V').scalar);
     elevatorSim.update(SIM_TIMESTEP_SECONDS);
@@ -111,15 +117,15 @@ export async function simulateElevatorWpilib(
       });
     }
 
-    // wpilibc.RoboRioSim_setVInVoltage(
-    //   wpilibc.BatterySim_calculateLoadedBatteryVoltage(
-    //     12,
-    //     0.015,
-    //     arrayToVectorDouble([supplyCurrent.to('A').scalar]),
-    //   ),
-    // );
+    wpilibc.RoboRioSim_setVInVoltage(
+      wpilibc.BatterySim_calculateLoadedBatteryVoltage(
+        Measurement.fromDict(batteryVoltage).to('V').scalar,
+        Measurement.fromDict(batteryResistance).to('Ohm').scalar,
+        arrayToVectorDouble([supplyCurrent.to('A').scalar]),
+      ),
+    );
 
-    if (timestamp > 5) {
+    if (timestamp > 3) {
       break;
     }
   }

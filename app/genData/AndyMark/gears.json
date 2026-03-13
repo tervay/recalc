@@ -1,5 +1,13 @@
 [
   {
+    "teeth": 35,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/35-tooth-20-dp-0-5-in-hex-bore-steel-gear",
+    "sku": "am-3329",
+    "vendor": "AndyMark"
+  },
+  {
     "teeth": 12,
     "dp": 20,
     "bore": "8mm",

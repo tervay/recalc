@@ -423,15 +423,6 @@
     "vendor": "AndyMark"
   },
   {
-    "teeth": 210,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "am-4931",
-    "url": "https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts",
-    "vendor": "AndyMark"
-  },
-  {
     "teeth": 220,
     "width": 15,
     "profile": "HTD",
@@ -500,15 +491,6 @@
     "profile": "HTD",
     "pitch": 5,
     "sku": "am-5209_45T",
-    "url": "https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
-    "vendor": "AndyMark"
-  },
-  {
-    "teeth": 48,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "am-3274",
     "url": "https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts",
     "vendor": "AndyMark"
   },

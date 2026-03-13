@@ -13,6 +13,7 @@ describe('simulateElevatorWpilib', () => {
     const spoolDiameter = new Measurement(2, 'in');
     const travelDistance = new Measurement(40, 'in');
     const currentLimit = new Measurement(60, 'A');
+    const supplyLimit = new Measurement(90, 'A');
     const statorVoltage = new Measurement(12, 'V');
     const batteryResistance = new Measurement(0.015, 'Ohm');
     const batteryVoltage = new Measurement(12, 'V');
@@ -24,6 +25,7 @@ describe('simulateElevatorWpilib', () => {
       spoolDiameter.toDict(),
       travelDistance.toDict(),
       currentLimit.toDict(),
+      supplyLimit.toDict(),
       statorVoltage.toDict(),
       batteryResistance.toDict(),
       batteryVoltage.toDict(),
