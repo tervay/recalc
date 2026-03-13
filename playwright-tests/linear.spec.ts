@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const CHART_DELAY_MS = 2500;
+const CHART_DELAY_MS = 4500;
 
 test.describe('Linear Mechanism Calculator', () => {
   test.beforeEach(async ({ page }) => {
@@ -291,32 +291,6 @@ test.describe('Linear Mechanism Calculator', () => {
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'cascade-toggled.yaml',
-      },
-    );
-  });
-
-  test('should match snapshot with statorPowerLimit unit changed', async ({
-    page,
-  }) => {
-    await page.getByTestId('selectstatorPowerLimit').click();
-    await page.getByRole('option', { name: 'hp' }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
-    expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
-      {
-        name: 'statorPowerLimit-changed.yaml',
-      },
-    );
-  });
-
-  test('should match snapshot with supplyPowerLimit unit changed', async ({
-    page,
-  }) => {
-    await page.getByTestId('selectsupplyPowerLimit').click();
-    await page.getByRole('option', { name: 'hp' }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
-    expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
-      {
-        name: 'supplyPowerLimit-changed.yaml',
       },
     );
   });

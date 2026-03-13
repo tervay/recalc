@@ -1,182 +1,182 @@
 [
   {
     "teeth": 11,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "SplineXS",
+    "pitch": 5,
     "sku": "TTB-0125",
     "url": "https://www.thethriftybot.com/products/kraken-spline-pulleys",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "SplineXS",
+    "vendor": "Thrifty"
   },
   {
     "teeth": 18,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "SplineXS",
+    "pitch": 5,
     "sku": "TTB-0339",
     "url": "https://www.thethriftybot.com/products/kraken-spline-pulleys",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "SplineXS",
+    "vendor": "Thrifty"
   },
   {
     "teeth": 18,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "SplineXS",
+    "pitch": 5,
     "sku": "TTB-0340",
     "url": "https://www.thethriftybot.com/products/kraken-spline-pulleys",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "SplineXS",
+    "vendor": "Thrifty"
   },
   {
     "teeth": 24,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "SplineXS",
+    "pitch": 5,
     "sku": "TTB-0341",
     "url": "https://www.thethriftybot.com/products/kraken-spline-pulleys",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "SplineXS",
+    "vendor": "Thrifty"
   },
   {
     "teeth": 24,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "SplineXS",
+    "pitch": 5,
     "sku": "TTB-0342",
     "url": "https://www.thethriftybot.com/products/kraken-spline-pulleys",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "SplineXS",
+    "vendor": "Thrifty"
   },
   {
     "teeth": 36,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "SplineXS",
+    "pitch": 5,
     "sku": "TTB-0343",
     "url": "https://www.thethriftybot.com/products/kraken-spline-pulleys",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "SplineXS",
+    "vendor": "Thrifty"
   },
   {
     "teeth": 36,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "SplineXS",
+    "pitch": 5,
     "sku": "TTB-0344",
     "url": "https://www.thethriftybot.com/products/kraken-spline-pulleys",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "SplineXS",
+    "vendor": "Thrifty"
   },
   {
     "teeth": 48,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "SplineXS",
+    "pitch": 5,
     "sku": "TTB-0345",
     "url": "https://www.thethriftybot.com/products/kraken-spline-pulleys",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "SplineXS",
+    "vendor": "Thrifty"
   },
   {
     "teeth": 15,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "1/2\" Hex",
+    "pitch": 5,
     "sku": "TTB-0058",
     "url": "https://www.thethriftybot.com/products/1-2-hex-pulleys",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "1/2\" Hex",
+    "vendor": "Thrifty"
   },
   {
     "teeth": 18,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "1/2\" Hex",
+    "pitch": 5,
     "sku": "TTB-0346",
     "url": "https://www.thethriftybot.com/products/1-2-hex-pulleys",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "1/2\" Hex",
+    "vendor": "Thrifty"
   },
   {
     "teeth": 18,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "1/2\" Hex",
+    "pitch": 5,
     "sku": "TTB-0347",
     "url": "https://www.thethriftybot.com/products/1-2-hex-pulleys",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "1/2\" Hex",
+    "vendor": "Thrifty"
   },
   {
     "teeth": 24,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "1/2\" Hex",
+    "pitch": 5,
     "sku": "TTB-0348",
     "url": "https://www.thethriftybot.com/products/1-2-hex-pulleys",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "1/2\" Hex",
+    "vendor": "Thrifty"
   },
   {
     "teeth": 24,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "1/2\" Hex",
+    "pitch": 5,
     "sku": "TTB-0126",
     "url": "https://www.thethriftybot.com/products/1-2-hex-pulleys",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "1/2\" Hex",
+    "vendor": "Thrifty"
   },
   {
     "teeth": 36,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "1/2\" Hex",
+    "pitch": 5,
     "sku": "TTB-0349",
     "url": "https://www.thethriftybot.com/products/1-2-hex-pulleys",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "1/2\" Hex",
+    "vendor": "Thrifty"
   },
   {
     "teeth": 36,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "1/2\" Hex",
+    "pitch": 5,
     "sku": "TTB-0127",
     "url": "https://www.thethriftybot.com/products/1-2-hex-pulleys",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "1/2\" Hex",
+    "vendor": "Thrifty"
   },
   {
     "teeth": 48,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "1.125\" Round",
+    "pitch": 5,
     "sku": "TTB-0128",
     "url": "https://www.thethriftybot.com/products/qty-1-48-tooth-htd-pulley-bearing-hub-bore",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "1.125\" Round",
+    "vendor": "Thrifty"
   },
   {
     "teeth": 11,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "Falcon",
+    "pitch": 5,
     "sku": "TTB-0062",
     "url": "https://www.thethriftybot.com/products/qty-1-11-tooth-htd-falcon-motor-output-pulley",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "Falcon",
+    "vendor": "Thrifty"
   },
   {
     "teeth": 11,
+    "width": 18.5,
     "profile": "HTD",
-    "bore": "8mm",
+    "pitch": 5,
     "sku": "TTB-0061",
     "url": "https://www.thethriftybot.com/products/qty-1-11-tooth-htd-8mm-keyed-motor-output-pulley",
-    "vendor": "Thrifty",
-    "width": 18.5,
-    "pitch": 5
+    "bore": "8mm",
+    "vendor": "Thrifty"
   }
 ]

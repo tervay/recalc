@@ -1,18 +1,20 @@
 - heading "Linear Motion Calculator" [level=1]
 - button "Copy Link"
-- text: Motor
-- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Stator Limit Supply Limit Stator Voltage Supply Voltage Stator Power Limit Supply Power Limit kV kA kG Stall Load Time to Goal": "1"
+- heading "Motor & Gearing" [level=2]
+- switch "Cascade"
+- text: Cascade Motor
+- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Stator Limit Supply Limit Stator Voltage Supply Voltage": "1"
 - combobox: Kraken X60 (FOC)
+- button "Efficiency %"
+- spinbutton: "100"
 - text: Ratio
 - spinbutton: "2"
 - combobox: Reduction
-- button "Efficiency %"
-- spinbutton: "100"
 - button "Spool Diameter"
 - spinbutton: "1"
 - combobox: in
-- switch "Cascade Mechanism"
-- text: Cascade Mechanism Load
+- heading "Load & Travel" [level=2]
+- text: Load
 - spinbutton: "15"
 - combobox: lbs
 - text: Angle
@@ -24,6 +26,7 @@
 - button "Battery Resistance"
 - spinbutton: "0.015"
 - combobox: Ohm
+- heading "Limits" [level=2]
 - button "Stator Limit"
 - spinbutton: "60"
 - combobox: A
@@ -36,26 +39,16 @@
 - button "Supply Voltage"
 - spinbutton: "12"
 - combobox: V
-- text: Stator Power Limit
-- spinbutton [disabled]: "720"
-- combobox: W
-- text: Supply Power Limit
-- spinbutton [disabled]: "1080"
-- combobox: W
-- text: kV
-- spinbutton [disabled]: "3.120"
-- combobox: V*s/m
-- text: kA
-- spinbutton [disabled]: "0.439"
-- combobox: V*s^2/m
-- text: kG
-- spinbutton [disabled]: "4.576"
-- combobox: V
-- text: Stall Load
-- spinbutton [disabled]: "39.323"
-- combobox: lbs
-- text: Time to Goal
-- spinbutton [disabled]: "0.170"
+- heading "Results" [level=2]
+- text: Time to Goal 0.170
 - combobox: s
+- text: Stall Load 39.323
+- combobox: lbs
+- text: kV 3.120
+- combobox: V*s/m
+- text: kA 0.439
+- combobox: V*s^2/m
+- text: kG 4.576
+- combobox: V
 - application: 0.002 0.015 0.028 0.04 0.052 0.065 0.078 0.09 0.1 0.11 0.12 0.13 0.14 0.15 0.16 0.17 0 15 30 45 60 0 0.065 0.13 0.195 0.26
 - alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

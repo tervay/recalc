@@ -15,10 +15,12 @@ export default function NumberInput({
   label,
   tooltip,
   testId,
+  labelAbove,
 }: HasStateHook<number> & {
   label: string;
   tooltip?: string;
   testId?: string;
+  labelAbove?: boolean;
 }) {
   const [value, setValue] = stateHook;
   const [proxyValue, setProxyValue] = useState(value.toString());
@@ -36,16 +38,30 @@ export default function NumberInput({
   }, [proxyValue, setValue]);
 
   return (
-    <div className="flex flex-row">
+    <div className={labelAbove ? 'flex flex-col' : 'flex flex-row'}>
       {tooltip === undefined ? (
-        <Label htmlFor="number" className="mr-2 text-nowrap">
+        <Label
+          htmlFor="number"
+          className={
+            labelAbove
+              ? 'mb-1 text-xs text-muted-foreground'
+              : 'mr-2 text-nowrap'
+          }
+        >
           {label}
         </Label>
       ) : (
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
-              <Label htmlFor="number" className="mr-2 text-nowrap">
+              <Label
+                htmlFor="number"
+                className={
+                  labelAbove
+                    ? 'mb-1 text-xs text-muted-foreground'
+                    : 'mr-2 text-nowrap'
+                }
+              >
                 {label}
               </Label>
             </TooltipTrigger>

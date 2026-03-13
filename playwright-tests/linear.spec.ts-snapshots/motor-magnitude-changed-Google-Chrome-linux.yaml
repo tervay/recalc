@@ -1,18 +1,20 @@
 - heading "Linear Motion Calculator" [level=1]
 - button "Copy Link"
-- text: Motor
-- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Stator Limit Supply Limit Stator Voltage Supply Voltage Stator Power Limit Supply Power Limit kV kA kG Stall Load Time to Goal": "2"
+- heading "Motor & Gearing" [level=2]
+- switch "Cascade"
+- text: Cascade Motor
+- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Stator Limit Supply Limit Stator Voltage Supply Voltage": "2"
 - combobox: Kraken X60 (FOC)
+- button "Efficiency %"
+- spinbutton: "100"
 - text: Ratio
 - spinbutton: "2"
 - combobox: Reduction
-- button "Efficiency %"
-- spinbutton: "100"
 - button "Spool Diameter"
 - spinbutton: "1"
 - combobox: in
-- switch "Cascade Mechanism"
-- text: Cascade Mechanism Load
+- heading "Load & Travel" [level=2]
+- text: Load
 - spinbutton: "15"
 - combobox: lbs
 - text: Angle
@@ -24,6 +26,7 @@
 - button "Battery Resistance"
 - spinbutton: "0.015"
 - combobox: Ohm
+- heading "Limits" [level=2]
 - button "Stator Limit"
 - spinbutton: "60"
 - combobox: A
@@ -36,26 +39,16 @@
 - button "Supply Voltage"
 - spinbutton: "12"
 - combobox: V
-- text: Stator Power Limit
-- spinbutton [disabled]: "720"
-- combobox: W
-- text: Supply Power Limit
-- spinbutton [disabled]: "1080"
-- combobox: W
-- text: kV
-- spinbutton [disabled]: "3.120"
-- combobox: V*s/m
-- text: kA
-- spinbutton [disabled]: "0.220"
-- combobox: V*s^2/m
-- text: kG
-- spinbutton [disabled]: "2.288"
-- combobox: V
-- text: Stall Load
-- spinbutton [disabled]: "78.645"
-- combobox: lbs
-- text: Time to Goal
-- spinbutton [disabled]: "0.445"
+- heading "Results" [level=2]
+- text: Time to Goal 0.460
 - combobox: s
-- application: 0 0.02 0.05 0.081 0.113 0.143 0.174 0.2 0.23 0.26 0.29 0.32 0.35 0.38 0.412 0.445 0 30 60 90 120 0 0.4 0.8 1.2 1.6
+- text: Stall Load 78.645
+- combobox: lbs
+- text: kV 3.120
+- combobox: V*s/m
+- text: kA 0.220
+- combobox: V*s^2/m
+- text: kG 2.288
+- combobox: V
+- application: 0.01 0.04 0.07 0.101 0.131 0.161 0.19 0.22 0.25 0.28 0.31 0.34 0.371 0.4 0.43 0.46 -40 0 40 80 120 0 0.4 0.8 1.2 1.6
 - alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

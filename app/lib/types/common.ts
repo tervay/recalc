@@ -19,7 +19,7 @@ export const zBoreSchema = z.enum([
 ] as const);
 export type Bore = z.infer<typeof zBoreSchema>;
 
-export const zVendorSchema = z.enum([
+export const VENDOR_NAMES = [
   'AndyMark',
   'BaneBots',
   'CTRE',
@@ -32,8 +32,9 @@ export const zVendorSchema = z.enum([
   'VBeltGuys',
   'VEX',
   'WCP',
-] as const);
-export type Vendor = z.infer<typeof zVendorSchema>;
+] as const;
+export type Vendor = (typeof VENDOR_NAMES)[number];
+export const zVendorSchema = z.enum(VENDOR_NAMES);
 
 export type StateHook<T> = [T, Dispatch<SetStateAction<T>>];
 
