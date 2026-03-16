@@ -45,7 +45,7 @@
     "tailwind-merge": "3.5.0"
   },
   "devDependencies": {
-    "@iconify/json": "2.2.449",
+    "@iconify/json": "2.2.450",
     "@playwright/test": "1.58.2",
     "@react-router/dev": "7.13.1",
     "@svgr/core": "8.1.0",
