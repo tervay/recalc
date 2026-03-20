@@ -1,30 +1,6 @@
 // TypeScript bindings for emscripten-generated code.  Automatically generated at compile time.
 declare namespace RuntimeExports {
   /**
-   * @param {string|null=} returnType
-   * @param {Array=} argTypes
-   * @param {Array=} args
-   * @param {Object=} opts
-   */
-  function ccall(
-    ident: any,
-    returnType?: string,
-    argTypes?: any[],
-    args?: any[],
-    opts?: any,
-  ): any;
-  /**
-   * @param {string=} returnType
-   * @param {Array=} argTypes
-   * @param {Object=} opts
-   */
-  function cwrap(
-    ident: any,
-    returnType?: string,
-    argTypes?: any[],
-    opts?: any,
-  ): any;
-  /**
    * Given a pointer 'ptr' to a null-terminated UTF8-encoded string in the
    * emscripten HEAP, returns a copy of that string as a Javascript String object.
    *
@@ -39,8 +15,8 @@ declare namespace RuntimeExports {
    */
   function UTF8ToString(
     ptr: number,
-    maxBytesToRead?: number,
-    ignoreNul?: boolean,
+    maxBytesToRead?: number | undefined,
+    ignoreNul?: boolean | undefined,
   ): string;
   function stringToUTF8(str: any, outPtr: any, maxBytesToWrite: any): any;
 }
@@ -58,7 +34,7 @@ export interface ClassHandle {
   [Symbol.dispose](): void;
   clone(): this;
 }
-export interface VectorDouble extends ClassHandle {
+export interface VectorDouble extends ClassHandle, Iterable<number> {
   size(): number;
   get(_0: number): number | undefined;
   push_back(_0: number): void;

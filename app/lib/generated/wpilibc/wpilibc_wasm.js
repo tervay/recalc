@@ -7,7 +7,7 @@ async function createWpilibcModule(moduleArg = {}) {
     globalThis.process?.versions?.node &&
     globalThis.process?.type != 'renderer';
   if (ENVIRONMENT_IS_NODE) {
-    const { createRequire } = await import('module');
+    const { createRequire } = await import('node:module');
     var require = createRequire(import.meta.url);
   }
   var arguments_ = [];
@@ -25,11 +25,12 @@ async function createWpilibcModule(moduleArg = {}) {
   }
   var readAsync, readBinary;
   if (ENVIRONMENT_IS_NODE) {
-    var fs = require('fs');
+    var fs = require('node:fs');
     if (_scriptName.startsWith('file:')) {
       scriptDirectory =
-        require('path').dirname(require('url').fileURLToPath(_scriptName)) +
-        '/';
+        require('node:path').dirname(
+          require('node:url').fileURLToPath(_scriptName),
+        ) + '/';
     }
     readBinary = (filename) => {
       filename = isFileURI(filename) ? new URL(filename) : filename;
@@ -54,6 +55,15 @@ async function createWpilibcModule(moduleArg = {}) {
       scriptDirectory = new URL('.', _scriptName).href;
     } catch {}
     {
+      if (ENVIRONMENT_IS_WORKER) {
+        readBinary = (url) => {
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', url, false);
+          xhr.responseType = 'arraybuffer';
+          xhr.send(null);
+          return new Uint8Array(xhr.response);
+        };
+      }
       readAsync = async (url) => {
         var response = await fetch(url, { credentials: 'same-origin' });
         if (response.ok) {
@@ -87,32 +97,13 @@ async function createWpilibcModule(moduleArg = {}) {
     HEAP64 = new BigInt64Array(b);
     HEAPU64 = new BigUint64Array(b);
   }
-  function preRun() {
-    if (Module['preRun']) {
-      if (typeof Module['preRun'] == 'function')
-        Module['preRun'] = [Module['preRun']];
-      while (Module['preRun'].length) {
-        addOnPreRun(Module['preRun'].shift());
-      }
-    }
-    callRuntimeCallbacks(onPreRuns);
-  }
+  function preRun() {}
   function initRuntime() {
     runtimeInitialized = true;
-    wasmExports['N']();
+    wasmExports['O']();
   }
-  function postRun() {
-    if (Module['postRun']) {
-      if (typeof Module['postRun'] == 'function')
-        Module['postRun'] = [Module['postRun']];
-      while (Module['postRun'].length) {
-        addOnPostRun(Module['postRun'].shift());
-      }
-    }
-    callRuntimeCallbacks(onPostRuns);
-  }
+  function postRun() {}
   function abort(what) {
-    Module['onAbort']?.(what);
     what = 'Aborted(' + what + ')';
     err(what);
     ABORT = true;
@@ -129,9 +120,6 @@ async function createWpilibcModule(moduleArg = {}) {
     return new URL('wpilibc_wasm.wasm', import.meta.url).href;
   }
   function getBinarySync(file) {
-    if (file == wasmBinaryFile && wasmBinary) {
-      return new Uint8Array(wasmBinary);
-    }
     if (readBinary) {
       return readBinary(file);
     }
@@ -187,13 +175,6 @@ async function createWpilibcModule(moduleArg = {}) {
       return receiveInstance(result['instance']);
     }
     var info = getWasmImports();
-    if (Module['instantiateWasm']) {
-      return new Promise((resolve, reject) => {
-        Module['instantiateWasm'](info, (inst, mod) => {
-          resolve(receiveInstance(inst, mod));
-        });
-      });
-    }
     wasmBinaryFile ??= findWasmBinary();
     var result = await instantiateAsync(wasmBinary, wasmBinaryFile, info);
     var exports = receiveInstantiationResult(result);
@@ -206,18 +187,6 @@ async function createWpilibcModule(moduleArg = {}) {
       this.status = status;
     }
   }
-  var callRuntimeCallbacks = (callbacks) => {
-    while (callbacks.length > 0) {
-      callbacks.shift()(Module);
-    }
-  };
-  var onPostRuns = [];
-  var addOnPostRun = (cb) => onPostRuns.push(cb);
-  var onPreRuns = [];
-  var addOnPreRun = (cb) => onPreRuns.push(cb);
-  var noExitRuntime = true;
-  var stackRestore = (val) => __emscripten_stack_restore(val);
-  var stackSave = () => _emscripten_stack_get_current();
   class ExceptionInfo {
     constructor(excPtr) {
       this.excPtr = excPtr;
@@ -705,7 +674,7 @@ async function createWpilibcModule(moduleArg = {}) {
           }
           break;
         default:
-          throwBindingError('Unsupporting sharing policy');
+          throwBindingError('Unsupported sharing policy');
       }
     }
     return ptr;
@@ -1502,6 +1471,53 @@ async function createWpilibcModule(moduleArg = {}) {
       destructorFunction: null,
     });
   };
+  var installIndexedIterator = (proto, sizeMethodName, getMethodName) => {
+    const makeIterator = (size, getValue) => {
+      let index = 0;
+      return {
+        next() {
+          if (index >= size) {
+            return { done: true };
+          }
+          const current = index;
+          index++;
+          const value = getValue(current);
+          return { value, done: false };
+        },
+        [Symbol.iterator]() {
+          return this;
+        },
+      };
+    };
+    if (!proto[Symbol.iterator]) {
+      proto[Symbol.iterator] = function () {
+        const size = this[sizeMethodName]();
+        return makeIterator(size, (i) => this[getMethodName](i));
+      };
+    }
+  };
+  var __embind_register_iterable = (
+    rawClassType,
+    rawElementType,
+    sizeMethodName,
+    getMethodName,
+  ) => {
+    sizeMethodName = AsciiToString(sizeMethodName);
+    getMethodName = AsciiToString(getMethodName);
+    whenDependentTypesAreResolved(
+      [],
+      [rawClassType, rawElementType],
+      (types) => {
+        const classType = types[0];
+        installIndexedIterator(
+          classType.registeredClass.instancePrototype,
+          sizeMethodName,
+          getMethodName,
+        );
+        return [];
+      },
+    );
+  };
   var __embind_register_memory_view = (rawType, dataTypeIndex, name) => {
     var typeMapping = [
       Int8Array,
@@ -1819,7 +1835,6 @@ async function createWpilibcModule(moduleArg = {}) {
   };
   var runtimeKeepaliveCounter = 0;
   var __emscripten_runtime_keepalive_clear = () => {
-    noExitRuntime = false;
     runtimeKeepaliveCounter = 0;
   };
   var emval_methodCallers = [];
@@ -1899,7 +1914,7 @@ async function createWpilibcModule(moduleArg = {}) {
       captures['emval_returnValue'] = emval_returnValue;
       functionBody = `return emval_returnValue(toReturnWire, destructorsRef, ${functionBody})`;
     }
-    functionBody = `return function (handle, methodName, destructorsRef, args) {\n  ${functionBody}\n  }`;
+    functionBody = `return function (handle, methodName, destructorsRef, args) {\n${functionBody}\n}`;
     var invokerFunction = new Function(Object.keys(captures), functionBody)(
       ...Object.values(captures),
     );
@@ -1936,11 +1951,10 @@ async function createWpilibcModule(moduleArg = {}) {
     }
     quit_(1, e);
   };
-  var keepRuntimeAlive = () => noExitRuntime || runtimeKeepaliveCounter > 0;
+  var keepRuntimeAlive = () => true;
   var _proc_exit = (code) => {
     EXITSTATUS = code;
     if (!keepRuntimeAlive()) {
-      Module['onExit']?.(code);
       ABORT = true;
     }
     quit_(code, new ExitStatus(code));
@@ -1964,10 +1978,11 @@ async function createWpilibcModule(moduleArg = {}) {
       return;
     }
     try {
-      func();
-      maybeExit();
+      return func();
     } catch (e) {
       handleException(e);
+    } finally {
+      maybeExit();
     }
   };
   var _emscripten_get_now = () => performance.now();
@@ -2077,10 +2092,7 @@ async function createWpilibcModule(moduleArg = {}) {
   var getEnvStrings = () => {
     if (!getEnvStrings.strings) {
       var lang =
-        ((typeof navigator == 'object' && navigator.language) || 'C').replace(
-          '-',
-          '_',
-        ) + '.UTF-8';
+        (globalThis.navigator?.language ?? 'C').replace('-', '_') + '.UTF-8';
       var env = {
         USER: 'web_user',
         LOGNAME: 'web_user',
@@ -2154,7 +2166,7 @@ async function createWpilibcModule(moduleArg = {}) {
   };
   var initRandomFill = () => {
     if (ENVIRONMENT_IS_NODE) {
-      var nodeCrypto = require('crypto');
+      var nodeCrypto = require('node:crypto');
       return (view) => nodeCrypto.randomFillSync(view);
     }
     return (view) => crypto.getRandomValues(view);
@@ -2166,121 +2178,31 @@ async function createWpilibcModule(moduleArg = {}) {
     randomFill(HEAPU8.subarray(buffer, buffer + size));
     return 0;
   };
-  var getCFunc = (ident) => {
-    var func = Module['_' + ident];
-    return func;
-  };
-  var writeArrayToMemory = (array, buffer) => {
-    HEAP8.set(array, buffer);
-  };
-  var stackAlloc = (sz) => __emscripten_stack_alloc(sz);
-  var stringToUTF8OnStack = (str) => {
-    var size = lengthBytesUTF8(str) + 1;
-    var ret = stackAlloc(size);
-    stringToUTF8(str, ret, size);
-    return ret;
-  };
-  var ccall = (ident, returnType, argTypes, args, opts) => {
-    var toC = {
-      string: (str) => {
-        var ret = 0;
-        if (str !== null && str !== undefined && str !== 0) {
-          ret = stringToUTF8OnStack(str);
-        }
-        return ret;
-      },
-      array: (arr) => {
-        var ret = stackAlloc(arr.length);
-        writeArrayToMemory(arr, ret);
-        return ret;
-      },
-    };
-    function convertReturnValue(ret) {
-      if (returnType === 'string') {
-        return UTF8ToString(ret);
-      }
-      if (returnType === 'boolean') return Boolean(ret);
-      return ret;
-    }
-    var func = getCFunc(ident);
-    var cArgs = [];
-    var stack = 0;
-    if (args) {
-      for (var i = 0; i < args.length; i++) {
-        var converter = toC[argTypes[i]];
-        if (converter) {
-          if (stack === 0) stack = stackSave();
-          cArgs[i] = converter(args[i]);
-        } else {
-          cArgs[i] = args[i];
-        }
-      }
-    }
-    var ret = func(...cArgs);
-    function onDone(ret) {
-      if (stack !== 0) stackRestore(stack);
-      return convertReturnValue(ret);
-    }
-    ret = onDone(ret);
-    return ret;
-  };
-  var cwrap = (ident, returnType, argTypes, opts) => {
-    var numericArgs =
-      !argTypes ||
-      argTypes.every((type) => type === 'number' || type === 'boolean');
-    var numericRet = returnType !== 'string';
-    if (numericRet && numericArgs && !opts) {
-      return getCFunc(ident);
-    }
-    return (...args) => ccall(ident, returnType, argTypes, args, opts);
-  };
   init_ClassHandle();
   init_RegisteredPointer();
-  {
-    if (Module['noExitRuntime']) noExitRuntime = Module['noExitRuntime'];
-    if (Module['print']) out = Module['print'];
-    if (Module['printErr']) err = Module['printErr'];
-    if (Module['wasmBinary']) wasmBinary = Module['wasmBinary'];
-    if (Module['arguments']) arguments_ = Module['arguments'];
-    if (Module['thisProgram']) thisProgram = Module['thisProgram'];
-    if (Module['preInit']) {
-      if (typeof Module['preInit'] == 'function')
-        Module['preInit'] = [Module['preInit']];
-      while (Module['preInit'].length > 0) {
-        Module['preInit'].shift()();
-      }
-    }
-  }
-  Module['ccall'] = ccall;
-  Module['cwrap'] = cwrap;
+  {}
   Module['UTF8ToString'] = UTF8ToString;
   Module['stringToUTF8'] = stringToUTF8;
   var ___getTypeName,
     _free,
     _malloc,
     __emscripten_timeout,
-    __emscripten_stack_restore,
-    __emscripten_stack_alloc,
-    _emscripten_stack_get_current,
     memory,
     __indirect_function_table,
     wasmMemory,
     wasmTable;
   function assignWasmExports(wasmExports) {
-    ___getTypeName = wasmExports['O'];
-    _free = Module['_free'] = wasmExports['Q'];
-    _malloc = Module['_malloc'] = wasmExports['R'];
-    __emscripten_timeout = wasmExports['S'];
-    __emscripten_stack_restore = wasmExports['T'];
-    __emscripten_stack_alloc = wasmExports['U'];
-    _emscripten_stack_get_current = wasmExports['V'];
-    memory = wasmMemory = wasmExports['M'];
-    __indirect_function_table = wasmTable = wasmExports['P'];
+    ___getTypeName = wasmExports['P'];
+    _free = Module['_free'] = wasmExports['R'];
+    _malloc = Module['_malloc'] = wasmExports['S'];
+    __emscripten_timeout = wasmExports['T'];
+    memory = wasmMemory = wasmExports['N'];
+    __indirect_function_table = wasmTable = wasmExports['Q'];
   }
   var wasmImports = {
     b: ___cxa_throw,
     G: __abort_js,
-    s: __embind_register_bigint,
+    r: __embind_register_bigint,
     J: __embind_register_bool,
     l: __embind_register_class,
     k: __embind_register_class_constructor,
@@ -2289,6 +2211,7 @@ async function createWpilibcModule(moduleArg = {}) {
     q: __embind_register_float,
     m: __embind_register_function,
     j: __embind_register_integer,
+    L: __embind_register_iterable,
     d: __embind_register_memory_view,
     u: __embind_register_optional,
     I: __embind_register_std_string,
@@ -2299,9 +2222,9 @@ async function createWpilibcModule(moduleArg = {}) {
     c: __emval_decref,
     t: __emval_incref,
     e: __emval_invoke,
-    L: __emval_new_array,
+    M: __emval_new_array,
     h: __emval_new_cstring,
-    r: __emval_new_object,
+    s: __emval_new_object,
     g: __emval_run_destructors,
     i: __emval_set_property,
     x: __setitimer_js,
@@ -2324,16 +2247,9 @@ async function createWpilibcModule(moduleArg = {}) {
       if (ABORT) return;
       initRuntime();
       readyPromiseResolve?.(Module);
-      Module['onRuntimeInitialized']?.();
       postRun();
     }
-    if (Module['setStatus']) {
-      Module['setStatus']('Running...');
-      setTimeout(() => {
-        setTimeout(() => Module['setStatus'](''), 1);
-        doRun();
-      }, 1);
-    } else {
+    {
       doRun();
     }
   }
