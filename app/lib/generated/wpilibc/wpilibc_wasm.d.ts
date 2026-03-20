@@ -186,6 +186,21 @@ interface EmbindModule {
     resistanceOhms: number,
     currentDrawsAmps: VectorDouble,
   ): number;
+  simulateElevator(
+    motor: DCMotor | null,
+    gearing: number,
+    loadKg: number,
+    spoolRadiusMeters: number,
+    travelDistanceMeters: number,
+    statorLimitAmps: number,
+    supplyLimitAmps: number,
+    statorVoltageVolts: number,
+    batteryResistanceOhms: number,
+    batteryVoltageVolts: number,
+    simTimestep: number,
+    decimation: number,
+    maxSimSeconds: number,
+  ): any;
 }
 
 export type MainModule = WasmModule & typeof RuntimeExports & EmbindModule;

@@ -3,7 +3,7 @@
 - heading "Motor & Gearing" [level=2]
 - switch "Cascade"
 - text: Cascade Motor
-- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Stator Limit Supply Limit Stator Voltage Supply Voltage": "2"
+- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Target Time to Goal Stator Limit Supply Limit Stator Voltage Supply Voltage Maximum Comfortable Stator Limit Maximum Comfortable Supply Limit": "2"
 - combobox: Kraken X60 (FOC)
 - button "Efficiency %"
 - spinbutton: "100"
@@ -26,6 +26,9 @@
 - button "Battery Resistance"
 - spinbutton: "0.015"
 - combobox: Ohm
+- button "Target Time to Goal"
+- spinbutton: "0.5"
+- combobox: s
 - heading "Limits" [level=2]
 - button "Stator Limit"
 - spinbutton: "60"
@@ -39,16 +42,34 @@
 - button "Supply Voltage"
 - spinbutton: "12"
 - combobox: V
-- heading "Results" [level=2]
+- button "Maximum Comfortable Stator Limit"
+- spinbutton: "100"
+- combobox: A
+- button "Maximum Comfortable Supply Limit"
+- spinbutton: "85"
+- combobox: A
 - text: Time to Goal 0.460
 - combobox: s
 - text: Stall Load 78.645
 - combobox: lbs
+- heading "Simulation" [level=2]
+- list:
+  - listitem:
+    - img "Position (m) legend icon"
+    - text: Position (m)
+  - listitem:
+    - img "Stator Current (A) legend icon"
+    - text: Stator Current (A)
+  - listitem:
+    - img "Supply Current (A) legend icon"
+    - text: Supply Current (A)
+  - listitem:
+    - img "Velocity (m/s) legend icon"
+    - text: Velocity (m/s)
+- application: 0.03309999999999992 0.1790999999999966 0.3190999999999812 0.4595999999999657 Time (s) -40 0 40 80 120 Velocity (m/s) / Current (A) 0 0.4 0.8 1.2 1.6 Position (m)
 - text: kV 3.120
 - combobox: V*s/m
 - text: kA 0.220
 - combobox: V*s^2/m
 - text: kG 2.288
 - combobox: V
-- application: 0.01 0.04 0.07 0.101 0.131 0.161 0.19 0.22 0.25 0.28 0.31 0.34 0.371 0.4 0.43 0.46 -40 0 40 80 120 0 0.4 0.8 1.2 1.6
-- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

@@ -90,8 +90,8 @@ log_info "Copying generated files from container..."
 CONTAINER_ID=$(docker create "$DOCKER_IMAGE")
 
 # Copy wpimath files
-log_info "Copying wpimath files..."
-copy_wasm_files "$CONTAINER_ID" "/build/allwpilib/build/wpimath/wasm" "wpimath_wasm" "$OUTPUT_DIR"
+# log_info "Copying wpimath files..."
+# copy_wasm_files "$CONTAINER_ID" "/build/allwpilib/build/wpimath/wasm" "wpimath_wasm" "$OUTPUT_DIR"
 
 # Copy wpilibc files
 log_info "Copying wpilibc files..."

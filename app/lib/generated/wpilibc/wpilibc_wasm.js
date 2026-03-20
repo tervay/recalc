@@ -99,7 +99,7 @@ async function createWpilibcModule(moduleArg = {}) {
   }
   function initRuntime() {
     runtimeInitialized = true;
-    wasmExports['H']();
+    wasmExports['N']();
   }
   function postRun() {
     if (Module['postRun']) {
@@ -1908,12 +1908,26 @@ async function createWpilibcModule(moduleArg = {}) {
       createNamedFunction(functionName, invokerFunction),
     );
   };
+  var __emval_incref = (handle) => {
+    if (handle > 9) {
+      emval_handles[handle + 1] += 1;
+    }
+  };
   var __emval_invoke = (caller, handle, methodName, destructorsRef, args) =>
     emval_methodCallers[caller](handle, methodName, destructorsRef, args);
+  var __emval_new_array = () => Emval.toHandle([]);
+  var __emval_new_cstring = (v) => Emval.toHandle(getStringOrSymbol(v));
+  var __emval_new_object = () => Emval.toHandle({});
   var __emval_run_destructors = (handle) => {
     var destructors = Emval.toValue(handle);
     runDestructors(destructors);
     __emval_decref(handle);
+  };
+  var __emval_set_property = (handle, key, value) => {
+    handle = Emval.toValue(handle);
+    key = Emval.toValue(key);
+    value = Emval.toValue(value);
+    handle[key] = value;
   };
   var timers = {};
   var handleException = (e) => {
@@ -2253,49 +2267,55 @@ async function createWpilibcModule(moduleArg = {}) {
     wasmMemory,
     wasmTable;
   function assignWasmExports(wasmExports) {
-    ___getTypeName = wasmExports['I'];
-    _free = Module['_free'] = wasmExports['K'];
-    _malloc = Module['_malloc'] = wasmExports['L'];
-    __emscripten_timeout = wasmExports['M'];
-    __emscripten_stack_restore = wasmExports['N'];
-    __emscripten_stack_alloc = wasmExports['O'];
-    _emscripten_stack_get_current = wasmExports['P'];
-    memory = wasmMemory = wasmExports['G'];
-    __indirect_function_table = wasmTable = wasmExports['J'];
+    ___getTypeName = wasmExports['O'];
+    _free = Module['_free'] = wasmExports['Q'];
+    _malloc = Module['_malloc'] = wasmExports['R'];
+    __emscripten_timeout = wasmExports['S'];
+    __emscripten_stack_restore = wasmExports['T'];
+    __emscripten_stack_alloc = wasmExports['U'];
+    _emscripten_stack_get_current = wasmExports['V'];
+    memory = wasmMemory = wasmExports['M'];
+    __indirect_function_table = wasmTable = wasmExports['P'];
   }
   var wasmImports = {
     b: ___cxa_throw,
-    B: __abort_js,
-    l: __embind_register_bigint,
-    E: __embind_register_bool,
-    f: __embind_register_class,
-    e: __embind_register_class_constructor,
+    G: __abort_js,
+    s: __embind_register_bigint,
+    J: __embind_register_bool,
+    l: __embind_register_class,
+    k: __embind_register_class_constructor,
     a: __embind_register_class_function,
-    C: __embind_register_emval,
-    k: __embind_register_float,
-    g: __embind_register_function,
-    d: __embind_register_integer,
-    c: __embind_register_memory_view,
-    F: __embind_register_optional,
-    D: __embind_register_std_string,
-    i: __embind_register_std_wstring,
-    m: __embind_register_void,
-    r: __emscripten_runtime_keepalive_clear,
-    p: __emval_create_invoker,
-    o: __emval_invoke,
-    n: __emval_run_destructors,
-    s: __setitimer_js,
-    u: __tzset_js,
-    v: _clock_time_get,
-    h: _emscripten_get_now,
-    w: _emscripten_resize_heap,
-    z: _environ_get,
-    A: _environ_sizes_get,
-    y: _fd_close,
-    x: _fd_seek,
-    j: _fd_write,
-    q: _proc_exit,
-    t: _random_get,
+    H: __embind_register_emval,
+    q: __embind_register_float,
+    m: __embind_register_function,
+    j: __embind_register_integer,
+    d: __embind_register_memory_view,
+    u: __embind_register_optional,
+    I: __embind_register_std_string,
+    o: __embind_register_std_wstring,
+    K: __embind_register_void,
+    w: __emscripten_runtime_keepalive_clear,
+    f: __emval_create_invoker,
+    c: __emval_decref,
+    t: __emval_incref,
+    e: __emval_invoke,
+    L: __emval_new_array,
+    h: __emval_new_cstring,
+    r: __emval_new_object,
+    g: __emval_run_destructors,
+    i: __emval_set_property,
+    x: __setitimer_js,
+    z: __tzset_js,
+    A: _clock_time_get,
+    n: _emscripten_get_now,
+    B: _emscripten_resize_heap,
+    E: _environ_get,
+    F: _environ_sizes_get,
+    D: _fd_close,
+    C: _fd_seek,
+    p: _fd_write,
+    v: _proc_exit,
+    y: _random_get,
   };
   function run() {
     preRun();

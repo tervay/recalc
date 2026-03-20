@@ -44,6 +44,9 @@ importers:
       lucide-react:
         specifier: 0.577.0
         version: 0.577.0(react@19.2.4)
+      minimize-golden-section-1d:
+        specifier: 3.0.0
+        version: 3.0.0
       query-string:
         specifier: 9.3.1
         version: 9.3.1
@@ -65,6 +68,9 @@ importers:
       tailwind-merge:
         specifier: 3.5.0
         version: 3.5.0
+      workerpool:
+        specifier: 10.0.1
+        version: 10.0.1
     devDependencies:
       '@iconify/json':
         specifier: 2.2.450
@@ -3623,6 +3629,9 @@ packages:
   minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
 
+  minimize-golden-section-1d@3.0.0:
+    resolution: {integrity: sha512-zwsb9Jvbmbnz1KskO2AZ1XhHShc5B7MrgQgX2Kpc7bpB4JWHG1PMHP7umM8St5xOi2wszci2QcDWjrp5Dr8Mmw==}
+
   minipass-collect@2.0.1:
     resolution: {integrity: sha512-D7V8PO9oaz7PWGLbCACuI1qEOsq7UKfLotx/C0Aet43fCUB/wfQ7DYeq2oR/svFJGYDHPr38SHATeaj/ZoKHKw==}
     engines: {node: '>=16 || 14 >=14.17'}
@@ -4665,6 +4674,9 @@ packages:
   word-wrap@1.2.5:
     resolution: {integrity: sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==}
     engines: {node: '>=0.10.0'}
+
+  workerpool@10.0.1:
+    resolution: {integrity: sha512-NAnKwZJxWlj/U1cp6ZkEtPE+GQY1S6KtOS3AlCiPfPFLxV3m64giSp7g2LsNJxzYCocDT7TSl+7T0sgrDp3KoQ==}
 
   wrap-ansi@6.2.0:
     resolution: {integrity: sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==}
@@ -7963,6 +7975,8 @@ snapshots:
 
   minimist@1.2.8: {}
 
+  minimize-golden-section-1d@3.0.0: {}
+
   minipass-collect@2.0.1:
     dependencies:
       minipass: 7.1.3
@@ -9111,6 +9125,8 @@ snapshots:
       stackback: 0.0.2
 
   word-wrap@1.2.5: {}
+
+  workerpool@10.0.1: {}
 
   wrap-ansi@6.2.0:
     dependencies:

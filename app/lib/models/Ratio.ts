@@ -45,4 +45,11 @@ export default class Ratio extends Model {
   eq<M extends Model>(m: M): boolean {
     return m instanceof Ratio && isEqual(m.toDict(), this.toDict());
   }
+
+  toString(): string {
+    if (this.ratioType === RatioType.REDUCTION) {
+      return `${this.magnitude}:1`;
+    }
+    return `1:${this.magnitude}`;
+  }
 }
