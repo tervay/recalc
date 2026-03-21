@@ -1,4 +1,4 @@
-FROM emscripten/emsdk:4.0.20
+FROM emscripten/emsdk:5.0.3 AS base
 
 RUN apt-get update -qq && \
     apt-get install -y -qq \
@@ -24,24 +24,35 @@ WORKDIR /build
 RUN mise trust && \
     mise install
 
-RUN npm i -g typescript@5.3.3
+ARG TS_VERSION
+RUN npm i -g typescript@${TS_VERSION}
+
+# ---- Stage: libs ----
+# Compiles all static library dependencies of wpilibc_wasm.
+# Cached unless allwpilib, CMakeLists patches, or toolchain files change.
+FROM base AS libs
 
 WORKDIR /build
 COPY allwpilib /build/allwpilib
-WORKDIR /build/allwpilib
 
-# Copy over local patches
-COPY patches/wpimath/wasm/CMakeLists.txt /build/allwpilib/wpimath/wasm/CMakeLists.txt
-COPY patches/wpimath/wasm/bindings.cc /build/allwpilib/wpimath/wasm/bindings.cc
-COPY patches/wpimath/wasm/emscripten_toolchain.cmake /build/allwpilib/wpimath/wasm/emscripten_toolchain.cmake
+# Apply all patches except bindings.cc (deferred to next stage)
+COPY patches/CMakeLists.txt /build/allwpilib/CMakeLists.txt
 COPY patches/wpimath/CMakeLists.txt /build/allwpilib/wpimath/CMakeLists.txt
+COPY patches/wpimath/wasm/CMakeLists.txt /build/allwpilib/wpimath/wasm/CMakeLists.txt
+COPY patches/wpimath/wasm/emscripten_toolchain.cmake /build/allwpilib/wpimath/wasm/emscripten_toolchain.cmake
+COPY patches/wpilibc/CMakeLists.txt /build/allwpilib/wpilibc/CMakeLists.txt
 COPY patches/wpilibc/wasm/CMakeLists.txt /build/allwpilib/wpilibc/wasm/CMakeLists.txt
 COPY patches/wpilibc/wasm/emscripten_toolchain.cmake /build/allwpilib/wpilibc/wasm/emscripten_toolchain.cmake
-COPY patches/wpilibc/wasm/bindings.cc /build/allwpilib/wpilibc/wasm/bindings.cc
-COPY patches/wpilibc/CMakeLists.txt /build/allwpilib/wpilibc/CMakeLists.txt
 COPY patches/wpilibc/wasm/stubs/CMakeLists.txt /build/allwpilib/wpilibc/wasm/stubs/CMakeLists.txt
 COPY patches/wpilibc/wasm/stubs/ntcore_stub.cc /build/allwpilib/wpilibc/wasm/stubs/ntcore_stub.cc
-COPY patches/CMakeLists.txt /build/allwpilib/CMakeLists.txt
+COPY patches/fmtlib_cstdlib.patch /tmp/fmtlib_cstdlib.patch
+RUN patch -p1 -d /build/allwpilib < /tmp/fmtlib_cstdlib.patch
+
+# Placeholder bindings so cmake can configure and all static lib dependencies
+# can be compiled. The real bindings are applied in the next stage.
+RUN printf '#include <emscripten/bind.h>\nEMSCRIPTEN_BINDINGS(placeholder) {}\n' \
+      | tee /build/allwpilib/wpilibc/wasm/bindings.cc \
+            /build/allwpilib/wpimath/wasm/bindings.cc > /dev/null
 
 # Build wpimath
 # RUN cd /build/allwpilib && \
@@ -62,7 +73,8 @@ COPY patches/CMakeLists.txt /build/allwpilib/CMakeLists.txt
 #     cd build && \
 #     emmake ninja wpimath_wasm -j$(nproc)
 
-# Build wpilibc
+# cmake configure + build wpilibc_wasm with placeholder bindings.
+# This compiles all static lib dependencies (wpiutil, wpimath, hal, wpilibc, ntcore).
 RUN cd /build/allwpilib && \
     emcmake cmake -B build -S . \
       -DCMAKE_BUILD_TYPE=Release \
@@ -80,3 +92,14 @@ RUN cd /build/allwpilib && \
       -G Ninja && \
     cd build && \
     emmake ninja wpilibc_wasm -j$(nproc)
+
+# ---- Stage: final ----
+# Copies real bindings and relinks. Only this stage re-runs when bindings.cc changes.
+FROM libs
+
+COPY patches/wpilibc/wasm/bindings.cc /build/allwpilib/wpilibc/wasm/bindings.cc
+
+# Touch to ensure mtime is newer than the placeholder object file, so ninja
+# recompiles bindings.cc. All static libs from the libs stage are already built.
+RUN touch /build/allwpilib/wpilibc/wasm/bindings.cc && \
+    cd /build/allwpilib/build && emmake ninja wpilibc_wasm -j$(nproc)

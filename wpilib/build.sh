@@ -80,7 +80,8 @@ if ! command -v docker &> /dev/null; then
 fi
 
 log_info "Building Docker image..."
-docker build -f "$DOCKERFILE" -t "$DOCKER_IMAGE" "$SCRIPT_DIR"
+TS_VERSION=$(jq -r '.devDependencies.typescript' "$PROJECT_ROOT/package.json")
+docker build -f "$DOCKERFILE" -t "$DOCKER_IMAGE" --build-arg TS_VERSION="$TS_VERSION" "$SCRIPT_DIR"
 
 log_info "Creating output directories..."
 mkdir -p "$OUTPUT_DIR"
