@@ -21,7 +21,6 @@ import {
   MeasurementParam,
   NumberParam,
   StringParam,
-  withDefault,
 } from '~/lib/types/queryParams';
 
 export function meta() {
@@ -32,23 +31,16 @@ export function meta() {
 }
 
 const DEFAULT_PARAMS = {
-  chain: withDefault(StringParam, '#25'),
-  p1Teeth: withDefault(NumberParam, 16),
-  p2Teeth: withDefault(NumberParam, 36),
-  desiredCenter: withDefault(MeasurementParam, new Measurement(5, 'in')),
-  extraCenter: withDefault(MeasurementParam, new Measurement(0, 'in')),
-  allowHalfLinks: withDefault(BooleanParam, false),
+  chain: StringParam.withDefault('#25'),
+  p1Teeth: NumberParam.withDefault(16),
+  p2Teeth: NumberParam.withDefault(36),
+  desiredCenter: MeasurementParam.withDefault(new Measurement(5, 'in')),
+  extraCenter: MeasurementParam.withDefault(new Measurement(0, 'in')),
+  allowHalfLinks: BooleanParam.withDefault(false),
 };
 
 export default function Chains() {
-  const queryParams = useQueryParams<{
-    chain: string;
-    p1Teeth: number;
-    p2Teeth: number;
-    desiredCenter: Measurement;
-    extraCenter: Measurement;
-    allowHalfLinks: boolean;
-  }>(DEFAULT_PARAMS);
+  const queryParams = useQueryParams(DEFAULT_PARAMS);
 
   const [chain, setChain] = useState(queryParams.chain);
   const [p1Teeth, setP1Teeth] = useState(queryParams.p1Teeth);

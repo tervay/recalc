@@ -42,7 +42,6 @@ import {
   MotorParam,
   NumberParam,
   RatioParam,
-  withDefault,
 } from '~/lib/types/queryParams';
 
 type WpilibElevatorSimState = LinearWorker.WpilibElevatorSimState;
@@ -55,29 +54,26 @@ export function meta() {
 }
 
 const DEFAULT_PARAMS = {
-  motor: withDefault(MotorParam, Motor.KrakenX60sFOC(1)),
-  travelDistance: withDefault(MeasurementParam, new Measurement(60, 'in')),
-  spoolDiameter: withDefault(MeasurementParam, new Measurement(1, 'in')),
-  load: withDefault(MeasurementParam, new Measurement(15, 'lb')),
-  ratio: withDefault(RatioParam, new Ratio(2, RatioType.REDUCTION)),
-  efficiency: withDefault(NumberParam, 100),
-  statorLimit: withDefault(MeasurementParam, new Measurement(60, 'A')),
-  supplyLimit: withDefault(MeasurementParam, new Measurement(90, 'A')),
-  supplyVoltage: withDefault(MeasurementParam, new Measurement(12, 'V')),
-  statorVoltage: withDefault(MeasurementParam, new Measurement(12, 'V')),
-  angle: withDefault(MeasurementParam, new Measurement(90, 'deg')),
-  batteryResistance: withDefault(
-    MeasurementParam,
+  motor: MotorParam.withDefault(Motor.KrakenX60sFOC(1)),
+  travelDistance: MeasurementParam.withDefault(new Measurement(60, 'in')),
+  spoolDiameter: MeasurementParam.withDefault(new Measurement(1, 'in')),
+  load: MeasurementParam.withDefault(new Measurement(15, 'lb')),
+  ratio: RatioParam.withDefault(new Ratio(2, RatioType.REDUCTION)),
+  efficiency: NumberParam.withDefault(100),
+  statorLimit: MeasurementParam.withDefault(new Measurement(60, 'A')),
+  supplyLimit: MeasurementParam.withDefault(new Measurement(90, 'A')),
+  supplyVoltage: MeasurementParam.withDefault(new Measurement(12, 'V')),
+  statorVoltage: MeasurementParam.withDefault(new Measurement(12, 'V')),
+  angle: MeasurementParam.withDefault(new Measurement(90, 'deg')),
+  batteryResistance: MeasurementParam.withDefault(
     new Measurement(0.015, 'Ohm'),
   ),
-  cascade: withDefault(BooleanParam, false),
-  targetTimeToGoal: withDefault(MeasurementParam, new Measurement(0.5, 's')),
-  maximumComfortableStatorLimit: withDefault(
-    MeasurementParam,
+  cascade: BooleanParam.withDefault(false),
+  targetTimeToGoal: MeasurementParam.withDefault(new Measurement(0.5, 's')),
+  maximumComfortableStatorLimit: MeasurementParam.withDefault(
     new Measurement(100, 'A'),
   ),
-  maximumComfortableSupplyLimit: withDefault(
-    MeasurementParam,
+  maximumComfortableSupplyLimit: MeasurementParam.withDefault(
     new Measurement(85, 'A'),
   ),
 };
@@ -99,25 +95,7 @@ const optimizerPool = workerpool.pool(optimizerWorkerUrl, {
 });
 
 export default function Linear() {
-  const queryParams = useQueryParams<{
-    motor: Motor;
-    travelDistance: Measurement;
-    spoolDiameter: Measurement;
-    load: Measurement;
-    ratio: Ratio;
-    efficiency: number;
-    statorLimit: Measurement;
-    supplyLimit: Measurement;
-    supplyVoltage: Measurement;
-    statorVoltage: Measurement;
-    angle: Measurement;
-    batteryResistance: Measurement;
-    cascade: boolean;
-
-    targetTimeToGoal: Measurement;
-    maximumComfortableStatorLimit: Measurement;
-    maximumComfortableSupplyLimit: Measurement;
-  }>(DEFAULT_PARAMS);
+  const queryParams = useQueryParams(DEFAULT_PARAMS);
 
   const [motor, setMotor] = useState(queryParams.motor);
   const [travelDistance, setTravelDistance] = useState(

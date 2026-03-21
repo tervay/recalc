@@ -1,88 +1,71 @@
-import queryString from 'query-string';
+import {
+  createParser,
+  parseAsBoolean,
+  parseAsFloat,
+  parseAsString,
+} from 'nuqs';
 
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 import type { Bore } from '~/lib/types/common';
 
-export interface DefaultAndQueryParamProvider<T> {
-  queryParam: QueryParam<T>;
-  defaultValue: T;
-}
+export const StringParam = parseAsString;
 
-export function withDefault<T>(
-  param: QueryParam<T>,
-  defaultValue: T,
-): DefaultAndQueryParamProvider<T> {
-  return {
-    queryParam: param,
-    defaultValue,
-  };
-}
+export const NumberParam = parseAsFloat;
 
-export interface QueryParam<T> {
-  encode: (value: T) => string;
-  decode: (value: string) => T;
-}
+export const BooleanParam = parseAsBoolean;
 
-export const StringParam: QueryParam<string> = {
-  encode: (value) => value,
-  decode: (value) => value,
-};
-
-export const NumberParam: QueryParam<number> = {
-  encode: (value) => value.toString(),
-  decode: (value) => Number(value),
-};
-
-export const BooleanParam: QueryParam<boolean> = {
-  encode: (value) => value.toString(),
-  decode: (value) => value === 'true',
-};
-
-export const MeasurementParam: QueryParam<Measurement> = {
-  encode: (value) => queryString.stringify(value.toDict()),
-  decode: (value) => {
-    const parsed = queryString.parse(value);
-
-    if ('s' in parsed && 'u' in parsed) {
-      return Measurement.fromDict({
-        s: Number(parsed.s),
-        u: parsed.u as string,
-      });
+export const MeasurementParam = createParser<Measurement>({
+  parse(value) {
+    try {
+      const { s, u } = JSON.parse(value);
+      if (typeof s !== 'number' || typeof u !== 'string') return null;
+      return Measurement.fromDict({ s, u });
+    } catch {
+      return null;
     }
-
-    throw new Error('Invalid measurement');
   },
-};
-
-export const MotorParam: QueryParam<Motor> = {
-  encode: (value) => queryString.stringify(value.toDict()),
-  decode: (value) => {
-    const parsed = queryString.parse(value);
-    return Motor.fromDict({
-      name: parsed.name as string,
-      quantity: Number(parsed.quantity),
-    });
+  serialize(value) {
+    return JSON.stringify(value.toDict());
   },
-};
+});
 
-export const RatioParam: QueryParam<Ratio> = {
-  encode: (value) => queryString.stringify(value.toDict()),
-  decode: (value) => {
-    const parsed = queryString.parse(value);
-    return Ratio.fromDict({
-      magnitude: Number(parsed.magnitude),
-      ratioType: parsed.ratioType as RatioType,
-    });
+export const MotorParam = createParser<Motor>({
+  parse(value) {
+    try {
+      const { name, quantity } = JSON.parse(value);
+      if (typeof name !== 'string' || typeof quantity !== 'number') return null;
+      return Motor.fromDict({ name, quantity });
+    } catch {
+      return null;
+    }
   },
-};
+  serialize(value) {
+    return JSON.stringify(value.toDict());
+  },
+});
+
+export const RatioParam = createParser<Ratio>({
+  parse(value) {
+    try {
+      const { magnitude, ratioType } = JSON.parse(value);
+      if (typeof magnitude !== 'number' || typeof ratioType !== 'string')
+        return null;
+      return Ratio.fromDict({ magnitude, ratioType: ratioType as RatioType });
+    } catch {
+      return null;
+    }
+  },
+  serialize(value) {
+    return JSON.stringify(value.toDict());
+  },
+});
 
 export type RatioPair = [number, number];
 
-export const RatioPairListParam: QueryParam<RatioPair[]> = {
-  encode: (value) => JSON.stringify(value),
-  decode: (value) => {
+export const RatioPairListParam = createParser<RatioPair[]>({
+  parse(value) {
     try {
       const parsed: unknown = JSON.parse(value);
       if (
@@ -97,14 +80,21 @@ export const RatioPairListParam: QueryParam<RatioPair[]> = {
       ) {
         return parsed;
       }
-      return [[1, 1]];
+      return null;
     } catch {
-      return [[1, 1]];
+      return null;
     }
   },
-};
+  serialize(value) {
+    return JSON.stringify(value);
+  },
+});
 
-export const BoreParam: QueryParam<Bore> = {
-  encode: (value) => value,
-  decode: (value) => value as Bore,
-};
+export const BoreParam = createParser<Bore>({
+  parse(value) {
+    return value as Bore;
+  },
+  serialize(value) {
+    return value;
+  },
+});

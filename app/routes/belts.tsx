@@ -22,7 +22,6 @@ import {
   BooleanParam,
   MeasurementParam,
   NumberParam,
-  withDefault,
 } from '~/lib/types/queryParams';
 
 export function meta() {
@@ -33,27 +32,18 @@ export function meta() {
 }
 
 const DEFAULT_PARAMS = {
-  customBeltTeeth: withDefault(NumberParam, 125),
-  desiredCenter: withDefault(MeasurementParam, new Measurement(5, 'in')),
-  extraCenter: withDefault(MeasurementParam, new Measurement(0, 'mm')),
-  p1Teeth: withDefault(NumberParam, 16),
-  p2Teeth: withDefault(NumberParam, 24),
-  pitch: withDefault(MeasurementParam, new Measurement(5, 'mm')),
-  toothIncrement: withDefault(NumberParam, 5),
-  useCustomBelt: withDefault(BooleanParam, false),
+  customBeltTeeth: NumberParam.withDefault(125),
+  desiredCenter: MeasurementParam.withDefault(new Measurement(5, 'in')),
+  extraCenter: MeasurementParam.withDefault(new Measurement(0, 'mm')),
+  p1Teeth: NumberParam.withDefault(16),
+  p2Teeth: NumberParam.withDefault(24),
+  pitch: MeasurementParam.withDefault(new Measurement(5, 'mm')),
+  toothIncrement: NumberParam.withDefault(5),
+  useCustomBelt: BooleanParam.withDefault(false),
 };
 
 export default function Belts() {
-  const queryParams = useQueryParams<{
-    customBeltTeeth: number;
-    desiredCenter: Measurement;
-    extraCenter: Measurement;
-    p1Teeth: number;
-    p2Teeth: number;
-    pitch: Measurement;
-    toothIncrement: number;
-    useCustomBelt: boolean;
-  }>(DEFAULT_PARAMS);
+  const queryParams = useQueryParams(DEFAULT_PARAMS);
 
   const [customBeltTeeth, setCustomBeltTeeth] = useState(
     queryParams.customBeltTeeth,

@@ -18,7 +18,6 @@ import {
   BoreParam,
   NumberParam,
   RatioParam,
-  withDefault,
 } from '~/lib/types/queryParams';
 
 export function meta() {
@@ -29,39 +28,39 @@ export function meta() {
 }
 
 const DEFAULT_PARAMS = {
-  minGearTeeth: withDefault(NumberParam, 6),
-  maxGearTeeth: withDefault(NumberParam, 84),
-  minPulleyTeeth: withDefault(NumberParam, 8),
-  maxPulleyTeeth: withDefault(NumberParam, 84),
-  minSprocketTeeth: withDefault(NumberParam, 8),
-  maxSprocketTeeth: withDefault(NumberParam, 84),
-  enableREV: withDefault(BooleanParam, true),
-  enableWCP: withDefault(BooleanParam, true),
-  enableAM: withDefault(BooleanParam, true),
-  enableTTB: withDefault(BooleanParam, true),
-  enableLastAnvil: withDefault(BooleanParam, true),
-  enableSDS: withDefault(BooleanParam, true),
-  enablePlanetaries: withDefault(BooleanParam, true),
-  enable20DP: withDefault(BooleanParam, true),
-  enable32DP: withDefault(BooleanParam, false),
-  enableGT2: withDefault(BooleanParam, false),
-  enableHTD: withDefault(BooleanParam, true),
-  enableRT25: withDefault(BooleanParam, true),
-  enable25Chain: withDefault(BooleanParam, true),
-  enable35Chain: withDefault(BooleanParam, true),
-  enableBore12Hex: withDefault(BooleanParam, true),
-  enableBore38Hex: withDefault(BooleanParam, false),
-  enableBore1125: withDefault(BooleanParam, false),
-  enableBoreMAXSpline: withDefault(BooleanParam, true),
-  enableBoreSplineXL: withDefault(BooleanParam, true),
-  enableBore5mmHex: withDefault(BooleanParam, false),
-  enableBore14Round: withDefault(BooleanParam, false),
-  targetReduction: withDefault(RatioParam, new Ratio(20, RatioType.REDUCTION)),
-  targetReductionErrorThreshold: withDefault(NumberParam, 0.25),
-  enableCustomGears: withDefault(BooleanParam, false),
-  enableCustomPulleys: withDefault(BooleanParam, false),
-  enableCustomSprockets: withDefault(BooleanParam, false),
-  startingBore: withDefault(BoreParam, 'SplineXS'),
+  minGearTeeth: NumberParam.withDefault(6),
+  maxGearTeeth: NumberParam.withDefault(84),
+  minPulleyTeeth: NumberParam.withDefault(8),
+  maxPulleyTeeth: NumberParam.withDefault(84),
+  minSprocketTeeth: NumberParam.withDefault(8),
+  maxSprocketTeeth: NumberParam.withDefault(84),
+  enableREV: BooleanParam.withDefault(true),
+  enableWCP: BooleanParam.withDefault(true),
+  enableAM: BooleanParam.withDefault(true),
+  enableTTB: BooleanParam.withDefault(true),
+  enableLastAnvil: BooleanParam.withDefault(true),
+  enableSDS: BooleanParam.withDefault(true),
+  enablePlanetaries: BooleanParam.withDefault(true),
+  enable20DP: BooleanParam.withDefault(true),
+  enable32DP: BooleanParam.withDefault(false),
+  enableGT2: BooleanParam.withDefault(false),
+  enableHTD: BooleanParam.withDefault(true),
+  enableRT25: BooleanParam.withDefault(true),
+  enable25Chain: BooleanParam.withDefault(true),
+  enable35Chain: BooleanParam.withDefault(true),
+  enableBore12Hex: BooleanParam.withDefault(true),
+  enableBore38Hex: BooleanParam.withDefault(false),
+  enableBore1125: BooleanParam.withDefault(false),
+  enableBoreMAXSpline: BooleanParam.withDefault(true),
+  enableBoreSplineXL: BooleanParam.withDefault(true),
+  enableBore5mmHex: BooleanParam.withDefault(false),
+  enableBore14Round: BooleanParam.withDefault(false),
+  targetReduction: RatioParam.withDefault(new Ratio(20, RatioType.REDUCTION)),
+  targetReductionErrorThreshold: NumberParam.withDefault(0.25),
+  enableCustomGears: BooleanParam.withDefault(false),
+  enableCustomPulleys: BooleanParam.withDefault(false),
+  enableCustomSprockets: BooleanParam.withDefault(false),
+  startingBore: BoreParam.withDefault('SplineXS' as Bore),
 };
 
 const worker = new ComlinkWorker<typeof RatioFinderWorker>(
@@ -72,41 +71,7 @@ const worker = new ComlinkWorker<typeof RatioFinderWorker>(
 );
 
 export default function RatioFinder() {
-  const queryParams = useQueryParams<{
-    minGearTeeth: number;
-    maxGearTeeth: number;
-    minPulleyTeeth: number;
-    maxPulleyTeeth: number;
-    minSprocketTeeth: number;
-    maxSprocketTeeth: number;
-    enableREV: boolean;
-    enableWCP: boolean;
-    enableAM: boolean;
-    enableTTB: boolean;
-    enableLastAnvil: boolean;
-    enableSDS: boolean;
-    enablePlanetaries: boolean;
-    enable20DP: boolean;
-    enable32DP: boolean;
-    enableGT2: boolean;
-    enableHTD: boolean;
-    enableRT25: boolean;
-    enable25Chain: boolean;
-    enable35Chain: boolean;
-    enableBore12Hex: boolean;
-    enableBore38Hex: boolean;
-    enableBore1125: boolean;
-    enableBoreMAXSpline: boolean;
-    enableBoreSplineXL: boolean;
-    enableBore5mmHex: boolean;
-    enableBore14Round: boolean;
-    targetReduction: Ratio;
-    targetReductionErrorThreshold: number;
-    enableCustomGears: boolean;
-    enableCustomPulleys: boolean;
-    enableCustomSprockets: boolean;
-    startingBore: Bore;
-  }>(DEFAULT_PARAMS);
+  const queryParams = useQueryParams(DEFAULT_PARAMS);
 
   const [minGearTeeth, setMinGearTeeth] = useState(queryParams.minGearTeeth);
   const [maxGearTeeth, setMaxGearTeeth] = useState(queryParams.maxGearTeeth);

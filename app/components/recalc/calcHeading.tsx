@@ -13,7 +13,10 @@ export default function CalcHeading({
       <Button
         onClick={() => {
           void navigator.clipboard.writeText(
-            window.location.href + '?' + getSerializedState(),
+            window.location.origin +
+              window.location.pathname +
+              '?' +
+              getSerializedState(),
           );
         }}
       >

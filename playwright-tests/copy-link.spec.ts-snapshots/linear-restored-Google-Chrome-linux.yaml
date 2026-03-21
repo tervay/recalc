@@ -1,0 +1,75 @@
+- heading "Linear Motion Calculator" [level=1]
+- button "Copy Link"
+- heading "Motor & Gearing" [level=2]
+- switch "Cascade" [checked]
+- text: Cascade Motor
+- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Target Time to Goal Stator Limit Supply Limit Stator Voltage Supply Voltage Maximum Comfortable Stator Limit Maximum Comfortable Supply Limit": "1"
+- combobox: NEO
+- button "Efficiency %"
+- spinbutton: "90"
+- text: Ratio
+- spinbutton: "5"
+- combobox: Reduction
+- button "Spool Diameter"
+- spinbutton: "2"
+- combobox: in
+- heading "Load & Travel" [level=2]
+- text: Load
+- spinbutton: "10"
+- combobox: lbs
+- text: Angle
+- spinbutton: "45"
+- combobox: deg
+- button "Travel Distance"
+- spinbutton: "48"
+- combobox: in
+- button "Battery Resistance"
+- spinbutton: "0.03"
+- combobox: Ohm
+- button "Target Time to Goal"
+- spinbutton: "0.75"
+- combobox: s
+- heading "Limits" [level=2]
+- button "Stator Limit"
+- spinbutton: "50"
+- combobox: A
+- button "Supply Limit"
+- spinbutton: "70"
+- combobox: A
+- button "Stator Voltage"
+- spinbutton: "11"
+- combobox: V
+- button "Supply Voltage"
+- spinbutton: "12.6"
+- combobox: V
+- button "Maximum Comfortable Stator Limit"
+- spinbutton: "80"
+- combobox: A
+- button "Maximum Comfortable Supply Limit"
+- spinbutton: "70"
+- combobox: A
+- text: Time to Goal 0.490
+- combobox: s
+- text: Stall Load 37.292
+- combobox: lbs
+- heading "Simulation" [level=2]
+- list:
+  - listitem:
+    - img "Position (m) legend icon"
+    - text: Position (m)
+  - listitem:
+    - img "Stator Current (A) legend icon"
+    - text: Stator Current (A)
+  - listitem:
+    - img "Supply Current (A) legend icon"
+    - text: Supply Current (A)
+  - listitem:
+    - img "Velocity (m/s) legend icon"
+    - text: Velocity (m/s)
+- application: 0.02409999999999991 0.1790999999999966 0.3290999999999801 0.49009999999996234 Time (s) 0 15 30 45 60 Velocity (m/s) / Current (A) 0 0.35 0.7 1.05 1.4 Position (m)
+- text: kV 3.819
+- combobox: V*s/m
+- text: kA 0.316
+- combobox: V*s^2/m
+- text: kG 2.275
+- combobox: V

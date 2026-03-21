@@ -34,7 +34,6 @@ import {
   MotorParam,
   NumberParam,
   RatioParam,
-  withDefault,
 } from '~/lib/types/queryParams';
 
 export function meta() {
@@ -45,40 +44,35 @@ export function meta() {
 }
 
 const DEFAULT_PARAMS = {
-  motor: withDefault(MotorParam, Motor.KrakenX60sFOC(2)),
-  ratio: withDefault(RatioParam, new Ratio(1, RatioType.REDUCTION)),
-  statorLimit: withDefault(MeasurementParam, new Measurement(30, 'A')),
-  supplyLimit: withDefault(MeasurementParam, new Measurement(90, 'A')),
-  supplyVoltage: withDefault(MeasurementParam, new Measurement(12.6, 'V')),
-  batteryResistance: withDefault(
-    MeasurementParam,
+  motor: MotorParam.withDefault(Motor.KrakenX60sFOC(2)),
+  ratio: RatioParam.withDefault(new Ratio(1, RatioType.REDUCTION)),
+  statorLimit: MeasurementParam.withDefault(new Measurement(30, 'A')),
+  supplyLimit: MeasurementParam.withDefault(new Measurement(90, 'A')),
+  supplyVoltage: MeasurementParam.withDefault(new Measurement(12.6, 'V')),
+  batteryResistance: MeasurementParam.withDefault(
     new Measurement(0.015, 'Ohm'),
   ),
-  shooterDiameter: withDefault(MeasurementParam, new Measurement(6, 'in')),
-  shooterWeight: withDefault(MeasurementParam, new Measurement(1, 'lb')),
-  shooterTargetSpeed: withDefault(
-    MeasurementParam,
+  shooterDiameter: MeasurementParam.withDefault(new Measurement(6, 'in')),
+  shooterWeight: MeasurementParam.withDefault(new Measurement(1, 'lb')),
+  shooterTargetSpeed: MeasurementParam.withDefault(
     new Measurement(3000, 'rpm'),
   ),
-  customShooterMoi: withDefault(
-    MeasurementParam,
+  customShooterMoi: MeasurementParam.withDefault(
     new Measurement(4.5, 'in2*lbs'),
   ),
-  useCustomShooterMoi: withDefault(BooleanParam, false),
-  flywheelDiameter: withDefault(MeasurementParam, new Measurement(4, 'in')),
-  flywheelWeight: withDefault(MeasurementParam, new Measurement(1.5, 'lb')),
-  customFlywheelMoi: withDefault(
-    MeasurementParam,
+  useCustomShooterMoi: BooleanParam.withDefault(false),
+  flywheelDiameter: MeasurementParam.withDefault(new Measurement(4, 'in')),
+  flywheelWeight: MeasurementParam.withDefault(new Measurement(1.5, 'lb')),
+  customFlywheelMoi: MeasurementParam.withDefault(
     new Measurement(3, 'in2*lbs'),
   ),
-  useCustomFlywheelMoi: withDefault(BooleanParam, false),
-  flywheelToShooterRatio: withDefault(
-    RatioParam,
+  useCustomFlywheelMoi: BooleanParam.withDefault(false),
+  flywheelToShooterRatio: RatioParam.withDefault(
     new Ratio(1, RatioType.REDUCTION),
   ),
-  projectileDiameter: withDefault(MeasurementParam, new Measurement(4, 'in')),
-  projectileWeight: withDefault(MeasurementParam, new Measurement(0.5, 'lb')),
-  efficiency: withDefault(NumberParam, 100),
+  projectileDiameter: MeasurementParam.withDefault(new Measurement(4, 'in')),
+  projectileWeight: MeasurementParam.withDefault(new Measurement(0.5, 'lb')),
+  efficiency: NumberParam.withDefault(100),
 };
 
 const worker = new ComlinkWorker<typeof FlywheelWorker>(
@@ -91,27 +85,7 @@ const worker = new ComlinkWorker<typeof FlywheelWorker>(
 type WpilibFlywheelSimState = FlywheelWorker.WpilibFlywheelSimState;
 
 export default function Flywheel() {
-  const queryParams = useQueryParams<{
-    motor: Motor;
-    ratio: Ratio;
-    statorLimit: Measurement;
-    supplyLimit: Measurement;
-    supplyVoltage: Measurement;
-    batteryResistance: Measurement;
-    shooterDiameter: Measurement;
-    shooterWeight: Measurement;
-    shooterTargetSpeed: Measurement;
-    customShooterMoi: Measurement;
-    useCustomShooterMoi: boolean;
-    flywheelDiameter: Measurement;
-    flywheelWeight: Measurement;
-    customFlywheelMoi: Measurement;
-    useCustomFlywheelMoi: boolean;
-    flywheelToShooterRatio: Ratio;
-    projectileDiameter: Measurement;
-    projectileWeight: Measurement;
-    efficiency: number;
-  }>(DEFAULT_PARAMS);
+  const queryParams = useQueryParams(DEFAULT_PARAMS);
 
   const [motor, setMotor] = useState(queryParams.motor);
   const [ratio, setRatio] = useState(queryParams.ratio);

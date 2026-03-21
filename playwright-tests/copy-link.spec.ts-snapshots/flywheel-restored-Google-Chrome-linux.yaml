@@ -1,0 +1,65 @@
+- heading "Flywheel Calculator" [level=1]
+- button "Copy Link"
+- text: Motors & Electrical Motor
+- spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Weight Shooter Target Speed Max Achievable RPM Custom Shooter MOI Flywheel Diameter Flywheel Weight Flywheel to Shooter Ratio Custom Flywheel MOI Spinup Time Effective MOI kV kA": "2"
+- combobox: NEO
+- text: Ratio
+- spinbutton: "2"
+- combobox: Reduction
+- text: Stator Limit
+- spinbutton: "50"
+- combobox: A
+- text: Supply Limit
+- spinbutton: "70"
+- combobox: A
+- text: Supply Voltage
+- spinbutton: "12.6"
+- combobox: V
+- text: Battery Resistance
+- spinbutton: "0.03"
+- combobox: Ohm
+- text: Efficiency (%)
+- spinbutton: "85"
+- text: Shooter Wheel Properties Shooter Diameter
+- spinbutton: "4"
+- combobox: in
+- text: Shooter Weight
+- spinbutton: "0.8"
+- combobox: lbs
+- text: Shooter Target Speed
+- spinbutton: "2000"
+- combobox: rpm
+- text: Max Achievable RPM
+- spinbutton [disabled]: "2953"
+- combobox: rpm
+- text: Custom Shooter MOI
+- spinbutton: "3"
+- combobox: in2*lbs
+- switch "Use Custom Shooter MOI" [checked]
+- text: Use Custom Shooter MOI Flywheel Properties Flywheel Diameter
+- spinbutton: "3"
+- combobox: in
+- text: Flywheel Weight
+- spinbutton: "1"
+- combobox: lbs
+- text: Flywheel to Shooter Ratio
+- spinbutton: "2"
+- combobox: Reduction
+- text: Custom Flywheel MOI
+- spinbutton: "2"
+- combobox: in2*lbs
+- switch "Use Custom Flywheel MOI" [checked]
+- text: Use Custom Flywheel MOI Outputs Spinup Time
+- spinbutton [disabled]: "0.030"
+- combobox: s
+- text: Effective MOI
+- spinbutton [disabled]: "1.750"
+- combobox: in2*lbs
+- text: kV
+- spinbutton [disabled]: "0.764"
+- combobox: V*s/m
+- text: kA
+- spinbutton [disabled]: "0.038"
+- combobox: V*s^2/m
+- application: 0.001 0.011 0.021 0.03 0 25 50 75 100 0 550 1100 1650 2200
+- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

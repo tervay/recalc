@@ -9,7 +9,7 @@ import NumberInput from '~/components/recalc/io/number';
 import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { calculateSpacing } from '~/lib/math/gears';
-import { NumberParam, withDefault } from '~/lib/types/queryParams';
+import { NumberParam } from '~/lib/types/queryParams';
 
 export function meta() {
   return [
@@ -19,17 +19,13 @@ export function meta() {
 }
 
 const DEFAULT_PARAMS = {
-  gear1Teeth: withDefault(NumberParam, 16),
-  gear2Teeth: withDefault(NumberParam, 36),
-  gearDP: withDefault(NumberParam, 20),
+  gear1Teeth: NumberParam.withDefault(16),
+  gear2Teeth: NumberParam.withDefault(36),
+  gearDP: NumberParam.withDefault(20),
 };
 
 export default function Gears() {
-  const queryParams = useQueryParams<{
-    gear1Teeth: number;
-    gear2Teeth: number;
-    gearDP: number;
-  }>(DEFAULT_PARAMS);
+  const queryParams = useQueryParams(DEFAULT_PARAMS);
 
   const [gear1Teeth, setGear1Teeth] = useState(queryParams.gear1Teeth);
   const [gear2Teeth, setGear2Teeth] = useState(queryParams.gear2Teeth);

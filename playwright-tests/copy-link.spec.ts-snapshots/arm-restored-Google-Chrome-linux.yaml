@@ -1,0 +1,52 @@
+- heading "Arm Calculator" [level=1]
+- button "Copy Link"
+- text: Motor
+- spinbutton "Motor Ratio Arm Length Load Min Angle Max Angle Stator Limit Supply Limit Stator Voltage Supply Voltage Stator Power Limit Supply Power Limit Battery Resistance Time to Goal (Up) Time to Goal (Down)": "1"
+- combobox: NEO
+- text: Ratio
+- spinbutton: "200"
+- combobox: Reduction
+- button "Arm Length"
+- spinbutton: "12"
+- combobox: in
+- button "Load"
+- spinbutton: "8"
+- combobox: lbs
+- button "Min Angle"
+- spinbutton: "10"
+- combobox: deg
+- button "Max Angle"
+- spinbutton: "80"
+- combobox: deg
+- button "Stator Limit"
+- spinbutton: "50"
+- combobox: A
+- button "Supply Limit"
+- spinbutton: "70"
+- combobox: A
+- button "Stator Voltage"
+- spinbutton: "11"
+- combobox: V
+- button "Supply Voltage"
+- spinbutton: "12.6"
+- combobox: V
+- text: Stator Power Limit
+- spinbutton [disabled]: "550"
+- combobox: W
+- text: Supply Power Limit
+- spinbutton [disabled]: "882"
+- combobox: W
+- button "Efficiency"
+- spinbutton: "90"
+- button "Battery Resistance"
+- spinbutton: "0.03"
+- combobox: Ohm
+- text: Time to Goal (Up)
+- spinbutton [disabled]: "0.382"
+- combobox: s
+- text: Time to Goal (Down)
+- spinbutton [disabled]: "0.373"
+- combobox: s
+- application: 0.001 0.031 0.061 0.091 0.121 0.151 0.181 0.211 0.241 0.271 0.301 0.331 0.361 0.382 0 7 14 21 28 0 8 16 24 32
+- application: 0.021 0.051 0.081 0.111 0.141 0.171 0.201 0.231 0.261 0.291 0.321 0.351 0.373 -8 0 8 16 24 -32 -24 -16 -8 0
+- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

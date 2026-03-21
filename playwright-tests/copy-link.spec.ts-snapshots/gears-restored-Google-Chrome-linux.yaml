@@ -1,0 +1,71 @@
+- heading "Gears Calculator" [level=1]
+- button "Copy Link"
+- text: Gear 1 Teeth
+- spinbutton: "40"
+- text: Gear 2 Teeth
+- spinbutton: "60"
+- text: Gear DP
+- spinbutton: "32"
+- text: Center Distance
+- spinbutton "Center Distance" [disabled]: "1.563"
+- combobox: in
+- alert:
+  - text: Warning!
+  - paragraph: Many smaller gears have a different pitch diameter / center distance than the teeth they actually have. This calculator does not account for this!
+  - paragraph:
+    - text: For example,
+    - link "WCP-1720":
+      - /url: https://wcproducts.com/products/wcp-1720
+    - text: has 16t but an 18t center distance. For this calculator, you would use it as an 18t gear.
+- table:
+  - rowgroup:
+    - row "Matching COTS Gears":
+      - columnheader "Matching COTS Gears"
+    - row "SKU Teeth Bore":
+      - columnheader "SKU"
+      - columnheader "Teeth"
+      - columnheader "Bore"
+  - rowgroup:
+    - row "AndyMark - am-4332 40 1/2\" Hex":
+      - cell "AndyMark - am-4332":
+        - link "AndyMark - am-4332":
+          - /url: https://www.andymark.com/products/standard-32-dp-gears
+      - cell "40"
+      - cell "1/2\" Hex"
+    - row "AndyMark - am-4328 40 3/8\" Hex":
+      - cell "AndyMark - am-4328":
+        - link "AndyMark - am-4328":
+          - /url: https://www.andymark.com/products/standard-32-dp-gears
+      - cell "40"
+      - cell "3/8\" Hex"
+    - row "WCP - WCP-0746 40 3/8\" Hex":
+      - cell "WCP - WCP-0746":
+        - link "WCP - WCP-0746":
+          - /url: https://wcproducts.com/products/wcp-0746
+      - cell "40"
+      - cell "3/8\" Hex"
+    - row "AndyMark - am-4334 60 1/2\" Hex":
+      - cell "AndyMark - am-4334":
+        - link "AndyMark - am-4334":
+          - /url: https://www.andymark.com/products/standard-32-dp-gears
+      - cell "60"
+      - cell "1/2\" Hex"
+    - row "AndyMark - am-3483 60 1/4\" Round":
+      - cell "AndyMark - am-3483":
+        - link "AndyMark - am-3483":
+          - /url: https://www.andymark.com/products/60-tooth-32-dp-0-250-in-round-bore-steel-gear-for-evo-encoder
+      - cell "60"
+      - cell "1/4\" Round"
+    - row "AndyMark - am-0927 60 3/8\" Hex":
+      - cell "AndyMark - am-0927":
+        - link "AndyMark - am-0927":
+          - /url: https://www.andymark.com/products/60-tooth-32-dp-0-375-in-hex-bore-steel-gear
+      - cell "60"
+      - cell "3/8\" Hex"
+    - row "WCP - WCP-0747 60 3/8\" Hex":
+      - cell "WCP - WCP-0747":
+        - link "WCP - WCP-0747":
+          - /url: https://wcproducts.com/products/wcp-0747
+      - cell "60"
+      - cell "3/8\" Hex"
+- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
