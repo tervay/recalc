@@ -19,7 +19,9 @@
 - text: Pitch Diameter
 - spinbutton [disabled]: "4.775"
 - combobox: in
-- text: Smaller Chain Suggested Chain Links
+- text: Smaller Chain
+- img
+- text: Suggested Chain Links
 - spinbutton [disabled]: "73"
 - text: Center Distance
 - spinbutton [disabled]: "7.973"
@@ -86,4 +88,6 @@
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
       - cell "40"
       - cell "MAXSpline"
-- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
+- alert:
+  - img
+  - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

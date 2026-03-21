@@ -41,7 +41,6 @@ test.describe('Copy Link', () => {
 
     await page.goto(url);
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(750);
 
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       { name: 'belts-restored.yaml' },
@@ -66,7 +65,6 @@ test.describe('Copy Link', () => {
 
     await page.goto(url);
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(750);
 
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       { name: 'chains-restored.yaml' },
@@ -97,7 +95,12 @@ test.describe('Copy Link', () => {
 
     await page.goto(url);
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(1250);
+    await page.waitForTimeout(100);
+    await expect(page.getByTestId('arm-page')).toHaveAttribute(
+      'data-calculating',
+      'false',
+      { timeout: 30000 },
+    );
 
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       { name: 'arm-restored.yaml' },
@@ -135,7 +138,12 @@ test.describe('Copy Link', () => {
 
     await page.goto(url);
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(1250);
+    await page.waitForTimeout(100);
+    await expect(page.getByTestId('flywheel-page')).toHaveAttribute(
+      'data-calculating',
+      'false',
+      { timeout: 30000 },
+    );
 
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       { name: 'flywheel-restored.yaml' },
@@ -160,7 +168,6 @@ test.describe('Copy Link', () => {
 
     await page.goto(url);
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(1250);
 
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       { name: 'intake-restored.yaml' },
@@ -195,7 +202,12 @@ test.describe('Copy Link', () => {
 
     await page.goto(url);
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(4500);
+    await page.waitForTimeout(100);
+    await expect(page.getByTestId('linear-main')).toHaveAttribute(
+      'data-calculating',
+      'false',
+      { timeout: 30000 },
+    );
 
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
@@ -229,7 +241,12 @@ test.describe('Copy Link', () => {
       '/ratio-finder?minGearTeeth=10&maxGearTeeth=60&minPulleyTeeth=10&maxPulleyTeeth=50&minSprocketTeeth=10&maxSprocketTeeth=60&enable32DP=true&enableGT2=true&targetReductionErrorThreshold=0.1',
     );
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(100);
+    await expect(page.getByTestId('ratio-finder-page')).toHaveAttribute(
+      'data-calculating',
+      'false',
+      { timeout: 30000 },
+    );
     await page.getByRole('button', { name: 'Copy Link' }).click();
 
     const url = await page.evaluate(() => navigator.clipboard.readText());
@@ -246,7 +263,12 @@ test.describe('Copy Link', () => {
 
     await page.goto(url);
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(100);
+    await expect(page.getByTestId('ratio-finder-page')).toHaveAttribute(
+      'data-calculating',
+      'false',
+      { timeout: 30000 },
+    );
 
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       { name: 'ratio-finder-restored.yaml' },

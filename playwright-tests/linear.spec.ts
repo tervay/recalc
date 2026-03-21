@@ -1,6 +1,13 @@
-import { expect, test } from '@playwright/test';
+import { type Page, expect, test } from '@playwright/test';
 
-const CHART_DELAY_MS = 4500;
+async function waitForCalc(page: Page) {
+  await page.waitForTimeout(100);
+  await expect(page.getByTestId('linear-main')).toHaveAttribute(
+    'data-calculating',
+    'false',
+    { timeout: 30000 },
+  );
+}
 
 test.describe('Linear Mechanism Calculator', () => {
   test.beforeEach(async ({ page }) => {
@@ -12,7 +19,7 @@ test.describe('Linear Mechanism Calculator', () => {
     page,
   }) => {
     await page.getByTestId('motor').fill('2');
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -23,7 +30,7 @@ test.describe('Linear Mechanism Calculator', () => {
   test('should match snapshot with motor unit changed', async ({ page }) => {
     await page.getByTestId('selectmotor').click();
     await page.getByRole('option', { name: 'NEO', exact: true }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -35,7 +42,7 @@ test.describe('Linear Mechanism Calculator', () => {
     page,
   }) => {
     await page.getByTestId('ratio').fill('5');
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -46,7 +53,7 @@ test.describe('Linear Mechanism Calculator', () => {
   test('should match snapshot with ratio unit changed', async ({ page }) => {
     await page.getByTestId('selectratio').click();
     await page.getByRole('option', { name: 'Step-up' }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -58,7 +65,7 @@ test.describe('Linear Mechanism Calculator', () => {
     page,
   }) => {
     await page.getByTestId('travelDistance').fill('10');
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -71,7 +78,7 @@ test.describe('Linear Mechanism Calculator', () => {
   }) => {
     await page.getByTestId('selecttravelDistance').click();
     await page.getByRole('option', { name: 'ft' }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -83,7 +90,7 @@ test.describe('Linear Mechanism Calculator', () => {
     page,
   }) => {
     await page.getByTestId('spoolDiameter').fill('2');
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -96,7 +103,7 @@ test.describe('Linear Mechanism Calculator', () => {
   }) => {
     await page.getByTestId('selectspoolDiameter').click();
     await page.getByRole('option', { name: 'cm' }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -108,7 +115,7 @@ test.describe('Linear Mechanism Calculator', () => {
     page,
   }) => {
     await page.getByTestId('load').fill('50');
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -119,7 +126,7 @@ test.describe('Linear Mechanism Calculator', () => {
   test('should match snapshot with load unit changed', async ({ page }) => {
     await page.getByTestId('selectload').click();
     await page.getByRole('option', { name: 'kg' }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -131,7 +138,7 @@ test.describe('Linear Mechanism Calculator', () => {
     page,
   }) => {
     await page.getByTestId('statorLimit').fill('80');
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -144,7 +151,7 @@ test.describe('Linear Mechanism Calculator', () => {
   }) => {
     await page.getByTestId('selectstatorLimit').click();
     await page.getByRole('option', { name: 'A' }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -156,7 +163,7 @@ test.describe('Linear Mechanism Calculator', () => {
     page,
   }) => {
     await page.getByTestId('supplyLimit').fill('30');
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -169,7 +176,7 @@ test.describe('Linear Mechanism Calculator', () => {
   }) => {
     await page.getByTestId('selectsupplyLimit').click();
     await page.getByRole('option', { name: 'A' }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -181,7 +188,7 @@ test.describe('Linear Mechanism Calculator', () => {
     page,
   }) => {
     await page.getByTestId('supplyVoltage').fill('10');
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -194,7 +201,7 @@ test.describe('Linear Mechanism Calculator', () => {
   }) => {
     await page.getByTestId('selectsupplyVoltage').click();
     await page.getByRole('option', { name: 'V' }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -206,7 +213,7 @@ test.describe('Linear Mechanism Calculator', () => {
     page,
   }) => {
     await page.getByTestId('statorVoltage').fill('10');
-    await page.waitForTimeout(CHART_DELAY_MS * 2);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -219,7 +226,7 @@ test.describe('Linear Mechanism Calculator', () => {
   }) => {
     await page.getByTestId('selectstatorVoltage').click();
     await page.getByRole('option', { name: 'V' }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -231,7 +238,7 @@ test.describe('Linear Mechanism Calculator', () => {
     page,
   }) => {
     await page.getByTestId('angle').fill('45');
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -242,7 +249,7 @@ test.describe('Linear Mechanism Calculator', () => {
   test('should match snapshot with angle unit changed', async ({ page }) => {
     await page.getByTestId('selectangle').click();
     await page.getByRole('option', { name: 'rad' }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -254,7 +261,7 @@ test.describe('Linear Mechanism Calculator', () => {
     page,
   }) => {
     await page.getByTestId('batteryResistance').fill('0.025');
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -267,7 +274,7 @@ test.describe('Linear Mechanism Calculator', () => {
   }) => {
     await page.getByTestId('selectbatteryResistance').click();
     await page.getByRole('option', { name: 'Ohm' }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -277,7 +284,7 @@ test.describe('Linear Mechanism Calculator', () => {
 
   test('should match snapshot with efficiency changed', async ({ page }) => {
     await page.getByTestId('efficiency').fill('90');
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -287,7 +294,7 @@ test.describe('Linear Mechanism Calculator', () => {
 
   test('should match snapshot with cascade toggled', async ({ page }) => {
     await page.getByTestId('cascade').click();
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -298,7 +305,7 @@ test.describe('Linear Mechanism Calculator', () => {
   test('should match snapshot with kV unit changed', async ({ page }) => {
     await page.getByTestId('selectkV').click();
     await page.getByRole('option', { name: 'V*s/in' }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -309,7 +316,7 @@ test.describe('Linear Mechanism Calculator', () => {
   test('should match snapshot with kA unit changed', async ({ page }) => {
     await page.getByTestId('selectkA').click();
     await page.getByRole('option', { name: 'V*s^2/in' }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -320,7 +327,7 @@ test.describe('Linear Mechanism Calculator', () => {
   test('should match snapshot with kG unit changed', async ({ page }) => {
     await page.getByTestId('selectkG').click();
     await page.getByRole('option', { name: 'V' }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -333,7 +340,7 @@ test.describe('Linear Mechanism Calculator', () => {
   }) => {
     await page.getByTestId('selectstallLoad').click();
     await page.getByRole('option', { name: 'kg' }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({
@@ -346,7 +353,7 @@ test.describe('Linear Mechanism Calculator', () => {
   }) => {
     await page.getByTestId('selecttimeToGoal').click();
     await page.getByRole('option', { name: 'min' }).click();
-    await page.waitForTimeout(CHART_DELAY_MS);
+    await waitForCalc(page);
     expect(
       await page.getByTestId('linear-main').ariaSnapshot(),
     ).toMatchSnapshot({

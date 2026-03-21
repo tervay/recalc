@@ -1,7 +1,7 @@
 import { type VariantProps, cva } from 'class-variance-authority';
-import { PanelLeftIcon } from 'lucide-react';
 import { Slot as SlotPrimitive } from 'radix-ui';
 import * as React from 'react';
+import PanelLeftIcon from '~icons/lucide/panel-left';
 
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';

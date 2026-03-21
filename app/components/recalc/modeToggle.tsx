@@ -1,4 +1,5 @@
-import { Moon, Sun } from 'lucide-react';
+import Moon from '~icons/lucide/moon';
+import Sun from '~icons/lucide/sun';
 
 import { useTheme } from '~/components/recalc/themeProvider';
 import { Button } from '~/components/ui/button';

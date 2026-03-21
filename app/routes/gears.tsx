@@ -1,5 +1,5 @@
-import { AlertCircleIcon } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import AlertCircleIcon from '~icons/lucide/alert-circle';
 
 import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';

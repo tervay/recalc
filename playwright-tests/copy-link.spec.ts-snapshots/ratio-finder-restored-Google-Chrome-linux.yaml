@@ -19,41 +19,57 @@
 - spinbutton: "60"
 - text: Filters
 - heading "Gears" [level=3]
-- checkbox "20DP" [checked]
+- checkbox "20DP" [checked]:
+  - img
 - text: 20DP
-- checkbox "32DP" [checked]
+- checkbox "32DP" [checked]:
+  - img
 - text: 32DP
 - heading "Pulleys" [level=3]
-- checkbox "GT2" [checked]
+- checkbox "GT2" [checked]:
+  - img
 - text: GT2
-- checkbox "HTD" [checked]
+- checkbox "HTD" [checked]:
+  - img
 - text: HTD
-- checkbox "RT25" [checked]
+- checkbox "RT25" [checked]:
+  - img
 - text: RT25
 - heading "Sprockets" [level=3]
-- checkbox "#25" [checked]
+- checkbox "#25" [checked]:
+  - img
 - text: "#25"
-- checkbox "#35" [checked]
+- checkbox "#35" [checked]:
+  - img
 - text: "#35"
 - heading "Vendors" [level=3]
-- checkbox "AndyMark" [checked]
+- checkbox "AndyMark" [checked]:
+  - img
 - text: AndyMark
-- checkbox "LastAnvil" [checked]
+- checkbox "LastAnvil" [checked]:
+  - img
 - text: LastAnvil
-- checkbox "SDS" [checked]
+- checkbox "SDS" [checked]:
+  - img
 - text: SDS
-- checkbox "REV" [checked]
+- checkbox "REV" [checked]:
+  - img
 - text: REV
-- checkbox "Thrifty" [checked]
+- checkbox "Thrifty" [checked]:
+  - img
 - text: Thrifty
-- checkbox "WCP" [checked]
+- checkbox "WCP" [checked]:
+  - img
 - text: WCP
 - heading "Bores" [level=3]
-- checkbox "1/2\" Hex" [checked]
+- checkbox "1/2\" Hex" [checked]:
+  - img
 - text: 1/2" Hex
-- checkbox "MAXSpline" [checked]
+- checkbox "MAXSpline" [checked]:
+  - img
 - text: MAXSpline
-- checkbox "SplineXL" [checked]
+- checkbox "SplineXL" [checked]:
+  - img
 - text: SplineXL
 - checkbox "3/8\" Hex"
 - text: 3/8" Hex
@@ -64,7 +80,8 @@
 - checkbox "1/4\" Round"
 - text: 1/4" Round
 - heading "Other" [level=3]
-- checkbox "Planetaries" [checked]
+- checkbox "Planetaries" [checked]:
+  - img
 - text: Planetaries
 - checkbox "Custom Gears"
 - text: Custom Gears
@@ -3111,4 +3128,6 @@
           - /url: https://wcproducts.com/products/wcp-0558
         - 'link "WCP-0578 - #25 Sprocket (1/2\" Hex)"':
           - /url: https://wcproducts.com/products/wcp-0578
-- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
+- alert:
+  - img
+  - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

@@ -1,5 +1,5 @@
-import { CheckIcon } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import CheckIcon from '~icons/lucide/check';
 
 import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';

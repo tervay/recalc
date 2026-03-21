@@ -1,11 +1,9 @@
-import {
-  BarChart3,
-  Cookie,
-  ExternalLink,
-  FileText,
-  Mail,
-  Shield,
-} from 'lucide-react';
+import BarChart3 from '~icons/lucide/bar-chart-3';
+import Cookie from '~icons/lucide/cookie';
+import ExternalLink from '~icons/lucide/external-link';
+import FileText from '~icons/lucide/file-text';
+import Mail from '~icons/lucide/mail';
+import Shield from '~icons/lucide/shield';
 
 import type { Route } from '.react-router/types/app/routes/+types/privacy';
 

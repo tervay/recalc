@@ -1,6 +1,6 @@
-import { XIcon } from 'lucide-react';
 import { Dialog as SheetPrimitive } from 'radix-ui';
 import * as React from 'react';
+import XIcon from '~icons/lucide/x';
 
 import { cn } from '~/lib/utils';
 

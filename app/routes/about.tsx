@@ -1,6 +1,9 @@
-import { AlertCircle, Code, ExternalLink, Shield } from 'lucide-react';
 import { Link } from 'react-router';
 import LineMdHeartFilled from '~icons/line-md/heart-filled';
+import AlertCircle from '~icons/lucide/alert-circle';
+import Code from '~icons/lucide/code';
+import ExternalLink from '~icons/lucide/external-link';
+import Shield from '~icons/lucide/shield';
 import MaterialSymbolsInfoOutlineRounded from '~icons/material-symbols/info-outline-rounded';
 
 import type { Route } from '.react-router/types/app/routes/+types/about';

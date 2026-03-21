@@ -1,4 +1,3 @@
-import { Bookmark, Calculator, ExternalLink, Info } from 'lucide-react';
 import { type ReactNode } from 'react';
 import ArcticonsFolderUtility from '~icons/arcticons/folder-utility';
 import CarbonTimingBelt from '~icons/carbon/timing-belt';
@@ -7,6 +6,10 @@ import Fa7SolidGears from '~icons/fa7-solid/gears';
 import FluentDriveTrain24Regular from '~icons/fluent/drive-train-24-regular';
 import FluentElevator32Regular from '~icons/fluent/elevator-32-regular';
 import FluentRatioOneToOne24Regular from '~icons/fluent/ratio-one-to-one-24-regular';
+import Bookmark from '~icons/lucide/bookmark';
+import Calculator from '~icons/lucide/calculator';
+import ExternalLink from '~icons/lucide/external-link';
+import Info from '~icons/lucide/info';
 import MaterialSymbolsElectricBoltRounded from '~icons/material-symbols/electric-bolt-rounded';
 import MaterialSymbolsSearchRounded from '~icons/material-symbols/search-rounded';
 import MdiAbout from '~icons/mdi/about';
