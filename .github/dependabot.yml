@@ -9,10 +9,9 @@ updates:
     groups:
       icons:
         patterns:
-          - '@iconify/json'
+          - '@iconify-json/*'
           - '@svgr/*'
           - 'unplugin-icons'
-          - 'lucide-react'
       math:
         patterns:
           - 'js-quantities'
@@ -36,13 +35,10 @@ updates:
           - '@react-router/*'
           - '@vercel/react-router'
           - 'react-router'
-      shadcn:
-        patterns:
-          - 'shadcn'
-          - 'class-variance-authority'
-          - 'clsx'
       tailwind:
         patterns:
+          - 'class-variance-authority'
+          - 'clsx'
           - 'tailwindcss'
           - '@tailwindcss/*'
           - 'tailwind-merge'

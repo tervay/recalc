@@ -436,7 +436,7 @@ export default function Linear() {
 
   return (
     <div>
-      <div data-testid="linear-main">
+      <div data-testid="linear-main" data-calculating={String(isSimulating)}>
         <CalcHeading
           title="Linear Motion Calculator"
           getSerializedState={() => serializedState}

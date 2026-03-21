@@ -19,7 +19,9 @@
 - text: Pitch Diameter
 - spinbutton [disabled]: "2.865"
 - combobox: in
-- text: Smaller Chain Suggested Chain Links
+- text: Smaller Chain
+- img
+- text: Suggested Chain Links
 - spinbutton [disabled]: "106"
 - text: Center Distance
 - spinbutton [disabled]: "9.968"
@@ -134,4 +136,6 @@
           - /url: https://wcproducts.com/products/wcp-0966
       - cell "36"
       - cell "SplineXL"
-- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
+- alert:
+  - img
+  - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

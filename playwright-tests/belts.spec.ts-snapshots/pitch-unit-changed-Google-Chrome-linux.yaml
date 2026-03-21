@@ -26,7 +26,9 @@
 - text: Pitch Diameter
 - spinbutton [disabled]: "38.197"
 - combobox: in
-- text: Smaller Belt Suggested Belt Teeth
+- text: Smaller Belt
+- img
+- text: Suggested Belt Teeth
 - spinbutton [disabled]: "20"
 - text: Center Distance
 - spinbutton [disabled]: "0.000"
@@ -77,4 +79,6 @@
   - rowgroup:
     - row "No matching belts found":
       - cell "No matching belts found"
-- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
+- alert:
+  - img
+  - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

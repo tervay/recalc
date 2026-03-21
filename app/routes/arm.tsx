@@ -111,6 +111,7 @@ export default function Arm() {
   const [goingDownStates, setGoingDownStates] = useState<WpilibArmSimState[]>(
     [],
   );
+  const [isCalculating, setIsCalculating] = useState(false);
 
   const goingUpTimeToGoal = useMemo(() => {
     return new Measurement(
@@ -137,6 +138,12 @@ export default function Arm() {
   useEffect(() => {
     setGoingUpStates([]);
     setGoingDownStates([]);
+    setIsCalculating(true);
+    let cancelled = false;
+    let pending = 2;
+    const done = () => {
+      if (!cancelled && --pending === 0) setIsCalculating(false);
+    };
 
     worker
       .simulateArmWpilib(
@@ -156,10 +163,12 @@ export default function Arm() {
         'up',
       )
       .then((states) => {
-        setGoingUpStates(states);
+        if (!cancelled) setGoingUpStates(states);
+        done();
       })
       .catch((error) => {
         console.error(error);
+        done();
       });
 
     worker
@@ -180,11 +189,17 @@ export default function Arm() {
         'down',
       )
       .then((states) => {
-        setGoingDownStates(states);
+        if (!cancelled) setGoingDownStates(states);
+        done();
       })
       .catch((error) => {
         console.error(error);
+        done();
       });
+
+    return () => {
+      cancelled = true;
+    };
   }, [
     motor,
     ratio,
@@ -217,7 +232,7 @@ export default function Arm() {
   });
 
   return (
-    <div>
+    <div data-testid="arm-page" data-calculating={String(isCalculating)}>
       <CalcHeading
         title="Arm Calculator"
         getSerializedState={() => serializedState}

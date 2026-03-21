@@ -10,6 +10,7 @@
 - spinbutton "Center Distance" [disabled]: "1.563"
 - combobox: in
 - alert:
+  - img
   - text: Warning!
   - paragraph: Many smaller gears have a different pitch diameter / center distance than the teeth they actually have. This calculator does not account for this!
   - paragraph:
@@ -68,4 +69,6 @@
           - /url: https://wcproducts.com/products/wcp-0747
       - cell "60"
       - cell "3/8\" Hex"
-- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
+- alert:
+  - img
+  - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

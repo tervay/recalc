@@ -1,5 +1,5 @@
-import { Trash2 } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import Trash2 from '~icons/lucide/trash-2';
 
 import CalcHeading from '~/components/recalc/calcHeading';
 import NumberInput from '~/components/recalc/io/number';

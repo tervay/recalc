@@ -1,5 +1,5 @@
-import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router';
+import ArrowRight from '~icons/lucide/arrow-right';
 
 import { cn } from '~/lib/utils';
 

@@ -277,7 +277,7 @@ export default function RatioFinder() {
   });
 
   return (
-    <div>
+    <div data-testid="ratio-finder-page" data-calculating={String(loading)}>
       <CalcHeading
         title="Ratio Finder"
         getSerializedState={() => serializedState}

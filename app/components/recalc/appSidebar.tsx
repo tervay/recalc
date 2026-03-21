@@ -1,4 +1,3 @@
-import { Home } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
 import ArcticonsFolderUtility from '~icons/arcticons/folder-utility';
 import CarbonTimingBelt from '~icons/carbon/timing-belt';
@@ -6,6 +5,7 @@ import EmojioneMonotoneChains from '~icons/emojione-monotone/chains';
 import Fa7SolidGears from '~icons/fa7-solid/gears';
 import FluentElevator32Regular from '~icons/fluent/elevator-32-regular';
 import FluentRatioOneToOne24Regular from '~icons/fluent/ratio-one-to-one-24-regular';
+import Home from '~icons/lucide/home';
 import MaterialSymbolsElectricBoltRounded from '~icons/material-symbols/electric-bolt-rounded';
 import MaterialSymbolsSearchRounded from '~icons/material-symbols/search-rounded';
 import MdiAbout from '~icons/mdi/about';

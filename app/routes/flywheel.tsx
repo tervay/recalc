@@ -245,6 +245,7 @@ export default function Flywheel() {
   const [workerWpilibSimStates, setWorkerWpilibSimStates] = useState<
     WpilibFlywheelSimState[]
   >([]);
+  const [isCalculating, setIsCalculating] = useState(false);
 
   const spinupTime = useMemo(() => {
     return workerWpilibSimStates.length > 0
@@ -256,6 +257,8 @@ export default function Flywheel() {
   }, [workerWpilibSimStates]);
 
   useEffect(() => {
+    setIsCalculating(true);
+    let cancelled = false;
     worker
       .simulateFlywheelWpilib(
         motor.toDict(),
@@ -268,11 +271,16 @@ export default function Flywheel() {
         clampedShooterTargetSpeed.toDict(),
       )
       .then((states) => {
-        setWorkerWpilibSimStates(states);
+        if (!cancelled) setWorkerWpilibSimStates(states);
+        setIsCalculating(false);
       })
       .catch((error) => {
         console.error(error);
+        setIsCalculating(false);
       });
+    return () => {
+      cancelled = true;
+    };
   }, [
     motor,
     ratio,
@@ -306,7 +314,7 @@ export default function Flywheel() {
   });
 
   return (
-    <div>
+    <div data-testid="flywheel-page" data-calculating={String(isCalculating)}>
       <CalcHeading
         title="Flywheel Calculator"
         getSerializedState={() => serializedState}

@@ -41,7 +41,9 @@
 - text: Difference From Target
 - spinbutton [disabled]: "-0.278"
 - combobox: in
-- text: Larger Belt Suggested Belt Teeth
+- text: Larger Belt
+- img
+- text: Suggested Belt Teeth
 - spinbutton [disabled]: "105"
 - text: Center Distance
 - spinbutton [disabled]: "5.017"
@@ -190,4 +192,6 @@
           - /url: https://wcproducts.com/products/wcp-0674
       - cell "105"
       - cell "9 mm"
-- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
+- alert:
+  - img
+  - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

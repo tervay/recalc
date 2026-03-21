@@ -49,4 +49,6 @@
 - combobox: s
 - application: 0.011 0.041 0.071 0.101 0.131 0.161 0.191 0.221 0.251 0.281 0.311 0.337 0 15 30 45 60 0 15 30 45 60
 - application: 0.001 0.031 0.061 0.091 0.121 0.151 0.181 0.211 0.241 0.271 0.301 0.324 -20 0 20 40 60 -60 -45 -30 -15 0
-- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
+- alert:
+  - img
+  - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

@@ -62,4 +62,6 @@
 - spinbutton [disabled]: "1.351"
 - combobox: V*s^2/m
 - application: 0.041 0.161 0.281 0.411 0.541 0.671 0.801 0.931 1.061 1.171 1.291 1.411 1.531 1.651 1.766 0 5 10 15 20 0 800 1600 2400 3200
-- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
+- alert:
+  - img
+  - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

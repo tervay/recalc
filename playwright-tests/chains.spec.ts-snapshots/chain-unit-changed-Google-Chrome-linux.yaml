@@ -27,7 +27,9 @@
 - text: Difference From Target
 - spinbutton [disabled]: "-0.276"
 - combobox: in
-- text: Larger Chain Suggested Chain Links
+- text: Larger Chain
+- img
+- text: Suggested Chain Links
 - spinbutton [disabled]: "54"
 - text: Center Distance
 - spinbutton [disabled]: "5.111"
@@ -94,4 +96,6 @@
           - /url: https://wcproducts.com/products/wcp-0983
       - cell "36"
       - cell "SplineXL"
-- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
+- alert:
+  - img
+  - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
