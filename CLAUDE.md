@@ -14,6 +14,8 @@ Developer environment can be maintained using [Mise](https://mise.jdx.dev/). You
 
 NEVER modify generated files directly. Regenerate them using CLI tools.
 
+An assortment of skills are included with this project and can be found in `.agents/skills/`.
+
 ### 1. Plan Node Default
 
 - Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions)
