@@ -1,4 +1,4 @@
 [tools]
-cmake = "4.1.3"
-ninja = "1.13.1"
-node = "24.11.1"
+cmake = "4.3.0"
+ninja = "1.13.2"
+node = "24.14.0"

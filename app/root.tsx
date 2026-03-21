@@ -19,6 +19,7 @@ import { Warning } from '~/components/ui/warning';
 import type { Route } from '.react-router/types/app/+types/root';
 
 export const links: Route.LinksFunction = () => [
+  { rel: 'icon', type: 'image/svg+xml', href: '/logo/motor.svg' },
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
   {
     rel: 'preconnect',
