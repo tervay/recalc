@@ -82,6 +82,7 @@
     "unplugin-icons": "23.0.1",
     "vite": "8.0.1",
     "vite-plugin-comlink": "5.3.0",
+    "vite-plugin-sitemap": "0.8.2",
     "vite-plugin-top-level-await": "1.6.0",
     "vitest": "4.1.0",
     "yaml": "2.8.2",
@@ -90,5 +91,5 @@
   "engines": {
     "node": ">=24"
   },
-  "packageManager": "pnpm@10.28.1"
+  "packageManager": "pnpm@10.32.1"
 }
