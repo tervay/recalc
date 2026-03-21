@@ -29,7 +29,6 @@ import {
   MotorParam,
   NumberParam,
   RatioParam,
-  withDefault,
 } from '~/lib/types/queryParams';
 
 export function meta() {
@@ -40,21 +39,20 @@ export function meta() {
 }
 
 const DEFAULT_PARAMS = {
-  motor: withDefault(MotorParam, Motor.KrakenX60sFOC(1)),
-  ratio: withDefault(RatioParam, new Ratio(100, RatioType.REDUCTION)),
-  statorLimit: withDefault(MeasurementParam, new Measurement(60, 'A')),
-  supplyLimit: withDefault(MeasurementParam, new Measurement(90, 'A')),
-  supplyVoltage: withDefault(MeasurementParam, new Measurement(12, 'V')),
-  statorVoltage: withDefault(MeasurementParam, new Measurement(12, 'V')),
-  batteryResistance: withDefault(
-    MeasurementParam,
+  motor: MotorParam.withDefault(Motor.KrakenX60sFOC(1)),
+  ratio: RatioParam.withDefault(new Ratio(100, RatioType.REDUCTION)),
+  statorLimit: MeasurementParam.withDefault(new Measurement(60, 'A')),
+  supplyLimit: MeasurementParam.withDefault(new Measurement(90, 'A')),
+  supplyVoltage: MeasurementParam.withDefault(new Measurement(12, 'V')),
+  statorVoltage: MeasurementParam.withDefault(new Measurement(12, 'V')),
+  batteryResistance: MeasurementParam.withDefault(
     new Measurement(0.015, 'Ohm'),
   ),
-  armLength: withDefault(MeasurementParam, new Measurement(24, 'in')),
-  minAngle: withDefault(MeasurementParam, new Measurement(0, 'deg')),
-  maxAngle: withDefault(MeasurementParam, new Measurement(90, 'deg')),
-  efficiency: withDefault(NumberParam, 100),
-  load: withDefault(MeasurementParam, new Measurement(5, 'lb')),
+  armLength: MeasurementParam.withDefault(new Measurement(24, 'in')),
+  minAngle: MeasurementParam.withDefault(new Measurement(0, 'deg')),
+  maxAngle: MeasurementParam.withDefault(new Measurement(90, 'deg')),
+  efficiency: NumberParam.withDefault(100),
+  load: MeasurementParam.withDefault(new Measurement(5, 'lb')),
 };
 
 const worker = new ComlinkWorker<typeof ArmWorker>(
@@ -67,20 +65,7 @@ const worker = new ComlinkWorker<typeof ArmWorker>(
 type WpilibArmSimState = ArmWorker.WpilibArmSimState;
 
 export default function Arm() {
-  const queryParams = useQueryParams<{
-    motor: Motor;
-    ratio: Ratio;
-    statorLimit: Measurement;
-    supplyLimit: Measurement;
-    supplyVoltage: Measurement;
-    statorVoltage: Measurement;
-    batteryResistance: Measurement;
-    armLength: Measurement;
-    minAngle: Measurement;
-    maxAngle: Measurement;
-    efficiency: number;
-    load: Measurement;
-  }>(DEFAULT_PARAMS);
+  const queryParams = useQueryParams(DEFAULT_PARAMS);
 
   const [motor, setMotor] = useState(queryParams.motor);
   const [ratio, setRatio] = useState(queryParams.ratio);

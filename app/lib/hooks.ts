@@ -1,70 +1,31 @@
-import queryString from 'query-string';
+import {
+  type ParserMap,
+  type inferParserType,
+  createLoader,
+  createSerializer,
+} from 'nuqs';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router';
 
-import type {
-  DefaultAndQueryParamProvider,
-  QueryParam,
-} from '~/lib/types/queryParams';
-
-type QueryParamEncodeDecodeMapWithDefaults<
-  T extends Record<string, QueryParam<any>>,
-> = {
-  [K in keyof T]: DefaultAndQueryParamProvider<T[K]>;
-};
-
-export function useQueryParams<T extends Record<string, any>>(
-  map: QueryParamEncodeDecodeMapWithDefaults<T>,
-): T {
+export function useQueryParams<M extends ParserMap>(
+  map: M,
+): inferParserType<M> {
   const { search } = useLocation();
-  const parsed = queryString.parse(search);
-
-  for (const key in map) {
-    const value = parsed[key];
-    if (value) {
-      if (typeof value === 'string') {
-        parsed[key] = map[key].queryParam.decode(value);
-      }
-    }
-  }
-
-  const result: Record<string, any> = {};
-  for (const key in map) {
-    result[key] = parsed[key] ?? map[key].defaultValue;
-  }
-
-  return result as T;
+  const load = useMemo(() => createLoader(map), [map]);
+  return useMemo(() => load(new URLSearchParams(search)), [load, search]);
 }
 
-export function useSerializedState<T extends Record<string, any>>(
-  map: QueryParamEncodeDecodeMapWithDefaults<T>,
-  state: T,
+export function useSerializedState<M extends ParserMap>(
+  map: M,
+  state: inferParserType<M>,
 ): string {
-  return useMemo(() => {
-    const serializedObjects: Record<string, string> = {};
-
-    for (const key in map) {
-      const value = state[key];
-      if (value !== undefined && value !== null) {
-        try {
-          serializedObjects[key] = map[key].queryParam.encode(value);
-        } catch (error) {
-          // Fallback to default if encoding fails
-          console.warn(`Failed to encode ${key}:`, error);
-          serializedObjects[key] = map[key].queryParam.encode(
-            map[key].defaultValue,
-          );
-        }
-      } else {
-        // Use default value if state value is missing
-        serializedObjects[key] = map[key].queryParam.encode(
-          map[key].defaultValue,
-        );
-      }
-    }
-
-    return queryString.stringify(serializedObjects);
-  }, [map, state]);
+  const serialize = useMemo(
+    () => createSerializer(map, { clearOnDefault: false }),
+    [map],
+  );
+  const qs = serialize(state);
+  // createSerializer returns a string starting with '?'; strip it
+  return qs.startsWith('?') ? qs.slice(1) : qs;
 }
 
 export function useDebounce<T>(value: T, delay: number): T {

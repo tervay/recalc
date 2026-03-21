@@ -21,7 +21,6 @@ import {
   MeasurementParam,
   MotorParam,
   RatioParam,
-  withDefault,
 } from '~/lib/types/queryParams';
 import { cn } from '~/lib/utils';
 
@@ -33,23 +32,16 @@ export function meta() {
 }
 
 const DEFAULT_PARAMS = {
-  motor: withDefault(MotorParam, Motor.KrakenX60sFOC(1)),
-  ratio: withDefault(RatioParam, new Ratio(2, RatioType.REDUCTION)),
-  rollerDiameter: withDefault(MeasurementParam, new Measurement(2, 'in')),
-  travelDistance: withDefault(MeasurementParam, new Measurement(15, 'in')),
-  drivetrainSpeed: withDefault(MeasurementParam, new Measurement(14, 'ft/s')),
-  statorCurrentLimit: withDefault(MeasurementParam, new Measurement(30, 'A')),
+  motor: MotorParam.withDefault(Motor.KrakenX60sFOC(1)),
+  ratio: RatioParam.withDefault(new Ratio(2, RatioType.REDUCTION)),
+  rollerDiameter: MeasurementParam.withDefault(new Measurement(2, 'in')),
+  travelDistance: MeasurementParam.withDefault(new Measurement(15, 'in')),
+  drivetrainSpeed: MeasurementParam.withDefault(new Measurement(14, 'ft/s')),
+  statorCurrentLimit: MeasurementParam.withDefault(new Measurement(30, 'A')),
 };
 
 export default function Intake() {
-  const queryParams = useQueryParams<{
-    motor: Motor;
-    ratio: Ratio;
-    rollerDiameter: Measurement;
-    travelDistance: Measurement;
-    drivetrainSpeed: Measurement;
-    statorCurrentLimit: Measurement;
-  }>(DEFAULT_PARAMS);
+  const queryParams = useQueryParams(DEFAULT_PARAMS);
 
   const [motor, setMotor] = useState(queryParams.motor);
   const [ratio, setRatio] = useState(queryParams.ratio);

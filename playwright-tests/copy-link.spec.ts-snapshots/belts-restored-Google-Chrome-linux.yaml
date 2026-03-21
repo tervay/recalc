@@ -1,0 +1,124 @@
+- heading "Belt Calculator" [level=1]
+- button "Copy Link"
+- group:
+  - button "GT2 (3mm)"
+  - button "HTD (5mm)"
+  - button "RT25 (0.25in)"
+- switch "Use Custom Belt" [checked]
+- text: Use Custom Belt Pitch
+- spinbutton "Pitch Pitch Diameter Pitch Diameter Belt Teeth Center Distance Pulley 1 Teeth in Mesh Pulley 2 Teeth in Mesh Gap Between Pulleys Difference From Target Belt Teeth Center Distance Pulley 1 Teeth in Mesh Pulley 2 Teeth in Mesh Gap Between Pulleys Difference From Target": "3"
+- combobox: mm
+- text: Tooth Increment
+- spinbutton: "10"
+- text: Custom Belt Teeth
+- spinbutton: "100"
+- text: Pulley 1 Teeth
+- spinbutton: "20"
+- text: Pitch Diameter
+- spinbutton [disabled]: "0.752"
+- combobox: in
+- text: Pulley 2 Teeth
+- spinbutton: "40"
+- text: Pitch Diameter
+- spinbutton [disabled]: "1.504"
+- combobox: in
+- text: Smaller Belt Belt Teeth
+- spinbutton [disabled]: "160"
+- text: Center Distance
+- spinbutton [disabled]: "7.668"
+- combobox: in
+- text: Pulley 1 Teeth in Mesh
+- spinbutton [disabled]: "10"
+- text: Pulley 2 Teeth in Mesh
+- spinbutton [disabled]: "19"
+- text: Gap Between Pulleys
+- spinbutton [disabled]: "6.540"
+- combobox: in
+- text: Difference From Target
+- spinbutton [disabled]: "-0.332"
+- combobox: in
+- text: Larger Belt Suggested Belt Teeth
+- spinbutton [disabled]: "170"
+- text: Center Distance
+- spinbutton [disabled]: "8.259"
+- combobox: in
+- text: Pulley 1 Teeth in Mesh
+- spinbutton [disabled]: "10"
+- text: Pulley 2 Teeth in Mesh
+- spinbutton [disabled]: "19"
+- text: Gap Between Pulleys
+- spinbutton [disabled]: "7.131"
+- combobox: in
+- text: Difference From Target
+- spinbutton [disabled]: "0.259"
+- combobox: in
+- table:
+  - rowgroup:
+    - row "Matching COTS Pulleys":
+      - columnheader "Matching COTS Pulleys"
+    - row "SKU Teeth Width Bore":
+      - columnheader "SKU"
+      - columnheader "Teeth"
+      - columnheader "Width"
+      - columnheader "Bore"
+  - rowgroup
+- table:
+  - rowgroup:
+    - row "Matching COTS Belts":
+      - columnheader "Matching COTS Belts"
+    - row "SKU Teeth Width":
+      - columnheader "SKU"
+      - columnheader "Teeth"
+      - columnheader "Width"
+  - rowgroup:
+    - row "VBeltGuys 480-3m-09 160 9 mm":
+      - cell "VBeltGuys 480-3m-09":
+        - link "VBeltGuys":
+          - /url: https://www.vbeltguys.com/products/480-3m-09-synchronous-timing-belt
+        - link "480-3m-09":
+          - /url: https://www.vbeltguys.com/products/480-3m-09-synchronous-timing-belt
+      - cell "160"
+      - cell "9 mm"
+    - row "VBeltGuys 480-3m-15 160 15 mm":
+      - cell "VBeltGuys 480-3m-15":
+        - link "VBeltGuys":
+          - /url: https://www.vbeltguys.com/products/480-3m-15-synchronous-timing-belt
+        - link "480-3m-15":
+          - /url: https://www.vbeltguys.com/products/480-3m-15-synchronous-timing-belt
+      - cell "160"
+      - cell "15 mm"
+    - row "WCP WCP-1053 160 9 mm":
+      - cell "WCP WCP-1053":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-1053
+        - link "WCP-1053":
+          - /url: https://wcproducts.com/products/wcp-1053
+      - cell "160"
+      - cell "9 mm"
+    - row:
+      - cell
+    - row "VBeltGuys 510-3m-09 170 9 mm":
+      - cell "VBeltGuys 510-3m-09":
+        - link "VBeltGuys":
+          - /url: https://www.vbeltguys.com/products/510-3m-09-synchronous-timing-belt
+        - link "510-3m-09":
+          - /url: https://www.vbeltguys.com/products/510-3m-09-synchronous-timing-belt
+      - cell "170"
+      - cell "9 mm"
+    - row "VBeltGuys 510-3m-15 170 15 mm":
+      - cell "VBeltGuys 510-3m-15":
+        - link "VBeltGuys":
+          - /url: https://www.vbeltguys.com/products/510-3m-15-synchronous-timing-belt
+        - link "510-3m-15":
+          - /url: https://www.vbeltguys.com/products/510-3m-15-synchronous-timing-belt
+      - cell "170"
+      - cell "15 mm"
+    - row "WCP WCP-1054 170 9 mm":
+      - cell "WCP WCP-1054":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-1054
+        - link "WCP-1054":
+          - /url: https://wcproducts.com/products/wcp-1054
+      - cell "170"
+      - cell "9 mm"
+- alert: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

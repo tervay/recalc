@@ -8,11 +8,7 @@ import { Label } from '~/components/ui/label';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { calculateInverseRatio, calculateNetRatio } from '~/lib/math/ratio';
 import { ALL_MOTORS } from '~/lib/models/Motor';
-import {
-  type RatioPair,
-  RatioPairListParam,
-  withDefault,
-} from '~/lib/types/queryParams';
+import { type RatioPair, RatioPairListParam } from '~/lib/types/queryParams';
 
 export function meta() {
   return [
@@ -27,16 +23,14 @@ interface RatioPairWithId {
 }
 
 const DEFAULT_PARAMS = {
-  ratioPairs: withDefault(RatioPairListParam, [
+  ratioPairs: RatioPairListParam.withDefault([
     [18, 72],
     [24, 48],
   ] as RatioPair[]),
 };
 
 export default function Ratio() {
-  const queryParams = useQueryParams<{
-    ratioPairs: RatioPair[];
-  }>(DEFAULT_PARAMS);
+  const queryParams = useQueryParams(DEFAULT_PARAMS);
 
   const idCounter = useRef(0);
   const [ratioPairsWithIds, setRatioPairsWithIds] = useState<RatioPairWithId[]>(
