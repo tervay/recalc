@@ -28,7 +28,6 @@
     "js-quantities": "1.8.0",
     "katex": "0.16.40",
     "lodash": "4.17.23",
-    "lz-string": "1.5.0",
     "marked": "12.0.2",
     "mathjs": "14.5.2",
     "odex": "3.0.0-rc.4",
@@ -57,19 +56,12 @@
     "--------------------------------": "------------------------",
     "dev:analyze": "source-map-explorer 'build/static/js/*.js' --html coverage/src_map_explorer.html",
     "dev:coverage": "pnpm test --coverage",
-    "dev:format": "npx prettier . --write && npx eslint src/ --fix",
-    "dev:encrypt": "npx ts-node -O '{\"module\":\"commonjs\"}' scripts/encrypt.ts",
-    "dev:logs": "npx ts-node -O '{\"module\":\"commonjs\"}' scripts/decodeLogs.ts",
-    "dev:webp": "node scripts/webp.mjs",
-    "prepare": "husky"
+    "dev:format": "npx prettier . --write && npx eslint src/ --fix"
   },
   "eslintConfig": {
     "extends": [
       "react-app"
     ]
-  },
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
   },
   "browserslist": {
     "production": [
@@ -102,11 +94,7 @@
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.5",
     "eslint-plugin-react": "7.34.1",
-    "husky": "9.1.7",
-    "imagemin": "9.0.1",
-    "imagemin-webp": "8.0.0",
     "jsdom": "29.0.1",
-    "lint-staged": "16.3.2",
     "prettier": "3.8.1",
     "prettier-plugin-organize-imports": "4.3.0",
     "sass": "1.77.2",

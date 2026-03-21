@@ -9,8 +9,6 @@ import adze, {
 } from "adze";
 import { JSONable } from "common/models/ExtraTypes";
 import isEqual from "lodash/isEqual";
-import lzstring from "lz-string";
-import { wrapString } from "./util";
 
 /**
  * Log levels:
@@ -71,21 +69,6 @@ class LogCollector {
 
       this.logs.push(log);
     }
-  }
-
-  compress(): string {
-    return (
-      wrapString(
-        [
-          ...lzstring.compressToUint8Array(
-            JSON.stringify(this.logs.map((log) => log.render?.[1])),
-          ),
-        ]
-          .map((x) => x.toString(16).padStart(2, "0"))
-          .join(" "),
-        60,
-      ) ?? "Could not wrap string"
-    );
   }
 }
 
