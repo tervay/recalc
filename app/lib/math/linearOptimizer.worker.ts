@@ -1,4 +1,4 @@
-import { maxBy } from 'lodash-es';
+import { maxBy } from 'es-toolkit';
 import minimize from 'minimize-golden-section-1d';
 import workerpool from 'workerpool';
 

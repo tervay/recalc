@@ -1,5 +1,5 @@
+import { maxBy, minBy } from 'es-toolkit';
 import Qty from 'js-quantities';
-import { maxBy, minBy } from 'lodash-es';
 
 import Model from '~/lib/models/Model';
 import { SNAPSHOT_PRECISION } from '~/lib/utils';

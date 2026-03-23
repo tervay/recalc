@@ -58,5 +58,8 @@ export default defineConfig({
   },
   test: {
     exclude: ['playwright-tests/**', 'node_modules/**'],
+    snapshotFormat: {
+      maxOutputLength: Infinity,
+    },
   },
 });
