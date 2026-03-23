@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import CheckIcon from '~icons/lucide/check';
 
 import { BeltTable } from '~/components/recalc/beltTable';
@@ -16,8 +16,9 @@ import { ButtonGroup } from '~/components/ui/button-group';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { calculateClosestCenters } from '~/lib/math/belts';
+import { Belt } from '~/lib/models/Belt';
 import Measurement from '~/lib/models/Measurement';
-import { SimplePulley } from '~/lib/models/Pulley';
+import Pulley, { SimplePulley } from '~/lib/models/Pulley';
 import {
   BooleanParam,
   MeasurementParam,
@@ -41,6 +42,15 @@ const DEFAULT_PARAMS = {
   toothIncrement: NumberParam.withDefault(5),
   useCustomBelt: BooleanParam.withDefault(false),
 };
+
+function SuggestedBadge() {
+  return (
+    <span className="flex items-center gap-1 rounded border border-green-500/20 bg-green-500/10 px-1.5 py-0.5 text-xs text-green-700 dark:text-green-400">
+      <CheckIcon className="size-3" />
+      Suggested
+    </span>
+  );
+}
 
 export default function Belts() {
   const queryParams = useQueryParams(DEFAULT_PARAMS);
@@ -87,6 +97,21 @@ export default function Belts() {
     [results.smaller.differenceFromTarget, results.larger.differenceFromTarget],
   );
 
+  const pulleyFilter = useCallback(
+    (pulley: Pulley) =>
+      pulley.pitch.eq(pitch) &&
+      (pulley.teeth === p1Teeth || pulley.teeth === p2Teeth),
+    [pitch, p1Teeth, p2Teeth],
+  );
+
+  const beltFilter = useCallback(
+    (belt: Belt) =>
+      belt.pitch.eq(pitch) &&
+      (belt.teeth === results.larger.belt.teeth ||
+        belt.teeth === results.smaller.belt.teeth),
+    [pitch, results.larger.belt.teeth, results.smaller.belt.teeth],
+  );
+
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
     pitch,
     toothIncrement,
@@ -97,15 +122,6 @@ export default function Belts() {
     p1Teeth,
     p2Teeth,
   });
-
-  function SuggestedBadge() {
-    return (
-      <span className="flex items-center gap-1 rounded border border-green-500/20 bg-green-500/10 px-1.5 py-0.5 text-xs text-green-700 dark:text-green-400">
-        <CheckIcon className="size-3" />
-        Suggested
-      </span>
-    );
-  }
 
   return (
     <div>
@@ -163,7 +179,15 @@ export default function Belts() {
               testId="beltToothIncrement"
             />
           </IOLine>
-          {!useCustomBelt && (
+          {useCustomBelt ? (
+            <IOLine>
+              <NumberInput
+                stateHook={[customBeltTeeth, setCustomBeltTeeth]}
+                label="Custom Belt Teeth"
+                testId="specificBeltTeeth"
+              />
+            </IOLine>
+          ) : (
             <IOLine>
               <MeasurementInput
                 stateHook={[desiredCenter, setDesiredCenter]}
@@ -174,16 +198,6 @@ export default function Belts() {
                 stateHook={[extraCenter, setExtraCenter]}
                 label="Extra Center"
                 testId="extraCenter"
-              />
-            </IOLine>
-          )}
-
-          {useCustomBelt && (
-            <IOLine>
-              <NumberInput
-                stateHook={[customBeltTeeth, setCustomBeltTeeth]}
-                label="Custom Belt Teeth"
-                testId="specificBeltTeeth"
               />
             </IOLine>
           )}
@@ -347,19 +361,8 @@ export default function Belts() {
           </Card>
         </div>
         <div className="flex w-auto flex-col gap-x-4 gap-y-4">
-          <PulleyTable
-            filterFn={(pulley) =>
-              pulley.pitch.eq(pitch) &&
-              (pulley.teeth == p1Teeth || pulley.teeth == p2Teeth)
-            }
-          />
-          <BeltTable
-            filterFn={(belt) =>
-              belt.pitch.eq(pitch) &&
-              (belt.teeth == results.larger.belt.teeth ||
-                belt.teeth == results.smaller.belt.teeth)
-            }
-          />
+          <PulleyTable filterFn={pulleyFilter} />
+          <BeltTable filterFn={beltFilter} />
         </div>
       </div>
       {/* <div className="mt-8 space-y-4">
