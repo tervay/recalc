@@ -48,7 +48,7 @@
 - button "Maximum Comfortable Supply Limit"
 - spinbutton: "85"
 - combobox: A
-- text: Time to Goal 0.529
+- text: Time to Goal 0.507
 - combobox: s
 - text: Stall Load 39.323
 - combobox: lbs
@@ -66,7 +66,7 @@
   - listitem:
     - img "Velocity (m/s) legend icon"
     - text: Velocity (m/s)
-- application: 0.02909999999999988 0.20109999999999417 0.3680999999999758 0.529099999999958 Time (s) 0 15 30 45 60 Velocity (m/s) / Current (A) 0 0.4 0.8 1.2 1.6 Position (m)
+- application: 0.0071 0.0571 0.101 0.141 0.181 0.221 0.26 0.301 0.34 0.381 0.42 0.463 0.507 Time (s) 0 15 30 45 60 Velocity (m/s) / Current (A) 0 0.4 0.8 1.2 1.6 Position (m)
 - text: kV 3.120
 - combobox: V*s/m
 - text: kA 0.439

@@ -176,6 +176,9 @@ interface EmbindModule {
     simTimestep: number,
     decimation: number,
     maxSimSeconds: number,
+    angleRadians: number,
+    efficiency: number,
+    cascade: boolean,
   ): any;
 }
 

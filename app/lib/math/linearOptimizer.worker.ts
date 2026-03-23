@@ -58,6 +58,9 @@ interface MechParams {
   statorVoltageVolts: number;
   batteryResistanceOhms: number;
   batteryVoltageVolts: number;
+  angleRadians: number;
+  efficiency: number;
+  cascade: boolean;
 }
 
 type WpilibcModule = Awaited<ReturnType<typeof initWpilibc>>;
@@ -70,6 +73,9 @@ function parseMech(
   statorVoltageDict: MeasurementDict,
   batteryResistanceDict: MeasurementDict,
   batteryVoltageDict: MeasurementDict,
+  angleDict: MeasurementDict,
+  efficiency: number,
+  cascade: boolean,
 ): MechParams {
   return {
     wpilibMotor: motor.toWpilibMotor(),
@@ -84,6 +90,9 @@ function parseMech(
       .scalar,
     batteryVoltageVolts:
       Measurement.fromDict(batteryVoltageDict).to('V').scalar,
+    angleRadians: Measurement.fromDict(angleDict).to('rad').scalar,
+    efficiency,
+    cascade,
   };
 }
 
@@ -109,6 +118,9 @@ function simulate(
     0.0005,
     10,
     timeoutSeconds,
+    p.angleRadians,
+    p.efficiency,
+    p.cascade,
   );
 }
 
@@ -129,6 +141,9 @@ async function optimizeRatio(
   batteryVoltageDict: MeasurementDict,
   statorLimitAmps: number,
   initialRatio: number,
+  angleDict: MeasurementDict,
+  efficiency: number,
+  cascade: boolean,
 ): Promise<OptimizerResult> {
   const wpilibc = await initWpilibc();
   const motor = Motor.fromDict(motorDict);
@@ -140,6 +155,9 @@ async function optimizeRatio(
     statorVoltageDict,
     batteryResistanceDict,
     batteryVoltageDict,
+    angleDict,
+    efficiency,
+    cascade,
   );
   const totalStatorAmps = statorLimitAmps * p.motorQuantity;
   const supplyAmps = Measurement.fromDict(supplyLimitDict).to('A').scalar;
@@ -181,6 +199,9 @@ async function simulateOnce(
   statorVoltageDict: MeasurementDict,
   batteryResistanceDict: MeasurementDict,
   batteryVoltageDict: MeasurementDict,
+  angleDict: MeasurementDict,
+  efficiency: number,
+  cascade: boolean,
 ): Promise<SingleSimResult> {
   const wpilibc = await initWpilibc();
   const motor = Motor.fromDict(motorDict);
@@ -192,6 +213,9 @@ async function simulateOnce(
     statorVoltageDict,
     batteryResistanceDict,
     batteryVoltageDict,
+    angleDict,
+    efficiency,
+    cascade,
   );
 
   const states = simulate(
@@ -224,6 +248,9 @@ async function optimizeConfiguration(
   targetTimeSeconds: number,
   maximumComfortableStatorLimitDict: MeasurementDict,
   maximumComfortableSupplyLimitDict: MeasurementDict,
+  angleDict: MeasurementDict,
+  efficiency: number,
+  cascade: boolean,
 ): Promise<ConfigOptOutput> {
   const wpilibc = await initWpilibc();
   const motor = Motor.fromDict(motorDict);
@@ -235,6 +262,9 @@ async function optimizeConfiguration(
     statorVoltageDict,
     batteryResistanceDict,
     batteryVoltageDict,
+    angleDict,
+    efficiency,
+    cascade,
   );
 
   const maxStator = Measurement.fromDict(maximumComfortableStatorLimitDict).to(

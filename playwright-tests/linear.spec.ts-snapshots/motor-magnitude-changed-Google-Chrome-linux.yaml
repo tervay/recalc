@@ -66,7 +66,7 @@
   - listitem:
     - img "Velocity (m/s) legend icon"
     - text: Velocity (m/s)
-- application: 0.03309999999999992 0.1790999999999966 0.3190999999999812 0.4595999999999657 Time (s) -40 0 40 80 120 Velocity (m/s) / Current (A) 0 0.4 0.8 1.2 1.6 Position (m)
+- application: 0.0361 0.0821 0.12 0.15 0.183 0.221 0.261 0.301 0.341 0.382 0.423 0.46 Time (s) -40 0 40 80 120 Velocity (m/s) / Current (A) 0 0.4 0.8 1.2 1.6 Position (m)
 - text: kV 3.120
 - combobox: V*s/m
 - text: kA 0.220
