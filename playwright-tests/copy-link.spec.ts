@@ -139,7 +139,7 @@ test.describe('Copy Link', () => {
     await page.goto(url);
     await page.waitForLoadState('networkidle');
     await page.waitForTimeout(100);
-    await expect(page.getByTestId('flywheel-page')).toHaveAttribute(
+    await expect(page.getByTestId('flywheel-main')).toHaveAttribute(
       'data-calculating',
       'false',
       { timeout: 30000 },

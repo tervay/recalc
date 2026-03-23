@@ -50,7 +50,7 @@
 - combobox: in2*lbs
 - switch "Use Custom Flywheel MOI"
 - text: Use Custom Flywheel MOI Outputs Spinup Time
-- spinbutton [disabled]: "1.766"
+- spinbutton [disabled]: "0.671"
 - combobox: s
 - text: Effective MOI
 - spinbutton [disabled]: "7.500"
@@ -59,9 +59,19 @@
 - spinbutton [disabled]: "0.260"
 - combobox: V*s/m
 - text: kA
-- spinbutton [disabled]: "1.351"
+- spinbutton [disabled]: "0.332"
 - combobox: V*s^2/m
-- application: 0.041 0.161 0.281 0.411 0.541 0.671 0.801 0.931 1.061 1.171 1.291 1.411 1.531 1.651 1.766 0 5 10 15 20 0 800 1600 2400 3200
-- alert:
-  - img
-  - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
+- list:
+  - listitem:
+    - img "Angular Velocity (RPM) legend icon"
+    - text: Angular Velocity (RPM)
+  - listitem:
+    - img "Battery Voltage (V) legend icon"
+    - text: Battery Voltage (V)
+  - listitem:
+    - img "Stator Current (A) legend icon"
+    - text: Stator Current (A)
+  - listitem:
+    - img "Supply Current (A) legend icon"
+    - text: Supply Current (A)
+- application: 0.021 0.071 0.121 0.171 0.221 0.271 0.321 0.371 0.421 0.471 0.521 0.571 0.621 0.671 0 15 30 45 60 0 800 1600 2400 3200
