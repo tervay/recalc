@@ -55,6 +55,8 @@ const DEFAULT_PARAMS = {
   load: MeasurementParam.withDefault(new Measurement(5, 'lb')),
 };
 
+const CHART_CONFIG = {} as const;
+
 const worker = new ComlinkWorker<typeof ArmWorker>(
   new URL('../lib/math/arm.worker', import.meta.url),
   {
@@ -140,62 +142,57 @@ export default function Arm() {
     setGoingDownStates([]);
     setIsCalculating(true);
     let cancelled = false;
-    let pending = 2;
-    const done = () => {
-      if (!cancelled && --pending === 0) setIsCalculating(false);
-    };
 
-    worker
-      .simulateArmWpilib(
-        motor.toDict(),
-        ratio.toDict(),
-        momentOfInertia.toDict(),
-        armLength.toDict(),
-        minAngle.toDict(),
-        maxAngle.toDict(),
-        minAngle.toDict(),
-        statorVoltage.toDict(),
-        supplyVoltage.toDict(),
-        isUsingStatorLimit
-          ? statorLimit.toDict()
-          : supplyLimitInStatorTerms.toDict(),
-        batteryResistance.toDict(),
-        'up',
-      )
-      .then((states) => {
-        if (!cancelled) setGoingUpStates(states);
-        done();
-      })
-      .catch((error) => {
-        console.error(error);
-        done();
-      });
+    const limitDict = isUsingStatorLimit
+      ? statorLimit.toDict()
+      : supplyLimitInStatorTerms.toDict();
 
-    worker
-      .simulateArmWpilib(
-        motor.toDict(),
-        ratio.toDict(),
-        momentOfInertia.toDict(),
-        armLength.toDict(),
-        minAngle.toDict(),
-        maxAngle.toDict(),
-        maxAngle.toDict(),
-        statorVoltage.toDict(),
-        supplyVoltage.toDict(),
-        isUsingStatorLimit
-          ? statorLimit.toDict()
-          : supplyLimitInStatorTerms.toDict(),
-        batteryResistance.toDict(),
-        'down',
-      )
-      .then((states) => {
-        if (!cancelled) setGoingDownStates(states);
-        done();
-      })
-      .catch((error) => {
-        console.error(error);
-        done();
-      });
+    const upPromise = worker.simulateArmWpilib(
+      motor.toDict(),
+      ratio.toDict(),
+      momentOfInertia.toDict(),
+      armLength.toDict(),
+      minAngle.toDict(),
+      maxAngle.toDict(),
+      minAngle.toDict(),
+      statorVoltage.toDict(),
+      supplyVoltage.toDict(),
+      limitDict,
+      batteryResistance.toDict(),
+      'up',
+    );
+
+    const downPromise = worker.simulateArmWpilib(
+      motor.toDict(),
+      ratio.toDict(),
+      momentOfInertia.toDict(),
+      armLength.toDict(),
+      minAngle.toDict(),
+      maxAngle.toDict(),
+      maxAngle.toDict(),
+      statorVoltage.toDict(),
+      supplyVoltage.toDict(),
+      limitDict,
+      batteryResistance.toDict(),
+      'down',
+    );
+
+    void Promise.allSettled([upPromise, downPromise]).then(
+      ([upResult, downResult]) => {
+        if (cancelled) return;
+        if (upResult.status === 'fulfilled') {
+          setGoingUpStates(upResult.value);
+        } else {
+          console.error(upResult.reason);
+        }
+        if (downResult.status === 'fulfilled') {
+          setGoingDownStates(downResult.value);
+        } else {
+          console.error(downResult.reason);
+        }
+        setIsCalculating(false);
+      },
+    );
 
     return () => {
       cancelled = true;
@@ -209,7 +206,6 @@ export default function Arm() {
     maxAngle,
     supplyVoltage,
     statorLimit,
-    supplyLimit,
     batteryResistance,
     isUsingStatorLimit,
     supplyLimitInStatorTerms,
@@ -352,7 +348,10 @@ export default function Arm() {
           </IOLine>
         </div>
         <div className="flex flex-col gap-x-4 gap-y-2">
-          <ChartContainer config={{}} className="min-h-[200px] w-full">
+          <ChartContainer
+            config={CHART_CONFIG}
+            className="min-h-[200px] w-full"
+          >
             <LineChart data={goingUpStates}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="timeSeconds" />
@@ -380,7 +379,10 @@ export default function Arm() {
             </LineChart>
           </ChartContainer>
 
-          <ChartContainer config={{}} className="min-h-[200px] w-full">
+          <ChartContainer
+            config={CHART_CONFIG}
+            className="min-h-[200px] w-full"
+          >
             <LineChart data={goingDownStates}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="timeSeconds" />

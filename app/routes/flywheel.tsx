@@ -75,6 +75,8 @@ const DEFAULT_PARAMS = {
   efficiency: NumberParam.withDefault(100),
 };
 
+const CHART_CONFIG = {} as const;
+
 const worker = new ComlinkWorker<typeof FlywheelWorker>(
   new URL('../lib/math/flywheel.worker', import.meta.url),
   {
@@ -520,7 +522,7 @@ export default function Flywheel() {
           </Card>
         </div>
         <ChartContainer
-          config={{}}
+          config={CHART_CONFIG}
           className="min-h-[200px] w-full"
           data-testid="chart"
         >
