@@ -91,7 +91,6 @@ const PRESET_SUPPLY_LIMITS = [20, 30, 40, 50, 60, 70];
 const optimizerPool = workerpool.pool(optimizerWorkerUrl, {
   workerType: 'web',
   workerOpts: { type: 'module' },
-  maxWorkers: 4,
 });
 
 export default function Linear() {
@@ -235,6 +234,9 @@ export default function Linear() {
         statorVoltage.toDict(),
         batteryResistance.toDict(),
         supplyVoltage.toDict(),
+        angle.toDict(),
+        efficiency / 100,
+        cascade,
       )
       .then((states) => {
         setWorkerWpilibSimStates(states);
@@ -255,6 +257,9 @@ export default function Linear() {
     statorVoltage,
     batteryResistance,
     supplyVoltage,
+    angle,
+    efficiency,
+    cascade,
   ]);
 
   const userStatorAmps = statorLimit.to('A').scalar;
@@ -287,6 +292,9 @@ export default function Linear() {
           supplyVoltage.toDict(),
           statorLimitAmps,
           ratio.magnitude,
+          angle.toDict(),
+          efficiency / 100,
+          cascade,
         ])
         .then((result: OptimizerResult) => {
           if (gen !== optimizerGeneration.current) return;
@@ -311,6 +319,9 @@ export default function Linear() {
     batteryResistance,
     supplyVoltage,
     ratio,
+    angle,
+    efficiency,
+    cascade,
     optimizationEnabled,
     allStatorLimits,
   ]);
@@ -345,6 +356,9 @@ export default function Linear() {
           statorVoltage.toDict(),
           batteryResistance.toDict(),
           supplyVoltage.toDict(),
+          angle.toDict(),
+          efficiency / 100,
+          cascade,
         ])
         .then((result: SingleSimResult) => {
           if (gen !== supplySimGeneration.current) return;
@@ -369,6 +383,9 @@ export default function Linear() {
     statorVoltage,
     batteryResistance,
     supplyVoltage,
+    angle,
+    efficiency,
+    cascade,
     optimizationEnabled,
     allSupplyLimits,
   ]);
@@ -393,6 +410,9 @@ export default function Linear() {
         targetTimeToGoal.to('s').scalar,
         maximumComfortableStatorLimit.toDict(),
         maximumComfortableSupplyLimit.toDict(),
+        angle.toDict(),
+        efficiency / 100,
+        cascade,
       ])
       .then((result: ConfigOptOutput) => {
         if (gen !== configOptGeneration.current) return;
@@ -412,6 +432,9 @@ export default function Linear() {
     targetTimeToGoal,
     maximumComfortableStatorLimit,
     maximumComfortableSupplyLimit,
+    angle,
+    efficiency,
+    cascade,
     optimizationEnabled,
   ]);
 
@@ -455,6 +478,7 @@ export default function Linear() {
                     stateHook={[cascade, setCascade]}
                     label="Cascade"
                     testId="cascade"
+                    tooltip="Enable for a cascading elevator. The simulation applies first-stage mechanics: half the travel distance and double the load."
                   />
                 </div>
                 <IOLine>
@@ -647,6 +671,9 @@ export default function Linear() {
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis
                         dataKey="timeSeconds"
+                        tickFormatter={(v: number) =>
+                          parseFloat(v.toPrecision(3)).toString()
+                        }
                         label={{
                           value: 'Time (s)',
                           position: 'insideBottom',

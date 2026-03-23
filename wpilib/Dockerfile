@@ -97,7 +97,14 @@ RUN cd /build/allwpilib && \
 # Copies real bindings and relinks. Only this stage re-runs when bindings.cc changes.
 FROM libs
 
-COPY patches/wpilibc/wasm/bindings.cc /build/allwpilib/wpilibc/wasm/bindings.cc
+COPY patches/wpilibc/wasm/bindings.cc \
+     patches/wpilibc/wasm/arm_sim.h \
+     patches/wpilibc/wasm/battery_sim.h \
+     patches/wpilibc/wasm/dc_motor.h \
+     patches/wpilibc/wasm/dc_motor_sim.h \
+     patches/wpilibc/wasm/elevator_sim.h \
+     patches/wpilibc/wasm/flywheel_sim.h \
+     /build/allwpilib/wpilibc/wasm/
 
 # Touch to ensure mtime is newer than the placeholder object file, so ninja
 # recompiles bindings.cc. All static libs from the libs stage are already built.
