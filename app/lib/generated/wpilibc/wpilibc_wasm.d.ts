@@ -68,23 +68,6 @@ export interface DCMotor extends ClassHandle {
   withReduction(gearboxReduction: number): DCMotor | null;
 }
 
-export interface ElevatorSim extends ClassHandle {
-  hasHitLowerLimit(): boolean;
-  hasHitUpperLimit(): boolean;
-  setInputVoltage(voltageVolts: number): void;
-  update(dtSeconds: number): void;
-  getPosition(): number;
-  getVelocity(): number;
-  getCurrentDraw(): number;
-}
-
-export interface FlywheelSim extends ClassHandle {
-  setInputVoltage(voltageVolts: number): void;
-  update(dtSeconds: number): void;
-  getAngularVelocity(): number;
-  getCurrentDraw(): number;
-}
-
 export interface DCMotorSim extends ClassHandle {
   setInputVoltage(voltageVolts: number): void;
   update(dtSeconds: number): void;
@@ -120,21 +103,6 @@ interface EmbindModule {
       _4: number,
       _5: number,
     ): DCMotor;
-  };
-  ElevatorSim: {
-    new (
-      _0: DCMotor | null,
-      _1: number,
-      _2: number,
-      _3: number,
-      _4: number,
-      _5: number,
-      _6: boolean,
-      _7: number,
-    ): ElevatorSim;
-  };
-  FlywheelSim: {
-    new (_0: DCMotor | null, _1: number, _2: number): FlywheelSim;
   };
   DCMotorSim: {
     new (_0: DCMotor | null, _1: number, _2: number): DCMotorSim;
@@ -179,6 +147,21 @@ interface EmbindModule {
     angleRadians: number,
     efficiency: number,
     cascade: boolean,
+  ): any;
+  simulateFlywheel(
+    motor: DCMotor | null,
+    gearing: number,
+    moiKgMSquared: number,
+    targetAngularVelocityRadPerSec: number,
+    statorLimitAmps: number,
+    supplyLimitAmps: number,
+    statorVoltageVolts: number,
+    batteryResistanceOhms: number,
+    batteryVoltageVolts: number,
+    efficiency: number,
+    simTimestep: number,
+    decimation: number,
+    maxSimSeconds: number,
   ): any;
 }
 

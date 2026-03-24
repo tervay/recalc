@@ -24,8 +24,9 @@ WORKDIR /build
 RUN mise trust && \
     mise install
 
-ARG TS_VERSION
-RUN npm i -g typescript@${TS_VERSION}
+# Pin TypeScript 5.x for the Docker build because emscripten's --emit-tsd
+# uses tsc --outFile internally, which was removed in TypeScript 6.
+RUN npm i -g typescript@5.8.3
 
 # ---- Stage: libs ----
 # Compiles all static library dependencies of wpilibc_wasm.
@@ -104,6 +105,7 @@ COPY patches/wpilibc/wasm/bindings.cc \
      patches/wpilibc/wasm/dc_motor_sim.h \
      patches/wpilibc/wasm/elevator_sim.h \
      patches/wpilibc/wasm/flywheel_sim.h \
+     patches/wpilibc/wasm/sim_util.h \
      /build/allwpilib/wpilibc/wasm/
 
 # Touch to ensure mtime is newer than the placeholder object file, so ninja

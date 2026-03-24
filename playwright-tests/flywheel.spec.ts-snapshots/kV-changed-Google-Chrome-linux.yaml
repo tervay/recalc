@@ -61,7 +61,17 @@
 - text: kA
 - spinbutton [disabled]: "0.332"
 - combobox: V*s^2/m
+- list:
+  - listitem:
+    - img "Angular Velocity (RPM) legend icon"
+    - text: Angular Velocity (RPM)
+  - listitem:
+    - img "Battery Voltage (V) legend icon"
+    - text: Battery Voltage (V)
+  - listitem:
+    - img "Stator Current (A) legend icon"
+    - text: Stator Current (A)
+  - listitem:
+    - img "Supply Current (A) legend icon"
+    - text: Supply Current (A)
 - application: 0.021 0.071 0.111 0.151 0.191 0.241 0.291 0.341 0.391 0.441 0.491 0.541 0.589 0 15 30 45 60 0 800 1600 2400 3200
-- alert:
-  - img
-  - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

@@ -39,28 +39,6 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
       .function("withReduction(gearboxReduction)", &DCMotorWasm::withReduction,
                 allow_raw_pointers());
 
-  // ElevatorSim (step-by-step)
-  class_<ElevatorSimWasm>("ElevatorSim")
-      .constructor<DCMotorWasm *, double, double, double, double, double, bool,
-                   double>(allow_raw_pointers())
-      .function("setInputVoltage(voltageVolts)",
-                &ElevatorSimWasm::setInputVoltage)
-      .function("update(dtSeconds)", &ElevatorSimWasm::update)
-      .function("getPosition", &ElevatorSimWasm::getPosition)
-      .function("getVelocity", &ElevatorSimWasm::getVelocity)
-      .function("getCurrentDraw", &ElevatorSimWasm::getCurrentDraw)
-      .function("hasHitLowerLimit", &ElevatorSimWasm::hasHitLowerLimit)
-      .function("hasHitUpperLimit", &ElevatorSimWasm::hasHitUpperLimit);
-
-  // FlywheelSim
-  class_<FlywheelSimWasm>("FlywheelSim")
-      .constructor<DCMotorWasm *, double, double>(allow_raw_pointers())
-      .function("setInputVoltage(voltageVolts)",
-                &FlywheelSimWasm::setInputVoltage)
-      .function("update(dtSeconds)", &FlywheelSimWasm::update)
-      .function("getAngularVelocity", &FlywheelSimWasm::getAngularVelocity)
-      .function("getCurrentDraw", &FlywheelSimWasm::getCurrentDraw);
-
   // DCMotorSim
   class_<DCMotorSimWasm>("DCMotorSim")
       .constructor<DCMotorWasm *, double, double>(allow_raw_pointers())
@@ -111,4 +89,11 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
            "simTimestep, decimation, maxSimSeconds, angleRadians, efficiency, "
            "cascade)",
            &SimulateElevator, allow_raw_pointers());
+
+  // Full flywheel simulation loop
+  function("simulateFlywheel(motor, gearing, moiKgMSquared, "
+           "targetAngularVelocityRadPerSec, statorLimitAmps, supplyLimitAmps, "
+           "statorVoltageVolts, batteryResistanceOhms, batteryVoltageVolts, "
+           "efficiency, simTimestep, decimation, maxSimSeconds)",
+           &SimulateFlywheel, allow_raw_pointers());
 }

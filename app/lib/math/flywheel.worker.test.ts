@@ -9,7 +9,8 @@ describe('simulateFlywheelWpilib', () => {
   it('simulates a flywheel correctly', async () => {
     const motor = Motor.KrakenX60sFOC(2);
     const ratio = new Ratio(1, RatioType.REDUCTION);
-    const currentLimit = new Measurement(60, 'A');
+    const statorLimit = new Measurement(60, 'A');
+    const supplyLimit = new Measurement(90, 'A');
     const statorVoltage = new Measurement(12, 'V');
     const supplyVoltage = new Measurement(12, 'V');
     const batteryResistance = new Measurement(0.015, 'Ohm');
@@ -19,12 +20,14 @@ describe('simulateFlywheelWpilib', () => {
     const result = await simulateFlywheelWpilib(
       motor.toDict(),
       ratio.toDict(),
-      currentLimit.toDict(),
+      statorLimit.toDict(),
+      supplyLimit.toDict(),
       statorVoltage.toDict(),
-      supplyVoltage.toDict(),
       batteryResistance.toDict(),
+      supplyVoltage.toDict(),
       momentOfInertia.toDict(),
       targetRPM.toDict(),
+      1.0,
     );
 
     expect(result).toMatchSnapshot();

@@ -20,6 +20,7 @@ import {
 import { MotorInput } from '~/components/recalc/io/motor';
 import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
+import PctSpan from '~/components/recalc/pctSpan';
 import { ChartContainer } from '~/components/ui/chart';
 import { Skeleton } from '~/components/ui/skeleton';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
@@ -939,15 +940,6 @@ export default function Linear() {
                       const hasBaseline =
                         workerWpilibSimStates.length > 0 && baselineSeconds > 0;
 
-                      const pctSpan = (pct: number) => (
-                        <span
-                          className={`ml-1.5 text-xs ${pct < 0 ? 'text-green-600' : 'text-red-600'}`}
-                        >
-                          {pct > 0 ? '+' : ''}
-                          {pct.toFixed(1)}%
-                        </span>
-                      );
-
                       const baselineEnergyJoules =
                         workerWpilibSimStates.length > 0
                           ? workerWpilibSimStates[
@@ -1012,8 +1004,9 @@ export default function Linear() {
                                 <span>
                                   {result.peakCurrentAmps.toFixed(1)} A
                                 </span>
-                                {peakCurrentPct !== null &&
-                                  pctSpan(peakCurrentPct)}
+                                {peakCurrentPct !== null ? (
+                                  <PctSpan pct={peakCurrentPct} />
+                                ) : null}
                               </>
                             ) : (
                               <Skeleton className="inline-block h-3.5 w-14" />
@@ -1025,7 +1018,9 @@ export default function Linear() {
                                 <span>
                                   {result.timeToGoalSeconds.toFixed(3)} s
                                 </span>
-                                {timePct !== null && pctSpan(timePct)}
+                                {timePct !== null ? (
+                                  <PctSpan pct={timePct} />
+                                ) : null}
                               </>
                             ) : (
                               <Skeleton className="inline-block h-3.5 w-14" />
@@ -1035,7 +1030,9 @@ export default function Linear() {
                             {result ? (
                               <>
                                 <span>{result.energyJoules.toFixed(1)} J</span>
-                                {energyPct !== null && pctSpan(energyPct)}
+                                {energyPct !== null ? (
+                                  <PctSpan pct={energyPct} />
+                                ) : null}
                               </>
                             ) : (
                               <Skeleton className="inline-block h-3.5 w-14" />
@@ -1051,7 +1048,9 @@ export default function Linear() {
                                   ).toFixed(1)}{' '}
                                   W
                                 </span>
-                                {avgPowerPct !== null && pctSpan(avgPowerPct)}
+                                {avgPowerPct !== null ? (
+                                  <PctSpan pct={avgPowerPct} />
+                                ) : null}
                               </>
                             ) : (
                               <Skeleton className="inline-block h-3.5 w-14" />
@@ -1112,15 +1111,6 @@ export default function Linear() {
                             )
                           : null;
 
-                      const pctSpan = (pct: number) => (
-                        <span
-                          className={`ml-1.5 text-xs ${pct < 0 ? 'text-green-600' : 'text-red-600'}`}
-                        >
-                          {pct > 0 ? '+' : ''}
-                          {pct.toFixed(1)}%
-                        </span>
-                      );
-
                       const timePct =
                         result && hasBaseline && !isUserRow
                           ? ((result.timeToGoalSeconds - baselineSeconds) /
@@ -1159,8 +1149,9 @@ export default function Linear() {
                                 <span>
                                   {result.peakCurrentAmps.toFixed(1)} A
                                 </span>
-                                {peakCurrentPct !== null &&
-                                  pctSpan(peakCurrentPct)}
+                                {peakCurrentPct !== null ? (
+                                  <PctSpan pct={peakCurrentPct} />
+                                ) : null}
                               </>
                             ) : (
                               <Skeleton className="inline-block h-3.5 w-14" />
@@ -1172,7 +1163,9 @@ export default function Linear() {
                                 <span>
                                   {result.timeToGoalSeconds.toFixed(3)} s
                                 </span>
-                                {timePct !== null && pctSpan(timePct)}
+                                {timePct !== null ? (
+                                  <PctSpan pct={timePct} />
+                                ) : null}
                               </>
                             ) : (
                               <Skeleton className="inline-block h-3.5 w-14" />
@@ -1182,7 +1175,9 @@ export default function Linear() {
                             {result ? (
                               <>
                                 <span>{result.energyJoules.toFixed(1)} J</span>
-                                {energyPct !== null && pctSpan(energyPct)}
+                                {energyPct !== null ? (
+                                  <PctSpan pct={energyPct} />
+                                ) : null}
                               </>
                             ) : (
                               <Skeleton className="inline-block h-3.5 w-14" />
@@ -1198,7 +1193,9 @@ export default function Linear() {
                                   ).toFixed(1)}{' '}
                                   W
                                 </span>
-                                {avgPowerPct !== null && pctSpan(avgPowerPct)}
+                                {avgPowerPct !== null ? (
+                                  <PctSpan pct={avgPowerPct} />
+                                ) : null}
                               </>
                             ) : (
                               <Skeleton className="inline-block h-3.5 w-14" />

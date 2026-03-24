@@ -16,37 +16,7 @@
 #include "units/voltage.h"
 
 #include "dc_motor.h"
-
-// Standard WASM wrapper for frc::ElevatorSim, exposing it step-by-step to JS.
-class ElevatorSimWasm {
-public:
-  ElevatorSimWasm(DCMotorWasm *gearbox, double gearing, double carriageMassKg,
-                  double drumRadiusMeters, double minHeightMeters,
-                  double maxHeightMeters, bool simulateGravity,
-                  double startingHeightMeters)
-      : elevator(
-            gearbox->getMotor(), gearing, units::kilogram_t(carriageMassKg),
-            units::meter_t(drumRadiusMeters), units::meter_t(minHeightMeters),
-            units::meter_t(maxHeightMeters), simulateGravity,
-            units::meter_t(startingHeightMeters)) {}
-
-  void setInputVoltage(double voltageVolts) {
-    elevator.SetInputVoltage(units::volt_t(voltageVolts));
-  }
-
-  void update(double dtSeconds) { elevator.Update(units::second_t(dtSeconds)); }
-
-  double getPosition() const { return elevator.GetPosition().to<double>(); }
-  double getVelocity() const { return elevator.GetVelocity().to<double>(); }
-  double getCurrentDraw() const {
-    return elevator.GetCurrentDraw().to<double>();
-  }
-  bool hasHitLowerLimit() const { return elevator.HasHitLowerLimit(); }
-  bool hasHitUpperLimit() const { return elevator.HasHitUpperLimit(); }
-
-private:
-  frc::sim::ElevatorSim elevator;
-};
+#include "sim_util.h"
 
 // ElevatorSim subclass that supports angle (radians from horizontal) and torque
 // efficiency [0, 1]. Overrides UpdateX to replace the hardcoded vertical
@@ -166,22 +136,8 @@ SimulateElevator(DCMotorWasm *motor, double gearing, double loadKg,
 
     const double vSupply = frc::RobotController::GetInputVoltage();
 
-    // Clamp applied voltage to stator + supply current limits
-    // (mirrors getvAppliedMinAndMax in currentLimits.ts)
-    const double minATerm = vBackEmf - statorLimitAmps * rOhms;
-    const double maxATerm = vBackEmf + statorLimitAmps * rOhms;
-
-    const double toSqrt =
-        (vBackEmf * vBackEmf) / 4.0 + supplyLimitAmps * rOhms * vSupply;
-    const double sqrted = std::sqrt(std::max(0.0, toSqrt));
-
-    const double minBTerm = vBackEmf / 2.0 - sqrted;
-    const double maxBTerm = vBackEmf / 2.0 + sqrted;
-
-    const double vMin = std::max(minATerm, minBTerm);
-    const double vMax = std::min(maxATerm, maxBTerm);
-
-    vApplied = std::max(vMin, std::min(vApplied, vMax));
+    vApplied = ClampVoltageForCurrentLimits(
+        vApplied, vBackEmf, rOhms, statorLimitAmps, supplyLimitAmps, vSupply);
 
     elevator.SetInputVoltage(units::volt_t(vApplied));
     elevator.Update(units::second_t(simTimestep));
@@ -217,29 +173,19 @@ SimulateElevator(DCMotorWasm *motor, double gearing, double loadKg,
     }
   }
 
-  // Build JS array with decimation, always including the last element
-  // (matches obliterateArray(states, decimation) in utils.ts)
-  emscripten::val result = emscripten::val::array();
-  const int n = static_cast<int>(states.size());
-  for (int i = 0; i < n; ++i) {
-    const bool isDecimated = (i % decimation == 0);
-    const bool isLast = (i == n - 1) && (i > 0) && (i % decimation != 0);
-    if (!isDecimated && !isLast)
-      continue;
-
-    const auto &s = states[i];
-    emscripten::val state = emscripten::val::object();
-    state.set("positionMeters", s.positionMeters);
-    state.set("velocityMetersPerSecond", s.velocityMetersPerSecond);
-    state.set("statorCurrentDrawAmps", s.statorCurrentDrawAmps);
-    state.set("supplyCurrentDrawAmps", s.supplyCurrentDrawAmps);
-    state.set("timeSeconds", s.timeSeconds);
-    state.set("batteryVoltageVolts", s.batteryVoltageVolts);
-    state.set("motorAppliedVoltageVolts", s.motorAppliedVoltageVolts);
-    state.set("motorRpm", s.motorRpm);
-    state.set("energyJoules", s.energyJoules);
-    state.set("success", s.success);
-    result.call<void>("push", state);
-  }
-  return result;
+  return DecimateToJsArray<ElevatorSimStateInternal>(
+      states, decimation, [](const ElevatorSimStateInternal &s) {
+        emscripten::val state = emscripten::val::object();
+        state.set("positionMeters", s.positionMeters);
+        state.set("velocityMetersPerSecond", s.velocityMetersPerSecond);
+        state.set("statorCurrentDrawAmps", s.statorCurrentDrawAmps);
+        state.set("supplyCurrentDrawAmps", s.supplyCurrentDrawAmps);
+        state.set("timeSeconds", s.timeSeconds);
+        state.set("batteryVoltageVolts", s.batteryVoltageVolts);
+        state.set("motorAppliedVoltageVolts", s.motorAppliedVoltageVolts);
+        state.set("motorRpm", s.motorRpm);
+        state.set("energyJoules", s.energyJoules);
+        state.set("success", s.success);
+        return state;
+      });
 }
