@@ -1,17 +1,10 @@
 #pragma once
 
-#include "frc/simulation/SingleJointedArmSim.h"
-#include "units/angle.h"
-#include "units/angular_velocity.h"
-#include "units/current.h"
-#include "units/length.h"
-#include "units/moment_of_inertia.h"
-#include "units/time.h"
-#include "units/voltage.h"
+#include "wpi/simulation/SingleJointedArmSim.hpp"
 
 #include "dc_motor.h"
 
-// WASM wrapper for frc::sim::SingleJointedArmSim.
+// WASM wrapper for wpi::sim::SingleJointedArmSim.
 class SingleJointedArmSimWasm {
 public:
   SingleJointedArmSimWasm(DCMotorWasm *gearbox, double gearing,
@@ -20,16 +13,17 @@ public:
                           double maxAngleRadians, bool simulateGravity,
                           double startingAngleRadians)
       : arm(gearbox->getMotor(), gearing,
-            units::kilogram_square_meter_t(momentOfInertiaKgMSquared),
-            units::meter_t(armLengthMeters), units::radian_t(minAngleRadians),
-            units::radian_t(maxAngleRadians), simulateGravity,
-            units::radian_t(startingAngleRadians)) {}
+            wpi::units::kilogram_square_meter_t(momentOfInertiaKgMSquared),
+            wpi::units::meter_t(armLengthMeters),
+            wpi::units::radian_t(minAngleRadians),
+            wpi::units::radian_t(maxAngleRadians), simulateGravity,
+            wpi::units::radian_t(startingAngleRadians)) {}
 
   void setInputVoltage(double voltageVolts) {
-    arm.SetInputVoltage(units::volt_t(voltageVolts));
+    arm.SetInputVoltage(wpi::units::volt_t(voltageVolts));
   }
 
-  void update(double dtSeconds) { arm.Update(units::second_t(dtSeconds)); }
+  void update(double dtSeconds) { arm.Update(wpi::units::second_t(dtSeconds)); }
 
   double getAngle() const { return arm.GetAngle().to<double>(); }
 
@@ -42,5 +36,5 @@ public:
   bool hasHitUpperLimit() const { return arm.HasHitUpperLimit(); }
 
 private:
-  frc::sim::SingleJointedArmSim arm;
+  wpi::sim::SingleJointedArmSim arm;
 };

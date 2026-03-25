@@ -2184,8 +2184,8 @@ async function createWpilibcModule(moduleArg = {}) {
   Module['UTF8ToString'] = UTF8ToString;
   Module['stringToUTF8'] = stringToUTF8;
   var ___getTypeName,
-    _free,
     _malloc,
+    _free,
     __emscripten_timeout,
     memory,
     __indirect_function_table,
@@ -2193,20 +2193,20 @@ async function createWpilibcModule(moduleArg = {}) {
     wasmTable;
   function assignWasmExports(wasmExports) {
     ___getTypeName = wasmExports['P'];
+    _malloc = Module['_malloc'] = wasmExports['Q'];
     _free = Module['_free'] = wasmExports['R'];
-    _malloc = Module['_malloc'] = wasmExports['S'];
     __emscripten_timeout = wasmExports['T'];
     memory = wasmMemory = wasmExports['N'];
-    __indirect_function_table = wasmTable = wasmExports['Q'];
+    __indirect_function_table = wasmTable = wasmExports['S'];
   }
   var wasmImports = {
-    a: ___cxa_throw,
+    b: ___cxa_throw,
     H: __abort_js,
     r: __embind_register_bigint,
     K: __embind_register_bool,
     m: __embind_register_class,
     l: __embind_register_class_constructor,
-    b: __embind_register_class_function,
+    a: __embind_register_class_function,
     I: __embind_register_emval,
     q: __embind_register_float,
     k: __embind_register_function,

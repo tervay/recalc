@@ -4,17 +4,12 @@
 #include <emscripten/val.h>
 #include <vector>
 
-#include "frc/RobotController.h"
-#include "frc/simulation/BatterySim.h"
-#include "frc/simulation/FlywheelSim.h"
-#include "frc/simulation/RoboRioSim.h"
-#include "frc/system/NumericalIntegration.h"
-#include "frc/system/plant/LinearSystemId.h"
-#include "units/angular_velocity.h"
-#include "units/current.h"
-#include "units/moment_of_inertia.h"
-#include "units/time.h"
-#include "units/voltage.h"
+#include "wpi/math/system/Models.hpp"
+#include "wpi/math/system/NumericalIntegration.hpp"
+#include "wpi/simulation/BatterySim.hpp"
+#include "wpi/simulation/FlywheelSim.hpp"
+#include "wpi/simulation/RoboRioSim.hpp"
+#include "wpi/system/RobotController.hpp"
 
 #include "dc_motor.h"
 #include "sim_util.h"
@@ -22,22 +17,24 @@
 // FlywheelSim subclass that supports torque efficiency [0, 1].
 // Overrides UpdateX to scale the motor force (B matrix) by efficiency while
 // leaving back-EMF damping (A matrix) untouched.
-class EfficiencyFlywheelSim : public frc::sim::FlywheelSim {
+class EfficiencyFlywheelSim : public wpi::sim::FlywheelSim {
 public:
-  EfficiencyFlywheelSim(const frc::DCMotor &gearbox, double gearing,
-                        units::kilogram_square_meter_t moi, double efficiency)
-      : FlywheelSim(frc::LinearSystemId::FlywheelSystem(gearbox, moi, gearing),
+  EfficiencyFlywheelSim(const wpi::math::DCMotor &gearbox, double gearing,
+                        wpi::units::kilogram_square_meter_t moi,
+                        double efficiency)
+      : FlywheelSim(wpi::math::Models::FlywheelFromPhysicalConstants(
+                        gearbox, moi, gearing),
                     gearbox),
         m_efficiency(efficiency) {}
 
 protected:
-  frc::Vectord<1> UpdateX(const frc::Vectord<1> &currentXhat,
-                          const frc::Vectord<1> &u,
-                          units::second_t dt) override {
-    return frc::RKDP(
-        [&](const frc::Vectord<1> &x,
-            const frc::Vectord<1> &u_) -> frc::Vectord<1> {
-          frc::Vectord<1> xdot = m_plant.A() * x + m_plant.B() * u_;
+  wpi::math::Vectord<1> UpdateX(const wpi::math::Vectord<1> &currentXhat,
+                                const wpi::math::Vectord<1> &u,
+                                wpi::units::second_t dt) override {
+    return wpi::math::RKDP(
+        [&](const wpi::math::Vectord<1> &x,
+            const wpi::math::Vectord<1> &u_) -> wpi::math::Vectord<1> {
+          wpi::math::Vectord<1> xdot = m_plant.A() * x + m_plant.B() * u_;
           // Scale motor force by efficiency (B term only, preserves back-EMF)
           xdot(0) += (m_efficiency - 1.0) * m_plant.B()(0, 0) * u_(0);
           return xdot;
@@ -75,11 +72,11 @@ SimulateFlywheel(DCMotorWasm *motor, double gearing, double moiKgMSquared,
                  double batteryResistanceOhms, double batteryVoltageVolts,
                  double efficiency, double simTimestep, int decimation,
                  double maxSimSeconds) {
-  EfficiencyFlywheelSim flywheel(motor->getMotor(), gearing,
-                                 units::kilogram_square_meter_t(moiKgMSquared),
-                                 efficiency);
+  EfficiencyFlywheelSim flywheel(
+      motor->getMotor(), gearing,
+      wpi::units::kilogram_square_meter_t(moiKgMSquared), efficiency);
 
-  frc::sim::RoboRioSim::SetVInVoltage(units::volt_t(batteryVoltageVolts));
+  wpi::sim::RoboRioSim::SetVInVoltage(wpi::units::volt_t(batteryVoltageVolts));
 
   const double rOhms = motor->getROhms();
   const double kvRadPerSecPerVolt = motor->getKvRadPerSecPerVolt();
@@ -97,13 +94,13 @@ SimulateFlywheel(DCMotorWasm *motor, double gearing, double moiKgMSquared,
     const double motorShaftRadPerSec = flywheelRadPerSec * gearing;
     const double vBackEmf = motorShaftRadPerSec / kvRadPerSecPerVolt;
 
-    const double vSupply = frc::RobotController::GetInputVoltage();
+    const double vSupply = wpi::RobotController::GetInputVoltage();
 
     vApplied = ClampVoltageForCurrentLimits(
         vApplied, vBackEmf, rOhms, statorLimitAmps, supplyLimitAmps, vSupply);
 
-    flywheel.SetInputVoltage(units::volt_t(vApplied));
-    flywheel.Update(units::second_t(simTimestep));
+    flywheel.SetInputVoltage(wpi::units::volt_t(vApplied));
+    flywheel.Update(wpi::units::second_t(simTimestep));
     timestamp += simTimestep;
 
     const double statorCurrent = flywheel.GetCurrentDraw().to<double>();
@@ -111,11 +108,12 @@ SimulateFlywheel(DCMotorWasm *motor, double gearing, double moiKgMSquared,
     energyJoules += supplyCurrent * vSupply * simTimestep;
 
     // Battery voltage under load
-    std::vector<units::ampere_t> currents = {units::ampere_t(supplyCurrent)};
+    std::vector<wpi::units::ampere_t> currents = {
+        wpi::units::ampere_t(supplyCurrent)};
     const double newBatteryVoltage =
-        frc::sim::BatterySim::Calculate(units::volt_t(batteryVoltageVolts),
-                                        units::ohm_t(batteryResistanceOhms),
-                                        currents)
+        wpi::sim::BatterySim::Calculate(
+            wpi::units::volt_t(batteryVoltageVolts),
+            wpi::units::ohm_t(batteryResistanceOhms), currents)
             .to<double>();
 
     const double motorRpm = motorShaftRadPerSec * 60.0 / (2.0 * M_PI);
@@ -123,7 +121,7 @@ SimulateFlywheel(DCMotorWasm *motor, double gearing, double moiKgMSquared,
                       supplyCurrent, timestamp, newBatteryVoltage, vApplied,
                       motorRpm, energyJoules, true});
 
-    frc::sim::RoboRioSim::SetVInVoltage(units::volt_t(newBatteryVoltage));
+    wpi::sim::RoboRioSim::SetVInVoltage(wpi::units::volt_t(newBatteryVoltage));
 
     if (timestamp > maxSimSeconds) {
       if (!states.empty()) {

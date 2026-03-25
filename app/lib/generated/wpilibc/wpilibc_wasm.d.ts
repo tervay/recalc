@@ -21,8 +21,8 @@ declare namespace RuntimeExports {
   function stringToUTF8(str: any, outPtr: any, maxBytesToWrite: any): any;
 }
 interface WasmModule {
-  _free(_0: number): void;
   _malloc(_0: number): number;
+  _free(_0: number): void;
 }
 
 export interface ClassHandle {

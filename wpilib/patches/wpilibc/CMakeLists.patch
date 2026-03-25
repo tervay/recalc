@@ -1,0 +1,60 @@
+--- a/wpilibc/CMakeLists.txt
++++ b/wpilibc/CMakeLists.txt
+@@ -22,8 +22,22 @@
+         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/generated/main/native/include>
+         $<INSTALL_INTERFACE:${include_dest}/wpilibc>
+ )
++# For Emscripten builds, add ntcore headers directly (ntcore isn't built, but headers are needed)
++# Use PRIVATE since these are only needed for compiling wpilibc, not for consumers
++if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
++    target_include_directories(wpilibc PRIVATE
++        ${CMAKE_CURRENT_SOURCE_DIR}/../ntcore/src/main/native/include
++        ${CMAKE_CURRENT_SOURCE_DIR}/../ntcore/src/generated/main/native/include
++    )
++endif()
+ wpilib_target_warnings(wpilibc)
+ 
++# For Emscripten builds, disable -Wunnecessary-virtual-specifier warning
++# This warning occurs because some final classes have virtual destructors
++if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
++    target_compile_options(wpilibc PRIVATE -Wno-unnecessary-virtual-specifier)
++endif()
++
+ if(WITH_CSCORE)
+     target_link_libraries(wpilibc PUBLIC cameraserver cscore ${OpenCV_LIBS})
+ else()
+@@ -35,7 +49,16 @@
+     )
+ endif()
+ 
+-target_link_libraries(wpilibc PUBLIC hal ntcore wpimath datalog)
++# Conditionally link ntcore - use stub for WebAssembly builds if needed
++if(TARGET ntcore)
++    target_link_libraries(wpilibc PUBLIC hal ntcore wpimath datalog)
++elseif(TARGET ntcore_stub)
++    target_link_libraries(wpilibc PUBLIC hal ntcore_stub wpimath datalog)
++else()
++    target_link_libraries(wpilibc PUBLIC hal wpimath datalog)
++    # Define a macro to disable ntcore-dependent code if needed
++    target_compile_definitions(wpilibc PRIVATE WPILIB_NO_NTCORE)
++endif()
+ 
+ set_property(TARGET wpilibc PROPERTY FOLDER "libraries")
+ 
+@@ -43,7 +66,6 @@
+ export(TARGETS wpilibc FILE wpilibc.cmake NAMESPACE wpilibc::)
+ install(DIRECTORY src/main/native/include/ DESTINATION "${include_dest}/wpilibc")
+ install(DIRECTORY src/generated/main/native/include/ DESTINATION "${include_dest}/wpilibc")
+-
+ configure_file(wpilibc-config.cmake.in ${WPILIB_BINARY_DIR}/wpilibc-config.cmake)
+ install(FILES ${WPILIB_BINARY_DIR}/wpilibc-config.cmake DESTINATION share/wpilibc)
+ install(EXPORT wpilibc DESTINATION share/wpilibc)
+@@ -61,3 +83,8 @@
+         )
+     endif()
+ endif()
++
++# Add WebAssembly subdirectory if Emscripten toolchain is being used
++if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
++    add_subdirectory(wasm)
++endif()

@@ -4,16 +4,11 @@
 #include <emscripten/val.h>
 #include <vector>
 
-#include "frc/RobotController.h"
-#include "frc/simulation/BatterySim.h"
-#include "frc/simulation/ElevatorSim.h"
-#include "frc/simulation/RoboRioSim.h"
-#include "frc/system/NumericalIntegration.h"
-#include "frc/system/plant/LinearSystemId.h"
-#include "units/length.h"
-#include "units/mass.h"
-#include "units/time.h"
-#include "units/voltage.h"
+#include "wpi/math/system/NumericalIntegration.hpp"
+#include "wpi/simulation/BatterySim.hpp"
+#include "wpi/simulation/ElevatorSim.hpp"
+#include "wpi/simulation/RoboRioSim.hpp"
+#include "wpi/system/RobotController.hpp"
 
 #include "dc_motor.h"
 #include "sim_util.h"
@@ -22,29 +17,29 @@
 // efficiency [0, 1]. Overrides UpdateX to replace the hardcoded vertical
 // gravity with sin(angle)*9.8 and to scale the motor force (B matrix) by
 // efficiency while leaving back-EMF damping (A matrix) untouched.
-class AngledElevatorSim : public frc::sim::ElevatorSim {
+class AngledElevatorSim : public wpi::sim::ElevatorSim {
 public:
-  AngledElevatorSim(const frc::DCMotor &gearbox, double gearing,
-                    units::kilogram_t carriageMass, units::meter_t drumRadius,
-                    double minHeightMeters, double maxHeightMeters,
-                    double startingHeightMeters, double angleRadians,
-                    double efficiency)
+  AngledElevatorSim(const wpi::math::DCMotor &gearbox, double gearing,
+                    wpi::units::kilogram_t carriageMass,
+                    wpi::units::meter_t drumRadius, double minHeightMeters,
+                    double maxHeightMeters, double startingHeightMeters,
+                    double angleRadians, double efficiency)
       : ElevatorSim(gearbox, gearing, carriageMass, drumRadius,
-                    units::meter_t(minHeightMeters),
-                    units::meter_t(maxHeightMeters),
+                    wpi::units::meter_t(minHeightMeters),
+                    wpi::units::meter_t(maxHeightMeters),
                     false, // disable base class gravity — handled here
-                    units::meter_t(startingHeightMeters)),
+                    wpi::units::meter_t(startingHeightMeters)),
         m_minH(minHeightMeters), m_maxH(maxHeightMeters), m_angle(angleRadians),
         m_efficiency(efficiency) {}
 
 protected:
-  frc::Vectord<2> UpdateX(const frc::Vectord<2> &currentXhat,
-                          const frc::Vectord<1> &u,
-                          units::second_t dt) override {
-    auto updatedXhat = frc::RKDP(
-        [&](const frc::Vectord<2> &x,
-            const frc::Vectord<1> &u_) -> frc::Vectord<2> {
-          frc::Vectord<2> xdot = m_plant.A() * x + m_plant.B() * u_;
+  wpi::math::Vectord<2> UpdateX(const wpi::math::Vectord<2> &currentXhat,
+                                const wpi::math::Vectord<1> &u,
+                                wpi::units::second_t dt) override {
+    auto updatedXhat = wpi::math::RKDP(
+        [&](const wpi::math::Vectord<2> &x,
+            const wpi::math::Vectord<1> &u_) -> wpi::math::Vectord<2> {
+          wpi::math::Vectord<2> xdot = m_plant.A() * x + m_plant.B() * u_;
           // Scale motor force by efficiency (B term only, preserves back-EMF)
           xdot(1) += (m_efficiency - 1.0) * m_plant.B()(1, 0) * u_(0);
           // Angle-adjusted gravity: full at 90deg (vertical), zero at 0deg
@@ -54,11 +49,11 @@ protected:
         },
         currentXhat, u, dt);
 
-    if (WouldHitLowerLimit(units::meter_t{updatedXhat(0)})) {
-      return frc::Vectord<2>{m_minH, 0.0};
+    if (WouldHitLowerLimit(wpi::units::meter_t{updatedXhat(0)})) {
+      return wpi::math::Vectord<2>{m_minH, 0.0};
     }
-    if (WouldHitUpperLimit(units::meter_t{updatedXhat(0)})) {
-      return frc::Vectord<2>{m_maxH, 0.0};
+    if (WouldHitUpperLimit(wpi::units::meter_t{updatedXhat(0)})) {
+      return wpi::math::Vectord<2>{m_maxH, 0.0};
     }
     return updatedXhat;
   }
@@ -112,11 +107,11 @@ SimulateElevator(DCMotorWasm *motor, double gearing, double loadKg,
   }
 
   AngledElevatorSim elevator(
-      motor->getMotor(), gearing, units::kilogram_t(loadKg),
-      units::meter_t(spoolRadiusMeters), 0.0, travelDistanceMeters, 0.0,
+      motor->getMotor(), gearing, wpi::units::kilogram_t(loadKg),
+      wpi::units::meter_t(spoolRadiusMeters), 0.0, travelDistanceMeters, 0.0,
       angleRadians, efficiency);
 
-  frc::sim::RoboRioSim::SetVInVoltage(units::volt_t(batteryVoltageVolts));
+  wpi::sim::RoboRioSim::SetVInVoltage(wpi::units::volt_t(batteryVoltageVolts));
 
   const double rOhms = motor->getROhms();
   const double kvRadPerSecPerVolt = motor->getKvRadPerSecPerVolt();
@@ -134,13 +129,13 @@ SimulateElevator(DCMotorWasm *motor, double gearing, double loadKg,
         velocityMPS / spoolRadiusMeters * gearing;
     const double vBackEmf = motorShaftRadPerSec / kvRadPerSecPerVolt;
 
-    const double vSupply = frc::RobotController::GetInputVoltage();
+    const double vSupply = wpi::RobotController::GetInputVoltage();
 
     vApplied = ClampVoltageForCurrentLimits(
         vApplied, vBackEmf, rOhms, statorLimitAmps, supplyLimitAmps, vSupply);
 
-    elevator.SetInputVoltage(units::volt_t(vApplied));
-    elevator.Update(units::second_t(simTimestep));
+    elevator.SetInputVoltage(wpi::units::volt_t(vApplied));
+    elevator.Update(wpi::units::second_t(simTimestep));
     timestamp += simTimestep;
 
     const double statorCurrent = elevator.GetCurrentDraw().to<double>();
@@ -148,11 +143,12 @@ SimulateElevator(DCMotorWasm *motor, double gearing, double loadKg,
     energyJoules += supplyCurrent * vSupply * simTimestep;
 
     // Battery voltage under load
-    std::vector<units::ampere_t> currents = {units::ampere_t(supplyCurrent)};
+    std::vector<wpi::units::ampere_t> currents = {
+        wpi::units::ampere_t(supplyCurrent)};
     const double newBatteryVoltage =
-        frc::sim::BatterySim::Calculate(units::volt_t(batteryVoltageVolts),
-                                        units::ohm_t(batteryResistanceOhms),
-                                        currents)
+        wpi::sim::BatterySim::Calculate(
+            wpi::units::volt_t(batteryVoltageVolts),
+            wpi::units::ohm_t(batteryResistanceOhms), currents)
             .to<double>();
 
     if (!elevator.HasHitUpperLimit()) {
@@ -163,7 +159,7 @@ SimulateElevator(DCMotorWasm *motor, double gearing, double loadKg,
                         motorRpm, energyJoules, true});
     }
 
-    frc::sim::RoboRioSim::SetVInVoltage(units::volt_t(newBatteryVoltage));
+    wpi::sim::RoboRioSim::SetVInVoltage(wpi::units::volt_t(newBatteryVoltage));
 
     if (timestamp > maxSimSeconds) {
       if (!states.empty()) {
