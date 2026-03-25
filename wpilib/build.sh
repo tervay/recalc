@@ -79,8 +79,27 @@ if ! command -v docker &> /dev/null; then
   exit 1
 fi
 
+# Load WPILib version configuration
+WPILIB_CONF="$SCRIPT_DIR/wpilib.conf"
+if [ ! -f "$WPILIB_CONF" ]; then
+  log_error "wpilib.conf not found at $WPILIB_CONF"
+  exit 1
+fi
+# shellcheck source=wpilib.conf
+source "$WPILIB_CONF"
+
+if [ -z "$WPILIB_COMMIT" ]; then
+  log_error "WPILIB_COMMIT is not set in wpilib.conf"
+  exit 1
+fi
+
+log_info "Building WPILib from commit: ${WPILIB_COMMIT}"
+log_info "Repository: ${WPILIB_REPO}"
 log_info "Building Docker image..."
-docker build -f "$DOCKERFILE" -t "$DOCKER_IMAGE" "$SCRIPT_DIR"
+docker build -f "$DOCKERFILE" -t "$DOCKER_IMAGE" \
+  --build-arg WPILIB_REPO="$WPILIB_REPO" \
+  --build-arg WPILIB_COMMIT="$WPILIB_COMMIT" \
+  "$SCRIPT_DIR"
 
 log_info "Creating output directories..."
 mkdir -p "$OUTPUT_DIR"

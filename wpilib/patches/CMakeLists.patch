@@ -1,0 +1,46 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -34,6 +34,17 @@
+ 
+ set(WPILIB_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
+ 
++# For Emscripten (WASM) builds, cmake package installation infrastructure is
++# not needed. Disable install() and export() globally to avoid errors from
++# cmake attempting to export targets that depend on stub libraries (ntcore_stub,
++# etc.) that are not part of any install set.
++if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
++    macro(install)
++    endmacro()
++    macro(export)
++    endmacro()
++endif()
++
+ include(CMakeDependentOption)
+ include(CPack)
+ include(OptionValidation)
+@@ -294,8 +305,12 @@
+ if(WITH_NTCORE)
+     set(NTCORE_DEP_REPLACE "find_dependency(ntcore)")
+     set(WPINET_DEP_REPLACE "find_dependency(wpinet)")
+-    add_subdirectory(wpinet)
+-    add_subdirectory(ntcore)
++    # Skip wpinet and ntcore for Emscripten builds (they don't compile for WebAssembly)
++    # The stub will be provided by wpilibc/wasm/stubs instead
++    if(NOT CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
++        add_subdirectory(wpinet)
++        add_subdirectory(ntcore)
++    endif()
+ endif()
+ 
+ if(WITH_WPIMATH)
+@@ -334,6 +349,10 @@
+ 
+ if(WITH_WPILIB OR WITH_SIMULATION_MODULES)
+     set(HAL_DEP_REPLACE "find_dependency(hal)")
++    # For Emscripten: create ntcore stub before hal so hal can link to it
++    if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten" AND NOT TARGET ntcore)
++        add_subdirectory(wpilibc/wasm/stubs stub_pre_build)
++    endif()
+     add_subdirectory(hal)
+ endif()
+ 

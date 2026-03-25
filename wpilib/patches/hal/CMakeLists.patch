@@ -1,0 +1,24 @@
+--- a/hal/CMakeLists.txt
++++ b/hal/CMakeLists.txt
+@@ -23,12 +23,20 @@
+ )
+ target_link_libraries(hal PUBLIC ntcore wpiutil)
+ 
++# For Emscripten builds, add ntcore headers directly (ntcore isn't built, but
++# headers are needed to compile hal sources that reference NetworkTables).
++if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
++    target_include_directories(hal PRIVATE
++        ${CMAKE_CURRENT_SOURCE_DIR}/../ntcore/src/main/native/include
++        ${CMAKE_CURRENT_SOURCE_DIR}/../ntcore/src/generated/main/native/include
++    )
++endif()
++
+ set_property(TARGET hal PROPERTY FOLDER "libraries")
+ 
+ install(TARGETS hal EXPORT hal)
+ export(TARGETS hal FILE hal.cmake NAMESPACE hal::)
+ install(DIRECTORY src/main/native/include/ DESTINATION "${include_dest}/hal")
+-
+ configure_file(hal-config.cmake.in ${WPILIB_BINARY_DIR}/hal-config.cmake)
+ install(FILES ${WPILIB_BINARY_DIR}/hal-config.cmake DESTINATION share/hal)
+ install(EXPORT hal DESTINATION share/hal)

@@ -57,8 +57,8 @@
   - paragraph: "0.4550999999999662"
   - list:
     - listitem: "Position (m) : 1.2579156179961508"
-    - listitem: "Stator Current (A) : 21.534728237716138"
-    - listitem: "Supply Current (A) : 22.14788978937627"
+    - listitem: "Stator Current (A) : 21.534728237716024"
+    - listitem: "Supply Current (A) : 22.14788978937616"
     - listitem: "Velocity (m/s) : 3.59211506606238"
 - list:
   - listitem:

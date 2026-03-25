@@ -30,25 +30,37 @@ RUN npm i -g typescript@5.8.3
 
 # ---- Stage: libs ----
 # Compiles all static library dependencies of wpilibc_wasm.
-# Cached unless allwpilib, CMakeLists patches, or toolchain files change.
+# Cached unless the WPILib commit hash, CMakeLists patches, or toolchain files change.
 FROM base AS libs
 
-WORKDIR /build
-COPY allwpilib /build/allwpilib
+ARG WPILIB_REPO=https://github.com/wpilibsuite/allwpilib
+ARG WPILIB_COMMIT
 
-# Apply all patches except bindings.cc (deferred to next stage)
-COPY patches/CMakeLists.txt /build/allwpilib/CMakeLists.txt
-COPY patches/wpimath/CMakeLists.txt /build/allwpilib/wpimath/CMakeLists.txt
+WORKDIR /build
+RUN test -n "${WPILIB_COMMIT}" || { echo "ERROR: WPILIB_COMMIT build arg is required"; exit 1; } && \
+    git init /build/allwpilib && \
+    cd /build/allwpilib && \
+    git remote add origin "${WPILIB_REPO}" && \
+    git fetch --depth 1 origin "${WPILIB_COMMIT}" && \
+    git checkout FETCH_HEAD
+
+# Apply CMakeLists.txt patches (minimal diffs against upstream)
+COPY patches/CMakeLists.patch /tmp/patches/root_CMakeLists.patch
+COPY patches/wpimath/CMakeLists.patch /tmp/patches/wpimath_CMakeLists.patch
+COPY patches/wpilibc/CMakeLists.patch /tmp/patches/wpilibc_CMakeLists.patch
+COPY patches/hal/CMakeLists.patch /tmp/patches/hal_CMakeLists.patch
+RUN patch -p1 -d /build/allwpilib < /tmp/patches/root_CMakeLists.patch && \
+    patch -p1 -d /build/allwpilib < /tmp/patches/wpimath_CMakeLists.patch && \
+    patch -p1 -d /build/allwpilib < /tmp/patches/wpilibc_CMakeLists.patch && \
+    patch -p1 -d /build/allwpilib < /tmp/patches/hal_CMakeLists.patch
+
+# Copy new files (wasm/ directories don't exist in upstream)
 COPY patches/wpimath/wasm/CMakeLists.txt /build/allwpilib/wpimath/wasm/CMakeLists.txt
 COPY patches/wpimath/wasm/emscripten_toolchain.cmake /build/allwpilib/wpimath/wasm/emscripten_toolchain.cmake
-COPY patches/wpilibc/CMakeLists.txt /build/allwpilib/wpilibc/CMakeLists.txt
 COPY patches/wpilibc/wasm/CMakeLists.txt /build/allwpilib/wpilibc/wasm/CMakeLists.txt
 COPY patches/wpilibc/wasm/emscripten_toolchain.cmake /build/allwpilib/wpilibc/wasm/emscripten_toolchain.cmake
 COPY patches/wpilibc/wasm/stubs/CMakeLists.txt /build/allwpilib/wpilibc/wasm/stubs/CMakeLists.txt
 COPY patches/wpilibc/wasm/stubs/ntcore_stub.cc /build/allwpilib/wpilibc/wasm/stubs/ntcore_stub.cc
-COPY patches/fmtlib_cstdlib.patch /tmp/fmtlib_cstdlib.patch
-RUN patch -p1 -d /build/allwpilib < /tmp/fmtlib_cstdlib.patch
-
 # Placeholder bindings so cmake can configure and all static lib dependencies
 # can be compiled. The real bindings are applied in the next stage.
 RUN printf '#include <emscripten/bind.h>\nEMSCRIPTEN_BINDINGS(placeholder) {}\n' \
