@@ -17,5 +17,8 @@
     "lib": "~/lib",
     "hooks": "~/hooks"
   },
-  "iconLibrary": "lucide"
+  "iconLibrary": "lucide",
+  "registries": {
+    "@shadix-ui": "https://shadix-ui.vercel.app/r/{name}.json"
+  }
 }

@@ -31,6 +31,7 @@ export async function simulateElevatorWpilib(
   angle: MeasurementDict,
   efficiency: number,
   cascade: boolean,
+  batteryVoltageFilterTimeConstantSeconds: number,
 ): Promise<WpilibElevatorSimState[]> {
   const wpilibc = await initWpilibc();
   const motor = Motor.fromDict(motorDict);
@@ -53,6 +54,7 @@ export async function simulateElevatorWpilib(
       Measurement.fromDict(angle).to('rad').scalar,
       efficiency,
       cascade,
+      batteryVoltageFilterTimeConstantSeconds,
     ) as WpilibElevatorSimState[];
   } finally {
     wasmMotor.delete();

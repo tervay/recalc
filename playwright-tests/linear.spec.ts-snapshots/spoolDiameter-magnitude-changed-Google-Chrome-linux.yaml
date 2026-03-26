@@ -3,7 +3,7 @@
 - heading "Motor & Gearing" [level=2]
 - switch "Cascade"
 - text: Cascade Motor
-- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Target Time to Goal Stator Limit Supply Limit Stator Voltage Supply Voltage Maximum Comfortable Stator Limit Maximum Comfortable Supply Limit": "1"
+- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Stator Limit Supply Limit Stator Voltage Supply Voltage Target Time to Goal Max Stator Limit Max Supply Limit": "1"
 - combobox: Kraken X60 (FOC)
 - button "Efficiency %"
 - spinbutton: "100"
@@ -26,15 +26,12 @@
 - button "Battery Resistance"
 - spinbutton: "0.015"
 - combobox: Ohm
-- button "Target Time to Goal"
-- spinbutton: "0.5"
-- combobox: s
 - heading "Limits" [level=2]
 - button "Stator Limit"
-- spinbutton: "60"
+- spinbutton: "80"
 - combobox: A
 - button "Supply Limit"
-- spinbutton: "90"
+- spinbutton: "60"
 - combobox: A
 - button "Stator Voltage"
 - spinbutton: "12"
@@ -42,15 +39,9 @@
 - button "Supply Voltage"
 - spinbutton: "12"
 - combobox: V
-- button "Maximum Comfortable Stator Limit"
-- spinbutton: "100"
-- combobox: A
-- button "Maximum Comfortable Supply Limit"
-- spinbutton: "85"
-- combobox: A
-- text: Time to Goal 0.890
+- text: Time to Goal 0.603
 - combobox: s
-- text: Stall Load 19.661
+- text: Stall Load 26.621
 - combobox: lbs
 - heading "Simulation" [level=2]
 - list:
@@ -66,10 +57,10 @@
   - listitem:
     - img "Velocity (m/s) legend icon"
     - text: Velocity (m/s)
-- application: 0.0351 0.1 0.15 0.21 0.27 0.341 0.41 0.481 0.55 0.61 0.681 0.75 0.821 0.89 Time (s) 0 15 30 45 60 Velocity (m/s) / Current (A) 0 0.4 0.8 1.2 1.6 Position (m)
+- application: 0.0021 0.0631 0.116 0.163 0.211 0.261 0.313 0.36 0.4 0.451 0.501 0.551 0.603 Time (s) 0 20 40 60 80 Velocity (m/s) / Current (A) 0 0.4 0.8 1.2 1.6 Position (m)
 - text: kV 1.560
 - combobox: V*s/m
-- text: kA 0.879
+- text: kA 0.659
 - combobox: V*s^2/m
-- text: kG 9.152
+- text: kG 6.759
 - combobox: V

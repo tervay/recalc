@@ -7,10 +7,10 @@
 - spinbutton: "1"
 - combobox: Reduction
 - text: Stator Limit
-- spinbutton: "30"
+- spinbutton: "80"
 - combobox: A
 - text: Supply Limit
-- spinbutton: "90"
+- spinbutton: "60"
 - combobox: A
 - text: Supply Voltage
 - spinbutton: "12.6"
@@ -50,7 +50,7 @@
 - combobox: in2*lbs
 - switch "Use Custom Flywheel MOI"
 - text: Use Custom Flywheel MOI Outputs Spinup Time
-- spinbutton [disabled]: "0.823"
+- spinbutton [disabled]: "0.309"
 - combobox: s
 - text: Effective MOI
 - spinbutton [disabled]: "10.500"
@@ -59,7 +59,7 @@
 - spinbutton [disabled]: "0.260"
 - combobox: V*s/m
 - text: kA
-- spinbutton [disabled]: "0.464"
+- spinbutton [disabled]: "0.161"
 - combobox: V*s^2/m
 - list:
   - listitem:
@@ -74,4 +74,4 @@
   - listitem:
     - img "Supply Current (A) legend icon"
     - text: Supply Current (A)
-- application: 0.051 0.111 0.171 0.231 0.291 0.351 0.411 0.471 0.531 0.591 0.651 0.711 0.771 0.823 0 15 30 45 60 0 800 1600 2400 3200
+- application: 0.021 0.051 0.081 0.111 0.131 0.151 0.171 0.191 0.221 0.251 0.281 0.309 0 40 80 120 160 0 800 1600 2400 3200

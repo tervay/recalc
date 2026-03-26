@@ -34,7 +34,9 @@ inline double ClampVoltageForCurrentLimits(double vApplied, double vBackEmf,
   const double vMin = std::max(minATerm, minBTerm);
   const double vMax = std::min(maxATerm, maxBTerm);
 
-  return std::max(vMin, std::min(vApplied, vMax));
+  // Clamp to current-limit bounds, then ensure we stay within supply voltage.
+  return std::clamp(std::max(vMin, std::min(vApplied, vMax)), -vSupply,
+                    vSupply);
 }
 
 // Decimate a state vector and convert to a JS array via a caller-supplied

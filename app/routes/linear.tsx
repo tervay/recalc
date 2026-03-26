@@ -20,17 +20,23 @@ import {
 import { MotorInput } from '~/components/recalc/io/motor';
 import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
-import PctSpan from '~/components/recalc/pctSpan';
+import { ReorderList } from '~/components/recalc/reorderList';
+import { Loader } from '~/components/shadix-ui/components/loader';
+import { Button } from '~/components/ui/button';
 import { ChartContainer } from '~/components/ui/chart';
 import { Skeleton } from '~/components/ui/skeleton';
+import {
+  Tooltip as UiTooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '~/components/ui/tooltip';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { calculateKa, calculateKg, calculateKv } from '~/lib/math/kVkA';
 import { calculateStallLoad } from '~/lib/math/linear';
 import type * as LinearWorker from '~/lib/math/linear.worker';
 import type {
   ConfigOptOutput,
-  OptimizerResult,
-  SingleSimResult,
+  OptimizationPriority,
 } from '~/lib/math/linearOptimizer.worker';
 import optimizerWorkerUrl from '~/lib/math/linearOptimizer.worker?worker&url';
 import Measurement from '~/lib/models/Measurement';
@@ -44,6 +50,29 @@ import {
   NumberParam,
   RatioParam,
 } from '~/lib/types/queryParams';
+
+const PRIORITY_LABELS: Record<OptimizationPriority, string> = {
+  timeToGoal: 'Time to Goal',
+  peakCurrent: 'Peak Supply Current',
+  energy: 'Energy',
+  avgPower: 'Avg Power',
+};
+
+const DEFAULT_PRIORITIES: OptimizationPriority[] = [
+  'timeToGoal',
+  'peakCurrent',
+  'energy',
+  'avgPower',
+];
+
+type GridDisplayMode = 'ratio' | 'peakCurrent' | 'energy' | 'avgPower';
+
+const GRID_DISPLAY_MODES: { mode: GridDisplayMode; label: string }[] = [
+  { mode: 'ratio', label: 'Ratio' },
+  { mode: 'peakCurrent', label: 'Peak I' },
+  { mode: 'energy', label: 'Energy' },
+  { mode: 'avgPower', label: 'Avg P' },
+];
 
 type WpilibElevatorSimState = LinearWorker.WpilibElevatorSimState;
 
@@ -61,8 +90,8 @@ const DEFAULT_PARAMS = {
   load: MeasurementParam.withDefault(new Measurement(15, 'lb')),
   ratio: RatioParam.withDefault(new Ratio(2, RatioType.REDUCTION)),
   efficiency: NumberParam.withDefault(100),
-  statorLimit: MeasurementParam.withDefault(new Measurement(60, 'A')),
-  supplyLimit: MeasurementParam.withDefault(new Measurement(90, 'A')),
+  statorLimit: MeasurementParam.withDefault(new Measurement(80, 'A')),
+  supplyLimit: MeasurementParam.withDefault(new Measurement(60, 'A')),
   supplyVoltage: MeasurementParam.withDefault(new Measurement(12, 'V')),
   statorVoltage: MeasurementParam.withDefault(new Measurement(12, 'V')),
   angle: MeasurementParam.withDefault(new Measurement(90, 'deg')),
@@ -72,10 +101,10 @@ const DEFAULT_PARAMS = {
   cascade: BooleanParam.withDefault(false),
   targetTimeToGoal: MeasurementParam.withDefault(new Measurement(0.5, 's')),
   maximumComfortableStatorLimit: MeasurementParam.withDefault(
-    new Measurement(100, 'A'),
+    new Measurement(80, 'A'),
   ),
   maximumComfortableSupplyLimit: MeasurementParam.withDefault(
-    new Measurement(85, 'A'),
+    new Measurement(60, 'A'),
   ),
 };
 
@@ -85,9 +114,6 @@ const worker = new ComlinkWorker<typeof LinearWorker>(
     type: 'module',
   },
 );
-
-const OPTIMIZER_STATOR_LIMITS = [20, 30, 40, 50, 60, 70, 80];
-const PRESET_SUPPLY_LIMITS = [20, 30, 40, 50, 60, 70];
 
 const optimizerPool = workerpool.pool(optimizerWorkerUrl, {
   workerType: 'web',
@@ -193,20 +219,16 @@ export default function Linear() {
     );
   }, [motor, statorLimit, spoolDiameter, ratio, efficiency, statorVoltage]);
 
+  const [priorities, setPriorities] =
+    useState<OptimizationPriority[]>(DEFAULT_PRIORITIES);
+  const [tierTolerance, setTierTolerance] = useState(10);
+  const [gridDisplayMode, setGridDisplayMode] =
+    useState<GridDisplayMode>('ratio');
+
   const [workerWpilibSimStates, setWorkerWpilibSimStates] = useState<
     WpilibElevatorSimState[]
   >([]);
   const [isSimulating, setIsSimulating] = useState(true);
-
-  const [optimizerResults, setOptimizerResults] = useState<OptimizerResult[]>(
-    [],
-  );
-  const optimizerGeneration = useRef(0);
-
-  const [supplySimResults, setSupplySimResults] = useState<SingleSimResult[]>(
-    [],
-  );
-  const supplySimGeneration = useRef(0);
 
   const [configOptResult, setConfigOptResult] =
     useState<ConfigOptOutput | null>(null);
@@ -238,6 +260,7 @@ export default function Linear() {
         angle.toDict(),
         efficiency / 100,
         cascade,
+        0.1,
       )
       .then((states) => {
         setWorkerWpilibSimStates(states);
@@ -264,132 +287,7 @@ export default function Linear() {
   ]);
 
   const userStatorAmps = statorLimit.to('A').scalar;
-  const allStatorLimits = useMemo(
-    () =>
-      OPTIMIZER_STATOR_LIMITS.includes(userStatorAmps)
-        ? OPTIMIZER_STATOR_LIMITS
-        : [...OPTIMIZER_STATOR_LIMITS, userStatorAmps].sort((a, b) => a - b),
-    [userStatorAmps],
-  );
-
-  useEffect(() => {
-    if (!optimizationEnabled) {
-      setOptimizerResults([]);
-      return;
-    }
-    const gen = ++optimizerGeneration.current;
-    setOptimizerResults([]);
-
-    for (const statorLimitAmps of allStatorLimits) {
-      optimizerPool
-        .exec('optimizeRatio', [
-          motor.toDict(),
-          load.toDict(),
-          spoolDiameter.toDict(),
-          travelDistance.toDict(),
-          supplyLimit.toDict(),
-          statorVoltage.toDict(),
-          batteryResistance.toDict(),
-          supplyVoltage.toDict(),
-          statorLimitAmps,
-          ratio.magnitude,
-          angle.toDict(),
-          efficiency / 100,
-          cascade,
-        ])
-        .then((result: OptimizerResult) => {
-          if (gen !== optimizerGeneration.current) return;
-          setOptimizerResults((prev) =>
-            [...prev, result].sort(
-              (a, b) => a.statorLimitAmps - b.statorLimitAmps,
-            ),
-          );
-        })
-        .catch((err: unknown) => {
-          console.error('Optimizer error:', err);
-        });
-    }
-  }, [
-    motor,
-    statorLimit,
-    supplyLimit,
-    load,
-    spoolDiameter,
-    travelDistance,
-    statorVoltage,
-    batteryResistance,
-    supplyVoltage,
-    ratio,
-    angle,
-    efficiency,
-    cascade,
-    optimizationEnabled,
-    allStatorLimits,
-  ]);
-
   const userSupplyAmps = supplyLimit.to('A').scalar;
-  const allSupplyLimits = useMemo(
-    () =>
-      PRESET_SUPPLY_LIMITS.includes(userSupplyAmps)
-        ? PRESET_SUPPLY_LIMITS
-        : [...PRESET_SUPPLY_LIMITS, userSupplyAmps].sort((a, b) => a - b),
-    [userSupplyAmps],
-  );
-
-  useEffect(() => {
-    if (!optimizationEnabled) {
-      setSupplySimResults([]);
-      return;
-    }
-    const gen = ++supplySimGeneration.current;
-    setSupplySimResults([]);
-
-    for (const s of allSupplyLimits) {
-      optimizerPool
-        .exec('simulateOnce', [
-          motor.toDict(),
-          ratio.magnitude,
-          load.toDict(),
-          spoolDiameter.toDict(),
-          travelDistance.toDict(),
-          statorLimit.to('A').scalar,
-          s,
-          statorVoltage.toDict(),
-          batteryResistance.toDict(),
-          supplyVoltage.toDict(),
-          angle.toDict(),
-          efficiency / 100,
-          cascade,
-        ])
-        .then((result: SingleSimResult) => {
-          if (gen !== supplySimGeneration.current) return;
-          setSupplySimResults((prev) =>
-            [...prev, result].sort(
-              (a, b) => a.supplyLimitAmps - b.supplyLimitAmps,
-            ),
-          );
-        })
-        .catch((err: unknown) => {
-          console.error('Supply sim error:', err);
-        });
-    }
-  }, [
-    motor,
-    ratio,
-    load,
-    spoolDiameter,
-    travelDistance,
-    statorLimit,
-    supplyLimit,
-    statorVoltage,
-    batteryResistance,
-    supplyVoltage,
-    angle,
-    efficiency,
-    cascade,
-    optimizationEnabled,
-    allSupplyLimits,
-  ]);
 
   useEffect(() => {
     if (!optimizationEnabled) {
@@ -414,6 +312,9 @@ export default function Linear() {
         angle.toDict(),
         efficiency / 100,
         cascade,
+        0.1,
+        priorities,
+        tierTolerance / 100,
       ])
       .then((result: ConfigOptOutput) => {
         if (gen !== configOptGeneration.current) return;
@@ -437,6 +338,8 @@ export default function Linear() {
     efficiency,
     cascade,
     optimizationEnabled,
+    priorities,
+    tierTolerance,
   ]);
 
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
@@ -548,15 +451,6 @@ export default function Linear() {
                     labelAbove
                   />
                 </IOLine>
-                <IOLine>
-                  <MeasurementInput
-                    stateHook={[targetTimeToGoal, setTargetTimeToGoal]}
-                    label="Target Time to Goal"
-                    tooltip="The target time to reach the goal position. This is used to optimize the ratio and supply limit."
-                    testId="targetTimeToGoal"
-                    labelAbove
-                  />
-                </IOLine>
               </div>
               <div className="border-t" />
 
@@ -594,28 +488,6 @@ export default function Linear() {
                     label="Supply Voltage"
                     tooltip="The voltage available from the supply (battery) at rest."
                     testId="supplyVoltage"
-                    labelAbove
-                  />
-                </IOLine>
-                <IOLine>
-                  <MeasurementInput
-                    stateHook={[
-                      maximumComfortableStatorLimit,
-                      setMaximumComfortableStatorLimit,
-                    ]}
-                    label="Maximum Comfortable Stator Limit"
-                    tooltip="The maximum stator limit that is comfortable for you. Used for recommendations."
-                    testId="maximumComfortableStatorLimit"
-                    labelAbove
-                  />
-                  <MeasurementInput
-                    stateHook={[
-                      maximumComfortableSupplyLimit,
-                      setMaximumComfortableSupplyLimit,
-                    ]}
-                    label="Maximum Comfortable Supply Limit"
-                    tooltip="The maximum supply limit that is comfortable for you. Used for recommendations."
-                    testId="maximumComfortableSupplyLimit"
                     labelAbove
                   />
                 </IOLine>
@@ -787,428 +659,369 @@ export default function Linear() {
       </div>
 
       {optimizationEnabled && (
-        <div className="flex flex-row flex-wrap gap-6 px-1">
-          {/* Left column: Recommended Configuration */}
-          <div className="flex min-w-[300px] flex-1 flex-col gap-4">
-            <section className="flex flex-col gap-3 rounded-lg border p-4">
-              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                Recommended Configuration
-              </h2>
+        <div className="flex flex-col gap-4 px-1">
+          {/* Row 1: Optimal configuration grid + priority reorder list + settings */}
+          <div className="flex flex-row flex-wrap gap-4">
+            {/* Optimal configuration grid */}
+            <section className="flex min-w-0 flex-1 flex-col gap-3 rounded-lg border p-4">
+              <div className="flex items-center gap-3">
+                <h2 className="flex-1 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  Optimal Configuration Grid
+                </h2>
+                <div className="flex gap-1">
+                  {GRID_DISPLAY_MODES.map(({ mode, label }) => (
+                    <Button
+                      key={mode}
+                      size="sm"
+                      variant={gridDisplayMode === mode ? 'default' : 'ghost'}
+                      className="h-6 px-2 text-xs"
+                      onClick={() => setGridDisplayMode(mode)}
+                    >
+                      {label}
+                    </Button>
+                  ))}
+                </div>
+              </div>
               {configOptResult ? (
-                <>
-                  {(() => {
-                    const ConfigCard = ({
-                      result,
-                      label,
-                      note,
-                    }: {
-                      result: import('~/lib/math/linearOptimizer.worker').ConfigOptResult;
-                      label: string;
-                      note: string;
-                    }) => (
-                      <div className="flex flex-col gap-2">
-                        <h3 className="text-xs font-medium text-muted-foreground">
-                          {label}
-                        </h3>
-                        <div className="grid grid-cols-3 gap-3 tabular-nums">
-                          <div className="flex flex-col">
-                            <span className="text-xs text-muted-foreground">
-                              Ratio
-                            </span>
-                            <span className="text-lg font-bold">
-                              {result.optimalRatio.toFixed(2)}
-                            </span>
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-xs text-muted-foreground">
-                              Stator Limit
-                            </span>
-                            <span className="text-lg font-bold">
-                              {result.statorLimitAmps} A
-                            </span>
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-xs text-muted-foreground">
-                              Supply Limit
-                            </span>
-                            <span className="text-lg font-bold">
-                              {result.supplyLimitAmps} A
-                            </span>
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-xs text-muted-foreground">
-                              Time to Goal
-                            </span>
-                            <span className="text-lg font-bold">
-                              {result.timeToGoalSeconds.toFixed(3)} s
-                            </span>
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-xs text-muted-foreground">
-                              Peak Supply Current
-                            </span>
-                            <span className="text-lg font-bold">
-                              {result.peakCurrentAmps.toFixed(1)} A
-                            </span>
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-xs text-muted-foreground">
-                              Energy
-                            </span>
-                            <span className="text-lg font-bold">
-                              {result.energyJoules.toFixed(1)} J
-                            </span>
-                          </div>
-                        </div>
-                        <p className="text-xs text-muted-foreground">{note}</p>
-                      </div>
-                    );
+                (() => {
+                  if (!configOptResult.recommended) {
                     return (
-                      <>
-                        <ConfigCard
-                          result={configOptResult.recommended}
-                          label="Fastest overall"
-                          note={`${configOptResult.tier1Count} configuration${configOptResult.tier1Count !== 1 ? 's' : ''} within 10% of fastest; ${configOptResult.tier2Count} also within 10% of lowest peak current.`}
-                        />
-                        <div className="border-t" />
-                        {configOptResult.targetResult ? (
-                          <ConfigCard
-                            result={configOptResult.targetResult}
-                            label={`Meets ${targetTimeToGoal.to('s').scalar.toFixed(2)} s target`}
-                            note="Lowest peak current among configs that meet the target time, then lowest energy."
-                          />
-                        ) : (
-                          <div className="flex flex-col gap-1">
-                            <h3 className="text-xs font-medium text-muted-foreground">
-                              Meets {targetTimeToGoal.to('s').scalar.toFixed(2)}{' '}
-                              s target
-                            </h3>
-                            <p className="text-sm text-muted-foreground">
-                              No configuration achieves this target time.
-                              Fastest achievable:{' '}
-                              {configOptResult.recommended.timeToGoalSeconds.toFixed(
-                                3,
-                              )}{' '}
-                              s.
-                            </p>
-                          </div>
-                        )}
-                      </>
+                      <p className="text-sm text-muted-foreground">
+                        No successful configurations found. Try adjusting your
+                        inputs.
+                      </p>
                     );
-                  })()}
-                </>
+                  }
+                  const statorLimits = [
+                    ...new Set(
+                      configOptResult.allResults.map((r) => r.statorLimitAmps),
+                    ),
+                  ].sort((a, b) => a - b);
+                  const supplyLimits = [
+                    ...new Set(
+                      configOptResult.allResults.map((r) => r.supplyLimitAmps),
+                    ),
+                  ].sort((a, b) => a - b);
+                  const cellMap = new Map(
+                    configOptResult.allResults.map((r) => [
+                      `${r.statorLimitAmps}-${r.supplyLimitAmps}`,
+                      r,
+                    ]),
+                  );
+                  const rec = configOptResult.recommended;
+
+                  const formatCell = (
+                    cell: import('~/lib/math/linearOptimizer.worker').ConfigOptResult,
+                  ) => {
+                    switch (gridDisplayMode) {
+                      case 'ratio':
+                        return cell.optimalRatio.toFixed(2);
+                      case 'peakCurrent':
+                        return `${cell.peakCurrentAmps.toFixed(1)} A`;
+                      case 'energy':
+                        return `${cell.energyJoules.toFixed(1)} J`;
+                      case 'avgPower':
+                        return `${(cell.energyJoules / cell.timeToGoalSeconds).toFixed(1)} W`;
+                    }
+                  };
+
+                  return (
+                    <div className="overflow-x-auto">
+                      <table className="border-separate border-spacing-0 text-xs tabular-nums">
+                        <thead>
+                          <tr>
+                            <th className="pr-2 pb-1 text-left font-medium whitespace-nowrap text-muted-foreground">
+                              Stator \ Supply
+                            </th>
+                            {supplyLimits.map((s) => (
+                              <th
+                                key={s}
+                                className={`w-20 px-2 pb-1 text-center font-medium whitespace-nowrap ${s === userSupplyAmps ? 'text-foreground' : 'text-muted-foreground'}`}
+                              >
+                                {s} A
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {statorLimits.map((stator) => (
+                            <tr key={stator}>
+                              <td
+                                className={`py-0.5 pr-2 font-medium whitespace-nowrap ${stator === userStatorAmps ? 'text-foreground' : 'text-muted-foreground'}`}
+                              >
+                                {stator} A
+                              </td>
+                              {supplyLimits.map((supply) => {
+                                const cell = cellMap.get(`${stator}-${supply}`);
+                                const isRecommended =
+                                  rec.statorLimitAmps === stator &&
+                                  rec.supplyLimitAmps === supply;
+                                return (
+                                  <td
+                                    key={supply}
+                                    className="w-20 px-2 py-0.5 text-center whitespace-nowrap tabular-nums"
+                                  >
+                                    {cell?.success ? (
+                                      <UiTooltip>
+                                        <TooltipTrigger asChild>
+                                          <span
+                                            className={`inline-block cursor-default rounded px-1 py-0.5 ${
+                                              isRecommended
+                                                ? 'bg-primary font-semibold text-primary-foreground'
+                                                : 'hover:bg-muted'
+                                            }`}
+                                          >
+                                            {formatCell(cell)}
+                                          </span>
+                                        </TooltipTrigger>
+                                        <TooltipContent className="flex flex-col gap-1 text-xs">
+                                          <div>
+                                            <span className="text-primary-foreground/70">
+                                              Ratio:{' '}
+                                            </span>
+                                            {cell.optimalRatio.toFixed(2)}
+                                          </div>
+                                          <div>
+                                            <span className="text-primary-foreground/70">
+                                              Time:{' '}
+                                            </span>
+                                            {cell.timeToGoalSeconds.toFixed(3)}{' '}
+                                            s
+                                          </div>
+                                          <div>
+                                            <span className="text-primary-foreground/70">
+                                              Peak Supply:{' '}
+                                            </span>
+                                            {cell.peakCurrentAmps.toFixed(1)} A
+                                          </div>
+                                          <div>
+                                            <span className="text-primary-foreground/70">
+                                              Energy:{' '}
+                                            </span>
+                                            {cell.energyJoules.toFixed(1)} J
+                                          </div>
+                                          <div>
+                                            <span className="text-primary-foreground/70">
+                                              Avg Power:{' '}
+                                            </span>
+                                            {(
+                                              cell.energyJoules /
+                                              cell.timeToGoalSeconds
+                                            ).toFixed(1)}{' '}
+                                            W
+                                          </div>
+                                        </TooltipContent>
+                                      </UiTooltip>
+                                    ) : (
+                                      <span className="text-muted-foreground">
+                                        —
+                                      </span>
+                                    )}
+                                  </td>
+                                );
+                              })}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  );
+                })()
               ) : (
-                <div className="text-sm text-muted-foreground">Optimizing…</div>
+                <div className="text-sm text-muted-foreground">
+                  <Loader variant="bar" />
+                </div>
               )}
             </section>
-          </div>
 
-          {/* Right column: Optimizer tables */}
-          <div className="flex min-w-[300px] flex-1 flex-col">
-            <section className="flex flex-col rounded-lg border">
-              {/* Ratio Optimizer */}
-              <div className="flex flex-col gap-3 p-4">
-                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                  Ratio Optimizer
-                </h2>
-                <table className="w-full text-sm tabular-nums">
-                  <thead>
-                    <tr className="border-b text-left text-xs text-muted-foreground">
-                      <th className="pr-3 pb-1 font-medium">
-                        Per-Motor
-                        <br />
-                        Stator Limit
-                      </th>
-                      <th className="pr-3 pb-1 font-medium">Ratio</th>
-                      <th className="pr-3 pb-1 font-medium">
-                        Peak Supply
-                        <br />
-                        Current
-                      </th>
-                      <th className="pr-3 pb-1 font-medium">Time to Goal</th>
-                      <th className="pr-3 pb-1 font-medium">Energy</th>
-                      <th className="pb-1 font-medium">Avg Power</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {allStatorLimits.flatMap((statorLimitAmps) => {
-                      const result = optimizerResults.find(
-                        (r) => r.statorLimitAmps === statorLimitAmps,
-                      );
-                      const isUserRow = statorLimitAmps === userStatorAmps;
-                      const baselineSeconds = timeToGoal.to('s').scalar;
-                      const hasBaseline =
-                        workerWpilibSimStates.length > 0 && baselineSeconds > 0;
+            {/* Priority reorder list */}
+            <section className="flex w-64 shrink-0 flex-col gap-3 rounded-lg border p-4">
+              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                Priority Tiers
+              </h2>
+              <ReorderList
+                withDragHandle
+                onReorderFinish={(newOrder) => {
+                  const newPriorities = newOrder
+                    .map((el) => el.key)
+                    .filter((k): k is OptimizationPriority => k !== null);
+                  setPriorities(newPriorities);
+                }}
+              >
+                {priorities.map((p) => (
+                  <div
+                    key={p}
+                    className="flex items-center gap-2 rounded border px-3 py-2 text-sm"
+                  >
+                    {PRIORITY_LABELS[p]}
+                  </div>
+                ))}
+              </ReorderList>
+            </section>
 
-                      const baselineEnergyJoules =
-                        workerWpilibSimStates.length > 0
-                          ? workerWpilibSimStates[
-                              workerWpilibSimStates.length - 1
-                            ].energyJoules
-                          : null;
-                      const baselineAvgPower =
-                        baselineEnergyJoules !== null && hasBaseline
-                          ? baselineEnergyJoules / baselineSeconds
-                          : null;
-                      const baselinePeakCurrent =
-                        workerWpilibSimStates.length > 0
-                          ? Math.max(
-                              ...workerWpilibSimStates.map(
-                                (s) => s.supplyCurrentDrawAmps,
-                              ),
-                            )
-                          : null;
-
-                      const timePct =
-                        result && hasBaseline
-                          ? ((result.timeToGoalSeconds - baselineSeconds) /
-                              baselineSeconds) *
-                            100
-                          : null;
-                      const peakCurrentPct =
-                        result && baselinePeakCurrent !== null
-                          ? ((result.peakCurrentAmps - baselinePeakCurrent) /
-                              baselinePeakCurrent) *
-                            100
-                          : null;
-                      const energyPct =
-                        result && baselineEnergyJoules !== null
-                          ? ((result.energyJoules - baselineEnergyJoules) /
-                              baselineEnergyJoules) *
-                            100
-                          : null;
-                      const avgPowerPct =
-                        result && baselineAvgPower !== null
-                          ? ((result.energyJoules / result.timeToGoalSeconds -
-                              baselineAvgPower) /
-                              baselineAvgPower) *
-                            100
-                          : null;
-
-                      return [
-                        <tr
-                          key={statorLimitAmps}
-                          className={`border-b last:border-0 ${isUserRow ? 'bg-muted' : ''}`}
-                        >
-                          <td className="py-1 pr-3">{statorLimitAmps} A</td>
-                          <td className="py-1 pr-3">
-                            {result ? (
-                              result.optimalRatio.toFixed(2)
-                            ) : (
-                              <Skeleton className="inline-block h-3.5 w-10" />
-                            )}
-                          </td>
-                          <td className="py-1 pr-3">
-                            {result ? (
-                              <>
-                                <span>
-                                  {result.peakCurrentAmps.toFixed(1)} A
-                                </span>
-                                {peakCurrentPct !== null ? (
-                                  <PctSpan pct={peakCurrentPct} />
-                                ) : null}
-                              </>
-                            ) : (
-                              <Skeleton className="inline-block h-3.5 w-14" />
-                            )}
-                          </td>
-                          <td className="py-1 pr-3">
-                            {result ? (
-                              <>
-                                <span>
-                                  {result.timeToGoalSeconds.toFixed(3)} s
-                                </span>
-                                {timePct !== null ? (
-                                  <PctSpan pct={timePct} />
-                                ) : null}
-                              </>
-                            ) : (
-                              <Skeleton className="inline-block h-3.5 w-14" />
-                            )}
-                          </td>
-                          <td className="py-1 pr-3">
-                            {result ? (
-                              <>
-                                <span>{result.energyJoules.toFixed(1)} J</span>
-                                {energyPct !== null ? (
-                                  <PctSpan pct={energyPct} />
-                                ) : null}
-                              </>
-                            ) : (
-                              <Skeleton className="inline-block h-3.5 w-14" />
-                            )}
-                          </td>
-                          <td className="py-1">
-                            {result ? (
-                              <>
-                                <span>
-                                  {(
-                                    result.energyJoules /
-                                    result.timeToGoalSeconds
-                                  ).toFixed(1)}{' '}
-                                  W
-                                </span>
-                                {avgPowerPct !== null ? (
-                                  <PctSpan pct={avgPowerPct} />
-                                ) : null}
-                              </>
-                            ) : (
-                              <Skeleton className="inline-block h-3.5 w-14" />
-                            )}
-                          </td>
-                        </tr>,
-                      ];
-                    })}
-                  </tbody>
-                </table>
-              </div>
+            {/* Optimization settings */}
+            <section className="flex w-64 shrink-0 flex-col gap-3 rounded-lg border p-4">
+              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                Settings
+              </h2>
+              <NumberInput
+                label="Tier tolerance"
+                tooltip="How much worse than the best a candidate can be before it's excluded from the next priority tier. Default 10%."
+                stateHook={[tierTolerance, setTierTolerance]}
+              />
               <div className="border-t" />
-
-              {/* Supply Limit Comparison */}
-              <div className="flex flex-col gap-3 p-4">
-                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                  Supply Limit Comparison @ {ratio.toString()}
-                </h2>
-                <table className="w-full text-sm tabular-nums">
-                  <thead>
-                    <tr className="border-b text-left text-xs text-muted-foreground">
-                      <th className="pr-3 pb-1 font-medium">Supply Limit</th>
-                      <th className="pr-3 pb-1 font-medium">
-                        Peak Supply
-                        <br />
-                        Current
-                      </th>
-                      <th className="pr-3 pb-1 font-medium">Time to Goal</th>
-                      <th className="pr-3 pb-1 font-medium">Energy</th>
-                      <th className="pb-1 font-medium">Avg Power</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {allSupplyLimits.map((s) => {
-                      const result = supplySimResults.find(
-                        (res) => res.supplyLimitAmps === s,
-                      );
-                      const isUserRow = s === userSupplyAmps;
-                      const baselineSeconds = timeToGoal.to('s').scalar;
-                      const hasBaseline =
-                        workerWpilibSimStates.length > 0 && baselineSeconds > 0;
-                      const baselineEnergyJoules =
-                        workerWpilibSimStates.length > 0
-                          ? workerWpilibSimStates[
-                              workerWpilibSimStates.length - 1
-                            ].energyJoules
-                          : null;
-                      const baselineAvgPower =
-                        baselineEnergyJoules !== null && hasBaseline
-                          ? baselineEnergyJoules / baselineSeconds
-                          : null;
-                      const baselinePeakCurrent =
-                        workerWpilibSimStates.length > 0
-                          ? Math.max(
-                              ...workerWpilibSimStates.map(
-                                (ws) => ws.supplyCurrentDrawAmps,
-                              ),
-                            )
-                          : null;
-
-                      const timePct =
-                        result && hasBaseline && !isUserRow
-                          ? ((result.timeToGoalSeconds - baselineSeconds) /
-                              baselineSeconds) *
-                            100
-                          : null;
-                      const energyPct =
-                        result && baselineEnergyJoules !== null && !isUserRow
-                          ? ((result.energyJoules - baselineEnergyJoules) /
-                              baselineEnergyJoules) *
-                            100
-                          : null;
-                      const avgPowerPct =
-                        result && baselineAvgPower !== null && !isUserRow
-                          ? ((result.energyJoules / result.timeToGoalSeconds -
-                              baselineAvgPower) /
-                              baselineAvgPower) *
-                            100
-                          : null;
-                      const peakCurrentPct =
-                        result && baselinePeakCurrent !== null && !isUserRow
-                          ? ((result.peakCurrentAmps - baselinePeakCurrent) /
-                              baselinePeakCurrent) *
-                            100
-                          : null;
-
-                      return (
-                        <tr
-                          key={s}
-                          className={`border-b last:border-0 ${isUserRow ? 'bg-muted font-bold' : ''}`}
-                        >
-                          <td className="py-1 pr-3">{s} A</td>
-                          <td className="py-1 pr-3">
-                            {result ? (
-                              <>
-                                <span>
-                                  {result.peakCurrentAmps.toFixed(1)} A
-                                </span>
-                                {peakCurrentPct !== null ? (
-                                  <PctSpan pct={peakCurrentPct} />
-                                ) : null}
-                              </>
-                            ) : (
-                              <Skeleton className="inline-block h-3.5 w-14" />
-                            )}
-                          </td>
-                          <td className="py-1 pr-3">
-                            {result ? (
-                              <>
-                                <span>
-                                  {result.timeToGoalSeconds.toFixed(3)} s
-                                </span>
-                                {timePct !== null ? (
-                                  <PctSpan pct={timePct} />
-                                ) : null}
-                              </>
-                            ) : (
-                              <Skeleton className="inline-block h-3.5 w-14" />
-                            )}
-                          </td>
-                          <td className="py-1 pr-3">
-                            {result ? (
-                              <>
-                                <span>{result.energyJoules.toFixed(1)} J</span>
-                                {energyPct !== null ? (
-                                  <PctSpan pct={energyPct} />
-                                ) : null}
-                              </>
-                            ) : (
-                              <Skeleton className="inline-block h-3.5 w-14" />
-                            )}
-                          </td>
-                          <td className="py-1">
-                            {result ? (
-                              <>
-                                <span>
-                                  {(
-                                    result.energyJoules /
-                                    result.timeToGoalSeconds
-                                  ).toFixed(1)}{' '}
-                                  W
-                                </span>
-                                {avgPowerPct !== null ? (
-                                  <PctSpan pct={avgPowerPct} />
-                                ) : null}
-                              </>
-                            ) : (
-                              <Skeleton className="inline-block h-3.5 w-14" />
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
+              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                Constraints
+              </h2>
+              <MeasurementInput
+                stateHook={[targetTimeToGoal, setTargetTimeToGoal]}
+                label="Target Time to Goal"
+                tooltip="The target time to reach the goal position. Used to find the best configuration that meets this target."
+                testId="targetTimeToGoal"
+                labelAbove
+              />
+              <MeasurementInput
+                stateHook={[
+                  maximumComfortableStatorLimit,
+                  setMaximumComfortableStatorLimit,
+                ]}
+                label="Max Stator Limit"
+                tooltip="The maximum stator limit that is comfortable for you. Used for recommendations."
+                testId="maximumComfortableStatorLimit"
+                labelAbove
+              />
+              <MeasurementInput
+                stateHook={[
+                  maximumComfortableSupplyLimit,
+                  setMaximumComfortableSupplyLimit,
+                ]}
+                label="Max Supply Limit"
+                tooltip="The maximum supply limit that is comfortable for you. Used for recommendations."
+                testId="maximumComfortableSupplyLimit"
+                labelAbove
+              />
             </section>
           </div>
+
+          {/* Row 2: Recommended Configuration */}
+          <section className="flex flex-col gap-3 rounded-lg border p-4">
+            <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+              Recommended Configuration
+            </h2>
+            {configOptResult ? (
+              (() => {
+                if (!configOptResult.recommended) {
+                  return null;
+                }
+                const ConfigCard = ({
+                  result,
+                  label,
+                  note,
+                }: {
+                  result: import('~/lib/math/linearOptimizer.worker').ConfigOptResult;
+                  label: string;
+                  note: string;
+                }) => (
+                  <div className="flex flex-col gap-2">
+                    <h3 className="text-xs font-medium text-muted-foreground">
+                      {label}
+                    </h3>
+                    <div className="grid grid-cols-3 gap-3 tabular-nums sm:grid-cols-6">
+                      <div className="flex flex-col">
+                        <span className="text-xs text-muted-foreground">
+                          Ratio
+                        </span>
+                        <span className="text-lg font-bold">
+                          {result.optimalRatio.toFixed(2)}
+                        </span>
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-xs text-muted-foreground">
+                          Stator Limit
+                        </span>
+                        <span className="text-lg font-bold">
+                          {result.statorLimitAmps} A
+                        </span>
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-xs text-muted-foreground">
+                          Supply Limit
+                        </span>
+                        <span className="text-lg font-bold">
+                          {result.supplyLimitAmps} A
+                        </span>
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-xs text-muted-foreground">
+                          Time to Goal
+                        </span>
+                        <span className="text-lg font-bold">
+                          {result.timeToGoalSeconds.toFixed(3)} s
+                        </span>
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-xs text-muted-foreground">
+                          Peak Supply Current
+                        </span>
+                        <span className="text-lg font-bold">
+                          {result.peakCurrentAmps.toFixed(1)} A
+                        </span>
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-xs text-muted-foreground">
+                          Energy
+                        </span>
+                        <span className="text-lg font-bold">
+                          {result.energyJoules.toFixed(1)} J
+                        </span>
+                      </div>
+                    </div>
+                    <p className="text-xs text-muted-foreground">{note}</p>
+                  </div>
+                );
+                return (
+                  <div className="flex flex-col gap-4 sm:flex-row sm:gap-8">
+                    <div className="flex-1">
+                      <ConfigCard
+                        result={configOptResult.recommended}
+                        label="Fastest overall"
+                        note={`${configOptResult.tier1Count} configuration${configOptResult.tier1Count !== 1 ? 's' : ''} within 10% of top priority; ${configOptResult.tier2Count} also within 10% of second priority.`}
+                      />
+                    </div>
+                    <div className="border-t sm:border-t-0 sm:border-l" />
+                    <div className="flex-1">
+                      {configOptResult.targetResult ? (
+                        <ConfigCard
+                          result={configOptResult.targetResult}
+                          label={`Meets ${targetTimeToGoal.to('s').scalar.toFixed(2)} s target`}
+                          note="Best configuration by priority that meets the target time."
+                        />
+                      ) : (
+                        <div className="flex flex-col gap-1">
+                          <h3 className="text-xs font-medium text-muted-foreground">
+                            Meets {targetTimeToGoal.to('s').scalar.toFixed(2)} s
+                            target
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            No configuration achieves this target time. Fastest
+                            achievable:{' '}
+                            {configOptResult.recommended.timeToGoalSeconds.toFixed(
+                              3,
+                            )}{' '}
+                            s.
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })()
+            ) : (
+              <div className="text-sm text-muted-foreground">
+                <Loader variant="bar" />
+              </div>
+            )}
+          </section>
         </div>
       )}
     </div>

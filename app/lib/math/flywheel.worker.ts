@@ -29,6 +29,7 @@ export async function simulateFlywheelWpilib(
   momentOfInertia_: MeasurementDict,
   targetRPM_: MeasurementDict,
   efficiency: number,
+  batteryVoltageFilterTimeConstantSeconds: number,
 ): Promise<WpilibFlywheelSimState[]> {
   const wpilibc = await initWpilibc();
 
@@ -72,6 +73,7 @@ export async function simulateFlywheelWpilib(
       0.001,
       10,
       3.0,
+      batteryVoltageFilterTimeConstantSeconds,
     ) as WpilibFlywheelSimState[];
   } finally {
     wasmMotor.delete();

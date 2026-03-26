@@ -10,7 +10,7 @@
 - spinbutton: "50"
 - combobox: A
 - text: Supply Limit
-- spinbutton: "90"
+- spinbutton: "60"
 - combobox: A
 - text: Supply Voltage
 - spinbutton: "12.6"

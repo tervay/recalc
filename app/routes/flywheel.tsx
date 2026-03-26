@@ -50,8 +50,8 @@ export function meta() {
 const DEFAULT_PARAMS = {
   motor: MotorParam.withDefault(Motor.KrakenX60sFOC(2)),
   ratio: RatioParam.withDefault(new Ratio(1, RatioType.REDUCTION)),
-  statorLimit: MeasurementParam.withDefault(new Measurement(30, 'A')),
-  supplyLimit: MeasurementParam.withDefault(new Measurement(90, 'A')),
+  statorLimit: MeasurementParam.withDefault(new Measurement(80, 'A')),
+  supplyLimit: MeasurementParam.withDefault(new Measurement(60, 'A')),
   supplyVoltage: MeasurementParam.withDefault(new Measurement(12.6, 'V')),
   batteryResistance: MeasurementParam.withDefault(
     new Measurement(0.015, 'Ohm'),
@@ -262,6 +262,7 @@ export default function Flywheel() {
           combinedMOI.toDict(),
           clampedShooterTargetSpeed.toDict(),
           efficiency / 100,
+          0.1,
         );
         if (!cancelled) setWorkerWpilibSimStates(states);
       } catch (error) {
@@ -330,6 +331,7 @@ export default function Flywheel() {
           statorLimitAmps,
           ratio.magnitude,
           efficiency / 100,
+          0.1,
         ])
         .then((result: FlywheelOptimizerResult) => {
           if (gen !== optimizerGeneration.current) return;
