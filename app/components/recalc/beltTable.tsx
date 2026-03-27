@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 
 import { VendorBadge } from '~/components/recalc/vendorBadge';
+import { Skeleton } from '~/components/ui/skeleton';
 import {
   Table,
   TableBody,
@@ -13,6 +14,8 @@ import {
 import { Belt } from '~/lib/models/Belt';
 import { type JSONBelt, zJSONBeltSchema } from '~/lib/types/belts';
 import type { Vendor } from '~/lib/types/common';
+
+const SKELETON_ROW_COUNT = 4;
 
 export function BeltTable({
   filterFn = () => true,
@@ -74,65 +77,103 @@ export function BeltTable({
   }, [allBelts, filterFn]);
 
   return (
-    <div className="rounded-md border">
+    <div className="overflow-hidden rounded-md border shadow-sm">
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead colSpan={5} className="bg-blue-50 text-center font-bold">
-              Matching COTS Belts
+            <TableHead
+              colSpan={3}
+              className="bg-primary/8 text-center font-semibold text-foreground"
+            >
+              <span>Matching COTS Belts</span>
+              {allBelts !== null && (
+                <span className="ml-2 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                  {belts.length}
+                </span>
+              )}
             </TableHead>
           </TableRow>
           <TableRow>
-            <TableHead className="bg-blue-50/50">SKU</TableHead>
-            <TableHead className="bg-blue-50/50">Teeth</TableHead>
-            <TableHead className="bg-blue-50/50">Width</TableHead>
+            <TableHead className="bg-primary/4 text-xs font-medium tracking-wide text-muted-foreground uppercase">
+              SKU
+            </TableHead>
+            <TableHead className="bg-primary/4 text-xs font-medium tracking-wide text-muted-foreground uppercase">
+              Teeth
+            </TableHead>
+            <TableHead className="bg-primary/4 text-xs font-medium tracking-wide text-muted-foreground uppercase">
+              Width
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {allBelts === null ? (
-            <TableRow>
-              <TableCell colSpan={5} className="text-center">
-                Loading...
-              </TableCell>
-            </TableRow>
+            Array.from({ length: SKELETON_ROW_COUNT }).map((_, i) => (
+              <TableRow key={i}>
+                <TableCell>
+                  <div className="flex items-center gap-2">
+                    <Skeleton className="h-5 w-12 rounded" />
+                    <Skeleton className="h-4 w-28" />
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="h-4 w-8" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="h-4 w-10" />
+                </TableCell>
+              </TableRow>
+            ))
           ) : belts.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={5} className="text-center">
+              <TableCell
+                colSpan={3}
+                className="py-6 text-center text-sm text-muted-foreground"
+              >
                 No matching belts found
               </TableCell>
             </TableRow>
           ) : (
             belts.map((belt, index) => {
               const prevBelt = index > 0 ? belts[index - 1] : null;
-              const showDivider =
+              const isNewGroup =
                 prevBelt !== null && prevBelt.teeth !== belt.teeth;
 
               const defaultSku = `${belt.vendor}-${belt.teeth}T-${belt.width.format().replace(' ', '')}`;
               const sku = belt.sku || defaultSku;
 
               return (
-                <>
-                  {showDivider && (
-                    <TableRow key={`divider-${belt.teeth}`}>
-                      <TableCell colSpan={3} className="h-px p-0">
-                        <div className="h-px bg-border" />
+                <Fragment key={sku}>
+                  {isNewGroup && (
+                    <TableRow className="hover:bg-transparent">
+                      <TableCell
+                        colSpan={3}
+                        className="bg-muted/40 py-1 pl-3 text-xs font-semibold text-muted-foreground"
+                      >
+                        {belt.teeth}T
                       </TableCell>
                     </TableRow>
                   )}
-                  <TableRow key={sku}>
+                  <TableRow className="hover:bg-muted/40">
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-2">
                         <VendorBadge
                           vendor={belt.vendor as Vendor}
                           url={belt.url}
                         />
-                        <Link to={belt.url}>{sku}</Link>
+                        <Link
+                          to={belt.url}
+                          className="text-primary underline-offset-4 hover:underline"
+                        >
+                          {sku}
+                        </Link>
                       </div>
                     </TableCell>
-                    <TableCell>{belt.teeth}</TableCell>
-                    <TableCell>{belt.width.format()}</TableCell>
+                    <TableCell className="tabular-nums">{belt.teeth}</TableCell>
+                    <TableCell className="tabular-nums">
+                      {belt.width.format()}
+                    </TableCell>
                   </TableRow>
-                </>
+                </Fragment>
               );
             })
           )}

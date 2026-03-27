@@ -1,5 +1,7 @@
 - heading "Linear Motion Calculator" [level=1]
-- button "Copy Link"
+- button "Copy Link":
+  - img
+  - text: Copy Link
 - heading "Motor & Gearing" [level=2]
 - switch "Cascade"
 - text: Cascade Motor

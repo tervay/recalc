@@ -1,5 +1,7 @@
 - heading "Ratio Finder" [level=1]
-- button "Copy Link"
+- button "Copy Link":
+  - img
+  - text: Copy Link
 - text: Target Settings Ratio
 - spinbutton "Ratio": "20"
 - combobox: Reduction
