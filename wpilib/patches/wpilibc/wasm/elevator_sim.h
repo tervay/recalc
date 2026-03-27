@@ -4,6 +4,7 @@
 #include <emscripten/val.h>
 #include <vector>
 
+#include "wpi/math/filter/LinearFilter.hpp"
 #include "wpi/math/system/NumericalIntegration.hpp"
 #include "wpi/simulation/BatterySim.hpp"
 #include "wpi/simulation/ElevatorSim.hpp"
@@ -96,7 +97,7 @@ SimulateElevator(DCMotorWasm *motor, double gearing, double loadKg,
                  double statorVoltageVolts, double batteryResistanceOhms,
                  double batteryVoltageVolts, double simTimestep, int decimation,
                  double maxSimSeconds, double angleRadians, double efficiency,
-                 bool cascade) {
+                 bool cascade, double batteryVoltageFilterTimeConstantSeconds) {
   // Cascade rigging: the first stage travels half the carriage distance, and
   // the effective load is doubled (each side of the cascade belt carries the
   // full carriage + object weight). Stage-2 frame weight is omitted here.
@@ -117,6 +118,12 @@ SimulateElevator(DCMotorWasm *motor, double gearing, double loadKg,
   const double kvRadPerSecPerVolt = motor->getKvRadPerSecPerVolt();
   double timestamp = 0.0;
   double energyJoules = 0.0;
+
+  auto batteryFilter = wpi::math::LinearFilter<double>::SinglePoleIIR(
+      batteryVoltageFilterTimeConstantSeconds,
+      wpi::units::second_t(simTimestep));
+  batteryFilter.Reset(std::span<const double>{&batteryVoltageVolts, 1},
+                      std::span<const double>{&batteryVoltageVolts, 1});
 
   std::vector<ElevatorSimStateInternal> states;
 
@@ -139,27 +146,32 @@ SimulateElevator(DCMotorWasm *motor, double gearing, double loadKg,
     timestamp += simTimestep;
 
     const double statorCurrent = elevator.GetCurrentDraw().to<double>();
-    const double supplyCurrent = statorCurrent * vApplied / vSupply;
+    // GetCurrentDraw() returns stator current (positive = motoring, negative =
+    // braking). Use abs(vApplied) to maintain correct supply current signage.
+    const double supplyCurrent = statorCurrent * std::abs(vApplied) / vSupply;
     energyJoules += supplyCurrent * vSupply * simTimestep;
 
-    // Battery voltage under load
+    // Battery voltage under load, smoothed by a single-pole IIR filter
     std::vector<wpi::units::ampere_t> currents = {
         wpi::units::ampere_t(supplyCurrent)};
-    const double newBatteryVoltage =
+    const double rawBatteryVoltage =
         wpi::sim::BatterySim::Calculate(
             wpi::units::volt_t(batteryVoltageVolts),
             wpi::units::ohm_t(batteryResistanceOhms), currents)
             .to<double>();
+    const double filteredBatteryVoltage =
+        batteryFilter.Calculate(rawBatteryVoltage);
 
     if (!elevator.HasHitUpperLimit()) {
       const double motorRpm = motorShaftRadPerSec * 60.0 / (2.0 * M_PI);
       states.push_back({elevator.GetPosition().to<double>(),
                         elevator.GetVelocity().to<double>(), statorCurrent,
-                        supplyCurrent, timestamp, newBatteryVoltage, vApplied,
-                        motorRpm, energyJoules, true});
+                        supplyCurrent, timestamp, filteredBatteryVoltage,
+                        vApplied, motorRpm, energyJoules, true});
     }
 
-    wpi::sim::RoboRioSim::SetVInVoltage(wpi::units::volt_t(newBatteryVoltage));
+    wpi::sim::RoboRioSim::SetVInVoltage(
+        wpi::units::volt_t(filteredBatteryVoltage));
 
     if (timestamp > maxSimSeconds) {
       if (!states.empty()) {

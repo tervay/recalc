@@ -87,13 +87,23 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
            "travelDistanceMeters, statorLimitAmps, supplyLimitAmps, "
            "statorVoltageVolts, batteryResistanceOhms, batteryVoltageVolts, "
            "simTimestep, decimation, maxSimSeconds, angleRadians, efficiency, "
-           "cascade)",
+           "cascade, batteryVoltageFilterTimeConstantSeconds)",
            &SimulateElevator, allow_raw_pointers());
 
   // Full flywheel simulation loop
   function("simulateFlywheel(motor, gearing, moiKgMSquared, "
            "targetAngularVelocityRadPerSec, statorLimitAmps, supplyLimitAmps, "
            "statorVoltageVolts, batteryResistanceOhms, batteryVoltageVolts, "
-           "efficiency, simTimestep, decimation, maxSimSeconds)",
+           "efficiency, simTimestep, decimation, maxSimSeconds, "
+           "batteryVoltageFilterTimeConstantSeconds)",
            &SimulateFlywheel, allow_raw_pointers());
+
+  // Full arm simulation loop
+  function("simulateArm(motor, gearing, momentOfInertiaKgMSquared, "
+           "armLengthMeters, minAngleRadians, maxAngleRadians, "
+           "startingAngleRadians, statorLimitAmps, supplyLimitAmps, "
+           "statorVoltageVolts, batteryResistanceOhms, batteryVoltageVolts, "
+           "efficiency, goingUp, simTimestep, decimation, maxSimSeconds, "
+           "batteryVoltageFilterTimeConstantSeconds)",
+           &SimulateArm, allow_raw_pointers());
 }

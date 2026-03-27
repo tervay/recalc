@@ -4,17 +4,19 @@ import type { MotorDict } from '~/lib/models/Motor';
 import Motor from '~/lib/models/Motor';
 import type { RatioDict } from '~/lib/models/Ratio';
 import Ratio from '~/lib/models/Ratio';
-import { SNAPSHOT_PRECISION, obliterateArray, toFixed } from '~/lib/utils';
-import { arrayToVectorDouble } from '~/lib/wpilib/util';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
 
-const SIM_TIMESTEP_SECONDS = 0.001;
-
 export interface WpilibArmSimState {
+  angleRadians: number;
+  angularVelocityRadPerSec: number;
+  statorCurrentDrawAmps: number;
+  supplyCurrentDrawAmps: number;
   timeSeconds: number;
-  angularVelocity: number;
-  currentDraw: number;
-  batteryVoltage: number;
+  batteryVoltageVolts: number;
+  motorAppliedVoltageVolts: number;
+  motorRpm: number;
+  energyJoules: number;
+  success: boolean;
 }
 
 export async function simulateArmWpilib(
@@ -27,13 +29,14 @@ export async function simulateArmWpilib(
   startingAngle_: MeasurementDict,
   statorVoltage_: MeasurementDict,
   supplyVoltage_: MeasurementDict,
-  currentLimit_: MeasurementDict,
+  statorLimit_: MeasurementDict,
+  supplyLimit_: MeasurementDict,
   batteryResistance_: MeasurementDict,
   goingDownOrUp: 'down' | 'up',
+  efficiency: number,
+  batteryVoltageFilterTimeConstantSeconds: number,
 ): Promise<WpilibArmSimState[]> {
   const wpilibc = await initWpilibc();
-
-  const states: WpilibArmSimState[] = [];
 
   const motor = Motor.fromDict(motor_);
   const ratio = Ratio.fromDict(ratio_);
@@ -43,85 +46,45 @@ export async function simulateArmWpilib(
   const maxAngle = Measurement.fromDict(maxAngle_);
   const startingAngle = Measurement.fromDict(startingAngle_);
   const supplyVoltage = Measurement.fromDict(supplyVoltage_);
-  const currentLimit = Measurement.fromDict(currentLimit_);
+  const statorLimit = Measurement.fromDict(statorLimit_);
+  const supplyLimit = Measurement.fromDict(supplyLimit_);
   const batteryResistance = Measurement.fromDict(batteryResistance_);
   const statorVoltage = Measurement.fromDict(statorVoltage_);
 
-  const wasmMotor = motor.toWpilibMotor();
-  const armSim = new wpilibc.SingleJointedArmSim(
-    wasmMotor,
-    ratio.asNumber(),
-    momentOfInertia.to('kg m^2').scalar,
-    armLength.to('m').scalar,
-    minAngle.to('rad').scalar,
-    maxAngle.to('rad').scalar,
-    true,
-    startingAngle.to('rad').scalar,
-  );
-  wasmMotor.delete();
-
-  const iMax = currentLimit.mul(motor.quantity);
-  const resistance = motor.resistance.div(motor.quantity);
-
-  let vApplied = statorVoltage;
-  let timestamp = 0;
-  wpilibc.RoboRioSim_setVInVoltage(supplyVoltage.to('V').scalar);
-
-  while (
-    ((goingDownOrUp === 'up' && !armSim.hasHitUpperLimit()) ||
-      (goingDownOrUp === 'down' && !armSim.hasHitLowerLimit())) &&
-    timestamp < 3
+  if (
+    ratio.asNumber() === 0 ||
+    motor.quantity === 0 ||
+    momentOfInertia.baseScalar === 0 ||
+    armLength.baseScalar === 0 ||
+    statorVoltage.baseScalar === 0 ||
+    supplyVoltage.baseScalar === 0
   ) {
-    vApplied = supplyVoltage;
-
-    const w = new Measurement(armSim.getAngularVelocity(), 'rad/s')
-      .mul(Ratio.fromDict(ratio).asNumber())
-      .mul(goingDownOrUp === 'up' ? 1 : -1);
-
-    const vBackEmf = motor.kV.inverse().mul(w);
-
-    vApplied = Measurement.max(
-      vBackEmf.sub(iMax.mul(resistance)),
-      Measurement.min(vApplied, vBackEmf.add(iMax.mul(resistance))),
-    );
-
-    armSim.setInputVoltage(
-      goingDownOrUp === 'up'
-        ? vApplied.to('V').scalar
-        : vApplied.negate().to('V').scalar,
-    );
-    armSim.update(SIM_TIMESTEP_SECONDS);
-    timestamp += SIM_TIMESTEP_SECONDS;
-
-    const currentDraw = new Measurement(armSim.getCurrentDraw(), 'A');
-    const supplyCurrent = currentDraw
-      .mul(vApplied)
-      .div(new Measurement(wpilibc.RobotController_getInputVoltage(), 'V'));
-
-    if (
-      (goingDownOrUp === 'up' && !armSim.hasHitUpperLimit()) ||
-      (goingDownOrUp === 'down' && !armSim.hasHitLowerLimit())
-    ) {
-      const currentVec = arrayToVectorDouble([supplyCurrent.to('A').scalar]);
-      const batteryVoltage = toFixed(
-        wpilibc.BatterySim_calculateLoadedBatteryVoltage(
-          supplyVoltage.to('V').scalar,
-          batteryResistance.to('Ohm').scalar,
-          currentVec,
-        ),
-      );
-      currentVec.delete();
-      states.push({
-        timeSeconds: toFixed(timestamp, 3),
-        angularVelocity: new Measurement(armSim.getAngularVelocity(), 'rad/s')
-          .to('rpm')
-          .round(SNAPSHOT_PRECISION).scalar,
-        currentDraw: toFixed(armSim.getCurrentDraw()),
-        batteryVoltage,
-      });
-    }
+    return [];
   }
 
-  armSim.delete();
-  return obliterateArray(states, 10);
+  const wasmMotor = motor.toWpilibMotor();
+  try {
+    return wpilibc.simulateArm(
+      wasmMotor,
+      ratio.asNumber(),
+      momentOfInertia.to('kg m^2').scalar,
+      armLength.to('m').scalar,
+      minAngle.to('rad').scalar,
+      maxAngle.to('rad').scalar,
+      startingAngle.to('rad').scalar,
+      statorLimit.to('A').scalar * motor.quantity,
+      supplyLimit.to('A').scalar * motor.quantity,
+      statorVoltage.to('V').scalar,
+      batteryResistance.to('Ohm').scalar,
+      supplyVoltage.to('V').scalar,
+      efficiency,
+      goingDownOrUp === 'up',
+      0.001,
+      10,
+      3.0,
+      batteryVoltageFilterTimeConstantSeconds,
+    ) as WpilibArmSimState[];
+  } finally {
+    wasmMotor.delete();
+  }
 }

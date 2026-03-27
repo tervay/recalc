@@ -28,6 +28,7 @@ describe('simulateFlywheelWpilib', () => {
       momentOfInertia.toDict(),
       targetRPM.toDict(),
       1.0,
+      0.1,
     );
 
     expect(result).toMatchSnapshot();

@@ -8,7 +8,7 @@ import Measurement from '~/lib/models/Measurement';
 import Motor, { type MotorDict } from '~/lib/models/Motor';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
 
-export interface FlywheelOptimizerResult {
+export interface ArmOptimizerResult {
   statorLimitAmps: number;
   optimalRatio: number;
   timeToGoalSeconds: number;
@@ -27,12 +27,13 @@ interface MechParams {
   wpilibMotor: DCMotor;
   motorQuantity: number;
   moiKgMSquared: number;
-  targetRadPerSec: number;
+  armLengthMeters: number;
+  minAngleRadians: number;
+  maxAngleRadians: number;
   statorVoltageVolts: number;
   batteryResistanceOhms: number;
   batteryVoltageVolts: number;
   efficiency: number;
-  batteryVoltageFilterTimeConstantSeconds: number;
 }
 
 type WpilibcModule = Awaited<ReturnType<typeof initWpilibc>>;
@@ -40,28 +41,32 @@ type WpilibcModule = Awaited<ReturnType<typeof initWpilibc>>;
 function parseMech(
   motor: Motor,
   moiDict: MeasurementDict,
-  targetRpmDict: MeasurementDict,
+  armLengthDict: MeasurementDict,
+  minAngleDict: MeasurementDict,
+  maxAngleDict: MeasurementDict,
   statorVoltageDict: MeasurementDict,
   batteryResistanceDict: MeasurementDict,
   batteryVoltageDict: MeasurementDict,
   efficiency: number,
-  batteryVoltageFilterTimeConstantSeconds: number,
 ): MechParams {
   return {
     wpilibMotor: motor.toWpilibMotor(),
     motorQuantity: motor.quantity,
     moiKgMSquared: Measurement.fromDict(moiDict).to('kg m^2').scalar,
-    targetRadPerSec: Measurement.fromDict(targetRpmDict).to('rad/s').scalar,
+    armLengthMeters: Measurement.fromDict(armLengthDict).to('m').scalar,
+    minAngleRadians: Measurement.fromDict(minAngleDict).to('rad').scalar,
+    maxAngleRadians: Measurement.fromDict(maxAngleDict).to('rad').scalar,
     statorVoltageVolts: Measurement.fromDict(statorVoltageDict).to('V').scalar,
     batteryResistanceOhms: Measurement.fromDict(batteryResistanceDict).to('Ohm')
       .scalar,
     batteryVoltageVolts:
       Measurement.fromDict(batteryVoltageDict).to('V').scalar,
     efficiency,
-    batteryVoltageFilterTimeConstantSeconds,
   };
 }
 
+// Simulate both going up and going down; return the worse (longer) time so the
+// optimizer minimizes the bottleneck direction.
 function simulate(
   wpilibc: WpilibcModule,
   p: MechParams,
@@ -69,35 +74,85 @@ function simulate(
   totalStatorAmps: number,
   totalSupplyAmps: number,
   timeoutSeconds = 3.0,
-): SimState[] {
-  return wpilibc.simulateFlywheel(
+): {
+  timeSeconds: number;
+  energyJoules: number;
+  peakSupplyCurrent: number;
+  success: boolean;
+} {
+  const upStates: SimState[] = wpilibc.simulateArm(
     p.wpilibMotor,
     ratioMagnitude,
     p.moiKgMSquared,
-    p.targetRadPerSec,
+    p.armLengthMeters,
+    p.minAngleRadians,
+    p.maxAngleRadians,
+    p.minAngleRadians,
     totalStatorAmps,
     totalSupplyAmps,
     p.statorVoltageVolts,
     p.batteryResistanceOhms,
     p.batteryVoltageVolts,
     p.efficiency,
+    true,
     0.001,
     10,
     timeoutSeconds,
-    p.batteryVoltageFilterTimeConstantSeconds,
+    0.1,
   );
-}
 
-function peakSupplyCurrent(states: SimState[]): number {
-  return (
-    maxBy(states, (s) => s.supplyCurrentDrawAmps)?.supplyCurrentDrawAmps ?? 0
+  const downStates: SimState[] = wpilibc.simulateArm(
+    p.wpilibMotor,
+    ratioMagnitude,
+    p.moiKgMSquared,
+    p.armLengthMeters,
+    p.minAngleRadians,
+    p.maxAngleRadians,
+    p.maxAngleRadians,
+    totalStatorAmps,
+    totalSupplyAmps,
+    p.statorVoltageVolts,
+    p.batteryResistanceOhms,
+    p.batteryVoltageVolts,
+    p.efficiency,
+    false,
+    0.001,
+    10,
+    timeoutSeconds,
+    0.1,
   );
+
+  const upLast = upStates[upStates.length - 1];
+  const downLast = downStates[downStates.length - 1];
+
+  if (!upLast || !downLast) {
+    return {
+      timeSeconds: timeoutSeconds,
+      energyJoules: 0,
+      peakSupplyCurrent: 0,
+      success: false,
+    };
+  }
+
+  const success = upLast.success && downLast.success;
+  // Optimize for the bottleneck direction
+  const timeSeconds = Math.max(upLast.timeSeconds, downLast.timeSeconds);
+  const energyJoules = upLast.energyJoules + downLast.energyJoules;
+
+  const allStates = [...upStates, ...downStates];
+  const peakSupplyCurrent =
+    maxBy(allStates, (s) => s.supplyCurrentDrawAmps)?.supplyCurrentDrawAmps ??
+    0;
+
+  return { timeSeconds, energyJoules, peakSupplyCurrent, success };
 }
 
 async function optimizeRatio(
   motorDict: MotorDict,
   moiDict: MeasurementDict,
-  targetRpmDict: MeasurementDict,
+  armLengthDict: MeasurementDict,
+  minAngleDict: MeasurementDict,
+  maxAngleDict: MeasurementDict,
   supplyLimitDict: MeasurementDict,
   statorVoltageDict: MeasurementDict,
   batteryResistanceDict: MeasurementDict,
@@ -105,61 +160,46 @@ async function optimizeRatio(
   statorLimitAmps: number,
   initialRatio: number,
   efficiency: number,
-  batteryVoltageFilterTimeConstantSeconds: number,
-): Promise<FlywheelOptimizerResult> {
+): Promise<ArmOptimizerResult> {
   const wpilibc = await initWpilibc();
   const motor = Motor.fromDict(motorDict);
   const p = parseMech(
     motor,
     moiDict,
-    targetRpmDict,
+    armLengthDict,
+    minAngleDict,
+    maxAngleDict,
     statorVoltageDict,
     batteryResistanceDict,
     batteryVoltageDict,
     efficiency,
-    batteryVoltageFilterTimeConstantSeconds,
   );
   const totalStatorAmps = statorLimitAmps * p.motorQuantity;
-  const supplyAmps = Measurement.fromDict(supplyLimitDict).to('A').scalar;
-  const totalSupplyAmps = supplyAmps * p.motorQuantity;
-
-  // Compute the maximum ratio where the motor can still reach the target speed.
-  // Free speed at the load = motorFreeSpeed / ratio, so ratio_max = motorFreeSpeed / targetSpeed.
-  // Leave some headroom (0.95) since you can't actually reach free speed under load.
-  const motorFreeSpeedRadPerSec = p.wpilibMotor.getFreeSpeedRadPerSec();
-  const maxRatio =
-    p.targetRadPerSec > 0
-      ? Math.max(1, (0.95 * motorFreeSpeedRadPerSec) / p.targetRadPerSec)
-      : 1;
+  const totalSupplyAmps =
+    Measurement.fromDict(supplyLimitDict).to('A').scalar * p.motorQuantity;
 
   const optimalRatio = minimize(
     (r) => {
-      const states = simulate(wpilibc, p, r, totalStatorAmps, totalSupplyAmps);
-      const last = states[states.length - 1];
-      return last?.success ? last.timeSeconds : Number.POSITIVE_INFINITY;
+      const result = simulate(wpilibc, p, r, totalStatorAmps, totalSupplyAmps);
+      return result.success ? result.timeSeconds : Number.POSITIVE_INFINITY;
     },
-    {
-      lowerBound: 0.25,
-      upperBound: Math.min(maxRatio, 20),
-      guess: Math.min(initialRatio, maxRatio),
-    },
+    { lowerBound: 5, upperBound: 500, guess: initialRatio },
   );
 
-  const states = simulate(
+  const result = simulate(
     wpilibc,
     p,
     optimalRatio,
     totalStatorAmps,
     totalSupplyAmps,
   );
-  const last = states[states.length - 1];
 
   return {
     statorLimitAmps,
     optimalRatio,
-    timeToGoalSeconds: last.timeSeconds,
-    energyJoules: last.energyJoules,
-    peakSupplyCurrentAmps: peakSupplyCurrent(states),
+    timeToGoalSeconds: result.timeSeconds,
+    energyJoules: result.energyJoules,
+    peakSupplyCurrentAmps: result.peakSupplyCurrent,
   };
 }
 

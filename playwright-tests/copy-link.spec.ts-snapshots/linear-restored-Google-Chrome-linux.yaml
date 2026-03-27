@@ -3,7 +3,7 @@
 - heading "Motor & Gearing" [level=2]
 - switch "Cascade" [checked]
 - text: Cascade Motor
-- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Target Time to Goal Stator Limit Supply Limit Stator Voltage Supply Voltage Maximum Comfortable Stator Limit Maximum Comfortable Supply Limit": "1"
+- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Stator Limit Supply Limit Stator Voltage Supply Voltage Target Time to Goal Max Stator Limit Max Supply Limit": "1"
 - combobox: NEO
 - button "Efficiency %"
 - spinbutton: "90"
@@ -26,9 +26,6 @@
 - button "Battery Resistance"
 - spinbutton: "0.03"
 - combobox: Ohm
-- button "Target Time to Goal"
-- spinbutton: "0.75"
-- combobox: s
 - heading "Limits" [level=2]
 - button "Stator Limit"
 - spinbutton: "50"
@@ -42,12 +39,6 @@
 - button "Supply Voltage"
 - spinbutton: "12.6"
 - combobox: V
-- button "Maximum Comfortable Stator Limit"
-- spinbutton: "80"
-- combobox: A
-- button "Maximum Comfortable Supply Limit"
-- spinbutton: "70"
-- combobox: A
 - text: Time to Goal 0.384
 - combobox: s
 - text: Stall Load 37.292

@@ -96,7 +96,7 @@ test.describe('Copy Link', () => {
     await page.goto(url);
     await page.waitForLoadState('networkidle');
     await page.waitForTimeout(100);
-    await expect(page.getByTestId('arm-page')).toHaveAttribute(
+    await expect(page.getByTestId('arm-main')).toHaveAttribute(
       'data-calculating',
       'false',
       { timeout: 30000 },
@@ -145,9 +145,9 @@ test.describe('Copy Link', () => {
       { timeout: 30000 },
     );
 
-    expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
-      { name: 'flywheel-restored.yaml' },
-    );
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({ name: 'flywheel-restored.yaml' });
   });
 
   test('intake: copied URL restores state', async ({ page }) => {

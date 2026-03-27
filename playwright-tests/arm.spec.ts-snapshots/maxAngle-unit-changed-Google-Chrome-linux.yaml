@@ -1,7 +1,7 @@
 - heading "Arm Calculator" [level=1]
 - button "Copy Link"
 - text: Motor
-- spinbutton "Motor Ratio Arm Length Load Min Angle Max Angle Stator Limit Supply Limit Stator Voltage Supply Voltage Stator Power Limit Supply Power Limit Battery Resistance Time to Goal (Up) Time to Goal (Down)": "1"
+- spinbutton "Motor Ratio Arm Length Load Min Angle Max Angle Stator Limit Supply Limit Stator Voltage Supply Voltage Battery Resistance Time to Goal (Up) Time to Goal (Down)": "1"
 - combobox: Kraken X60 (FOC)
 - text: Ratio
 - spinbutton: "100"
@@ -19,10 +19,10 @@
 - spinbutton: "90"
 - combobox: rad
 - button "Stator Limit"
-- spinbutton: "60"
+- spinbutton: "80"
 - combobox: A
 - button "Supply Limit"
-- spinbutton: "90"
+- spinbutton: "60"
 - combobox: A
 - button "Stator Voltage"
 - spinbutton: "12"
@@ -30,12 +30,6 @@
 - button "Supply Voltage"
 - spinbutton: "12"
 - combobox: V
-- text: Stator Power Limit
-- spinbutton [disabled]: "720"
-- combobox: W
-- text: Supply Power Limit
-- spinbutton [disabled]: "1080"
-- combobox: W
 - button "Efficiency"
 - spinbutton: "100"
 - button "Battery Resistance"
@@ -47,8 +41,25 @@
 - text: Time to Goal (Down)
 - spinbutton [disabled]: "3.001"
 - combobox: s
-- application: 0.111 0.321 0.541 0.751 0.961 1.161 1.351 1.551 1.751 1.951 2.151 2.361 2.571 2.781 3.001 -20 0 20 40 60 0 15 30 45 60
-- application: 0.111 0.321 0.541 0.751 0.961 1.161 1.351 1.551 1.751 1.951 2.151 2.361 2.571 2.781 3.001 -20 0 20 40 60 -60 -45 -30 -15 0
-- alert:
-  - img
-  - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
+- list:
+  - listitem:
+    - img "Battery Voltage (V) legend icon"
+    - text: Battery Voltage (V)
+  - listitem:
+    - img "Motor RPM legend icon"
+    - text: Motor RPM
+  - listitem:
+    - img "Stator Current (A) legend icon"
+    - text: Stator Current (A)
+- application: 0.001 0.5910000000000004 1.3909999999999576 2.1909999999998697 3.0009999999997805 -25 0 25 50 75 0 1500 3000 4500 6000
+- list:
+  - listitem:
+    - img "Battery Voltage (V) legend icon"
+    - text: Battery Voltage (V)
+  - listitem:
+    - img "Motor RPM legend icon"
+    - text: Motor RPM
+  - listitem:
+    - img "Stator Current (A) legend icon"
+    - text: Stator Current (A)
+- application: 0.001 0.5910000000000004 1.3909999999999576 2.1909999999998697 3.0009999999997805 -25 0 25 50 75 0 1500 3000 4500 6000

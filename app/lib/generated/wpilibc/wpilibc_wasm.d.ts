@@ -147,6 +147,7 @@ interface EmbindModule {
     angleRadians: number,
     efficiency: number,
     cascade: boolean,
+    batteryVoltageFilterTimeConstantSeconds: number,
   ): any;
   simulateFlywheel(
     motor: DCMotor | null,
@@ -162,6 +163,27 @@ interface EmbindModule {
     simTimestep: number,
     decimation: number,
     maxSimSeconds: number,
+    batteryVoltageFilterTimeConstantSeconds: number,
+  ): any;
+  simulateArm(
+    motor: DCMotor | null,
+    gearing: number,
+    momentOfInertiaKgMSquared: number,
+    armLengthMeters: number,
+    minAngleRadians: number,
+    maxAngleRadians: number,
+    startingAngleRadians: number,
+    statorLimitAmps: number,
+    supplyLimitAmps: number,
+    statorVoltageVolts: number,
+    batteryResistanceOhms: number,
+    batteryVoltageVolts: number,
+    efficiency: number,
+    goingUp: boolean,
+    simTimestep: number,
+    decimation: number,
+    maxSimSeconds: number,
+    batteryVoltageFilterTimeConstantSeconds: number,
   ): any;
 }
 

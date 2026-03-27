@@ -34,6 +34,7 @@ describe('simulateElevatorWpilib', () => {
       angle.toDict(),
       1.0,
       false,
+      0.1,
     );
 
     expect(result).toMatchSnapshot();
@@ -68,8 +69,8 @@ describe('simulateElevatorWpilib', () => {
     ] as const;
 
     const [standard, cascade] = await Promise.all([
-      simulateElevatorWpilib(...commonArgs, false),
-      simulateElevatorWpilib(...commonArgs, true),
+      simulateElevatorWpilib(...commonArgs, false, 0.1),
+      simulateElevatorWpilib(...commonArgs, true, 0.1),
     ]);
 
     const travelDistanceMeters = travelDistance.to('m').scalar;
