@@ -1,6 +1,7 @@
 - heading "Chain Calculator" [level=1]
 - button "Copy Link":
   - img
+  - img
   - text: Copy Link
 - text: Chain Type
 - combobox: "#35"

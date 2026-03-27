@@ -1,6 +1,7 @@
 - heading "Intake Calculator" [level=1]
 - button "Copy Link":
   - img
+  - img
   - text: Copy Link
 - text: Motor
 - spinbutton "Motor Ratio Roller Diameter Travel Distance Stator Current Limit Drivetrain Speed Thrifty Pulsar Stall Torque Minion (Adv Hall) Stall Torque Falcon 500 (FOC) Stall Torque Falcon 500 Stall Torque Kraken X60 Stall Torque Minion Stall Torque NEO 2.0 Stall Torque NEO Stall Torque Kraken X44 Stall Torque NEO 550 Stall Torque Kraken X60 (FOC) Stall Torque Kraken X44 (FOC) Stall Torque BaneBots 550 Stall Torque BAG Stall Torque NEO Vortex Stall Torque 775 RedLine Stall Torque Modern Robotics Stall Torque 775pro Stall Torque CIM Stall Torque NeveRest Stall Torque MiniCIM Stall Torque Core Hex Stall Torque V5 Smart Motor (Red) Stall Torque HD Hex Stall Torque AM-9015 Stall Torque Snowblower Stall Torque Linear Speed Time to Goal": "1"

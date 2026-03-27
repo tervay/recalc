@@ -257,4 +257,19 @@ body {
       background-position: 200% 0;
     }
   }
+
+  @keyframes draw-border {
+    0% {
+      stroke-dashoffset: 100;
+      opacity: 1;
+    }
+    60% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 0;
+    }
+  }
 }

@@ -1,6 +1,7 @@
 - heading "Ratio Calculator" [level=1]
 - button "Copy Link":
   - img
+  - img
   - text: Copy Link
 - text: Stage Driving Driven Stage 0
 - spinbutton: "18"

@@ -1,6 +1,7 @@
 - heading "Belt Calculator" [level=1]
 - button "Copy Link":
   - img
+  - img
   - text: Copy Link
 - paragraph: Parameters
 - switch "Use Custom Belt" [checked]
