@@ -1,5 +1,7 @@
 - heading "Flywheel Calculator" [level=1]
-- button "Copy Link"
+- button "Copy Link":
+  - img
+  - text: Copy Link
 - text: Motors & Electrical Motor
 - spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Weight Shooter Target Speed Max Achievable RPM Shooter MOI Flywheel Diameter Flywheel Weight Flywheel to Shooter Ratio Flywheel MOI Spinup Time Effective MOI kV kA": "2"
 - combobox: NEO

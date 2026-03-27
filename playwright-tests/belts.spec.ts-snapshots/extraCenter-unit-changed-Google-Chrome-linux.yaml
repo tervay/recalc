@@ -1,12 +1,16 @@
 - heading "Belt Calculator" [level=1]
-- button "Copy Link"
+- button "Copy Link":
+  - img
+  - text: Copy Link
+- paragraph: Parameters
+- switch "Use Custom Belt"
+- text: Use Custom Belt
 - group:
   - button "GT2 (3mm)"
   - button "HTD (5mm)"
   - button "RT25 (0.25in)"
-- switch "Use Custom Belt"
-- text: Use Custom Belt Pitch
-- spinbutton "Pitch Target Center Extra Center Pitch Diameter Pitch Diameter Belt Teeth Center Distance Pulley 1 Teeth in Mesh Pulley 2 Teeth in Mesh Gap Between Pulleys Difference From Target Belt Teeth Center Distance Pulley 1 Teeth in Mesh Pulley 2 Teeth in Mesh Gap Between Pulleys Difference From Target": "5"
+- text: Pitch
+- spinbutton "Pitch Target Center Extra Center": "5"
 - combobox: mm
 - text: Tooth Increment
 - spinbutton: "5"
@@ -18,50 +22,30 @@
 - combobox: in
 - text: Pulley 1 Teeth
 - spinbutton: "16"
-- text: Pitch Diameter
-- spinbutton [disabled]: "1.003"
+- text: Pitch Diameter 1.003
 - combobox: in
 - text: Pulley 2 Teeth
 - spinbutton: "24"
-- text: Pitch Diameter
-- spinbutton [disabled]: "1.504"
+- text: Pitch Diameter 1.504
 - combobox: in
 - text: Smaller Belt
 - img
-- text: Suggested Belt Teeth
-- spinbutton [disabled]: "70"
-- text: Center Distance
-- spinbutton [disabled]: "4.915"
+- text: Suggested Belt Teeth 70 Center Distance 4.915
 - combobox: in
-- text: Pulley 1 Teeth in Mesh
-- spinbutton [disabled]: "8"
-- text: Pulley 2 Teeth in Mesh
-- spinbutton [disabled]: "11"
-- text: Gap Between Pulleys
-- spinbutton [disabled]: "3.662"
+- text: P1 Teeth in Mesh 8 P2 Teeth in Mesh 11 Gap Between Pulleys 3.662
 - combobox: in
-- text: Difference From Target
-- spinbutton [disabled]: "-0.085"
+- text: Diff From Target -0.085
 - combobox: in
-- text: Larger Belt Belt Teeth
-- spinbutton [disabled]: "75"
-- text: Center Distance
-- spinbutton [disabled]: "5.408"
+- text: Larger Belt Belt Teeth 75 Center Distance 5.408
 - combobox: in
-- text: Pulley 1 Teeth in Mesh
-- spinbutton [disabled]: "8"
-- text: Pulley 2 Teeth in Mesh
-- spinbutton [disabled]: "11"
-- text: Gap Between Pulleys
-- spinbutton [disabled]: "4.154"
+- text: P1 Teeth in Mesh 8 P2 Teeth in Mesh 11 Gap Between Pulleys 4.154
 - combobox: in
-- text: Difference From Target
-- spinbutton [disabled]: "0.408"
+- text: Diff From Target 0.408
 - combobox: in
 - table:
   - rowgroup:
-    - row "Matching COTS Pulleys":
-      - columnheader "Matching COTS Pulleys"
+    - row "Matching COTS Pulleys15":
+      - columnheader "Matching COTS Pulleys15"
     - row "SKU Teeth Width Bore":
       - columnheader "SKU"
       - columnheader "Teeth"
@@ -86,8 +70,8 @@
       - cell "16"
       - cell "15 mm"
       - cell "SplineXS"
-    - row:
-      - cell
+    - row "24T":
+      - cell "24T"
     - row "AndyMark am-4625 24 9 mm 1/2\" Hex":
       - cell "AndyMark am-4625":
         - link "AndyMark":
@@ -207,8 +191,8 @@
       - cell "1/2\" Hex"
 - table:
   - rowgroup:
-    - row "Matching COTS Belts":
-      - columnheader "Matching COTS Belts"
+    - row "Matching COTS Belts24":
+      - columnheader "Matching COTS Belts24"
     - row "SKU Teeth Width":
       - columnheader "SKU"
       - columnheader "Teeth"
@@ -310,8 +294,8 @@
           - /url: https://wcproducts.com/products/wcp-0645
       - cell "70"
       - cell "15 mm"
-    - row:
-      - cell
+    - row "75T":
+      - cell "75T"
     - row "AndyMark am-5209_75T 75 9 mm":
       - cell "AndyMark am-5209_75T":
         - link "AndyMark":

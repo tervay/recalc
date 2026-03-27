@@ -102,9 +102,9 @@ test.describe('Copy Link', () => {
       { timeout: 30000 },
     );
 
-    expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
-      { name: 'arm-restored.yaml' },
-    );
+    expect(await page.getByTestId('arm-main').ariaSnapshot()).toMatchSnapshot({
+      name: 'arm-restored.yaml',
+    });
   });
 
   test('flywheel: copied URL restores state', async ({ page }) => {

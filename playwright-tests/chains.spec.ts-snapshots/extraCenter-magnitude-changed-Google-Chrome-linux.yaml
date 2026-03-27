@@ -1,5 +1,7 @@
 - heading "Chain Calculator" [level=1]
-- button "Copy Link"
+- button "Copy Link":
+  - img
+  - text: Copy Link
 - text: Chain Type
 - combobox: "#25"
 - switch "Allow Half Links"

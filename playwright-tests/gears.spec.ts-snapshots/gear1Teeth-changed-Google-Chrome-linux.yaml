@@ -1,5 +1,7 @@
 - heading "Gears Calculator" [level=1]
-- button "Copy Link"
+- button "Copy Link":
+  - img
+  - text: Copy Link
 - text: Gear 1 Teeth
 - spinbutton: "40"
 - text: Gear 2 Teeth
