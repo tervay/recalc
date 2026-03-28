@@ -3,28 +3,25 @@
   - img
   - img
   - text: Copy Link
+- paragraph: Parameters
 - text: Gear 1 Teeth
 - spinbutton: "16"
 - text: Gear 2 Teeth
 - spinbutton: "36"
 - text: Gear DP
 - spinbutton: "32"
-- text: Center Distance
-- spinbutton "Center Distance" [disabled]: "0.813"
+- text: Center Distance 0.813
 - combobox: in
-- alert:
-  - img
-  - text: Warning!
-  - paragraph: Many smaller gears have a different pitch diameter / center distance than the teeth they actually have. This calculator does not account for this!
-  - paragraph:
-    - text: For example,
-    - link "WCP-1720":
-      - /url: https://wcproducts.com/products/wcp-1720
-    - text: has 16t but an 18t center distance. For this calculator, you would use it as an 18t gear.
+- img
+- paragraph:
+  - text: Many smaller gears have a different pitch diameter than their tooth count. This calculator does not account for this. For example,
+  - link "WCP-1720":
+    - /url: https://wcproducts.com/products/wcp-1720
+  - text: has 16t but an 18t center distance — use 18t in this calculator.
 - table:
   - rowgroup:
-    - row "Matching COTS Gears":
-      - columnheader "Matching COTS Gears"
+    - row "Matching COTS Gears0":
+      - columnheader "Matching COTS Gears0"
     - row "SKU Teeth Bore":
       - columnheader "SKU"
       - columnheader "Teeth"

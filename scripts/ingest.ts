@@ -49,9 +49,25 @@ async function runPipeline(
       }
     }
 
-    await writeOutput(vendor, productType, valid);
-    if (valid.length > 0) {
-      console.log(`  ${valid.length} ${productType} written`);
+    const seen = new Set<string>();
+    const deduped = valid.filter((item) => {
+      const typed = item as { sku?: string | null; vendor?: string };
+      const key =
+        typed.sku && typed.vendor
+          ? `${typed.vendor}:${typed.sku}`
+          : JSON.stringify(item);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+    const duplicateCount = valid.length - deduped.length;
+    if (duplicateCount > 0) {
+      console.warn(`  ${duplicateCount} duplicate ${productType} removed`);
+    }
+
+    await writeOutput(vendor, productType, deduped);
+    if (deduped.length > 0) {
+      console.log(`  ${deduped.length} ${productType} written`);
     }
   }
 }

@@ -3,13 +3,21 @@
   - img
   - img
   - text: Copy Link
-- text: Stage Driving Driven Stage 0
+- paragraph: Stages
+- text: Stage Driving Driven Ratio 1
 - spinbutton: "18"
 - spinbutton: "72"
+- text: 1:4.00
 - button [disabled]:
   - img
-- button "Add Stage"
-- text: Net Reduction 4.000:1 Motor Speeds at 0.250:1 775 RedLine 4875 rpm 775pro 4683 rpm AM-9015 3568 rpm BAG 3295 rpm BaneBots 550 4825 rpm CIM 1333 rpm Core Hex 31 rpm Falcon 500 1595 rpm Falcon 500 (FOC) 1520 rpm HD Hex 1500 rpm Kraken X44 1939 rpm Kraken X44 (FOC) 1842 rpm Kraken X60 1516 rpm Kraken X60 (FOC) 1446 rpm MiniCIM 1460 rpm Minion 1926 rpm Minion (Adv Hall) 1911 rpm Modern Robotics 1475 rpm NEO 1477 rpm NEO 2.0 1477 rpm NEO 550 2928 rpm NEO Vortex 1706 rpm NeveRest 1370 rpm Snowblower 25 rpm Thrifty Pulsar 1875 rpm V5 Smart Motor (Red) 25 rpm
+- button "Add Stage":
+  - img
+  - text: Add Stage
+- paragraph: Result
+- text: 4.000:1 1:0.250 Reduction
+- paragraph: 18:72 = 4.000:1
+- paragraph: Motor Speeds
+- text: at 4.00:1 775 RedLine 4875 rpm 775pro 4683 rpm AM-9015 3568 rpm BAG 3295 rpm BaneBots 550 4825 rpm CIM 1333 rpm Core Hex 31 rpm Falcon 500 1595 rpm Falcon 500 (FOC) 1520 rpm HD Hex 1500 rpm Kraken X44 1939 rpm Kraken X44 (FOC) 1842 rpm Kraken X60 1516 rpm Kraken X60 (FOC) 1446 rpm MiniCIM 1460 rpm Minion 1926 rpm Minion (Adv Hall) 1911 rpm Modern Robotics 1475 rpm NEO 1477 rpm NEO 2.0 1477 rpm NEO 550 2928 rpm NEO Vortex 1706 rpm NeveRest 1370 rpm Snowblower 25 rpm Thrifty Pulsar 1875 rpm V5 Smart Motor (Red) 25 rpm
 - alert:
   - img
   - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.
