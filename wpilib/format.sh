@@ -22,6 +22,11 @@ docker run -v "$SCRIPT_DIR":/src xianpengshen/clang-tools:19 \
   clang-format -i \
     patches/wpimath/wasm/bindings.cc
 
+# Format tests
+docker run -v "$SCRIPT_DIR":/src xianpengshen/clang-tools:19 \
+  clang-format -i \
+    tests/sim_util_test.cc
+
 # Fix file permissions after Docker formatting (files are owned by root)
 WPILIBC_FILES=(
   "$WPILIBC_WASM/bindings.cc"
@@ -32,6 +37,7 @@ WPILIBC_FILES=(
   "$WPILIBC_WASM/elevator_sim.h"
   "$WPILIBC_WASM/flywheel_sim.h"
   "$WPIMATH_WASM/bindings.cc"
+  "$SCRIPT_DIR/tests/sim_util_test.cc"
 )
 
 EXISTING_FILES=()
