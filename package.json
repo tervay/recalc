@@ -17,6 +17,7 @@
     "build:wpi": "./wpilib/build.sh",
     "test": "vitest",
     "test:playwright": "playwright test",
+    "test:wpi": "./wpilib/tests/run_tests.sh",
     "lint": "oxlint --type-aware",
     "lint:fix": "oxlint --type-aware --fix",
     "format": "oxfmt --check",
