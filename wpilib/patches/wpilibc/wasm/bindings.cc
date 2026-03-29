@@ -95,7 +95,8 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
            "targetAngularVelocityRadPerSec, statorLimitAmps, supplyLimitAmps, "
            "statorVoltageVolts, batteryResistanceOhms, batteryVoltageVolts, "
            "efficiency, simTimestep, decimation, maxSimSeconds, "
-           "batteryVoltageFilterTimeConstantSeconds)",
+           "batteryVoltageFilterTimeConstantSeconds, "
+           "initialAngularVelocityRadPerSec)",
            &SimulateFlywheel, allow_raw_pointers());
 
   // Full arm simulation loop

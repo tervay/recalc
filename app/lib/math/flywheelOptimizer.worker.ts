@@ -85,6 +85,7 @@ function simulate(
     10,
     timeoutSeconds,
     p.batteryVoltageFilterTimeConstantSeconds,
+    0,
   );
 }
 

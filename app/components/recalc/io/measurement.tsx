@@ -145,6 +145,7 @@ export function MeasurementOutput({
   tooltip,
   roundTo = 3,
   testId,
+  labelAbove,
 }: {
   state: Measurement;
   label: string;
@@ -152,6 +153,7 @@ export function MeasurementOutput({
   tooltip?: string;
   roundTo?: number;
   testId?: string;
+  labelAbove?: boolean;
 }) {
   const [scalar, setScalar] = useState(state.scalar);
   const [unit, setUnit] = useState(defaultUnit ?? state.units());
@@ -166,24 +168,39 @@ export function MeasurementOutput({
     setStringified(scalar.toFixed(roundTo));
   }, [scalar, roundTo]);
 
+  const labelEl =
+    tooltip === undefined ? (
+      <Label
+        htmlFor="measurement"
+        className={
+          labelAbove ? 'mb-1 text-xs text-muted-foreground' : 'mr-2 text-nowrap'
+        }
+      >
+        {label}
+      </Label>
+    ) : (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger>
+            <Label
+              htmlFor="measurement"
+              className={
+                labelAbove
+                  ? 'mb-1 text-xs text-muted-foreground'
+                  : 'mr-2 text-nowrap'
+              }
+            >
+              {label}
+            </Label>
+          </TooltipTrigger>
+          <TooltipContent>{tooltip}</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    );
+
   return (
-    <div className="flex flex-row">
-      {tooltip === undefined ? (
-        <Label htmlFor="measurement" className="mr-2 text-nowrap">
-          {label}
-        </Label>
-      ) : (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <Label htmlFor="measurement" className="mr-2 text-nowrap">
-                {label}
-              </Label>
-            </TooltipTrigger>
-            <TooltipContent>{tooltip}</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      )}
+    <div className={labelAbove ? 'flex flex-col' : 'flex flex-row'}>
+      {labelEl}
       <div className="flex w-full flex-row">
         <Input
           type="number"

@@ -14,6 +14,7 @@ import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
 import BooleanInput from '~/components/recalc/io/boolean';
 import {
+  MeasurementDisplayOutput,
   MeasurementInput,
   MeasurementOutput,
 } from '~/components/recalc/io/measurement';
@@ -21,9 +22,9 @@ import { MotorInput } from '~/components/recalc/io/motor';
 import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
 import PctSpan from '~/components/recalc/pctSpan';
-import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { ChartContainer } from '~/components/ui/chart';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
+import { computeShotResult } from '~/lib/math/ballShot';
 import type * as FlywheelWorker from '~/lib/math/flywheel.worker';
 import type { FlywheelOptimizerResult } from '~/lib/math/flywheelOptimizer.worker';
 import optimizerWorkerUrl from '~/lib/math/flywheelOptimizer.worker?worker&url';
@@ -56,7 +57,7 @@ const DEFAULT_PARAMS = {
   batteryResistance: MeasurementParam.withDefault(
     new Measurement(0.015, 'Ohm'),
   ),
-  shooterDiameter: MeasurementParam.withDefault(new Measurement(6, 'in')),
+  shooterDiameter: MeasurementParam.withDefault(new Measurement(4, 'in')),
   shooterWeight: MeasurementParam.withDefault(new Measurement(1, 'lb')),
   shooterTargetSpeed: MeasurementParam.withDefault(
     new Measurement(3000, 'rpm'),
@@ -71,10 +72,11 @@ const DEFAULT_PARAMS = {
     new Measurement(3, 'in2*lbs'),
   ),
   useCustomFlywheelMoi: BooleanParam.withDefault(false),
+  flywheelEnabled: BooleanParam.withDefault(false),
   flywheelToShooterRatio: RatioParam.withDefault(
     new Ratio(1, RatioType.REDUCTION),
   ),
-  projectileDiameter: MeasurementParam.withDefault(new Measurement(4, 'in')),
+  projectileDiameter: MeasurementParam.withDefault(new Measurement(5, 'in')),
   projectileWeight: MeasurementParam.withDefault(new Measurement(0.5, 'lb')),
   efficiency: NumberParam.withDefault(100),
 };
@@ -121,6 +123,9 @@ export default function Flywheel() {
   const [useCustomShooterMoi, setUseCustomShooterMoi] = useState(
     queryParams.useCustomShooterMoi,
   );
+  const [flywheelEnabled, setFlywheelEnabled] = useState(
+    queryParams.flywheelEnabled,
+  );
   const [flywheelDiameter, setFlywheelDiameter] = useState(
     queryParams.flywheelDiameter,
   );
@@ -136,8 +141,10 @@ export default function Flywheel() {
   const [flywheelToShooterRatio, setflywheelToShooterRatio] = useState(
     queryParams.flywheelToShooterRatio,
   );
-  const [_projectileDiameter] = useState(queryParams.projectileDiameter);
-  const [projectileWeight, _setProjectileWeight] = useState(
+  const [projectileDiameter, setProjectileDiameter] = useState(
+    queryParams.projectileDiameter,
+  );
+  const [projectileWeight, setProjectileWeight] = useState(
     queryParams.projectileWeight,
   );
   const [efficiency, setEfficiency] = useState(queryParams.efficiency);
@@ -173,14 +180,21 @@ export default function Flywheel() {
   // internally via its plant model.
   const combinedMOI = useMemo(
     () =>
-      usableShooterMOI.add(
-        usableFlywheelMOI.div(
-          flywheelToShooterRatio.asNumber() == 0
-            ? 1
-            : Math.pow(flywheelToShooterRatio.asNumber(), 2),
-        ),
-      ),
-    [usableShooterMOI, usableFlywheelMOI, flywheelToShooterRatio],
+      flywheelEnabled
+        ? usableShooterMOI.add(
+            usableFlywheelMOI.div(
+              flywheelToShooterRatio.asNumber() == 0
+                ? 1
+                : Math.pow(flywheelToShooterRatio.asNumber(), 2),
+            ),
+          )
+        : usableShooterMOI,
+    [
+      flywheelEnabled,
+      usableShooterMOI,
+      usableFlywheelMOI,
+      flywheelToShooterRatio,
+    ],
   );
 
   // Effective MOI reflected to the motor shaft (for display only).
@@ -238,6 +252,38 @@ export default function Flywheel() {
   >([]);
   const [isCalculating, startCalculating] = useTransition();
 
+  // Shot analysis: energy transfer to ball and resulting flywheel speed drop.
+  // Ball is modeled as a hollow sphere (I = 2/3 * m * r^2) exiting at shooter
+  // surface speed with pure rolling contact.
+  const shotAnalysis = useMemo(() => {
+    if (workerWpilibSimStates.length === 0) return null;
+
+    return computeShotResult(
+      clampedShooterTargetSpeed,
+      shooterDiameter.div(2),
+      combinedMOI,
+      projectileWeight,
+      projectileDiameter.div(2),
+    );
+  }, [
+    workerWpilibSimStates,
+    clampedShooterTargetSpeed,
+    shooterDiameter,
+    projectileDiameter,
+    projectileWeight,
+    combinedMOI,
+  ]);
+
+  const postShotOmegaRadPerSec = useMemo(
+    () => shotAnalysis?.postShotOmega.to('rad/s').scalar ?? null,
+    [shotAnalysis],
+  );
+
+  const [recoverySimStates, setRecoverySimStates] = useState<
+    WpilibFlywheelSimState[]
+  >([]);
+  const [isRecoveryCalculating, startRecoveryCalculating] = useTransition();
+
   const spinupTime = useMemo(() => {
     return workerWpilibSimStates.length > 0
       ? new Measurement(
@@ -283,6 +329,58 @@ export default function Flywheel() {
     clampedShooterTargetSpeed,
     efficiency,
   ]);
+
+  // Recovery simulation: runs from post-shot speed back to target speed.
+  useEffect(() => {
+    if (postShotOmegaRadPerSec === null) {
+      setRecoverySimStates([]);
+      return;
+    }
+    let cancelled = false;
+    startRecoveryCalculating(async () => {
+      try {
+        const states = await worker.simulateFlywheelWpilib(
+          motor.toDict(),
+          ratio.toDict(),
+          statorLimit.toDict(),
+          supplyLimit.toDict(),
+          nominalVoltage.toDict(),
+          batteryResistance.toDict(),
+          supplyVoltage.toDict(),
+          combinedMOI.toDict(),
+          clampedShooterTargetSpeed.toDict(),
+          efficiency / 100,
+          0.1,
+          postShotOmegaRadPerSec,
+        );
+        if (!cancelled) setRecoverySimStates(states);
+      } catch (error) {
+        console.error(error);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    postShotOmegaRadPerSec,
+    motor,
+    ratio,
+    statorLimit,
+    supplyLimit,
+    supplyVoltage,
+    batteryResistance,
+    combinedMOI,
+    clampedShooterTargetSpeed,
+    efficiency,
+  ]);
+
+  const recoveryTime = useMemo(() => {
+    if (recoverySimStates.length === 0) return new Measurement(0, 's');
+    return new Measurement(
+      recoverySimStates[recoverySimStates.length - 1].timeSeconds,
+      's',
+    );
+  }, [recoverySimStates]);
 
   // Chart data: convert angular velocity from rad/s to RPM for display
   const chartData = useMemo(
@@ -370,94 +468,112 @@ export default function Flywheel() {
     shooterTargetSpeed,
     customShooterMoi,
     useCustomShooterMoi,
+    flywheelEnabled,
     flywheelDiameter,
     flywheelWeight,
     customFlywheelMoi,
     useCustomFlywheelMoi,
     flywheelToShooterRatio,
-    projectileDiameter: queryParams.projectileDiameter,
+    projectileDiameter,
     projectileWeight,
     efficiency,
   });
 
   return (
     <div>
-      <div data-testid="flywheel-main" data-calculating={String(isCalculating)}>
+      <div
+        data-testid="flywheel-main"
+        data-calculating={String(isCalculating || isRecoveryCalculating)}
+      >
         <CalcHeading
           title="Flywheel Calculator"
           getSerializedState={() => serializedState}
         />
-        <div className="flex flex-row flex-wrap gap-x-4 px-1 *:flex-1">
-          <div className="flex flex-col gap-x-4 gap-y-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>Motors & Electrical</CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-y-2">
+        <div className="flex flex-row flex-wrap gap-6 px-1">
+          {/* Left column: inputs */}
+          <div className="flex min-w-[300px] flex-1 flex-col">
+            <section className="flex flex-col rounded-lg border">
+              {/* Motors & Electrical */}
+              <div className="flex flex-col gap-3 p-4">
+                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  Motors &amp; Electrical
+                </h2>
                 <IOLine>
-                  <MotorInput stateHook={[motor, setMotor]} testId="motor" />
-                  <RatioInput stateHook={[ratio, setRatio]} testId="ratio" />
+                  <MotorInput
+                    stateHook={[motor, setMotor]}
+                    testId="motor"
+                    labelAbove
+                  />
+                  <NumberInput
+                    stateHook={[efficiency, setEfficiency]}
+                    label="Efficiency (%)"
+                    testId="efficiency"
+                    labelAbove
+                  />
                 </IOLine>
-
+                <IOLine>
+                  <RatioInput
+                    stateHook={[ratio, setRatio]}
+                    testId="ratio"
+                    labelAbove
+                  />
+                </IOLine>
                 <IOLine>
                   <MeasurementInput
                     stateHook={[statorLimit, setStatorLimit]}
                     label="Stator Limit"
                     testId="statorLimit"
+                    labelAbove
                   />
                   <MeasurementInput
                     stateHook={[supplyLimit, setSupplyLimit]}
                     label="Supply Limit"
                     testId="supplyLimit"
+                    labelAbove
                   />
                 </IOLine>
-
                 <IOLine>
                   <MeasurementInput
                     stateHook={[supplyVoltage, setSupplyVoltage]}
                     label="Supply Voltage"
                     testId="supplyVoltage"
+                    labelAbove
                   />
                   <MeasurementInput
                     stateHook={[batteryResistance, setBatteryResistance]}
                     label="Battery Resistance"
                     testId="batteryResistance"
+                    labelAbove
                   />
                 </IOLine>
+              </div>
+              <div className="border-t" />
 
-                <IOLine>
-                  <NumberInput
-                    stateHook={[efficiency, setEfficiency]}
-                    label="Efficiency (%)"
-                    testId="efficiency"
-                  />
-                </IOLine>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Shooter Wheel Properties</CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-y-2">
+              {/* Shooter Wheel */}
+              <div className="flex flex-col gap-3 p-4">
+                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  Shooter Wheel
+                </h2>
                 <IOLine>
                   <MeasurementInput
                     stateHook={[shooterDiameter, setShooterDiameter]}
                     label="Shooter Diameter"
                     testId="shooterDiameter"
+                    labelAbove
                   />
-                  <MeasurementInput
-                    stateHook={[shooterWeight, setShooterWeight]}
-                    label="Shooter Weight"
-                    testId="shooterWeight"
-                  />
-                </IOLine>
-
-                <IOLine>
                   <MeasurementInput
                     stateHook={[shooterTargetSpeed, setShooterTargetSpeed]}
                     label="Shooter Target Speed"
                     testId="shooterTargetSpeed"
+                    labelAbove
+                  />
+                </IOLine>
+                <IOLine>
+                  <MeasurementInput
+                    stateHook={[shooterWeight, setShooterWeight]}
+                    label="Shooter Weight"
+                    testId="shooterWeight"
+                    labelAbove
                   />
                   <MeasurementOutput
                     state={maxAchievableShooterRPM}
@@ -465,175 +581,324 @@ export default function Flywheel() {
                     defaultUnit="rpm"
                     roundTo={0}
                     testId="maxAchievableShooterRpm"
+                    labelAbove
                   />
                 </IOLine>
+                <div className="flex flex-row flex-wrap items-end gap-x-4 md:flex-nowrap">
+                  <div className="flex-1">
+                    {useCustomShooterMoi ? (
+                      <MeasurementInput
+                        stateHook={[customShooterMoi, setCustomShooterMoi]}
+                        label="Custom Shooter MOI"
+                        disabled={() => !useCustomShooterMoi}
+                        testId="customShooterMoi"
+                        labelAbove
+                      />
+                    ) : (
+                      <MeasurementOutput
+                        state={derivedShooterMOI}
+                        label="Shooter MOI"
+                        defaultUnit="in2*lbs"
+                        testId="derivedShooterMoi"
+                        labelAbove
+                      />
+                    )}
+                  </div>
+                  <div className="flex h-9 flex-1 items-center">
+                    <BooleanInput
+                      stateHook={[useCustomShooterMoi, setUseCustomShooterMoi]}
+                      label="Use Custom Shooter MOI"
+                      testId="useCustomShooterMoi"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="border-t" />
 
-                <IOLine>
-                  {useCustomShooterMoi ? (
-                    <MeasurementInput
-                      stateHook={[customShooterMoi, setCustomShooterMoi]}
-                      label="Custom Shooter MOI"
-                      disabled={() => !useCustomShooterMoi}
-                      testId="customShooterMoi"
-                    />
-                  ) : (
-                    <MeasurementOutput
-                      state={derivedShooterMOI}
-                      label="Shooter MOI"
-                      defaultUnit="in2*lbs"
-                      testId="derivedShooterMoi"
-                    />
-                  )}
+              {/* Flywheel */}
+              <div className="flex flex-col gap-3 p-4">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                    Flywheel
+                  </h2>
                   <BooleanInput
-                    stateHook={[useCustomShooterMoi, setUseCustomShooterMoi]}
-                    label="Use Custom Shooter MOI"
-                    testId="useCustomShooterMoi"
+                    stateHook={[flywheelEnabled, setFlywheelEnabled]}
+                    label="Enabled"
+                    testId="flywheelEnabled"
                   />
-                </IOLine>
-              </CardContent>
-            </Card>
+                </div>
+                {flywheelEnabled ? (
+                  <>
+                    <IOLine>
+                      <MeasurementInput
+                        stateHook={[flywheelDiameter, setFlywheelDiameter]}
+                        label="Flywheel Diameter"
+                        testId="flywheelDiameter"
+                        labelAbove
+                      />
+                      <MeasurementInput
+                        stateHook={[flywheelWeight, setFlywheelWeight]}
+                        label="Flywheel Weight"
+                        testId="flywheelWeight"
+                        labelAbove
+                      />
+                    </IOLine>
+                    <IOLine>
+                      <RatioInput
+                        label="Flywheel to Shooter Ratio"
+                        stateHook={[
+                          flywheelToShooterRatio,
+                          setflywheelToShooterRatio,
+                        ]}
+                        testId="flywheelToShooterRatio"
+                        labelAbove
+                      />
+                    </IOLine>
+                    <div className="flex flex-row flex-wrap items-end gap-x-4 md:flex-nowrap">
+                      <div className="flex-1">
+                        {useCustomFlywheelMoi ? (
+                          <MeasurementInput
+                            stateHook={[
+                              customFlywheelMoi,
+                              setCustomFlywheelMoi,
+                            ]}
+                            label="Custom Flywheel MOI"
+                            disabled={() => !useCustomFlywheelMoi}
+                            testId="customFlywheelMoi"
+                            labelAbove
+                          />
+                        ) : (
+                          <MeasurementOutput
+                            state={derivedFlywheelMOI}
+                            label="Flywheel MOI"
+                            defaultUnit="in2*lbs"
+                            testId="derivedFlywheelMoi"
+                            labelAbove
+                          />
+                        )}
+                      </div>
+                      <div className="flex h-9 flex-1 items-center">
+                        <BooleanInput
+                          stateHook={[
+                            useCustomFlywheelMoi,
+                            setUseCustomFlywheelMoi,
+                          ]}
+                          label="Use Custom Flywheel MOI"
+                          testId="useCustomFlywheelMoi"
+                        />
+                      </div>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+              <div className="border-t" />
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Flywheel Properties</CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-y-2">
+              {/* Projectile */}
+              <div className="flex flex-col gap-3 p-4">
+                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  Projectile
+                </h2>
                 <IOLine>
                   <MeasurementInput
-                    stateHook={[flywheelDiameter, setFlywheelDiameter]}
-                    label="Flywheel Diameter"
-                    testId="flywheelDiameter"
+                    stateHook={[projectileDiameter, setProjectileDiameter]}
+                    label="Projectile Diameter"
+                    testId="projectileDiameter"
+                    labelAbove
                   />
                   <MeasurementInput
-                    stateHook={[flywheelWeight, setFlywheelWeight]}
-                    label="Flywheel Weight"
-                    testId="flywheelWeight"
+                    stateHook={[projectileWeight, setProjectileWeight]}
+                    label="Projectile Weight"
+                    testId="projectileWeight"
+                    labelAbove
                   />
                 </IOLine>
-
-                <IOLine>
-                  <RatioInput
-                    label="Flywheel to Shooter Ratio"
-                    stateHook={[
-                      flywheelToShooterRatio,
-                      setflywheelToShooterRatio,
-                    ]}
-                    testId="flywheelToShooterRatio"
-                  />
-                </IOLine>
-
-                <IOLine>
-                  {useCustomFlywheelMoi ? (
-                    <MeasurementInput
-                      stateHook={[customFlywheelMoi, setCustomFlywheelMoi]}
-                      label="Custom Flywheel MOI"
-                      disabled={() => !useCustomFlywheelMoi}
-                      testId="customFlywheelMoi"
-                    />
-                  ) : (
-                    <MeasurementOutput
-                      state={derivedFlywheelMOI}
-                      label="Flywheel MOI"
-                      defaultUnit="in2*lbs"
-                      testId="derivedFlywheelMoi"
-                    />
-                  )}
-                  <BooleanInput
-                    stateHook={[useCustomFlywheelMoi, setUseCustomFlywheelMoi]}
-                    label="Use Custom Flywheel MOI"
-                    testId="useCustomFlywheelMoi"
-                  />
-                </IOLine>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Outputs</CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-y-2">
-                <IOLine>
-                  <MeasurementOutput
-                    state={spinupTime}
-                    label="Spinup Time"
-                    defaultUnit="s"
-                    testId="spinupTime"
-                  />
-                </IOLine>
-
-                <IOLine>
-                  <MeasurementOutput
-                    state={effectiveMOI}
-                    label="Effective MOI"
-                    defaultUnit="in2*lbs"
-                    testId="effectiveMoi"
-                  />
-                </IOLine>
-
-                <IOLine>
-                  <MeasurementOutput
-                    state={kV}
-                    label="kV"
-                    defaultUnit="V*s/m"
-                    testId="kV"
-                  />
-                  <MeasurementOutput
-                    state={kA}
-                    label="kA"
-                    defaultUnit="V*s^2/m"
-                    testId="kA"
-                  />
-                </IOLine>
-              </CardContent>
-            </Card>
+              </div>
+            </section>
           </div>
-          <ChartContainer
-            config={CHART_CONFIG}
-            className="min-h-[200px] w-full"
-            data-testid="chart"
-          >
-            <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis
-                dataKey="timeSeconds"
-                tickFormatter={(v: number) =>
-                  parseFloat(v.toPrecision(3)).toString()
-                }
-              />
-              <YAxis yAxisId="left" />
-              <YAxis yAxisId="right" orientation="right" />
-              <Tooltip />
-              <Legend verticalAlign="top" />
-              <Line
-                name="Angular Velocity (RPM)"
-                dataKey="angularVelocityRpm"
-                yAxisId="right"
-                dot={false}
-                stroke="blue"
-              />
-              <Line
-                name="Stator Current (A)"
-                dataKey="statorCurrentDrawAmps"
-                yAxisId="left"
-                dot={false}
-                stroke="goldenrod"
-              />
-              <Line
-                name="Supply Current (A)"
-                dataKey="supplyCurrentDrawAmps"
-                yAxisId="left"
-                dot={false}
-                stroke="purple"
-              />
-              <Line
-                name="Battery Voltage (V)"
-                dataKey="batteryVoltageVolts"
-                yAxisId="left"
-                dot={false}
-                stroke="green"
-              />
-            </LineChart>
-          </ChartContainer>
+
+          {/* Right column: outputs + chart */}
+          <div className="flex min-w-[300px] flex-1 flex-col gap-4">
+            <section className="flex flex-col rounded-lg border">
+              {/* Top KPIs */}
+              <div className="grid grid-cols-2 gap-2 p-4">
+                <MeasurementDisplayOutput
+                  state={spinupTime}
+                  label="Spinup Time"
+                  defaultUnit="s"
+                  testId="spinupTime"
+                />
+                <MeasurementDisplayOutput
+                  state={recoveryTime}
+                  label="Recovery Time"
+                  defaultUnit="s"
+                  testId="recoveryTime"
+                />
+              </div>
+              <div className="border-t" />
+
+              {/* Simulation chart */}
+              <div className="p-4 pb-2">
+                <h2 className="mb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  Simulation
+                </h2>
+                <ChartContainer
+                  config={CHART_CONFIG}
+                  className="min-h-[200px] w-full"
+                  data-testid="chart"
+                >
+                  <LineChart
+                    data={chartData}
+                    margin={{ top: 5, right: 20, bottom: 30, left: 20 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis
+                      dataKey="timeSeconds"
+                      tickFormatter={(v: number) =>
+                        parseFloat(v.toPrecision(3)).toString()
+                      }
+                      label={{
+                        value: 'Time (s)',
+                        position: 'insideBottom',
+                        offset: -15,
+                      }}
+                    />
+                    <YAxis
+                      yAxisId="left"
+                      label={{
+                        value: 'Current (A) / Voltage (V)',
+                        angle: -90,
+                        position: 'insideLeft',
+                        offset: 15,
+                        style: { textAnchor: 'middle' },
+                      }}
+                    />
+                    <YAxis
+                      yAxisId="right"
+                      orientation="right"
+                      label={{
+                        value: 'Angular Velocity (RPM)',
+                        angle: 90,
+                        position: 'insideRight',
+                        offset: 15,
+                        style: { textAnchor: 'middle' },
+                      }}
+                    />
+                    <Tooltip />
+                    <Legend verticalAlign="top" />
+                    <Line
+                      name="Angular Velocity (RPM)"
+                      dataKey="angularVelocityRpm"
+                      yAxisId="right"
+                      dot={false}
+                      stroke="blue"
+                    />
+                    <Line
+                      name="Stator Current (A)"
+                      dataKey="statorCurrentDrawAmps"
+                      yAxisId="left"
+                      dot={false}
+                      stroke="goldenrod"
+                    />
+                    <Line
+                      name="Supply Current (A)"
+                      dataKey="supplyCurrentDrawAmps"
+                      yAxisId="left"
+                      dot={false}
+                      stroke="purple"
+                    />
+                    <Line
+                      name="Battery Voltage (V)"
+                      dataKey="batteryVoltageVolts"
+                      yAxisId="left"
+                      dot={false}
+                      stroke="green"
+                    />
+                  </LineChart>
+                </ChartContainer>
+              </div>
+              <div className="border-t" />
+
+              {/* Feedforward constants + Effective MOI */}
+              <div className="grid grid-cols-3 gap-2 p-4">
+                <MeasurementDisplayOutput
+                  state={kV}
+                  label="kV"
+                  defaultUnit="V*s/m"
+                  testId="kV"
+                />
+                <MeasurementDisplayOutput
+                  state={kA}
+                  label="kA"
+                  defaultUnit="V*s^2/m"
+                  testId="kA"
+                />
+                <MeasurementDisplayOutput
+                  state={effectiveMOI}
+                  label="Effective MOI"
+                  defaultUnit="in2*lbs"
+                  testId="effectiveMoi"
+                />
+              </div>
+              <div className="border-t" />
+
+              {/* Shot Analysis */}
+              <div className="flex flex-col gap-3 p-4">
+                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  Shot Analysis
+                </h2>
+                <div className="grid grid-cols-2 gap-2">
+                  <MeasurementDisplayOutput
+                    state={
+                      shotAnalysis?.exitVelocity ?? new Measurement(0, 'ft/s')
+                    }
+                    label="Ball Exit Velocity"
+                    defaultUnit="ft/s"
+                    testId="ballExitVelocity"
+                  />
+                  <MeasurementDisplayOutput
+                    state={
+                      shotAnalysis?.exitSpinRate ?? new Measurement(0, 'rpm')
+                    }
+                    label="Ball Spin Rate"
+                    defaultUnit="rpm"
+                    roundTo={0}
+                    testId="ballSpinRate"
+                  />
+                  <MeasurementDisplayOutput
+                    state={
+                      shotAnalysis?.ballKineticEnergy ?? new Measurement(0, 'J')
+                    }
+                    label="Energy to Ball"
+                    defaultUnit="J"
+                    testId="energyToBall"
+                  />
+                  <MeasurementDisplayOutput
+                    state={
+                      shotAnalysis
+                        ? clampedShooterTargetSpeed.sub(
+                            shotAnalysis.postShotOmega.to('rpm'),
+                          )
+                        : new Measurement(0, 'rpm')
+                    }
+                    label="Speed Drop"
+                    defaultUnit="rpm"
+                    roundTo={0}
+                    testId="speedDrop"
+                  />
+                  <MeasurementDisplayOutput
+                    state={
+                      shotAnalysis?.postShotOmega.to('rpm') ??
+                      new Measurement(0, 'rpm')
+                    }
+                    label="Post-Shot Speed"
+                    defaultUnit="rpm"
+                    roundTo={0}
+                    testId="postShotSpeed"
+                  />
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
 
