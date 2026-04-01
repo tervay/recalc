@@ -1,5 +1,6 @@
+import { isbot } from 'isbot';
 import { NuqsAdapter } from 'nuqs/adapters/react-router/v7';
-import { type ReactNode } from 'react';
+import { type ReactNode, useEffect } from 'react';
 import {
   Links,
   Meta,
@@ -17,6 +18,20 @@ import { SidebarInset, SidebarProvider } from '~/components/ui/sidebar';
 import { Warning } from '~/components/ui/warning';
 
 import type { Route } from '.react-router/types/app/+types/root';
+
+function UmamiScript() {
+  useEffect(() => {
+    if (isbot(navigator.userAgent)) return;
+
+    const script = document.createElement('script');
+    script.src = 'https://um.reca.lc/script.js';
+    script.defer = true;
+    script.dataset.websiteId = 'cdd6f06a-3164-4eb6-a18c-0111d77d6f99';
+    document.head.appendChild(script);
+  }, []);
+
+  return null;
+}
 
 export const links: Route.LinksFunction = () => [
   { rel: 'icon', type: 'image/svg+xml', href: '/logo/motor.svg' },
@@ -38,12 +53,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script
-          defer
-          src="https://um.reca.lc/script.js"
-          data-website-id="cdd6f06a-3164-4eb6-a18c-0111d77d6f99"
-        />
-
+        <UmamiScript />
         <Meta />
         <Links />
       </head>
