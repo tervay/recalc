@@ -31,8 +31,12 @@ import {
   TooltipTrigger,
 } from '~/components/ui/tooltip';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
-import { calculateKa, calculateKg, calculateKv } from '~/lib/math/kVkA';
-import { calculateStallLoad } from '~/lib/math/linear';
+import {
+  calculateLinearFeedforwardKa,
+  calculateLinearFeedforwardKg,
+  calculateLinearFeedforwardKv,
+} from '~/lib/math/kVkA';
+import { calculateGuessedLimits, calculateStallLoad } from '~/lib/math/linear';
 import type * as LinearWorker from '~/lib/math/linear.worker';
 import type {
   ConfigOptOutput,
@@ -42,7 +46,6 @@ import optimizerWorkerUrl from '~/lib/math/linearOptimizer.worker?worker&url';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
-import { MotorRules } from '~/lib/rules';
 import {
   BooleanParam,
   MeasurementParam,
@@ -50,6 +53,10 @@ import {
   NumberParam,
   RatioParam,
 } from '~/lib/types/queryParams';
+
+const CASCADE_TRAVEL_FACTOR = 0.5;
+const BATTERY_VOLTAGE_FILTER_TC_S = 0.1;
+const DEFAULT_TIER_TOLERANCE_PERCENT = 10;
 
 const PRIORITY_LABELS: Record<OptimizationPriority, string> = {
   timeToGoal: 'Time to Goal',
@@ -105,6 +112,14 @@ const DEFAULT_PARAMS = {
   maximumComfortableSupplyLimit: MeasurementParam.withDefault(
     new Measurement(60, 'A'),
   ),
+  enableCustomMaxVelocity: BooleanParam.withDefault(false),
+  maxVelocity: MeasurementParam.withDefault(new Measurement(2, 'm/s')),
+  enableCustomMaxAcceleration: BooleanParam.withDefault(false),
+  maxAcceleration: MeasurementParam.withDefault(new Measurement(10, 'm/s^2')),
+  qPosition: MeasurementParam.withDefault(new Measurement(0.02, 'm')),
+  qVelocity: MeasurementParam.withDefault(new Measurement(0.4, 'm/s')),
+  rVolts: NumberParam.withDefault(12),
+  sensorDelay: MeasurementParam.withDefault(new Measurement(0.001, 's')),
 };
 
 const worker = new ComlinkWorker<typeof LinearWorker>(
@@ -118,7 +133,6 @@ const optimizerPool = workerpool.pool(optimizerWorkerUrl, {
   workerType: 'web',
   workerOpts: { type: 'module' },
 });
-
 export default function Linear() {
   const queryParams = useQueryParams(DEFAULT_PARAMS);
 
@@ -145,63 +159,58 @@ export default function Linear() {
   const [maximumComfortableSupplyLimit, setMaximumComfortableSupplyLimit] =
     useState(queryParams.maximumComfortableSupplyLimit);
 
-  const kV = useMemo(
-    () =>
-      ratio.asNumber() === 0
-        ? new Measurement(0, 'V*s/m')
-        : calculateKv(
-            motor.freeSpeed.div(ratio.asNumber()),
-            spoolDiameter.div(2),
-          ),
-    [motor, ratio, spoolDiameter],
+  const [enableCustomMaxVelocity, setEnableCustomMaxVelocity] = useState(
+    queryParams.enableCustomMaxVelocity,
   );
+  const [maxVelocity, setMaxVelocity] = useState(queryParams.maxVelocity);
 
-  const kA = useMemo(
+  const [enableCustomMaxAcceleration, setEnableCustomMaxAcceleration] =
+    useState(queryParams.enableCustomMaxAcceleration);
+  const [maxAcceleration, setMaxAcceleration] = useState(
+    queryParams.maxAcceleration,
+  );
+  const [sensorDelay, setSensorDelay] = useState(queryParams.sensorDelay);
+
+  const [qPosition, setQPosition] = useState(queryParams.qPosition);
+  const [qVelocity, setQVelocity] = useState(queryParams.qVelocity);
+  const [rVolts, setRVolts] = useState(queryParams.rVolts);
+
+  const { v_max_guessed, a_max_guessed } = useMemo(
     () =>
-      calculateKa(
-        motor.kT
-          .mul(statorLimit)
-          .mul(motor.quantity)
-          .mul(ratio.asNumber())
-          .mul(efficiency / 100),
-        spoolDiameter.div(2),
+      calculateGuessedLimits(
+        motor,
+        ratio,
         load,
+        spoolDiameter,
+        statorLimit,
+        supplyLimit,
+        supplyVoltage,
+        angle,
+        efficiency,
+        cascade,
       ),
     [
-      motor.kT,
-      statorLimit,
-      motor.quantity,
-      efficiency,
+      motor,
       ratio,
-      spoolDiameter,
       load,
+      spoolDiameter,
+      statorLimit,
+      supplyLimit,
+      supplyVoltage,
+      angle,
+      efficiency,
+      cascade,
     ],
   );
 
-  const kG = useMemo(
-    () =>
-      calculateKg(
-        new MotorRules(motor, statorLimit, {
-          current: statorLimit,
-          voltage: statorVoltage,
-        })
-          .solve()
-          .torque.mul(motor.quantity)
-          .mul(ratio.asNumber())
-          .mul(efficiency / 100),
-        spoolDiameter.div(2),
-        load,
-      ).mul(Math.sin(angle.to('rad').scalar)),
-    [
-      motor,
-      statorLimit,
-      statorVoltage,
-      ratio,
-      efficiency,
-      spoolDiameter,
-      load,
-      angle,
-    ],
+  const effectiveMaxVelocity = useMemo(
+    () => (enableCustomMaxVelocity ? maxVelocity : v_max_guessed),
+    [enableCustomMaxVelocity, maxVelocity, v_max_guessed],
+  );
+
+  const effectiveMaxAcceleration = useMemo(
+    () => (enableCustomMaxAcceleration ? maxAcceleration : a_max_guessed),
+    [enableCustomMaxAcceleration, maxAcceleration, a_max_guessed],
   );
 
   const stallLoad = useMemo(() => {
@@ -217,7 +226,9 @@ export default function Linear() {
 
   const [priorities, setPriorities] =
     useState<OptimizationPriority[]>(DEFAULT_PRIORITIES);
-  const [tierTolerance, setTierTolerance] = useState(10);
+  const [tierTolerance, setTierTolerance] = useState(
+    DEFAULT_TIER_TOLERANCE_PERCENT,
+  );
   const [gridDisplayMode, setGridDisplayMode] =
     useState<GridDisplayMode>('ratio');
 
@@ -225,6 +236,22 @@ export default function Linear() {
     WpilibElevatorSimState[]
   >([]);
   const [isSimulating, setIsSimulating] = useState(true);
+
+  const chartData = useMemo(() => {
+    const travelUnit = travelDistance.units();
+    const velocityUnit = `${travelUnit}/s`;
+
+    return workerWpilibSimStates.map((state) => ({
+      ...state,
+      positionConverted: new Measurement(state.positionMeters, 'm').to(
+        travelUnit,
+      ).scalar,
+      velocityConverted: new Measurement(
+        state.velocityMetersPerSecond,
+        'm/s',
+      ).to(velocityUnit).scalar,
+    }));
+  }, [workerWpilibSimStates, travelDistance]);
 
   const [configOptResult, setConfigOptResult] =
     useState<ConfigOptOutput | null>(null);
@@ -239,6 +266,44 @@ export default function Linear() {
     );
   }, [workerWpilibSimStates]);
 
+  const endError = useMemo(() => {
+    if (workerWpilibSimStates.length === 0) return new Measurement(0, 'm');
+    const lastPos = new Measurement(
+      workerWpilibSimStates[workerWpilibSimStates.length - 1].positionMeters,
+      'm',
+    );
+    const targetPos = cascade
+      ? travelDistance.mul(CASCADE_TRAVEL_FACTOR)
+      : travelDistance;
+    return targetPos.sub(lastPos);
+  }, [workerWpilibSimStates, travelDistance, cascade]);
+
+  const kA = useMemo(
+    () =>
+      calculateLinearFeedforwardKa(
+        motor,
+        ratio,
+        spoolDiameter.div(2),
+        load,
+        efficiency / 100,
+      ),
+    [motor, ratio, load, spoolDiameter, efficiency],
+  );
+  const kV = useMemo(
+    () =>
+      calculateLinearFeedforwardKv(
+        motor,
+        ratio,
+        spoolDiameter.div(2),
+        efficiency / 100,
+      ),
+    [motor, ratio, spoolDiameter, efficiency],
+  );
+  const kG = useMemo(
+    () => calculateLinearFeedforwardKg(kA, angle),
+    [kA, angle],
+  );
+
   useEffect(() => {
     setIsSimulating(true);
     worker
@@ -250,13 +315,18 @@ export default function Linear() {
         travelDistance.toDict(),
         statorLimit.toDict(),
         supplyLimit.toDict(),
-        statorVoltage.toDict(),
         batteryResistance.toDict(),
         supplyVoltage.toDict(),
         angle.toDict(),
         efficiency / 100,
         cascade,
-        0.1,
+        BATTERY_VOLTAGE_FILTER_TC_S,
+        effectiveMaxVelocity.toDict(),
+        effectiveMaxAcceleration.toDict(),
+        qPosition.to('m').scalar,
+        qVelocity.to('m/s').scalar,
+        rVolts,
+        sensorDelay.to('s').scalar,
       )
       .then((states) => {
         setWorkerWpilibSimStates(states);
@@ -274,12 +344,17 @@ export default function Linear() {
     travelDistance,
     statorLimit,
     supplyLimit,
-    statorVoltage,
     batteryResistance,
     supplyVoltage,
     angle,
     efficiency,
     cascade,
+    effectiveMaxVelocity,
+    effectiveMaxAcceleration,
+    qPosition,
+    qVelocity,
+    rVolts,
+    sensorDelay,
   ]);
 
   const userStatorAmps = statorLimit.to('A').scalar;
@@ -299,7 +374,6 @@ export default function Linear() {
         load.toDict(),
         spoolDiameter.toDict(),
         travelDistance.toDict(),
-        statorVoltage.toDict(),
         batteryResistance.toDict(),
         supplyVoltage.toDict(),
         maximumComfortableStatorLimit.toDict(),
@@ -307,9 +381,15 @@ export default function Linear() {
         angle.toDict(),
         efficiency / 100,
         cascade,
-        0.1,
+        BATTERY_VOLTAGE_FILTER_TC_S,
         priorities,
         tierTolerance / 100,
+        enableCustomMaxVelocity ? maxVelocity.to('m/s').scalar : null,
+        enableCustomMaxAcceleration ? maxAcceleration.to('m/s^2').scalar : null,
+        qPosition.to('m').scalar,
+        qVelocity.to('m/s').scalar,
+        rVolts,
+        sensorDelay.to('s').scalar,
       ])
       .then((result: ConfigOptOutput) => {
         if (gen !== configOptGeneration.current) return;
@@ -323,7 +403,6 @@ export default function Linear() {
     load,
     spoolDiameter,
     travelDistance,
-    statorVoltage,
     batteryResistance,
     supplyVoltage,
     maximumComfortableStatorLimit,
@@ -334,6 +413,14 @@ export default function Linear() {
     optimizationEnabled,
     priorities,
     tierTolerance,
+    qPosition,
+    qVelocity,
+    rVolts,
+    enableCustomMaxVelocity,
+    enableCustomMaxAcceleration,
+    maxVelocity,
+    maxAcceleration,
+    sensorDelay,
   ]);
 
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
@@ -352,6 +439,14 @@ export default function Linear() {
     cascade,
     maximumComfortableStatorLimit,
     maximumComfortableSupplyLimit,
+    enableCustomMaxVelocity,
+    maxVelocity,
+    enableCustomMaxAcceleration,
+    maxAcceleration,
+    qPosition,
+    qVelocity,
+    rVolts,
+    sensorDelay,
   });
 
   return (
@@ -472,7 +567,7 @@ export default function Linear() {
                   <MeasurementInput
                     stateHook={[statorVoltage, setStatorVoltage]}
                     label="Stator Voltage"
-                    tooltip="The voltage applied to the stator."
+                    tooltip="The voltage applied to the stator. Used for stall load calculation only."
                     testId="statorVoltage"
                     labelAbove
                   />
@@ -484,6 +579,104 @@ export default function Linear() {
                     labelAbove
                   />
                 </IOLine>
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">Max Velocity</span>
+                    <BooleanInput
+                      stateHook={[
+                        enableCustomMaxVelocity,
+                        setEnableCustomMaxVelocity,
+                      ]}
+                      label="Custom"
+                      testId="enableCustomMaxVelocity"
+                    />
+                  </div>
+                  {enableCustomMaxVelocity ? (
+                    <MeasurementInput
+                      stateHook={[maxVelocity, setMaxVelocity]}
+                      label="Custom"
+                      tooltip="Maximum trapezoidal profile velocity."
+                      testId="maxVelocity"
+                    />
+                  ) : (
+                    <MeasurementDisplayOutput
+                      state={effectiveMaxVelocity}
+                      label="Guessed"
+                      defaultUnit="in/s"
+                    />
+                  )}
+                </div>
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">
+                      Max Acceleration
+                    </span>
+                    <BooleanInput
+                      stateHook={[
+                        enableCustomMaxAcceleration,
+                        setEnableCustomMaxAcceleration,
+                      ]}
+                      label="Custom"
+                      testId="enableCustomMaxAcceleration"
+                    />
+                  </div>
+                  {enableCustomMaxAcceleration ? (
+                    <MeasurementInput
+                      stateHook={[maxAcceleration, setMaxAcceleration]}
+                      label="Custom"
+                      tooltip="Maximum trapezoidal profile acceleration."
+                      testId="maxAcceleration"
+                    />
+                  ) : (
+                    <MeasurementDisplayOutput
+                      state={effectiveMaxAcceleration}
+                      label="Guessed"
+                      defaultUnit="in/s2"
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="border-t" />
+
+              {/* LQR Tuning section */}
+              <div className="flex flex-col gap-3 p-4">
+                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  LQR Tuning
+                </h2>
+                <IOLine>
+                  <MeasurementInput
+                    stateHook={[qPosition, setQPosition]}
+                    label="Q Position"
+                    tooltip="Maximum tolerable position error (Bryson's rule). Smaller values make the controller more aggressive about correcting position error."
+                    testId="qPosition"
+                    labelAbove
+                  />
+                  <MeasurementInput
+                    stateHook={[qVelocity, setQVelocity]}
+                    label="Q Velocity"
+                    tooltip="Maximum tolerable velocity error (Bryson's rule). Smaller values make the controller more aggressive about correcting velocity error."
+                    testId="qVelocity"
+                    labelAbove
+                  />
+                </IOLine>
+                <IOLine>
+                  <NumberInput
+                    stateHook={[rVolts, setRVolts]}
+                    label="R (Volts)"
+                    tooltip="Maximum tolerable control effort in volts (Bryson's rule). Larger values reduce aggressiveness and limit output voltage."
+                    testId="rVolts"
+                    labelAbove
+                  />
+                </IOLine>
+                <IOLine>
+                  <MeasurementInput
+                    stateHook={[sensorDelay, setSensorDelay]}
+                    label="Sensor Delay"
+                    tooltip="The delay time for the sensor. This is used to compensate for the sensor delay."
+                    testId="sensorDelay"
+                    labelAbove
+                  />
+                </IOLine>
               </div>
             </section>
           </div>
@@ -492,12 +685,16 @@ export default function Linear() {
           <div className="flex min-w-[300px] flex-1 flex-col gap-4">
             {/* Results + Chart + Feedforward as one card */}
             <section className="flex flex-col rounded-lg border">
-              <div className="grid grid-cols-2 gap-2 p-4">
+              <div className="grid grid-cols-3 gap-2 p-4">
                 {isSimulating ? (
                   <>
                     <div className="flex flex-col gap-1.5">
                       <Skeleton className="h-3 w-20" />
                       <Skeleton className="h-6 w-24" />
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <Skeleton className="h-3 w-16" />
+                      <Skeleton className="h-6 w-20" />
                     </div>
                     <div className="flex flex-col gap-1.5">
                       <Skeleton className="h-3 w-16" />
@@ -518,6 +715,12 @@ export default function Linear() {
                       defaultUnit="lbs"
                       testId="stallLoad"
                     />
+                    <MeasurementDisplayOutput
+                      state={endError}
+                      label="End Error"
+                      defaultUnit="in"
+                      testId="endError"
+                    />
                   </>
                 )}
               </div>
@@ -531,7 +734,7 @@ export default function Linear() {
                 ) : (
                   <ChartContainer config={{}} className="min-h-[200px] w-full">
                     <LineChart
-                      data={workerWpilibSimStates}
+                      data={chartData}
                       margin={{ top: 5, right: 20, bottom: 30, left: 20 }}
                     >
                       <CartesianGrid strokeDasharray="3 3" />
@@ -549,7 +752,7 @@ export default function Linear() {
                       <YAxis
                         yAxisId="left"
                         label={{
-                          value: 'Velocity (m/s) / Current (A)',
+                          value: `Velocity (${travelDistance.units()}/s) / Current (A)`,
                           angle: -90,
                           position: 'insideLeft',
                           offset: 15,
@@ -560,7 +763,7 @@ export default function Linear() {
                         yAxisId="right"
                         orientation="right"
                         label={{
-                          value: 'Position (m)',
+                          value: `Position (${travelDistance.units()})`,
                           angle: 90,
                           position: 'insideRight',
                           offset: 15,
@@ -570,15 +773,15 @@ export default function Linear() {
                       <Tooltip />
                       <Legend verticalAlign="top" />
                       <Line
-                        name="Position (m)"
-                        dataKey="positionMeters"
+                        name={`Position (${travelDistance.units()})`}
+                        dataKey="positionConverted"
                         yAxisId="right"
                         stroke="black"
                         dot={false}
                       />
                       <Line
-                        name="Velocity (m/s)"
-                        dataKey="velocityMetersPerSecond"
+                        name={`Velocity (${travelDistance.units()}/s)`}
+                        dataKey="velocityConverted"
                         yAxisId="left"
                         stroke="red"
                         dot={false}
@@ -597,43 +800,41 @@ export default function Linear() {
                         stroke="purple"
                         dot={false}
                       />
+                      <Line
+                        name="Motor Applied Voltage (V)"
+                        dataKey="motorAppliedVoltageVolts"
+                        yAxisId="left"
+                        stroke="blue"
+                        dot={false}
+                      />
                     </LineChart>
                   </ChartContainer>
                 )}
               </div>
+
               <div className="border-t" />
               <div className="grid grid-cols-3 gap-2 p-4">
-                {isSimulating ? (
-                  <>
-                    {[16, 14, 20].map((w) => (
-                      <div key={w} className="flex flex-col gap-1.5">
-                        <Skeleton className="h-3 w-6" />
-                        <Skeleton className={`h-6 w-${w}`} />
-                      </div>
-                    ))}
-                  </>
-                ) : (
-                  <>
-                    <MeasurementDisplayOutput
-                      state={kV}
-                      label="kV"
-                      defaultUnit="V*s/m"
-                      testId="kV"
-                    />
-                    <MeasurementDisplayOutput
-                      state={kA}
-                      label="kA"
-                      defaultUnit="V*s^2/m"
-                      testId="kA"
-                    />
-                    <MeasurementDisplayOutput
-                      state={kG}
-                      label="kG"
-                      defaultUnit="V"
-                      testId="kG"
-                    />
-                  </>
-                )}
+                <MeasurementDisplayOutput
+                  state={kA}
+                  label="kA"
+                  defaultUnit="V*s^2/m"
+                  roundTo={3}
+                  testId="kA"
+                />
+                <MeasurementDisplayOutput
+                  state={kV}
+                  label="kV"
+                  defaultUnit="V*s/m"
+                  roundTo={3}
+                  testId="kV"
+                />
+                <MeasurementDisplayOutput
+                  state={kG}
+                  label="kG"
+                  defaultUnit="V"
+                  roundTo={3}
+                  testId="kG"
+                />
               </div>
             </section>
           </div>

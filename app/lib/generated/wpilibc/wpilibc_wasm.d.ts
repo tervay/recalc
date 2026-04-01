@@ -138,7 +138,6 @@ interface EmbindModule {
     travelDistanceMeters: number,
     statorLimitAmps: number,
     supplyLimitAmps: number,
-    statorVoltageVolts: number,
     batteryResistanceOhms: number,
     batteryVoltageVolts: number,
     simTimestep: number,
@@ -148,6 +147,12 @@ interface EmbindModule {
     efficiency: number,
     cascade: boolean,
     batteryVoltageFilterTimeConstantSeconds: number,
+    maxVelocityMPS: number,
+    maxAccelerationMPS2: number,
+    qPositionMeters: number,
+    qVelocityMPS: number,
+    rVolts: number,
+    sensorDelaySeconds: number,
   ): any;
   simulateFlywheel(
     motor: DCMotor | null,

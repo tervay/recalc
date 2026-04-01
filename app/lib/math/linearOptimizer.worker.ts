@@ -3,9 +3,11 @@ import minimize from 'minimize-golden-section-1d';
 import workerpool from 'workerpool';
 
 import type { DCMotor } from '~/lib/generated/wpilibc/wpilibc_wasm';
+import { calculateGuessedLimits } from '~/lib/math/linear';
 import type { MeasurementDict } from '~/lib/models/Measurement';
 import Measurement from '~/lib/models/Measurement';
 import Motor, { type MotorDict } from '~/lib/models/Motor';
+import Ratio, { RatioType } from '~/lib/models/Ratio';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
 
 export type OptimizationPriority =
@@ -57,11 +59,11 @@ interface SimState {
 
 interface MechParams {
   wpilibMotor: DCMotor;
+  motorName: string;
   motorQuantity: number;
   loadKg: number;
   spoolRadiusMeters: number;
   travelDistanceMeters: number;
-  statorVoltageVolts: number;
   batteryResistanceOhms: number;
   batteryVoltageVolts: number;
   angleRadians: number;
@@ -77,7 +79,6 @@ function parseMech(
   loadDict: MeasurementDict,
   spoolDiameterDict: MeasurementDict,
   travelDistanceDict: MeasurementDict,
-  statorVoltageDict: MeasurementDict,
   batteryResistanceDict: MeasurementDict,
   batteryVoltageDict: MeasurementDict,
   angleDict: MeasurementDict,
@@ -87,13 +88,13 @@ function parseMech(
 ): MechParams {
   return {
     wpilibMotor: motor.toWpilibMotor(),
+    motorName: motor.identifier,
     motorQuantity: motor.quantity,
     loadKg: Measurement.fromDict(loadDict).to('kg').scalar,
     spoolRadiusMeters: Measurement.fromDict(spoolDiameterDict).div(2).to('m')
       .scalar,
     travelDistanceMeters:
       Measurement.fromDict(travelDistanceDict).to('m').scalar,
-    statorVoltageVolts: Measurement.fromDict(statorVoltageDict).to('V').scalar,
     batteryResistanceOhms: Measurement.fromDict(batteryResistanceDict).to('Ohm')
       .scalar,
     batteryVoltageVolts:
@@ -111,6 +112,12 @@ function simulate(
   ratioMagnitude: number,
   totalStatorAmps: number,
   supplyAmps: number,
+  maxVelocityMPS: number,
+  maxAccelerationMPS2: number,
+  qPositionMeters: number,
+  qVelocityMPS: number,
+  rVolts: number,
+  sensorDelaySeconds: number,
   timeoutSeconds = 3.0,
 ): SimState[] {
   return wpilibc.simulateElevator(
@@ -121,7 +128,6 @@ function simulate(
     p.travelDistanceMeters,
     totalStatorAmps,
     supplyAmps * p.motorQuantity,
-    p.statorVoltageVolts,
     p.batteryResistanceOhms,
     p.batteryVoltageVolts,
     0.0005,
@@ -131,6 +137,12 @@ function simulate(
     p.efficiency,
     p.cascade,
     p.batteryVoltageFilterTimeConstantSeconds,
+    maxVelocityMPS,
+    maxAccelerationMPS2,
+    qPositionMeters,
+    qVelocityMPS,
+    rVolts,
+    sensorDelaySeconds,
   );
 }
 
@@ -156,12 +168,93 @@ function findOptimalRatio(
   p: MechParams,
   totalStatorAmps: number,
   supplyAmps: number,
+  maxVelocityMPS: number | null,
+  maxAccelerationMPS2: number | null,
+  qPositionMeters: number,
+  qVelocityMPS: number,
+  rVolts: number,
+  sensorDelaySeconds: number,
 ): number {
-  const objective = (r: number): number => {
-    const states = simulate(wpilibc, p, r, totalStatorAmps, supplyAmps, 1);
+  const needsGuessing = maxVelocityMPS === null || maxAccelerationMPS2 === null;
+
+  // Pre-allocate constant objects once for all guessing calls.
+  const guessMotor = needsGuessing
+    ? Motor.fromName(p.motorName, p.motorQuantity)
+    : undefined;
+  const guessLoad = needsGuessing ? new Measurement(p.loadKg, 'kg') : undefined;
+  const guessSpoolDiameter = needsGuessing
+    ? new Measurement(p.spoolRadiusMeters * 2, 'm')
+    : undefined;
+  const guessStatorLimit = needsGuessing
+    ? new Measurement(totalStatorAmps / p.motorQuantity, 'A')
+    : undefined;
+  const guessSupplyLimit = needsGuessing
+    ? new Measurement(supplyAmps, 'A')
+    : undefined;
+  const guessVoltage = needsGuessing
+    ? new Measurement(p.batteryVoltageVolts, 'V')
+    : undefined;
+  const guessAngle = needsGuessing
+    ? new Measurement(p.angleRadians, 'rad')
+    : undefined;
+  const guessEfficiency = p.efficiency * 100;
+
+  function guessLimitsForRatio(r: number): {
+    velocity: number;
+    acceleration: number;
+  } {
+    const { v_max_guessed, a_max_guessed } = calculateGuessedLimits(
+      guessMotor!,
+      new Ratio(r, RatioType.REDUCTION),
+      guessLoad!,
+      guessSpoolDiameter!,
+      guessStatorLimit!,
+      guessSupplyLimit!,
+      guessVoltage!,
+      guessAngle!,
+      guessEfficiency,
+      p.cascade,
+    );
+    return {
+      velocity: v_max_guessed.to('m/s').scalar,
+      acceleration: a_max_guessed.to('m/s^2').scalar,
+    };
+  }
+
+  function runSim(r: number, velocity: number, acceleration: number): number {
+    const states = simulate(
+      wpilibc,
+      p,
+      r,
+      totalStatorAmps,
+      supplyAmps,
+      velocity,
+      acceleration,
+      qPositionMeters,
+      qVelocityMPS,
+      rVolts,
+      sensorDelaySeconds,
+      1,
+    );
     const last = states[states.length - 1];
     return last.success ? last.timeSeconds : Number.POSITIVE_INFINITY;
-  };
+  }
+
+  function objective(r: number): number {
+    let velocity: number;
+    let acceleration: number;
+
+    if (needsGuessing) {
+      const guessed = guessLimitsForRatio(r);
+      velocity = maxVelocityMPS ?? guessed.velocity;
+      acceleration = maxAccelerationMPS2 ?? guessed.acceleration;
+    } else {
+      velocity = maxVelocityMPS;
+      acceleration = maxAccelerationMPS2;
+    }
+
+    return runSim(r, velocity, acceleration);
+  }
 
   // Coarse log-spaced scan: find any successful bracket before minimizing.
   const numScanPoints = 16;
@@ -253,7 +346,6 @@ async function optimizeRatio(
   spoolDiameterDict: MeasurementDict,
   travelDistanceDict: MeasurementDict,
   supplyLimitDict: MeasurementDict,
-  statorVoltageDict: MeasurementDict,
   batteryResistanceDict: MeasurementDict,
   batteryVoltageDict: MeasurementDict,
   statorLimitAmps: number,
@@ -262,6 +354,12 @@ async function optimizeRatio(
   efficiency: number,
   cascade: boolean,
   batteryVoltageFilterTimeConstantSeconds: number,
+  maxVelocityMPS: number,
+  maxAccelerationMPS2: number,
+  qPositionMeters: number,
+  qVelocityMPS: number,
+  rVolts: number,
+  sensorDelaySeconds: number,
 ): Promise<OptimizerResult> {
   const wpilibc = await initWpilibc();
   const motor = Motor.fromDict(motorDict);
@@ -270,7 +368,6 @@ async function optimizeRatio(
     loadDict,
     spoolDiameterDict,
     travelDistanceDict,
-    statorVoltageDict,
     batteryResistanceDict,
     batteryVoltageDict,
     angleDict,
@@ -283,7 +380,19 @@ async function optimizeRatio(
 
   const optimalRatio = minimize(
     (r) => {
-      const states = simulate(wpilibc, p, r, totalStatorAmps, supplyAmps);
+      const states = simulate(
+        wpilibc,
+        p,
+        r,
+        totalStatorAmps,
+        supplyAmps,
+        maxVelocityMPS,
+        maxAccelerationMPS2,
+        qPositionMeters,
+        qVelocityMPS,
+        rVolts,
+        sensorDelaySeconds,
+      );
       return states[states.length - 1].timeSeconds;
     },
     { lowerBound: 0.25, upperBound: 50, guess: initialRatio },
@@ -295,6 +404,12 @@ async function optimizeRatio(
     optimalRatio,
     totalStatorAmps,
     supplyAmps,
+    maxVelocityMPS,
+    maxAccelerationMPS2,
+    qPositionMeters,
+    qVelocityMPS,
+    rVolts,
+    sensorDelaySeconds,
   );
   const last = states[states.length - 1];
 
@@ -315,13 +430,18 @@ async function simulateOnce(
   travelDistanceDict: MeasurementDict,
   statorLimitAmps: number,
   supplyLimitAmps: number,
-  statorVoltageDict: MeasurementDict,
   batteryResistanceDict: MeasurementDict,
   batteryVoltageDict: MeasurementDict,
   angleDict: MeasurementDict,
   efficiency: number,
   cascade: boolean,
   batteryVoltageFilterTimeConstantSeconds: number,
+  maxVelocityMPS: number,
+  maxAccelerationMPS2: number,
+  qPositionMeters: number,
+  qVelocityMPS: number,
+  rVolts: number,
+  sensorDelaySeconds: number,
 ): Promise<SingleSimResult> {
   const wpilibc = await initWpilibc();
   const motor = Motor.fromDict(motorDict);
@@ -330,7 +450,6 @@ async function simulateOnce(
     loadDict,
     spoolDiameterDict,
     travelDistanceDict,
-    statorVoltageDict,
     batteryResistanceDict,
     batteryVoltageDict,
     angleDict,
@@ -345,6 +464,12 @@ async function simulateOnce(
     ratioMagnitude,
     statorLimitAmps * p.motorQuantity,
     supplyLimitAmps,
+    maxVelocityMPS,
+    maxAccelerationMPS2,
+    qPositionMeters,
+    qVelocityMPS,
+    rVolts,
+    sensorDelaySeconds,
   );
   const last = states[states.length - 1];
 
@@ -363,7 +488,6 @@ async function optimizeConfiguration(
   loadDict: MeasurementDict,
   spoolDiameterDict: MeasurementDict,
   travelDistanceDict: MeasurementDict,
-  statorVoltageDict: MeasurementDict,
   batteryResistanceDict: MeasurementDict,
   batteryVoltageDict: MeasurementDict,
   maximumComfortableStatorLimitDict: MeasurementDict,
@@ -374,6 +498,12 @@ async function optimizeConfiguration(
   batteryVoltageFilterTimeConstantSeconds: number,
   priorities: OptimizationPriority[],
   prioritySlack: number,
+  maxVelocityMPS: number | null,
+  maxAccelerationMPS2: number | null,
+  qPositionMeters: number,
+  qVelocityMPS: number,
+  rVolts: number,
+  sensorDelaySeconds: number,
 ): Promise<ConfigOptOutput> {
   const wpilibc = await initWpilibc();
   const motor = Motor.fromDict(motorDict);
@@ -382,7 +512,6 @@ async function optimizeConfiguration(
     loadDict,
     spoolDiameterDict,
     travelDistanceDict,
-    statorVoltageDict,
     batteryResistanceDict,
     batteryVoltageDict,
     angleDict,
@@ -413,6 +542,12 @@ async function optimizeConfiguration(
         p,
         totalStatorAmps,
         supplyAmps,
+        maxVelocityMPS,
+        maxAccelerationMPS2,
+        qPositionMeters,
+        qVelocityMPS,
+        rVolts,
+        sensorDelaySeconds,
       );
 
       if (isNaN(optimalRatio)) {
@@ -428,12 +563,40 @@ async function optimizeConfiguration(
         continue;
       }
 
+      let effectiveVelocity = maxVelocityMPS;
+      let effectiveAcceleration = maxAccelerationMPS2;
+
+      if (effectiveVelocity === null || effectiveAcceleration === null) {
+        const { v_max_guessed, a_max_guessed } = calculateGuessedLimits(
+          Motor.fromName(p.motorName, p.motorQuantity),
+          new Ratio(optimalRatio, RatioType.REDUCTION),
+          new Measurement(p.loadKg, 'kg'),
+          new Measurement(p.spoolRadiusMeters * 2, 'm'),
+          new Measurement(statorAmps, 'A'),
+          new Measurement(supplyAmps, 'A'),
+          new Measurement(p.batteryVoltageVolts, 'V'),
+          new Measurement(p.angleRadians, 'rad'),
+          p.efficiency * 100,
+          p.cascade,
+        );
+
+        effectiveVelocity = effectiveVelocity ?? v_max_guessed.to('m/s').scalar;
+        effectiveAcceleration =
+          effectiveAcceleration ?? a_max_guessed.to('m/s^2').scalar;
+      }
+
       const states = simulate(
         wpilibc,
         p,
         optimalRatio,
         totalStatorAmps,
         supplyAmps,
+        effectiveVelocity,
+        effectiveAcceleration,
+        qPositionMeters,
+        qVelocityMPS,
+        rVolts,
+        sensorDelaySeconds,
         1.5,
       );
       const last = states[states.length - 1];

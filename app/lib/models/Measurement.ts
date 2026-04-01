@@ -269,7 +269,7 @@ export default class Measurement extends Model {
   }
 
   static get GRAVITY(): Measurement {
-    return new Measurement(-9.81, 'm/s^2');
+    return new Measurement(-9.80665, 'm/s^2');
   }
 
   static anyAreZero(...measurements: (Measurement | number)[]): boolean {

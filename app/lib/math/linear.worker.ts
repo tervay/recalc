@@ -4,6 +4,10 @@ import type { RatioDict } from '~/lib/models/Ratio';
 import Ratio from '~/lib/models/Ratio';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
 
+const SIM_TIMESTEP_S = 0.0001;
+const SIM_DECIMATION = 10;
+const SIM_MAX_SECONDS = 3.0;
+
 export interface WpilibElevatorSimState {
   positionMeters: number;
   velocityMetersPerSecond: number;
@@ -25,13 +29,18 @@ export async function simulateElevatorWpilib(
   travelDistance: MeasurementDict,
   statorLimitDict: MeasurementDict,
   supplyLimitDict: MeasurementDict,
-  statorVoltageDict: MeasurementDict,
   batteryResistance: MeasurementDict,
   batteryVoltage: MeasurementDict,
   angle: MeasurementDict,
   efficiency: number,
   cascade: boolean,
   batteryVoltageFilterTimeConstantSeconds: number,
+  maxVelocityDict: MeasurementDict,
+  maxAccelerationDict: MeasurementDict,
+  qPositionMeters: number,
+  qVelocityMPS: number,
+  rVolts: number,
+  sensorDelaySeconds: number,
 ): Promise<WpilibElevatorSimState[]> {
   const wpilibc = await initWpilibc();
   const motor = Motor.fromDict(motorDict);
@@ -45,16 +54,21 @@ export async function simulateElevatorWpilib(
       Measurement.fromDict(travelDistance).to('m').scalar,
       Measurement.fromDict(statorLimitDict).to('A').scalar * motor.quantity,
       Measurement.fromDict(supplyLimitDict).to('A').scalar * motor.quantity,
-      Measurement.fromDict(statorVoltageDict).to('V').scalar,
       Measurement.fromDict(batteryResistance).to('Ohm').scalar,
       Measurement.fromDict(batteryVoltage).to('V').scalar,
-      0.0001,
-      10,
-      3.0,
+      SIM_TIMESTEP_S,
+      SIM_DECIMATION,
+      SIM_MAX_SECONDS,
       Measurement.fromDict(angle).to('rad').scalar,
       efficiency,
       cascade,
       batteryVoltageFilterTimeConstantSeconds,
+      Measurement.fromDict(maxVelocityDict).to('m/s').scalar,
+      Measurement.fromDict(maxAccelerationDict).to('m/s^2').scalar,
+      qPositionMeters,
+      qVelocityMPS,
+      rVolts,
+      sensorDelaySeconds,
     ) as WpilibElevatorSimState[];
   } finally {
     wasmMotor.delete();

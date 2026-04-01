@@ -15,74 +15,65 @@ static constexpr double kTol = 1e-9;
 class ClampVoltageTest : public ::testing::Test {};
 
 TEST_F(ClampVoltageTest, LooseLimits_PassThrough) {
-  EXPECT_NEAR(
-      ClampVoltageForCurrentLimits(6.0, 0.0, 0.1, 1000.0, 1000.0, 12.0), 6.0,
-      kTol);
+  EXPECT_NEAR(ClampVoltageForCurrentLimits(6.0, 0.0, 0.1, 1000.0, 1000.0, 12.0),
+              6.0, kTol);
 }
 
 TEST_F(ClampVoltageTest, StatorLimitBinding_ClampsHigh) {
   // maxA = 0 + 40*0.1 = 4
-  EXPECT_NEAR(
-      ClampVoltageForCurrentLimits(12.0, 0.0, 0.1, 40.0, 1000.0, 12.0), 4.0,
-      kTol);
+  EXPECT_NEAR(ClampVoltageForCurrentLimits(12.0, 0.0, 0.1, 40.0, 1000.0, 12.0),
+              4.0, kTol);
 }
 
 TEST_F(ClampVoltageTest, SupplyLimitBinding_ClampsHigh) {
   // toSqrt = 0 + 40*0.1*12 = 48  →  maxB = sqrt(48)
-  EXPECT_NEAR(
-      ClampVoltageForCurrentLimits(12.0, 0.0, 0.1, 1000.0, 40.0, 12.0),
-      std::sqrt(48.0), kTol);
+  EXPECT_NEAR(ClampVoltageForCurrentLimits(12.0, 0.0, 0.1, 1000.0, 40.0, 12.0),
+              std::sqrt(48.0), kTol);
 }
 
 TEST_F(ClampVoltageTest, VAppliedInsideBounds_NoChange) {
-  EXPECT_NEAR(
-      ClampVoltageForCurrentLimits(2.0, 0.0, 0.1, 40.0, 1000.0, 12.0), 2.0,
-      kTol);
+  EXPECT_NEAR(ClampVoltageForCurrentLimits(2.0, 0.0, 0.1, 40.0, 1000.0, 12.0),
+              2.0, kTol);
 }
 
 TEST_F(ClampVoltageTest, VSupplyHardCap) {
   EXPECT_NEAR(
-      ClampVoltageForCurrentLimits(100.0, 0.0, 0.1, 10000.0, 10000.0, 6.0),
-      6.0, kTol);
+      ClampVoltageForCurrentLimits(100.0, 0.0, 0.1, 10000.0, 10000.0, 6.0), 6.0,
+      kTol);
 }
 
 TEST_F(ClampVoltageTest, StatorLimitBinding_ClampsLow) {
-  EXPECT_NEAR(
-      ClampVoltageForCurrentLimits(-12.0, 0.0, 0.1, 40.0, 1000.0, 12.0), -4.0,
-      kTol);
+  EXPECT_NEAR(ClampVoltageForCurrentLimits(-12.0, 0.0, 0.1, 40.0, 1000.0, 12.0),
+              -4.0, kTol);
 }
 
 TEST_F(ClampVoltageTest, BackEmfShiftsStatorWindow) {
   // window = [6-4, 6+4] = [2, 10]
-  EXPECT_NEAR(
-      ClampVoltageForCurrentLimits(12.0, 6.0, 0.1, 40.0, 1000.0, 12.0), 10.0,
-      kTol);
+  EXPECT_NEAR(ClampVoltageForCurrentLimits(12.0, 6.0, 0.1, 40.0, 1000.0, 12.0),
+              10.0, kTol);
 }
 
 TEST_F(ClampVoltageTest, BothLimitsActive_StatorTighter) {
   // maxA=4 (stator) < maxB=sqrt(48)≈6.93 (supply)
-  EXPECT_NEAR(
-      ClampVoltageForCurrentLimits(12.0, 0.0, 0.1, 40.0, 40.0, 12.0), 4.0,
-      kTol);
+  EXPECT_NEAR(ClampVoltageForCurrentLimits(12.0, 0.0, 0.1, 40.0, 40.0, 12.0),
+              4.0, kTol);
 }
 
 TEST_F(ClampVoltageTest, ZeroStatorLimit_ClampsToBackEmf) {
-  EXPECT_NEAR(
-      ClampVoltageForCurrentLimits(12.0, 3.0, 0.1, 0.0, 1000.0, 12.0), 3.0,
-      kTol);
+  EXPECT_NEAR(ClampVoltageForCurrentLimits(12.0, 3.0, 0.1, 0.0, 1000.0, 12.0),
+              3.0, kTol);
 }
 
 TEST_F(ClampVoltageTest, VAppliedEqualsBackEmf_NoChange) {
-  EXPECT_NEAR(
-      ClampVoltageForCurrentLimits(5.0, 5.0, 0.1, 40.0, 40.0, 12.0), 5.0,
-      kTol);
+  EXPECT_NEAR(ClampVoltageForCurrentLimits(5.0, 5.0, 0.1, 40.0, 40.0, 12.0),
+              5.0, kTol);
 }
 
 TEST_F(ClampVoltageTest, NegativeVAppliedWithNegativeBackEmf) {
   // minA = -2 - 4 = -6
   EXPECT_NEAR(
-      ClampVoltageForCurrentLimits(-12.0, -2.0, 0.1, 40.0, 1000.0, 12.0),
-      -6.0, kTol);
+      ClampVoltageForCurrentLimits(-12.0, -2.0, 0.1, 40.0, 1000.0, 12.0), -6.0,
+      kTol);
 }
 
 // ============================================================================
@@ -117,8 +108,7 @@ TEST_F(DecimateTest, DecimationOne_AllEmitted) {
 }
 
 TEST_F(DecimateTest, DecimationTwo_EvenSize_LastForced) {
-  EXPECT_EQ(RunDecimate({0, 1, 2, 3, 4, 5}, 2),
-            (std::vector<int>{0, 2, 4, 5}));
+  EXPECT_EQ(RunDecimate({0, 1, 2, 3, 4, 5}, 2), (std::vector<int>{0, 2, 4, 5}));
 }
 
 TEST_F(DecimateTest, DecimationTwo_OddSize_LastOnBoundary) {
@@ -131,8 +121,7 @@ TEST_F(DecimateTest, DecimationThree_ForcedLast) {
 }
 
 TEST_F(DecimateTest, DecimationThree_LastOnBoundary_NotDoubled) {
-  EXPECT_EQ(RunDecimate({0, 1, 2, 3, 4, 5, 6}, 3),
-            (std::vector<int>{0, 3, 6}));
+  EXPECT_EQ(RunDecimate({0, 1, 2, 3, 4, 5, 6}, 3), (std::vector<int>{0, 3, 6}));
 }
 
 TEST_F(DecimateTest, DecimationLargerThanSize) {
