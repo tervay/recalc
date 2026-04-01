@@ -193,7 +193,6 @@ test.describe('Copy Link', () => {
     await page.getByTestId('angle').fill('45');
     await page.getByTestId('batteryResistance').fill('0.03');
     await page.getByTestId('cascade').click();
-    await page.getByTestId('targetTimeToGoal').fill('0.75');
     await page.getByTestId('maximumComfortableStatorLimit').fill('80');
     await page.getByTestId('maximumComfortableSupplyLimit').fill('70');
     await page.getByRole('button', { name: 'Copy Link' }).click();

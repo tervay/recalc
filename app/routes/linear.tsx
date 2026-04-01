@@ -99,7 +99,6 @@ const DEFAULT_PARAMS = {
     new Measurement(0.015, 'Ohm'),
   ),
   cascade: BooleanParam.withDefault(false),
-  targetTimeToGoal: MeasurementParam.withDefault(new Measurement(0.5, 's')),
   maximumComfortableStatorLimit: MeasurementParam.withDefault(
     new Measurement(80, 'A'),
   ),
@@ -141,9 +140,6 @@ export default function Linear() {
   );
   const [cascade, setCascade] = useState(queryParams.cascade);
   const [optimizationEnabled, setOptimizationEnabled] = useState(true);
-  const [targetTimeToGoal, setTargetTimeToGoal] = useState(
-    queryParams.targetTimeToGoal,
-  );
   const [maximumComfortableStatorLimit, setMaximumComfortableStatorLimit] =
     useState(queryParams.maximumComfortableStatorLimit);
   const [maximumComfortableSupplyLimit, setMaximumComfortableSupplyLimit] =
@@ -306,7 +302,6 @@ export default function Linear() {
         statorVoltage.toDict(),
         batteryResistance.toDict(),
         supplyVoltage.toDict(),
-        targetTimeToGoal.to('s').scalar,
         maximumComfortableStatorLimit.toDict(),
         maximumComfortableSupplyLimit.toDict(),
         angle.toDict(),
@@ -331,7 +326,6 @@ export default function Linear() {
     statorVoltage,
     batteryResistance,
     supplyVoltage,
-    targetTimeToGoal,
     maximumComfortableStatorLimit,
     maximumComfortableSupplyLimit,
     angle,
@@ -356,7 +350,6 @@ export default function Linear() {
     angle,
     batteryResistance,
     cascade,
-    targetTimeToGoal,
     maximumComfortableStatorLimit,
     maximumComfortableSupplyLimit,
   });
@@ -869,17 +862,6 @@ export default function Linear() {
                 tooltip="How much worse than the best a candidate can be before it's excluded from the next priority tier. Default 10%."
                 stateHook={[tierTolerance, setTierTolerance]}
               />
-              <div className="border-t" />
-              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                Constraints
-              </h2>
-              <MeasurementInput
-                stateHook={[targetTimeToGoal, setTargetTimeToGoal]}
-                label="Target Time to Goal"
-                tooltip="The target time to reach the goal position. Used to find the best configuration that meets this target."
-                testId="targetTimeToGoal"
-                labelAbove
-              />
               <MeasurementInput
                 stateHook={[
                   maximumComfortableStatorLimit,
@@ -902,126 +884,6 @@ export default function Linear() {
               />
             </section>
           </div>
-
-          {/* Row 2: Recommended Configuration */}
-          <section className="flex flex-col gap-3 rounded-lg border p-4">
-            <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-              Recommended Configuration
-            </h2>
-            {configOptResult ? (
-              (() => {
-                if (!configOptResult.recommended) {
-                  return null;
-                }
-                const ConfigCard = ({
-                  result,
-                  label,
-                  note,
-                }: {
-                  result: import('~/lib/math/linearOptimizer.worker').ConfigOptResult;
-                  label: string;
-                  note: string;
-                }) => (
-                  <div className="flex flex-col gap-2">
-                    <h3 className="text-xs font-medium text-muted-foreground">
-                      {label}
-                    </h3>
-                    <div className="grid grid-cols-3 gap-3 tabular-nums sm:grid-cols-6">
-                      <div className="flex flex-col">
-                        <span className="text-xs text-muted-foreground">
-                          Ratio
-                        </span>
-                        <span className="text-lg font-bold">
-                          {result.optimalRatio.toFixed(2)}
-                        </span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-xs text-muted-foreground">
-                          Stator Limit
-                        </span>
-                        <span className="text-lg font-bold">
-                          {result.statorLimitAmps} A
-                        </span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-xs text-muted-foreground">
-                          Supply Limit
-                        </span>
-                        <span className="text-lg font-bold">
-                          {result.supplyLimitAmps} A
-                        </span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-xs text-muted-foreground">
-                          Time to Goal
-                        </span>
-                        <span className="text-lg font-bold">
-                          {result.timeToGoalSeconds.toFixed(3)} s
-                        </span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-xs text-muted-foreground">
-                          Peak Supply Current
-                        </span>
-                        <span className="text-lg font-bold">
-                          {result.peakCurrentAmps.toFixed(1)} A
-                        </span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-xs text-muted-foreground">
-                          Energy
-                        </span>
-                        <span className="text-lg font-bold">
-                          {result.energyJoules.toFixed(1)} J
-                        </span>
-                      </div>
-                    </div>
-                    <p className="text-xs text-muted-foreground">{note}</p>
-                  </div>
-                );
-                return (
-                  <div className="flex flex-col gap-4 sm:flex-row sm:gap-8">
-                    <div className="flex-1">
-                      <ConfigCard
-                        result={configOptResult.recommended}
-                        label="Fastest overall"
-                        note={`${configOptResult.tier1Count} configuration${configOptResult.tier1Count !== 1 ? 's' : ''} within 10% of top priority; ${configOptResult.tier2Count} also within 10% of second priority.`}
-                      />
-                    </div>
-                    <div className="border-t sm:border-t-0 sm:border-l" />
-                    <div className="flex-1">
-                      {configOptResult.targetResult ? (
-                        <ConfigCard
-                          result={configOptResult.targetResult}
-                          label={`Meets ${targetTimeToGoal.to('s').scalar.toFixed(2)} s target`}
-                          note="Best configuration by priority that meets the target time."
-                        />
-                      ) : (
-                        <div className="flex flex-col gap-1">
-                          <h3 className="text-xs font-medium text-muted-foreground">
-                            Meets {targetTimeToGoal.to('s').scalar.toFixed(2)} s
-                            target
-                          </h3>
-                          <p className="text-sm text-muted-foreground">
-                            No configuration achieves this target time. Fastest
-                            achievable:{' '}
-                            {configOptResult.recommended.timeToGoalSeconds.toFixed(
-                              3,
-                            )}{' '}
-                            s.
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })()
-            ) : (
-              <div className="text-sm text-muted-foreground">
-                <Loader variant="bar" />
-              </div>
-            )}
-          </section>
         </div>
       )}
     </div>

@@ -5,7 +5,7 @@
   - text: Copy Link
 - heading "Motors & Electrical" [level=2]
 - text: Motor
-- spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Target Speed Shooter Weight Max Achievable RPM Shooter MOI Projectile Diameter Projectile Weight": "2"
+- spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Target Speed Shooter Weight Max Achievable RPM Shooter MOI Projectile Diameter Projectile Weight Max Stator Limit Max Supply Limit": "2"
 - combobox: Kraken X60 (FOC)
 - text: Efficiency (%)
 - spinbutton: "90"

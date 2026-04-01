@@ -6,7 +6,7 @@
 - heading "Motor & Gearing" [level=2]
 - switch "Cascade" [checked]
 - text: Cascade Motor
-- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Stator Limit Supply Limit Stator Voltage Supply Voltage Target Time to Goal Max Stator Limit Max Supply Limit": "1"
+- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Stator Limit Supply Limit Stator Voltage Supply Voltage Max Stator Limit Max Supply Limit": "1"
 - combobox: NEO
 - button "Efficiency %"
 - spinbutton: "90"
