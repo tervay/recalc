@@ -3,9 +3,12 @@
   - img
   - img
   - text: Copy Link
-- text: Motors & Electrical Motor
-- spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Weight Shooter Target Speed Max Achievable RPM Shooter MOI Flywheel Diameter Flywheel Weight Flywheel to Shooter Ratio Flywheel MOI Spinup Time Effective MOI kV kA": "2"
+- heading "Motors & Electrical" [level=2]
+- text: Motor
+- spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Target Speed Shooter Weight Max Achievable RPM Shooter MOI Flywheel Diameter Flywheel Weight Flywheel to Shooter Ratio Flywheel MOI Projectile Diameter Projectile Weight": "2"
 - combobox: Kraken X60 (FOC)
+- text: Efficiency (%)
+- spinbutton: "100"
 - text: Ratio
 - spinbutton: "1"
 - combobox: Reduction
@@ -21,25 +24,27 @@
 - text: Battery Resistance
 - spinbutton: "0.015"
 - combobox: Ohm
-- text: Efficiency (%)
-- spinbutton: "100"
-- text: Shooter Wheel Properties Shooter Diameter
-- spinbutton: "6"
+- heading "Shooter Wheel" [level=2]
+- text: Shooter Diameter
+- spinbutton: "4"
 - combobox: in
-- text: Shooter Weight
-- spinbutton: "1"
-- combobox: lbs
 - text: Shooter Target Speed
 - spinbutton: "3000"
 - combobox: rpm
+- text: Shooter Weight
+- spinbutton: "1"
+- combobox: lbs
 - text: Max Achievable RPM
 - spinbutton [disabled]: "5784"
 - combobox: rpm
 - text: Shooter MOI
-- spinbutton [disabled]: "4.500"
+- spinbutton [disabled]: "2.000"
 - combobox: in2*lbs
 - switch "Use Custom Shooter MOI"
-- text: Use Custom Shooter MOI Flywheel Properties Flywheel Diameter
+- text: Use Custom Shooter MOI
+- heading "Flywheel" [level=2]
+- switch "Enabled" [checked]
+- text: Enabled Flywheel Diameter
 - spinbutton: "4"
 - combobox: in
 - text: Flywheel Weight
@@ -52,18 +57,19 @@
 - spinbutton [disabled]: "6.000"
 - combobox: in2*lbs
 - switch "Use Custom Flywheel MOI"
-- text: Use Custom Flywheel MOI Outputs Spinup Time
-- spinbutton [disabled]: "0.309"
+- text: Use Custom Flywheel MOI
+- heading "Projectile" [level=2]
+- text: Projectile Diameter
+- spinbutton: "5"
+- combobox: in
+- text: Projectile Weight
+- spinbutton: "0.5"
+- combobox: lbs
+- text: Spinup Time 0.235
 - combobox: s
-- text: Effective MOI
-- spinbutton [disabled]: "10.500"
-- combobox: in2*lbs
-- text: kV
-- spinbutton [disabled]: "0.260"
-- combobox: V*s/m
-- text: kA
-- spinbutton [disabled]: "0.161"
-- combobox: V*s^2/m
+- text: Recovery Time 0.016
+- combobox: s
+- heading "Simulation" [level=2]
 - list:
   - listitem:
     - img "Angular Velocity (RPM) legend icon"
@@ -77,4 +83,21 @@
   - listitem:
     - img "Supply Current (A) legend icon"
     - text: Supply Current (A)
-- application: 0.021 0.051 0.081 0.111 0.131 0.151 0.171 0.191 0.221 0.251 0.281 0.309 0 40 80 120 160 0 800 1600 2400 3200
+- application: Time (s) Current (A) / Voltage (V) Angular Velocity (RPM) 0.0155 0.0405 0.0655 0.0905 0.116 0.136 0.156 0.176 0.196 0.216 0.235 0 40 80 120 160 0 800 1600 2400 3200
+- text: kV 0.390
+- combobox: V*s/m
+- text: kA 0.184
+- combobox: V*s^2/m
+- text: Effective MOI 8.000
+- combobox: in2*lbs
+- heading "Shot Analysis" [level=2]
+- text: Ball Exit Velocity 13.963
+- combobox: ft/s
+- text: Ball Spin Rate 1600
+- combobox: rpm
+- text: Energy to Ball 2.875
+- combobox: J
+- text: Speed Drop 200
+- combobox: rpm
+- text: Post-Shot Speed 2800
+- combobox: rpm

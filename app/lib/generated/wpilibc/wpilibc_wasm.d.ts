@@ -164,6 +164,7 @@ interface EmbindModule {
     decimation: number,
     maxSimSeconds: number,
     batteryVoltageFilterTimeConstantSeconds: number,
+    initialAngularVelocityRadPerSec: number,
   ): any;
   simulateArm(
     motor: DCMotor | null,

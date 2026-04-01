@@ -73,10 +73,18 @@ SimulateFlywheel(DCMotorWasm *motor, double gearing, double moiKgMSquared,
                  double batteryResistanceOhms, double batteryVoltageVolts,
                  double efficiency, double simTimestep, int decimation,
                  double maxSimSeconds,
-                 double batteryVoltageFilterTimeConstantSeconds) {
+                 double batteryVoltageFilterTimeConstantSeconds,
+                 double initialAngularVelocityRadPerSec = 0.0) {
   EfficiencyFlywheelSim flywheel(
       motor->getMotor(), gearing,
       wpi::units::kilogram_square_meter_t(moiKgMSquared), efficiency);
+
+  // Set initial angular velocity (non-zero for recovery simulations)
+  if (initialAngularVelocityRadPerSec != 0.0) {
+    wpi::math::Vectord<1> initialState;
+    initialState(0) = initialAngularVelocityRadPerSec;
+    flywheel.SetState(initialState);
+  }
 
   wpi::sim::RoboRioSim::SetVInVoltage(wpi::units::volt_t(batteryVoltageVolts));
 

@@ -125,6 +125,7 @@ test.describe('Copy Link', () => {
     // Toggle useCustomShooterMoi so customShooterMoi is visible and testable
     await page.getByTestId('useCustomShooterMoi').click();
     await page.getByTestId('customShooterMoi').fill('3');
+    await page.getByTestId('flywheelEnabled').click();
     await page.getByTestId('flywheelDiameter').fill('3');
     await page.getByTestId('flywheelWeight').fill('1');
     await page.getByTestId('flywheelToShooterRatio').fill('2');

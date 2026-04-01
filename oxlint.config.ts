@@ -33,6 +33,8 @@ export default defineConfig({
     'wpilib/allwpilib/',
   ],
   rules: {
+    // Vite query suffixes (e.g. ?worker&url) confuse this rule into false positives
+    'import/default': 'off',
     'no-unused-vars': [
       'warn',
       {

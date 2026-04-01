@@ -193,6 +193,7 @@ test.describe('Flywheel Calculator', () => {
   test('should match snapshot with flywheelDiameter magnitude changed', async ({
     page,
   }) => {
+    await page.getByTestId('flywheelEnabled').click();
     await page.getByTestId('flywheelDiameter').fill('6');
     await waitForCalc(page);
     expect(
@@ -205,6 +206,7 @@ test.describe('Flywheel Calculator', () => {
   test('should match snapshot with flywheelDiameter unit changed', async ({
     page,
   }) => {
+    await page.getByTestId('flywheelEnabled').click();
     await page.getByTestId('selectflywheelDiameter').click();
     await page.getByRole('option', { name: 'cm' }).click();
     await waitForCalc(page);
@@ -218,6 +220,7 @@ test.describe('Flywheel Calculator', () => {
   test('should match snapshot with flywheelWeight magnitude changed', async ({
     page,
   }) => {
+    await page.getByTestId('flywheelEnabled').click();
     await page.getByTestId('flywheelWeight').fill('3');
     await waitForCalc(page);
     expect(
@@ -230,6 +233,7 @@ test.describe('Flywheel Calculator', () => {
   test('should match snapshot with flywheelWeight unit changed', async ({
     page,
   }) => {
+    await page.getByTestId('flywheelEnabled').click();
     await page.getByTestId('selectflywheelWeight').click();
     await page.getByRole('option', { name: 'kg' }).click();
     await waitForCalc(page);
@@ -240,43 +244,81 @@ test.describe('Flywheel Calculator', () => {
     });
   });
 
-  //   test('should match snapshot with projectileDiameter magnitude changed', async ({
-  //     page,
-  //   }) => {
-  //     await page.getByTestId('projectileDiameter').fill('2');
-  //     expect(await page.getByTestId('flywheel-main').ariaSnapshot()).toMatchSnapshot({
-  //       name: 'projectileDiameter-magnitude-changed.yaml',
-  //     });
-  //   });
+  test('should match snapshot with projectileDiameter magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('projectileDiameter').fill('2');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'projectileDiameter-magnitude-changed.yaml',
+    });
+  });
 
-  //   test('should match snapshot with projectileDiameter unit changed', async ({
-  //     page,
-  //   }) => {
-  //     await page.getByTestId('selectprojectileDiameter').click();
-  //     await page.getByRole('option', { name: 'cm' }).click();
-  //     expect(await page.getByTestId('flywheel-main').ariaSnapshot()).toMatchSnapshot({
-  //       name: 'projectileDiameter-unit-changed.yaml',
-  //     });
-  //   });
+  test('should match snapshot with projectileDiameter unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectprojectileDiameter').click();
+    await page.getByRole('option', { name: 'cm' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'projectileDiameter-unit-changed.yaml',
+    });
+  });
 
-  //   test('should match snapshot with projectileWeight magnitude changed', async ({
-  //     page,
-  //   }) => {
-  //     await page.getByTestId('projectileWeight').fill('1');
-  //     expect(await page.getByTestId('flywheel-main').ariaSnapshot()).toMatchSnapshot({
-  //       name: 'projectileWeight-magnitude-changed.yaml',
-  //     });
-  //   });
+  test('should match snapshot with projectileWeight magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('projectileWeight').fill('1');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'projectileWeight-magnitude-changed.yaml',
+    });
+  });
 
-  //   test('should match snapshot with projectileWeight unit changed', async ({
-  //     page,
-  //   }) => {
-  //     await page.getByTestId('selectprojectileWeight').click();
-  //     await page.getByRole('option', { name: 'kg' }).click();
-  //     expect(await page.getByTestId('flywheel-main').ariaSnapshot()).toMatchSnapshot({
-  //       name: 'projectileWeight-unit-changed.yaml',
-  //     });
-  //   });
+  test('should match snapshot with projectileWeight unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectprojectileWeight').click();
+    await page.getByRole('option', { name: 'kg' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'projectileWeight-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with ballExitVelocity unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectballExitVelocity').click();
+    await page.getByRole('option', { name: 'm/s' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'ballExitVelocity-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with recoveryTime unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectrecoveryTime').click();
+    await page.getByRole('option', { name: 's' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'recoveryTime-unit-changed.yaml',
+    });
+  });
 
   test('should match snapshot with motor magnitude changed', async ({
     page,
@@ -330,6 +372,7 @@ test.describe('Flywheel Calculator', () => {
   test('should match snapshot with flywheelToShooterRatio magnitude changed', async ({
     page,
   }) => {
+    await page.getByTestId('flywheelEnabled').click();
     await page.getByTestId('flywheelToShooterRatio').fill('2');
     await waitForCalc(page);
     expect(
@@ -342,6 +385,7 @@ test.describe('Flywheel Calculator', () => {
   test('should match snapshot with flywheelToShooterRatio unit changed', async ({
     page,
   }) => {
+    await page.getByTestId('flywheelEnabled').click();
     await page.getByTestId('flywheelToShooterRatio').fill('2');
     await page.getByTestId('selectflywheelToShooterRatio').click();
     await page.getByRole('option', { name: 'Step-up' }).click();
@@ -392,6 +436,7 @@ test.describe('Flywheel Calculator', () => {
   test('should match snapshot with derivedFlywheelMoi unit changed', async ({
     page,
   }) => {
+    await page.getByTestId('flywheelEnabled').click();
     await page.getByTestId('selectderivedFlywheelMoi').click();
     await page.getByRole('option', { name: 'kg*m2' }).click();
     await waitForCalc(page);
