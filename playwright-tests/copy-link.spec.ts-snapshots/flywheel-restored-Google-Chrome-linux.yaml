@@ -5,7 +5,7 @@
   - text: Copy Link
 - heading "Motors & Electrical" [level=2]
 - text: Motor
-- spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Target Speed Shooter Weight Max Achievable RPM Custom Shooter MOI Flywheel Diameter Flywheel Weight Flywheel to Shooter Ratio Custom Flywheel MOI Projectile Diameter Projectile Weight": "2"
+- spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Target Speed Shooter Weight Max Achievable RPM Custom Shooter MOI Flywheel Diameter Flywheel Weight Flywheel to Shooter Ratio Custom Flywheel MOI Projectile Diameter Projectile Weight Max Stator Limit Max Supply Limit": "2"
 - combobox: NEO
 - text: Efficiency (%)
 - spinbutton: "85"

@@ -45,7 +45,6 @@ export interface ConfigOptOutput {
   recommended: ConfigOptResult | null;
   tier1Count: number;
   tier2Count: number;
-  targetResult: ConfigOptResult | null;
   allResults: ConfigOptResult[];
 }
 
@@ -367,7 +366,6 @@ async function optimizeConfiguration(
   statorVoltageDict: MeasurementDict,
   batteryResistanceDict: MeasurementDict,
   batteryVoltageDict: MeasurementDict,
-  targetTimeSeconds: number,
   maximumComfortableStatorLimitDict: MeasurementDict,
   maximumComfortableSupplyLimitDict: MeasurementDict,
   angleDict: MeasurementDict,
@@ -459,7 +457,6 @@ async function optimizeConfiguration(
       recommended: null,
       tier1Count: 0,
       tier2Count: 0,
-      targetResult: null,
       allResults,
     };
   }
@@ -470,23 +467,10 @@ async function optimizeConfiguration(
     tier2Count,
   } = selectBest(successResults, priorities, prioritySlack);
 
-  const targetCandidates = successResults.filter(
-    (r) => r.timeToGoalSeconds <= targetTimeSeconds,
-  );
-  let targetResult: ConfigOptResult | null = null;
-  if (targetCandidates.length > 0) {
-    targetResult = selectBest(
-      targetCandidates,
-      priorities,
-      prioritySlack,
-    ).result;
-  }
-
   return {
     recommended,
     tier1Count,
     tier2Count,
-    targetResult,
     allResults,
   };
 }
