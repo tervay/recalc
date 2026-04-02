@@ -60,7 +60,7 @@
     "@iconify-json/solar": "1.2.5",
     "@iconify-json/streamline-ultimate": "1.2.2",
     "@iconify-json/tabler": "1.2.33",
-    "@playwright/test": "1.59.0",
+    "@playwright/test": "1.59.1",
     "@react-router/dev": "7.13.2",
     "@svgr/core": "8.1.0",
     "@svgr/plugin-jsx": "8.1.0",
