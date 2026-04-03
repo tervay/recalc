@@ -108,6 +108,9 @@ async function createWpilibcModule(moduleArg = {}) {
     err(what);
     ABORT = true;
     what += '. Build with -sASSERTIONS for more info.';
+    if (runtimeInitialized) {
+      ___trap();
+    }
     var e = new WebAssembly.RuntimeError(what);
     readyPromiseReject?.(e);
     throw e;
@@ -187,58 +190,6 @@ async function createWpilibcModule(moduleArg = {}) {
       this.status = status;
     }
   }
-  class ExceptionInfo {
-    constructor(excPtr) {
-      this.excPtr = excPtr;
-      this.ptr = excPtr - 24;
-    }
-    set_type(type) {
-      HEAPU32[(this.ptr + 4) >> 2] = type;
-    }
-    get_type() {
-      return HEAPU32[(this.ptr + 4) >> 2];
-    }
-    set_destructor(destructor) {
-      HEAPU32[(this.ptr + 8) >> 2] = destructor;
-    }
-    get_destructor() {
-      return HEAPU32[(this.ptr + 8) >> 2];
-    }
-    set_caught(caught) {
-      caught = caught ? 1 : 0;
-      HEAP8[this.ptr + 12] = caught;
-    }
-    get_caught() {
-      return HEAP8[this.ptr + 12] != 0;
-    }
-    set_rethrown(rethrown) {
-      rethrown = rethrown ? 1 : 0;
-      HEAP8[this.ptr + 13] = rethrown;
-    }
-    get_rethrown() {
-      return HEAP8[this.ptr + 13] != 0;
-    }
-    init(type, destructor) {
-      this.set_adjusted_ptr(0);
-      this.set_type(type);
-      this.set_destructor(destructor);
-    }
-    set_adjusted_ptr(adjustedPtr) {
-      HEAPU32[(this.ptr + 16) >> 2] = adjustedPtr;
-    }
-    get_adjusted_ptr() {
-      return HEAPU32[(this.ptr + 16) >> 2];
-    }
-  }
-  var exceptionLast = 0;
-  var uncaughtExceptionCount = 0;
-  var ___cxa_throw = (ptr, type, destructor) => {
-    var info = new ExceptionInfo(ptr);
-    info.init(type, destructor);
-    exceptionLast = ptr;
-    uncaughtExceptionCount++;
-    throw exceptionLast;
-  };
   var __abort_js = () => abort('');
   var AsciiToString = (ptr) => {
     var str = '';
@@ -1923,6 +1874,13 @@ async function createWpilibcModule(moduleArg = {}) {
       createNamedFunction(functionName, invokerFunction),
     );
   };
+  var __emval_get_global = (name) => {
+    if (!name) {
+      return Emval.toHandle(globalThis);
+    }
+    name = getStringOrSymbol(name);
+    return Emval.toHandle(globalThis[name]);
+  };
   var __emval_incref = (handle) => {
     if (handle > 9) {
       emval_handles[handle + 1] += 1;
@@ -2187,6 +2145,7 @@ async function createWpilibcModule(moduleArg = {}) {
     _malloc,
     _free,
     __emscripten_timeout,
+    ___trap,
     memory,
     __indirect_function_table,
     wasmMemory,
@@ -2196,49 +2155,50 @@ async function createWpilibcModule(moduleArg = {}) {
     _malloc = Module['_malloc'] = wasmExports['Q'];
     _free = Module['_free'] = wasmExports['R'];
     __emscripten_timeout = wasmExports['T'];
+    ___trap = wasmExports['U'];
     memory = wasmMemory = wasmExports['N'];
     __indirect_function_table = wasmTable = wasmExports['S'];
   }
   var wasmImports = {
-    a: ___cxa_throw,
-    H: __abort_js,
-    u: __embind_register_bigint,
-    K: __embind_register_bool,
-    n: __embind_register_class,
+    G: __abort_js,
+    s: __embind_register_bigint,
+    J: __embind_register_bool,
+    m: __embind_register_class,
     l: __embind_register_class_constructor,
-    b: __embind_register_class_function,
-    I: __embind_register_emval,
-    t: __embind_register_float,
-    i: __embind_register_function,
-    h: __embind_register_integer,
-    v: __embind_register_iterable,
-    c: __embind_register_memory_view,
+    a: __embind_register_class_function,
+    H: __embind_register_emval,
+    r: __embind_register_float,
+    h: __embind_register_function,
+    g: __embind_register_integer,
+    u: __embind_register_iterable,
+    b: __embind_register_memory_view,
     M: __embind_register_optional,
-    J: __embind_register_std_string,
-    p: __embind_register_std_wstring,
-    L: __embind_register_void,
-    x: __emscripten_runtime_keepalive_clear,
-    g: __emval_create_invoker,
-    d: __emval_decref,
-    r: __emval_incref,
-    f: __emval_invoke,
-    m: __emval_new_array,
-    j: __emval_new_cstring,
-    q: __emval_new_object,
-    e: __emval_run_destructors,
-    k: __emval_set_property,
-    y: __setitimer_js,
-    A: __tzset_js,
-    B: _clock_time_get,
-    o: _emscripten_get_now,
-    C: _emscripten_resize_heap,
-    F: _environ_get,
-    G: _environ_sizes_get,
-    E: _fd_close,
-    D: _fd_seek,
-    s: _fd_write,
-    w: _proc_exit,
-    z: _random_get,
+    I: __embind_register_std_string,
+    o: __embind_register_std_wstring,
+    K: __embind_register_void,
+    w: __emscripten_runtime_keepalive_clear,
+    f: __emval_create_invoker,
+    c: __emval_decref,
+    t: __emval_get_global,
+    L: __emval_incref,
+    e: __emval_invoke,
+    k: __emval_new_array,
+    i: __emval_new_cstring,
+    p: __emval_new_object,
+    d: __emval_run_destructors,
+    j: __emval_set_property,
+    x: __setitimer_js,
+    z: __tzset_js,
+    A: _clock_time_get,
+    n: _emscripten_get_now,
+    B: _emscripten_resize_heap,
+    E: _environ_get,
+    F: _environ_sizes_get,
+    D: _fd_close,
+    C: _fd_seek,
+    q: _fd_write,
+    v: _proc_exit,
+    y: _random_get,
   };
   function run() {
     preRun();

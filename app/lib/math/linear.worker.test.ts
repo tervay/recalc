@@ -10,6 +10,10 @@ import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 
+const KALMAN_FILTER_POSITION_STD_DEV = new Measurement(2, 'in');
+const KALMAN_FILTER_VELOCITY_STD_DEV = new Measurement(40, 'in/s');
+const KALMAN_FILTER_ENCODER_POSITION_STD_DEV = new Measurement(0.001, 'in');
+
 function makeFeedforward(
   motor: Motor,
   ratio: Ratio,
@@ -81,27 +85,31 @@ describe('simulateElevatorWpilib', () => {
       batteryVoltage,
     );
 
-    const result = await simulateElevatorWpilib(
-      motor.toDict(),
-      ratio.toDict(),
-      load.toDict(),
-      spoolDiameter.toDict(),
-      travelDistance.toDict(),
-      currentLimit.toDict(),
-      supplyLimit.toDict(),
-      batteryResistance.toDict(),
-      batteryVoltage.toDict(),
-      angle.toDict(),
-      1.0,
-      false,
-      0.1,
-      maxVelocity.toDict(),
-      maxAcceleration.toDict(),
-      0.1,
-      0.1,
-      12,
-      0.001,
-    );
+    const result = await simulateElevatorWpilib({
+      motorDict: motor.toDict(),
+      ratio: ratio.toDict(),
+      load: load.toDict(),
+      spoolDiameter: spoolDiameter.toDict(),
+      travelDistance: travelDistance.toDict(),
+      statorLimitDict: currentLimit.toDict(),
+      supplyLimitDict: supplyLimit.toDict(),
+      batteryResistance: batteryResistance.toDict(),
+      batteryVoltage: batteryVoltage.toDict(),
+      angle: angle.toDict(),
+      efficiency: 1.0,
+      cascade: false,
+      batteryVoltageFilterTimeConstantSeconds: 0.1,
+      maxVelocityDict: maxVelocity.toDict(),
+      maxAccelerationDict: maxAcceleration.toDict(),
+      qPositionMeters: 0.1,
+      qVelocityMPS: 0.1,
+      rVolts: 12,
+      sensorDelaySeconds: 0.001,
+      kalmanFilterPositionStdDev: KALMAN_FILTER_POSITION_STD_DEV.toDict(),
+      kalmanFilterVelocityStdDev: KALMAN_FILTER_VELOCITY_STD_DEV.toDict(),
+      kalmanFilterEncoderPositionStdDev:
+        KALMAN_FILTER_ENCODER_POSITION_STD_DEV.toDict(),
+    });
 
     expect(result.length).toBeGreaterThan(0);
     const last = result[result.length - 1];
@@ -130,27 +138,31 @@ describe('simulateElevatorWpilib', () => {
       batteryVoltage,
     );
 
-    const result = await simulateElevatorWpilib(
-      motor.toDict(),
-      ratio.toDict(),
-      load.toDict(),
-      spoolDiameter.toDict(),
-      travelDistance.toDict(),
-      currentLimit.toDict(),
-      supplyLimit.toDict(),
-      batteryResistance.toDict(),
-      batteryVoltage.toDict(),
-      angle.toDict(),
-      1.0,
-      false,
-      0.1,
-      maxVelocity.toDict(),
-      maxAcceleration.toDict(),
-      0.1,
-      0.1,
-      12,
-      0.001,
-    );
+    const result = await simulateElevatorWpilib({
+      motorDict: motor.toDict(),
+      ratio: ratio.toDict(),
+      load: load.toDict(),
+      spoolDiameter: spoolDiameter.toDict(),
+      travelDistance: travelDistance.toDict(),
+      statorLimitDict: currentLimit.toDict(),
+      supplyLimitDict: supplyLimit.toDict(),
+      batteryResistance: batteryResistance.toDict(),
+      batteryVoltage: batteryVoltage.toDict(),
+      angle: angle.toDict(),
+      efficiency: 1.0,
+      cascade: false,
+      batteryVoltageFilterTimeConstantSeconds: 0.1,
+      maxVelocityDict: maxVelocity.toDict(),
+      maxAccelerationDict: maxAcceleration.toDict(),
+      qPositionMeters: 0.1,
+      qVelocityMPS: 0.1,
+      rVolts: 12,
+      sensorDelaySeconds: 0.001,
+      kalmanFilterPositionStdDev: KALMAN_FILTER_POSITION_STD_DEV.toDict(),
+      kalmanFilterVelocityStdDev: KALMAN_FILTER_VELOCITY_STD_DEV.toDict(),
+      kalmanFilterEncoderPositionStdDev:
+        KALMAN_FILTER_ENCODER_POSITION_STD_DEV.toDict(),
+    });
 
     expect(result.length).toBeGreaterThan(10);
 
@@ -199,43 +211,34 @@ describe('simulateElevatorWpilib', () => {
       batteryVoltage,
     );
 
-    const commonArgs = [
-      motor.toDict(),
-      ratio.toDict(),
-      load.toDict(),
-      spoolDiameter.toDict(),
-      travelDistance.toDict(),
-      currentLimit.toDict(),
-      supplyLimit.toDict(),
-      batteryResistance.toDict(),
-      batteryVoltage.toDict(),
-      angle.toDict(),
-      1.0,
-    ] as const;
+    const commonParams = {
+      motorDict: motor.toDict(),
+      ratio: ratio.toDict(),
+      load: load.toDict(),
+      spoolDiameter: spoolDiameter.toDict(),
+      travelDistance: travelDistance.toDict(),
+      statorLimitDict: currentLimit.toDict(),
+      supplyLimitDict: supplyLimit.toDict(),
+      batteryResistance: batteryResistance.toDict(),
+      batteryVoltage: batteryVoltage.toDict(),
+      angle: angle.toDict(),
+      efficiency: 1.0,
+      batteryVoltageFilterTimeConstantSeconds: 0.1,
+      maxVelocityDict: maxVelocity.toDict(),
+      maxAccelerationDict: maxAcceleration.toDict(),
+      qPositionMeters: 0.1,
+      qVelocityMPS: 0.1,
+      rVolts: 12,
+      sensorDelaySeconds: 0.001,
+      kalmanFilterPositionStdDev: KALMAN_FILTER_POSITION_STD_DEV.toDict(),
+      kalmanFilterVelocityStdDev: KALMAN_FILTER_VELOCITY_STD_DEV.toDict(),
+      kalmanFilterEncoderPositionStdDev:
+        KALMAN_FILTER_ENCODER_POSITION_STD_DEV.toDict(),
+    };
 
     const [standard, cascade] = await Promise.all([
-      simulateElevatorWpilib(
-        ...commonArgs,
-        false,
-        0.1,
-        maxVelocity.toDict(),
-        maxAcceleration.toDict(),
-        0.1,
-        0.1,
-        12,
-        0.001,
-      ),
-      simulateElevatorWpilib(
-        ...commonArgs,
-        true,
-        0.1,
-        maxVelocity.toDict(),
-        maxAcceleration.toDict(),
-        0.1,
-        0.1,
-        12,
-        0.001,
-      ),
+      simulateElevatorWpilib({ ...commonParams, cascade: false }),
+      simulateElevatorWpilib({ ...commonParams, cascade: true }),
     ]);
 
     const travelDistanceMeters = travelDistance.to('m').scalar;

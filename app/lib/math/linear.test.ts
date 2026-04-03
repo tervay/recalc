@@ -412,4 +412,141 @@ describe('calculateGuessedLimits', () => {
       perMotor.a_max_guessed.to('m/s^2').scalar,
     );
   });
+
+  it('caps guessed velocity when rVolts is lower than supply voltage', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const ratio = new Ratio(4, RatioType.REDUCTION);
+    const load = new Measurement(15, 'lb');
+    const spoolDiameter = new Measurement(1.5, 'in');
+    const statorLimit = new Measurement(80, 'A');
+    const supplyLimit = new Measurement(60, 'A');
+    const supplyVoltage = new Measurement(12, 'V');
+    const angle = new Measurement(90, 'deg');
+    const efficiency = 100;
+
+    const fullVoltage = calculateGuessedLimits(
+      motor,
+      ratio,
+      load,
+      spoolDiameter,
+      statorLimit,
+      supplyLimit,
+      supplyVoltage,
+      angle,
+      efficiency,
+      false,
+      new Measurement(12, 'V'),
+    );
+
+    const halfVoltage = calculateGuessedLimits(
+      motor,
+      ratio,
+      load,
+      spoolDiameter,
+      statorLimit,
+      supplyLimit,
+      supplyVoltage,
+      angle,
+      efficiency,
+      false,
+      new Measurement(6, 'V'),
+    );
+
+    expect(fullVoltage.v_max_guessed.to('m/s').scalar).toBeGreaterThan(
+      halfVoltage.v_max_guessed.to('m/s').scalar,
+    );
+  });
+
+  it('caps guessed acceleration when rVolts is the binding constraint', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const ratio = new Ratio(4, RatioType.REDUCTION);
+    const load = new Measurement(15, 'lb');
+    const spoolDiameter = new Measurement(1.5, 'in');
+    const statorLimit = new Measurement(200, 'A');
+    const supplyLimit = new Measurement(200, 'A');
+    const supplyVoltage = new Measurement(12, 'V');
+    const angle = new Measurement(90, 'deg');
+    const efficiency = 100;
+
+    const fullVoltage = calculateGuessedLimits(
+      motor,
+      ratio,
+      load,
+      spoolDiameter,
+      statorLimit,
+      supplyLimit,
+      supplyVoltage,
+      angle,
+      efficiency,
+      false,
+      new Measurement(12, 'V'),
+    );
+
+    const lowVoltage = calculateGuessedLimits(
+      motor,
+      ratio,
+      load,
+      spoolDiameter,
+      statorLimit,
+      supplyLimit,
+      supplyVoltage,
+      angle,
+      efficiency,
+      false,
+      new Measurement(3, 'V'),
+    );
+
+    expect(fullVoltage.a_max_guessed.to('m/s^2').scalar).toBeGreaterThan(
+      lowVoltage.a_max_guessed.to('m/s^2').scalar,
+    );
+  });
+
+  it('is unaffected by rVolts when it exceeds supply voltage', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const ratio = new Ratio(4, RatioType.REDUCTION);
+    const load = new Measurement(15, 'lb');
+    const spoolDiameter = new Measurement(1.5, 'in');
+    const statorLimit = new Measurement(80, 'A');
+    const supplyLimit = new Measurement(60, 'A');
+    const supplyVoltage = new Measurement(12, 'V');
+    const angle = new Measurement(90, 'deg');
+    const efficiency = 100;
+
+    const at12V = calculateGuessedLimits(
+      motor,
+      ratio,
+      load,
+      spoolDiameter,
+      statorLimit,
+      supplyLimit,
+      supplyVoltage,
+      angle,
+      efficiency,
+      false,
+      new Measurement(12, 'V'),
+    );
+
+    const at24V = calculateGuessedLimits(
+      motor,
+      ratio,
+      load,
+      spoolDiameter,
+      statorLimit,
+      supplyLimit,
+      supplyVoltage,
+      angle,
+      efficiency,
+      false,
+      new Measurement(24, 'V'),
+    );
+
+    expect(at12V.v_max_guessed.to('m/s').scalar).toBeCloseTo(
+      at24V.v_max_guessed.to('m/s').scalar,
+      3,
+    );
+    expect(at12V.a_max_guessed.to('m/s^2').scalar).toBeCloseTo(
+      at24V.a_max_guessed.to('m/s^2').scalar,
+      3,
+    );
+  });
 });

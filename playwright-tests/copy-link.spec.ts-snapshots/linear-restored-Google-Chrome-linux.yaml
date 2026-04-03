@@ -41,7 +41,7 @@
 - combobox: Ohm
 - text: Max Velocity
 - switch "Custom Custom"
-- text: Custom Guessed 108.375
+- text: Custom Guessed 102.763
 - combobox: in/s
 - text: Max Acceleration
 - switch
@@ -54,7 +54,7 @@
 - combobox: s
 - text: Stall Load 37.304
 - combobox: lbs
-- text: End Error 0.022
+- text: End Error 0.020
 - combobox: in
 - heading "Simulation" [level=2]
 - list:

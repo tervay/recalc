@@ -57,6 +57,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
         -O3
         -flto
         -std=c++20
+        -fwasm-exceptions
     )
 
     # Emscripten linker flags
@@ -77,6 +78,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
         "-sEXPORT_ES6=1"
         "-O3"
         "-flto"
+        "-fwasm-exceptions"
         "--bind"
         "--no-entry"
         "--emit-tsd"

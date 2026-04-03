@@ -21,27 +21,55 @@ export interface WpilibElevatorSimState {
   success: boolean;
 }
 
-export async function simulateElevatorWpilib(
-  motorDict: MotorDict,
-  ratio: RatioDict,
-  load: MeasurementDict,
-  spoolDiameter: MeasurementDict,
-  travelDistance: MeasurementDict,
-  statorLimitDict: MeasurementDict,
-  supplyLimitDict: MeasurementDict,
-  batteryResistance: MeasurementDict,
-  batteryVoltage: MeasurementDict,
-  angle: MeasurementDict,
-  efficiency: number,
-  cascade: boolean,
-  batteryVoltageFilterTimeConstantSeconds: number,
-  maxVelocityDict: MeasurementDict,
-  maxAccelerationDict: MeasurementDict,
-  qPositionMeters: number,
-  qVelocityMPS: number,
-  rVolts: number,
-  sensorDelaySeconds: number,
-): Promise<WpilibElevatorSimState[]> {
+export interface SimulateElevatorWpilibParams {
+  motorDict: MotorDict;
+  ratio: RatioDict;
+  load: MeasurementDict;
+  spoolDiameter: MeasurementDict;
+  travelDistance: MeasurementDict;
+  statorLimitDict: MeasurementDict;
+  supplyLimitDict: MeasurementDict;
+  batteryResistance: MeasurementDict;
+  batteryVoltage: MeasurementDict;
+  angle: MeasurementDict;
+  efficiency: number;
+  cascade: boolean;
+  batteryVoltageFilterTimeConstantSeconds: number;
+  maxVelocityDict: MeasurementDict;
+  maxAccelerationDict: MeasurementDict;
+  qPositionMeters: number;
+  qVelocityMPS: number;
+  rVolts: number;
+  sensorDelaySeconds: number;
+  kalmanFilterPositionStdDev: MeasurementDict;
+  kalmanFilterVelocityStdDev: MeasurementDict;
+  kalmanFilterEncoderPositionStdDev: MeasurementDict;
+}
+
+export async function simulateElevatorWpilib({
+  motorDict,
+  ratio,
+  load,
+  spoolDiameter,
+  travelDistance,
+  statorLimitDict,
+  supplyLimitDict,
+  batteryResistance,
+  batteryVoltage,
+  angle,
+  efficiency,
+  cascade,
+  batteryVoltageFilterTimeConstantSeconds,
+  maxVelocityDict,
+  maxAccelerationDict,
+  qPositionMeters,
+  qVelocityMPS,
+  rVolts,
+  sensorDelaySeconds,
+  kalmanFilterPositionStdDev,
+  kalmanFilterVelocityStdDev,
+  kalmanFilterEncoderPositionStdDev,
+}: SimulateElevatorWpilibParams): Promise<WpilibElevatorSimState[]> {
   const wpilibc = await initWpilibc();
   const motor = Motor.fromDict(motorDict);
   const wasmMotor = motor.toWpilibMotor();
@@ -69,6 +97,9 @@ export async function simulateElevatorWpilib(
       qVelocityMPS,
       rVolts,
       sensorDelaySeconds,
+      Measurement.fromDict(kalmanFilterPositionStdDev).to('m').scalar,
+      Measurement.fromDict(kalmanFilterVelocityStdDev).to('m/s').scalar,
+      Measurement.fromDict(kalmanFilterEncoderPositionStdDev).to('m').scalar,
     ) as WpilibElevatorSimState[];
   } finally {
     wasmMotor.delete();

@@ -33,12 +33,10 @@ import {
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { computeShotResult } from '~/lib/math/ballShot';
 import type * as FlywheelWorker from '~/lib/math/flywheel.worker';
-import type {
-  FlywheelConfigOptOutput,
-  OptimizationPriority,
-} from '~/lib/math/flywheelOptimizer.worker';
+import type { FlywheelConfigOptOutput } from '~/lib/math/flywheelOptimizer.worker';
 import optimizerWorkerUrl from '~/lib/math/flywheelOptimizer.worker?worker&url';
 import { calculateKa, calculateKv } from '~/lib/math/kVkA';
+import type { OptimizationPriority } from '~/lib/math/optimizerUtils';
 import Measurement from '~/lib/models/Measurement';
 import Motor, { nominalVoltage } from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
@@ -1009,7 +1007,7 @@ export default function Flywheel() {
                       case 'ratio':
                         return cell.optimalRatio.toFixed(2);
                       case 'peakCurrent':
-                        return `${cell.peakSupplyCurrentAmps.toFixed(1)} A`;
+                        return `${cell.peakCurrentAmps.toFixed(1)} A`;
                       case 'energy':
                         return `${cell.energyJoules.toFixed(1)} J`;
                       case 'avgPower':
@@ -1084,10 +1082,7 @@ export default function Flywheel() {
                                             <span className="text-primary-foreground/70">
                                               Peak Supply:{' '}
                                             </span>
-                                            {cell.peakSupplyCurrentAmps.toFixed(
-                                              1,
-                                            )}{' '}
-                                            A
+                                            {cell.peakCurrentAmps.toFixed(1)} A
                                           </div>
                                           <div>
                                             <span className="text-primary-foreground/70">

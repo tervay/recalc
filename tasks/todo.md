@@ -283,3 +283,15 @@ Unchanged. Applies after computing `vApplied = loop.U(0) + kG`.
 - **Back-EMF clamp:** `kvRadPerSecPerVolt` is still needed for the current
   limiter's back-EMF calculation. It is derived from `motor->getKvRadPerSecPerVolt()`
   and must be kept in scope.
+
+---
+
+## Notes (2026-04-03)
+
+- Extracted the angled-elevator gravity literal into a shared file-scope
+  constant `kGravityMetersPerSecondSquared` in
+  `wpilib/patches/wpilibc/wasm/elevator_sim.h`.
+- Fixed `linear.worker.test.ts` to pass the Kalman filter std-dev args
+  expected by `simulateElevatorWpilib` (matching `app/routes/linear.tsx`
+  defaults), unblocking the wpilib elevator simulation unit tests.
+- Resolved `oxlint` and `oxfmt` failures after rebuilding wpilibc artifacts.
