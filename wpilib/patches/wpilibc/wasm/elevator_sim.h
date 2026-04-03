@@ -4,12 +4,20 @@
 #include <emscripten/val.h>
 #include <vector>
 
+#include "wpi/math/controller/LinearQuadraticRegulator.hpp"
+#include "wpi/math/estimator/KalmanFilter.hpp"
 #include "wpi/math/filter/LinearFilter.hpp"
+#include "wpi/math/system/LinearSystem.hpp"
+#include "wpi/math/system/LinearSystemLoop.hpp"
+#include "wpi/math/system/Models.hpp"
 #include "wpi/math/system/NumericalIntegration.hpp"
+#include "wpi/math/trajectory/TrapezoidProfile.hpp"
 #include "wpi/simulation/BatterySim.hpp"
 #include "wpi/simulation/ElevatorSim.hpp"
 #include "wpi/simulation/RoboRioSim.hpp"
 #include "wpi/system/RobotController.hpp"
+#include "wpi/units/length.hpp"
+#include "wpi/units/math.hpp"
 
 #include "dc_motor.h"
 #include "sim_util.h"
@@ -45,7 +53,7 @@ protected:
           xdot(1) += (m_efficiency - 1.0) * m_plant.B()(1, 0) * u_(0);
           // Angle-adjusted gravity: full at 90deg (vertical), zero at 0deg
           // (horizontal)
-          xdot(1) -= 9.8 * std::sin(m_angle);
+          xdot(1) -= 9.80665 * std::sin(m_angle);
           return xdot;
         },
         currentXhat, u, dt);
@@ -80,27 +88,42 @@ struct ElevatorSimStateInternal {
   bool success;
 };
 
-// Full elevator simulation loop. Parameters must be in SI units:
-//   statorLimitAmps   — total stator current limit (per-motor limit × quantity)
-//   spoolRadiusMeters — spool radius (not diameter)
-//   angleRadians      — mechanism angle from horizontal (π/2 = vertical)
-//   efficiency        — torque efficiency in [0, 1]
-//   cascade           — if true, models a cascading elevator: the first stage
-//                       travels half the carriage distance (travelDistance/2)
-//                       and carries double the load (loadKg*2)
+// Full elevator simulation loop driven by a trapezoidal motion profile and a
+// WPILib state-space controller (LQR + Kalman filter). Parameters must be in SI
+// units:
+//   statorLimitAmps      — total stator current limit (per-motor limit ×
+//   quantity) spoolRadiusMeters    — spool radius (not diameter) angleRadians
+//   — mechanism angle from horizontal (π/2 = vertical) efficiency           —
+//   torque efficiency in [0, 1] cascade              — if true, models a
+//   cascading elevator: the first stage
+//                          travels half the carriage distance
+//                          (travelDistance/2) and carries double the load
+//                          (loadKg*2)
+//   maxVelocityMPS       — trapezoidal profile max velocity (m/s); must be > 0
+//   maxAccelerationMPS2  — trapezoidal profile max acceleration (m/s²); must be
+//   > 0 qPositionMeters      — LQR position error tolerance (Bryson's rule,
+//   meters) qVelocityMPS         — LQR velocity error tolerance (Bryson's rule,
+//   m/s) rVolts               — LQR control effort tolerance (volts)
 // Returns a JS array of state objects decimated by `decimation`, with the last
 // state always included (matches obliterateArray behaviour in utils.ts).
-inline emscripten::val
-SimulateElevator(DCMotorWasm *motor, double gearing, double loadKg,
-                 double spoolRadiusMeters, double travelDistanceMeters,
-                 double statorLimitAmps, double supplyLimitAmps,
-                 double statorVoltageVolts, double batteryResistanceOhms,
-                 double batteryVoltageVolts, double simTimestep, int decimation,
-                 double maxSimSeconds, double angleRadians, double efficiency,
-                 bool cascade, double batteryVoltageFilterTimeConstantSeconds) {
+inline emscripten::val SimulateElevator(
+    DCMotorWasm *motor, double gearing, double loadKg, double spoolRadiusMeters,
+    double travelDistanceMeters, double statorLimitAmps, double supplyLimitAmps,
+    double batteryResistanceOhms, double batteryVoltageVolts,
+    double simTimestep, int decimation, double maxSimSeconds,
+    double angleRadians, double efficiency, bool cascade,
+    double batteryVoltageFilterTimeConstantSeconds, double maxVelocityMPS,
+    double maxAccelerationMPS2, double qPositionMeters, double qVelocityMPS,
+    double rVolts, double sensorDelaySeconds) {
+  // Guard against degenerate profile constraints
+  if (maxVelocityMPS <= 0.0 || maxAccelerationMPS2 <= 0.0) {
+    return emscripten::val::array();
+  }
+
   // Cascade rigging: the first stage travels half the carriage distance, and
   // the effective load is doubled (each side of the cascade belt carries the
   // full carriage + object weight). Stage-2 frame weight is omitted here.
+  // kA and kG are computed from loadKg below, so doubling loadKg is sufficient.
   // Reference: https://www.chiefdelphi.com/t/cascade-elevator-gearing/345099/12
   if (cascade) {
     travelDistanceMeters *= 0.5;
@@ -114,8 +137,48 @@ SimulateElevator(DCMotorWasm *motor, double gearing, double loadKg,
 
   wpi::sim::RoboRioSim::SetVInVoltage(wpi::units::volt_t(batteryVoltageVolts));
 
-  const double rOhms = motor->getROhms();
+  // Build ideal plant from physical constants for deriving kG and feedforward.
+  auto idealPlantFull = wpi::math::Models::ElevatorFromPhysicalConstants(
+      motor->getMotor(), wpi::units::kilogram_t(loadKg),
+      wpi::units::meter_t(spoolRadiusMeters), gearing);
+
+  // Derive kG volts from the plant's B matrix (voltage to acceleration gain).
+  // u = a / B(1,0) where a is gravity's acceleration along the mechanism.
+  const double kaIdeal = 1.0 / idealPlantFull.B()(1, 0);
+  const double kGVolts =
+      (kaIdeal / efficiency) * 9.80665 * std::sin(angleRadians);
+
+  // Build LinearSystem<2,1,1> for the controller, scaling B by efficiency.
+  wpi::math::Matrixd<2, 1> controllerB = idealPlantFull.B() * efficiency;
+  wpi::math::Matrixd<1, 2> controllerC;
+  controllerC << 1, 0;
+  wpi::math::Matrixd<1, 1> controllerD;
+  controllerD << 0;
+  wpi::math::LinearSystem<2, 1, 1> plant{idealPlantFull.A(), controllerB,
+                                         controllerC, controllerD};
+
+  // Kalman filter (fixed noise — not user-exposed)
+  wpi::math::KalmanFilter<2, 1, 1> observer{
+      plant, {0.05, 1.0}, {0.001}, wpi::units::second_t(simTimestep)};
+
+  // LQR with user-tunable Q/R (Bryson's rule)
+  wpi::math::LinearQuadraticRegulator<2, 1> controller{
+      plant,
+      {qPositionMeters, qVelocityMPS},
+      {rVolts},
+      wpi::units::second_t(simTimestep)};
+
+  controller.LatencyCompensate(plant, wpi::units::second_t(simTimestep),
+                               wpi::units::second_t(sensorDelaySeconds));
+
+  // LinearSystemLoop: plant + LQR + Kalman + voltage clamp at rVolts
+  wpi::math::LinearSystemLoop<2, 1, 1> loop{plant, controller, observer,
+                                            wpi::units::volt_t(rVolts),
+                                            wpi::units::second_t(simTimestep)};
+  loop.Reset(wpi::math::Vectord<2>{0.0, 0.0});
+
   const double kvRadPerSecPerVolt = motor->getKvRadPerSecPerVolt();
+  const double rOhms = motor->getROhms();
   double timestamp = 0.0;
   double energyJoules = 0.0;
 
@@ -125,10 +188,36 @@ SimulateElevator(DCMotorWasm *motor, double gearing, double loadKg,
   batteryFilter.Reset(std::span<const double>{&batteryVoltageVolts, 1},
                       std::span<const double>{&batteryVoltageVolts, 1});
 
+  // Build motion profile
+  using Distance = wpi::units::meters;
+
+  wpi::math::TrapezoidProfile<Distance> profile{
+      {wpi::units::meters_per_second_t(maxVelocityMPS),
+       wpi::units::meters_per_second_squared_t(maxAccelerationMPS2)}};
+
+  wpi::math::TrapezoidProfile<Distance>::State profileState{
+      wpi::units::meter_t(0.0), wpi::units::meters_per_second_t(0.0)};
+  wpi::math::TrapezoidProfile<Distance>::State goalState{
+      wpi::units::meter_t(travelDistanceMeters),
+      wpi::units::meters_per_second_t(0.0)};
+
+  // Pre-compute total profile time
+  profile.Calculate(wpi::units::second_t(0.0), profileState, goalState);
+  const double totalProfileTime = profile.TotalTime().to<double>();
+
   std::vector<ElevatorSimStateInternal> states;
 
-  while (elevator.GetPosition().to<double>() < travelDistanceMeters) {
-    double vApplied = statorVoltageVolts;
+  while (timestamp < totalProfileTime && timestamp < maxSimSeconds) {
+    const auto nextProfileState = profile.Calculate(
+        wpi::units::second_t(simTimestep), profileState, goalState);
+
+    loop.SetNextR(wpi::math::Vectord<2>{nextProfileState.position.value(),
+                                        nextProfileState.velocity.value()});
+
+    loop.Correct(wpi::math::Vectord<1>{elevator.GetPosition().value()});
+    loop.Predict(wpi::units::second_t(simTimestep));
+
+    double vApplied = loop.U(0) + kGVolts;
 
     // Motor shaft angular velocity (rad/s) from carriage velocity
     const double velocityMPS = elevator.GetVelocity().to<double>();
@@ -143,6 +232,8 @@ SimulateElevator(DCMotorWasm *motor, double gearing, double loadKg,
 
     elevator.SetInputVoltage(wpi::units::volt_t(vApplied));
     elevator.Update(wpi::units::second_t(simTimestep));
+
+    profileState = nextProfileState;
     timestamp += simTimestep;
 
     const double statorCurrent = elevator.GetCurrentDraw().to<double>();
@@ -162,23 +253,25 @@ SimulateElevator(DCMotorWasm *motor, double gearing, double loadKg,
     const double filteredBatteryVoltage =
         batteryFilter.Calculate(rawBatteryVoltage);
 
-    if (!elevator.HasHitUpperLimit()) {
-      const double motorRpm = motorShaftRadPerSec * 60.0 / (2.0 * M_PI);
-      states.push_back({elevator.GetPosition().to<double>(),
-                        elevator.GetVelocity().to<double>(), statorCurrent,
-                        supplyCurrent, timestamp, filteredBatteryVoltage,
-                        vApplied, motorRpm, energyJoules, true});
-    }
+    const double motorRpm = motorShaftRadPerSec * 60.0 / (2.0 * M_PI);
+    states.push_back({elevator.GetPosition().to<double>(),
+                      elevator.GetVelocity().to<double>(), statorCurrent,
+                      supplyCurrent, timestamp, filteredBatteryVoltage,
+                      vApplied, motorRpm, energyJoules, true});
 
     wpi::sim::RoboRioSim::SetVInVoltage(
         wpi::units::volt_t(filteredBatteryVoltage));
+  }
 
-    if (timestamp > maxSimSeconds) {
-      if (!states.empty()) {
-        states.back().success = false;
-      }
-      break;
-    }
+  // Mark success based on whether the position reached the goal within 3 inches
+  const wpi::units::meter_t successThreshold = wpi::units::inch_t{3.0};
+  const bool success =
+      !states.empty() &&
+      wpi::units::math::abs(elevator.GetPosition() -
+                            wpi::units::meter_t{travelDistanceMeters}) <
+          successThreshold;
+  if (!states.empty()) {
+    states.back().success = success;
   }
 
   return DecimateToJsArray<ElevatorSimStateInternal>(

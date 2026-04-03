@@ -85,9 +85,11 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
   // Full elevator simulation loop
   function("simulateElevator(motor, gearing, loadKg, spoolRadiusMeters, "
            "travelDistanceMeters, statorLimitAmps, supplyLimitAmps, "
-           "statorVoltageVolts, batteryResistanceOhms, batteryVoltageVolts, "
+           "batteryResistanceOhms, batteryVoltageVolts, "
            "simTimestep, decimation, maxSimSeconds, angleRadians, efficiency, "
-           "cascade, batteryVoltageFilterTimeConstantSeconds)",
+           "cascade, batteryVoltageFilterTimeConstantSeconds, "
+           "maxVelocityMPS, maxAccelerationMPS2, "
+           "qPositionMeters, qVelocityMPS, rVolts, sensorDelaySeconds)",
            &SimulateElevator, allow_raw_pointers());
 
   // Full flywheel simulation loop

@@ -549,7 +549,7 @@ describe('Measurement', () => {
   describe('static GRAVITY', () => {
     it('returns negative gravity value', () => {
       const g = Measurement.GRAVITY;
-      expect(g.scalar).toBe(-9.81);
+      expect(g.scalar).toBe(-9.80665);
       expect(g.units()).toMatch(/m\/s2/);
     });
   });

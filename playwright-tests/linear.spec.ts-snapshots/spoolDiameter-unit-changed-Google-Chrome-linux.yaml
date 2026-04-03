@@ -6,7 +6,7 @@
 - heading "Motor & Gearing" [level=2]
 - switch "Cascade"
 - text: Cascade Motor
-- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Stator Limit Supply Limit Stator Voltage Supply Voltage Max Stator Limit Max Supply Limit": "1"
+- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Stator Limit Supply Limit Stator Voltage Supply Voltage Q Position Q Velocity Sensor Delay Max Stator Limit Max Supply Limit": "1"
 - combobox: Kraken X60 (FOC)
 - button "Efficiency %"
 - spinbutton: "100"
@@ -42,15 +42,40 @@
 - button "Supply Voltage"
 - spinbutton: "12"
 - combobox: V
-- text: Time to Goal 1.038
+- text: Max Velocity
+- switch "Custom Custom"
+- text: Custom Guessed 53.088
+- combobox: in/s
+- text: Max Acceleration
+- switch
+- text: Custom Guessed 2604.002
+- combobox: in/s2
+- heading "LQR Tuning" [level=2]
+- button "Q Position"
+- spinbutton: "0.02"
+- combobox: m
+- button "Q Velocity"
+- spinbutton: "0.4"
+- combobox: m/s
+- button "R (Volts)"
+- spinbutton: "12"
+- button "Sensor Delay"
+- spinbutton: "0.001"
 - combobox: s
-- text: Stall Load 135.233
+- text: Time to Goal 1.151
+- combobox: s
+- text: Stall Load 135.279
 - combobox: lbs
+- text: End Error 0.002
+- combobox: in
 - heading "Simulation" [level=2]
 - list:
   - listitem:
-    - img "Position (m) legend icon"
-    - text: Position (m)
+    - img "Motor Applied Voltage (V) legend icon"
+    - text: Motor Applied Voltage (V)
+  - listitem:
+    - img "Position (in) legend icon"
+    - text: Position (in)
   - listitem:
     - img "Stator Current (A) legend icon"
     - text: Stator Current (A)
@@ -58,12 +83,12 @@
     - img "Supply Current (A) legend icon"
     - text: Supply Current (A)
   - listitem:
-    - img "Velocity (m/s) legend icon"
-    - text: Velocity (m/s)
-- application: 0.0411 0.131 0.2 0.271 0.35 0.43 0.5 0.57 0.651 0.73 0.8 0.88 0.961 1.04 Time (s) 0 20 40 60 80 Velocity (m/s) / Current (A) 0 0.4 0.8 1.2 1.6 Position (m)
-- text: kV 7.925
-- combobox: V*s/m
-- text: kA 0.130
+    - img "Velocity (in/s) legend icon"
+    - text: Velocity (in/s)
+- application: 0.0191 0.1 0.171 0.261 0.35 0.441 0.53 0.621 0.7 0.77 0.861 0.95 1.03 1.1 1.15 Time (s) -70 -35 0 35 70 Velocity (in/s) / Current (A) 0 15 30 45 60 Position (in)
+- text: kA 0.022
 - combobox: V*s^2/m
-- text: kG 1.331
+- text: kV 7.867
+- combobox: V*s/m
+- text: kG 0.214
 - combobox: V
