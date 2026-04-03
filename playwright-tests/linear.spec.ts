@@ -209,31 +209,6 @@ test.describe('Linear Mechanism Calculator', () => {
     });
   });
 
-  test('should match snapshot with statorVoltage magnitude changed', async ({
-    page,
-  }) => {
-    await page.getByTestId('statorVoltage').fill('10');
-    await waitForCalc(page);
-    expect(
-      await page.getByTestId('linear-main').ariaSnapshot(),
-    ).toMatchSnapshot({
-      name: 'statorVoltage-magnitude-changed.yaml',
-    });
-  });
-
-  test('should match snapshot with statorVoltage unit changed', async ({
-    page,
-  }) => {
-    await page.getByTestId('selectstatorVoltage').click();
-    await page.getByRole('option', { name: 'V' }).click();
-    await waitForCalc(page);
-    expect(
-      await page.getByTestId('linear-main').ariaSnapshot(),
-    ).toMatchSnapshot({
-      name: 'statorVoltage-unit-changed.yaml',
-    });
-  });
-
   test('should match snapshot with angle magnitude changed', async ({
     page,
   }) => {

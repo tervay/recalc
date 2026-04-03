@@ -6,7 +6,7 @@
 - heading "Motor & Gearing" [level=2]
 - switch "Cascade"
 - text: Cascade Motor
-- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Battery Resistance Stator Limit Supply Limit Stator Voltage Supply Voltage Q Position Q Velocity Sensor Delay Max Stator Limit Max Supply Limit": "1"
+- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Stator Limit Supply Limit Supply Voltage Battery Resistance Max Stator Limit Max Supply Limit": "1"
 - combobox: Kraken X60 (FOC)
 - button "Efficiency %"
 - spinbutton: "100"
@@ -26,9 +26,6 @@
 - button "Travel Distance"
 - spinbutton: "60"
 - combobox: ft
-- button "Battery Resistance"
-- spinbutton: "0.015"
-- combobox: Ohm
 - heading "Limits" [level=2]
 - button "Stator Limit"
 - spinbutton: "80"
@@ -36,12 +33,12 @@
 - button "Supply Limit"
 - spinbutton: "60"
 - combobox: A
-- button "Stator Voltage"
-- spinbutton: "12"
-- combobox: V
 - button "Supply Voltage"
 - spinbutton: "12"
 - combobox: V
+- button "Battery Resistance"
+- spinbutton: "0.015"
+- combobox: Ohm
 - text: Max Velocity
 - switch "Custom Custom"
 - text: Custom Guessed 131.077
@@ -50,18 +47,9 @@
 - switch
 - text: Custom Guessed 837.929
 - combobox: in/s2
-- heading "LQR Tuning" [level=2]
-- button "Q Position"
-- spinbutton: "0.02"
-- combobox: m
-- button "Q Velocity"
-- spinbutton: "0.4"
-- combobox: m/s
-- button "R (Volts)"
-- spinbutton: "12"
-- button "Sensor Delay"
-- spinbutton: "0.001"
-- combobox: s
+- button "LQR Tuning":
+  - img
+  - heading "LQR Tuning" [level=2]
 - text: Time to Goal 3.000
 - combobox: s
 - text: Stall Load 53.259

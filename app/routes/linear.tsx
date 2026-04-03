@@ -9,6 +9,7 @@ import {
   YAxis,
 } from 'recharts';
 import workerpool from 'workerpool';
+import ChevronDownIcon from '~icons/lucide/chevron-down';
 
 import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
@@ -24,6 +25,11 @@ import { ReorderList } from '~/components/recalc/reorderList';
 import { Loader } from '~/components/shadix-ui/components/loader';
 import { Button } from '~/components/ui/button';
 import { ChartContainer } from '~/components/ui/chart';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '~/components/ui/collapsible';
 import { Skeleton } from '~/components/ui/skeleton';
 import {
   Tooltip as UiTooltip,
@@ -100,7 +106,6 @@ const DEFAULT_PARAMS = {
   statorLimit: MeasurementParam.withDefault(new Measurement(80, 'A')),
   supplyLimit: MeasurementParam.withDefault(new Measurement(60, 'A')),
   supplyVoltage: MeasurementParam.withDefault(new Measurement(12, 'V')),
-  statorVoltage: MeasurementParam.withDefault(new Measurement(12, 'V')),
   angle: MeasurementParam.withDefault(new Measurement(90, 'deg')),
   batteryResistance: MeasurementParam.withDefault(
     new Measurement(0.015, 'Ohm'),
@@ -118,7 +123,7 @@ const DEFAULT_PARAMS = {
   maxAcceleration: MeasurementParam.withDefault(new Measurement(10, 'm/s^2')),
   qPosition: MeasurementParam.withDefault(new Measurement(0.02, 'm')),
   qVelocity: MeasurementParam.withDefault(new Measurement(0.4, 'm/s')),
-  rVolts: NumberParam.withDefault(12),
+  rVolts: MeasurementParam.withDefault(new Measurement(12, 'V')),
   sensorDelay: MeasurementParam.withDefault(new Measurement(0.001, 's')),
 };
 
@@ -147,7 +152,6 @@ export default function Linear() {
   const [statorLimit, setStatorLimit] = useState(queryParams.statorLimit);
   const [supplyLimit, setSupplyLimit] = useState(queryParams.supplyLimit);
   const [supplyVoltage, setSupplyVoltage] = useState(queryParams.supplyVoltage);
-  const [statorVoltage, setStatorVoltage] = useState(queryParams.statorVoltage);
   const [angle, setAngle] = useState(queryParams.angle);
   const [batteryResistance, setBatteryResistance] = useState(
     queryParams.batteryResistance,
@@ -220,9 +224,9 @@ export default function Linear() {
       spoolDiameter,
       ratio,
       efficiency,
-      statorVoltage,
+      supplyVoltage,
     );
-  }, [motor, statorLimit, spoolDiameter, ratio, efficiency, statorVoltage]);
+  }, [motor, statorLimit, spoolDiameter, ratio, efficiency, supplyVoltage]);
 
   const [priorities, setPriorities] =
     useState<OptimizationPriority[]>(DEFAULT_PRIORITIES);
@@ -325,7 +329,7 @@ export default function Linear() {
         effectiveMaxAcceleration.toDict(),
         qPosition.to('m').scalar,
         qVelocity.to('m/s').scalar,
-        rVolts,
+        rVolts.to('V').scalar,
         sensorDelay.to('s').scalar,
       )
       .then((states) => {
@@ -388,7 +392,7 @@ export default function Linear() {
         enableCustomMaxAcceleration ? maxAcceleration.to('m/s^2').scalar : null,
         qPosition.to('m').scalar,
         qVelocity.to('m/s').scalar,
-        rVolts,
+        rVolts.to('V').scalar,
         sensorDelay.to('s').scalar,
       ])
       .then((result: ConfigOptOutput) => {
@@ -433,7 +437,6 @@ export default function Linear() {
     statorLimit,
     supplyLimit,
     supplyVoltage,
-    statorVoltage,
     angle,
     batteryResistance,
     cascade,
@@ -531,13 +534,6 @@ export default function Linear() {
                     testId="travelDistance"
                     labelAbove
                   />
-                  <MeasurementInput
-                    stateHook={[batteryResistance, setBatteryResistance]}
-                    label="Battery Resistance"
-                    tooltip="The effective resistance of the battery. Includes wire runs."
-                    testId="batteryResistance"
-                    labelAbove
-                  />
                 </IOLine>
               </div>
               <div className="border-t" />
@@ -565,17 +561,17 @@ export default function Linear() {
                 </IOLine>
                 <IOLine>
                   <MeasurementInput
-                    stateHook={[statorVoltage, setStatorVoltage]}
-                    label="Stator Voltage"
-                    tooltip="The voltage applied to the stator. Used for stall load calculation only."
-                    testId="statorVoltage"
-                    labelAbove
-                  />
-                  <MeasurementInput
                     stateHook={[supplyVoltage, setSupplyVoltage]}
                     label="Supply Voltage"
                     tooltip="The voltage available from the supply (battery) at rest."
                     testId="supplyVoltage"
+                    labelAbove
+                  />
+                  <MeasurementInput
+                    stateHook={[batteryResistance, setBatteryResistance]}
+                    label="Battery Resistance"
+                    tooltip="The effective resistance of the battery. Includes wire runs."
+                    testId="batteryResistance"
                     labelAbove
                   />
                 </IOLine>
@@ -639,45 +635,50 @@ export default function Linear() {
               <div className="border-t" />
 
               {/* LQR Tuning section */}
-              <div className="flex flex-col gap-3 p-4">
-                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                  LQR Tuning
-                </h2>
-                <IOLine>
-                  <MeasurementInput
-                    stateHook={[qPosition, setQPosition]}
-                    label="Q Position"
-                    tooltip="Maximum tolerable position error (Bryson's rule). Smaller values make the controller more aggressive about correcting position error."
-                    testId="qPosition"
-                    labelAbove
-                  />
-                  <MeasurementInput
-                    stateHook={[qVelocity, setQVelocity]}
-                    label="Q Velocity"
-                    tooltip="Maximum tolerable velocity error (Bryson's rule). Smaller values make the controller more aggressive about correcting velocity error."
-                    testId="qVelocity"
-                    labelAbove
-                  />
-                </IOLine>
-                <IOLine>
-                  <NumberInput
-                    stateHook={[rVolts, setRVolts]}
-                    label="R (Volts)"
-                    tooltip="Maximum tolerable control effort in volts (Bryson's rule). Larger values reduce aggressiveness and limit output voltage."
-                    testId="rVolts"
-                    labelAbove
-                  />
-                </IOLine>
-                <IOLine>
-                  <MeasurementInput
-                    stateHook={[sensorDelay, setSensorDelay]}
-                    label="Sensor Delay"
-                    tooltip="The delay time for the sensor. This is used to compensate for the sensor delay."
-                    testId="sensorDelay"
-                    labelAbove
-                  />
-                </IOLine>
-              </div>
+              <Collapsible defaultOpen={false} className="flex flex-col p-4">
+                <CollapsibleTrigger className="group flex cursor-pointer items-center gap-1">
+                  <ChevronDownIcon className="size-3.5 text-muted-foreground transition-transform duration-200 group-data-[state=closed]:-rotate-90" />
+                  <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                    LQR Tuning
+                  </h2>
+                </CollapsibleTrigger>
+                <CollapsibleContent className="overflow-hidden data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                  <div className="flex flex-col gap-3 pt-3">
+                    <IOLine>
+                      <MeasurementInput
+                        stateHook={[qPosition, setQPosition]}
+                        label="Q Position"
+                        tooltip="Maximum tolerable position error (Bryson's rule). Smaller values make the controller more aggressive about correcting position error."
+                        testId="qPosition"
+                        labelAbove
+                      />
+                      <MeasurementInput
+                        stateHook={[qVelocity, setQVelocity]}
+                        label="Q Velocity"
+                        tooltip="Maximum tolerable velocity error (Bryson's rule). Smaller values make the controller more aggressive about correcting velocity error."
+                        testId="qVelocity"
+                        labelAbove
+                      />
+                    </IOLine>
+                    <IOLine>
+                      <MeasurementInput
+                        stateHook={[rVolts, setRVolts]}
+                        label="R (Volts)"
+                        tooltip="Maximum tolerable control effort in volts (Bryson's rule). Larger values reduce aggressiveness and limit output voltage."
+                        testId="rVolts"
+                        labelAbove
+                      />
+                      <MeasurementInput
+                        stateHook={[sensorDelay, setSensorDelay]}
+                        label="Sensor Delay"
+                        tooltip="The delay time for the sensor. This is used to compensate for the sensor delay."
+                        testId="sensorDelay"
+                        labelAbove
+                      />
+                    </IOLine>
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
             </section>
           </div>
 

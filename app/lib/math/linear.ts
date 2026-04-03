@@ -44,6 +44,15 @@ export function calculateGuessedLimits(
   efficiency: number,
   cascade: boolean,
 ) {
+  if (
+    Measurement.anyAreZero(spoolDiameter, ratio.asNumber(), load, efficiency)
+  ) {
+    return {
+      v_max_guessed: new Measurement(0, 'm/s'),
+      a_max_guessed: new Measurement(0, 'm/s^2'),
+    };
+  }
+
   const G = ratio.asNumber();
   const r = spoolDiameter.div(2).to('m');
   let m = load;
