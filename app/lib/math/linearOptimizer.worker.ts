@@ -4,11 +4,9 @@ import workerpool from 'workerpool';
 import type { DCMotor } from '~/lib/generated/wpilibc/wpilibc_wasm';
 import { calculateGuessedLimits } from '~/lib/math/linear';
 import {
-  type OptimizationPriority,
   type SimState,
   type MetricSource,
   peakSupplyCurrent,
-  selectBest,
   makeGrid,
 } from '~/lib/math/optimizerUtils';
 import type { MeasurementDict } from '~/lib/models/Measurement';
@@ -37,8 +35,6 @@ export interface ConfigOptResult extends MetricSource {
 
 export interface ConfigOptOutput {
   recommended: ConfigOptResult | null;
-  tier1Count: number;
-  tier2Count: number;
   allResults: ConfigOptResult[];
 }
 
@@ -527,8 +523,6 @@ export async function simulateOnce({
 export interface OptimizeConfigurationParams extends BaseLinearParams {
   maximumComfortableStatorLimitDict: MeasurementDict;
   maximumComfortableSupplyLimitDict: MeasurementDict;
-  priorities: OptimizationPriority[];
-  prioritySlack: number;
   maxVelocityMPS: number | null;
   maxAccelerationMPS2: number | null;
   kalmanFilterPositionStdDevDict: MeasurementDict;
@@ -549,8 +543,6 @@ export async function optimizeConfiguration({
   efficiency,
   cascade,
   batteryVoltageFilterTimeConstantSeconds,
-  priorities,
-  prioritySlack,
   maxVelocityMPS,
   maxAccelerationMPS2,
   qPositionMeters,
@@ -677,26 +669,14 @@ export async function optimizeConfiguration({
   const successResults = allResults.filter((r) => r.success);
 
   if (successResults.length === 0) {
-    return {
-      recommended: null,
-      tier1Count: 0,
-      tier2Count: 0,
-      allResults,
-    };
+    return { recommended: null, allResults };
   }
 
-  const {
-    result: recommended,
-    tier1Count,
-    tier2Count,
-  } = selectBest(successResults, priorities, prioritySlack);
+  const recommended = successResults.reduce((best, r) =>
+    r.timeToGoalSeconds < best.timeToGoalSeconds ? r : best,
+  );
 
-  return {
-    recommended,
-    tier1Count,
-    tier2Count,
-    allResults,
-  };
+  return { recommended, allResults };
 }
 
 workerpool.worker({ optimizeRatio, simulateOnce, optimizeConfiguration });

@@ -20,9 +20,7 @@ import {
 import { MotorInput } from '~/components/recalc/io/motor';
 import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
-import { ReorderList } from '~/components/recalc/reorderList';
-import { Loader } from '~/components/shadix-ui/components/loader';
-import { Button } from '~/components/ui/button';
+import { OptimalConfigGrid } from '~/components/recalc/optimalConfigGrid';
 import { ChartContainer } from '~/components/ui/chart';
 import {
   Collapsible,
@@ -30,11 +28,6 @@ import {
   CollapsibleTrigger,
 } from '~/components/ui/collapsible';
 import { Skeleton } from '~/components/ui/skeleton';
-import {
-  Tooltip as UiTooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '~/components/ui/tooltip';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import {
   calculateLinearFeedforwardKa,
@@ -44,9 +37,11 @@ import {
 import { calculateGuessedLimits, calculateStallLoad } from '~/lib/math/linear';
 import type * as LinearWorker from '~/lib/math/linear.worker';
 import type * as LinearOptimizerWorker from '~/lib/math/linearOptimizer.worker';
-import type { ConfigOptOutput } from '~/lib/math/linearOptimizer.worker';
+import type {
+  ConfigOptOutput,
+  ConfigOptResult,
+} from '~/lib/math/linearOptimizer.worker';
 import optimizerWorkerUrl from '~/lib/math/linearOptimizer.worker?worker&url';
-import type { OptimizationPriority } from '~/lib/math/optimizerUtils';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
@@ -61,30 +56,6 @@ import {
 
 const CASCADE_TRAVEL_FACTOR = 0.5;
 const BATTERY_VOLTAGE_FILTER_TC_S = 0.1;
-const DEFAULT_TIER_TOLERANCE_PERCENT = 10;
-
-const PRIORITY_LABELS: Record<OptimizationPriority, string> = {
-  timeToGoal: 'Time to Goal',
-  peakCurrent: 'Peak Supply Current',
-  energy: 'Energy',
-  avgPower: 'Avg Power',
-};
-
-const DEFAULT_PRIORITIES: OptimizationPriority[] = [
-  'timeToGoal',
-  'peakCurrent',
-  'energy',
-  'avgPower',
-];
-
-type GridDisplayMode = 'ratio' | 'peakCurrent' | 'energy' | 'avgPower';
-
-const GRID_DISPLAY_MODES: { mode: GridDisplayMode; label: string }[] = [
-  { mode: 'ratio', label: 'Ratio' },
-  { mode: 'peakCurrent', label: 'Peak I' },
-  { mode: 'energy', label: 'Energy' },
-  { mode: 'avgPower', label: 'Avg P' },
-];
 
 type WpilibElevatorSimState = LinearWorker.WpilibElevatorSimState;
 
@@ -246,14 +217,6 @@ export default function Linear() {
     );
   }, [motor, statorLimit, spoolDiameter, ratio, efficiency, supplyVoltage]);
 
-  const [priorities, setPriorities] =
-    useState<OptimizationPriority[]>(DEFAULT_PRIORITIES);
-  const [tierTolerance, setTierTolerance] = useState(
-    DEFAULT_TIER_TOLERANCE_PERCENT,
-  );
-  const [gridDisplayMode, setGridDisplayMode] =
-    useState<GridDisplayMode>('ratio');
-
   const [workerWpilibSimStates, setWorkerWpilibSimStates] = useState<
     WpilibElevatorSimState[]
   >([]);
@@ -278,6 +241,9 @@ export default function Linear() {
   const [configOptResult, setConfigOptResult] =
     useState<ConfigOptOutput | null>(null);
   const configOptGeneration = useRef(0);
+
+  const [selectedConfigCell, setSelectedConfigCell] =
+    useState<ConfigOptResult | null>(null);
 
   const timeToGoal = useMemo(() => {
     return new Measurement(
@@ -392,10 +358,12 @@ export default function Linear() {
   useEffect(() => {
     if (!optimizationEnabled) {
       setConfigOptResult(null);
+      setSelectedConfigCell(null);
       return;
     }
     const gen = ++configOptGeneration.current;
     setConfigOptResult(null);
+    setSelectedConfigCell(null);
 
     optimizerPool
       .exec('optimizeConfiguration', [
@@ -414,8 +382,6 @@ export default function Linear() {
           efficiency: efficiency / 100,
           cascade,
           batteryVoltageFilterTimeConstantSeconds: BATTERY_VOLTAGE_FILTER_TC_S,
-          priorities,
-          prioritySlack: tierTolerance / 100,
           maxVelocityMPS: enableCustomMaxVelocity
             ? maxVelocity.to('m/s').scalar
             : null,
@@ -435,6 +401,7 @@ export default function Linear() {
       .then((result: ConfigOptOutput) => {
         if (gen !== configOptGeneration.current) return;
         setConfigOptResult(result);
+        setSelectedConfigCell(result.recommended ?? null);
       })
       .catch((err: unknown) => {
         console.error('Config optimizer error:', err);
@@ -452,8 +419,6 @@ export default function Linear() {
     efficiency,
     cascade,
     optimizationEnabled,
-    priorities,
-    tierTolerance,
     qPosition,
     qVelocity,
     rVolts,
@@ -944,236 +909,109 @@ export default function Linear() {
 
       {optimizationEnabled && (
         <div className="flex flex-col gap-4 px-1">
-          {/* Row 1: Optimal configuration grid + priority reorder list + settings */}
           <div className="flex flex-row flex-wrap gap-4">
             {/* Optimal configuration grid */}
-            <section className="flex min-w-0 flex-1 flex-col gap-3 rounded-lg border p-4">
-              <div className="flex items-center gap-3">
-                <h2 className="flex-1 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                  Optimal Configuration Grid
+            <div className="min-w-0 flex-1">
+              <OptimalConfigGrid
+                configOptResult={configOptResult}
+                userStatorAmps={userStatorAmps}
+                userSupplyAmps={userSupplyAmps}
+                selectedCell={selectedConfigCell}
+                onSelectCell={setSelectedConfigCell}
+              />
+            </div>
+
+            {/* Right column: settings + selected config */}
+            <div className="flex w-64 shrink-0 flex-col gap-3">
+              <section className="flex flex-col gap-3 rounded-lg border p-4">
+                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  Settings
                 </h2>
-                <div className="flex gap-1">
-                  {GRID_DISPLAY_MODES.map(({ mode, label }) => (
-                    <Button
-                      key={mode}
-                      size="sm"
-                      variant={gridDisplayMode === mode ? 'default' : 'ghost'}
-                      className="h-6 px-2 text-xs"
-                      onClick={() => setGridDisplayMode(mode)}
-                    >
-                      {label}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-              {configOptResult ? (
-                (() => {
-                  if (!configOptResult.recommended) {
-                    return (
-                      <p className="text-sm text-muted-foreground">
-                        No successful configurations found. Try adjusting your
-                        inputs.
+                <MeasurementInput
+                  stateHook={[
+                    maximumComfortableStatorLimit,
+                    setMaximumComfortableStatorLimit,
+                  ]}
+                  label="Max Stator Limit"
+                  tooltip="The maximum stator limit that is comfortable for you. Used for recommendations."
+                  testId="maximumComfortableStatorLimit"
+                  labelAbove
+                />
+                <MeasurementInput
+                  stateHook={[
+                    maximumComfortableSupplyLimit,
+                    setMaximumComfortableSupplyLimit,
+                  ]}
+                  label="Max Supply Limit"
+                  tooltip="The maximum supply limit that is comfortable for you. Used for recommendations."
+                  testId="maximumComfortableSupplyLimit"
+                  labelAbove
+                />
+              </section>
+
+              {selectedConfigCell?.success && (
+                <section className="flex flex-col gap-3 rounded-lg border p-4">
+                  <h2 className="flex items-center gap-1.5 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                    <div className="size-1.5 rounded-full bg-primary" />
+                    Selected Config
+                  </h2>
+                  <div className="grid grid-cols-2 gap-x-3 gap-y-2">
+                    <div>
+                      <p className="text-xs text-muted-foreground">Stator</p>
+                      <p className="text-sm font-semibold tabular-nums">
+                        {selectedConfigCell.statorLimitAmps}A
                       </p>
-                    );
-                  }
-                  const statorLimits = [
-                    ...new Set(
-                      configOptResult.allResults.map((r) => r.statorLimitAmps),
-                    ),
-                  ].sort((a, b) => a - b);
-                  const supplyLimits = [
-                    ...new Set(
-                      configOptResult.allResults.map((r) => r.supplyLimitAmps),
-                    ),
-                  ].sort((a, b) => a - b);
-                  const cellMap = new Map(
-                    configOptResult.allResults.map((r) => [
-                      `${r.statorLimitAmps}-${r.supplyLimitAmps}`,
-                      r,
-                    ]),
-                  );
-                  const rec = configOptResult.recommended;
-
-                  const formatCell = (
-                    cell: import('~/lib/math/linearOptimizer.worker').ConfigOptResult,
-                  ) => {
-                    switch (gridDisplayMode) {
-                      case 'ratio':
-                        return cell.optimalRatio.toFixed(2);
-                      case 'peakCurrent':
-                        return `${cell.peakCurrentAmps.toFixed(1)} A`;
-                      case 'energy':
-                        return `${cell.energyJoules.toFixed(1)} J`;
-                      case 'avgPower':
-                        return `${(cell.energyJoules / cell.timeToGoalSeconds).toFixed(1)} W`;
-                    }
-                  };
-
-                  return (
-                    <div className="overflow-x-auto">
-                      <table className="border-separate border-spacing-0 text-xs tabular-nums">
-                        <thead>
-                          <tr>
-                            <th className="pr-2 pb-1 text-left font-medium whitespace-nowrap text-muted-foreground">
-                              Stator \ Supply
-                            </th>
-                            {supplyLimits.map((s) => (
-                              <th
-                                key={s}
-                                className={`w-20 px-2 pb-1 text-center font-medium whitespace-nowrap ${s === userSupplyAmps ? 'text-foreground' : 'text-muted-foreground'}`}
-                              >
-                                {s} A
-                              </th>
-                            ))}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {statorLimits.map((stator) => (
-                            <tr key={stator}>
-                              <td
-                                className={`py-0.5 pr-2 font-medium whitespace-nowrap ${stator === userStatorAmps ? 'text-foreground' : 'text-muted-foreground'}`}
-                              >
-                                {stator} A
-                              </td>
-                              {supplyLimits.map((supply) => {
-                                const cell = cellMap.get(`${stator}-${supply}`);
-                                const isRecommended =
-                                  rec.statorLimitAmps === stator &&
-                                  rec.supplyLimitAmps === supply;
-                                return (
-                                  <td
-                                    key={supply}
-                                    className="w-20 px-2 py-0.5 text-center whitespace-nowrap tabular-nums"
-                                  >
-                                    {cell?.success ? (
-                                      <UiTooltip>
-                                        <TooltipTrigger asChild>
-                                          <span
-                                            className={`inline-block cursor-default rounded px-1 py-0.5 ${
-                                              isRecommended
-                                                ? 'bg-primary font-semibold text-primary-foreground'
-                                                : 'hover:bg-muted'
-                                            }`}
-                                          >
-                                            {formatCell(cell)}
-                                          </span>
-                                        </TooltipTrigger>
-                                        <TooltipContent className="flex flex-col gap-1 text-xs">
-                                          <div>
-                                            <span className="text-primary-foreground/70">
-                                              Ratio:{' '}
-                                            </span>
-                                            {cell.optimalRatio.toFixed(2)}
-                                          </div>
-                                          <div>
-                                            <span className="text-primary-foreground/70">
-                                              Time:{' '}
-                                            </span>
-                                            {cell.timeToGoalSeconds.toFixed(3)}{' '}
-                                            s
-                                          </div>
-                                          <div>
-                                            <span className="text-primary-foreground/70">
-                                              Peak Supply:{' '}
-                                            </span>
-                                            {cell.peakCurrentAmps.toFixed(1)} A
-                                          </div>
-                                          <div>
-                                            <span className="text-primary-foreground/70">
-                                              Energy:{' '}
-                                            </span>
-                                            {cell.energyJoules.toFixed(1)} J
-                                          </div>
-                                          <div>
-                                            <span className="text-primary-foreground/70">
-                                              Avg Power:{' '}
-                                            </span>
-                                            {(
-                                              cell.energyJoules /
-                                              cell.timeToGoalSeconds
-                                            ).toFixed(1)}{' '}
-                                            W
-                                          </div>
-                                        </TooltipContent>
-                                      </UiTooltip>
-                                    ) : (
-                                      <span className="text-muted-foreground">
-                                        —
-                                      </span>
-                                    )}
-                                  </td>
-                                );
-                              })}
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
                     </div>
-                  );
-                })()
-              ) : (
-                <div className="text-sm text-muted-foreground">
-                  <Loader variant="bar" />
-                </div>
-              )}
-            </section>
-
-            {/* Priority reorder list */}
-            <section className="flex w-64 shrink-0 flex-col gap-3 rounded-lg border p-4">
-              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                Priority Tiers
-              </h2>
-              <ReorderList
-                withDragHandle
-                onReorderFinish={(newOrder) => {
-                  const newPriorities = newOrder
-                    .map((el) => el.key)
-                    .filter((k): k is OptimizationPriority => k !== null);
-                  setPriorities(newPriorities);
-                }}
-              >
-                {priorities.map((p) => (
-                  <div
-                    key={p}
-                    className="flex items-center gap-2 rounded border px-3 py-2 text-sm"
-                  >
-                    {PRIORITY_LABELS[p]}
+                    <div>
+                      <p className="text-xs text-muted-foreground">Supply</p>
+                      <p className="text-sm font-semibold tabular-nums">
+                        {selectedConfigCell.supplyLimitAmps}A
+                      </p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-xs text-muted-foreground">
+                        Optimal Ratio
+                      </p>
+                      <p className="text-sm font-semibold text-primary tabular-nums">
+                        {selectedConfigCell.optimalRatio.toFixed(2)}:1
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Time</p>
+                      <p className="text-sm font-semibold tabular-nums">
+                        {selectedConfigCell.timeToGoalSeconds.toFixed(3)}s
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">
+                        Peak Supply
+                      </p>
+                      <p className="text-sm font-semibold tabular-nums">
+                        {selectedConfigCell.peakCurrentAmps.toFixed(1)}A
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Energy</p>
+                      <p className="text-sm font-semibold tabular-nums">
+                        {selectedConfigCell.energyJoules.toFixed(1)}J
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Avg Power</p>
+                      <p className="text-sm font-semibold tabular-nums">
+                        {selectedConfigCell.timeToGoalSeconds > 0
+                          ? (
+                              selectedConfigCell.energyJoules /
+                              selectedConfigCell.timeToGoalSeconds
+                            ).toFixed(1)
+                          : '—'}
+                        W
+                      </p>
+                    </div>
                   </div>
-                ))}
-              </ReorderList>
-            </section>
-
-            {/* Optimization settings */}
-            <section className="flex w-64 shrink-0 flex-col gap-3 rounded-lg border p-4">
-              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                Settings
-              </h2>
-              <NumberInput
-                label="Tier tolerance"
-                tooltip="How much worse than the best a candidate can be before it's excluded from the next priority tier. Default 10%."
-                stateHook={[tierTolerance, setTierTolerance]}
-              />
-              <MeasurementInput
-                stateHook={[
-                  maximumComfortableStatorLimit,
-                  setMaximumComfortableStatorLimit,
-                ]}
-                label="Max Stator Limit"
-                tooltip="The maximum stator limit that is comfortable for you. Used for recommendations."
-                testId="maximumComfortableStatorLimit"
-                labelAbove
-              />
-              <MeasurementInput
-                stateHook={[
-                  maximumComfortableSupplyLimit,
-                  setMaximumComfortableSupplyLimit,
-                ]}
-                label="Max Supply Limit"
-                tooltip="The maximum supply limit that is comfortable for you. Used for recommendations."
-                testId="maximumComfortableSupplyLimit"
-                labelAbove
-              />
-            </section>
+                </section>
+              )}
+            </div>
           </div>
         </div>
       )}
