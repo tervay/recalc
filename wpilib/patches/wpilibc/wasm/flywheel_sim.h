@@ -1,9 +1,12 @@
 #pragma once
 
-#include <cmath>
 #include <emscripten/val.h>
+
+#include <cmath>
 #include <vector>
 
+#include "dc_motor.h"
+#include "sim_util.h"
 #include "wpi/math/filter/LinearFilter.hpp"
 #include "wpi/math/system/Models.hpp"
 #include "wpi/math/system/NumericalIntegration.hpp"
@@ -12,15 +15,12 @@
 #include "wpi/simulation/RoboRioSim.hpp"
 #include "wpi/system/RobotController.hpp"
 
-#include "dc_motor.h"
-#include "sim_util.h"
-
 // FlywheelSim subclass that supports torque efficiency [0, 1].
 // Overrides UpdateX to scale the motor force (B matrix) by efficiency while
 // leaving back-EMF damping (A matrix) untouched.
 class EfficiencyFlywheelSim : public wpi::sim::FlywheelSim {
-public:
-  EfficiencyFlywheelSim(const wpi::math::DCMotor &gearbox, double gearing,
+ public:
+  EfficiencyFlywheelSim(const wpi::math::DCMotor& gearbox, double gearing,
                         wpi::units::kilogram_square_meter_t moi,
                         double efficiency)
       : FlywheelSim(wpi::math::Models::FlywheelFromPhysicalConstants(
@@ -28,13 +28,13 @@ public:
                     gearbox),
         m_efficiency(efficiency) {}
 
-protected:
-  wpi::math::Vectord<1> UpdateX(const wpi::math::Vectord<1> &currentXhat,
-                                const wpi::math::Vectord<1> &u,
+ protected:
+  wpi::math::Vectord<1> UpdateX(const wpi::math::Vectord<1>& currentXhat,
+                                const wpi::math::Vectord<1>& u,
                                 wpi::units::second_t dt) override {
     return wpi::math::RKDP(
-        [&](const wpi::math::Vectord<1> &x,
-            const wpi::math::Vectord<1> &u_) -> wpi::math::Vectord<1> {
+        [&](const wpi::math::Vectord<1>& x,
+            const wpi::math::Vectord<1>& u_) -> wpi::math::Vectord<1> {
           wpi::math::Vectord<1> xdot = m_plant.A() * x + m_plant.B() * u_;
           // Scale motor force by efficiency (B term only, preserves back-EMF)
           xdot(0) += (m_efficiency - 1.0) * m_plant.B()(0, 0) * u_(0);
@@ -43,7 +43,7 @@ protected:
         currentXhat, u, dt);
   }
 
-private:
+ private:
   double m_efficiency;
 };
 
@@ -66,15 +66,14 @@ struct FlywheelSimStateInternal {
 //   efficiency        — torque efficiency in [0, 1]
 // Returns a JS array of state objects decimated by `decimation`, with the last
 // state always included (matches obliterateArray behaviour in utils.ts).
-inline emscripten::val
-SimulateFlywheel(DCMotorWasm *motor, double gearing, double moiKgMSquared,
-                 double targetAngularVelocityRadPerSec, double statorLimitAmps,
-                 double supplyLimitAmps, double statorVoltageVolts,
-                 double batteryResistanceOhms, double batteryVoltageVolts,
-                 double efficiency, double simTimestep, int decimation,
-                 double maxSimSeconds,
-                 double batteryVoltageFilterTimeConstantSeconds,
-                 double initialAngularVelocityRadPerSec = 0.0) {
+inline emscripten::val SimulateFlywheel(
+    DCMotorWasm* motor, double gearing, double moiKgMSquared,
+    double targetAngularVelocityRadPerSec, double statorLimitAmps,
+    double supplyLimitAmps, double statorVoltageVolts,
+    double batteryResistanceOhms, double batteryVoltageVolts, double efficiency,
+    double simTimestep, int decimation, double maxSimSeconds,
+    double batteryVoltageFilterTimeConstantSeconds,
+    double initialAngularVelocityRadPerSec = 0.0) {
   EfficiencyFlywheelSim flywheel(
       motor->getMotor(), gearing,
       wpi::units::kilogram_square_meter_t(moiKgMSquared), efficiency);
@@ -153,7 +152,7 @@ SimulateFlywheel(DCMotorWasm *motor, double gearing, double moiKgMSquared,
   }
 
   return DecimateToJsArray<FlywheelSimStateInternal>(
-      states, decimation, [](const FlywheelSimStateInternal &s) {
+      states, decimation, [](const FlywheelSimStateInternal& s) {
         emscripten::val state = emscripten::val::object();
         state.set("angularVelocityRadPerSec", s.angularVelocityRadPerSec);
         state.set("statorCurrentDrawAmps", s.statorCurrentDrawAmps);

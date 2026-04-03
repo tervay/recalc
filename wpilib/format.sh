@@ -8,23 +8,24 @@ WPIMATH_WASM="$SCRIPT_DIR/patches/wpimath/wasm"
 
 # Format all wpilibc wasm sources (bindings.cc + headers)
 docker run -v "$SCRIPT_DIR":/src xianpengshen/clang-tools:19 \
-  clang-format -i \
+  clang-format --style=file:/src/.clang-format -i \
     patches/wpilibc/wasm/bindings.cc \
     patches/wpilibc/wasm/arm_sim.h \
     patches/wpilibc/wasm/battery_sim.h \
     patches/wpilibc/wasm/dc_motor.h \
     patches/wpilibc/wasm/dc_motor_sim.h \
     patches/wpilibc/wasm/elevator_sim.h \
-    patches/wpilibc/wasm/flywheel_sim.h
+    patches/wpilibc/wasm/flywheel_sim.h \
+    patches/wpilibc/wasm/sim_util.h
 
 # Format wpimath wasm sources
 docker run -v "$SCRIPT_DIR":/src xianpengshen/clang-tools:19 \
-  clang-format -i \
+  clang-format --style=file:/src/.clang-format -i \
     patches/wpimath/wasm/bindings.cc
 
 # Format tests
 docker run -v "$SCRIPT_DIR":/src xianpengshen/clang-tools:19 \
-  clang-format -i \
+  clang-format --style=file:/src/.clang-format -i \
     tests/sim_util_test.cc
 
 # Fix file permissions after Docker formatting (files are owned by root)

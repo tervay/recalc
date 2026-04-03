@@ -1,11 +1,14 @@
 #pragma once
 
-#include <cmath>
 #include <emscripten/val.h>
+
+#include <cmath>
 #include <stdexcept>
 #include <string>
 #include <vector>
 
+#include "dc_motor.h"
+#include "sim_util.h"
 #include "wpi/math/controller/LinearQuadraticRegulator.hpp"
 #include "wpi/math/estimator/KalmanFilter.hpp"
 #include "wpi/math/filter/LinearFilter.hpp"
@@ -21,9 +24,6 @@
 #include "wpi/units/length.hpp"
 #include "wpi/units/math.hpp"
 
-#include "dc_motor.h"
-#include "sim_util.h"
-
 inline constexpr double kGravityMetersPerSecondSquared = 9.80665;
 
 // ElevatorSim subclass that supports angle (radians from horizontal) and torque
@@ -31,8 +31,8 @@ inline constexpr double kGravityMetersPerSecondSquared = 9.80665;
 // gravity with sin(angle) * g and to scale the motor force (B matrix) by
 // efficiency while leaving back-EMF damping (A matrix) untouched.
 class AngledElevatorSim : public wpi::sim::ElevatorSim {
-public:
-  AngledElevatorSim(const wpi::math::DCMotor &gearbox, double gearing,
+ public:
+  AngledElevatorSim(const wpi::math::DCMotor& gearbox, double gearing,
                     wpi::units::kilogram_t carriageMass,
                     wpi::units::meter_t drumRadius, double minHeightMeters,
                     double maxHeightMeters, double startingHeightMeters,
@@ -40,18 +40,20 @@ public:
       : ElevatorSim(gearbox, gearing, carriageMass, drumRadius,
                     wpi::units::meter_t(minHeightMeters),
                     wpi::units::meter_t(maxHeightMeters),
-                    false, // disable base class gravity — handled here
+                    false,  // disable base class gravity — handled here
                     wpi::units::meter_t(startingHeightMeters)),
-        m_minH(minHeightMeters), m_maxH(maxHeightMeters), m_angle(angleRadians),
+        m_minH(minHeightMeters),
+        m_maxH(maxHeightMeters),
+        m_angle(angleRadians),
         m_efficiency(efficiency) {}
 
-protected:
-  wpi::math::Vectord<2> UpdateX(const wpi::math::Vectord<2> &currentXhat,
-                                const wpi::math::Vectord<1> &u,
+ protected:
+  wpi::math::Vectord<2> UpdateX(const wpi::math::Vectord<2>& currentXhat,
+                                const wpi::math::Vectord<1>& u,
                                 wpi::units::second_t dt) override {
     auto updatedXhat = wpi::math::RKDP(
-        [&](const wpi::math::Vectord<2> &x,
-            const wpi::math::Vectord<1> &u_) -> wpi::math::Vectord<2> {
+        [&](const wpi::math::Vectord<2>& x,
+            const wpi::math::Vectord<1>& u_) -> wpi::math::Vectord<2> {
           wpi::math::Vectord<2> xdot = m_plant.A() * x + m_plant.B() * u_;
           // Scale motor force by efficiency (B term only, preserves back-EMF)
           xdot(1) += (m_efficiency - 1.0) * m_plant.B()(1, 0) * u_(0);
@@ -71,11 +73,11 @@ protected:
     return updatedXhat;
   }
 
-private:
+ private:
   double m_minH;
   double m_maxH;
-  double m_angle;      // radians from horizontal
-  double m_efficiency; // torque efficiency in [0, 1]
+  double m_angle;       // radians from horizontal
+  double m_efficiency;  // torque efficiency in [0, 1]
 };
 
 // Internal state record for one timestep of the elevator simulation.
@@ -95,7 +97,7 @@ struct ElevatorSimStateInternal {
 // Core simulation logic. May throw (e.g. from the DARE solver inside LQR or
 // KalmanFilter construction) when the plant model is ill-conditioned.
 inline emscripten::val SimulateElevatorImpl(
-    DCMotorWasm *motor, double gearing, double loadKg, double spoolRadiusMeters,
+    DCMotorWasm* motor, double gearing, double loadKg, double spoolRadiusMeters,
     double travelDistanceMeters, double statorLimitAmps, double supplyLimitAmps,
     double batteryResistanceOhms, double batteryVoltageVolts,
     double simTimestep, int decimation, double maxSimSeconds,
@@ -270,7 +272,7 @@ inline emscripten::val SimulateElevatorImpl(
   }
 
   return DecimateToJsArray<ElevatorSimStateInternal>(
-      states, decimation, [](const ElevatorSimStateInternal &s) {
+      states, decimation, [](const ElevatorSimStateInternal& s) {
         emscripten::val state = emscripten::val::object();
         state.set("positionMeters", s.positionMeters);
         state.set("velocityMetersPerSecond", s.velocityMetersPerSecond);
@@ -290,7 +292,7 @@ inline emscripten::val SimulateElevatorImpl(
 // DARE solver failures and other numerical exceptions return an empty array
 // with a diagnostic console.warn instead of aborting the worker.
 inline emscripten::val SimulateElevator(
-    DCMotorWasm *motor, double gearing, double loadKg, double spoolRadiusMeters,
+    DCMotorWasm* motor, double gearing, double loadKg, double spoolRadiusMeters,
     double travelDistanceMeters, double statorLimitAmps, double supplyLimitAmps,
     double batteryResistanceOhms, double batteryVoltageVolts,
     double simTimestep, int decimation, double maxSimSeconds,
@@ -310,7 +312,7 @@ inline emscripten::val SimulateElevator(
         maxAccelerationMPS2, qPositionMeters, qVelocityMPS, rVolts,
         sensorDelaySeconds, kalmanFilterPositionStdDev,
         kalmanFilterVelocityStdDev, kalmanFilterEncoderPositionStdDev);
-  } catch (const std::exception &e) {
+  } catch (const std::exception& e) {
     emscripten::val::global("console").call<void>(
         "warn", std::string("SimulateElevator: ") + e.what() +
                     " (gearing=" + std::to_string(gearing) +

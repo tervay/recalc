@@ -1,10 +1,10 @@
+#include "sim_util.h"
+
 #include <gtest/gtest.h>
 
 #include <cmath>
 #include <functional>
 #include <vector>
-
-#include "sim_util.h"
 
 static constexpr double kTol = 1e-9;
 
@@ -82,10 +82,10 @@ TEST_F(ClampVoltageTest, NegativeVAppliedWithNegativeBackEmf) {
 
 class DecimateTest : public ::testing::Test {};
 
-static std::vector<int> RunDecimate(const std::vector<int> &states,
+static std::vector<int> RunDecimate(const std::vector<int>& states,
                                     int decimation) {
   std::vector<int> seen;
-  auto serialize = [&](const int &s) -> emscripten::val {
+  auto serialize = [&](const int& s) -> emscripten::val {
     seen.push_back(s);
     return emscripten::val{};
   };
@@ -136,7 +136,7 @@ TEST_F(DecimateTest, SerializerReceivesCorrectStateValues) {
   std::vector<Point> pts = {{1.0, 2.0}, {3.0, 4.0}, {5.0, 6.0}, {7.0, 8.0}};
   std::vector<double> xs_seen;
 
-  auto serialize = [&](const Point &p) -> emscripten::val {
+  auto serialize = [&](const Point& p) -> emscripten::val {
     xs_seen.push_back(p.x);
     return emscripten::val{};
   };

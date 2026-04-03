@@ -5,7 +5,7 @@
 // WASM wrapper for wpi::math::DCMotor. Stores a DCMotor by value and exposes
 // its fields and methods to JavaScript via plain doubles.
 class DCMotorWasm {
-public:
+ public:
   DCMotorWasm(double nominalVoltageVolts, double stallTorqueNewtonMeters,
               double stallCurrentAmps, double freeCurrentAmps,
               double freeSpeedRadPerSec, int numMotors)
@@ -17,10 +17,10 @@ public:
   }
 
   // Constructor from existing DCMotor (used by withReduction)
-  explicit DCMotorWasm(const wpi::math::DCMotor &existingMotor)
+  explicit DCMotorWasm(const wpi::math::DCMotor& existingMotor)
       : motor(existingMotor) {}
 
-  const wpi::math::DCMotor &getMotor() const { return motor; }
+  const wpi::math::DCMotor& getMotor() const { return motor; }
 
   double getFreeCurrentAmps() const { return motor.freeCurrent.to<double>(); }
   double getFreeSpeedRadPerSec() const { return motor.freeSpeed.to<double>(); }
@@ -68,10 +68,10 @@ public:
         .to<double>();
   }
 
-  DCMotorWasm *withReduction(double gearboxReduction) {
+  DCMotorWasm* withReduction(double gearboxReduction) {
     return new DCMotorWasm(motor.WithReduction(gearboxReduction));
   }
 
-private:
+ private:
   wpi::math::DCMotor motor;
 };

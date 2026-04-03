@@ -1,14 +1,13 @@
 #pragma once
 
+#include "dc_motor.h"
 #include "wpi/math/system/Models.hpp"
 #include "wpi/simulation/DCMotorSim.hpp"
 
-#include "dc_motor.h"
-
 // WASM wrapper for wpi::sim::DCMotorSim.
 class DCMotorSimWasm {
-public:
-  DCMotorSimWasm(DCMotorWasm *gearbox, double gearing,
+ public:
+  DCMotorSimWasm(DCMotorWasm* gearbox, double gearing,
                  double momentOfInertiaKgMSquared)
       : motorSim(
             wpi::math::Models::SingleJointedArmFromPhysicalConstants(
@@ -49,6 +48,6 @@ public:
     return motorSim.GetCurrentDraw().to<double>();
   }
 
-private:
+ private:
   wpi::sim::DCMotorSim motorSim;
 };

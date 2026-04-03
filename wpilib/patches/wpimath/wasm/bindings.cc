@@ -20,49 +20,49 @@ using namespace frc;
 using namespace units;
 
 // Wrapper functions to extract values from units
-double translation3d_getX(const Translation3d &t) { return t.X().value(); }
+double translation3d_getX(const Translation3d& t) { return t.X().value(); }
 
-double translation3d_getY(const Translation3d &t) { return t.Y().value(); }
+double translation3d_getY(const Translation3d& t) { return t.Y().value(); }
 
-double translation3d_getZ(const Translation3d &t) { return t.Z().value(); }
+double translation3d_getZ(const Translation3d& t) { return t.Z().value(); }
 
-double translation3d_getDistance(const Translation3d &t,
-                                 const Translation3d &other) {
+double translation3d_getDistance(const Translation3d& t,
+                                 const Translation3d& other) {
   return t.Distance(other).value();
 }
 
-double translation3d_getNorm(const Translation3d &t) {
+double translation3d_getNorm(const Translation3d& t) {
   return t.Norm().value();
 }
 
-double rotation3d_getX(const Rotation3d &r) { return r.X().value(); }
+double rotation3d_getX(const Rotation3d& r) { return r.X().value(); }
 
-double rotation3d_getY(const Rotation3d &r) { return r.Y().value(); }
+double rotation3d_getY(const Rotation3d& r) { return r.Y().value(); }
 
-double rotation3d_getZ(const Rotation3d &r) { return r.Z().value(); }
+double rotation3d_getZ(const Rotation3d& r) { return r.Z().value(); }
 
-double pose3d_getX(const Pose3d &p) { return p.X().value(); }
+double pose3d_getX(const Pose3d& p) { return p.X().value(); }
 
-double pose3d_getY(const Pose3d &p) { return p.Y().value(); }
+double pose3d_getY(const Pose3d& p) { return p.Y().value(); }
 
-double pose3d_getZ(const Pose3d &p) { return p.Z().value(); }
+double pose3d_getZ(const Pose3d& p) { return p.Z().value(); }
 
 // Wrapper constructors to convert from double to unit types
-Translation3d *translation3d_new_xyz(double x, double y, double z) {
+Translation3d* translation3d_new_xyz(double x, double y, double z) {
   return new Translation3d(meter_t{x}, meter_t{y}, meter_t{z});
 }
 
-Translation3d *translation3d_new_distance_angle(double distance,
-                                                const Rotation3d &angle) {
+Translation3d* translation3d_new_distance_angle(double distance,
+                                                const Rotation3d& angle) {
   return new Translation3d(meter_t{distance}, angle);
 }
 
-Rotation3d *rotation3d_new_xyz(double x, double y, double z) {
+Rotation3d* rotation3d_new_xyz(double x, double y, double z) {
   return new Rotation3d(radian_t{x}, radian_t{y}, radian_t{z});
 }
 
-Transform3d *transform3d_new_xyz_rotation(double x, double y, double z,
-                                          const Rotation3d &rotation) {
+Transform3d* transform3d_new_xyz_rotation(double x, double y, double z,
+                                          const Rotation3d& rotation) {
   return new Transform3d(meter_t{x}, meter_t{y}, meter_t{z}, rotation);
 }
 
@@ -91,12 +91,12 @@ EMSCRIPTEN_BINDINGS(wpimath) {
   class_<Transform3d>("Transform3d")
       .constructor<>()
       .constructor(&transform3d_new_xyz_rotation, allow_raw_pointers())
-      .constructor<const Translation3d &, const Rotation3d &>();
+      .constructor<const Translation3d&, const Rotation3d&>();
 
   // Pose3d
   class_<Pose3d>("Pose3d")
       .constructor<>()
-      .constructor<const Translation3d &, const Rotation3d &>()
+      .constructor<const Translation3d&, const Rotation3d&>()
       .function("getX", &pose3d_getX)
       .function("getY", &pose3d_getY)
       .function("getZ", &pose3d_getZ)
