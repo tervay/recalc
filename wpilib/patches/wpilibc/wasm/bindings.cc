@@ -41,7 +41,7 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
 
   // DCMotorSim
   class_<DCMotorSimWasm>("DCMotorSim")
-      .constructor<DCMotorWasm *, double, double>(allow_raw_pointers())
+      .constructor<DCMotorWasm*, double, double>(allow_raw_pointers())
       .function("setInputVoltage(voltageVolts)",
                 &DCMotorSimWasm::setInputVoltage)
       .function("update(dtSeconds)", &DCMotorSimWasm::update)
@@ -56,7 +56,7 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
 
   // SingleJointedArmSim
   class_<SingleJointedArmSimWasm>("SingleJointedArmSim")
-      .constructor<DCMotorWasm *, double, double, double, double, double, bool,
+      .constructor<DCMotorWasm*, double, double, double, double, double, bool,
                    double>(allow_raw_pointers())
       .function("setInputVoltage(voltageVolts)",
                 &SingleJointedArmSimWasm::setInputVoltage)
@@ -78,37 +78,41 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
   function("BatterySim_calculate(currentDrawsAmps)", &BatterySim_Calculate);
   function("BatterySim_calculateDefaultBatteryLoadedVoltage(currentDrawsAmps)",
            &BatterySim_CalculateDefaultBatteryLoadedVoltage);
-  function("BatterySim_calculateLoadedBatteryVoltage(nominalVoltageVolts, "
-           "resistanceOhms, currentDrawsAmps)",
-           &BatterySim_CalculateLoadedBatteryVoltage);
+  function(
+      "BatterySim_calculateLoadedBatteryVoltage(nominalVoltageVolts, "
+      "resistanceOhms, currentDrawsAmps)",
+      &BatterySim_CalculateLoadedBatteryVoltage);
 
   // Full elevator simulation loop
-  function("simulateElevator(motor, gearing, loadKg, spoolRadiusMeters, "
-           "travelDistanceMeters, statorLimitAmps, supplyLimitAmps, "
-           "batteryResistanceOhms, batteryVoltageVolts, "
-           "simTimestep, decimation, maxSimSeconds, angleRadians, efficiency, "
-           "cascade, batteryVoltageFilterTimeConstantSeconds, "
-           "maxVelocityMPS, maxAccelerationMPS2, "
-           "qPositionMeters, qVelocityMPS, rVolts, sensorDelaySeconds, "
-           "kalmanFilterPositionStdDev, kalmanFilterVelocityStdDev, "
-           "kalmanFilterEncoderPositionStdDev)",
-           &SimulateElevator, allow_raw_pointers());
+  function(
+      "simulateElevator(motor, gearing, loadKg, spoolRadiusMeters, "
+      "travelDistanceMeters, statorLimitAmps, supplyLimitAmps, "
+      "batteryResistanceOhms, batteryVoltageVolts, "
+      "simTimestep, decimation, maxSimSeconds, angleRadians, efficiency, "
+      "cascade, batteryVoltageFilterTimeConstantSeconds, "
+      "maxVelocityMPS, maxAccelerationMPS2, "
+      "qPositionMeters, qVelocityMPS, rVolts, sensorDelaySeconds, "
+      "kalmanFilterPositionStdDev, kalmanFilterVelocityStdDev, "
+      "kalmanFilterEncoderPositionStdDev)",
+      &SimulateElevator, allow_raw_pointers());
 
   // Full flywheel simulation loop
-  function("simulateFlywheel(motor, gearing, moiKgMSquared, "
-           "targetAngularVelocityRadPerSec, statorLimitAmps, supplyLimitAmps, "
-           "statorVoltageVolts, batteryResistanceOhms, batteryVoltageVolts, "
-           "efficiency, simTimestep, decimation, maxSimSeconds, "
-           "batteryVoltageFilterTimeConstantSeconds, "
-           "initialAngularVelocityRadPerSec)",
-           &SimulateFlywheel, allow_raw_pointers());
+  function(
+      "simulateFlywheel(motor, gearing, moiKgMSquared, "
+      "targetAngularVelocityRadPerSec, statorLimitAmps, supplyLimitAmps, "
+      "statorVoltageVolts, batteryResistanceOhms, batteryVoltageVolts, "
+      "efficiency, simTimestep, decimation, maxSimSeconds, "
+      "batteryVoltageFilterTimeConstantSeconds, "
+      "initialAngularVelocityRadPerSec)",
+      &SimulateFlywheel, allow_raw_pointers());
 
   // Full arm simulation loop
-  function("simulateArm(motor, gearing, momentOfInertiaKgMSquared, "
-           "armLengthMeters, minAngleRadians, maxAngleRadians, "
-           "startingAngleRadians, statorLimitAmps, supplyLimitAmps, "
-           "statorVoltageVolts, batteryResistanceOhms, batteryVoltageVolts, "
-           "efficiency, goingUp, simTimestep, decimation, maxSimSeconds, "
-           "batteryVoltageFilterTimeConstantSeconds)",
-           &SimulateArm, allow_raw_pointers());
+  function(
+      "simulateArm(motor, gearing, momentOfInertiaKgMSquared, "
+      "armLengthMeters, minAngleRadians, maxAngleRadians, "
+      "startingAngleRadians, statorLimitAmps, supplyLimitAmps, "
+      "statorVoltageVolts, batteryResistanceOhms, batteryVoltageVolts, "
+      "efficiency, goingUp, simTimestep, decimation, maxSimSeconds, "
+      "batteryVoltageFilterTimeConstantSeconds)",
+      &SimulateArm, allow_raw_pointers());
 }

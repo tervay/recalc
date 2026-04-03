@@ -1,9 +1,12 @@
 #pragma once
 
-#include <cmath>
 #include <emscripten/val.h>
+
+#include <cmath>
 #include <vector>
 
+#include "dc_motor.h"
+#include "sim_util.h"
 #include "wpi/math/filter/LinearFilter.hpp"
 #include "wpi/math/system/NumericalIntegration.hpp"
 #include "wpi/simulation/BatterySim.hpp"
@@ -11,13 +14,10 @@
 #include "wpi/simulation/SingleJointedArmSim.hpp"
 #include "wpi/system/RobotController.hpp"
 
-#include "dc_motor.h"
-#include "sim_util.h"
-
 // WASM wrapper for wpi::sim::SingleJointedArmSim.
 class SingleJointedArmSimWasm {
-public:
-  SingleJointedArmSimWasm(DCMotorWasm *gearbox, double gearing,
+ public:
+  SingleJointedArmSimWasm(DCMotorWasm* gearbox, double gearing,
                           double momentOfInertiaKgMSquared,
                           double armLengthMeters, double minAngleRadians,
                           double maxAngleRadians, bool simulateGravity,
@@ -45,7 +45,7 @@ public:
 
   bool hasHitUpperLimit() const { return arm.HasHitUpperLimit(); }
 
-private:
+ private:
   wpi::sim::SingleJointedArmSim arm;
 };
 
@@ -54,27 +54,28 @@ private:
 // leaving back-EMF damping (A matrix) untouched, and re-applies gravity
 // (which would otherwise be omitted since UpdateX is fully replaced).
 class EfficiencyArmSim : public wpi::sim::SingleJointedArmSim {
-public:
-  EfficiencyArmSim(const wpi::math::DCMotor &gearbox, double gearing,
+ public:
+  EfficiencyArmSim(const wpi::math::DCMotor& gearbox, double gearing,
                    wpi::units::kilogram_square_meter_t moi,
                    wpi::units::meter_t armLength, wpi::units::radian_t minAngle,
                    wpi::units::radian_t maxAngle, double startingAngleRadians,
                    double efficiency)
       : SingleJointedArmSim(gearbox, gearing, moi, armLength, minAngle,
                             maxAngle,
-                            false, // We handle gravity manually in UpdateX
+                            false,  // We handle gravity manually in UpdateX
                             wpi::units::radian_t(startingAngleRadians)),
         m_minAngleRad(minAngle.to<double>()),
         m_maxAngleRad(maxAngle.to<double>()),
-        m_armLenMeters(armLength.to<double>()), m_efficiency(efficiency) {}
+        m_armLenMeters(armLength.to<double>()),
+        m_efficiency(efficiency) {}
 
-protected:
-  wpi::math::Vectord<2> UpdateX(const wpi::math::Vectord<2> &currentXhat,
-                                const wpi::math::Vectord<1> &u,
+ protected:
+  wpi::math::Vectord<2> UpdateX(const wpi::math::Vectord<2>& currentXhat,
+                                const wpi::math::Vectord<1>& u,
                                 wpi::units::second_t dt) override {
     auto updatedXhat = wpi::math::RKDP(
-        [&](const wpi::math::Vectord<2> &x,
-            const wpi::math::Vectord<1> &u_) -> wpi::math::Vectord<2> {
+        [&](const wpi::math::Vectord<2>& x,
+            const wpi::math::Vectord<1>& u_) -> wpi::math::Vectord<2> {
           wpi::math::Vectord<2> xdot = m_plant.A() * x + m_plant.B() * u_;
           // Scale motor torque by efficiency (B term only, preserves back-EMF)
           xdot(1) += (m_efficiency - 1.0) * m_plant.B()(1, 0) * u_(0);
@@ -95,7 +96,7 @@ protected:
     return updatedXhat;
   }
 
-private:
+ private:
   double m_minAngleRad;
   double m_maxAngleRad;
   double m_armLenMeters;
@@ -125,7 +126,7 @@ struct ArmSimStateInternal {
 // Returns a JS array of state objects decimated by `decimation`, with the last
 // state always included (matches obliterateArray behaviour in utils.ts).
 inline emscripten::val SimulateArm(
-    DCMotorWasm *motor, double gearing, double momentOfInertiaKgMSquared,
+    DCMotorWasm* motor, double gearing, double momentOfInertiaKgMSquared,
     double armLengthMeters, double minAngleRadians, double maxAngleRadians,
     double startingAngleRadians, double statorLimitAmps, double supplyLimitAmps,
     double statorVoltageVolts, double batteryResistanceOhms,
@@ -218,7 +219,7 @@ inline emscripten::val SimulateArm(
   }
 
   return DecimateToJsArray<ArmSimStateInternal>(
-      states, decimation, [](const ArmSimStateInternal &s) {
+      states, decimation, [](const ArmSimStateInternal& s) {
         emscripten::val state = emscripten::val::object();
         state.set("angleRadians", s.angleRadians);
         state.set("angularVelocityRadPerSec", s.angularVelocityRadPerSec);

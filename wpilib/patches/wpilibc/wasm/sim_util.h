@@ -1,11 +1,11 @@
 #pragma once
 
+#include <emscripten/val.h>
+
 #include <algorithm>
 #include <cmath>
 #include <functional>
 #include <vector>
-
-#include <emscripten/val.h>
 
 // Clamp an applied voltage to respect both stator and supply current limits.
 // This is the C++ equivalent of getvAppliedMinAndMax in currentLimits.ts.
@@ -14,8 +14,7 @@
 // The supply limit produces a quadratic clamp derived from the power equation
 // P = V_supply * I_supply, where I_supply = I_stator * V_applied / V_supply.
 inline double ClampVoltageForCurrentLimits(double vApplied, double vBackEmf,
-                                           double rOhms,
-                                           double statorLimitAmps,
+                                           double rOhms, double statorLimitAmps,
                                            double supplyLimitAmps,
                                            double vSupply) {
   // Stator current limit: |V_applied - V_backEmf| / R <= I_stator_limit
@@ -46,16 +45,15 @@ inline double ClampVoltageForCurrentLimits(double vApplied, double vBackEmf,
 // `serialize` is called once per emitted state and must return an
 // emscripten::val object representing that state.
 template <typename State>
-emscripten::val
-DecimateToJsArray(const std::vector<State> &states, int decimation,
-                  const std::function<emscripten::val(const State &)> &serialize) {
+emscripten::val DecimateToJsArray(
+    const std::vector<State>& states, int decimation,
+    const std::function<emscripten::val(const State&)>& serialize) {
   emscripten::val result = emscripten::val::array();
   const int n = static_cast<int>(states.size());
   for (int i = 0; i < n; ++i) {
     const bool isDecimated = (i % decimation == 0);
     const bool isLast = (i == n - 1) && (i > 0) && (i % decimation != 0);
-    if (!isDecimated && !isLast)
-      continue;
+    if (!isDecimated && !isLast) continue;
     result.call<void>("push", serialize(states[i]));
   }
   return result;
