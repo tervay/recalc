@@ -2,6 +2,8 @@
 
 #include <cmath>
 #include <emscripten/val.h>
+#include <stdexcept>
+#include <string>
 #include <vector>
 
 #include "wpi/math/controller/LinearQuadraticRegulator.hpp"
@@ -22,9 +24,11 @@
 #include "dc_motor.h"
 #include "sim_util.h"
 
+inline constexpr double kGravityMetersPerSecondSquared = 9.80665;
+
 // ElevatorSim subclass that supports angle (radians from horizontal) and torque
 // efficiency [0, 1]. Overrides UpdateX to replace the hardcoded vertical
-// gravity with sin(angle)*9.8 and to scale the motor force (B matrix) by
+// gravity with sin(angle) * g and to scale the motor force (B matrix) by
 // efficiency while leaving back-EMF damping (A matrix) untouched.
 class AngledElevatorSim : public wpi::sim::ElevatorSim {
 public:
@@ -53,7 +57,7 @@ protected:
           xdot(1) += (m_efficiency - 1.0) * m_plant.B()(1, 0) * u_(0);
           // Angle-adjusted gravity: full at 90deg (vertical), zero at 0deg
           // (horizontal)
-          xdot(1) -= 9.80665 * std::sin(m_angle);
+          xdot(1) -= kGravityMetersPerSecondSquared * std::sin(m_angle);
           return xdot;
         },
         currentXhat, u, dt);
@@ -88,25 +92,9 @@ struct ElevatorSimStateInternal {
   bool success;
 };
 
-// Full elevator simulation loop driven by a trapezoidal motion profile and a
-// WPILib state-space controller (LQR + Kalman filter). Parameters must be in SI
-// units:
-//   statorLimitAmps      — total stator current limit (per-motor limit ×
-//   quantity) spoolRadiusMeters    — spool radius (not diameter) angleRadians
-//   — mechanism angle from horizontal (π/2 = vertical) efficiency           —
-//   torque efficiency in [0, 1] cascade              — if true, models a
-//   cascading elevator: the first stage
-//                          travels half the carriage distance
-//                          (travelDistance/2) and carries double the load
-//                          (loadKg*2)
-//   maxVelocityMPS       — trapezoidal profile max velocity (m/s); must be > 0
-//   maxAccelerationMPS2  — trapezoidal profile max acceleration (m/s²); must be
-//   > 0 qPositionMeters      — LQR position error tolerance (Bryson's rule,
-//   meters) qVelocityMPS         — LQR velocity error tolerance (Bryson's rule,
-//   m/s) rVolts               — LQR control effort tolerance (volts)
-// Returns a JS array of state objects decimated by `decimation`, with the last
-// state always included (matches obliterateArray behaviour in utils.ts).
-inline emscripten::val SimulateElevator(
+// Core simulation logic. May throw (e.g. from the DARE solver inside LQR or
+// KalmanFilter construction) when the plant model is ill-conditioned.
+inline emscripten::val SimulateElevatorImpl(
     DCMotorWasm *motor, double gearing, double loadKg, double spoolRadiusMeters,
     double travelDistanceMeters, double statorLimitAmps, double supplyLimitAmps,
     double batteryResistanceOhms, double batteryVoltageVolts,
@@ -114,7 +102,9 @@ inline emscripten::val SimulateElevator(
     double angleRadians, double efficiency, bool cascade,
     double batteryVoltageFilterTimeConstantSeconds, double maxVelocityMPS,
     double maxAccelerationMPS2, double qPositionMeters, double qVelocityMPS,
-    double rVolts, double sensorDelaySeconds) {
+    double rVolts, double sensorDelaySeconds, double kalmanFilterPositionStdDev,
+    double kalmanFilterVelocityStdDev,
+    double kalmanFilterEncoderPositionStdDev) {
   // Guard against degenerate profile constraints
   if (maxVelocityMPS <= 0.0 || maxAccelerationMPS2 <= 0.0) {
     return emscripten::val::array();
@@ -145,8 +135,9 @@ inline emscripten::val SimulateElevator(
   // Derive kG volts from the plant's B matrix (voltage to acceleration gain).
   // u = a / B(1,0) where a is gravity's acceleration along the mechanism.
   const double kaIdeal = 1.0 / idealPlantFull.B()(1, 0);
-  const double kGVolts =
-      (kaIdeal / efficiency) * 9.80665 * std::sin(angleRadians);
+  const double kGVolts = (kaIdeal / efficiency) *
+                         kGravityMetersPerSecondSquared *
+                         std::sin(angleRadians);
 
   // Build LinearSystem<2,1,1> for the controller, scaling B by efficiency.
   wpi::math::Matrixd<2, 1> controllerB = idealPlantFull.B() * efficiency;
@@ -157,9 +148,12 @@ inline emscripten::val SimulateElevator(
   wpi::math::LinearSystem<2, 1, 1> plant{idealPlantFull.A(), controllerB,
                                          controllerC, controllerD};
 
-  // Kalman filter (fixed noise — not user-exposed)
+  // Kalman filter (fixed noise -- not user-exposed)
   wpi::math::KalmanFilter<2, 1, 1> observer{
-      plant, {0.05, 1.0}, {0.001}, wpi::units::second_t(simTimestep)};
+      plant,
+      {kalmanFilterPositionStdDev, kalmanFilterVelocityStdDev},
+      {kalmanFilterEncoderPositionStdDev},
+      wpi::units::second_t(simTimestep)};
 
   // LQR with user-tunable Q/R (Bryson's rule)
   wpi::math::LinearQuadraticRegulator<2, 1> controller{
@@ -239,7 +233,8 @@ inline emscripten::val SimulateElevator(
     const double statorCurrent = elevator.GetCurrentDraw().to<double>();
     // GetCurrentDraw() returns stator current (positive = motoring, negative =
     // braking). Use abs(vApplied) to maintain correct supply current signage.
-    const double supplyCurrent = statorCurrent * std::abs(vApplied) / vSupply;
+    const double supplyCurrent =
+        std::abs(statorCurrent) * std::abs(vApplied) / vSupply;
     energyJoules += supplyCurrent * vSupply * simTimestep;
 
     // Battery voltage under load, smoothed by a single-pole IIR filter
@@ -289,4 +284,49 @@ inline emscripten::val SimulateElevator(
         state.set("success", s.success);
         return state;
       });
+}
+
+// Public entry point. Wraps SimulateElevatorImpl in a try-catch so that
+// DARE solver failures and other numerical exceptions return an empty array
+// with a diagnostic console.warn instead of aborting the worker.
+inline emscripten::val SimulateElevator(
+    DCMotorWasm *motor, double gearing, double loadKg, double spoolRadiusMeters,
+    double travelDistanceMeters, double statorLimitAmps, double supplyLimitAmps,
+    double batteryResistanceOhms, double batteryVoltageVolts,
+    double simTimestep, int decimation, double maxSimSeconds,
+    double angleRadians, double efficiency, bool cascade,
+    double batteryVoltageFilterTimeConstantSeconds, double maxVelocityMPS,
+    double maxAccelerationMPS2, double qPositionMeters, double qVelocityMPS,
+    double rVolts, double sensorDelaySeconds, double kalmanFilterPositionStdDev,
+    double kalmanFilterVelocityStdDev,
+    double kalmanFilterEncoderPositionStdDev) {
+  try {
+    return SimulateElevatorImpl(
+        motor, gearing, loadKg, spoolRadiusMeters, travelDistanceMeters,
+        statorLimitAmps, supplyLimitAmps, batteryResistanceOhms,
+        batteryVoltageVolts, simTimestep, decimation, maxSimSeconds,
+        angleRadians, efficiency, cascade,
+        batteryVoltageFilterTimeConstantSeconds, maxVelocityMPS,
+        maxAccelerationMPS2, qPositionMeters, qVelocityMPS, rVolts,
+        sensorDelaySeconds, kalmanFilterPositionStdDev,
+        kalmanFilterVelocityStdDev, kalmanFilterEncoderPositionStdDev);
+  } catch (const std::exception &e) {
+    emscripten::val::global("console").call<void>(
+        "warn", std::string("SimulateElevator: ") + e.what() +
+                    " (gearing=" + std::to_string(gearing) +
+                    " loadKg=" + std::to_string(loadKg) +
+                    " spoolR=" + std::to_string(spoolRadiusMeters) +
+                    " statorA=" + std::to_string(statorLimitAmps) +
+                    " supplyA=" + std::to_string(supplyLimitAmps) + ")");
+    return emscripten::val::array();
+  } catch (...) {
+    emscripten::val::global("console").call<void>(
+        "warn", std::string("SimulateElevator: unknown exception") +
+                    " (gearing=" + std::to_string(gearing) +
+                    " loadKg=" + std::to_string(loadKg) +
+                    " spoolR=" + std::to_string(spoolRadiusMeters) +
+                    " statorA=" + std::to_string(statorLimitAmps) +
+                    " supplyA=" + std::to_string(supplyLimitAmps) + ")");
+    return emscripten::val::array();
+  }
 }

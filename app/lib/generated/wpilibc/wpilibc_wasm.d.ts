@@ -153,6 +153,9 @@ interface EmbindModule {
     qVelocityMPS: number,
     rVolts: number,
     sensorDelaySeconds: number,
+    kalmanFilterPositionStdDev: number,
+    kalmanFilterVelocityStdDev: number,
+    kalmanFilterEncoderPositionStdDev: number,
   ): any;
   simulateFlywheel(
     motor: DCMotor | null,

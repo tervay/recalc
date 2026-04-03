@@ -43,6 +43,7 @@ export function calculateGuessedLimits(
   angle: Measurement,
   efficiency: number,
   cascade: boolean,
+  rVolts: Measurement = new Measurement(12, 'V'),
 ) {
   if (
     Measurement.anyAreZero(spoolDiameter, ratio.asNumber(), load, efficiency)
@@ -70,7 +71,7 @@ export function calculateGuessedLimits(
   const Kt = motor.kT;
   const Kv = motor.kV;
 
-  // 1. Max Accel (Stator OR Supply Limited)
+  // 1. Max Accel (Stator, Supply, or Voltage Limited)
   // At stall: Pin = Pout => V_batt * I_supply = I_stator^2 * R
   const I_supply_limit = supplyLimit.mul(motor.quantity);
   const powerLimit = supplyVoltage.mul(I_supply_limit);
@@ -80,7 +81,12 @@ export function calculateGuessedLimits(
     'A',
   );
   const I_stator_limit = statorLimit.mul(motor.quantity);
-  const I_eff_accel = Measurement.min(I_stator_limit, I_stator_max_from_supply);
+  // At stall with max voltage rVolts: I_per_motor = rVolts / R_motor
+  const I_stator_max_from_voltage = rVolts.div(R_motor).mul(motor.quantity);
+  const I_eff_accel = Measurement.min(
+    Measurement.min(I_stator_limit, I_stator_max_from_supply),
+    I_stator_max_from_voltage,
+  );
 
   const F_gravity = m.mul(Measurement.GRAVITY.abs()).mul(Math.sin(angleRad));
   const F_max = I_eff_accel.mul(Kt).mul(G).mul(eta).div(r);
@@ -90,7 +96,7 @@ export function calculateGuessedLimits(
     a_max_theoretical.mul(ACCEL_GUESS_FACTOR),
   );
 
-  // 2. Max Velocity (Voltage OR Supply Limited)
+  // 2. Max Velocity (Voltage, Supply, or Control Effort Limited)
   // Holding current needed to fight gravity at steady state (a=0)
   const I_gravity = F_gravity.div(Kt.mul(G).mul(eta).div(r));
 
@@ -99,10 +105,14 @@ export function calculateGuessedLimits(
   const V_emf_supply_limited = powerLimit
     .div(Measurement.max(new Measurement(0.01, 'A'), I_gravity))
     .sub(I_gravity.mul(R_motor));
+  const V_emf_rVolts_limited = rVolts.sub(I_gravity.mul(R_motor));
 
   const V_emf_max = Measurement.min(
-    V_emf_voltage_limited.forcePositive(),
-    V_emf_supply_limited.forcePositive(),
+    Measurement.min(
+      V_emf_voltage_limited.forcePositive(),
+      V_emf_supply_limited.forcePositive(),
+    ),
+    V_emf_rVolts_limited.forcePositive(),
   );
   const v_max_theoretical = V_emf_max.mul(Kv).mul(r).div(G).removeRad();
   const v_max_guessed = Measurement.max(

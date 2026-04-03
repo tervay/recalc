@@ -89,7 +89,9 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
            "simTimestep, decimation, maxSimSeconds, angleRadians, efficiency, "
            "cascade, batteryVoltageFilterTimeConstantSeconds, "
            "maxVelocityMPS, maxAccelerationMPS2, "
-           "qPositionMeters, qVelocityMPS, rVolts, sensorDelaySeconds)",
+           "qPositionMeters, qVelocityMPS, rVolts, sensorDelaySeconds, "
+           "kalmanFilterPositionStdDev, kalmanFilterVelocityStdDev, "
+           "kalmanFilterEncoderPositionStdDev)",
            &SimulateElevator, allow_raw_pointers());
 
   // Full flywheel simulation loop

@@ -311,7 +311,7 @@ test.describe('Flywheel Calculator', () => {
     page,
   }) => {
     await page.getByTestId('selectrecoveryTime').click();
-    await page.getByRole('option', { name: 's' }).click();
+    await page.getByRole('option', { name: 's', exact: true }).click();
     await waitForCalc(page);
     expect(
       await page.getByTestId('flywheel-main').ariaSnapshot(),
@@ -473,7 +473,7 @@ test.describe('Flywheel Calculator', () => {
     page,
   }) => {
     await page.getByTestId('selectspinupTime').click();
-    await page.getByRole('option', { name: 's' }).click();
+    await page.getByRole('option', { name: 's', exact: true }).click();
     await waitForCalc(page);
     expect(
       await page.getByTestId('flywheel-main').ariaSnapshot(),

@@ -8,7 +8,6 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import workerpool from 'workerpool';
 import ChevronDownIcon from '~icons/lucide/chevron-down';
 
 import IOLine from '~/components/recalc/blocks';
@@ -44,14 +43,14 @@ import {
 } from '~/lib/math/kVkA';
 import { calculateGuessedLimits, calculateStallLoad } from '~/lib/math/linear';
 import type * as LinearWorker from '~/lib/math/linear.worker';
-import type {
-  ConfigOptOutput,
-  OptimizationPriority,
-} from '~/lib/math/linearOptimizer.worker';
+import type * as LinearOptimizerWorker from '~/lib/math/linearOptimizer.worker';
+import type { ConfigOptOutput } from '~/lib/math/linearOptimizer.worker';
 import optimizerWorkerUrl from '~/lib/math/linearOptimizer.worker?worker&url';
+import type { OptimizationPriority } from '~/lib/math/optimizerUtils';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
+import { getPool } from '~/lib/pool';
 import {
   BooleanParam,
   MeasurementParam,
@@ -100,7 +99,7 @@ const DEFAULT_PARAMS = {
   motor: MotorParam.withDefault(Motor.KrakenX60sFOC(1)),
   travelDistance: MeasurementParam.withDefault(new Measurement(60, 'in')),
   spoolDiameter: MeasurementParam.withDefault(new Measurement(1, 'in')),
-  load: MeasurementParam.withDefault(new Measurement(15, 'lb')),
+  load: MeasurementParam.withDefault(new Measurement(5, 'lb')),
   ratio: RatioParam.withDefault(new Ratio(2, RatioType.REDUCTION)),
   efficiency: NumberParam.withDefault(100),
   statorLimit: MeasurementParam.withDefault(new Measurement(80, 'A')),
@@ -124,7 +123,16 @@ const DEFAULT_PARAMS = {
   qPosition: MeasurementParam.withDefault(new Measurement(0.02, 'm')),
   qVelocity: MeasurementParam.withDefault(new Measurement(0.4, 'm/s')),
   rVolts: MeasurementParam.withDefault(new Measurement(12, 'V')),
-  sensorDelay: MeasurementParam.withDefault(new Measurement(0.001, 's')),
+  sensorDelay: MeasurementParam.withDefault(new Measurement(1, 'ms')),
+  kalmanFilterPositionStdDev: MeasurementParam.withDefault(
+    new Measurement(2, 'in'),
+  ),
+  kalmanFilterVelocityStdDev: MeasurementParam.withDefault(
+    new Measurement(40, 'in/s'),
+  ),
+  kalmanFilterEncoderPositionStdDev: MeasurementParam.withDefault(
+    new Measurement(0.001, 'in'),
+  ),
 };
 
 const worker = new ComlinkWorker<typeof LinearWorker>(
@@ -134,10 +142,8 @@ const worker = new ComlinkWorker<typeof LinearWorker>(
   },
 );
 
-const optimizerPool = workerpool.pool(optimizerWorkerUrl, {
-  workerType: 'web',
-  workerOpts: { type: 'module' },
-});
+const optimizerPool = getPool<typeof LinearOptimizerWorker>(optimizerWorkerUrl);
+
 export default function Linear() {
   const queryParams = useQueryParams(DEFAULT_PARAMS);
 
@@ -178,6 +184,16 @@ export default function Linear() {
   const [qPosition, setQPosition] = useState(queryParams.qPosition);
   const [qVelocity, setQVelocity] = useState(queryParams.qVelocity);
   const [rVolts, setRVolts] = useState(queryParams.rVolts);
+  const [kalmanFilterPositionStdDev, setKalmanFilterPositionStdDev] = useState(
+    queryParams.kalmanFilterPositionStdDev,
+  );
+  const [kalmanFilterVelocityStdDev, setKalmanFilterVelocityStdDev] = useState(
+    queryParams.kalmanFilterVelocityStdDev,
+  );
+  const [
+    kalmanFilterEncoderPositionStdDev,
+    setKalmanFilterEncoderPositionStdDev,
+  ] = useState(queryParams.kalmanFilterEncoderPositionStdDev);
 
   const { v_max_guessed, a_max_guessed } = useMemo(
     () =>
@@ -192,6 +208,7 @@ export default function Linear() {
         angle,
         efficiency,
         cascade,
+        rVolts,
       ),
     [
       motor,
@@ -204,6 +221,7 @@ export default function Linear() {
       angle,
       efficiency,
       cascade,
+      rVolts,
     ],
   );
 
@@ -311,27 +329,31 @@ export default function Linear() {
   useEffect(() => {
     setIsSimulating(true);
     worker
-      .simulateElevatorWpilib(
-        motor.toDict(),
-        ratio.toDict(),
-        load.toDict(),
-        spoolDiameter.toDict(),
-        travelDistance.toDict(),
-        statorLimit.toDict(),
-        supplyLimit.toDict(),
-        batteryResistance.toDict(),
-        supplyVoltage.toDict(),
-        angle.toDict(),
-        efficiency / 100,
+      .simulateElevatorWpilib({
+        motorDict: motor.toDict(),
+        ratio: ratio.toDict(),
+        load: load.toDict(),
+        spoolDiameter: spoolDiameter.toDict(),
+        travelDistance: travelDistance.toDict(),
+        statorLimitDict: statorLimit.toDict(),
+        supplyLimitDict: supplyLimit.toDict(),
+        batteryResistance: batteryResistance.toDict(),
+        batteryVoltage: supplyVoltage.toDict(),
+        angle: angle.toDict(),
+        efficiency: efficiency / 100,
         cascade,
-        BATTERY_VOLTAGE_FILTER_TC_S,
-        effectiveMaxVelocity.toDict(),
-        effectiveMaxAcceleration.toDict(),
-        qPosition.to('m').scalar,
-        qVelocity.to('m/s').scalar,
-        rVolts.to('V').scalar,
-        sensorDelay.to('s').scalar,
-      )
+        batteryVoltageFilterTimeConstantSeconds: BATTERY_VOLTAGE_FILTER_TC_S,
+        maxVelocityDict: effectiveMaxVelocity.toDict(),
+        maxAccelerationDict: effectiveMaxAcceleration.toDict(),
+        qPositionMeters: qPosition.to('m').scalar,
+        qVelocityMPS: qVelocity.to('m/s').scalar,
+        rVolts: rVolts.to('V').scalar,
+        sensorDelaySeconds: sensorDelay.to('s').scalar,
+        kalmanFilterPositionStdDev: kalmanFilterPositionStdDev.toDict(),
+        kalmanFilterVelocityStdDev: kalmanFilterVelocityStdDev.toDict(),
+        kalmanFilterEncoderPositionStdDev:
+          kalmanFilterEncoderPositionStdDev.toDict(),
+      })
       .then((states) => {
         setWorkerWpilibSimStates(states);
         setIsSimulating(false);
@@ -359,6 +381,9 @@ export default function Linear() {
     qVelocity,
     rVolts,
     sensorDelay,
+    kalmanFilterPositionStdDev,
+    kalmanFilterVelocityStdDev,
+    kalmanFilterEncoderPositionStdDev,
   ]);
 
   const userStatorAmps = statorLimit.to('A').scalar;
@@ -374,26 +399,38 @@ export default function Linear() {
 
     optimizerPool
       .exec('optimizeConfiguration', [
-        motor.toDict(),
-        load.toDict(),
-        spoolDiameter.toDict(),
-        travelDistance.toDict(),
-        batteryResistance.toDict(),
-        supplyVoltage.toDict(),
-        maximumComfortableStatorLimit.toDict(),
-        maximumComfortableSupplyLimit.toDict(),
-        angle.toDict(),
-        efficiency / 100,
-        cascade,
-        BATTERY_VOLTAGE_FILTER_TC_S,
-        priorities,
-        tierTolerance / 100,
-        enableCustomMaxVelocity ? maxVelocity.to('m/s').scalar : null,
-        enableCustomMaxAcceleration ? maxAcceleration.to('m/s^2').scalar : null,
-        qPosition.to('m').scalar,
-        qVelocity.to('m/s').scalar,
-        rVolts.to('V').scalar,
-        sensorDelay.to('s').scalar,
+        {
+          motorDict: motor.toDict(),
+          loadDict: load.toDict(),
+          spoolDiameterDict: spoolDiameter.toDict(),
+          travelDistanceDict: travelDistance.toDict(),
+          batteryResistanceDict: batteryResistance.toDict(),
+          batteryVoltageDict: supplyVoltage.toDict(),
+          maximumComfortableStatorLimitDict:
+            maximumComfortableStatorLimit.toDict(),
+          maximumComfortableSupplyLimitDict:
+            maximumComfortableSupplyLimit.toDict(),
+          angleDict: angle.toDict(),
+          efficiency: efficiency / 100,
+          cascade,
+          batteryVoltageFilterTimeConstantSeconds: BATTERY_VOLTAGE_FILTER_TC_S,
+          priorities,
+          prioritySlack: tierTolerance / 100,
+          maxVelocityMPS: enableCustomMaxVelocity
+            ? maxVelocity.to('m/s').scalar
+            : null,
+          maxAccelerationMPS2: enableCustomMaxAcceleration
+            ? maxAcceleration.to('m/s^2').scalar
+            : null,
+          qPositionMeters: qPosition.to('m').scalar,
+          qVelocityMPS: qVelocity.to('m/s').scalar,
+          rVolts: rVolts.to('V').scalar,
+          sensorDelaySeconds: sensorDelay.to('s').scalar,
+          kalmanFilterPositionStdDevDict: kalmanFilterPositionStdDev.toDict(),
+          kalmanFilterVelocityStdDevDict: kalmanFilterVelocityStdDev.toDict(),
+          kalmanFilterEncoderPositionStdDevDict:
+            kalmanFilterEncoderPositionStdDev.toDict(),
+        },
       ])
       .then((result: ConfigOptOutput) => {
         if (gen !== configOptGeneration.current) return;
@@ -425,6 +462,9 @@ export default function Linear() {
     maxVelocity,
     maxAcceleration,
     sensorDelay,
+    kalmanFilterPositionStdDev,
+    kalmanFilterVelocityStdDev,
+    kalmanFilterEncoderPositionStdDev,
   ]);
 
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
@@ -450,6 +490,9 @@ export default function Linear() {
     qVelocity,
     rVolts,
     sensorDelay,
+    kalmanFilterPositionStdDev,
+    kalmanFilterVelocityStdDev,
+    kalmanFilterEncoderPositionStdDev,
   });
 
   return (
@@ -676,6 +719,38 @@ export default function Linear() {
                         labelAbove
                       />
                     </IOLine>
+                    <IOLine>
+                      <MeasurementInput
+                        stateHook={[
+                          kalmanFilterPositionStdDev,
+                          setKalmanFilterPositionStdDev,
+                        ]}
+                        label="Kalman Filter Position Std Dev"
+                        tooltip="The standard deviation of the position error for the Kalman filter."
+                        testId="kalmanFilterPositionStdDev"
+                        labelAbove
+                      />
+                      <MeasurementInput
+                        stateHook={[
+                          kalmanFilterVelocityStdDev,
+                          setKalmanFilterVelocityStdDev,
+                        ]}
+                        label="Kalman Filter Velocity Std Dev"
+                        tooltip="The standard deviation of the velocity error for the Kalman filter."
+                        testId="kalmanFilterVelocityStdDev"
+                        labelAbove
+                      />
+                      <MeasurementInput
+                        stateHook={[
+                          kalmanFilterEncoderPositionStdDev,
+                          setKalmanFilterEncoderPositionStdDev,
+                        ]}
+                        label="Kalman Filter Encoder Position Std Dev"
+                        tooltip="The standard deviation of the encoder position error for the Kalman filter."
+                        testId="kalmanFilterEncoderPositionStdDev"
+                        labelAbove
+                      />
+                    </IOLine>
                   </div>
                 </CollapsibleContent>
               </Collapsible>
@@ -771,8 +846,22 @@ export default function Linear() {
                           style: { textAnchor: 'middle' },
                         }}
                       />
-                      <Tooltip />
-                      <Legend verticalAlign="top" />
+                      <Tooltip
+                        formatter={(value) =>
+                          typeof value === 'number' && Number.isFinite(value)
+                            ? value.toFixed(3)
+                            : String(value)
+                        }
+                        labelFormatter={(label) =>
+                          typeof label === 'number' && Number.isFinite(label)
+                            ? label.toFixed(3)
+                            : String(label)
+                        }
+                      />
+                      <Legend
+                        verticalAlign="top"
+                        wrapperStyle={{ paddingBottom: 20 }}
+                      />
                       <Line
                         name={`Position (${travelDistance.units()})`}
                         dataKey="positionConverted"

@@ -74,7 +74,7 @@ export default class Measurement extends Model {
       case 'speed':
         return ['in/s', 'ft/s', 'mph', 'm/s', 'kph'];
       case 'time':
-        return ['s', 'min', 'hr'];
+        return ['s', 'ms', 'min', 'hr'];
       case 'pressure':
         return ['psi', 'Pa'];
       case 'current':

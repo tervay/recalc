@@ -1,34 +1,29 @@
-import { maxBy } from 'es-toolkit';
 import minimize from 'minimize-golden-section-1d';
 import workerpool from 'workerpool';
 
 import type { DCMotor } from '~/lib/generated/wpilibc/wpilibc_wasm';
+import {
+  type OptimizationPriority,
+  type SimState,
+  type MetricSource,
+  peakSupplyCurrent,
+  selectBest,
+  makeGrid,
+} from '~/lib/math/optimizerUtils';
 import type { MeasurementDict } from '~/lib/models/Measurement';
 import Measurement from '~/lib/models/Measurement';
 import Motor, { type MotorDict } from '~/lib/models/Motor';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
 
-export type OptimizationPriority =
-  | 'timeToGoal'
-  | 'peakCurrent'
-  | 'energy'
-  | 'avgPower';
-
-export interface FlywheelOptimizerResult {
+export interface FlywheelOptimizerResult extends MetricSource {
   statorLimitAmps: number;
   optimalRatio: number;
-  timeToGoalSeconds: number;
-  energyJoules: number;
-  peakSupplyCurrentAmps: number;
 }
 
-export interface FlywheelConfigOptResult {
+export interface FlywheelConfigOptResult extends MetricSource {
   statorLimitAmps: number;
   supplyLimitAmps: number;
   optimalRatio: number;
-  timeToGoalSeconds: number;
-  peakSupplyCurrentAmps: number;
-  energyJoules: number;
   success: boolean;
 }
 
@@ -37,13 +32,6 @@ export interface FlywheelConfigOptOutput {
   tier1Count: number;
   tier2Count: number;
   allResults: FlywheelConfigOptResult[];
-}
-
-interface SimState {
-  supplyCurrentDrawAmps: number;
-  timeSeconds: number;
-  energyJoules: number;
-  success: boolean;
 }
 
 interface MechParams {
@@ -112,67 +100,6 @@ function simulate(
   );
 }
 
-function peakSupplyCurrent(states: SimState[]): number {
-  return (
-    maxBy(states, (s) => s.supplyCurrentDrawAmps)?.supplyCurrentDrawAmps ?? 0
-  );
-}
-
-function getMetric(
-  r: FlywheelConfigOptResult,
-  priority: OptimizationPriority,
-): number {
-  switch (priority) {
-    case 'timeToGoal':
-      return r.timeToGoalSeconds;
-    case 'peakCurrent':
-      return r.peakSupplyCurrentAmps;
-    case 'energy':
-      return r.energyJoules;
-    case 'avgPower':
-      return r.timeToGoalSeconds > 0
-        ? r.energyJoules / r.timeToGoalSeconds
-        : Number.POSITIVE_INFINITY;
-  }
-}
-
-function selectBest(
-  candidates: FlywheelConfigOptResult[],
-  priorities: OptimizationPriority[],
-  tolerance: number,
-): {
-  result: FlywheelConfigOptResult;
-  tier1Count: number;
-  tier2Count: number;
-} {
-  let pool = candidates;
-  const multiplier = 1 + tolerance;
-
-  const best0 = Math.min(...pool.map((r) => getMetric(r, priorities[0])));
-  const tier1 = pool.filter(
-    (r) => getMetric(r, priorities[0]) <= best0 * multiplier,
-  );
-  pool = tier1;
-
-  const best1 = Math.min(...pool.map((r) => getMetric(r, priorities[1])));
-  const tier2 = pool.filter(
-    (r) => getMetric(r, priorities[1]) <= best1 * multiplier,
-  );
-  pool = tier2;
-
-  for (let i = 2; i < priorities.length - 1; i++) {
-    const best = Math.min(...pool.map((r) => getMetric(r, priorities[i])));
-    pool = pool.filter((r) => getMetric(r, priorities[i]) <= best * multiplier);
-  }
-
-  const last = priorities[priorities.length - 1];
-  const result = pool.reduce((acc, r) =>
-    getMetric(r, last) < getMetric(acc, last) ? r : acc,
-  );
-
-  return { result, tier1Count: tier1.length, tier2Count: tier2.length };
-}
-
 async function optimizeRatio(
   motorDict: MotorDict,
   moiDict: MeasurementDict,
@@ -238,7 +165,7 @@ async function optimizeRatio(
     optimalRatio,
     timeToGoalSeconds: last.timeSeconds,
     energyJoules: last.energyJoules,
-    peakSupplyCurrentAmps: peakSupplyCurrent(states),
+    peakCurrentAmps: peakSupplyCurrent(states),
   };
 }
 
@@ -275,11 +202,6 @@ async function optimizeConfiguration(
   const maxSupply = Measurement.fromDict(maximumComfortableSupplyLimitDict).to(
     'A',
   ).scalar;
-
-  const makeGrid = (max: number) =>
-    Array.from({ length: Math.ceil(max / 10) }, (_, i) =>
-      Math.min((i + 1) * 10, max),
-    );
 
   const motorFreeSpeedRadPerSec = p.wpilibMotor.getFreeSpeedRadPerSec();
   const maxRatio =
@@ -321,7 +243,7 @@ async function optimizeConfiguration(
           supplyLimitAmps: supplyAmps,
           optimalRatio: NaN,
           timeToGoalSeconds: Number.POSITIVE_INFINITY,
-          peakSupplyCurrentAmps: 0,
+          peakCurrentAmps: 0,
           energyJoules: 0,
           success: false,
         });
@@ -343,7 +265,7 @@ async function optimizeConfiguration(
         supplyLimitAmps: supplyAmps,
         optimalRatio,
         timeToGoalSeconds: last.timeSeconds,
-        peakSupplyCurrentAmps: peakSupplyCurrent(states),
+        peakCurrentAmps: peakSupplyCurrent(states),
         energyJoules: last.energyJoules,
         success: last.success,
       });
