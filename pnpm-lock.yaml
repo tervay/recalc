@@ -109,8 +109,8 @@ importers:
         specifier: 1.2.33
         version: 1.2.33
       '@playwright/test':
-        specifier: 1.59.0
-        version: 1.59.0
+        specifier: 1.59.1
+        version: 1.59.1
       '@react-router/dev':
         specifier: 7.13.2
         version: 7.13.2(@react-router/serve@7.13.2(react-router@7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@6.0.2))(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(react-router@7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(tsx@4.21.0)(typescript@6.0.2)(vite@8.0.3(@types/node@25.5.0)(esbuild@0.27.4)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.3))(yaml@2.8.3)
@@ -971,8 +971,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@playwright/test@1.59.0':
-    resolution: {integrity: sha512-TOA5sTLd49rTDaZpYpvCQ9hGefHQq/OYOyCVnGqS2mjMfX+lGZv2iddIJd0I48cfxqSPttS9S3OuLKyylHcO1w==}
+  '@playwright/test@1.59.1':
+    resolution: {integrity: sha512-PG6q63nQg5c9rIi4/Z5lR5IVF7yU5MqmKaPOe0HSc0O2cX1fPi96sUQu5j7eo4gKCkB2AnNGoWt7y4/Xx3Kcqg==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -3546,13 +3546,13 @@ packages:
   pkg-types@2.3.0:
     resolution: {integrity: sha512-SIqCzDRg0s9npO5XQ3tNZioRY1uK06lA41ynBC1YmFTmnY6FjUjVt6s4LoADmwoig1qqD0oK8h1p/8mlMx8Oig==}
 
-  playwright-core@1.59.0:
-    resolution: {integrity: sha512-PW/X/IoZ6BMUUy8rpwHEZ8Kc0IiLIkgKYGNFaMs5KmQhcfLILNx9yCQD0rnWeWfz1PNeqcFP1BsihQhDOBCwZw==}
+  playwright-core@1.59.1:
+    resolution: {integrity: sha512-HBV/RJg81z5BiiZ9yPzIiClYV/QMsDCKUyogwH9p3MCP6IYjUFu/MActgYAvK0oWyV9NlwM3GLBjADyWgydVyg==}
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright@1.59.0:
-    resolution: {integrity: sha512-wihGScriusvATUxmhfENxg0tj1vHEFeIwxlnPFKQTOQVd7aG08mUfvvniRP/PtQOC+2Bs52kBOC/Up1jTXeIbw==}
+  playwright@1.59.1:
+    resolution: {integrity: sha512-C8oWjPR3F81yljW9o5OxcWzfh6avkVwDD2VYdwIGqTkl+OGFISgypqzfu7dOe4QNLL2aqcWBmI3PMtLIK233lw==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -4909,9 +4909,9 @@ snapshots:
   '@oxlint/binding-win32-x64-msvc@1.58.0':
     optional: true
 
-  '@playwright/test@1.59.0':
+  '@playwright/test@1.59.1':
     dependencies:
-      playwright: 1.59.0
+      playwright: 1.59.1
 
   '@radix-ui/number@1.1.1': {}
 
@@ -7407,11 +7407,11 @@ snapshots:
       exsolve: 1.0.8
       pathe: 2.0.3
 
-  playwright-core@1.59.0: {}
+  playwright-core@1.59.1: {}
 
-  playwright@1.59.0:
+  playwright@1.59.1:
     dependencies:
-      playwright-core: 1.59.0
+      playwright-core: 1.59.1
     optionalDependencies:
       fsevents: 2.3.2
 
