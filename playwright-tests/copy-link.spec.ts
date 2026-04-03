@@ -189,7 +189,6 @@ test.describe('Copy Link', () => {
     await page.getByTestId('statorLimit').fill('50');
     await page.getByTestId('supplyLimit').fill('70');
     await page.getByTestId('supplyVoltage').fill('12.6');
-    await page.getByTestId('statorVoltage').fill('11');
     await page.getByTestId('angle').fill('45');
     await page.getByTestId('batteryResistance').fill('0.03');
     await page.getByTestId('cascade').click();

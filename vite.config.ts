@@ -62,4 +62,9 @@ export default defineConfig({
       maxOutputLength: Infinity,
     },
   },
+  server: {
+    watch: {
+      ignored: ['playwright-tests/**'],
+    },
+  },
 });
