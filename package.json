@@ -95,7 +95,7 @@
     "eslint-plugin-prettier": "5.5.5",
     "eslint-plugin-react": "7.34.1",
     "jsdom": "29.0.1",
-    "prettier": "3.8.1",
+    "prettier": "3.8.2",
     "prettier-plugin-organize-imports": "4.3.0",
     "sass": "1.77.2",
     "source-map-explorer": "2.5.3",
