@@ -45,7 +45,7 @@
     "ts-toolbelt": "9.6.0",
     "typescript": "5.9.3",
     "use-query-params": "2.2.1",
-    "vitest": "4.0.18",
+    "vitest": "4.1.4",
     "web-vitals": "3.5.2"
   },
   "scripts": {
