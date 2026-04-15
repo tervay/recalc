@@ -6,7 +6,6 @@ import tailwindcss from '@tailwindcss/vite';
 import Icons from 'unplugin-icons/vite';
 import { comlink } from 'vite-plugin-comlink';
 import Sitemap from 'vite-plugin-sitemap';
-import topLevelAwait from 'vite-plugin-top-level-await';
 import { defineConfig } from 'vitest/config';
 
 function routesFromConfig(): string[] {
@@ -28,7 +27,6 @@ export default defineConfig({
     tailwindcss(),
     reactRouter(),
     comlink(),
-    topLevelAwait(),
     Icons({
       compiler: 'jsx',
       jsx: 'react',
@@ -47,7 +45,7 @@ export default defineConfig({
     }),
   ],
   worker: {
-    plugins: () => [comlink(), topLevelAwait()],
+    plugins: () => [comlink()],
     format: 'es',
   },
   resolve: {

@@ -1,17 +1,11 @@
 import { isbot } from 'isbot';
 import { NuqsAdapter } from 'nuqs/adapters/react-router/v7';
 import { type ReactNode, useEffect } from 'react';
-import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-  isRouteErrorResponse,
-} from 'react-router';
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
 
 import '~/app.css';
 import { AppSidebar } from '~/components/recalc/appSidebar';
+import { ErrorDisplay } from '~/components/recalc/errorDisplay';
 import Nav from '~/components/recalc/nav';
 import { ThemeProvider } from '~/components/recalc/themeProvider';
 import { SidebarInset, SidebarProvider } from '~/components/ui/sidebar';
@@ -88,30 +82,5 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = 'Oops!';
-  let details = 'An unexpected error occurred.';
-  let stack: string | undefined;
-
-  if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? '404' : 'Error';
-    details =
-      error.status === 404
-        ? 'The requested page could not be found.'
-        : error.statusText || details;
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
-    details = error.message;
-    stack = error.stack;
-  }
-
-  return (
-    <main className="container mx-auto p-4 pt-16">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full overflow-x-auto p-4">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
-  );
+  return <ErrorDisplay error={error} />;
 }

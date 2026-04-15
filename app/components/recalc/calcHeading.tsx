@@ -3,6 +3,7 @@ import CheckIcon from '~icons/lucide/check';
 import LinkIcon from '~icons/lucide/link';
 
 import { Button } from '~/components/ui/button';
+import { useAnalytics } from '~/hooks/useAnalytics';
 
 // rounded-md = calc(var(--radius) - 2px) = calc(0.75rem - 2px) = 10px
 const RADIUS = 10;
@@ -27,6 +28,7 @@ export default function CalcHeading({
   const [copied, setCopied] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [dims, setDims] = useState<{ w: number; h: number } | null>(null);
+  const { track } = useAnalytics();
 
   useEffect(() => {
     if (copied && wrapperRef.current) {
@@ -52,6 +54,7 @@ export default function CalcHeading({
                 '?' +
                 getSerializedState(),
             );
+            track('copy-link', { calculator: title });
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
           }}
