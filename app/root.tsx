@@ -15,12 +15,14 @@ import type { Route } from '.react-router/types/app/+types/root';
 
 function UmamiScript() {
   useEffect(() => {
+    if (import.meta.env.DEV) return;
     if (isbot(navigator.userAgent)) return;
 
     const script = document.createElement('script');
     script.src = 'https://um.reca.lc/script.js';
     script.defer = true;
     script.dataset.websiteId = 'cdd6f06a-3164-4eb6-a18c-0111d77d6f99';
+    script.dataset.performance = 'true';
     document.head.appendChild(script);
   }, []);
 
