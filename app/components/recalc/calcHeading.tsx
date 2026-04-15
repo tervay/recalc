@@ -4,6 +4,7 @@ import LinkIcon from '~icons/lucide/link';
 
 import { Button } from '~/components/ui/button';
 import { useAnalytics } from '~/hooks/useAnalytics';
+import { MotorParam } from '~/lib/types/queryParams';
 
 // rounded-md = calc(var(--radius) - 2px) = calc(0.75rem - 2px) = 10px
 const RADIUS = 10;
@@ -54,7 +55,14 @@ export default function CalcHeading({
                 '?' +
                 getSerializedState(),
             );
-            track('copy-link', { calculator: title });
+            const motorRaw = new URLSearchParams(window.location.search).get(
+              'motor',
+            );
+            const motor = motorRaw !== null ? MotorParam.parse(motorRaw) : null;
+            track('copy-link', {
+              calculator: title,
+              ...(motor !== null && { motor: motor.identifier }),
+            });
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
           }}
