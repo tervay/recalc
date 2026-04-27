@@ -85,17 +85,17 @@ importers:
         specifier: 1.2.4
         version: 1.2.4
       '@iconify-json/fluent':
-        specifier: 1.2.45
-        version: 1.2.45
+        specifier: 1.2.46
+        version: 1.2.46
       '@iconify-json/line-md':
         specifier: 1.2.16
         version: 1.2.16
       '@iconify-json/lucide':
-        specifier: 1.2.102
-        version: 1.2.102
+        specifier: 1.2.104
+        version: 1.2.104
       '@iconify-json/material-symbols':
-        specifier: 1.2.68
-        version: 1.2.68
+        specifier: 1.2.69
+        version: 1.2.69
       '@iconify-json/mdi':
         specifier: 1.2.3
         version: 1.2.3
@@ -730,17 +730,17 @@ packages:
   '@iconify-json/fa7-solid@1.2.4':
     resolution: {integrity: sha512-Ns+ABU21PQpTjMZZ8idaQ9CDNYxjCJ/HY4+gkDsnAiJLkISMB2WIjoR2sjEj+Yok72sFwhXdYKBxwfRaGlwVpA==}
 
-  '@iconify-json/fluent@1.2.45':
-    resolution: {integrity: sha512-gdlHc/HpvogYxocfCCg46V3A0wtAsGVBRr3FtTTmUnUyF4kaTnYe2cxdPOUj+gUBK8PZlvXqTmrQ5GTt20f4Jw==}
+  '@iconify-json/fluent@1.2.46':
+    resolution: {integrity: sha512-D/nsKOYT8ttULt2WJGF0lc0FtVHmEYizzdrO0duAasLYnKLAcdp3I/fCIpHh5a2kKdE5pcFyXeP0UsEZ0fG7WA==}
 
   '@iconify-json/line-md@1.2.16':
     resolution: {integrity: sha512-esHPUQUp30NyqJWa7MNu6ExdG8z/aEFC5r56rVyRGhtJ7acOme6YtYPnDOgVu6p+kk24rM8602xkFuBC6g6x+w==}
 
-  '@iconify-json/lucide@1.2.102':
-    resolution: {integrity: sha512-Dm3EEqu5NrmzyDMB2U1+8yroEj2/dB9V4KlH0m/szwwF/ofSf0cPaGTZqkd1aExXjCor+vU53ttRMCGuXf+/cg==}
+  '@iconify-json/lucide@1.2.104':
+    resolution: {integrity: sha512-Vh4VPA/UNFhSPzEdDnSuOPA1xO6b/kI1w4SLBEiKnsFYPWimq2tVDynMgKnwddz6iZpuZfZU4PXR6kn0hJayKw==}
 
-  '@iconify-json/material-symbols@1.2.68':
-    resolution: {integrity: sha512-MGo7A6j+evFoks/kIZAdAKMSKl24ARa19bUvXMw/RVFKuMo2tIc27HZitTuXna858pvhjzMaFq8UrXaKqbQGjA==}
+  '@iconify-json/material-symbols@1.2.69':
+    resolution: {integrity: sha512-N5n1p1vXsSJag9RmorZAwN5f5rs0lJfYa5xKs1FGKNV9DerVlMqG4nCYOoCb7XjwWWT1o+1Dc9Uu/cmDtCnb8Q==}
 
   '@iconify-json/mdi@1.2.3':
     resolution: {integrity: sha512-O3cLwbDOK7NNDf2ihaQOH5F9JglnulNDFV7WprU2dSoZu3h3cWH//h74uQAB87brHmvFVxIOkuBX2sZSzYhScg==}
@@ -4786,7 +4786,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/fluent@1.2.45':
+  '@iconify-json/fluent@1.2.46':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -4794,11 +4794,11 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/lucide@1.2.102':
+  '@iconify-json/lucide@1.2.104':
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/material-symbols@1.2.68':
+  '@iconify-json/material-symbols@1.2.69':
     dependencies:
       '@iconify/types': 2.0.0
 
