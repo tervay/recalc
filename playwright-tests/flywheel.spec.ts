@@ -494,4 +494,43 @@ test.describe('Flywheel Calculator', () => {
       name: 'effectiveMoi-changed.yaml',
     });
   });
+
+  test('should match snapshot with compound mode selected', async ({
+    page,
+  }) => {
+    await page.getByTestId('shooterMode').click();
+    await page
+      .getByRole('option', { name: 'Compound (Single + Dual)' })
+      .click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'shooterMode-compound.yaml',
+    });
+  });
+
+  test('should match snapshot with ballInitialVelocity changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('ballInitialVelocity').fill('5');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'ballInitialVelocity-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with ballInitialSpin changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('ballInitialSpin').fill('100');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'ballInitialSpin-changed.yaml',
+    });
+  });
 });

@@ -5,7 +5,7 @@
   - text: Copy Link
 - heading "Motors & Electrical" [level=2]
 - text: Motor
-- spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Target Speed Shooter Weight Max Achievable RPM Shooter MOI Projectile Diameter Projectile Weight Ball Initial Velocity Ball Initial Spin Ball MOI Max Stator Limit Max Supply Limit": "2"
+- spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Target Speed Shooter Weight Max Achievable RPM Shooter MOI Secondary Shooter Diameter Secondary Shooter Weight Secondary to Primary Ratio Secondary Shooter MOI Projectile Diameter Projectile Weight Ball Initial Velocity Ball Initial Spin Ball MOI Max Stator Limit Max Supply Limit": "2"
 - combobox: Kraken X60 (FOC)
 - text: Efficiency (%)
 - spinbutton: "100"
@@ -16,7 +16,7 @@
 - spinbutton: "80"
 - combobox: A
 - text: Supply Limit
-- spinbutton: "10"
+- spinbutton: "60"
 - combobox: A
 - text: Supply Voltage
 - spinbutton: "12.6"
@@ -26,7 +26,7 @@
 - combobox: Ohm
 - heading "Shooter Wheel" [level=2]
 - text: Type
-- combobox: Single Shooter Wheel + Hood
+- combobox: Compound (Single + Dual)
 - text: Shooter Diameter
 - spinbutton: "4"
 - combobox: in
@@ -44,6 +44,21 @@
 - combobox: in2*lbs
 - switch "Use Custom Shooter MOI"
 - text: Use Custom Shooter MOI
+- heading "Secondary Shooter Wheel" [level=2]
+- text: Secondary Shooter Diameter
+- spinbutton: "4"
+- combobox: in
+- text: Secondary Shooter Weight
+- spinbutton: "1"
+- combobox: lbs
+- text: Secondary to Primary Ratio
+- spinbutton: "1"
+- combobox: Reduction
+- text: Secondary Shooter MOI
+- spinbutton [disabled]: "2.000"
+- combobox: in2*lbs
+- switch "Use Custom Secondary Shooter MOI"
+- text: Use Custom Secondary Shooter MOI
 - heading "Flywheel" [level=2]
 - switch "Enabled"
 - text: Enabled
@@ -64,9 +79,9 @@
 - spinbutton [disabled]: "1.250"
 - combobox: in2*lbs
 - switch "Use Custom Ball MOI"
-- text: Use Custom Ball MOI Spinup Time 0.152
+- text: Use Custom Ball MOI Spinup Time 0.118
 - combobox: s
-- text: Recovery Time 0.058
+- text: Recovery Time 0.035
 - combobox: s
 - heading "Simulation" [level=2]
 - list:
@@ -82,21 +97,21 @@
   - listitem:
     - img "Supply Current (A) legend icon"
     - text: Supply Current (A)
-- application: Time (s) Current (A) / Voltage (V) Angular Velocity (RPM) 0.0155 0.0355 0.0555 0.0755 0.0955 0.111 0.126 0.141 0.152 0 35 70 105 140 0 800 1600 2400 3200
+- application: Time (s) Current (A) / Voltage (V) Angular Velocity (RPM) 0.0105 0.0255 0.0405 0.0555 0.0705 0.0855 0.101 0.111 0.118 0 40 80 120 160 0 800 1600 2400 3200
 - text: kV 0.390
 - combobox: V*s/m
-- text: kA 0.046
+- text: kA 0.092
 - combobox: V*s^2/m
-- text: Effective MOI 2.000
+- text: Effective MOI 4.000
 - combobox: in2*lbs
 - heading "Shot Analysis" [level=2]
-- text: Ball Exit Velocity 19.393
+- text: Ball Exit Velocity 37.135
 - combobox: ft/s
-- text: Ball Spin Rate 889
+- text: Ball Spin Rate 0
 - combobox: rpm
-- text: Energy to Ball 5.547
+- text: Energy to Ball 14.528
 - combobox: J
-- text: Speed Drop 778
+- text: Speed Drop 872
 - combobox: rpm
-- text: Post-Shot Speed 2222
+- text: Post-Shot Speed 2128
 - combobox: rpm

@@ -26,6 +26,15 @@ export default class Ratio extends Model {
       : 1.0 / this.magnitude;
   }
 
+  inverse(): Ratio {
+    return new Ratio(
+      this.magnitude,
+      this.ratioType === RatioType.REDUCTION
+        ? RatioType.STEP_UP
+        : RatioType.REDUCTION,
+    );
+  }
+
   toDict(): RatioDict {
     return {
       magnitude: this.magnitude,
