@@ -5,7 +5,7 @@
   - text: Copy Link
 - heading "Motors & Electrical" [level=2]
 - text: Motor
-- spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Target Speed Shooter Weight Max Achievable RPM Shooter MOI Projectile Diameter Projectile Weight Max Stator Limit Max Supply Limit": "1"
+- spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Target Speed Shooter Weight Max Achievable RPM Shooter MOI Projectile Diameter Projectile Weight Ball Initial Velocity Ball Initial Spin Ball MOI Max Stator Limit Max Supply Limit": "1"
 - combobox: Kraken X60 (FOC)
 - text: Efficiency (%)
 - spinbutton: "100"
@@ -25,6 +25,8 @@
 - spinbutton: "0.015"
 - combobox: Ohm
 - heading "Shooter Wheel" [level=2]
+- text: Type
+- combobox: Single Shooter Wheel + Hood
 - text: Shooter Diameter
 - spinbutton: "4"
 - combobox: in
@@ -52,9 +54,19 @@
 - text: Projectile Weight
 - spinbutton: "0.5"
 - combobox: lbs
-- text: Spinup Time 0.118
+- text: Ball Initial Velocity
+- spinbutton: "0"
+- combobox: ft/s
+- text: Ball Initial Spin
+- spinbutton: "0"
+- combobox: rpm
+- text: Ball MOI
+- spinbutton [disabled]: "1.250"
+- combobox: in2*lbs
+- switch "Use Custom Ball MOI"
+- text: Use Custom Ball MOI Spinup Time 0.118
 - combobox: s
-- text: Recovery Time 0.027
+- text: Recovery Time 0.031
 - combobox: s
 - heading "Simulation" [level=2]
 - list:
@@ -78,13 +90,13 @@
 - text: Effective MOI 2.000
 - combobox: in2*lbs
 - heading "Shot Analysis" [level=2]
-- text: Ball Exit Velocity 11.636
+- text: Ball Exit Velocity 19.393
 - combobox: ft/s
-- text: Ball Spin Rate 1333
+- text: Ball Spin Rate 889
 - combobox: rpm
-- text: Energy to Ball 1.997
+- text: Energy to Ball 5.547
 - combobox: J
-- text: Speed Drop 667
+- text: Speed Drop 778
 - combobox: rpm
-- text: Post-Shot Speed 2333
+- text: Post-Shot Speed 2222
 - combobox: rpm

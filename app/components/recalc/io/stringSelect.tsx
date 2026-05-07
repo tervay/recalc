@@ -6,8 +6,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select';
-import type { HasStateHook } from '~/lib/types/common';
-
 interface SelectStringInputChoice {
   label: string;
   value: string;
@@ -18,10 +16,13 @@ export function StringSelectInput({
   choices,
   label,
   testId,
-}: HasStateHook<string> & {
+  triggerClassName = 'w-[180px]',
+}: {
+  stateHook: [string, (value: string) => void];
   choices: SelectStringInputChoice[];
   label: string;
   testId?: string;
+  triggerClassName?: string;
 }) {
   const [value, setValue] = stateHook;
 
@@ -29,7 +30,7 @@ export function StringSelectInput({
     <div className="flex flex-row">
       <Label className="mr-2 text-nowrap">{label}</Label>
       <Select value={value} onValueChange={setValue}>
-        <SelectTrigger className="w-[180px]" data-testid={testId}>
+        <SelectTrigger className={triggerClassName} data-testid={testId}>
           <SelectValue />
         </SelectTrigger>
         <SelectContent>

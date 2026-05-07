@@ -3,220 +3,544 @@ import { describe, expect, it } from 'vitest';
 import { computeShotResult } from '~/lib/math/ballShot';
 import Measurement from '~/lib/models/Measurement';
 
-describe('computeShotResult', () => {
-  it('post-shot speed equals pre-shot speed when ball mass is zero', () => {
-    // Zero ball mass → no momentum exchange → ωf = ω₀.
-    // Lynbrook model: V_b = (2/7)·ωf·r, so exit velocity = (2/7)·surface speed.
-    const result = computeShotResult(
-      new Measurement(3000, 'rpm'),
-      new Measurement(3, 'in'),
-      new Measurement(7.5, 'in2*lbs'),
-      new Measurement(0, 'lb'),
-      new Measurement(3.5, 'in'),
-    );
-    const surfaceSpeed = ((3000 * (2 * Math.PI)) / 60) * (3 * 0.0254);
-    expect(result.postShotOmega.to('rpm').scalar).toBeCloseTo(3000, 3);
+// Solid-sphere MOI helper: I = (2/5) * m * r^2
+function solidSphereMoi(massKg: number, radiusM: number): Measurement {
+  return new Measurement((2 / 5) * massKg * radiusM * radiusM, 'kg*m^2');
+}
+
+// Solid-disk MOI helper: I = (1/2) * m * r^2
+function solidDiskMoi(massKg: number, radiusM: number): Measurement {
+  return new Measurement(0.5 * massKg * radiusM * radiusM, 'kg*m^2');
+}
+
+const BASE_BALL_MASS = new Measurement(0.2268, 'kg');
+const BASE_BALL_RADIUS = new Measurement(0.07506, 'm');
+const BASE_BALL_MOI = solidSphereMoi(0.2268, 0.07506);
+const BASE_SHOOTER_RADIUS = new Measurement(0.0508, 'm');
+const BASE_COMBINED_MOI = new Measurement(1.463e-3, 'kg*m^2');
+const BASE_OMEGA = new Measurement(622, 'rad/s');
+
+describe('single-hooded', () => {
+  it('m_b = 0 and I_b = 0 → ω_wf === ω_wi and V_bf === ω_wi·r_w/2', () => {
+    const result = computeShotResult({
+      mode: 'single-hooded',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: BASE_SHOOTER_RADIUS,
+      combinedMOI: BASE_COMBINED_MOI,
+      ballMass: new Measurement(0, 'kg'),
+      ballRadius: BASE_BALL_RADIUS,
+      ballMOI: new Measurement(0, 'kg*m^2'),
+    });
+    const omegaWi = BASE_OMEGA.to('rad/s').scalar;
+    const rW = BASE_SHOOTER_RADIUS.to('m').scalar;
+    expect(result.postShotOmega.to('rad/s').scalar).toBeCloseTo(omegaWi, 5);
     expect(result.exitVelocity.to('m/s').scalar).toBeCloseTo(
-      (2 / 7) * surfaceSpeed,
-      3,
+      (rW / 2) * omegaWi,
+      5,
     );
   });
 
-  it('post-shot speed and exit velocity approach zero when MOI is zero', () => {
-    const result = computeShotResult(
-      new Measurement(3000, 'rpm'),
-      new Measurement(3, 'in'),
-      new Measurement(0, 'in2*lbs'),
-      new Measurement(0.5, 'lb'),
-      new Measurement(3.5, 'in'),
-    );
-    expect(result.postShotOmega.to('rpm').scalar).toBeCloseTo(0, 5);
-    expect(result.exitVelocity.to('m/s').scalar).toBeCloseTo(0, 5);
+  it('I_w = 0 → all zeros', () => {
+    const result = computeShotResult({
+      mode: 'single-hooded',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: BASE_SHOOTER_RADIUS,
+      combinedMOI: new Measurement(0, 'kg*m^2'),
+      ballMass: BASE_BALL_MASS,
+      ballRadius: BASE_BALL_RADIUS,
+      ballMOI: BASE_BALL_MOI,
+    });
+    expect(result.exitVelocity.to('m/s').scalar).toBe(0);
+    expect(result.postShotOmega.to('rad/s').scalar).toBe(0);
+    expect(result.ballKineticEnergy.to('J').scalar).toBe(0);
+    expect(result.flywheelEnergyLost.to('J').scalar).toBe(0);
   });
 
-  it('speed drop is larger for heavier balls', () => {
-    const base = {
-      omega: new Measurement(3000, 'rpm'),
-      radius: new Measurement(3, 'in'),
-      moi: new Measurement(50, 'in2*lbs'),
-      ballRadius: new Measurement(3.5, 'in'),
-    };
-    const light = computeShotResult(
-      base.omega,
-      base.radius,
-      base.moi,
-      new Measurement(0.3, 'lb'),
-      base.ballRadius,
-    );
-    const heavy = computeShotResult(
-      base.omega,
-      base.radius,
-      base.moi,
-      new Measurement(0.8, 'lb'),
-      base.ballRadius,
-    );
-    expect(light.postShotOmega.to('rpm').scalar).toBeGreaterThan(
-      heavy.postShotOmega.to('rpm').scalar,
-    );
-  });
-
-  it('speed drop is larger for lighter flywheels', () => {
-    const base = {
-      omega: new Measurement(3000, 'rpm'),
-      radius: new Measurement(3, 'in'),
-      ballMass: new Measurement(0.5, 'lb'),
-      ballRadius: new Measurement(3.5, 'in'),
-    };
-    const light = computeShotResult(
-      base.omega,
-      base.radius,
-      new Measurement(10, 'in2*lbs'),
-      base.ballMass,
-      base.ballRadius,
-    );
-    const heavy = computeShotResult(
-      base.omega,
-      base.radius,
-      new Measurement(100, 'in2*lbs'),
-      base.ballMass,
-      base.ballRadius,
-    );
-    expect(light.postShotOmega.to('rpm').scalar).toBeLessThan(
-      heavy.postShotOmega.to('rpm').scalar,
+  it('heavier ball → larger speed drop', () => {
+    const light = computeShotResult({
+      mode: 'single-hooded',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: BASE_SHOOTER_RADIUS,
+      combinedMOI: BASE_COMBINED_MOI,
+      ballMass: new Measurement(0.1, 'kg'),
+      ballRadius: BASE_BALL_RADIUS,
+      ballMOI: solidSphereMoi(0.1, 0.07506),
+    });
+    const heavy = computeShotResult({
+      mode: 'single-hooded',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: BASE_SHOOTER_RADIUS,
+      combinedMOI: BASE_COMBINED_MOI,
+      ballMass: new Measurement(0.5, 'kg'),
+      ballRadius: BASE_BALL_RADIUS,
+      ballMOI: solidSphereMoi(0.5, 0.07506),
+    });
+    expect(light.postShotOmega.to('rad/s').scalar).toBeGreaterThan(
+      heavy.postShotOmega.to('rad/s').scalar,
     );
   });
 
-  it('exit velocity is always less than the initial surface speed', () => {
-    // Lynbrook model: V_b = (2/7)·ωf·r < ω₀·r always
-    const result = computeShotResult(
-      new Measurement(3000, 'rpm'),
-      new Measurement(3, 'in'),
-      new Measurement(7.5, 'in2*lbs'),
-      new Measurement(0.5, 'lb'),
-      new Measurement(3.5, 'in'),
+  it('larger I_w → smaller speed drop', () => {
+    const small = computeShotResult({
+      mode: 'single-hooded',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: BASE_SHOOTER_RADIUS,
+      combinedMOI: new Measurement(0.5e-3, 'kg*m^2'),
+      ballMass: BASE_BALL_MASS,
+      ballRadius: BASE_BALL_RADIUS,
+      ballMOI: BASE_BALL_MOI,
+    });
+    const large = computeShotResult({
+      mode: 'single-hooded',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: BASE_SHOOTER_RADIUS,
+      combinedMOI: new Measurement(10e-3, 'kg*m^2'),
+      ballMass: BASE_BALL_MASS,
+      ballRadius: BASE_BALL_RADIUS,
+      ballMOI: BASE_BALL_MOI,
+    });
+    expect(large.postShotOmega.to('rad/s').scalar).toBeGreaterThan(
+      small.postShotOmega.to('rad/s').scalar,
     );
-    const surfaceSpeed = ((3000 * (2 * Math.PI)) / 60) * (3 * 0.0254);
+  });
+
+  it('V_bf < ω_wi · r_w for any positive m_b', () => {
+    const result = computeShotResult({
+      mode: 'single-hooded',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: BASE_SHOOTER_RADIUS,
+      combinedMOI: BASE_COMBINED_MOI,
+      ballMass: BASE_BALL_MASS,
+      ballRadius: BASE_BALL_RADIUS,
+      ballMOI: BASE_BALL_MOI,
+    });
+    const surfaceSpeed =
+      BASE_OMEGA.to('rad/s').scalar * BASE_SHOOTER_RADIUS.to('m').scalar;
     expect(result.exitVelocity.to('m/s').scalar).toBeLessThan(surfaceSpeed);
   });
 
-  it('ball diameter does not affect speed drop or exit velocity', () => {
-    // r_ball only appears in spin rate formula; ωf and V_b are independent of it
-    const base = {
-      omega: new Measurement(3000, 'rpm'),
-      radius: new Measurement(3, 'in'),
-      moi: new Measurement(50, 'in2*lbs'),
-      mass: new Measurement(0.5, 'lb'),
-    };
-    const small = computeShotResult(
-      base.omega,
-      base.radius,
-      base.moi,
-      base.mass,
-      new Measurement(2, 'in'),
-    );
-    const large = computeShotResult(
-      base.omega,
-      base.radius,
-      base.moi,
-      base.mass,
-      new Measurement(5, 'in'),
-    );
-    expect(small.postShotOmega.to('rpm').scalar).toBeCloseTo(
-      large.postShotOmega.to('rpm').scalar,
-      5,
-    );
-    expect(small.exitVelocity.to('m/s').scalar).toBeCloseTo(
-      large.exitVelocity.to('m/s').scalar,
+  it('ω_bf === V_bf / r_b (no-slip exit invariant)', () => {
+    const result = computeShotResult({
+      mode: 'single-hooded',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: BASE_SHOOTER_RADIUS,
+      combinedMOI: BASE_COMBINED_MOI,
+      ballMass: BASE_BALL_MASS,
+      ballRadius: BASE_BALL_RADIUS,
+      ballMOI: BASE_BALL_MOI,
+    });
+    const vBf = result.exitVelocity.to('m/s').scalar;
+    const rB = BASE_BALL_RADIUS.to('m').scalar;
+    const omegaBfExpected = vBf / rB;
+    const omegaBfActual =
+      (result.exitSpinRate.to('rpm').scalar * 2 * Math.PI) / 60;
+    expect(omegaBfActual).toBeCloseTo(omegaBfExpected, 5);
+
+    // Halving r_b (with rescaled solid-sphere I_b) doubles spin rate
+    const smallR = 0.03753;
+    const smallResult = computeShotResult({
+      mode: 'single-hooded',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: BASE_SHOOTER_RADIUS,
+      combinedMOI: BASE_COMBINED_MOI,
+      ballMass: BASE_BALL_MASS,
+      ballRadius: new Measurement(smallR, 'm'),
+      ballMOI: solidSphereMoi(0.2268, smallR),
+    });
+    const omegaBfSmall =
+      (smallResult.exitSpinRate.to('rpm').scalar * 2 * Math.PI) / 60;
+    expect(omegaBfSmall).toBeCloseTo(
+      smallResult.exitVelocity.to('m/s').scalar / smallR,
       5,
     );
   });
 
-  it('spin rate scales inversely with ball radius', () => {
-    // Lynbrook model: ω_bf = 5·V_b / (2·R_b), so halving R_b doubles spin rate
-    const omega = new Measurement(3000, 'rpm');
-    const shooterRadius = new Measurement(3, 'in');
-    const moi = new Measurement(50, 'in2*lbs');
-    const mass = new Measurement(0.5, 'lb');
-
-    const small = computeShotResult(
-      omega,
-      shooterRadius,
-      moi,
-      mass,
-      new Measurement(2, 'in'),
-    );
-    const large = computeShotResult(
-      omega,
-      shooterRadius,
-      moi,
-      mass,
-      new Measurement(4, 'in'),
-    );
-
-    // Same exit velocity, half the radius → double the spin rate
-    expect(small.exitSpinRate.to('rpm').scalar).toBeCloseTo(
-      large.exitSpinRate.to('rpm').scalar * 2,
-      3,
-    );
-  });
-
-  it('ball KE is less than flywheel energy lost (remainder is friction heat)', () => {
-    // Lynbrook rolling-contact is an inelastic collision: the grip phase
-    // dissipates energy as heat, so ball KE < flywheel energy extracted.
-    const result = computeShotResult(
-      new Measurement(3000, 'rpm'),
-      new Measurement(3, 'in'),
-      new Measurement(50, 'in2*lbs'),
-      new Measurement(0.5, 'lb'),
-      new Measurement(3.5, 'in'),
-    );
-    expect(result.ballKineticEnergy.to('J').scalar).toBeLessThan(
+  it('0 < ballKE ≤ flywheelEnergyLost (inelastic-collision invariant)', () => {
+    const result = computeShotResult({
+      mode: 'single-hooded',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: BASE_SHOOTER_RADIUS,
+      combinedMOI: BASE_COMBINED_MOI,
+      ballMass: BASE_BALL_MASS,
+      ballRadius: BASE_BALL_RADIUS,
+      ballMOI: BASE_BALL_MOI,
+    });
+    expect(result.ballKineticEnergy.to('J').scalar).toBeGreaterThan(0);
+    expect(result.ballKineticEnergy.to('J').scalar).toBeLessThanOrEqual(
       result.flywheelEnergyLost.to('J').scalar,
     );
-    expect(result.ballKineticEnergy.to('J').scalar).toBeGreaterThan(0);
   });
 
-  it('returns zeros for zero omega', () => {
-    const result = computeShotResult(
-      new Measurement(0, 'rpm'),
-      new Measurement(3, 'in'),
-      new Measurement(50, 'in2*lbs'),
-      new Measurement(0.5, 'lb'),
-      new Measurement(3.5, 'in'),
-    );
+  it('ω_wi = 0 → all zeros', () => {
+    const result = computeShotResult({
+      mode: 'single-hooded',
+      flywheelOmega: new Measurement(0, 'rad/s'),
+      shooterRadius: BASE_SHOOTER_RADIUS,
+      combinedMOI: BASE_COMBINED_MOI,
+      ballMass: BASE_BALL_MASS,
+      ballRadius: BASE_BALL_RADIUS,
+      ballMOI: BASE_BALL_MOI,
+    });
     expect(result.exitVelocity.to('m/s').scalar).toBe(0);
-    expect(result.postShotOmega.to('rpm').scalar).toBe(0);
+    expect(result.postShotOmega.to('rad/s').scalar).toBe(0);
     expect(result.ballKineticEnergy.to('J').scalar).toBe(0);
   });
 
-  it('returns zeros for zero shooter radius', () => {
-    const result = computeShotResult(
-      new Measurement(3000, 'rpm'),
-      new Measurement(0, 'in'),
-      new Measurement(50, 'in2*lbs'),
-      new Measurement(0.5, 'lb'),
-      new Measurement(3.5, 'in'),
-    );
+  it('r_w = 0 → all zeros', () => {
+    const result = computeShotResult({
+      mode: 'single-hooded',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: new Measurement(0, 'm'),
+      combinedMOI: BASE_COMBINED_MOI,
+      ballMass: BASE_BALL_MASS,
+      ballRadius: BASE_BALL_RADIUS,
+      ballMOI: BASE_BALL_MOI,
+    });
     expect(result.exitVelocity.to('m/s').scalar).toBe(0);
-    expect(result.postShotOmega.to('rpm').scalar).toBe(0);
+    expect(result.postShotOmega.to('rad/s').scalar).toBe(0);
+    expect(result.ballKineticEnergy.to('J').scalar).toBe(0);
   });
 
-  it('known values: heavy flywheel, moderate ball', () => {
-    // Lynbrook model: ωf = 7I·ω₀ / (7I + 2·m·r²)
-    // I = 50 in²·lb ≈ 0.014632 kg·m², r = 3 in = 0.0762 m, ω₀ = 3000 rpm = 100π rad/s
-    // m = 0.5 lb ≈ 0.22680 kg
-    // 2·m·r² = 2 * 0.22680 * 0.005806 = 0.002634 kg·m²
-    // 7·I = 0.10242 kg·m²
-    // ωf = 0.10242 / (0.10242 + 0.002634) * 3000 ≈ 2925 rpm
-    // V_b = (2/7)·ωf·r ≈ (2/7) * 306.3 * 0.0762 ≈ 6.67 m/s ≈ 21.9 ft/s
-    const result = computeShotResult(
-      new Measurement(3000, 'rpm'),
-      new Measurement(3, 'in'),
-      new Measurement(50, 'in2*lbs'),
-      new Measurement(0.5, 'lb'),
-      new Measurement(3.5, 'in'),
+  it('gsheet reference (449 Appendix A)', () => {
+    // ω_wi=622 rad/s, r_b=0.07506m, m_b=0.2268kg,
+    // I_b=5.111e-4 kg·m², r_w=0.0508m, I_w=1.463e-3 kg·m²
+    const result = computeShotResult({
+      mode: 'single-hooded',
+      flywheelOmega: new Measurement(622, 'rad/s'),
+      shooterRadius: new Measurement(0.0508, 'm'),
+      combinedMOI: new Measurement(1.463e-3, 'kg*m^2'),
+      ballMass: new Measurement(0.2268, 'kg'),
+      ballRadius: new Measurement(0.07506, 'm'),
+      ballMOI: new Measurement(5.111e-4, 'kg*m^2'),
+    });
+
+    expect(result.postShotOmega.to('rad/s').scalar).toBeCloseTo(545.6, 1);
+    expect(result.exitVelocity.to('m/s').scalar).toBeCloseTo(13.86, 2);
+    const omegaBfActual =
+      (result.exitSpinRate.to('rpm').scalar * 2 * Math.PI) / 60;
+    expect(omegaBfActual).toBeCloseTo(184.6, 1);
+    expect(result.ballKineticEnergy.to('J').scalar).toBeCloseTo(30.49, 1);
+
+    expect(
+      result.ballKineticEnergy.to('J').scalar /
+        result.flywheelEnergyLost.to('J').scalar,
+    ).toBeCloseTo(0.4673, 3);
+  });
+});
+
+describe('dual-shooter', () => {
+  const iW = new Measurement(1.463e-3, 'kg*m^2');
+  const rW1 = new Measurement(0.0508, 'm');
+  const mB = BASE_BALL_MASS;
+  const rB = BASE_BALL_RADIUS;
+  const iB = BASE_BALL_MOI;
+
+  it('G·r_w2 = r_w1 (B = 0) → ω_bf ≈ 0', () => {
+    // r_w2 = r_w1, G = 1 → B = r_w1 - 1·r_w1 = 0
+    const result = computeShotResult({
+      mode: 'dual-shooter',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: rW1,
+      combinedMOI: iW,
+      ballMass: mB,
+      ballRadius: rB,
+      ballMOI: iB,
+      secondaryRadius: rW1,
+      secondaryToShooterRatio: 1,
+    });
+    const omegaBfActual =
+      (result.exitSpinRate.to('rpm').scalar * 2 * Math.PI) / 60;
+    expect(omegaBfActual).toBeCloseTo(0, 8);
+  });
+
+  it('G·r_w2 = r_w1 → V_bf = r_w1 · ω_w1f', () => {
+    // When B = 0, A = 2·r_w1, V_bf = (A/2)·ω_w1f = r_w1·ω_w1f
+    const result = computeShotResult({
+      mode: 'dual-shooter',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: rW1,
+      combinedMOI: iW,
+      ballMass: mB,
+      ballRadius: rB,
+      ballMOI: iB,
+      secondaryRadius: rW1,
+      secondaryToShooterRatio: 1,
+    });
+    const rW1m = rW1.to('m').scalar;
+    const omegaW1f = result.postShotOmega.to('rad/s').scalar;
+    expect(result.exitVelocity.to('m/s').scalar).toBeCloseTo(
+      rW1m * omegaW1f,
+      5,
     );
-    expect(result.postShotOmega.to('rpm').scalar).toBeCloseTo(2925, 0);
-    expect(result.exitVelocity.to('ft/s').scalar).toBeCloseTo(22, 0);
+  });
+
+  it('G·r_w2 > r_w1 → exitSpinRate < 0 (backspin)', () => {
+    // r_w2 = r_w1, G = 2 → B = r_w1 - 2·r_w1 = -r_w1 < 0
+    const result = computeShotResult({
+      mode: 'dual-shooter',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: rW1,
+      combinedMOI: iW,
+      ballMass: mB,
+      ballRadius: rB,
+      ballMOI: iB,
+      secondaryRadius: rW1,
+      secondaryToShooterRatio: 2,
+    });
+    expect(result.exitSpinRate.to('rpm').scalar).toBeLessThan(0);
+  });
+
+  it('heavier ball → larger primary speed drop', () => {
+    const light = computeShotResult({
+      mode: 'dual-shooter',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: rW1,
+      combinedMOI: iW,
+      ballMass: new Measurement(0.1, 'kg'),
+      ballRadius: rB,
+      ballMOI: solidSphereMoi(0.1, rB.to('m').scalar),
+      secondaryRadius: rW1,
+      secondaryToShooterRatio: 1,
+    });
+    const heavy = computeShotResult({
+      mode: 'dual-shooter',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: rW1,
+      combinedMOI: iW,
+      ballMass: new Measurement(0.5, 'kg'),
+      ballRadius: rB,
+      ballMOI: solidSphereMoi(0.5, rB.to('m').scalar),
+      secondaryRadius: rW1,
+      secondaryToShooterRatio: 1,
+    });
+    expect(light.postShotOmega.to('rad/s').scalar).toBeGreaterThan(
+      heavy.postShotOmega.to('rad/s').scalar,
+    );
+  });
+
+  it('G = 0 runs without NaN and result is finite', () => {
+    const result = computeShotResult({
+      mode: 'dual-shooter',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: rW1,
+      combinedMOI: iW,
+      ballMass: mB,
+      ballRadius: rB,
+      ballMOI: iB,
+      secondaryRadius: rW1,
+      secondaryToShooterRatio: 0,
+    });
+    expect(Number.isFinite(result.exitVelocity.to('m/s').scalar)).toBe(true);
+    expect(Number.isFinite(result.postShotOmega.to('rad/s').scalar)).toBe(true);
+    expect(Number.isFinite(result.ballKineticEnergy.to('J').scalar)).toBe(true);
+    expect(Number.isNaN(result.exitVelocity.to('m/s').scalar)).toBe(false);
+  });
+
+  it('secondaryRadius undefined → all zeros', () => {
+    const result = computeShotResult({
+      mode: 'dual-shooter',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: rW1,
+      combinedMOI: iW,
+      ballMass: mB,
+      ballRadius: rB,
+      ballMOI: iB,
+    });
+    expect(result.exitVelocity.to('m/s').scalar).toBe(0);
+    expect(result.postShotOmega.to('rad/s').scalar).toBe(0);
+    expect(result.ballKineticEnergy.to('J').scalar).toBe(0);
+  });
+});
+
+describe('single-hooded with V_bi', () => {
+  it('V_bi > 0 increases exit velocity', () => {
+    const base = computeShotResult({
+      mode: 'single-hooded',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: BASE_SHOOTER_RADIUS,
+      combinedMOI: BASE_COMBINED_MOI,
+      ballMass: BASE_BALL_MASS,
+      ballRadius: BASE_BALL_RADIUS,
+      ballMOI: BASE_BALL_MOI,
+    });
+    const withVbi = computeShotResult({
+      mode: 'single-hooded',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: BASE_SHOOTER_RADIUS,
+      combinedMOI: BASE_COMBINED_MOI,
+      ballMass: BASE_BALL_MASS,
+      ballRadius: BASE_BALL_RADIUS,
+      ballMOI: BASE_BALL_MOI,
+      ballInitialVelocity: new Measurement(5, 'm/s'),
+    });
+    expect(withVbi.exitVelocity.to('m/s').scalar).toBeGreaterThan(
+      base.exitVelocity.to('m/s').scalar,
+    );
+  });
+});
+
+describe('dual-shooter with V_bi', () => {
+  it('V_bi > 0 increases exit velocity', () => {
+    const rW1 = new Measurement(0.0508, 'm');
+    const iW = new Measurement(1.463e-3, 'kg*m^2');
+    const base = computeShotResult({
+      mode: 'dual-shooter',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: rW1,
+      combinedMOI: iW,
+      ballMass: BASE_BALL_MASS,
+      ballRadius: BASE_BALL_RADIUS,
+      ballMOI: BASE_BALL_MOI,
+      secondaryRadius: rW1,
+      secondaryToShooterRatio: 1,
+    });
+    const withVbi = computeShotResult({
+      mode: 'dual-shooter',
+      flywheelOmega: BASE_OMEGA,
+      shooterRadius: rW1,
+      combinedMOI: iW,
+      ballMass: BASE_BALL_MASS,
+      ballRadius: BASE_BALL_RADIUS,
+      ballMOI: BASE_BALL_MOI,
+      secondaryRadius: rW1,
+      secondaryToShooterRatio: 1,
+      ballInitialVelocity: new Measurement(5, 'm/s'),
+    });
+    expect(withVbi.exitVelocity.to('m/s').scalar).toBeGreaterThan(
+      base.exitVelocity.to('m/s').scalar,
+    );
+  });
+});
+
+describe('compound', () => {
+  // Reference values from the Compound Flywheel sheet of the whitepaper spreadsheet.
+  // r_b=0.075057 m, m_b=0.226796 kg, I_b=5.111e-4 kg·m²,
+  // r_w1=0.0508 m, r_w2=0.0127 m, I_w=0.006643 kg·m², G=3, ω_w1i=150 rad/s
+  const COMPOUND_IW = new Measurement(0.006643, 'kg*m^2');
+  const COMPOUND_RW1 = new Measurement(0.0508, 'm');
+  const COMPOUND_RW2 = new Measurement(0.0127, 'm');
+  const COMPOUND_OMEGA = new Measurement(150, 'rad/s');
+  const COMPOUND_MB = new Measurement(0.226796, 'kg');
+  const COMPOUND_RB = new Measurement(0.075057, 'm');
+  const COMPOUND_IB = new Measurement(5.111e-4, 'kg*m^2');
+  const G = 3;
+
+  it('gsheet reference: ω_w1f ≈ 141.80, V_bf ≈ 6.303 m/s, ω_bf ≈ 114.56 rpm', () => {
+    const result = computeShotResult({
+      mode: 'compound',
+      flywheelOmega: COMPOUND_OMEGA,
+      shooterRadius: COMPOUND_RW1,
+      combinedMOI: COMPOUND_IW,
+      ballMass: COMPOUND_MB,
+      ballRadius: COMPOUND_RB,
+      ballMOI: COMPOUND_IB,
+      secondaryRadius: COMPOUND_RW2,
+      secondaryToShooterRatio: G,
+    });
+    expect(result.postShotOmega.to('rad/s').scalar).toBeCloseTo(141.8, 1);
+    expect(result.exitVelocity.to('m/s').scalar).toBeCloseTo(6.303, 2);
+    const omegaBfActual =
+      (result.exitSpinRate.to('rpm').scalar * 2 * Math.PI) / 60;
+    expect(omegaBfActual).toBeCloseTo(11.997, 2);
+  });
+
+  it('V_bi > 0 increases shot efficiency', () => {
+    const base = computeShotResult({
+      mode: 'compound',
+      flywheelOmega: COMPOUND_OMEGA,
+      shooterRadius: COMPOUND_RW1,
+      combinedMOI: COMPOUND_IW,
+      ballMass: COMPOUND_MB,
+      ballRadius: COMPOUND_RB,
+      ballMOI: COMPOUND_IB,
+      secondaryRadius: COMPOUND_RW2,
+      secondaryToShooterRatio: G,
+    });
+    const withVbi = computeShotResult({
+      mode: 'compound',
+      flywheelOmega: COMPOUND_OMEGA,
+      shooterRadius: COMPOUND_RW1,
+      combinedMOI: COMPOUND_IW,
+      ballMass: COMPOUND_MB,
+      ballRadius: COMPOUND_RB,
+      ballMOI: COMPOUND_IB,
+      secondaryRadius: COMPOUND_RW2,
+      secondaryToShooterRatio: G,
+      ballInitialVelocity: new Measurement(5, 'm/s'),
+    });
+    const baseEff =
+      base.ballKineticEnergy.to('J').scalar /
+      base.flywheelEnergyLost.to('J').scalar;
+    const vbiEff =
+      withVbi.ballKineticEnergy.to('J').scalar /
+      withVbi.flywheelEnergyLost.to('J').scalar;
+    expect(vbiEff).toBeGreaterThan(baseEff);
+  });
+
+  it('G = 0 degenerates to single-hooded result', () => {
+    const compound = computeShotResult({
+      mode: 'compound',
+      flywheelOmega: COMPOUND_OMEGA,
+      shooterRadius: COMPOUND_RW1,
+      combinedMOI: COMPOUND_IW,
+      ballMass: COMPOUND_MB,
+      ballRadius: COMPOUND_RB,
+      ballMOI: COMPOUND_IB,
+      secondaryRadius: COMPOUND_RW2,
+      secondaryToShooterRatio: 0,
+    });
+    const single = computeShotResult({
+      mode: 'single-hooded',
+      flywheelOmega: COMPOUND_OMEGA,
+      shooterRadius: COMPOUND_RW1,
+      combinedMOI: COMPOUND_IW,
+      ballMass: COMPOUND_MB,
+      ballRadius: COMPOUND_RB,
+      ballMOI: COMPOUND_IB,
+    });
+    expect(compound.exitVelocity.to('m/s').scalar).toBeCloseTo(
+      single.exitVelocity.to('m/s').scalar,
+      5,
+    );
+    expect(compound.postShotOmega.to('rad/s').scalar).toBeCloseTo(
+      single.postShotOmega.to('rad/s').scalar,
+      5,
+    );
+  });
+
+  it('solid sphere can exceed 50% total efficiency', () => {
+    // High I_w relative to ball drives efficiency toward theoretical max.
+    // Whitepaper Table: compound solid sphere max ~58.8%.
+    const highIw = new Measurement(0.1, 'kg*m^2');
+    const result = computeShotResult({
+      mode: 'compound',
+      flywheelOmega: COMPOUND_OMEGA,
+      shooterRadius: COMPOUND_RW1,
+      combinedMOI: highIw,
+      ballMass: COMPOUND_MB,
+      ballRadius: COMPOUND_RB,
+      ballMOI: COMPOUND_IB,
+      secondaryRadius: COMPOUND_RW2,
+      secondaryToShooterRatio: G,
+    });
+    const eff =
+      result.ballKineticEnergy.to('J').scalar /
+      result.flywheelEnergyLost.to('J').scalar;
+    expect(eff).toBeGreaterThan(0.5);
+  });
+
+  it('secondaryRadius undefined → all zeros', () => {
+    const result = computeShotResult({
+      mode: 'compound',
+      flywheelOmega: COMPOUND_OMEGA,
+      shooterRadius: COMPOUND_RW1,
+      combinedMOI: COMPOUND_IW,
+      ballMass: COMPOUND_MB,
+      ballRadius: COMPOUND_RB,
+      ballMOI: COMPOUND_IB,
+    });
+    expect(result.exitVelocity.to('m/s').scalar).toBe(0);
+    expect(result.postShotOmega.to('rad/s').scalar).toBe(0);
+    expect(result.ballKineticEnergy.to('J').scalar).toBe(0);
   });
 });

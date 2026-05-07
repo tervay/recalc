@@ -9,6 +9,7 @@ import {
   YAxis,
 } from 'recharts';
 import workerpool from 'workerpool';
+import * as z from 'zod';
 
 import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
@@ -21,6 +22,7 @@ import {
 import { MotorInput } from '~/components/recalc/io/motor';
 import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
+import { StringSelectInput } from '~/components/recalc/io/stringSelect';
 import { ReorderList } from '~/components/recalc/reorderList';
 import { Loader } from '~/components/shadix-ui/components/loader';
 import { Button } from '~/components/ui/button';
@@ -31,7 +33,7 @@ import {
   TooltipTrigger,
 } from '~/components/ui/tooltip';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
-import { computeShotResult } from '~/lib/math/ballShot';
+import { computeShotResult, type ShooterMode } from '~/lib/math/ballShot';
 import type * as FlywheelWorker from '~/lib/math/flywheel.worker';
 import type { FlywheelConfigOptOutput } from '~/lib/math/flywheelOptimizer.worker';
 import optimizerWorkerUrl from '~/lib/math/flywheelOptimizer.worker?worker&url';
@@ -47,6 +49,7 @@ import {
   MotorParam,
   NumberParam,
   RatioParam,
+  StringParam,
 } from '~/lib/types/queryParams';
 
 const PRIORITY_LABELS: Record<OptimizationPriority, string> = {
@@ -109,6 +112,24 @@ const DEFAULT_PARAMS = {
   ),
   projectileDiameter: MeasurementParam.withDefault(new Measurement(5, 'in')),
   projectileWeight: MeasurementParam.withDefault(new Measurement(0.5, 'lb')),
+  ballInitialVelocity: MeasurementParam.withDefault(new Measurement(0, 'ft/s')),
+  ballInitialSpin: MeasurementParam.withDefault(new Measurement(0, 'rpm')),
+  shooterMode: StringParam.withDefault('single-hooded'),
+  useCustomBallMoi: BooleanParam.withDefault(false),
+  customBallMoi: MeasurementParam.withDefault(new Measurement(2.5, 'in2*lbs')),
+  secondaryShooterDiameter: MeasurementParam.withDefault(
+    new Measurement(4, 'in'),
+  ),
+  secondaryShooterWeight: MeasurementParam.withDefault(
+    new Measurement(1, 'lb'),
+  ),
+  secondaryShooterToShooterRatio: RatioParam.withDefault(
+    new Ratio(1, RatioType.REDUCTION),
+  ),
+  useCustomSecondaryShooterMoi: BooleanParam.withDefault(false),
+  customSecondaryShooterMoi: MeasurementParam.withDefault(
+    new Measurement(4.5, 'in2*lbs'),
+  ),
   efficiency: NumberParam.withDefault(100),
   maximumComfortableStatorLimit: MeasurementParam.withDefault(
     new Measurement(80, 'A'),
@@ -117,6 +138,8 @@ const DEFAULT_PARAMS = {
     new Measurement(60, 'A'),
   ),
 };
+
+const ShooterModeSchema = z.enum(['single-hooded', 'dual-shooter', 'compound']);
 
 const CHART_CONFIG = {} as const;
 
@@ -188,6 +211,33 @@ export default function Flywheel() {
   const [maximumComfortableSupplyLimit, setMaximumComfortableSupplyLimit] =
     useState(queryParams.maximumComfortableSupplyLimit);
 
+  const [shooterMode, setShooterMode] = useState<ShooterMode>(
+    ShooterModeSchema.catch('single-hooded').parse(queryParams.shooterMode),
+  );
+  const [useCustomBallMoi, setUseCustomBallMoi] = useState(
+    queryParams.useCustomBallMoi,
+  );
+  const [customBallMoi, setCustomBallMoi] = useState(queryParams.customBallMoi);
+  const [ballInitialVelocity, setBallInitialVelocity] = useState(
+    queryParams.ballInitialVelocity,
+  );
+  const [ballInitialSpin, setBallInitialSpin] = useState(
+    queryParams.ballInitialSpin,
+  );
+  const [secondaryShooterDiameter, setSecondaryShooterDiameter] = useState(
+    queryParams.secondaryShooterDiameter,
+  );
+  const [secondaryShooterWeight, setSecondaryShooterWeight] = useState(
+    queryParams.secondaryShooterWeight,
+  );
+  const [secondaryShooterToShooterRatio, setSecondaryShooterToShooterRatio] =
+    useState(queryParams.secondaryShooterToShooterRatio);
+  const [useCustomSecondaryShooterMoi, setUseCustomSecondaryShooterMoi] =
+    useState(queryParams.useCustomSecondaryShooterMoi);
+  const [customSecondaryShooterMoi, setCustomSecondaryShooterMoi] = useState(
+    queryParams.customSecondaryShooterMoi,
+  );
+
   const derivedShooterMOI = useMemo(
     () =>
       shooterWeight
@@ -214,27 +264,64 @@ export default function Flywheel() {
     [useCustomFlywheelMoi, customFlywheelMoi, derivedFlywheelMOI],
   );
 
+  const derivedBallMOI = useMemo(
+    () =>
+      projectileWeight
+        .mul(projectileDiameter.div(2).mul(projectileDiameter.div(2)))
+        .mul(2 / 5),
+    [projectileWeight, projectileDiameter],
+  );
+
+  const usableBallMOI = useMemo(
+    () => (useCustomBallMoi ? customBallMoi : derivedBallMOI),
+    [useCustomBallMoi, customBallMoi, derivedBallMOI],
+  );
+
+  const derivedSecondaryShooterMOI = useMemo(
+    () =>
+      secondaryShooterWeight
+        .mul(
+          secondaryShooterDiameter.div(2).mul(secondaryShooterDiameter.div(2)),
+        )
+        .div(2),
+    [secondaryShooterWeight, secondaryShooterDiameter],
+  );
+
+  const usableSecondaryShooterMOI = useMemo(
+    () =>
+      useCustomSecondaryShooterMoi
+        ? customSecondaryShooterMoi
+        : derivedSecondaryShooterMOI,
+    [
+      useCustomSecondaryShooterMoi,
+      customSecondaryShooterMoi,
+      derivedSecondaryShooterMOI,
+    ],
+  );
+
   // Combined MOI of the shooter + flywheel assembly (load-side, before gearing).
   // This is what FlywheelSim expects — it handles the motor-to-load gearing
   // internally via its plant model.
-  const combinedMOI = useMemo(
-    () =>
-      flywheelEnabled
-        ? usableShooterMOI.add(
-            usableFlywheelMOI.div(
-              flywheelToShooterRatio.asNumber() == 0
-                ? 1
-                : Math.pow(flywheelToShooterRatio.asNumber(), 2),
-            ),
-          )
-        : usableShooterMOI,
-    [
-      flywheelEnabled,
-      usableShooterMOI,
-      usableFlywheelMOI,
-      flywheelToShooterRatio,
-    ],
-  );
+  const combinedMOI = useMemo(() => {
+    let total = usableShooterMOI;
+    if (flywheelEnabled) {
+      const r = flywheelToShooterRatio.asNumber();
+      total = total.add(usableFlywheelMOI.div(r === 0 ? 1 : r * r));
+    }
+    if (shooterMode === 'dual-shooter' || shooterMode === 'compound') {
+      const r = secondaryShooterToShooterRatio.asNumber();
+      total = total.add(usableSecondaryShooterMOI.div(r === 0 ? 1 : r * r));
+    }
+    return total;
+  }, [
+    usableShooterMOI,
+    flywheelEnabled,
+    usableFlywheelMOI,
+    flywheelToShooterRatio,
+    shooterMode,
+    usableSecondaryShooterMOI,
+    secondaryShooterToShooterRatio,
+  ]);
 
   // Effective MOI reflected to the motor shaft (for display only).
   const effectiveMOI = useMemo(
@@ -291,26 +378,41 @@ export default function Flywheel() {
   >([]);
   const [isCalculating, startCalculating] = useTransition();
 
-  // Shot analysis: energy transfer to ball and resulting flywheel speed drop.
-  // Ball is modeled as a hollow sphere (I = 2/3 * m * r^2) exiting at shooter
-  // surface speed with pure rolling contact.
   const shotAnalysis = useMemo(() => {
     if (workerWpilibSimStates.length === 0) return null;
 
-    return computeShotResult(
-      clampedShooterTargetSpeed,
-      shooterDiameter.div(2),
+    const needsSecondary =
+      shooterMode === 'dual-shooter' || shooterMode === 'compound';
+    return computeShotResult({
+      mode: shooterMode,
+      flywheelOmega: clampedShooterTargetSpeed,
+      shooterRadius: shooterDiameter.div(2),
       combinedMOI,
-      projectileWeight,
-      projectileDiameter.div(2),
-    );
+      ballMass: projectileWeight,
+      ballRadius: projectileDiameter.div(2),
+      ballMOI: usableBallMOI,
+      ballInitialVelocity,
+      ballInitialSpin,
+      secondaryRadius: needsSecondary
+        ? secondaryShooterDiameter.div(2)
+        : undefined,
+      secondaryToShooterRatio: needsSecondary
+        ? secondaryShooterToShooterRatio.inverse().asNumber()
+        : undefined,
+    });
   }, [
     workerWpilibSimStates,
+    shooterMode,
     clampedShooterTargetSpeed,
     shooterDiameter,
     projectileDiameter,
     projectileWeight,
     combinedMOI,
+    usableBallMOI,
+    ballInitialVelocity,
+    ballInitialSpin,
+    secondaryShooterDiameter,
+    secondaryShooterToShooterRatio,
   ]);
 
   const postShotOmegaRadPerSec = useMemo(
@@ -509,6 +611,16 @@ export default function Flywheel() {
     flywheelToShooterRatio,
     projectileDiameter,
     projectileWeight,
+    ballInitialVelocity,
+    ballInitialSpin,
+    shooterMode,
+    useCustomBallMoi,
+    customBallMoi,
+    secondaryShooterDiameter,
+    secondaryShooterWeight,
+    secondaryShooterToShooterRatio,
+    useCustomSecondaryShooterMoi,
+    customSecondaryShooterMoi,
     efficiency,
     maximumComfortableStatorLimit,
     maximumComfortableSupplyLimit,
@@ -586,9 +698,34 @@ export default function Flywheel() {
 
               {/* Shooter Wheel */}
               <div className="flex flex-col gap-3 p-4">
-                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                  Shooter Wheel
-                </h2>
+                <div className="flex items-center justify-between">
+                  <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                    Shooter Wheel
+                  </h2>
+                  <StringSelectInput
+                    stateHook={[
+                      shooterMode,
+                      (v) =>
+                        setShooterMode(
+                          ShooterModeSchema.catch('single-hooded').parse(v),
+                        ),
+                    ]}
+                    label="Type"
+                    choices={[
+                      {
+                        label: 'Single Shooter Wheel + Hood',
+                        value: 'single-hooded',
+                      },
+                      { label: 'Dual Shooter Wheel', value: 'dual-shooter' },
+                      {
+                        label: 'Compound (Single + Dual)',
+                        value: 'compound',
+                      },
+                    ]}
+                    testId="shooterMode"
+                    triggerClassName="w-auto"
+                  />
+                </div>
                 <IOLine>
                   <MeasurementInput
                     stateHook={[shooterDiameter, setShooterDiameter]}
@@ -649,6 +786,83 @@ export default function Flywheel() {
                 </div>
               </div>
               <div className="border-t" />
+
+              {/* Secondary Shooter Wheel */}
+              {shooterMode === 'dual-shooter' || shooterMode === 'compound' ? (
+                <>
+                  <div className="flex flex-col gap-3 p-4">
+                    <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                      Secondary Shooter Wheel
+                    </h2>
+                    <IOLine>
+                      <MeasurementInput
+                        stateHook={[
+                          secondaryShooterDiameter,
+                          setSecondaryShooterDiameter,
+                        ]}
+                        label="Secondary Shooter Diameter"
+                        testId="secondaryShooterDiameter"
+                        labelAbove
+                      />
+                      <MeasurementInput
+                        stateHook={[
+                          secondaryShooterWeight,
+                          setSecondaryShooterWeight,
+                        ]}
+                        label="Secondary Shooter Weight"
+                        testId="secondaryShooterWeight"
+                        labelAbove
+                      />
+                    </IOLine>
+                    <IOLine>
+                      <RatioInput
+                        label="Secondary to Primary Ratio"
+                        stateHook={[
+                          secondaryShooterToShooterRatio,
+                          setSecondaryShooterToShooterRatio,
+                        ]}
+                        testId="secondaryShooterToShooterRatio"
+                        labelAbove
+                      />
+                    </IOLine>
+                    <div className="flex flex-row flex-wrap items-end gap-x-4 md:flex-nowrap">
+                      <div className="flex-1">
+                        {useCustomSecondaryShooterMoi ? (
+                          <MeasurementInput
+                            stateHook={[
+                              customSecondaryShooterMoi,
+                              setCustomSecondaryShooterMoi,
+                            ]}
+                            label="Custom Secondary Shooter MOI"
+                            disabled={() => !useCustomSecondaryShooterMoi}
+                            testId="customSecondaryShooterMoi"
+                            labelAbove
+                          />
+                        ) : (
+                          <MeasurementOutput
+                            state={derivedSecondaryShooterMOI}
+                            label="Secondary Shooter MOI"
+                            defaultUnit="in2*lbs"
+                            testId="derivedSecondaryShooterMoi"
+                            labelAbove
+                          />
+                        )}
+                      </div>
+                      <div className="flex h-9 flex-1 items-center">
+                        <BooleanInput
+                          stateHook={[
+                            useCustomSecondaryShooterMoi,
+                            setUseCustomSecondaryShooterMoi,
+                          ]}
+                          label="Use Custom Secondary Shooter MOI"
+                          testId="useCustomSecondaryShooterMoi"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="border-t" />
+                </>
+              ) : null}
 
               {/* Flywheel */}
               <div className="flex flex-col gap-3 p-4">
@@ -747,6 +961,48 @@ export default function Flywheel() {
                     labelAbove
                   />
                 </IOLine>
+                <IOLine>
+                  <MeasurementInput
+                    stateHook={[ballInitialVelocity, setBallInitialVelocity]}
+                    label="Ball Initial Velocity"
+                    testId="ballInitialVelocity"
+                    labelAbove
+                  />
+                  <MeasurementInput
+                    stateHook={[ballInitialSpin, setBallInitialSpin]}
+                    label="Ball Initial Spin"
+                    testId="ballInitialSpin"
+                    labelAbove
+                  />
+                </IOLine>
+                <div className="flex flex-row flex-wrap items-end gap-x-4 md:flex-nowrap">
+                  <div className="flex-1">
+                    {useCustomBallMoi ? (
+                      <MeasurementInput
+                        stateHook={[customBallMoi, setCustomBallMoi]}
+                        label="Custom Ball MOI"
+                        disabled={() => !useCustomBallMoi}
+                        testId="customBallMoi"
+                        labelAbove
+                      />
+                    ) : (
+                      <MeasurementOutput
+                        state={derivedBallMOI}
+                        label="Ball MOI"
+                        defaultUnit="in2*lbs"
+                        testId="derivedBallMoi"
+                        labelAbove
+                      />
+                    )}
+                  </div>
+                  <div className="flex h-9 flex-1 items-center">
+                    <BooleanInput
+                      stateHook={[useCustomBallMoi, setUseCustomBallMoi]}
+                      label="Use Custom Ball MOI"
+                      testId="useCustomBallMoi"
+                    />
+                  </div>
+                </div>
               </div>
             </section>
           </div>
