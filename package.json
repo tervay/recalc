@@ -85,7 +85,7 @@
     "vite-plugin-comlink": "5.3.0",
     "vite-plugin-sitemap": "0.8.2",
     "vitest": "4.1.5",
-    "yaml": "2.8.4",
+    "yaml": "2.9.0",
     "zod": "4.4.3"
   },
   "engines": {
