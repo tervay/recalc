@@ -60,7 +60,7 @@
     "@iconify-json/solar": "1.2.5",
     "@iconify-json/streamline-ultimate": "1.2.2",
     "@iconify-json/tabler": "1.2.35",
-    "@playwright/test": "1.59.1",
+    "@playwright/test": "1.60.0",
     "@react-router/dev": "7.15.0",
     "@svgr/core": "8.1.0",
     "@svgr/plugin-jsx": "8.1.0",
@@ -84,7 +84,7 @@
     "vite": "8.0.12",
     "vite-plugin-comlink": "5.3.0",
     "vite-plugin-sitemap": "0.8.2",
-    "vitest": "4.1.5",
+    "vitest": "4.1.6",
     "yaml": "2.9.0",
     "zod": "4.4.3"
   },
