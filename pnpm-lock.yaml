@@ -30,8 +30,8 @@ importers:
         specifier: 4.4.2
         version: 4.4.2
       es-toolkit:
-        specifier: 1.46.1
-        version: 1.46.1
+        specifier: 1.47.0
+        version: 1.47.0
       fast-cartesian:
         specifier: 9.0.1
         version: 9.0.1
@@ -2729,8 +2729,8 @@ packages:
     resolution: {integrity: sha512-FGgH2h8zKNim9ljj7dankFPcICIK9Cp5bm+c2gQSYePhpaG5+esrLODihIorn+Pe6FGJzWhXQotPv73jTaldXA==}
     engines: {node: '>= 0.4'}
 
-  es-toolkit@1.46.1:
-    resolution: {integrity: sha512-5eNtXOs3tbfxXOj04tjjseeWkRWaoCjdEI+96DgwzZoe6c9juL49pXlzAFTI72aWC9Y8p7168g6XIKjh7k6pyQ==}
+  es-toolkit@1.47.0:
+    resolution: {integrity: sha512-n1GuoD0WEQZMBk5tttoZSqwgyLx01oqa5XsBmCHwPyNe1S9jPBEmtR2pSgp2kJuWE3ciFZ6yRHmY4pM4C3OOkw==}
 
   esbuild@0.27.7:
     resolution: {integrity: sha512-IxpibTjyVnmrIQo5aqNpCgoACA/dTKLTlhMHihVHhdkxKyPO1uBBthumT0rdHmcsk9uMonIWS0m4FljWzILh3w==}
@@ -6384,7 +6384,7 @@ snapshots:
     dependencies:
       es-errors: 1.3.0
 
-  es-toolkit@1.46.1: {}
+  es-toolkit@1.47.0: {}
 
   esbuild@0.27.7:
     optionalDependencies:
@@ -7329,7 +7329,7 @@ snapshots:
       '@reduxjs/toolkit': 2.11.2(react-redux@9.2.0(@types/react@19.2.15)(react@19.2.6)(redux@5.0.1))(react@19.2.6)
       clsx: 2.1.1
       decimal.js-light: 2.5.1
-      es-toolkit: 1.46.1
+      es-toolkit: 1.47.0
       eventemitter3: 5.0.4
       immer: 10.2.0
       react: 19.2.6
