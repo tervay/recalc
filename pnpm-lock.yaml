@@ -76,8 +76,8 @@ importers:
         specifier: 1.2.53
         version: 1.2.53
       '@iconify-json/carbon':
-        specifier: 1.2.22
-        version: 1.2.22
+        specifier: 1.2.23
+        version: 1.2.23
       '@iconify-json/emojione-monotone':
         specifier: 1.2.1
         version: 1.2.1
@@ -751,8 +751,8 @@ packages:
   '@iconify-json/arcticons@1.2.53':
     resolution: {integrity: sha512-v0IOJhBWfPO+JvxBczNiVHA9NghrMaFW4Aj4FVnE1/RlvwV94apb3TQ9WJM7SvsmPDlE7krEOjyzkSR+zQzHbA==}
 
-  '@iconify-json/carbon@1.2.22':
-    resolution: {integrity: sha512-x/L1tVgBp6ailSU0b8QDlxM3MLLbrmzefoqOt1gpBbywTF3xNSKDcL/PrOoLGZHwoFsNXujg2xrCvYsAWpykgA==}
+  '@iconify-json/carbon@1.2.23':
+    resolution: {integrity: sha512-7apXetbRmEiWDXIQyikFJZyq7pCVBKHYRzmeLdtT7wWoHYdWHwnFcBAzpuLoSh+ZEAfXZapSWEe8iuS6dUqf+Q==}
 
   '@iconify-json/emojione-monotone@1.2.1':
     resolution: {integrity: sha512-cZSNcPsuiAD6HCzCh/2dYKGh3pNI0jJlxBxQWfC33cQsPtqYZqulGBvlkThXYNvDl8VxgVHT9u+izyX/yeEIkA==}
@@ -4646,7 +4646,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/carbon@1.2.22':
+  '@iconify-json/carbon@1.2.23':
     dependencies:
       '@iconify/types': 2.0.0
 
