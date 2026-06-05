@@ -10,7 +10,7 @@ async function createWpilibcModule(moduleArg = {}) {
     const { createRequire } = await import('node:module');
     var require = createRequire(import.meta.url);
   }
-  var arguments_ = [];
+  var programArgs = [];
   var thisProgram = './this.program';
   var quit_ = (status, toThrow) => {
     throw toThrow;
@@ -45,7 +45,7 @@ async function createWpilibcModule(moduleArg = {}) {
     if (process.argv.length > 1) {
       thisProgram = process.argv[1].replace(/\\/g, '/');
     }
-    arguments_ = process.argv.slice(2);
+    programArgs = process.argv.slice(2);
     quit_ = (status, toThrow) => {
       process.exitCode = status;
       throw toThrow;
@@ -81,8 +81,6 @@ async function createWpilibcModule(moduleArg = {}) {
   var EXITSTATUS;
   var isFileURI = (filename) => filename.startsWith('file://');
   var readyPromiseResolve, readyPromiseReject;
-  var HEAP8, HEAPU8, HEAP16, HEAPU16, HEAP32, HEAPU32, HEAPF32, HEAPF64;
-  var HEAP64, HEAPU64;
   var runtimeInitialized = false;
   function updateMemoryViews() {
     var b = wasmMemory.buffer;
@@ -104,7 +102,7 @@ async function createWpilibcModule(moduleArg = {}) {
   }
   function postRun() {}
   function abort(what) {
-    what = 'Aborted(' + what + ')';
+    what = `Aborted(${what})`;
     err(what);
     ABORT = true;
     what += '. Build with -sASSERTIONS for more info.';
@@ -190,6 +188,16 @@ async function createWpilibcModule(moduleArg = {}) {
       this.status = status;
     }
   }
+  var HEAP16;
+  var HEAP32;
+  var HEAP64;
+  var HEAP8;
+  var HEAPF32;
+  var HEAPF64;
+  var HEAPU16;
+  var HEAPU32;
+  var HEAPU64;
+  var HEAPU8;
   var __abort_js = () => abort('');
   var AsciiToString = (ptr) => {
     var str = '';
@@ -1286,9 +1294,16 @@ async function createWpilibcModule(moduleArg = {}) {
   };
   var emval_freelist = [];
   var emval_handles = [0, 1, , 1, null, 1, true, 1, false, 1];
+  var emval_exception_decrefs = [];
   var __emval_decref = (handle) => {
     if (handle > 9 && 0 === --emval_handles[handle + 1]) {
+      var value = emval_handles[handle];
       emval_handles[handle] = undefined;
+      var destructor = emval_exception_decrefs[handle];
+      if (destructor) {
+        emval_exception_decrefs[handle] = undefined;
+        destructor(value);
+      }
       emval_freelist.push(handle);
     }
   };
@@ -2046,7 +2061,7 @@ async function createWpilibcModule(moduleArg = {}) {
     return false;
   };
   var ENV = {};
-  var getExecutableName = () => thisProgram || './this.program';
+  var getExecutableName = () => thisProgram;
   var getEnvStrings = () => {
     if (!getEnvStrings.strings) {
       var lang =
@@ -2127,15 +2142,11 @@ async function createWpilibcModule(moduleArg = {}) {
       var nodeCrypto = require('node:crypto');
       return (view) => nodeCrypto.randomFillSync(view);
     }
-    return (view) => crypto.getRandomValues(view);
+    return (view) => (crypto.getRandomValues(view), 0);
   };
-  var randomFill = (view) => {
-    (randomFill = initRandomFill())(view);
-  };
-  var _random_get = (buffer, size) => {
+  var randomFill = (view) => (randomFill = initRandomFill())(view);
+  var _random_get = (buffer, size) =>
     randomFill(HEAPU8.subarray(buffer, buffer + size));
-    return 0;
-  };
   init_ClassHandle();
   init_RegisteredPointer();
   {}
@@ -2176,7 +2187,7 @@ async function createWpilibcModule(moduleArg = {}) {
     I: __embind_register_std_string,
     o: __embind_register_std_wstring,
     K: __embind_register_void,
-    w: __emscripten_runtime_keepalive_clear,
+    B: __emscripten_runtime_keepalive_clear,
     f: __emval_create_invoker,
     c: __emval_decref,
     t: __emval_get_global,
@@ -2187,18 +2198,18 @@ async function createWpilibcModule(moduleArg = {}) {
     p: __emval_new_object,
     d: __emval_run_destructors,
     j: __emval_set_property,
-    x: __setitimer_js,
-    z: __tzset_js,
-    A: _clock_time_get,
+    v: __setitimer_js,
+    x: __tzset_js,
+    y: _clock_time_get,
     n: _emscripten_get_now,
-    B: _emscripten_resize_heap,
-    E: _environ_get,
-    F: _environ_sizes_get,
-    D: _fd_close,
+    z: _emscripten_resize_heap,
+    D: _environ_get,
+    E: _environ_sizes_get,
+    F: _fd_close,
     C: _fd_seek,
     q: _fd_write,
-    v: _proc_exit,
-    y: _random_get,
+    A: _proc_exit,
+    w: _random_get,
   };
   function run() {
     preRun();

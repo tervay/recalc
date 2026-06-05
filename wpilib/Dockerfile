@@ -1,4 +1,4 @@
-FROM emscripten/emsdk:5.0.3 AS base
+FROM emscripten/emsdk:6.0.0 AS base
 
 RUN apt-get update -qq && \
     apt-get install -y -qq \
@@ -44,15 +44,17 @@ RUN test -n "${WPILIB_COMMIT}" || { echo "ERROR: WPILIB_COMMIT build arg is requ
     git fetch --depth 1 origin "${WPILIB_COMMIT}" && \
     git checkout FETCH_HEAD
 
-# Apply CMakeLists.txt patches (minimal diffs against upstream)
+# Apply patches (minimal diffs against upstream)
 COPY patches/CMakeLists.patch /tmp/patches/root_CMakeLists.patch
 COPY patches/wpimath/CMakeLists.patch /tmp/patches/wpimath_CMakeLists.patch
 COPY patches/wpilibc/CMakeLists.patch /tmp/patches/wpilibc_CMakeLists.patch
 COPY patches/hal/CMakeLists.patch /tmp/patches/hal_CMakeLists.patch
+COPY patches/wpiutil/Handle.hpp.patch /tmp/patches/wpiutil_Handle.patch
 RUN patch -p1 -d /build/allwpilib < /tmp/patches/root_CMakeLists.patch && \
     patch -p1 -d /build/allwpilib < /tmp/patches/wpimath_CMakeLists.patch && \
     patch -p1 -d /build/allwpilib < /tmp/patches/wpilibc_CMakeLists.patch && \
-    patch -p1 -d /build/allwpilib < /tmp/patches/hal_CMakeLists.patch
+    patch -p1 -d /build/allwpilib < /tmp/patches/hal_CMakeLists.patch && \
+    patch -p1 -d /build/allwpilib < /tmp/patches/wpiutil_Handle.patch
 
 # Copy new files (wasm/ directories don't exist in upstream)
 COPY patches/wpimath/wasm/CMakeLists.txt /build/allwpilib/wpimath/wasm/CMakeLists.txt
@@ -102,6 +104,7 @@ RUN cd /build/allwpilib && \
       -DWITH_EXAMPLES=OFF \
       -DWITH_JAVA=OFF \
       -DWITH_TESTS=OFF \
+      -DNO_WERROR=ON \
       -G Ninja && \
     cd build && \
     emmake ninja wpilibc_wasm -j$(nproc)

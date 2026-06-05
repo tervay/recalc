@@ -1,10 +1,8 @@
 import { type ReactNode } from 'react';
 import { Link } from 'react-router';
-import ArcticonsFolderUtility from '~icons/arcticons/folder-utility';
 import CarbonTimingBelt from '~icons/carbon/timing-belt';
 import EmojioneMonotoneChains from '~icons/emojione-monotone/chains';
 import Fa7SolidGears from '~icons/fa7-solid/gears';
-import FluentDriveTrain24Regular from '~icons/fluent/drive-train-24-regular';
 import FluentElevator32Regular from '~icons/fluent/elevator-32-regular';
 import FluentRatioOneToOne24Regular from '~icons/fluent/ratio-one-to-one-24-regular';
 import ArrowRight from '~icons/lucide/arrow-right';
@@ -37,7 +35,7 @@ export function meta(_: Route.MetaArgs) {
 
 function Hero() {
   return (
-    <div className="relative overflow-hidden px-4 pt-16 pb-16 text-center md:pt-24 md:pb-24">
+    <div className="relative overflow-hidden px-4 pt-12 pb-12 text-center md:pt-12 md:pb-12">
       {/* Dot grid */}
       <div
         className="absolute inset-0 opacity-[0.045] dark:opacity-[0.07]"
@@ -195,6 +193,7 @@ function ShortcutGroup({ label, children }: ShortcutGroupProps) {
 // ---------------------------------------------------------------------------
 
 export default function Home() {
+  const year = new Date().getFullYear();
   return (
     <div className="pb-16">
       <Hero />
@@ -249,28 +248,17 @@ export default function Home() {
               title="Gears Calculator"
               icon={Fa7SolidGears}
             />
-            <CalcCard
-              to="/drive"
-              title="Drivetrain Calculator"
-              icon={FluentDriveTrain24Regular}
-              className="sm:col-span-2 lg:col-span-3"
-            />
           </div>
         </section>
 
         {/* Information */}
         <section>
           <SectionHeader label="Information" />
-          <div className="grid gap-3 sm:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             <InfoCard
               to="/motors"
               title="Motors"
               icon={MaterialSymbolsElectricBoltRounded}
-            />
-            <InfoCard
-              to="/util"
-              title="Utilities"
-              icon={ArcticonsFolderUtility}
             />
             <InfoCard to="/about" title="About" icon={MdiAbout} />
           </div>
@@ -280,33 +268,33 @@ export default function Home() {
         <section>
           <SectionHeader label="Shortcuts" />
           <div className="space-y-6">
-            <ShortcutGroup label="2025 Rules & Manuals">
+            <ShortcutGroup label={`${year} Rules & Manuals`}>
               <Shortcut
-                name="2025 Official PDF Manual"
-                url="https://firstfrc.blob.core.windows.net/frc2025/Manual/2025GameManual.pdf"
+                name={`${year} Official PDF Manual`}
+                url={`https://firstfrc.blob.core.windows.net/frc${year}/Manual/${year}GameManual.pdf`}
               />
               <Shortcut
-                name="2025 Unofficial Web Manual"
-                url="https://www.frcmanual.com/2025/introduction"
+                name={`${year} Unofficial Web Manual`}
+                url={`https://www.frcmanual.com/${year}/introduction`}
               />
               <Shortcut
-                name="2025 Q&A"
+                name={`${year} Q&A`}
                 url="https://frc-qa.firstinspires.org/"
               />
             </ShortcutGroup>
 
-            <ShortcutGroup label="2026 Events & Teams">
+            <ShortcutGroup label={`${year} Events & Teams`}>
               <Shortcut
                 name="Team / Event Search"
-                url="https://www.firstinspires.org/team-event-search#type=teams&sort=name&programs=FRC&year=2026"
+                url={`https://www.firstinspires.org/team-event-search#type=teams&sort=name&programs=FRC&year=${year}`}
               />
               <Shortcut
                 name="FRC-Events"
-                url="https://frc-events.firstinspires.org/2026/Events/EventList"
+                url={`https://frc-events.firstinspires.org/${year}/Events/EventList`}
               />
               <Shortcut
                 name="TheBlueAlliance"
-                url="https://www.thebluealliance.com/events/2026"
+                url={`https://www.thebluealliance.com/events/${year}`}
               />
             </ShortcutGroup>
 
