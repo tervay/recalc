@@ -1,6 +1,8 @@
+diff --git a/wpilibc/CMakeLists.txt b/wpilibc/CMakeLists.txt
+index 7f4907b..23f7392 100644
 --- a/wpilibc/CMakeLists.txt
 +++ b/wpilibc/CMakeLists.txt
-@@ -22,8 +22,22 @@
+@@ -22,8 +22,22 @@ target_include_directories(
          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/generated/main/native/include>
          $<INSTALL_INTERFACE:${include_dest}/wpilibc>
  )
@@ -23,7 +25,7 @@
  if(WITH_CSCORE)
      target_link_libraries(wpilibc PUBLIC cameraserver cscore ${OpenCV_LIBS})
  else()
-@@ -35,7 +49,16 @@
+@@ -35,7 +49,16 @@ else()
      )
  endif()
  
@@ -41,7 +43,7 @@
  
  set_property(TARGET wpilibc PROPERTY FOLDER "libraries")
  
-@@ -43,7 +66,6 @@
+@@ -43,7 +66,6 @@ install(TARGETS wpilibc EXPORT wpilibc)
  export(TARGETS wpilibc FILE wpilibc.cmake NAMESPACE wpilibc::)
  install(DIRECTORY src/main/native/include/ DESTINATION "${include_dest}/wpilibc")
  install(DIRECTORY src/generated/main/native/include/ DESTINATION "${include_dest}/wpilibc")
@@ -49,7 +51,7 @@
  configure_file(wpilibc-config.cmake.in ${WPILIB_BINARY_DIR}/wpilibc-config.cmake)
  install(FILES ${WPILIB_BINARY_DIR}/wpilibc-config.cmake DESTINATION share/wpilibc)
  install(EXPORT wpilibc DESTINATION share/wpilibc)
-@@ -61,3 +83,8 @@
+@@ -61,3 +83,8 @@ if(WITH_TESTS)
          )
      endif()
  endif()

@@ -1,6 +1,8 @@
+diff --git a/hal/CMakeLists.txt b/hal/CMakeLists.txt
+index 311231c..6685689 100644
 --- a/hal/CMakeLists.txt
 +++ b/hal/CMakeLists.txt
-@@ -23,12 +23,20 @@
+@@ -23,12 +23,20 @@ target_include_directories(
  )
  target_link_libraries(hal PUBLIC ntcore wpiutil)
  

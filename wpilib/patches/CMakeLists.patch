@@ -1,6 +1,8 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 6670ec0..36d8082 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -34,6 +34,17 @@
+@@ -34,6 +34,17 @@ endif()
  
  set(WPILIB_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
  
@@ -18,7 +20,7 @@
  include(CMakeDependentOption)
  include(CPack)
  include(OptionValidation)
-@@ -294,8 +305,12 @@
+@@ -298,8 +309,12 @@ add_subdirectory(datalog)
  if(WITH_NTCORE)
      set(NTCORE_DEP_REPLACE "find_dependency(ntcore)")
      set(WPINET_DEP_REPLACE "find_dependency(wpinet)")
@@ -33,7 +35,7 @@
  endif()
  
  if(WITH_WPIMATH)
-@@ -334,6 +349,10 @@
+@@ -334,6 +349,10 @@ endif()
  
  if(WITH_WPILIB OR WITH_SIMULATION_MODULES)
      set(HAL_DEP_REPLACE "find_dependency(hal)")
@@ -44,3 +46,33 @@
      add_subdirectory(hal)
  endif()
  
+@@ -353,17 +372,23 @@ if(WITH_WPILIB)
+         set(WPILIBJ_DEP_REPLACE "find_dependency(wpilibj)")
+     endif()
+     set(COMMAND_DEP_REPLACE "find_dependency(commandsv2)")
+-    add_subdirectory(apriltag)
++    if(NOT CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
++        add_subdirectory(apriltag)
++    endif()
+     add_subdirectory(wpilibj)
+     add_subdirectory(wpilibc)
+-    add_subdirectory(commandsv3) # must be after wpilibj
+-    add_subdirectory(commandsv2)
+-    add_subdirectory(romiVendordep)
+-    add_subdirectory(xrpVendordep)
++    if(NOT CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
++        add_subdirectory(commandsv3) # must be after wpilibj
++        add_subdirectory(commandsv2)
++        add_subdirectory(romiVendordep)
++        add_subdirectory(xrpVendordep)
++    endif()
+     if(WITH_EXAMPLES)
+         add_subdirectory(wpilibcExamples)
+     endif()
+-    add_subdirectory(developerRobot)
++    if(NOT CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
++        add_subdirectory(developerRobot)
++    endif()
+ endif()
+ 
+ if(WITH_BENCHMARK)
