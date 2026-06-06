@@ -144,7 +144,7 @@ describe('approximateBeltPitchLength', () => {
 
     expect(() => {
       approximateBeltPitchLength(p1, p2, desiredCenter);
-    }).toThrow();
+    }).toThrow('Divide by zero');
   });
 
   it('handles zero pitch diameter for p1', () => {

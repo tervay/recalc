@@ -282,196 +282,222 @@ export default function RatioFinder() {
         title="Ratio Finder"
         getSerializedState={() => serializedState}
       />
-      <div className="flex flex-col gap-4 px-1 *:flex-1 md:flex-row md:gap-x-4">
-        <div className="flex flex-col gap-x-4 gap-y-2">
-          <Divider>Target Settings</Divider>
-          <IOLine>
-            <RatioInput
-              stateHook={[targetReduction, setTargetReduction]}
-              debounceDelay={300}
-            />
-            <BoreInput
-              stateHook={[startingBore, setStartingBore]}
-              label="Starting Bore"
-            />
-          </IOLine>
+      <div className="flex flex-row flex-wrap gap-6 px-1">
+        <div className="flex min-w-[300px] flex-1 flex-col">
+          <section className="flex flex-col rounded-lg border">
+            <div className="flex flex-col gap-3 p-4">
+              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                Target Settings
+              </h2>
+              <IOLine>
+                <RatioInput
+                  stateHook={[targetReduction, setTargetReduction]}
+                  debounceDelay={300}
+                  labelAbove
+                />
+                <BoreInput
+                  stateHook={[startingBore, setStartingBore]}
+                  label="Starting Bore"
+                />
+              </IOLine>
+            </div>
+            <div className="border-t" />
 
-          <Divider>Tooth Ranges</Divider>
-          <IOLine>
-            <NumberInput
-              stateHook={[minGearTeeth, setMinGearTeeth]}
-              label="Min Gear Teeth"
-            />
-            <NumberInput
-              stateHook={[maxGearTeeth, setMaxGearTeeth]}
-              label="Max Gear Teeth"
-            />
-          </IOLine>
-          <IOLine>
-            <NumberInput
-              stateHook={[minPulleyTeeth, setMinPulleyTeeth]}
-              label="Min Pulley Teeth"
-            />
-            <NumberInput
-              stateHook={[maxPulleyTeeth, setMaxPulleyTeeth]}
-              label="Max Pulley Teeth"
-            />
-          </IOLine>
-          <IOLine>
-            <NumberInput
-              stateHook={[minSprocketTeeth, setMinSprocketTeeth]}
-              label="Min Sprocket Teeth"
-            />
-            <NumberInput
-              stateHook={[maxSprocketTeeth, setMaxSprocketTeeth]}
-              label="Max Sprocket Teeth"
-            />
-          </IOLine>
+            <div className="flex flex-col gap-3 p-4">
+              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                Tooth Ranges
+              </h2>
+              <IOLine>
+                <NumberInput
+                  stateHook={[minGearTeeth, setMinGearTeeth]}
+                  label="Min Gear Teeth"
+                  labelAbove
+                />
+                <NumberInput
+                  stateHook={[maxGearTeeth, setMaxGearTeeth]}
+                  label="Max Gear Teeth"
+                  labelAbove
+                />
+              </IOLine>
+              <IOLine>
+                <NumberInput
+                  stateHook={[minPulleyTeeth, setMinPulleyTeeth]}
+                  label="Min Pulley Teeth"
+                  labelAbove
+                />
+                <NumberInput
+                  stateHook={[maxPulleyTeeth, setMaxPulleyTeeth]}
+                  label="Max Pulley Teeth"
+                  labelAbove
+                />
+              </IOLine>
+              <IOLine>
+                <NumberInput
+                  stateHook={[minSprocketTeeth, setMinSprocketTeeth]}
+                  label="Min Sprocket Teeth"
+                  labelAbove
+                />
+                <NumberInput
+                  stateHook={[maxSprocketTeeth, setMaxSprocketTeeth]}
+                  label="Max Sprocket Teeth"
+                  labelAbove
+                />
+              </IOLine>
+            </div>
+            <div className="border-t" />
 
-          <Divider>Filters</Divider>
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-            <div className="rounded-lg border bg-card p-3">
-              <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
-                Gears
-              </h3>
-              <div className="flex flex-col gap-2">
-                <CheckboxBooleanInput
-                  stateHook={[enable20DP, setEnable20DP]}
-                  label="20DP"
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enable32DP, setEnable32DP]}
-                  label="32DP"
-                />
+            <div className="flex flex-col gap-3 p-4">
+              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                Filters
+              </h2>
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+                <div className="rounded-lg border bg-card p-3">
+                  <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
+                    Gears
+                  </h3>
+                  <div className="flex flex-col gap-2">
+                    <CheckboxBooleanInput
+                      stateHook={[enable20DP, setEnable20DP]}
+                      label="20DP"
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enable32DP, setEnable32DP]}
+                      label="32DP"
+                    />
+                  </div>
+                </div>
+                <div className="rounded-lg border bg-card p-3">
+                  <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
+                    Pulleys
+                  </h3>
+                  <div className="flex flex-col gap-2">
+                    <CheckboxBooleanInput
+                      stateHook={[enableGT2, setEnableGT2]}
+                      label="GT2"
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enableHTD, setEnableHTD]}
+                      label="HTD"
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enableRT25, setEnableRT25]}
+                      label="RT25"
+                    />
+                  </div>
+                </div>
+                <div className="rounded-lg border bg-card p-3">
+                  <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
+                    Sprockets
+                  </h3>
+                  <div className="flex flex-col gap-2">
+                    <CheckboxBooleanInput
+                      stateHook={[enable25Chain, setEnable25Chain]}
+                      label="#25"
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enable35Chain, setEnable35Chain]}
+                      label="#35"
+                    />
+                  </div>
+                </div>
+                <div className="rounded-lg border bg-card p-3">
+                  <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
+                    Vendors
+                  </h3>
+                  <div className="flex flex-col gap-2">
+                    <CheckboxBooleanInput
+                      stateHook={[enableAM, setEnableAM]}
+                      label="AndyMark"
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enableLastAnvil, setEnableLastAnvil]}
+                      label="LastAnvil"
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enableSDS, setEnableSDS]}
+                      label="SDS"
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enableREV, setEnableREV]}
+                      label="REV"
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enableTTB, setEnableTTB]}
+                      label="Thrifty"
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enableWCP, setEnableWCP]}
+                      label="WCP"
+                    />
+                  </div>
+                </div>
+                <div className="rounded-lg border bg-card p-3">
+                  <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
+                    Bores
+                  </h3>
+                  <div className="flex flex-col gap-2">
+                    <CheckboxBooleanInput
+                      stateHook={[enableBore12Hex, setEnableBore12Hex]}
+                      label='1/2" Hex'
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enableBoreMAXSpline, setEnableBoreMAXSpline]}
+                      label="MAXSpline"
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enableBoreSplineXL, setEnableBoreSplineXL]}
+                      label="SplineXL"
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enableBore38Hex, setEnableBore38Hex]}
+                      label='3/8" Hex'
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enableBore1125, setEnableBore1125]}
+                      label='1.125" Round'
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enableBore5mmHex, setEnableBore5mmHex]}
+                      label="5mm Hex"
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enableBore14Round, setEnableBore14Round]}
+                      label='1/4" Round'
+                    />
+                  </div>
+                </div>
+                <div className="rounded-lg border bg-card p-3">
+                  <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
+                    Other
+                  </h3>
+                  <div className="flex flex-col gap-2">
+                    <CheckboxBooleanInput
+                      stateHook={[enablePlanetaries, setEnablePlanetaries]}
+                      label="Planetaries"
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enableCustomGears, setEnableCustomGears]}
+                      label="Custom Gears"
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enableCustomPulleys, setEnableCustomPulleys]}
+                      label="Custom Pulleys"
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[
+                        enableCustomSprockets,
+                        setEnableCustomSprockets,
+                      ]}
+                      label="Custom Sprockets"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="rounded-lg border bg-card p-3">
-              <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
-                Pulleys
-              </h3>
-              <div className="flex flex-col gap-2">
-                <CheckboxBooleanInput
-                  stateHook={[enableGT2, setEnableGT2]}
-                  label="GT2"
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enableHTD, setEnableHTD]}
-                  label="HTD"
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enableRT25, setEnableRT25]}
-                  label="RT25"
-                />
-              </div>
-            </div>
-            <div className="rounded-lg border bg-card p-3">
-              <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
-                Sprockets
-              </h3>
-              <div className="flex flex-col gap-2">
-                <CheckboxBooleanInput
-                  stateHook={[enable25Chain, setEnable25Chain]}
-                  label="#25"
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enable35Chain, setEnable35Chain]}
-                  label="#35"
-                />
-              </div>
-            </div>
-            <div className="rounded-lg border bg-card p-3">
-              <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
-                Vendors
-              </h3>
-              <div className="flex flex-col gap-2">
-                <CheckboxBooleanInput
-                  stateHook={[enableAM, setEnableAM]}
-                  label="AndyMark"
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enableLastAnvil, setEnableLastAnvil]}
-                  label="LastAnvil"
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enableSDS, setEnableSDS]}
-                  label="SDS"
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enableREV, setEnableREV]}
-                  label="REV"
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enableTTB, setEnableTTB]}
-                  label="Thrifty"
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enableWCP, setEnableWCP]}
-                  label="WCP"
-                />
-              </div>
-            </div>
-            <div className="rounded-lg border bg-card p-3">
-              <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
-                Bores
-              </h3>
-              <div className="flex flex-col gap-2">
-                <CheckboxBooleanInput
-                  stateHook={[enableBore12Hex, setEnableBore12Hex]}
-                  label='1/2" Hex'
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enableBoreMAXSpline, setEnableBoreMAXSpline]}
-                  label="MAXSpline"
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enableBoreSplineXL, setEnableBoreSplineXL]}
-                  label="SplineXL"
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enableBore38Hex, setEnableBore38Hex]}
-                  label='3/8" Hex'
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enableBore1125, setEnableBore1125]}
-                  label='1.125" Round'
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enableBore5mmHex, setEnableBore5mmHex]}
-                  label="5mm Hex"
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enableBore14Round, setEnableBore14Round]}
-                  label='1/4" Round'
-                />
-              </div>
-            </div>
-            <div className="rounded-lg border bg-card p-3">
-              <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
-                Other
-              </h3>
-              <div className="flex flex-col gap-2">
-                <CheckboxBooleanInput
-                  stateHook={[enablePlanetaries, setEnablePlanetaries]}
-                  label="Planetaries"
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enableCustomGears, setEnableCustomGears]}
-                  label="Custom Gears"
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enableCustomPulleys, setEnableCustomPulleys]}
-                  label="Custom Pulleys"
-                />
-                <CheckboxBooleanInput
-                  stateHook={[enableCustomSprockets, setEnableCustomSprockets]}
-                  label="Custom Sprockets"
-                />
-              </div>
-            </div>
-          </div>
+          </section>
         </div>
 
-        <div className="flex flex-col gap-x-4 gap-y-2">
+        <div className="flex min-w-[300px] flex-1 flex-col gap-x-4 gap-y-2">
           <Divider>
             {loading ? <Spinner /> : <>{count} Solutions Found</>}
           </Divider>
@@ -530,7 +556,11 @@ export function GearboxList({
             </thead>
             <tbody className="divide-y">
               {gearboxes.map((gearbox, index) => (
-                <tr key={index} className="transition-colors hover:bg-muted/30">
+                <tr
+                  key={index}
+                  aria-label={`Gearbox solution ${index + 1}: ${gearbox.ratio.toFixed(2)}:1`}
+                  className="transition-colors hover:bg-muted/30"
+                >
                   <td className="px-3 py-3">
                     <div className="inline-flex items-center gap-1 rounded bg-primary/10 px-2 py-1 text-sm font-semibold text-primary">
                       {gearbox.ratio.toFixed(2)}:1

@@ -3,12 +3,14 @@
   - img
   - img
   - text: Copy Link
+- heading "Motor & Gearing" [level=2]
 - text: Motor
-- spinbutton "Motor Ratio Arm Length Load Min Angle Max Angle Stator Limit Supply Limit Stator Voltage Supply Voltage Battery Resistance Time to Goal (Up) Time to Goal (Down)": "1"
+- spinbutton "Motor Ratio Arm Length Load Min Angle Max Angle Stator Limit Supply Limit Stator Voltage Supply Voltage Battery Resistance Max Stator Limit Max Supply Limit": "1"
 - combobox: Kraken X60 (FOC)
 - text: Ratio
 - spinbutton: "100"
 - combobox: Reduction
+- heading "Arm Geometry" [level=2]
 - button "Arm Length"
 - spinbutton: "24"
 - combobox: in
@@ -21,6 +23,7 @@
 - button "Max Angle"
 - spinbutton: "135"
 - combobox: deg
+- heading "Limits" [level=2]
 - button "Stator Limit"
 - spinbutton: "80"
 - combobox: A
@@ -38,12 +41,11 @@
 - button "Battery Resistance"
 - spinbutton: "0.015"
 - combobox: Ohm
-- text: Time to Goal (Up)
-- spinbutton [disabled]: "0.413"
+- text: Time to Goal (Up) 0.413
 - combobox: s
-- text: Time to Goal (Down)
-- spinbutton [disabled]: "0.406"
+- text: Time to Goal (Down) 0.406
 - combobox: s
+- heading "Simulation (Going Up)" [level=2]
 - list:
   - listitem:
     - img "Battery Voltage (V) legend icon"
@@ -54,7 +56,11 @@
   - listitem:
     - img "Stator Current (A) legend icon"
     - text: Stator Current (A)
-- application: 0.06100000000000005 0.18100000000000013 0.3010000000000002 0.4130000000000003 -25 0 25 50 75 0 1500 3000 4500 6000
+  - listitem:
+    - img "Supply Current (A) legend icon"
+    - text: Supply Current (A)
+- application: Time (s) Current (A) / Voltage (V) Motor Speed (RPM) 0.031 0.071 0.111 0.141 0.181 0.221 0.261 0.301 0.341 0.381 0.413 -25 0 25 50 75 0 1500 3000 4500 6000
+- heading "Simulation (Going Down)" [level=2]
 - list:
   - listitem:
     - img "Battery Voltage (V) legend icon"
@@ -65,4 +71,7 @@
   - listitem:
     - img "Stator Current (A) legend icon"
     - text: Stator Current (A)
-- application: 0.05100000000000004 0.17100000000000012 0.2910000000000002 0.4060000000000003 -25 0 25 50 75 0 1500 3000 4500 6000
+  - listitem:
+    - img "Supply Current (A) legend icon"
+    - text: Supply Current (A)
+- application: Time (s) Current (A) / Voltage (V) Motor Speed (RPM) 0.011 0.051 0.091 0.131 0.171 0.211 0.251 0.291 0.331 0.371 0.406 -25 0 25 50 75 0 1500 3000 4500 6000

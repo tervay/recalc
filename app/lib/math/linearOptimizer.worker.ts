@@ -6,6 +6,8 @@ import { calculateGuessedLimits } from '~/lib/math/linear';
 import {
   type SimState,
   type MetricSource,
+  type ConfigOptResult,
+  type ConfigOptOutput,
   peakSupplyCurrent,
   makeGrid,
 } from '~/lib/math/optimizerUtils';
@@ -14,6 +16,11 @@ import Measurement from '~/lib/models/Measurement';
 import Motor, { type MotorDict } from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
+
+export type {
+  ConfigOptResult,
+  ConfigOptOutput,
+} from '~/lib/math/optimizerUtils';
 
 export interface OptimizerResult extends MetricSource {
   statorLimitAmps: number;
@@ -24,18 +31,6 @@ export interface SingleSimResult extends MetricSource {
   ratioMagnitude: number;
   supplyLimitAmps: number;
   statorLimitAmps: number;
-}
-
-export interface ConfigOptResult extends MetricSource {
-  statorLimitAmps: number;
-  supplyLimitAmps: number;
-  optimalRatio: number;
-  success: boolean;
-}
-
-export interface ConfigOptOutput {
-  recommended: ConfigOptResult | null;
-  allResults: ConfigOptResult[];
 }
 
 interface SimControlParams {

@@ -19,6 +19,18 @@ export interface MetricSource {
   energyJoules: number;
 }
 
+export interface ConfigOptResult extends MetricSource {
+  statorLimitAmps: number;
+  supplyLimitAmps: number;
+  optimalRatio: number;
+  success: boolean;
+}
+
+export interface ConfigOptOutput {
+  recommended: ConfigOptResult | null;
+  allResults: ConfigOptResult[];
+}
+
 export function peakSupplyCurrent(states: SimState[]): number {
   return (
     maxBy(states, (s) => s.supplyCurrentDrawAmps)?.supplyCurrentDrawAmps ?? 0

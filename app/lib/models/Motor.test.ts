@@ -91,7 +91,7 @@ describe('Motor', () => {
           new Measurement(12, 'V'),
           1,
         );
-      }).toThrow();
+      }).toThrow('Divide by zero');
     });
 
     it('throws error with zero voltage and non-zero stallCurrent', () => {
@@ -105,7 +105,7 @@ describe('Motor', () => {
           new Measurement(0, 'V'),
           1,
         );
-      }).toThrow();
+      }).toThrow('Divide by zero');
     });
 
     it('handles very small stallCurrent', () => {
@@ -145,7 +145,7 @@ describe('Motor', () => {
           new Measurement(12, 'V'),
           1,
         );
-      }).toThrow();
+      }).toThrow('Divide by zero');
     });
 
     it('handles very small freeSpeed', () => {
@@ -317,13 +317,13 @@ describe('Motor', () => {
     it('throws error with invalid name', () => {
       expect(() => {
         Motor.fromName('Invalid Motor Name', 1);
-      }).toThrow();
+      }).toThrow(TypeError);
     });
 
     it('handles empty string name', () => {
       expect(() => {
         Motor.fromName('', 1);
-      }).toThrow();
+      }).toThrow(TypeError);
     });
   });
 
@@ -402,7 +402,7 @@ describe('Motor', () => {
 
     it('throws error with invalid name', () => {
       const dict = { name: 'Invalid Motor', quantity: 1 };
-      expect(() => Motor.fromDict(dict)).toThrow();
+      expect(() => Motor.fromDict(dict)).toThrow(TypeError);
     });
   });
 
@@ -460,7 +460,7 @@ describe('Motor', () => {
         dataSource: 'Custom',
         vendors: ['Custom'],
       };
-      expect(() => completeMotorSpecs(specs)).toThrow();
+      expect(() => completeMotorSpecs(specs)).toThrow('Divide by zero');
     });
 
     it('throws error with zero voltage', () => {
@@ -477,7 +477,7 @@ describe('Motor', () => {
         dataSource: 'Custom',
         vendors: ['Custom'],
       };
-      expect(() => completeMotorSpecs(specs)).toThrow();
+      expect(() => completeMotorSpecs(specs)).toThrow('Divide by zero');
     });
 
     it('handles zero stallTorque', () => {

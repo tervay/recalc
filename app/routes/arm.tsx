@@ -8,27 +8,31 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import workerpool from 'workerpool';
 
 import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
 import BooleanInput from '~/components/recalc/io/boolean';
 import {
+  MeasurementDisplayOutput,
   MeasurementInput,
-  MeasurementOutput,
 } from '~/components/recalc/io/measurement';
 import { MotorInput } from '~/components/recalc/io/motor';
 import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
-import PctSpan from '~/components/recalc/pctSpan';
+import { OptimalConfigGrid } from '~/components/recalc/optimalConfigGrid';
 import { ChartContainer } from '~/components/ui/chart';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import type * as ArmWorker from '~/lib/math/arm.worker';
-import type { ArmOptimizerResult } from '~/lib/math/armOptimizer.worker';
+import type * as ArmOptimizerWorker from '~/lib/math/armOptimizer.worker';
+import type {
+  ConfigOptOutput,
+  ConfigOptResult,
+} from '~/lib/math/armOptimizer.worker';
 import optimizerWorkerUrl from '~/lib/math/armOptimizer.worker?worker&url';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
+import { getPool } from '~/lib/pool';
 import {
   MeasurementParam,
   MotorParam,
@@ -58,6 +62,12 @@ const DEFAULT_PARAMS = {
   maxAngle: MeasurementParam.withDefault(new Measurement(90, 'deg')),
   efficiency: NumberParam.withDefault(100),
   load: MeasurementParam.withDefault(new Measurement(5, 'lb')),
+  maximumComfortableStatorLimit: MeasurementParam.withDefault(
+    new Measurement(80, 'A'),
+  ),
+  maximumComfortableSupplyLimit: MeasurementParam.withDefault(
+    new Measurement(60, 'A'),
+  ),
 };
 
 const CHART_CONFIG = {} as const;
@@ -69,12 +79,7 @@ const worker = new ComlinkWorker<typeof ArmWorker>(
   },
 );
 
-const OPTIMIZER_STATOR_LIMITS = [20, 40, 60, 80, 100, 120, 150, 200];
-
-const optimizerPool = workerpool.pool(optimizerWorkerUrl, {
-  workerType: 'web',
-  workerOpts: { type: 'module' },
-});
+const optimizerPool = getPool<typeof ArmOptimizerWorker>(optimizerWorkerUrl);
 
 type WpilibArmSimState = ArmWorker.WpilibArmSimState;
 
@@ -95,6 +100,10 @@ export default function Arm() {
   const [maxAngle, setMaxAngle] = useState(queryParams.maxAngle);
   const [efficiency, setEfficiency] = useState(queryParams.efficiency);
   const [load, setLoad] = useState(queryParams.load);
+  const [maximumComfortableStatorLimit, setMaximumComfortableStatorLimit] =
+    useState(queryParams.maximumComfortableStatorLimit);
+  const [maximumComfortableSupplyLimit, setMaximumComfortableSupplyLimit] =
+    useState(queryParams.maximumComfortableSupplyLimit);
 
   const [goingUpStates, setGoingUpStates] = useState<WpilibArmSimState[]>([]);
   const [goingDownStates, setGoingDownStates] = useState<WpilibArmSimState[]>(
@@ -221,72 +230,61 @@ export default function Arm() {
   ]);
 
   // Optimizer
-  const [optimizerResults, setOptimizerResults] = useState<
-    ArmOptimizerResult[]
-  >([]);
-  const optimizerGeneration = useRef(0);
   const [optimizationEnabled, setOptimizationEnabled] = useState(true);
+  const [configOptResult, setConfigOptResult] =
+    useState<ConfigOptOutput | null>(null);
+  const [selectedConfigCell, setSelectedConfigCell] =
+    useState<ConfigOptResult | null>(null);
+  const configOptGeneration = useRef(0);
 
   const userStatorAmps = statorLimit.to('A').scalar;
-  const allStatorLimits = useMemo(
-    () =>
-      OPTIMIZER_STATOR_LIMITS.includes(userStatorAmps)
-        ? OPTIMIZER_STATOR_LIMITS
-        : [...OPTIMIZER_STATOR_LIMITS, userStatorAmps].sort((a, b) => a - b),
-    [userStatorAmps],
-  );
+  const userSupplyAmps = supplyLimit.to('A').scalar;
 
   useEffect(() => {
     if (!optimizationEnabled) {
-      setOptimizerResults([]);
+      setConfigOptResult(null);
+      setSelectedConfigCell(null);
       return;
     }
-    const gen = ++optimizerGeneration.current;
-    setOptimizerResults([]);
+    const gen = ++configOptGeneration.current;
+    setConfigOptResult(null);
+    setSelectedConfigCell(null);
 
-    for (const statorLimitAmps of allStatorLimits) {
-      optimizerPool
-        .exec('optimizeRatio', [
-          motor.toDict(),
-          momentOfInertia.toDict(),
-          armLength.toDict(),
-          minAngle.toDict(),
-          maxAngle.toDict(),
-          supplyLimit.toDict(),
-          statorVoltage.toDict(),
-          batteryResistance.toDict(),
-          supplyVoltage.toDict(),
-          statorLimitAmps,
-          ratio.magnitude,
-          efficiency / 100,
-        ])
-        .then((result: ArmOptimizerResult) => {
-          if (gen !== optimizerGeneration.current) return;
-          setOptimizerResults((prev) =>
-            [...prev, result].sort(
-              (a, b) => a.statorLimitAmps - b.statorLimitAmps,
-            ),
-          );
-        })
-        .catch((err: unknown) => {
-          console.error('Arm optimizer error:', err);
-        });
-    }
+    optimizerPool
+      .exec('optimizeConfiguration', [
+        motor.toDict(),
+        momentOfInertia.toDict(),
+        armLength.toDict(),
+        minAngle.toDict(),
+        maxAngle.toDict(),
+        statorVoltage.toDict(),
+        batteryResistance.toDict(),
+        supplyVoltage.toDict(),
+        maximumComfortableStatorLimit.toDict(),
+        maximumComfortableSupplyLimit.toDict(),
+        efficiency / 100,
+      ])
+      .then((result: ConfigOptOutput) => {
+        if (gen !== configOptGeneration.current) return;
+        setConfigOptResult(result);
+        setSelectedConfigCell(result.recommended ?? null);
+      })
+      .catch((err: unknown) => {
+        console.error('Arm optimizer error:', err);
+      });
   }, [
     motor,
     momentOfInertia,
     armLength,
     minAngle,
     maxAngle,
-    supplyLimit,
     statorVoltage,
     batteryResistance,
     supplyVoltage,
-    statorLimit,
-    ratio,
+    maximumComfortableStatorLimit,
+    maximumComfortableSupplyLimit,
     efficiency,
     optimizationEnabled,
-    allStatorLimits,
   ]);
 
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
@@ -302,15 +300,9 @@ export default function Arm() {
     maxAngle,
     efficiency,
     load,
+    maximumComfortableStatorLimit,
+    maximumComfortableSupplyLimit,
   });
-
-  const baselineTimeSeconds = Math.max(
-    goingUpTimeToGoal.to('s').scalar,
-    goingDownTimeToGoal.to('s').scalar,
-  );
-  const hasBaseline =
-    (goingUpStates.length > 0 || goingDownStates.length > 0) &&
-    baselineTimeSeconds > 0;
 
   return (
     <div>
@@ -319,173 +311,333 @@ export default function Arm() {
           title="Arm Calculator"
           getSerializedState={() => serializedState}
         />
-        <div className="flex flex-row flex-wrap gap-x-4 px-1 *:flex-1">
-          <div className="flex flex-col gap-x-4 gap-y-2">
-            <IOLine>
-              <MotorInput stateHook={[motor, setMotor]} testId="motor" />
-              <RatioInput stateHook={[ratio, setRatio]} testId="ratio" />
-            </IOLine>
+        <div className="flex flex-row flex-wrap gap-6 px-1">
+          <div className="flex min-w-[300px] flex-1 flex-col">
+            <section className="flex flex-col rounded-lg border">
+              {/* Motor & Gearing section */}
+              <div className="flex flex-col gap-3 p-4">
+                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  Motor &amp; Gearing
+                </h2>
+                <IOLine>
+                  <MotorInput
+                    stateHook={[motor, setMotor]}
+                    testId="motor"
+                    labelAbove
+                  />
+                  <RatioInput
+                    stateHook={[ratio, setRatio]}
+                    testId="ratio"
+                    labelAbove
+                  />
+                </IOLine>
+              </div>
+              <div className="border-t" />
 
-            <IOLine>
-              <MeasurementInput
-                stateHook={[armLength, setArmLength]}
-                label="Arm Length"
-                tooltip="The length of the arm from the motor to the center of the load."
-                testId="armLength"
-              />
-              <MeasurementInput
-                stateHook={[load, setLoad]}
-                label="Load"
-                tooltip="The weight of the load."
-                testId="load"
-              />
-            </IOLine>
+              {/* Arm Geometry section */}
+              <div className="flex flex-col gap-3 p-4">
+                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  Arm Geometry
+                </h2>
+                <IOLine>
+                  <MeasurementInput
+                    stateHook={[armLength, setArmLength]}
+                    label="Arm Length"
+                    tooltip="The length of the arm from the motor to the center of the load."
+                    testId="armLength"
+                    labelAbove
+                  />
+                  <MeasurementInput
+                    stateHook={[load, setLoad]}
+                    label="Load"
+                    tooltip="The weight of the load."
+                    testId="load"
+                    labelAbove
+                  />
+                </IOLine>
+                <IOLine>
+                  <MeasurementInput
+                    stateHook={[minAngle, setMinAngle]}
+                    label="Min Angle"
+                    tooltip="The minimum angle the arm can move to."
+                    testId="minAngle"
+                    labelAbove
+                  />
+                  <MeasurementInput
+                    stateHook={[maxAngle, setMaxAngle]}
+                    label="Max Angle"
+                    tooltip="The maximum angle the arm can move to."
+                    testId="maxAngle"
+                    labelAbove
+                  />
+                </IOLine>
+              </div>
+              <div className="border-t" />
 
-            <IOLine>
-              <MeasurementInput
-                stateHook={[minAngle, setMinAngle]}
-                label="Min Angle"
-                tooltip="The minimum angle the arm can move to."
-                testId="minAngle"
-              />
-              <MeasurementInput
-                stateHook={[maxAngle, setMaxAngle]}
-                label="Max Angle"
-                tooltip="The maximum angle the arm can move to."
-                testId="maxAngle"
-              />
-            </IOLine>
-
-            <IOLine>
-              <MeasurementInput
-                stateHook={[statorLimit, setStatorLimit]}
-                label="Stator Limit"
-                tooltip="The current limit applied to the stator."
-                testId="statorLimit"
-              />
-              <MeasurementInput
-                stateHook={[supplyLimit, setSupplyLimit]}
-                label="Supply Limit"
-                tooltip="The current limit applied to the supply (battery). This is *not* supported by REVLib, so make sure the supply power limit is higher than the stator power limit for REV motors."
-                testId="supplyLimit"
-              />
-            </IOLine>
-
-            <IOLine>
-              <MeasurementInput
-                stateHook={[statorVoltage, setStatorVoltage]}
-                label="Stator Voltage"
-                tooltip="The voltage applied to the stator."
-                testId="statorVoltage"
-              />
-              <MeasurementInput
-                stateHook={[supplyVoltage, setSupplyVoltage]}
-                label="Supply Voltage"
-                tooltip="The voltage available from the supply (battery) at rest."
-                testId="supplyVoltage"
-              />
-            </IOLine>
-
-            <IOLine>
-              <NumberInput
-                stateHook={[efficiency, setEfficiency]}
-                label="Efficiency"
-                tooltip="The efficiency of the arm and gearbox. Typically ~92-97% per stage."
-                testId="efficiency"
-              />
-              <MeasurementInput
-                stateHook={[batteryResistance, setBatteryResistance]}
-                label="Battery Resistance"
-                tooltip="The resistance of the battery."
-                testId="batteryResistance"
-              />
-            </IOLine>
-
-            <IOLine>
-              <MeasurementOutput
-                state={goingUpTimeToGoal}
-                label="Time to Goal (Up)"
-                defaultUnit="s"
-                testId="goingUpTimeToGoal"
-              />
-              <MeasurementOutput
-                state={goingDownTimeToGoal}
-                label="Time to Goal (Down)"
-                defaultUnit="s"
-                testId="goingDownTimeToGoal"
-              />
-            </IOLine>
+              {/* Limits section */}
+              <div className="flex flex-col gap-3 p-4">
+                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  Limits
+                </h2>
+                <IOLine>
+                  <MeasurementInput
+                    stateHook={[statorLimit, setStatorLimit]}
+                    label="Stator Limit"
+                    tooltip="The current limit applied to the stator."
+                    testId="statorLimit"
+                    labelAbove
+                  />
+                  <MeasurementInput
+                    stateHook={[supplyLimit, setSupplyLimit]}
+                    label="Supply Limit"
+                    tooltip="The current limit applied to the supply (battery). This is *not* supported by REVLib, so make sure the supply power limit is higher than the stator power limit for REV motors."
+                    testId="supplyLimit"
+                    labelAbove
+                  />
+                </IOLine>
+                <IOLine>
+                  <MeasurementInput
+                    stateHook={[statorVoltage, setStatorVoltage]}
+                    label="Stator Voltage"
+                    tooltip="The voltage applied to the stator."
+                    testId="statorVoltage"
+                    labelAbove
+                  />
+                  <MeasurementInput
+                    stateHook={[supplyVoltage, setSupplyVoltage]}
+                    label="Supply Voltage"
+                    tooltip="The voltage available from the supply (battery) at rest."
+                    testId="supplyVoltage"
+                    labelAbove
+                  />
+                </IOLine>
+                <IOLine>
+                  <NumberInput
+                    stateHook={[efficiency, setEfficiency]}
+                    label="Efficiency"
+                    tooltip="The efficiency of the arm and gearbox. Typically ~92-97% per stage."
+                    testId="efficiency"
+                    labelAbove
+                  />
+                  <MeasurementInput
+                    stateHook={[batteryResistance, setBatteryResistance]}
+                    label="Battery Resistance"
+                    tooltip="The resistance of the battery."
+                    testId="batteryResistance"
+                    labelAbove
+                  />
+                </IOLine>
+              </div>
+            </section>
           </div>
-          <div className="flex flex-col gap-x-4 gap-y-2">
-            <ChartContainer
-              config={CHART_CONFIG}
-              className="min-h-[200px] w-full"
-            >
-              <LineChart data={goingUpChartData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="timeSeconds" />
-                <YAxis yAxisId="left" />
-                <YAxis yAxisId="right" orientation="right" />
-                <Tooltip />
-                <Legend verticalAlign="top" />
-                <Line
-                  name="Motor RPM"
-                  dataKey="motorRpmDisplay"
-                  yAxisId="right"
-                  dot={false}
-                  stroke="blue"
+          <div className="flex min-w-[300px] flex-1 flex-col gap-4">
+            <section className="flex flex-col rounded-lg border">
+              {/* Results */}
+              <div className="grid grid-cols-2 gap-2 p-4">
+                <MeasurementDisplayOutput
+                  state={goingUpTimeToGoal}
+                  label="Time to Goal (Up)"
+                  defaultUnit="s"
+                  testId="goingUpTimeToGoal"
                 />
-                <Line
-                  name="Stator Current (A)"
-                  dataKey="statorCurrentDrawAmps"
-                  yAxisId="left"
-                  dot={false}
-                  stroke="goldenrod"
+                <MeasurementDisplayOutput
+                  state={goingDownTimeToGoal}
+                  label="Time to Goal (Down)"
+                  defaultUnit="s"
+                  testId="goingDownTimeToGoal"
                 />
-                <Line
-                  name="Battery Voltage (V)"
-                  dataKey="batteryVoltageVolts"
-                  yAxisId="left"
-                  dot={false}
-                  stroke="green"
-                />
-              </LineChart>
-            </ChartContainer>
+              </div>
+              <div className="border-t" />
 
-            <ChartContainer
-              config={CHART_CONFIG}
-              className="min-h-[200px] w-full"
-            >
-              <LineChart data={goingDownChartData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="timeSeconds" />
-                <YAxis yAxisId="left" />
-                <YAxis yAxisId="right" orientation="right" />
-                <Tooltip />
-                <Legend verticalAlign="top" />
-                <Line
-                  name="Motor RPM"
-                  dataKey="motorRpmDisplay"
-                  yAxisId="right"
-                  dot={false}
-                  stroke="blue"
-                />
-                <Line
-                  name="Stator Current (A)"
-                  dataKey="statorCurrentDrawAmps"
-                  yAxisId="left"
-                  dot={false}
-                  stroke="goldenrod"
-                />
-                <Line
-                  name="Battery Voltage (V)"
-                  dataKey="batteryVoltageVolts"
-                  yAxisId="left"
-                  dot={false}
-                  stroke="green"
-                />
-              </LineChart>
-            </ChartContainer>
+              {/* Going Up chart */}
+              <div className="p-4 pb-2">
+                <h2 className="mb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  Simulation (Going Up)
+                </h2>
+                <ChartContainer
+                  config={CHART_CONFIG}
+                  className="min-h-[200px] w-full"
+                >
+                  <LineChart
+                    data={goingUpChartData}
+                    margin={{ top: 5, right: 20, bottom: 30, left: 20 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis
+                      dataKey="timeSeconds"
+                      tickFormatter={(v: number) =>
+                        parseFloat(v.toPrecision(3)).toString()
+                      }
+                      label={{
+                        value: 'Time (s)',
+                        position: 'insideBottom',
+                        offset: -15,
+                      }}
+                    />
+                    <YAxis
+                      yAxisId="left"
+                      label={{
+                        value: 'Current (A) / Voltage (V)',
+                        angle: -90,
+                        position: 'insideLeft',
+                        offset: 15,
+                        style: { textAnchor: 'middle' },
+                      }}
+                    />
+                    <YAxis
+                      yAxisId="right"
+                      orientation="right"
+                      label={{
+                        value: 'Motor Speed (RPM)',
+                        angle: 90,
+                        position: 'insideRight',
+                        offset: 15,
+                        style: { textAnchor: 'middle' },
+                      }}
+                    />
+                    <Tooltip
+                      formatter={(value) =>
+                        typeof value === 'number' && Number.isFinite(value)
+                          ? value.toFixed(3)
+                          : String(value)
+                      }
+                      labelFormatter={(label) =>
+                        typeof label === 'number' && Number.isFinite(label)
+                          ? label.toFixed(3)
+                          : String(label)
+                      }
+                    />
+                    <Legend
+                      verticalAlign="top"
+                      wrapperStyle={{ paddingBottom: 20 }}
+                    />
+                    <Line
+                      name="Motor RPM"
+                      dataKey="motorRpmDisplay"
+                      yAxisId="right"
+                      dot={false}
+                      stroke="blue"
+                    />
+                    <Line
+                      name="Stator Current (A)"
+                      dataKey="statorCurrentDrawAmps"
+                      yAxisId="left"
+                      dot={false}
+                      stroke="goldenrod"
+                    />
+                    <Line
+                      name="Supply Current (A)"
+                      dataKey="supplyCurrentDrawAmps"
+                      yAxisId="left"
+                      dot={false}
+                      stroke="purple"
+                    />
+                    <Line
+                      name="Battery Voltage (V)"
+                      dataKey="batteryVoltageVolts"
+                      yAxisId="left"
+                      dot={false}
+                      stroke="green"
+                    />
+                  </LineChart>
+                </ChartContainer>
+              </div>
+              <div className="border-t" />
+
+              {/* Going Down chart */}
+              <div className="p-4 pb-2">
+                <h2 className="mb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  Simulation (Going Down)
+                </h2>
+                <ChartContainer
+                  config={CHART_CONFIG}
+                  className="min-h-[200px] w-full"
+                >
+                  <LineChart
+                    data={goingDownChartData}
+                    margin={{ top: 5, right: 20, bottom: 30, left: 20 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis
+                      dataKey="timeSeconds"
+                      tickFormatter={(v: number) =>
+                        parseFloat(v.toPrecision(3)).toString()
+                      }
+                      label={{
+                        value: 'Time (s)',
+                        position: 'insideBottom',
+                        offset: -15,
+                      }}
+                    />
+                    <YAxis
+                      yAxisId="left"
+                      label={{
+                        value: 'Current (A) / Voltage (V)',
+                        angle: -90,
+                        position: 'insideLeft',
+                        offset: 15,
+                        style: { textAnchor: 'middle' },
+                      }}
+                    />
+                    <YAxis
+                      yAxisId="right"
+                      orientation="right"
+                      label={{
+                        value: 'Motor Speed (RPM)',
+                        angle: 90,
+                        position: 'insideRight',
+                        offset: 15,
+                        style: { textAnchor: 'middle' },
+                      }}
+                    />
+                    <Tooltip
+                      formatter={(value) =>
+                        typeof value === 'number' && Number.isFinite(value)
+                          ? value.toFixed(3)
+                          : String(value)
+                      }
+                      labelFormatter={(label) =>
+                        typeof label === 'number' && Number.isFinite(label)
+                          ? label.toFixed(3)
+                          : String(label)
+                      }
+                    />
+                    <Legend
+                      verticalAlign="top"
+                      wrapperStyle={{ paddingBottom: 20 }}
+                    />
+                    <Line
+                      name="Motor RPM"
+                      dataKey="motorRpmDisplay"
+                      yAxisId="right"
+                      dot={false}
+                      stroke="blue"
+                    />
+                    <Line
+                      name="Stator Current (A)"
+                      dataKey="statorCurrentDrawAmps"
+                      yAxisId="left"
+                      dot={false}
+                      stroke="goldenrod"
+                    />
+                    <Line
+                      name="Supply Current (A)"
+                      dataKey="supplyCurrentDrawAmps"
+                      yAxisId="left"
+                      dot={false}
+                      stroke="purple"
+                    />
+                    <Line
+                      name="Battery Voltage (V)"
+                      dataKey="batteryVoltageVolts"
+                      yAxisId="left"
+                      dot={false}
+                      stroke="green"
+                    />
+                  </LineChart>
+                </ChartContainer>
+              </div>
+            </section>
           </div>
         </div>
       </div>
@@ -502,162 +654,111 @@ export default function Arm() {
       </div>
 
       {optimizationEnabled && (
-        <div className="px-1">
-          <section className="flex flex-col rounded-lg border">
-            <div className="flex flex-col gap-3 p-4">
-              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                Ratio Optimizer
-              </h2>
-              <table className="w-full text-sm tabular-nums">
-                <thead>
-                  <tr className="border-b text-left text-xs text-muted-foreground">
-                    <th className="pr-3 pb-1 font-medium">
-                      Per-Motor
-                      <br />
-                      Stator Limit
-                    </th>
-                    <th className="pr-3 pb-1 font-medium">Ratio</th>
-                    <th className="pr-3 pb-1 font-medium">
-                      Peak Supply
-                      <br />
-                      Current
-                    </th>
-                    <th className="pr-3 pb-1 font-medium">
-                      Worst-Direction
-                      <br />
-                      Time to Goal
-                    </th>
-                    <th className="pr-3 pb-1 font-medium">Energy</th>
-                    <th className="pb-1 font-medium">Avg Power</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {allStatorLimits.map((statorLimitAmps) => {
-                    const result = optimizerResults.find(
-                      (r) => r.statorLimitAmps === statorLimitAmps,
-                    );
-                    const isUserRow = statorLimitAmps === userStatorAmps;
-
-                    const baselineEnergyJoules = hasBaseline
-                      ? (goingUpStates.length > 0
-                          ? goingUpStates[goingUpStates.length - 1].energyJoules
-                          : 0) +
-                        (goingDownStates.length > 0
-                          ? goingDownStates[goingDownStates.length - 1]
-                              .energyJoules
-                          : 0)
-                      : null;
-
-                    const baselineAvgPower =
-                      baselineEnergyJoules !== null && hasBaseline
-                        ? baselineEnergyJoules / baselineTimeSeconds
-                        : null;
-
-                    const baselinePeakCurrent = hasBaseline
-                      ? Math.max(
-                          ...goingUpStates.map((s) => s.supplyCurrentDrawAmps),
-                          ...goingDownStates.map(
-                            (s) => s.supplyCurrentDrawAmps,
-                          ),
-                        )
-                      : null;
-
-                    const timePct =
-                      result && hasBaseline
-                        ? ((result.timeToGoalSeconds - baselineTimeSeconds) /
-                            baselineTimeSeconds) *
-                          100
-                        : null;
-                    const peakCurrentPct =
-                      result && baselinePeakCurrent !== null
-                        ? ((result.peakSupplyCurrentAmps -
-                            baselinePeakCurrent) /
-                            baselinePeakCurrent) *
-                          100
-                        : null;
-                    const energyPct =
-                      result && baselineEnergyJoules !== null
-                        ? ((result.energyJoules - baselineEnergyJoules) /
-                            baselineEnergyJoules) *
-                          100
-                        : null;
-                    const resultAvgPower =
-                      result && result.timeToGoalSeconds > 0
-                        ? result.energyJoules / result.timeToGoalSeconds
-                        : null;
-                    const avgPowerPct =
-                      resultAvgPower !== null && baselineAvgPower !== null
-                        ? ((resultAvgPower - baselineAvgPower) /
-                            baselineAvgPower) *
-                          100
-                        : null;
-
-                    return (
-                      <tr
-                        key={statorLimitAmps}
-                        className={`border-b last:border-0 ${isUserRow ? 'bg-muted' : ''}`}
-                      >
-                        <td className="py-1 pr-3">{statorLimitAmps} A</td>
-                        <td className="py-1 pr-3">
-                          {result ? (
-                            result.optimalRatio.toFixed(1)
-                          ) : (
-                            <span className="text-muted-foreground">…</span>
-                          )}
-                        </td>
-                        <td className="py-1 pr-3">
-                          {result ? (
-                            <>
-                              {result.peakSupplyCurrentAmps.toFixed(1)} A
-                              {peakCurrentPct !== null && (
-                                <PctSpan pct={peakCurrentPct} />
-                              )}
-                            </>
-                          ) : (
-                            <span className="text-muted-foreground">…</span>
-                          )}
-                        </td>
-                        <td className="py-1 pr-3">
-                          {result ? (
-                            <>
-                              {result.timeToGoalSeconds.toFixed(3)} s
-                              {timePct !== null && <PctSpan pct={timePct} />}
-                            </>
-                          ) : (
-                            <span className="text-muted-foreground">…</span>
-                          )}
-                        </td>
-                        <td className="py-1 pr-3">
-                          {result ? (
-                            <>
-                              {result.energyJoules.toFixed(1)} J
-                              {energyPct !== null && (
-                                <PctSpan pct={energyPct} />
-                              )}
-                            </>
-                          ) : (
-                            <span className="text-muted-foreground">…</span>
-                          )}
-                        </td>
-                        <td className="py-1">
-                          {result && resultAvgPower !== null ? (
-                            <>
-                              {resultAvgPower.toFixed(1)} W
-                              {avgPowerPct !== null && (
-                                <PctSpan pct={avgPowerPct} />
-                              )}
-                            </>
-                          ) : (
-                            <span className="text-muted-foreground">…</span>
-                          )}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+        <div className="flex flex-col gap-4 px-1">
+          <div className="flex flex-row flex-wrap gap-4">
+            {/* Optimal configuration grid */}
+            <div className="min-w-0 flex-1">
+              <OptimalConfigGrid
+                configOptResult={configOptResult}
+                userStatorAmps={userStatorAmps}
+                userSupplyAmps={userSupplyAmps}
+                selectedCell={selectedConfigCell}
+                onSelectCell={setSelectedConfigCell}
+              />
             </div>
-          </section>
+
+            {/* Right column: settings + selected config */}
+            <div className="flex w-64 shrink-0 flex-col gap-3">
+              <section className="flex flex-col gap-3 rounded-lg border p-4">
+                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  Settings
+                </h2>
+                <MeasurementInput
+                  stateHook={[
+                    maximumComfortableStatorLimit,
+                    setMaximumComfortableStatorLimit,
+                  ]}
+                  label="Max Stator Limit"
+                  tooltip="The maximum stator limit that is comfortable for you. Used for recommendations."
+                  testId="maximumComfortableStatorLimit"
+                  labelAbove
+                />
+                <MeasurementInput
+                  stateHook={[
+                    maximumComfortableSupplyLimit,
+                    setMaximumComfortableSupplyLimit,
+                  ]}
+                  label="Max Supply Limit"
+                  tooltip="The maximum supply limit that is comfortable for you. Used for recommendations."
+                  testId="maximumComfortableSupplyLimit"
+                  labelAbove
+                />
+              </section>
+
+              {selectedConfigCell?.success && (
+                <section className="flex flex-col gap-3 rounded-lg border p-4">
+                  <h2 className="flex items-center gap-1.5 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                    <div className="size-1.5 rounded-full bg-primary" />
+                    Selected Config
+                  </h2>
+                  <div className="grid grid-cols-2 gap-x-3 gap-y-2">
+                    <div>
+                      <p className="text-xs text-muted-foreground">Stator</p>
+                      <p className="text-sm font-semibold tabular-nums">
+                        {selectedConfigCell.statorLimitAmps}A
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Supply</p>
+                      <p className="text-sm font-semibold tabular-nums">
+                        {selectedConfigCell.supplyLimitAmps}A
+                      </p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-xs text-muted-foreground">
+                        Optimal Ratio
+                      </p>
+                      <p className="text-sm font-semibold text-primary tabular-nums">
+                        {selectedConfigCell.optimalRatio.toFixed(2)}:1
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Time</p>
+                      <p className="text-sm font-semibold tabular-nums">
+                        {selectedConfigCell.timeToGoalSeconds.toFixed(3)}s
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">
+                        Peak Supply
+                      </p>
+                      <p className="text-sm font-semibold tabular-nums">
+                        {selectedConfigCell.peakCurrentAmps.toFixed(1)}A
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Energy</p>
+                      <p className="text-sm font-semibold tabular-nums">
+                        {selectedConfigCell.energyJoules.toFixed(1)}J
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Avg Power</p>
+                      <p className="text-sm font-semibold tabular-nums">
+                        {selectedConfigCell.timeToGoalSeconds > 0
+                          ? (
+                              selectedConfigCell.energyJoules /
+                              selectedConfigCell.timeToGoalSeconds
+                            ).toFixed(1)
+                          : '—'}
+                        W
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>

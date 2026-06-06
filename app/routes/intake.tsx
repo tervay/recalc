@@ -94,96 +94,125 @@ export default function Intake() {
         title="Intake Calculator"
         getSerializedState={() => serializedState}
       />
-      <div className="flex flex-col gap-4 px-1 *:flex-1 md:flex-row md:gap-x-4">
-        <div className="flex flex-col gap-x-4 gap-y-2">
-          <IOLine>
-            <MotorInput stateHook={[motor, setMotor]} testId="motor" />
-          </IOLine>
-
-          <IOLine>
-            <RatioInput stateHook={[ratio, setRatio]} testId="ratio" />
-          </IOLine>
-
-          <IOLine>
-            <MeasurementInput
-              stateHook={[rollerDiameter, setRollerDiameter]}
-              label="Roller Diameter"
-              tooltip="Diameter of the roller wheels/drum/etc that is moving the game piece."
-              testId="rollerDiameter"
-            />
-          </IOLine>
-
-          <IOLine>
-            <MeasurementInput
-              stateHook={[travelDistance, setTravelDistance]}
-              label="Travel Distance"
-              tooltip="Distance the game piece is intended to travel across the intake."
-              testId="travelDistance"
-            />
-          </IOLine>
-
-          <IOLine>
-            <MeasurementInput
-              stateHook={[statorCurrentLimit, setStatorCurrentLimit]}
-              label="Stator Current Limit"
-              tooltip="The maximum current the stator can draw."
-              testId="statorCurrentLimit"
-            />
-          </IOLine>
-
-          <div className="border-t border-primary pt-4">
-            <h3 className="text-lg font-semibold">Reverse Calculation</h3>
-          </div>
-
-          <IOLine>
-            <MeasurementInput
-              stateHook={[drivetrainSpeed, setDrivetrainSpeed]}
-              label="Drivetrain Speed"
-              tooltip="The floor speed of your drivetrain."
-              testId="drivetrainSpeed"
-            />
-          </IOLine>
-
-          <div className="">
-            <h3 className="text-lg font-semibold">
-              Recommended Ratios per Motor
-            </h3>
-            <h6 className="mb-2 text-sm text-gray-500">
-              The recommended ratio is the ratio at which the rollers will spin
-              at twice the drivetrain speed.
-            </h6>
-            <div className="flex flex-col gap-y-2">
-              {allRecommendedRatiosAndStallTorques
-                .sort((a, b) => b.stallTorque.sub(a.stallTorque).baseScalar)
-                .map((rts) => (
-                  <IOLine
-                    key={rts.motor.identifier}
-                    className={cn({
-                      'rounded-md border border-green-400 px-2 py-2':
-                        rts.motor.eq(motor),
-                    })}
-                  >
-                    <NumberOutput
-                      state={rts.ratio.asNumber()}
-                      label={`${rts.motor.identifier}`}
-                      roundTo={2}
-                      testId={`${rts.motor.identifier}-ratio`}
-                    />
-                    <MeasurementOutput
-                      state={rts.stallTorque}
-                      label="Stall Torque"
-                      tooltip="Stall torque of the motor at the recommended ratio."
-                      defaultUnit="N*m"
-                      roundTo={2}
-                      testId={`${rts.motor.identifier}-stallTorque`}
-                    />
-                  </IOLine>
-                ))}
+      <div className="flex flex-row flex-wrap gap-6 px-1">
+        <div className="flex min-w-[300px] flex-1 flex-col">
+          <section className="flex flex-col rounded-lg border">
+            {/* Motor & Gearing section */}
+            <div className="flex flex-col gap-3 p-4">
+              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                Motor &amp; Gearing
+              </h2>
+              <IOLine>
+                <MotorInput
+                  stateHook={[motor, setMotor]}
+                  testId="motor"
+                  labelAbove
+                />
+              </IOLine>
+              <IOLine>
+                <RatioInput
+                  stateHook={[ratio, setRatio]}
+                  testId="ratio"
+                  labelAbove
+                />
+              </IOLine>
             </div>
-          </div>
+            <div className="border-t" />
+
+            {/* Roller section */}
+            <div className="flex flex-col gap-3 p-4">
+              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                Roller
+              </h2>
+              <IOLine>
+                <MeasurementInput
+                  stateHook={[rollerDiameter, setRollerDiameter]}
+                  label="Roller Diameter"
+                  tooltip="Diameter of the roller wheels/drum/etc that is moving the game piece."
+                  testId="rollerDiameter"
+                  labelAbove
+                />
+                <MeasurementInput
+                  stateHook={[travelDistance, setTravelDistance]}
+                  label="Travel Distance"
+                  tooltip="Distance the game piece is intended to travel across the intake."
+                  testId="travelDistance"
+                  labelAbove
+                />
+              </IOLine>
+              <IOLine>
+                <MeasurementInput
+                  stateHook={[statorCurrentLimit, setStatorCurrentLimit]}
+                  label="Stator Current Limit"
+                  tooltip="The maximum current the stator can draw."
+                  testId="statorCurrentLimit"
+                  labelAbove
+                />
+              </IOLine>
+            </div>
+            <div className="border-t" />
+
+            {/* Reverse Calculation section */}
+            <div className="flex flex-col gap-3 p-4">
+              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                Reverse Calculation
+              </h2>
+              <IOLine>
+                <MeasurementInput
+                  stateHook={[drivetrainSpeed, setDrivetrainSpeed]}
+                  label="Drivetrain Speed"
+                  tooltip="The floor speed of your drivetrain."
+                  testId="drivetrainSpeed"
+                  labelAbove
+                />
+              </IOLine>
+            </div>
+            <div className="border-t" />
+
+            {/* Recommended Ratios section */}
+            <div className="flex flex-col gap-3 p-4">
+              <div>
+                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  Recommended Ratios per Motor
+                </h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  The recommended ratio is the ratio at which the rollers will
+                  spin at twice the drivetrain speed.
+                </p>
+              </div>
+              <div className="flex flex-col gap-y-2">
+                {allRecommendedRatiosAndStallTorques
+                  .sort((a, b) => b.stallTorque.sub(a.stallTorque).baseScalar)
+                  .map((rts) => (
+                    <IOLine
+                      key={rts.motor.identifier}
+                      className={cn({
+                        'rounded-md border border-green-400 px-2 py-2':
+                          rts.motor.eq(motor),
+                      })}
+                    >
+                      <NumberOutput
+                        state={rts.ratio.asNumber()}
+                        label={`${rts.motor.identifier}`}
+                        roundTo={2}
+                        testId={`${rts.motor.identifier}-ratio`}
+                      />
+                      <MeasurementOutput
+                        state={rts.stallTorque}
+                        label="Stall Torque"
+                        tooltip="Stall torque of the motor at the recommended ratio."
+                        defaultUnit="N*m"
+                        roundTo={2}
+                        testId={`${rts.motor.identifier}-stallTorque`}
+                      />
+                    </IOLine>
+                  ))}
+              </div>
+            </div>
+          </section>
         </div>
 
-        <div className="flex flex-col gap-x-4 gap-y-2">
+        <div className="flex min-w-[300px] flex-1 flex-col gap-y-2">
           <IOLine>
             <MeasurementOutput
               state={surfaceSpeed}
