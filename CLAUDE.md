@@ -1,6 +1,6 @@
 ### Project Overview
 
-ReCalc is a collaboration-focused mechanical design calculator & simulator for FIRST Robotics. It is primarily focused on FRC, but could be used for FTC, VEX, or similar competitions. It is critical that this project maintains correctness, usability, and approachability. It is important that the project stay up to date with the latest web development technologies. Performance is important, as many students utilizing the site may use it on low-power Chromebooks (or similar devices).
+ReCalc is a collaboration-focused mechanical design calculator & simulator for FIRST Robotics. It is primarily focused on FRC, but could be used for FTC or similar competitions. It is critical that this project maintains correctness, usability, and approachability. It is important that the project stay up to date with the latest web development technologies. Performance is important, as many students utilizing the site may use it on low-power Chromebooks (or similar devices).
 
 Simulations are achieved by compiling WPILib to WebAssembly using Emscripten. Webworkers then call the WebAssembly code from background workers, sometimes in pools to find optimal mechanism configurations. WebAssembly artifacts are checked into source code in order to make CI faster and keep it accessible for new developers. WPILib target code is updated periodically.
 
@@ -13,8 +13,6 @@ The core technologies involve React Router, TailwindCSS, Shadcn, Radix UI, Vite,
 Developer environment can be maintained using [Mise](https://mise.jdx.dev/). You are free to make suggestions about new CLI tools that may help the developer.
 
 NEVER modify generated files directly. Regenerate them using CLI tools.
-
-An assortment of skills are included with this project and can be found in `.agents/skills/`.
 
 General guidelines:
 
@@ -45,6 +43,7 @@ General guidelines:
 - If a component does exist in Shadcn, install it via the command line (`pnpm dlx shadcn@latest add <component>`).
 - When installing new NPM dependencies, always pin to a specific version.
 - Before running Playwright tests, make sure to build the app with `pnpm run build`.
+- Prefer `rg` (ripgrep) over `grep`, `find`, or `eval` for searching.
 
 ### 1. Plan Node Default
 
@@ -64,16 +63,7 @@ General guidelines:
 
 ---
 
-### 3. Self-Improvement Loop
-
-- After ANY correction from the user: update `tasks/lessons.md` with the pattern
-- Write rules for yourself that prevent the same mistake
-- Ruthlessly iterate on these lessons until mistake rate drops
-- Review lessons at session start for relevant project
-
----
-
-### 4. Verification Before Done
+### 3. Verification Before Done
 
 - Never mark a task complete without proving it works
 - Diff behavior between main and your changes when relevant
@@ -82,7 +72,7 @@ General guidelines:
 
 ---
 
-### 5. Demand Elegance (Balanced)
+### 4. Demand Elegance (Balanced)
 
 - For non-trivial changes: pause and ask "is there a more elegant way?"
 - If a fix feels hacky: "Knowing everything I know now, implement the elegant solution"
@@ -91,23 +81,12 @@ General guidelines:
 
 ---
 
-### 6. Autonomous Bug Fixing
+### 5. Autonomous Bug Fixing
 
 - When given a bug report: just fix it. Don't ask for hand-holding
 - Point at logs, errors, failing tests - then resolve them
 - Zero context switching required from the user
 - Go fix failing CI tests without being told how
-
----
-
-## Task Management
-
-1. **Plan First**: Write plan to `tasks/todo.md` with checkable items
-2. **Verify Plan**: Check in before starting implementation
-3. **Track Progress**: Mark items complete as you go
-4. **Explain Changes**: High-level summary at each step
-5. **Document Results**: Add review section to `tasks/todo.md`
-6. **Capture Lessons**: Update `tasks/lessons.md` after corrections
 
 ---
 
