@@ -1559,6 +1559,36 @@
     title: RadioLink / NONE / 4 / RedLine / PP45 Power Board
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
+  # https://www.andymark.com/products/electronic-bundles-builder?variant=46176822034604
+  product:
+    handle: electronic-bundles-builder
+    id: 8262876037292
+    title: Electronic Bundles Builder
+  variant:
+    id: 46176822034604
+    options:
+      - RoboRIO
+      - Spark MAX
+      - '4'
+    sku: BCRX4NA
+    title: RoboRIO / Spark MAX / 4 / NEO 1.1 / AMPD
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/electronic-bundles-builder?variant=46176838320300
+  product:
+    handle: electronic-bundles-builder
+    id: 8262876037292
+    title: Electronic Bundles Builder
+  variant:
+    id: 46176838320300
+    options:
+      - RoboRIO Ready
+      - Spark MAX
+      - '4'
+    sku: BCFX4NA
+    title: RoboRIO Ready / Spark MAX / 4 / NEO 1.1 / AMPD
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
   # https://www.andymark.com/products/sds-mk4-swerve-modules?variant=44493343981740
   product:
     handle: sds-mk4-swerve-modules
@@ -31411,50 +31441,20 @@
     title: Blue
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/gaffers-tape-2-in-x-18-ft?variant=44493370949804
+  # https://www.andymark.com/products/gaffers-tape-2-in-x-18-ft?variant=46244526653612
   product:
     handle: gaffers-tape-2-in-x-18-ft
     id: 8262900449452
     title: Gaffers Tape 2 in. x 18 ft
   variant:
-    id: 44493370949804
+    id: 46244526653612
     options:
-      - Red
+      - Default Title
       - null
       - null
     sku: am-2946-18
-    title: Red
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/gaffers-tape-2-in-x-18-ft?variant=44493370982572
-  product:
-    handle: gaffers-tape-2-in-x-18-ft
-    id: 8262900449452
-    title: Gaffers Tape 2 in. x 18 ft
-  variant:
-    id: 44493370982572
-    options:
-      - Blue
-      - null
-      - null
-    sku: am-2947-18
-    title: Blue
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/gaffers-tape-2-in-x-18-ft?variant=44493371015340
-  product:
-    handle: gaffers-tape-2-in-x-18-ft
-    id: 8262900449452
-    title: Gaffers Tape 2 in. x 18 ft
-  variant:
-    id: 44493371015340
-    options:
-      - Black
-      - null
-      - null
-    sku: am-2944-18
-    title: Black
-  firstSeen: 2026-03-13T10:25:09.529Z
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
 - vendor: AndyMark
   # https://www.andymark.com/products/gaffers-tape-2-in-x-165-ft?variant=44493371048108
   product:
@@ -31619,21 +31619,6 @@
       - 60A
     sku: am-2648_blk
     title: Nub Bore / 4 inch / 60A
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/stealth-and-sushi-wheels?variant=44493372620972
-  product:
-    handle: stealth-and-sushi-wheels
-    id: 8262900547756
-    title: Stealth and Sushi Wheels
-  variant:
-    id: 44493372620972
-    options:
-      - Nub Bore
-      - 4 inch
-      - 50A
-    sku: am-2648_Blue
-    title: Nub Bore / 4 inch / 50A
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/stealth-and-sushi-wheels?variant=44493372653740
@@ -32204,21 +32189,6 @@
       - 60A
     sku: am-3156_blk
     title: Nub Bore / 2 inch / 60A
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/stealth-and-sushi-wheels?variant=44493373931692
-  product:
-    handle: stealth-and-sushi-wheels
-    id: 8262900547756
-    title: Stealth and Sushi Wheels
-  variant:
-    id: 44493373931692
-    options:
-      - Nub Bore
-      - 2 inch
-      - 50A
-    sku: am-3156_Blue
-    title: Nub Bore / 2 inch / 50A
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/stealth-and-sushi-wheels?variant=44493373964460
@@ -33136,21 +33106,6 @@
     title: 188:1 / 1/2 Hex
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/pg-gearboxes?variant=44493385400492
-  product:
-    handle: pg-gearboxes
-    id: 8262901235884
-    title: PG Gearboxes
-  variant:
-    id: 44493385400492
-    options:
-      - 27:1
-      - 3/8 Hex
-      - null
-    sku: am-3651g
-    title: 27:1 / 3/8 Hex
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/pg-gearboxes?variant=44493385433260
   product:
     handle: pg-gearboxes
@@ -33194,21 +33149,6 @@
       - null
     sku: am-3655g
     title: 71:1 / 1/2 Hex
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/pg-gearboxes?variant=44493385531564
-  product:
-    handle: pg-gearboxes
-    id: 8262901235884
-    title: PG Gearboxes
-  variant:
-    id: 44493385531564
-    options:
-      - 188:1
-      - 1/2 Hex
-      - null
-    sku: am-3656g
-    title: 188:1 / 1/2 Hex
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/performance-wheels?variant=44493385564332
@@ -33555,6 +33495,51 @@
     sku: am-4504a
     title: Silver / 3.50 in.
   firstSeen: 2026-03-13T11:55:30.495Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/1-x-1-peanut-extrusion-different-lengths?variant=46077435969708
+  product:
+    handle: 1-x-1-peanut-extrusion-different-lengths
+    id: 8262901301420
+    title: 1 x 1 Peanut Extrusion Different Lengths
+  variant:
+    id: 46077435969708
+    options:
+      - Silver
+      - 28.47 in.
+      - null
+    sku: am-3090-2847
+    title: Silver / 28.47 in.
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/1-x-1-peanut-extrusion-different-lengths?variant=46101434826924
+  product:
+    handle: 1-x-1-peanut-extrusion-different-lengths
+    id: 8262901301420
+    title: 1 x 1 Peanut Extrusion Different Lengths
+  variant:
+    id: 46101434826924
+    options:
+      - Silver
+      - 6 in.
+      - null
+    sku: am-3090-0600
+    title: Silver / 6 in.
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/1-x-1-peanut-extrusion-different-lengths?variant=46101434859692
+  product:
+    handle: 1-x-1-peanut-extrusion-different-lengths
+    id: 8262901301420
+    title: 1 x 1 Peanut Extrusion Different Lengths
+  variant:
+    id: 46101434859692
+    options:
+      - Silver
+      - 13.8 in.
+      - null
+    sku: am-3090-1380
+    title: Silver / 13.8 in.
+  firstSeen: 2026-06-06T00:24:54.142Z
 - vendor: AndyMark
   # https://www.andymark.com/products/vinyl-adhesive-numbers-white-4-in-tall-qty-4?variant=44493386219692
   product:
@@ -34604,21 +34589,6 @@
       - 60A
     sku: am-3462_black
     title: 1/2 in Hex / 2 inch / 60A
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/compliant-wheels?variant=44493390938284
-  product:
-    handle: compliant-wheels
-    id: 8262902251692
-    title: Compliant Wheels
-  variant:
-    id: 44493390938284
-    options:
-      - 5 mm Hex
-      - 2 1/4 inch
-      - 35A
-    sku: am-4536_green
-    title: 5 mm Hex / 2 1/4 inch / 35A
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/compliant-wheels?variant=44493390971052
@@ -36905,40 +36875,6 @@
       Plates / No Gear Sets
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/treadrunner-track-drive-configurable-ftc-chassis?variant=44493398311084
-  product:
-    handle: treadrunner-track-drive-configurable-ftc-chassis
-    id: 8262903333036
-    title: TreadRunner Track Drive - Configurable FTC Chassis
-  variant:
-    id: 44493398311084
-    options:
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - NeveRest Classic PicoBox Plates
-      - Gearing for 1 to 1 Ratio
-    sku: BTTBT61
-    title:
-      NeveRest Classic 60 to 1 and PicoBox Plates / NeveRest Classic PicoBox
-      Plates / Gearing for 1 to 1 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/treadrunner-track-drive-configurable-ftc-chassis?variant=44493398343852
-  product:
-    handle: treadrunner-track-drive-configurable-ftc-chassis
-    id: 8262903333036
-    title: TreadRunner Track Drive - Configurable FTC Chassis
-  variant:
-    id: 44493398343852
-    options:
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - NeveRest Classic PicoBox Plates
-      - No Gear Sets
-    sku: BTTBT6N
-    title:
-      NeveRest Classic 60 to 1 and PicoBox Plates / NeveRest Classic PicoBox
-      Plates / No Gear Sets
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/treadrunner-track-drive-configurable-ftc-chassis?variant=44493398376620
   product:
     handle: treadrunner-track-drive-configurable-ftc-chassis
@@ -37300,74 +37236,6 @@
       Sets
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-4wd-configurable-ftc-chassis?variant=44493399359660
-  product:
-    handle: tilerunner-4wd-configurable-ftc-chassis
-    id: 8262903595180
-    title: TileRunner 4WD - Configurable FTC Chassis
-  variant:
-    id: 44493399359660
-    options:
-      - HD Mecanum Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 Ratio
-    sku: BT4MH61
-    title:
-      HD Mecanum Wheels / NeveRest Classic 60 to 1 and PicoBox Plates / Gearing
-      for 1 to 1 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-4wd-configurable-ftc-chassis?variant=44493399392428
-  product:
-    handle: tilerunner-4wd-configurable-ftc-chassis
-    id: 8262903595180
-    title: TileRunner 4WD - Configurable FTC Chassis
-  variant:
-    id: 44493399392428
-    options:
-      - HD Mecanum Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 7 to 9 or 9 to 7 Ratio
-    sku: BT4MH6A
-    title:
-      HD Mecanum Wheels / NeveRest Classic 60 to 1 and PicoBox Plates / Gearing
-      for 7 to 9 or 9 to 7 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-4wd-configurable-ftc-chassis?variant=44493399425196
-  product:
-    handle: tilerunner-4wd-configurable-ftc-chassis
-    id: 8262903595180
-    title: TileRunner 4WD - Configurable FTC Chassis
-  variant:
-    id: 44493399425196
-    options:
-      - HD Mecanum Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-    sku: BT4MH6E
-    title:
-      HD Mecanum Wheels / NeveRest Classic 60 to 1 and PicoBox Plates / Gearing
-      for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-4wd-configurable-ftc-chassis?variant=44493399457964
-  product:
-    handle: tilerunner-4wd-configurable-ftc-chassis
-    id: 8262903595180
-    title: TileRunner 4WD - Configurable FTC Chassis
-  variant:
-    id: 44493399457964
-    options:
-      - HD Mecanum Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - No Gear Sets
-    sku: BT4MH6N
-    title:
-      HD Mecanum Wheels / NeveRest Classic 60 to 1 and PicoBox Plates / No Gear
-      Sets
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/tilerunner-4wd-configurable-ftc-chassis?variant=44493399490732
   product:
     handle: tilerunner-4wd-configurable-ftc-chassis
@@ -37566,74 +37434,6 @@
       Sets
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-4wd-configurable-ftc-chassis?variant=44493399883948
-  product:
-    handle: tilerunner-4wd-configurable-ftc-chassis
-    id: 8262903595180
-    title: TileRunner 4WD - Configurable FTC Chassis
-  variant:
-    id: 44493399883948
-    options:
-      - SD Mecanum Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 Ratio
-    sku: BT4MS61
-    title:
-      SD Mecanum Wheels / NeveRest Classic 60 to 1 and PicoBox Plates / Gearing
-      for 1 to 1 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-4wd-configurable-ftc-chassis?variant=44493399916716
-  product:
-    handle: tilerunner-4wd-configurable-ftc-chassis
-    id: 8262903595180
-    title: TileRunner 4WD - Configurable FTC Chassis
-  variant:
-    id: 44493399916716
-    options:
-      - SD Mecanum Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 7 to 9 or 9 to 7 Ratio
-    sku: BT4MS6A
-    title:
-      SD Mecanum Wheels / NeveRest Classic 60 to 1 and PicoBox Plates / Gearing
-      for 7 to 9 or 9 to 7 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-4wd-configurable-ftc-chassis?variant=44493399949484
-  product:
-    handle: tilerunner-4wd-configurable-ftc-chassis
-    id: 8262903595180
-    title: TileRunner 4WD - Configurable FTC Chassis
-  variant:
-    id: 44493399949484
-    options:
-      - SD Mecanum Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-    sku: BT4MS6E
-    title:
-      SD Mecanum Wheels / NeveRest Classic 60 to 1 and PicoBox Plates / Gearing
-      for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-4wd-configurable-ftc-chassis?variant=44493399982252
-  product:
-    handle: tilerunner-4wd-configurable-ftc-chassis
-    id: 8262903595180
-    title: TileRunner 4WD - Configurable FTC Chassis
-  variant:
-    id: 44493399982252
-    options:
-      - SD Mecanum Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - No Gear Sets
-    sku: BT4MS6N
-    title:
-      SD Mecanum Wheels / NeveRest Classic 60 to 1 and PicoBox Plates / No Gear
-      Sets
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/tilerunner-4wd-configurable-ftc-chassis?variant=44493400015020
   product:
     handle: tilerunner-4wd-configurable-ftc-chassis
@@ -37828,72 +37628,6 @@
     title: No Wheels / NeveRest Classic 40 to 1 and PicoBox Plates / No Gear Sets
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-4wd-configurable-ftc-chassis?variant=44493400408236
-  product:
-    handle: tilerunner-4wd-configurable-ftc-chassis
-    id: 8262903595180
-    title: TileRunner 4WD - Configurable FTC Chassis
-  variant:
-    id: 44493400408236
-    options:
-      - No Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 Ratio
-    sku: BT4NW61
-    title:
-      No Wheels / NeveRest Classic 60 to 1 and PicoBox Plates / Gearing for 1
-      to 1 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-4wd-configurable-ftc-chassis?variant=44493400441004
-  product:
-    handle: tilerunner-4wd-configurable-ftc-chassis
-    id: 8262903595180
-    title: TileRunner 4WD - Configurable FTC Chassis
-  variant:
-    id: 44493400441004
-    options:
-      - No Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 7 to 9 or 9 to 7 Ratio
-    sku: BT4NW6A
-    title:
-      No Wheels / NeveRest Classic 60 to 1 and PicoBox Plates / Gearing for 7
-      to 9 or 9 to 7 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-4wd-configurable-ftc-chassis?variant=44493400473772
-  product:
-    handle: tilerunner-4wd-configurable-ftc-chassis
-    id: 8262903595180
-    title: TileRunner 4WD - Configurable FTC Chassis
-  variant:
-    id: 44493400473772
-    options:
-      - No Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-    sku: BT4NW6E
-    title:
-      No Wheels / NeveRest Classic 60 to 1 and PicoBox Plates / Gearing for 1
-      to 1 AND 7 to 9 or 9 to 7 Ratios
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-4wd-configurable-ftc-chassis?variant=44493400506540
-  product:
-    handle: tilerunner-4wd-configurable-ftc-chassis
-    id: 8262903595180
-    title: TileRunner 4WD - Configurable FTC Chassis
-  variant:
-    id: 44493400506540
-    options:
-      - No Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - No Gear Sets
-    sku: BT4NW6N
-    title: No Wheels / NeveRest Classic 60 to 1 and PicoBox Plates / No Gear Sets
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/tilerunner-4wd-configurable-ftc-chassis?variant=44493400539308
   product:
     handle: tilerunner-4wd-configurable-ftc-chassis
@@ -37967,21 +37701,6 @@
       - null
     sku: am-3455
     title: 6WD to SD Mecanum Upgrade (NeveRest Classic Only)
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-upgrades?variant=44493403586732
-  product:
-    handle: tilerunner-upgrades
-    id: 8262903791788
-    title: TileRunner Upgrades
-  variant:
-    id: 44493403586732
-    options:
-      - BullDozer Upgrade
-      - null
-      - null
-    sku: am-3457
-    title: BullDozer Upgrade
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/tilerunner-upgrades?variant=44493403619500
@@ -38195,74 +37914,6 @@
       / No Gear Sets
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493404078252
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493404078252
-    options:
-      - 60A Black Compliant Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 Ratio
-    sku: BT6C661
-    title:
-      60A Black Compliant Wheels / NeveRest Classic 60 to 1 and PicoBox Plates
-      / Gearing for 1 to 1 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493404111020
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493404111020
-    options:
-      - 60A Black Compliant Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 7 to 9 or 9 to 7 Ratio
-    sku: BT6C66A
-    title:
-      60A Black Compliant Wheels / NeveRest Classic 60 to 1 and PicoBox Plates
-      / Gearing for 7 to 9 or 9 to 7 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493404143788
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493404143788
-    options:
-      - 60A Black Compliant Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-    sku: BT6C66E
-    title:
-      60A Black Compliant Wheels / NeveRest Classic 60 to 1 and PicoBox Plates
-      / Gearing for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493404176556
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493404176556
-    options:
-      - 60A Black Compliant Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - No Gear Sets
-    sku: BT6C66N
-    title:
-      60A Black Compliant Wheels / NeveRest Classic 60 to 1 and PicoBox Plates
-      / No Gear Sets
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493404209324
   product:
     handle: tilerunner-6wd-configurable-ftc-chassis
@@ -38457,72 +38108,6 @@
     title: No Wheels / NeveRest Classic 40 to 1 and PicoBox Plates / No Gear Sets
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493404602540
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493404602540
-    options:
-      - No Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 Ratio
-    sku: BT6NW61
-    title:
-      No Wheels / NeveRest Classic 60 to 1 and PicoBox Plates / Gearing for 1
-      to 1 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493404635308
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493404635308
-    options:
-      - No Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 7 to 9 or 9 to 7 Ratio
-    sku: BT6NW6A
-    title:
-      No Wheels / NeveRest Classic 60 to 1 and PicoBox Plates / Gearing for 7
-      to 9 or 9 to 7 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493404668076
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493404668076
-    options:
-      - No Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-    sku: BT6NW6E
-    title:
-      No Wheels / NeveRest Classic 60 to 1 and PicoBox Plates / Gearing for 1
-      to 1 AND 7 to 9 or 9 to 7 Ratios
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493404700844
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493404700844
-    options:
-      - No Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - No Gear Sets
-    sku: BT6NW6N
-    title: No Wheels / NeveRest Classic 60 to 1 and PicoBox Plates / No Gear Sets
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493404733612
   product:
     handle: tilerunner-6wd-configurable-ftc-chassis
@@ -38708,70 +38293,6 @@
       - No Gear Sets
     sku: BT6PB4N
     title: Performance Wheels / NeveRest Classic 40 to 1 and PicoBox Plates / No
-      Gear Sets
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493407748268
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493407748268
-    options:
-      - Performance Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 Ratio
-    sku: BT6PB61
-    title: Performance Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      Gearing for 1 to 1 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493407781036
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493407781036
-    options:
-      - Performance Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 7 to 9 or 9 to 7 Ratio
-    sku: BT6PB6A
-    title: Performance Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      Gearing for 7 to 9 or 9 to 7 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493407813804
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493407813804
-    options:
-      - Performance Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-    sku: BT6PB6E
-    title: Performance Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      Gearing for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493407846572
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493407846572
-    options:
-      - Performance Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - No Gear Sets
-    sku: BT6PB6N
-    title: Performance Wheels / NeveRest Classic 60 to 1 and PicoBox Plates / No
       Gear Sets
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -38973,74 +38494,6 @@
       No Gear Sets
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493408272556
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493408272556
-    options:
-      - 40A Orange Stealth Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 Ratio
-    sku: BT6S461
-    title:
-      40A Orange Stealth Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      Gearing for 1 to 1 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493408305324
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493408305324
-    options:
-      - 40A Orange Stealth Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 7 to 9 or 9 to 7 Ratio
-    sku: BT6S46A
-    title:
-      40A Orange Stealth Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      Gearing for 7 to 9 or 9 to 7 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493408338092
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493408338092
-    options:
-      - 40A Orange Stealth Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-    sku: BT6S46E
-    title:
-      40A Orange Stealth Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      Gearing for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493408370860
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493408370860
-    options:
-      - 40A Orange Stealth Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - No Gear Sets
-    sku: BT6S46N
-    title:
-      40A Orange Stealth Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      No Gear Sets
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493408403628
   product:
     handle: tilerunner-6wd-configurable-ftc-chassis
@@ -39236,74 +38689,6 @@
     sku: BT6S54N
     title:
       50A Blue Stealth Wheels / NeveRest Classic 40 to 1 and PicoBox Plates /
-      No Gear Sets
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493408796844
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493408796844
-    options:
-      - 50A Blue Stealth Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 Ratio
-    sku: BT6S561
-    title:
-      50A Blue Stealth Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      Gearing for 1 to 1 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493408829612
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493408829612
-    options:
-      - 50A Blue Stealth Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 7 to 9 or 9 to 7 Ratio
-    sku: BT6S56A
-    title:
-      50A Blue Stealth Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      Gearing for 7 to 9 or 9 to 7 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493408862380
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493408862380
-    options:
-      - 50A Blue Stealth Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-    sku: BT6S56E
-    title:
-      50A Blue Stealth Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      Gearing for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493408895148
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493408895148
-    options:
-      - 50A Blue Stealth Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - No Gear Sets
-    sku: BT6S56N
-    title:
-      50A Blue Stealth Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
       No Gear Sets
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -39505,74 +38890,6 @@
       No Gear Sets
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493409321132
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493409321132
-    options:
-      - 60A Black Stealth Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 Ratio
-    sku: BT6S661
-    title:
-      60A Black Stealth Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      Gearing for 1 to 1 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493409353900
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493409353900
-    options:
-      - 60A Black Stealth Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 7 to 9 or 9 to 7 Ratio
-    sku: BT6S66A
-    title:
-      60A Black Stealth Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      Gearing for 7 to 9 or 9 to 7 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493409386668
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493409386668
-    options:
-      - 60A Black Stealth Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-    sku: BT6S66E
-    title:
-      60A Black Stealth Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      Gearing for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493409419436
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493409419436
-    options:
-      - 60A Black Stealth Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - No Gear Sets
-    sku: BT6S66N
-    title:
-      60A Black Stealth Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      No Gear Sets
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493409452204
   product:
     handle: tilerunner-6wd-configurable-ftc-chassis
@@ -39771,74 +39088,6 @@
       No Gear Sets
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493409845420
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493409845420
-    options:
-      - 80A Gray Stealth Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 Ratio
-    sku: BT6S861
-    title:
-      80A Gray Stealth Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      Gearing for 1 to 1 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493409878188
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493409878188
-    options:
-      - 80A Gray Stealth Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 7 to 9 or 9 to 7 Ratio
-    sku: BT6S86A
-    title:
-      80A Gray Stealth Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      Gearing for 7 to 9 or 9 to 7 Ratio
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493409910956
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493409910956
-    options:
-      - 80A Gray Stealth Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - Gearing for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-    sku: BT6S86E
-    title:
-      80A Gray Stealth Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      Gearing for 1 to 1 AND 7 to 9 or 9 to 7 Ratios
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493409943724
-  product:
-    handle: tilerunner-6wd-configurable-ftc-chassis
-    id: 8262903824556
-    title: TileRunner 6WD - Configurable FTC Chassis
-  variant:
-    id: 44493409943724
-    options:
-      - 80A Gray Stealth Wheels
-      - NeveRest Classic 60 to 1 and PicoBox Plates
-      - No Gear Sets
-    sku: BT6S86N
-    title:
-      80A Gray Stealth Wheels / NeveRest Classic 60 to 1 and PicoBox Plates /
-      No Gear Sets
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/tilerunner-6wd-configurable-ftc-chassis?variant=44493409976492
   product:
     handle: tilerunner-6wd-configurable-ftc-chassis
@@ -39989,36 +39238,6 @@
       - null
     sku: am-4522
     title: M6
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/imperial-and-metric-taps?variant=44493410599084
-  product:
-    handle: imperial-and-metric-taps
-    id: 8262904119468
-    title: Imperial and Metric Taps
-  variant:
-    id: 44493410599084
-    options:
-      - M5
-      - null
-      - null
-    sku: am-4521
-    title: M5
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/imperial-and-metric-taps?variant=44493410631852
-  product:
-    handle: imperial-and-metric-taps
-    id: 8262904119468
-    title: Imperial and Metric Taps
-  variant:
-    id: 44493410631852
-    options:
-      - M4
-      - null
-      - null
-    sku: am-4520
-    title: M4
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/imperial-and-metric-taps?variant=44493410664620
@@ -43035,6 +42254,21 @@
     sku: am-3852_29
     title: 4 AWG Flex EPDM Jacket / 29 in.
   firstSeen: 2026-03-13T10:25:09.529Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/red-power-wire-multiple-lengths-5-in-to-29-in?variant=46147661136044
+  product:
+    handle: red-power-wire-multiple-lengths-5-in-to-29-in
+    id: 8262905856172
+    title: Red Power Wire, multiple lengths 5 in. to 29 in.
+  variant:
+    id: 46147661136044
+    options:
+      - 6 AWG PVC Jacket
+      - 5 in.
+      - null
+    sku: am-0699_05
+    title: 6 AWG PVC Jacket / 5 in.
+  firstSeen: 2026-06-06T00:24:54.142Z
 - vendor: AndyMark
   # https://www.andymark.com/products/robot-power-cable-kit-custom-lengths-up-to-36-in?variant=44493418594476
   product:
@@ -48871,21 +48105,6 @@
     title: 2 in. x 1 in. / 1/16 in. / 2 Faces
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/pre-drilled-box-tube-extrusion?variant=45104980951212
-  product:
-    handle: pre-drilled-box-tube-extrusion
-    id: 8262906806444
-    title: Pre-Drilled Box Tube Extrusion
-  variant:
-    id: 45104980951212
-    options:
-      - 2 in. x 1 in.
-      - 1/8 in.
-      - 2 Faces
-    sku: am-5759
-    title: 2 in. x 1 in. / 1/8 in. / 2 Faces
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/pre-drilled-box-tube-extrusion?variant=45166205075628
   product:
     handle: pre-drilled-box-tube-extrusion
@@ -51466,36 +50685,6 @@
     title: Tube Mounting Plate (KB-24007)
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/kitbot-2024-crescendo?variant=44493440549036
-  product:
-    handle: kitbot-2024-crescendo
-    id: 8262908444844
-    title: KitBot 2024 CRESCENDO℠
-  variant:
-    id: 44493440549036
-    options:
-      - Included
-      - null
-      - null
-    sku: am-5293
-    title: Included
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/kitbot-2024-crescendo?variant=44493440581804
-  product:
-    handle: kitbot-2024-crescendo
-    id: 8262908444844
-    title: KitBot 2024 CRESCENDO℠
-  variant:
-    id: 44493440581804
-    options:
-      - Not Included
-      - null
-      - null
-    sku: am-5293_NBT
-    title: Not Included
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/tube-roller-inserts?variant=44493440614572
   product:
     handle: tube-roller-inserts
@@ -52334,21 +51523,6 @@
       - null
     sku: am-3404
     title: Universal Pulley Extension
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/high-impact-polystyrene-hips-pipe?variant=44493442580652
-  product:
-    handle: high-impact-polystyrene-hips-pipe
-    id: 8262908805292
-    title: High Impact Polystyrene (HIPS) Pipe
-  variant:
-    id: 44493442580652
-    options:
-      - Yellow
-      - 11.5 in.
-      - 3/4 in. (1.05 OD)
-    sku: am-5108
-    title: Yellow / 11.5 in. / 3/4 in. (1.05 OD)
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/high-impact-polystyrene-hips-pipe?variant=44493442613420
@@ -54676,6 +53850,21 @@
     title: 2.5 mm for M3 Tap
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
+  # https://www.andymark.com/products/drill-bits?variant=46326206955692
+  product:
+    handle: drill-bits
+    id: 8262910116012
+    title: Drill Bits
+  variant:
+    id: 46326206955692
+    options:
+      - H (0.266 in.)
+      - null
+      - null
+    sku: am-5817
+    title: H (0.266 in.)
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
   # https://www.andymark.com/products/countersink-bits?variant=44493450346668
   product:
     handle: countersink-bits
@@ -55809,11 +54998,11 @@
   variant:
     id: 44493454246060
     options:
-      - 1 ft.
       - 2 x 2 in.
       - 1/16 in.
+      - 1 ft.
     sku: am-4670-1
-    title: 1 ft. / 2 x 2 in. / 1/16 in.
+    title: 2 x 2 in. / 1/16 in. / 1 ft.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44493454311596
@@ -55824,11 +55013,11 @@
   variant:
     id: 44493454311596
     options:
-      - 30 in.
       - 2 x 2 in.
       - 1/16 in.
+      - 30 in.
     sku: am-4670-30
-    title: 30 in. / 2 x 2 in. / 1/16 in.
+    title: 2 x 2 in. / 1/16 in. / 30 in.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44493454344364
@@ -55839,11 +55028,11 @@
   variant:
     id: 44493454344364
     options:
-      - 3 ft.
       - 2 x 2 in.
       - 1/16 in.
+      - 3 ft.
     sku: am-4670-3
-    title: 3 ft. / 2 x 2 in. / 1/16 in.
+    title: 2 x 2 in. / 1/16 in. / 3 ft.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44493454409900
@@ -55854,11 +55043,11 @@
   variant:
     id: 44493454409900
     options:
-      - 1 ft.
       - 2 x 1 in.
       - 1/16 in.
+      - 1 ft.
     sku: am-3214-1
-    title: 1 ft. / 2 x 1 in. / 1/16 in.
+    title: 2 x 1 in. / 1/16 in. / 1 ft.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44493454508204
@@ -55869,11 +55058,11 @@
   variant:
     id: 44493454508204
     options:
-      - 3 ft.
       - 2 x 1 in.
       - 1/8 in.
+      - 3 ft.
     sku: am-4205-3
-    title: 3 ft. / 2 x 1 in. / 1/8 in.
+    title: 2 x 1 in. / 1/8 in. / 3 ft.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44493454573740
@@ -55884,11 +55073,11 @@
   variant:
     id: 44493454573740
     options:
-      - 1 ft.
       - 1 1/2 x 1 1/2 in.
       - 1/16 in.
+      - 1 ft.
     sku: am-4669-1
-    title: 1 ft. / 1 1/2 x 1 1/2 in. / 1/16 in.
+    title: 1 1/2 x 1 1/2 in. / 1/16 in. / 1 ft.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44493454606508
@@ -55899,11 +55088,11 @@
   variant:
     id: 44493454606508
     options:
-      - 30 in.
       - 1 1/2 x 1 1/2 in.
       - 1/16 in.
+      - 30 in.
     sku: am-4669-30
-    title: 30 in. / 1 1/2 x 1 1/2 in. / 1/16 in.
+    title: 1 1/2 x 1 1/2 in. / 1/16 in. / 30 in.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44493454639276
@@ -55914,11 +55103,11 @@
   variant:
     id: 44493454639276
     options:
-      - 3 ft.
       - 1 1/2 x 1 1/2 in.
       - 1/16 in.
+      - 3 ft.
     sku: am-4669-3
-    title: 3 ft. / 1 1/2 x 1 1/2 in. / 1/16 in.
+    title: 1 1/2 x 1 1/2 in. / 1/16 in. / 3 ft.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44493454704812
@@ -55929,11 +55118,11 @@
   variant:
     id: 44493454704812
     options:
-      - 1 ft.
       - 1 x 1 in.
       - 1/16 in.
+      - 1 ft.
     sku: am-4203-1
-    title: 1 ft. / 1 x 1 in. / 1/16 in.
+    title: 1 x 1 in. / 1/16 in. / 1 ft.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44493454737580
@@ -55944,11 +55133,11 @@
   variant:
     id: 44493454737580
     options:
-      - 30 in.
       - 1 x 1 in.
       - 1/16 in.
+      - 30 in.
     sku: am-4203-30
-    title: 30 in. / 1 x 1 in. / 1/16 in.
+    title: 1 x 1 in. / 1/16 in. / 30 in.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44493454770348
@@ -55959,11 +55148,11 @@
   variant:
     id: 44493454770348
     options:
-      - 3 ft.
       - 1 x 1 in.
       - 1/16 in.
+      - 3 ft.
     sku: am-4203-3
-    title: 3 ft. / 1 x 1 in. / 1/16 in.
+    title: 1 x 1 in. / 1/16 in. / 3 ft.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44493454901420
@@ -55974,11 +55163,11 @@
   variant:
     id: 44493454901420
     options:
-      - 3 ft.
       - 3/4 x 1/2 in.
       - 3/64 in.
+      - 3 ft.
     sku: am-2580-3
-    title: 3 ft. / 3/4 x 1/2 in. / 3/64 in.
+    title: 3/4 x 1/2 in. / 3/64 in. / 3 ft.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44922374422700
@@ -55989,11 +55178,11 @@
   variant:
     id: 44922374422700
     options:
-      - 1 ft.
       - 2 x 1 in.
       - 1/8 in.
+      - 1 ft.
     sku: am-4205-1
-    title: 1 ft. / 2 x 1 in. / 1/8 in.
+    title: 2 x 1 in. / 1/8 in. / 1 ft.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44922374455468
@@ -56004,11 +55193,11 @@
   variant:
     id: 44922374455468
     options:
-      - 2 ft.
       - 1 x 1 in.
       - 1/8 in.
+      - 2 ft.
     sku: am-4204-2
-    title: 2 ft. / 1 x 1 in. / 1/8 in.
+    title: 1 x 1 in. / 1/8 in. / 2 ft.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44998655705260
@@ -56019,11 +55208,11 @@
   variant:
     id: 44998655705260
     options:
-      - 47 in.
       - 1 x 1 in.
       - 1/16 in.
+      - 47 in.
     sku: am-4203-4700
-    title: 47 in. / 1 x 1 in. / 1/16 in.
+    title: 1 x 1 in. / 1/16 in. / 47 in.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44998655738028
@@ -56034,11 +55223,11 @@
   variant:
     id: 44998655738028
     options:
-      - 47 in.
       - 1 x 1 in.
       - 1/8 in.
+      - 47 in.
     sku: am-4204-4700
-    title: 47 in. / 1 x 1 in. / 1/8 in.
+    title: 1 x 1 in. / 1/8 in. / 47 in.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44998655770796
@@ -56049,11 +55238,11 @@
   variant:
     id: 44998655770796
     options:
-      - 47 in.
       - 1 1/2 x 1 1/2 in.
       - 1/16 in.
+      - 47 in.
     sku: am-4669-4700
-    title: 47 in. / 1 1/2 x 1 1/2 in. / 1/16 in.
+    title: 1 1/2 x 1 1/2 in. / 1/16 in. / 47 in.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44998655803564
@@ -56064,11 +55253,11 @@
   variant:
     id: 44998655803564
     options:
-      - 47 in.
       - 2 x 1 in.
       - 1/16 in.
+      - 47 in.
     sku: am-3214-4700
-    title: 47 in. / 2 x 1 in. / 1/16 in.
+    title: 2 x 1 in. / 1/16 in. / 47 in.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44998655836332
@@ -56079,11 +55268,11 @@
   variant:
     id: 44998655836332
     options:
-      - 47 in.
       - 2 x 1 in.
       - 1/8 in.
+      - 47 in.
     sku: am-4205-4700
-    title: 47 in. / 2 x 1 in. / 1/8 in.
+    title: 2 x 1 in. / 1/8 in. / 47 in.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/box-tube-extrusion?variant=44998655869100
@@ -56094,12 +55283,27 @@
   variant:
     id: 44998655869100
     options:
-      - 47 in.
       - 2 x 2 in.
       - 1/16 in.
+      - 47 in.
     sku: am-4670-4700
-    title: 47 in. / 2 x 2 in. / 1/16 in.
+    title: 2 x 2 in. / 1/16 in. / 47 in.
   firstSeen: 2026-03-13T10:25:09.529Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/box-tube-extrusion?variant=46101439807660
+  product:
+    handle: box-tube-extrusion
+    id: 8262910967980
+    title: Box Tube Extrusion
+  variant:
+    id: 46101439807660
+    options:
+      - 2 x 1 in.
+      - 1/8 in.
+      - 2 ft.
+    sku: am-4205-2
+    title: 2 x 1 in. / 1/8 in. / 2 ft.
+  firstSeen: 2026-06-06T00:24:54.142Z
 - vendor: AndyMark
   # https://www.andymark.com/products/sport-gearbox-output-shaft?variant=44493454934188
   product:
@@ -57631,35 +56835,20 @@
     title: 175mm
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/5-mm-hex-shaft-stock?variant=44493458833580
+  # https://www.andymark.com/products/5-mm-hex-shaft-stock?variant=46095826190508
   product:
     handle: 5-mm-hex-shaft-stock
     id: 8262911688876
     title: 5 mm Hex Shaft Stock
   variant:
-    id: 44493458833580
+    id: 46095826190508
     options:
-      - 75 mm
+      - Default Title
       - null
       - null
     sku: am-3913-075
-    title: 75 mm
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/5-mm-hex-shaft-stock?variant=44493458866348
-  product:
-    handle: 5-mm-hex-shaft-stock
-    id: 8262911688876
-    title: 5 mm Hex Shaft Stock
-  variant:
-    id: 44493458866348
-    options:
-      - 90 mm
-      - null
-      - null
-    sku: am-3913-090
-    title: 90 mm
-  firstSeen: 2026-03-13T10:25:09.529Z
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
 - vendor: AndyMark
   # https://www.andymark.com/products/5-mm-hex-to-hex-adapter?variant=44493458899116
   product:
@@ -58306,9 +57495,9 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/robits-8-in-turntable-assembly?variant=44493460996268
+  # https://www.andymark.com/products/robits-5-5-in-turntable-assembly?variant=44493460996268
   product:
-    handle: robits-8-in-turntable-assembly
+    handle: robits-5-5-in-turntable-assembly
     id: 8262913163436
     title: Robits 5.5 in. ID Turntable Assembly
   variant:
@@ -58528,51 +57717,6 @@
       - null
       - null
     sku: am-5439
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/everybot-2024-polycarbonate-intake-plate?variant=44493461618860
-  product:
-    handle: everybot-2024-polycarbonate-intake-plate
-    id: 8262913753260
-    title: Everybot 2024 Polycarbonate Intake Plate
-  variant:
-    id: 44493461618860
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-5431_in-plate
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/everybot-2024-polycarbonate-deflector-plate?variant=44493461651628
-  product:
-    handle: everybot-2024-polycarbonate-deflector-plate
-    id: 8262913786028
-    title: Everybot 2024 Polycarbonate Deflector Plate
-  variant:
-    id: 44493461651628
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-5431_def-plate
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/2024-everybot-intake-kit?variant=44493461684396
-  product:
-    handle: 2024-everybot-intake-kit
-    id: 8262913818796
-    title: 2024 Everybot Intake Kit
-  variant:
-    id: 44493461684396
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-5431
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -58996,35 +58140,20 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/24-in-x-24-in-orange-peel-black-hdpe-sheet?variant=44493462798508
+  # https://www.andymark.com/products/24-in-x-24-in-orange-peel-black-hdpe-sheet?variant=46072896520364
   product:
     handle: 24-in-x-24-in-orange-peel-black-hdpe-sheet
     id: 8262914834604
     title: 24 in. x 24 in. Orange Peel Black HDPE Sheet
   variant:
-    id: 44493462798508
+    id: 46072896520364
     options:
-      - 0.25 in.
+      - Default Title
       - null
       - null
     sku: am-5279
-    title: 0.25 in.
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/24-in-x-24-in-orange-peel-black-hdpe-sheet?variant=44493462831276
-  product:
-    handle: 24-in-x-24-in-orange-peel-black-hdpe-sheet
-    id: 8262914834604
-    title: 24 in. x 24 in. Orange Peel Black HDPE Sheet
-  variant:
-    id: 44493462831276
-    options:
-      - 0.5 in.
-      - null
-      - null
-    sku: am-5591
-    title: 0.5 in.
-  firstSeen: 2026-03-13T10:25:09.529Z
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
 - vendor: AndyMark
   # https://www.andymark.com/products/heavy-duty-viair-330c-ig-air-compressor?variant=44493462864044
   product:
@@ -59956,21 +59085,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/frc-collar-clamps-kit?variant=44493465288876
-  product:
-    handle: frc-collar-clamps-kit
-    id: 8262916931756
-    title: FRC Collar Clamps Kit
-  variant:
-    id: 44493465288876
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-5145
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/frc-bearings-kit?variant=44493465321644
   product:
     handle: frc-bearings-kit
@@ -60238,21 +59352,6 @@
       - null
       - null
     sku: am-5034
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/robits-1x4-nut-strip?variant=44493466534060
-  product:
-    handle: robits-1x4-nut-strip
-    id: 8262917849260
-    title: Robits 1x4 Nut Strip
-  variant:
-    id: 44493466534060
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-5032_1x4
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -60660,6 +59759,36 @@
     sku: am-1589_black
     title: Black
   firstSeen: 2026-03-13T10:25:09.529Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/cable-ties-4-in?variant=46077434855596
+  product:
+    handle: cable-ties-4-in
+    id: 8262918308012
+    title: Cable Ties 4 in.
+  variant:
+    id: 46077434855596
+    options:
+      - Blue
+      - null
+      - null
+    sku: am-1589_blue
+    title: Blue
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/cable-ties-4-in?variant=46077434888364
+  product:
+    handle: cable-ties-4-in
+    id: 8262918308012
+    title: Cable Ties 4 in.
+  variant:
+    id: 46077434888364
+    options:
+      - Red
+      - null
+      - null
+    sku: am-1589_red
+    title: Red
+  firstSeen: 2026-06-06T00:24:54.142Z
 - vendor: AndyMark
   # https://www.andymark.com/products/4-in-hd-mecanum-wheels?variant=44493467484332
   product:
@@ -61258,21 +60387,6 @@
       - null
       - null
     sku: am-4979a
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/3-in-dualie-aluminum-omni-wheel-with-3-8-hex-bore?variant=44493469024428
-  product:
-    handle: 3-in-dualie-aluminum-omni-wheel-with-3-8-hex-bore
-    id: 8262918930604
-    title: 3 in. Dualie Aluminum Omni Wheel With 3/8 Hex Bore
-  variant:
-    id: 44493469024428
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-4979
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -63020,7 +62134,7 @@
   product:
     handle: 10-feet-of-rope-1-8-in-diameter
     id: 8262924861612
-    title: 10 feet of Rope 1/8 in. diameter
+    title: 10 Feet of 0.125 in. Diameter Dyneema Rope
   variant:
     id: 44493478396076
     options:
@@ -63824,21 +62938,6 @@
       - null
       - null
     sku: am-4417
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/phillips-and-flat-head-reversible-screwdriver?variant=44493481246892
-  product:
-    handle: phillips-and-flat-head-reversible-screwdriver
-    id: 8262927220908
-    title: Phillips and Flat Head Reversible Screwdriver
-  variant:
-    id: 44493481246892
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-4416
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -64829,51 +63928,6 @@
       - null
       - null
     sku: am-4198
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/mega-gusset-starter-pack?variant=44493488193708
-  product:
-    handle: mega-gusset-starter-pack
-    id: 8262931939500
-    title: Mega Gusset Starter Pack
-  variant:
-    id: 44493488193708
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-4193
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/odd-angle-gusset-starter-pack?variant=44493488226476
-  product:
-    handle: odd-angle-gusset-starter-pack
-    id: 8262931972268
-    title: Odd Angle Gusset Starter Pack
-  variant:
-    id: 44493488226476
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-4192
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/basic-gusset-starter-pack?variant=44493488259244
-  product:
-    handle: basic-gusset-starter-pack
-    id: 8262932005036
-    title: Basic Gusset Starter Pack
-  variant:
-    id: 44493488259244
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-4191
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -67727,21 +66781,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/5-16-in-hex-female-female-16-mm-long-standoff?variant=44495353643180
-  product:
-    handle: 5-16-in-hex-female-female-16-mm-long-standoff
-    id: 8263435681964
-    title: 5/16 in. Hex Female-Female 16 mm Long Standoff
-  variant:
-    id: 44495353643180
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-3685-16
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/0-190-in-id-3-8-in-od-extended-race-bearing-r166zzee?variant=44495353905324
   product:
     handle: 0-190-in-id-3-8-in-od-extended-race-bearing-r166zzee
@@ -68222,80 +67261,65 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/andymark-version-of-frc-kit-of-parts?variant=44495363997868
+  # https://www.andymark.com/products/andymark-version-of-frc-kit-of-parts?variant=46113609351340
   product:
     handle: andymark-version-of-frc-kit-of-parts
     id: 8263438368940
     title: AndyMark Version of FRC Kit of Parts
   variant:
-    id: 44495363997868
+    id: 46113609351340
     options:
-      - AM Version 2025 Kit of Parts
+      - AM Version 2026 Kit of Parts
       - null
       - null
-    sku: am-3576_2025
-    title: AM Version 2025 Kit of Parts
-  firstSeen: 2026-03-13T10:25:09.529Z
+    sku: am-3576_2026
+    title: AM Version 2026 Kit of Parts
+  firstSeen: 2026-06-06T00:24:54.142Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/andymark-version-of-frc-kit-of-parts?variant=44495364030636
+  # https://www.andymark.com/products/andymark-version-of-frc-kit-of-parts?variant=46113609384108
   product:
     handle: andymark-version-of-frc-kit-of-parts
     id: 8263438368940
     title: AndyMark Version of FRC Kit of Parts
   variant:
-    id: 44495364030636
+    id: 46113609384108
     options:
-      - AM Version Drive Base Kit
+      - AM Version 2026 Black Tote
       - null
       - null
-    sku: am-3576_25DB
-    title: AM Version Drive Base Kit
-  firstSeen: 2026-03-13T10:25:09.529Z
+    sku: am-3576_26BT
+    title: AM Version 2026 Black Tote
+  firstSeen: 2026-06-06T00:24:54.142Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/andymark-version-of-frc-kit-of-parts?variant=44495364063404
+  # https://www.andymark.com/products/andymark-version-of-frc-kit-of-parts?variant=46113609416876
   product:
     handle: andymark-version-of-frc-kit-of-parts
     id: 8263438368940
     title: AndyMark Version of FRC Kit of Parts
   variant:
-    id: 44495364063404
+    id: 46113609416876
     options:
-      - AM Version 2025 Season Specific Parts
+      - AM Version 2026 Drive Base Kit
       - null
       - null
-    sku: am-3576_25SS
-    title: AM Version 2025 Season Specific Parts
-  firstSeen: 2026-03-13T10:25:09.529Z
+    sku: am-3576_26DB
+    title: AM Version 2026 Drive Base Kit
+  firstSeen: 2026-06-06T00:24:54.142Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/andymark-version-of-frc-kit-of-parts?variant=44495364096172
+  # https://www.andymark.com/products/andymark-version-of-frc-kit-of-parts?variant=46113609449644
   product:
     handle: andymark-version-of-frc-kit-of-parts
     id: 8263438368940
     title: AndyMark Version of FRC Kit of Parts
   variant:
-    id: 44495364096172
+    id: 46113609449644
     options:
-      - AM Version Black Tote
+      - AM Version 2026 Gray Tote
       - null
       - null
-    sku: am-3576_25BT
-    title: AM Version Black Tote
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/andymark-version-of-frc-kit-of-parts?variant=44495364128940
-  product:
-    handle: andymark-version-of-frc-kit-of-parts
-    id: 8263438368940
-    title: AndyMark Version of FRC Kit of Parts
-  variant:
-    id: 44495364128940
-    options:
-      - AM Version Gray Tote
-      - null
-      - null
-    sku: am-3576_25GT
-    title: AM Version Gray Tote
-  firstSeen: 2026-03-13T10:25:09.529Z
+    sku: am-3576_26GT
+    title: AM Version 2026 Gray Tote
+  firstSeen: 2026-06-06T00:24:54.142Z
 - vendor: AndyMark
   # https://www.andymark.com/products/gadgeteer-display-module?variant=44495364620460
   product:
@@ -70022,21 +69046,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/rev-15-mm-variable-angle-bracket-qty-8?variant=44495419867308
-  product:
-    handle: rev-15-mm-variable-angle-bracket-qty-8
-    id: 8263449313452
-    title: REV 15 mm Variable Angle Bracket Qty. 8
-  variant:
-    id: 44495419867308
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-3238a
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/bumper-wood-corner-bracket?variant=44495422554284
   product:
     handle: bumper-wood-corner-bracket
@@ -70251,7 +69260,7 @@
   product:
     handle: power-string-1-4mm-100-spool
     id: 8263451115692
-    title: Power String, 1.4MM, 100' Spool
+    title: 100 Feet of 0.055 in. Diameter Polyester Rope
   variant:
     id: 44495428583596
     options:
@@ -70458,35 +69467,20 @@
     title: 17 Tooth JST-VH-2 (f) connector
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/neverest-classic-60-gearmotor?variant=44495432057004
+  # https://www.andymark.com/products/neverest-classic-60-gearmotor?variant=46244526686380
   product:
     handle: neverest-classic-60-gearmotor
     id: 8263452065964
     title: NeveRest Classic 60 Gearmotor
   variant:
-    id: 44495432057004
+    id: 46244526686380
     options:
-      - Anderson Powerpole 15A
-      - null
-      - null
-    sku: am-3103
-    title: Anderson Powerpole 15A
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/neverest-classic-60-gearmotor?variant=44495432089772
-  product:
-    handle: neverest-classic-60-gearmotor
-    id: 8263452065964
-    title: NeveRest Classic 60 Gearmotor
-  variant:
-    id: 44495432089772
-    options:
-      - JST-VH-2
+      - Default Title
       - null
       - null
     sku: am-3103b
-    title: JST-VH-2
-  firstSeen: 2026-03-13T10:25:09.529Z
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
 - vendor: AndyMark
   # https://www.andymark.com/products/3-pin-ma3-encoder-cable?variant=44495433138348
   product:
@@ -71285,21 +70279,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/4-in-aluminum-omni-wheel-with-nub-bore?variant=44495451717804
-  product:
-    handle: 4-in-aluminum-omni-wheel-with-nub-bore
-    id: 8263456817324
-    title: 4 in. Aluminum Omni Wheel with Nub Bore
-  variant:
-    id: 44495451717804
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-2948a
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/am14u-family-horizontal-battery-mount-strap-plate?variant=44495452045484
   product:
     handle: am14u-family-horizontal-battery-mount-strap-plate
@@ -71357,21 +70336,6 @@
       - null
       - null
     sku: am-2930
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/thrust-washer-2-in-od-1-16-in-thick-for-1-1-4-in-shaft?variant=44495453847724
-  product:
-    handle: thrust-washer-2-in-od-1-16-in-thick-for-1-1-4-in-shaft
-    id: 8263457374380
-    title: Thrust Washer, 2 in. od, 1/16 in. Thick for 1 1/4 in. Shaft
-  variant:
-    id: 44495453847724
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-2927
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -71840,20 +70804,35 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/andymark-frc-field-perimeter?variant=44495473410220
+  # https://www.andymark.com/products/andymark-frc-field-perimeter?variant=46317984121004
   product:
     handle: andymark-frc-field-perimeter
     id: 8263462092972
     title: AndyMark FRC Field Perimeter
   variant:
-    id: 44495473410220
+    id: 46317984121004
     options:
-      - Default Title
+      - Full Field
       - null
       - null
     sku: am-2800
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
+    title: Full Field
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/andymark-frc-field-perimeter?variant=46317984153772
+  product:
+    handle: andymark-frc-field-perimeter
+    id: 8263462092972
+    title: AndyMark FRC Field Perimeter
+  variant:
+    id: 46317984153772
+    options:
+      - Half Field
+      - null
+      - null
+    sku: am-2800_Half
+    title: Half Field
+  firstSeen: 2026-06-06T00:24:54.142Z
 - vendor: AndyMark
   # https://www.andymark.com/products/4-in-caster-assembly?variant=44495473442988
   product:
@@ -74060,21 +73039,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/roborio-power-phoenix-push-in-spring-connector?variant=44495573778604
-  product:
-    handle: roborio-power-phoenix-push-in-spring-connector
-    id: 8263484539052
-    title: roboRIO Power Phoenix Push-in Spring Connector
-  variant:
-    id: 44495573778604
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-2076a
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/sb50-to-pp45-xt30-and-xt60-adapter-cable?variant=44495574794412
   product:
     handle: sb50-to-pp45-xt30-and-xt60-adapter-cable
@@ -74904,7 +73868,7 @@
   product:
     handle: 0-375-od-x-0-194-id-x-0-125-long-nylon-spacer
     id: 8263830175916
-    title: 0.375 OD x 0.194 ID x 0.125 Long Nylon Spacer
+    title: 0.194 in. ID 0.375 in. OD 0.125 in. Long Nylon Spacer
   variant:
     id: 44497332732076
     options:
@@ -75140,11 +74104,11 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/9-11-x-3-5-in-flat-head-philips-wood-screw?variant=44497335058604
+  # https://www.andymark.com/products/9-11-x-3-5-in-flat-head-phillips-wood-screw?variant=44497335058604
   product:
-    handle: 9-11-x-3-5-in-flat-head-philips-wood-screw
+    handle: 9-11-x-3-5-in-flat-head-phillips-wood-screw
     id: 8263831290028
-    title: 9-11 x 3.5 in. Flat Head Philips Wood Screw
+    title: 9-11 x 3.5 in. Flat Head Phillips Wood Screw
   variant:
     id: 44497335058604
     options:
@@ -75155,11 +74119,11 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/6-8-x-1-625-in-flat-head-philips-wood-screw?variant=44497335091372
+  # https://www.andymark.com/products/6-8-x-1-625-in-flat-head-phillips-wood-screw?variant=44497335091372
   product:
-    handle: 6-8-x-1-625-in-flat-head-philips-wood-screw
+    handle: 6-8-x-1-625-in-flat-head-phillips-wood-screw
     id: 8263831322796
-    title: 6-8 x 1.625 in. Flat Head Philips Wood Screw
+    title: 6-8 x 1.625 in. Flat Head Phillips Wood Screw
   variant:
     id: 44497335091372
     options:
@@ -75170,11 +74134,11 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/8-8-x-2-5-in-flat-head-philips-wood-screw?variant=44497335124140
+  # https://www.andymark.com/products/8-8-x-2-5-in-flat-head-phillips-wood-screw?variant=44497335124140
   product:
-    handle: 8-8-x-2-5-in-flat-head-philips-wood-screw
+    handle: 8-8-x-2-5-in-flat-head-phillips-wood-screw
     id: 8263831355564
-    title: 8-8 x 2.5 in. Flat Head Philips Wood Screw
+    title: 8-8 x 2.5 in. Flat Head Phillips Wood Screw
   variant:
     id: 44497335124140
     options:
@@ -75392,21 +74356,6 @@
       - null
       - null
     sku: am-1694
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/10-nord-lock-washer?variant=44497336762540
-  product:
-    handle: 10-nord-lock-washer
-    id: 8263832404140
-    title: '#10 Nord-Lock Washer'
-  variant:
-    id: 44497336762540
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1693
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -78221,21 +77170,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/10-32-x-1-75-in-hex-washer-head-screw?variant=44497361240236
-  product:
-    handle: 10-32-x-1-75-in-hex-washer-head-screw
-    id: 8263843774636
-    title: 10-32 x 1.75 in. Hex Washer Head Screw
-  variant:
-    id: 44497361240236
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1491
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/0-5-in-id-0-625-in-od-0-188-in-long-bronze-flange-bushing?variant=44497361273004
   product:
     handle: 0-5-in-id-0-625-in-od-0-188-in-long-bronze-flange-bushing
@@ -78285,7 +77219,7 @@
   product:
     handle: 10-32-x-4-in-fhhcs
     id: 8263844102316
-    title: 10-32 x 4 in. FHHCS
+    title: 10-32 x 4 in. Flanged Hex Head Cap Screw (FHHCS)
   variant:
     id: 44497361698988
     options:
@@ -79568,21 +78502,6 @@
       - null
       - null
     sku: am-1258
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/0-192-in-id-0-375-in-od-0-688-in-long-nylon-spacer?variant=44497371496620
-  product:
-    handle: 0-192-in-id-0-375-in-od-0-688-in-long-nylon-spacer
-    id: 8263850786988
-    title: 0.192 in. ID 0.375 in. OD 0.688 in. Long Nylon Spacer
-  variant:
-    id: 44497371496620
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1255
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -81270,7 +80189,7 @@
   product:
     handle: sb50-anderson-powerpole-connector-with-contacts
     id: 8263862091948
-    title: SB50 Anderson Powerpole Connector with Contacts
+    title: Anderson Power Products SB50 Connector with Contacts
   variant:
     id: 44497389584556
     options:
@@ -82016,20 +80935,50 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/battery-flag?variant=44497398202540
+  # https://www.andymark.com/products/battery-flag?variant=46151724892332
   product:
     handle: battery-flag
     id: 8263867367596
-    title: Battery Flag
+    title: SB50 Battery Flag
   variant:
-    id: 44497398202540
+    id: 46151724892332
     options:
-      - Default Title
+      - Blue
       - null
       - null
-    sku: am-0122
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
+    sku: am-0122_blue
+    title: Blue
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/battery-flag?variant=46151724925100
+  product:
+    handle: battery-flag
+    id: 8263867367596
+    title: SB50 Battery Flag
+  variant:
+    id: 46151724925100
+    options:
+      - Red
+      - null
+      - null
+    sku: am-0122_red
+    title: Red
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/battery-flag?variant=46151724957868
+  product:
+    handle: battery-flag
+    id: 8263867367596
+    title: SB50 Battery Flag
+  variant:
+    id: 46151724957868
+    options:
+      - White
+      - null
+      - null
+    sku: am-0122_white
+    title: White
+  firstSeen: 2026-06-06T00:24:54.142Z
 - vendor: AndyMark
   # https://www.andymark.com/products/8-in-omni-wheel-web?variant=44497400594604
   product:
@@ -82286,36 +81235,6 @@
     title: Red / Black Bonded / 10 AWG
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/ultra-flexible-wire?variant=44497406230700
-  product:
-    handle: ultra-flexible-wire
-    id: 8263871496364
-    title: Ultra Flexible Wire
-  variant:
-    id: 44497406230700
-    options:
-      - Black
-      - 12 AWG
-      - null
-    sku: am-4195-25_black
-    title: Black / 12 AWG
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/ultra-flexible-wire?variant=44497406263468
-  product:
-    handle: ultra-flexible-wire
-    id: 8263871496364
-    title: Ultra Flexible Wire
-  variant:
-    id: 44497406263468
-    options:
-      - Red
-      - 12 AWG
-      - null
-    sku: am-4195-25_red
-    title: Red / 12 AWG
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/ultra-flexible-wire?variant=44497406296236
   product:
     handle: ultra-flexible-wire
@@ -82538,21 +81457,6 @@
       - null
       - null
     sku: am-5191
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/crescendo-stage-flap-polycarbonate?variant=44497407541420
-  product:
-    handle: crescendo-stage-flap-polycarbonate
-    id: 8263872151724
-    title: CRESCENDO℠ Stage Flap Polycarbonate
-  variant:
-    id: 44497407541420
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-5190
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -86051,21 +84955,6 @@
     title: Gates / 104
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts?variant=44497416978604
-  product:
-    handle: 15-mm-wide-5-mm-pitch-htd-timing-belts
-    id: 8263873036460
-    title: 15 mm Wide 5 mm Pitch HTD Timing Belts
-  variant:
-    id: 44497416978604
-    options:
-      - Generic
-      - '104'
-      - null
-    sku: am-3659
-    title: Generic / 104
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts?variant=44497417011372
   product:
     handle: 15-mm-wide-5-mm-pitch-htd-timing-belts
@@ -86666,21 +85555,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/submerged-fll-challenge-set-2024?variant=44534316335276
-  product:
-    handle: submerged-fll-challenge-set-2024
-    id: 8273990811820
-    title: 'SUBMERGED: FLL Challenge Set 2024'
-  variant:
-    id: 44534316335276
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-5660
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/official-rebuilt-fuel?variant=44534354215084
   product:
     handle: official-rebuilt-fuel
@@ -86694,21 +85568,6 @@
       - null
     sku: am-5801_kop
     title: 10 (Qty in Kit of Parts)
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/official-rebuilt-fuel?variant=44534354247852
-  product:
-    handle: official-rebuilt-fuel
-    id: 8273998938284
-    title: Official REBUILT™ FUEL
-  variant:
-    id: 44534354247852
-    options:
-      - 84 (1/6 of Full Field)
-      - null
-      - null
-    sku: am-5801_partial
-    title: 84 (1/6 of Full Field)
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/official-rebuilt-fuel?variant=45224853569708
@@ -86843,21 +85702,6 @@
       - null
       - null
     sku: am-1752
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/robits-core-kit-upgrade-kit?variant=44661449425068
-  product:
-    handle: robits-core-kit-upgrade-kit
-    id: 8303623274668
-    title: Robits Core Kit Upgrade Kit
-  variant:
-    id: 44661449425068
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-5000_upgrade
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -87210,7 +86054,7 @@
   product:
     handle: 0-192-in-id-0-313-in-od-0-5-in-long-aluminum-spacer
     id: 8334601814188
-    title: 0.192 in. ID 0.313 in. OD 0.5 in. Long Aluminum Spacer
+    title: 0.192 in. ID 0.313 in. OD 0.5 in. Long Steel Spacer
   variant:
     id: 44767201460396
     options:
@@ -88074,21 +86918,6 @@
       - null
     sku: am-5673
     title: 0.125 in.
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/47-in-x-24-in-aluminum-sheets?variant=44880816144556
-  product:
-    handle: 47-in-x-24-in-aluminum-sheets
-    id: 8369701060780
-    title: 47 in. x 24 in. Aluminum Sheets
-  variant:
-    id: 44880816144556
-    options:
-      - 0.190 in.
-      - null
-      - null
-    sku: am-5674
-    title: 0.190 in.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/47-in-x-24-in-aluminum-sheets?variant=44880816177324
@@ -89010,9 +87839,9 @@
     title: CAN
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/imu-andymark-standard-sensors-copy?variant=45224853962924
+  # https://www.andymark.com/products/imu-andymark-standard-sensors-2?variant=45224853962924
   product:
-    handle: imu-andymark-standard-sensors-copy
+    handle: imu-andymark-standard-sensors-2
     id: 8446058561708
     title: IMU - AndyMark Standard Sensors
   variant:
@@ -89025,20 +87854,35 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/lidar-sensor-andymark-standard-sensors?variant=45224854028460
+  # https://www.andymark.com/products/lidar-distance-sensor-andymark-standard-sensors?variant=46151725056172
   product:
-    handle: lidar-sensor-andymark-standard-sensors
+    handle: lidar-distance-sensor-andymark-standard-sensors
     id: 8446058627244
-    title: Lidar Sensor - AndyMark Standard Sensors
+    title: Lidar Distance Sensor - AndyMark Standard Sensors
   variant:
-    id: 45224854028460
+    id: 46151725056172
     options:
-      - Default Title
+      - I2C
       - null
       - null
     sku: am-5637
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
+    title: I2C
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/lidar-distance-sensor-andymark-standard-sensors?variant=46151725088940
+  product:
+    handle: lidar-distance-sensor-andymark-standard-sensors
+    id: 8446058627244
+    title: Lidar Distance Sensor - AndyMark Standard Sensors
+  variant:
+    id: 46151725088940
+    options:
+      - CAN
+      - null
+      - null
+    sku: am-5684
+    title: CAN
+  firstSeen: 2026-06-06T00:24:54.142Z
 - vendor: AndyMark
   # https://www.andymark.com/products/6-875-in-turret-assembly?variant=45224854093996
   product:
@@ -89263,36 +88107,6 @@
       - null
     sku: am-4660a
     title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/official-rebuilt-tower?variant=45224854683820
-  product:
-    handle: official-rebuilt-tower
-    id: 8446058922156
-    title: Official REBUILT™ TOWER
-  variant:
-    id: 45224854683820
-    options:
-      - Red
-      - null
-      - null
-    sku: am-5781_red
-    title: Red
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/official-rebuilt-tower?variant=45224854716588
-  product:
-    handle: official-rebuilt-tower
-    id: 8446058922156
-    title: Official REBUILT™ TOWER
-  variant:
-    id: 45224854716588
-    options:
-      - Blue
-      - null
-      - null
-    sku: am-5781_blue
-    title: Blue
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/rebuilt-net?variant=45224854749356
@@ -90902,20 +89716,20 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/sydney-neverest-classic-60-gearmotor?variant=45225672638636
+  # https://www.andymark.com/products/sydney-neverest-classic-60-gearmotor?variant=46244526719148
   product:
     handle: sydney-neverest-classic-60-gearmotor
     id: 8446245077164
     title: Ships from Sydney - NeveRest Classic 60 Gearmotor
   variant:
-    id: 45225672638636
+    id: 46244526719148
     options:
-      - Anderson Powerpole 15A
+      - Default Title
       - null
       - null
     sku: am-3103AUS
-    title: Anderson Powerpole 15A
-  firstSeen: 2026-03-13T10:25:09.529Z
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
 - vendor: AndyMark
   # https://www.andymark.com/products/sydney-navx2-mxp-robotics-navigation-sensor?variant=45225672671404
   product:
@@ -96331,7 +95145,7 @@
   product:
     handle: 1-2-in-hex-spacer-kit
     id: 8458922361004
-    title: 0.5 in. Hex Spacer Kit
+    title: 1/2 in. Hex Spacer Kit
   variant:
     id: 45269336621228
     options:
@@ -96556,7 +95370,7 @@
   product:
     handle: mixed-hex-spacer-kit-1
     id: 8477930487980
-    title: Mixed Hex Spacer Kit
+    title: 1/2 in. and 3/8 in. Hex Spacer Kit
   variant:
     id: 45343346327724
     options:
@@ -96571,7 +95385,7 @@
   product:
     handle: spiral-flute-step-drill-7-8-and-1-1-9
     id: 8477930520748
-    title: Spiral Flute Step Drill, 7/8 and 1-1/8
+    title: Spiral Flute Step Drill, 7/8 and 1-1/8 in.
   variant:
     id: 45343346294956
     options:
@@ -96785,6 +95599,21 @@
     title: 5 Pole
   firstSeen: 2026-03-13T11:55:30.495Z
 - vendor: AndyMark
+  # https://www.andymark.com/products/frc-collar-clamps-pack?variant=45367347773612
+  product:
+    handle: frc-collar-clamps-pack
+    id: 8485022630060
+    title: FRC Collar Clamps Pack
+  variant:
+    id: 45367347773612
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-5145a
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
   # https://www.andymark.com/products/power-distribution-hub-basics-control-bundle-w-ampd?variant=45367348461740
   product:
     handle: power-distribution-hub-basics-control-bundle-w-ampd
@@ -96814,3 +95643,619 @@
     sku: am-5645
     title: Default Title
   firstSeen: 2026-03-13T11:55:30.495Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/hex-bore-encoder-magnet?variant=45518239301804
+  product:
+    handle: hex-bore-encoder-magnet
+    id: 8492457197740
+    title: 0.236 in. OD x 0.098 in. Long Cylinder Magnet
+  variant:
+    id: 45518239301804
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-5529
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/locking-4-pin-jst-to-locking-pwm-cable?variant=45518239858860
+  product:
+    handle: locking-4-pin-jst-to-locking-pwm-cable
+    id: 8492457525420
+    title: Locking 4-pin JST to Locking PWM Cable
+  variant:
+    id: 45518239858860
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-5531-1200
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/rope-1-4-dia-smooth-diamond-braid-polyester-10-length?variant=45518241497260
+  product:
+    handle: rope-1-4-dia-smooth-diamond-braid-polyester-10-length
+    id: 8492457853100
+    title: 10 Feet of 0.25 in. Diameter Polyester Rope
+  variant:
+    id: 45518241497260
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-5751
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/16t-sd-planet-gear?variant=45518243135660
+  product:
+    handle: 16t-sd-planet-gear
+    id: 8492457984172
+    title: 16T SD Sport Planet Gear
+  variant:
+    id: 45518243135660
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-5757
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/power-cable-offset-12-black-5red?variant=45535102795948
+  product:
+    handle: power-cable-offset-12-black-5red
+    id: 8492458016940
+    title: Different Lengths of Offset Battery Cables
+  variant:
+    id: 45535102795948
+    options:
+      - 12 in. Black, 5 in. Red
+      - Not Included
+      - null
+    sku: am-5808_B12R05
+    title: 12 in. Black, 5 in. Red / Not Included
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/power-cable-offset-12-black-5red?variant=45535102828716
+  product:
+    handle: power-cable-offset-12-black-5red
+    id: 8492458016940
+    title: Different Lengths of Offset Battery Cables
+  variant:
+    id: 45535102828716
+    options:
+      - 18 in. Black, 11 in. Red
+      - Not Included
+      - null
+    sku: am-5808_B18R11
+    title: 18 in. Black, 11 in. Red / Not Included
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/power-cable-offset-12-black-5red?variant=45535102861484
+  product:
+    handle: power-cable-offset-12-black-5red
+    id: 8492458016940
+    title: Different Lengths of Offset Battery Cables
+  variant:
+    id: 45535102861484
+    options:
+      - 36 in. Black, 29 in. Red
+      - Not Included
+      - null
+    sku: am-5808_B36R29
+    title: 36 in. Black, 29 in. Red / Not Included
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/power-cable-offset-12-black-5red?variant=45535102894252
+  product:
+    handle: power-cable-offset-12-black-5red
+    id: 8492458016940
+    title: Different Lengths of Offset Battery Cables
+  variant:
+    id: 45535102894252
+    options:
+      - 12 in. Black, 5 in. Red
+      - Included
+      - null
+    sku: am-5809_B12R05
+    title: 12 in. Black, 5 in. Red / Included
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/power-cable-offset-12-black-5red?variant=45535102927020
+  product:
+    handle: power-cable-offset-12-black-5red
+    id: 8492458016940
+    title: Different Lengths of Offset Battery Cables
+  variant:
+    id: 45535102927020
+    options:
+      - 18 in. Black, 11 in. Red
+      - Included
+      - null
+    sku: am-5809_B18R11
+    title: 18 in. Black, 11 in. Red / Included
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/power-cable-offset-12-black-5red?variant=45535102959788
+  product:
+    handle: power-cable-offset-12-black-5red
+    id: 8492458016940
+    title: Different Lengths of Offset Battery Cables
+  variant:
+    id: 45535102959788
+    options:
+      - 36 in. Black, 29 in. Red
+      - Included
+      - null
+    sku: am-5809_B36R29
+    title: 36 in. Black, 29 in. Red / Included
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/6-awg-red-power-wire-5-in-ring-terminal-to-stripped-wire?variant=45678272446636
+  product:
+    handle: 6-awg-red-power-wire-5-in-ring-terminal-to-stripped-wire
+    id: 8503887495340
+    title: 5 in. 6 AWG Red Power Wire
+  variant:
+    id: 45678272446636
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-5807_05
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/elec-cable-xt60-battery-charging-extension?variant=45678746468524
+  product:
+    handle: elec-cable-xt60-battery-charging-extension
+    id: 8503893491884
+    title: 12 in. XT60 Extension Cable
+  variant:
+    id: 45678746468524
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-5810
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/0-315-in-id-0-5-in-od-0-906-in-long-aluminum-spacer?variant=46092078088364
+  product:
+    handle: 0-315-in-id-0-5-in-od-0-906-in-long-aluminum-spacer
+    id: 8518141935788
+    title: 0.315 in. ID 0.5 in. OD 0.906 in. Long Aluminum Spacer
+  variant:
+    id: 46092078088364
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-1739a
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/elec-cable-xt60-to-sb50-adapter-12?variant=46101432631468
+  product:
+    handle: elec-cable-xt60-to-sb50-adapter-12
+    id: 8518376292524
+    title: 12 in. XT60 to SB50 or SB120 Adapter Cable
+  variant:
+    id: 46101432631468
+    options:
+      - SB50
+      - null
+      - null
+    sku: am-5622a
+    title: SB50
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/elec-cable-xt60-to-sb50-adapter-12?variant=46101432664236
+  product:
+    handle: elec-cable-xt60-to-sb50-adapter-12
+    id: 8518376292524
+    title: 12 in. XT60 to SB50 or SB120 Adapter Cable
+  variant:
+    id: 46101432664236
+    options:
+      - SB120
+      - null
+      - null
+    sku: am-5623a
+    title: SB120
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/screw-bhcs-1-4-20-x-750-zinc?variant=46092838273196
+  product:
+    handle: screw-bhcs-1-4-20-x-750-zinc
+    id: 8518377504940
+    title: 1/4-20 x 0.75 in. Button Head Cap Screw
+  variant:
+    id: 46092838273196
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-1754
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/washer-cadmium-plated-10-screw-nas620-10?variant=46111266603180
+  product:
+    handle: washer-cadmium-plated-10-screw-nas620-10
+    id: 8521827549356
+    title: '#10 Cadmium-Plated Flat Washer'
+  variant:
+    id: 46111266603180
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-1761
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/hardware-screw-fhsc-m3-0-5-x-12mm-steel-zinc-plated?variant=46111267356844
+  product:
+    handle: hardware-screw-fhsc-m3-0-5-x-12mm-steel-zinc-plated
+    id: 8521827877036
+    title: M3-0.5 x 12 mm Flat Head Cap Screw
+  variant:
+    id: 46111267356844
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-1765
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/hardware-spacer-neverest-hex-bevel?variant=46111267881132
+  product:
+    handle: hardware-spacer-neverest-hex-bevel
+    id: 8521828335788
+    title: NeveRest Hex Bevel Spacer
+  variant:
+    id: 46111267881132
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-1766
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/diy-iron-acres-field-kit?variant=46209609760940
+  product:
+    handle: diy-iron-acres-field-kit
+    id: 8527039234220
+    title: DIY Iron Acres Field Kit
+  variant:
+    id: 46209609760940
+    options:
+      - Field Set
+      - null
+      - null
+    sku: am-5815
+    title: Field Set
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/diy-iron-acres-field-kit?variant=46209609793708
+  product:
+    handle: diy-iron-acres-field-kit
+    id: 8527039234220
+    title: DIY Iron Acres Field Kit
+  variant:
+    id: 46209609793708
+    options:
+      - Field Set with Tote
+      - null
+      - null
+    sku: am-5815_tote
+    title: Field Set with Tote
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/merch-pair-of-am-socks-goat-print?variant=46151796752556
+  product:
+    handle: merch-pair-of-am-socks-goat-print
+    id: 8532085178540
+    title: AndyMark Socks
+  variant:
+    id: 46151796752556
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-5820
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/spiral-flute-step-drill-7-8-and-1-1-8-b?variant=46151796818092
+  product:
+    handle: spiral-flute-step-drill-7-8-and-1-1-8-b
+    id: 8532085244076
+    title: Spiral Flute Step Drill, 7/8 and 1-1/8
+  variant:
+    id: 46151796818092
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-3954b
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/ftc-2026-27-tape-set?variant=46151861469356
+  product:
+    handle: ftc-2026-27-tape-set
+    id: 8532106018988
+    title: FTC 2026-27 BIOBUZZ™ Tape Set
+  variant:
+    id: 46151861469356
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-5850_tape
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/ftc-2026-27-tool-set?variant=46151861502124
+  product:
+    handle: ftc-2026-27-tool-set
+    id: 8532106051756
+    title: FTC 2026-27 BIOBUZZ™ Tool Set
+  variant:
+    id: 46151861502124
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-5850_tool
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/ftc-2026-27-preorders?variant=46213916000428
+  product:
+    handle: ftc-2026-27-preorders
+    id: 8532106182828
+    title: FTC 2026-27 BIOBUZZ™ Pre-Orders
+  variant:
+    id: 46213916000428
+    options:
+      - Blue Partial Game Set
+      - null
+      - null
+    sku: am-5850_Blue
+    title: Blue Partial Game Set
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/ftc-2026-27-preorders?variant=46213916033196
+  product:
+    handle: ftc-2026-27-preorders
+    id: 8532106182828
+    title: FTC 2026-27 BIOBUZZ™ Pre-Orders
+  variant:
+    id: 46213916033196
+    options:
+      - Full Game Set
+      - null
+      - null
+    sku: am-5850_Full
+    title: Full Game Set
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/ftc-2026-27-preorders?variant=46213916065964
+  product:
+    handle: ftc-2026-27-preorders
+    id: 8532106182828
+    title: FTC 2026-27 BIOBUZZ™ Pre-Orders
+  variant:
+    id: 46213916065964
+    options:
+      - Red Partial Game Set
+      - null
+      - null
+    sku: am-5850_Red
+    title: Red Partial Game Set
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/steel-box-tube-1-x-3-x-1-8-wall-24-length?variant=46179956719788
+  product:
+    handle: steel-box-tube-1-x-3-x-1-8-wall-24-length
+    id: 8532110442668
+    title: Rounded Box Tube Extrusion
+  variant:
+    id: 46179956719788
+    options:
+      - 24 in.
+      - null
+      - null
+    sku: am-5767-2400
+    title: 24 in.
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/steel-box-tube-1-x-3-x-1-8-wall-24-length?variant=46179956752556
+  product:
+    handle: steel-box-tube-1-x-3-x-1-8-wall-24-length
+    id: 8532110442668
+    title: Rounded Box Tube Extrusion
+  variant:
+    id: 46179956752556
+    options:
+      - 42 in.
+      - null
+      - null
+    sku: am-5767-4200
+    title: 42 in.
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/ftc-2026-27-game-preview-pack?variant=46172590833836
+  product:
+    handle: ftc-2026-27-game-preview-pack
+    id: 8535276814508
+    title: BIOBUZZ™ POLLEN Game Preview Pack
+  variant:
+    id: 46172590833836
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-5851_preview
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/electronic-bundles-builder-processor-roborio-speed-controller-spark-max?variant=46176822034604
+  product:
+    handle: electronic-bundles-builder-processor-roborio-speed-controller-spark-max
+    id: 8535825973420
+    title: Electronic Bundles Builder - Processor:RoboRIO, Speed Controller:Spark MAX
+  variant:
+    id: 46176822034604
+    options:
+      - RoboRIO
+      - Spark MAX
+      - '4'
+    sku: BCRX4NA
+    title: RoboRIO / Spark MAX / 4 / NEO 1.1 / AMPD
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/electronic-bundles-builder-processor-roborio-ready-speed-controller-spark-max?variant=46176838320300
+  product:
+    handle: electronic-bundles-builder-processor-roborio-ready-speed-controller-spark-max
+    id: 8535827906732
+    title: Electronic Bundles Builder - Processor:RoboRIO Ready, Speed
+      Controller:Spark Max
+  variant:
+    id: 46176838320300
+    options:
+      - RoboRIO Ready
+      - Spark MAX
+      - '4'
+    sku: BCFX4NA
+    title: RoboRIO Ready / Spark MAX / 4 / NEO 1.1 / AMPD
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/first-robotics-field-carpet?variant=46183587512492
+  product:
+    handle: first-robotics-field-carpet
+    id: 8537109102764
+    title: FIRST Robotics Competition Field Carpet Pre-Order
+  variant:
+    id: 46183587512492
+    options:
+      - 'Half Field: One 15ft x 74ft roll'
+      - null
+      - null
+    sku: am-5643
+    title: 'Half Field: One 15ft x 74ft roll'
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/first-robotics-field-carpet?variant=46289818878124
+  product:
+    handle: first-robotics-field-carpet
+    id: 8537109102764
+    title: FIRST Robotics Competition Field Carpet Pre-Order
+  variant:
+    id: 46289818878124
+    options:
+      - 'Test Area: One 15ft x 30ft roll'
+      - null
+      - null
+    sku: am-5652
+    title: 'Test Area: One 15ft x 30ft roll'
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/polybelt-starter-kit?variant=46228396277932
+  product:
+    handle: polybelt-starter-kit
+    id: 8546028978348
+    title: Polybelt Starter Kit
+  variant:
+    id: 46228396277932
+    options:
+      - 3/8 in. Hex
+      - null
+      - null
+    sku: am-5818
+    title: 3/8 in. Hex
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/polybelt-starter-kit?variant=46228396310700
+  product:
+    handle: polybelt-starter-kit
+    id: 8546028978348
+    title: Polybelt Starter Kit
+  variant:
+    id: 46228396310700
+    options:
+      - 1/2 in. Hex
+      - null
+      - null
+    sku: am-5819
+    title: 1/2 in. Hex
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/frc-intermediate-starter-bundle-1?variant=46250740875436
+  product:
+    handle: frc-intermediate-starter-bundle-1
+    id: 8549710626988
+    title: FRC Brushless Intermediate Starter Bundle
+  variant:
+    id: 46250740875436
+    options:
+      - With roboRIO
+      - null
+      - null
+    sku: am-4102a_X
+    title: With roboRIO
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/frc-intermediate-starter-bundle-1?variant=46250740908204
+  product:
+    handle: frc-intermediate-starter-bundle-1
+    id: 8549710626988
+    title: FRC Brushless Intermediate Starter Bundle
+  variant:
+    id: 46250740908204
+    options:
+      - Without roboRIO
+      - null
+      - null
+    sku: am-4726a_X
+    title: Without roboRIO
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/m1-91-0-79-x-12-mm-pan-head-thread-forming-screw?variant=46240177029292
+  product:
+    handle: m1-91-0-79-x-12-mm-pan-head-thread-forming-screw
+    id: 8549713182892
+    title: M1.91-0.79 x 12 mm Pan Head Thread Forming Screw
+  variant:
+    id: 46240177029292
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-1749
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/andymarker?variant=46289764417708
+  product:
+    handle: andymarker
+    id: 8564289372332
+    title: AndyMarker
+  variant:
+    id: 46289764417708
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-5827_blue
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:54.142Z

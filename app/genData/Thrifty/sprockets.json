@@ -1,5 +1,13 @@
 [
   {
+    "teeth": 22,
+    "bore": "1/2\" Hex",
+    "chainType": "#25",
+    "url": "https://www.thethriftybot.com/products/qty-2-half-inch-hex-22-tooth-25-sprocket",
+    "sku": "ELEV-DRIVE-003",
+    "vendor": "Thrifty"
+  },
+  {
     "teeth": 36,
     "bore": "1.125\" Round",
     "chainType": "#35",
@@ -37,102 +45,6 @@
     "chainType": "#25",
     "url": "https://www.thethriftybot.com/products/25-chain-billet-sprockets",
     "sku": "ttb-0249",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 84,
-    "bore": "1.125\" Round",
-    "chainType": "#25",
-    "url": "https://www.thethriftybot.com/products/25-chain-billet-sprockets",
-    "sku": "TTB-0285",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 36,
-    "bore": "1.125\" Round",
-    "chainType": "#25",
-    "url": "https://www.thethriftybot.com/products/25-flat-plate-sprockets",
-    "sku": "TTB-0274",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 48,
-    "bore": "1.125\" Round",
-    "chainType": "#25",
-    "url": "https://www.thethriftybot.com/products/25-flat-plate-sprockets",
-    "sku": "TTB-0275",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 60,
-    "bore": "1.125\" Round",
-    "chainType": "#25",
-    "url": "https://www.thethriftybot.com/products/25-flat-plate-sprockets",
-    "sku": "TTB-0276",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 72,
-    "bore": "1.125\" Round",
-    "chainType": "#25",
-    "url": "https://www.thethriftybot.com/products/25-flat-plate-sprockets",
-    "sku": "TTB-0277",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 84,
-    "bore": "1.125\" Round",
-    "chainType": "#25",
-    "url": "https://www.thethriftybot.com/products/25-flat-plate-sprockets",
-    "sku": "TTB-0278",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 24,
-    "bore": "1.125\" Round",
-    "chainType": "#35",
-    "url": "https://www.thethriftybot.com/products/35-flat-plate-sprockets",
-    "sku": "TTB-0279",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 36,
-    "bore": "1.125\" Round",
-    "chainType": "#35",
-    "url": "https://www.thethriftybot.com/products/35-flat-plate-sprockets",
-    "sku": "TTB-0280",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 48,
-    "bore": "1.125\" Round",
-    "chainType": "#35",
-    "url": "https://www.thethriftybot.com/products/35-flat-plate-sprockets",
-    "sku": "TTB-0281",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 60,
-    "bore": "1.125\" Round",
-    "chainType": "#35",
-    "url": "https://www.thethriftybot.com/products/35-flat-plate-sprockets",
-    "sku": "TTB-0284",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 72,
-    "bore": "1.125\" Round",
-    "chainType": "#35",
-    "url": "https://www.thethriftybot.com/products/35-flat-plate-sprockets",
-    "sku": "TTB-0282",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 84,
-    "bore": "1.125\" Round",
-    "chainType": "#35",
-    "url": "https://www.thethriftybot.com/products/35-flat-plate-sprockets",
-    "sku": "TTB-0283",
     "vendor": "Thrifty"
   },
   {
@@ -208,11 +120,99 @@
     "vendor": "Thrifty"
   },
   {
-    "teeth": 22,
-    "bore": "1/2\" Hex",
+    "teeth": 36,
+    "bore": "1.125\" Round",
     "chainType": "#25",
-    "url": "https://www.thethriftybot.com/products/qty-2-half-inch-hex-22-tooth-25-sprocket",
-    "sku": "ELEV-DRIVE-003",
+    "url": "https://www.thethriftybot.com/products/25-flat-plate-sprockets",
+    "sku": "TTB-0274",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 48,
+    "bore": "1.125\" Round",
+    "chainType": "#25",
+    "url": "https://www.thethriftybot.com/products/25-flat-plate-sprockets",
+    "sku": "TTB-0275",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 60,
+    "bore": "1.125\" Round",
+    "chainType": "#25",
+    "url": "https://www.thethriftybot.com/products/25-flat-plate-sprockets",
+    "sku": "TTB-0276",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 72,
+    "bore": "1.125\" Round",
+    "chainType": "#25",
+    "url": "https://www.thethriftybot.com/products/25-flat-plate-sprockets",
+    "sku": "TTB-0277",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 84,
+    "bore": "1.125\" Round",
+    "chainType": "#25",
+    "url": "https://www.thethriftybot.com/products/25-flat-plate-sprockets",
+    "sku": "TTB-0278",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 24,
+    "bore": "1.125\" Round",
+    "chainType": "#35",
+    "url": "https://www.thethriftybot.com/products/35-flat-plate-sprockets",
+    "sku": "TTB-0279",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 36,
+    "bore": "1.125\" Round",
+    "chainType": "#35",
+    "url": "https://www.thethriftybot.com/products/35-flat-plate-sprockets",
+    "sku": "TTB-0280",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 48,
+    "bore": "1.125\" Round",
+    "chainType": "#35",
+    "url": "https://www.thethriftybot.com/products/35-flat-plate-sprockets",
+    "sku": "TTB-0281",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 72,
+    "bore": "1.125\" Round",
+    "chainType": "#35",
+    "url": "https://www.thethriftybot.com/products/35-flat-plate-sprockets",
+    "sku": "TTB-0282",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 84,
+    "bore": "1.125\" Round",
+    "chainType": "#35",
+    "url": "https://www.thethriftybot.com/products/35-flat-plate-sprockets",
+    "sku": "TTB-0283",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 60,
+    "bore": "1.125\" Round",
+    "chainType": "#35",
+    "url": "https://www.thethriftybot.com/products/35-flat-plate-sprockets",
+    "sku": "TTB-0284",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 84,
+    "bore": "1.125\" Round",
+    "chainType": "#25",
+    "url": "https://www.thethriftybot.com/products/25-chain-billet-sprockets",
+    "sku": "TTB-0285",
     "vendor": "Thrifty"
   }
 ]

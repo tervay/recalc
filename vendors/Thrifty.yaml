@@ -1746,21 +1746,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
-  # https://www.thethriftybot.com/products/qty-1-25-feet-22-awg-can-bus-wire?variant=46773871739179
-  product:
-    handle: qty-1-25-feet-22-awg-can-bus-wire
-    id: 8636937568555
-    title: QTY 1 - 25 feet - 22 AWG CAN Bus Wire
-  variant:
-    id: 46773871739179
-    options:
-      - Default Title
-      - null
-      - null
-    sku: TTB-0067
-    title: Default Title
-  firstSeen: 2026-03-13T10:23:55.113Z
-- vendor: Thrifty
   # https://www.thethriftybot.com/products/qty-1-thrifty-top-elevator-bearing-plate?variant=46773906112811
   product:
     handle: qty-1-thrifty-top-elevator-bearing-plate
@@ -2935,7 +2920,7 @@
   product:
     handle: qty-2-swerve-aluminum-billet-motor-spacer
     id: 9564365357355
-    title: QTY 2 - Swerve Aluminum Billet Motor Spacers for Thrifty Swerve v2
+    title: 60mm Billet Motor Spacer for Thrifty Swerve
   variant:
     id: 49295904112939
     options:
@@ -6029,11 +6014,11 @@
   variant:
     id: 51463510982955
     options:
-      - Chamfered Edges
+      - Chamfered Edges (QTY 4)
       - null
       - null
     sku: TTB-0314
-    title: Chamfered Edges
+    title: Chamfered Edges (QTY 4)
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/thrifty-bumper-foam-qty-4?variant=51463511015723
@@ -6044,12 +6029,42 @@
   variant:
     id: 51463511015723
     options:
-      - 90 Degree Edges
+      - 90 Degree Edges (QTY 4)
       - null
       - null
     sku: TTB-0326
-    title: 90 Degree Edges
+    title: 90 Degree Edges (QTY 4)
   firstSeen: 2026-03-13T10:23:55.113Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/thrifty-bumper-foam-qty-4?variant=53379771466027
+  product:
+    handle: thrifty-bumper-foam-qty-4
+    id: 10072020091179
+    title: QTY 4 - Thrifty Bumper Foam - 3lb Cross-Linked XPE
+  variant:
+    id: 53379771466027
+    options:
+      - 90 Degree Edges - Undersized & Out of Tolerance (QTY 4)
+      - null
+      - null
+    sku: null
+    title: 90 Degree Edges - Undersized & Out of Tolerance (QTY 4)
+  firstSeen: 2026-06-06T00:24:49.721Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/thrifty-bumper-foam-qty-4?variant=53379771498795
+  product:
+    handle: thrifty-bumper-foam-qty-4
+    id: 10072020091179
+    title: QTY 4 - Thrifty Bumper Foam - 3lb Cross-Linked XPE
+  variant:
+    id: 53379771498795
+    options:
+      - 90 Degree Edges - 11 Inch Short Pieces (QTY 4)
+      - null
+      - null
+    sku: null
+    title: 90 Degree Edges - 11 Inch Short Pieces (QTY 4)
+  firstSeen: 2026-06-06T00:24:49.721Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/10t-spline-xs-pinion?variant=51227570471211
   product:
@@ -6342,7 +6357,7 @@
   product:
     handle: 36-polycarbonate-tube
     id: 10163285885227
-    title: 36" Polycarbonate Tube
+    title: 36" Polycarbonate Tube - 1.125" ID x 1.25" OD
   variant:
     id: 51540921549099
     options:
@@ -6938,6 +6953,21 @@
     title: 15cm
   firstSeen: 2026-03-13T11:55:25.331Z
 - vendor: Thrifty
+  # https://www.thethriftybot.com/products/thriftiest-cam?variant=52035048833323
+  product:
+    handle: thriftiest-cam
+    id: 10257269063979
+    title: 'Pre-Order: Thriftiest Cam'
+  variant:
+    id: 52035048833323
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0370
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:49.721Z
+- vendor: Thrifty
   # https://www.thethriftybot.com/products/8-x-7-5-x-25-x-contact?variant=52211006832939
   product:
     handle: 8-x-7-5-x-25-x-contact
@@ -6982,3 +7012,138 @@
     sku: TTB-0364
     title: Default Title
   firstSeen: 2026-03-13T11:55:25.331Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/3-inch-solid-urethane-wheel-60a-durometer?variant=52960225263915
+  product:
+    handle: 3-inch-solid-urethane-wheel-60a-durometer
+    id: 10319274508587
+    title: 3 Inch Solid Urethane Wheel - 60A durometer
+  variant:
+    id: 52960225263915
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0367
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:49.721Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/4-solid-urethane-wheel-1-2-hex-bore-60a-durometer?variant=52960227623211
+  product:
+    handle: 4-solid-urethane-wheel-1-2-hex-bore-60a-durometer
+    id: 10319275426091
+    title: 4" Solid Urethane Wheel 1/2" Hex Bore - 60A Durometer
+  variant:
+    id: 52960227623211
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0368
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:49.721Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/qty-4-2-inch-solid-urethane-wheel-60a-durometer?variant=53065695494443
+  product:
+    handle: qty-4-2-inch-solid-urethane-wheel-60a-durometer
+    id: 10327744774443
+    title: QTY 4 - 2 Inch Solid Urethane Wheel - 60A durometer
+  variant:
+    id: 53065695494443
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0369
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:49.721Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/qty-10-1-inch-solid-urethane-wheel-60a-durometer?variant=53065965175083
+  product:
+    handle: qty-10-1-inch-solid-urethane-wheel-60a-durometer
+    id: 10327841243435
+    title: QTY 10 - 1 Inch Solid Urethane Wheel - 60A durometer
+  variant:
+    id: 53065965175083
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0371
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:49.721Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/qty-10-hard-durometer-60a-2-inch-thrifty-squish-wheels?variant=53065973530923
+  product:
+    handle: qty-10-hard-durometer-60a-2-inch-thrifty-squish-wheels
+    id: 10327843602731
+    title: QTY 10 - Hard Durometer 60A - 2 Inch Thrifty Squish Wheels
+  variant:
+    id: 53065973530923
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0372
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:49.721Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/36-polycarbonate-tube-1-18-id-x-1-25-od?variant=53110891315499
+  product:
+    handle: 36-polycarbonate-tube-1-18-id-x-1-25-od
+    id: 10329370165547
+    title: 36" Polycarbonate Tube - 1.18" ID x 1.25" OD
+  variant:
+    id: 53110891315499
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0373
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:49.721Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/thrifty-calibration-board?variant=53169169203499
+  product:
+    handle: thrifty-calibration-board
+    id: 10336316883243
+    title: Thrifty Vision Calibration Board
+  variant:
+    id: 53169169203499
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0374
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:49.721Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/qty-4-60a-harder-durometer-3-inch-thrifty-squish-wheels?variant=53169292312875
+  product:
+    handle: qty-4-60a-harder-durometer-3-inch-thrifty-squish-wheels
+    id: 10336368427307
+    title: QTY 4 - 60A Harder Durometer - 3 Inch Thrifty Squish Wheels
+  variant:
+    id: 53169292312875
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0376
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:49.721Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/qty-4-60a-harder-durometer-4-inch-thrifty-squish-wheels?variant=53169295196459
+  product:
+    handle: qty-4-60a-harder-durometer-4-inch-thrifty-squish-wheels
+    id: 10336370884907
+    title: QTY 4 - 60A Harder Durometer - 4 Inch Thrifty Squish Wheels
+  variant:
+    id: 53169295196459
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0377
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:49.721Z
