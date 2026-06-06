@@ -1,13 +1,5 @@
 [
   {
-    "teeth": 16,
-    "dp": 20,
-    "bore": "Falcon",
-    "url": "https://www.swervedrivespecialties.com/products/gear-20dp-16t-falcon-spline-bore",
-    "sku": "SDS-16T-20DP-FALCON",
-    "vendor": "SDS"
-  },
-  {
     "teeth": 15,
     "dp": 32,
     "bore": "8mm",
@@ -85,6 +77,14 @@
     "bore": "3/8\" Hex",
     "url": "https://www.swervedrivespecialties.com/products/32t-32dp-gear",
     "sku": "",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 16,
+    "dp": 20,
+    "bore": "Falcon",
+    "url": "https://www.swervedrivespecialties.com/products/gear-20dp-16t-falcon-spline-bore",
+    "sku": "SDS-16T-20DP-FALCON",
     "vendor": "SDS"
   }
 ]

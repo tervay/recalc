@@ -27,19 +27,19 @@
       - columnheader "Teeth"
       - columnheader "Bore"
   - rowgroup:
-    - row "AndyMark am-4709 36 1/2\" Hex":
-      - cell "AndyMark am-4709":
-        - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
-        - link "am-4709":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
-      - cell "36"
-      - cell "1/2\" Hex"
     - row "AndyMark am-3816 36 1/2\" Hex":
       - cell "AndyMark am-3816":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
         - link "am-3816":
+          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
+      - cell "36"
+      - cell "1/2\" Hex"
+    - row "AndyMark am-4709 36 1/2\" Hex":
+      - cell "AndyMark am-4709":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
+        - link "am-4709":
           - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
       - cell "36"
       - cell "1/2\" Hex"
@@ -51,20 +51,20 @@
           - /url: https://www.revrobotics.com/20DP-Gears-0.5-Hex/
       - cell "36"
       - cell "1/2\" Hex"
-    - row "WCP WCP-0555 36 1/2\" Hex":
-      - cell "WCP WCP-0555":
-        - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0555
-        - link "WCP-0555":
-          - /url: https://wcproducts.com/products/wcp-0555
-      - cell "36"
-      - cell "1/2\" Hex"
     - row "WCP WCP-0175 36 1/2\" Hex":
       - cell "WCP WCP-0175":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0175
         - link "WCP-0175":
           - /url: https://wcproducts.com/products/wcp-0175
+      - cell "36"
+      - cell "1/2\" Hex"
+    - row "WCP WCP-0555 36 1/2\" Hex":
+      - cell "WCP WCP-0555":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-0555
+        - link "WCP-0555":
+          - /url: https://wcproducts.com/products/wcp-0555
       - cell "36"
       - cell "1/2\" Hex"
     - row "WCP WCP-0709 36 1/2\" Hex":
@@ -133,19 +133,19 @@
           - /url: https://wcproducts.com/products/wcp-0093
       - cell "40"
       - cell "1.125\" Round"
-    - row "AndyMark am-4710 40 1/2\" Hex":
-      - cell "AndyMark am-4710":
-        - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
-        - link "am-4710":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
-      - cell "40"
-      - cell "1/2\" Hex"
     - row "AndyMark am-3487 40 1/2\" Hex":
       - cell "AndyMark am-3487":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
         - link "am-3487":
+          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
+      - cell "40"
+      - cell "1/2\" Hex"
+    - row "AndyMark am-4710 40 1/2\" Hex":
+      - cell "AndyMark am-4710":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
+        - link "am-4710":
           - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
       - cell "40"
       - cell "1/2\" Hex"
@@ -165,20 +165,20 @@
           - /url: https://www.revrobotics.com/20DP-Gears-0.5-Hex/
       - cell "40"
       - cell "1/2\" Hex"
-    - row "WCP WCP-0177 40 1/2\" Hex":
-      - cell "WCP WCP-0177":
-        - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0177
-        - link "WCP-0177":
-          - /url: https://wcproducts.com/products/wcp-0177
-      - cell "40"
-      - cell "1/2\" Hex"
     - row "WCP WCP-0116 40 1/2\" Hex":
       - cell "WCP WCP-0116":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0116
         - link "WCP-0116":
           - /url: https://wcproducts.com/products/wcp-0116
+      - cell "40"
+      - cell "1/2\" Hex"
+    - row "WCP WCP-0177 40 1/2\" Hex":
+      - cell "WCP WCP-0177":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-0177
+        - link "WCP-0177":
+          - /url: https://wcproducts.com/products/wcp-0177
       - cell "40"
       - cell "1/2\" Hex"
     - row "WCP WCP-0711 40 1/2\" Hex":

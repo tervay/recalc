@@ -12,8 +12,14 @@ export async function writeOutput(
 ): Promise<void> {
   const outdir = join(process.cwd(), 'app/genData', vendor);
   await mkdir(outdir, { recursive: true });
+  const sorted = [...data].sort((a, b) => {
+    if (a.sku === b.sku) return 0;
+    if (a.sku === null) return 1;
+    if (b.sku === null) return -1;
+    return a.sku.localeCompare(b.sku);
+  });
   await writeFile(
     join(outdir, `${productType}.json`),
-    JSON.stringify(data, null, 2) + '\n',
+    JSON.stringify(sorted, null, 2) + '\n',
   );
 }

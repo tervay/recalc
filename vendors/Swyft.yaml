@@ -1,78 +1,228 @@
 - vendor: Swyft
-  # https://swyftrobotics.com/products/chain-master-links?variant=48536492867878
-  product:
-    handle: chain-master-links
-    id: 9300138328358
-    title: Chain Master Links (5 Pack)
-  variant:
-    id: 48536492867878
-    options:
-      - '#25 Master Link 5 Pack'
-      - null
-      - null
-    sku: CHN-0007
-    title: '#25 Master Link 5 Pack'
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
-  # https://swyftrobotics.com/products/chain-master-links?variant=48536492900646
-  product:
-    handle: chain-master-links
-    id: 9300138328358
-    title: Chain Master Links (5 Pack)
-  variant:
-    id: 48536492900646
-    options:
-      - '#25H Master Link 5 Pack'
-      - null
-      - null
-    sku: CHN-0004
-    title: '#25H Master Link 5 Pack'
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
-  # https://swyftrobotics.com/products/chain-master-links?variant=48536492933414
-  product:
-    handle: chain-master-links
-    id: 9300138328358
-    title: Chain Master Links (5 Pack)
-  variant:
-    id: 48536492933414
-    options:
-      - '#35 Master Link 5 Pack'
-      - null
-      - null
-    sku: CHN-0001
-    title: '#35 Master Link 5 Pack'
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
   # https://swyftrobotics.com/products/chain-tools?variant=48536515871014
   product:
     handle: chain-tools
     id: 9300156088614
-    title: Chain Tools
+    title: Chain & Chain Accessories
   variant:
     id: 48536515871014
     options:
-      - '#25 Chain Tool'
-      - null
+      - '#25'
+      - Roller Chain 10ft
       - null
     sku: TOL-0003
-    title: '#25 Chain Tool'
+    title: '#25 / Roller Chain 10ft'
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/chain-tools?variant=48536515903782
   product:
     handle: chain-tools
     id: 9300156088614
-    title: Chain Tools
+    title: Chain & Chain Accessories
   variant:
     id: 48536515903782
     options:
-      - '#35 Chain Tool'
-      - null
+      - '#25H'
+      - Roller Chain 10ft
       - null
     sku: TOL-0004
-    title: '#35 Chain Tool'
+    title: '#25H / Roller Chain 10ft'
   firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/chain-tools?variant=52970342940966
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970342940966
+    options:
+      - '#25'
+      - Master Link (10 Pack)
+      - null
+    sku: null
+    title: '#25 / Master Link (10 Pack)'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/chain-tools?variant=52970342973734
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970342973734
+    options:
+      - '#25'
+      - Half Link (10 Pack)
+      - null
+    sku: null
+    title: '#25 / Half Link (10 Pack)'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/chain-tools?variant=52970343006502
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343006502
+    options:
+      - '#25'
+      - Inline Chain Tensioner
+      - null
+    sku: null
+    title: '#25 / Inline Chain Tensioner'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/chain-tools?variant=52970343039270
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343039270
+    options:
+      - '#25'
+      - Chain Tool
+      - null
+    sku: null
+    title: '#25 / Chain Tool'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/chain-tools?variant=52970343072038
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343072038
+    options:
+      - '#25H'
+      - Master Link (10 Pack)
+      - null
+    sku: null
+    title: '#25H / Master Link (10 Pack)'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/chain-tools?variant=52970343104806
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343104806
+    options:
+      - '#25H'
+      - Half Link (10 Pack)
+      - null
+    sku: null
+    title: '#25H / Half Link (10 Pack)'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/chain-tools?variant=52970343137574
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343137574
+    options:
+      - '#25H'
+      - Inline Chain Tensioner
+      - null
+    sku: null
+    title: '#25H / Inline Chain Tensioner'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/chain-tools?variant=52970343170342
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343170342
+    options:
+      - '#25H'
+      - Chain Tool
+      - null
+    sku: null
+    title: '#25H / Chain Tool'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/chain-tools?variant=52970343203110
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343203110
+    options:
+      - '#35'
+      - Roller Chain 10ft
+      - null
+    sku: null
+    title: '#35 / Roller Chain 10ft'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/chain-tools?variant=52970343235878
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343235878
+    options:
+      - '#35'
+      - Master Link (10 Pack)
+      - null
+    sku: null
+    title: '#35 / Master Link (10 Pack)'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/chain-tools?variant=52970343268646
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343268646
+    options:
+      - '#35'
+      - Half Link (10 Pack)
+      - null
+    sku: null
+    title: '#35 / Half Link (10 Pack)'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/chain-tools?variant=52970343301414
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343301414
+    options:
+      - '#35'
+      - Inline Chain Tensioner
+      - null
+    sku: null
+    title: '#35 / Inline Chain Tensioner'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/chain-tools?variant=52970343334182
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343334182
+    options:
+      - '#35'
+      - Chain Tool
+      - null
+    sku: null
+    title: '#35 / Chain Tool'
+  firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/htd-timing-belts?variant=48536563417382
   product:
@@ -1424,66 +1574,6 @@
     title: 1/8" (3mm) / Full Sheet 23.6" x 23.6" (600mm x 600mm)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://swyftrobotics.com/products/swyft-slide-ftc-elevator-kit?variant=49307087175974
-  product:
-    handle: swyft-slide-ftc-elevator-kit
-    id: 9499792245030
-    title: SWYFT Slide FTC Elevator Kit V1.1
-  variant:
-    id: 49307087175974
-    options:
-      - 250mm
-      - Base Kit
-      - null
-    sku: SR-31
-    title: 250mm / Base Kit
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
-  # https://swyftrobotics.com/products/swyft-slide-ftc-elevator-kit?variant=49307087241510
-  product:
-    handle: swyft-slide-ftc-elevator-kit
-    id: 9499792245030
-    title: SWYFT Slide FTC Elevator Kit V1.1
-  variant:
-    id: 49307087241510
-    options:
-      - 350mm
-      - Base Kit
-      - null
-    sku: SR-32
-    title: 350mm / Base Kit
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
-  # https://swyftrobotics.com/products/swyft-drive-ftc?variant=49358250737958
-  product:
-    handle: swyft-drive-ftc
-    id: 9499794637094
-    title: SWYFT Drive FTC V1.1
-  variant:
-    id: 49358250737958
-    options:
-      - 4x Drive Modules (Full Drivetrain)
-      - null
-      - null
-    sku: SR-61
-    title: 4x Drive Modules (Full Drivetrain)
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
-  # https://swyftrobotics.com/products/swyft-drive-ftc?variant=49358250770726
-  product:
-    handle: swyft-drive-ftc
-    id: 9499794637094
-    title: SWYFT Drive FTC V1.1
-  variant:
-    id: 49358250770726
-    options:
-      - 1x Drive Module
-      - null
-      - null
-    sku: SR-62
-    title: 1x Drive Module
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
   # https://swyftrobotics.com/products/swyft-ranger-distance-sensor?variant=49309806723366
   product:
     handle: swyft-ranger-distance-sensor
@@ -2298,7 +2388,7 @@
   product:
     handle: swyft-slide-individual-components
     id: 9964160254246
-    title: SWYFT Slide Individual Components
+    title: SWYFT Slide FTC Individual Components
   variant:
     id: 49919332647206
     options:
@@ -2313,7 +2403,7 @@
   product:
     handle: swyft-slide-individual-components
     id: 9964160254246
-    title: SWYFT Slide Individual Components
+    title: SWYFT Slide FTC Individual Components
   variant:
     id: 49919332679974
     options:
@@ -2328,211 +2418,286 @@
   product:
     handle: swyft-slide-individual-components
     id: 9964160254246
-    title: SWYFT Slide Individual Components
+    title: SWYFT Slide FTC Individual Components
   variant:
     id: 49919332712742
     options:
-      - 15mm x 15mm Extrusion 250mm Length
+      - 10mm x 20mm Extrusion 250mm Length
       - null
       - null
     sku: ''
-    title: 15mm x 15mm Extrusion 250mm Length
+    title: 10mm x 20mm Extrusion 250mm Length
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332745510
   product:
     handle: swyft-slide-individual-components
     id: 9964160254246
-    title: SWYFT Slide Individual Components
+    title: SWYFT Slide FTC Individual Components
   variant:
     id: 49919332745510
     options:
-      - 15mm x 15mm Extrusion 350mm Length
+      - 10mm x 20mm Extrusion 350mm Length
       - null
       - null
     sku: ''
-    title: 15mm x 15mm Extrusion 350mm Length
+    title: 10mm x 20mm Extrusion 350mm Length
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332778278
   product:
     handle: swyft-slide-individual-components
     id: 9964160254246
-    title: SWYFT Slide Individual Components
+    title: SWYFT Slide FTC Individual Components
   variant:
     id: 49919332778278
     options:
-      - 15mm x 15mm Extrusion 100mm Length
+      - 10mm x 20mm Extrusion 110mm Length
       - null
       - null
     sku: ''
-    title: 15mm x 15mm Extrusion 100mm Length
+    title: 10mm x 20mm Extrusion 110mm Length
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332811046
   product:
     handle: swyft-slide-individual-components
     id: 9964160254246
-    title: SWYFT Slide Individual Components
+    title: SWYFT Slide FTC Individual Components
   variant:
     id: 49919332811046
     options:
-      - Plates Base Kit Bag
+      - Idler Pulleys Pack of 8
       - null
       - null
     sku: ''
-    title: Plates Base Kit Bag
+    title: Idler Pulleys Pack of 8
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332843814
   product:
     handle: swyft-slide-individual-components
     id: 9964160254246
-    title: SWYFT Slide Individual Components
+    title: SWYFT Slide FTC Individual Components
   variant:
     id: 49919332843814
     options:
-      - Pulleys Bag
+      - Driven Pulley
       - null
       - null
     sku: ''
-    title: Pulleys Bag
+    title: Driven Pulley
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332876582
   product:
     handle: swyft-slide-individual-components
     id: 9964160254246
-    title: SWYFT Slide Individual Components
+    title: SWYFT Slide FTC Individual Components
   variant:
     id: 49919332876582
     options:
-      - GT2 6mm Timing Belt
+      - Kevlar GT2 6mm Timing Belt
       - null
       - null
     sku: ''
-    title: GT2 6mm Timing Belt
+    title: Kevlar GT2 6mm Timing Belt
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332909350
   product:
     handle: swyft-slide-individual-components
     id: 9964160254246
-    title: SWYFT Slide Individual Components
+    title: SWYFT Slide FTC Individual Components
   variant:
     id: 49919332909350
     options:
-      - Slide Screw Bag
+      - Steel GT2 6mm Timing Belt
       - null
       - null
     sku: ''
-    title: Slide Screw Bag
+    title: Steel GT2 6mm Timing Belt
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332942118
   product:
     handle: swyft-slide-individual-components
     id: 9964160254246
-    title: SWYFT Slide Individual Components
+    title: SWYFT Slide FTC Individual Components
   variant:
     id: 49919332942118
     options:
-      - Base Screw Bag
+      - Kevlar GT2 10mm Timing Belt
       - null
       - null
     sku: ''
-    title: Base Screw Bag
+    title: Kevlar GT2 10mm Timing Belt
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332974886
   product:
     handle: swyft-slide-individual-components
     id: 9964160254246
-    title: SWYFT Slide Individual Components
+    title: SWYFT Slide FTC Individual Components
   variant:
     id: 49919332974886
     options:
-      - Belt-Magnet-Motor Screw Bag
+      - Steel GT2 10mm Timing Belt
       - null
       - null
     sku: ''
-    title: Belt-Magnet-Motor Screw Bag
+    title: Steel GT2 10mm Timing Belt
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=49919333007654
   product:
     handle: swyft-slide-individual-components
     id: 9964160254246
-    title: SWYFT Slide Individual Components
+    title: SWYFT Slide FTC Individual Components
   variant:
     id: 49919333007654
     options:
-      - Tools Bag
+      - Tools + Screws Bag
       - null
       - null
     sku: ''
-    title: Tools Bag
+    title: Tools + Screws Bag
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://swyftrobotics.com/products/swyft-ascend-frc-ftc-telescoping-elevator?variant=49937219420454
+  # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159133990
   product:
-    handle: swyft-ascend-frc-ftc-telescoping-elevator
-    id: 9969015718182
-    title: SWYFT Ascend FRC Telescoping Elevator
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
   variant:
-    id: 49937219420454
+    id: 53256159133990
     options:
-      - Default Title
+      - Pulley Hat Pack of 6
       - null
       - null
-    sku: SR-Lift-10
-    title: Default Title
-  firstSeen: 2026-03-13T10:24:54.717Z
+    sku: null
+    title: Pulley Hat Pack of 6
+  firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
-  # https://swyftrobotics.com/products/swyft-cannect-wiring-system?variant=49941299822886
+  # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159166758
   product:
-    handle: swyft-cannect-wiring-system
-    id: 9970253398310
-    title: SWYFT CANnect Wiring System
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
   variant:
-    id: 49941299822886
+    id: 53256159166758
     options:
-      - Swerve Drive Bundle (4x Direct 1x Inject)
+      - Long Plate with Logo Pack of 3
       - null
       - null
-    sku: SR-CAN-00
-    title: Swerve Drive Bundle (4x Direct 1x Inject)
-  firstSeen: 2026-03-13T10:24:54.717Z
+    sku: null
+    title: Long Plate with Logo Pack of 3
+  firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
-  # https://swyftrobotics.com/products/swyft-cannect-wiring-system?variant=49941299855654
+  # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159199526
   product:
-    handle: swyft-cannect-wiring-system
-    id: 9970253398310
-    title: SWYFT CANnect Wiring System
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
   variant:
-    id: 49941299855654
+    id: 53256159199526
     options:
-      - SWYFT Direct
+      - Long Plate no Logo Pack of 3
       - null
       - null
-    sku: SR-CAN-10
-    title: SWYFT Direct
-  firstSeen: 2026-03-13T10:24:54.717Z
+    sku: null
+    title: Long Plate no Logo Pack of 3
+  firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
-  # https://swyftrobotics.com/products/swyft-cannect-wiring-system?variant=49941299888422
+  # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159232294
   product:
-    handle: swyft-cannect-wiring-system
-    id: 9970253398310
-    title: SWYFT CANnect Wiring System
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
   variant:
-    id: 49941299888422
+    id: 53256159232294
     options:
-      - SWYFT Inject
+      - Short Plate Pack of 2
       - null
       - null
-    sku: SR-CAN-20
-    title: SWYFT Inject
-  firstSeen: 2026-03-13T10:24:54.717Z
+    sku: null
+    title: Short Plate Pack of 2
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159265062
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 53256159265062
+    options:
+      - Motor Mount
+      - null
+      - null
+    sku: null
+    title: Motor Mount
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159297830
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 53256159297830
+    options:
+      - Motor Mount Top C Plate
+      - null
+      - null
+    sku: null
+    title: Motor Mount Top C Plate
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159330598
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 53256159330598
+    options:
+      - Right Angle Extrusion Gussets Pack of 2
+      - null
+      - null
+    sku: null
+    title: Right Angle Extrusion Gussets Pack of 2
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159363366
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 53256159363366
+    options:
+      - Belt Clamp+Magnet Mount
+      - null
+      - null
+    sku: null
+    title: Belt Clamp+Magnet Mount
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159396134
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 53256159396134
+    options:
+      - Small Belt Clamp Plate
+      - null
+      - null
+    sku: null
+    title: Small Belt Clamp Plate
+  firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/swyft-canender?variant=49941339865382
   product:
@@ -3689,6 +3854,21 @@
     title: 3mm SWYFT Composite (100% SRPP) (610mm x 610mm)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
+  # https://swyftrobotics.com/products/swyft-super-composite?variant=53150835081510
+  product:
+    handle: swyft-super-composite
+    id: 10214465863974
+    title: SWYFT Composite
+  variant:
+    id: 53150835081510
+    options:
+      - 6mm SWYFT Composite (SRPP + Foam Core) (610mm x 610mm)
+      - null
+      - null
+    sku: null
+    title: 6mm SWYFT Composite (SRPP + Foam Core) (610mm x 610mm)
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
   # https://swyftrobotics.com/products/swyft-tube-connectors?variant=50935003611430
   product:
     handle: swyft-tube-connectors
@@ -3744,9 +3924,9 @@
     options:
       - 0.125in Wall
       - Plain
-      - 47in
+      - 2"x1"  Length:47"
     sku: null
-    title: 0.125in Wall / Plain / 47in
+    title: 0.125in Wall / Plain / 2"x1"  Length:47"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/swyft-super-tube?variant=50935967875366
@@ -3759,9 +3939,9 @@
     options:
       - 0.125in Wall
       - Grid
-      - 47in
+      - 2"x1"  Length:47"
     sku: null
-    title: 0.125in Wall / Grid / 47in
+    title: 0.125in Wall / Grid / 2"x1"  Length:47"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/swyft-super-tube?variant=50935967908134
@@ -3774,9 +3954,9 @@
     options:
       - 0.125in Wall
       - Grid + Bearing
-      - 47in
+      - 2"x1"  Length:47"
     sku: null
-    title: 0.125in Wall / Grid + Bearing / 47in
+    title: 0.125in Wall / Grid + Bearing / 2"x1"  Length:47"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/swyft-super-tube?variant=50935967940902
@@ -3789,9 +3969,9 @@
     options:
       - 0.0625in Wall
       - Plain
-      - 47in
+      - 2"x1"  Length:47"
     sku: null
-    title: 0.0625in Wall / Plain / 47in
+    title: 0.0625in Wall / Plain / 2"x1"  Length:47"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/swyft-super-tube?variant=50935967973670
@@ -3804,9 +3984,9 @@
     options:
       - 0.0625in Wall
       - Grid
-      - 47in
+      - 2"x1"  Length:47"
     sku: null
-    title: 0.0625in Wall / Grid / 47in
+    title: 0.0625in Wall / Grid / 2"x1"  Length:47"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/swyft-super-tube?variant=50935968006438
@@ -3819,9 +3999,9 @@
     options:
       - 0.0625in Wall
       - Grid + Bearing
-      - 47in
+      - 2"x1"  Length:47"
     sku: null
-    title: 0.0625in Wall / Grid + Bearing / 47in
+    title: 0.0625in Wall / Grid + Bearing / 2"x1"  Length:47"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/swyft-super-tube?variant=50935968039206
@@ -3834,9 +4014,9 @@
     options:
       - 0.035in Wall
       - Plain
-      - 47in
+      - 2"x1"  Length:47"
     sku: null
-    title: 0.035in Wall / Plain / 47in
+    title: 0.035in Wall / Plain / 2"x1"  Length:47"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/swyft-super-tube?variant=50935968071974
@@ -3849,10 +4029,40 @@
     options:
       - 0.035in Wall
       - Grid
-      - 47in
+      - 2"x1"  Length:47"
     sku: null
-    title: 0.035in Wall / Grid / 47in
+    title: 0.035in Wall / Grid / 2"x1"  Length:47"
   firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/swyft-super-tube?variant=53198823096614
+  product:
+    handle: swyft-super-tube
+    id: 10220359713062
+    title: SWYFT Tube
+  variant:
+    id: 53198823096614
+    options:
+      - 0.125in Wall
+      - Grid
+      - 1"x1"  Length:47"
+    sku: null
+    title: 0.125in Wall / Grid / 1"x1"  Length:47"
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/swyft-super-tube?variant=53198823129382
+  product:
+    handle: swyft-super-tube
+    id: 10220359713062
+    title: SWYFT Tube
+  variant:
+    id: 53198823129382
+    options:
+      - 0.0625in Wall
+      - Grid
+      - 1"x1"  Length:47"
+    sku: null
+    title: 0.0625in Wall / Grid / 1"x1"  Length:47"
+  firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
   # https://swyftrobotics.com/products/polycarbonate-sheets?variant=50964620116262
   product:
@@ -4228,3 +4438,48 @@
     sku: null
     title: Default Title
   firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/aluminum-7075-sheets?variant=52888193171750
+  product:
+    handle: aluminum-7075-sheets
+    id: 10378907189542
+    title: Aluminum 7075 Sheets
+  variant:
+    id: 52888193171750
+    options:
+      - 3mm (700mm x 700mm) 27.5in x 27.5in
+      - null
+      - null
+    sku: SR-AL7075-SHEET-3
+    title: 3mm (700mm x 700mm) 27.5in x 27.5in
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/aluminum-7075-sheets?variant=52888193204518
+  product:
+    handle: aluminum-7075-sheets
+    id: 10378907189542
+    title: Aluminum 7075 Sheets
+  variant:
+    id: 52888193204518
+    options:
+      - 6mm (700mm x 700mm) 27.5in x 27.5in
+      - null
+      - null
+    sku: SR-AL7075-SHEET-6
+    title: 6mm (700mm x 700mm) 27.5in x 27.5in
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://swyftrobotics.com/products/swyft-electric-coreless-screwdriver-5nm?variant=53261107331366
+  product:
+    handle: swyft-electric-coreless-screwdriver-5nm
+    id: 10563074720038
+    title: SWYFT Electric Coreless Screwdriver
+  variant:
+    id: 53261107331366
+    options:
+      - Default Title
+      - null
+      - null
+    sku: SR-SCREWDRIVER-5NM
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:48.421Z

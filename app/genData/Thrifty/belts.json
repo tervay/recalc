@@ -1,83 +1,209 @@
 [
   {
-    "teeth": 100,
-    "width": 15,
+    "teeth": 35,
+    "width": 9,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "TTB-0227",
-    "url": "https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts",
+    "sku": "TTB-0131",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 40,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0132",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 45,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0133",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 50,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0134",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 55,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0135",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 60,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0136",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 65,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0137",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 70,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0138",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 75,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0139",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 80,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0140",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 85,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0141",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 90,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0142",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 95,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0143",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 100,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0144",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 105,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0145",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 110,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0146",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 115,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0147",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 120,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0148",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
     "vendor": "Thrifty"
   },
   {
     "teeth": 125,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0228",
-    "url": "https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 150,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0229",
-    "url": "https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 175,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0230",
-    "url": "https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 200,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0231",
-    "url": "https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 250,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0232",
-    "url": "https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 300,
-    "width": 15,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0233",
-    "url": "https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 100,
     "width": 9,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "TTB-0220",
-    "url": "https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts",
+    "sku": "TTB-0149",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
     "vendor": "Thrifty"
   },
   {
-    "teeth": 125,
+    "teeth": 130,
     "width": 9,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "TTB-0221",
-    "url": "https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts",
+    "sku": "TTB-0150",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 135,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0151",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 140,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0152",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 145,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0153",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
     "vendor": "Thrifty"
   },
   {
@@ -85,8 +211,44 @@
     "width": 9,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "TTB-0222",
-    "url": "https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts",
+    "sku": "TTB-0154",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 155,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0155",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 160,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0156",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 165,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0157",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 170,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0158",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
     "vendor": "Thrifty"
   },
   {
@@ -94,8 +256,35 @@
     "width": 9,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "TTB-0223",
-    "url": "https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts",
+    "sku": "TTB-0159",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 180,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0160",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 185,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0161",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 190,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0162",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
     "vendor": "Thrifty"
   },
   {
@@ -103,8 +292,44 @@
     "width": 9,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "TTB-0224",
-    "url": "https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts",
+    "sku": "TTB-0164",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 210,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0165",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 220,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0166",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 230,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0167",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 240,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0168",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
     "vendor": "Thrifty"
   },
   {
@@ -112,8 +337,44 @@
     "width": 9,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "TTB-0225",
-    "url": "https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts",
+    "sku": "TTB-0169",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 260,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0170",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 270,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0171",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 280,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0172",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 290,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0173",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
     "vendor": "Thrifty"
   },
   {
@@ -121,8 +382,8 @@
     "width": 9,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "TTB-0226",
-    "url": "https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts",
+    "sku": "TTB-0174",
+    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
     "vendor": "Thrifty"
   },
   {
@@ -531,165 +792,12 @@
     "vendor": "Thrifty"
   },
   {
-    "teeth": 35,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0131",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 40,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0132",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 45,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0133",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 50,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0134",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 55,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0135",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 60,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0136",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 65,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0137",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 70,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0138",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 75,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0139",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 80,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0140",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 85,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0141",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 90,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0142",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 95,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0143",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
     "teeth": 100,
     "width": 9,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "TTB-0144",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 105,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0145",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 110,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0146",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 115,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0147",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 120,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0148",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "sku": "TTB-0220",
+    "url": "https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts",
     "vendor": "Thrifty"
   },
   {
@@ -697,44 +805,8 @@
     "width": 9,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "TTB-0149",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 130,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0150",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 135,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0151",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 140,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0152",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 145,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0153",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "sku": "TTB-0221",
+    "url": "https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts",
     "vendor": "Thrifty"
   },
   {
@@ -742,44 +814,8 @@
     "width": 9,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "TTB-0154",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 155,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0155",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 160,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0156",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 165,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0157",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 170,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0158",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "sku": "TTB-0222",
+    "url": "https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts",
     "vendor": "Thrifty"
   },
   {
@@ -787,35 +823,98 @@
     "width": 9,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "TTB-0159",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "sku": "TTB-0223",
+    "url": "https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts",
     "vendor": "Thrifty"
   },
   {
-    "teeth": 180,
+    "teeth": 200,
     "width": 9,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "TTB-0160",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "sku": "TTB-0224",
+    "url": "https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts",
     "vendor": "Thrifty"
   },
   {
-    "teeth": 185,
+    "teeth": 250,
     "width": 9,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "TTB-0161",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "sku": "TTB-0225",
+    "url": "https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts",
     "vendor": "Thrifty"
   },
   {
-    "teeth": 190,
+    "teeth": 300,
     "width": 9,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "TTB-0162",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
+    "sku": "TTB-0226",
+    "url": "https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 100,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0227",
+    "url": "https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 125,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0228",
+    "url": "https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 150,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0229",
+    "url": "https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 175,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0230",
+    "url": "https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 200,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0231",
+    "url": "https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 250,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0232",
+    "url": "https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 300,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0233",
+    "url": "https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts",
     "vendor": "Thrifty"
   },
   {
@@ -824,105 +923,6 @@
     "profile": "HTD",
     "pitch": 5,
     "sku": "TTB-0294",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 200,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0164",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 210,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0165",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 220,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0166",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 230,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0167",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 240,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0168",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 250,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0169",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 260,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0170",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 270,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0171",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 280,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0172",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 290,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0173",
-    "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
-    "vendor": "Thrifty"
-  },
-  {
-    "teeth": 300,
-    "width": 9,
-    "profile": "HTD",
-    "pitch": 5,
-    "sku": "TTB-0174",
     "url": "https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts",
     "vendor": "Thrifty"
   }
