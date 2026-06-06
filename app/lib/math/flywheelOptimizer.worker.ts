@@ -3,11 +3,11 @@ import workerpool from 'workerpool';
 
 import type { DCMotor } from '~/lib/generated/wpilibc/wpilibc_wasm';
 import {
-  type OptimizationPriority,
   type SimState,
   type MetricSource,
+  type ConfigOptResult,
+  type ConfigOptOutput,
   peakSupplyCurrent,
-  selectBest,
   makeGrid,
 } from '~/lib/math/optimizerUtils';
 import type { MeasurementDict } from '~/lib/models/Measurement';
@@ -15,23 +15,14 @@ import Measurement from '~/lib/models/Measurement';
 import Motor, { type MotorDict } from '~/lib/models/Motor';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
 
+export type {
+  ConfigOptResult,
+  ConfigOptOutput,
+} from '~/lib/math/optimizerUtils';
+
 export interface FlywheelOptimizerResult extends MetricSource {
   statorLimitAmps: number;
   optimalRatio: number;
-}
-
-export interface FlywheelConfigOptResult extends MetricSource {
-  statorLimitAmps: number;
-  supplyLimitAmps: number;
-  optimalRatio: number;
-  success: boolean;
-}
-
-export interface FlywheelConfigOptOutput {
-  recommended: FlywheelConfigOptResult | null;
-  tier1Count: number;
-  tier2Count: number;
-  allResults: FlywheelConfigOptResult[];
 }
 
 interface MechParams {
@@ -100,7 +91,7 @@ function simulate(
   );
 }
 
-async function optimizeRatio(
+export async function optimizeRatio(
   motorDict: MotorDict,
   moiDict: MeasurementDict,
   targetRpmDict: MeasurementDict,
@@ -169,7 +160,7 @@ async function optimizeRatio(
   };
 }
 
-async function optimizeConfiguration(
+export async function optimizeConfiguration(
   motorDict: MotorDict,
   moiDict: MeasurementDict,
   targetRpmDict: MeasurementDict,
@@ -180,9 +171,7 @@ async function optimizeConfiguration(
   maximumComfortableSupplyLimitDict: MeasurementDict,
   efficiency: number,
   batteryVoltageFilterTimeConstantSeconds: number,
-  priorities: OptimizationPriority[],
-  prioritySlack: number,
-): Promise<FlywheelConfigOptOutput> {
+): Promise<ConfigOptOutput> {
   const wpilibc = await initWpilibc();
   const motor = Motor.fromDict(motorDict);
   const p = parseMech(
@@ -209,7 +198,7 @@ async function optimizeConfiguration(
       ? Math.max(1, (0.95 * motorFreeSpeedRadPerSec) / p.targetRadPerSec)
       : 1;
 
-  const allResults: FlywheelConfigOptResult[] = [];
+  const allResults: ConfigOptResult[] = [];
 
   for (const statorAmps of makeGrid(maxStator)) {
     const totalStatorAmps = statorAmps * p.motorQuantity;
@@ -275,26 +264,14 @@ async function optimizeConfiguration(
   const successResults = allResults.filter((r) => r.success);
 
   if (successResults.length === 0) {
-    return {
-      recommended: null,
-      tier1Count: 0,
-      tier2Count: 0,
-      allResults,
-    };
+    return { recommended: null, allResults };
   }
 
-  const {
-    result: recommended,
-    tier1Count,
-    tier2Count,
-  } = selectBest(successResults, priorities, prioritySlack);
+  const recommended = successResults.reduce((best, r) =>
+    r.timeToGoalSeconds < best.timeToGoalSeconds ? r : best,
+  );
 
-  return {
-    recommended,
-    tier1Count,
-    tier2Count,
-    allResults,
-  };
+  return { recommended, allResults };
 }
 
 workerpool.worker({ optimizeRatio, optimizeConfiguration });

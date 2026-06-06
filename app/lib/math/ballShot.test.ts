@@ -8,11 +8,6 @@ function solidSphereMoi(massKg: number, radiusM: number): Measurement {
   return new Measurement((2 / 5) * massKg * radiusM * radiusM, 'kg*m^2');
 }
 
-// Solid-disk MOI helper: I = (1/2) * m * r^2
-function solidDiskMoi(massKg: number, radiusM: number): Measurement {
-  return new Measurement(0.5 * massKg * radiusM * radiusM, 'kg*m^2');
-}
-
 const BASE_BALL_MASS = new Measurement(0.2268, 'kg');
 const BASE_BALL_RADIUS = new Measurement(0.07506, 'm');
 const BASE_BALL_MOI = solidSphereMoi(0.2268, 0.07506);

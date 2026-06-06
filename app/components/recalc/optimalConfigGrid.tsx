@@ -10,7 +10,7 @@ import { Switch } from '~/components/ui/switch';
 import type {
   ConfigOptOutput,
   ConfigOptResult,
-} from '~/lib/math/linearOptimizer.worker';
+} from '~/lib/math/optimizerUtils';
 import { cn } from '~/lib/utils';
 
 interface OptimalConfigGridProps {

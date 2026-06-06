@@ -533,4 +533,39 @@ test.describe('Flywheel Calculator', () => {
       name: 'ballInitialSpin-changed.yaml',
     });
   });
+
+  test('mechanism optimization grid renders and selected config panel appears', async ({
+    page,
+  }) => {
+    // The optimization toggle defaults to enabled; assert it is present.
+    const toggle = page.getByTestId('optimizationEnabled');
+    await expect(toggle).toBeVisible();
+
+    // The grid heading should be visible immediately while loading.
+    await expect(page.getByText('Optimal Configuration Grid')).toBeVisible();
+
+    // Wait for the optimizer worker to finish — the Badge switches from "— configs"
+    // to "N configs" (a number) once results arrive.
+    const configsBadge = page
+      .locator('[data-slot="badge"]')
+      .filter({ hasText: /\d+ configs/ });
+    await expect(configsBadge).toBeVisible({ timeout: 30000 });
+
+    // The optimizer auto-selects the recommended config, so the Selected Config
+    // panel should already be visible.
+    await expect(page.getByText('Selected Config')).toBeVisible();
+    await expect(page.getByText('Optimal Ratio')).toBeVisible();
+
+    // Click a grid cell button (ratio label format: "N.NN:1") to verify
+    // selection is interactive.
+    const firstCell = page
+      .getByRole('button')
+      .filter({ hasText: /\d+\.\d+:1/ })
+      .first();
+    await expect(firstCell).toBeVisible();
+    await firstCell.click();
+
+    // Selected Config panel remains visible after clicking a cell.
+    await expect(page.getByText('Selected Config')).toBeVisible();
+  });
 });

@@ -62,7 +62,7 @@ describe('Measurement', () => {
     it('throws error with incompatible units', () => {
       const m1 = new Measurement(5, 'in');
       const m2 = new Measurement(3, 'kg');
-      expect(() => m1.add(m2)).toThrow();
+      expect(() => m1.add(m2)).toThrow('Incompatible units');
     });
   });
 
@@ -96,7 +96,7 @@ describe('Measurement', () => {
     it('throws error with incompatible units', () => {
       const m1 = new Measurement(5, 'in');
       const m2 = new Measurement(3, 'kg');
-      expect(() => m1.sub(m2)).toThrow();
+      expect(() => m1.sub(m2)).toThrow('Incompatible units');
     });
   });
 
@@ -143,13 +143,15 @@ describe('Measurement', () => {
   describe('div', () => {
     it('handles dividing by zero number', () => {
       const m = new Measurement(5, 'in');
-      expect(() => m.div(0)).toThrow();
+      expect(() => m.div(0)).toThrow(
+        'Only number accepted as initialization value when units are explicitly provided',
+      );
     });
 
     it('handles dividing by zero Measurement', () => {
       const m1 = new Measurement(5, 'in');
       const m2 = new Measurement(0, 'in');
-      expect(() => m1.div(m2)).toThrow();
+      expect(() => m1.div(m2)).toThrow('Divide by zero');
     });
 
     it('handles dividing by negative Measurement', () => {
@@ -347,7 +349,7 @@ describe('Measurement', () => {
   describe('inverse', () => {
     it('handles zero value', () => {
       const m = new Measurement(0, 'in');
-      expect(() => m.inverse()).toThrow();
+      expect(() => m.inverse()).toThrow('Divide by zero');
     });
 
     it('handles negative value', () => {
@@ -432,7 +434,9 @@ describe('Measurement', () => {
 
     it('handles negative decimal places', () => {
       const m = new Measurement(5.678, 'in');
-      expect(() => m.round(-1)).toThrow();
+      expect(() => m.round(-1)).toThrow(
+        'toFixed() digits argument must be between 0 and 100',
+      );
     });
 
     it('handles very large number of decimal places', () => {
@@ -446,7 +450,7 @@ describe('Measurement', () => {
     it('handles zero precision', () => {
       const m = new Measurement(5.678, 'in');
       // oxlint-disable-next-line oxc/number-arg-out-of-range
-      expect(() => m.toPrecision(0)).toThrow();
+      expect(() => m.toPrecision(0)).toThrow('Divide by zero');
     });
 
     it('handles negative precision', () => {
@@ -465,7 +469,7 @@ describe('Measurement', () => {
 
     it('handles incompatible unit conversion', () => {
       const m = new Measurement(5, 'in');
-      expect(() => m.to('kg')).toThrow();
+      expect(() => m.to('kg')).toThrow('Incompatible units');
     });
   });
 
@@ -628,7 +632,9 @@ describe('Measurement', () => {
     it('handles zero inches per revolution', () => {
       const m = new Measurement(5, 'in');
       const inchesPerRev = new Measurement(0, 'in');
-      expect(() => m.radializeLinearPosition(inchesPerRev)).toThrow();
+      expect(() => m.radializeLinearPosition(inchesPerRev)).toThrow(
+        'Divide by zero',
+      );
     });
 
     it('handles zero linear position', () => {
