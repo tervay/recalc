@@ -39,14 +39,11 @@ export default class Rules<T> {
 
     while (runLoop && i <= iterationLimit) {
       let runForEach = true;
-      // console.log('-----');
       this.rules.forEach((rule) => {
         if (!runForEach) {
           return;
         }
-        // console.log('Checking ' + rule.name + ' (' + rule.priority + ')')
         if (rule.conditionFn(source)) {
-          // console.log('Running ' + rule.name);
           rule.modifyFn(source);
 
           if (rule.haltAfter) {
