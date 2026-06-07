@@ -298,6 +298,7 @@ export default function RatioFinder() {
                 <BoreInput
                   stateHook={[startingBore, setStartingBore]}
                   label="Starting Bore"
+                  labelAbove
                 />
               </IOLine>
             </div>

@@ -1,10 +1,10 @@
 import { Link } from 'react-router';
-import LineMdHeartFilled from '~icons/line-md/heart-filled';
 import AlertCircle from '~icons/lucide/alert-circle';
 import Code from '~icons/lucide/code';
 import ExternalLink from '~icons/lucide/external-link';
+import Heart from '~icons/lucide/heart';
+import InfoIcon from '~icons/lucide/info';
 import Shield from '~icons/lucide/shield';
-import MaterialSymbolsInfoOutlineRounded from '~icons/material-symbols/info-outline-rounded';
 
 import type { Route } from '.react-router/types/app/routes/+types/about';
 
@@ -35,7 +35,7 @@ export default function About() {
           <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
             <div className="mb-3 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
-                <MaterialSymbolsInfoOutlineRounded className="h-5 w-5 text-primary" />
+                <InfoIcon className="h-5 w-5 text-primary" />
               </div>
               <h2 className="text-xl font-semibold">What is ReCalc?</h2>
             </div>
@@ -71,7 +71,7 @@ export default function About() {
           <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
             <div className="mb-3 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
-                <LineMdHeartFilled className="h-5 w-5 text-primary" />
+                <Heart className="h-5 w-5 text-primary" />
               </div>
               <h2 className="text-xl font-semibold">Thanks &amp; Credits</h2>
             </div>

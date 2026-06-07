@@ -1,17 +1,16 @@
 import { Link, useLocation } from 'react-router';
-import ArcticonsFolderUtility from '~icons/arcticons/folder-utility';
 import CarbonTimingBelt from '~icons/carbon/timing-belt';
 import EmojioneMonotoneChains from '~icons/emojione-monotone/chains';
 import Fa7SolidGears from '~icons/fa7-solid/gears';
-import FluentElevator32Regular from '~icons/fluent/elevator-32-regular';
-import FluentRatioOneToOne24Regular from '~icons/fluent/ratio-one-to-one-24-regular';
+import Disc3Icon from '~icons/lucide/disc-3';
 import Home from '~icons/lucide/home';
-import MaterialSymbolsElectricBoltRounded from '~icons/material-symbols/electric-bolt-rounded';
-import MaterialSymbolsSearchRounded from '~icons/material-symbols/search-rounded';
-import MdiAbout from '~icons/mdi/about';
-import SolarWheelAngleOutline from '~icons/solar/wheel-angle-outline';
+import InfoIcon from '~icons/lucide/info';
+import MoveVerticalIcon from '~icons/lucide/move-vertical';
+import RatioIcon from '~icons/lucide/ratio';
+import RotateCwIcon from '~icons/lucide/rotate-cw';
+import SearchIcon from '~icons/lucide/search';
+import ZapIcon from '~icons/lucide/zap';
 import StreamlineUltimateFactoryIndustrialRobotArm1 from '~icons/streamline-ultimate/factory-industrial-robot-arm-1';
-import TablerWheel from '~icons/tabler/wheel';
 
 import {
   Sidebar,
@@ -37,32 +36,31 @@ const calculatorLinks: SidebarLink[] = [
   {
     title: 'Linear Mechanism Calculator',
     url: '/linear',
-    icon: FluentElevator32Regular,
+    icon: MoveVerticalIcon,
   },
   {
     title: 'Arm Calculator',
     url: '/arm',
     icon: StreamlineUltimateFactoryIndustrialRobotArm1,
   },
-  { title: 'Flywheel Calculator', url: '/flywheel', icon: TablerWheel },
+  { title: 'Flywheel Calculator', url: '/flywheel', icon: Disc3Icon },
   {
     title: 'Ratio Finder',
     url: '/ratio-finder',
-    icon: MaterialSymbolsSearchRounded,
+    icon: SearchIcon,
   },
   {
     title: 'Ratio Calculator',
     url: '/ratio',
-    icon: FluentRatioOneToOne24Regular,
+    icon: RatioIcon,
   },
   { title: 'Gears Calculator', url: '/gears', icon: Fa7SolidGears },
-  { title: 'Intake Calculator', url: '/intake', icon: SolarWheelAngleOutline },
+  { title: 'Intake Calculator', url: '/intake', icon: RotateCwIcon },
 ];
 
 const informationLinks: SidebarLink[] = [
-  { title: 'Motors', url: '/motors', icon: MaterialSymbolsElectricBoltRounded },
-  { title: 'Utilities', url: '/util', icon: ArcticonsFolderUtility },
-  { title: 'About', url: '/about', icon: MdiAbout },
+  { title: 'Motors', url: '/motors', icon: ZapIcon },
+  { title: 'About', url: '/about', icon: InfoIcon },
 ];
 
 export function AppSidebar() {

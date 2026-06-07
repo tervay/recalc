@@ -3,16 +3,16 @@ import { Link } from 'react-router';
 import CarbonTimingBelt from '~icons/carbon/timing-belt';
 import EmojioneMonotoneChains from '~icons/emojione-monotone/chains';
 import Fa7SolidGears from '~icons/fa7-solid/gears';
-import FluentElevator32Regular from '~icons/fluent/elevator-32-regular';
-import FluentRatioOneToOne24Regular from '~icons/fluent/ratio-one-to-one-24-regular';
 import ArrowRight from '~icons/lucide/arrow-right';
 import ArrowUpRight from '~icons/lucide/arrow-up-right';
-import MaterialSymbolsElectricBoltRounded from '~icons/material-symbols/electric-bolt-rounded';
-import MaterialSymbolsSearchRounded from '~icons/material-symbols/search-rounded';
-import MdiAbout from '~icons/mdi/about';
-import SolarWheelAngleOutline from '~icons/solar/wheel-angle-outline';
+import Disc3Icon from '~icons/lucide/disc-3';
+import InfoIcon from '~icons/lucide/info';
+import MoveVerticalIcon from '~icons/lucide/move-vertical';
+import RatioIcon from '~icons/lucide/ratio';
+import RotateCwIcon from '~icons/lucide/rotate-cw';
+import SearchIcon from '~icons/lucide/search';
+import ZapIcon from '~icons/lucide/zap';
 import StreamlineUltimateFactoryIndustrialRobotArm1 from '~icons/streamline-ultimate/factory-industrial-robot-arm-1';
-import TablerWheel from '~icons/tabler/wheel';
 
 import { cn } from '~/lib/utils';
 
@@ -216,7 +216,7 @@ export default function Home() {
             <CalcCard
               to="/linear"
               title="Linear Mechanism"
-              icon={FluentElevator32Regular}
+              icon={MoveVerticalIcon}
             />
             <CalcCard
               to="/arm"
@@ -226,23 +226,19 @@ export default function Home() {
             <CalcCard
               to="/flywheel"
               title="Flywheel Calculator"
-              icon={TablerWheel}
+              icon={Disc3Icon}
             />
             <CalcCard
               to="/intake"
               title="Intake Calculator"
-              icon={SolarWheelAngleOutline}
+              icon={RotateCwIcon}
             />
             <CalcCard
               to="/ratio-finder"
               title="Ratio Finder"
-              icon={MaterialSymbolsSearchRounded}
+              icon={SearchIcon}
             />
-            <CalcCard
-              to="/ratio"
-              title="Ratio Calculator"
-              icon={FluentRatioOneToOne24Regular}
-            />
+            <CalcCard to="/ratio" title="Ratio Calculator" icon={RatioIcon} />
             <CalcCard
               to="/gears"
               title="Gears Calculator"
@@ -255,12 +251,8 @@ export default function Home() {
         <section>
           <SectionHeader label="Information" />
           <div className="grid gap-3 sm:grid-cols-2">
-            <InfoCard
-              to="/motors"
-              title="Motors"
-              icon={MaterialSymbolsElectricBoltRounded}
-            />
-            <InfoCard to="/about" title="About" icon={MdiAbout} />
+            <InfoCard to="/motors" title="Motors" icon={ZapIcon} />
+            <InfoCard to="/about" title="About" icon={InfoIcon} />
           </div>
         </section>
 
