@@ -7,7 +7,7 @@ WPILIBC_WASM="$SCRIPT_DIR/patches/wpilibc/wasm"
 WPIMATH_WASM="$SCRIPT_DIR/patches/wpimath/wasm"
 
 # Format all wpilibc wasm sources (bindings.cc + headers)
-docker run -v "$SCRIPT_DIR":/src xianpengshen/clang-tools:19 \
+docker run -v "$SCRIPT_DIR":/src xianpengshen/clang-tools:22 \
   clang-format --style=file:/src/.clang-format -i \
     patches/wpilibc/wasm/bindings.cc \
     patches/wpilibc/wasm/arm_sim.h \
@@ -19,12 +19,12 @@ docker run -v "$SCRIPT_DIR":/src xianpengshen/clang-tools:19 \
     patches/wpilibc/wasm/sim_util.h
 
 # Format wpimath wasm sources
-docker run -v "$SCRIPT_DIR":/src xianpengshen/clang-tools:19 \
+docker run -v "$SCRIPT_DIR":/src xianpengshen/clang-tools:22 \
   clang-format --style=file:/src/.clang-format -i \
     patches/wpimath/wasm/bindings.cc
 
 # Format tests
-docker run -v "$SCRIPT_DIR":/src xianpengshen/clang-tools:19 \
+docker run -v "$SCRIPT_DIR":/src xianpengshen/clang-tools:22 \
   clang-format --style=file:/src/.clang-format -i \
     tests/sim_util_test.cc
 

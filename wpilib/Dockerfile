@@ -24,9 +24,8 @@ WORKDIR /build
 RUN mise trust && \
     mise install
 
-# Pin TypeScript 5.x for the Docker build because emscripten's --emit-tsd
-# uses tsc --outFile internally, which was removed in TypeScript 6.
-RUN npm i -g typescript@5.8.3
+ARG TS_VERSION
+RUN npm i -g typescript@${TS_VERSION}
 
 # ---- Stage: libs ----
 # Compiles all static library dependencies of wpilibc_wasm.
