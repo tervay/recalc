@@ -93,12 +93,20 @@ if [ -z "$WPILIB_COMMIT" ]; then
   exit 1
 fi
 
+TS_VERSION=$(jq -r '.devDependencies.typescript // .dependencies.typescript' "$PROJECT_ROOT/package.json")
+if [ -z "$TS_VERSION" ] || [ "$TS_VERSION" = "null" ]; then
+  log_error "Could not determine TypeScript version from package.json"
+  exit 1
+fi
+
 log_info "Building WPILib from commit: ${WPILIB_COMMIT}"
 log_info "Repository: ${WPILIB_REPO}"
+log_info "TypeScript version: ${TS_VERSION}"
 log_info "Building Docker image..."
 docker build -f "$DOCKERFILE" -t "$DOCKER_IMAGE" \
   --build-arg WPILIB_REPO="$WPILIB_REPO" \
   --build-arg WPILIB_COMMIT="$WPILIB_COMMIT" \
+  --build-arg TS_VERSION="$TS_VERSION" \
   "$SCRIPT_DIR"
 
 log_info "Creating output directories..."
