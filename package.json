@@ -48,18 +48,11 @@
     "workerpool": "10.0.2"
   },
   "devDependencies": {
-    "@iconify-json/arcticons": "1.2.53",
     "@iconify-json/carbon": "1.2.23",
     "@iconify-json/emojione-monotone": "1.2.1",
     "@iconify-json/fa7-solid": "1.2.4",
-    "@iconify-json/fluent": "1.2.48",
-    "@iconify-json/line-md": "1.2.16",
     "@iconify-json/lucide": "1.2.111",
-    "@iconify-json/material-symbols": "1.2.76",
-    "@iconify-json/mdi": "1.2.3",
-    "@iconify-json/solar": "1.2.5",
     "@iconify-json/streamline-ultimate": "1.2.2",
-    "@iconify-json/tabler": "1.2.35",
     "@playwright/test": "1.60.0",
     "@react-router/dev": "7.17.0",
     "@svgr/core": "8.1.0",

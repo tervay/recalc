@@ -29,17 +29,28 @@ export default function BoreInput({
   stateHook,
   label = 'Bore',
   testId,
+  labelAbove,
 }: HasStateHook<Bore> & {
   label?: string;
   testId?: string;
+  labelAbove?: boolean;
 }) {
   const [value, setValue] = stateHook;
 
   return (
-    <div className="flex flex-row">
-      <Label className="mr-2 text-nowrap">{label}</Label>
+    <div className={labelAbove ? 'flex flex-col' : 'flex flex-row'}>
+      <Label
+        className={
+          labelAbove ? 'mb-1 text-xs text-muted-foreground' : 'mr-2 text-nowrap'
+        }
+      >
+        {label}
+      </Label>
       <Select value={value} onValueChange={(val) => setValue(val as Bore)}>
-        <SelectTrigger className="w-[180px]" data-testid={testId}>
+        <SelectTrigger
+          className={labelAbove ? 'w-full' : 'w-[180px]'}
+          data-testid={testId}
+        >
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
