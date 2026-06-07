@@ -15,12 +15,12 @@ export default function CheckboxBooleanInput({
   return (
     <div className="flex flex-row items-center gap-2">
       <Checkbox
-        id={label}
+        aria-label={label}
         checked={value}
         onCheckedChange={(checked) => setValue(checked === true)}
         data-testid={testId}
       />
-      <Label htmlFor={label}>{label}</Label>
+      <Label>{label}</Label>
     </div>
   );
 }

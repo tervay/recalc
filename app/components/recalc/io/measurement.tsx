@@ -118,7 +118,12 @@ export function MeasurementInput({
           disabled={disabled?.()}
           data-testid={testId}
         />
-        <Select value={unit} onValueChange={setUnit}>
+        <Select
+          value={unit}
+          onValueChange={(value) => {
+            if (value !== null) setUnit(value);
+          }}
+        >
           <SelectTrigger
             className="rounded-l-none"
             data-testid={testId ? `select${testId}` : undefined}
@@ -211,7 +216,12 @@ export function MeasurementOutput({
           className="rounded-r-none disabled:bg-gray-100 disabled:text-gray-900"
           data-testid={testId}
         />
-        <Select value={unit} onValueChange={setUnit}>
+        <Select
+          value={unit}
+          onValueChange={(value) => {
+            if (value !== null) setUnit(value);
+          }}
+        >
           <SelectTrigger
             className="rounded-l-none"
             data-testid={testId ? `select${testId}` : undefined}
@@ -269,7 +279,12 @@ export function MeasurementDisplayOutput({
         >
           {stringified}
         </span>
-        <Select value={unit} onValueChange={setUnit}>
+        <Select
+          value={unit}
+          onValueChange={(value) => {
+            if (value !== null) setUnit(value);
+          }}
+        >
           <SelectTrigger
             className="h-auto w-auto border-none bg-transparent p-0 text-sm text-muted-foreground shadow-none focus-visible:ring-0"
             data-testid={testId ? `select${testId}` : undefined}
@@ -292,7 +307,7 @@ export function MeasurementDisplayOutput({
     return (
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger asChild>{inner}</TooltipTrigger>
+          <TooltipTrigger render={inner} />
           <TooltipContent>{tooltip}</TooltipContent>
         </Tooltip>
       </TooltipProvider>

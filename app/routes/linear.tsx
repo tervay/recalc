@@ -645,12 +645,12 @@ export default function Linear() {
               {/* LQR Tuning section */}
               <Collapsible defaultOpen={false} className="flex flex-col p-4">
                 <CollapsibleTrigger className="group flex cursor-pointer items-center gap-1">
-                  <ChevronDownIcon className="size-3.5 text-muted-foreground transition-transform duration-200 group-data-[state=closed]:-rotate-90" />
+                  <ChevronDownIcon className="size-3.5 -rotate-90 text-muted-foreground transition-transform duration-200 group-data-[panel-open]:rotate-0" />
                   <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
                     LQR Tuning
                   </h2>
                 </CollapsibleTrigger>
-                <CollapsibleContent className="overflow-hidden data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                <CollapsibleContent className="overflow-hidden data-open:animate-collapsible-down data-closed:animate-collapsible-up">
                   <div className="flex flex-col gap-3 pt-3">
                     <IOLine>
                       <MeasurementInput
