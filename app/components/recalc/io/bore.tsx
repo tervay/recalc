@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select';
-import type { Bore, HasStateHook } from '~/lib/types/common';
+import { zBoreSchema, type Bore, type HasStateHook } from '~/lib/types/common';
 
 const BORE_OPTIONS: Bore[] = [
   '8mm',
@@ -46,7 +46,13 @@ export default function BoreInput({
       >
         {label}
       </Label>
-      <Select value={value} onValueChange={(val) => setValue(val as Bore)}>
+      <Select
+        value={value}
+        onValueChange={(val) => {
+          const parsed = zBoreSchema.safeParse(val);
+          if (parsed.success) setValue(parsed.data);
+        }}
+      >
         <SelectTrigger
           className={labelAbove ? 'w-full' : 'w-[180px]'}
           data-testid={testId}

@@ -29,7 +29,13 @@ export function StringSelectInput({
   return (
     <div className="flex flex-row">
       <Label className="mr-2 text-nowrap">{label}</Label>
-      <Select value={value} onValueChange={setValue}>
+      <Select
+        value={value}
+        items={choices}
+        onValueChange={(v) => {
+          if (v !== null) setValue(v);
+        }}
+      >
         <SelectTrigger className={triggerClassName} data-testid={testId}>
           <SelectValue />
         </SelectTrigger>

@@ -40,11 +40,11 @@
 - spinbutton: "0.015"
 - combobox: Ohm
 - text: Max Velocity
-- switch "Custom Custom"
+- switch "Custom"
 - text: Custom Guessed 135.439
 - combobox: in/s
 - text: Max Acceleration
-- switch
+- switch "Custom"
 - text: Custom Guessed 3164.271
 - combobox: in/s2
 - button "LQR Tuning":

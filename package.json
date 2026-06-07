@@ -25,6 +25,7 @@
     "format:wpi": "./wpilib/format.sh"
   },
   "dependencies": {
+    "@base-ui/react": "1.5.0",
     "@react-router/node": "7.17.0",
     "@react-router/serve": "7.17.0",
     "@tanstack/react-table": "8.21.3",
@@ -39,7 +40,6 @@
     "minimize-golden-section-1d": "3.0.0",
     "motion": "12.40.0",
     "nuqs": "2.8.9",
-    "radix-ui": "1.4.3",
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-router": "7.17.0",

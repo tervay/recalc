@@ -60,7 +60,12 @@ export function MotorInput({
           className="rounded-r-none"
           data-testid={testId}
         />
-        <Select value={name} onValueChange={setName}>
+        <Select
+          value={name}
+          onValueChange={(value) => {
+            if (value !== null) setName(value);
+          }}
+        >
           <SelectTrigger
             className="rounded-l-none"
             data-testid={testId ? `select${testId}` : undefined}

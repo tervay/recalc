@@ -79,12 +79,15 @@ export function AppSidebar() {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive('/')}>
-              <Link to="/">
-                <Home className="size-4" />
-                <span>Home</span>
-              </Link>
-            </SidebarMenuButton>
+            <SidebarMenuButton
+              isActive={isActive('/')}
+              render={
+                <Link to="/">
+                  <Home className="size-4" />
+                  <span>Home</span>
+                </Link>
+              }
+            />
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
@@ -98,15 +101,15 @@ export function AppSidebar() {
                 return (
                   <SidebarMenuItem key={link.url}>
                     <SidebarMenuButton
-                      asChild
                       isActive={isActive(link.url)}
                       tooltip={link.title}
-                    >
-                      <Link to={link.url}>
-                        <Icon className="size-4" />
-                        <span>{link.title}</span>
-                      </Link>
-                    </SidebarMenuButton>
+                      render={
+                        <Link to={link.url}>
+                          <Icon className="size-4" />
+                          <span>{link.title}</span>
+                        </Link>
+                      }
+                    />
                   </SidebarMenuItem>
                 );
               })}
@@ -122,15 +125,15 @@ export function AppSidebar() {
                 return (
                   <SidebarMenuItem key={link.url}>
                     <SidebarMenuButton
-                      asChild
                       isActive={isActive(link.url)}
                       tooltip={link.title}
-                    >
-                      <Link to={link.url}>
-                        <Icon className="size-4" />
-                        <span>{link.title}</span>
-                      </Link>
-                    </SidebarMenuButton>
+                      render={
+                        <Link to={link.url}>
+                          <Icon className="size-4" />
+                          <span>{link.title}</span>
+                        </Link>
+                      }
+                    />
                   </SidebarMenuItem>
                 );
               })}

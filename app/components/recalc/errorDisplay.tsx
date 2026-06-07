@@ -83,11 +83,13 @@ export function ErrorDisplay({ error }: Props) {
 
           {stack && (
             <Collapsible open={stackOpen} onOpenChange={setStackOpen}>
-              <CollapsibleTrigger asChild>
-                <Button variant="outline" size="sm">
-                  {stackOpen ? 'Hide stack trace' : 'Show stack trace'}
-                </Button>
-              </CollapsibleTrigger>
+              <CollapsibleTrigger
+                render={
+                  <Button variant="outline" size="sm">
+                    {stackOpen ? 'Hide stack trace' : 'Show stack trace'}
+                  </Button>
+                }
+              />
               <CollapsibleContent>
                 <pre className="mt-2 overflow-x-auto rounded bg-muted p-4 text-xs leading-relaxed">
                   <code>{stack}</code>

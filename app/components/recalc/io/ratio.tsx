@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import * as z from 'zod';
 
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
@@ -12,6 +13,8 @@ import {
 import { useDebounce } from '~/lib/hooks';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 import type { HasStateHook } from '~/lib/types/common';
+
+const zRatioTypeSchema = z.nativeEnum(RatioType);
 
 export function RatioInput({
   stateHook,
@@ -78,7 +81,8 @@ export function RatioInput({
         <Select
           value={type}
           onValueChange={(value) => {
-            setType(value as RatioType);
+            const parsed = zRatioTypeSchema.safeParse(value);
+            if (parsed.success) setType(parsed.data);
           }}
         >
           <SelectTrigger

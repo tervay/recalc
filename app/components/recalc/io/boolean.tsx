@@ -24,15 +24,13 @@ export default function BooleanInput({
 
   const labelNode =
     tooltip === undefined ? (
-      <Label htmlFor={label}>{label}</Label>
+      <Label>{label}</Label>
     ) : (
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger asChild>
-            <Label htmlFor={label} className="cursor-help">
-              {label}
-            </Label>
-          </TooltipTrigger>
+          <TooltipTrigger
+            render={<Label className="cursor-help">{label}</Label>}
+          />
           <TooltipContent>{tooltip}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
@@ -44,7 +42,7 @@ export default function BooleanInput({
         <div className="mb-1 text-xs text-muted-foreground">{labelNode}</div>
         <div className="flex h-9 items-center">
           <Switch
-            id={label}
+            aria-label={label}
             checked={value}
             onCheckedChange={setValue}
             data-testid={testId}
@@ -57,7 +55,7 @@ export default function BooleanInput({
   return (
     <div className="flex flex-row items-center gap-2">
       <Switch
-        id={label}
+        aria-label={label}
         checked={value}
         onCheckedChange={setValue}
         data-testid={testId}
