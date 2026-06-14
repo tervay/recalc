@@ -10,6 +10,7 @@ import Nav from '~/components/recalc/nav';
 import { ThemeProvider } from '~/components/recalc/themeProvider';
 import { SidebarInset, SidebarProvider } from '~/components/ui/sidebar';
 import { Warning } from '~/components/ui/warning';
+import { initOpenPanel } from '~/lib/openpanel';
 
 import type { Route } from '.react-router/types/app/+types/root';
 
@@ -24,6 +25,15 @@ function UmamiScript() {
     script.dataset.websiteId = 'cdd6f06a-3164-4eb6-a18c-0111d77d6f99';
     script.dataset.performance = 'true';
     document.head.appendChild(script);
+  }, []);
+
+  return null;
+}
+
+function OpenPanelScript() {
+  useEffect(() => {
+    // Environment gating (dev, bots, missing client id) lives in initOpenPanel.
+    initOpenPanel();
   }, []);
 
   return null;
@@ -50,6 +60,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <UmamiScript />
+        <OpenPanelScript />
         <Meta />
         <Links />
       </head>

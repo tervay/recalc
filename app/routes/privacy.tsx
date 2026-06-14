@@ -74,12 +74,38 @@ export default function Privacy() {
                 </p>
               </div>
 
+              {/* OpenPanel Analytics Section */}
+              <div className="rounded-lg border bg-muted/30 p-4">
+                <div className="mb-2 flex items-center gap-2">
+                  <BarChart3 className="h-4 w-4 text-primary" />
+                  <h3 className="text-lg font-semibold">
+                    2. Analytics (OpenPanel)
+                  </h3>
+                </div>
+                <p className="leading-relaxed text-muted-foreground">
+                  We also use{' '}
+                  <a
+                    href="https://openpanel.dev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 font-medium text-primary underline-offset-4 hover:underline"
+                  >
+                    OpenPanel
+                    <ExternalLink className="h-3 w-3" />
+                  </a>{' '}
+                  to collect privacy-friendly, aggregated usage statistics such
+                  as page views, referrers, device / browser type, and general
+                  (anonymized) location. OpenPanel does not use cookies and does
+                  not identify individual users.
+                </p>
+              </div>
+
               {/* Error Reporting Section */}
               <div className="rounded-lg border bg-muted/30 p-4">
                 <div className="mb-2 flex items-center gap-2">
                   <Shield className="h-4 w-4 text-primary" />
                   <h3 className="text-lg font-semibold">
-                    2. Error &amp; Crash Reporting (Sentry)
+                    3. Error &amp; Crash Reporting (Sentry)
                   </h3>
                 </div>
                 <p className="leading-relaxed text-muted-foreground">
@@ -133,8 +159,9 @@ export default function Privacy() {
               <h2 className="text-xl font-semibold">Cookies</h2>
             </div>
             <p className="leading-relaxed text-muted-foreground">
-              ReCalc does not set any tracking cookies. Umami uses no cookies.
-              Sentry may store a lightweight session ID only for error grouping.
+              ReCalc does not set any tracking cookies. Umami and OpenPanel use
+              no cookies. Sentry may store a lightweight session ID only for
+              error grouping.
             </p>
           </div>
 
@@ -176,6 +203,13 @@ export default function Privacy() {
                   <span className="font-medium text-foreground">
                     Umami Analytics
                   </span>{' '}
+                  — anonymous usage data
+                </p>
+              </div>
+              <div className="flex items-start gap-3 rounded-lg bg-muted/50 p-3 transition-colors hover:bg-muted">
+                <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-primary" />
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  <span className="font-medium text-foreground">OpenPanel</span>{' '}
                   — anonymous usage data
                 </p>
               </div>
