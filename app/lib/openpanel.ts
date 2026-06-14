@@ -51,6 +51,9 @@ export function initOpenPanel(): OpenPanel | null {
 
   instance = new OpenPanel({
     clientId,
+    // Self-hosted OpenPanel instance; without this the SDK posts to the
+    // hosted cloud at api.openpanel.dev.
+    apiUrl: 'https://op.reca.lc/api',
     trackScreenViews: true,
     trackOutgoingLinks: true,
     trackAttributes: true,
