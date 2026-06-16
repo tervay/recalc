@@ -70,14 +70,32 @@ export async function generateMotorCurve(
     motorSim.setInputVoltage(vApplied.to('V').scalar);
     motorSim.update(SIM_TIMESTEP_SECONDS);
 
-    const inputPower = vApplied.mul(
-      new Measurement(motorSim.getCurrentDraw(), 'A'),
-    );
-    const outputPower = new Measurement(motorSim.getTorque(), 'N m')
-      .mul(w)
-      .removeRad();
+    const currentDraw = new Measurement(motorSim.getCurrentDraw(), 'A');
 
-    const efficiency = outputPower.div(inputPower);
+    // Electrical input power.
+    const inputPower = vApplied.mul(currentDraw);
+
+    // Mechanical shaft power. WPILib's DCMotorSim models a frictionless plant,
+    // so getTorque() returns the electromagnetic torque (Kt * I) rather than the
+    // useful shaft torque, and Kt (derived from stall data) is not consistent
+    // with Kv (derived from free-speed data). Using Kt * I * w for output power
+    // therefore overstates it and yields efficiencies above 100% near free speed
+    // for motors where Kt * Kv > 1.
+    //
+    // Instead, compute shaft power from the back-EMF (w / Kv) acting on the
+    // torque-producing current. The no-load (free) current is subtracted because
+    // it is consumed by internal friction and produces no useful output. This
+    // gives 0% efficiency at stall (w = 0) and at free speed (I = freeCurrent),
+    // and stays strictly below 100% in between (copper and no-load losses are
+    // both accounted for).
+    const backEmf = motor.kV.inverse().mul(w).to('V');
+    const torqueCurrent = currentDraw.sub(motor.freeCurrent);
+    const outputPower = backEmf.mul(torqueCurrent);
+
+    const efficiency =
+      inputPower.baseScalar === 0
+        ? new Measurement(0)
+        : Measurement.max(outputPower.div(inputPower), new Measurement(0));
 
     states.push({
       angularVelocityRPM: parseInt(
