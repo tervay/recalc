@@ -47,6 +47,8 @@ updates:
         patterns:
           - '@playwright/test'
           - 'vitest'
+          - 'jsdom'
+          - '@testing-library/*'
       typescript:
         patterns:
           - 'typescript'

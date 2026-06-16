@@ -1,3 +1,5 @@
+import { isEqual } from 'es-toolkit';
+
 import Model from '~/lib/models/Model';
 import type { Bore } from '~/lib/types/common';
 import type { JSONPlanetary } from '~/lib/types/planetary';
@@ -38,10 +40,13 @@ export default class Planetary extends Model {
   eq<M extends Model>(m: M): boolean {
     return (
       m instanceof Planetary &&
-      this.slices === m.slices &&
+      isEqual(this.slices, m.slices) &&
       this.maxSlices === m.maxSlices &&
-      this.inputBores === m.inputBores &&
-      this.outputBores === m.outputBores
+      isEqual(this.inputBores, m.inputBores) &&
+      isEqual(this.outputBores, m.outputBores) &&
+      this.sku === m.sku &&
+      this.url === m.url &&
+      this.vendor === m.vendor
     );
   }
 }
