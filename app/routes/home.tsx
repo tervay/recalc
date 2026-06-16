@@ -214,19 +214,24 @@ export default function Home() {
               icon={EmojioneMonotoneChains}
             />
             <CalcCard
+              to="/gears"
+              title="Gears Calculator"
+              icon={Fa7SolidGears}
+            />
+            <CalcCard
               to="/linear"
               title="Linear Mechanism"
               icon={MoveVerticalIcon}
             />
             <CalcCard
-              to="/arm"
-              title="Arm Calculator"
-              icon={StreamlineUltimateFactoryIndustrialRobotArm1}
-            />
-            <CalcCard
               to="/flywheel"
               title="Flywheel Calculator"
               icon={Disc3Icon}
+            />
+            <CalcCard
+              to="/arm"
+              title="Arm Calculator"
+              icon={StreamlineUltimateFactoryIndustrialRobotArm1}
             />
             <CalcCard
               to="/intake"
@@ -239,11 +244,6 @@ export default function Home() {
               icon={SearchIcon}
             />
             <CalcCard to="/ratio" title="Ratio Calculator" icon={RatioIcon} />
-            <CalcCard
-              to="/gears"
-              title="Gears Calculator"
-              icon={Fa7SolidGears}
-            />
           </div>
         </section>
 
