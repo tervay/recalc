@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   CartesianGrid,
+  Legend,
   Line,
   LineChart,
   Tooltip,
@@ -9,13 +10,16 @@ import {
 } from 'recharts';
 
 import IOLine from '~/components/recalc/blocks';
+import CalcHeading from '~/components/recalc/calcHeading';
 import { MeasurementInput } from '~/components/recalc/io/measurement';
 import { StringSelectInput } from '~/components/recalc/io/stringSelect';
 import MotorTable from '~/components/recalc/motorTable';
-import { ChartContainer } from '~/components/ui/chart';
+import { type ChartConfig, ChartContainer } from '~/components/ui/chart';
+import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import type * as MotorsWorker from '~/lib/math/motors.worker';
 import Measurement from '~/lib/models/Measurement';
 import Motor, { ALL_MOTORS } from '~/lib/models/Motor';
+import { MeasurementParam, StringParam } from '~/lib/types/queryParams';
 
 export function meta() {
   return [
@@ -23,6 +27,20 @@ export function meta() {
     { name: 'description', content: 'Motor Calculator' },
   ];
 }
+
+const DEFAULT_PARAMS = {
+  motor: StringParam.withDefault(ALL_MOTORS[0].name),
+  statorLimit: MeasurementParam.withDefault(new Measurement(90, 'A')),
+  supplyLimit: MeasurementParam.withDefault(new Measurement(60, 'A')),
+  supplyVoltage: MeasurementParam.withDefault(new Measurement(12, 'V')),
+  statorVoltage: MeasurementParam.withDefault(new Measurement(12, 'V')),
+};
+
+const CHART_CONFIG = {
+  currentDrawAmps: { label: 'Current (A)', color: 'var(--chart-1)' },
+  torqueNewtonMeters: { label: 'Torque (N·m)', color: 'var(--chart-2)' },
+  efficiency: { label: 'Efficiency (%)', color: 'var(--chart-3)' },
+} satisfies ChartConfig;
 
 const worker = new ComlinkWorker<typeof MotorsWorker>(
   new URL('../lib/math/motors.worker', import.meta.url),
@@ -34,16 +52,25 @@ const worker = new ComlinkWorker<typeof MotorsWorker>(
 type WpilibMotorSimState = MotorsWorker.WpilibMotorSimState;
 
 export default function Motors() {
-  const [selectedMotor, setSelectedMotor] = useState(ALL_MOTORS[0].name);
+  const queryParams = useQueryParams(DEFAULT_PARAMS);
 
-  const [statorLimit, setStatorLimit] = useState(new Measurement(90, 'A'));
-  const [supplyLimit, setSupplyLimit] = useState(new Measurement(60, 'A'));
-  const [supplyVoltage, setSupplyVoltage] = useState(new Measurement(12, 'V'));
-  const [statorVoltage, setStatorVoltage] = useState(new Measurement(12, 'V'));
+  const [selectedMotor, setSelectedMotor] = useState(queryParams.motor);
+  const [statorLimit, setStatorLimit] = useState(queryParams.statorLimit);
+  const [supplyLimit, setSupplyLimit] = useState(queryParams.supplyLimit);
+  const [supplyVoltage, setSupplyVoltage] = useState(queryParams.supplyVoltage);
+  const [statorVoltage, setStatorVoltage] = useState(queryParams.statorVoltage);
 
   const [workerWpilibSimStates, setWorkerWpilibSimStates] = useState<
     WpilibMotorSimState[]
   >([]);
+
+  const serializedState = useSerializedState(DEFAULT_PARAMS, {
+    motor: selectedMotor,
+    statorLimit,
+    supplyLimit,
+    supplyVoltage,
+    statorVoltage,
+  });
 
   useEffect(() => {
     setWorkerWpilibSimStates([]);
@@ -57,138 +84,189 @@ export default function Motors() {
       )
       .then((states) => {
         setWorkerWpilibSimStates(states);
-        console.log(states);
       })
       .catch((error) => {
         console.error(error);
       });
   }, [selectedMotor, statorLimit, supplyLimit, supplyVoltage, statorVoltage]);
 
+  // The worker emits efficiency as a 0-1 ratio; scale it to a percentage so it
+  // reads on its own 0-100% axis instead of being squashed against torque.
+  const chartData = useMemo(
+    () =>
+      workerWpilibSimStates.map((s) => ({
+        ...s,
+        efficiencyPercent: s.efficiency * 100,
+      })),
+    [workerWpilibSimStates],
+  );
+
   return (
     <div>
-      <div className="flex flex-col gap-x-4 gap-y-2">
-        <IOLine>
-          <StringSelectInput
-            choices={ALL_MOTORS.map((m) => ({
-              label: m.name,
-              value: m.name,
-            }))}
-            stateHook={[selectedMotor, setSelectedMotor]}
-            label="Motor"
-          />
-        </IOLine>
-        <IOLine>
-          <MeasurementInput
-            stateHook={[statorLimit, setStatorLimit]}
-            label="Stator Limit"
-          />
-          <MeasurementInput
-            stateHook={[statorVoltage, setStatorVoltage]}
-            label="Stator Voltage"
-          />
-        </IOLine>
-        <IOLine>
-          <MeasurementInput
-            stateHook={[supplyLimit, setSupplyLimit]}
-            label="Supply Limit"
-          />
-          <MeasurementInput
-            stateHook={[supplyVoltage, setSupplyVoltage]}
-            label="Supply Voltage"
-          />
-        </IOLine>
+      <CalcHeading
+        title="Motor Calculator"
+        getSerializedState={() => serializedState}
+      />
+
+      <div className="flex flex-row flex-wrap gap-6 px-1">
+        <div className="flex min-w-[300px] flex-1 flex-col">
+          <section className="flex flex-col rounded-lg border">
+            {/* Motor section */}
+            <div className="flex flex-col gap-3 p-4">
+              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                Motor
+              </h2>
+              <IOLine>
+                <StringSelectInput
+                  choices={ALL_MOTORS.map((m) => ({
+                    label: m.name,
+                    value: m.name,
+                  }))}
+                  stateHook={[selectedMotor, setSelectedMotor]}
+                  label="Motor"
+                  testId="motor"
+                  labelAbove
+                />
+              </IOLine>
+            </div>
+            <div className="border-t" />
+
+            {/* Current Limits section */}
+            <div className="flex flex-col gap-3 p-4">
+              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                Current Limits
+              </h2>
+              <IOLine>
+                <MeasurementInput
+                  stateHook={[statorLimit, setStatorLimit]}
+                  label="Stator Limit"
+                  testId="statorLimit"
+                  labelAbove
+                />
+                <MeasurementInput
+                  stateHook={[supplyLimit, setSupplyLimit]}
+                  label="Supply Limit"
+                  testId="supplyLimit"
+                  labelAbove
+                />
+              </IOLine>
+            </div>
+            <div className="border-t" />
+
+            {/* Voltage section */}
+            <div className="flex flex-col gap-3 p-4">
+              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                Voltage
+              </h2>
+              <IOLine>
+                <MeasurementInput
+                  stateHook={[statorVoltage, setStatorVoltage]}
+                  label="Stator Voltage"
+                  testId="statorVoltage"
+                  labelAbove
+                />
+                <MeasurementInput
+                  stateHook={[supplyVoltage, setSupplyVoltage]}
+                  label="Supply Voltage"
+                  testId="supplyVoltage"
+                  labelAbove
+                />
+              </IOLine>
+            </div>
+          </section>
+        </div>
+
+        <div className="flex min-w-[300px] flex-[2] flex-col">
+          <ChartContainer
+            config={CHART_CONFIG}
+            className="aspect-auto h-[420px] w-full"
+          >
+            <LineChart
+              data={chartData}
+              margin={{ top: 5, right: 20, bottom: 30, left: 20 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis
+                dataKey="angularVelocityRPM"
+                label={{
+                  value: 'Angular Velocity (RPM)',
+                  position: 'insideBottom',
+                  offset: -15,
+                }}
+              />
+              <YAxis
+                yAxisId="current"
+                label={{
+                  value: 'Current (A)',
+                  angle: -90,
+                  position: 'insideLeft',
+                  offset: 15,
+                  style: { textAnchor: 'middle' },
+                }}
+              />
+              <YAxis
+                yAxisId="torque"
+                orientation="right"
+                label={{
+                  value: 'Torque (N·m)',
+                  angle: 90,
+                  position: 'insideRight',
+                  offset: 15,
+                  style: { textAnchor: 'middle' },
+                }}
+              />
+              <YAxis
+                yAxisId="efficiency"
+                orientation="right"
+                domain={[0, 100]}
+                width={40}
+                tickFormatter={(v: number) => `${v}%`}
+                label={{
+                  value: 'Efficiency (%)',
+                  angle: 90,
+                  position: 'insideRight',
+                  offset: 15,
+                  style: { textAnchor: 'middle' },
+                }}
+              />
+              <Tooltip
+                formatter={(value) =>
+                  typeof value === 'number' && Number.isFinite(value)
+                    ? value.toFixed(2)
+                    : String(value)
+                }
+              />
+              <Legend
+                verticalAlign="top"
+                wrapperStyle={{ paddingBottom: 20 }}
+              />
+              <Line
+                name="Current (A)"
+                dataKey="currentDrawAmps"
+                yAxisId="current"
+                dot={false}
+                stroke="var(--color-currentDrawAmps)"
+              />
+              <Line
+                name="Torque (N·m)"
+                dataKey="torqueNewtonMeters"
+                yAxisId="torque"
+                dot={false}
+                stroke="var(--color-torqueNewtonMeters)"
+              />
+              <Line
+                name="Efficiency (%)"
+                dataKey="efficiencyPercent"
+                yAxisId="efficiency"
+                dot={false}
+                stroke="var(--color-efficiency)"
+              />
+            </LineChart>
+          </ChartContainer>
+        </div>
       </div>
 
-      <div className="mt-4 flex flex-row">
-        <ChartContainer config={{}} className="min-h-[200px] w-full">
-          <LineChart data={workerWpilibSimStates}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="angularVelocityRPM" />
-            <YAxis yAxisId="left" />
-            <YAxis
-              yAxisId="right"
-              orientation="right"
-              domain={[0, 'dataMax']}
-              allowDataOverflow
-            />
-            <Tooltip />
-            <Line
-              dataKey="torqueNewtonMeters"
-              dot={false}
-              yAxisId="right"
-              stroke="green"
-            />
-            <Line
-              dataKey="currentDrawAmps"
-              dot={false}
-              yAxisId="left"
-              stroke="yellow"
-            />
-            <Line
-              dataKey="efficiency"
-              dot={false}
-              yAxisId="right"
-              stroke="blue"
-            />
-          </LineChart>
-        </ChartContainer>
-        {/* <ChartContainer config={{}} className="min-h-[200px] w-full">
-          <LineChart data={numericalCurve}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="speedPercentage" />
-            <YAxis yAxisId="left" />
-            <YAxis yAxisId="right" orientation="right" />
-            <Tooltip />
-            <Line
-              dataKey="statorCurrent"
-              dot={false}
-              yAxisId="left"
-              stroke="yellow"
-            />
-            <Line dataKey="torque" dot={false} yAxisId="right" stroke="green" />
-            <Line
-              dataKey="outputPower"
-              dot={false}
-              yAxisId="left"
-              stroke="red"
-            />
-            <Line
-              dataKey="efficiency"
-              dot={false}
-              yAxisId="right"
-              stroke="blue"
-            />
-            <Legend />
-          </LineChart>
-        </ChartContainer> */}
-
-        {/* <ChartContainer config={{}} className="min-h-[200px] w-full">
-          <LineChart data={odeData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="time" />
-            <YAxis yAxisId="left" />
-            <YAxis yAxisId="right" orientation="right" />
-            <Tooltip />
-
-            <Line dataKey="velocity" dot={false} yAxisId="left" stroke="red" />
-            <Line dataKey="power" dot={false} yAxisId="left" stroke="green" />
-            <Line dataKey="torque" dot={false} yAxisId="right" stroke="blue" />
-            <Line
-              dataKey="currentDraw"
-              dot={false}
-              yAxisId="right"
-              stroke="yellow"
-            />
-             <Line
-              dataKey="efficiency"
-              dot={false}
-              yAxisId="right"
-              stroke="blue"
-            />
-            <Line dataKey="losses" dot={false} yAxisId="left" stroke="purple" />
-          </LineChart>
-        </ChartContainer> */}
-      </div>
+      <div className="my-6 border-t" />
 
       <MotorTable />
     </div>

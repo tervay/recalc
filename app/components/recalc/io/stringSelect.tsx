@@ -16,19 +16,30 @@ export function StringSelectInput({
   choices,
   label,
   testId,
-  triggerClassName = 'w-[180px]',
+  labelAbove,
+  triggerClassName,
 }: {
   stateHook: [string, (value: string) => void];
   choices: SelectStringInputChoice[];
   label: string;
   testId?: string;
+  labelAbove?: boolean;
   triggerClassName?: string;
 }) {
   const [value, setValue] = stateHook;
 
+  const resolvedTriggerClassName =
+    triggerClassName ?? (labelAbove ? 'w-full' : 'w-[180px]');
+
   return (
-    <div className="flex flex-row">
-      <Label className="mr-2 text-nowrap">{label}</Label>
+    <div className={labelAbove ? 'flex flex-col' : 'flex flex-row'}>
+      <Label
+        className={
+          labelAbove ? 'mb-1 text-xs text-muted-foreground' : 'mr-2 text-nowrap'
+        }
+      >
+        {label}
+      </Label>
       <Select
         value={value}
         items={choices}
@@ -36,7 +47,10 @@ export function StringSelectInput({
           if (v !== null) setValue(v);
         }}
       >
-        <SelectTrigger className={triggerClassName} data-testid={testId}>
+        <SelectTrigger
+          className={resolvedTriggerClassName}
+          data-testid={testId}
+        >
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
