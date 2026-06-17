@@ -1,4 +1,5 @@
 import {
+  type Column,
   type ColumnDef,
   type ColumnFiltersState,
   type SortingState,
@@ -8,9 +9,11 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { useMemo, useState } from 'react';
+import { type ReactNode, useMemo, useState } from 'react';
+import ArrowDownIcon from '~icons/lucide/arrow-down';
+import ArrowUpIcon from '~icons/lucide/arrow-up';
+import ChevronsUpDownIcon from '~icons/lucide/chevrons-up-down';
 
-import IOLine from '~/components/recalc/blocks';
 import { MeasurementInput } from '~/components/recalc/io/measurement';
 import { VendorBadge } from '~/components/recalc/vendorBadge';
 import { Button } from '~/components/ui/button';
@@ -29,6 +32,47 @@ import {
   completeMotorSpecs,
 } from '~/lib/models/Motor';
 import Motor from '~/lib/models/Motor';
+import { cn } from '~/lib/utils';
+
+type MotorRow = { motor: Motor; motorSpecs: FullMotorSpecs };
+
+/**
+ * A column header button that toggles sorting and shows the current sort
+ * direction. `align` matches the cell text alignment so the header lines up
+ * with the values below it.
+ */
+function SortableHeader({
+  column,
+  align = 'right',
+  children,
+}: {
+  column: Column<MotorRow>;
+  align?: 'left' | 'right' | 'center';
+  children: ReactNode;
+}) {
+  const sorted = column.getIsSorted();
+
+  return (
+    <Button
+      variant="ghost"
+      onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      className={cn(
+        'cursor-pointer gap-1 p-0 hover:bg-transparent',
+        align === 'right' && 'ml-auto flex',
+        align === 'center' && 'mx-auto flex',
+      )}
+    >
+      {children}
+      {sorted === 'asc' ? (
+        <ArrowUpIcon className="size-3.5" />
+      ) : sorted === 'desc' ? (
+        <ArrowDownIcon className="size-3.5" />
+      ) : (
+        <ChevronsUpDownIcon className="size-3.5 opacity-50" />
+      )}
+    </Button>
+  );
+}
 
 function calculatePowerAtCurrent(
   current: Measurement,
@@ -60,27 +104,16 @@ export default function MotorTable() {
     [],
   );
 
-  const columns: ColumnDef<{
-    motor: Motor;
-    motorSpecs: FullMotorSpecs;
-  }>[] = useMemo(
+  const columns: ColumnDef<MotorRow>[] = useMemo(
     () => [
       {
         accessorFn: (row) => row.motor.identifier,
         id: 'name',
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === 'asc')
-              }
-              className="p-0 hover:bg-transparent"
-            >
-              Motor
-            </Button>
-          );
-        },
+        header: ({ column }) => (
+          <SortableHeader column={column} align="left">
+            Motor
+          </SortableHeader>
+        ),
         cell: ({ row }) => (
           <div className="flex items-center gap-2 font-medium">
             <span>{row.original.motor.identifier}</span>
@@ -95,19 +128,9 @@ export default function MotorTable() {
       {
         accessorFn: (row) => row.motorSpecs.freeSpeed.to('rpm').scalar,
         id: 'freeSpeed',
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === 'asc')
-              }
-              className="ml-auto flex p-0 hover:bg-transparent"
-            >
-              Free Speed
-            </Button>
-          );
-        },
+        header: ({ column }) => (
+          <SortableHeader column={column}>Free Speed</SortableHeader>
+        ),
         cell: ({ row }) => {
           const speed = row.original.motorSpecs.freeSpeed;
           return (
@@ -123,19 +146,9 @@ export default function MotorTable() {
       {
         accessorFn: (row) => row.motorSpecs.stallTorque.to('N m').scalar,
         id: 'stallTorque',
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === 'asc')
-              }
-              className="ml-auto flex p-0 hover:bg-transparent"
-            >
-              Stall Torque
-            </Button>
-          );
-        },
+        header: ({ column }) => (
+          <SortableHeader column={column}>Stall Torque</SortableHeader>
+        ),
         cell: ({ row }) => {
           const torque = row.original.motorSpecs.stallTorque;
           return (
@@ -151,19 +164,9 @@ export default function MotorTable() {
       {
         accessorFn: (row) => row.motorSpecs.stallCurrent.to('A').scalar,
         id: 'stallCurrent',
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === 'asc')
-              }
-              className="ml-auto flex p-0 hover:bg-transparent"
-            >
-              Stall Current
-            </Button>
-          );
-        },
+        header: ({ column }) => (
+          <SortableHeader column={column}>Stall Current</SortableHeader>
+        ),
         cell: ({ row }) => {
           const current = row.original.motorSpecs.stallCurrent;
           return (
@@ -183,19 +186,9 @@ export default function MotorTable() {
             row.motor,
           ).to('W').scalar,
         id: 'peakPower',
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === 'asc')
-              }
-              className="ml-auto flex p-0 hover:bg-transparent"
-            >
-              Peak powerDensity
-            </Button>
-          );
-        },
+        header: ({ column }) => (
+          <SortableHeader column={column}>Peak Power</SortableHeader>
+        ),
         cell: ({ row }) => {
           return (
             <div className="text-right text-sm tabular-nums">
@@ -221,19 +214,9 @@ export default function MotorTable() {
             )
             .to('W/lb').scalar,
         id: 'powerDensity',
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === 'asc')
-              }
-              className="ml-auto flex p-0 hover:bg-transparent"
-            >
-              Power Density
-            </Button>
-          );
-        },
+        header: ({ column }) => (
+          <SortableHeader column={column}>Power Density</SortableHeader>
+        ),
         cell: ({ row }) => {
           return (
             <div className="text-right text-sm tabular-nums">
@@ -256,19 +239,9 @@ export default function MotorTable() {
       {
         accessorFn: (row) => row.motorSpecs.freeCurrent.to('A').scalar,
         id: 'freeCurrent',
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === 'asc')
-              }
-              className="ml-auto flex p-0 hover:bg-transparent"
-            >
-              Free Current
-            </Button>
-          );
-        },
+        header: ({ column }) => (
+          <SortableHeader column={column}>Free Current</SortableHeader>
+        ),
         cell: ({ row }) => {
           const current = row.original.motorSpecs.freeCurrent;
           return (
@@ -284,19 +257,11 @@ export default function MotorTable() {
       {
         accessorFn: (row) => row.motorSpecs.motorWeight.to('lb').scalar,
         id: 'motorWeight',
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === 'asc')
-              }
-              className="mx-auto flex p-0 hover:bg-transparent"
-            >
-              Weight
-            </Button>
-          );
-        },
+        header: ({ column }) => (
+          <SortableHeader column={column} align="center">
+            Weight
+          </SortableHeader>
+        ),
         cell: ({ row }) => {
           return (
             <div className="text-right text-sm tabular-nums">
@@ -309,19 +274,11 @@ export default function MotorTable() {
       {
         accessorFn: (row) => row.motor.kT.to('N m/A').scalar,
         id: 'kT',
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === 'asc')
-              }
-              className="mx-auto flex p-0 hover:bg-transparent"
-            >
-              kT (Nm/A)
-            </Button>
-          );
-        },
+        header: ({ column }) => (
+          <SortableHeader column={column} align="center">
+            kT (Nm/A)
+          </SortableHeader>
+        ),
         cell: ({ row }) => {
           return (
             <div className="text-right text-sm tabular-nums">
@@ -333,19 +290,11 @@ export default function MotorTable() {
       {
         accessorFn: (row) => row.motorSpecs.dataSource,
         id: 'dataSource',
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === 'asc')
-              }
-              className="mx-auto flex p-0 hover:bg-transparent"
-            >
-              Data From
-            </Button>
-          );
-        },
+        header: ({ column }) => (
+          <SortableHeader column={column} align="center">
+            Data From
+          </SortableHeader>
+        ),
         cell: ({ row }) => {
           return (
             <div className="flex justify-center">
@@ -373,62 +322,72 @@ export default function MotorTable() {
   });
 
   return (
-    <div>
-      <IOLine>
-        <MeasurementInput
-          stateHook={[currentDraw, setCurrentDraw]}
-          label="Current Draw"
-        />
-      </IOLine>
-      <div className="w-full space-y-4">
-        <div className="rounded-lg border border-border">
-          <Table>
-            <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id} className="hover:bg-transparent">
-                  {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                    </TableHead>
+    <div className="w-full space-y-3">
+      <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+        Motor Comparison
+      </h2>
+      <div className="overflow-hidden rounded-lg border border-border">
+        <div className="flex flex-col gap-1 border-b bg-muted/20 p-4">
+          <div className="max-w-[240px]">
+            <MeasurementInput
+              stateHook={[currentDraw, setCurrentDraw]}
+              label="Current Draw"
+              tooltip="The current used to compute the Peak Power and Power Density columns in the table below."
+              testId="currentDraw"
+              labelAbove
+            />
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Sets the current at which the Peak Power and Power Density columns
+            below are calculated.
+          </p>
+        </div>
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id} className="hover:bg-transparent">
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                  </TableHead>
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && 'selected'}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </TableCell>
                   ))}
                 </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody>
-              {table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && 'selected'}
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-24 text-center"
-                  >
-                    No motors found.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </div>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No motors found.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
       </div>
     </div>
   );
