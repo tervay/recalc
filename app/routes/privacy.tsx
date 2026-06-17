@@ -32,7 +32,7 @@ export default function Privacy() {
             </h1>
           </div>
           <p className="text-sm text-muted-foreground">
-            Last updated: November 19, 2025
+            Last updated: June 16, 2026
           </p>
         </div>
 
@@ -48,38 +48,12 @@ export default function Privacy() {
             </div>
 
             <div className="space-y-4">
-              {/* Analytics Section */}
-              <div className="rounded-lg border bg-muted/30 p-4">
-                <div className="mb-2 flex items-center gap-2">
-                  <BarChart3 className="h-4 w-4 text-primary" />
-                  <h3 className="text-lg font-semibold">
-                    1. Analytics (Umami)
-                  </h3>
-                </div>
-                <p className="leading-relaxed text-muted-foreground">
-                  We use{' '}
-                  <a
-                    href="https://umami.is"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 font-medium text-primary underline-offset-4 hover:underline"
-                  >
-                    Umami Analytics
-                    <ExternalLink className="h-3 w-3" />
-                  </a>{' '}
-                  to gather simple, privacy-friendly usage statistics. Umami
-                  collects anonymous data such as page views, referrers, device
-                  / browser type, and general (anonymized) location. Umami does
-                  not use cookies and does not identify individual users.
-                </p>
-              </div>
-
               {/* OpenPanel Analytics Section */}
               <div className="rounded-lg border bg-muted/30 p-4">
                 <div className="mb-2 flex items-center gap-2">
                   <BarChart3 className="h-4 w-4 text-primary" />
                   <h3 className="text-lg font-semibold">
-                    2. Analytics (OpenPanel)
+                    1. Analytics (OpenPanel)
                   </h3>
                 </div>
                 <p className="leading-relaxed text-muted-foreground">
@@ -105,7 +79,7 @@ export default function Privacy() {
                 <div className="mb-2 flex items-center gap-2">
                   <Shield className="h-4 w-4 text-primary" />
                   <h3 className="text-lg font-semibold">
-                    3. Error &amp; Crash Reporting (Sentry)
+                    2. Error &amp; Crash Reporting (Sentry)
                   </h3>
                 </div>
                 <p className="leading-relaxed text-muted-foreground">
@@ -159,9 +133,9 @@ export default function Privacy() {
               <h2 className="text-xl font-semibold">Cookies</h2>
             </div>
             <p className="leading-relaxed text-muted-foreground">
-              ReCalc does not set any tracking cookies. Umami and OpenPanel use
-              no cookies. Sentry may store a lightweight session ID only for
-              error grouping.
+              ReCalc does not set any tracking cookies. OpenPanel uses no
+              cookies. Sentry may store a lightweight session ID only for error
+              grouping.
             </p>
           </div>
 
@@ -197,15 +171,6 @@ export default function Privacy() {
               <h2 className="text-xl font-semibold">Third-Party Services</h2>
             </div>
             <div className="space-y-2">
-              <div className="flex items-start gap-3 rounded-lg bg-muted/50 p-3 transition-colors hover:bg-muted">
-                <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-primary" />
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  <span className="font-medium text-foreground">
-                    Umami Analytics
-                  </span>{' '}
-                  — anonymous usage data
-                </p>
-              </div>
               <div className="flex items-start gap-3 rounded-lg bg-muted/50 p-3 transition-colors hover:bg-muted">
                 <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-primary" />
                 <p className="text-sm leading-relaxed text-muted-foreground">

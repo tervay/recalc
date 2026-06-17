@@ -8,7 +8,7 @@ This project utilizes a heavy amount of math and physics. It is important that y
 
 The developer may be using jujutsu for version control rather than git. First, check if jj is available, before utilizing git. If jj is not available, it is safe to fall back to git commands.
 
-The core technologies involve React Router, TailwindCSS, Shadcn, Base UI, Vite, nuqs, Emscripten, and Comlink. The project is hosted on Vercel, and usage analytics are gathered through [Umami Analytics](https://github.com/umami-software/umami). Linting is done through Oxlint and formatting through Oxfmt. However, some ESLint rules are installed to cover areas Oxlint misses. Dependencies should be pinned as strictly as possible, in order to increase build reproducibility across platforms and machines.
+The core technologies involve React Router, TailwindCSS, Shadcn, Base UI, Vite, nuqs, Emscripten, and Comlink. The project is hosted on Vercel, and usage analytics are gathered through [OpenPanel](https://openpanel.dev). Linting is done through Oxlint and formatting through Oxfmt. However, some ESLint rules are installed to cover areas Oxlint misses. Dependencies should be pinned as strictly as possible, in order to increase build reproducibility across platforms and machines.
 
 Developer environment can be maintained using [Mise](https://mise.jdx.dev/). You are free to make suggestions about new CLI tools that may help the developer.
 

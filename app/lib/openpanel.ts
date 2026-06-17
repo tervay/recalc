@@ -7,9 +7,8 @@ let instance: OpenPanel | null = null;
  * Decide whether OpenPanel should be initialized for the current environment.
  *
  * Kept pure and side-effect free so the gating logic can be unit tested
- * without a DOM. Mirrors the guards used for the Umami script: never on the
- * server, never in development, never for bots, and only when a client id is
- * configured.
+ * without a DOM. Never initializes on the server, never in development, never
+ * for bots, and only when a client id is configured.
  */
 export function shouldInitOpenPanel({
   isDev,

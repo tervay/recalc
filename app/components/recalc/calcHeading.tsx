@@ -10,6 +10,23 @@ import { MotorParam } from '~/lib/types/queryParams';
 const RADIUS = 10;
 const INSET = 1; // half stroke width, keeps the stroke inside the button bounds
 
+/**
+ * Build the analytics payload for a copy-link event. Pure so it can be unit
+ * tested without rendering the component. Includes the motor identifier only
+ * when a valid `motor` query param is present in `search`.
+ */
+export function buildCopyLinkData(
+  title: string,
+  search: string,
+): Record<string, string> {
+  const motorRaw = new URLSearchParams(search).get('motor');
+  const motor = motorRaw !== null ? MotorParam.parse(motorRaw) : null;
+  return {
+    calculator: title,
+    ...(motor !== null && { motor: motor.identifier }),
+  };
+}
+
 function buildBorderPaths(w: number, h: number): [string, string] {
   const cx = w / 2;
   const r = RADIUS;
@@ -55,14 +72,10 @@ export default function CalcHeading({
                 '?' +
                 getSerializedState(),
             );
-            const motorRaw = new URLSearchParams(window.location.search).get(
-              'motor',
+            track(
+              'copy-link',
+              buildCopyLinkData(title, window.location.search),
             );
-            const motor = motorRaw !== null ? MotorParam.parse(motorRaw) : null;
-            track('copy-link', {
-              calculator: title,
-              ...(motor !== null && { motor: motor.identifier }),
-            });
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
           }}
