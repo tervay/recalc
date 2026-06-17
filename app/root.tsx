@@ -1,4 +1,3 @@
-import { isbot } from 'isbot';
 import { NuqsAdapter } from 'nuqs/adapters/react-router/v7';
 import { type ReactNode, useEffect } from 'react';
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
@@ -13,22 +12,6 @@ import { Warning } from '~/components/ui/warning';
 import { initOpenPanel } from '~/lib/openpanel';
 
 import type { Route } from '.react-router/types/app/+types/root';
-
-function UmamiScript() {
-  useEffect(() => {
-    if (import.meta.env.DEV) return;
-    if (isbot(navigator.userAgent)) return;
-
-    const script = document.createElement('script');
-    script.src = 'https://um.reca.lc/script.js';
-    script.defer = true;
-    script.dataset.websiteId = 'cdd6f06a-3164-4eb6-a18c-0111d77d6f99';
-    script.dataset.performance = 'true';
-    document.head.appendChild(script);
-  }, []);
-
-  return null;
-}
 
 function OpenPanelScript() {
   useEffect(() => {
@@ -59,7 +42,6 @@ export function Layout({ children }: { children: ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <UmamiScript />
         <OpenPanelScript />
         <Meta />
         <Links />
