@@ -10,6 +10,7 @@ import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
 import { Spinner } from '~/components/ui/spinner';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
+import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import type * as RatioFinderWorker from '~/lib/math/ratioFinder.worker';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 import type { Bore } from '~/lib/types/common';
@@ -20,10 +21,30 @@ import {
   RatioParam,
 } from '~/lib/types/queryParams';
 
+const RATIO_FINDER_URL = 'https://beta.reca.lc/ratio-finder';
+const RATIO_FINDER_NAME = 'Ratio Finder';
+const RATIO_FINDER_DESCRIPTION =
+  'Find optimal gear, belt, and chain drive ratios for FRC robots. Search through combinations of sprockets, pulleys, and gears to hit a target reduction.';
+
 export function meta() {
   return [
-    { title: 'Ratio Finder' },
-    { name: 'description', content: 'Ratio Finder' },
+    { title: RATIO_FINDER_NAME },
+    { name: 'description', content: RATIO_FINDER_DESCRIPTION },
+    {
+      'script:ld+json': buildJsonLd(
+        buildWebPage({
+          url: RATIO_FINDER_URL,
+          name: RATIO_FINDER_NAME,
+          description: RATIO_FINDER_DESCRIPTION,
+          breadcrumbLabel: RATIO_FINDER_NAME,
+        }),
+        buildCalculatorApp({
+          url: RATIO_FINDER_URL,
+          name: RATIO_FINDER_NAME,
+          description: RATIO_FINDER_DESCRIPTION,
+        }),
+      ),
+    },
   ];
 }
 

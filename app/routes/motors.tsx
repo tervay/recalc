@@ -16,15 +16,36 @@ import { StringSelectInput } from '~/components/recalc/io/stringSelect';
 import MotorTable from '~/components/recalc/motorTable';
 import { type ChartConfig, ChartContainer } from '~/components/ui/chart';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
+import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import type * as MotorsWorker from '~/lib/math/motors.worker';
 import Measurement from '~/lib/models/Measurement';
 import Motor, { ALL_MOTORS } from '~/lib/models/Motor';
 import { MeasurementParam, StringParam } from '~/lib/types/queryParams';
 
+const MOTORS_URL = 'https://beta.reca.lc/motors';
+const MOTORS_NAME = 'Motors Reference';
+const MOTORS_DESCRIPTION =
+  'Compare FRC motor specifications and performance curves. View stall torque, free speed, efficiency, and power curves for common FRC motors.';
+
 export function meta() {
   return [
-    { title: 'Motor Calculator' },
-    { name: 'description', content: 'Motor Calculator' },
+    { title: MOTORS_NAME },
+    { name: 'description', content: MOTORS_DESCRIPTION },
+    {
+      'script:ld+json': buildJsonLd(
+        buildWebPage({
+          url: MOTORS_URL,
+          name: MOTORS_NAME,
+          description: MOTORS_DESCRIPTION,
+          breadcrumbLabel: MOTORS_NAME,
+        }),
+        buildCalculatorApp({
+          url: MOTORS_URL,
+          name: MOTORS_NAME,
+          description: MOTORS_DESCRIPTION,
+        }),
+      ),
+    },
   ];
 }
 

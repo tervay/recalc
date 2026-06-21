@@ -16,6 +16,7 @@ import { Button } from '~/components/ui/button';
 import { ButtonGroup } from '~/components/ui/button-group';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
+import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import { calculateClosestCenters } from '~/lib/math/belts';
 import { Belt } from '~/lib/models/Belt';
 import Measurement from '~/lib/models/Measurement';
@@ -27,10 +28,30 @@ import {
 } from '~/lib/types/queryParams';
 import { cn } from '~/lib/utils';
 
+const BELT_URL = 'https://beta.reca.lc/belts';
+const BELT_NAME = 'Belt Calculator';
+const BELT_DESCRIPTION =
+  'Calculate optimal belt drive configurations for FRC robots. Find center-to-center distances, belt lengths, and compatible pulley combinations.';
+
 export function meta() {
   return [
-    { title: 'Belt Calculator' },
-    { name: 'description', content: 'Belt Calculator' },
+    { title: BELT_NAME },
+    { name: 'description', content: BELT_DESCRIPTION },
+    {
+      'script:ld+json': buildJsonLd(
+        buildWebPage({
+          url: BELT_URL,
+          name: BELT_NAME,
+          description: BELT_DESCRIPTION,
+          breadcrumbLabel: BELT_NAME,
+        }),
+        buildCalculatorApp({
+          url: BELT_URL,
+          name: BELT_NAME,
+          description: BELT_DESCRIPTION,
+        }),
+      ),
+    },
   ];
 }
 

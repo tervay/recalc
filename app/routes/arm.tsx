@@ -22,6 +22,7 @@ import { RatioInput } from '~/components/recalc/io/ratio';
 import { OptimalConfigGrid } from '~/components/recalc/optimalConfigGrid';
 import { ChartContainer } from '~/components/ui/chart';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
+import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import type * as ArmWorker from '~/lib/math/arm.worker';
 import type * as ArmOptimizerWorker from '~/lib/math/armOptimizer.worker';
 import type {
@@ -40,10 +41,30 @@ import {
   RatioParam,
 } from '~/lib/types/queryParams';
 
+const ARM_URL = 'https://beta.reca.lc/arm';
+const ARM_NAME = 'Arm Calculator';
+const ARM_DESCRIPTION =
+  'Simulate arm mechanisms for FRC robots. Model DC motor performance, gear ratios, and arm dynamics using WPILib state-space simulation.';
+
 export function meta() {
   return [
-    { title: 'Arm Calculator' },
-    { name: 'description', content: 'Arm Calculator' },
+    { title: ARM_NAME },
+    { name: 'description', content: ARM_DESCRIPTION },
+    {
+      'script:ld+json': buildJsonLd(
+        buildWebPage({
+          url: ARM_URL,
+          name: ARM_NAME,
+          description: ARM_DESCRIPTION,
+          breadcrumbLabel: ARM_NAME,
+        }),
+        buildCalculatorApp({
+          url: ARM_URL,
+          name: ARM_NAME,
+          description: ARM_DESCRIPTION,
+        }),
+      ),
+    },
   ];
 }
 

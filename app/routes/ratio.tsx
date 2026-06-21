@@ -6,14 +6,35 @@ import CalcHeading from '~/components/recalc/calcHeading';
 import NumberInput from '~/components/recalc/io/number';
 import { Button } from '~/components/ui/button';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
+import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import { calculateInverseRatio, calculateNetRatio } from '~/lib/math/ratio';
 import { ALL_MOTORS } from '~/lib/models/Motor';
 import { type RatioPair, RatioPairListParam } from '~/lib/types/queryParams';
 
+const RATIO_URL = 'https://beta.reca.lc/ratio';
+const RATIO_NAME = 'Ratio Calculator';
+const RATIO_DESCRIPTION =
+  'Calculate gear, belt, and chain drive ratios for FRC robot mechanisms. Chain multi-stage reduction calculations.';
+
 export function meta() {
   return [
-    { title: 'Ratio Calculator' },
-    { name: 'description', content: 'Ratio Calculator' },
+    { title: RATIO_NAME },
+    { name: 'description', content: RATIO_DESCRIPTION },
+    {
+      'script:ld+json': buildJsonLd(
+        buildWebPage({
+          url: RATIO_URL,
+          name: RATIO_NAME,
+          description: RATIO_DESCRIPTION,
+          breadcrumbLabel: RATIO_NAME,
+        }),
+        buildCalculatorApp({
+          url: RATIO_URL,
+          name: RATIO_NAME,
+          description: RATIO_DESCRIPTION,
+        }),
+      ),
+    },
   ];
 }
 

@@ -6,13 +6,34 @@ import { GearTable } from '~/components/recalc/gearTable';
 import { MeasurementDisplayOutput } from '~/components/recalc/io/measurement';
 import NumberInput from '~/components/recalc/io/number';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
+import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import { calculateSpacing } from '~/lib/math/gears';
 import { NumberParam } from '~/lib/types/queryParams';
 
+const GEARS_URL = 'https://beta.reca.lc/gears';
+const GEARS_NAME = 'Gears Calculator';
+const GEARS_DESCRIPTION =
+  'Calculate gear drive configurations for FRC robots. Determine gear ratios, center-to-center distances, and mesh compatibility.';
+
 export function meta() {
   return [
-    { title: 'Gears Calculator' },
-    { name: 'description', content: 'Gears Calculator' },
+    { title: GEARS_NAME },
+    { name: 'description', content: GEARS_DESCRIPTION },
+    {
+      'script:ld+json': buildJsonLd(
+        buildWebPage({
+          url: GEARS_URL,
+          name: GEARS_NAME,
+          description: GEARS_DESCRIPTION,
+          breadcrumbLabel: GEARS_NAME,
+        }),
+        buildCalculatorApp({
+          url: GEARS_URL,
+          name: GEARS_NAME,
+          description: GEARS_DESCRIPTION,
+        }),
+      ),
+    },
   ];
 }
 

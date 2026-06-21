@@ -25,6 +25,7 @@ import { StringSelectInput } from '~/components/recalc/io/stringSelect';
 import { OptimalConfigGrid } from '~/components/recalc/optimalConfigGrid';
 import { ChartContainer } from '~/components/ui/chart';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
+import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import { computeShotResult, type ShooterMode } from '~/lib/math/ballShot';
 import type * as FlywheelWorker from '~/lib/math/flywheel.worker';
 import type * as FlywheelOptimizerWorker from '~/lib/math/flywheelOptimizer.worker';
@@ -48,10 +49,30 @@ import {
   StringParam,
 } from '~/lib/types/queryParams';
 
+const FLYWHEEL_URL = 'https://beta.reca.lc/flywheel';
+const FLYWHEEL_NAME = 'Flywheel Calculator';
+const FLYWHEEL_DESCRIPTION =
+  'Simulate flywheel mechanisms for FRC robots. Model spin-up time, energy storage, and motor performance under load.';
+
 export function meta() {
   return [
-    { title: 'Flywheel Calculator' },
-    { name: 'description', content: 'Flywheel Calculator' },
+    { title: FLYWHEEL_NAME },
+    { name: 'description', content: FLYWHEEL_DESCRIPTION },
+    {
+      'script:ld+json': buildJsonLd(
+        buildWebPage({
+          url: FLYWHEEL_URL,
+          name: FLYWHEEL_NAME,
+          description: FLYWHEEL_DESCRIPTION,
+          breadcrumbLabel: FLYWHEEL_NAME,
+        }),
+        buildCalculatorApp({
+          url: FLYWHEEL_URL,
+          name: FLYWHEEL_NAME,
+          description: FLYWHEEL_DESCRIPTION,
+        }),
+      ),
+    },
   ];
 }
 
