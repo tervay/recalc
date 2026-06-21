@@ -13,6 +13,7 @@ import { StringSelectInput } from '~/components/recalc/io/stringSelect';
 import { SprocketTable } from '~/components/recalc/sprocketTable';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
+import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import { calculateCenters } from '~/lib/math/chains';
 import Measurement from '~/lib/models/Measurement';
 import { SimpleSprocket } from '~/lib/models/Sprocket';
@@ -23,10 +24,30 @@ import {
   StringParam,
 } from '~/lib/types/queryParams';
 
+const CHAINS_URL = 'https://beta.reca.lc/chains';
+const CHAINS_NAME = 'Chain Calculator';
+const CHAINS_DESCRIPTION =
+  'Calculate chain drive configurations for FRC robots. Find optimal sprocket combinations and center-to-center distances for standard chain sizes.';
+
 export function meta() {
   return [
-    { title: 'Chain Calculator' },
-    { name: 'description', content: 'Chain Calculator' },
+    { title: CHAINS_NAME },
+    { name: 'description', content: CHAINS_DESCRIPTION },
+    {
+      'script:ld+json': buildJsonLd(
+        buildWebPage({
+          url: CHAINS_URL,
+          name: CHAINS_NAME,
+          description: CHAINS_DESCRIPTION,
+          breadcrumbLabel: CHAINS_NAME,
+        }),
+        buildCalculatorApp({
+          url: CHAINS_URL,
+          name: CHAINS_NAME,
+          description: CHAINS_DESCRIPTION,
+        }),
+      ),
+    },
   ];
 }
 

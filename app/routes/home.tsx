@@ -14,17 +14,27 @@ import SearchIcon from '~icons/lucide/search';
 import ZapIcon from '~icons/lucide/zap';
 import StreamlineUltimateFactoryIndustrialRobotArm1 from '~icons/streamline-ultimate/factory-industrial-robot-arm-1';
 
+import { buildJsonLd, buildWebPage, buildWebSite } from '~/lib/jsonld';
 import { cn } from '~/lib/utils';
 
 import type { Route } from '.react-router/types/app/routes/+types/home';
 
+const DESCRIPTION =
+  'Design calculators for FIRST Robotics Competition teams. Calculate belt drives, chains, flywheels, arms, and more.';
+
 export function meta(_: Route.MetaArgs) {
   return [
     { title: 'ReCalc - A collaboration focused mechanical design calculator' },
+    { name: 'description', content: DESCRIPTION },
     {
-      name: 'description',
-      content:
-        'Design calculators for FIRST Robotics Competition teams. Calculate belt drives, chains, flywheels, arms, and more.',
+      'script:ld+json': buildJsonLd(
+        buildWebSite(),
+        buildWebPage({
+          url: 'https://beta.reca.lc',
+          name: 'ReCalc',
+          description: DESCRIPTION,
+        }),
+      ),
     },
   ];
 }

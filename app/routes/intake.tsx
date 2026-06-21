@@ -10,6 +10,7 @@ import { MotorInput } from '~/components/recalc/io/motor';
 import { NumberOutput } from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
+import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import {
   calculateAllRecommendedRatiosAndStallTorques,
   calculateLinearSurfaceSpeed,
@@ -24,10 +25,30 @@ import {
 } from '~/lib/types/queryParams';
 import { cn } from '~/lib/utils';
 
+const INTAKE_URL = 'https://beta.reca.lc/intake';
+const INTAKE_NAME = 'Intake Calculator';
+const INTAKE_DESCRIPTION =
+  'Calculate intake roller mechanisms for FRC robots. Model surface speed, motor requirements, and compression for game piece collection.';
+
 export function meta() {
   return [
-    { title: 'Intake Calculator' },
-    { name: 'description', content: 'Intake Calculator' },
+    { title: INTAKE_NAME },
+    { name: 'description', content: INTAKE_DESCRIPTION },
+    {
+      'script:ld+json': buildJsonLd(
+        buildWebPage({
+          url: INTAKE_URL,
+          name: INTAKE_NAME,
+          description: INTAKE_DESCRIPTION,
+          breadcrumbLabel: INTAKE_NAME,
+        }),
+        buildCalculatorApp({
+          url: INTAKE_URL,
+          name: INTAKE_NAME,
+          description: INTAKE_DESCRIPTION,
+        }),
+      ),
+    },
   ];
 }
 

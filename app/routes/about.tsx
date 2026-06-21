@@ -6,14 +6,28 @@ import Heart from '~icons/lucide/heart';
 import InfoIcon from '~icons/lucide/info';
 import Shield from '~icons/lucide/shield';
 
+import { buildJsonLd, buildWebPage } from '~/lib/jsonld';
+
 import type { Route } from '.react-router/types/app/routes/+types/about';
+
+const ABOUT_URL = 'https://beta.reca.lc/about';
+const ABOUT_DESCRIPTION =
+  'About ReCalc, a collaboration-focused mechanical design calculator for FIRST Robotics Competition and FIRST Tech Challenge teams.';
 
 export function meta(_: Route.MetaArgs) {
   return [
     { title: 'About - ReCalc' },
+    { name: 'description', content: ABOUT_DESCRIPTION },
     {
-      name: 'description',
-      content: 'About ReCalc',
+      'script:ld+json': buildJsonLd(
+        buildWebPage({
+          url: ABOUT_URL,
+          name: 'About - ReCalc',
+          description: ABOUT_DESCRIPTION,
+          breadcrumbLabel: 'About',
+          type: 'AboutPage',
+        }),
+      ),
     },
   ];
 }

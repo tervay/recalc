@@ -29,6 +29,7 @@ import {
 } from '~/components/ui/collapsible';
 import { Skeleton } from '~/components/ui/skeleton';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
+import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import {
   calculateLinearFeedforwardKa,
   calculateLinearFeedforwardKg,
@@ -54,17 +55,37 @@ import {
   RatioParam,
 } from '~/lib/types/queryParams';
 
+const LINEAR_URL = 'https://beta.reca.lc/linear';
+const LINEAR_NAME = 'Linear Mechanism Calculator';
+const LINEAR_DESCRIPTION =
+  'Calculate linear mechanism performance for FRC robots. Model elevator and linear slide mechanisms with motor and gearbox selection.';
+
+export function meta() {
+  return [
+    { title: LINEAR_NAME },
+    { name: 'description', content: LINEAR_DESCRIPTION },
+    {
+      'script:ld+json': buildJsonLd(
+        buildWebPage({
+          url: LINEAR_URL,
+          name: LINEAR_NAME,
+          description: LINEAR_DESCRIPTION,
+          breadcrumbLabel: LINEAR_NAME,
+        }),
+        buildCalculatorApp({
+          url: LINEAR_URL,
+          name: LINEAR_NAME,
+          description: LINEAR_DESCRIPTION,
+        }),
+      ),
+    },
+  ];
+}
+
 const CASCADE_TRAVEL_FACTOR = 0.5;
 const BATTERY_VOLTAGE_FILTER_TC_S = 0.1;
 
 type WpilibElevatorSimState = LinearWorker.WpilibElevatorSimState;
-
-export function meta() {
-  return [
-    { title: 'Linear Motion Calculator' },
-    { name: 'description', content: 'Linear Motion Calculator' },
-  ];
-}
 
 const DEFAULT_PARAMS = {
   motor: MotorParam.withDefault(Motor.KrakenX60sFOC(1)),
