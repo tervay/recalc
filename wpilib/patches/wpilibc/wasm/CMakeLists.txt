@@ -67,7 +67,10 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
         "-sMODULARIZE=1"
         "-sEXPORT_NAME=createWpilibcModule"
         "-sEXPORTED_FUNCTIONS=[_malloc,_free]"
-        "-sEXPORTED_RUNTIME_METHODS=[UTF8ToString,stringToUTF8]"
+        # UTF8ToString and stringToUTF8 are not called from JS; all data crosses
+        # the boundary via emscripten::val (Embind), which handles string
+        # conversion internally.  Removing them shrinks the JS glue.
+        "-sEXPORTED_RUNTIME_METHODS=[]"
         "-sALLOW_MEMORY_GROWTH=1"
         "-sINITIAL_MEMORY=16777216"
         "-sMAXIMUM_MEMORY=268435456"
@@ -79,6 +82,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
         "-O3"
         "-flto"
         "-fwasm-exceptions"
+        "--closure=1"
         "--bind"
         "--no-entry"
         "--emit-tsd"

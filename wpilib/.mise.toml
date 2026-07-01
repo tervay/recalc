@@ -2,3 +2,4 @@
 cmake = "4.3.3"
 ninja = "1.13.2"
 node = "24.16.0"
+java = "temurin-21"
