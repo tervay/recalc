@@ -9,14 +9,16 @@ import Nav from '~/components/recalc/nav';
 import { ThemeProvider } from '~/components/recalc/themeProvider';
 import { SidebarInset, SidebarProvider } from '~/components/ui/sidebar';
 import { Warning } from '~/components/ui/warning';
-import { initOpenPanel } from '~/lib/openpanel';
 
 import type { Route } from '.react-router/types/app/+types/root';
 
 function OpenPanelScript() {
   useEffect(() => {
+    // Dynamically imported so the SDK is excluded from the initial bundle.
     // Environment gating (dev, bots, missing client id) lives in initOpenPanel.
-    initOpenPanel();
+    void import('~/lib/openpanel').then(({ initOpenPanel }) => {
+      initOpenPanel();
+    });
   }, []);
 
   return null;
@@ -32,7 +34,7 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: 'stylesheet',
-    href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
+    href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap',
   },
 ];
 

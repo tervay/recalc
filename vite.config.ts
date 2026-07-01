@@ -50,7 +50,12 @@ export default defineConfig({
         // Emscripten-generated wpilibc_wasm.js and workerpool's browser dist
         // both contain Node.js-specific requires guarded by runtime env checks.
         // They're never reached in browser; the warnings are harmless.
-        if (warning.message.includes('has been externalized for browser compatibility')) return;
+        if (
+          warning.message.includes(
+            'has been externalized for browser compatibility',
+          )
+        )
+          return;
         // Consequence of the above: rolldown can't move __vite-browser-external
         // into a separate chunk when it's also statically imported by workerpool.
         if (warning.code === 'INEFFECTIVE_DYNAMIC_IMPORT') return;
