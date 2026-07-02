@@ -24,6 +24,9 @@
 - text: Battery Resistance
 - spinbutton: "0.015"
 - combobox: Ohm
+- button "LQR Tuning":
+  - img
+  - heading "LQR Tuning" [level=2]
 - heading "Shooter Wheel" [level=2]
 - text: Type
 - combobox: Single Shooter Wheel + Hood
@@ -102,6 +105,8 @@
 - combobox: V*s^2/m
 - text: Effective MOI 2.750
 - combobox: in2*lbs
+- text: Feedback kP 0.0109
+- combobox: V*s/rad
 - heading "Shot Analysis" [level=2]
 - text: Ball Exit Velocity 20.868
 - combobox: ft/s

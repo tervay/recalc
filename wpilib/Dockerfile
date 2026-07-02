@@ -118,6 +118,7 @@ COPY patches/wpilibc/wasm/bindings.cc \
      patches/wpilibc/wasm/dc_motor.h \
      patches/wpilibc/wasm/dc_motor_sim.h \
      patches/wpilibc/wasm/elevator_sim.h \
+     patches/wpilibc/wasm/feedback_gains.h \
      patches/wpilibc/wasm/flywheel_sim.h \
      patches/wpilibc/wasm/sim_util.h \
      /build/allwpilib/wpilibc/wasm/

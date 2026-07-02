@@ -115,6 +115,12 @@ export default class Measurement extends Model {
       } else if (m.innerQty.isCompatible('V*s^2/rad')) {
         // kA (angular)
         return ['V*s^2/rad', 'V*s^2/deg', 'V*s^2/rotation'];
+      } else if (m.innerQty.isCompatible('V/m')) {
+        // kP (linear)
+        return ['V/m', 'V/ft', 'V/in'];
+      } else if (m.innerQty.isCompatible('V/rad')) {
+        // kP (angular)
+        return ['V/rad', 'V/deg', 'V/rotation'];
       } else if (m.innerQty.isCompatible('V/s')) {
         return ['V/s'];
       } else if (m.innerQty.isCompatible('A*h')) {

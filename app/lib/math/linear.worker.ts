@@ -46,6 +46,74 @@ export interface SimulateElevatorWpilibParams {
   kalmanFilterEncoderPositionStdDev: MeasurementDict;
 }
 
+export interface ComputeElevatorFeedbackGainsParams {
+  motorDict: MotorDict;
+  ratio: RatioDict;
+  load: MeasurementDict;
+  spoolDiameter: MeasurementDict;
+  efficiency: number;
+  qPosition: MeasurementDict;
+  qVelocity: MeasurementDict;
+  rVolts: MeasurementDict;
+  feedbackDt: MeasurementDict;
+  sensorDelay: MeasurementDict;
+}
+
+export interface FeedbackGains {
+  kP: number;
+  kD: number;
+}
+
+export async function computeElevatorFeedbackGains({
+  motorDict,
+  ratio,
+  load,
+  spoolDiameter,
+  efficiency,
+  qPosition,
+  qVelocity,
+  rVolts,
+  feedbackDt,
+  sensorDelay,
+}: ComputeElevatorFeedbackGainsParams): Promise<FeedbackGains> {
+  const wpilibc = await initWpilibc();
+  const motor = Motor.fromDict(motorDict);
+  const ratioValue = Ratio.fromDict(ratio);
+  const loadMeasurement = Measurement.fromDict(load);
+  const spoolRadius = Measurement.fromDict(spoolDiameter).div(2);
+  const dt = Measurement.fromDict(feedbackDt);
+  const r = Measurement.fromDict(rVolts);
+
+  if (
+    ratioValue.asNumber() === 0 ||
+    motor.quantity === 0 ||
+    loadMeasurement.baseScalar === 0 ||
+    spoolRadius.baseScalar === 0 ||
+    dt.to('s').scalar <= 0 ||
+    r.to('V').scalar <= 0
+  ) {
+    return { kP: 0, kD: 0 };
+  }
+
+  const wasmMotor = motor.toWpilibMotor();
+  try {
+    return wpilibc.computeElevatorFeedbackGains(
+      wasmMotor,
+      ratioValue.asNumber(),
+      loadMeasurement.to('kg').scalar,
+      spoolRadius.to('m').scalar,
+      efficiency,
+      Measurement.fromDict(qPosition).to('m').scalar,
+      Measurement.fromDict(qVelocity).to('m/s').scalar,
+      r.to('V').scalar,
+      dt.to('s').scalar,
+      Measurement.fromDict(sensorDelay).to('s').scalar,
+    ) as FeedbackGains;
+  } finally {
+    wasmMotor.delete();
+  }
+}
+
 export async function simulateElevatorWpilib({
   motorDict,
   ratio,

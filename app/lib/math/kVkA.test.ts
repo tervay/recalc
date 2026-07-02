@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  calculateAngularFeedforwardKa,
+  calculateAngularFeedforwardKg,
+  calculateAngularFeedforwardKv,
   calculateKa,
   calculateKg,
   calculateKv,
@@ -481,6 +484,218 @@ describe('calculateLinearFeedforwardKg', () => {
       new Measurement(2, 'V*s^2/m'),
       angle,
     );
+    expect(r2.to('V').scalar).toBeCloseTo(r1.to('V').scalar * 2, 5);
+  });
+});
+
+describe('calculateAngularFeedforwardKv', () => {
+  it('returns correct units', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const ratio = new Ratio(4, RatioType.REDUCTION);
+    const result = calculateAngularFeedforwardKv(motor, ratio, 1.0);
+    expect(result.units()).toContain('V');
+  });
+
+  it('scales linearly with gearing', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const r1 = calculateAngularFeedforwardKv(
+      motor,
+      new Ratio(2, RatioType.REDUCTION),
+      1.0,
+    );
+    const r2 = calculateAngularFeedforwardKv(
+      motor,
+      new Ratio(4, RatioType.REDUCTION),
+      1.0,
+    );
+    expect(r2.to('V*s/rad').scalar).toBeCloseTo(r1.to('V*s/rad').scalar * 2, 5);
+  });
+
+  it('scales inversely with efficiency', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const ratio = new Ratio(4, RatioType.REDUCTION);
+    const r1 = calculateAngularFeedforwardKv(motor, ratio, 1.0);
+    const r2 = calculateAngularFeedforwardKv(motor, ratio, 0.5);
+    expect(r2.to('V*s/rad').scalar).toBeCloseTo(r1.to('V*s/rad').scalar * 2, 5);
+  });
+
+  it('returns zero when gearing is zero', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const result = calculateAngularFeedforwardKv(
+      motor,
+      new Ratio(0, RatioType.REDUCTION),
+      1.0,
+    );
+    expect(result.scalar).toBe(0);
+  });
+
+  it('returns zero when efficiency is zero', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const result = calculateAngularFeedforwardKv(
+      motor,
+      new Ratio(4, RatioType.REDUCTION),
+      0,
+    );
+    expect(result.scalar).toBe(0);
+  });
+});
+
+describe('calculateAngularFeedforwardKa', () => {
+  it('returns correct units', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const ratio = new Ratio(4, RatioType.REDUCTION);
+    const momentOfInertia = new Measurement(2, 'kg*m^2');
+    const result = calculateAngularFeedforwardKa(
+      motor,
+      ratio,
+      momentOfInertia,
+      1.0,
+    );
+    expect(result.units()).toContain('V');
+  });
+
+  it('scales linearly with momentOfInertia', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const ratio = new Ratio(4, RatioType.REDUCTION);
+    const r1 = calculateAngularFeedforwardKa(
+      motor,
+      ratio,
+      new Measurement(2, 'kg*m^2'),
+      1.0,
+    );
+    const r2 = calculateAngularFeedforwardKa(
+      motor,
+      ratio,
+      new Measurement(4, 'kg*m^2'),
+      1.0,
+    );
+    expect(r2.to('V*s^2/rad').scalar).toBeCloseTo(
+      r1.to('V*s^2/rad').scalar * 2,
+      5,
+    );
+  });
+
+  it('scales inversely with gearing', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const momentOfInertia = new Measurement(2, 'kg*m^2');
+    const r1 = calculateAngularFeedforwardKa(
+      motor,
+      new Ratio(2, RatioType.REDUCTION),
+      momentOfInertia,
+      1.0,
+    );
+    const r2 = calculateAngularFeedforwardKa(
+      motor,
+      new Ratio(4, RatioType.REDUCTION),
+      momentOfInertia,
+      1.0,
+    );
+    expect(r2.to('V*s^2/rad').scalar).toBeCloseTo(
+      r1.to('V*s^2/rad').scalar / 2,
+      5,
+    );
+  });
+
+  it('returns zero when gearing is zero', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const result = calculateAngularFeedforwardKa(
+      motor,
+      new Ratio(0, RatioType.REDUCTION),
+      new Measurement(2, 'kg*m^2'),
+      1.0,
+    );
+    expect(result.scalar).toBe(0);
+  });
+
+  it('returns zero when efficiency is zero', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const result = calculateAngularFeedforwardKa(
+      motor,
+      new Ratio(4, RatioType.REDUCTION),
+      new Measurement(2, 'kg*m^2'),
+      0,
+    );
+    expect(result.scalar).toBe(0);
+  });
+
+  it('multi-motor: R_eff halves with 2 motors so kA halves', () => {
+    const motor1 = Motor.KrakenX60sFOC(1);
+    const motor2 = Motor.KrakenX60sFOC(2);
+    const ratio = new Ratio(4, RatioType.REDUCTION);
+    const momentOfInertia = new Measurement(2, 'kg*m^2');
+    const r1 = calculateAngularFeedforwardKa(
+      motor1,
+      ratio,
+      momentOfInertia,
+      1.0,
+    );
+    const r2 = calculateAngularFeedforwardKa(
+      motor2,
+      ratio,
+      momentOfInertia,
+      1.0,
+    );
+    expect(r2.to('V*s^2/rad').scalar).toBeCloseTo(
+      r1.to('V*s^2/rad').scalar / 2,
+      5,
+    );
+  });
+});
+
+describe('calculateAngularFeedforwardKg', () => {
+  it('returns zero when momentOfInertia is zero', () => {
+    const kA = new Measurement(1.0, 'V*s^2/rad');
+    const result = calculateAngularFeedforwardKg(
+      kA,
+      new Measurement(0, 'kg*m^2'),
+      new Measurement(5, 'kg'),
+      new Measurement(0.5, 'm'),
+    );
+    expect(result.scalar).toBe(0);
+    expect(result.units()).toBe('V');
+  });
+
+  it('matches manual kA * g * comLength * comMass / J calculation', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const ratio = new Ratio(4, RatioType.REDUCTION);
+    const momentOfInertia = new Measurement(2, 'kg*m^2');
+    const kA = calculateAngularFeedforwardKa(
+      motor,
+      ratio,
+      momentOfInertia,
+      1.0,
+    );
+    const comMass = new Measurement(5, 'kg');
+    const comLength = new Measurement(0.5, 'm');
+
+    const result = calculateAngularFeedforwardKg(
+      kA,
+      momentOfInertia,
+      comMass,
+      comLength,
+    );
+
+    expect(result.to('V').scalar).toBeCloseTo(7.85621395001068, 5);
+  });
+
+  it('scales linearly with kA', () => {
+    const momentOfInertia = new Measurement(2, 'kg*m^2');
+    const comMass = new Measurement(5, 'kg');
+    const comLength = new Measurement(0.5, 'm');
+
+    const r1 = calculateAngularFeedforwardKg(
+      new Measurement(1.0, 'V*s^2/rad'),
+      momentOfInertia,
+      comMass,
+      comLength,
+    );
+    const r2 = calculateAngularFeedforwardKg(
+      new Measurement(2.0, 'V*s^2/rad'),
+      momentOfInertia,
+      comMass,
+      comLength,
+    );
+
     expect(r2.to('V').scalar).toBeCloseTo(r1.to('V').scalar * 2, 5);
   });
 });

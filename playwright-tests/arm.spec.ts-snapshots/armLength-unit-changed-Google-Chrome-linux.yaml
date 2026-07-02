@@ -41,6 +41,9 @@
 - button "Battery Resistance"
 - spinbutton: "0.015"
 - combobox: Ohm
+- button "LQR Tuning":
+  - img
+  - heading "LQR Tuning" [level=2]
 - text: Time to Goal (Up) 0.264
 - combobox: s
 - text: Time to Goal (Down) 0.260
@@ -75,3 +78,13 @@
     - img "Supply Current (A) legend icon"
     - text: Supply Current (A)
 - application: Time (s) Current (A) / Voltage (V) Motor Speed (RPM) 0.001 0.031 0.061 0.091 0.111 0.131 0.151 0.171 0.191 0.211 0.241 0.26 -9 0 9 18 27 0 1500 3000 4500 6000
+- text: kV 1.967
+- combobox: V*s/rad
+- text: kA 0.002
+- combobox: V*s^2/rad
+- text: kG 0.068
+- combobox: V
+- text: Feedback kP 31.530
+- combobox: V/rad
+- text: Feedback kD 0.027
+- combobox: V*s/rad

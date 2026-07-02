@@ -19,6 +19,58 @@ export interface WpilibArmSimState {
   success: boolean;
 }
 
+export interface FeedbackGains {
+  kP: number;
+  kD: number;
+}
+
+export async function computeArmFeedbackGains(
+  motor_: MotorDict,
+  ratio_: RatioDict,
+  momentOfInertia_: MeasurementDict,
+  efficiency: number,
+  qPosition_: MeasurementDict,
+  qVelocity_: MeasurementDict,
+  rVolts_: MeasurementDict,
+  feedbackDt_: MeasurementDict,
+  sensorDelay_: MeasurementDict,
+): Promise<FeedbackGains> {
+  const wpilibc = await initWpilibc();
+
+  const motor = Motor.fromDict(motor_);
+  const ratio = Ratio.fromDict(ratio_);
+  const momentOfInertia = Measurement.fromDict(momentOfInertia_);
+  const feedbackDt = Measurement.fromDict(feedbackDt_);
+  const rVolts = Measurement.fromDict(rVolts_);
+
+  if (
+    ratio.asNumber() === 0 ||
+    motor.quantity === 0 ||
+    momentOfInertia.baseScalar === 0 ||
+    feedbackDt.to('s').scalar <= 0 ||
+    rVolts.to('V').scalar <= 0
+  ) {
+    return { kP: 0, kD: 0 };
+  }
+
+  const wasmMotor = motor.toWpilibMotor();
+  try {
+    return wpilibc.computeArmFeedbackGains(
+      wasmMotor,
+      ratio.asNumber(),
+      momentOfInertia.to('kg m^2').scalar,
+      efficiency,
+      Measurement.fromDict(qPosition_).to('rad').scalar,
+      Measurement.fromDict(qVelocity_).to('rad/s').scalar,
+      rVolts.to('V').scalar,
+      feedbackDt.to('s').scalar,
+      Measurement.fromDict(sensorDelay_).to('s').scalar,
+    ) as FeedbackGains;
+  } finally {
+    wasmMotor.delete();
+  }
+}
+
 export async function simulateArmWpilib(
   motor_: MotorDict,
   ratio_: RatioDict,

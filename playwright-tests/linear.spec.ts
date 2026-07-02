@@ -335,4 +335,33 @@ test.describe('Linear Mechanism Calculator', () => {
       name: 'timeToGoal-changed.yaml',
     });
   });
+
+  test('should match snapshot with feedbackDt magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByText('LQR Tuning').click();
+    await page.waitForTimeout(300);
+    await page.getByTestId('feedbackDt').fill('40');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'feedbackDt-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with feedbackDt unit changed', async ({
+    page,
+  }) => {
+    await page.getByText('LQR Tuning').click();
+    await page.waitForTimeout(300);
+    await page.getByTestId('selectfeedbackDt').click();
+    await page.getByRole('option', { name: 's', exact: true }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'feedbackDt-unit-changed.yaml',
+    });
+  });
 });

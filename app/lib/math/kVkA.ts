@@ -114,6 +114,93 @@ export function calculateLinearFeedforwardKg(
 }
 
 /**
+ * Feedforward velocity gain for an angular (rotational) mechanism, e.g. an arm.
+ *
+ * kV = gearing / (efficiency * Kv_motor [rad/s/V])
+ *
+ * @returns V*s/rad
+ */
+export function calculateAngularFeedforwardKv(
+  motor: Motor,
+  ratio: Ratio,
+  efficiency: number,
+): Measurement {
+  if (Measurement.anyAreZero(ratio.asNumber(), efficiency, motor.kV)) {
+    return new Measurement(0, 'V*s/rad');
+  }
+
+  return new Measurement(ratio.asNumber()).div(efficiency).div(motor.kV);
+}
+
+/**
+ * Feedforward acceleration gain for an angular (rotational) mechanism.
+ *
+ * kA = J * R_eff / (efficiency * Kt * gearing)
+ *
+ * R_eff = motor.resistance / motor.quantity (parallel resistance of n motors).
+ *
+ * J is supplied as a plain kg*m^2-style Measurement (no `rad` in its units,
+ * matching how arm.tsx builds `momentOfInertia = load * armLength^2`). It is
+ * divided by 1 rad (via `removeRad()`) before combining with R_eff and Kt so
+ * that the result reduces to V*s²/rad through js-quantities' unit algebra.
+ *
+ * @param momentOfInertia J, in kg*m^2 (or equivalent)
+ * @returns V*s^2/rad
+ */
+export function calculateAngularFeedforwardKa(
+  motor: Motor,
+  ratio: Ratio,
+  momentOfInertia: Measurement,
+  efficiency: number,
+): Measurement {
+  const rEff = motor.resistance.div(motor.quantity);
+
+  if (Measurement.anyAreZero(motor.kT, ratio.asNumber(), efficiency)) {
+    return new Measurement(0, 'V*s^2/rad');
+  }
+
+  return momentOfInertia
+    .removeRad()
+    .mul(rEff)
+    .div(motor.kT)
+    .div(ratio.asNumber())
+    .div(efficiency);
+}
+
+/**
+ * Feedforward gravity gain for an angular (rotational) mechanism, e.g. an arm
+ * held out horizontally against gravity.
+ *
+ * kG = kA * g * comLength * comMass / J
+ *
+ * Returns the voltage required to hold the mechanism horizontal against
+ * gravity (maximum gravity torque case). Caller is responsible for scaling
+ * by cos(angle-from-horizontal) if a non-horizontal holding voltage is needed.
+ *
+ * momentOfInertia is divided by 1 rad (via `removeRad()`) to cancel the
+ * `/rad` baked into kA by `calculateAngularFeedforwardKa`, so the result
+ * reduces to plain volts.
+ *
+ * @returns V
+ */
+export function calculateAngularFeedforwardKg(
+  kA: Measurement,
+  momentOfInertia: Measurement,
+  comMass: Measurement,
+  comLength: Measurement,
+): Measurement {
+  if (momentOfInertia.scalar === 0) {
+    return new Measurement(0, 'V');
+  }
+
+  return kA
+    .mul(Measurement.GRAVITY.negate())
+    .mul(comLength)
+    .mul(comMass)
+    .div(momentOfInertia.removeRad());
+}
+
+/**
  * Supply-current-limited maximum velocity for a linear (translational) mechanism.
  *
  * At cruise (a = 0, η = 1), the motor must overcome gravity, drawing stator

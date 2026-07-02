@@ -8,6 +8,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
+import ChevronDownIcon from '~icons/lucide/chevron-down';
 
 import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
@@ -21,6 +22,11 @@ import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
 import { OptimalConfigGrid } from '~/components/recalc/optimalConfigGrid';
 import { ChartContainer } from '~/components/ui/chart';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '~/components/ui/collapsible';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import type * as ArmWorker from '~/lib/math/arm.worker';
@@ -30,6 +36,11 @@ import type {
   ConfigOptResult,
 } from '~/lib/math/armOptimizer.worker';
 import optimizerWorkerUrl from '~/lib/math/armOptimizer.worker?worker&url';
+import {
+  calculateAngularFeedforwardKa,
+  calculateAngularFeedforwardKg,
+  calculateAngularFeedforwardKv,
+} from '~/lib/math/kVkA';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
@@ -89,6 +100,11 @@ const DEFAULT_PARAMS = {
   maximumComfortableSupplyLimit: MeasurementParam.withDefault(
     new Measurement(60, 'A'),
   ),
+  qPosition: MeasurementParam.withDefault(new Measurement(2, 'deg')),
+  qVelocity: MeasurementParam.withDefault(new Measurement(40, 'deg/s')),
+  rVolts: MeasurementParam.withDefault(new Measurement(12, 'V')),
+  sensorDelay: MeasurementParam.withDefault(new Measurement(1, 'ms')),
+  feedbackDt: MeasurementParam.withDefault(new Measurement(20, 'ms')),
 };
 
 const CHART_CONFIG = {} as const;
@@ -125,6 +141,11 @@ export default function Arm() {
     useState(queryParams.maximumComfortableStatorLimit);
   const [maximumComfortableSupplyLimit, setMaximumComfortableSupplyLimit] =
     useState(queryParams.maximumComfortableSupplyLimit);
+  const [qPosition, setQPosition] = useState(queryParams.qPosition);
+  const [qVelocity, setQVelocity] = useState(queryParams.qVelocity);
+  const [rVolts, setRVolts] = useState(queryParams.rVolts);
+  const [sensorDelay, setSensorDelay] = useState(queryParams.sensorDelay);
+  const [feedbackDt, setFeedbackDt] = useState(queryParams.feedbackDt);
 
   const [goingUpStates, setGoingUpStates] = useState<WpilibArmSimState[]>([]);
   const [goingDownStates, setGoingDownStates] = useState<WpilibArmSimState[]>(
@@ -153,6 +174,64 @@ export default function Arm() {
   const momentOfInertia = useMemo(() => {
     return load.mul(armLength.mul(armLength));
   }, [load, armLength]);
+
+  const kV = useMemo(
+    () => calculateAngularFeedforwardKv(motor, ratio, efficiency / 100),
+    [motor, ratio, efficiency],
+  );
+  const kA = useMemo(
+    () =>
+      calculateAngularFeedforwardKa(
+        motor,
+        ratio,
+        momentOfInertia,
+        efficiency / 100,
+      ),
+    [motor, ratio, momentOfInertia, efficiency],
+  );
+  const kG = useMemo(
+    () => calculateAngularFeedforwardKg(kA, momentOfInertia, load, armLength),
+    [kA, momentOfInertia, load, armLength],
+  );
+
+  const [feedbackGains, setFeedbackGains] = useState({
+    kP: new Measurement(0, 'V/rad'),
+    kD: new Measurement(0, 'V*s/rad'),
+  });
+
+  useEffect(() => {
+    worker
+      .computeArmFeedbackGains(
+        motor.toDict(),
+        ratio.toDict(),
+        momentOfInertia.toDict(),
+        efficiency / 100,
+        qPosition.toDict(),
+        qVelocity.toDict(),
+        rVolts.toDict(),
+        feedbackDt.toDict(),
+        sensorDelay.toDict(),
+      )
+      .then(({ kP, kD }) => {
+        setFeedbackGains({
+          kP: new Measurement(kP, 'V/rad'),
+          kD: new Measurement(kD, 'V*s/rad'),
+        });
+      })
+      .catch((error: unknown) => {
+        console.error(error);
+      });
+  }, [
+    motor,
+    ratio,
+    momentOfInertia,
+    efficiency,
+    qPosition,
+    qVelocity,
+    rVolts,
+    feedbackDt,
+    sensorDelay,
+  ]);
 
   // Convert angularVelocityRadPerSec to RPM for chart display
   const goingUpChartData = useMemo(
@@ -323,6 +402,11 @@ export default function Arm() {
     load,
     maximumComfortableStatorLimit,
     maximumComfortableSupplyLimit,
+    qPosition,
+    qVelocity,
+    rVolts,
+    sensorDelay,
+    feedbackDt,
   });
 
   return (
@@ -449,6 +533,62 @@ export default function Arm() {
                   />
                 </IOLine>
               </div>
+              <div className="border-t" />
+
+              {/* LQR Tuning section */}
+              <Collapsible defaultOpen={false} className="flex flex-col p-4">
+                <CollapsibleTrigger className="group flex cursor-pointer items-center gap-1">
+                  <ChevronDownIcon className="size-3.5 -rotate-90 text-muted-foreground transition-transform duration-200 group-data-[panel-open]:rotate-0" />
+                  <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                    LQR Tuning
+                  </h2>
+                </CollapsibleTrigger>
+                <CollapsibleContent className="overflow-hidden data-open:animate-collapsible-down data-closed:animate-collapsible-up">
+                  <div className="flex flex-col gap-3 pt-3">
+                    <IOLine>
+                      <MeasurementInput
+                        stateHook={[qPosition, setQPosition]}
+                        label="Q Position"
+                        tooltip="Maximum tolerable position error (Bryson's rule). Smaller values make the controller more aggressive about correcting position error."
+                        testId="qPosition"
+                        labelAbove
+                      />
+                      <MeasurementInput
+                        stateHook={[qVelocity, setQVelocity]}
+                        label="Q Velocity"
+                        tooltip="Maximum tolerable velocity error (Bryson's rule). Smaller values make the controller more aggressive about correcting velocity error."
+                        testId="qVelocity"
+                        labelAbove
+                      />
+                    </IOLine>
+                    <IOLine>
+                      <MeasurementInput
+                        stateHook={[rVolts, setRVolts]}
+                        label="R (Volts)"
+                        tooltip="Maximum tolerable control effort in volts (Bryson's rule). Larger values reduce aggressiveness and limit output voltage."
+                        testId="rVolts"
+                        labelAbove
+                      />
+                      <MeasurementInput
+                        stateHook={[sensorDelay, setSensorDelay]}
+                        label="Sensor Delay"
+                        tooltip="The delay time for the sensor. This is used to compensate for the sensor delay."
+                        testId="sensorDelay"
+                        labelAbove
+                      />
+                    </IOLine>
+                    <IOLine>
+                      <MeasurementInput
+                        stateHook={[feedbackDt, setFeedbackDt]}
+                        label="Robot Loop Period"
+                        tooltip="The period of the control loop that will run the PID controller (e.g. the main robot loop, or a faster onboard motor controller loop). Used to compute the discrete-time Feedback Gains below."
+                        testId="feedbackDt"
+                        labelAbove
+                      />
+                    </IOLine>
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
             </section>
           </div>
           <div className="flex min-w-[300px] flex-1 flex-col gap-4">
@@ -657,6 +797,51 @@ export default function Arm() {
                     />
                   </LineChart>
                 </ChartContainer>
+              </div>
+              <div className="border-t" />
+
+              {/* Feedforward */}
+              <div className="grid grid-cols-3 gap-2 p-4">
+                <MeasurementDisplayOutput
+                  state={kV}
+                  label="kV"
+                  defaultUnit="V*s/rad"
+                  roundTo={3}
+                  testId="kV"
+                />
+                <MeasurementDisplayOutput
+                  state={kA}
+                  label="kA"
+                  defaultUnit="V*s^2/rad"
+                  roundTo={3}
+                  testId="kA"
+                />
+                <MeasurementDisplayOutput
+                  state={kG}
+                  label="kG"
+                  defaultUnit="V"
+                  roundTo={3}
+                  testId="kG"
+                />
+              </div>
+              <div className="border-t" />
+
+              {/* Feedback Gains */}
+              <div className="grid grid-cols-2 gap-2 p-4">
+                <MeasurementDisplayOutput
+                  state={feedbackGains.kP}
+                  label="Feedback kP"
+                  defaultUnit="V/rad"
+                  roundTo={3}
+                  testId="feedbackKP"
+                />
+                <MeasurementDisplayOutput
+                  state={feedbackGains.kD}
+                  label="Feedback kD"
+                  defaultUnit="V*s/rad"
+                  roundTo={3}
+                  testId="feedbackKD"
+                />
               </div>
             </section>
           </div>

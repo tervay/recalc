@@ -9,6 +9,7 @@ import {
   YAxis,
 } from 'recharts';
 import * as z from 'zod';
+import ChevronDownIcon from '~icons/lucide/chevron-down';
 
 import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
@@ -24,6 +25,11 @@ import { RatioInput } from '~/components/recalc/io/ratio';
 import { StringSelectInput } from '~/components/recalc/io/stringSelect';
 import { OptimalConfigGrid } from '~/components/recalc/optimalConfigGrid';
 import { ChartContainer } from '~/components/ui/chart';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '~/components/ui/collapsible';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import { computeShotResult, type ShooterMode } from '~/lib/math/ballShot';
@@ -131,6 +137,10 @@ const DEFAULT_PARAMS = {
   maximumComfortableSupplyLimit: MeasurementParam.withDefault(
     new Measurement(60, 'A'),
   ),
+  qVelocity: MeasurementParam.withDefault(new Measurement(50, 'rpm')),
+  rVolts: MeasurementParam.withDefault(new Measurement(12, 'V')),
+  sensorDelay: MeasurementParam.withDefault(new Measurement(1, 'ms')),
+  feedbackDt: MeasurementParam.withDefault(new Measurement(20, 'ms')),
 };
 
 const ShooterModeSchema = z.enum(['single-hooded', 'dual-shooter', 'compound']);
@@ -202,6 +212,10 @@ export default function Flywheel() {
     useState(queryParams.maximumComfortableStatorLimit);
   const [maximumComfortableSupplyLimit, setMaximumComfortableSupplyLimit] =
     useState(queryParams.maximumComfortableSupplyLimit);
+  const [qVelocity, setQVelocity] = useState(queryParams.qVelocity);
+  const [rVolts, setRVolts] = useState(queryParams.rVolts);
+  const [sensorDelay, setSensorDelay] = useState(queryParams.sensorDelay);
+  const [feedbackDt, setFeedbackDt] = useState(queryParams.feedbackDt);
 
   const [shooterMode, setShooterMode] = useState<ShooterMode>(
     ShooterModeSchema.catch('single-hooded').parse(queryParams.shooterMode),
@@ -353,6 +367,39 @@ export default function Flywheel() {
       combinedMOI.div(shooterDiameter.div(2).mul(shooterDiameter.div(2))),
     );
   }, [shooterDiameter, motor, statorLimit, ratio, efficiency, combinedMOI]);
+
+  const [feedbackGains, setFeedbackGains] = useState({
+    kP: new Measurement(0, 'V*s/rad'),
+  });
+
+  useEffect(() => {
+    worker
+      .computeFlywheelFeedbackGains(
+        motor.toDict(),
+        ratio.toDict(),
+        combinedMOI.toDict(),
+        efficiency / 100,
+        qVelocity.toDict(),
+        rVolts.toDict(),
+        feedbackDt.toDict(),
+        sensorDelay.toDict(),
+      )
+      .then(({ kP }) => {
+        setFeedbackGains({ kP: new Measurement(kP, 'V*s/rad') });
+      })
+      .catch((error: unknown) => {
+        console.error(error);
+      });
+  }, [
+    motor,
+    ratio,
+    combinedMOI,
+    efficiency,
+    qVelocity,
+    rVolts,
+    feedbackDt,
+    sensorDelay,
+  ]);
 
   const maxAchievableShooterRPM = useMemo(() => {
     if (ratio.asNumber() === 0) {
@@ -612,6 +659,10 @@ export default function Flywheel() {
     efficiency,
     maximumComfortableStatorLimit,
     maximumComfortableSupplyLimit,
+    qVelocity,
+    rVolts,
+    sensorDelay,
+    feedbackDt,
   });
 
   return (
@@ -682,6 +733,53 @@ export default function Flywheel() {
                   />
                 </IOLine>
               </div>
+              <div className="border-t" />
+
+              {/* LQR Tuning section */}
+              <Collapsible defaultOpen={false} className="flex flex-col p-4">
+                <CollapsibleTrigger className="group flex cursor-pointer items-center gap-1">
+                  <ChevronDownIcon className="size-3.5 -rotate-90 text-muted-foreground transition-transform duration-200 group-data-[panel-open]:rotate-0" />
+                  <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                    LQR Tuning
+                  </h2>
+                </CollapsibleTrigger>
+                <CollapsibleContent className="overflow-hidden data-open:animate-collapsible-down data-closed:animate-collapsible-up">
+                  <div className="flex flex-col gap-3 pt-3">
+                    <IOLine>
+                      <MeasurementInput
+                        stateHook={[qVelocity, setQVelocity]}
+                        label="Q Velocity"
+                        tooltip="Maximum tolerable velocity error (Bryson's rule). Smaller values make the controller more aggressive about correcting velocity error."
+                        testId="qVelocity"
+                        labelAbove
+                      />
+                      <MeasurementInput
+                        stateHook={[rVolts, setRVolts]}
+                        label="R (Volts)"
+                        tooltip="Maximum tolerable control effort in volts (Bryson's rule). Larger values reduce aggressiveness and limit output voltage."
+                        testId="rVolts"
+                        labelAbove
+                      />
+                    </IOLine>
+                    <IOLine>
+                      <MeasurementInput
+                        stateHook={[sensorDelay, setSensorDelay]}
+                        label="Sensor Delay"
+                        tooltip="The delay time for the sensor. This is used to compensate for the sensor delay."
+                        testId="sensorDelay"
+                        labelAbove
+                      />
+                      <MeasurementInput
+                        stateHook={[feedbackDt, setFeedbackDt]}
+                        label="Robot Loop Period"
+                        tooltip="The period of the control loop that will run the PID controller (e.g. the main robot loop, or a faster onboard motor controller loop). Used to compute the discrete-time Feedback Gains below."
+                        testId="feedbackDt"
+                        labelAbove
+                      />
+                    </IOLine>
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
               <div className="border-t" />
 
               {/* Shooter Wheel */}
@@ -1116,6 +1214,18 @@ export default function Flywheel() {
                   label="Effective MOI"
                   defaultUnit="in2*lbs"
                   testId="effectiveMoi"
+                />
+              </div>
+              <div className="border-t" />
+
+              {/* Feedback Gain */}
+              <div className="grid grid-cols-3 gap-2 p-4">
+                <MeasurementDisplayOutput
+                  state={feedbackGains.kP}
+                  label="Feedback kP"
+                  defaultUnit="V*s/rad"
+                  roundTo={4}
+                  testId="feedbackKP"
                 />
               </div>
               <div className="border-t" />
