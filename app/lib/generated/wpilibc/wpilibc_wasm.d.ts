@@ -173,6 +173,39 @@ interface EmbindModule {
     maxSimSeconds: number,
     batteryVoltageFilterTimeConstantSeconds: number,
   ): any;
+  computeElevatorFeedbackGains(
+    motor: DCMotor | null,
+    gearing: number,
+    massKg: number,
+    spoolRadiusMeters: number,
+    efficiency: number,
+    qPositionMeters: number,
+    qVelocityMPS: number,
+    rVolts: number,
+    dtSeconds: number,
+    sensorDelaySeconds: number,
+  ): any;
+  computeArmFeedbackGains(
+    motor: DCMotor | null,
+    gearing: number,
+    momentOfInertiaKgMSquared: number,
+    efficiency: number,
+    qPositionRad: number,
+    qVelocityRadPerSec: number,
+    rVolts: number,
+    dtSeconds: number,
+    sensorDelaySeconds: number,
+  ): any;
+  computeFlywheelFeedbackGains(
+    motor: DCMotor | null,
+    gearing: number,
+    momentOfInertiaKgMSquared: number,
+    efficiency: number,
+    qVelocityRadPerSec: number,
+    rVolts: number,
+    dtSeconds: number,
+    sensorDelaySeconds: number,
+  ): any;
 }
 
 export type MainModule = WasmModule & EmbindModule;

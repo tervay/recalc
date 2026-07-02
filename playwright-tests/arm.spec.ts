@@ -266,6 +266,43 @@ test.describe('Arm Calculator', () => {
     });
   });
 
+  test('should match snapshot with qPosition magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByText('LQR Tuning').click();
+    await page.waitForTimeout(300);
+    await page.getByTestId('qPosition').fill('5');
+    await waitForCalc(page);
+    expect(await page.getByTestId('arm-main').ariaSnapshot()).toMatchSnapshot({
+      name: 'qPosition-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with feedbackDt magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByText('LQR Tuning').click();
+    await page.waitForTimeout(300);
+    await page.getByTestId('feedbackDt').fill('40');
+    await waitForCalc(page);
+    expect(await page.getByTestId('arm-main').ariaSnapshot()).toMatchSnapshot({
+      name: 'feedbackDt-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with feedbackDt unit changed', async ({
+    page,
+  }) => {
+    await page.getByText('LQR Tuning').click();
+    await page.waitForTimeout(300);
+    await page.getByTestId('selectfeedbackDt').click();
+    await page.getByRole('option', { name: 's', exact: true }).click();
+    await waitForCalc(page);
+    expect(await page.getByTestId('arm-main').ariaSnapshot()).toMatchSnapshot({
+      name: 'feedbackDt-unit-changed.yaml',
+    });
+  });
+
   test('mechanism optimization grid renders and selected config panel appears', async ({
     page,
   }) => {

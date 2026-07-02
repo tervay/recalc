@@ -1,0 +1,105 @@
+- heading "Arm Calculator" [level=1]
+- button "Copy Link":
+  - img
+  - img
+  - text: Copy Link
+- heading "Motor & Gearing" [level=2]
+- text: Motor
+- spinbutton "Motor Ratio Arm Length Load Min Angle Max Angle Stator Limit Supply Limit Stator Voltage Supply Voltage Battery Resistance Q Position Q Velocity R (Volts) Sensor Delay Robot Loop Period Max Stator Limit Max Supply Limit": "1"
+- combobox: Kraken X60 (FOC)
+- text: Ratio
+- spinbutton: "100"
+- combobox: Reduction
+- heading "Arm Geometry" [level=2]
+- button "Arm Length"
+- spinbutton: "24"
+- combobox: in
+- button "Load"
+- spinbutton: "5"
+- combobox: lbs
+- button "Min Angle"
+- spinbutton: "0"
+- combobox: deg
+- button "Max Angle"
+- spinbutton: "90"
+- combobox: deg
+- heading "Limits" [level=2]
+- button "Stator Limit"
+- spinbutton: "80"
+- combobox: A
+- button "Supply Limit"
+- spinbutton: "60"
+- combobox: A
+- button "Stator Voltage"
+- spinbutton: "12"
+- combobox: V
+- button "Supply Voltage"
+- spinbutton: "12"
+- combobox: V
+- button "Efficiency"
+- spinbutton: "100"
+- button "Battery Resistance"
+- spinbutton: "0.015"
+- combobox: Ohm
+- button "LQR Tuning" [expanded]:
+  - img
+  - heading "LQR Tuning" [level=2]
+- button "Q Position"
+- spinbutton: "2"
+- combobox: deg
+- button "Q Velocity"
+- spinbutton: "40"
+- combobox: deg/s
+- button "R (Volts)"
+- spinbutton: "12"
+- combobox: V
+- button "Sensor Delay"
+- spinbutton: "1"
+- combobox: ms
+- button "Robot Loop Period"
+- spinbutton: "40"
+- combobox: ms
+- text: Time to Goal (Up) 0.285
+- combobox: s
+- text: Time to Goal (Down) 0.273
+- combobox: s
+- heading "Simulation (Going Up)" [level=2]
+- list:
+  - listitem:
+    - img "Battery Voltage (V) legend icon"
+    - text: Battery Voltage (V)
+  - listitem:
+    - img "Motor RPM legend icon"
+    - text: Motor RPM
+  - listitem:
+    - img "Stator Current (A) legend icon"
+    - text: Stator Current (A)
+  - listitem:
+    - img "Supply Current (A) legend icon"
+    - text: Supply Current (A)
+- application: Time (s) Current (A) / Voltage (V) Motor Speed (RPM) 0.021 0.051 0.081 0.111 0.141 0.171 0.201 0.231 0.261 0.285 0 20 40 60 80 0 1500 3000 4500 6000
+- heading "Simulation (Going Down)" [level=2]
+- list:
+  - listitem:
+    - img "Battery Voltage (V) legend icon"
+    - text: Battery Voltage (V)
+  - listitem:
+    - img "Motor RPM legend icon"
+    - text: Motor RPM
+  - listitem:
+    - img "Stator Current (A) legend icon"
+    - text: Stator Current (A)
+  - listitem:
+    - img "Supply Current (A) legend icon"
+    - text: Supply Current (A)
+- application: Time (s) Current (A) / Voltage (V) Motor Speed (RPM) 0.021 0.051 0.081 0.111 0.131 0.161 0.191 0.221 0.251 0.273 -25 0 25 50 75 0 1500 3000 4500 6000
+- text: kV 1.967
+- combobox: V*s/rad
+- text: kA 0.011
+- combobox: V*s^2/rad
+- text: kG 0.174
+- combobox: V
+- text: Feedback kP 26.638
+- combobox: V/rad
+- text: Feedback kD 0.147
+- combobox: V*s/rad

@@ -661,4 +661,60 @@ describe('Measurement', () => {
       expect(m.sign()).toBe(0);
     });
   });
+
+  describe('static choices', () => {
+    it('returns linear kV unit family for V*s/m', () => {
+      const m = new Measurement(1, 'V*s/m');
+      expect(Measurement.choices(m)).toEqual(['V*s/m', 'V*s/ft', 'V*s/in']);
+    });
+
+    it('returns linear kA unit family for V*s^2/m', () => {
+      const m = new Measurement(1, 'V*s^2/m');
+      expect(Measurement.choices(m)).toEqual([
+        'V*s^2/m',
+        'V*s^2/ft',
+        'V*s^2/in',
+      ]);
+    });
+
+    it('returns angular kV unit family for V*s/rad', () => {
+      const m = new Measurement(1, 'V*s/rad');
+      expect(Measurement.choices(m)).toEqual([
+        'V*s/rad',
+        'V*s/deg',
+        'V*s/rotation',
+      ]);
+    });
+
+    it('returns angular kA unit family for V*s^2/rad', () => {
+      const m = new Measurement(1, 'V*s^2/rad');
+      expect(Measurement.choices(m)).toEqual([
+        'V*s^2/rad',
+        'V*s^2/deg',
+        'V*s^2/rotation',
+      ]);
+    });
+
+    it('returns linear kP unit family for V/m', () => {
+      const m = new Measurement(1, 'V/m');
+      expect(Measurement.choices(m)).toEqual(['V/m', 'V/ft', 'V/in']);
+    });
+
+    it('returns angular kP unit family for V/rad', () => {
+      const m = new Measurement(1, 'V/rad');
+      expect(Measurement.choices(m)).toEqual(['V/rad', 'V/deg', 'V/rotation']);
+    });
+
+    it('does not confuse linear kP (V/m) with linear kV (V*s/m)', () => {
+      const kP = new Measurement(1, 'V/m');
+      const kV = new Measurement(1, 'V*s/m');
+      expect(Measurement.choices(kP)).not.toEqual(Measurement.choices(kV));
+    });
+
+    it('does not confuse angular kP (V/rad) with angular kV (V*s/rad)', () => {
+      const kP = new Measurement(1, 'V/rad');
+      const kV = new Measurement(1, 'V*s/rad');
+      expect(Measurement.choices(kP)).not.toEqual(Measurement.choices(kV));
+    });
+  });
 });

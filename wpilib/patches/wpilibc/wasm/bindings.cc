@@ -5,6 +5,7 @@
 #include "dc_motor.h"
 #include "dc_motor_sim.h"
 #include "elevator_sim.h"
+#include "feedback_gains.h"
 #include "flywheel_sim.h"
 
 using namespace emscripten;
@@ -115,4 +116,23 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
       "efficiency, goingUp, simTimestep, decimation, maxSimSeconds, "
       "batteryVoltageFilterTimeConstantSeconds)",
       &SimulateArm, allow_raw_pointers());
+
+  // LQR-derived feedback gains (kP, kD)
+  function(
+      "computeElevatorFeedbackGains(motor, gearing, massKg, "
+      "spoolRadiusMeters, efficiency, qPositionMeters, qVelocityMPS, "
+      "rVolts, dtSeconds, sensorDelaySeconds)",
+      &ComputeElevatorFeedbackGains, allow_raw_pointers());
+
+  function(
+      "computeArmFeedbackGains(motor, gearing, momentOfInertiaKgMSquared, "
+      "efficiency, qPositionRad, qVelocityRadPerSec, rVolts, dtSeconds, "
+      "sensorDelaySeconds)",
+      &ComputeArmFeedbackGains, allow_raw_pointers());
+
+  function(
+      "computeFlywheelFeedbackGains(motor, gearing, "
+      "momentOfInertiaKgMSquared, efficiency, qVelocityRadPerSec, rVolts, "
+      "dtSeconds, sensorDelaySeconds)",
+      &ComputeFlywheelFeedbackGains, allow_raw_pointers());
 }

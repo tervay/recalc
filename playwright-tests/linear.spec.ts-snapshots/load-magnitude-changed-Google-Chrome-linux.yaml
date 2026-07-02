@@ -80,3 +80,7 @@
 - combobox: V*s/m
 - text: kG 1.810
 - combobox: V
+- text: Feedback kP 145.592
+- combobox: V/m
+- text: Feedback kD 7.702
+- combobox: V*s/m

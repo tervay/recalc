@@ -116,6 +116,7 @@ const DEFAULT_PARAMS = {
   qVelocity: MeasurementParam.withDefault(new Measurement(0.4, 'm/s')),
   rVolts: MeasurementParam.withDefault(new Measurement(12, 'V')),
   sensorDelay: MeasurementParam.withDefault(new Measurement(1, 'ms')),
+  feedbackDt: MeasurementParam.withDefault(new Measurement(20, 'ms')),
   kalmanFilterPositionStdDev: MeasurementParam.withDefault(
     new Measurement(2, 'in'),
   ),
@@ -176,6 +177,7 @@ export default function Linear() {
   const [qPosition, setQPosition] = useState(queryParams.qPosition);
   const [qVelocity, setQVelocity] = useState(queryParams.qVelocity);
   const [rVolts, setRVolts] = useState(queryParams.rVolts);
+  const [feedbackDt, setFeedbackDt] = useState(queryParams.feedbackDt);
   const [kalmanFilterPositionStdDev, setKalmanFilterPositionStdDev] = useState(
     queryParams.kalmanFilterPositionStdDev,
   );
@@ -312,6 +314,47 @@ export default function Linear() {
     () => calculateLinearFeedforwardKg(kA, angle),
     [kA, angle],
   );
+
+  const [feedbackGains, setFeedbackGains] = useState({
+    kP: new Measurement(0, 'V/m'),
+    kD: new Measurement(0, 'V*s/m'),
+  });
+
+  useEffect(() => {
+    worker
+      .computeElevatorFeedbackGains({
+        motorDict: motor.toDict(),
+        ratio: ratio.toDict(),
+        load: load.toDict(),
+        spoolDiameter: spoolDiameter.toDict(),
+        efficiency: efficiency / 100,
+        qPosition: qPosition.toDict(),
+        qVelocity: qVelocity.toDict(),
+        rVolts: rVolts.toDict(),
+        feedbackDt: feedbackDt.toDict(),
+        sensorDelay: sensorDelay.toDict(),
+      })
+      .then(({ kP, kD }) => {
+        setFeedbackGains({
+          kP: new Measurement(kP, 'V/m'),
+          kD: new Measurement(kD, 'V*s/m'),
+        });
+      })
+      .catch((error: unknown) => {
+        console.error(error);
+      });
+  }, [
+    motor,
+    ratio,
+    load,
+    spoolDiameter,
+    efficiency,
+    qPosition,
+    qVelocity,
+    rVolts,
+    feedbackDt,
+    sensorDelay,
+  ]);
 
   useEffect(() => {
     setIsSimulating(true);
@@ -476,6 +519,7 @@ export default function Linear() {
     qVelocity,
     rVolts,
     sensorDelay,
+    feedbackDt,
     kalmanFilterPositionStdDev,
     kalmanFilterVelocityStdDev,
     kalmanFilterEncoderPositionStdDev,
@@ -707,6 +751,15 @@ export default function Linear() {
                     </IOLine>
                     <IOLine>
                       <MeasurementInput
+                        stateHook={[feedbackDt, setFeedbackDt]}
+                        label="Robot Loop Period"
+                        tooltip="The period of the control loop that will run the PID controller (e.g. the main robot loop, or a faster onboard motor controller loop). Used to compute the discrete-time Feedback Gains below."
+                        testId="feedbackDt"
+                        labelAbove
+                      />
+                    </IOLine>
+                    <IOLine>
+                      <MeasurementInput
                         stateHook={[
                           kalmanFilterPositionStdDev,
                           setKalmanFilterPositionStdDev,
@@ -910,6 +963,23 @@ export default function Linear() {
                   defaultUnit="V"
                   roundTo={3}
                   testId="kG"
+                />
+              </div>
+              <div className="border-t" />
+              <div className="grid grid-cols-2 gap-2 p-4">
+                <MeasurementDisplayOutput
+                  state={feedbackGains.kP}
+                  label="Feedback kP"
+                  defaultUnit="V/m"
+                  roundTo={3}
+                  testId="feedbackKP"
+                />
+                <MeasurementDisplayOutput
+                  state={feedbackGains.kD}
+                  label="Feedback kD"
+                  defaultUnit="V*s/m"
+                  roundTo={3}
+                  testId="feedbackKD"
                 />
               </div>
             </section>
