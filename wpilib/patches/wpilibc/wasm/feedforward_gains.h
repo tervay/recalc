@@ -4,9 +4,9 @@
 
 #include <cmath>
 #include <stdexcept>
-#include <string>
 
 #include "dc_motor.h"
+#include "wasm_console.h"
 #include "wpi/math/system/DCMotor.hpp"
 #include "wpi/math/system/LinearSystem.hpp"
 #include "wpi/math/system/Models.hpp"
@@ -161,21 +161,16 @@ inline emscripten::val ComputeLinearFeedforwardGains(
         motor->getMotor(), gearing, loadKg, spoolRadiusMeters, efficiency,
         angleRadians));
   } catch (const std::exception& e) {
-    emscripten::val::global("console").call<void>(
-        "warn", std::string("ComputeLinearFeedforwardGains: ") + e.what() +
-                    " (gearing=" + std::to_string(gearing) +
-                    " loadKg=" + std::to_string(loadKg) +
-                    " spoolRadiusMeters=" + std::to_string(spoolRadiusMeters) +
-                    ")");
+    ConsoleWarn(
+        "ComputeLinearFeedforwardGains: {} (gearing={} loadKg={} "
+        "spoolRadiusMeters={})",
+        e.what(), gearing, loadKg, spoolRadiusMeters);
     return ZeroFeedforwardGains();
   } catch (...) {
-    emscripten::val::global("console").call<void>(
-        "warn", std::string("ComputeLinearFeedforwardGains: unknown "
-                            "exception (gearing=") +
-                    std::to_string(gearing) +
-                    " loadKg=" + std::to_string(loadKg) +
-                    " spoolRadiusMeters=" + std::to_string(spoolRadiusMeters) +
-                    ")");
+    ConsoleWarn(
+        "ComputeLinearFeedforwardGains: unknown exception (gearing={} "
+        "loadKg={} spoolRadiusMeters={})",
+        gearing, loadKg, spoolRadiusMeters);
     return ZeroFeedforwardGains();
   }
 }
@@ -194,19 +189,16 @@ inline emscripten::val ComputeAngularFeedforwardGains(
         motor->getMotor(), gearing, momentOfInertiaKgM2, efficiency,
         comMassKg, comLengthMeters));
   } catch (const std::exception& e) {
-    emscripten::val::global("console").call<void>(
-        "warn",
-        std::string("ComputeAngularFeedforwardGains: ") + e.what() +
-            " (gearing=" + std::to_string(gearing) +
-            " momentOfInertiaKgM2=" + std::to_string(momentOfInertiaKgM2) +
-            ")");
+    ConsoleWarn(
+        "ComputeAngularFeedforwardGains: {} (gearing={} momentOfInertiaKgM2="
+        "{})",
+        e.what(), gearing, momentOfInertiaKgM2);
     return ZeroFeedforwardGains();
   } catch (...) {
-    emscripten::val::global("console").call<void>(
-        "warn", std::string("ComputeAngularFeedforwardGains: unknown "
-                            "exception (gearing=") +
-                    std::to_string(gearing) + " momentOfInertiaKgM2=" +
-                    std::to_string(momentOfInertiaKgM2) + ")");
+    ConsoleWarn(
+        "ComputeAngularFeedforwardGains: unknown exception (gearing={} "
+        "momentOfInertiaKgM2={})",
+        gearing, momentOfInertiaKgM2);
     return ZeroFeedforwardGains();
   }
 }
@@ -224,19 +216,16 @@ inline emscripten::val ComputeFlywheelFeedforwardGains(
     return FeedforwardGainsToVal(ComputeFlywheelFeedforwardGainsCore(
         motor->getMotor(), gearing, momentOfInertiaKgM2, efficiency));
   } catch (const std::exception& e) {
-    emscripten::val::global("console").call<void>(
-        "warn",
-        std::string("ComputeFlywheelFeedforwardGains: ") + e.what() +
-            " (gearing=" + std::to_string(gearing) +
-            " momentOfInertiaKgM2=" + std::to_string(momentOfInertiaKgM2) +
-            ")");
+    ConsoleWarn(
+        "ComputeFlywheelFeedforwardGains: {} (gearing={} momentOfInertiaKgM2="
+        "{})",
+        e.what(), gearing, momentOfInertiaKgM2);
     return ZeroFeedforwardGains();
   } catch (...) {
-    emscripten::val::global("console").call<void>(
-        "warn", std::string("ComputeFlywheelFeedforwardGains: unknown "
-                            "exception (gearing=") +
-                    std::to_string(gearing) + " momentOfInertiaKgM2=" +
-                    std::to_string(momentOfInertiaKgM2) + ")");
+    ConsoleWarn(
+        "ComputeFlywheelFeedforwardGains: unknown exception (gearing={} "
+        "momentOfInertiaKgM2={})",
+        gearing, momentOfInertiaKgM2);
     return ZeroFeedforwardGains();
   }
 }

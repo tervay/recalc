@@ -63,44 +63,45 @@ TEST_P(LinearFeedforwardEquivalenceTest,
 
 INSTANTIATE_TEST_SUITE_P(
     VariousConfigs, LinearFeedforwardEquivalenceTest,
-    ::testing::Values(LinearConfig{wpi::math::DCMotor::NEO(1), 10.0, 5.0,
-                                   0.025},
-                      LinearConfig{wpi::math::DCMotor::Falcon500(1), 20.0,
-                                   10.0, 0.05},
-                      LinearConfig{wpi::math::DCMotor::KrakenX60(2), 5.0, 2.5,
-                                   0.019},
-                      LinearConfig{wpi::math::DCMotor::NEO550(1), 15.0, 1.0,
-                                   0.03}));
+    ::testing::Values(
+        LinearConfig{wpi::math::DCMotor::NEO(1), 10.0, 5.0, 0.025},
+        LinearConfig{wpi::math::DCMotor::Falcon500(1), 20.0, 10.0, 0.05},
+        LinearConfig{wpi::math::DCMotor::KrakenX60(2), 5.0, 2.5, 0.019},
+        LinearConfig{wpi::math::DCMotor::NEO550(1), 15.0, 1.0, 0.03}));
 
 // (b) Efficiency monotonicity: decreasing efficiency must strictly increase
 // kV, kA, and |kG| (kG scales with kA).
-TEST(LinearFeedforwardGainsTest,
-    EfficiencyMonotonicallyIncreasesKvKaAndKgMagnitude) {
-  const std::vector<LinearConfig> configs = {
-      {wpi::math::DCMotor::NEO(1), 12.0, 4.0, 0.02},
-      {wpi::math::DCMotor::Falcon500(1), 8.0, 6.0, 0.03},
-      {wpi::math::DCMotor::KrakenX60(1), 15.0, 3.0, 0.025},
-  };
+class LinearFeedforwardMonotonicityTest
+    : public ::testing::TestWithParam<LinearConfig> {};
+
+TEST_P(LinearFeedforwardMonotonicityTest,
+       EfficiencyMonotonicallyIncreasesKvKaAndKgMagnitude) {
+  const LinearConfig& cfg = GetParam();
   const std::vector<double> efficiencies = {1.0, 0.8, 0.6, 0.4};
   const double angleRadians = M_PI / 4.0;  // nonzero so kG != 0
 
-  for (const auto& cfg : configs) {
-    double prevKv = -1.0, prevKa = -1.0, prevKgMag = -1.0;
-    for (double efficiency : efficiencies) {
-      FeedforwardGains gains = ComputeLinearFeedforwardGainsCore(
-          cfg.motor, cfg.gearing, cfg.loadKg, cfg.spoolRadiusMeters,
-          efficiency, angleRadians);
-      if (prevKv >= 0.0) {
-        EXPECT_GT(gains.kV, prevKv);
-        EXPECT_GT(gains.kA, prevKa);
-        EXPECT_GT(std::abs(gains.kG), prevKgMag);
-      }
-      prevKv = gains.kV;
-      prevKa = gains.kA;
-      prevKgMag = std::abs(gains.kG);
+  double prevKv = -1.0, prevKa = -1.0, prevKgMag = -1.0;
+  for (double efficiency : efficiencies) {
+    FeedforwardGains gains = ComputeLinearFeedforwardGainsCore(
+        cfg.motor, cfg.gearing, cfg.loadKg, cfg.spoolRadiusMeters, efficiency,
+        angleRadians);
+    if (prevKv >= 0.0) {
+      EXPECT_GT(gains.kV, prevKv);
+      EXPECT_GT(gains.kA, prevKa);
+      EXPECT_GT(std::abs(gains.kG), prevKgMag);
     }
+    prevKv = gains.kV;
+    prevKa = gains.kA;
+    prevKgMag = std::abs(gains.kG);
   }
 }
+
+INSTANTIATE_TEST_SUITE_P(
+    VariousConfigs, LinearFeedforwardMonotonicityTest,
+    ::testing::Values(
+        LinearConfig{wpi::math::DCMotor::NEO(1), 12.0, 4.0, 0.02},
+        LinearConfig{wpi::math::DCMotor::Falcon500(1), 8.0, 6.0, 0.03},
+        LinearConfig{wpi::math::DCMotor::KrakenX60(1), 15.0, 3.0, 0.025}));
 
 // (c) Angle behavior: kG scales with sin(angle) -- 0 at horizontal, maximal
 // at vertical, monotonically increasing in between.
@@ -119,18 +120,35 @@ TEST(LinearFeedforwardGainsTest, KgMonotonicallyIncreasesWithAngle) {
         motor, kGearing, kLoadKg, kSpoolRadiusMeters, kEfficiency,
         angleRadians);
 
-    if (angleDeg == 0.0) {
-      EXPECT_NEAR(gains.kG, 0.0, kTol);
-    } else {
+    if (prevKg >= 0.0) {
       EXPECT_GT(gains.kG, prevKg);
     }
     prevKg = gains.kG;
   }
+}
 
-  // Sanity check against the closed-form expression at 90 degrees.
+// kG must be ~0 at horizontal (angle = 0), where gravity contributes no
+// torque along the direction of motion.
+TEST(LinearFeedforwardGainsTest, KgIsZeroAtHorizontalAngle) {
+  FeedforwardGains gains = ComputeLinearFeedforwardGainsCore(
+      wpi::math::DCMotor::NEO(1), /*gearing=*/10.0, /*loadKg=*/5.0,
+      /*spoolRadiusMeters=*/0.025, /*efficiency=*/0.85, /*angleRadians=*/0.0);
+  EXPECT_NEAR(gains.kG, 0.0, kTol);
+}
+
+// Sanity check against the closed-form expression at 90 degrees: at vertical,
+// the holding voltage must equal kA * g.
+TEST(LinearFeedforwardGainsTest, KgAtVerticalAngleMatchesClosedForm) {
+  constexpr double kGearing = 10.0;
+  constexpr double kLoadKg = 5.0;
+  constexpr double kSpoolRadiusMeters = 0.025;
+  constexpr double kEfficiency = 0.85;
+  const wpi::math::DCMotor motor = wpi::math::DCMotor::NEO(1);
+
   FeedforwardGains vertical = ComputeLinearFeedforwardGainsCore(
       motor, kGearing, kLoadKg, kSpoolRadiusMeters, kEfficiency, M_PI / 2.0);
-  EXPECT_NEAR(vertical.kG, vertical.kA * kGravity, vertical.kA * kGravity * kTol);
+  EXPECT_NEAR(vertical.kG, vertical.kA * kGravity,
+              vertical.kA * kGravity * kTol);
 }
 
 // (d) Edge/guard cases, exercised via the non-throwing wasm entry point.
@@ -224,8 +242,8 @@ TEST(AngularFeedforwardGainsTest, KgMatchesClosedFormAtUnityEfficiency) {
       motor, kGearing, kMomentOfInertiaKgM2, /*efficiency=*/1.0, kComMassKg,
       kComLengthMeters);
 
-  const double expectedKg =
-      gains.kA * kGravity * kComLengthMeters * kComMassKg / kMomentOfInertiaKgM2;
+  const double expectedKg = gains.kA * kGravity * kComLengthMeters *
+                            kComMassKg / kMomentOfInertiaKgM2;
   EXPECT_NEAR(gains.kG, expectedKg, std::abs(expectedKg) * kTol);
   // Holding voltage should be positive: it must counteract gravity pulling
   // the arm down at the horizontal (worst-case) position.
@@ -233,34 +251,38 @@ TEST(AngularFeedforwardGainsTest, KgMatchesClosedFormAtUnityEfficiency) {
 }
 
 // (b) Efficiency monotonicity.
-TEST(AngularFeedforwardGainsTest,
-    EfficiencyMonotonicallyIncreasesKvKaAndKgMagnitude) {
-  const std::vector<AngularConfig> configs = {
-      {wpi::math::DCMotor::NEO(1), 80.0, 1.5},
-      {wpi::math::DCMotor::Falcon500(1), 120.0, 2.5},
-      {wpi::math::DCMotor::KrakenX60(1), 60.0, 1.0},
-  };
+class AngularFeedforwardMonotonicityTest
+    : public ::testing::TestWithParam<AngularConfig> {};
+
+TEST_P(AngularFeedforwardMonotonicityTest,
+       EfficiencyMonotonicallyIncreasesKvKaAndKgMagnitude) {
+  const AngularConfig& cfg = GetParam();
   const std::vector<double> efficiencies = {1.0, 0.8, 0.6, 0.4};
   constexpr double kComMassKg = 2.0;
   constexpr double kComLengthMeters = 0.3;
 
-  for (const auto& cfg : configs) {
-    double prevKv = -1.0, prevKa = -1.0, prevKgMag = -1.0;
-    for (double efficiency : efficiencies) {
-      FeedforwardGains gains = ComputeAngularFeedforwardGainsCore(
-          cfg.motor, cfg.gearing, cfg.momentOfInertiaKgM2, efficiency,
-          kComMassKg, kComLengthMeters);
-      if (prevKv >= 0.0) {
-        EXPECT_GT(gains.kV, prevKv);
-        EXPECT_GT(gains.kA, prevKa);
-        EXPECT_GT(std::abs(gains.kG), prevKgMag);
-      }
-      prevKv = gains.kV;
-      prevKa = gains.kA;
-      prevKgMag = std::abs(gains.kG);
+  double prevKv = -1.0, prevKa = -1.0, prevKgMag = -1.0;
+  for (double efficiency : efficiencies) {
+    FeedforwardGains gains = ComputeAngularFeedforwardGainsCore(
+        cfg.motor, cfg.gearing, cfg.momentOfInertiaKgM2, efficiency, kComMassKg,
+        kComLengthMeters);
+    if (prevKv >= 0.0) {
+      EXPECT_GT(gains.kV, prevKv);
+      EXPECT_GT(gains.kA, prevKa);
+      EXPECT_GT(std::abs(gains.kG), prevKgMag);
     }
+    prevKv = gains.kV;
+    prevKa = gains.kA;
+    prevKgMag = std::abs(gains.kG);
   }
 }
+
+INSTANTIATE_TEST_SUITE_P(
+    VariousConfigs, AngularFeedforwardMonotonicityTest,
+    ::testing::Values(
+        AngularConfig{wpi::math::DCMotor::NEO(1), 80.0, 1.5},
+        AngularConfig{wpi::math::DCMotor::Falcon500(1), 120.0, 2.5},
+        AngularConfig{wpi::math::DCMotor::KrakenX60(1), 60.0, 1.0}));
 
 // (d) Edge/guard cases, exercised via the non-throwing wasm entry point.
 class AngularFeedforwardGuardTest : public ::testing::Test {
@@ -280,7 +302,7 @@ TEST_F(AngularFeedforwardGuardTest, NonPositiveEfficiencyReturnsZeroedGains) {
 }
 
 TEST_F(AngularFeedforwardGuardTest,
-      NonPositiveMomentOfInertiaReturnsZeroedGains) {
+       NonPositiveMomentOfInertiaReturnsZeroedGains) {
   emscripten::val result = ComputeAngularFeedforwardGains(
       motorWasm, /*gearing=*/100.0, /*momentOfInertiaKgM2=*/0.0,
       /*efficiency=*/1.0, /*comMassKg=*/3.0, /*comLengthMeters=*/0.4);
@@ -332,38 +354,41 @@ TEST_P(FlywheelFeedforwardEquivalenceTest,
 
 INSTANTIATE_TEST_SUITE_P(
     VariousConfigs, FlywheelFeedforwardEquivalenceTest,
-    ::testing::Values(FlywheelConfig{wpi::math::DCMotor::NEO(1), 1.0, 0.01},
-                      FlywheelConfig{wpi::math::DCMotor::Falcon500(1), 2.0,
-                                     0.02},
-                      FlywheelConfig{wpi::math::DCMotor::KrakenX60(3), 1.5,
-                                     0.05},
-                      FlywheelConfig{wpi::math::DCMotor::NEO550(1), 3.0,
-                                     0.005}));
+    ::testing::Values(
+        FlywheelConfig{wpi::math::DCMotor::NEO(1), 1.0, 0.01},
+        FlywheelConfig{wpi::math::DCMotor::Falcon500(1), 2.0, 0.02},
+        FlywheelConfig{wpi::math::DCMotor::KrakenX60(3), 1.5, 0.05},
+        FlywheelConfig{wpi::math::DCMotor::NEO550(1), 3.0, 0.005}));
 
 // (b) Efficiency monotonicity (no kG term for flywheels).
-TEST(FlywheelFeedforwardGainsTest, EfficiencyMonotonicallyIncreasesKvAndKa) {
-  const std::vector<FlywheelConfig> configs = {
-      {wpi::math::DCMotor::NEO(1), 1.0, 0.02},
-      {wpi::math::DCMotor::Falcon500(1), 2.0, 0.03},
-      {wpi::math::DCMotor::KrakenX60(1), 1.5, 0.01},
-  };
+class FlywheelFeedforwardMonotonicityTest
+    : public ::testing::TestWithParam<FlywheelConfig> {};
+
+TEST_P(FlywheelFeedforwardMonotonicityTest,
+       EfficiencyMonotonicallyIncreasesKvAndKa) {
+  const FlywheelConfig& cfg = GetParam();
   const std::vector<double> efficiencies = {1.0, 0.8, 0.6, 0.4};
 
-  for (const auto& cfg : configs) {
-    double prevKv = -1.0, prevKa = -1.0;
-    for (double efficiency : efficiencies) {
-      FeedforwardGains gains = ComputeFlywheelFeedforwardGainsCore(
-          cfg.motor, cfg.gearing, cfg.momentOfInertiaKgM2, efficiency);
-      EXPECT_EQ(gains.kG, 0.0);
-      if (prevKv >= 0.0) {
-        EXPECT_GT(gains.kV, prevKv);
-        EXPECT_GT(gains.kA, prevKa);
-      }
-      prevKv = gains.kV;
-      prevKa = gains.kA;
+  double prevKv = -1.0, prevKa = -1.0;
+  for (double efficiency : efficiencies) {
+    FeedforwardGains gains = ComputeFlywheelFeedforwardGainsCore(
+        cfg.motor, cfg.gearing, cfg.momentOfInertiaKgM2, efficiency);
+    EXPECT_EQ(gains.kG, 0.0);
+    if (prevKv >= 0.0) {
+      EXPECT_GT(gains.kV, prevKv);
+      EXPECT_GT(gains.kA, prevKa);
     }
+    prevKv = gains.kV;
+    prevKa = gains.kA;
   }
 }
+
+INSTANTIATE_TEST_SUITE_P(
+    VariousConfigs, FlywheelFeedforwardMonotonicityTest,
+    ::testing::Values(
+        FlywheelConfig{wpi::math::DCMotor::NEO(1), 1.0, 0.02},
+        FlywheelConfig{wpi::math::DCMotor::Falcon500(1), 2.0, 0.03},
+        FlywheelConfig{wpi::math::DCMotor::KrakenX60(1), 1.5, 0.01}));
 
 // (d) Edge/guard cases, exercised via the non-throwing wasm entry point.
 class FlywheelFeedforwardGuardTest : public ::testing::Test {
@@ -383,7 +408,7 @@ TEST_F(FlywheelFeedforwardGuardTest, NonPositiveEfficiencyReturnsZeroedGains) {
 }
 
 TEST_F(FlywheelFeedforwardGuardTest,
-      NonPositiveMomentOfInertiaReturnsZeroedGains) {
+       NonPositiveMomentOfInertiaReturnsZeroedGains) {
   emscripten::val result = ComputeFlywheelFeedforwardGains(
       motorWasm, /*gearing=*/2.0, /*momentOfInertiaKgM2=*/-0.01,
       /*efficiency=*/1.0);

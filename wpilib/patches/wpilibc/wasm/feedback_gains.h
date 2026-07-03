@@ -3,9 +3,9 @@
 #include <emscripten/val.h>
 
 #include <stdexcept>
-#include <string>
 
 #include "dc_motor.h"
+#include "wasm_console.h"
 #include "wpi/math/controller/LinearQuadraticRegulator.hpp"
 #include "wpi/math/system/DCMotor.hpp"
 #include "wpi/math/system/LinearSystem.hpp"
@@ -171,21 +171,16 @@ inline emscripten::val ComputeElevatorFeedbackGains(
         motor->getMotor(), gearing, massKg, spoolRadiusMeters, efficiency,
         qPositionMeters, qVelocityMPS, rVolts, dtSeconds, sensorDelaySeconds));
   } catch (const std::exception& e) {
-    emscripten::val::global("console").call<void>(
-        "warn", std::string("ComputeElevatorFeedbackGains: ") + e.what() +
-                    " (gearing=" + std::to_string(gearing) +
-                    " massKg=" + std::to_string(massKg) +
-                    " spoolRadiusMeters=" + std::to_string(spoolRadiusMeters) +
-                    ")");
+    ConsoleWarn(
+        "ComputeElevatorFeedbackGains: {} (gearing={} massKg={} "
+        "spoolRadiusMeters={})",
+        e.what(), gearing, massKg, spoolRadiusMeters);
     return ZeroFeedbackGains();
   } catch (...) {
-    emscripten::val::global("console").call<void>(
-        "warn", std::string("ComputeElevatorFeedbackGains: unknown exception "
-                            "(gearing=") +
-                    std::to_string(gearing) +
-                    " massKg=" + std::to_string(massKg) +
-                    " spoolRadiusMeters=" + std::to_string(spoolRadiusMeters) +
-                    ")");
+    ConsoleWarn(
+        "ComputeElevatorFeedbackGains: unknown exception (gearing={} massKg={} "
+        "spoolRadiusMeters={})",
+        gearing, massKg, spoolRadiusMeters);
     return ZeroFeedbackGains();
   }
 }
@@ -207,19 +202,15 @@ inline emscripten::val ComputeArmFeedbackGains(
         qPositionRad, qVelocityRadPerSec, rVolts, dtSeconds,
         sensorDelaySeconds));
   } catch (const std::exception& e) {
-    emscripten::val::global("console").call<void>(
-        "warn",
-        std::string("ComputeArmFeedbackGains: ") + e.what() +
-            " (gearing=" + std::to_string(gearing) +
-            " momentOfInertiaKgMSquared=" +
-            std::to_string(momentOfInertiaKgMSquared) + ")");
+    ConsoleWarn(
+        "ComputeArmFeedbackGains: {} (gearing={} momentOfInertiaKgMSquared={})",
+        e.what(), gearing, momentOfInertiaKgMSquared);
     return ZeroFeedbackGains();
   } catch (...) {
-    emscripten::val::global("console").call<void>(
-        "warn",
-        std::string("ComputeArmFeedbackGains: unknown exception (gearing=") +
-            std::to_string(gearing) + " momentOfInertiaKgMSquared=" +
-            std::to_string(momentOfInertiaKgMSquared) + ")");
+    ConsoleWarn(
+        "ComputeArmFeedbackGains: unknown exception (gearing={} "
+        "momentOfInertiaKgMSquared={})",
+        gearing, momentOfInertiaKgMSquared);
     return ZeroFeedbackGains();
   }
 }
@@ -239,20 +230,16 @@ inline emscripten::val ComputeFlywheelFeedbackGains(
         motor->getMotor(), gearing, momentOfInertiaKgMSquared, efficiency,
         qVelocityRadPerSec, rVolts, dtSeconds, sensorDelaySeconds));
   } catch (const std::exception& e) {
-    emscripten::val::global("console").call<void>(
-        "warn",
-        std::string("ComputeFlywheelFeedbackGains: ") + e.what() +
-            " (gearing=" + std::to_string(gearing) +
-            " momentOfInertiaKgMSquared=" +
-            std::to_string(momentOfInertiaKgMSquared) + ")");
+    ConsoleWarn(
+        "ComputeFlywheelFeedbackGains: {} (gearing={} "
+        "momentOfInertiaKgMSquared={})",
+        e.what(), gearing, momentOfInertiaKgMSquared);
     return ZeroFeedbackGains();
   } catch (...) {
-    emscripten::val::global("console").call<void>(
-        "warn",
-        std::string(
-            "ComputeFlywheelFeedbackGains: unknown exception (gearing=") +
-            std::to_string(gearing) + " momentOfInertiaKgMSquared=" +
-            std::to_string(momentOfInertiaKgMSquared) + ")");
+    ConsoleWarn(
+        "ComputeFlywheelFeedbackGains: unknown exception (gearing={} "
+        "momentOfInertiaKgMSquared={})",
+        gearing, momentOfInertiaKgMSquared);
     return ZeroFeedbackGains();
   }
 }
