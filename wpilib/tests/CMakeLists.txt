@@ -117,3 +117,45 @@ target_link_libraries(feedback_gains_tests PRIVATE
 )
 
 add_test(NAME feedback_gains_tests COMMAND node feedback_gains_tests.js)
+
+# ----------------------------------------------------------------------------
+# feedforward_gains_tests
+#
+# Same wpimath/wpiutil dependency as feedback_gains_tests above (feedforward_
+# gains.h's Core functions call into the wpi::math::Models factories), so it
+# reuses the same prebuilt libraries and include paths.
+# ----------------------------------------------------------------------------
+
+add_executable(feedforward_gains_tests feedforward_gains_test.cc)
+
+target_include_directories(feedforward_gains_tests SYSTEM BEFORE PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/../patches/wpilibc/wasm
+    ${WPIMATH_SRC}/main/native/include
+    ${WPIMATH_SRC}/generated/main/native/cpp
+    ${WPIMATH_SRC}/main/native/thirdparty/eigen/include
+    ${WPIMATH_SRC}/main/native/thirdparty/gcem/include
+    ${WPIMATH_SRC}/main/native/thirdparty/sleipnir/include
+    ${WPIMATH_SRC}/main/native/thirdparty/sleipnir/src
+    ${WPIUTIL_SRC}/main/native/include
+    ${WPIUTIL_SRC}/main/native/thirdparty/argparse/include
+    ${WPIUTIL_SRC}/main/native/thirdparty/debugging/include
+    ${WPIUTIL_SRC}/main/native/thirdparty/expected/include
+    ${WPIUTIL_SRC}/main/native/thirdparty/json/include
+    ${WPIUTIL_SRC}/main/native/thirdparty/llvm/include
+    ${WPIUTIL_SRC}/main/native/thirdparty/mpack/include
+    ${WPIUTIL_SRC}/main/native/thirdparty/nanopb/include
+    ${WPIUTIL_SRC}/main/native/thirdparty/sigslot/include
+    ${WPIUTIL_SRC}/main/native/thirdparty/upb/include
+    ${WPIUTIL_SRC}/main/native/thirdparty/fmtlib/include
+)
+
+target_compile_features(feedforward_gains_tests PRIVATE cxx_std_20)
+
+target_link_libraries(feedforward_gains_tests PRIVATE
+    gtest
+    gtest_main
+    wpimath_prebuilt
+    wpiutil_prebuilt
+)
+
+add_test(NAME feedforward_gains_tests COMMAND node feedforward_gains_tests.js)

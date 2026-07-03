@@ -109,6 +109,7 @@ COPY tests/ /src/tests/
 COPY patches/wpilibc/wasm/sim_util.h /src/patches/wpilibc/wasm/sim_util.h
 COPY patches/wpilibc/wasm/dc_motor.h /src/patches/wpilibc/wasm/dc_motor.h
 COPY patches/wpilibc/wasm/feedback_gains.h /src/patches/wpilibc/wasm/feedback_gains.h
+COPY patches/wpilibc/wasm/feedforward_gains.h /src/patches/wpilibc/wasm/feedforward_gains.h
 
 WORKDIR /src/tests/build
 
@@ -119,4 +120,4 @@ RUN emcmake cmake .. \
 
 # Run both test binaries unconditionally so a failure in one doesn't hide
 # the result of the other; fail the container if either fails.
-CMD ["sh", "-c", "set -u; status=0; node sim_util_tests.js || status=1; node feedback_gains_tests.js || status=1; exit \"$status\""]
+CMD ["sh", "-c", "set -u; status=0; node sim_util_tests.js || status=1; node feedback_gains_tests.js || status=1; node feedforward_gains_tests.js || status=1; exit \"$status\""]

@@ -1043,7 +1043,7 @@ async function createWpilibcModule(moduleArg = {}) {
           fa: null,
         });
       },
-      d: (a, b, c, d, e, g, f) => {
+      e: (a, b, c, d, e, g, f) => {
         var h = fb(b, c);
         a = G(a);
         a = jb(a);
@@ -1061,7 +1061,7 @@ async function createWpilibcModule(moduleArg = {}) {
           return [];
         });
       },
-      i: (a, b, c, d, e) => {
+      j: (a, b, c, d, e) => {
         b = G(b);
         var g = (h) => h;
         if (d === 0) {
@@ -1170,7 +1170,7 @@ async function createWpilibcModule(moduleArg = {}) {
         L(a, { ta: !0, name: b, aa: () => {}, ea: () => {} });
       },
       B: () => {},
-      g: (a, b, c) => {
+      i: (a, b, c) => {
         var d;
         [b, ...d] = Fb(a, b);
         var e = b.ea.bind(b),
@@ -1207,7 +1207,7 @@ async function createWpilibcModule(moduleArg = {}) {
         return Eb(Ja(b, c));
       },
       b: nb,
-      j: (a) => {
+      f: (a) => {
         if (!a) return O(globalThis);
         a = Ib(a);
         return O(globalThis[a]);
@@ -1215,11 +1215,11 @@ async function createWpilibcModule(moduleArg = {}) {
       L: (a) => {
         a > 9 && (W[a + 1] += 1);
       },
-      f: (a, b, c, d, e) => Db[a](b, c, d, e),
+      h: (a, b, c, d, e) => Db[a](b, c, d, e),
       m: () => O([]),
       k: (a) => O(Ib(a)),
-      h: () => O({}),
-      e: (a) => {
+      d: () => O({}),
+      g: (a) => {
         var b = X(a);
         gb(b);
         nb(a);

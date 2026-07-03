@@ -206,6 +206,28 @@ interface EmbindModule {
     dtSeconds: number,
     sensorDelaySeconds: number,
   ): any;
+  computeLinearFeedforwardGains(
+    motor: DCMotor | null,
+    gearing: number,
+    loadKg: number,
+    spoolRadiusMeters: number,
+    efficiency: number,
+    angleRadians: number,
+  ): any;
+  computeAngularFeedforwardGains(
+    motor: DCMotor | null,
+    gearing: number,
+    momentOfInertiaKgMSquared: number,
+    efficiency: number,
+    comMassKg: number,
+    comLengthMeters: number,
+  ): any;
+  computeFlywheelFeedforwardGains(
+    motor: DCMotor | null,
+    gearing: number,
+    momentOfInertiaKgMSquared: number,
+    efficiency: number,
+  ): any;
 }
 
 export type MainModule = WasmModule & EmbindModule;

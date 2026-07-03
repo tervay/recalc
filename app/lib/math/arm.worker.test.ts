@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import { simulateArmWpilib } from '~/lib/math/arm.worker';
+import {
+  computeArmFeedforwardGains,
+  simulateArmWpilib,
+} from '~/lib/math/arm.worker';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
@@ -16,6 +19,23 @@ const supplyVoltage = new Measurement(12, 'V');
 const statorLimit = new Measurement(60, 'A');
 const supplyLimit = new Measurement(90, 'A');
 const batteryResistance = new Measurement(0.015, 'Ohm');
+
+describe('computeArmFeedforwardGains', () => {
+  it('returns sane, non-zero gains for a realistic arm configuration', async () => {
+    const result = await computeArmFeedforwardGains(
+      motor.toDict(),
+      ratio.toDict(),
+      momentOfInertia.toDict(),
+      1.0,
+      new Measurement(15, 'lb').toDict(),
+      armLength.toDict(),
+    );
+
+    expect(result.kV).toBeGreaterThan(0);
+    expect(result.kA).toBeGreaterThan(0);
+    expect(result.kG).toBeGreaterThanOrEqual(0);
+  });
+});
 
 describe('arm', () => {
   it('should calculate the time to goal going up', async () => {

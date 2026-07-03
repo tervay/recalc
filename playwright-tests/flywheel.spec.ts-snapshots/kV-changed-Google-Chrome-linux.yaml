@@ -88,7 +88,7 @@
 - application: Time (s) Current (A) / Voltage (V) Angular Velocity (RPM) 0.0005 0.0105 0.0205 0.0305 0.0405 0.0505 0.0595 0 40 80 120 160 0 800 1600 2400 3200
 - text: kV 0.010
 - combobox: V*s/in
-- text: kA 0.046
+- text: kA 0.007
 - combobox: V*s^2/m
 - text: Effective MOI 2.000
 - combobox: in2*lbs

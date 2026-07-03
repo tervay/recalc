@@ -23,6 +23,12 @@ export interface FeedbackGains {
   kD: number;
 }
 
+export interface FeedforwardGains {
+  kV: number;
+  kA: number;
+  kG: number;
+}
+
 export async function computeFlywheelFeedbackGains(
   motor_: MotorDict,
   ratio_: RatioDict,
@@ -63,6 +69,39 @@ export async function computeFlywheelFeedbackGains(
       feedbackDt.to('s').scalar,
       Measurement.fromDict(sensorDelay_).to('s').scalar,
     ) as FeedbackGains;
+  } finally {
+    wasmMotor.delete();
+  }
+}
+
+export async function computeFlywheelFeedforwardGains(
+  motor_: MotorDict,
+  ratio_: RatioDict,
+  momentOfInertia_: MeasurementDict,
+  efficiency: number,
+): Promise<FeedforwardGains> {
+  const wpilibc = await initWpilibc();
+
+  const motor = Motor.fromDict(motor_);
+  const ratio = Ratio.fromDict(ratio_);
+  const momentOfInertia = Measurement.fromDict(momentOfInertia_);
+
+  if (
+    ratio.asNumber() === 0 ||
+    motor.quantity === 0 ||
+    momentOfInertia.scalar === 0
+  ) {
+    return { kV: 0, kA: 0, kG: 0 };
+  }
+
+  const wasmMotor = motor.toWpilibMotor();
+  try {
+    return wpilibc.computeFlywheelFeedforwardGains(
+      wasmMotor,
+      ratio.asNumber(),
+      momentOfInertia.to('kg m^2').scalar,
+      efficiency,
+    ) as FeedforwardGains;
   } finally {
     wasmMotor.delete();
   }

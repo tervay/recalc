@@ -24,6 +24,51 @@ export interface FeedbackGains {
   kD: number;
 }
 
+export interface FeedforwardGains {
+  kV: number;
+  kA: number;
+  kG: number;
+}
+
+export async function computeArmFeedforwardGains(
+  motor_: MotorDict,
+  ratio_: RatioDict,
+  momentOfInertia_: MeasurementDict,
+  efficiency: number,
+  load_: MeasurementDict,
+  armLength_: MeasurementDict,
+): Promise<FeedforwardGains> {
+  const wpilibc = await initWpilibc();
+
+  const motor = Motor.fromDict(motor_);
+  const ratio = Ratio.fromDict(ratio_);
+  const momentOfInertia = Measurement.fromDict(momentOfInertia_);
+  const load = Measurement.fromDict(load_);
+  const armLength = Measurement.fromDict(armLength_);
+
+  if (
+    ratio.asNumber() === 0 ||
+    motor.quantity === 0 ||
+    momentOfInertia.baseScalar === 0
+  ) {
+    return { kV: 0, kA: 0, kG: 0 };
+  }
+
+  const wasmMotor = motor.toWpilibMotor();
+  try {
+    return wpilibc.computeAngularFeedforwardGains(
+      wasmMotor,
+      ratio.asNumber(),
+      momentOfInertia.to('kg m^2').scalar,
+      efficiency,
+      load.to('kg').scalar,
+      armLength.to('m').scalar,
+    ) as FeedforwardGains;
+  } finally {
+    wasmMotor.delete();
+  }
+}
+
 export async function computeArmFeedbackGains(
   motor_: MotorDict,
   ratio_: RatioDict,
