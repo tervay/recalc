@@ -119,9 +119,8 @@ inline emscripten::val SimulateFlywheel(
     timestamp += simTimestep;
 
     const double statorCurrent = flywheel.GetCurrentDraw().to<double>();
-    // GetCurrentDraw() returns stator current (positive = motoring, negative =
-    // braking). Use abs(vApplied) to maintain correct supply current signage.
-    const double supplyCurrent = statorCurrent * std::abs(vApplied) / vSupply;
+    const double supplyCurrent =
+        SupplyCurrentFromStator(statorCurrent, vApplied, vSupply);
     energyJoules += supplyCurrent * vSupply * simTimestep;
 
     // Battery voltage under load, smoothed by a single-pole IIR filter

@@ -94,3 +94,32 @@ General guidelines:
 
 - **Simplicity First**: Make every change as simple as possible. Impact minimal code
 - **No Laziness**: Find root causes. No temporary fixes. Senior developer standards
+
+## Test-Driven Development (MANDATORY)
+
+**CRITICAL**: All code changes MUST follow test-driven development (TDD).
+This is not optional.
+
+### Red-Green-Refactor Cycle
+
+1. **RED** - Write a failing test first (must fail for the right reason)
+2. **GREEN** - Write minimum code to pass the test
+3. **REFACTOR** - Clean up while keeping tests green
+4. **VERIFY** - Run full test suite before committing
+
+### Mandatory TDD Rules
+
+1. **NEVER write implementation code without a failing test first**
+2. **NEVER commit code without tests**
+3. **NEVER skip tests or mark them as skipped to make CI pass**
+4. **NEVER disable existing tests** - fix them or fix the code
+5. Each test should verify ONE specific behavior
+6. Test names should describe the scenario being tested
+
+### Test Quality Standards
+
+- Test behavior, not implementation
+- One assertion per test when possible (easier diagnosis)
+- Clear naming
+- Use existing test utilities if present
+- Tests must be deterministic (no random values or race conditions)

@@ -233,10 +233,8 @@ inline emscripten::val SimulateElevatorImpl(
     timestamp += simTimestep;
 
     const double statorCurrent = elevator.GetCurrentDraw().to<double>();
-    // GetCurrentDraw() returns stator current (positive = motoring, negative =
-    // braking). Use abs(vApplied) to maintain correct supply current signage.
     const double supplyCurrent =
-        std::abs(statorCurrent) * std::abs(vApplied) / vSupply;
+        SupplyCurrentFromStator(statorCurrent, vApplied, vSupply);
     energyJoules += supplyCurrent * vSupply * simTimestep;
 
     // Battery voltage under load, smoothed by a single-pole IIR filter

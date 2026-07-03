@@ -77,6 +77,65 @@ TEST_F(ClampVoltageTest, NegativeVAppliedWithNegativeBackEmf) {
 }
 
 // ============================================================================
+// SupplyCurrentFromStator
+// ============================================================================
+
+class SupplyCurrentTest : public ::testing::Test {};
+
+TEST_F(SupplyCurrentTest, Motoring_DrawsPositiveFromBattery) {
+  // Positive stator current with positive applied voltage => power flows from
+  // the battery into the motor, so supply current is positive.
+  EXPECT_NEAR(SupplyCurrentFromStator(8.0, 6.0, 12.0), 4.0, kTol);
+}
+
+TEST_F(SupplyCurrentTest, PowerBalanceScaling) {
+  // I_supply = I_stator * |V_applied| / V_supply = 10 * 6 / 12 = 5
+  EXPECT_NEAR(SupplyCurrentFromStator(10.0, 6.0, 12.0), 5.0, kTol);
+}
+
+TEST_F(SupplyCurrentTest, StepUpWhenAppliedBelowSupply) {
+  // Applying less than the supply voltage steps the current up on the battery
+  // side (a boost-converter-like relationship): 10 * 3 / 12 = 2.5
+  EXPECT_NEAR(SupplyCurrentFromStator(10.0, 3.0, 12.0), 2.5, kTol);
+}
+
+// Regression for the elevator supply-current sign bug: during regenerative
+// braking the stator current is negative while the applied voltage is still
+// positive, so the supply current MUST come out negative (energy returned to
+// the battery). A stray abs() on the stator term (as elevator_sim.h once had)
+// would wrongly report this as positive.
+TEST_F(SupplyCurrentTest, Regen_NegativeStator_YieldsNegativeSupply) {
+  EXPECT_NEAR(SupplyCurrentFromStator(-8.0, 6.0, 12.0), -4.0, kTol);
+}
+
+TEST_F(SupplyCurrentTest, NegativeAppliedVoltage_UsesMagnitude) {
+  // GetCurrentDraw() already folds sgn(V_applied) into the stator current, so
+  // only the magnitude of V_applied is used here. 5 * |-6| / 12 = 2.5
+  EXPECT_NEAR(SupplyCurrentFromStator(5.0, -6.0, 12.0), 2.5, kTol);
+}
+
+TEST_F(SupplyCurrentTest, ZeroSupplyVoltage_ReturnsZero) {
+  // Divide-by-zero guard: BatterySim clamps the battery to >= 0V under extreme
+  // load, so a 0V supply must not produce inf/nan.
+  EXPECT_EQ(SupplyCurrentFromStator(8.0, 6.0, 0.0), 0.0);
+}
+
+TEST_F(SupplyCurrentTest, NegativeSupplyVoltage_ReturnsZero) {
+  EXPECT_EQ(SupplyCurrentFromStator(8.0, 6.0, -1.0), 0.0);
+}
+
+TEST_F(SupplyCurrentTest, EnergyIsCreditedDuringRegen) {
+  // Integrating instantaneous supply power (I_supply * V_supply * dt) over a
+  // regen sample must decrease accumulated energy, proving recovered energy is
+  // credited rather than ignored.
+  const double dt = 0.001;
+  const double vSupply = 12.0;
+  const double regenSupply = SupplyCurrentFromStator(-8.0, 6.0, vSupply);
+  const double deltaJoules = regenSupply * vSupply * dt;
+  EXPECT_LT(deltaJoules, 0.0);
+}
+
+// ============================================================================
 // DecimateToJsArray
 // ============================================================================
 
