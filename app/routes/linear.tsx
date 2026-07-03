@@ -32,10 +32,12 @@ import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import { calculateGuessedLimits, calculateStallLoad } from '~/lib/math/linear';
 import type * as LinearWorker from '~/lib/math/linear.worker';
+import { orchestrateConfigOptimization } from '~/lib/math/linearConfigOrchestrator';
 import type * as LinearOptimizerWorker from '~/lib/math/linearOptimizer.worker';
 import type {
   ConfigOptOutput,
   ConfigOptResult,
+  OptimizeConfigurationParams,
 } from '~/lib/math/linearOptimizer.worker';
 import optimizerWorkerUrl from '~/lib/math/linearOptimizer.worker?worker&url';
 import Measurement from '~/lib/models/Measurement';
@@ -428,39 +430,42 @@ export default function Linear() {
     setConfigOptResult(null);
     setSelectedConfigCell(null);
 
-    optimizerPool
-      .exec('optimizeConfiguration', [
-        {
-          motorDict: motor.toDict(),
-          loadDict: load.toDict(),
-          spoolDiameterDict: spoolDiameter.toDict(),
-          travelDistanceDict: travelDistance.toDict(),
-          batteryResistanceDict: batteryResistance.toDict(),
-          batteryVoltageDict: supplyVoltage.toDict(),
-          maximumComfortableStatorLimitDict:
-            maximumComfortableStatorLimit.toDict(),
-          maximumComfortableSupplyLimitDict:
-            maximumComfortableSupplyLimit.toDict(),
-          angleDict: angle.toDict(),
-          efficiency: efficiency / 100,
-          cascade,
-          batteryVoltageFilterTimeConstantSeconds: BATTERY_VOLTAGE_FILTER_TC_S,
-          maxVelocityMPS: enableCustomMaxVelocity
-            ? maxVelocity.to('m/s').scalar
-            : null,
-          maxAccelerationMPS2: enableCustomMaxAcceleration
-            ? maxAcceleration.to('m/s^2').scalar
-            : null,
-          qPositionMeters: qPosition.to('m').scalar,
-          qVelocityMPS: qVelocity.to('m/s').scalar,
-          rVolts: rVolts.to('V').scalar,
-          sensorDelaySeconds: sensorDelay.to('s').scalar,
-          kalmanFilterPositionStdDevDict: kalmanFilterPositionStdDev.toDict(),
-          kalmanFilterVelocityStdDevDict: kalmanFilterVelocityStdDev.toDict(),
-          kalmanFilterEncoderPositionStdDevDict:
-            kalmanFilterEncoderPositionStdDev.toDict(),
-        },
-      ])
+    const params: OptimizeConfigurationParams = {
+      motorDict: motor.toDict(),
+      loadDict: load.toDict(),
+      spoolDiameterDict: spoolDiameter.toDict(),
+      travelDistanceDict: travelDistance.toDict(),
+      batteryResistanceDict: batteryResistance.toDict(),
+      batteryVoltageDict: supplyVoltage.toDict(),
+      maximumComfortableStatorLimitDict: maximumComfortableStatorLimit.toDict(),
+      maximumComfortableSupplyLimitDict: maximumComfortableSupplyLimit.toDict(),
+      angleDict: angle.toDict(),
+      efficiency: efficiency / 100,
+      cascade,
+      batteryVoltageFilterTimeConstantSeconds: BATTERY_VOLTAGE_FILTER_TC_S,
+      maxVelocityMPS: enableCustomMaxVelocity
+        ? maxVelocity.to('m/s').scalar
+        : null,
+      maxAccelerationMPS2: enableCustomMaxAcceleration
+        ? maxAcceleration.to('m/s^2').scalar
+        : null,
+      qPositionMeters: qPosition.to('m').scalar,
+      qVelocityMPS: qVelocity.to('m/s').scalar,
+      rVolts: rVolts.to('V').scalar,
+      sensorDelaySeconds: sensorDelay.to('s').scalar,
+      kalmanFilterPositionStdDevDict: kalmanFilterPositionStdDev.toDict(),
+      kalmanFilterVelocityStdDevDict: kalmanFilterVelocityStdDev.toDict(),
+      kalmanFilterEncoderPositionStdDevDict:
+        kalmanFilterEncoderPositionStdDev.toDict(),
+    };
+
+    // Fan the stator x supply grid out across the worker pool instead of
+    // running every cell serially in a single worker.
+    orchestrateConfigOptimization(params, (statorAmps, supplyAmps) =>
+      optimizerPool.exec('optimizeConfigurationCell', [
+        { ...params, statorAmps, supplyAmps },
+      ]),
+    )
       .then((result: ConfigOptOutput) => {
         if (gen !== configOptGeneration.current) return;
         setConfigOptResult(result);

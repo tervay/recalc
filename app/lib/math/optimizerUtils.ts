@@ -98,3 +98,25 @@ export function makeGrid(max: number): number[] {
     Math.min((i + 1) * 10, max),
   );
 }
+
+/**
+ * Collapse a flat list of grid-cell results into a ConfigOptOutput, selecting
+ * the fastest successful cell as the recommendation. Shared by the serial
+ * optimizer and the parallel (pool-dispatched) orchestrator so both paths
+ * produce identical output for the same set of cells.
+ */
+export function reduceConfigOutput(
+  allResults: ConfigOptResult[],
+): ConfigOptOutput {
+  const successResults = allResults.filter((r) => r.success);
+
+  if (successResults.length === 0) {
+    return { recommended: null, allResults };
+  }
+
+  const recommended = successResults.reduce((best, r) =>
+    r.timeToGoalSeconds < best.timeToGoalSeconds ? r : best,
+  );
+
+  return { recommended, allResults };
+}

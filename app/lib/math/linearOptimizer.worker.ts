@@ -10,6 +10,7 @@ import {
   type ConfigOptOutput,
   peakSupplyCurrent,
   makeGrid,
+  reduceConfigOutput,
 } from '~/lib/math/optimizerUtils';
 import type { MeasurementDict } from '~/lib/models/Measurement';
 import Measurement from '~/lib/models/Measurement';
@@ -525,153 +526,195 @@ export interface OptimizeConfigurationParams extends BaseLinearParams {
   kalmanFilterEncoderPositionStdDevDict: MeasurementDict;
 }
 
-export async function optimizeConfiguration({
-  motorDict,
-  loadDict,
-  spoolDiameterDict,
-  travelDistanceDict,
-  batteryResistanceDict,
-  batteryVoltageDict,
-  maximumComfortableStatorLimitDict,
-  maximumComfortableSupplyLimitDict,
-  angleDict,
-  efficiency,
-  cascade,
-  batteryVoltageFilterTimeConstantSeconds,
-  maxVelocityMPS,
-  maxAccelerationMPS2,
-  qPositionMeters,
-  qVelocityMPS,
-  rVolts,
-  sensorDelaySeconds,
-  kalmanFilterPositionStdDevDict,
-  kalmanFilterVelocityStdDevDict,
-  kalmanFilterEncoderPositionStdDevDict,
-}: OptimizeConfigurationParams): Promise<ConfigOptOutput> {
+export interface OptimizeConfigurationCellParams extends OptimizeConfigurationParams {
+  statorAmps: number;
+  supplyAmps: number;
+}
+
+// Builds the shared mechanism/control state used by every grid cell. Kept in
+// one place so the serial and per-cell entry points parse inputs identically.
+async function prepareConfig(params: OptimizeConfigurationParams): Promise<{
+  wpilibc: WpilibcModule;
+  p: MechParams;
+  control: SimControlParams;
+}> {
   const wpilibc = await initWpilibc();
-  const motor = Motor.fromDict(motorDict);
+  const motor = Motor.fromDict(params.motorDict);
   const p = parseMech(
     motor,
-    loadDict,
-    spoolDiameterDict,
-    travelDistanceDict,
-    batteryResistanceDict,
-    batteryVoltageDict,
-    angleDict,
-    efficiency,
-    cascade,
-    batteryVoltageFilterTimeConstantSeconds,
-    kalmanFilterPositionStdDevDict,
-    kalmanFilterVelocityStdDevDict,
-    kalmanFilterEncoderPositionStdDevDict,
+    params.loadDict,
+    params.spoolDiameterDict,
+    params.travelDistanceDict,
+    params.batteryResistanceDict,
+    params.batteryVoltageDict,
+    params.angleDict,
+    params.efficiency,
+    params.cascade,
+    params.batteryVoltageFilterTimeConstantSeconds,
+    params.kalmanFilterPositionStdDevDict,
+    params.kalmanFilterVelocityStdDevDict,
+    params.kalmanFilterEncoderPositionStdDevDict,
+  );
+  const control: SimControlParams = {
+    qPositionMeters: params.qPositionMeters,
+    qVelocityMPS: params.qVelocityMPS,
+    rVolts: params.rVolts,
+    sensorDelaySeconds: params.sensorDelaySeconds,
+  };
+  return { wpilibc, p, control };
+}
+
+// Optimizes the gear ratio for a single (stator, supply) grid cell and returns
+// its result. This is the unit of work that the parallel orchestrator fans out
+// across the worker pool, and the loop body the serial optimizer reuses.
+function computeConfigCell(
+  wpilibc: WpilibcModule,
+  p: MechParams,
+  control: SimControlParams,
+  statorAmps: number,
+  supplyAmps: number,
+  maxVelocityMPS: number | null,
+  maxAccelerationMPS2: number | null,
+): ConfigOptResult {
+  const totalStatorAmps = statorAmps * p.motorQuantity;
+
+  const optimalRatio = findOptimalRatio(
+    wpilibc,
+    p,
+    totalStatorAmps,
+    supplyAmps,
+    maxVelocityMPS,
+    maxAccelerationMPS2,
+    control,
   );
 
-  const maxStator = Measurement.fromDict(maximumComfortableStatorLimitDict).to(
-    'A',
-  ).scalar;
-  const maxSupply = Measurement.fromDict(maximumComfortableSupplyLimitDict).to(
-    'A',
-  ).scalar;
+  if (isNaN(optimalRatio)) {
+    return {
+      statorLimitAmps: statorAmps,
+      supplyLimitAmps: supplyAmps,
+      optimalRatio: NaN,
+      timeToGoalSeconds: Number.POSITIVE_INFINITY,
+      peakCurrentAmps: 0,
+      energyJoules: 0,
+      success: false,
+    };
+  }
+
+  let effectiveVelocity = maxVelocityMPS;
+  let effectiveAcceleration = maxAccelerationMPS2;
+
+  if (effectiveVelocity === null || effectiveAcceleration === null) {
+    const guessed = guessLimitsFromMech(
+      p,
+      optimalRatio,
+      statorAmps,
+      supplyAmps,
+      control.rVolts,
+    );
+    effectiveVelocity = effectiveVelocity ?? guessed.velocity;
+    effectiveAcceleration = effectiveAcceleration ?? guessed.acceleration;
+  }
+
+  const states = simulate({
+    wpilibc,
+    mech: p,
+    ratioMagnitude: optimalRatio,
+    totalStatorAmps,
+    supplyAmps,
+    maxVelocityMPS: effectiveVelocity,
+    maxAccelerationMPS2: effectiveAcceleration,
+    control,
+    timeoutSeconds: 1.5,
+  });
+
+  const result = extractSimResult(states);
+  if (!result) {
+    return {
+      statorLimitAmps: statorAmps,
+      supplyLimitAmps: supplyAmps,
+      optimalRatio,
+      timeToGoalSeconds: Number.POSITIVE_INFINITY,
+      peakCurrentAmps: 0,
+      energyJoules: 0,
+      success: false,
+    };
+  }
+
+  return {
+    statorLimitAmps: statorAmps,
+    supplyLimitAmps: supplyAmps,
+    optimalRatio,
+    timeToGoalSeconds: result.timeToGoalSeconds,
+    peakCurrentAmps: result.peakCurrentAmps,
+    energyJoules: result.energyJoules,
+    success: result.success,
+  };
+}
+
+/**
+ * Optimize the ratio for a single grid cell. Exposed as a worker method so the
+ * main thread can dispatch the whole stator x supply grid across the pool in
+ * parallel instead of running it serially in one worker.
+ */
+export async function optimizeConfigurationCell(
+  params: OptimizeConfigurationCellParams,
+): Promise<ConfigOptResult> {
+  const { wpilibc, p, control } = await prepareConfig(params);
+  try {
+    return computeConfigCell(
+      wpilibc,
+      p,
+      control,
+      params.statorAmps,
+      params.supplyAmps,
+      params.maxVelocityMPS,
+      params.maxAccelerationMPS2,
+    );
+  } finally {
+    p.wpilibMotor.delete();
+  }
+}
+
+export async function optimizeConfiguration(
+  params: OptimizeConfigurationParams,
+): Promise<ConfigOptOutput> {
+  const { wpilibc, p, control } = await prepareConfig(params);
+
+  const maxStator = Measurement.fromDict(
+    params.maximumComfortableStatorLimitDict,
+  ).to('A').scalar;
+  const maxSupply = Measurement.fromDict(
+    params.maximumComfortableSupplyLimitDict,
+  ).to('A').scalar;
 
   const allResults: ConfigOptResult[] = [];
 
-  for (const statorAmps of makeGrid(maxStator)) {
-    const totalStatorAmps = statorAmps * p.motorQuantity;
-    for (const supplyAmps of makeGrid(maxSupply)) {
-      const control: SimControlParams = {
-        qPositionMeters,
-        qVelocityMPS,
-        rVolts,
-        sensorDelaySeconds,
-      };
-
-      const optimalRatio = findOptimalRatio(
-        wpilibc,
-        p,
-        totalStatorAmps,
-        supplyAmps,
-        maxVelocityMPS,
-        maxAccelerationMPS2,
-        control,
-      );
-
-      if (isNaN(optimalRatio)) {
-        allResults.push({
-          statorLimitAmps: statorAmps,
-          supplyLimitAmps: supplyAmps,
-          optimalRatio: NaN,
-          timeToGoalSeconds: Number.POSITIVE_INFINITY,
-          peakCurrentAmps: 0,
-          energyJoules: 0,
-          success: false,
-        });
-        continue;
-      }
-
-      let effectiveVelocity = maxVelocityMPS;
-      let effectiveAcceleration = maxAccelerationMPS2;
-
-      if (effectiveVelocity === null || effectiveAcceleration === null) {
-        const guessed = guessLimitsFromMech(
-          p,
-          optimalRatio,
-          statorAmps,
-          supplyAmps,
-          rVolts,
+  try {
+    for (const statorAmps of makeGrid(maxStator)) {
+      for (const supplyAmps of makeGrid(maxSupply)) {
+        allResults.push(
+          computeConfigCell(
+            wpilibc,
+            p,
+            control,
+            statorAmps,
+            supplyAmps,
+            params.maxVelocityMPS,
+            params.maxAccelerationMPS2,
+          ),
         );
-        effectiveVelocity = effectiveVelocity ?? guessed.velocity;
-        effectiveAcceleration = effectiveAcceleration ?? guessed.acceleration;
       }
-
-      const states = simulate({
-        wpilibc,
-        mech: p,
-        ratioMagnitude: optimalRatio,
-        totalStatorAmps,
-        supplyAmps,
-        maxVelocityMPS: effectiveVelocity,
-        maxAccelerationMPS2: effectiveAcceleration,
-        control,
-        timeoutSeconds: 1.5,
-      });
-
-      const result = extractSimResult(states);
-      if (!result) {
-        allResults.push({
-          statorLimitAmps: statorAmps,
-          supplyLimitAmps: supplyAmps,
-          optimalRatio,
-          timeToGoalSeconds: Number.POSITIVE_INFINITY,
-          peakCurrentAmps: 0,
-          energyJoules: 0,
-          success: false,
-        });
-        continue;
-      }
-
-      allResults.push({
-        statorLimitAmps: statorAmps,
-        supplyLimitAmps: supplyAmps,
-        optimalRatio,
-        timeToGoalSeconds: result.timeToGoalSeconds,
-        peakCurrentAmps: result.peakCurrentAmps,
-        energyJoules: result.energyJoules,
-        success: result.success,
-      });
     }
+  } finally {
+    p.wpilibMotor.delete();
   }
 
-  const successResults = allResults.filter((r) => r.success);
-
-  if (successResults.length === 0) {
-    return { recommended: null, allResults };
-  }
-
-  const recommended = successResults.reduce((best, r) =>
-    r.timeToGoalSeconds < best.timeToGoalSeconds ? r : best,
-  );
-
-  return { recommended, allResults };
+  return reduceConfigOutput(allResults);
 }
 
-workerpool.worker({ optimizeRatio, simulateOnce, optimizeConfiguration });
+workerpool.worker({
+  optimizeRatio,
+  simulateOnce,
+  optimizeConfiguration,
+  optimizeConfigurationCell,
+});
