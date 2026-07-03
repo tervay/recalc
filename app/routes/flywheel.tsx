@@ -40,12 +40,10 @@ import type {
   ConfigOptResult,
 } from '~/lib/math/flywheelOptimizer.worker';
 import optimizerWorkerUrl from '~/lib/math/flywheelOptimizer.worker?worker&url';
-import { calculateKa, calculateKv } from '~/lib/math/kVkA';
 import Measurement from '~/lib/models/Measurement';
 import Motor, { nominalVoltage } from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 import { getPool } from '~/lib/pool';
-import { MotorRules } from '~/lib/rules';
 import {
   BooleanParam,
   MeasurementParam,
@@ -338,35 +336,40 @@ export default function Flywheel() {
     [combinedMOI, ratio],
   );
 
-  const kV = useMemo(() => {
-    if (ratio.asNumber() == 0) {
-      return new Measurement(0, 'V*s/m');
-    }
+  const [feedforwardGains, setFeedforwardGains] = useState({
+    kV: new Measurement(0, 'V*s/m'),
+    kA: new Measurement(0, 'V*s^2/m'),
+  });
 
-    return calculateKv(
-      motor.freeSpeed.div(ratio.asNumber()),
-      shooterDiameter.div(2),
-    );
-  }, [motor, ratio, shooterDiameter]);
-
-  const kA = useMemo(() => {
-    if (shooterDiameter.baseScalar == 0 || motor.quantity === 0) {
-      return new Measurement(0, 'V*s^2/m');
-    }
-
-    return calculateKa(
-      new MotorRules(motor, statorLimit, {
-        voltage: nominalVoltage,
-        rpm: new Measurement(0, 'rpm'),
+  useEffect(() => {
+    worker
+      .computeFlywheelFeedforwardGains(
+        motor.toDict(),
+        ratio.toDict(),
+        combinedMOI.toDict(),
+        efficiency / 100,
+      )
+      .then(({ kV, kA }) => {
+        const shooterRadius = shooterDiameter.div(2);
+        if (shooterRadius.scalar === 0) {
+          setFeedforwardGains({
+            kV: new Measurement(0, 'V*s/m'),
+            kA: new Measurement(0, 'V*s^2/m'),
+          });
+          return;
+        }
+        const oneRadian = new Measurement(1, 'rad');
+        setFeedforwardGains({
+          kV: new Measurement(kV, 'V*s/rad').mul(oneRadian).div(shooterRadius),
+          kA: new Measurement(kA, 'V*s^2/rad')
+            .mul(oneRadian)
+            .div(shooterRadius),
+        });
       })
-        .solve()
-        .torque.mul(motor.quantity)
-        .mul(ratio.asNumber())
-        .mul(efficiency / 100),
-      shooterDiameter.div(2),
-      combinedMOI.div(shooterDiameter.div(2).mul(shooterDiameter.div(2))),
-    );
-  }, [shooterDiameter, motor, statorLimit, ratio, efficiency, combinedMOI]);
+      .catch((error: unknown) => {
+        console.error(error);
+      });
+  }, [motor, ratio, combinedMOI, efficiency, shooterDiameter]);
 
   const [feedbackGains, setFeedbackGains] = useState({
     kP: new Measurement(0, 'V*s/rad'),
@@ -1198,13 +1201,13 @@ export default function Flywheel() {
               {/* Feedforward constants + Effective MOI */}
               <div className="grid grid-cols-3 gap-2 p-4">
                 <MeasurementDisplayOutput
-                  state={kV}
+                  state={feedforwardGains.kV}
                   label="kV"
                   defaultUnit="V*s/m"
                   testId="kV"
                 />
                 <MeasurementDisplayOutput
-                  state={kA}
+                  state={feedforwardGains.kA}
                   label="kA"
                   defaultUnit="V*s^2/m"
                   testId="kA"

@@ -4,11 +4,11 @@
 
 #include <cmath>
 #include <stdexcept>
-#include <string>
 #include <vector>
 
 #include "dc_motor.h"
 #include "sim_util.h"
+#include "wasm_console.h"
 #include "wpi/math/controller/LinearQuadraticRegulator.hpp"
 #include "wpi/math/estimator/KalmanFilter.hpp"
 #include "wpi/math/filter/LinearFilter.hpp"
@@ -233,10 +233,8 @@ inline emscripten::val SimulateElevatorImpl(
     timestamp += simTimestep;
 
     const double statorCurrent = elevator.GetCurrentDraw().to<double>();
-    // GetCurrentDraw() returns stator current (positive = motoring, negative =
-    // braking). Use abs(vApplied) to maintain correct supply current signage.
     const double supplyCurrent =
-        std::abs(statorCurrent) * std::abs(vApplied) / vSupply;
+        SupplyCurrentFromStator(statorCurrent, vApplied, vSupply);
     energyJoules += supplyCurrent * vSupply * simTimestep;
 
     // Battery voltage under load, smoothed by a single-pole IIR filter
@@ -313,22 +311,17 @@ inline emscripten::val SimulateElevator(
         sensorDelaySeconds, kalmanFilterPositionStdDev,
         kalmanFilterVelocityStdDev, kalmanFilterEncoderPositionStdDev);
   } catch (const std::exception& e) {
-    emscripten::val::global("console").call<void>(
-        "warn", std::string("SimulateElevator: ") + e.what() +
-                    " (gearing=" + std::to_string(gearing) +
-                    " loadKg=" + std::to_string(loadKg) +
-                    " spoolR=" + std::to_string(spoolRadiusMeters) +
-                    " statorA=" + std::to_string(statorLimitAmps) +
-                    " supplyA=" + std::to_string(supplyLimitAmps) + ")");
+    ConsoleWarn(
+        "SimulateElevator: {} (gearing={} loadKg={} spoolR={} statorA={} "
+        "supplyA={})",
+        e.what(), gearing, loadKg, spoolRadiusMeters, statorLimitAmps,
+        supplyLimitAmps);
     return emscripten::val::array();
   } catch (...) {
-    emscripten::val::global("console").call<void>(
-        "warn", std::string("SimulateElevator: unknown exception") +
-                    " (gearing=" + std::to_string(gearing) +
-                    " loadKg=" + std::to_string(loadKg) +
-                    " spoolR=" + std::to_string(spoolRadiusMeters) +
-                    " statorA=" + std::to_string(statorLimitAmps) +
-                    " supplyA=" + std::to_string(supplyLimitAmps) + ")");
+    ConsoleWarn(
+        "SimulateElevator: unknown exception (gearing={} loadKg={} spoolR={} "
+        "statorA={} supplyA={})",
+        gearing, loadKg, spoolRadiusMeters, statorLimitAmps, supplyLimitAmps);
     return emscripten::val::array();
   }
 }

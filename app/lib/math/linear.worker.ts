@@ -64,6 +64,59 @@ export interface FeedbackGains {
   kD: number;
 }
 
+export interface ComputeElevatorFeedforwardGainsParams {
+  motorDict: MotorDict;
+  ratio: RatioDict;
+  load: MeasurementDict;
+  spoolDiameter: MeasurementDict;
+  efficiency: number;
+  angle: MeasurementDict;
+}
+
+export interface FeedforwardGains {
+  kV: number;
+  kA: number;
+  kG: number;
+}
+
+export async function computeElevatorFeedforwardGains({
+  motorDict,
+  ratio,
+  load,
+  spoolDiameter,
+  efficiency,
+  angle,
+}: ComputeElevatorFeedforwardGainsParams): Promise<FeedforwardGains> {
+  const wpilibc = await initWpilibc();
+  const motor = Motor.fromDict(motorDict);
+  const ratioValue = Ratio.fromDict(ratio);
+  const loadMeasurement = Measurement.fromDict(load);
+  const spoolRadius = Measurement.fromDict(spoolDiameter).div(2);
+
+  if (
+    ratioValue.asNumber() === 0 ||
+    motor.quantity === 0 ||
+    loadMeasurement.baseScalar === 0 ||
+    spoolRadius.baseScalar === 0
+  ) {
+    return { kV: 0, kA: 0, kG: 0 };
+  }
+
+  const wasmMotor = motor.toWpilibMotor();
+  try {
+    return wpilibc.computeLinearFeedforwardGains(
+      wasmMotor,
+      ratioValue.asNumber(),
+      loadMeasurement.to('kg').scalar,
+      spoolRadius.to('m').scalar,
+      efficiency,
+      Measurement.fromDict(angle).to('rad').scalar,
+    ) as FeedforwardGains;
+  } finally {
+    wasmMotor.delete();
+  }
+}
+
 export async function computeElevatorFeedbackGains({
   motorDict,
   ratio,

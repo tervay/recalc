@@ -1,4 +1,4 @@
-FROM emscripten/emsdk:6.0.0 AS base
+FROM emscripten/emsdk:6.0.2 AS base
 
 RUN apt-get update -qq && \
     apt-get install -y -qq \
@@ -119,8 +119,10 @@ COPY patches/wpilibc/wasm/bindings.cc \
      patches/wpilibc/wasm/dc_motor_sim.h \
      patches/wpilibc/wasm/elevator_sim.h \
      patches/wpilibc/wasm/feedback_gains.h \
+     patches/wpilibc/wasm/feedforward_gains.h \
      patches/wpilibc/wasm/flywheel_sim.h \
      patches/wpilibc/wasm/sim_util.h \
+     patches/wpilibc/wasm/wasm_console.h \
      /build/allwpilib/wpilibc/wasm/
 
 # Touch to ensure mtime is newer than the placeholder object file, so ninja

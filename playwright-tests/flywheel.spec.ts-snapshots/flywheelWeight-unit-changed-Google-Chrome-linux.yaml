@@ -99,9 +99,9 @@
     - img "Supply Current (A) legend icon"
     - text: Supply Current (A)
 - application: Time (s) Current (A) / Voltage (V) Angular Velocity (RPM) 0.0155 0.0455 0.0755 0.101 0.121 0.141 0.161 0.181 0.206 0.231 0.253 0 40 80 120 160 0 800 1600 2400 3200
-- text: kV 0.390
+- text: kV 0.387
 - combobox: V*s/m
-- text: kA 0.198
+- text: kA 0.032
 - combobox: V*s^2/m
 - text: Effective MOI 8.614
 - combobox: in2*lbs

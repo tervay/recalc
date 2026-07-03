@@ -30,11 +30,6 @@ import {
 import { Skeleton } from '~/components/ui/skeleton';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
-import {
-  calculateLinearFeedforwardKa,
-  calculateLinearFeedforwardKg,
-  calculateLinearFeedforwardKv,
-} from '~/lib/math/kVkA';
 import { calculateGuessedLimits, calculateStallLoad } from '~/lib/math/linear';
 import type * as LinearWorker from '~/lib/math/linear.worker';
 import type * as LinearOptimizerWorker from '~/lib/math/linearOptimizer.worker';
@@ -289,31 +284,35 @@ export default function Linear() {
     return targetPos.sub(lastPos);
   }, [workerWpilibSimStates, travelDistance, cascade]);
 
-  const kA = useMemo(
-    () =>
-      calculateLinearFeedforwardKa(
-        motor,
-        ratio,
-        spoolDiameter.div(2),
-        load,
-        efficiency / 100,
-      ),
-    [motor, ratio, load, spoolDiameter, efficiency],
-  );
-  const kV = useMemo(
-    () =>
-      calculateLinearFeedforwardKv(
-        motor,
-        ratio,
-        spoolDiameter.div(2),
-        efficiency / 100,
-      ),
-    [motor, ratio, spoolDiameter, efficiency],
-  );
-  const kG = useMemo(
-    () => calculateLinearFeedforwardKg(kA, angle),
-    [kA, angle],
-  );
+  const [feedforwardGains, setFeedforwardGains] = useState({
+    kV: new Measurement(0, 'V*s/m'),
+    kA: new Measurement(0, 'V*s^2/m'),
+    kG: new Measurement(0, 'V'),
+  });
+
+  useEffect(() => {
+    worker
+      .computeElevatorFeedforwardGains({
+        motorDict: motor.toDict(),
+        ratio: ratio.toDict(),
+        load: load.toDict(),
+        spoolDiameter: spoolDiameter.toDict(),
+        efficiency: efficiency / 100,
+        angle: angle.toDict(),
+      })
+      .then(({ kV, kA, kG }) => {
+        setFeedforwardGains({
+          kV: new Measurement(kV, 'V*s/m'),
+          kA: new Measurement(kA, 'V*s^2/m'),
+          kG: new Measurement(kG, 'V'),
+        });
+      })
+      .catch((error: unknown) => {
+        console.error(error);
+      });
+  }, [motor, ratio, load, spoolDiameter, efficiency, angle]);
+
+  const { kV, kA, kG } = feedforwardGains;
 
   const [feedbackGains, setFeedbackGains] = useState({
     kP: new Measurement(0, 'V/m'),

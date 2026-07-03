@@ -36,11 +36,6 @@ import type {
   ConfigOptResult,
 } from '~/lib/math/armOptimizer.worker';
 import optimizerWorkerUrl from '~/lib/math/armOptimizer.worker?worker&url';
-import {
-  calculateAngularFeedforwardKa,
-  calculateAngularFeedforwardKg,
-  calculateAngularFeedforwardKv,
-} from '~/lib/math/kVkA';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
@@ -175,24 +170,33 @@ export default function Arm() {
     return load.mul(armLength.mul(armLength));
   }, [load, armLength]);
 
-  const kV = useMemo(
-    () => calculateAngularFeedforwardKv(motor, ratio, efficiency / 100),
-    [motor, ratio, efficiency],
-  );
-  const kA = useMemo(
-    () =>
-      calculateAngularFeedforwardKa(
-        motor,
-        ratio,
-        momentOfInertia,
+  const [feedforwardGains, setFeedforwardGains] = useState({
+    kV: new Measurement(0, 'V*s/rad'),
+    kA: new Measurement(0, 'V*s^2/rad'),
+    kG: new Measurement(0, 'V'),
+  });
+
+  useEffect(() => {
+    worker
+      .computeArmFeedforwardGains(
+        motor.toDict(),
+        ratio.toDict(),
+        momentOfInertia.toDict(),
         efficiency / 100,
-      ),
-    [motor, ratio, momentOfInertia, efficiency],
-  );
-  const kG = useMemo(
-    () => calculateAngularFeedforwardKg(kA, momentOfInertia, load, armLength),
-    [kA, momentOfInertia, load, armLength],
-  );
+        load.toDict(),
+        armLength.toDict(),
+      )
+      .then(({ kV, kA, kG }) => {
+        setFeedforwardGains({
+          kV: new Measurement(kV, 'V*s/rad'),
+          kA: new Measurement(kA, 'V*s^2/rad'),
+          kG: new Measurement(kG, 'V'),
+        });
+      })
+      .catch((error: unknown) => {
+        console.error(error);
+      });
+  }, [motor, ratio, momentOfInertia, efficiency, load, armLength]);
 
   const [feedbackGains, setFeedbackGains] = useState({
     kP: new Measurement(0, 'V/rad'),
@@ -803,21 +807,21 @@ export default function Arm() {
               {/* Feedforward */}
               <div className="grid grid-cols-3 gap-2 p-4">
                 <MeasurementDisplayOutput
-                  state={kV}
+                  state={feedforwardGains.kV}
                   label="kV"
                   defaultUnit="V*s/rad"
                   roundTo={3}
                   testId="kV"
                 />
                 <MeasurementDisplayOutput
-                  state={kA}
+                  state={feedforwardGains.kA}
                   label="kA"
                   defaultUnit="V*s^2/rad"
                   roundTo={3}
                   testId="kA"
                 />
                 <MeasurementDisplayOutput
-                  state={kG}
+                  state={feedforwardGains.kG}
                   label="kG"
                   defaultUnit="V"
                   roundTo={3}

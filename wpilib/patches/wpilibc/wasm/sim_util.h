@@ -38,6 +38,32 @@ inline double ClampVoltageForCurrentLimits(double vApplied, double vBackEmf,
                     vSupply);
 }
 
+// Convert a signed stator current draw into the corresponding battery-side
+// (supply) current for one timestep, given the applied voltage and the
+// instantaneous supply voltage.
+//
+// Derived from power balance across the motor controller (P_supply =
+// P_applied):
+//
+//   I_supply * V_supply = I_stator_raw * V_applied
+//   I_supply            = I_stator_raw * V_applied / V_supply
+//
+// The sim `GetCurrentDraw()` methods return the stator current already
+// multiplied by sgn(V_applied) (i.e. statorCurrent = I_stator_raw *
+// sgn(V_applied)). Combining that with |V_applied| here reconstructs
+// I_stator_raw * V_applied and therefore yields the correctly *signed* supply
+// current: positive = drawing from the battery, negative = regenerating.
+//
+// Returns 0 when V_supply <= 0 to avoid a divide-by-zero (the battery voltage
+// is clamped to >= 0 by BatterySim under extreme loads).
+inline double SupplyCurrentFromStator(double statorCurrentAmps, double vApplied,
+                                      double vSupply) {
+  if (vSupply <= 0.0) {
+    return 0.0;
+  }
+  return statorCurrentAmps * std::abs(vApplied) / vSupply;
+}
+
 // Decimate a state vector and convert to a JS array via a caller-supplied
 // serialization function.  Always includes the last element even when it does
 // not fall on a decimation boundary (matches obliterateArray in utils.ts).

@@ -1,9 +1,31 @@
 import { describe, expect, it } from 'vitest';
 
-import { simulateFlywheelWpilib } from '~/lib/math/flywheel.worker';
+import {
+  computeFlywheelFeedforwardGains,
+  simulateFlywheelWpilib,
+} from '~/lib/math/flywheel.worker';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
+
+describe('computeFlywheelFeedforwardGains', () => {
+  it('returns sane, non-zero gains and no gravity term for a realistic flywheel configuration', async () => {
+    const motor = Motor.KrakenX60sFOC(2);
+    const ratio = new Ratio(1, RatioType.REDUCTION);
+    const momentOfInertia = new Measurement(10, 'in2*lbs');
+
+    const result = await computeFlywheelFeedforwardGains(
+      motor.toDict(),
+      ratio.toDict(),
+      momentOfInertia.toDict(),
+      1.0,
+    );
+
+    expect(result.kV).toBeGreaterThan(0);
+    expect(result.kA).toBeGreaterThan(0);
+    expect(result.kG).toBe(0);
+  });
+});
 
 describe('simulateFlywheelWpilib', () => {
   it('simulates a flywheel correctly', async () => {

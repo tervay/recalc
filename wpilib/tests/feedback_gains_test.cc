@@ -45,7 +45,7 @@ TEST_F(ElevatorFeedbackGainsTest, MatchesDirectLqrConstruction) {
   wpi::math::Matrixd<1, 1> controllerD;
   controllerD << 0;
   wpi::math::LinearSystem<2, 1, 1> plant{idealPlantFull.A(), controllerB,
-                                        controllerC, controllerD};
+                                         controllerC, controllerD};
 
   wpi::math::LinearQuadraticRegulator<2, 1> expected{
       plant,
@@ -115,30 +115,27 @@ TEST_F(ElevatorFeedbackGainsTest, TighteningVelocityToleranceDecreasesKD) {
 }
 
 TEST_F(ElevatorFeedbackGainsTest, NonPositiveGearingThrowsDomainError) {
-  EXPECT_THROW(
-      ComputeElevatorFeedbackGainsCore(
-          motor, /*gearing=*/0.0, kMassKg, kSpoolRadiusMeters, kEfficiency,
-          kQPositionMeters, kQVelocityMPS, kRVolts, kDtSeconds,
-          kSensorDelaySeconds),
-      std::domain_error);
+  EXPECT_THROW(ComputeElevatorFeedbackGainsCore(
+                   motor, /*gearing=*/0.0, kMassKg, kSpoolRadiusMeters,
+                   kEfficiency, kQPositionMeters, kQVelocityMPS, kRVolts,
+                   kDtSeconds, kSensorDelaySeconds),
+               std::domain_error);
 }
 
 TEST_F(ElevatorFeedbackGainsTest, NonPositiveMassThrowsDomainError) {
-  EXPECT_THROW(
-      ComputeElevatorFeedbackGainsCore(
-          motor, kGearing, /*massKg=*/-1.0, kSpoolRadiusMeters, kEfficiency,
-          kQPositionMeters, kQVelocityMPS, kRVolts, kDtSeconds,
-          kSensorDelaySeconds),
-      std::domain_error);
+  EXPECT_THROW(ComputeElevatorFeedbackGainsCore(
+                   motor, kGearing, /*massKg=*/-1.0, kSpoolRadiusMeters,
+                   kEfficiency, kQPositionMeters, kQVelocityMPS, kRVolts,
+                   kDtSeconds, kSensorDelaySeconds),
+               std::domain_error);
 }
 
 TEST_F(ElevatorFeedbackGainsTest, NonPositiveSpoolRadiusThrowsDomainError) {
-  EXPECT_THROW(
-      ComputeElevatorFeedbackGainsCore(
-          motor, kGearing, kMassKg, /*spoolRadiusMeters=*/0.0, kEfficiency,
-          kQPositionMeters, kQVelocityMPS, kRVolts, kDtSeconds,
-          kSensorDelaySeconds),
-      std::domain_error);
+  EXPECT_THROW(ComputeElevatorFeedbackGainsCore(
+                   motor, kGearing, kMassKg, /*spoolRadiusMeters=*/0.0,
+                   kEfficiency, kQPositionMeters, kQVelocityMPS, kRVolts,
+                   kDtSeconds, kSensorDelaySeconds),
+               std::domain_error);
 }
 
 // ============================================================================
@@ -161,7 +158,8 @@ class ArmFeedbackGainsTest : public ::testing::Test {
 TEST_F(ArmFeedbackGainsTest, MatchesDirectLqrConstruction) {
   auto idealPlantFull =
       wpi::math::Models::SingleJointedArmFromPhysicalConstants(
-          motor, wpi::units::kilogram_square_meter_t(kMomentOfInertiaKgMSquared),
+          motor,
+          wpi::units::kilogram_square_meter_t(kMomentOfInertiaKgMSquared),
           kGearing);
 
   wpi::math::Matrixd<2, 1> controllerB = idealPlantFull.B() * kEfficiency;
@@ -170,7 +168,7 @@ TEST_F(ArmFeedbackGainsTest, MatchesDirectLqrConstruction) {
   wpi::math::Matrixd<1, 1> controllerD;
   controllerD << 0;
   wpi::math::LinearSystem<2, 1, 1> plant{idealPlantFull.A(), controllerB,
-                                        controllerC, controllerD};
+                                         controllerC, controllerD};
 
   wpi::math::LinearQuadraticRegulator<2, 1> expected{
       plant,
@@ -206,12 +204,11 @@ TEST_F(ArmFeedbackGainsTest, NonPositiveMomentOfInertiaThrowsDomainError) {
 }
 
 TEST_F(ArmFeedbackGainsTest, NonPositiveGearingThrowsDomainError) {
-  EXPECT_THROW(
-      ComputeArmFeedbackGainsCore(
-          motor, /*gearing=*/-5.0, kMomentOfInertiaKgMSquared, kEfficiency,
-          kQPositionRad, kQVelocityRadPerSec, kRVolts, kDtSeconds,
-          kSensorDelaySeconds),
-      std::domain_error);
+  EXPECT_THROW(ComputeArmFeedbackGainsCore(
+                   motor, /*gearing=*/-5.0, kMomentOfInertiaKgMSquared,
+                   kEfficiency, kQPositionRad, kQVelocityRadPerSec, kRVolts,
+                   kDtSeconds, kSensorDelaySeconds),
+               std::domain_error);
 }
 
 // ============================================================================
@@ -237,10 +234,13 @@ TEST_F(FlywheelFeedbackGainsTest, MatchesDirectLqrConstruction) {
 
   wpi::math::Matrixd<1, 1> controllerB = idealPlant.B() * kEfficiency;
   wpi::math::LinearSystem<1, 1, 1> plant{idealPlant.A(), controllerB,
-                                        idealPlant.C(), idealPlant.D()};
+                                         idealPlant.C(), idealPlant.D()};
 
   wpi::math::LinearQuadraticRegulator<1, 1> expected{
-      plant, {kQVelocityRadPerSec}, {kRVolts}, wpi::units::second_t(kDtSeconds)};
+      plant,
+      {kQVelocityRadPerSec},
+      {kRVolts},
+      wpi::units::second_t(kDtSeconds)};
   expected.LatencyCompensate(plant, wpi::units::second_t(kDtSeconds),
                              wpi::units::second_t(kSensorDelaySeconds));
 
@@ -279,17 +279,17 @@ TEST_F(FlywheelFeedbackGainsTest, TighteningVelocityToleranceIncreasesKP) {
 }
 
 TEST_F(FlywheelFeedbackGainsTest, NonPositiveMomentOfInertiaThrowsDomainError) {
-  EXPECT_THROW(ComputeFlywheelFeedbackGainsCore(
-                   motor, kGearing, /*momentOfInertiaKgMSquared=*/-0.01,
-                   kEfficiency, kQVelocityRadPerSec, kRVolts, kDtSeconds,
-                   kSensorDelaySeconds),
-               std::domain_error);
+  EXPECT_THROW(
+      ComputeFlywheelFeedbackGainsCore(
+          motor, kGearing, /*momentOfInertiaKgMSquared=*/-0.01, kEfficiency,
+          kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds),
+      std::domain_error);
 }
 
 TEST_F(FlywheelFeedbackGainsTest, NonPositiveGearingThrowsDomainError) {
-  EXPECT_THROW(ComputeFlywheelFeedbackGainsCore(
-                   motor, /*gearing=*/0.0, kMomentOfInertiaKgMSquared,
-                   kEfficiency, kQVelocityRadPerSec, kRVolts, kDtSeconds,
-                   kSensorDelaySeconds),
-               std::domain_error);
+  EXPECT_THROW(
+      ComputeFlywheelFeedbackGainsCore(
+          motor, /*gearing=*/0.0, kMomentOfInertiaKgMSquared, kEfficiency,
+          kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds),
+      std::domain_error);
 }

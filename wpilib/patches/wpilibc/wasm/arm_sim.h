@@ -180,11 +180,8 @@ inline emscripten::val SimulateArm(
     timestamp += simTimestep;
 
     const double statorCurrent = arm.GetCurrentDraw().to<double>();
-    // GetCurrentDraw() returns stator current (positive = motoring, negative =
-    // braking). Use abs(vApplied) to maintain correct supply current signage:
-    // positive = drawing from battery, negative = regenerating.
     const double supplyCurrent =
-        vSupply > 0.0 ? statorCurrent * std::abs(vApplied) / vSupply : 0.0;
+        SupplyCurrentFromStator(statorCurrent, vApplied, vSupply);
     energyJoules += supplyCurrent * vSupply * simTimestep;
 
     // Battery voltage under load, smoothed by a single-pole IIR filter

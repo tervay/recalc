@@ -6,6 +6,7 @@
 #include "dc_motor_sim.h"
 #include "elevator_sim.h"
 #include "feedback_gains.h"
+#include "feedforward_gains.h"
 #include "flywheel_sim.h"
 
 using namespace emscripten;
@@ -135,4 +136,20 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
       "momentOfInertiaKgMSquared, efficiency, qVelocityRadPerSec, rVolts, "
       "dtSeconds, sensorDelaySeconds)",
       &ComputeFlywheelFeedbackGains, allow_raw_pointers());
+
+  // Feedforward gains (kV, kA, kG)
+  function(
+      "computeLinearFeedforwardGains(motor, gearing, loadKg, "
+      "spoolRadiusMeters, efficiency, angleRadians)",
+      &ComputeLinearFeedforwardGains, allow_raw_pointers());
+
+  function(
+      "computeAngularFeedforwardGains(motor, gearing, "
+      "momentOfInertiaKgMSquared, efficiency, comMassKg, comLengthMeters)",
+      &ComputeAngularFeedforwardGains, allow_raw_pointers());
+
+  function(
+      "computeFlywheelFeedforwardGains(motor, gearing, "
+      "momentOfInertiaKgMSquared, efficiency)",
+      &ComputeFlywheelFeedforwardGains, allow_raw_pointers());
 }

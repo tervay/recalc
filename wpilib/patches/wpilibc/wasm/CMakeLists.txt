@@ -50,6 +50,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
         ${CMAKE_CURRENT_SOURCE_DIR}/../../wpimath/src/main/native/thirdparty/eigen/include
         ${CMAKE_CURRENT_SOURCE_DIR}/../../wpimath/src/main/native/thirdparty/gcem/include
         ${CMAKE_CURRENT_SOURCE_DIR}/../../wpimath/src/main/native/thirdparty/sleipnir/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../wpiutil/src/main/native/thirdparty/fmtlib/include
     )
 
     # Emscripten compilation flags (only compile-time flags here)
@@ -72,6 +73,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
         # conversion internally.  Removing them shrinks the JS glue.
         "-sEXPORTED_RUNTIME_METHODS=[]"
         "-sALLOW_MEMORY_GROWTH=1"
+        "-sGROWABLE_ARRAYBUFFERS=0"
         "-sINITIAL_MEMORY=16777216"
         "-sMAXIMUM_MEMORY=268435456"
         "-sENVIRONMENT=web,worker,node"

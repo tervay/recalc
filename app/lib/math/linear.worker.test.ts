@@ -1,11 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
 import {
-  calculateLinearFeedforwardKa,
-  calculateLinearFeedforwardKg,
-  calculateLinearFeedforwardKv,
-} from '~/lib/math/kVkA';
-import { simulateElevatorWpilib } from '~/lib/math/linear.worker';
+  computeElevatorFeedforwardGains,
+  simulateElevatorWpilib,
+} from '~/lib/math/linear.worker';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
@@ -14,7 +12,7 @@ const KALMAN_FILTER_POSITION_STD_DEV = new Measurement(2, 'in');
 const KALMAN_FILTER_VELOCITY_STD_DEV = new Measurement(40, 'in/s');
 const KALMAN_FILTER_ENCODER_POSITION_STD_DEV = new Measurement(0.001, 'in');
 
-function makeFeedforward(
+async function makeFeedforward(
   motor: Motor,
   ratio: Ratio,
   spoolDiameter: Measurement,
@@ -23,24 +21,21 @@ function makeFeedforward(
   efficiency: number,
   batteryVoltage: Measurement,
 ) {
-  const spoolRadius = spoolDiameter.div(2);
-  const kV = calculateLinearFeedforwardKv(
-    motor,
-    ratio,
-    spoolRadius,
+  const {
+    kV: kVScalar,
+    kA: kAScalar,
+    kG: kGScalar,
+  } = await computeElevatorFeedforwardGains({
+    motorDict: motor.toDict(),
+    ratio: ratio.toDict(),
+    load: load.toDict(),
+    spoolDiameter: spoolDiameter.toDict(),
     efficiency,
-  );
-  const kA = calculateLinearFeedforwardKa(
-    motor,
-    ratio,
-    spoolRadius,
-    load,
-    efficiency,
-  );
-  const kG = calculateLinearFeedforwardKg(kA, angle);
-  const kVScalar = kV.to('V*s/m').scalar;
-  const kAScalar = kA.to('V*s^2/m').scalar;
-  const kGScalar = kG.to('V').scalar;
+    angle: angle.toDict(),
+  });
+  const kV = new Measurement(kVScalar, 'V*s/m');
+  const kA = new Measurement(kAScalar, 'V*s^2/m');
+  const kG = new Measurement(kGScalar, 'V');
   const battV = batteryVoltage.to('V').scalar;
   // Split the available voltage budget (battV - kG) evenly between the
   // velocity and acceleration terms so that the feedforward at (vMax, aMax)
@@ -75,7 +70,7 @@ describe('simulateElevatorWpilib', () => {
     const batteryVoltage = new Measurement(12, 'V');
     const angle = new Measurement(90, 'deg');
 
-    const { maxVelocity, maxAcceleration } = makeFeedforward(
+    const { maxVelocity, maxAcceleration } = await makeFeedforward(
       motor,
       ratio,
       spoolDiameter,
@@ -128,7 +123,7 @@ describe('simulateElevatorWpilib', () => {
     const batteryVoltage = new Measurement(12, 'V');
     const angle = new Measurement(90, 'deg');
 
-    const { maxVelocity, maxAcceleration } = makeFeedforward(
+    const { maxVelocity, maxAcceleration } = await makeFeedforward(
       motor,
       ratio,
       spoolDiameter,
@@ -201,7 +196,7 @@ describe('simulateElevatorWpilib', () => {
     const batteryVoltage = new Measurement(12, 'V');
     const angle = new Measurement(90, 'deg');
 
-    const { maxVelocity, maxAcceleration } = makeFeedforward(
+    const { maxVelocity, maxAcceleration } = await makeFeedforward(
       motor,
       ratio,
       spoolDiameter,
