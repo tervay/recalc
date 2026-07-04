@@ -8,27 +8,32 @@ import NumberInput from '~/components/recalc/io/number';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import { calculateSpacing } from '~/lib/math/gears';
+import { buildMeta, pageUrl } from '~/lib/seo';
 import { NumberParam } from '~/lib/types/queryParams';
 
-const GEARS_URL = 'https://beta.reca.lc/gears';
+const GEARS_PATH = '/gears';
+const GEARS_TITLE = 'FRC & FTC Gear Calculator | ReCalc';
 const GEARS_NAME = 'Gears Calculator';
 const GEARS_DESCRIPTION =
-  'Calculate gear drive configurations for FRC robots. Determine gear ratios, center-to-center distances, and mesh compatibility.';
+  'Calculate gear drive configurations for FRC and FTC robots. Determine gear ratios, center-to-center distances, and mesh compatibility.';
 
 export function meta() {
   return [
-    { title: GEARS_NAME },
-    { name: 'description', content: GEARS_DESCRIPTION },
+    ...buildMeta({
+      path: GEARS_PATH,
+      title: GEARS_TITLE,
+      description: GEARS_DESCRIPTION,
+    }),
     {
       'script:ld+json': buildJsonLd(
         buildWebPage({
-          url: GEARS_URL,
+          url: pageUrl(GEARS_PATH),
           name: GEARS_NAME,
           description: GEARS_DESCRIPTION,
           breadcrumbLabel: GEARS_NAME,
         }),
         buildCalculatorApp({
-          url: GEARS_URL,
+          url: pageUrl(GEARS_PATH),
           name: GEARS_NAME,
           description: GEARS_DESCRIPTION,
         }),

@@ -15,22 +15,23 @@ import ZapIcon from '~icons/lucide/zap';
 import StreamlineUltimateFactoryIndustrialRobotArm1 from '~icons/streamline-ultimate/factory-industrial-robot-arm-1';
 
 import { buildJsonLd, buildWebPage, buildWebSite } from '~/lib/jsonld';
+import { buildMeta, pageUrl } from '~/lib/seo';
 import { cn } from '~/lib/utils';
 
 import type { Route } from '.react-router/types/app/routes/+types/home';
 
+const TITLE = 'ReCalc – FRC & FTC Robotics Design Calculator & Simulator';
 const DESCRIPTION =
-  'Design calculators for FIRST Robotics Competition teams. Calculate belt drives, chains, flywheels, arms, and more.';
+  'Free FRC and FTC robotics calculators and simulators. Design belt, chain, gear, arm, flywheel, and linear mechanisms for FIRST Robotics Competition and FIRST Tech Challenge teams.';
 
 export function meta(_: Route.MetaArgs) {
   return [
-    { title: 'ReCalc - A collaboration focused mechanical design calculator' },
-    { name: 'description', content: DESCRIPTION },
+    ...buildMeta({ path: '/', title: TITLE, description: DESCRIPTION }),
     {
       'script:ld+json': buildJsonLd(
         buildWebSite(),
         buildWebPage({
-          url: 'https://beta.reca.lc',
+          url: pageUrl('/'),
           name: 'ReCalc',
           description: DESCRIPTION,
         }),

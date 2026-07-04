@@ -21,6 +21,7 @@ import { calculateClosestCenters } from '~/lib/math/belts';
 import { Belt } from '~/lib/models/Belt';
 import Measurement from '~/lib/models/Measurement';
 import Pulley, { SimplePulley } from '~/lib/models/Pulley';
+import { buildMeta, pageUrl } from '~/lib/seo';
 import {
   BooleanParam,
   MeasurementParam,
@@ -28,25 +29,29 @@ import {
 } from '~/lib/types/queryParams';
 import { cn } from '~/lib/utils';
 
-const BELT_URL = 'https://beta.reca.lc/belts';
+const BELT_PATH = '/belts';
+const BELT_TITLE = 'FRC & FTC Belt Calculator | ReCalc';
 const BELT_NAME = 'Belt Calculator';
 const BELT_DESCRIPTION =
-  'Calculate optimal belt drive configurations for FRC robots. Find center-to-center distances, belt lengths, and compatible pulley combinations.';
+  'Calculate optimal belt drive configurations for FRC and FTC robots. Find center-to-center distances, belt lengths, and compatible pulley combinations.';
 
 export function meta() {
   return [
-    { title: BELT_NAME },
-    { name: 'description', content: BELT_DESCRIPTION },
+    ...buildMeta({
+      path: BELT_PATH,
+      title: BELT_TITLE,
+      description: BELT_DESCRIPTION,
+    }),
     {
       'script:ld+json': buildJsonLd(
         buildWebPage({
-          url: BELT_URL,
+          url: pageUrl(BELT_PATH),
           name: BELT_NAME,
           description: BELT_DESCRIPTION,
           breadcrumbLabel: BELT_NAME,
         }),
         buildCalculatorApp({
-          url: BELT_URL,
+          url: pageUrl(BELT_PATH),
           name: BELT_NAME,
           description: BELT_DESCRIPTION,
         }),

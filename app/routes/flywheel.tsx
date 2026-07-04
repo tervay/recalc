@@ -44,6 +44,7 @@ import Measurement from '~/lib/models/Measurement';
 import Motor, { nominalVoltage } from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 import { getPool } from '~/lib/pool';
+import { buildMeta, pageUrl } from '~/lib/seo';
 import {
   BooleanParam,
   MeasurementParam,
@@ -53,25 +54,29 @@ import {
   StringParam,
 } from '~/lib/types/queryParams';
 
-const FLYWHEEL_URL = 'https://beta.reca.lc/flywheel';
+const FLYWHEEL_PATH = '/flywheel';
+const FLYWHEEL_TITLE = 'FRC & FTC Flywheel Simulator | ReCalc';
 const FLYWHEEL_NAME = 'Flywheel Calculator';
 const FLYWHEEL_DESCRIPTION =
-  'Simulate flywheel mechanisms for FRC robots. Model spin-up time, energy storage, and motor performance under load.';
+  'Simulate flywheel mechanisms for FRC and FTC robots. Model spin-up time, energy storage, and motor performance under load.';
 
 export function meta() {
   return [
-    { title: FLYWHEEL_NAME },
-    { name: 'description', content: FLYWHEEL_DESCRIPTION },
+    ...buildMeta({
+      path: FLYWHEEL_PATH,
+      title: FLYWHEEL_TITLE,
+      description: FLYWHEEL_DESCRIPTION,
+    }),
     {
       'script:ld+json': buildJsonLd(
         buildWebPage({
-          url: FLYWHEEL_URL,
+          url: pageUrl(FLYWHEEL_PATH),
           name: FLYWHEEL_NAME,
           description: FLYWHEEL_DESCRIPTION,
           breadcrumbLabel: FLYWHEEL_NAME,
         }),
         buildCalculatorApp({
-          url: FLYWHEEL_URL,
+          url: pageUrl(FLYWHEEL_PATH),
           name: FLYWHEEL_NAME,
           description: FLYWHEEL_DESCRIPTION,
         }),
@@ -145,12 +150,26 @@ const ShooterModeSchema = z.enum(['single-hooded', 'dual-shooter', 'compound']);
 
 const CHART_CONFIG = {} as const;
 
-const worker = new ComlinkWorker<typeof FlywheelWorker>(
-  new URL('../lib/math/flywheel.worker', import.meta.url),
-  {
-    type: 'module',
-  },
-);
+// Constructed lazily (not at module scope) so importing this route module
+// never touches the `Worker` global — required for prerendering, where the
+// route component is rendered in Node and `Worker` does not exist. Every
+// call site below is inside a useEffect, so the getter is only ever invoked
+// client-side.
+function createWorker() {
+  return new ComlinkWorker<typeof FlywheelWorker>(
+    new URL('../lib/math/flywheel.worker', import.meta.url),
+    {
+      type: 'module',
+    },
+  );
+}
+
+let workerInstance: ReturnType<typeof createWorker> | undefined;
+
+function getWorker() {
+  workerInstance ??= createWorker();
+  return workerInstance;
+}
 
 const optimizerPool =
   getPool<typeof FlywheelOptimizerWorker>(optimizerWorkerUrl);
@@ -342,7 +361,7 @@ export default function Flywheel() {
   });
 
   useEffect(() => {
-    worker
+    getWorker()
       .computeFlywheelFeedforwardGains(
         motor.toDict(),
         ratio.toDict(),
@@ -376,7 +395,7 @@ export default function Flywheel() {
   });
 
   useEffect(() => {
-    worker
+    getWorker()
       .computeFlywheelFeedbackGains(
         motor.toDict(),
         ratio.toDict(),
@@ -480,7 +499,7 @@ export default function Flywheel() {
     let cancelled = false;
     startCalculating(async () => {
       try {
-        const states = await worker.simulateFlywheelWpilib(
+        const states = await getWorker().simulateFlywheelWpilib(
           motor.toDict(),
           ratio.toDict(),
           statorLimit.toDict(),
@@ -522,7 +541,7 @@ export default function Flywheel() {
     let cancelled = false;
     startRecoveryCalculating(async () => {
       try {
-        const states = await worker.simulateFlywheelWpilib(
+        const states = await getWorker().simulateFlywheelWpilib(
           motor.toDict(),
           ratio.toDict(),
           statorLimit.toDict(),
