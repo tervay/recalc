@@ -1,5 +1,5 @@
-const BASE_URL = 'https://beta.reca.lc';
-const SITE_NAME = 'ReCalc';
+import { BASE_URL, SITE_NAME } from '~/lib/seo';
+
 const SITE_DESCRIPTION =
   'A collaboration-focused mechanical design calculator for FIRST Robotics Competition teams.';
 const WEBSITE_ID = `${BASE_URL}/#website`;

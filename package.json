@@ -15,6 +15,7 @@
     "typecheck": "react-router typegen && tsc",
     "ingest": "tsx ./scripts/ingest.ts",
     "generateTests": "tsx ./scripts/generateTests.ts",
+    "generateOgImage": "tsx ./scripts/generateOgImage.ts",
     "test": "vitest",
     "test:playwright": "playwright test",
     "test:wpi": "./wpilib/tests/run_tests.sh",

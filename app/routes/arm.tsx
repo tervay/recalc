@@ -40,6 +40,7 @@ import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 import { getPool } from '~/lib/pool';
+import { buildMeta, pageUrl } from '~/lib/seo';
 import {
   MeasurementParam,
   MotorParam,
@@ -47,25 +48,29 @@ import {
   RatioParam,
 } from '~/lib/types/queryParams';
 
-const ARM_URL = 'https://beta.reca.lc/arm';
+const ARM_PATH = '/arm';
+const ARM_TITLE = 'FRC & FTC Arm Calculator & Simulator | ReCalc';
 const ARM_NAME = 'Arm Calculator';
 const ARM_DESCRIPTION =
-  'Simulate arm mechanisms for FRC robots. Model DC motor performance, gear ratios, and arm dynamics using WPILib state-space simulation.';
+  'Simulate arm mechanisms for FRC and FTC robots. Model DC motor performance, gear ratios, and arm dynamics using WPILib state-space simulation.';
 
 export function meta() {
   return [
-    { title: ARM_NAME },
-    { name: 'description', content: ARM_DESCRIPTION },
+    ...buildMeta({
+      path: ARM_PATH,
+      title: ARM_TITLE,
+      description: ARM_DESCRIPTION,
+    }),
     {
       'script:ld+json': buildJsonLd(
         buildWebPage({
-          url: ARM_URL,
+          url: pageUrl(ARM_PATH),
           name: ARM_NAME,
           description: ARM_DESCRIPTION,
           breadcrumbLabel: ARM_NAME,
         }),
         buildCalculatorApp({
-          url: ARM_URL,
+          url: pageUrl(ARM_PATH),
           name: ARM_NAME,
           description: ARM_DESCRIPTION,
         }),
@@ -104,12 +109,26 @@ const DEFAULT_PARAMS = {
 
 const CHART_CONFIG = {} as const;
 
-const worker = new ComlinkWorker<typeof ArmWorker>(
-  new URL('../lib/math/arm.worker', import.meta.url),
-  {
-    type: 'module',
-  },
-);
+// Constructed lazily (not at module scope) so importing this route module
+// never touches the `Worker` global — required for prerendering, where the
+// route component is rendered in Node and `Worker` does not exist. Every
+// call site below is inside a useEffect, so the getter is only ever invoked
+// client-side.
+function createWorker() {
+  return new ComlinkWorker<typeof ArmWorker>(
+    new URL('../lib/math/arm.worker', import.meta.url),
+    {
+      type: 'module',
+    },
+  );
+}
+
+let workerInstance: ReturnType<typeof createWorker> | undefined;
+
+function getWorker() {
+  workerInstance ??= createWorker();
+  return workerInstance;
+}
 
 const optimizerPool = getPool<typeof ArmOptimizerWorker>(optimizerWorkerUrl);
 
@@ -177,7 +196,7 @@ export default function Arm() {
   });
 
   useEffect(() => {
-    worker
+    getWorker()
       .computeArmFeedforwardGains(
         motor.toDict(),
         ratio.toDict(),
@@ -204,7 +223,7 @@ export default function Arm() {
   });
 
   useEffect(() => {
-    worker
+    getWorker()
       .computeArmFeedbackGains(
         motor.toDict(),
         ratio.toDict(),
@@ -262,7 +281,7 @@ export default function Arm() {
     setIsCalculating(true);
     let cancelled = false;
 
-    const upPromise = worker.simulateArmWpilib(
+    const upPromise = getWorker().simulateArmWpilib(
       motor.toDict(),
       ratio.toDict(),
       momentOfInertia.toDict(),
@@ -280,7 +299,7 @@ export default function Arm() {
       0.1,
     );
 
-    const downPromise = worker.simulateArmWpilib(
+    const downPromise = getWorker().simulateArmWpilib(
       motor.toDict(),
       ratio.toDict(),
       momentOfInertia.toDict(),

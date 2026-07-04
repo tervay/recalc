@@ -1,5 +1,12 @@
 import { ErrorDisplay } from '~/components/recalc/errorDisplay';
 
+export function meta() {
+  return [
+    { title: 'Dev Error Page' },
+    { name: 'robots', content: 'noindex, nofollow' },
+  ];
+}
+
 export default function DevErrorPage() {
   const fakeError = new Error(
     'Something went terribly wrong while computing gear ratios.',

@@ -18,6 +18,7 @@ import {
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
+import { buildMeta, pageUrl } from '~/lib/seo';
 import {
   MeasurementParam,
   MotorParam,
@@ -25,25 +26,29 @@ import {
 } from '~/lib/types/queryParams';
 import { cn } from '~/lib/utils';
 
-const INTAKE_URL = 'https://beta.reca.lc/intake';
+const INTAKE_PATH = '/intake';
+const INTAKE_TITLE = 'FRC & FTC Intake Calculator | ReCalc';
 const INTAKE_NAME = 'Intake Calculator';
 const INTAKE_DESCRIPTION =
-  'Calculate intake roller mechanisms for FRC robots. Model surface speed, motor requirements, and compression for game piece collection.';
+  'Calculate intake roller mechanisms for FRC and FTC robots. Model surface speed, motor requirements, and compression for game piece collection.';
 
 export function meta() {
   return [
-    { title: INTAKE_NAME },
-    { name: 'description', content: INTAKE_DESCRIPTION },
+    ...buildMeta({
+      path: INTAKE_PATH,
+      title: INTAKE_TITLE,
+      description: INTAKE_DESCRIPTION,
+    }),
     {
       'script:ld+json': buildJsonLd(
         buildWebPage({
-          url: INTAKE_URL,
+          url: pageUrl(INTAKE_PATH),
           name: INTAKE_NAME,
           description: INTAKE_DESCRIPTION,
           breadcrumbLabel: INTAKE_NAME,
         }),
         buildCalculatorApp({
-          url: INTAKE_URL,
+          url: pageUrl(INTAKE_PATH),
           name: INTAKE_NAME,
           description: INTAKE_DESCRIPTION,
         }),

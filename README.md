@@ -1,5 +1,7 @@
 # ReCalc
 
+![ReCalc – FRC & FTC Robotics Design Calculator & Simulator](public/og-image.png)
+
 A design calculator website for FIRST Robotics Competition (FRC) and FIRST Tech Challenge (FTC).
 
 ## Quick Start

@@ -8,6 +8,9 @@ import { comlink } from 'vite-plugin-comlink';
 import Sitemap from 'vite-plugin-sitemap';
 import { defineConfig } from 'vitest/config';
 
+// Dev-only routes that should never be indexed or listed in the sitemap.
+const EXCLUDED_ROUTES = ['/dev/error'];
+
 function routesFromConfig(): string[] {
   const src = fs.readFileSync(
     path.resolve(__dirname, 'app/routes.ts'),
@@ -15,7 +18,8 @@ function routesFromConfig(): string[] {
   );
   const paths: string[] = [];
   for (const match of src.matchAll(/^\s*route\(\s*['"]([^'"]+)['"]/gm)) {
-    paths.push(`/${match[1]}`);
+    const routePath = `/${match[1]}`;
+    if (!EXCLUDED_ROUTES.includes(routePath)) paths.push(routePath);
   }
   return paths;
 }
@@ -32,7 +36,7 @@ export default defineConfig({
       jsx: 'react',
     }),
     Sitemap({
-      hostname: 'https://beta.reca.lc',
+      hostname: 'https://reca.lc',
       dynamicRoutes: routes,
       generateRobotsTxt: true,
       robots: [

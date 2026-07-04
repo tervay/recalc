@@ -17,6 +17,7 @@ import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import { calculateCenters } from '~/lib/math/chains';
 import Measurement from '~/lib/models/Measurement';
 import { SimpleSprocket } from '~/lib/models/Sprocket';
+import { buildMeta, pageUrl } from '~/lib/seo';
 import {
   BooleanParam,
   MeasurementParam,
@@ -24,25 +25,29 @@ import {
   StringParam,
 } from '~/lib/types/queryParams';
 
-const CHAINS_URL = 'https://beta.reca.lc/chains';
+const CHAINS_PATH = '/chains';
+const CHAINS_TITLE = 'FRC & FTC Chain Calculator | ReCalc';
 const CHAINS_NAME = 'Chain Calculator';
 const CHAINS_DESCRIPTION =
-  'Calculate chain drive configurations for FRC robots. Find optimal sprocket combinations and center-to-center distances for standard chain sizes.';
+  'Calculate chain drive configurations for FRC and FTC robots. Find optimal sprocket combinations and center-to-center distances for standard chain sizes.';
 
 export function meta() {
   return [
-    { title: CHAINS_NAME },
-    { name: 'description', content: CHAINS_DESCRIPTION },
+    ...buildMeta({
+      path: CHAINS_PATH,
+      title: CHAINS_TITLE,
+      description: CHAINS_DESCRIPTION,
+    }),
     {
       'script:ld+json': buildJsonLd(
         buildWebPage({
-          url: CHAINS_URL,
+          url: pageUrl(CHAINS_PATH),
           name: CHAINS_NAME,
           description: CHAINS_DESCRIPTION,
           breadcrumbLabel: CHAINS_NAME,
         }),
         buildCalculatorApp({
-          url: CHAINS_URL,
+          url: pageUrl(CHAINS_PATH),
           name: CHAINS_NAME,
           description: CHAINS_DESCRIPTION,
         }),

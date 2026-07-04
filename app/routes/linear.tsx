@@ -44,6 +44,7 @@ import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 import { getPool } from '~/lib/pool';
+import { buildMeta, pageUrl } from '~/lib/seo';
 import {
   BooleanParam,
   MeasurementParam,
@@ -52,25 +53,29 @@ import {
   RatioParam,
 } from '~/lib/types/queryParams';
 
-const LINEAR_URL = 'https://beta.reca.lc/linear';
+const LINEAR_PATH = '/linear';
+const LINEAR_TITLE = 'FRC & FTC Linear Mechanism Calculator | ReCalc';
 const LINEAR_NAME = 'Linear Mechanism Calculator';
 const LINEAR_DESCRIPTION =
-  'Calculate linear mechanism performance for FRC robots. Model elevator and linear slide mechanisms with motor and gearbox selection.';
+  'Calculate linear mechanism performance for FRC and FTC robots. Model elevator and linear slide mechanisms with motor and gearbox selection.';
 
 export function meta() {
   return [
-    { title: LINEAR_NAME },
-    { name: 'description', content: LINEAR_DESCRIPTION },
+    ...buildMeta({
+      path: LINEAR_PATH,
+      title: LINEAR_TITLE,
+      description: LINEAR_DESCRIPTION,
+    }),
     {
       'script:ld+json': buildJsonLd(
         buildWebPage({
-          url: LINEAR_URL,
+          url: pageUrl(LINEAR_PATH),
           name: LINEAR_NAME,
           description: LINEAR_DESCRIPTION,
           breadcrumbLabel: LINEAR_NAME,
         }),
         buildCalculatorApp({
-          url: LINEAR_URL,
+          url: pageUrl(LINEAR_PATH),
           name: LINEAR_NAME,
           description: LINEAR_DESCRIPTION,
         }),
@@ -125,12 +130,26 @@ const DEFAULT_PARAMS = {
   ),
 };
 
-const worker = new ComlinkWorker<typeof LinearWorker>(
-  new URL('../lib/math/linear.worker', import.meta.url),
-  {
-    type: 'module',
-  },
-);
+// Constructed lazily (not at module scope) so importing this route module
+// never touches the `Worker` global — required for prerendering, where the
+// route component is rendered in Node and `Worker` does not exist. Every
+// call site below is inside a useEffect, so the getter is only ever invoked
+// client-side.
+function createWorker() {
+  return new ComlinkWorker<typeof LinearWorker>(
+    new URL('../lib/math/linear.worker', import.meta.url),
+    {
+      type: 'module',
+    },
+  );
+}
+
+let workerInstance: ReturnType<typeof createWorker> | undefined;
+
+function getWorker() {
+  workerInstance ??= createWorker();
+  return workerInstance;
+}
 
 const optimizerPool = getPool<typeof LinearOptimizerWorker>(optimizerWorkerUrl);
 
@@ -293,7 +312,7 @@ export default function Linear() {
   });
 
   useEffect(() => {
-    worker
+    getWorker()
       .computeElevatorFeedforwardGains({
         motorDict: motor.toDict(),
         ratio: ratio.toDict(),
@@ -322,7 +341,7 @@ export default function Linear() {
   });
 
   useEffect(() => {
-    worker
+    getWorker()
       .computeElevatorFeedbackGains({
         motorDict: motor.toDict(),
         ratio: ratio.toDict(),
@@ -359,7 +378,7 @@ export default function Linear() {
 
   useEffect(() => {
     setIsSimulating(true);
-    worker
+    getWorker()
       .simulateElevatorWpilib({
         motorDict: motor.toDict(),
         ratio: ratio.toDict(),

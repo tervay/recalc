@@ -20,27 +20,32 @@ import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import type * as MotorsWorker from '~/lib/math/motors.worker';
 import Measurement from '~/lib/models/Measurement';
 import Motor, { ALL_MOTORS } from '~/lib/models/Motor';
+import { buildMeta, pageUrl } from '~/lib/seo';
 import { MeasurementParam, StringParam } from '~/lib/types/queryParams';
 
-const MOTORS_URL = 'https://beta.reca.lc/motors';
+const MOTORS_PATH = '/motors';
+const MOTORS_TITLE = 'FRC Motor Comparison & Specs | ReCalc';
 const MOTORS_NAME = 'Motors Reference';
 const MOTORS_DESCRIPTION =
   'Compare FRC motor specifications and performance curves. View stall torque, free speed, efficiency, and power curves for common FRC motors.';
 
 export function meta() {
   return [
-    { title: MOTORS_NAME },
-    { name: 'description', content: MOTORS_DESCRIPTION },
+    ...buildMeta({
+      path: MOTORS_PATH,
+      title: MOTORS_TITLE,
+      description: MOTORS_DESCRIPTION,
+    }),
     {
       'script:ld+json': buildJsonLd(
         buildWebPage({
-          url: MOTORS_URL,
+          url: pageUrl(MOTORS_PATH),
           name: MOTORS_NAME,
           description: MOTORS_DESCRIPTION,
           breadcrumbLabel: MOTORS_NAME,
         }),
         buildCalculatorApp({
-          url: MOTORS_URL,
+          url: pageUrl(MOTORS_PATH),
           name: MOTORS_NAME,
           description: MOTORS_DESCRIPTION,
         }),
@@ -63,12 +68,26 @@ const CHART_CONFIG = {
   efficiency: { label: 'Efficiency (%)', color: 'var(--chart-3)' },
 } satisfies ChartConfig;
 
-const worker = new ComlinkWorker<typeof MotorsWorker>(
-  new URL('../lib/math/motors.worker', import.meta.url),
-  {
-    type: 'module',
-  },
-);
+// Constructed lazily (not at module scope) so importing this route module
+// never touches the `Worker` global — required for prerendering, where the
+// route component is rendered in Node and `Worker` does not exist. Every
+// call site below is inside a useEffect, so the getter is only ever invoked
+// client-side.
+function createWorker() {
+  return new ComlinkWorker<typeof MotorsWorker>(
+    new URL('../lib/math/motors.worker', import.meta.url),
+    {
+      type: 'module',
+    },
+  );
+}
+
+let workerInstance: ReturnType<typeof createWorker> | undefined;
+
+function getWorker() {
+  workerInstance ??= createWorker();
+  return workerInstance;
+}
 
 type WpilibMotorSimState = MotorsWorker.WpilibMotorSimState;
 
@@ -95,7 +114,7 @@ export default function Motors() {
 
   useEffect(() => {
     setWorkerWpilibSimStates([]);
-    worker
+    getWorker()
       .generateMotorCurve(
         Motor.fromName(selectedMotor, 1).toDict(),
         statorLimit.toDict(),

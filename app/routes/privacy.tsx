@@ -6,21 +6,26 @@ import Mail from '~icons/lucide/mail';
 import Shield from '~icons/lucide/shield';
 
 import { buildJsonLd, buildWebPage } from '~/lib/jsonld';
+import { buildMeta, pageUrl } from '~/lib/seo';
 
 import type { Route } from '.react-router/types/app/routes/+types/privacy';
 
-const PRIVACY_URL = 'https://beta.reca.lc/privacy';
+const PRIVACY_PATH = '/privacy';
+const PRIVACY_TITLE = 'Privacy Policy | ReCalc';
 const PRIVACY_DESCRIPTION = 'Privacy Policy for ReCalc.';
 
 export function meta(_: Route.MetaArgs) {
   return [
-    { title: 'Privacy Policy - ReCalc' },
-    { name: 'description', content: PRIVACY_DESCRIPTION },
+    ...buildMeta({
+      path: PRIVACY_PATH,
+      title: PRIVACY_TITLE,
+      description: PRIVACY_DESCRIPTION,
+    }),
     {
       'script:ld+json': buildJsonLd(
         buildWebPage({
-          url: PRIVACY_URL,
-          name: 'Privacy Policy - ReCalc',
+          url: pageUrl(PRIVACY_PATH),
+          name: PRIVACY_TITLE,
           description: PRIVACY_DESCRIPTION,
           breadcrumbLabel: 'Privacy Policy',
         }),

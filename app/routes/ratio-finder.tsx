@@ -13,6 +13,7 @@ import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import type * as RatioFinderWorker from '~/lib/math/ratioFinder.worker';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
+import { buildMeta, pageUrl } from '~/lib/seo';
 import type { Bore } from '~/lib/types/common';
 import {
   BooleanParam,
@@ -21,25 +22,29 @@ import {
   RatioParam,
 } from '~/lib/types/queryParams';
 
-const RATIO_FINDER_URL = 'https://beta.reca.lc/ratio-finder';
+const RATIO_FINDER_PATH = '/ratio-finder';
+const RATIO_FINDER_TITLE = 'FRC & FTC Gear Ratio Finder | ReCalc';
 const RATIO_FINDER_NAME = 'Ratio Finder';
 const RATIO_FINDER_DESCRIPTION =
-  'Find optimal gear, belt, and chain drive ratios for FRC robots. Search through combinations of sprockets, pulleys, and gears to hit a target reduction.';
+  'Find optimal gear, belt, and chain drive ratios for FRC and FTC robots. Search through combinations of sprockets, pulleys, and gears to hit a target reduction.';
 
 export function meta() {
   return [
-    { title: RATIO_FINDER_NAME },
-    { name: 'description', content: RATIO_FINDER_DESCRIPTION },
+    ...buildMeta({
+      path: RATIO_FINDER_PATH,
+      title: RATIO_FINDER_TITLE,
+      description: RATIO_FINDER_DESCRIPTION,
+    }),
     {
       'script:ld+json': buildJsonLd(
         buildWebPage({
-          url: RATIO_FINDER_URL,
+          url: pageUrl(RATIO_FINDER_PATH),
           name: RATIO_FINDER_NAME,
           description: RATIO_FINDER_DESCRIPTION,
           breadcrumbLabel: RATIO_FINDER_NAME,
         }),
         buildCalculatorApp({
-          url: RATIO_FINDER_URL,
+          url: pageUrl(RATIO_FINDER_PATH),
           name: RATIO_FINDER_NAME,
           description: RATIO_FINDER_DESCRIPTION,
         }),
@@ -84,12 +89,26 @@ const DEFAULT_PARAMS = {
   startingBore: BoreParam.withDefault('SplineXS' as Bore),
 };
 
-const worker = new ComlinkWorker<typeof RatioFinderWorker>(
-  new URL('../lib/math/ratioFinder.worker', import.meta.url),
-  {
-    type: 'module',
-  },
-);
+// Constructed lazily (not at module scope) so importing this route module
+// never touches the `Worker` global — required for prerendering, where the
+// route component is rendered in Node and `Worker` does not exist. Every
+// call site below is inside a useEffect, so the getter is only ever invoked
+// client-side.
+function createWorker() {
+  return new ComlinkWorker<typeof RatioFinderWorker>(
+    new URL('../lib/math/ratioFinder.worker', import.meta.url),
+    {
+      type: 'module',
+    },
+  );
+}
+
+let workerInstance: ReturnType<typeof createWorker> | undefined;
+
+function getWorker() {
+  workerInstance ??= createWorker();
+  return workerInstance;
+}
 
 export default function RatioFinder() {
   const queryParams = useQueryParams(DEFAULT_PARAMS);
@@ -241,7 +260,7 @@ export default function RatioFinder() {
     setSolutions([]);
     setLoading(true);
 
-    worker
+    getWorker()
       .findGearboxes(
         targetReduction.toDict(),
         targetReductionErrorThreshold,
