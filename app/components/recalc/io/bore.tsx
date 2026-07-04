@@ -54,7 +54,7 @@ export default function BoreInput({
         }}
       >
         <SelectTrigger
-          className={labelAbove ? 'w-full' : 'w-[180px]'}
+          className={labelAbove ? 'w-full' : 'w-45'}
           data-testid={testId}
         >
           <SelectValue />

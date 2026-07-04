@@ -23,6 +23,7 @@ updates:
           - 'oxlint-tsgolint'
           - 'eslint-plugin-no-relative-import-paths'
           - 'eslint-plugin-zod'
+          - 'oxlint-tailwindcss'
       react:
         patterns:
           - 'react'

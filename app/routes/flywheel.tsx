@@ -680,7 +680,7 @@ export default function Flywheel() {
         />
         <div className="flex flex-row flex-wrap gap-6 px-1">
           {/* Left column: inputs */}
-          <div className="flex min-w-[300px] flex-1 flex-col">
+          <div className="flex min-w-75 flex-1 flex-col">
             <section className="flex flex-col rounded-lg border">
               {/* Motors & Electrical */}
               <div className="flex flex-col gap-3 p-4">
@@ -1097,7 +1097,7 @@ export default function Flywheel() {
           </div>
 
           {/* Right column: outputs + chart */}
-          <div className="flex min-w-[300px] flex-1 flex-col gap-4">
+          <div className="flex min-w-75 flex-1 flex-col gap-4">
             <section className="flex flex-col rounded-lg border">
               {/* Top KPIs */}
               <div className="grid grid-cols-2 gap-2 p-4">
@@ -1123,7 +1123,7 @@ export default function Flywheel() {
                 </h2>
                 <ChartContainer
                   config={CHART_CONFIG}
-                  className="min-h-[200px] w-full"
+                  className="min-h-50 w-full"
                   data-testid="chart"
                 >
                   <LineChart

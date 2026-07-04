@@ -115,7 +115,7 @@ export function OptimalConfigGrid({
         <Card className="overflow-hidden">
           <Loader variant="bar" className="h-1 w-full rounded-none" />
           <CardContent className="overflow-x-auto p-4">
-            <div className="min-w-[480px]">
+            <div className="min-w-120">
               <div
                 className="mb-2 grid gap-2"
                 style={{
@@ -224,7 +224,7 @@ export function OptimalConfigGrid({
       {/* Grid */}
       <Card>
         <CardContent className="overflow-x-auto p-4">
-          <div className="min-w-[480px]">
+          <div className="min-w-120">
             {/* Column headers – supply limits */}
             <div
               className="mb-2 grid gap-2"

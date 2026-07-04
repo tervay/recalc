@@ -304,7 +304,7 @@ export default function RatioFinder() {
         getSerializedState={() => serializedState}
       />
       <div className="flex flex-row flex-wrap gap-6 px-1">
-        <div className="flex min-w-[300px] flex-1 flex-col">
+        <div className="flex min-w-75 flex-1 flex-col">
           <section className="flex flex-col rounded-lg border">
             <div className="flex flex-col gap-3 p-4">
               <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
@@ -519,7 +519,7 @@ export default function RatioFinder() {
           </section>
         </div>
 
-        <div className="flex min-w-[300px] flex-1 flex-col gap-x-4 gap-y-2">
+        <div className="flex min-w-75 flex-1 flex-col gap-x-4 gap-y-2">
           <Divider>
             {loading ? <Spinner /> : <>{count} Solutions Found</>}
           </Divider>
