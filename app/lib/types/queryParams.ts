@@ -4,11 +4,13 @@ import {
   parseAsFloat,
   parseAsString,
 } from 'nuqs';
+import * as z from 'zod';
 
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
-import type { Bore } from '~/lib/types/common';
+import type { Bore, StageFamily } from '~/lib/types/common';
+import { zStageFamilySchema } from '~/lib/types/common';
 
 export const StringParam = parseAsString;
 
@@ -81,6 +83,28 @@ export const RatioPairListParam = createParser<RatioPair[]>({
         return parsed;
       }
       return null;
+    } catch {
+      return null;
+    }
+  },
+  serialize(value) {
+    return JSON.stringify(value);
+  },
+});
+
+/**
+ * Per-stage transmission-family constraints for the ratio finder, applied
+ * positionally (index 0 = stage 1, index 1 = stage 2). Each inner array lists
+ * the families allowed for that stage; an empty inner array means "any family".
+ * The stage count is not encoded here -- it is still discovered automatically.
+ */
+const zStageConstraintsSchema = z.array(z.array(zStageFamilySchema));
+
+export const StageConstraintListParam = createParser<StageFamily[][]>({
+  parse(value) {
+    try {
+      const result = zStageConstraintsSchema.safeParse(JSON.parse(value));
+      return result.success ? result.data : null;
     } catch {
       return null;
     }

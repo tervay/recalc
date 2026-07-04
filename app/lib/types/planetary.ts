@@ -13,7 +13,7 @@ export const zJSONPlanetarySchema = z.object({
 });
 
 export const zJSONPlanetaryInstanceSchema = z.object({
-  slices: z.array(z.number().min(1).max(3)),
+  slices: z.array(z.number().min(1)),
   ratio: z.number().min(1),
   inputBore: zBoreSchema,
   outputBore: zBoreSchema,
