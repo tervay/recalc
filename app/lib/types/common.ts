@@ -36,6 +36,15 @@ export const VENDOR_NAMES = [
 export type Vendor = (typeof VENDOR_NAMES)[number];
 export const zVendorSchema = z.enum(VENDOR_NAMES);
 
+/**
+ * User-facing power-transmission families selectable per ratio-finder stage.
+ * These map onto the internal {@link SkuInfo} families as follows:
+ *   Gear -> 'Gear', Belt -> 'Pulley', Chain -> 'Sprocket', Planetary -> 'Planetary'.
+ */
+export const STAGE_FAMILIES = ['Gear', 'Belt', 'Chain', 'Planetary'] as const;
+export const zStageFamilySchema = z.enum(STAGE_FAMILIES);
+export type StageFamily = z.infer<typeof zStageFamilySchema>;
+
 export type StateHook<T> = [T, Dispatch<SetStateAction<T>>];
 
 export type HasStateHook<T> = {

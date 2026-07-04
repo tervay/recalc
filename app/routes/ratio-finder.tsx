@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 
@@ -8,18 +9,22 @@ import BoreInput from '~/components/recalc/io/bore';
 import CheckboxBooleanInput from '~/components/recalc/io/checkboxBoolean';
 import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
+import { Checkbox } from '~/components/ui/checkbox';
+import { Label } from '~/components/ui/label';
 import { Spinner } from '~/components/ui/spinner';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import type * as RatioFinderWorker from '~/lib/math/ratioFinder.worker';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 import { buildMeta, pageUrl } from '~/lib/seo';
-import type { Bore } from '~/lib/types/common';
+import type { Bore, StageFamily } from '~/lib/types/common';
+import { STAGE_FAMILIES } from '~/lib/types/common';
 import {
   BooleanParam,
   BoreParam,
   NumberParam,
   RatioParam,
+  StageConstraintListParam,
 } from '~/lib/types/queryParams';
 
 const RATIO_FINDER_PATH = '/ratio-finder';
@@ -87,6 +92,8 @@ const DEFAULT_PARAMS = {
   enableCustomPulleys: BooleanParam.withDefault(false),
   enableCustomSprockets: BooleanParam.withDefault(false),
   startingBore: BoreParam.withDefault('SplineXS' as Bore),
+  // Empty array == "Auto" (unconstrained stage count and per-stage type).
+  stageConstraints: StageConstraintListParam.withDefault([]),
 };
 
 // Constructed lazily (not at module scope) so importing this route module
@@ -182,11 +189,36 @@ export default function RatioFinder() {
   );
   const [startingBore, setStartingBore] = useState(queryParams.startingBore);
 
+  // Per-stage transmission-type filters, applied positionally: the Stage 1
+  // filter governs every solution's first stage, Stage 2 the second, Stage 3 a
+  // third stage. The finder searches one or two stages and only falls back to
+  // three when nothing else reaches the target, so the Stage 3 filter only
+  // matters in that case. Each defaults to all families; an empty stage means
+  // "any type".
+  const initialStageConstraints = queryParams.stageConstraints;
+  const [stage1Families, setStage1Families] = useState<StageFamily[]>(
+    initialStageConstraints[0] ?? [...STAGE_FAMILIES],
+  );
+  const [stage2Families, setStage2Families] = useState<StageFamily[]>(
+    initialStageConstraints[1] ?? [...STAGE_FAMILIES],
+  );
+  const [stage3Families, setStage3Families] = useState<StageFamily[]>(
+    initialStageConstraints[2] ?? [...STAGE_FAMILIES],
+  );
+
+  const stageConstraints = useMemo<StageFamily[][]>(
+    () => [stage1Families, stage2Families, stage3Families],
+    [stage1Families, stage2Families, stage3Families],
+  );
+
   const [solutions, setSolutions] = useState<
     RatioFinderWorker.GearboxSolution[]
   >([]);
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(false);
+  // True when the only gearboxes found needed a third stage.
+  const [autoExpandedToThreeStage, setAutoExpandedToThreeStage] =
+    useState(false);
 
   const filters: RatioFinderWorker.FindGearboxesFilters = useMemo(
     () => ({
@@ -220,6 +252,7 @@ export default function RatioFinder() {
       enableCustomGears,
       enableCustomPulleys,
       enableCustomSprockets,
+      stageConstraints,
     }),
     [
       minGearTeeth,
@@ -252,10 +285,17 @@ export default function RatioFinder() {
       enableCustomGears,
       enableCustomPulleys,
       enableCustomSprockets,
+      stageConstraints,
     ],
   );
 
   useEffect(() => {
+    // findGearboxes is async (it awaits dynamic data imports), so successive
+    // calls interleave inside the worker and may resolve out of order. Ignore
+    // any response that arrives after the inputs have changed so a slower,
+    // stale request can never overwrite the latest results.
+    let cancelled = false;
+
     setCount(0);
     setSolutions([]);
     setLoading(true);
@@ -268,16 +308,28 @@ export default function RatioFinder() {
         filters,
       )
       .then((results) => {
+        if (cancelled) {
+          return;
+        }
         setCount(results.count);
         setSolutions(results.solutions);
+        setAutoExpandedToThreeStage(results.autoExpandedToThreeStage);
         setLoading(false);
       })
       .catch((error) => {
+        if (cancelled) {
+          return;
+        }
         console.error(error);
         setSolutions([]);
         setCount(0);
+        setAutoExpandedToThreeStage(false);
         setLoading(false);
       });
+
+    return () => {
+      cancelled = true;
+    };
   }, [targetReduction, targetReductionErrorThreshold, startingBore, filters]);
 
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
@@ -314,6 +366,7 @@ export default function RatioFinder() {
     enableCustomPulleys,
     enableCustomSprockets,
     startingBore,
+    stageConstraints,
   });
 
   return (
@@ -334,6 +387,7 @@ export default function RatioFinder() {
                   stateHook={[targetReduction, setTargetReduction]}
                   debounceDelay={300}
                   labelAbove
+                  testId="reduction-magnitude"
                 />
                 <BoreInput
                   stateHook={[startingBore, setStartingBore]}
@@ -535,6 +589,39 @@ export default function RatioFinder() {
                 </div>
               </div>
             </div>
+            <div className="border-t" />
+
+            <div className="flex flex-col gap-3 p-4">
+              <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                Transmission Type Per Stage
+              </h2>
+              <p className="text-xs text-muted-foreground">
+                Restrict which power transmission types each stage may use. The
+                finder searches one or two stages and only adds a third stage
+                when nothing else reaches the target, so the Stage 3 filter
+                applies only in that case.
+              </p>
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+                <StageFamilySelect
+                  families={stage1Families}
+                  setFamilies={setStage1Families}
+                  label="Stage 1"
+                  testId="stage-1-families"
+                />
+                <StageFamilySelect
+                  families={stage2Families}
+                  setFamilies={setStage2Families}
+                  label="Stage 2"
+                  testId="stage-2-families"
+                />
+                <StageFamilySelect
+                  families={stage3Families}
+                  setFamilies={setStage3Families}
+                  label="Stage 3"
+                  testId="stage-3-families"
+                />
+              </div>
+            </div>
           </section>
         </div>
 
@@ -542,6 +629,15 @@ export default function RatioFinder() {
           <Divider>
             {loading ? <Spinner /> : <>{count} Solutions Found</>}
           </Divider>
+          {autoExpandedToThreeStage && (
+            <div
+              className="rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-900 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-200"
+              data-testid="three-stage-notice"
+            >
+              No one or two-stage gearbox reaches this ratio with the current
+              filters — showing three-stage options.
+            </div>
+          )}
           {solutions.length === 0 ? (
             <div className="text-muted-foreground">No solutions found</div>
           ) : (
@@ -551,6 +647,59 @@ export default function RatioFinder() {
       </div>
     </div>
   );
+}
+
+function StageFamilySelect({
+  families,
+  setFamilies,
+  label,
+  testId,
+}: {
+  families: StageFamily[];
+  setFamilies: Dispatch<SetStateAction<StageFamily[]>>;
+  label: string;
+  testId?: string;
+}) {
+  // Use a functional update so rapid successive toggles each compose on the
+  // latest selection rather than a value captured at render time.
+  const toggle = (family: StageFamily, checked: boolean) => {
+    setFamilies((prev) =>
+      checked ? [...prev, family] : prev.filter((f) => f !== family),
+    );
+  };
+
+  return (
+    <div className="rounded-lg border bg-card p-3" data-testid={testId}>
+      <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
+        {label}
+      </h3>
+      <div className="flex flex-col gap-2">
+        {STAGE_FAMILIES.map((family) => (
+          <div key={family} className="flex flex-row items-center gap-2">
+            <Checkbox
+              aria-label={`${label} ${family}`}
+              checked={families.includes(family)}
+              onCheckedChange={(checked) => toggle(family, checked === true)}
+            />
+            <Label>{family}</Label>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Human-facing transmission family for a matched SKU. */
+function skuFamilyLabel(
+  family: 'Gear' | 'Pulley' | 'Sprocket' | 'Planetary',
+): string {
+  if (family === 'Pulley') {
+    return 'Belt';
+  }
+  if (family === 'Sprocket') {
+    return 'Chain';
+  }
+  return family;
 }
 
 export function GearboxList({
@@ -578,7 +727,7 @@ export function GearboxList({
     return pitch;
   };
   return (
-    <div className="w-full">
+    <div className="w-full" data-testid="gearbox-list">
       <div className="overflow-hidden rounded-lg border bg-card">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -621,61 +770,81 @@ export function GearboxList({
                   </td>
                   <td className="px-3 py-3">
                     <div className="space-y-2">
-                      {gearbox.stages.map((stage, stageIndex) => (
-                        <div key={stageIndex} className="text-xs">
-                          <div className="mb-1 font-medium text-muted-foreground">
-                            Stage {stageIndex + 1}
-                          </div>
-                          <div className="grid grid-cols-2 gap-2">
-                            <div className="space-y-1">
-                              <div className="text-[10px] tracking-wide text-muted-foreground uppercase">
-                                {stage.from.teeth}T
-                              </div>
-                              {stage.from.skus.map((sku, skuIndex) => (
-                                <Link
-                                  key={skuIndex}
-                                  to={sku.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="block rounded border border-border bg-muted/50 p-1.5 text-[11px] transition-colors hover:bg-muted"
-                                >
-                                  <span className="font-semibold">
-                                    {sku.sku}
-                                  </span>
-                                  <span className="text-muted-foreground">
-                                    {' '}
-                                    - {formatPitch(sku.pitch, sku.family)}{' '}
-                                    {sku.family} ({sku.bore})
-                                  </span>
-                                </Link>
-                              ))}
+                      {gearbox.stages.map((stage, stageIndex) => {
+                        const stageFamilies = [
+                          ...new Set(
+                            [...stage.from.skus, ...stage.to.skus].map((sku) =>
+                              skuFamilyLabel(sku.family),
+                            ),
+                          ),
+                        ];
+                        return (
+                          <div key={stageIndex} className="text-xs">
+                            <div className="mb-1 font-medium text-muted-foreground">
+                              Stage {stageIndex + 1}
+                              {stageFamilies.length > 0 && (
+                                <span className="ml-1 font-normal">
+                                  ({stageFamilies.join(', ')})
+                                </span>
+                              )}
                             </div>
-                            <div className="space-y-1">
-                              <div className="text-[10px] tracking-wide text-muted-foreground uppercase">
-                                {stage.to.teeth}T
+                            <div className="grid grid-cols-2 gap-2">
+                              <div className="space-y-1">
+                                <div className="text-[10px] tracking-wide text-muted-foreground uppercase">
+                                  {stage.from.teeth}T
+                                </div>
+                                {stage.from.skus.map((sku, skuIndex) => (
+                                  <Link
+                                    key={skuIndex}
+                                    to={sku.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block rounded border border-border bg-muted/50 p-1.5 text-[11px] transition-colors hover:bg-muted"
+                                  >
+                                    <span className="font-semibold">
+                                      {sku.sku}
+                                    </span>
+                                    <span className="text-muted-foreground">
+                                      {' '}
+                                      - {formatPitch(
+                                        sku.pitch,
+                                        sku.family,
+                                      )}{' '}
+                                      {sku.family} ({sku.bore})
+                                    </span>
+                                  </Link>
+                                ))}
                               </div>
-                              {stage.to.skus.map((sku, skuIndex) => (
-                                <Link
-                                  key={skuIndex}
-                                  to={sku.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="block rounded border border-border bg-muted/50 p-1.5 text-[11px] transition-colors hover:bg-muted"
-                                >
-                                  <span className="font-semibold">
-                                    {sku.sku}
-                                  </span>
-                                  <span className="text-muted-foreground">
-                                    {' '}
-                                    - {formatPitch(sku.pitch, sku.family)}{' '}
-                                    {sku.family} ({sku.bore})
-                                  </span>
-                                </Link>
-                              ))}
+                              <div className="space-y-1">
+                                <div className="text-[10px] tracking-wide text-muted-foreground uppercase">
+                                  {stage.to.teeth}T
+                                </div>
+                                {stage.to.skus.map((sku, skuIndex) => (
+                                  <Link
+                                    key={skuIndex}
+                                    to={sku.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block rounded border border-border bg-muted/50 p-1.5 text-[11px] transition-colors hover:bg-muted"
+                                  >
+                                    <span className="font-semibold">
+                                      {sku.sku}
+                                    </span>
+                                    <span className="text-muted-foreground">
+                                      {' '}
+                                      - {formatPitch(
+                                        sku.pitch,
+                                        sku.family,
+                                      )}{' '}
+                                      {sku.family} ({sku.bore})
+                                    </span>
+                                  </Link>
+                                ))}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </td>
                 </tr>
