@@ -78,6 +78,7 @@ export default defineConfig({
     snapshotFormat: {
       maxOutputLength: Infinity,
     },
+    unstubGlobals: true,
   },
   server: {
     watch: {

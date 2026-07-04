@@ -4,28 +4,11 @@ import LinkIcon from '~icons/lucide/link';
 
 import { Button } from '~/components/ui/button';
 import { useAnalytics } from '~/hooks/useAnalytics';
-import { MotorParam } from '~/lib/types/queryParams';
+import { handleCopyLink } from '~/lib/copyLink';
 
 // rounded-md = calc(var(--radius) - 2px) = calc(0.75rem - 2px) = 10px
 const RADIUS = 10;
 const INSET = 1; // half stroke width, keeps the stroke inside the button bounds
-
-/**
- * Build the analytics payload for a copy-link event. Pure so it can be unit
- * tested without rendering the component. Includes the motor identifier only
- * when a valid `motor` query param is present in `search`.
- */
-export function buildCopyLinkData(
-  title: string,
-  search: string,
-): Record<string, string> {
-  const motorRaw = new URLSearchParams(search).get('motor');
-  const motor = motorRaw !== null ? MotorParam.parse(motorRaw) : null;
-  return {
-    calculator: title,
-    ...(motor !== null && { motor: motor.identifier }),
-  };
-}
 
 function buildBorderPaths(w: number, h: number): [string, string] {
   const cx = w / 2;
@@ -66,16 +49,11 @@ export default function CalcHeading({
           size="sm"
           className="gap-2"
           onClick={() => {
-            void navigator.clipboard.writeText(
-              window.location.origin +
-                window.location.pathname +
-                '?' +
-                getSerializedState(),
-            );
-            track(
-              'copy-link',
-              buildCopyLinkData(title, window.location.search),
-            );
+            handleCopyLink({
+              title,
+              serializedState: getSerializedState(),
+              track,
+            });
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
           }}
