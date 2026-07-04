@@ -130,7 +130,7 @@ export default function Motors() {
       />
 
       <div className="flex flex-row flex-wrap gap-6 px-1">
-        <div className="flex min-w-[300px] flex-1 flex-col">
+        <div className="flex min-w-75 flex-1 flex-col">
           <section className="flex flex-col rounded-lg border">
             {/* Motor section */}
             <div className="flex flex-col gap-3 p-4">
@@ -197,10 +197,10 @@ export default function Motors() {
           </section>
         </div>
 
-        <div className="flex min-w-[300px] flex-[2] flex-col">
+        <div className="flex min-w-75 flex-2 flex-col">
           <ChartContainer
             config={CHART_CONFIG}
-            className="aspect-auto h-[420px] w-full"
+            className="aspect-auto h-105 w-full"
           >
             <LineChart
               data={chartData}

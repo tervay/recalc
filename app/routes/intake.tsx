@@ -116,7 +116,7 @@ export default function Intake() {
         getSerializedState={() => serializedState}
       />
       <div className="flex flex-row flex-wrap gap-6 px-1">
-        <div className="flex min-w-[300px] flex-1 flex-col">
+        <div className="flex min-w-75 flex-1 flex-col">
           <section className="flex flex-col rounded-lg border">
             {/* Motor & Gearing section */}
             <div className="flex flex-col gap-3 p-4">
@@ -233,7 +233,7 @@ export default function Intake() {
           </section>
         </div>
 
-        <div className="flex min-w-[300px] flex-1 flex-col gap-y-2">
+        <div className="flex min-w-75 flex-1 flex-col gap-y-2">
           <IOLine>
             <MeasurementOutput
               state={surfaceSpeed}

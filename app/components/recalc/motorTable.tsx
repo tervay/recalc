@@ -328,7 +328,7 @@ export default function MotorTable() {
       </h2>
       <div className="overflow-hidden rounded-lg border border-border">
         <div className="flex flex-col gap-1 border-b bg-muted/20 p-4">
-          <div className="max-w-[240px]">
+          <div className="max-w-60">
             <MeasurementInput
               stateHook={[currentDraw, setCurrentDraw]}
               label="Current Draw"

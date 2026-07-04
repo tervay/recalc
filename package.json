@@ -73,6 +73,7 @@
     "node-fetch-cache": "5.1.0",
     "oxfmt": "0.57.0",
     "oxlint": "1.72.0",
+    "oxlint-tailwindcss": "1.3.4",
     "oxlint-tsgolint": "0.24.0",
     "tailwindcss": "4.3.2",
     "tsx": "4.22.5",

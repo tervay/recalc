@@ -421,7 +421,7 @@ export default function Arm() {
           getSerializedState={() => serializedState}
         />
         <div className="flex flex-row flex-wrap gap-6 px-1">
-          <div className="flex min-w-[300px] flex-1 flex-col">
+          <div className="flex min-w-75 flex-1 flex-col">
             <section className="flex flex-col rounded-lg border">
               {/* Motor & Gearing section */}
               <div className="flex flex-col gap-3 p-4">
@@ -595,7 +595,7 @@ export default function Arm() {
               </Collapsible>
             </section>
           </div>
-          <div className="flex min-w-[300px] flex-1 flex-col gap-4">
+          <div className="flex min-w-75 flex-1 flex-col gap-4">
             <section className="flex flex-col rounded-lg border">
               {/* Results */}
               <div className="grid grid-cols-2 gap-2 p-4">
@@ -621,7 +621,7 @@ export default function Arm() {
                 </h2>
                 <ChartContainer
                   config={CHART_CONFIG}
-                  className="min-h-[200px] w-full"
+                  className="min-h-50 w-full"
                 >
                   <LineChart
                     data={goingUpChartData}
@@ -716,7 +716,7 @@ export default function Arm() {
                 </h2>
                 <ChartContainer
                   config={CHART_CONFIG}
-                  className="min-h-[200px] w-full"
+                  className="min-h-50 w-full"
                 >
                   <LineChart
                     data={goingDownChartData}
