@@ -69,7 +69,7 @@
     "@vercel/config": "0.5.5",
     "commander": "15.0.0",
     "eslint-plugin-no-relative-import-paths": "1.6.1",
-    "eslint-plugin-zod": "4.7.0",
+    "eslint-plugin-zod": "4.7.1",
     "jsdom": "29.1.1",
     "node-fetch-cache": "5.1.0",
     "oxfmt": "0.57.0",
