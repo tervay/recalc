@@ -133,8 +133,8 @@ importers:
         specifier: 1.6.1
         version: 1.6.1
       eslint-plugin-zod:
-        specifier: 4.7.0
-        version: 4.7.0(eslint@10.6.0(jiti@2.7.0))(oxlint@1.72.0(oxlint-tsgolint@0.24.0))(typescript@6.0.3)(zod@4.4.3)
+        specifier: 4.7.1
+        version: 4.7.1(eslint@10.6.0(jiti@2.7.0))(oxlint@1.72.0(oxlint-tsgolint@0.24.0))(typescript@6.0.3)(zod@4.4.3)
       jsdom:
         specifier: 29.1.1
         version: 29.1.1
@@ -1899,8 +1899,8 @@ packages:
   eslint-plugin-no-relative-import-paths@1.6.1:
     resolution: {integrity: sha512-YZNeOnsOrJcwhFw0X29MXjIzu2P/f5X2BZDPWw1R3VUYBRFxNIh77lyoL/XrMU9ewZNQPcEvAgL/cBOT1P330A==}
 
-  eslint-plugin-zod@4.7.0:
-    resolution: {integrity: sha512-unziYvD8FGxhfL6rYuC3Cjdx/K3yMWSTv6t5uB9KEgzMajDXuQcp67/WDxdUiEFhGY1LlXJs03xQc+Pg6+vqrw==}
+  eslint-plugin-zod@4.7.1:
+    resolution: {integrity: sha512-6lUVKH5lwXWTojUWAJ+Cq11bLrnk5Oc8uUEEowN8pNxSSrYTJP147nOdScoHK2Q3/xouPAtESqDxNpEebuKUcQ==}
     engines: {node: ^20 || ^22 || >=24}
     peerDependencies:
       eslint: ^9 || ^10
@@ -4736,7 +4736,7 @@ snapshots:
 
   eslint-plugin-no-relative-import-paths@1.6.1: {}
 
-  eslint-plugin-zod@4.7.0(eslint@10.6.0(jiti@2.7.0))(oxlint@1.72.0(oxlint-tsgolint@0.24.0))(typescript@6.0.3)(zod@4.4.3):
+  eslint-plugin-zod@4.7.1(eslint@10.6.0(jiti@2.7.0))(oxlint@1.72.0(oxlint-tsgolint@0.24.0))(typescript@6.0.3)(zod@4.4.3):
     dependencies:
       '@eslint-zod/utils': 2.3.0(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3)
       '@typescript-eslint/utils': 8.62.1(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3)
