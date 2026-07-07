@@ -1,17 +1,8 @@
-import { join } from 'path';
-
-import { FileSystemCache, NodeFetchCache } from 'node-fetch-cache';
+import { cachedFetch } from 'scripts/ingest/retrieval/cachedFetch';
 import type { VendorName } from 'scripts/ingest/vendors';
 import { SHOPIFY_CONFIGS } from 'scripts/ingest/vendors';
 
 import type { ShopifyProduct, ShopifyResponse } from '~/lib/types/shopify';
-
-const fetch = NodeFetchCache.create({
-  cache: new FileSystemCache({
-    cacheDirectory: join(process.cwd(), '.cache'),
-  }),
-  shouldCacheResponse: (response) => [200, 404].includes(response.status),
-});
 
 export async function fetchShopifyProducts(
   vendor: VendorName,
@@ -25,7 +16,7 @@ export async function fetchShopifyProducts(
   const products: ShopifyProduct[] = [];
 
   while (true) {
-    const response = await fetch(
+    const response = await cachedFetch(
       `${config.rootDomain}/products.json?page=${pageNum}&limit=250`,
     );
     const data = (await response.json()) as ShopifyResponse;

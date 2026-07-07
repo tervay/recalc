@@ -1,3 +1,4 @@
+import { parseVBeltGuysBelts } from 'scripts/ingest/parsing/vbeltguys/belts';
 import type { ProductType } from 'scripts/ingest/productTypes';
 
 import type { ShopifyProduct } from '~/lib/types/shopify';
@@ -7,7 +8,7 @@ export const vbeltguysParsers: Record<
   (products: ShopifyProduct[]) => unknown[]
 > = {
   pulleys: () => [],
-  belts: () => [],
+  belts: parseVBeltGuysBelts,
   sprockets: () => [],
   gears: () => [],
 };
