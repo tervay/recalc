@@ -2,6 +2,7 @@ import minimize from 'minimize-golden-section-1d';
 import workerpool from 'workerpool';
 
 import type { DCMotor } from '~/lib/generated/wpilibc/wpilibc_wasm';
+import { FLYWHEEL_SIMULATION_TIMEOUT_SECONDS } from '~/lib/math/flywheel.worker';
 import {
   type SimState,
   type MetricSource,
@@ -70,7 +71,7 @@ function simulate(
   ratioMagnitude: number,
   totalStatorAmps: number,
   totalSupplyAmps: number,
-  timeoutSeconds = 3.0,
+  timeoutSeconds = FLYWHEEL_SIMULATION_TIMEOUT_SECONDS,
 ): SimState[] {
   return wpilibc.simulateFlywheel(
     p.wpilibMotor,
