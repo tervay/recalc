@@ -1,7 +1,7 @@
 import { type Page, expect, test } from '@playwright/test';
 
 async function waitForCalc(page: Page) {
-  await page.waitForTimeout(100);
+  await page.waitForTimeout(150);
   await expect(page.getByTestId('linear-main')).toHaveAttribute(
     'data-calculating',
     'false',

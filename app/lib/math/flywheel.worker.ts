@@ -6,6 +6,8 @@ import type { RatioDict } from '~/lib/models/Ratio';
 import Ratio from '~/lib/models/Ratio';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
 
+export const FLYWHEEL_SIMULATION_TIMEOUT_SECONDS = 3;
+
 export interface WpilibFlywheelSimState {
   angularVelocityRadPerSec: number;
   statorCurrentDrawAmps: number;
@@ -162,7 +164,7 @@ export async function simulateFlywheelWpilib(
       efficiency,
       0.0005,
       10,
-      3.0,
+      FLYWHEEL_SIMULATION_TIMEOUT_SECONDS,
       batteryVoltageFilterTimeConstantSeconds,
       initialAngularVelocityRadPerSec,
     ) as WpilibFlywheelSimState[];

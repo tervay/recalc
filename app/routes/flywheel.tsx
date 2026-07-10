@@ -10,6 +10,7 @@ import {
 } from 'recharts';
 import * as z from 'zod';
 import ChevronDownIcon from '~icons/lucide/chevron-down';
+import TriangleAlertIcon from '~icons/lucide/triangle-alert';
 
 import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
@@ -24,6 +25,7 @@ import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
 import { StringSelectInput } from '~/components/recalc/io/stringSelect';
 import { OptimalConfigGrid } from '~/components/recalc/optimalConfigGrid';
+import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert';
 import { ChartContainer } from '~/components/ui/chart';
 import {
   Collapsible,
@@ -33,6 +35,7 @@ import {
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import { computeShotResult, type ShooterMode } from '~/lib/math/ballShot';
+import { FLYWHEEL_SIMULATION_TIMEOUT_SECONDS } from '~/lib/math/flywheel.worker';
 import type * as FlywheelWorker from '~/lib/math/flywheel.worker';
 import type * as FlywheelOptimizerWorker from '~/lib/math/flywheelOptimizer.worker';
 import type {
@@ -149,6 +152,14 @@ const DEFAULT_PARAMS = {
 const ShooterModeSchema = z.enum(['single-hooded', 'dual-shooter', 'compound']);
 
 const CHART_CONFIG = {} as const;
+
+function formatChartNumber(value: number): string {
+  return value.toFixed(2);
+}
+
+function formatChartAxisNumber(value: number): string {
+  return value.toFixed(0);
+}
 
 // Constructed lazily (not at module scope) so importing this route module
 // never touches the `Worker` global — required for prerendering, where the
@@ -493,6 +504,12 @@ export default function Flywheel() {
           's',
         )
       : new Measurement(0, 's');
+  }, [workerWpilibSimStates]);
+
+  const spinupTimedOut = useMemo(() => {
+    if (workerWpilibSimStates.length === 0) return false;
+    const last = workerWpilibSimStates[workerWpilibSimStates.length - 1];
+    return !last.success;
   }, [workerWpilibSimStates]);
 
   useEffect(() => {
@@ -1133,6 +1150,20 @@ export default function Flywheel() {
                   testId="recoveryTime"
                 />
               </div>
+              {spinupTimedOut && (
+                <div className="px-4 pb-4">
+                  <Alert variant="destructive">
+                    <TriangleAlertIcon />
+                    <AlertTitle>Setpoint not reached</AlertTitle>
+                    <AlertDescription>
+                      The system could not reach the target speed within{' '}
+                      {FLYWHEEL_SIMULATION_TIMEOUT_SECONDS} seconds. Try
+                      increasing current limits, reducing the target speed,
+                      changing the ratios, or adding more motors.
+                    </AlertDescription>
+                  </Alert>
+                </div>
+              )}
               <div className="border-t" />
 
               {/* Simulation chart */}
@@ -1147,14 +1178,12 @@ export default function Flywheel() {
                 >
                   <LineChart
                     data={chartData}
-                    margin={{ top: 5, right: 20, bottom: 30, left: 20 }}
+                    margin={{ top: 5, right: 5, bottom: 20, left: 5 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                       dataKey="timeSeconds"
-                      tickFormatter={(v: number) =>
-                        parseFloat(v.toPrecision(3)).toString()
-                      }
+                      tickFormatter={(v: number) => formatChartNumber(v)}
                       label={{
                         value: 'Time (s)',
                         position: 'insideBottom',
@@ -1163,6 +1192,7 @@ export default function Flywheel() {
                     />
                     <YAxis
                       yAxisId="left"
+                      tickFormatter={(v: number) => formatChartAxisNumber(v)}
                       label={{
                         value: 'Current (A) / Voltage (V)',
                         angle: -90,
@@ -1174,6 +1204,7 @@ export default function Flywheel() {
                     <YAxis
                       yAxisId="right"
                       orientation="right"
+                      tickFormatter={(v: number) => formatChartAxisNumber(v)}
                       label={{
                         value: 'Angular Velocity (RPM)',
                         angle: 90,
@@ -1182,7 +1213,18 @@ export default function Flywheel() {
                         style: { textAnchor: 'middle' },
                       }}
                     />
-                    <Tooltip />
+                    <Tooltip
+                      formatter={(value) =>
+                        typeof value === 'number' && Number.isFinite(value)
+                          ? formatChartNumber(value)
+                          : String(value)
+                      }
+                      labelFormatter={(label) =>
+                        typeof label === 'number' && Number.isFinite(label)
+                          ? formatChartNumber(label)
+                          : String(label)
+                      }
+                    />
                     <Legend verticalAlign="top" />
                     <Line
                       name="Angular Velocity (RPM)"
