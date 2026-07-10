@@ -129,7 +129,7 @@ async function createWpilibcModule(moduleArg = {}) {
     qa,
     D,
     H = (a) => {
-      for (var b = ''; ; ) {
+      for (var b = ''; ;) {
         var c = D[a++];
         if (!c) return b;
         b += String.fromCharCode(c);
@@ -248,7 +248,7 @@ async function createWpilibcModule(moduleArg = {}) {
     this.Ba = [];
   }
   var Na = (a, b, c) => {
-      for (; b !== c; ) {
+      for (; b !== c;) {
         if (!b.na)
           throw new L(
             `Expected null or instance of ${c.name}, got an instance of ${b.name}`,
@@ -358,7 +358,7 @@ async function createWpilibcModule(moduleArg = {}) {
     Ta = {},
     Ua = (a, b) => {
       if (b === void 0) throw new L('ptr should not be undefined');
-      for (; a.ba; ) ((b = a.na(b)), (a = a.ba));
+      for (; a.ba;) ((b = a.na(b)), (a = a.ba));
       return Ta[b];
     },
     Va = class extends Error {
@@ -451,7 +451,7 @@ async function createWpilibcModule(moduleArg = {}) {
       return c;
     },
     fb = (a) => {
-      for (; a.length; ) {
+      for (; a.length;) {
         var b = a.pop();
         a.pop()(b);
       }
@@ -642,13 +642,13 @@ async function createWpilibcModule(moduleArg = {}) {
     tb = (a, b, c, d) => {
       c = b + c;
       if (d) return c;
-      for (; a[b] && !(b >= c); ) ++b;
+      for (; a[b] && !(b >= c);) ++b;
       return b;
     },
     ub = (a, b = 0, c, d) => {
       c = tb(a, b, c, d);
       if (c - b > 16 && a.buffer && sb) return sb.decode(a.subarray(b, c));
-      for (d = ''; b < c; ) {
+      for (d = ''; b < c;) {
         var e = a[b++];
         if (e & 128) {
           var g = a[b++] & 63;
@@ -799,8 +799,8 @@ async function createWpilibcModule(moduleArg = {}) {
           e = this.V.X;
         c.V = c.V;
         var g = c.V.Y.W;
-        for (c = c.V.X; d.ba; ) ((e = d.na(e)), (d = d.ba));
-        for (; g.ba; ) ((c = g.na(c)), (g = g.ba));
+        for (c = c.V.X; d.ba;) ((e = d.na(e)), (d = d.ba));
+        for (; g.ba;) ((c = g.na(c)), (g = g.ba));
         return d === g && e === c;
       },
       clone: function () {
