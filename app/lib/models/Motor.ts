@@ -181,7 +181,10 @@ export default class Motor extends Model {
   }
 
   public static fromName(name: string, quantity: number) {
-    return this.fromSpecs(ALL_MOTORS.find((m) => m.name === name)!, quantity);
+    return this.fromSpecs(
+      ALL_MOTORS.find((m) => m.name === name)!,
+      quantity,
+    );
   }
 
   public static KrakenX60sFOC(quantity: number) {
