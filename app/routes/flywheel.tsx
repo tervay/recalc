@@ -367,8 +367,8 @@ export default function Flywheel() {
   );
 
   const [feedforwardGains, setFeedforwardGains] = useState({
-    kV: new Measurement(0, 'V*s/m'),
-    kA: new Measurement(0, 'V*s^2/m'),
+    kV: new Measurement(0, 'V*s/rad'),
+    kA: new Measurement(0, 'V*s^2/rad'),
   });
 
   useEffect(() => {
@@ -380,26 +380,15 @@ export default function Flywheel() {
         efficiency / 100,
       )
       .then(({ kV, kA }) => {
-        const shooterRadius = shooterDiameter.div(2);
-        if (shooterRadius.scalar === 0) {
-          setFeedforwardGains({
-            kV: new Measurement(0, 'V*s/m'),
-            kA: new Measurement(0, 'V*s^2/m'),
-          });
-          return;
-        }
-        const oneRadian = new Measurement(1, 'rad');
         setFeedforwardGains({
-          kV: new Measurement(kV, 'V*s/rad').mul(oneRadian).div(shooterRadius),
-          kA: new Measurement(kA, 'V*s^2/rad')
-            .mul(oneRadian)
-            .div(shooterRadius),
+          kV: new Measurement(kV, 'V*s/rad'),
+          kA: new Measurement(kA, 'V*s^2/rad'),
         });
       })
       .catch((error: unknown) => {
         console.error(error);
       });
-  }, [motor, ratio, combinedMOI, efficiency, shooterDiameter]);
+  }, [motor, ratio, combinedMOI, efficiency]);
 
   const [feedbackGains, setFeedbackGains] = useState({
     kP: new Measurement(0, 'V*s/rad'),
@@ -1264,13 +1253,13 @@ export default function Flywheel() {
                 <MeasurementDisplayOutput
                   state={feedforwardGains.kV}
                   label="kV"
-                  defaultUnit="V*s/m"
+                  defaultUnit="V*s/rad"
                   testId="kV"
                 />
                 <MeasurementDisplayOutput
                   state={feedforwardGains.kA}
                   label="kA"
-                  defaultUnit="V*s^2/m"
+                  defaultUnit="V*s^2/rad"
                   testId="kA"
                 />
                 <MeasurementDisplayOutput
