@@ -5,7 +5,7 @@
   - text: Copy Link
 - heading "Motors & Electrical" [level=2]
 - text: Motor
-- spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Q Velocity R (Volts) Sensor Delay Robot Loop Period Shooter Diameter Shooter Target Speed Shooter Weight Max Achievable RPM Shooter MOI Projectile Diameter Projectile Weight Ball Initial Velocity Ball Initial Spin Ball MOI Max Stator Limit Max Supply Limit": "2"
+- spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Q Velocity R (Volts) Sensor Delay Control Loop Period Shooter Diameter Shooter Target Speed Shooter Weight Max Achievable RPM Shooter MOI Projectile Diameter Projectile Weight Ball Initial Velocity Ball Initial Spin Ball MOI Max Stator Limit Max Supply Limit": "2"
 - combobox: Kraken X60 (FOC)
 - text: Efficiency (%)
 - spinbutton: "100"
@@ -36,7 +36,7 @@
 - button "Sensor Delay"
 - spinbutton: "1"
 - combobox: ms
-- button "Robot Loop Period"
+- button "Control Loop Period"
 - spinbutton: "20"
 - combobox: s
 - heading "Shooter Wheel" [level=2]
