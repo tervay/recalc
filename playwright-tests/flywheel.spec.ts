@@ -449,7 +449,7 @@ test.describe('Flywheel Calculator', () => {
 
   test('should match snapshot with kV unit changed', async ({ page }) => {
     await page.getByTestId('selectkV').click();
-    await page.getByRole('option', { name: 'V*s/in' }).click();
+    await page.getByRole('option', { name: 'V*s/rotation' }).click();
     await waitForCalc(page);
     expect(
       await page.getByTestId('flywheel-main').ariaSnapshot(),
@@ -460,7 +460,7 @@ test.describe('Flywheel Calculator', () => {
 
   test('should match snapshot with kA unit changed', async ({ page }) => {
     await page.getByTestId('selectkA').click();
-    await page.getByRole('option', { name: 'V*s^2/in' }).click();
+    await page.getByRole('option', { name: 'V*s^2/rotation' }).click();
     await waitForCalc(page);
     expect(
       await page.getByTestId('flywheel-main').ariaSnapshot(),
