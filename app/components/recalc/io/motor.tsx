@@ -1,16 +1,105 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
+  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select';
-import Motor, { ALL_MOTORS } from '~/lib/models/Motor';
+import Motor, { ALL_MOTORS, IntendedProgram } from '~/lib/models/Motor';
 import type { HasStateHook } from '~/lib/types/common';
+
+const PROGRAM_ORDER: { program: IntendedProgram; label: string }[] = [
+  { program: IntendedProgram.FRC, label: 'FRC' },
+  { program: IntendedProgram.FTC, label: 'FTC' },
+  { program: IntendedProgram.OTHER, label: 'Other' },
+];
+
+// Precomputed once: ALL_MOTORS is static, so there's no need to re-filter on
+// every render.
+const MOTOR_GROUPS = PROGRAM_ORDER.map(({ program, label }) => ({
+  label,
+  motors: ALL_MOTORS.filter((m) => m.intendedProgram === program),
+})).filter((group) => group.motors.length > 0);
+
+// Shared between MotorInput and MotorNameSelect so both selectors present
+// the same grouping and stay in sync if the grouping logic changes.
+function MotorSelectContent() {
+  return (
+    <>
+      {MOTOR_GROUPS.map((group, i) => (
+        <Fragment key={group.label}>
+          {i > 0 && <SelectSeparator />}
+          <SelectGroup>
+            <SelectLabel>{group.label}</SelectLabel>
+            {group.motors.map((m) => (
+              <SelectItem key={m.name} value={m.name}>
+                {m.name}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </Fragment>
+      ))}
+    </>
+  );
+}
+
+export function MotorNameSelect({
+  stateHook,
+  label,
+  testId,
+  labelAbove,
+  triggerClassName,
+}: {
+  stateHook: [string, (value: string) => void];
+  label?: string;
+  testId?: string;
+  labelAbove?: boolean;
+  triggerClassName?: string;
+}) {
+  const [name, setName] = stateHook;
+
+  const resolvedTriggerClassName =
+    triggerClassName ?? (labelAbove ? 'w-full' : 'w-[180px]');
+
+  return (
+    <div className={labelAbove ? 'flex flex-col' : 'flex flex-row'}>
+      {label !== undefined && (
+        <Label
+          className={
+            labelAbove
+              ? 'mb-1 text-xs text-muted-foreground'
+              : 'mr-2 text-nowrap'
+          }
+        >
+          {label}
+        </Label>
+      )}
+      <Select
+        value={name}
+        onValueChange={(value) => {
+          if (value !== null) setName(value);
+        }}
+      >
+        <SelectTrigger
+          className={resolvedTriggerClassName}
+          data-testid={testId}
+        >
+          <SelectValue placeholder="Motor" />
+        </SelectTrigger>
+        <SelectContent>
+          <MotorSelectContent />
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}
 
 export function MotorInput({
   stateHook,
@@ -70,14 +159,10 @@ export function MotorInput({
             className="rounded-l-none"
             data-testid={testId ? `select${testId}` : undefined}
           >
-            <SelectValue placeholder="Theme" />
+            <SelectValue placeholder="Motor" />
           </SelectTrigger>
           <SelectContent>
-            {ALL_MOTORS.map((m) => (
-              <SelectItem key={m.name} value={m.name}>
-                {m.name}
-              </SelectItem>
-            ))}
+            <MotorSelectContent />
           </SelectContent>
         </Select>
       </div>

@@ -4,6 +4,7 @@ import Measurement from '~/lib/models/Measurement';
 import Model from '~/lib/models/Model';
 import Motor, {
   ALL_MOTORS,
+  IntendedProgram,
   type MotorSpecs,
   completeMotorSpecs,
   generateMotorCurves,
@@ -241,6 +242,7 @@ describe('Motor', () => {
         type: 'Brushless',
         dataSource: 'Custom',
         vendors: ['Custom'],
+        intendedProgram: IntendedProgram.OTHER,
       };
       const motor = Motor.fromSpecs(specs, 1);
       expect(motor.identifier).toBe('Test Motor');
@@ -260,6 +262,7 @@ describe('Motor', () => {
         type: 'Brushless',
         dataSource: 'Custom',
         vendors: ['Custom'],
+        intendedProgram: IntendedProgram.OTHER,
       };
       const motor = Motor.fromSpecs(specs, 0);
       expect(motor.quantity).toBe(0);
@@ -278,6 +281,7 @@ describe('Motor', () => {
         type: 'Brushless',
         dataSource: 'Custom',
         vendors: ['Custom'],
+        intendedProgram: IntendedProgram.OTHER,
       };
       const motor = Motor.fromSpecs(specs, -5);
       expect(motor.quantity).toBe(-5);
@@ -296,6 +300,7 @@ describe('Motor', () => {
         type: 'Brushless',
         dataSource: 'Custom',
         vendors: ['Custom'],
+        intendedProgram: IntendedProgram.OTHER,
       };
       const motor = Motor.fromSpecs(specs, 1e6);
       expect(motor.quantity).toBe(1e6);
@@ -440,6 +445,7 @@ describe('Motor', () => {
         type: 'Brushless',
         dataSource: 'Custom',
         vendors: ['Custom'],
+        intendedProgram: IntendedProgram.OTHER,
       };
       const complete = completeMotorSpecs(specs);
       expect(complete.resistance.scalar).toBeCloseTo(12 / 257, 5);
@@ -459,6 +465,7 @@ describe('Motor', () => {
         type: 'Brushless',
         dataSource: 'Custom',
         vendors: ['Custom'],
+        intendedProgram: IntendedProgram.OTHER,
       };
       expect(() => completeMotorSpecs(specs)).toThrow('Divide by zero');
     });
@@ -476,6 +483,7 @@ describe('Motor', () => {
         type: 'Brushless',
         dataSource: 'Custom',
         vendors: ['Custom'],
+        intendedProgram: IntendedProgram.OTHER,
       };
       expect(() => completeMotorSpecs(specs)).toThrow('Divide by zero');
     });
@@ -493,6 +501,7 @@ describe('Motor', () => {
         type: 'Brushless',
         dataSource: 'Custom',
         vendors: ['Custom'],
+        intendedProgram: IntendedProgram.OTHER,
       };
       const complete = completeMotorSpecs(specs);
       expect(complete.kT.scalar).toBe(0);
@@ -511,6 +520,7 @@ describe('Motor', () => {
         type: 'Brushless',
         dataSource: 'Custom',
         vendors: ['Custom'],
+        intendedProgram: IntendedProgram.OTHER,
       };
       const complete = completeMotorSpecs(specs);
       expect(complete.freeCurrent.scalar).toBe(0);
@@ -531,6 +541,7 @@ describe('Motor', () => {
         type: 'Brushless',
         dataSource: 'Custom',
         vendors: ['Custom'],
+        intendedProgram: IntendedProgram.OTHER,
       });
       const curves = generateMotorCurves(
         specs,
@@ -553,6 +564,7 @@ describe('Motor', () => {
         type: 'Brushless',
         dataSource: 'Custom',
         vendors: ['Custom'],
+        intendedProgram: IntendedProgram.OTHER,
       });
       const curves = generateMotorCurves(
         specs,
@@ -575,6 +587,7 @@ describe('Motor', () => {
         type: 'Brushless',
         dataSource: 'Custom',
         vendors: ['Custom'],
+        intendedProgram: IntendedProgram.OTHER,
       });
       const curves = generateMotorCurves(
         specs,
@@ -597,6 +610,7 @@ describe('Motor', () => {
         type: 'Brushless',
         dataSource: 'Custom',
         vendors: ['Custom'],
+        intendedProgram: IntendedProgram.OTHER,
       });
       const curves = generateMotorCurves(
         specs,
@@ -619,6 +633,7 @@ describe('Motor', () => {
         type: 'Brushless',
         dataSource: 'Custom',
         vendors: ['Custom'],
+        intendedProgram: IntendedProgram.OTHER,
       });
       const curves = generateMotorCurves(
         specs,
