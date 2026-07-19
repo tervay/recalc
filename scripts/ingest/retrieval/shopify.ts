@@ -1,4 +1,8 @@
-import { cachedFetch } from 'scripts/ingest/retrieval/cachedFetch';
+import {
+  fetchWithRetry,
+  NETWORK_SPACING_MS,
+  sleep,
+} from 'scripts/ingest/retrieval/fetchWithRetry';
 import type { VendorName } from 'scripts/ingest/vendors';
 import { SHOPIFY_CONFIGS } from 'scripts/ingest/vendors';
 
@@ -16,9 +20,31 @@ export async function fetchShopifyProducts(
   const products: ShopifyProduct[] = [];
 
   while (true) {
-    const response = await cachedFetch(
-      `${config.rootDomain}/products.json?page=${pageNum}&limit=250`,
-    );
+    const url = `${config.rootDomain}/products.json?page=${pageNum}&limit=250`;
+
+    let response: Awaited<ReturnType<typeof fetchWithRetry>>['response'];
+    try {
+      ({ response } = await fetchWithRetry(url));
+    } catch (error) {
+      // fetchWithRetry already exhausted its own backoff/retry budget (e.g.
+      // persistent 429 rate-limiting or 5xx); surface which vendor/page
+      // failed rather than the earlier opaque JSON-parse crash.
+      throw new Error(
+        `Failed to fetch ${vendor} products page ${pageNum}: ${String(error)}`,
+        { cause: error },
+      );
+    }
+
+    if (response.status !== 200) {
+      // A definitive-but-non-200 terminal response (404) - no more pages.
+      throw new Error(
+        `Failed to fetch ${vendor} products page ${pageNum}: HTTP ${response.status}`,
+      );
+    }
+
+    // Space out only genuine network requests; cache hits are free.
+    if (response.isCacheMiss) await sleep(NETWORK_SPACING_MS);
+
     const data = (await response.json()) as ShopifyResponse;
     if (data.products.length === 0) {
       break;

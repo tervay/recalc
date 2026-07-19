@@ -4004,6 +4004,66 @@
     title: NEO or NEO Vortex / Billet With Neoprene / Preassembled
   firstSeen: 2026-03-13T11:55:31.915Z
 - vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5n-swerve-module?variant=52197031805229
+  product:
+    handle: mk5n-swerve-module
+    id: 10024786592045
+    title: MK5n Swerve Module
+  variant:
+    id: 52197031805229
+    options:
+      - Kraken X60
+      - Colson
+      - Unassembled
+    sku: null
+    title: Kraken X60 / Colson / Unassembled
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5n-swerve-module?variant=52197031837997
+  product:
+    handle: mk5n-swerve-module
+    id: 10024786592045
+    title: MK5n Swerve Module
+  variant:
+    id: 52197031837997
+    options:
+      - Kraken X60
+      - Colson
+      - Preassembled
+    sku: null
+    title: Kraken X60 / Colson / Preassembled
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5n-swerve-module?variant=52197031870765
+  product:
+    handle: mk5n-swerve-module
+    id: 10024786592045
+    title: MK5n Swerve Module
+  variant:
+    id: 52197031870765
+    options:
+      - NEO or NEO Vortex
+      - Colson
+      - Unassembled
+    sku: null
+    title: NEO or NEO Vortex / Colson / Unassembled
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5n-swerve-module?variant=52197031903533
+  product:
+    handle: mk5n-swerve-module
+    id: 10024786592045
+    title: MK5n Swerve Module
+  variant:
+    id: 52197031903533
+    options:
+      - NEO or NEO Vortex
+      - Colson
+      - Preassembled
+    sku: null
+    title: NEO or NEO Vortex / Colson / Preassembled
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
   # https://www.swervedrivespecialties.com/products/wheel-billet-4od-x-2-25w-mk5?variant=51830634250541
   product:
     handle: wheel-billet-4od-x-2-25w-mk5
@@ -4184,6 +4244,66 @@
     title: NEO or NEO Vortex / Billet With Neoprene / Preassembled
   firstSeen: 2026-03-13T11:55:31.915Z
 - vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5i-swerve-module?variant=52197031674157
+  product:
+    handle: mk5i-swerve-module
+    id: 10072751374637
+    title: MK5i Swerve Module
+  variant:
+    id: 52197031674157
+    options:
+      - Kraken
+      - Colson
+      - Unassembled
+    sku: null
+    title: Kraken / Colson / Unassembled
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5i-swerve-module?variant=52197031706925
+  product:
+    handle: mk5i-swerve-module
+    id: 10072751374637
+    title: MK5i Swerve Module
+  variant:
+    id: 52197031706925
+    options:
+      - Kraken
+      - Colson
+      - Preassembled
+    sku: null
+    title: Kraken / Colson / Preassembled
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5i-swerve-module?variant=52197031739693
+  product:
+    handle: mk5i-swerve-module
+    id: 10072751374637
+    title: MK5i Swerve Module
+  variant:
+    id: 52197031739693
+    options:
+      - NEO or NEO Vortex
+      - Colson
+      - Unassembled
+    sku: null
+    title: NEO or NEO Vortex / Colson / Unassembled
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5i-swerve-module?variant=52197031772461
+  product:
+    handle: mk5i-swerve-module
+    id: 10072751374637
+    title: MK5i Swerve Module
+  variant:
+    id: 52197031772461
+    options:
+      - NEO or NEO Vortex
+      - Colson
+      - Preassembled
+    sku: null
+    title: NEO or NEO Vortex / Colson / Preassembled
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
   # https://www.swervedrivespecialties.com/products/kit-tool-mk5?variant=51285316403501
   product:
     handle: kit-tool-mk5
@@ -4289,20 +4409,20 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:20.170Z
 - vendor: SDS
-  # https://www.swervedrivespecialties.com/products/bearing-6800zz?variant=51564163760429
+  # https://www.swervedrivespecialties.com/products/bearing-6800zz?variant=52180769636653
   product:
     handle: bearing-6800zz
     id: 10137414992173
     title: Bearing, 6800ZZ
   variant:
-    id: 51564163760429
+    id: 52180769636653
     options:
       - Default Title
       - null
       - null
     sku: null
     title: Default Title
-  firstSeen: 2026-03-13T10:25:20.170Z
+  firstSeen: 2026-07-19T17:48:53.866Z
 - vendor: SDS
   # https://www.swervedrivespecialties.com/products/bearing-6801zz?variant=51564170608941
   product:
@@ -4933,3 +5053,48 @@
     sku: null
     title: Default Title
   firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/wheel-colson-4od-x-2w-mk5?variant=52196628463917
+  product:
+    handle: wheel-colson-4od-x-2w-mk5
+    id: 10308916216109
+    title: Wheel, Colson, 4"OD x 2"W (MK5)
+  variant:
+    id: 52196628463917
+    options:
+      - Wheel Only
+      - null
+      - null
+    sku: null
+    title: Wheel Only
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/wheel-colson-4od-x-2w-mk5?variant=52196628496685
+  product:
+    handle: wheel-colson-4od-x-2w-mk5
+    id: 10308916216109
+    title: Wheel, Colson, 4"OD x 2"W (MK5)
+  variant:
+    id: 52196628496685
+    options:
+      - Wheel Kit
+      - null
+      - null
+    sku: null
+    title: Wheel Kit
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/wheel-colson-4od-x-2w-mk5?variant=52196628529453
+  product:
+    handle: wheel-colson-4od-x-2w-mk5
+    id: 10308916216109
+    title: Wheel, Colson, 4"OD x 2"W (MK5)
+  variant:
+    id: 52196628529453
+    options:
+      - Wheel Kit + Quick-Change Kit
+      - null
+      - null
+    sku: null
+    title: Wheel Kit + Quick-Change Kit
+  firstSeen: 2026-07-19T17:48:53.866Z
