@@ -1,7 +1,7 @@
 // Minimal stub implementation of ntcore for WebAssembly builds
 // This provides just enough symbols for wpilibc to link against
 // without requiring the full wpinet/ntcore implementation
-// 
+//
 // Note: These are empty stubs - NetworkTables functionality is not available
 // in WebAssembly builds, but wpilibc requires the symbols for linking.
 
