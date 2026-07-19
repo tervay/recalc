@@ -7,6 +7,12 @@ import { getWpilibcModuleSync } from '~/lib/wpilib/wpilibc';
 export const nominalVoltage = new Measurement(12, 'V');
 export const highCurrentLimit = new Measurement(1000, 'A');
 
+export enum IntendedProgram {
+  FRC = 'FRC',
+  FTC = 'FTC',
+  OTHER = 'OTHER',
+}
+
 export interface MotorSpecs {
   voltage: Measurement;
   stallTorque: Measurement;
@@ -19,6 +25,7 @@ export interface MotorSpecs {
   type: 'Brushless' | 'Brushed';
   dataSource: Vendor;
   vendors: Vendor[];
+  intendedProgram: IntendedProgram;
 }
 
 export interface FullMotorSpecs extends MotorSpecs {
@@ -269,6 +276,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushless',
     dataSource: 'CTRE',
     vendors: ['CTRE', 'WCP'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'Kraken X60 (FOC)',
@@ -282,6 +290,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushless',
     dataSource: 'CTRE',
     vendors: ['CTRE', 'WCP'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'NEO Vortex',
@@ -295,6 +304,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushless',
     dataSource: 'CTRE',
     vendors: ['REV'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'NEO 2.0',
@@ -308,6 +318,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushless',
     dataSource: 'CTRE',
     vendors: ['REV'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'NEO',
@@ -321,6 +332,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushless',
     dataSource: 'CTRE',
     vendors: ['REV'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'Kraken X44',
@@ -334,6 +346,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushless',
     dataSource: 'CTRE',
     vendors: ['CTRE', 'WCP'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'Kraken X44 (FOC)',
@@ -347,6 +360,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushless',
     dataSource: 'CTRE',
     vendors: ['CTRE', 'WCP'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'Falcon 500',
@@ -360,6 +374,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushless',
     dataSource: 'CTRE',
     vendors: ['CTRE', 'VEX'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'Falcon 500 (FOC)',
@@ -373,6 +388,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushless',
     dataSource: 'VEX',
     vendors: ['CTRE', 'VEX'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'Minion',
@@ -386,6 +402,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushless',
     dataSource: 'CTRE',
     vendors: ['CTRE'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'Minion (Adv Hall)',
@@ -399,6 +416,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushless',
     dataSource: 'CTRE',
     vendors: ['CTRE'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'Thrifty Pulsar',
@@ -412,6 +430,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushless',
     dataSource: 'Thrifty',
     vendors: ['Thrifty'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'NEO 550',
@@ -425,6 +444,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushless',
     dataSource: 'REV',
     vendors: ['REV'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: '775pro',
@@ -438,6 +458,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushed',
     dataSource: 'VEX',
     vendors: ['VEX', 'WCP'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: '775 RedLine',
@@ -451,6 +472,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushed',
     dataSource: 'VEX',
     vendors: ['AndyMark'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'CIM',
@@ -464,6 +486,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushed',
     dataSource: 'VEX',
     vendors: ['AndyMark'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'MiniCIM',
@@ -477,6 +500,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushed',
     dataSource: 'VEX',
     vendors: ['VEX'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'BAG',
@@ -490,6 +514,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushed',
     dataSource: 'VEX',
     vendors: ['VEX'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'AM-9015',
@@ -503,6 +528,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushed',
     dataSource: 'VEX',
     vendors: ['AndyMark'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'BaneBots 550',
@@ -516,6 +542,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushed',
     dataSource: 'VEX',
     vendors: ['BaneBots'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'NeveRest',
@@ -529,6 +556,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushed',
     dataSource: 'VEX',
     vendors: ['AndyMark'],
+    intendedProgram: IntendedProgram.FTC,
   },
   {
     name: 'Snowblower',
@@ -542,6 +570,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushed',
     dataSource: 'VEX',
     vendors: ['AndyMark'],
+    intendedProgram: IntendedProgram.FRC,
   },
   {
     name: 'HD Hex',
@@ -555,6 +584,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushed',
     dataSource: 'VEX',
     vendors: ['REV'],
+    intendedProgram: IntendedProgram.FTC,
   },
   {
     name: 'Core Hex',
@@ -568,6 +598,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushed',
     dataSource: 'VEX',
     vendors: ['REV'],
+    intendedProgram: IntendedProgram.FTC,
   },
   {
     name: 'V5 Smart Motor (Red)',
@@ -581,6 +612,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushed',
     dataSource: 'VEX',
     vendors: ['VEX'],
+    intendedProgram: IntendedProgram.OTHER,
   },
   {
     name: 'Modern Robotics',
@@ -594,5 +626,6 @@ export const ALL_MOTORS: MotorSpecs[] = [
     type: 'Brushed',
     dataSource: 'VEX',
     vendors: [],
+    intendedProgram: IntendedProgram.FTC,
   },
 ];

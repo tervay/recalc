@@ -12,7 +12,7 @@ import {
 import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
 import { MeasurementInput } from '~/components/recalc/io/measurement';
-import { StringSelectInput } from '~/components/recalc/io/stringSelect';
+import { MotorNameSelect } from '~/components/recalc/io/motor';
 import MotorTable from '~/components/recalc/motorTable';
 import { type ChartConfig, ChartContainer } from '~/components/ui/chart';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
@@ -157,11 +157,7 @@ export default function Motors() {
                 Motor
               </h2>
               <IOLine>
-                <StringSelectInput
-                  choices={ALL_MOTORS.map((m) => ({
-                    label: m.name,
-                    value: m.name,
-                  }))}
+                <MotorNameSelect
                   stateHook={[selectedMotor, setSelectedMotor]}
                   label="Motor"
                   testId="motor"
