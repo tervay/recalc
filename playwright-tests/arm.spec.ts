@@ -1,4 +1,5 @@
 import { type Page, expect, test } from '@playwright/test';
+import { waitForChartSettled } from 'playwright-tests/helpers';
 
 async function waitForCalc(page: Page) {
   await page.waitForTimeout(100);
@@ -7,6 +8,7 @@ async function waitForCalc(page: Page) {
     'false',
     { timeout: 30000 },
   );
+  await waitForChartSettled(page, 'arm-main');
 }
 
 test.describe('Arm Calculator', () => {

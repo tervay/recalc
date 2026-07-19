@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as z from 'zod';
 
 import { Input } from '~/components/ui/input';
@@ -31,18 +31,26 @@ export function RatioInput({
   const [ratio, setRatio] = stateHook;
   const [magnitude, setMagnitude] = useState(ratio.magnitude);
   const [type, setType] = useState(ratio.ratioType);
+  const lastInternalRatio = useRef(ratio);
 
   const [proxyMagnitude, setProxyMagnitude] = useState(magnitude.toString());
   const debouncedProxyMagnitude = useDebounce(proxyMagnitude, debounceDelay);
 
   useEffect(() => {
-    setMagnitude(ratio.magnitude);
-    setType(ratio.ratioType);
-    setProxyMagnitude(ratio.magnitude.toString());
+    if (!ratio.eq(lastInternalRatio.current)) {
+      lastInternalRatio.current = ratio;
+      setMagnitude(ratio.magnitude);
+      setType(ratio.ratioType);
+      setProxyMagnitude(ratio.magnitude.toString());
+    }
   }, [ratio]);
 
   useEffect(() => {
-    setRatio(new Ratio(magnitude, type));
+    const newRatio = new Ratio(magnitude, type);
+    if (!newRatio.eq(lastInternalRatio.current)) {
+      lastInternalRatio.current = newRatio;
+      setRatio(newRatio);
+    }
   }, [magnitude, type, setRatio]);
 
   useEffect(() => {

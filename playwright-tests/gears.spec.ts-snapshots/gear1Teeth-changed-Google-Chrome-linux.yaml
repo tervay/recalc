@@ -30,17 +30,17 @@
     - row "AndyMark am-3816 36 1/2\" Hex":
       - cell "AndyMark am-3816":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
+          - /url: https://www.andymark.com/products/standard-20-dp-gears
         - link "am-3816":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
+          - /url: https://www.andymark.com/products/standard-20-dp-gears
       - cell "36"
       - cell "1/2\" Hex"
     - row "AndyMark am-4709 36 1/2\" Hex":
       - cell "AndyMark am-4709":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
+          - /url: https://www.andymark.com/products/standard-20-dp-gears
         - link "am-4709":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
+          - /url: https://www.andymark.com/products/standard-20-dp-gears
       - cell "36"
       - cell "1/2\" Hex"
     - row "REV REV-21-1929 36 1/2\" Hex":
@@ -78,9 +78,9 @@
     - row "AndyMark am-5138 36 3/8\" Hex":
       - cell "AndyMark am-5138":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-3-8-in-hex
+          - /url: https://www.andymark.com/products/standard-20-dp-gears
         - link "am-5138":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-3-8-in-hex
+          - /url: https://www.andymark.com/products/standard-20-dp-gears
       - cell "36"
       - cell "3/8\" Hex"
     - row "WCP WCP-0549 36 3/8\" Hex":
@@ -136,25 +136,25 @@
     - row "AndyMark am-3487 40 1/2\" Hex":
       - cell "AndyMark am-3487":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
+          - /url: https://www.andymark.com/products/standard-20-dp-gears
         - link "am-3487":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
+          - /url: https://www.andymark.com/products/standard-20-dp-gears
       - cell "40"
       - cell "1/2\" Hex"
     - row "AndyMark am-4710 40 1/2\" Hex":
       - cell "AndyMark am-4710":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
+          - /url: https://www.andymark.com/products/standard-20-dp-gears
         - link "am-4710":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
+          - /url: https://www.andymark.com/products/standard-20-dp-gears
       - cell "40"
       - cell "1/2\" Hex"
     - row "AndyMark am-5148 40 1/2\" Hex":
       - cell "AndyMark am-5148":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
+          - /url: https://www.andymark.com/products/standard-20-dp-gears
         - link "am-5148":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-1-2-in-hex
+          - /url: https://www.andymark.com/products/standard-20-dp-gears
       - cell "40"
       - cell "1/2\" Hex"
     - row "REV REV-21-1931 40 1/2\" Hex":
@@ -208,9 +208,9 @@
     - row "AndyMark am-3976 40 3/8\" Hex":
       - cell "AndyMark am-3976":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-3-8-in-hex
+          - /url: https://www.andymark.com/products/standard-20-dp-gears
         - link "am-3976":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears-bore-3-8-in-hex
+          - /url: https://www.andymark.com/products/standard-20-dp-gears
       - cell "40"
       - cell "3/8\" Hex"
     - row "WCP WCP-0551 40 3/8\" Hex":

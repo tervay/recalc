@@ -57,11 +57,11 @@
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
       - cell "20"
       - cell "1/2\" Hex"
-    - row "REV REV-21-3720 20 MAXSpline":
-      - cell "REV REV-21-3720":
+    - row "REV REV-21-3716 20 MAXSpline":
+      - cell "REV REV-21-3716":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
-        - link "REV-21-3720":
+        - link "REV-21-3716":
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
       - cell "20"
       - cell "MAXSpline"
@@ -83,11 +83,11 @@
           - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets
       - cell "40"
       - cell "1.125\" Round"
-    - row "REV REV-21-3725 40 MAXSpline":
-      - cell "REV REV-21-3725":
+    - row "REV REV-21-3721 40 MAXSpline":
+      - cell "REV REV-21-3721":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
-        - link "REV-21-3725":
+        - link "REV-21-3721":
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
       - cell "40"
       - cell "MAXSpline"

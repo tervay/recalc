@@ -70,7 +70,7 @@ export async function fetchWithRetry(
       lastError = error;
       if (attempt < maxAttempts) {
         console.log(
-          `Got ${error} for ${url}, retrying in ${retryDelayMs(attempt, undefined, backoffMs)}ms`,
+          `Got error for ${url}, retrying in ${retryDelayMs(attempt, undefined, backoffMs)}ms`,
         );
         await sleep(retryDelayMs(attempt, undefined, backoffMs));
       }

@@ -1,74 +1,79 @@
-import type { JSONSprocket } from '~/lib/types/sprockets';
+import {
+  normalizeBore,
+  normalizeRevUrl,
+  TEETH_RE,
+} from 'scripts/ingest/parsing/rev/families';
 
-export function parseREVSprockets(): JSONSprocket[] {
+import type { ShopifyProduct } from '~/lib/types/shopify';
+import type { ChainType, JSONSprocket } from '~/lib/types/sprockets';
+import { zJSONSprocketSchema } from '~/lib/types/sprockets';
+
+const SPROCKET_FAMILY_URLS = new Set(
+  [
+    'https://www.revrobotics.com/ION-25-Sprockets',
+    'https://www.revrobotics.com/ION-35-Sprockets',
+    'https://www.revrobotics.com/neo-pinions',
+  ].map(normalizeRevUrl),
+);
+
+const CHAIN_TYPE_RE = /#(25|35)\b/;
+
+// "Billet Sprocket" SKUs never print a bore in the product name - that line
+// ships in MAXSpline bore only. Every Hub/Plate variant states its bore
+// explicitly and is parsed from the name as normal via normalizeBore.
+const BILLET_SPROCKET_DEFAULT_BORE = 'MAXSpline';
+const BILLET_SPROCKET_RE = /billet sprocket/i;
+
+// REV-21-3495's upstream name drops the "T" tooth-count suffix ("... - 12
+// (REV-21-3495))" instead of "... - 12T ..."), so TEETH_RE can't match it.
+// Confirmed against the live shop listing: it's a 12-tooth sprocket. This is
+// a known typo in one specific, still-active SKU - not a general fallback
+// for un-suffixed numbers, which would risk misreading other malformed rows.
+const TEETH_OVERRIDE_BY_SKU: Record<string, number> = {
+  'REV-21-3495': 12,
+};
+
+export function parseREVSprockets(products: ShopifyProduct[]): JSONSprocket[] {
   const sprockets: JSONSprocket[] = [];
 
-  // ION 35 Sprockets with 1/2" Hex bore
-  for (const [index, toothCount] of [9, 10, 11, 12, 16, 18, 20, 24].entries()) {
-    sprockets.push({
-      teeth: toothCount,
-      bore: '1/2" Hex',
-      chainType: '#35',
-      sku: `REV-21-${3706 + index}`,
-      url: 'https://www.revrobotics.com/ION-35-Sprockets/',
-      vendor: 'REV',
-    });
-  }
+  for (const product of products) {
+    if (!SPROCKET_FAMILY_URLS.has(normalizeRevUrl(product.handle))) continue;
 
-  // ION 35 Sprockets with MAXSpline bore
-  for (const [index, toothCount] of [
-    16, 18, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72, 76, 80,
-  ].entries()) {
-    sprockets.push({
-      teeth: toothCount,
-      bore: 'MAXSpline',
-      chainType: '#35',
-      sku: `REV-21-${3718 + index}`,
-      url: 'https://www.revrobotics.com/ION-35-Sprockets/',
-      vendor: 'REV',
-    });
-  }
+    const chainMatch = product.title.match(CHAIN_TYPE_RE);
+    if (!chainMatch) continue;
+    const chainType = `#${chainMatch[1]}` as ChainType;
 
-  // ION 25 Sprockets
-  const ion25Sprockets: Pick<JSONSprocket, 'teeth' | 'bore' | 'sku'>[] = [
-    { teeth: 12, bore: '1/2" Hex', sku: 'REV-21-2014' },
-    { teeth: 16, bore: '1/2" Hex', sku: 'REV-21-2012' },
-    { teeth: 16, bore: '1/2" Hex', sku: 'REV-21-2016' },
-    { teeth: 24, bore: '1/2" Hex', sku: 'REV-21-2017' },
-    { teeth: 32, bore: '1/2" Hex', sku: 'REV-21-2018' },
-    { teeth: 24, bore: 'MAXSpline', sku: 'REV-21-2015' },
-    { teeth: 32, bore: 'MAXSpline', sku: 'REV-21-2019' },
-    { teeth: 48, bore: 'MAXSpline', sku: 'REV-21-1964' },
-    { teeth: 64, bore: 'MAXSpline', sku: 'REV-21-1972' },
-    { teeth: 40, bore: 'MAXSpline', sku: 'REV-21-3370' },
-    { teeth: 48, bore: 'MAXSpline', sku: 'REV-21-3374' },
-    { teeth: 56, bore: 'MAXSpline', sku: 'REV-21-3378' },
-    { teeth: 64, bore: 'MAXSpline', sku: 'REV-21-3382' },
-    { teeth: 72, bore: 'MAXSpline', sku: 'REV-21-3386' },
-  ];
+    const sku = product.variants[0]?.sku ?? null;
+    const teethMatch = product.title.match(TEETH_RE);
+    let teeth: number | undefined;
+    if (teethMatch) {
+      teeth = parseInt(teethMatch[1], 10);
+    } else if (sku && TEETH_OVERRIDE_BY_SKU[sku] !== undefined) {
+      teeth = TEETH_OVERRIDE_BY_SKU[sku];
+    }
+    if (teeth === undefined) continue;
 
-  for (const sprocket of ion25Sprockets) {
-    sprockets.push({
-      ...sprocket,
-      chainType: '#25',
-      url: 'https://www.revrobotics.com/ION-25-Sprockets/',
-      vendor: 'REV',
-    });
-  }
+    const bore =
+      normalizeBore(product.title) ??
+      (BILLET_SPROCKET_RE.test(product.title)
+        ? BILLET_SPROCKET_DEFAULT_BORE
+        : null);
+    if (!bore) continue;
 
-  // NEO pinion sprockets
-  const neoPinions: Pick<JSONSprocket, 'teeth' | 'bore' | 'sku'>[] = [
-    { teeth: 10, bore: '8mm', sku: 'REV-21-2020' },
-    { teeth: 12, bore: '8mm', sku: 'REV-21-3495' },
-  ];
-
-  for (const sprocket of neoPinions) {
-    sprockets.push({
-      ...sprocket,
-      chainType: '#25',
-      url: 'https://www.revrobotics.com/neo-pinions/',
-      vendor: 'REV',
-    });
+    try {
+      sprockets.push(
+        zJSONSprocketSchema.parse({
+          teeth,
+          bore,
+          chainType,
+          url: product.handle,
+          sku,
+          vendor: 'REV',
+        }),
+      );
+    } catch (error) {
+      console.error(`Error parsing REV sprocket: ${product.title}`, error);
+    }
   }
 
   return sprockets;

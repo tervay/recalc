@@ -16,7 +16,8 @@
     "paths": {
       "~/*": ["./app/*"],
       "scripts/*": ["./scripts/*"],
-      ".react-router/*": ["./.react-router/*"]
+      ".react-router/*": ["./.react-router/*"],
+      "playwright-tests/*": ["./playwright-tests/*"]
     },
     "esModuleInterop": true,
     "verbatimModuleSyntax": true,

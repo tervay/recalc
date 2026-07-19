@@ -1,89 +1,54 @@
-import type { JSONGear } from '~/lib/types/gears';
+import {
+  DP_RE,
+  normalizeBore,
+  normalizeRevUrl,
+  TEETH_RE,
+} from 'scripts/ingest/parsing/rev/families';
 
-export function parseREVGears(): JSONGear[] {
+import type { JSONGear } from '~/lib/types/gears';
+import { zJSONGearSchema } from '~/lib/types/gears';
+import type { ShopifyProduct } from '~/lib/types/shopify';
+
+// Listing pages that carry at least one spur gear / pinion gear in our
+// schema (teeth + dp + bore, all stated in the name). Some of these pages
+// also list non-gear parts (pulleys, sprockets) or gears with an unsupported
+// bore (15T Spline) - those are filtered out below by the required regex
+// captures, not by this url list.
+const GEAR_FAMILY_URLS = new Set(
+  [
+    'https://www.revrobotics.com/20DP-Gears-0.5-Hex',
+    'https://www.revrobotics.com/20DP-Gears-Maxspline',
+    'https://www.revrobotics.com/neo-pinions',
+    'https://www.revrobotics.com/550-motor-pinions',
+  ].map(normalizeRevUrl),
+);
+
+export function parseREVGears(products: ShopifyProduct[]): JSONGear[] {
   const gears: JSONGear[] = [];
 
-  // 20DP MAXSpline gears
-  for (const [index, toothCount] of [
-    32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68,
-  ].entries()) {
-    gears.push({
-      teeth: toothCount,
-      dp: 20,
-      bore: 'MAXSpline',
-      url: 'https://www.revrobotics.com/20DP-Gears-Maxspline/',
-      sku: `REV-21-${3010 + index}`,
-      vendor: 'REV',
-    });
-  }
+  for (const product of products) {
+    if (!GEAR_FAMILY_URLS.has(normalizeRevUrl(product.handle))) continue;
 
-  // Additional 20DP MAXSpline gears
-  for (const [toothCount, sku] of [
-    [72, 'REV-21-3030'],
-    [80, 'REV-21-3034'],
-  ] as const) {
-    gears.push({
-      teeth: toothCount,
-      dp: 20,
-      bore: 'MAXSpline',
-      url: 'https://www.revrobotics.com/20DP-Gears-Maxspline/',
-      sku,
-      vendor: 'REV',
-    });
-  }
+    const teethMatch = product.title.match(TEETH_RE);
+    const dpMatch = product.title.match(DP_RE);
+    const bore = normalizeBore(product.title);
+    if (!teethMatch || !dpMatch || !bore) continue;
 
-  // 20DP 1/2" Hex gears
-  for (const [index, toothCount] of [
-    18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54,
-    56, 58, 60, 62, 64, 66, 68,
-  ].entries()) {
-    gears.push({
-      teeth: toothCount,
-      dp: 20,
-      bore: '1/2" Hex',
-      url: 'https://www.revrobotics.com/20DP-Gears-0.5-Hex/',
-      sku: `REV-21-${1920 + index}`,
-      vendor: 'REV',
-    });
+    try {
+      gears.push(
+        zJSONGearSchema.parse({
+          teeth: parseInt(teethMatch[1], 10),
+          dp: parseInt(dpMatch[1], 10),
+          bore,
+          url: product.handle,
+          sku: product.variants[0]?.sku ?? null,
+          vendor: 'REV',
+        }),
+      );
+    } catch (error) {
+      console.error(`Error parsing REV gear: ${product.title}`, error);
+    }
   }
-
-  // Additional 20DP 1/2" Hex gears
-  for (const [toothCount, sku] of [
-    [16, 'REV-21-2196'],
-    [72, 'REV-21-1947'],
-    [80, 'REV-21-1951'],
-  ] as const) {
-    gears.push({
-      teeth: toothCount,
-      dp: 20,
-      bore: '1/2" Hex',
-      url: 'https://www.revrobotics.com/20DP-Gears-0.5-Hex/',
-      sku,
-      vendor: 'REV',
-    });
-  }
-
-  // 20DP 8mm bore gears (NEO pinions)
-  for (const [index, toothCount] of [10, 11, 12, 13, 14].entries()) {
-    gears.push({
-      teeth: toothCount,
-      dp: 20,
-      bore: '8mm',
-      url: 'https://www.revrobotics.com/neo-pinions/',
-      sku: `REV-21-${1998 + index}`,
-      vendor: 'REV',
-    });
-  }
-
-  // 32DP RS550 pinion
-  gears.push({
-    teeth: 12,
-    dp: 32,
-    bore: 'RS550',
-    url: 'https://www.revrobotics.com/550-motor-pinions/',
-    sku: 'REV-41-1660-PK2',
-    vendor: 'REV',
-  });
 
   return gears;
 }
