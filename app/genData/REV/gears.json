@@ -440,6 +440,22 @@
     "vendor": "REV"
   },
   {
+    "teeth": 14,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "sku": "REV-21-3361",
+    "vendor": "REV"
+  },
+  {
+    "teeth": 15,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.revrobotics.com/20DP-Gears-0.5-Hex/",
+    "sku": "REV-21-3362",
+    "vendor": "REV"
+  },
+  {
     "teeth": 12,
     "dp": 32,
     "bore": "RS550",

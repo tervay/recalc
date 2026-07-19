@@ -226,17 +226,17 @@
     - row "Swyft 600-5M-15 120 15 mm":
       - cell "Swyft 600-5M-15":
         - link "Swyft":
-          - /url: https://swyftrobotics.com/products/htd-timing-belts
+          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
         - link "600-5M-15":
-          - /url: https://swyftrobotics.com/products/htd-timing-belts
+          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
       - cell "120"
       - cell "15 mm"
     - row "Swyft 600-5M-9 120 15 mm":
       - cell "Swyft 600-5M-9":
         - link "Swyft":
-          - /url: https://swyftrobotics.com/products/htd-timing-belts
+          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
         - link "600-5M-9":
-          - /url: https://swyftrobotics.com/products/htd-timing-belts
+          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
       - cell "120"
       - cell "15 mm"
     - row "Thrifty TTB-0148 120 9 mm":

@@ -57,11 +57,11 @@
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
       - cell "16"
       - cell "1/2\" Hex"
-    - row "REV REV-21-3718 16 MAXSpline":
-      - cell "REV REV-21-3718":
+    - row "REV REV-21-3714 16 MAXSpline":
+      - cell "REV REV-21-3714":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
-        - link "REV-21-3718":
+        - link "REV-21-3714":
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
       - cell "16"
       - cell "MAXSpline"
@@ -83,11 +83,11 @@
           - /url: https://www.thethriftybot.com/products/35-flat-plate-sprockets
       - cell "36"
       - cell "1.125\" Round"
-    - row "REV REV-21-3724 36 MAXSpline":
-      - cell "REV REV-21-3724":
+    - row "REV REV-21-3720 36 MAXSpline":
+      - cell "REV REV-21-3720":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
-        - link "REV-21-3724":
+        - link "REV-21-3720":
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
       - cell "36"
       - cell "MAXSpline"
