@@ -19,6 +19,7 @@ ENV PATH="/mise/shims:$PATH"
 
 RUN curl https://mise.run | MISE_INSTALL_PATH=/usr/local/bin/mise sh
 COPY .mise.toml /build/.mise.toml
+COPY mise.lock /build/mise.lock
 
 WORKDIR /build
 RUN mise trust && \

@@ -88,9 +88,8 @@ inline FeedforwardGains ComputeLinearFeedforwardGainsCore(
 // responsible for scaling kG by cos(angle-from-horizontal) if a
 // non-horizontal holding voltage is needed.
 inline FeedforwardGains ComputeAngularFeedforwardGainsCore(
-    const wpi::math::DCMotor& motor, double gearing,
-    double momentOfInertiaKgM2, double efficiency, double comMassKg,
-    double comLengthMeters) {
+    const wpi::math::DCMotor& motor, double gearing, double momentOfInertiaKgM2,
+    double efficiency, double comMassKg, double comLengthMeters) {
   auto idealPlantFull =
       wpi::math::Models::SingleJointedArmFromPhysicalConstants(
           motor, wpi::units::kilogram_square_meter_t(momentOfInertiaKgM2),
@@ -113,11 +112,10 @@ inline FeedforwardGains ComputeAngularFeedforwardGainsCore(
 // are not gravity-loaded (the load spins about an axis with no net torque
 // due to gravity), so kG is always 0.
 inline FeedforwardGains ComputeFlywheelFeedforwardGainsCore(
-    const wpi::math::DCMotor& motor, double gearing,
-    double momentOfInertiaKgM2, double efficiency) {
+    const wpi::math::DCMotor& motor, double gearing, double momentOfInertiaKgM2,
+    double efficiency) {
   auto idealPlant = wpi::math::Models::FlywheelFromPhysicalConstants(
-      motor, wpi::units::kilogram_square_meter_t(momentOfInertiaKgM2),
-      gearing);
+      motor, wpi::units::kilogram_square_meter_t(momentOfInertiaKgM2), gearing);
 
   const double kaIdeal = 1.0 / idealPlant.B()(0, 0);
   const double kvIdeal = -idealPlant.A()(0, 0) / idealPlant.B()(0, 0);
@@ -150,8 +148,8 @@ inline emscripten::val ZeroFeedforwardGains() {
 // (rather than left to throw) because it would otherwise silently produce an
 // infinite or wrongly-signed result via division, not a thrown exception.
 inline emscripten::val ComputeLinearFeedforwardGains(
-    DCMotorWasm* motor, double gearing, double loadKg,
-    double spoolRadiusMeters, double efficiency, double angleRadians) {
+    DCMotorWasm* motor, double gearing, double loadKg, double spoolRadiusMeters,
+    double efficiency, double angleRadians) {
   if (gearing <= 0.0 || spoolRadiusMeters <= 0.0 || efficiency <= 0.0) {
     return ZeroFeedforwardGains();
   }
@@ -186,8 +184,8 @@ inline emscripten::val ComputeAngularFeedforwardGains(
 
   try {
     return FeedforwardGainsToVal(ComputeAngularFeedforwardGainsCore(
-        motor->getMotor(), gearing, momentOfInertiaKgM2, efficiency,
-        comMassKg, comLengthMeters));
+        motor->getMotor(), gearing, momentOfInertiaKgM2, efficiency, comMassKg,
+        comLengthMeters));
   } catch (const std::exception& e) {
     ConsoleWarn(
         "ComputeAngularFeedforwardGains: {} (gearing={} momentOfInertiaKgM2="

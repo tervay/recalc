@@ -60,7 +60,7 @@ inline FeedbackGains ComputeElevatorFeedbackGainsCore(
   wpi::math::Matrixd<1, 1> controllerD;
   controllerD << 0;
   wpi::math::LinearSystem<2, 1, 1> plant{idealPlantFull.A(), controllerB,
-                                        controllerC, controllerD};
+                                         controllerC, controllerD};
 
   wpi::math::LinearQuadraticRegulator<2, 1> controller{
       plant,
@@ -94,7 +94,7 @@ inline FeedbackGains ComputeArmFeedbackGainsCore(
   wpi::math::Matrixd<1, 1> controllerD;
   controllerD << 0;
   wpi::math::LinearSystem<2, 1, 1> plant{idealPlantFull.A(), controllerB,
-                                        controllerC, controllerD};
+                                         controllerC, controllerD};
 
   wpi::math::LinearQuadraticRegulator<2, 1> controller{
       plant,
@@ -124,7 +124,7 @@ inline FeedbackGains ComputeFlywheelFeedbackGainsCore(
 
   wpi::math::Matrixd<1, 1> controllerB = idealPlant.B() * efficiency;
   wpi::math::LinearSystem<1, 1, 1> plant{idealPlant.A(), controllerB,
-                                        idealPlant.C(), idealPlant.D()};
+                                         idealPlant.C(), idealPlant.D()};
 
   wpi::math::LinearQuadraticRegulator<1, 1> controller{
       plant, {qVelocityRadPerSec}, {rVolts}, wpi::units::second_t(dtSeconds)};
@@ -157,10 +157,9 @@ inline emscripten::val ZeroFeedbackGains() {
 // failures and bad physical constants return {kP: 0, kD: 0} with a
 // diagnostic console.warn instead of aborting the worker.
 inline emscripten::val ComputeElevatorFeedbackGains(
-    DCMotorWasm* motor, double gearing, double massKg,
-    double spoolRadiusMeters, double efficiency, double qPositionMeters,
-    double qVelocityMPS, double rVolts, double dtSeconds,
-    double sensorDelaySeconds) {
+    DCMotorWasm* motor, double gearing, double massKg, double spoolRadiusMeters,
+    double efficiency, double qPositionMeters, double qVelocityMPS,
+    double rVolts, double dtSeconds, double sensorDelaySeconds) {
   if (dtSeconds <= 0.0 || qPositionMeters <= 0.0 || qVelocityMPS <= 0.0 ||
       rVolts <= 0.0) {
     return ZeroFeedbackGains();

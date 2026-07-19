@@ -9,7 +9,7 @@ A design calculator website for FIRST Robotics Competition (FRC) and FIRST Tech 
 Install [mise](https://mise.jdx.dev/) to manage Node.js, pnpm, and other tools automatically.
 
 ```sh
-mise install   # installs Node.js, pnpm, jq from mise.toml
+mise install   # installs Node.js, pnpm, jq, clang-format from mise.toml
 pnpm install
 pnpm run dev
 ```
@@ -33,7 +33,7 @@ The mise `enter` hook runs `pnpm install --frozen-lockfile` automatically whenev
 - `pnpm run lint` - Run linter
 - `pnpm run lint:fix` - Fix linting issues
 - `pnpm run format:fix` - Fix web formatting (oxfmt)
-- `pnpm run format:wpi` - Fix C++ formatting
+- `pnpm run format:wpi` - Fix C++ formatting (clang-format via mise)
 - `pnpm run typecheck` - Type check TypeScript
 
 ## Testing

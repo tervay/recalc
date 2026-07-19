@@ -29,14 +29,6 @@ function log_warn() {
   echo -e "${YELLOW}[WARN]${NC} $1"
 }
 
-# docker run -v $PWD:/src xianpengshen/clang-tools:19 clang-format -i patches/wpilibc/wasm/bindings.cc
-# docker run -v $PWD:/src xianpengshen/clang-tools:19 clang-format -i patches/wpimath/wasm/bindings.cc
-
-# Fix file permissions after Docker formatting (files are owned by root)
-if [ -f "$SCRIPT_DIR/patches/wpilibc/wasm/bindings.cc" ] || [ -f "$SCRIPT_DIR/patches/wpimath/wasm/bindings.cc" ]; then
-  sudo chown $(id -u):$(id -g) "$SCRIPT_DIR/patches/wpilibc/wasm/bindings.cc" "$SCRIPT_DIR/patches/wpimath/wasm/bindings.cc" 2>/dev/null || true
-fi
-
 # Function to copy generated WASM files from container
 # Arguments:
 #   $1: Container ID
