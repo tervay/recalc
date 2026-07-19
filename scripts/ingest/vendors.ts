@@ -18,7 +18,7 @@ export const SHOPIFY_CONFIGS: Partial<
   Record<VendorName, { rootDomain: string }>
 > = {
   WCP: { rootDomain: 'https://wcproducts.com' },
-  Swyft: { rootDomain: 'https://swyftrobotics.com' },
+  Swyft: { rootDomain: 'https://shop.swyftrobotics.com' },
   Thrifty: { rootDomain: 'https://www.thethriftybot.com' },
   VBeltGuys: { rootDomain: 'https://www.vbeltguys.com' },
   AndyMark: { rootDomain: 'https://www.andymark.com' },

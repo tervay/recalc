@@ -33346,21 +33346,6 @@
     title: Silver / 36 in.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/1-x-1-peanut-extrusion-different-lengths?variant=44493385990316
-  product:
-    handle: 1-x-1-peanut-extrusion-different-lengths
-    id: 8262901301420
-    title: 1 x 1 Peanut Extrusion Different Lengths
-  variant:
-    id: 44493385990316
-    options:
-      - Silver
-      - 72 in.
-      - null
-    sku: am-3090-6
-    title: Silver / 72 in.
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/1-x-1-peanut-extrusion-different-lengths?variant=44493386023084
   product:
     handle: 1-x-1-peanut-extrusion-different-lengths
@@ -39225,35 +39210,35 @@
     title: 6-32
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/imperial-and-metric-taps?variant=44493410566316
+  # https://www.andymark.com/products/imperial-and-metric-taps?variant=46382887338156
   product:
     handle: imperial-and-metric-taps
     id: 8262904119468
     title: Imperial and Metric Taps
   variant:
-    id: 44493410566316
+    id: 46382887338156
     options:
-      - M6
+      - M6-1
       - null
       - null
     sku: am-4522
-    title: M6
-  firstSeen: 2026-03-13T10:25:09.529Z
+    title: M6-1
+  firstSeen: 2026-07-19T17:46:52.256Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/imperial-and-metric-taps?variant=44493410664620
+  # https://www.andymark.com/products/imperial-and-metric-taps?variant=46382887370924
   product:
     handle: imperial-and-metric-taps
     id: 8262904119468
     title: Imperial and Metric Taps
   variant:
-    id: 44493410664620
+    id: 46382887370924
     options:
-      - M3
+      - M3-0.5
       - null
       - null
     sku: am-4519
-    title: M3
-  firstSeen: 2026-03-13T10:25:09.529Z
+    title: M3-0.5
+  firstSeen: 2026-07-19T17:46:52.256Z
 - vendor: AndyMark
   # https://www.andymark.com/products/sport-gearbox-pinion?variant=44493410861228
   product:
@@ -48034,7 +48019,7 @@
   product:
     handle: pre-drilled-box-tube-extrusion
     id: 8262906806444
-    title: Pre-Drilled Box Tube Extrusion
+    title: 47 in. Pre-Drilled Box Tube Extrusion
   variant:
     id: 44493433766060
     options:
@@ -48049,7 +48034,7 @@
   product:
     handle: pre-drilled-box-tube-extrusion
     id: 8262906806444
-    title: Pre-Drilled Box Tube Extrusion
+    title: 47 in. Pre-Drilled Box Tube Extrusion
   variant:
     id: 44493433798828
     options:
@@ -48064,7 +48049,7 @@
   product:
     handle: pre-drilled-box-tube-extrusion
     id: 8262906806444
-    title: Pre-Drilled Box Tube Extrusion
+    title: 47 in. Pre-Drilled Box Tube Extrusion
   variant:
     id: 44493433831596
     options:
@@ -48079,7 +48064,7 @@
   product:
     handle: pre-drilled-box-tube-extrusion
     id: 8262906806444
-    title: Pre-Drilled Box Tube Extrusion
+    title: 47 in. Pre-Drilled Box Tube Extrusion
   variant:
     id: 44493433864364
     options:
@@ -48094,7 +48079,7 @@
   product:
     handle: pre-drilled-box-tube-extrusion
     id: 8262906806444
-    title: Pre-Drilled Box Tube Extrusion
+    title: 47 in. Pre-Drilled Box Tube Extrusion
   variant:
     id: 45104980918444
     options:
@@ -48109,7 +48094,7 @@
   product:
     handle: pre-drilled-box-tube-extrusion
     id: 8262906806444
-    title: Pre-Drilled Box Tube Extrusion
+    title: 47 in. Pre-Drilled Box Tube Extrusion
   variant:
     id: 45166205075628
     options:
@@ -48124,7 +48109,7 @@
   product:
     handle: pre-drilled-box-tube-extrusion
     id: 8262906806444
-    title: Pre-Drilled Box Tube Extrusion
+    title: 47 in. Pre-Drilled Box Tube Extrusion
   variant:
     id: 45245682155692
     options:
@@ -48139,7 +48124,7 @@
   product:
     handle: pre-drilled-box-tube-extrusion
     id: 8262906806444
-    title: Pre-Drilled Box Tube Extrusion
+    title: 47 in. Pre-Drilled Box Tube Extrusion
   variant:
     id: 45245682188460
     options:
@@ -53445,21 +53430,6 @@
     title: Interconnect B
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/robot-competition-table?variant=44493448609964
-  product:
-    handle: robot-competition-table
-    id: 8262909755564
-    title: Robot Competition Table
-  variant:
-    id: 44493448609964
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-4400a
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/igus-energy-chain?variant=44493448708268
   product:
     handle: igus-energy-chain
@@ -54165,6 +54135,66 @@
     title: 3/8 in Hex / 50A / 3 in.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
+  # https://www.andymark.com/products/compliant-stars?variant=46382743290028
+  product:
+    handle: compliant-stars
+    id: 8262910214316
+    title: Compliant Stars
+  variant:
+    id: 46382743290028
+    options:
+      - 3/8 in Hex
+      - 60A
+      - 3 in.
+    sku: am-5709_black
+    title: 3/8 in Hex / 60A / 3 in.
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/compliant-stars?variant=46382743322796
+  product:
+    handle: compliant-stars
+    id: 8262910214316
+    title: Compliant Stars
+  variant:
+    id: 46382743322796
+    options:
+      - 3/8 in Hex
+      - 80A
+      - 3 in.
+    sku: am-5709_gray
+    title: 3/8 in Hex / 80A / 3 in.
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/compliant-stars?variant=46382743355564
+  product:
+    handle: compliant-stars
+    id: 8262910214316
+    title: Compliant Stars
+  variant:
+    id: 46382743355564
+    options:
+      - 1/2 in Hex
+      - 60A
+      - 3 in.
+    sku: am-5740_black
+    title: 1/2 in Hex / 60A / 3 in.
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/compliant-stars?variant=46382743388332
+  product:
+    handle: compliant-stars
+    id: 8262910214316
+    title: Compliant Stars
+  variant:
+    id: 46382743388332
+    options:
+      - 1/2 in Hex
+      - 80A
+      - 3 in.
+    sku: am-5740_gray
+    title: 1/2 in Hex / 80A / 3 in.
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
   # https://www.andymark.com/products/robits-compact-linear-slide?variant=44493450838188
   product:
     handle: robits-compact-linear-slide
@@ -54405,21 +54435,6 @@
     title: Silver / 36 in.
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/3-8-in-churro-lite-different-lengths?variant=44493451657388
-  product:
-    handle: 3-8-in-churro-lite-different-lengths
-    id: 8262910509228
-    title: 3/8 in. Churro Lite Different Lengths
-  variant:
-    id: 44493451657388
-    options:
-      - Black
-      - 36 in.
-      - null
-    sku: am-3666-3_Black
-    title: Black / 36 in.
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/3-8-in-churro-lite-different-lengths?variant=44493451690156
   product:
     handle: 3-8-in-churro-lite-different-lengths
@@ -54494,6 +54509,36 @@
     sku: am-3666-3_Red
     title: Red / 36 in.
   firstSeen: 2026-03-13T10:25:09.529Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/3-8-in-churro-lite-different-lengths?variant=46392921030828
+  product:
+    handle: 3-8-in-churro-lite-different-lengths
+    id: 8262910509228
+    title: 3/8 in. Churro Lite Different Lengths
+  variant:
+    id: 46392921030828
+    options:
+      - Silver
+      - 47 in.
+      - null
+    sku: am-3666-4700
+    title: Silver / 47 in.
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/3-8-in-churro-lite-different-lengths?variant=46392921063596
+  product:
+    handle: 3-8-in-churro-lite-different-lengths
+    id: 8262910509228
+    title: 3/8 in. Churro Lite Different Lengths
+  variant:
+    id: 46392921063596
+    options:
+      - Black
+      - 47 in.
+      - null
+    sku: am-3666-4700_black
+    title: Black / 47 in.
+  firstSeen: 2026-07-19T17:46:52.256Z
 - vendor: AndyMark
   # https://www.andymark.com/products/1-2-in-churro-different-lengths?variant=44493451919532
   product:
@@ -55304,6 +55349,51 @@
     sku: am-4205-2
     title: 2 x 1 in. / 1/8 in. / 2 ft.
   firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/box-tube-extrusion?variant=46674721767596
+  product:
+    handle: box-tube-extrusion
+    id: 8262910967980
+    title: Box Tube Extrusion
+  variant:
+    id: 46674721767596
+    options:
+      - 2 x 1 in.
+      - 1/8 in.
+      - 6 ft.
+    sku: am-4205-6
+    title: 2 x 1 in. / 1/8 in. / 6 ft.
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/box-tube-extrusion?variant=46674721800364
+  product:
+    handle: box-tube-extrusion
+    id: 8262910967980
+    title: Box Tube Extrusion
+  variant:
+    id: 46674721800364
+    options:
+      - 1 1/2 x 1 1/2 in.
+      - 1/16 in.
+      - 6 ft.
+    sku: am-4669-6
+    title: 1 1/2 x 1 1/2 in. / 1/16 in. / 6 ft.
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/box-tube-extrusion?variant=46674721833132
+  product:
+    handle: box-tube-extrusion
+    id: 8262910967980
+    title: Box Tube Extrusion
+  variant:
+    id: 46674721833132
+    options:
+      - 2 x 2 in.
+      - 1/16 in.
+      - 6 ft.
+    sku: am-4670-6
+    title: 2 x 2 in. / 1/16 in. / 6 ft.
+  firstSeen: 2026-07-19T17:46:52.256Z
 - vendor: AndyMark
   # https://www.andymark.com/products/sport-gearbox-output-shaft?variant=44493454934188
   product:
@@ -56880,36 +56970,6 @@
     title: 5 mm to 0.5 in. Adapter
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/decode™-tool-set?variant=44493458964652
-  product:
-    handle: decode™-tool-set
-    id: 8262911754412
-    title: DECODE™ Tool Set
-  variant:
-    id: 44493458964652
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-5700_tool
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/decode™-tape-set?variant=44493459062956
-  product:
-    handle: decode™-tape-set
-    id: 8262911787180
-    title: DECODE™ Tape Set
-  variant:
-    id: 44493459062956
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-5700_tape
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/cat5e-cable-for-twisted-pair-cable-25ft?variant=44493459620012
   product:
     handle: cat5e-cable-for-twisted-pair-cable-25ft
@@ -56937,21 +56997,6 @@
       - null
       - null
     sku: am-5623
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/xt60-to-sb50-adapter-cable?variant=44493459685548
-  product:
-    handle: xt60-to-sb50-adapter-cable
-    id: 8262911983788
-    title: XT60 to SB50 Adapter Cable
-  variant:
-    id: 44493459685548
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-5622
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -57761,7 +57806,7 @@
       - Default Title
       - null
       - null
-    sku: am-5420-47
+    sku: am-5420-4700
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -57837,21 +57882,6 @@
       - null
       - null
     sku: am-5411
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/basket-assembly-corner-mount-bracket?variant=44493462077612
-  product:
-    handle: basket-assembly-corner-mount-bracket
-    id: 8262914179244
-    title: Basket Assembly Corner Mount Bracket
-  variant:
-    id: 44493462077612
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-5410
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -58635,11 +58665,11 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/robot-parts-cart-shelf-bracket?variant=44493464174764
+  # https://www.andymark.com/products/robot-parts-cart-shelf-bracket-v1?variant=44493464174764
   product:
-    handle: robot-parts-cart-shelf-bracket
+    handle: robot-parts-cart-shelf-bracket-v1
     id: 8262916014252
-    title: Robot Parts Cart Shelf Bracket
+    title: Robot Parts Cart Shelf Bracket V1
   variant:
     id: 44493464174764
     options:
@@ -58800,21 +58830,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/0-25-in-dia-15-in-long-rod?variant=44493464633516
-  product:
-    handle: 0-25-in-dia-15-in-long-rod
-    id: 8262916341932
-    title: 0.25 in. Dia. 15 in. Long Rod
-  variant:
-    id: 44493464633516
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-5207
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/andymark-20th-anniversary-t-shirt?variant=44493464666284
   product:
     handle: andymark-20th-anniversary-t-shirt
@@ -58903,21 +58918,6 @@
       - null
     sku: am-5198-2400
     title: 24 in.
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/16gb-sandisk-ultra-flash-microsdhc-memory-card?variant=44493464862892
-  product:
-    handle: 16gb-sandisk-ultra-flash-microsdhc-memory-card
-    id: 8262916505772
-    title: 16GB SanDisk Ultra Flash microSDHC Memory Card
-  variant:
-    id: 44493464862892
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-5186
-    title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/4pin-led-connector?variant=44493464895660
@@ -59113,96 +59113,6 @@
       - null
     sku: am-5129
     title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/steam-t-shirt?variant=44493465419948
-  product:
-    handle: steam-t-shirt
-    id: 8262917062828
-    title: STEAM T-Shirt
-  variant:
-    id: 44493465419948
-    options:
-      - Small
-      - null
-      - null
-    sku: am-5127S
-    title: Small
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/steam-t-shirt?variant=44493465452716
-  product:
-    handle: steam-t-shirt
-    id: 8262917062828
-    title: STEAM T-Shirt
-  variant:
-    id: 44493465452716
-    options:
-      - Medium
-      - null
-      - null
-    sku: am-5127M
-    title: Medium
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/steam-t-shirt?variant=44493465485484
-  product:
-    handle: steam-t-shirt
-    id: 8262917062828
-    title: STEAM T-Shirt
-  variant:
-    id: 44493465485484
-    options:
-      - Large
-      - null
-      - null
-    sku: am-5127L
-    title: Large
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/steam-t-shirt?variant=44493465518252
-  product:
-    handle: steam-t-shirt
-    id: 8262917062828
-    title: STEAM T-Shirt
-  variant:
-    id: 44493465518252
-    options:
-      - X-Large
-      - null
-      - null
-    sku: am-5127XL
-    title: X-Large
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/steam-t-shirt?variant=44493465551020
-  product:
-    handle: steam-t-shirt
-    id: 8262917062828
-    title: STEAM T-Shirt
-  variant:
-    id: 44493465551020
-    options:
-      - XX-Large
-      - null
-      - null
-    sku: am-5127XXL
-    title: XX-Large
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/steam-t-shirt?variant=44493465583788
-  product:
-    handle: steam-t-shirt
-    id: 8262917062828
-    title: STEAM T-Shirt
-  variant:
-    id: 44493465583788
-    options:
-      - XXX-Large
-      - null
-      - null
-    sku: am-5127XXXL
-    title: XXX-Large
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/black-bambu-pla-basic-3d-printer-filament-1-75mm?variant=44493465616556
@@ -59715,20 +59625,35 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/robits-core-kit?variant=44493467386028
+  # https://www.andymark.com/products/robits-core-kit?variant=46392681169068
   product:
     handle: robits-core-kit
     id: 8262918275244
     title: Robits Core Kit
   variant:
-    id: 44493467386028
+    id: 46392681169068
     options:
-      - Default Title
+      - Yes
       - null
       - null
     sku: am-5000a
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
+    title: Yes
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/robits-core-kit?variant=46392681201836
+  product:
+    handle: robits-core-kit
+    id: 8262918275244
+    title: Robits Core Kit
+  variant:
+    id: 46392681201836
+    options:
+      - No
+      - null
+      - null
+    sku: am-5000a_NE
+    title: No
+  firstSeen: 2026-07-19T17:46:52.256Z
 - vendor: AndyMark
   # https://www.andymark.com/products/cable-ties-4-in?variant=44493467418796
   product:
@@ -60960,21 +60885,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/compact-linear-slide-extension-spring?variant=44493472792748
-  product:
-    handle: compact-linear-slide-extension-spring
-    id: 8262920765612
-    title: Compact Linear Slide Extension Spring
-  variant:
-    id: 44493472792748
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-4835
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/pneumatic-fitting-straight-union-1-4-in-tube?variant=44493472825516
   product:
     handle: pneumatic-fitting-straight-union-1-4-in-tube
@@ -61950,21 +61860,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/ftc-perimeter-field-extrusion?variant=44493477707948
-  product:
-    handle: ftc-perimeter-field-extrusion
-    id: 8262924173484
-    title: FTC Perimeter Field Extrusion
-  variant:
-    id: 44493477707948
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-4580
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/threaded-body-with-nut-panel-mount-on-off-rocker-switch?variant=44493477740716
   product:
     handle: threaded-body-with-nut-panel-mount-on-off-rocker-switch
@@ -62295,26 +62190,11 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/3d-printed-1-5-8-in-wheel-kit?variant=44493479182508
+  # https://www.andymark.com/products/1x1-in-square-vinyl-tube-cap?variant=44493479542956
   product:
-    handle: 3d-printed-1-5-8-in-wheel-kit
-    id: 8262925385900
-    title: 3D Printed 1-5/8 in. Wheel Kit
-  variant:
-    id: 44493479182508
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-4512
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/1x1-in-square-tube-cap?variant=44493479542956
-  product:
-    handle: 1x1-in-square-tube-cap
+    handle: 1x1-in-square-vinyl-tube-cap
     id: 8262925746348
-    title: 1x1 in. Square Tube Cap
+    title: 1x1 in. Square Vinyl Tube Cap
   variant:
     id: 44493479542956
     options:
@@ -62383,36 +62263,6 @@
       - null
       - null
     sku: am-4489
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/0-166-in-id-0-375-in-od-1-100-in-long-aluminum-spacer?variant=44493479870636
-  product:
-    handle: 0-166-in-id-0-375-in-od-1-100-in-long-aluminum-spacer
-    id: 8262926041260
-    title: 0.166 in. ID 0.375 in. OD 1.100 in. Long Aluminum Spacer
-  variant:
-    id: 44493479870636
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-4488
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/polycarbonate-3-motor-gearbox-plate?variant=44493479903404
-  product:
-    handle: polycarbonate-3-motor-gearbox-plate
-    id: 8262926074028
-    title: Polycarbonate 3 Motor Gearbox Plate
-  variant:
-    id: 44493479903404
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-4487
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -63346,21 +63196,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/0-139-in-thick-1-359-in-id-nitrile-o-ring?variant=44493483966636
-  product:
-    handle: 0-139-in-thick-1-359-in-id-nitrile-o-ring
-    id: 8262928728236
-    title: 0.139 in. Thick 1.359 in. ID Nitrile O-Ring
-  variant:
-    id: 44493483966636
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-4340
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/1x1-in-short-square-tube-cap?variant=44493484261548
   product:
     handle: 1x1-in-short-square-tube-cap
@@ -63434,36 +63269,6 @@
       - null
     sku: am-4297_black
     title: Black
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/3-4-in-4-way-pvc-tee?variant=44493485703340
-  product:
-    handle: 3-4-in-4-way-pvc-tee
-    id: 8262929907884
-    title: 3/4 in. 4-Way PVC Tee
-  variant:
-    id: 44493485703340
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-4281_4_Black
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/3-4-in-90-degree-pvc-elbow?variant=44493485768876
-  product:
-    handle: 3-4-in-90-degree-pvc-elbow
-    id: 8262929973420
-    title: 3/4 in. 90 Degree PVC Elbow
-  variant:
-    id: 44493485768876
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-4281_2_Black
-    title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/anderson-powerpole-to-xt30-adapter-cable?variant=44493486031020
@@ -64289,36 +64094,6 @@
       - null
     sku: am-4107
     title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/frc-intermediate-starter-bundle?variant=44493489569964
-  product:
-    handle: frc-intermediate-starter-bundle
-    id: 8262933020844
-    title: FRC Intermediate Starter Bundle
-  variant:
-    id: 44493489569964
-    options:
-      - With roboRIO
-      - null
-      - null
-    sku: am-4102_X
-    title: With roboRIO
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/frc-intermediate-starter-bundle?variant=44493489602732
-  product:
-    handle: frc-intermediate-starter-bundle
-    id: 8262933020844
-    title: FRC Intermediate Starter Bundle
-  variant:
-    id: 44493489602732
-    options:
-      - Without roboRIO
-      - null
-      - null
-    sku: am-4726_X
-    title: Without roboRIO
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/rover?variant=44493489733804
@@ -66343,21 +66118,6 @@
       - null
       - null
     sku: am-3745g
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/decimate-assembled-gearbox?variant=44495346041004
-  product:
-    handle: decimate-assembled-gearbox
-    id: 8263434141868
-    title: DeCIMate Assembled Gearbox
-  variant:
-    id: 44495346041004
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-3745
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -69478,7 +69238,7 @@
       - Default Title
       - null
       - null
-    sku: am-3103b
+    sku: am-3103
     title: Default Title
   firstSeen: 2026-06-06T00:24:54.142Z
 - vendor: AndyMark
@@ -73834,26 +73594,11 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/10-32-threaded-2-5-in-long-0-5-in-dia-hex-standoff?variant=44497332666540
-  product:
-    handle: 10-32-threaded-2-5-in-long-0-5-in-dia-hex-standoff
-    id: 8263830110380
-    title: 10-32 Threaded 2.5 in. Long 0.5 in. Dia Hex Standoff
-  variant:
-    id: 44497332666540
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1734
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/m3-female-threaded-9mm-long-hex-standoff?variant=44497332699308
   product:
     handle: m3-female-threaded-9mm-long-hex-standoff
     id: 8263830143148
-    title: M3 Female Threaded 9mm Long Hex Standoff
+    title: M3-0.5 x 9 mm Hex Female Threaded Standoff
   variant:
     id: 44497332699308
     options:
@@ -73913,7 +73658,7 @@
   product:
     handle: m3-hex-female-threaded-37mm-hex-standoff
     id: 8263830372524
-    title: M3 Hex Female Threaded 37mm Hex Standoff
+    title: M3-0.5 x 37 mm Hex Female Threaded Standoff
   variant:
     id: 44497333026988
     options:
@@ -74003,7 +73748,7 @@
   product:
     handle: m3-0-5-x-8mm-flat-head-cap-screw
     id: 8263830765740
-    title: M3-0.5 x 8mm Flat Head Cap Screw
+    title: M3-0.5 x 8 mm Flat Head Cap Screw
   variant:
     id: 44497334173868
     options:
@@ -74041,21 +73786,6 @@
       - null
       - null
     sku: am-1719
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/1-2-13-x-1-5-in-eyebolt?variant=44497334665388
-  product:
-    handle: 1-2-13-x-1-5-in-eyebolt
-    id: 8263831027884
-    title: 1/2-13 x 1.5 in. Eyebolt
-  variant:
-    id: 44497334665388
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1718
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -74659,21 +74389,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/m3-0-5-x-5-mm-flat-head-cap-screw?variant=44497339187372
-  product:
-    handle: m3-0-5-x-5-mm-flat-head-cap-screw
-    id: 8263833649324
-    title: M3-0.5 x 5 mm Flat Head Cap Screw
-  variant:
-    id: 44497339187372
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1668
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/0-01-in-thick-3-8-in-id-stainless-steel-ring-shim?variant=44497339547820
   product:
     handle: 0-01-in-thick-3-8-in-id-stainless-steel-ring-shim
@@ -75064,21 +74779,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/0-252-in-id-0-625-in-od-2-000-in-long-plastic-spacer?variant=44497342791852
-  product:
-    handle: 0-252-in-id-0-625-in-od-2-000-in-long-plastic-spacer
-    id: 8263835189420
-    title: 0.252 in. ID 0.625 in. OD 2.000 in. Long Plastic Spacer
-  variant:
-    id: 44497342791852
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1619
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/5-16-18-x-0-5-in-shoulder-bolt-with-nylon-patch?variant=44497343348908
   product:
     handle: 5-16-18-x-0-5-in-shoulder-bolt-with-nylon-patch
@@ -75199,36 +74899,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/0-252-in-id-0-625-in-od-2-750-in-long-nylon-spacer?variant=44497344725164
-  product:
-    handle: 0-252-in-id-0-625-in-od-2-750-in-long-nylon-spacer
-    id: 8263835844780
-    title: 0.252 in. ID 0.625 in. OD 2.750 in. Long Nylon Spacer
-  variant:
-    id: 44497344725164
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1607
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/0-252-in-id-0-625-in-od-0-875-in-long-nylon-spacer?variant=44497344790700
-  product:
-    handle: 0-252-in-id-0-625-in-od-0-875-in-long-nylon-spacer
-    id: 8263835910316
-    title: 0.252 in. ID 0.625 in. OD 0.875 in. Long Nylon Spacer
-  variant:
-    id: 44497344790700
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1606
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/1-4-20-x-3-5-in-hex-head-screw?variant=44497344823468
   product:
     handle: 1-4-20-x-3-5-in-hex-head-screw
@@ -75323,7 +74993,7 @@
   product:
     handle: m5-0-8-mm-x-50-mm-socket-head-cap-screw
     id: 8263836336300
-    title: M5-0.8 mm x 50 mm Socket Head Cap Screw
+    title: M5-0.8 x 50 mm Socket Head Cap Screw
   variant:
     id: 44497345511596
     options:
@@ -75511,21 +75181,6 @@
       - null
       - null
     sku: am-1582
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/0-115-in-id-0-187-in-od-0-500-in-long-nylon-spacer?variant=44497348001964
-  product:
-    handle: 0-115-in-id-0-187-in-od-0-500-in-long-nylon-spacer
-    id: 8263837483180
-    title: 0.115 in. ID 0.187 in. OD 0.500 in. Long Nylon Spacer
-  variant:
-    id: 44497348001964
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1580
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -75829,21 +75484,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/m3-hex-female-female-28-mm-long-standoff?variant=44497349705900
-  product:
-    handle: m3-hex-female-female-28-mm-long-standoff
-    id: 8263838662828
-    title: M3 Hex Female-Female 28 mm Long Standoff
-  variant:
-    id: 44497349705900
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1558
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/m3-0-5-x-12-mm-phillips-pan-head-screw?variant=44497349738668
   product:
     handle: m3-0-5-x-12-mm-phillips-pan-head-screw
@@ -76054,26 +75694,11 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/m3-0-5-x-50-mm-button-socket-cap-screw?variant=44497351671980
+  # https://www.andymark.com/products/0-290-in-id-0-550-in-od-0-063-in-thick-washer?variant=44497351704748
   product:
-    handle: m3-0-5-x-50-mm-button-socket-cap-screw
-    id: 8263839678636
-    title: M3-0.5 x 50 mm Button Socket Cap Screw
-  variant:
-    id: 44497351671980
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1539
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/0-290-in-id-0-550-in-od-0-063-in-long-steel-spacer-for-falcon-500-shaft?variant=44497351704748
-  product:
-    handle: 0-290-in-id-0-550-in-od-0-063-in-long-steel-spacer-for-falcon-500-shaft
+    handle: 0-290-in-id-0-550-in-od-0-063-in-thick-washer
     id: 8263839711404
-    title: 0.290 in. ID 0.550 in. OD 0.063 in. Long Steel Spacer For Falcon 500 Shaft
+    title: 0.290 in. ID 0.550 in. OD 0.063 in. Thick Washer
   variant:
     id: 44497351704748
     options:
@@ -76448,7 +76073,7 @@
   product:
     handle: m8-x-1-25-nylock-nut
     id: 8263841120428
-    title: M8 x 1.25 Nylock Nut
+    title: M8-1.25 Nylock Nut
   variant:
     id: 44497355047084
     options:
@@ -76456,21 +76081,6 @@
       - null
       - null
     sku: am-1509
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/3-8-16-x-2-75-in-button-head-cap-screw?variant=44497355604140
-  product:
-    handle: 3-8-16-x-2-75-in-button-head-cap-screw
-    id: 8263841218732
-    title: 3/8-16 x 2.75 in. Button Head Cap Screw
-  variant:
-    id: 44497355604140
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1508
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -77305,21 +76915,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/10-32-vibration-damping-mount?variant=44497362911404
-  product:
-    handle: 10-32-vibration-damping-mount
-    id: 8263844823212
-    title: 10-32 Vibration Damping Mount
-  variant:
-    id: 44497362911404
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1466
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/steel-dowel-pin-4-mm-x-14-mm?variant=44497362944172
   product:
     handle: steel-dowel-pin-4-mm-x-14-mm
@@ -77335,21 +76930,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/2-56-thread-forming-flange-locknut?variant=44497362976940
-  product:
-    handle: 2-56-thread-forming-flange-locknut
-    id: 8263844921516
-    title: 2-56 Thread Forming Flange Locknut
-  variant:
-    id: 44497362976940
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1464
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/2-56-x-0-25-in-button-head-hex-drive-screw?variant=44497363206316
   product:
     handle: 2-56-x-0-25-in-button-head-hex-drive-screw
@@ -77362,21 +76942,6 @@
       - null
       - null
     sku: am-1460
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/1-4-20-x-3-5-in-hex-drive-flat-head-cap-screw?variant=44497363468460
-  product:
-    handle: 1-4-20-x-3-5-in-hex-drive-flat-head-cap-screw
-    id: 8263845249196
-    title: 1/4-20 x 3.5 in. Hex Drive Flat Head Cap Screw
-  variant:
-    id: 44497363468460
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1456
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -77482,21 +77047,6 @@
       - null
       - null
     sku: am-1441
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/6-mm-d-push-on-retaining-ring?variant=44497364222124
-  product:
-    handle: 6-mm-d-push-on-retaining-ring
-    id: 8263845970092
-    title: 6 mm D Push On Retaining Ring
-  variant:
-    id: 44497364222124
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1438
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -77684,7 +77234,7 @@
   product:
     handle: m6-1-0-x-75-mm-socket-head-cap-screw
     id: 8263846690988
-    title: M6-1.0 x 75 mm Socket Head Cap Screw
+    title: M6-1 x 75 mm Socket Head Cap Screw
   variant:
     id: 44497364975788
     options:
@@ -77924,7 +77474,7 @@
   product:
     handle: m3-nut
     id: 8263847411884
-    title: M3 Nut
+    title: M3-0.5 Nut
   variant:
     id: 44497365696684
     options:
@@ -77962,21 +77512,6 @@
       - null
       - null
     sku: am-1382
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/0-125-in-x-1-in-slotted-spring-pin?variant=44497365860524
-  product:
-    handle: 0-125-in-x-1-in-slotted-spring-pin
-    id: 8263847575724
-    title: 0.125 in. x 1 in. Slotted Spring Pin
-  variant:
-    id: 44497365860524
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1380
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -78232,21 +77767,6 @@
       - null
       - null
     sku: am-1340
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/0-218-in-id-0-500-in-od-0-250-in-long-aluminum-spacer?variant=44497368678572
-  product:
-    handle: 0-218-in-id-0-500-in-od-0-250-in-long-aluminum-spacer
-    id: 8263849312428
-    title: 0.218 in. ID 0.500 in. OD 0.250 in. Long Aluminum Spacer
-  variant:
-    id: 44497368678572
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1329
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -78700,21 +78220,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/nylon-loop-clamp-1-2-in-outside-diameter?variant=44497373954220
-  product:
-    handle: nylon-loop-clamp-1-2-in-outside-diameter
-    id: 8263852851372
-    title: Nylon Loop Clamp, 1/2 in. outside diameter
-  variant:
-    id: 44497373954220
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-1158
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/10-32-x-2-25-in-socket-head-cap-screw-2?variant=44497374019756
   product:
     handle: 10-32-x-2-25-in-socket-head-cap-screw-2
@@ -78959,7 +78464,7 @@
   product:
     handle: m6-nylock-nut
     id: 8263853867180
-    title: M6 Nylock Nut
+    title: M6-1 Nylock Nut
   variant:
     id: 44497375658156
     options:
@@ -79732,36 +79237,6 @@
       - null
       - null
     sku: am-0927
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/0-325-in-id-0-540-in-od-0-475-in-long-nylon-spacer?variant=44497383227564
-  product:
-    handle: 0-325-in-id-0-540-in-od-0-475-in-long-nylon-spacer
-    id: 8263858061484
-    title: 0.325 in. ID 0.540 in. OD 0.475 in. Long Nylon Spacer
-  variant:
-    id: 44497383227564
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-0925
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/worm-gearbox-back-plate?variant=44497383686316
-  product:
-    handle: worm-gearbox-back-plate
-    id: 8263858323628
-    title: Worm Gearbox Back Plate
-  variant:
-    id: 44497383686316
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-0918
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
@@ -84758,21 +84233,6 @@
       - null
     sku: am-5215_60T
     title: AndyMark / 60
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
-  # https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts?variant=44497416552620
-  product:
-    handle: 15-mm-wide-5-mm-pitch-htd-timing-belts
-    id: 8263873036460
-    title: 15 mm Wide 5 mm Pitch HTD Timing Belts
-  variant:
-    id: 44497416552620
-    options:
-      - AndyMark
-      - '64'
-      - null
-    sku: am-5215_64T
-    title: AndyMark / 64
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
   # https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts?variant=44497416585388
@@ -95381,21 +94841,6 @@
     title: Default Title
   firstSeen: 2026-03-13T11:55:30.495Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/spiral-flute-step-drill-7-8-and-1-1-9?variant=45343346294956
-  product:
-    handle: spiral-flute-step-drill-7-8-and-1-1-9
-    id: 8477930520748
-    title: Spiral Flute Step Drill, 7/8 and 1-1/8 in.
-  variant:
-    id: 45343346294956
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-3954a
-    title: Default Title
-  firstSeen: 2026-03-13T11:55:30.495Z
-- vendor: AndyMark
   # https://www.andymark.com/products/touch-sensor-andymark-standard-sensors-copy?variant=45343346655404
   product:
     handle: touch-sensor-andymark-standard-sensors-copy
@@ -96259,3 +95704,168 @@
     sku: am-5827_blue
     title: Default Title
   firstSeen: 2026-06-06T00:24:54.142Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/lightweight-robot-competition-table?variant=46326263185580
+  product:
+    handle: lightweight-robot-competition-table
+    id: 8573153640620
+    title: Lightweight Robot Competition Table
+  variant:
+    id: 46326263185580
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-4400b
+    title: Default Title
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/unearthed-fll-challenge-set-2025?variant=46326284714156
+  product:
+    handle: unearthed-fll-challenge-set-2025
+    id: 8573157867692
+    title: 'UNEARTHED: FLL Challenge Set 2025'
+  variant:
+    id: 46326284714156
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-5824
+    title: Default Title
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/unearthed-fll-explore-set-2025?variant=46326284845228
+  product:
+    handle: unearthed-fll-explore-set-2025
+    id: 8573157900460
+    title: 'UNEARTHED: FLL Explore Set 2025'
+  variant:
+    id: 46326284845228
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-5825
+    title: Default Title
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/unearthed-fll-discover-set-2025?variant=46326284910764
+  product:
+    handle: unearthed-fll-discover-set-2025
+    id: 8573157965996
+    title: 'UNEARTHED: FLL Discover Set 2025'
+  variant:
+    id: 46326284910764
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-5826
+    title: Default Title
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/1-4-20-x-1-in-pan-head-phillips-screw?variant=46328869421228
+  product:
+    handle: 1-4-20-x-1-in-pan-head-phillips-screw
+    id: 8573842915500
+    title: 1/4-20 x 1 in. Pan Head Phillips Screw
+  variant:
+    id: 46328869421228
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-1772
+    title: Default Title
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/biocore-frc-scoring-element-pre-order?variant=46355672137900
+  product:
+    handle: biocore-frc-scoring-element-pre-order
+    id: 8574924751020
+    title: BIOCORE™ FRC Scoring Element Pre-Orders
+  variant:
+    id: 46355672137900
+    options:
+      - '# included in the Kit of Parts'
+      - null
+      - null
+    sku: am-5901_kop
+    title: '# included in the Kit of Parts'
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/biocore-frc-scoring-element-pre-order?variant=46355672170668
+  product:
+    handle: biocore-frc-scoring-element-pre-order
+    id: 8574924751020
+    title: BIOCORE™ FRC Scoring Element Pre-Orders
+  variant:
+    id: 46355672170668
+    options:
+      - 1/5 of Full Field
+      - null
+      - null
+    sku: am-5901_partial
+    title: 1/5 of Full Field
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/robot-parts-cart-shelf-bracket-v2?variant=46389347025068
+  product:
+    handle: robot-parts-cart-shelf-bracket-v2
+    id: 8591050375340
+    title: Robot Parts Cart Shelf Bracket V2
+  variant:
+    id: 46389347025068
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-5230a_shelf
+    title: Default Title
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/10-32-x-1-000-in-socket-head-cap-screw-with-nylon-thread-lock-patch?variant=46650187612332
+  product:
+    handle: 10-32-x-1-000-in-socket-head-cap-screw-with-nylon-thread-lock-patch
+    id: 8627498254508
+    title: 10-32 x 1.000 in. Socket Head Cap Screw with Nylon Thread Lock Patch
+  variant:
+    id: 46650187612332
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-1763
+    title: Default Title
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/1-in-x-1-in-square-tube-cap?variant=46736659382444
+  product:
+    handle: 1-in-x-1-in-square-tube-cap
+    id: 8652885196972
+    title: 1 in. x 1 in. Square Tube Cap
+  variant:
+    id: 46736659382444
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-1767_black
+    title: Default Title
+  firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/6-18-x-0500-in-pan-head-phillips-drive-screw?variant=46736659677356
+  product:
+    handle: 6-18-x-0500-in-pan-head-phillips-drive-screw
+    id: 8652885459116
+    title: 6-18 x 0.500 in. Pan Head Phillips Drive Screw
+  variant:
+    id: 46736659677356
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-1775
+    title: Default Title
+  firstSeen: 2026-07-19T17:46:52.256Z

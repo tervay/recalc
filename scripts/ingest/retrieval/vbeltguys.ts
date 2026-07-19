@@ -1,5 +1,9 @@
 import pLimit from 'p-limit';
-import { cachedFetch } from 'scripts/ingest/retrieval/cachedFetch';
+import {
+  fetchWithRetry,
+  NETWORK_SPACING_MS,
+  sleep,
+} from 'scripts/ingest/retrieval/fetchWithRetry';
 import { SHOPIFY_CONFIGS } from 'scripts/ingest/vendors';
 
 import type { ShopifyProduct } from '~/lib/types/shopify';
@@ -18,58 +22,8 @@ const WIDTHS = [9, 15] as const;
 // request is followed by NETWORK_SPACING_MS of quiet before that worker moves
 // on. Cached responses skip the delay, keeping reruns effectively instant.
 const CONCURRENCY = 4;
-const NETWORK_SPACING_MS = 200;
-
-// Only 200 (exists) and 404 (absent) are definitive answers; both are cached by
-// the shared fetch. Anything else (429 rate-limit, 5xx) is transient — as are
-// dropped connections. We retry those in-run with backoff so a real belt is
-// never silently missed as a false negative (and so it gets cached once).
-const TERMINAL_STATUSES = new Set([200, 404]);
-const MAX_ATTEMPTS = 6;
-const RETRY_BACKOFF_MS = 500;
 
 const pad2 = (n: number): string => String(n).padStart(2, '0');
-const sleep = (ms: number): Promise<void> =>
-  new Promise((resolve) => setTimeout(resolve, ms));
-
-function retryDelayMs(
-  attempt: number,
-  response?: Awaited<ReturnType<typeof cachedFetch>>,
-): number {
-  // Honor Retry-After (seconds) when the server sends it; otherwise back off
-  // exponentially with a little jitter to unbunch concurrent retries.
-  const retryAfter = response?.headers.get('retry-after');
-  if (retryAfter) {
-    const seconds = Number(retryAfter);
-    if (Number.isFinite(seconds) && seconds > 0) return seconds * 1000;
-  }
-  return (
-    RETRY_BACKOFF_MS * 2 ** (attempt - 1) + Math.floor(Math.random() * 250)
-  );
-}
-
-/**
- * Fetches `url` through the shared cache, retrying transient failures (dropped
- * connections, 429s, 5xx) with backoff. Resolves only on a definitive 200/404;
- * throws if every attempt is exhausted without one.
- */
-async function fetchWithRetry(
-  url: string,
-): Promise<{ response: Awaited<ReturnType<typeof cachedFetch>> }> {
-  let lastError: unknown;
-  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-    try {
-      const response = await cachedFetch(url);
-      if (TERMINAL_STATUSES.has(response.status)) return { response };
-      lastError = new Error(`HTTP ${response.status}`);
-      if (attempt < MAX_ATTEMPTS) await sleep(retryDelayMs(attempt, response));
-    } catch (error) {
-      lastError = error;
-      if (attempt < MAX_ATTEMPTS) await sleep(retryDelayMs(attempt));
-    }
-  }
-  throw lastError;
-}
 
 /**
  * Deterministic set of candidate belt handles:

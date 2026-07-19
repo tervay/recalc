@@ -5749,7 +5749,7 @@
   product:
     handle: steel-hex-bore-gears
     id: 5568203194528
-    title: Steel Hex Bore Gears
+    title: Steel 1/2" Hex Bore Gears
   variant:
     id: 35965740613792
     options:
@@ -5820,11 +5820,11 @@
     title: Default Title
   firstSeen: 2026-03-13T11:01:50.980Z
 - vendor: WCP
-  # https://wcproducts.com/products/pocketed-gears?variant=36093916184736
+  # https://wcproducts.com/products/aluminum-hex-bore-pocketed-gears?variant=36093916184736
   product:
-    handle: pocketed-gears
+    handle: aluminum-hex-bore-pocketed-gears
     id: 5596976021664
-    title: Pocketed Gears
+    title: Aluminum Hex Bore Pocketed Gears
   variant:
     id: 36093916184736
     options:
@@ -6349,7 +6349,7 @@
   product:
     handle: aluminum-tubing
     id: 5605194530976
-    title: Plain Tubing
+    title: Aluminum Plain Tubing
   variant:
     id: 36126926831776
     options:
@@ -13407,7 +13407,7 @@
   product:
     handle: punched-tubing
     id: 8045770932436
-    title: Punched Tubing
+    title: Aluminum Punched Tubing
   variant:
     id: 44107338121428
     options:
@@ -14453,21 +14453,6 @@
     title: Default Title
   firstSeen: 2026-03-13T11:01:50.980Z
 - vendor: WCP
-  # https://wcproducts.com/products/wcp-1110?variant=44151339548884
-  product:
-    handle: wcp-1110
-    id: 8061194666196
-    title: WCP Swerve XS
-  variant:
-    id: 44151339548884
-    options:
-      - Default Title
-      - null
-      - null
-    sku: WCP-1110
-    title: Default Title
-  firstSeen: 2026-03-13T11:01:50.980Z
-- vendor: WCP
   # https://wcproducts.com/products/wcp-1114?variant=44151340204244
   product:
     handle: wcp-1114
@@ -14907,7 +14892,7 @@
   product:
     handle: angle-c-channel-aluminum
     id: 8081542807764
-    title: Angle & C-Channel Aluminum
+    title: Aluminum Angle & C-Channel
   variant:
     id: 44207522054356
     options:
@@ -15635,21 +15620,6 @@
       - null
       - null
     sku: null
-    title: Default Title
-  firstSeen: 2026-03-13T11:01:50.980Z
-- vendor: WCP
-  # https://wcproducts.com/products/wcp-1520?variant=44240165535956
-  product:
-    handle: wcp-1520
-    id: 8090762248404
-    title: Bambu Lab X1E Combo 3D Printer
-  variant:
-    id: 44240165535956
-    options:
-      - Default Title
-      - null
-      - null
-    sku: WCP-1520
     title: Default Title
   firstSeen: 2026-03-13T11:01:50.980Z
 - vendor: WCP
@@ -17570,21 +17540,6 @@
       - null
       - null
     sku: WCP-1550
-    title: Default Title
-  firstSeen: 2026-03-13T11:01:50.980Z
-- vendor: WCP
-  # https://wcproducts.com/products/wcp-0187?variant=45219832594644
-  product:
-    handle: wcp-0187
-    id: 8459072274644
-    title: 60t Pocketed Steel Spur Gear (20 DP, 1/2" Hex Bore)
-  variant:
-    id: 45219832594644
-    options:
-      - Default Title
-      - null
-      - null
-    sku: WCP-0187
     title: Default Title
   firstSeen: 2026-03-13T11:01:50.980Z
 - vendor: WCP
@@ -19598,21 +19553,6 @@
     title: Default Title
   firstSeen: 2026-03-13T11:01:50.980Z
 - vendor: WCP
-  # https://wcproducts.com/products/wcp-1560?variant=45702288638164
-  product:
-    handle: wcp-1560
-    id: 8651233951956
-    title: 0.6mm Hardened Steel Complete Hotend with Nozzle, X1C
-  variant:
-    id: 45702288638164
-    options:
-      - Default Title
-      - null
-      - null
-    sku: WCP-1560
-    title: Default Title
-  firstSeen: 2026-03-13T11:01:50.980Z
-- vendor: WCP
   # https://wcproducts.com/products/wcp-1561?variant=45702290047188
   product:
     handle: wcp-1561
@@ -21432,7 +21372,7 @@
   product:
     handle: wcp-1854
     id: 8747970625748
-    title: Bambu Lab Dark Green PLA Matte (1.75mm, 1KG Spool)
+    title: Bambu Lab Dark Green PLA Matte (1.75mm, 1KG Refill)
   variant:
     id: 46008405459156
     options:
@@ -21507,7 +21447,7 @@
   product:
     handle: wcp-1859
     id: 8747979505876
-    title: Bambu Lab Sakura Pink PLA Matte (1.75mm, 1KG Spool)
+    title: Bambu Lab Sakura Pink PLA Matte (1.75mm, 1KG Refill)
   variant:
     id: 46008415879380
     options:
@@ -22047,7 +21987,7 @@
   product:
     handle: wcp-1881
     id: 8784294740180
-    title: Bambu Lab Translucent Orange PETG Translucent (1.75mm, 1KG Spool)
+    title: Bambu Lab Translucent Orange PETG Translucent (1.75mm, 1KG Refill)
   variant:
     id: 46124981846228
     options:
@@ -23614,6 +23554,21 @@
     sku: WCP-2070
     title: Default Title
   firstSeen: 2026-06-06T00:22:44.267Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2109?variant=46710991388884
+  product:
+    handle: wcp-2109
+    id: 8900677468372
+    title: 2"x2"x.0625" Aluminum Tube Plug (#10-32 Tapped)
+  variant:
+    id: 46710991388884
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2109
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
 - vendor: WCP
   # https://wcproducts.com/products/wcp-1860?variant=46722716369108
   product:
@@ -25535,11 +25490,11 @@
     title: Default Title
   firstSeen: 2026-03-13T11:01:50.980Z
 - vendor: WCP
-  # https://wcproducts.com/products/round-tubing?variant=47291706212564
+  # https://wcproducts.com/products/polycarb-round-tubing?variant=47291706212564
   product:
-    handle: round-tubing
+    handle: polycarb-round-tubing
     id: 8999285883092
-    title: Round Tubing
+    title: Polycarb Round Tubing
   variant:
     id: 47291706212564
     options:
@@ -28033,7 +27988,7 @@
   product:
     handle: iwiss-tools
     id: 9039777398996
-    title: iWiss Tools
+    title: Electrical Tools
   variant:
     id: 47441984684244
     options:
@@ -29278,7 +29233,7 @@
   product:
     handle: wcp-2209
     id: 9066157146324
-    title: Lucas Grease Red N Tacky Tub (16 OZ)
+    title: Lucas Grease Red N Tacky Tub (16oz)
   variant:
     id: 47524835229908
     options:
@@ -29695,6 +29650,96 @@
     title: Default Title
   firstSeen: 2026-03-13T11:55:23.502Z
 - vendor: WCP
+  # https://wcproducts.com/products/wcp-2215?variant=47762942853332
+  product:
+    handle: wcp-2215
+    id: 9135054782676
+    title: WCP Compact Logo Sticker (Blue)
+  variant:
+    id: 47762942853332
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2215
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2216?variant=47762957533396
+  product:
+    handle: wcp-2216
+    id: 9135057764564
+    title: WCP Canada Compact Logo Sticker (Red)
+  variant:
+    id: 47762957533396
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2216
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2217?variant=47762959433940
+  product:
+    handle: wcp-2217
+    id: 9135058649300
+    title: WCP Canadian Corgi Sticker
+  variant:
+    id: 47762959433940
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2217
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2218?variant=47762959499476
+  product:
+    handle: wcp-2218
+    id: 9135058714836
+    title: WCP Hero Heist Corgi Sticker
+  variant:
+    id: 47762959499476
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2218
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2219?variant=47762959761620
+  product:
+    handle: wcp-2219
+    id: 9135058878676
+    title: WCP Corgi Rebuilt 2026 Sticker
+  variant:
+    id: 47762959761620
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2219
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2220?variant=47762963726548
+  product:
+    handle: wcp-2220
+    id: 9135059206356
+    title: WCP Corgiverse Sticker
+  variant:
+    id: 47762963726548
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2220
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
   # https://wcproducts.com/products/wcp-2155?variant=47788584272084
   product:
     handle: wcp-2155
@@ -30010,6 +30055,68 @@
     title: Default Title
   firstSeen: 2026-06-06T00:22:44.267Z
 - vendor: WCP
+  # https://wcproducts.com/products/wcp-2213?variant=48014056653012
+  product:
+    handle: wcp-2213
+    id: 9184101466324
+    title: WCP & Corgi Logo, Double Sided 600gsm Microfiber Towel, 30cm x 30cm
+      (2-Pack)
+  variant:
+    id: 48014056653012
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2213
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2214?variant=48014056685780
+  product:
+    handle: wcp-2214
+    id: 9184101531860
+    title: WCP & Corgi Logo, Double Sided 600gsm Microfiber Towel, 30cm x 60cm
+      (2-Pack)
+  variant:
+    id: 48014056685780
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2214
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2156?variant=48014056980692
+  product:
+    handle: wcp-2156
+    id: 9184101597396
+    title: WCP & Corgi Logo, Double Sided 600gsm Microfiber Towel, 60cm x 90cm
+  variant:
+    id: 48014056980692
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2156
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-0441?variant=48014057668820
+  product:
+    handle: wcp-0441
+    id: 9184101925076
+    title: 1.25" Width, 10 lbs Constant Force Spring (48" Extension)
+  variant:
+    id: 48014057668820
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-0441
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
   # https://wcproducts.com/products/aluminum-3-8-hex-bore-gears?variant=48042650599636
   product:
     handle: aluminum-3-8-hex-bore-gears
@@ -30324,3 +30431,183 @@
     sku: null
     title: Default Title
   firstSeen: 2026-06-06T00:22:44.267Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2436?variant=48092450717908
+  product:
+    handle: wcp-2436
+    id: 9202657460436
+    title: .505" OD x .159" ID Rounded Hex Stock (Oversized 1/2" Hex) (6")
+  variant:
+    id: 48092450717908
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2436
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2644?variant=48093029859540
+  product:
+    handle: wcp-2644
+    id: 9202941952212
+    title: Bambu Lab Black PETG Basic (1.75mm, 1KG Refill)
+  variant:
+    id: 48093029859540
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2644
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/steel-3-8-hex-bore-gears?variant=48106444226772
+  product:
+    handle: steel-3-8-hex-bore-gears
+    id: 9207103881428
+    title: Steel 3/8" Hex Bore Gears
+  variant:
+    id: 48106444226772
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2647?variant=48115194953940
+  product:
+    handle: wcp-2647
+    id: 9212392636628
+    title: Bambu Lab Brown PLA Basic (1.75mm, 1KG Refill)
+  variant:
+    id: 48115194953940
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2647
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2649?variant=48121222234324
+  product:
+    handle: wcp-2649
+    id: 9215566446804
+    title: Concentrated All-Purpose Cleaner (16oz)
+  variant:
+    id: 48121222234324
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2649
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/aluminum-round-tubing?variant=48129962574036
+  product:
+    handle: aluminum-round-tubing
+    id: 9218958196948
+    title: Aluminum Round Tubing
+  variant:
+    id: 48129962574036
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2082?variant=48168277311700
+  product:
+    handle: wcp-2082
+    id: 9233486119124
+    title: 1/4" L Aluminum Motor Spacer (Kraken X44)
+  variant:
+    id: 48168277311700
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2082
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2083?variant=48218203259092
+  product:
+    handle: wcp-2083
+    id: 9249919533268
+    title: 1/2" L Aluminum Motor Spacer (Kraken X44)
+  variant:
+    id: 48218203259092
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2083
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-0346?variant=48236962152660
+  product:
+    handle: wcp-0346
+    id: 9256248115412
+    title: Bambu Lab Cyan PLA Tough+ (1.75mm, 1KG Spool)
+  variant:
+    id: 48236962152660
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-0346
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-0349?variant=48236962250964
+  product:
+    handle: wcp-0349
+    id: 9256248213716
+    title: Bambu Lab Orange PLA Tough+ (1.75mm, 1KG Spool)
+  variant:
+    id: 48236962250964
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-0349
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-0935?variant=48236962349268
+  product:
+    handle: wcp-0935
+    id: 9256248312020
+    title: Bambu Lab Gray PLA Tough+ (1.75mm, 1KG Spool)
+  variant:
+    id: 48236962349268
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-0935
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-stickers?variant=48310570811604
+  product:
+    handle: wcp-stickers
+    id: 9270392881364
+    title: WCP Stickers
+  variant:
+    id: 48310570811604
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-07-19T17:34:16.781Z
