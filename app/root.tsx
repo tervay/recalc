@@ -56,9 +56,9 @@ export function Layout({ children }: { children: ReactNode }) {
               <Nav />
               <div className="container mx-auto" data-testid="entrypoint">
                 {children}
-                <div className="mt-48">
+                <footer className="mt-16 border-t py-8">
                   <Warning />
-                </div>
+                </footer>
               </div>
             </SidebarInset>
             <ScrollRestoration />
