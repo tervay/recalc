@@ -775,7 +775,7 @@ export default function Linear() {
                     <IOLine>
                       <MeasurementInput
                         stateHook={[feedbackDt, setFeedbackDt]}
-                        label="Robot Loop Period"
+                        label="Control Loop Period"
                         tooltip="The period of the control loop that will run the PID controller (e.g. the main robot loop, or a faster onboard motor controller loop). Used to compute the discrete-time Feedback Gains below."
                         testId="feedbackDt"
                         labelAbove

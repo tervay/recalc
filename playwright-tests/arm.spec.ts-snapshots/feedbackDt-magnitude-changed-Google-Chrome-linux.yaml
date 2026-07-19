@@ -5,7 +5,7 @@
   - text: Copy Link
 - heading "Motor & Gearing" [level=2]
 - text: Motor
-- spinbutton "Motor Ratio Arm Length Load Min Angle Max Angle Stator Limit Supply Limit Stator Voltage Supply Voltage Battery Resistance Q Position Q Velocity R (Volts) Sensor Delay Robot Loop Period Max Stator Limit Max Supply Limit": "1"
+- spinbutton "Motor Ratio Arm Length Load Min Angle Max Angle Stator Limit Supply Limit Stator Voltage Supply Voltage Battery Resistance Q Position Q Velocity R (Volts) Sensor Delay Control Loop Period Max Stator Limit Max Supply Limit": "1"
 - combobox: Kraken X60 (FOC)
 - text: Ratio
 - spinbutton: "100"
@@ -56,7 +56,7 @@
 - button "Sensor Delay"
 - spinbutton: "1"
 - combobox: ms
-- button "Robot Loop Period"
+- button "Control Loop Period"
 - spinbutton: "40"
 - combobox: ms
 - text: Time to Goal (Up) 0.285

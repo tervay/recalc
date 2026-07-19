@@ -6,7 +6,7 @@
 - heading "Motor & Gearing" [level=2]
 - switch "Cascade"
 - text: Cascade Motor
-- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Stator Limit Supply Limit Supply Voltage Battery Resistance Q Position Q Velocity R (Volts) Sensor Delay Robot Loop Period Kalman Filter Position Std Dev Kalman Filter Velocity Std Dev Kalman Filter Encoder Position Std Dev Max Stator Limit Max Supply Limit": "1"
+- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Stator Limit Supply Limit Supply Voltage Battery Resistance Q Position Q Velocity R (Volts) Sensor Delay Control Loop Period Kalman Filter Position Std Dev Kalman Filter Velocity Std Dev Kalman Filter Encoder Position Std Dev Max Stator Limit Max Supply Limit": "1"
 - combobox: Kraken X60 (FOC)
 - button "Efficiency %"
 - spinbutton: "100"
@@ -62,7 +62,7 @@
 - button "Sensor Delay"
 - spinbutton: "1"
 - combobox: ms
-- button "Robot Loop Period"
+- button "Control Loop Period"
 - spinbutton: "20"
 - combobox: s
 - button "Kalman Filter Position Std Dev"
