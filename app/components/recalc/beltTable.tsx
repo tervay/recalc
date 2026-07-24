@@ -139,6 +139,9 @@ export function BeltTable({
                 prevBelt !== null && prevBelt.teeth !== belt.teeth;
 
               const defaultSku = `${belt.vendor}-${belt.teeth}T-${belt.width.format().replace(' ', '')}`;
+              // Vendor data can have an empty-string sku, which should fall
+              // back to defaultSku the same as a missing (null) one.
+              // oxlint-disable-next-line typescript/prefer-nullish-coalescing
               const sku = belt.sku || defaultSku;
 
               return (

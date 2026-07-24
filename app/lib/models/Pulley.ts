@@ -21,7 +21,7 @@ export class SimplePulley extends Model {
     };
   }
 
-  eq<M extends Model>(m: M): boolean {
+  eq(m: Model): boolean {
     return (
       m instanceof SimplePulley &&
       m.teeth === this.teeth &&
@@ -64,7 +64,7 @@ export default class Pulley extends SimplePulley {
     };
   }
 
-  eq<M extends Model>(m: M): boolean {
+  eq(m: Model): boolean {
     return (
       m instanceof Pulley &&
       m.teeth === this.teeth &&

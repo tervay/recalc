@@ -59,7 +59,7 @@ export function parseWCPGears(products: ShopifyProduct[]): JSONGear[] {
 
   for (const product of products) {
     if (product.title.includes('Gear')) {
-      const match = product.title.match(regex);
+      const match = regex.exec(product.title);
       if (match?.groups) {
         const { toothCount, dp, bore } = match.groups;
         try {

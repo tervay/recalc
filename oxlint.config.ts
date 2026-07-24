@@ -62,6 +62,23 @@ export default defineConfig({
           'error',
           { ignore: ['vaul-drawer-wrapper'] },
         ],
+
+        // Type-aware rules — correctness
+        '@typescript-eslint/no-unnecessary-type-parameters': 'error',
+        '@typescript-eslint/consistent-return': 'error',
+        '@typescript-eslint/strict-void-return': 'error',
+
+        // Type-aware rules — modernization
+        '@typescript-eslint/prefer-optional-chain': 'warn',
+        '@typescript-eslint/prefer-nullish-coalescing': 'warn',
+        '@typescript-eslint/prefer-readonly': 'warn',
+        '@typescript-eslint/dot-notation': 'warn',
+        '@typescript-eslint/consistent-type-exports': 'warn',
+        '@typescript-eslint/no-unnecessary-qualifier': 'warn',
+        '@typescript-eslint/no-unnecessary-type-conversion': 'warn',
+        '@typescript-eslint/prefer-find': 'warn',
+        '@typescript-eslint/prefer-regexp-exec': 'warn',
+        '@typescript-eslint/prefer-string-starts-ends-with': 'warn',
       },
     },
     {

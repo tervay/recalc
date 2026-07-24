@@ -51,13 +51,13 @@ export function parseAndyMarkPulleys(products: ShopifyProduct[]): JSONPulley[] {
     if (!product.title.includes('Pulley') && !product.title.includes('pulley'))
       continue;
 
-    if (product.handle?.includes('collections/')) continue;
+    if (product.handle.includes('collections/')) continue;
 
-    const toothMatch = product.title.match(/(\d+)\s*T(?:ooth)?/i);
+    const toothMatch = /(\d+)\s*T(?:ooth)?/i.exec(product.title);
     if (!toothMatch) continue;
     const teeth = parseInt(toothMatch[1]);
 
-    const fullMatch = product.title.match(/(\d+)\s*mm.*?(\d+)\s*mm/i);
+    const fullMatch = /(\d+)\s*mm.*?(\d+)\s*mm/i.exec(product.title);
     let width: number;
     let pitch: number;
 
@@ -71,9 +71,10 @@ export function parseAndyMarkPulleys(products: ShopifyProduct[]): JSONPulley[] {
       pitch = 5;
     }
 
-    const boreMatch = product.title.match(
-      /(\d+\.?\d*\s*(?:in\.|mm))\s*(?:Hex|Round)|(?:with|bore)\s+(\d+\s*mm)|bearing\s+bore/i,
-    );
+    const boreMatch =
+      /(\d+\.?\d*\s*(?:in\.|mm))\s*(?:Hex|Round)|(?:with|bore)\s+(\d+\s*mm)|bearing\s+bore/i.exec(
+        product.title,
+      );
 
     if (product.variants.length > 1) {
       for (const variant of product.variants) {
@@ -83,9 +84,10 @@ export function parseAndyMarkPulleys(products: ShopifyProduct[]): JSONPulley[] {
         )
           continue;
 
-        const variantBoreMatch = variant.title.match(
-          /Bore\s*=\s*([^-]+)|(\d+\.?\d*\s*(?:in\.|mm)\s*(?:Hex|Round))/i,
-        );
+        const variantBoreMatch =
+          /Bore\s*=\s*([^-]+)|(\d+\.?\d*\s*(?:in\.|mm)\s*(?:Hex|Round))/i.exec(
+            variant.title,
+          );
         let bore: '8mm' | '1/2" Hex' | '3/8" Hex' | '1.125" Round' | null =
           null;
 

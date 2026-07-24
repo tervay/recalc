@@ -9,13 +9,13 @@ export function parseLastAnvilBelts(products: ShopifyProduct[]): JSONBelt[] {
   for (const product of products) {
     if (!product.title.includes('Timing Belt')) continue;
 
-    const widthMatch = product.title.match(/\((\d+)mm\)/);
+    const widthMatch = /\((\d+)mm\)/.exec(product.title);
     const width = widthMatch ? parseInt(widthMatch[1]) : null;
 
     if (width === null) continue;
 
     for (const variant of product.variants) {
-      const toothMatch = variant.title.match(/(\d+)T/);
+      const toothMatch = /(\d+)T/.exec(variant.title);
       const toothCount = toothMatch ? parseInt(toothMatch[1]) : null;
 
       if (toothCount === null) continue;

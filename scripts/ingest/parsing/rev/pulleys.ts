@@ -37,7 +37,7 @@ export function parseREVPulleys(products: ShopifyProduct[]): JSONPulley[] {
   for (const product of products) {
     if (!PULLEY_FAMILY_URLS.has(normalizeRevUrl(product.handle))) continue;
 
-    const profileMatch = product.title.match(/\b(RT25|GT2)\b/i);
+    const profileMatch = /\b(RT25|GT2)\b/i.exec(product.title);
     if (!profileMatch) continue;
     const profile = profileMatch[1].toUpperCase();
 

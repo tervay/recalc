@@ -33,7 +33,7 @@ export default class Gear extends Model {
     };
   }
 
-  eq<M extends Model>(m: M): boolean {
+  eq(m: Model): boolean {
     return (
       m instanceof Gear &&
       m.teeth === this.teeth &&

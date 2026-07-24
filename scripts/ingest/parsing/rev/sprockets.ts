@@ -39,7 +39,7 @@ export function parseREVSprockets(products: ShopifyProduct[]): JSONSprocket[] {
   for (const product of products) {
     if (!SPROCKET_FAMILY_URLS.has(normalizeRevUrl(product.handle))) continue;
 
-    const chainMatch = product.title.match(CHAIN_TYPE_RE);
+    const chainMatch = CHAIN_TYPE_RE.exec(product.title);
     if (!chainMatch) continue;
     const chainType = `#${chainMatch[1]}` as ChainType;
 

@@ -8,13 +8,13 @@ export function parseThriftyBelts(products: ShopifyProduct[]): JSONBelt[] {
 
   for (const product of products) {
     if (product.title.includes('HTD Timing Belts')) {
-      const widthMatch = product.title.match(/(\d+)mm Wide/);
+      const widthMatch = /(\d+)mm Wide/.exec(product.title);
       const width = widthMatch ? parseInt(widthMatch[1]) : null;
 
       if (width === null) continue;
 
       for (const variant of product.variants) {
-        const toothMatch = variant.title.match(/^(\d+) Tooth/);
+        const toothMatch = /^(\d+) Tooth/.exec(variant.title);
         const teeth = toothMatch ? parseInt(toothMatch[1]) : null;
 
         if (teeth === null) continue;

@@ -52,7 +52,7 @@ export function parseWCPPulleys(products: ShopifyProduct[]): JSONPulley[] {
 
   for (const product of products) {
     if (product.title.includes('Pulley')) {
-      const match = product.title.match(regex);
+      const match = regex.exec(product.title);
       if (match?.groups) {
         const { teeth, width, profile, pitch, bore } = match.groups;
         if (bore === undefined) {

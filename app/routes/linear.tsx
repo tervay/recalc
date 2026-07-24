@@ -917,7 +917,7 @@ export default function Linear() {
                         labelFormatter={(label) =>
                           typeof label === 'number' && Number.isFinite(label)
                             ? label.toFixed(3)
-                            : String(label)
+                            : label
                         }
                       />
                       <Legend

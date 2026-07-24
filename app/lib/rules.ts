@@ -86,8 +86,8 @@ type MotorRulesState = {
 
 export class MotorRules {
   public motorState: IncompleteMotorState;
-  private rulesState: MotorRulesState;
-  private rules: Rules<MotorRulesState>;
+  private readonly rulesState: MotorRulesState;
+  private readonly rules: Rules<MotorRulesState>;
 
   constructor(
     motor: Motor,
@@ -171,10 +171,7 @@ export class MotorRules {
     );
     rules.addRule(
       'Limit torque due to current limit',
-      (m) =>
-        !m.didLimitTorque &&
-        m.torque !== undefined &&
-        m.currentLimit !== undefined,
+      (m) => !m.didLimitTorque && m.torque !== undefined,
       (m) => {
         m.torque = Measurement.min(
           m.torque!,
@@ -187,10 +184,7 @@ export class MotorRules {
     );
     rules.addRule(
       'Limit current due to current limit',
-      (m) =>
-        !m.didLimitCurrent &&
-        m.current !== undefined &&
-        m.currentLimit !== undefined,
+      (m) => !m.didLimitCurrent && m.current !== undefined,
       (m) => {
         m.current = Measurement.min(m.current!, m.currentLimit).forcePositive();
         m.didLimitCurrent = true;
@@ -245,9 +239,7 @@ export class MotorRules {
     rules.addRule(
       'If voltage is too high and current is present, wipe the state',
       (m) =>
-        m.voltage !== undefined &&
-        m.voltage.gt(nominalVoltage) &&
-        m.current !== undefined,
+        (m.voltage?.gt(nominalVoltage) ?? false) && m.current !== undefined,
       (m) => {
         m.voltage = nominalVoltage;
         m.rpm = undefined;

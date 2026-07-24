@@ -15,7 +15,9 @@ export const RETRY_BACKOFF_MS = 500;
 export const NETWORK_SPACING_MS = 200;
 
 export const sleep = (ms: number): Promise<void> =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+  new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 
 export interface FetchWithRetryOptions {
   maxAttempts?: number;

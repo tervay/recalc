@@ -10,7 +10,7 @@ export function parseVBeltGuysBelts(products: ShopifyProduct[]): JSONBelt[] {
   const belts: JSONBelt[] = [];
 
   for (const product of products) {
-    const match = product.handle.match(HANDLE_RE);
+    const match = HANDLE_RE.exec(product.handle);
     if (!match) continue;
 
     const length = parseInt(match[1], 10);

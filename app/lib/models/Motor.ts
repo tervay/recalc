@@ -221,7 +221,7 @@ export default class Motor extends Model {
     return Motor.fromName(dict.name, dict.quantity);
   }
 
-  eq<M extends Model>(m: M): boolean {
+  eq(m: Model): boolean {
     return m instanceof Motor && m.identifier === this.identifier;
   }
 

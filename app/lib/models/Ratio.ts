@@ -51,7 +51,7 @@ export default class Ratio extends Model {
   static fromDict(d: RatioDict): Ratio {
     return new Ratio(d.magnitude, d.ratioType);
   }
-  eq<M extends Model>(m: M): boolean {
+  eq(m: Model): boolean {
     return m instanceof Ratio && isEqual(m.toDict(), this.toDict());
   }
 

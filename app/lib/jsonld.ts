@@ -42,7 +42,7 @@ export function buildWebPage({
   };
 
   if (breadcrumbLabel !== undefined) {
-    base['breadcrumb'] = {
+    base.breadcrumb = {
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },

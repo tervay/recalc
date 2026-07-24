@@ -296,7 +296,7 @@ export function OptimalConfigGrid({
 
                   const isSelected =
                     selectedCell?.statorLimitAmps === stator &&
-                    selectedCell?.supplyLimitAmps === supply;
+                    selectedCell.supplyLimitAmps === supply;
 
                   const normalizedTime =
                     (cell.timeToGoalSeconds - minTime) / timeRange;

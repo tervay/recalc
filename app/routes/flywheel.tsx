@@ -542,7 +542,7 @@ export default function Flywheel() {
   useEffect(() => {
     if (postShotOmegaRadPerSec === null) {
       setRecoverySimStates([]);
-      return;
+      return undefined;
     }
     let cancelled = false;
     startRecoveryCalculating(async () => {
@@ -1211,7 +1211,7 @@ export default function Flywheel() {
                       labelFormatter={(label) =>
                         typeof label === 'number' && Number.isFinite(label)
                           ? formatChartNumber(label)
-                          : String(label)
+                          : label
                       }
                     />
                     <Legend verticalAlign="top" />
