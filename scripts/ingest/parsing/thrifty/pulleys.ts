@@ -60,7 +60,7 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): JSONPulley[] {
           /(?<width>[\d.]+)mm Wide (?<tooth>\d+) Tooth(?:\s+(?<bore>[^(]+?))?(?:\s*\(.*?\))?$/i;
 
         for (const variant of product.variants) {
-          const match = variant.title.match(variantRegex);
+          const match = variantRegex.exec(variant.title);
           if (match?.groups) {
             const { tooth, bore } = match.groups;
             let mappedBore = bore ? bore.trim() : defaultBore;
@@ -90,7 +90,7 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): JSONPulley[] {
         const regex =
           /QTY \d+ - (?<tooth>\d+) Tooth (?<profile>\w+) (?<bore>[\w\s]+) Motor Output Pulley/i;
 
-        const match = product.title.match(regex);
+        const match = regex.exec(product.title);
         if (match?.groups) {
           const { tooth, profile, bore } = match.groups;
           try {
@@ -113,7 +113,7 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): JSONPulley[] {
         const regex =
           /QTY \d+ - (?<tooth>\d+) Tooth (?<profile>\w+) Pulley(?: - (?<bore1>.+?)| (?<bore2>.+?)) Bore/i;
 
-        const match = product.title.match(regex);
+        const match = regex.exec(product.title);
         if (match?.groups) {
           const { tooth, profile, bore1, bore2 } = match.groups;
           const bore = bore1 ?? bore2;

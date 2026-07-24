@@ -19,7 +19,7 @@ export function parseWCPBelts(products: ShopifyProduct[]): JSONBelt[] {
 
   for (const product of products) {
     if (product.title.includes('Timing Belt')) {
-      const match = product.title.match(regex);
+      const match = regex.exec(product.title);
       if (match?.groups) {
         const { teeth, width, profile, pitch } = match.groups;
         try {

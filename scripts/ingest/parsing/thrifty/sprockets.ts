@@ -84,8 +84,8 @@ export function parseThriftySprockets(
           /(?<chainType>#\d+).*?(?<toothCount>\d+)\s+Tooth\s+(?<boreType>.+? Bore)/;
         if (variant.title.includes('Sprocket')) {
           for (const variantInner of product.variants) {
-            const match = `${product.title} // ${variantInner.title}`.match(
-              regex,
+            const match = regex.exec(
+              `${product.title} // ${variantInner.title}`,
             );
             if (match?.groups) {
               const { chainType, toothCount, boreType } = match.groups;

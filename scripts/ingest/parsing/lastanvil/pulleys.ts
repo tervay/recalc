@@ -12,7 +12,7 @@ export function parseLastAnvilPulleys(
     if (!product.title.includes('Pulley')) continue;
 
     for (const variant of product.variants) {
-      const toothMatch = variant.title.match(/(\d+)T\b/i);
+      const toothMatch = /(\d+)T\b/i.exec(variant.title);
       const toothCount = toothMatch ? Number(toothMatch[1]) : null;
 
       if (toothCount === null) continue;

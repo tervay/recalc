@@ -29,10 +29,10 @@ export function parseAndyMarkGears(products: ShopifyProduct[]): JSONGear[] {
     if (!product.title.includes('Gear') && !product.title.includes('gear'))
       continue;
 
-    if (product.handle?.includes('collections/')) continue;
+    if (product.handle.includes('collections/')) continue;
 
-    const singleGearMatch = product.title.match(
-      /(\d+)\s+Tooth\s+(\d+)\s+DP\s+(.*?)\s+Bore/i,
+    const singleGearMatch = /(\d+)\s+Tooth\s+(\d+)\s+DP\s+(.*?)\s+Bore/i.exec(
+      product.title,
     );
     if (singleGearMatch && product.variants.length === 1) {
       const teeth = parseInt(singleGearMatch[1]);
@@ -61,12 +61,12 @@ export function parseAndyMarkGears(products: ShopifyProduct[]): JSONGear[] {
       continue;
     }
 
-    const dpMatch = product.title.match(/(\d+)\s+DP\s+(?:Pinion\s+)?Gears/i);
+    const dpMatch = /(\d+)\s+DP\s+(?:Pinion\s+)?Gears/i.exec(product.title);
     if (!dpMatch) continue;
 
     const dp = parseInt(dpMatch[1]);
 
-    const productBoreMatch = product.title.match(/Bore:\s*([^-\n]+)/i);
+    const productBoreMatch = /Bore:\s*([^-\n]+)/i.exec(product.title);
     let defaultBore: Bore | null = null;
     if (productBoreMatch) {
       defaultBore = normalizeAndyMarkBore(productBoreMatch[1]);
@@ -81,22 +81,23 @@ export function parseAndyMarkGears(products: ShopifyProduct[]): JSONGear[] {
       let teeth: number | null = null;
       let bore: Bore | null = defaultBore;
 
-      const optionMatch = variant.title.match(/^(.+?)\s+\/\s+(\d+)/);
+      const optionMatch = /^(.+?)\s+\/\s+(\d+)/.exec(variant.title);
       if (optionMatch) {
         bore = normalizeAndyMarkBore(optionMatch[1]);
         teeth = parseInt(optionMatch[2]);
       } else {
-        const variantToothMatch = variant.title.match(
-          /(?:Tooth Count:\s*|^)(\d+)/i,
+        const variantToothMatch = /(?:Tooth Count:\s*|^)(\d+)/i.exec(
+          variant.title,
         );
         if (variantToothMatch) {
           teeth = parseInt(variantToothMatch[1]);
         }
 
         if (!bore) {
-          const variantBoreMatch = variant.title.match(
-            /(?:Bore:\s*|)([0-9./]+\s*(?:in\.|mm)\s*(?:Hex|Round|hex|round))/i,
-          );
+          const variantBoreMatch =
+            /(?:Bore:\s*|)([0-9./]+\s*(?:in\.|mm)\s*(?:Hex|Round|hex|round))/i.exec(
+              variant.title,
+            );
           if (variantBoreMatch) {
             bore = normalizeAndyMarkBore(variantBoreMatch[1]);
           }

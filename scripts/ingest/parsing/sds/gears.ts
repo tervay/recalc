@@ -33,17 +33,17 @@ export function parseSDSGears(products: ShopifyProduct[]): JSONGear[] {
     let dp: number;
     let bore: Bore | null = null;
 
-    const titleMatch = product.title.match(SDS_GEAR_TITLE_REGEX);
+    const titleMatch = SDS_GEAR_TITLE_REGEX.exec(product.title);
     if (titleMatch) {
       dp = parseInt(titleMatch[1], 10);
       teeth = parseInt(titleMatch[2], 10);
       bore = normalizeSDSBore(titleMatch[3]);
     } else {
-      const handleMatch = product.handle.match(SDS_GEAR_HANDLE_REGEX);
+      const handleMatch = SDS_GEAR_HANDLE_REGEX.exec(product.handle);
       if (!handleMatch) continue;
       teeth = parseInt(handleMatch[1], 10);
       dp = parseInt(handleMatch[2], 10);
-      const handleBorePart = (handleMatch[3] ?? '').toLowerCase();
+      const handleBorePart = handleMatch[3].toLowerCase();
       if (/falcon/.test(handleBorePart)) bore = 'Falcon';
       else if (/8mm/.test(handleBorePart)) bore = '8mm';
       else if (/3-8-hex/.test(handleBorePart)) bore = '3/8" Hex';

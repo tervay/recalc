@@ -13,7 +13,7 @@ export function parseSDSBelts(products: ShopifyProduct[]): JSONBelt[] {
     if (!product.title.includes('Belt') || !product.title.includes('Timing'))
       continue;
 
-    const match = product.title.match(SDS_BELT_TITLE_REGEX);
+    const match = SDS_BELT_TITLE_REGEX.exec(product.title);
     if (!match) continue;
 
     const lengthMm = parseInt(match[1], 10);

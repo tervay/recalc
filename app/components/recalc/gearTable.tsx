@@ -119,7 +119,10 @@ export function GearTable({
               const isNewGroup =
                 prevGear !== null && prevGear.teeth !== gear.teeth;
 
+              // Vendor data can have an empty-string sku, which should fall
+              // back to the generated key the same as a missing (null) one.
               const key =
+                // oxlint-disable-next-line typescript/prefer-nullish-coalescing
                 gear.sku ||
                 `${gear.vendor}-${gear.teeth}-${gear.dp}-${gear.bore}`;
 
@@ -146,7 +149,10 @@ export function GearTable({
                           to={gear.url}
                           className="text-primary underline-offset-4 hover:underline"
                         >
-                          {gear.sku || 'N/A'}
+                          {
+                            // oxlint-disable-next-line typescript/prefer-nullish-coalescing
+                            gear.sku || 'N/A'
+                          }
                         </Link>
                       </div>
                     </TableCell>

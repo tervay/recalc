@@ -26,17 +26,18 @@ export function parseAndyMarkBelts(products: ShopifyProduct[]): JSONBelt[] {
   for (const product of products) {
     if (shouldSkipProduct(product, 'AndyMark')) continue;
 
-    if (product.handle?.includes('collections/')) continue;
+    if (product.handle.includes('collections/')) continue;
 
-    const widthMatch = product.title.match(
-      /(\d+)\s*mm\s+Wide\s+5\s*mm\s+Pitch\s+HTD\s+Timing\s+Belts/i,
-    );
+    const widthMatch =
+      /(\d+)\s*mm\s+Wide\s+5\s*mm\s+Pitch\s+HTD\s+Timing\s+Belts/i.exec(
+        product.title,
+      );
     if (!widthMatch) continue;
 
     const width = parseInt(widthMatch[1]);
 
     for (const variant of product.variants) {
-      const toothMatch = variant.title.match(/(?:Tooth Count=|^|\/\s*)(\d+)/);
+      const toothMatch = /(?:Tooth Count=|^|\/\s*)(\d+)/.exec(variant.title);
       if (!toothMatch) continue;
 
       const teeth = parseInt(toothMatch[1]);

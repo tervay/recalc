@@ -29,11 +29,12 @@ export function parseAndyMarkSprockets(
     )
       continue;
 
-    if (product.handle?.includes('collections/')) continue;
+    if (product.handle.includes('collections/')) continue;
 
-    const seriesAndToothMatch = product.title.match(
-      /(#?\d+)\s+Series\s+(\d+)\s+Tooth|((\d+)\s+Tooth.*?(#?\d+)\s+Series)/i,
-    );
+    const seriesAndToothMatch =
+      /(#?\d+)\s+Series\s+(\d+)\s+Tooth|((\d+)\s+Tooth.*?(#?\d+)\s+Series)/i.exec(
+        product.title,
+      );
 
     if (seriesAndToothMatch && product.variants.length === 1) {
       let teeth: number;
@@ -51,15 +52,15 @@ export function parseAndyMarkSprockets(
 
       const chainType: ChainType = `#${chainNum}` as ChainType;
 
-      const boreMatch = product.title.match(
-        /(\d+\.?\d*\s*(?:in\.|mm))\s+(?:Hex|Round|Bore)/i,
+      const boreMatch = /(\d+\.?\d*\s*(?:in\.|mm))\s+(?:Hex|Round|Bore)/i.exec(
+        product.title,
       );
       let bore = boreMatch ? normalizeAndyMarkSprocketBore(boreMatch[0]) : null;
 
       if (
         !bore &&
         product.title.toLowerCase().includes('round') &&
-        !product.title.match(/\d+\.?\d*\s*(?:in\.|mm)\s+round/i)
+        !/\d+\.?\d*\s*(?:in\.|mm)\s+round/i.exec(product.title)
       ) {
         bore = '1.125" Round';
       }
@@ -88,7 +89,7 @@ export function parseAndyMarkSprockets(
       continue;
     }
 
-    const seriesMatch = product.title.match(/(#?\d+)\s+Series/i);
+    const seriesMatch = /(#?\d+)\s+Series/i.exec(product.title);
     if (!seriesMatch) continue;
 
     const chainNum = seriesMatch[1].replace('#', '');
@@ -108,17 +109,17 @@ export function parseAndyMarkSprockets(
         defaultBore;
 
       const variantToothMatch =
-        variant.title.match(/(?:Tooth Count:\s*|)(\d+)\s+Tooth/i) ||
-        variant.title.match(/^(\d+)/);
+        /(?:Tooth Count:\s*|)(\d+)\s+Tooth/i.exec(variant.title) ??
+        /^(\d+)/.exec(variant.title);
       if (variantToothMatch) {
         teeth = parseInt(variantToothMatch[1]);
       }
 
       if (!bore) {
         const variantBoreMatch =
-          variant.title.match(
-            /([0-9./]+\s*(?:in\.|mm)\s*(?:Hex|Round|hex|round))/i,
-          ) || variant.title.match(/(8\s*mm)/i);
+          /([0-9./]+\s*(?:in\.|mm)\s*(?:Hex|Round|hex|round))/i.exec(
+            variant.title,
+          ) ?? /(8\s*mm)/i.exec(variant.title);
         if (variantBoreMatch) {
           bore = normalizeAndyMarkSprocketBore(variantBoreMatch[1]);
         }

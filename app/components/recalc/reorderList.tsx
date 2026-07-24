@@ -24,9 +24,7 @@ const ReorderList: React.FC<ReorderListProps> = ({
   onReorder: _onReorder,
   ...props
 }) => {
-  const [items, setItems] = useState<React.ReactElement[]>(
-    props.children.filter((child) => child !== null && child !== undefined),
-  );
+  const [items, setItems] = useState<React.ReactElement[]>(props.children);
 
   const handleReorderFinish = (newOrder: React.ReactElement[]) => {
     setItems(newOrder);
@@ -47,7 +45,7 @@ const ReorderList: React.FC<ReorderListProps> = ({
     >
       {items.map((item, index) => (
         <ReorderListItem
-          key={item?.key ?? index}
+          key={item.key ?? index}
           item={item}
           index={index}
           withDragHandle={withDragHandle}
@@ -71,7 +69,7 @@ const ReorderListItem: React.FC<{
   return (
     <Reorder.Item
       data-slot="reorder-list-item"
-      id={item?.key ?? `reorder-item-${index}`}
+      id={item.key ?? `reorder-item-${index}`}
       value={item}
       className={cn(
         'm-0! list-none bg-background p-0!',

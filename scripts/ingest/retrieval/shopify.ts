@@ -19,7 +19,7 @@ export async function fetchShopifyProducts(
   let pageNum = 1;
   const products: ShopifyProduct[] = [];
 
-  while (true) {
+  for (;;) {
     const url = `${config.rootDomain}/products.json?page=${pageNum}&limit=250`;
 
     let response: Awaited<ReturnType<typeof fetchWithRetry>>['response'];

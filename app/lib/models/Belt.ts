@@ -20,7 +20,7 @@ export class SimpleBelt extends Model {
     };
   }
 
-  eq<M extends Model>(m: M): boolean {
+  eq(m: Model): boolean {
     return (
       m instanceof SimpleBelt &&
       m.teeth === this.teeth &&
@@ -64,7 +64,7 @@ export class Belt extends Model {
     };
   }
 
-  eq<M extends Model>(m: M): boolean {
+  eq(m: Model): boolean {
     return (
       m instanceof Belt &&
       m.teeth === this.teeth &&

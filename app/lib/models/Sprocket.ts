@@ -29,7 +29,7 @@ export class SimpleSprocket extends Model {
     };
   }
 
-  eq<M extends Model>(m: M): boolean {
+  eq(m: Model): boolean {
     return (
       m instanceof SimpleSprocket &&
       m.teeth === this.teeth &&
@@ -65,7 +65,7 @@ export default class Sprocket extends SimpleSprocket {
     return super.toDict();
   }
 
-  eq<M extends Model>(m: M): boolean {
+  eq(m: Model): boolean {
     return (
       m instanceof Sprocket &&
       m.teeth === this.teeth &&

@@ -37,8 +37,8 @@ export function peakSupplyCurrent(states: SimState[]): number {
   );
 }
 
-export function getMetric<T extends MetricSource>(
-  r: T,
+export function getMetric(
+  r: MetricSource,
   priority: OptimizationPriority,
 ): number {
   switch (priority) {
@@ -52,6 +52,8 @@ export function getMetric<T extends MetricSource>(
       return r.timeToGoalSeconds > 0
         ? r.energyJoules / r.timeToGoalSeconds
         : Number.POSITIVE_INFINITY;
+    default:
+      throw new Error(`Unhandled optimization priority: ${priority as string}`);
   }
 }
 

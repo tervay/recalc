@@ -52,7 +52,7 @@ export function parseWCPSprockets(products: ShopifyProduct[]): JSONSprocket[] {
 
   for (const product of products) {
     if (product.title.includes('Sprocket')) {
-      const match = product.title.match(regex);
+      const match = regex.exec(product.title);
       if (match?.groups) {
         const { tooth, chain, bore } = match.groups;
 

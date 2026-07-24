@@ -37,7 +37,7 @@ export default class Planetary extends Model {
       outputBores: this.outputBores,
     };
   }
-  eq<M extends Model>(m: M): boolean {
+  eq(m: Model): boolean {
     return (
       m instanceof Planetary &&
       isEqual(this.slices, m.slices) &&
