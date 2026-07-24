@@ -1,0 +1,82 @@
+[
+  {
+    "teeth": 42,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "am-2234a",
+    "url": "https://www.andymark.com/products/42-tooth-5-mm-htd-15-mm-wide-bearing-bore-plastic-pulley",
+    "bore": "1.125\" Round",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 42,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "am-2234aAUS",
+    "url": "https://www.andymark.com/products/sydney-42-tooth-5-mm-htd-15-mm-wide-bearing-bore-plastic-pulley",
+    "bore": "1.125\" Round",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 30,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "am-3265",
+    "url": "https://www.andymark.com/products/30-tooth-htd-pulley-with-8-mm-bore",
+    "bore": "8mm",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 24,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "am-3402",
+    "url": "https://www.andymark.com/products/24t-plastic-htd-pulleys",
+    "bore": "3/8\" Hex",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 24,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "am-3403",
+    "url": "https://www.andymark.com/products/24t-plastic-htd-pulleys",
+    "bore": "1/2\" Hex",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 24,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "am-4625",
+    "url": "https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley",
+    "bore": "1/2\" Hex",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 24,
+    "width": 18,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "am-4626",
+    "url": "https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley",
+    "bore": "1/2\" Hex",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 14,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "am-4960",
+    "url": "https://www.andymark.com/products/14-tooth-0-375-in-hex-bore-htd-pulley",
+    "bore": "3/8\" Hex",
+    "vendor": "AndyMark"
+  }
+]

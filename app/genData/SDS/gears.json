@@ -1,0 +1,90 @@
+[
+  {
+    "teeth": 15,
+    "dp": 32,
+    "bore": "8mm",
+    "url": "https://www.swervedrivespecialties.com/products/gear-32dp-15t-8mm-bore",
+    "sku": "",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 50,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.swervedrivespecialties.com/products/gear-20dp-50t-3-8-hex-bore",
+    "sku": "",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 16,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://www.swervedrivespecialties.com/products/gear-20dp-16t-8mm-bore",
+    "sku": "",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 14,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://www.swervedrivespecialties.com/products/gear-20dp-14t-8mm-bore",
+    "sku": "",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 15,
+    "dp": 32,
+    "bore": "Falcon",
+    "url": "https://www.swervedrivespecialties.com/products/15t-32dp-falcon-500-gear",
+    "sku": "",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 14,
+    "dp": 20,
+    "bore": "Falcon",
+    "url": "https://www.swervedrivespecialties.com/products/14t-20dp-falcon-500-gear",
+    "sku": "",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 16,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.swervedrivespecialties.com/products/16t-20dp-3-8-hex-gear",
+    "sku": "",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 19,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.swervedrivespecialties.com/products/19t-20dp-3-8-hex-gear",
+    "sku": "",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 17,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.swervedrivespecialties.com/products/17t-20dp-3-8-hex-gear",
+    "sku": "",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 32,
+    "dp": 32,
+    "bore": "3/8\" Hex",
+    "url": "https://www.swervedrivespecialties.com/products/32t-32dp-gear",
+    "sku": "",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 16,
+    "dp": 20,
+    "bore": "Falcon",
+    "url": "https://www.swervedrivespecialties.com/products/gear-20dp-16t-falcon-spline-bore",
+    "sku": "SDS-16T-20DP-FALCON",
+    "vendor": "SDS"
+  }
+]

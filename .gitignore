@@ -1,36 +1,12 @@
-dist/
-bin/
-cred.json
-.env
-testgen.py
-env/
-
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# production
-/build
-
-# misc
+.vercel/
+.cache/
 .DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+/node_modules/
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.vercel
-node_modules/
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
+# React Router
+/.react-router/
+/build/
+test-results/
+playwright-report/
+.vscode/
+wpilib/allwpilib/

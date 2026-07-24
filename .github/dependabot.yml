@@ -1,9 +1,65 @@
 version: 2
 updates:
-  - package-ecosystem: npm
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: daily
-    open-pull-requests-limit: 15
-    assignees:
-      - tervay
+      interval: 'cron'
+      cronjob: '0 12 * * 1,4'
+      timezone: 'America/New_York'
+    groups:
+      icons:
+        patterns:
+          - '@iconify-json/*'
+          - '@svgr/*'
+          - 'unplugin-icons'
+      math:
+        patterns:
+          - 'js-quantities'
+          - '@types/js-quantities'
+      oxc:
+        patterns:
+          - 'oxfmt'
+          - 'oxlint'
+          - 'oxlint-tsgolint'
+          - 'eslint-plugin-no-relative-import-paths'
+          - 'eslint-plugin-zod'
+          - 'oxlint-tailwindcss'
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - '@types/react'
+          - '@types/react-dom'
+          - 'radix-ui'
+      react-router:
+        patterns:
+          - '@react-router/*'
+          - '@vercel/react-router'
+          - 'react-router'
+      tailwind:
+        patterns:
+          - 'class-variance-authority'
+          - 'clsx'
+          - 'tailwindcss'
+          - '@tailwindcss/*'
+          - 'tailwind-merge'
+          - 'tw-animate-css'
+      testing:
+        patterns:
+          - '@playwright/test'
+          - 'vitest'
+          - 'jsdom'
+          - '@testing-library/*'
+      typescript:
+        patterns:
+          - 'typescript'
+          - '@types/node'
+      vite:
+        patterns:
+          - 'vite'
+          - 'vite-*'
+          - 'vite-plugin-top-level-await'
+          - 'vite-tsconfig-paths'
+          - '@tailwindcss/vite'
+          - 'vite-plugin-comlink'
+    open-pull-requests-limit: 10

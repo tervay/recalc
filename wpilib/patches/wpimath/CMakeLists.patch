@@ -1,0 +1,23 @@
+diff --git a/wpimath/CMakeLists.txt b/wpimath/CMakeLists.txt
+index 65b1529..b370a9d 100644
+--- a/wpimath/CMakeLists.txt
++++ b/wpimath/CMakeLists.txt
+@@ -139,7 +139,8 @@ if(MSVC)
+     get_property(IS_MULTI_CONFIG GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
+     set(CONFIG_SUFFIX "$<$<BOOL:${IS_MULTI_CONFIG}>:_$<CONFIG>>")
+     file(
+-        GENERATE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/protobuf_objects${CONFIG_SUFFIX}.txt
++        GENERATE OUTPUT
++        ${CMAKE_CURRENT_BINARY_DIR}/protobuf_objects${CONFIG_SUFFIX}.txt
+         CONTENT $<LIST:JOIN,$<TARGET_OBJECTS:protobuf>,\n>
+     )
+     add_custom_command(
+@@ -225,3 +226,8 @@ if(WITH_TESTS)
+     target_include_directories(wpimath_test PRIVATE src/test/native/include)
+     target_link_libraries(wpimath_test wpimath googletest)
+ endif()
++
++# Add WebAssembly subdirectory if Emscripten toolchain is being used
++if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
++    add_subdirectory(wasm)
++endif()

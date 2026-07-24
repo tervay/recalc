@@ -1,0 +1,90 @@
+- heading "Arm Calculator" [level=1]
+- button "Copy Link":
+  - img
+  - img
+  - text: Copy Link
+- heading "Motor & Gearing" [level=2]
+- text: Motor
+- spinbutton "Motor Ratio Arm Length Load Min Angle Max Angle Stator Limit Supply Limit Stator Voltage Supply Voltage Battery Resistance Max Stator Limit Max Supply Limit": "1"
+- combobox: NEO
+- text: Ratio
+- spinbutton: "200"
+- combobox: Reduction
+- heading "Arm Geometry" [level=2]
+- button "Arm Length"
+- spinbutton: "12"
+- combobox: in
+- button "Load"
+- spinbutton: "8"
+- combobox: lbs
+- button "Min Angle"
+- spinbutton: "10"
+- combobox: deg
+- button "Max Angle"
+- spinbutton: "80"
+- combobox: deg
+- heading "Limits" [level=2]
+- button "Stator Limit"
+- spinbutton: "50"
+- combobox: A
+- button "Supply Limit"
+- spinbutton: "70"
+- combobox: A
+- button "Stator Voltage"
+- spinbutton: "11"
+- combobox: V
+- button "Supply Voltage"
+- spinbutton: "12.6"
+- combobox: V
+- button "Efficiency"
+- spinbutton: "90"
+- button "Battery Resistance"
+- spinbutton: "0.03"
+- combobox: Ohm
+- button "LQR Tuning":
+  - img
+  - heading "LQR Tuning" [level=2]
+- text: Time to Goal (Up) 0.487
+- combobox: s
+- text: Time to Goal (Down) 0.472
+- combobox: s
+- heading "Simulation (Going Up)" [level=2]
+- list:
+  - listitem:
+    - img "Battery Voltage (V) legend icon"
+    - text: Battery Voltage (V)
+  - listitem:
+    - img "Motor RPM legend icon"
+    - text: Motor RPM
+  - listitem:
+    - img "Stator Current (A) legend icon"
+    - text: Stator Current (A)
+  - listitem:
+    - img "Supply Current (A) legend icon"
+    - text: Supply Current (A)
+- application: Time (s) Current (A) / Voltage (V) Motor Speed (RPM) 0.031 0.071 0.111 0.151 0.191 0.231 0.271 0.311 0.351 0.391 0.441 0.487 0 7 14 21 28 0 1500 3000 4500 6000
+- heading "Simulation (Going Down)" [level=2]
+- list:
+  - listitem:
+    - img "Battery Voltage (V) legend icon"
+    - text: Battery Voltage (V)
+  - listitem:
+    - img "Motor RPM legend icon"
+    - text: Motor RPM
+  - listitem:
+    - img "Stator Current (A) legend icon"
+    - text: Stator Current (A)
+  - listitem:
+    - img "Supply Current (A) legend icon"
+    - text: Supply Current (A)
+- application: Time (s) Current (A) / Voltage (V) Motor Speed (RPM) 0.031 0.071 0.111 0.151 0.191 0.231 0.271 0.311 0.351 0.391 0.431 0.472 0 7 14 21 28 0 1500 3000 4500 6000
+- text: kV 4.276
+- combobox: V*s/rad
+- text: kA 0.005
+- combobox: V*s^2/rad
+- text: kG 0.172
+- combobox: V
+- text: Feedback kP 67.363
+- combobox: V/rad
+- text: Feedback kD 0.084
+- combobox: V*s/rad

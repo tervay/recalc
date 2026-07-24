@@ -1,0 +1,5100 @@
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/bearing-3-5id-x-4od?variant=14288150790262
+  product:
+    handle: bearing-3-5id-x-4od
+    id: 1572095131766
+    title: Bearing, X-Contact, 3.500 x 4.000 x 0.250
+  variant:
+    id: 14288150790262
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/swerve-drive-specialties-mk1-module?variant=14288674717814
+  product:
+    handle: swerve-drive-specialties-mk1-module
+    id: 1572205265014
+    title: MK1 Module Kit - Discontinued
+  variant:
+    id: 14288674717814
+    options:
+      - Right Front or Left Rear
+      - null
+      - null
+    sku: ''
+    title: Right Front or Left Rear
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/swerve-drive-specialties-mk1-module?variant=14289394761846
+  product:
+    handle: swerve-drive-specialties-mk1-module
+    id: 1572205265014
+    title: MK1 Module Kit - Discontinued
+  variant:
+    id: 14289394761846
+    options:
+      - Left Front or Right Rear
+      - null
+      - null
+    sku: ''
+    title: Left Front or Right Rear
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk1-motor-plate?variant=14587493384310
+  product:
+    handle: mk1-motor-plate
+    id: 1620720910454
+    title: Plate, Motor (MK1)
+  variant:
+    id: 14587493384310
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk1-wheel-mount-a?variant=14587705884790
+  product:
+    handle: mk1-wheel-mount-a
+    id: 1620739326070
+    title: Mount, Wheel, A (MK1/2/3/4/4c/4i/4n)
+  variant:
+    id: 14587705884790
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/screw-12-flat-head-drilling-thread-forming-screw-6-pack?variant=15224972935286
+  product:
+    handle: screw-12-flat-head-drilling-thread-forming-screw-6-pack
+    id: 1683825655926
+    title: 'Screw, #12 x 1-1/2, Flat Thread-Forming'
+  variant:
+    id: 15224972935286
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/688zz-bearing?variant=15225623478390
+  product:
+    handle: 688zz-bearing
+    id: 1683896041590
+    title: Bearing, 688ZZ
+  variant:
+    id: 15225623478390
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/encoder-gear-hub?variant=15245515948150
+  product:
+    handle: encoder-gear-hub
+    id: 1685628551286
+    title: Hub, Gear, Encoder (MK1/2)
+  variant:
+    id: 15245515948150
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk2-module-kit?variant=22462760583286
+  product:
+    handle: mk2-module-kit
+    id: 2616964874358
+    title: MK2 Swerve Module - Discontinued
+  variant:
+    id: 22462760583286
+    options:
+      - Standard Kit
+      - null
+      - null
+    sku: ''
+    title: Standard Kit
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk2-module-kit?variant=22462774968438
+  product:
+    handle: mk2-module-kit
+    id: 2616964874358
+    title: MK2 Swerve Module - Discontinued
+  variant:
+    id: 22462774968438
+    options:
+      - Fundamentals Kit
+      - null
+      - null
+    sku: ''
+    title: Fundamentals Kit
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk2-module-kit?variant=31141088821361
+  product:
+    handle: mk2-module-kit
+    id: 2616964874358
+    title: MK2 Swerve Module - Discontinued
+  variant:
+    id: 31141088821361
+    options:
+      - Standard Kit - All Steel Gears
+      - null
+      - null
+    sku: ''
+    title: Standard Kit - All Steel Gears
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk2-center-shaft?variant=22615680352374
+  product:
+    handle: mk2-center-shaft
+    id: 2660713496694
+    title: Shaft, Center (MK2)
+  variant:
+    id: 22615680352374
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk2-steering-shaft?variant=22615680745590
+  product:
+    handle: mk2-steering-shaft
+    id: 2660713758838
+    title: Shaft, Steering (MK2/3/4/4c)
+  variant:
+    id: 22615680745590
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk2-steering-belt-64t-x-9mm-htd?variant=22616456724598
+  product:
+    handle: mk2-steering-belt-64t-x-9mm-htd
+    id: 2660972658806
+    title: Belt, Timing, HTD 320-5M-9
+  variant:
+    id: 22616456724598
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/f689-bearing?variant=22616473698422
+  product:
+    handle: f689-bearing
+    id: 2660975116406
+    title: Bearing, F689ZZ
+  variant:
+    id: 22616473698422
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk2-base-pulley?variant=29503182995574
+  product:
+    handle: mk2-base-pulley
+    id: 3955802964086
+    title: Pulley, Base (MK2)
+  variant:
+    id: 29503182995574
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-riser-motor?variant=47673275056429
+  product:
+    handle: kit-riser-motor
+    id: 4353909522545
+    title: Kit, Riser, Motor (MK2/3/4/4c)
+  variant:
+    id: 47673275056429
+    options:
+      - Falcon 500 or NEO or NEO Vortex
+      - null
+      - null
+    sku: ''
+    title: Falcon 500 or NEO or NEO Vortex
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-riser-motor?variant=47673275089197
+  product:
+    handle: kit-riser-motor
+    id: 4353909522545
+    title: Kit, Riser, Motor (MK2/3/4/4c)
+  variant:
+    id: 47673275089197
+    options:
+      - Kraken X60
+      - null
+      - null
+    sku: ''
+    title: Kraken X60
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/4-inch-brass-flywheel?variant=31439918334065
+  product:
+    handle: 4-inch-brass-flywheel
+    id: 4414228037745
+    title: Flywheel, Brass, 4-inch
+  variant:
+    id: 31439918334065
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk3-swerve-module?variant=31575980703857
+  product:
+    handle: mk3-swerve-module
+    id: 4450559033457
+    title: MK3 Swerve Module - Discontinued
+  variant:
+    id: 31575980703857
+    options:
+      - NEO Pinions
+      - Fast 6.86:1
+      - No wheel included
+    sku: ''
+    title: NEO Pinions / Fast 6.86:1 / No wheel included
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk3-swerve-module?variant=31904516669553
+  product:
+    handle: mk3-swerve-module
+    id: 4450559033457
+    title: MK3 Swerve Module - Discontinued
+  variant:
+    id: 31904516669553
+    options:
+      - NEO Pinions
+      - Fast 6.86:1
+      - SDS Billet Wheel included
+    sku: ''
+    title: NEO Pinions / Fast 6.86:1 / SDS Billet Wheel included
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk3-swerve-module?variant=32034940944497
+  product:
+    handle: mk3-swerve-module
+    id: 4450559033457
+    title: MK3 Swerve Module - Discontinued
+  variant:
+    id: 32034940944497
+    options:
+      - Falcon 500 Pinions
+      - Fast 6.86:1
+      - No wheel included
+    sku: ''
+    title: Falcon 500 Pinions / Fast 6.86:1 / No wheel included
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk3-swerve-module?variant=32034941763697
+  product:
+    handle: mk3-swerve-module
+    id: 4450559033457
+    title: MK3 Swerve Module - Discontinued
+  variant:
+    id: 32034941763697
+    options:
+      - Falcon 500 Pinions
+      - Fast 6.86:1
+      - SDS Billet Wheel included
+    sku: ''
+    title: Falcon 500 Pinions / Fast 6.86:1 / SDS Billet Wheel included
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk3-swerve-module?variant=39420432121969
+  product:
+    handle: mk3-swerve-module
+    id: 4450559033457
+    title: MK3 Swerve Module - Discontinued
+  variant:
+    id: 39420432121969
+    options:
+      - NEO Pinions
+      - Standard 8.16:1
+      - No wheel included
+    sku: ''
+    title: NEO Pinions / Standard 8.16:1 / No wheel included
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk3-swerve-module?variant=39420433203313
+  product:
+    handle: mk3-swerve-module
+    id: 4450559033457
+    title: MK3 Swerve Module - Discontinued
+  variant:
+    id: 39420433203313
+    options:
+      - NEO Pinions
+      - Standard 8.16:1
+      - SDS Billet Wheel included
+    sku: ''
+    title: NEO Pinions / Standard 8.16:1 / SDS Billet Wheel included
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk3-swerve-module?variant=39420433596529
+  product:
+    handle: mk3-swerve-module
+    id: 4450559033457
+    title: MK3 Swerve Module - Discontinued
+  variant:
+    id: 39420433596529
+    options:
+      - Falcon 500 Pinions
+      - Standard 8.16:1
+      - No wheel included
+    sku: ''
+    title: Falcon 500 Pinions / Standard 8.16:1 / No wheel included
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk3-swerve-module?variant=39420433956977
+  product:
+    handle: mk3-swerve-module
+    id: 4450559033457
+    title: MK3 Swerve Module - Discontinued
+  variant:
+    id: 39420433956977
+    options:
+      - Falcon 500 Pinions
+      - Standard 8.16:1
+      - SDS Billet Wheel included
+    sku: ''
+    title: Falcon 500 Pinions / Standard 8.16:1 / SDS Billet Wheel included
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk3-main-plate?variant=32068163731569
+  product:
+    handle: mk3-main-plate
+    id: 4576528760945
+    title: Plate, Main (MK3/4)
+  variant:
+    id: 32068163731569
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk3-motor-plate?variant=32068173365361
+  product:
+    handle: mk3-motor-plate
+    id: 4576532988017
+    title: Plate, Motor (MK3/4)
+  variant:
+    id: 32068173365361
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk3-base-pulley?variant=46246265717037
+  product:
+    handle: mk3-base-pulley
+    id: 4576539934833
+    title: Pulley, Base (MK3/4/4c/4i/4n)
+  variant:
+    id: 46246265717037
+    options:
+      - V3
+      - null
+      - null
+    sku: ''
+    title: V3
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk3-base-pulley?variant=46246265749805
+  product:
+    handle: mk3-base-pulley
+    id: 4576539934833
+    title: Pulley, Base (MK3/4/4c/4i/4n)
+  variant:
+    id: 46246265749805
+    options:
+      - V2
+      - null
+      - null
+    sku: ''
+    title: V2
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk3-center-column?variant=32068196958321
+  product:
+    handle: mk3-center-column
+    id: 4576543375473
+    title: Column, Center, 0.25" Magnet Encoder (MK3/4/4c/4i/4n)
+  variant:
+    id: 32068196958321
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/32t-32dp-gear?variant=32068211998833
+  product:
+    handle: 32t-32dp-gear
+    id: 4576545243249
+    title: Gear, 32DP, 32T, 3/8" Hex Bore
+  variant:
+    id: 32068211998833
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/28t-48t-20dp-double-gear?variant=32068216455281
+  product:
+    handle: 28t-48t-20dp-double-gear
+    id: 4576546226289
+    title: Gear, 20DP, Double, 28T-48T
+  variant:
+    id: 32068216455281
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/28t-50t-20dp-double-gear?variant=32068217897073
+  product:
+    handle: 28t-50t-20dp-double-gear
+    id: 4576546324593
+    title: Gear, 20DP, Double, 28T-50T
+  variant:
+    id: 32068217897073
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/6802-bearing?variant=32068219994225
+  product:
+    handle: 6802-bearing
+    id: 4576546586737
+    title: Bearing, 6802ZZ
+  variant:
+    id: 32068219994225
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/swerve-drive-specialties-sticker?variant=32214434349169
+  product:
+    handle: swerve-drive-specialties-sticker
+    id: 4624146366577
+    title: Sticker, Swerve Drive Specialties
+  variant:
+    id: 32214434349169
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=39376675012721
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 39376675012721
+    options:
+      - Falcon 500
+      - L1
+      - Colson
+    sku: ''
+    title: Falcon 500 / L1 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=39376675045489
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 39376675045489
+    options:
+      - Falcon 500
+      - L2
+      - Colson
+    sku: ''
+    title: Falcon 500 / L2 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=39376675078257
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 39376675078257
+    options:
+      - Falcon 500
+      - L3
+      - Colson
+    sku: ''
+    title: Falcon 500 / L3 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=39376675111025
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 39376675111025
+    options:
+      - Falcon 500
+      - L4
+      - Colson
+    sku: ''
+    title: Falcon 500 / L4 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=39376675143793
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 39376675143793
+    options:
+      - NEO or NEO Vortex
+      - L1
+      - Colson
+    sku: ''
+    title: NEO or NEO Vortex / L1 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=39376675176561
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 39376675176561
+    options:
+      - NEO or NEO Vortex
+      - L2
+      - Colson
+    sku: ''
+    title: NEO or NEO Vortex / L2 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=39376675209329
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 39376675209329
+    options:
+      - NEO or NEO Vortex
+      - L3
+      - Colson
+    sku: ''
+    title: NEO or NEO Vortex / L3 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=39376675242097
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 39376675242097
+    options:
+      - NEO or NEO Vortex
+      - L4
+      - Colson
+    sku: ''
+    title: NEO or NEO Vortex / L4 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=46872666013997
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 46872666013997
+    options:
+      - Falcon 500
+      - L1
+      - Billet
+    sku: ''
+    title: Falcon 500 / L1 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=46872666046765
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 46872666046765
+    options:
+      - Falcon 500
+      - L2
+      - Billet
+    sku: ''
+    title: Falcon 500 / L2 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=46872666145069
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 46872666145069
+    options:
+      - Falcon 500
+      - L3
+      - Billet
+    sku: ''
+    title: Falcon 500 / L3 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=46872666341677
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 46872666341677
+    options:
+      - Falcon 500
+      - L4
+      - Billet
+    sku: ''
+    title: Falcon 500 / L4 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=46872666472749
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 46872666472749
+    options:
+      - NEO or NEO Vortex
+      - L1
+      - Billet
+    sku: ''
+    title: NEO or NEO Vortex / L1 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=46872666505517
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 46872666505517
+    options:
+      - NEO or NEO Vortex
+      - L2
+      - Billet
+    sku: ''
+    title: NEO or NEO Vortex / L2 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=46872666538285
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 46872666538285
+    options:
+      - NEO or NEO Vortex
+      - L3
+      - Billet
+    sku: ''
+    title: NEO or NEO Vortex / L3 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=46872666571053
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 46872666571053
+    options:
+      - NEO or NEO Vortex
+      - L4
+      - Billet
+    sku: ''
+    title: NEO or NEO Vortex / L4 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=47316033995053
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 47316033995053
+    options:
+      - Kraken X60
+      - L1
+      - Colson
+    sku: ''
+    title: Kraken X60 / L1 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=47316034027821
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 47316034027821
+    options:
+      - Kraken X60
+      - L1
+      - Billet
+    sku: ''
+    title: Kraken X60 / L1 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=47316034060589
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 47316034060589
+    options:
+      - Kraken X60
+      - L2
+      - Colson
+    sku: ''
+    title: Kraken X60 / L2 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=47316034093357
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 47316034093357
+    options:
+      - Kraken X60
+      - L2
+      - Billet
+    sku: ''
+    title: Kraken X60 / L2 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=47316034126125
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 47316034126125
+    options:
+      - Kraken X60
+      - L3
+      - Colson
+    sku: ''
+    title: Kraken X60 / L3 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=47316034158893
+  product:
+    handle: mk4-swerve-module
+    id: 6586053918833
+    title: MK4 Swerve Module
+  variant:
+    id: 47316034158893
+    options:
+      - Kraken X60
+      - L3
+      - Billet
+    sku: ''
+    title: Kraken X60 / L3 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/billet-wheel-4d-x-1-5w-bearing-bore?variant=51830642704685
+  product:
+    handle: billet-wheel-4d-x-1-5w-bearing-bore
+    id: 6586300072049
+    title: Wheel, Billet, 4"OD x 1.5"W (MK4/4c/4i/4n)
+  variant:
+    id: 51830642704685
+    options:
+      - No
+      - null
+      - null
+    sku: null
+    title: No
+  firstSeen: 2026-03-13T11:55:31.915Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/billet-wheel-4d-x-1-5w-bearing-bore?variant=51830642737453
+  product:
+    handle: billet-wheel-4d-x-1-5w-bearing-bore
+    id: 6586300072049
+    title: Wheel, Billet, 4"OD x 1.5"W (MK4/4c/4i/4n)
+  variant:
+    id: 51830642737453
+    options:
+      - Include Quick-Change Kit
+      - null
+      - null
+    sku: null
+    title: Include Quick-Change Kit
+  firstSeen: 2026-03-13T11:55:31.915Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/45t-bevel-gear?variant=39377980686449
+  product:
+    handle: 45t-bevel-gear
+    id: 6586736574577
+    title: Gear, Bevel, 45T, 4515
+  variant:
+    id: 39377980686449
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/15t-bevel-gear-1545?variant=39377980981361
+  product:
+    handle: 15t-bevel-gear-1545
+    id: 6586736803953
+    title: Gear, Bevel, 15T, 1545
+  variant:
+    id: 39377980981361
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/25t-50t-20dp-double-gear?variant=39377993990257
+  product:
+    handle: 25t-50t-20dp-double-gear
+    id: 6586744373361
+    title: Gear, 20DP, Double, 25T-50T
+  variant:
+    id: 39377993990257
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/27t-50t-20dp-double-gear?variant=39377997987953
+  product:
+    handle: 27t-50t-20dp-double-gear
+    id: 6586744864881
+    title: Gear, 20DP, Double, 27T-50T
+  variant:
+    id: 39377997987953
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/19t-20dp-3-8-hex-gear?variant=39377998348401
+  product:
+    handle: 19t-20dp-3-8-hex-gear
+    id: 6586745159793
+    title: Gear, 20DP, 19T, 3/8" Hex Bore
+  variant:
+    id: 39377998348401
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/17t-20dp-3-8-hex-gear?variant=39377999626353
+  product:
+    handle: 17t-20dp-3-8-hex-gear
+    id: 6586745684081
+    title: Gear, 20DP, 17T, 3/8" Hex Bore
+  variant:
+    id: 39377999626353
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk3-to-mk4-upgrade-kit?variant=47299046539565
+  product:
+    handle: mk3-to-mk4-upgrade-kit
+    id: 6591003558001
+    title: Kit, Upgrade, MK3 to MK4 Wheel
+  variant:
+    id: 47299046539565
+    options:
+      - Colson
+      - null
+      - null
+    sku: ''
+    title: Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk3-to-mk4-upgrade-kit?variant=47299046572333
+  product:
+    handle: mk3-to-mk4-upgrade-kit
+    id: 6591003558001
+    title: Kit, Upgrade, MK3 to MK4 Wheel
+  variant:
+    id: 47299046572333
+    options:
+      - Billet
+      - null
+      - null
+    sku: ''
+    title: Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/precut-and-drilled-4d-x-1-5w-sds-billet-wheel?variant=39730444501105
+  product:
+    handle: precut-and-drilled-4d-x-1-5w-sds-billet-wheel
+    id: 6611292946545
+    title: Tread, 4"OD x 1.5"W (MK4/4c/4i/4n)
+  variant:
+    id: 39730444501105
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-wheel-mount-b?variant=39461229396081
+  product:
+    handle: mk4-wheel-mount-b
+    id: 6611314344049
+    title: Mount, Wheel, B (MK4/4c/4i/4n)
+  variant:
+    id: 39461229396081
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/16t-20dp-3-8-hex-gear?variant=39535614492785
+  product:
+    handle: 16t-20dp-3-8-hex-gear
+    id: 6633197764721
+    title: Gear, 20DP, 16T, 3/8" Hex Bore
+  variant:
+    id: 39535614492785
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=39598777139313
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 39598777139313
+    options:
+      - Falcon 500
+      - L1
+      - Colson
+    sku: ''
+    title: Falcon 500 / L1 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=39598777172081
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 39598777172081
+    options:
+      - Falcon 500
+      - L2
+      - Colson
+    sku: ''
+    title: Falcon 500 / L2 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=39598777204849
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 39598777204849
+    options:
+      - Falcon 500
+      - L3
+      - Colson
+    sku: ''
+    title: Falcon 500 / L3 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=39598777270385
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 39598777270385
+    options:
+      - NEO
+      - L1
+      - Colson
+    sku: ''
+    title: NEO / L1 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=39598777303153
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 39598777303153
+    options:
+      - NEO
+      - L2
+      - Colson
+    sku: ''
+    title: NEO / L2 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=39598777335921
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 39598777335921
+    options:
+      - NEO
+      - L3
+      - Colson
+    sku: ''
+    title: NEO / L3 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=46872599986477
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 46872599986477
+    options:
+      - Falcon 500
+      - L1
+      - Billet
+    sku: ''
+    title: Falcon 500 / L1 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=46872600019245
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 46872600019245
+    options:
+      - Falcon 500
+      - L2
+      - Billet
+    sku: ''
+    title: Falcon 500 / L2 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=46872600052013
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 46872600052013
+    options:
+      - Falcon 500
+      - L3
+      - Billet
+    sku: ''
+    title: Falcon 500 / L3 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=46872600084781
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 46872600084781
+    options:
+      - NEO
+      - L1
+      - Billet
+    sku: ''
+    title: NEO / L1 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=46872600117549
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 46872600117549
+    options:
+      - NEO
+      - L2
+      - Billet
+    sku: ''
+    title: NEO / L2 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=46872600150317
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 46872600150317
+    options:
+      - NEO
+      - L3
+      - Billet
+    sku: ''
+    title: NEO / L3 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=47316033732909
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 47316033732909
+    options:
+      - Kraken X60
+      - L1
+      - Colson
+    sku: ''
+    title: Kraken X60 / L1 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=47316033765677
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 47316033765677
+    options:
+      - Kraken X60
+      - L1
+      - Billet
+    sku: ''
+    title: Kraken X60 / L1 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=47316033798445
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 47316033798445
+    options:
+      - Kraken X60
+      - L2
+      - Colson
+    sku: ''
+    title: Kraken X60 / L2 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=47316033831213
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 47316033831213
+    options:
+      - Kraken X60
+      - L2
+      - Billet
+    sku: ''
+    title: Kraken X60 / L2 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=47316033863981
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 47316033863981
+    options:
+      - Kraken X60
+      - L3
+      - Colson
+    sku: ''
+    title: Kraken X60 / L3 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=47316033896749
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 47316033896749
+    options:
+      - Kraken X60
+      - L3
+      - Billet
+    sku: ''
+    title: Kraken X60 / L3 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=47707365474605
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 47707365474605
+    options:
+      - NEO Vortex
+      - L1
+      - Colson
+    sku: ''
+    title: NEO Vortex / L1 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=47707365507373
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 47707365507373
+    options:
+      - NEO Vortex
+      - L1
+      - Billet
+    sku: ''
+    title: NEO Vortex / L1 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=47707365540141
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 47707365540141
+    options:
+      - NEO Vortex
+      - L2
+      - Colson
+    sku: ''
+    title: NEO Vortex / L2 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=47707365572909
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 47707365572909
+    options:
+      - NEO Vortex
+      - L2
+      - Billet
+    sku: ''
+    title: NEO Vortex / L2 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=47707365605677
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 47707365605677
+    options:
+      - NEO Vortex
+      - L3
+      - Colson
+    sku: ''
+    title: NEO Vortex / L3 / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=47707365638445
+  product:
+    handle: mk4i-swerve-module
+    id: 6657142620273
+    title: MK4i Swerve Module
+  variant:
+    id: 47707365638445
+    options:
+      - NEO Vortex
+      - L3
+      - Billet
+    sku: ''
+    title: NEO Vortex / L3 / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-steering-belt-64t-x-15mm-htd?variant=39611936931953
+  product:
+    handle: mk4i-steering-belt-64t-x-15mm-htd
+    id: 6661846925425
+    title: Belt, Timing, HTD 320-5M-15
+  variant:
+    id: 39611936931953
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-to-mk4i-conversion-kit?variant=39611963048049
+  product:
+    handle: mk4-to-mk4i-conversion-kit
+    id: 6661854953585
+    title: Kit, Conversion, MK4 to MK4i
+  variant:
+    id: 39611963048049
+    options:
+      - Falcon 500
+      - null
+      - null
+    sku: ''
+    title: Falcon 500
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-to-mk4i-conversion-kit?variant=39611963080817
+  product:
+    handle: mk4-to-mk4i-conversion-kit
+    id: 6661854953585
+    title: Kit, Conversion, MK4 to MK4i
+  variant:
+    id: 39611963080817
+    options:
+      - NEO
+      - null
+      - null
+    sku: ''
+    title: NEO
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-to-mk4i-conversion-kit?variant=47316033667373
+  product:
+    handle: mk4-to-mk4i-conversion-kit
+    id: 6661854953585
+    title: Kit, Conversion, MK4 to MK4i
+  variant:
+    id: 47316033667373
+    options:
+      - Kraken X60
+      - null
+      - null
+    sku: ''
+    title: Kraken X60
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-to-mk4i-conversion-kit?variant=47707376189741
+  product:
+    handle: mk4-to-mk4i-conversion-kit
+    id: 6661854953585
+    title: Kit, Conversion, MK4 to MK4i
+  variant:
+    id: 47707376189741
+    options:
+      - NEO Vortex
+      - null
+      - null
+    sku: ''
+    title: NEO Vortex
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/14t-20dp-falcon-500-gear?variant=39620028072049
+  product:
+    handle: 14t-20dp-falcon-500-gear
+    id: 6664924659825
+    title: Gear, 20DP, 14T Falcon Spline Bore
+  variant:
+    id: 39620028072049
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/15t-32dp-falcon-500-gear?variant=39620029874289
+  product:
+    handle: 15t-32dp-falcon-500-gear
+    id: 6664925315185
+    title: Gear, 32DP, 15T, Falcon Spline Bore
+  variant:
+    id: 39620029874289
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4i-steering-shaft?variant=39828401848433
+  product:
+    handle: mk4i-steering-shaft
+    id: 6747080065137
+    title: Shaft, Steering (MK4i/4n)
+  variant:
+    id: 39828401848433
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-mk4i-wheel-spacer?variant=39828403748977
+  product:
+    handle: mk4-mk4i-wheel-spacer
+    id: 6747080294513
+    title: Spacer, Wheel (MK4/4c/4i/4n)
+  variant:
+    id: 39828403748977
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-mk4i-intermediate-shaft?variant=46240244072749
+  product:
+    handle: mk4-mk4i-intermediate-shaft
+    id: 8009065988397
+    title: Shaft, Intermediate (MK4/4c/4i/4n)
+  variant:
+    id: 46240244072749
+    options:
+      - V3
+      - null
+      - null
+    sku: ''
+    title: V3
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-mk4i-intermediate-shaft?variant=46240244105517
+  product:
+    handle: mk4-mk4i-intermediate-shaft
+    id: 8009065988397
+    title: Shaft, Intermediate (MK4/4c/4i/4n)
+  variant:
+    id: 46240244105517
+    options:
+      - V2
+      - null
+      - null
+    sku: ''
+    title: V2
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4-mk4i-intermediate-shaft?variant=46240244138285
+  product:
+    handle: mk4-mk4i-intermediate-shaft
+    id: 8009065988397
+    title: Shaft, Intermediate (MK4/4c/4i/4n)
+  variant:
+    id: 46240244138285
+    options:
+      - V1
+      - null
+      - null
+    sku: ''
+    title: V1
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/plate-main-mk4i?variant=45585744560429
+  product:
+    handle: plate-main-mk4i
+    id: 8048666804525
+    title: Plate, Main (MK4i)
+  variant:
+    id: 45585744560429
+    options:
+      - 10-32
+      - null
+      - null
+    sku: ''
+    title: 10-32
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/plate-main-mk4i?variant=45585744593197
+  product:
+    handle: plate-main-mk4i
+    id: 8048666804525
+    title: Plate, Main (MK4i)
+  variant:
+    id: 45585744593197
+    options:
+      - 8-32
+      - null
+      - null
+    sku: ''
+    title: 8-32
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/plate-motor-mk4i?variant=44131490070829
+  product:
+    handle: plate-motor-mk4i
+    id: 8048673063213
+    title: Plate, Motor (MK4i)
+  variant:
+    id: 44131490070829
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/plate-bottom-mk4i?variant=45585750196525
+  product:
+    handle: plate-bottom-mk4i
+    id: 8048673784109
+    title: Plate, Bottom (MK4c/4i/4n)
+  variant:
+    id: 45585750196525
+    options:
+      - 10-32
+      - null
+      - null
+    sku: ''
+    title: 10-32
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/plate-bottom-mk4i?variant=45585750229293
+  product:
+    handle: plate-bottom-mk4i
+    id: 8048673784109
+    title: Plate, Bottom (MK4c/4i/4n)
+  variant:
+    id: 45585750229293
+    options:
+      - 8-32
+      - null
+      - null
+    sku: ''
+    title: 8-32
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/plate-guard-encoder-mk4i?variant=44131492888877
+  product:
+    handle: plate-guard-encoder-mk4i
+    id: 8048674799917
+    title: Plate, Guard, Encoder (MK4i/4n)
+  variant:
+    id: 44131492888877
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gear-20dp-14t-8mm-bore?variant=44151169057069
+  product:
+    handle: gear-20dp-14t-8mm-bore
+    id: 8054064808237
+    title: Gear, 20DP, 14T 8mm Bore
+  variant:
+    id: 44151169057069
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gear-20dp-16t-8mm-bore?variant=44151174136109
+  product:
+    handle: gear-20dp-16t-8mm-bore
+    id: 8054066676013
+    title: Gear, 20DP, 16T 8mm Bore
+  variant:
+    id: 44151174136109
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gear-20dp-50t-3-8-hex-bore?variant=44151191896365
+  product:
+    handle: gear-20dp-50t-3-8-hex-bore
+    id: 8054075130157
+    title: Gear, 20DP, 50T, 3/8" Hex Bore
+  variant:
+    id: 44151191896365
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gear-32dp-15t-8mm-bore?variant=44151199400237
+  product:
+    handle: gear-32dp-15t-8mm-bore
+    id: 8054082928941
+    title: Gear, 32DP, 15T, 8mm Bore
+  variant:
+    id: 44151199400237
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/shaft-idler-mk4i?variant=44151214309677
+  product:
+    handle: shaft-idler-mk4i
+    id: 8054090957101
+    title: Shaft, Idler (MK4i/4n)
+  variant:
+    id: 44151214309677
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-bearing-mk4?variant=46244448502061
+  product:
+    handle: kit-bearing-mk4
+    id: 8055352066349
+    title: Kit, Bearing (MK4/4c)
+  variant:
+    id: 46244448502061
+    options:
+      - V3
+      - null
+      - null
+    sku: ''
+    title: V3
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-bearing-mk4?variant=46244448633133
+  product:
+    handle: kit-bearing-mk4
+    id: 8055352066349
+    title: Kit, Bearing (MK4/4c)
+  variant:
+    id: 46244448633133
+    options:
+      - V1-V2
+      - null
+      - null
+    sku: ''
+    title: V1-V2
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-bearing-mk4i?variant=46244368023853
+  product:
+    handle: kit-bearing-mk4i
+    id: 8055362879789
+    title: Kit, Bearing (MK4i/4n)
+  variant:
+    id: 46244368023853
+    options:
+      - V3
+      - null
+      - null
+    sku: ''
+    title: V3
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-bearing-mk4i?variant=46244368056621
+  product:
+    handle: kit-bearing-mk4i
+    id: 8055362879789
+    title: Kit, Bearing (MK4i/4n)
+  variant:
+    id: 46244368056621
+    options:
+      - V1-V2
+      - null
+      - null
+    sku: ''
+    title: V1-V2
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-spacer-shaft-mk4?variant=46243914514733
+  product:
+    handle: kit-spacer-shaft-mk4
+    id: 8055376675117
+    title: Kit, Spacer & Shaft (MK4/4c)
+  variant:
+    id: 46243914514733
+    options:
+      - V3
+      - null
+      - null
+    sku: ''
+    title: V3
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-spacer-shaft-mk4?variant=46243914547501
+  product:
+    handle: kit-spacer-shaft-mk4
+    id: 8055376675117
+    title: Kit, Spacer & Shaft (MK4/4c)
+  variant:
+    id: 46243914547501
+    options:
+      - V2
+      - null
+      - null
+    sku: ''
+    title: V2
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-spacer-shaft-mk4i?variant=46243988996397
+  product:
+    handle: kit-spacer-shaft-mk4i
+    id: 8055396106541
+    title: Kit, Spacer & Shaft (MK4i/4n)
+  variant:
+    id: 46243988996397
+    options:
+      - V3
+      - null
+      - null
+    sku: ''
+    title: V3
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-spacer-shaft-mk4i?variant=46243989029165
+  product:
+    handle: kit-spacer-shaft-mk4i
+    id: 8055396106541
+    title: Kit, Spacer & Shaft (MK4i/4n)
+  variant:
+    id: 46243989029165
+    options:
+      - V2
+      - null
+      - null
+    sku: ''
+    title: V2
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-screw-mk4?variant=44155310276909
+  product:
+    handle: kit-screw-mk4
+    id: 8055463149869
+    title: Kit, Screw (MK4/4c)
+  variant:
+    id: 44155310276909
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-screw-mk4i?variant=45586236932397
+  product:
+    handle: kit-screw-mk4i
+    id: 8055477305645
+    title: Kit, Screw (MK4i/4n)
+  variant:
+    id: 45586236932397
+    options:
+      - 10-32
+      - null
+      - null
+    sku: ''
+    title: 10-32
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-screw-mk4i?variant=45586236965165
+  product:
+    handle: kit-screw-mk4i
+    id: 8055477305645
+    title: Kit, Screw (MK4i/4n)
+  variant:
+    id: 45586236965165
+    options:
+      - 8-32
+      - null
+      - null
+    sku: ''
+    title: 8-32
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-spacer-mk4?variant=44155390460205
+  product:
+    handle: kit-spacer-mk4
+    id: 8055508140333
+    title: Kit, Spacer (MK4/4c)
+  variant:
+    id: 44155390460205
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-spacer-mk4i?variant=44155390689581
+  product:
+    handle: kit-spacer-mk4i
+    id: 8055508402477
+    title: Kit, Spacer (MK4i/4n)
+  variant:
+    id: 44155390689581
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-mk4i?variant=44166046417197
+  product:
+    handle: kit-pinion-gear-mk4i
+    id: 8058241024301
+    title: Kit, Pinion Gear (MK4i)
+  variant:
+    id: 44166046417197
+    options:
+      - Falcon 500
+      - null
+      - null
+    sku: ''
+    title: Falcon 500
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-mk4i?variant=44166046449965
+  product:
+    handle: kit-pinion-gear-mk4i
+    id: 8058241024301
+    title: Kit, Pinion Gear (MK4i)
+  variant:
+    id: 44166046449965
+    options:
+      - NEO
+      - null
+      - null
+    sku: ''
+    title: NEO
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-mk4i?variant=47316032356653
+  product:
+    handle: kit-pinion-gear-mk4i
+    id: 8058241024301
+    title: Kit, Pinion Gear (MK4i)
+  variant:
+    id: 47316032356653
+    options:
+      - Kraken X60
+      - null
+      - null
+    sku: ''
+    title: Kraken X60
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-mk4i?variant=47707320713517
+  product:
+    handle: kit-pinion-gear-mk4i
+    id: 8058241024301
+    title: Kit, Pinion Gear (MK4i)
+  variant:
+    id: 47707320713517
+    options:
+      - NEO Vortex
+      - null
+      - null
+    sku: ''
+    title: NEO Vortex
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-mk4?variant=44169897640237
+  product:
+    handle: kit-pinion-gear-mk4
+    id: 8059939750189
+    title: Kit, Pinion Gear (MK3/4)
+  variant:
+    id: 44169897640237
+    options:
+      - NEO or NEO Vortex
+      - L1-L2-L3
+      - null
+    sku: null
+    title: NEO or NEO Vortex / L1-L2-L3
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-mk4?variant=44169897673005
+  product:
+    handle: kit-pinion-gear-mk4
+    id: 8059939750189
+    title: Kit, Pinion Gear (MK3/4)
+  variant:
+    id: 44169897673005
+    options:
+      - Falcon 500
+      - L1-L2-L3
+      - null
+    sku: null
+    title: Falcon 500 / L1-L2-L3
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-mk4?variant=44169996960045
+  product:
+    handle: kit-pinion-gear-mk4
+    id: 8059939750189
+    title: Kit, Pinion Gear (MK3/4)
+  variant:
+    id: 44169996960045
+    options:
+      - NEO or NEO Vortex
+      - L4
+      - null
+    sku: ''
+    title: NEO or NEO Vortex / L4
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-mk4?variant=44169996992813
+  product:
+    handle: kit-pinion-gear-mk4
+    id: 8059939750189
+    title: Kit, Pinion Gear (MK3/4)
+  variant:
+    id: 44169996992813
+    options:
+      - Falcon 500
+      - L4
+      - null
+    sku: ''
+    title: Falcon 500 / L4
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-mk4?variant=47316036976941
+  product:
+    handle: kit-pinion-gear-mk4
+    id: 8059939750189
+    title: Kit, Pinion Gear (MK3/4)
+  variant:
+    id: 47316036976941
+    options:
+      - Kraken X60
+      - L1-L2-L3
+      - null
+    sku: ''
+    title: Kraken X60 / L1-L2-L3
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gift-card?variant=44366057111853
+  product:
+    handle: gift-card
+    id: 8128133398829
+    title: eGift Card
+  variant:
+    id: 44366057111853
+    options:
+      - $25
+      - null
+      - null
+    sku: ''
+    title: $25
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gift-card?variant=44366057144621
+  product:
+    handle: gift-card
+    id: 8128133398829
+    title: eGift Card
+  variant:
+    id: 44366057144621
+    options:
+      - $50
+      - null
+      - null
+    sku: ''
+    title: $50
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gift-card?variant=44366057177389
+  product:
+    handle: gift-card
+    id: 8128133398829
+    title: eGift Card
+  variant:
+    id: 44366057177389
+    options:
+      - $100
+      - null
+      - null
+    sku: ''
+    title: $100
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gift-card?variant=44366057210157
+  product:
+    handle: gift-card
+    id: 8128133398829
+    title: eGift Card
+  variant:
+    id: 44366057210157
+    options:
+      - $250
+      - null
+      - null
+    sku: ''
+    title: $250
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gift-card?variant=44366057242925
+  product:
+    handle: gift-card
+    id: 8128133398829
+    title: eGift Card
+  variant:
+    id: 44366057242925
+    options:
+      - $500
+      - null
+      - null
+    sku: ''
+    title: $500
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gift-card?variant=44366057275693
+  product:
+    handle: gift-card
+    id: 8128133398829
+    title: eGift Card
+  variant:
+    id: 44366057275693
+    options:
+      - $1‚000
+      - null
+      - null
+    sku: ''
+    title: $1‚000
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gift-card?variant=44366057308461
+  product:
+    handle: gift-card
+    id: 8128133398829
+    title: eGift Card
+  variant:
+    id: 44366057308461
+    options:
+      - $1‚500
+      - null
+      - null
+    sku: ''
+    title: $1‚500
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gift-card?variant=44366057341229
+  product:
+    handle: gift-card
+    id: 8128133398829
+    title: eGift Card
+  variant:
+    id: 44366057341229
+    options:
+      - $2‚500
+      - null
+      - null
+    sku: ''
+    title: $2‚500
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gift-card?variant=44366057373997
+  product:
+    handle: gift-card
+    id: 8128133398829
+    title: eGift Card
+  variant:
+    id: 44366057373997
+    options:
+      - $5‚000
+      - null
+      - null
+    sku: ''
+    title: $5‚000
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gift-card?variant=50295953391917
+  product:
+    handle: gift-card
+    id: 8128133398829
+    title: eGift Card
+  variant:
+    id: 50295953391917
+    options:
+      - $2‚000
+      - null
+      - null
+    sku: null
+    title: $2‚000
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/wheel-colson-4od-x-1-5w-mk4-4i?variant=46845690839341
+  product:
+    handle: wheel-colson-4od-x-1-5w-mk4-4i
+    id: 8714150117677
+    title: Wheel, Colson, 4"OD x 1.5"W (MK4/4c/4i/4n)
+  variant:
+    id: 46845690839341
+    options:
+      - Wheel Kit
+      - null
+      - null
+    sku: ''
+    title: Wheel Kit
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/wheel-colson-4od-x-1-5w-mk4-4i?variant=46845690872109
+  product:
+    handle: wheel-colson-4od-x-1-5w-mk4-4i
+    id: 8714150117677
+    title: Wheel, Colson, 4"OD x 1.5"W (MK4/4c/4i/4n)
+  variant:
+    id: 46845690872109
+    options:
+      - Wheel Only
+      - null
+      - null
+    sku: ''
+    title: Wheel Only
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/wheel-colson-4od-x-1-5w-mk4-4i?variant=51830660956461
+  product:
+    handle: wheel-colson-4od-x-1-5w-mk4-4i
+    id: 8714150117677
+    title: Wheel, Colson, 4"OD x 1.5"W (MK4/4c/4i/4n)
+  variant:
+    id: 51830660956461
+    options:
+      - Wheel Kit + Quick-Change Kit
+      - null
+      - null
+    sku: null
+    title: Wheel Kit + Quick-Change Kit
+  firstSeen: 2026-03-13T11:55:31.915Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-l-gearset-mk3-4-4i?variant=47316839498029
+  product:
+    handle: kit-l-gearset-mk3-4-4i
+    id: 8898769453357
+    title: Kit, L Gearset (MK3/4/4i/4n)
+  variant:
+    id: 47316839498029
+    options:
+      - L1 or L1+
+      - null
+      - null
+    sku: ''
+    title: L1 or L1+
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-l-gearset-mk3-4-4i?variant=47316839563565
+  product:
+    handle: kit-l-gearset-mk3-4-4i
+    id: 8898769453357
+    title: Kit, L Gearset (MK3/4/4i/4n)
+  variant:
+    id: 47316839563565
+    options:
+      - L2 or L2+
+      - null
+      - null
+    sku: ''
+    title: L2 or L2+
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-l-gearset-mk3-4-4i?variant=47316839596333
+  product:
+    handle: kit-l-gearset-mk3-4-4i
+    id: 8898769453357
+    title: Kit, L Gearset (MK3/4/4i/4n)
+  variant:
+    id: 47316839596333
+    options:
+      - L3 or L3+
+      - null
+      - null
+    sku: ''
+    title: L3 or L3+
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-l-gearset-mk3-4-4i?variant=47316839629101
+  product:
+    handle: kit-l-gearset-mk3-4-4i
+    id: 8898769453357
+    title: Kit, L Gearset (MK3/4/4i/4n)
+  variant:
+    id: 47316839629101
+    options:
+      - L4
+      - null
+      - null
+    sku: ''
+    title: L4
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-adapter-16t-drive-pinion-gear-mk4i?variant=47576386470189
+  product:
+    handle: kit-adapter-16t-drive-pinion-gear-mk4i
+    id: 9004201083181
+    title: Kit, Adapter, 16T Drive Pinion Gear (MK4i)
+  variant:
+    id: 47576386470189
+    options:
+      - NEO or NEO Vortex
+      - null
+      - null
+    sku: ''
+    title: NEO or NEO Vortex
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-adapter-16t-drive-pinion-gear-mk4i?variant=47576386502957
+  product:
+    handle: kit-adapter-16t-drive-pinion-gear-mk4i
+    id: 9004201083181
+    title: Kit, Adapter, 16T Drive Pinion Gear (MK4i)
+  variant:
+    id: 47576386502957
+    options:
+      - Kraken X60
+      - null
+      - null
+    sku: ''
+    title: Kraken X60
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-adapter-16t-drive-pinion-gear-mk4i?variant=47576386535725
+  product:
+    handle: kit-adapter-16t-drive-pinion-gear-mk4i
+    id: 9004201083181
+    title: Kit, Adapter, 16T Drive Pinion Gear (MK4i)
+  variant:
+    id: 47576386535725
+    options:
+      - Falcon 500
+      - null
+      - null
+    sku: ''
+    title: Falcon 500
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/shirt-short-sleeve-sds-timeline?variant=47580762636589
+  product:
+    handle: shirt-short-sleeve-sds-timeline
+    id: 9006219657517
+    title: Shirt, Short Sleeve, SDS Timeline
+  variant:
+    id: 47580762636589
+    options:
+      - S
+      - null
+      - null
+    sku: null
+    title: S
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/shirt-short-sleeve-sds-timeline?variant=47580762669357
+  product:
+    handle: shirt-short-sleeve-sds-timeline
+    id: 9006219657517
+    title: Shirt, Short Sleeve, SDS Timeline
+  variant:
+    id: 47580762669357
+    options:
+      - M
+      - null
+      - null
+    sku: null
+    title: M
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/shirt-short-sleeve-sds-timeline?variant=47580762702125
+  product:
+    handle: shirt-short-sleeve-sds-timeline
+    id: 9006219657517
+    title: Shirt, Short Sleeve, SDS Timeline
+  variant:
+    id: 47580762702125
+    options:
+      - L
+      - null
+      - null
+    sku: null
+    title: L
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/shirt-short-sleeve-sds-timeline?variant=47580762734893
+  product:
+    handle: shirt-short-sleeve-sds-timeline
+    id: 9006219657517
+    title: Shirt, Short Sleeve, SDS Timeline
+  variant:
+    id: 47580762734893
+    options:
+      - XL
+      - null
+      - null
+    sku: null
+    title: XL
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/shirt-short-sleeve-sds-timeline?variant=47580762767661
+  product:
+    handle: shirt-short-sleeve-sds-timeline
+    id: 9006219657517
+    title: Shirt, Short Sleeve, SDS Timeline
+  variant:
+    id: 47580762767661
+    options:
+      - 2XL
+      - null
+      - null
+    sku: null
+    title: 2XL
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/shirt-short-sleeve-sds-timeline?variant=47581550706989
+  product:
+    handle: shirt-short-sleeve-sds-timeline
+    id: 9006219657517
+    title: Shirt, Short Sleeve, SDS Timeline
+  variant:
+    id: 47581550706989
+    options:
+      - 3XL
+      - null
+      - null
+    sku: ''
+    title: 3XL
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/shirt-short-sleeve-sds-timeline?variant=47582378721581
+  product:
+    handle: shirt-short-sleeve-sds-timeline
+    id: 9006219657517
+    title: Shirt, Short Sleeve, SDS Timeline
+  variant:
+    id: 47582378721581
+    options:
+      - XS
+      - null
+      - null
+    sku: ''
+    title: XS
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/shirt-hoodie-sds-timeline?variant=47580767715629
+  product:
+    handle: shirt-hoodie-sds-timeline
+    id: 9006221394221
+    title: Hoodie, SDS Timeline
+  variant:
+    id: 47580767715629
+    options:
+      - S
+      - null
+      - null
+    sku: null
+    title: S
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/shirt-hoodie-sds-timeline?variant=47580767748397
+  product:
+    handle: shirt-hoodie-sds-timeline
+    id: 9006221394221
+    title: Hoodie, SDS Timeline
+  variant:
+    id: 47580767748397
+    options:
+      - M
+      - null
+      - null
+    sku: null
+    title: M
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/shirt-hoodie-sds-timeline?variant=47580767781165
+  product:
+    handle: shirt-hoodie-sds-timeline
+    id: 9006221394221
+    title: Hoodie, SDS Timeline
+  variant:
+    id: 47580767781165
+    options:
+      - L
+      - null
+      - null
+    sku: null
+    title: L
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/shirt-hoodie-sds-timeline?variant=47580767813933
+  product:
+    handle: shirt-hoodie-sds-timeline
+    id: 9006221394221
+    title: Hoodie, SDS Timeline
+  variant:
+    id: 47580767813933
+    options:
+      - XL
+      - null
+      - null
+    sku: null
+    title: XL
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/shirt-hoodie-sds-timeline?variant=47580767846701
+  product:
+    handle: shirt-hoodie-sds-timeline
+    id: 9006221394221
+    title: Hoodie, SDS Timeline
+  variant:
+    id: 47580767846701
+    options:
+      - 2XL
+      - null
+      - null
+    sku: null
+    title: 2XL
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/shirt-hoodie-sds-timeline?variant=47581860102445
+  product:
+    handle: shirt-hoodie-sds-timeline
+    id: 9006221394221
+    title: Hoodie, SDS Timeline
+  variant:
+    id: 47581860102445
+    options:
+      - 3XL
+      - null
+      - null
+    sku: ''
+    title: 3XL
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/spacer-semicircle-0-196-id-x-2-000-bc-x-0-063-th-2-pack?variant=47707571454253
+  product:
+    handle: spacer-semicircle-0-196-id-x-2-000-bc-x-0-063-th-2-pack
+    id: 9048627413293
+    title: Spacer, Semicircle, 2.000 BC x 0.063 Th [2-pack]
+  variant:
+    id: 47707571454253
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/bearing-r6zz?variant=48443262206253
+  product:
+    handle: bearing-r6zz
+    id: 9248618381613
+    title: Bearing, R6ZZ
+  variant:
+    id: 48443262206253
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/bearing-r8zz?variant=48443262271789
+  product:
+    handle: bearing-r8zz
+    id: 9248618447149
+    title: Bearing, R8ZZ
+  variant:
+    id: 48443262271789
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/bearing-r188zz?variant=48443263582509
+  product:
+    handle: bearing-r188zz
+    id: 9248619299117
+    title: Bearing, R188ZZ
+  variant:
+    id: 48443263582509
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810733371693
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810733371693
+    options:
+      - Falcon 500
+      - L1+
+      - Colson
+    sku: ''
+    title: Falcon 500 / L1+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810733404461
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810733404461
+    options:
+      - Falcon 500
+      - L1+
+      - Billet
+    sku: ''
+    title: Falcon 500 / L1+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810733437229
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810733437229
+    options:
+      - Falcon 500
+      - L2+
+      - Colson
+    sku: ''
+    title: Falcon 500 / L2+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810733469997
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810733469997
+    options:
+      - Falcon 500
+      - L2+
+      - Billet
+    sku: ''
+    title: Falcon 500 / L2+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810733502765
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810733502765
+    options:
+      - Falcon 500
+      - L3+
+      - Colson
+    sku: ''
+    title: Falcon 500 / L3+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810733535533
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810733535533
+    options:
+      - Falcon 500
+      - L3+
+      - Billet
+    sku: ''
+    title: Falcon 500 / L3+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810733568301
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810733568301
+    options:
+      - Kraken X60
+      - L1+
+      - Colson
+    sku: ''
+    title: Kraken X60 / L1+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810733601069
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810733601069
+    options:
+      - Kraken X60
+      - L1+
+      - Billet
+    sku: ''
+    title: Kraken X60 / L1+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810733633837
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810733633837
+    options:
+      - Kraken X60
+      - L2+
+      - Colson
+    sku: ''
+    title: Kraken X60 / L2+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810733699373
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810733699373
+    options:
+      - Kraken X60
+      - L2+
+      - Billet
+    sku: ''
+    title: Kraken X60 / L2+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810733732141
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810733732141
+    options:
+      - Kraken X60
+      - L3+
+      - Colson
+    sku: ''
+    title: Kraken X60 / L3+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810733764909
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810733764909
+    options:
+      - Kraken X60
+      - L3+
+      - Billet
+    sku: ''
+    title: Kraken X60 / L3+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810733797677
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810733797677
+    options:
+      - NEO
+      - L1+
+      - Colson
+    sku: ''
+    title: NEO / L1+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810733830445
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810733830445
+    options:
+      - NEO
+      - L1+
+      - Billet
+    sku: ''
+    title: NEO / L1+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810733863213
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810733863213
+    options:
+      - NEO
+      - L2+
+      - Colson
+    sku: ''
+    title: NEO / L2+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810733928749
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810733928749
+    options:
+      - NEO
+      - L2+
+      - Billet
+    sku: ''
+    title: NEO / L2+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810733961517
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810733961517
+    options:
+      - NEO
+      - L3+
+      - Colson
+    sku: null
+    title: NEO / L3+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810734027053
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810734027053
+    options:
+      - NEO
+      - L3+
+      - Billet
+    sku: null
+    title: NEO / L3+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810734059821
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810734059821
+    options:
+      - NEO Vortex
+      - L1+
+      - Colson
+    sku: null
+    title: NEO Vortex / L1+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810734092589
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810734092589
+    options:
+      - NEO Vortex
+      - L1+
+      - Billet
+    sku: null
+    title: NEO Vortex / L1+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810734125357
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810734125357
+    options:
+      - NEO Vortex
+      - L2+
+      - Colson
+    sku: null
+    title: NEO Vortex / L2+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810734158125
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810734158125
+    options:
+      - NEO Vortex
+      - L2+
+      - Billet
+    sku: null
+    title: NEO Vortex / L2+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810734190893
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810734190893
+    options:
+      - NEO Vortex
+      - L3+
+      - Colson
+    sku: null
+    title: NEO Vortex / L3+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4n-swerve-module?variant=48810734223661
+  product:
+    handle: mk4n-swerve-module
+    id: 9384859205933
+    title: MK4n Swerve Module
+  variant:
+    id: 48810734223661
+    options:
+      - NEO Vortex
+      - L3+
+      - Billet
+    sku: null
+    title: NEO Vortex / L3+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/column-center-0-5-hex-encoder-mk4i-4n?variant=48820126220589
+  product:
+    handle: column-center-0-5-hex-encoder-mk4i-4n
+    id: 9390968373549
+    title: Column, Center, 0.5" Hex Encoder (MK4n)
+  variant:
+    id: 48820126220589
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-conversion-mk4i-to-mk4n?variant=48820167573805
+  product:
+    handle: kit-conversion-mk4i-to-mk4n
+    id: 9390979055917
+    title: Kit, Conversion, MK4i to MK4n
+  variant:
+    id: 48820167573805
+    options:
+      - Falcon 500
+      - null
+      - null
+    sku: null
+    title: Falcon 500
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-conversion-mk4i-to-mk4n?variant=48820167606573
+  product:
+    handle: kit-conversion-mk4i-to-mk4n
+    id: 9390979055917
+    title: Kit, Conversion, MK4i to MK4n
+  variant:
+    id: 48820167606573
+    options:
+      - Kraken X60
+      - null
+      - null
+    sku: null
+    title: Kraken X60
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-conversion-mk4i-to-mk4n?variant=48820167639341
+  product:
+    handle: kit-conversion-mk4i-to-mk4n
+    id: 9390979055917
+    title: Kit, Conversion, MK4i to MK4n
+  variant:
+    id: 48820167639341
+    options:
+      - NEO or NEO Vortex
+      - null
+      - null
+    sku: ''
+    title: NEO or NEO Vortex
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/belt-timing-htd-390-5m-15?variant=49612192481581
+  product:
+    handle: belt-timing-htd-390-5m-15
+    id: 9661675667757
+    title: Belt, Timing, HTD 390-5M-15
+  variant:
+    id: 49612192481581
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-mk4n?variant=49612250153261
+  product:
+    handle: kit-pinion-gear-mk4n
+    id: 9661689135405
+    title: Kit, Pinion Gear (MK4n)
+  variant:
+    id: 49612250153261
+    options:
+      - Falcon 500
+      - null
+      - null
+    sku: null
+    title: Falcon 500
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-mk4n?variant=49612250186029
+  product:
+    handle: kit-pinion-gear-mk4n
+    id: 9661689135405
+    title: Kit, Pinion Gear (MK4n)
+  variant:
+    id: 49612250186029
+    options:
+      - Kraken X60
+      - null
+      - null
+    sku: null
+    title: Kraken X60
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-mk4n?variant=49612250251565
+  product:
+    handle: kit-pinion-gear-mk4n
+    id: 9661689135405
+    title: Kit, Pinion Gear (MK4n)
+  variant:
+    id: 49612250251565
+    options:
+      - NEO
+      - null
+      - null
+    sku: null
+    title: NEO
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-mk4n?variant=49612250284333
+  product:
+    handle: kit-pinion-gear-mk4n
+    id: 9661689135405
+    title: Kit, Pinion Gear (MK4n)
+  variant:
+    id: 49612250284333
+    options:
+      - NEO Vortex
+      - null
+      - null
+    sku: null
+    title: NEO Vortex
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/plate-main-mk4n?variant=49621990506797
+  product:
+    handle: plate-main-mk4n
+    id: 9661703782701
+    title: Plate, Main (MK4n)
+  variant:
+    id: 49621990506797
+    options:
+      - A
+      - null
+      - null
+    sku: ''
+    title: A
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/plate-main-mk4n?variant=49621990539565
+  product:
+    handle: plate-main-mk4n
+    id: 9661703782701
+    title: Plate, Main (MK4n)
+  variant:
+    id: 49621990539565
+    options:
+      - B
+      - null
+      - null
+    sku: ''
+    title: B
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/plate-motor-mk4n?variant=49621978546477
+  product:
+    handle: plate-motor-mk4n
+    id: 9661704077613
+    title: Plate, Motor (MK4n)
+  variant:
+    id: 49621978546477
+    options:
+      - A
+      - null
+      - null
+    sku: ''
+    title: A
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/plate-motor-mk4n?variant=49621978579245
+  product:
+    handle: plate-motor-mk4n
+    id: 9661704077613
+    title: Plate, Motor (MK4n)
+  variant:
+    id: 49621978579245
+    options:
+      - B
+      - null
+      - null
+    sku: ''
+    title: B
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-auxiliary-motor-support-mk4n?variant=49621998108973
+  product:
+    handle: kit-auxiliary-motor-support-mk4n
+    id: 9665878229293
+    title: Kit, Auxiliary Motor Support (MK4n)
+  variant:
+    id: 49621998108973
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810277433645
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810277433645
+    options:
+      - Falcon 500
+      - L1+
+      - Colson
+    sku: ''
+    title: Falcon 500 / L1+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810277466413
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810277466413
+    options:
+      - Falcon 500
+      - L1+
+      - Billet
+    sku: ''
+    title: Falcon 500 / L1+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810277499181
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810277499181
+    options:
+      - Falcon 500
+      - L2+
+      - Colson
+    sku: ''
+    title: Falcon 500 / L2+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810277531949
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810277531949
+    options:
+      - Falcon 500
+      - L2+
+      - Billet
+    sku: ''
+    title: Falcon 500 / L2+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810277564717
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810277564717
+    options:
+      - Falcon 500
+      - L3+
+      - Colson
+    sku: ''
+    title: Falcon 500 / L3+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810277597485
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810277597485
+    options:
+      - Falcon 500
+      - L3+
+      - Billet
+    sku: ''
+    title: Falcon 500 / L3+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810277695789
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810277695789
+    options:
+      - Kraken X60
+      - L1+
+      - Colson
+    sku: ''
+    title: Kraken X60 / L1+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810277728557
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810277728557
+    options:
+      - Kraken X60
+      - L1+
+      - Billet
+    sku: ''
+    title: Kraken X60 / L1+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810277761325
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810277761325
+    options:
+      - Kraken X60
+      - L2+
+      - Colson
+    sku: ''
+    title: Kraken X60 / L2+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810277794093
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810277794093
+    options:
+      - Kraken X60
+      - L2+
+      - Billet
+    sku: ''
+    title: Kraken X60 / L2+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810277826861
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810277826861
+    options:
+      - Kraken X60
+      - L3+
+      - Colson
+    sku: ''
+    title: Kraken X60 / L3+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810277859629
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810277859629
+    options:
+      - Kraken X60
+      - L3+
+      - Billet
+    sku: ''
+    title: Kraken X60 / L3+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810277957933
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810277957933
+    options:
+      - NEO or NEO Vortex
+      - L1+
+      - Colson
+    sku: ''
+    title: NEO or NEO Vortex / L1+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810277990701
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810277990701
+    options:
+      - NEO or NEO Vortex
+      - L1+
+      - Billet
+    sku: ''
+    title: NEO or NEO Vortex / L1+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810278023469
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810278023469
+    options:
+      - NEO or NEO Vortex
+      - L2+
+      - Colson
+    sku: ''
+    title: NEO or NEO Vortex / L2+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810278056237
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810278056237
+    options:
+      - NEO or NEO Vortex
+      - L2+
+      - Billet
+    sku: ''
+    title: NEO or NEO Vortex / L2+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810278089005
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810278089005
+    options:
+      - NEO or NEO Vortex
+      - L3+
+      - Colson
+    sku: ''
+    title: NEO or NEO Vortex / L3+ / Colson
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk4c-swerve-module?variant=49810278121773
+  product:
+    handle: mk4c-swerve-module
+    id: 9731695051053
+    title: MK4c Swerve Module
+  variant:
+    id: 49810278121773
+    options:
+      - NEO or NEO Vortex
+      - L3+
+      - Billet
+    sku: ''
+    title: NEO or NEO Vortex / L3+ / Billet
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-conversion-mk4-to-mk4c?variant=49826588590381
+  product:
+    handle: kit-conversion-mk4-to-mk4c
+    id: 9737531031853
+    title: Kit, Conversion, MK4 to MK4c
+  variant:
+    id: 49826588590381
+    options:
+      - Falcon 500
+      - null
+      - null
+    sku: ''
+    title: Falcon 500
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-conversion-mk4-to-mk4c?variant=49826588623149
+  product:
+    handle: kit-conversion-mk4-to-mk4c
+    id: 9737531031853
+    title: Kit, Conversion, MK4 to MK4c
+  variant:
+    id: 49826588623149
+    options:
+      - Kraken X60
+      - null
+      - null
+    sku: ''
+    title: Kraken X60
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-conversion-mk4-to-mk4c?variant=49826588655917
+  product:
+    handle: kit-conversion-mk4-to-mk4c
+    id: 9737531031853
+    title: Kit, Conversion, MK4 to MK4c
+  variant:
+    id: 49826588655917
+    options:
+      - NEO or NEO Vortex
+      - null
+      - null
+    sku: ''
+    title: NEO or NEO Vortex
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/plate-main-mk4c?variant=49831329366317
+  product:
+    handle: plate-main-mk4c
+    id: 9739529683245
+    title: Plate, Main (MK4c)
+  variant:
+    id: 49831329366317
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/plate-motor-mk4c?variant=49831330939181
+  product:
+    handle: plate-motor-mk4c
+    id: 9739530109229
+    title: Plate, Motor (MK4c)
+  variant:
+    id: 49831330939181
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-bottom-plate-hardware-mk4c?variant=49831362625837
+  product:
+    handle: kit-bottom-plate-hardware-mk4c
+    id: 9739536662829
+    title: Kit, Bottom Plate Hardware (MK4c/4i/4n)
+  variant:
+    id: 49831362625837
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-mk4c?variant=49832291598637
+  product:
+    handle: kit-pinion-gear-mk4c
+    id: 9739783995693
+    title: Kit, Pinion Gear (MK4c)
+  variant:
+    id: 49832291598637
+    options:
+      - Falcon 500
+      - null
+      - null
+    sku: null
+    title: Falcon 500
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-mk4c?variant=49832291664173
+  product:
+    handle: kit-pinion-gear-mk4c
+    id: 9739783995693
+    title: Kit, Pinion Gear (MK4c)
+  variant:
+    id: 49832291664173
+    options:
+      - Kraken X60
+      - null
+      - null
+    sku: null
+    title: Kraken X60
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-mk4c?variant=49832291762477
+  product:
+    handle: kit-pinion-gear-mk4c
+    id: 9739783995693
+    title: Kit, Pinion Gear (MK4c)
+  variant:
+    id: 49832291762477
+    options:
+      - NEO or NEO Vortex
+      - null
+      - null
+    sku: null
+    title: NEO or NEO Vortex
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/billet-elevator-bearing-block?variant=50072897913133
+  product:
+    handle: billet-elevator-bearing-block
+    id: 9831724581165
+    title: Billet Elevator Bearing Block
+  variant:
+    id: 50072897913133
+    options:
+      - 1-Stage (4 Bearing Blocks)
+      - 2 x 1 x 1/16 Tube Plugs
+      - null
+    sku: 4 BB + 8 TP
+    title: 1-Stage (4 Bearing Blocks) / 2 x 1 x 1/16 Tube Plugs
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/billet-elevator-bearing-block?variant=50072897978669
+  product:
+    handle: billet-elevator-bearing-block
+    id: 9831724581165
+    title: Billet Elevator Bearing Block
+  variant:
+    id: 50072897978669
+    options:
+      - 1-Stage (4 Bearing Blocks)
+      - No Tube Plugs
+      - null
+    sku: 4 BB
+    title: 1-Stage (4 Bearing Blocks) / No Tube Plugs
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/billet-elevator-bearing-block?variant=50072898044205
+  product:
+    handle: billet-elevator-bearing-block
+    id: 9831724581165
+    title: Billet Elevator Bearing Block
+  variant:
+    id: 50072898044205
+    options:
+      - 2-Stage (8 Bearing Blocks)
+      - 2 x 1 x 1/16 Tube Plugs
+      - null
+    sku: 8 BB + 16 TP
+    title: 2-Stage (8 Bearing Blocks) / 2 x 1 x 1/16 Tube Plugs
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/billet-elevator-bearing-block?variant=50072898109741
+  product:
+    handle: billet-elevator-bearing-block
+    id: 9831724581165
+    title: Billet Elevator Bearing Block
+  variant:
+    id: 50072898109741
+    options:
+      - 2-Stage (8 Bearing Blocks)
+      - No Tube Plugs
+      - null
+    sku: 8 BB
+    title: 2-Stage (8 Bearing Blocks) / No Tube Plugs
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/billet-elevator-bearing-block?variant=50072898175277
+  product:
+    handle: billet-elevator-bearing-block
+    id: 9831724581165
+    title: Billet Elevator Bearing Block
+  variant:
+    id: 50072898175277
+    options:
+      - 3-Stage (12 Bearing Blocks)
+      - 2 x 1 x 1/16 Tube Plugs
+      - null
+    sku: 12 BB + 24 TP
+    title: 3-Stage (12 Bearing Blocks) / 2 x 1 x 1/16 Tube Plugs
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/billet-elevator-bearing-block?variant=50072898240813
+  product:
+    handle: billet-elevator-bearing-block
+    id: 9831724581165
+    title: Billet Elevator Bearing Block
+  variant:
+    id: 50072898240813
+    options:
+      - 3-Stage (12 Bearing Blocks)
+      - No Tube Plugs
+      - null
+    sku: 12 BB
+    title: 3-Stage (12 Bearing Blocks) / No Tube Plugs
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/billet-elevator-bearing-block?variant=50072898306349
+  product:
+    handle: billet-elevator-bearing-block
+    id: 9831724581165
+    title: Billet Elevator Bearing Block
+  variant:
+    id: 50072898306349
+    options:
+      - Single Bearing Block (Qty 1)
+      - 2 x 1 x 1/16 Tube Plugs
+      - null
+    sku: 1 BB + 2 TP
+    title: Single Bearing Block (Qty 1) / 2 x 1 x 1/16 Tube Plugs
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/billet-elevator-bearing-block?variant=50072898371885
+  product:
+    handle: billet-elevator-bearing-block
+    id: 9831724581165
+    title: Billet Elevator Bearing Block
+  variant:
+    id: 50072898371885
+    options:
+      - Single Bearing Block (Qty 1)
+      - No Tube Plugs
+      - null
+    sku: 1 BB
+    title: Single Bearing Block (Qty 1) / No Tube Plugs
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/billet-elevator-bearing-block?variant=50179915481389
+  product:
+    handle: billet-elevator-bearing-block
+    id: 9831724581165
+    title: Billet Elevator Bearing Block
+  variant:
+    id: 50179915481389
+    options:
+      - 4-Stage (16 Bearing Blocks)
+      - No Tube Plugs
+      - null
+    sku: 16 BB
+    title: 4-Stage (16 Bearing Blocks) / No Tube Plugs
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/billet-elevator-bearing-block?variant=50179917807917
+  product:
+    handle: billet-elevator-bearing-block
+    id: 9831724581165
+    title: Billet Elevator Bearing Block
+  variant:
+    id: 50179917807917
+    options:
+      - 4-Stage (16 Bearing Blocks)
+      - 2 x 1 x 1/16 Tube Plugs
+      - null
+    sku: 16 BB + 32 TP
+    title: 4-Stage (16 Bearing Blocks) / 2 x 1 x 1/16 Tube Plugs
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/tube-plug?variant=50099552256301
+  product:
+    handle: tube-plug
+    id: 9839826829613
+    title: Tube Plug
+  variant:
+    id: 50099552256301
+    options:
+      - 2" x 1"
+      - 1/16"
+      - null
+    sku: ''
+    title: 2" x 1" / 1/16"
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/tube-plug?variant=50099552321837
+  product:
+    handle: tube-plug
+    id: 9839826829613
+    title: Tube Plug
+  variant:
+    id: 50099552321837
+    options:
+      - 1" x 1"
+      - 1/16"
+      - null
+    sku: ''
+    title: 1" x 1" / 1/16"
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-chassis-lowering-mk4c-4i-4n?variant=50369037762861
+  product:
+    handle: kit-chassis-lowering-mk4c-4i-4n
+    id: 9919535972653
+    title: Kit, Chassis Lowering (MK4c/4i/4n)
+  variant:
+    id: 50369037762861
+    options:
+      - Default Title
+      - null
+      - null
+    sku: ''
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/cam-follower-625od?variant=50369182892333
+  product:
+    handle: cam-follower-625od
+    id: 9919576899885
+    title: Cam Follower, 0.625" OD
+  variant:
+    id: 50369182892333
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/bearing-r4azz?variant=50369211531565
+  product:
+    handle: bearing-r4azz
+    id: 9919584960813
+    title: Bearing, R4AZZ
+  variant:
+    id: 50369211531565
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gear-20dp-16t-falcon-spline-bore?variant=50435655827757
+  product:
+    handle: gear-20dp-16t-falcon-spline-bore
+    id: 9940243939629
+    title: Gear, 20DP, 16T Falcon Spline Bore
+  variant:
+    id: 50435655827757
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5n-swerve-module?variant=50697776496941
+  product:
+    handle: mk5n-swerve-module
+    id: 10024786592045
+    title: MK5n Swerve Module
+  variant:
+    id: 50697776496941
+    options:
+      - Kraken X60
+      - Molded Spike Grip
+      - Unassembled
+    sku: ''
+    title: Kraken X60 / Molded Spike Grip / Unassembled
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5n-swerve-module?variant=50697776562477
+  product:
+    handle: mk5n-swerve-module
+    id: 10024786592045
+    title: MK5n Swerve Module
+  variant:
+    id: 50697776562477
+    options:
+      - NEO or NEO Vortex
+      - Molded Spike Grip
+      - Unassembled
+    sku: ''
+    title: NEO or NEO Vortex / Molded Spike Grip / Unassembled
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5n-swerve-module?variant=50700209848621
+  product:
+    handle: mk5n-swerve-module
+    id: 10024786592045
+    title: MK5n Swerve Module
+  variant:
+    id: 50700209848621
+    options:
+      - Kraken X60
+      - Billet With Neoprene
+      - Unassembled
+    sku: null
+    title: Kraken X60 / Billet With Neoprene / Unassembled
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5n-swerve-module?variant=50700209881389
+  product:
+    handle: mk5n-swerve-module
+    id: 10024786592045
+    title: MK5n Swerve Module
+  variant:
+    id: 50700209881389
+    options:
+      - NEO or NEO Vortex
+      - Billet With Neoprene
+      - Unassembled
+    sku: null
+    title: NEO or NEO Vortex / Billet With Neoprene / Unassembled
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5n-swerve-module?variant=51829279031597
+  product:
+    handle: mk5n-swerve-module
+    id: 10024786592045
+    title: MK5n Swerve Module
+  variant:
+    id: 51829279031597
+    options:
+      - Kraken X60
+      - Molded Spike Grip
+      - Preassembled
+    sku: null
+    title: Kraken X60 / Molded Spike Grip / Preassembled
+  firstSeen: 2026-03-13T11:55:31.915Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5n-swerve-module?variant=51829279064365
+  product:
+    handle: mk5n-swerve-module
+    id: 10024786592045
+    title: MK5n Swerve Module
+  variant:
+    id: 51829279064365
+    options:
+      - Kraken X60
+      - Billet With Neoprene
+      - Preassembled
+    sku: null
+    title: Kraken X60 / Billet With Neoprene / Preassembled
+  firstSeen: 2026-03-13T11:55:31.915Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5n-swerve-module?variant=51829279097133
+  product:
+    handle: mk5n-swerve-module
+    id: 10024786592045
+    title: MK5n Swerve Module
+  variant:
+    id: 51829279097133
+    options:
+      - NEO or NEO Vortex
+      - Molded Spike Grip
+      - Preassembled
+    sku: null
+    title: NEO or NEO Vortex / Molded Spike Grip / Preassembled
+  firstSeen: 2026-03-13T11:55:31.915Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5n-swerve-module?variant=51829279129901
+  product:
+    handle: mk5n-swerve-module
+    id: 10024786592045
+    title: MK5n Swerve Module
+  variant:
+    id: 51829279129901
+    options:
+      - NEO or NEO Vortex
+      - Billet With Neoprene
+      - Preassembled
+    sku: null
+    title: NEO or NEO Vortex / Billet With Neoprene / Preassembled
+  firstSeen: 2026-03-13T11:55:31.915Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5n-swerve-module?variant=52197031805229
+  product:
+    handle: mk5n-swerve-module
+    id: 10024786592045
+    title: MK5n Swerve Module
+  variant:
+    id: 52197031805229
+    options:
+      - Kraken X60
+      - Colson
+      - Unassembled
+    sku: null
+    title: Kraken X60 / Colson / Unassembled
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5n-swerve-module?variant=52197031837997
+  product:
+    handle: mk5n-swerve-module
+    id: 10024786592045
+    title: MK5n Swerve Module
+  variant:
+    id: 52197031837997
+    options:
+      - Kraken X60
+      - Colson
+      - Preassembled
+    sku: null
+    title: Kraken X60 / Colson / Preassembled
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5n-swerve-module?variant=52197031870765
+  product:
+    handle: mk5n-swerve-module
+    id: 10024786592045
+    title: MK5n Swerve Module
+  variant:
+    id: 52197031870765
+    options:
+      - NEO or NEO Vortex
+      - Colson
+      - Unassembled
+    sku: null
+    title: NEO or NEO Vortex / Colson / Unassembled
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5n-swerve-module?variant=52197031903533
+  product:
+    handle: mk5n-swerve-module
+    id: 10024786592045
+    title: MK5n Swerve Module
+  variant:
+    id: 52197031903533
+    options:
+      - NEO or NEO Vortex
+      - Colson
+      - Preassembled
+    sku: null
+    title: NEO or NEO Vortex / Colson / Preassembled
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/wheel-billet-4od-x-2-25w-mk5?variant=51830634250541
+  product:
+    handle: wheel-billet-4od-x-2-25w-mk5
+    id: 10046835425581
+    title: Wheel, Billet, 4"OD x 2.25"W (MK5)
+  variant:
+    id: 51830634250541
+    options:
+      - No
+      - null
+      - null
+    sku: null
+    title: No
+  firstSeen: 2026-03-13T11:55:31.915Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/wheel-billet-4od-x-2-25w-mk5?variant=51830634283309
+  product:
+    handle: wheel-billet-4od-x-2-25w-mk5
+    id: 10046835425581
+    title: Wheel, Billet, 4"OD x 2.25"W (MK5)
+  variant:
+    id: 51830634283309
+    options:
+      - Include Quick-Change Kit
+      - null
+      - null
+    sku: null
+    title: Include Quick-Change Kit
+  firstSeen: 2026-03-13T11:55:31.915Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/tread-molded-spike-grip-4od-x-2-25w-mk5?variant=50797060555053
+  product:
+    handle: tread-molded-spike-grip-4od-x-2-25w-mk5
+    id: 10047170216237
+    title: Tread, Spike Grip, 4"OD x 2.25"W (MK5)
+  variant:
+    id: 50797060555053
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/tread-4od-x-2-25w-mk5?variant=50831203369261
+  product:
+    handle: tread-4od-x-2-25w-mk5
+    id: 10053388632365
+    title: Tread, 4"OD x 2.25"W (MK5)
+  variant:
+    id: 50831203369261
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5i-swerve-module?variant=50998151905581
+  product:
+    handle: mk5i-swerve-module
+    id: 10072751374637
+    title: MK5i Swerve Module
+  variant:
+    id: 50998151905581
+    options:
+      - Kraken
+      - Molded Spike Grip
+      - Unassembled
+    sku: null
+    title: Kraken / Molded Spike Grip / Unassembled
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5i-swerve-module?variant=50998151938349
+  product:
+    handle: mk5i-swerve-module
+    id: 10072751374637
+    title: MK5i Swerve Module
+  variant:
+    id: 50998151938349
+    options:
+      - Kraken
+      - Billet With Neoprene
+      - Unassembled
+    sku: null
+    title: Kraken / Billet With Neoprene / Unassembled
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5i-swerve-module?variant=50998151971117
+  product:
+    handle: mk5i-swerve-module
+    id: 10072751374637
+    title: MK5i Swerve Module
+  variant:
+    id: 50998151971117
+    options:
+      - NEO or NEO Vortex
+      - Molded Spike Grip
+      - Unassembled
+    sku: null
+    title: NEO or NEO Vortex / Molded Spike Grip / Unassembled
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5i-swerve-module?variant=50998152003885
+  product:
+    handle: mk5i-swerve-module
+    id: 10072751374637
+    title: MK5i Swerve Module
+  variant:
+    id: 50998152003885
+    options:
+      - NEO or NEO Vortex
+      - Billet With Neoprene
+      - Unassembled
+    sku: null
+    title: NEO or NEO Vortex / Billet With Neoprene / Unassembled
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5i-swerve-module?variant=51829284503853
+  product:
+    handle: mk5i-swerve-module
+    id: 10072751374637
+    title: MK5i Swerve Module
+  variant:
+    id: 51829284503853
+    options:
+      - Kraken
+      - Molded Spike Grip
+      - Preassembled
+    sku: null
+    title: Kraken / Molded Spike Grip / Preassembled
+  firstSeen: 2026-03-13T11:55:31.915Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5i-swerve-module?variant=51829284536621
+  product:
+    handle: mk5i-swerve-module
+    id: 10072751374637
+    title: MK5i Swerve Module
+  variant:
+    id: 51829284536621
+    options:
+      - Kraken
+      - Billet With Neoprene
+      - Preassembled
+    sku: null
+    title: Kraken / Billet With Neoprene / Preassembled
+  firstSeen: 2026-03-13T11:55:31.915Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5i-swerve-module?variant=51829284569389
+  product:
+    handle: mk5i-swerve-module
+    id: 10072751374637
+    title: MK5i Swerve Module
+  variant:
+    id: 51829284569389
+    options:
+      - NEO or NEO Vortex
+      - Molded Spike Grip
+      - Preassembled
+    sku: null
+    title: NEO or NEO Vortex / Molded Spike Grip / Preassembled
+  firstSeen: 2026-03-13T11:55:31.915Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5i-swerve-module?variant=51829284602157
+  product:
+    handle: mk5i-swerve-module
+    id: 10072751374637
+    title: MK5i Swerve Module
+  variant:
+    id: 51829284602157
+    options:
+      - NEO or NEO Vortex
+      - Billet With Neoprene
+      - Preassembled
+    sku: null
+    title: NEO or NEO Vortex / Billet With Neoprene / Preassembled
+  firstSeen: 2026-03-13T11:55:31.915Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5i-swerve-module?variant=52197031674157
+  product:
+    handle: mk5i-swerve-module
+    id: 10072751374637
+    title: MK5i Swerve Module
+  variant:
+    id: 52197031674157
+    options:
+      - Kraken
+      - Colson
+      - Unassembled
+    sku: null
+    title: Kraken / Colson / Unassembled
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5i-swerve-module?variant=52197031706925
+  product:
+    handle: mk5i-swerve-module
+    id: 10072751374637
+    title: MK5i Swerve Module
+  variant:
+    id: 52197031706925
+    options:
+      - Kraken
+      - Colson
+      - Preassembled
+    sku: null
+    title: Kraken / Colson / Preassembled
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5i-swerve-module?variant=52197031739693
+  product:
+    handle: mk5i-swerve-module
+    id: 10072751374637
+    title: MK5i Swerve Module
+  variant:
+    id: 52197031739693
+    options:
+      - NEO or NEO Vortex
+      - Colson
+      - Unassembled
+    sku: null
+    title: NEO or NEO Vortex / Colson / Unassembled
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mk5i-swerve-module?variant=52197031772461
+  product:
+    handle: mk5i-swerve-module
+    id: 10072751374637
+    title: MK5i Swerve Module
+  variant:
+    id: 52197031772461
+    options:
+      - NEO or NEO Vortex
+      - Colson
+      - Preassembled
+    sku: null
+    title: NEO or NEO Vortex / Colson / Preassembled
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-tool-mk5?variant=51285316403501
+  product:
+    handle: kit-tool-mk5
+    id: 10098951192877
+    title: Kit, Tool (MK5)
+  variant:
+    id: 51285316403501
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/grease?variant=51285836103981
+  product:
+    handle: grease
+    id: 10098974196013
+    title: Grease
+  variant:
+    id: 51285836103981
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/wheel-spike-grip-4od-x-2-25w-mk5?variant=51830626091309
+  product:
+    handle: wheel-spike-grip-4od-x-2-25w-mk5
+    id: 10114571501869
+    title: Wheel, Spike Grip, 4"OD x 2.25"W (MK5)
+  variant:
+    id: 51830626091309
+    options:
+      - No
+      - null
+      - null
+    sku: null
+    title: No
+  firstSeen: 2026-03-13T11:55:31.915Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/wheel-spike-grip-4od-x-2-25w-mk5?variant=51830626124077
+  product:
+    handle: wheel-spike-grip-4od-x-2-25w-mk5
+    id: 10114571501869
+    title: Wheel, Spike Grip, 4"OD x 2.25"W (MK5)
+  variant:
+    id: 51830626124077
+    options:
+      - Include Quick-Change Kit
+      - null
+      - null
+    sku: null
+    title: Include Quick-Change Kit
+  firstSeen: 2026-03-13T11:55:31.915Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gear-bevel-15t-1530-mk5?variant=51473896407341
+  product:
+    handle: gear-bevel-15t-1530-mk5
+    id: 10114577432877
+    title: Gear, Bevel, 15T, 1530 (MK5)
+  variant:
+    id: 51473896407341
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gear-bevel-30t-3015-mk5?variant=51473900994861
+  product:
+    handle: gear-bevel-30t-3015-mk5
+    id: 10114577826093
+    title: Gear, Bevel, 30T, 3015 (MK5)
+  variant:
+    id: 51473900994861
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/plate-bottom-mk5?variant=51473912299821
+  product:
+    handle: plate-bottom-mk5
+    id: 10114582151469
+    title: Plate, Bottom (MK5)
+  variant:
+    id: 51473912299821
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/bearing-6800zz?variant=52180769636653
+  product:
+    handle: bearing-6800zz
+    id: 10137414992173
+    title: Bearing, 6800ZZ
+  variant:
+    id: 52180769636653
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/bearing-6801zz?variant=51564170608941
+  product:
+    handle: bearing-6801zz
+    id: 10137415876909
+    title: Bearing, 6801ZZ
+  variant:
+    id: 51564170608941
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/bearing-6803zz?variant=51564171297069
+  product:
+    handle: bearing-6803zz
+    id: 10137415909677
+    title: Bearing, 6803ZZ
+  variant:
+    id: 51564171297069
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/bearing-6804zz?variant=51564171657517
+  product:
+    handle: bearing-6804zz
+    id: 10137416007981
+    title: Bearing, 6804ZZ
+  variant:
+    id: 51564171657517
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/bearing-6805zz?variant=51564171788589
+  product:
+    handle: bearing-6805zz
+    id: 10137416040749
+    title: Bearing, 6805ZZ
+  variant:
+    id: 51564171788589
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/bearing-6807zz?variant=51564172214573
+  product:
+    handle: bearing-6807zz
+    id: 10137416204589
+    title: Bearing, 6807ZZ
+  variant:
+    id: 51564172214573
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gear-double-steering-7t-41t-mk5n?variant=51564186829101
+  product:
+    handle: gear-double-steering-7t-41t-mk5n
+    id: 10137418694957
+    title: Gear, Double, Steering, 7T-41T (MK5n)
+  variant:
+    id: 51564186829101
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gear-double-drive-32t-54t-mk5?variant=51564188598573
+  product:
+    handle: gear-double-drive-32t-54t-mk5
+    id: 10137419088173
+    title: Gear, Double, Drive, 32T-54T, (MK5)
+  variant:
+    id: 51564188598573
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/cover-encoder-mk5?variant=51564200034605
+  product:
+    handle: cover-encoder-mk5
+    id: 10137421283629
+    title: Cover, Encoder (MK5)
+  variant:
+    id: 51564200034605
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gear-idler-43t-mk5?variant=51564218155309
+  product:
+    handle: gear-idler-43t-mk5
+    id: 10137423905069
+    title: Gear, Idler, 43T (MK5)
+  variant:
+    id: 51564218155309
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gear-intermediate-25t-mk5?variant=51564225036589
+  product:
+    handle: gear-intermediate-25t-mk5
+    id: 10137424855341
+    title: Gear, Intermediate, 25T (MK5)
+  variant:
+    id: 51564225036589
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gear-steering-main-mk5?variant=51564226380077
+  product:
+    handle: gear-steering-main-mk5
+    id: 10137425183021
+    title: Gear, Steering, Main (MK5)
+  variant:
+    id: 51564226380077
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mount-wheel-a-mk5?variant=51564228968749
+  product:
+    handle: mount-wheel-a-mk5
+    id: 10137425838381
+    title: Mount, Wheel, A (MK5)
+  variant:
+    id: 51564228968749
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/mount-wheel-b-mk5?variant=51564229198125
+  product:
+    handle: mount-wheel-b-mk5
+    id: 10137425936685
+    title: Mount, Wheel, B (MK5)
+  variant:
+    id: 51564229198125
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/housing-mk5n?variant=51564233654573
+  product:
+    handle: housing-mk5n
+    id: 10137426133293
+    title: Housing (MK5n)
+  variant:
+    id: 51564233654573
+    options:
+      - A
+      - null
+      - null
+    sku: null
+    title: A
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/housing-mk5n?variant=51564233687341
+  product:
+    handle: housing-mk5n
+    id: 10137426133293
+    title: Housing (MK5n)
+  variant:
+    id: 51564233687341
+    options:
+      - B
+      - null
+      - null
+    sku: null
+    title: B
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-screw-mk5?variant=51564243091757
+  product:
+    handle: kit-screw-mk5
+    id: 10137429410093
+    title: Kit, Screw (MK5)
+  variant:
+    id: 51564243091757
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-bearing-mk5?variant=51564256919853
+  product:
+    handle: kit-bearing-mk5
+    id: 10137432555821
+    title: Kit, Bearing (MK5)
+  variant:
+    id: 51564256919853
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-plate-main-shift-mk5n?variant=51572681408813
+  product:
+    handle: kit-plate-main-shift-mk5n
+    id: 10139516600621
+    title: Kit, Plate, Main & Shift (MK5n)
+  variant:
+    id: 51572681408813
+    options:
+      - A
+      - null
+      - null
+    sku: null
+    title: A
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-plate-main-shift-mk5n?variant=51572681441581
+  product:
+    handle: kit-plate-main-shift-mk5n
+    id: 10139516600621
+    title: Kit, Plate, Main & Shift (MK5n)
+  variant:
+    id: 51572681441581
+    options:
+      - B
+      - null
+      - null
+    sku: null
+    title: B
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-conversion-mk5n-layout?variant=51572704903469
+  product:
+    handle: kit-conversion-mk5n-layout
+    id: 10139521646893
+    title: Kit, Conversion, MK5n Layout
+  variant:
+    id: 51572704903469
+    options:
+      - A
+      - null
+      - null
+    sku: null
+    title: A
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-conversion-mk5n-layout?variant=51572704936237
+  product:
+    handle: kit-conversion-mk5n-layout
+    id: 10139521646893
+    title: Kit, Conversion, MK5n Layout
+  variant:
+    id: 51572704936237
+    options:
+      - B
+      - null
+      - null
+    sku: null
+    title: B
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-drive-mk5?variant=51584198082861
+  product:
+    handle: kit-pinion-gear-drive-mk5
+    id: 10144180535597
+    title: Kit, Pinion Gear, Drive (MK5)
+  variant:
+    id: 51584198082861
+    options:
+      - Kraken X60
+      - null
+      - null
+    sku: null
+    title: Kraken X60
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-drive-mk5?variant=51584198115629
+  product:
+    handle: kit-pinion-gear-drive-mk5
+    id: 10144180535597
+    title: Kit, Pinion Gear, Drive (MK5)
+  variant:
+    id: 51584198115629
+    options:
+      - NEO or NEO Vortex
+      - null
+      - null
+    sku: null
+    title: NEO or NEO Vortex
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-steering-mk5n?variant=51584198443309
+  product:
+    handle: kit-pinion-gear-steering-mk5n
+    id: 10144180830509
+    title: Kit, Pinion Gear, Steering (MK5n)
+  variant:
+    id: 51584198443309
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-spacer-idler-gear-mount-mk5?variant=51584208732461
+  product:
+    handle: kit-spacer-idler-gear-mount-mk5
+    id: 10144182960429
+    title: Kit, Spacer & Idler Gear Mount (MK5)
+  variant:
+    id: 51584208732461
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/bearing-r3zz?variant=51584216236333
+  product:
+    handle: bearing-r3zz
+    id: 10144185876781
+    title: Bearing, R3ZZ
+  variant:
+    id: 51584216236333
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-gear-drive-mk5?variant=51584230949165
+  product:
+    handle: kit-gear-drive-mk5
+    id: 10144191381805
+    title: Kit, Gear, Drive (MK5)
+  variant:
+    id: 51584230949165
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/crescent-ring-16mm?variant=51590193578285
+  product:
+    handle: crescent-ring-16mm
+    id: 10145541849389
+    title: Crescent Ring, 16mm
+  variant:
+    id: 51590193578285
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/e-clip-5-16?variant=51590193905965
+  product:
+    handle: e-clip-5-16
+    id: 10145542177069
+    title: E-Clip, 5/16"
+  variant:
+    id: 51590193905965
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/retaining-ring-internal-47mm?variant=51590195216685
+  product:
+    handle: retaining-ring-internal-47mm
+    id: 10145543422253
+    title: Retaining Ring, Internal, 47mm
+  variant:
+    id: 51590195216685
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/bearing-x-contact-sealed-3-500-x-4-000-x-0-250?variant=51604120928557
+  product:
+    handle: bearing-x-contact-sealed-3-500-x-4-000-x-0-250
+    id: 10148855808301
+    title: Bearing, X-Contact, Sealed, 3.500 x 4.000 x 0.250
+  variant:
+    id: 51604120928557
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-steering-mk5i?variant=51604174209325
+  product:
+    handle: kit-pinion-gear-steering-mk5i
+    id: 10148865802541
+    title: Kit, Pinion Gear, Steering (MK5i)
+  variant:
+    id: 51604174209325
+    options:
+      - Kraken
+      - null
+      - null
+    sku: null
+    title: Kraken
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-pinion-gear-steering-mk5i?variant=51604174242093
+  product:
+    handle: kit-pinion-gear-steering-mk5i
+    id: 10148865802541
+    title: Kit, Pinion Gear, Steering (MK5i)
+  variant:
+    id: 51604174242093
+    options:
+      - NEO or NEO Vortex
+      - null
+      - null
+    sku: null
+    title: NEO or NEO Vortex
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-plate-main-shift-mk5i?variant=51604137967917
+  product:
+    handle: kit-plate-main-shift-mk5i
+    id: 10148865966381
+    title: Kit, Plate, Main & Shift (MK5i)
+  variant:
+    id: 51604137967917
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/housing-mk5i?variant=51604138033453
+  product:
+    handle: housing-mk5i
+    id: 10148865999149
+    title: Housing (MK5i)
+  variant:
+    id: 51604138033453
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/gear-double-steering-7t-52t-mk5i?variant=51604138524973
+  product:
+    handle: gear-double-steering-7t-52t-mk5i
+    id: 10148866228525
+    title: Gear, Double, Steering, 7T-52T (MK5i)
+  variant:
+    id: 51604138524973
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-conversion-mk5n-to-mk5i?variant=51604288897325
+  product:
+    handle: kit-conversion-mk5n-to-mk5i
+    id: 10148896637229
+    title: Kit, Conversion, MK5n to MK5i
+  variant:
+    id: 51604288897325
+    options:
+      - Kraken
+      - null
+      - null
+    sku: null
+    title: Kraken
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-conversion-mk5n-to-mk5i?variant=51604288930093
+  product:
+    handle: kit-conversion-mk5n-to-mk5i
+    id: 10148896637229
+    title: Kit, Conversion, MK5n to MK5i
+  variant:
+    id: 51604288930093
+    options:
+      - NEO or NEO Vortex
+      - null
+      - null
+    sku: null
+    title: NEO or NEO Vortex
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-conversion-mk5i-to-mk5n?variant=51604211335469
+  product:
+    handle: kit-conversion-mk5i-to-mk5n
+    id: 10148896735533
+    title: Kit, Conversion, MK5i to MK5n
+  variant:
+    id: 51604211335469
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-chassis-lowering-mk5?variant=51679492964653
+  product:
+    handle: kit-chassis-lowering-mk5
+    id: 10174930682157
+    title: Kit, Chassis Lowering (MK5)
+  variant:
+    id: 51679492964653
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-chassis-lift-mk5?variant=51723550261549
+  product:
+    handle: kit-chassis-lift-mk5
+    id: 10188421497133
+    title: Kit, Chassis Lift (MK5)
+  variant:
+    id: 51723550261549
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-corner-block-mk5?variant=51730877022509
+  product:
+    handle: kit-corner-block-mk5
+    id: 10190863073581
+    title: Kit, Corner Block (MK5)
+  variant:
+    id: 51730877022509
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:25:20.170Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/wheel-colson-4od-x-2w-mk5?variant=52196628463917
+  product:
+    handle: wheel-colson-4od-x-2w-mk5
+    id: 10308916216109
+    title: Wheel, Colson, 4"OD x 2"W (MK5)
+  variant:
+    id: 52196628463917
+    options:
+      - Wheel Only
+      - null
+      - null
+    sku: null
+    title: Wheel Only
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/wheel-colson-4od-x-2w-mk5?variant=52196628496685
+  product:
+    handle: wheel-colson-4od-x-2w-mk5
+    id: 10308916216109
+    title: Wheel, Colson, 4"OD x 2"W (MK5)
+  variant:
+    id: 52196628496685
+    options:
+      - Wheel Kit
+      - null
+      - null
+    sku: null
+    title: Wheel Kit
+  firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/wheel-colson-4od-x-2w-mk5?variant=52196628529453
+  product:
+    handle: wheel-colson-4od-x-2w-mk5
+    id: 10308916216109
+    title: Wheel, Colson, 4"OD x 2"W (MK5)
+  variant:
+    id: 52196628529453
+    options:
+      - Wheel Kit + Quick-Change Kit
+      - null
+      - null
+    sku: null
+    title: Wheel Kit + Quick-Change Kit
+  firstSeen: 2026-07-19T17:48:53.866Z
