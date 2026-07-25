@@ -1,12 +1,13 @@
 {
-  "name": "recalc2",
+  "name": "recalc",
   "license": "MIT",
   "author": "Justin Tervay",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tervay/recalc2.git"
+    "url": "https://github.com/tervay/recalc.git"
   },
   "type": "module",
+  "packageManager": "pnpm@11.15.0",
   "scripts": {
     "build": "react-router build",
     "build:wpi": "./wpilib/build.sh",
