@@ -7,7 +7,6 @@
     "url": "https://github.com/tervay/recalc.git"
   },
   "type": "module",
-  "packageManager": "pnpm@11.15.0",
   "scripts": {
     "build": "react-router build",
     "build:wpi": "./wpilib/build.sh",
@@ -92,5 +91,6 @@
   },
   "engines": {
     "node": ">=24"
-  }
+  },
+  "packageManager": "pnpm@11.15.0"
 }
