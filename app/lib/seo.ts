@@ -6,7 +6,7 @@ import type { MetaDescriptor } from 'react-router';
  * should go through buildMeta() rather than hand-rolling title/description/
  * canonical/OG/Twitter tags.
  */
-export const BASE_URL = 'https://beta.reca.lc';
+export const BASE_URL = 'https://reca.lc';
 export const SITE_NAME = 'ReCalc';
 export const OG_IMAGE = `${BASE_URL}/og-image.png`;
 

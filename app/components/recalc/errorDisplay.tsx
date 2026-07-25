@@ -62,7 +62,7 @@ export function ErrorDisplay({ error }: Props) {
           <p className="text-sm text-muted-foreground">
             Please consider reporting this on{' '}
             <a
-              href="https://github.com/tervay/recalc2/issues"
+              href="https://github.com/tervay/recalc/issues"
               target="_blank"
               rel="noreferrer"
               className="underline hover:text-foreground"
