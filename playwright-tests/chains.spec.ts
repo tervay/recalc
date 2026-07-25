@@ -58,8 +58,7 @@ test.describe('Chain Calculator', () => {
   });
 
   test('should match snapshot with chain changed', async ({ page }) => {
-    await page.getByTestId('chainType').click();
-    await page.getByRole('option', { name: '#35' }).click();
+    await page.getByRole('button', { name: '#35' }).click();
     await page.waitForTimeout(100);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {

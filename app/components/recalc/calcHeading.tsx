@@ -41,8 +41,10 @@ export default function CalcHeading({
   }, [copied]);
 
   return (
-    <div className="mb-6 flex flex-row items-center justify-between border-b pt-6 pb-5">
-      <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
+    <div className="mb-6 flex flex-row flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b pt-6 pb-5">
+      <h1 className="text-xl font-semibold tracking-tight sm:text-2xl">
+        {title}
+      </h1>
       <div ref={wrapperRef} className="relative inline-flex">
         <Button
           variant="outline"

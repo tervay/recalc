@@ -210,12 +210,16 @@ export default function Intake() {
                 {allRecommendedRatiosAndStallTorques
                   .sort((a, b) => b.stallTorque.sub(a.stallTorque).baseScalar)
                   .map((rts) => (
-                    <IOLine
+                    // Ratio and Stall Torque stack on mobile; side-by-side at md+.
+                    <div
                       key={rts.motor.identifier}
-                      className={cn({
-                        'rounded-md border border-green-400 px-2 py-2':
-                          rts.motor.eq(motor),
-                      })}
+                      className={cn(
+                        'flex flex-col gap-2 *:flex-1 md:flex-row md:gap-x-4',
+                        {
+                          'rounded-md border border-green-400 px-2 py-2':
+                            rts.motor.eq(motor),
+                        },
+                      )}
                     >
                       <NumberOutput
                         state={rts.ratio.asNumber()}
@@ -231,7 +235,7 @@ export default function Intake() {
                         roundTo={2}
                         testId={`${rts.motor.identifier}-stallTorque`}
                       />
-                    </IOLine>
+                    </div>
                   ))}
               </div>
             </div>

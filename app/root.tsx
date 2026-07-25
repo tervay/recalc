@@ -54,7 +54,10 @@ export function Layout({ children }: { children: ReactNode }) {
             <AppSidebar />
             <SidebarInset>
               <Nav />
-              <div className="container mx-auto" data-testid="entrypoint">
+              <div
+                className="container mx-auto px-2 sm:px-0"
+                data-testid="entrypoint"
+              >
                 {children}
                 <footer className="mt-16 border-t py-8">
                   <Warning />

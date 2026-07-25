@@ -1,13 +1,12 @@
 import Measurement from '~/lib/models/Measurement';
-import { SimpleSprocket } from '~/lib/models/Sprocket';
 
 export function calculateCenterDistance(
-  chainType: string,
+  pitch: Measurement,
   p1Teeth: number,
   p2Teeth: number,
   links: number,
 ): Measurement {
-  const P = new SimpleSprocket(p1Teeth, chainType).pitch;
+  const P = pitch;
   const N = Math.max(p1Teeth, p2Teeth);
   const n = Math.min(p1Teeth, p2Teeth);
   const t1_ = 2 * links - N - n;
@@ -26,17 +25,19 @@ export type ChainClosestCentersResult = {
   larger: Result;
 };
 export function calculateCenters(
-  chainType: string,
+  pitch: Measurement,
   p1Teeth: number,
   p2Teeth: number,
   desiredCenter: Measurement,
   allowHalfLinks: boolean,
 ): ChainClosestCentersResult {
   if (
-    [desiredCenter.scalar, p1Teeth, p2Teeth].includes(0) ||
-    new SimpleSprocket(p1Teeth, chainType).pitchDiameter
+    [desiredCenter.scalar, p1Teeth, p2Teeth, pitch.scalar].includes(0) ||
+    pitch
+      .mul(p1Teeth)
+      .div(Math.PI)
       .div(2)
-      .add(new SimpleSprocket(p2Teeth, chainType).pitchDiameter.div(2))
+      .add(pitch.mul(p2Teeth).div(Math.PI).div(2))
       .gt(desiredCenter)
   ) {
     return {
@@ -56,7 +57,7 @@ export function calculateCenters(
   const z1 = p1Teeth;
   const z2 = p2Teeth;
   const c0 = desiredCenter;
-  const p = new SimpleSprocket(p1Teeth, chainType).pitch;
+  const p = pitch;
   const t1 = c0.mul(2).div(p);
   const t2 = (z1 + z2) / 2;
   const t3 = p.mul(Math.pow(Math.abs(z2 - z1) / (2 * Math.PI), 2)).div(c0);
@@ -68,13 +69,13 @@ export function calculateCenters(
     allowHalfLinks ? Math.floor(n) : Math.floor(n / 2) * 2;
 
   const smallerDistance = calculateCenterDistance(
-    chainType,
+    pitch,
     z1,
     z2,
     roundLinksDown(x0),
   );
   const largerDistance = calculateCenterDistance(
-    chainType,
+    pitch,
     z1,
     z2,
     roundLinksUp(x0),

@@ -5,39 +5,79 @@ import Measurement from '~/lib/models/Measurement';
 
 describe('calculateCenterDistance', () => {
   it('calculates center distance correctly', () => {
-    const result = calculateCenterDistance('#25', 20, 30, 50);
+    const result = calculateCenterDistance(
+      new Measurement(0.25, 'in'),
+      20,
+      30,
+      50,
+    );
 
     expect(result.to('in').scalar).toBeCloseTo(3.099, 3);
   });
 
   it('handles zero teeth for p1', () => {
-    const result = calculateCenterDistance('#25', 0, 30, 50);
+    const result = calculateCenterDistance(
+      new Measurement(0.25, 'in'),
+      0,
+      30,
+      50,
+    );
 
     expect(result.to('in').scalar).toBeCloseTo(4.206, 3);
   });
 
   it('handles zero teeth for p2', () => {
-    const result = calculateCenterDistance('#25', 20, 0, 50);
+    const result = calculateCenterDistance(
+      new Measurement(0.25, 'in'),
+      20,
+      0,
+      50,
+    );
 
     expect(result.to('in').scalar).toBeCloseTo(4.936, 3);
   });
 
   it('handles zero links', () => {
-    const result = calculateCenterDistance('#25', 20, 30, 0);
+    const result = calculateCenterDistance(
+      new Measurement(0.25, 'in'),
+      20,
+      30,
+      0,
+    );
 
     expect(result.to('in').scalar).toBeCloseTo(-0.026, 3);
   });
 
   it('handles equal sprockets', () => {
-    const result = calculateCenterDistance('#25', 20, 20, 50);
+    const result = calculateCenterDistance(
+      new Measurement(0.25, 'in'),
+      20,
+      20,
+      50,
+    );
 
     expect(result.to('in').scalar).toBeCloseTo(3.75, 3);
   });
 
   it('works with different chain types', () => {
-    const result25 = calculateCenterDistance('#25', 20, 30, 50);
-    const result35 = calculateCenterDistance('#35', 20, 30, 50);
-    const result40 = calculateCenterDistance('#40', 20, 30, 50);
+    const result25 = calculateCenterDistance(
+      new Measurement(0.25, 'in'),
+      20,
+      30,
+      50,
+    );
+    const result35 = calculateCenterDistance(
+      new Measurement(0.375, 'in'),
+      20,
+      30,
+      50,
+    );
+    const result40 = calculateCenterDistance(
+      new Measurement(0.5, 'in'),
+      20,
+      30,
+      50,
+    );
 
     expect(result25.to('in').scalar).toBeCloseTo(3.099, 3);
     expect(result35.to('in').scalar).toBeCloseTo(4.649, 3);
@@ -46,13 +86,23 @@ describe('calculateCenterDistance', () => {
   });
 
   it('handles very small number of links', () => {
-    const result = calculateCenterDistance('#25', 20, 30, 10);
+    const result = calculateCenterDistance(
+      new Measurement(0.25, 'in'),
+      20,
+      30,
+      10,
+    );
 
     expect(result.to('in').scalar).toBeCloseTo(-0.043, 3);
   });
 
   it('handles large number of links', () => {
-    const result = calculateCenterDistance('#25', 20, 30, 200);
+    const result = calculateCenterDistance(
+      new Measurement(0.25, 'in'),
+      20,
+      30,
+      200,
+    );
 
     expect(result.to('in').scalar).toBeCloseTo(21.871, 3);
   });
@@ -61,7 +111,7 @@ describe('calculateCenterDistance', () => {
 describe('calculateCenters', () => {
   it('calculates centers correctly', () => {
     const result = calculateCenters(
-      '#25',
+      new Measurement(0.25, 'in'),
       20,
       30,
       new Measurement(10, 'in'),
@@ -76,7 +126,7 @@ describe('calculateCenters', () => {
 
   it('handles zero desired center', () => {
     const result = calculateCenters(
-      '#25',
+      new Measurement(0.25, 'in'),
       20,
       30,
       new Measurement(0, 'in'),
@@ -89,9 +139,24 @@ describe('calculateCenters', () => {
     expect(result.smaller.links).toBe(0);
   });
 
+  it('handles zero pitch', () => {
+    const result = calculateCenters(
+      new Measurement(0, 'in'),
+      20,
+      30,
+      new Measurement(10, 'in'),
+      false,
+    );
+
+    expect(result.larger.distance.to('in').scalar).toBe(0);
+    expect(result.smaller.distance.to('in').scalar).toBe(0);
+    expect(result.larger.links).toBe(0);
+    expect(result.smaller.links).toBe(0);
+  });
+
   it('handles zero teeth for p1', () => {
     const result = calculateCenters(
-      '#25',
+      new Measurement(0.25, 'in'),
       0,
       30,
       new Measurement(10, 'in'),
@@ -106,7 +171,7 @@ describe('calculateCenters', () => {
 
   it('handles zero teeth for p2', () => {
     const result = calculateCenters(
-      '#25',
+      new Measurement(0.25, 'in'),
       20,
       0,
       new Measurement(10, 'in'),
@@ -121,7 +186,7 @@ describe('calculateCenters', () => {
 
   it('handles invalid configuration (pitch diameter too large)', () => {
     const result = calculateCenters(
-      '#25',
+      new Measurement(0.25, 'in'),
       200,
       200,
       new Measurement(1, 'in'),
@@ -136,7 +201,7 @@ describe('calculateCenters', () => {
 
   it('works with allowHalfLinks true', () => {
     const result = calculateCenters(
-      '#25',
+      new Measurement(0.25, 'in'),
       20,
       30,
       new Measurement(10, 'in'),
@@ -151,7 +216,7 @@ describe('calculateCenters', () => {
 
   it('works with allowHalfLinks false (rounds to even)', () => {
     const result = calculateCenters(
-      '#25',
+      new Measurement(0.25, 'in'),
       20,
       30,
       new Measurement(10, 'in'),
@@ -166,7 +231,7 @@ describe('calculateCenters', () => {
 
   it('handles equal sprockets', () => {
     const result = calculateCenters(
-      '#25',
+      new Measurement(0.25, 'in'),
       20,
       20,
       new Measurement(10, 'in'),
@@ -179,7 +244,7 @@ describe('calculateCenters', () => {
 
   it('handles very small desired center', () => {
     const result = calculateCenters(
-      '#25',
+      new Measurement(0.25, 'in'),
       20,
       30,
       new Measurement(0.1, 'in'),
@@ -192,7 +257,7 @@ describe('calculateCenters', () => {
 
   it('handles very large desired center', () => {
     const result = calculateCenters(
-      '#25',
+      new Measurement(0.25, 'in'),
       20,
       30,
       new Measurement(100, 'in'),
@@ -205,7 +270,13 @@ describe('calculateCenters', () => {
 
   it('calculates difference from target correctly', () => {
     const desiredCenter = new Measurement(10, 'in');
-    const result = calculateCenters('#25', 20, 30, desiredCenter, false);
+    const result = calculateCenters(
+      new Measurement(0.25, 'in'),
+      20,
+      30,
+      desiredCenter,
+      false,
+    );
 
     expect(result.larger.differenceFromTarget.to('in').scalar).toBeCloseTo(
       0.117,
