@@ -1,4 +1,3 @@
-import fs from 'node:fs';
 import path from 'path';
 
 import { reactRouter } from '@react-router/dev/vite';
@@ -8,25 +7,11 @@ import { comlink } from 'vite-plugin-comlink';
 import Sitemap from 'vite-plugin-sitemap';
 import { defineConfig } from 'vitest/config';
 
-// Dev-only routes that should never be indexed or listed in the sitemap.
-const EXCLUDED_ROUTES = ['/dev/error'];
-
-function routesFromConfig(): string[] {
-  const src = fs.readFileSync(
-    path.resolve(__dirname, 'app/routes.ts'),
-    'utf-8',
-  );
-  // The home page is declared with `index(...)`, not `route(...)`, so seed it
-  // explicitly; the regex below only captures `route(...)` entries.
-  const paths: string[] = ['/'];
-  for (const match of src.matchAll(/^\s*route\(\s*['"]([^'"]+)['"]/gm)) {
-    const routePath = `/${match[1]}`;
-    if (!EXCLUDED_ROUTES.includes(routePath)) paths.push(routePath);
-  }
-  return paths;
-}
-
-const routes = routesFromConfig();
+// The sitemap plugin auto-discovers every prerendered route by globbing the
+// built HTML in `build/client`, so we only need to exclude non-public pages
+// that still emit HTML. `/dev/error` isn't prerendered, so it never appears;
+// `/__spa-fallback` is React Router's client fallback shell, not a real page.
+const EXCLUDED_ROUTES = ['/__spa-fallback', '/dev/error'];
 
 export default defineConfig({
   plugins: [
@@ -39,7 +24,7 @@ export default defineConfig({
     }),
     Sitemap({
       hostname: 'https://reca.lc',
-      dynamicRoutes: routes,
+      exclude: EXCLUDED_ROUTES,
       generateRobotsTxt: true,
       robots: [
         {
