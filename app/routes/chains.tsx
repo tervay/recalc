@@ -9,20 +9,19 @@ import {
   MeasurementOutput,
 } from '~/components/recalc/io/measurement';
 import NumberInput, { NumberOutput } from '~/components/recalc/io/number';
-import { StringSelectInput } from '~/components/recalc/io/stringSelect';
 import { SprocketTable } from '~/components/recalc/sprocketTable';
+import { Button } from '~/components/ui/button';
+import { ButtonGroup } from '~/components/ui/button-group';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import { calculateCenters } from '~/lib/math/chains';
 import Measurement from '~/lib/models/Measurement';
-import { SimpleSprocket } from '~/lib/models/Sprocket';
 import { buildMeta, pageUrl } from '~/lib/seo';
 import {
   BooleanParam,
   MeasurementParam,
   NumberParam,
-  StringParam,
 } from '~/lib/types/queryParams';
 
 const CHAINS_PATH = '/chains';
@@ -57,7 +56,7 @@ export function meta() {
 }
 
 const DEFAULT_PARAMS = {
-  chain: StringParam.withDefault('#25'),
+  pitch: MeasurementParam.withDefault(new Measurement(0.25, 'in')),
   p1Teeth: NumberParam.withDefault(16),
   p2Teeth: NumberParam.withDefault(36),
   desiredCenter: MeasurementParam.withDefault(new Measurement(5, 'in')),
@@ -68,7 +67,7 @@ const DEFAULT_PARAMS = {
 export default function Chains() {
   const queryParams = useQueryParams(DEFAULT_PARAMS);
 
-  const [chain, setChain] = useState(queryParams.chain);
+  const [pitch, setPitch] = useState(queryParams.pitch);
   const [p1Teeth, setP1Teeth] = useState(queryParams.p1Teeth);
   const [p2Teeth, setP2Teeth] = useState(queryParams.p2Teeth);
   const [desiredCenter, setDesiredCenter] = useState(queryParams.desiredCenter);
@@ -77,18 +76,25 @@ export default function Chains() {
     queryParams.allowHalfLinks,
   );
 
+  const activeChainType = useMemo(() => {
+    if (pitch.eq(new Measurement(0.25, 'in'))) return '#25';
+    if (pitch.eq(new Measurement(0.375, 'in'))) return '#35';
+    if (pitch.eq(new Measurement(8, 'mm'))) return '8mm';
+    return null;
+  }, [pitch]);
+
   const p1PitchDiameter = useMemo(() => {
-    return new SimpleSprocket(p1Teeth, chain).pitchDiameter;
-  }, [p1Teeth, chain]);
+    return pitch.mul(p1Teeth).div(Math.PI);
+  }, [p1Teeth, pitch]);
 
   const p2PitchDiameter = useMemo(() => {
-    return new SimpleSprocket(p2Teeth, chain).pitchDiameter;
-  }, [p2Teeth, chain]);
+    return pitch.mul(p2Teeth).div(Math.PI);
+  }, [p2Teeth, pitch]);
 
   const results = useMemo(
     () =>
-      calculateCenters(chain, p1Teeth, p2Teeth, desiredCenter, allowHalfLinks),
-    [chain, p1Teeth, p2Teeth, desiredCenter, allowHalfLinks],
+      calculateCenters(pitch, p1Teeth, p2Teeth, desiredCenter, allowHalfLinks),
+    [pitch, p1Teeth, p2Teeth, desiredCenter, allowHalfLinks],
   );
 
   const isSmallerChainSuggested = useMemo(
@@ -100,7 +106,7 @@ export default function Chains() {
   );
 
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
-    chain,
+    pitch,
     p1Teeth,
     p2Teeth,
     desiredCenter,
@@ -126,20 +132,47 @@ export default function Chains() {
 
       <div className="flex flex-row flex-wrap gap-x-4 px-1 *:flex-1">
         <div className="flex flex-col gap-x-4 gap-y-2">
+          <div className="flex flex-wrap gap-y-2">
+            <ButtonGroup>
+              <Button
+                variant={activeChainType === '#25' ? 'default' : 'outline'}
+                onClick={() => setPitch(new Measurement(0.25, 'in'))}
+              >
+                #25
+              </Button>
+              <Button
+                variant={activeChainType === '#35' ? 'default' : 'outline'}
+                onClick={() => setPitch(new Measurement(0.375, 'in'))}
+              >
+                #35
+              </Button>
+              <Button
+                variant={activeChainType === '8mm' ? 'default' : 'outline'}
+                onClick={() => setPitch(new Measurement(8, 'mm'))}
+              >
+                8mm
+              </Button>
+            </ButtonGroup>
+          </div>
+
           <IOLine>
-            <StringSelectInput
-              stateHook={[chain, setChain]}
-              label="Chain Type"
-              choices={[
-                { label: '#25', value: '#25' },
-                { label: '#35', value: '#35' },
-              ]}
-              testId="chainType"
+            <MeasurementInput
+              stateHook={[pitch, setPitch]}
+              label="Pitch"
+              testId="pitch"
+              labelAbove
             />
-            <BooleanInput
-              stateHook={[allowHalfLinks, setAllowHalfLinks]}
-              label="Allow Half Links"
-            />
+            <div className="flex flex-col">
+              <div className="mb-1 text-xs" aria-hidden>
+                {' '}
+              </div>
+              <div className="flex h-9 items-center">
+                <BooleanInput
+                  stateHook={[allowHalfLinks, setAllowHalfLinks]}
+                  label="Allow Half Links"
+                />
+              </div>
+            </div>
           </IOLine>
 
           <IOLine>
@@ -273,7 +306,7 @@ export default function Chains() {
         <div className="flex w-auto flex-col gap-x-4 gap-y-4">
           <SprocketTable
             filterFn={(sprocket) =>
-              sprocket.chainType === chain &&
+              sprocket.pitch.eq(pitch) &&
               (sprocket.teeth === p1Teeth || sprocket.teeth === p2Teeth)
             }
           />

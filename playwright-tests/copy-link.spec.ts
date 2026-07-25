@@ -51,8 +51,7 @@ test.describe('Copy Link', () => {
     await page.goto('/chains');
     await page.waitForLoadState('networkidle');
 
-    await page.getByTestId('chainType').click();
-    await page.getByRole('option', { name: '#35' }).click();
+    await page.getByRole('button', { name: '#35' }).click();
     await page.getByTestId('p1Teeth').fill('20');
     await page.getByTestId('p2Teeth').fill('40');
     await page.getByTestId('desiredCenter').fill('8');

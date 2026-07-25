@@ -3,11 +3,16 @@
   - img
   - img
   - text: Copy Link
-- text: Chain Type
-- combobox: "#25"
+- group:
+  - button "#25"
+  - button "#35"
+  - button "8mm"
+- text: Pitch
+- spinbutton "Pitch Desired Center Extra Center Pitch Diameter Pitch Diameter Chain Links Center Distance Difference From Target Chain Links Center Distance Difference From Target": "0.25"
+- combobox: in
 - switch "Allow Half Links"
 - text: Allow Half Links Desired Center
-- spinbutton "Desired Center Extra Center Pitch Diameter Pitch Diameter Chain Links Center Distance Difference From Target Chain Links Center Distance Difference From Target": "5"
+- spinbutton: "5"
 - combobox: in
 - text: Extra Center
 - spinbutton: "1"
