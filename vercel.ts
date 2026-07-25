@@ -1,4 +1,4 @@
-import { matchers, routes, type VercelConfig } from '@vercel/config/v1';
+import { routes, type VercelConfig } from '@vercel/config/v1';
 
 export const config: VercelConfig = {
   framework: 'react-router',
@@ -16,8 +16,5 @@ export const config: VercelConfig = {
       { key: 'X-Frame-Options', value: 'DENY' },
       { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
     ]),
-    routes.header('/(.*)', [{ key: 'X-Robots-Tag', value: 'noindex' }], {
-      has: [matchers.host('reca.lc')],
-    }),
   ],
 };

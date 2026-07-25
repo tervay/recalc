@@ -16,7 +16,9 @@ function routesFromConfig(): string[] {
     path.resolve(__dirname, 'app/routes.ts'),
     'utf-8',
   );
-  const paths: string[] = [];
+  // The home page is declared with `index(...)`, not `route(...)`, so seed it
+  // explicitly; the regex below only captures `route(...)` entries.
+  const paths: string[] = ['/'];
   for (const match of src.matchAll(/^\s*route\(\s*['"]([^'"]+)['"]/gm)) {
     const routePath = `/${match[1]}`;
     if (!EXCLUDED_ROUTES.includes(routePath)) paths.push(routePath);
