@@ -130,7 +130,7 @@ export default function Chains() {
         getSerializedState={() => serializedState}
       />
 
-      <div className="flex flex-row flex-wrap gap-x-4 px-1 *:flex-1">
+      <div className="flex flex-row flex-wrap gap-x-4 gap-y-4 px-1 *:flex-1">
         <div className="flex flex-col gap-x-4 gap-y-2">
           <div className="flex flex-wrap gap-y-2">
             <ButtonGroup>
@@ -175,7 +175,7 @@ export default function Chains() {
             </div>
           </IOLine>
 
-          <IOLine>
+          <IOLine className="flex-col md:flex-row">
             <MeasurementInput
               stateHook={[desiredCenter, setDesiredCenter]}
               label="Desired Center"

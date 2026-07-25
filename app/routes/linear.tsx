@@ -28,6 +28,7 @@ import {
   CollapsibleTrigger,
 } from '~/components/ui/collapsible';
 import { Skeleton } from '~/components/ui/skeleton';
+import { useIsMobile } from '~/hooks/use-mobile';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import { calculateGuessedLimits, calculateStallLoad } from '~/lib/math/linear';
@@ -155,6 +156,7 @@ const optimizerPool = getPool<typeof LinearOptimizerWorker>(optimizerWorkerUrl);
 
 export default function Linear() {
   const queryParams = useQueryParams(DEFAULT_PARAMS);
+  const isMobile = useIsMobile();
 
   const [motor, setMotor] = useState(queryParams.motor);
   const [travelDistance, setTravelDistance] = useState(
@@ -557,7 +559,7 @@ export default function Linear() {
         />
         <div className="flex flex-row flex-wrap gap-6 px-1">
           {/* Left column: inputs */}
-          <div className="flex min-w-75 flex-1 flex-col">
+          <div className="flex min-w-72 flex-1 flex-col">
             <section className="flex flex-col rounded-lg border">
               {/* Motor & Gearing section */}
               <div className="flex flex-col gap-3 p-4">
@@ -572,7 +574,9 @@ export default function Linear() {
                     tooltip="Enable for a cascading elevator. The simulation applies first-stage mechanics: half the travel distance and double the load."
                   />
                 </div>
-                <IOLine>
+                {/* Motor gets its own full-width row on mobile; pairs with
+                    Efficiency at md+. */}
+                <div className="flex flex-col gap-3 *:flex-1 md:flex-row md:gap-x-4">
                   <MotorInput
                     stateHook={[motor, setMotor]}
                     testId="motor"
@@ -585,7 +589,7 @@ export default function Linear() {
                     testId="efficiency"
                     labelAbove
                   />
-                </IOLine>
+                </div>
                 <IOLine>
                   <RatioInput
                     stateHook={[ratio, setRatio]}
@@ -781,7 +785,9 @@ export default function Linear() {
                         labelAbove
                       />
                     </IOLine>
-                    <IOLine>
+                    {/* Kalman inputs stack onto their own rows on mobile;
+                        three across at md+. */}
+                    <div className="flex flex-col gap-3 *:flex-1 md:flex-row md:gap-x-4">
                       <MeasurementInput
                         stateHook={[
                           kalmanFilterPositionStdDev,
@@ -812,7 +818,7 @@ export default function Linear() {
                         testId="kalmanFilterEncoderPositionStdDev"
                         labelAbove
                       />
-                    </IOLine>
+                    </div>
                   </div>
                 </CollapsibleContent>
               </Collapsible>
@@ -820,10 +826,10 @@ export default function Linear() {
           </div>
 
           {/* Right column: outputs + chart */}
-          <div className="flex min-w-75 flex-1 flex-col gap-4">
+          <div className="flex min-w-72 flex-1 flex-col gap-4">
             {/* Results + Chart + Feedforward as one card */}
             <section className="flex flex-col rounded-lg border">
-              <div className="grid grid-cols-3 gap-2 p-4">
+              <div className="grid grid-cols-1 gap-2 p-4 md:grid-cols-3">
                 {isSimulating ? (
                   <>
                     <div className="flex flex-col gap-1.5">
@@ -873,7 +879,12 @@ export default function Linear() {
                   <ChartContainer config={{}} className="min-h-50 w-full">
                     <LineChart
                       data={chartData}
-                      margin={{ top: 5, right: 20, bottom: 30, left: 20 }}
+                      margin={{
+                        top: 5,
+                        right: isMobile ? 5 : 20,
+                        bottom: 30,
+                        left: isMobile ? 0 : 20,
+                      }}
                     >
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis
@@ -889,24 +900,32 @@ export default function Linear() {
                       />
                       <YAxis
                         yAxisId="left"
-                        label={{
-                          value: `Velocity (${travelDistance.units()}/s) / Current (A)`,
-                          angle: -90,
-                          position: 'insideLeft',
-                          offset: 15,
-                          style: { textAnchor: 'middle' },
-                        }}
+                        label={
+                          isMobile
+                            ? undefined
+                            : {
+                                value: `Velocity (${travelDistance.units()}/s) / Current (A)`,
+                                angle: -90,
+                                position: 'insideLeft',
+                                offset: 15,
+                                style: { textAnchor: 'middle' },
+                              }
+                        }
                       />
                       <YAxis
                         yAxisId="right"
                         orientation="right"
-                        label={{
-                          value: `Position (${travelDistance.units()})`,
-                          angle: 90,
-                          position: 'insideRight',
-                          offset: 15,
-                          style: { textAnchor: 'middle' },
-                        }}
+                        label={
+                          isMobile
+                            ? undefined
+                            : {
+                                value: `Position (${travelDistance.units()})`,
+                                angle: 90,
+                                position: 'insideRight',
+                                offset: 15,
+                                style: { textAnchor: 'middle' },
+                              }
+                        }
                       />
                       <Tooltip
                         formatter={(value) =>
@@ -965,7 +984,7 @@ export default function Linear() {
               </div>
 
               <div className="border-t" />
-              <div className="grid grid-cols-3 gap-2 p-4">
+              <div className="grid grid-cols-1 gap-2 p-4 md:grid-cols-3">
                 <MeasurementDisplayOutput
                   state={kA}
                   label="kA"
@@ -1023,7 +1042,7 @@ export default function Linear() {
 
       {optimizationEnabled && (
         <div className="flex flex-col gap-4 px-1">
-          <div className="flex flex-row flex-wrap gap-4">
+          <div className="flex flex-col gap-4 md:flex-row">
             {/* Optimal configuration grid */}
             <div className="min-w-0 flex-1">
               <OptimalConfigGrid
@@ -1036,7 +1055,7 @@ export default function Linear() {
             </div>
 
             {/* Right column: settings + selected config */}
-            <div className="flex w-64 shrink-0 flex-col gap-3">
+            <div className="flex w-full flex-col gap-3 md:w-64 md:shrink-0">
               <section className="flex flex-col gap-3 rounded-lg border p-4">
                 <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
                   Settings

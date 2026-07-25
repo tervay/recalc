@@ -712,7 +712,9 @@ export default function Flywheel() {
                 <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
                   Motors &amp; Electrical
                 </h2>
-                <IOLine>
+                {/* Motor and Efficiency each get their own row on mobile;
+                    paired at md+. */}
+                <div className="flex flex-col gap-3 *:flex-1 md:flex-row md:gap-x-4">
                   <MotorInput
                     stateHook={[motor, setMotor]}
                     testId="motor"
@@ -724,7 +726,7 @@ export default function Flywheel() {
                     testId="efficiency"
                     labelAbove
                   />
-                </IOLine>
+                </div>
                 <IOLine>
                   <RatioInput
                     stateHook={[ratio, setRatio]}
@@ -812,7 +814,7 @@ export default function Flywheel() {
 
               {/* Shooter Wheel */}
               <div className="flex flex-col gap-3 p-4">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
                   <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
                     Shooter Wheel
                   </h2>
@@ -1249,7 +1251,7 @@ export default function Flywheel() {
               <div className="border-t" />
 
               {/* Feedforward constants + Effective MOI */}
-              <div className="grid grid-cols-3 gap-2 p-4">
+              <div className="grid grid-cols-1 gap-2 p-4 md:grid-cols-3">
                 <MeasurementDisplayOutput
                   state={feedforwardGains.kV}
                   label="kV"
@@ -1272,7 +1274,7 @@ export default function Flywheel() {
               <div className="border-t" />
 
               {/* Feedback Gain */}
-              <div className="grid grid-cols-3 gap-2 p-4">
+              <div className="grid grid-cols-1 gap-2 p-4">
                 <MeasurementDisplayOutput
                   state={feedbackGains.kP}
                   label="Feedback kP"
@@ -1357,7 +1359,7 @@ export default function Flywheel() {
 
       {optimizationEnabled && (
         <div className="flex flex-col gap-4 px-1">
-          <div className="flex flex-row flex-wrap gap-4">
+          <div className="flex flex-col gap-4 md:flex-row">
             <div className="min-w-0 flex-1">
               <OptimalConfigGrid
                 configOptResult={configOptResult}
@@ -1367,7 +1369,7 @@ export default function Flywheel() {
                 onSelectCell={setSelectedConfigCell}
               />
             </div>
-            <div className="flex w-64 shrink-0 flex-col gap-3">
+            <div className="flex w-full flex-col gap-3 md:w-64 md:shrink-0">
               <section className="flex flex-col gap-3 rounded-lg border p-4">
                 <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
                   Settings
