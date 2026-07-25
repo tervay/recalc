@@ -1,0 +1,4635 @@
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=48536515871014
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 48536515871014
+    options:
+      - '#25'
+      - Roller Chain 10ft
+      - null
+    sku: TOL-0003
+    title: '#25 / Roller Chain 10ft'
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=48536515903782
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 48536515903782
+    options:
+      - '#25H'
+      - Roller Chain 10ft
+      - null
+    sku: TOL-0004
+    title: '#25H / Roller Chain 10ft'
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=52970342940966
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970342940966
+    options:
+      - '#25'
+      - Master Link (10 Pack)
+      - null
+    sku: null
+    title: '#25 / Master Link (10 Pack)'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=52970342973734
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970342973734
+    options:
+      - '#25'
+      - Half Link (10 Pack)
+      - null
+    sku: null
+    title: '#25 / Half Link (10 Pack)'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=52970343006502
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343006502
+    options:
+      - '#25'
+      - Inline Chain Tensioner
+      - null
+    sku: null
+    title: '#25 / Inline Chain Tensioner'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=52970343039270
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343039270
+    options:
+      - '#25'
+      - Chain Tool
+      - null
+    sku: null
+    title: '#25 / Chain Tool'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=52970343072038
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343072038
+    options:
+      - '#25H'
+      - Master Link (10 Pack)
+      - null
+    sku: null
+    title: '#25H / Master Link (10 Pack)'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=52970343104806
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343104806
+    options:
+      - '#25H'
+      - Half Link (10 Pack)
+      - null
+    sku: null
+    title: '#25H / Half Link (10 Pack)'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=52970343137574
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343137574
+    options:
+      - '#25H'
+      - Inline Chain Tensioner
+      - null
+    sku: null
+    title: '#25H / Inline Chain Tensioner'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=52970343170342
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343170342
+    options:
+      - '#25H'
+      - Chain Tool
+      - null
+    sku: null
+    title: '#25H / Chain Tool'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=52970343203110
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343203110
+    options:
+      - '#35'
+      - Roller Chain 10ft
+      - null
+    sku: null
+    title: '#35 / Roller Chain 10ft'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=52970343235878
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343235878
+    options:
+      - '#35'
+      - Master Link (10 Pack)
+      - null
+    sku: null
+    title: '#35 / Master Link (10 Pack)'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=52970343268646
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343268646
+    options:
+      - '#35'
+      - Half Link (10 Pack)
+      - null
+    sku: null
+    title: '#35 / Half Link (10 Pack)'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=52970343301414
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343301414
+    options:
+      - '#35'
+      - Inline Chain Tensioner
+      - null
+    sku: null
+    title: '#35 / Inline Chain Tensioner'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=52970343334182
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 52970343334182
+    options:
+      - '#35'
+      - Chain Tool
+      - null
+    sku: null
+    title: '#35 / Chain Tool'
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=53473516060966
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 53473516060966
+    options:
+      - '#25'
+      - Bundle
+      - null
+    sku: null
+    title: '#25 / Bundle'
+  firstSeen: 2026-07-19T17:34:48.986Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=53473516093734
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 53473516093734
+    options:
+      - '#25H'
+      - Bundle
+      - null
+    sku: null
+    title: '#25H / Bundle'
+  firstSeen: 2026-07-19T17:34:48.986Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/chain-tools?variant=53473516126502
+  product:
+    handle: chain-tools
+    id: 9300156088614
+    title: Chain & Chain Accessories
+  variant:
+    id: 53473516126502
+    options:
+      - '#35'
+      - Bundle
+      - null
+    sku: null
+    title: '#35 / Bundle'
+  firstSeen: 2026-07-19T17:34:48.986Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536563417382
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536563417382
+    options:
+      - 60 Tooth
+      - 9mm Width
+      - null
+    sku: 300-5M-9
+    title: 60 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536563482918
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536563482918
+    options:
+      - 65 Tooth
+      - 9mm Width
+      - null
+    sku: 325-5M-9
+    title: 65 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536563515686
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536563515686
+    options:
+      - 70 Tooth
+      - 9mm Width
+      - null
+    sku: 350-5M-9
+    title: 70 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536563581222
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536563581222
+    options:
+      - 75 Tooth
+      - 9mm Width
+      - null
+    sku: 375-5M-9
+    title: 75 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536563613990
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536563613990
+    options:
+      - 80 Tooth
+      - 9mm Width
+      - null
+    sku: 400-5M-9
+    title: 80 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536563679526
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536563679526
+    options:
+      - 85 Tooth
+      - 9mm Width
+      - null
+    sku: 425-5M-9
+    title: 85 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536563712294
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536563712294
+    options:
+      - 90 Tooth
+      - 9mm Width
+      - null
+    sku: 450-5M-9
+    title: 90 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536563777830
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536563777830
+    options:
+      - 95 Tooth
+      - 9mm Width
+      - null
+    sku: 475-5M-9
+    title: 95 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536563810598
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536563810598
+    options:
+      - 100 Tooth
+      - 9mm Width
+      - null
+    sku: 500-5M-9
+    title: 100 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536563876134
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536563876134
+    options:
+      - 110 Tooth
+      - 9mm Width
+      - null
+    sku: 550-5M-9
+    title: 110 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536563908902
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536563908902
+    options:
+      - 120 Tooth
+      - 9mm Width
+      - null
+    sku: 600-5M-9
+    title: 120 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536563941670
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536563941670
+    options:
+      - 130 Tooth
+      - 9mm Width
+      - null
+    sku: 650-5M-9
+    title: 130 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536564007206
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536564007206
+    options:
+      - 140 Tooth
+      - 9mm Width
+      - null
+    sku: 700-5M-9
+    title: 140 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536564039974
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536564039974
+    options:
+      - 150 Tooth
+      - 9mm Width
+      - null
+    sku: 750-5M-9
+    title: 150 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536564072742
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536564072742
+    options:
+      - 160 Tooth
+      - 9mm Width
+      - null
+    sku: 800-5M-9
+    title: 160 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536564105510
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536564105510
+    options:
+      - 170 Tooth
+      - 9mm Width
+      - null
+    sku: 850-5M-9
+    title: 170 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536564138278
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536564138278
+    options:
+      - 180 Tooth
+      - 9mm Width
+      - null
+    sku: 900-5M-9
+    title: 180 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536564171046
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536564171046
+    options:
+      - 200 Tooth
+      - 9mm Width
+      - null
+    sku: 1000-5M-9
+    title: 200 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536564203814
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536564203814
+    options:
+      - 220 Tooth
+      - 9mm Width
+      - null
+    sku: 1100-5M-9
+    title: 220 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536564236582
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 48536564236582
+    options:
+      - 250 Tooth
+      - 9mm Width
+      - null
+    sku: 1250-5M-9
+    title: 250 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50795999428902
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50795999428902
+    options:
+      - 30 Tooth
+      - 9mm Width
+      - null
+    sku: 150-5M-9
+    title: 30 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50795999461670
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50795999461670
+    options:
+      - 35 Tooth
+      - 9mm Width
+      - null
+    sku: 175-5M-9
+    title: 35 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50795999494438
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50795999494438
+    options:
+      - 40 Tooth
+      - 9mm Width
+      - null
+    sku: 200-5M-9
+    title: 40 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50795999527206
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50795999527206
+    options:
+      - 45 Tooth
+      - 9mm Width
+      - null
+    sku: 225-5M-9
+    title: 45 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50795999559974
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50795999559974
+    options:
+      - 50 Tooth
+      - 9mm Width
+      - null
+    sku: 250-5M-9
+    title: 50 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50795999592742
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50795999592742
+    options:
+      - 55 Tooth
+      - 9mm Width
+      - null
+    sku: 275-5M-9
+    title: 55 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50795999625510
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50795999625510
+    options:
+      - 190 Tooth
+      - 9mm Width
+      - null
+    sku: 950-5M-9
+    title: 190 Tooth / 9mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796014895398
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796014895398
+    options:
+      - 30 Tooth
+      - 15mm Width
+      - null
+    sku: 150-5M-15
+    title: 30 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796014928166
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796014928166
+    options:
+      - 35 Tooth
+      - 15mm Width
+      - null
+    sku: 175-5M-15
+    title: 35 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796014960934
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796014960934
+    options:
+      - 40 Tooth
+      - 15mm Width
+      - null
+    sku: 200-5M-15
+    title: 40 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796014993702
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796014993702
+    options:
+      - 45 Tooth
+      - 15mm Width
+      - null
+    sku: 225-5M-15
+    title: 45 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015026470
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015026470
+    options:
+      - 50 Tooth
+      - 15mm Width
+      - null
+    sku: 250-5M-15
+    title: 50 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015059238
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015059238
+    options:
+      - 55 Tooth
+      - 15mm Width
+      - null
+    sku: 275-5M-15
+    title: 55 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015092006
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015092006
+    options:
+      - 60 Tooth
+      - 15mm Width
+      - null
+    sku: 300-5M-15
+    title: 60 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015124774
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015124774
+    options:
+      - 65 Tooth
+      - 15mm Width
+      - null
+    sku: 325-5M-15
+    title: 65 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015157542
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015157542
+    options:
+      - 70 Tooth
+      - 15mm Width
+      - null
+    sku: 350-5M-15
+    title: 70 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015190310
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015190310
+    options:
+      - 75 Tooth
+      - 15mm Width
+      - null
+    sku: 375-5M-15
+    title: 75 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015223078
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015223078
+    options:
+      - 80 Tooth
+      - 15mm Width
+      - null
+    sku: 400-5M-15
+    title: 80 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015255846
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015255846
+    options:
+      - 85 Tooth
+      - 15mm Width
+      - null
+    sku: 425-5M-15
+    title: 85 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015288614
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015288614
+    options:
+      - 90 Tooth
+      - 15mm Width
+      - null
+    sku: 450-5M-15
+    title: 90 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015321382
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015321382
+    options:
+      - 95 Tooth
+      - 15mm Width
+      - null
+    sku: 475-5M-15
+    title: 95 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015354150
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015354150
+    options:
+      - 100 Tooth
+      - 15mm Width
+      - null
+    sku: 500-5M-15
+    title: 100 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015386918
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015386918
+    options:
+      - 110 Tooth
+      - 15mm Width
+      - null
+    sku: 550-5M-15
+    title: 110 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015419686
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015419686
+    options:
+      - 120 Tooth
+      - 15mm Width
+      - null
+    sku: 600-5M-15
+    title: 120 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015452454
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015452454
+    options:
+      - 130 Tooth
+      - 15mm Width
+      - null
+    sku: 650-5M-15
+    title: 130 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015485222
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015485222
+    options:
+      - 140 Tooth
+      - 15mm Width
+      - null
+    sku: 700-5M-15
+    title: 140 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015517990
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015517990
+    options:
+      - 150 Tooth
+      - 15mm Width
+      - null
+    sku: 750-5M-15
+    title: 150 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015550758
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015550758
+    options:
+      - 160 Tooth
+      - 15mm Width
+      - null
+    sku: 800-5M-15
+    title: 160 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015583526
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015583526
+    options:
+      - 170 Tooth
+      - 15mm Width
+      - null
+    sku: 850-5M-15
+    title: 170 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015616294
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015616294
+    options:
+      - 180 Tooth
+      - 15mm Width
+      - null
+    sku: 900-5M-15
+    title: 180 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015649062
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015649062
+    options:
+      - 190 Tooth
+      - 15mm Width
+      - null
+    sku: 950-5M-15
+    title: 190 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015681830
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015681830
+    options:
+      - 200 Tooth
+      - 15mm Width
+      - null
+    sku: 1000-5M-15
+    title: 200 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015714598
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015714598
+    options:
+      - 220 Tooth
+      - 15mm Width
+      - null
+    sku: 1100-5M-15
+    title: 220 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015747366
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 50796015747366
+    options:
+      - 250 Tooth
+      - 15mm Width
+      - null
+    sku: 1250-5M-15
+    title: 250 Tooth / 15mm Width
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=52733087940902
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 52733087940902
+    options:
+      - 165PCS Belt Bundle
+      - 9mm Width
+      - null
+    sku: null
+    title: 165PCS Belt Bundle / 9mm Width
+  firstSeen: 2026-03-13T11:55:24.292Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-timing-belts?variant=52733087973670
+  product:
+    handle: htd-timing-belts
+    id: 9300186530086
+    title: HTD 5mm Pitch Timing Belts
+  variant:
+    id: 52733087973670
+    options:
+      - 165PCS Belt Bundle
+      - 15mm Width
+      - null
+    sku: null
+    title: 165PCS Belt Bundle / 15mm Width
+  firstSeen: 2026-03-13T11:55:24.292Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/bearings?variant=48536581079334
+  product:
+    handle: bearings
+    id: 9300196819238
+    title: Bearings (10 Pack)
+  variant:
+    id: 48536581079334
+    options:
+      - 1/2" Hex 1.125" OD Flanged Bearing (10 Pack)
+      - null
+      - null
+    sku: BRG-1001
+    title: 1/2" Hex 1.125" OD Flanged Bearing (10 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/bearings?variant=48536581112102
+  product:
+    handle: bearings
+    id: 9300196819238
+    title: Bearings (10 Pack)
+  variant:
+    id: 48536581112102
+    options:
+      - 3/8" Round 0.875" OD Flanged Bearing (10 Pack)
+      - null
+      - null
+    sku: BRG-1002
+    title: 3/8" Round 0.875" OD Flanged Bearing (10 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/bearings?variant=51004142190886
+  product:
+    handle: bearings
+    id: 9300196819238
+    title: Bearings (10 Pack)
+  variant:
+    id: 51004142190886
+    options:
+      - 8mm 14mm OD Flanged Bearing (10 Pack)
+      - null
+      - null
+    sku: BRG-8mm-14mm-01
+    title: 8mm 14mm OD Flanged Bearing (10 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/shaft-collars?variant=48536596021542
+  product:
+    handle: shaft-collars
+    id: 9300201898278
+    title: SWYFT Shaft Collars
+  variant:
+    id: 48536596021542
+    options:
+      - 1/2" Hex High Strength Clamping Split Hub (10 Pack)
+      - null
+      - null
+    sku: SR-HUB-01
+    title: 1/2" Hex High Strength Clamping Split Hub (10 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/shaft-collars?variant=48536596054310
+  product:
+    handle: shaft-collars
+    id: 9300201898278
+    title: SWYFT Shaft Collars
+  variant:
+    id: 48536596054310
+    options:
+      - 1/2" Hex Ultra Light Shaft Collar (10 Pack)
+      - null
+      - null
+    sku: SR-HUB-03
+    title: 1/2" Hex Ultra Light Shaft Collar (10 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/shaft-collars?variant=48536596087078
+  product:
+    handle: shaft-collars
+    id: 9300201898278
+    title: SWYFT Shaft Collars
+  variant:
+    id: 48536596087078
+    options:
+      - 1/2" Round Clamping Shaft Collar (10 Pack)
+      - null
+      - null
+    sku: SHC-0003
+    title: 1/2" Round Clamping Shaft Collar (10 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/shaft-collars?variant=48536596119846
+  product:
+    handle: shaft-collars
+    id: 9300201898278
+    title: SWYFT Shaft Collars
+  variant:
+    id: 48536596119846
+    options:
+      - 3/8" Round Clamping Shaft Collar (10 Pack)
+      - null
+      - null
+    sku: SHC-0004
+    title: 3/8" Round Clamping Shaft Collar (10 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/shaft-collars?variant=48536596152614
+  product:
+    handle: shaft-collars
+    id: 9300201898278
+    title: SWYFT Shaft Collars
+  variant:
+    id: 48536596152614
+    options:
+      - 3/8" Hex Clamping Shaft Collar (10 Pack)
+      - null
+      - null
+    sku: SHC-0005
+    title: 3/8" Hex Clamping Shaft Collar (10 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/shaft-collars?variant=52733261709606
+  product:
+    handle: shaft-collars
+    id: 9300201898278
+    title: SWYFT Shaft Collars
+  variant:
+    id: 52733261709606
+    options:
+      - 8mm Round Set Screw Shaft Collar (10 Pack)
+      - null
+      - null
+    sku: SR-COLLAR-8mm-SETSCREW
+    title: 8mm Round Set Screw Shaft Collar (10 Pack)
+  firstSeen: 2026-03-13T11:55:24.292Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/shaft-collars?variant=52733261742374
+  product:
+    handle: shaft-collars
+    id: 9300201898278
+    title: SWYFT Shaft Collars
+  variant:
+    id: 52733261742374
+    options:
+      - 8mm Round Clamping Shaft Collar (10 Pack)
+      - null
+      - null
+    sku: SR-COLLAR-8mm-CLAMPING
+    title: 8mm Round Clamping Shaft Collar (10 Pack)
+  firstSeen: 2026-03-13T11:55:24.292Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609259814
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 48536609259814
+    options:
+      - 1/16" Round Acetal Spacer - 1/2" Hex (10 Pack)
+      - null
+      - null
+    sku: SPC-0001
+    title: 1/16" Round Acetal Spacer - 1/2" Hex (10 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609292582
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 48536609292582
+    options:
+      - 1/8" Round Acetal Spacer - 1/2" Hex (10 Pack)
+      - null
+      - null
+    sku: SPC-0002
+    title: 1/8" Round Acetal Spacer - 1/2" Hex (10 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609325350
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 48536609325350
+    options:
+      - 1/4" Round Acetal Spacer - 1/2" Hex (10 Pack)
+      - null
+      - null
+    sku: SPC-0003
+    title: 1/4" Round Acetal Spacer - 1/2" Hex (10 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609358118
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 48536609358118
+    options:
+      - 1/2" Round Acetal Spacer - 1/2" Hex (10 Pack)
+      - null
+      - null
+    sku: SPC-0004
+    title: 1/2" Round Acetal Spacer - 1/2" Hex (10 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609390886
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 48536609390886
+    options:
+      - 1" Round Acetal Spacer - 1/2" Hex (6 Pack)
+      - null
+      - null
+    sku: SPC-0005
+    title: 1" Round Acetal Spacer - 1/2" Hex (6 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609423654
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 48536609423654
+    options:
+      - 2" Round Acetal Spacer - 1/2" Hex (6 Pack)
+      - null
+      - null
+    sku: SPC-0006
+    title: 2" Round Acetal Spacer - 1/2" Hex (6 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609456422
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 48536609456422
+    options:
+      - 1/16" Round Acetal Spacer - 3/8" Hex (10 Pack)
+      - null
+      - null
+    sku: SPC-1001
+    title: 1/16" Round Acetal Spacer - 3/8" Hex (10 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609489190
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 48536609489190
+    options:
+      - 1/8" Round Acetal Spacer - 3/8" Hex (10 Pack)
+      - null
+      - null
+    sku: SPC-1002
+    title: 1/8" Round Acetal Spacer - 3/8" Hex (10 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609521958
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 48536609521958
+    options:
+      - 1/4" Round Acetal Spacer - 3/8" Hex (10 Pack)
+      - null
+      - null
+    sku: SPC-1003
+    title: 1/4" Round Acetal Spacer - 3/8" Hex (10 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609554726
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 48536609554726
+    options:
+      - 1/2" Round Acetal Spacer - 3/8" Hex (10 Pack)
+      - null
+      - null
+    sku: SPC-1004
+    title: 1/2" Round Acetal Spacer - 3/8" Hex (10 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609587494
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 48536609587494
+    options:
+      - 1" Round Acetal Spacer - 3/8" Hex (6 Pack)
+      - null
+      - null
+    sku: SPC-1005
+    title: 1" Round Acetal Spacer - 3/8" Hex (6 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609620262
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 48536609620262
+    options:
+      - 2" Round Acetal Spacer - 3/8" Hex (6 Pack)
+      - null
+      - null
+    sku: SPC-1006
+    title: 2" Round Acetal Spacer - 3/8" Hex (6 Pack)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/jst-connector-boards?variant=48536624988454
+  product:
+    handle: jst-connector-boards
+    id: 9300217528614
+    title: JST Connector Boards
+  variant:
+    id: 48536624988454
+    options:
+      - NI roboRIO JST Board
+      - null
+      - null
+    sku: JCB-0001
+    title: NI roboRIO JST Board
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/jst-connector-boards?variant=48536625021222
+  product:
+    handle: jst-connector-boards
+    id: 9300217528614
+    title: JST Connector Boards
+  variant:
+    id: 48536625021222
+    options:
+      - PCM JST Board
+      - null
+      - null
+    sku: JCB-0002
+    title: PCM JST Board
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/jst-connector-boards?variant=48536625053990
+  product:
+    handle: jst-connector-boards
+    id: 9300217528614
+    title: JST Connector Boards
+  variant:
+    id: 48536625053990
+    options:
+      - VRM JST Board
+      - null
+      - null
+    sku: JCB-0003
+    title: VRM JST Board
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/jst-connector-boards?variant=48536625086758
+  product:
+    handle: jst-connector-boards
+    id: 9300217528614
+    title: JST Connector Boards
+  variant:
+    id: 48536625086758
+    options:
+      - Advanced Talon Breakout Board
+      - null
+      - null
+    sku: JCB-0004
+    title: Advanced Talon Breakout Board
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/jst-connector-boards?variant=48536625119526
+  product:
+    handle: jst-connector-boards
+    id: 9300217528614
+    title: JST Connector Boards
+  variant:
+    id: 48536625119526
+    options:
+      - PCM JST Removal Tool
+      - null
+      - null
+    sku: TOL-0001
+    title: PCM JST Removal Tool
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/jst-connector-boards?variant=48536625152294
+  product:
+    handle: jst-connector-boards
+    id: 9300217528614
+    title: JST Connector Boards
+  variant:
+    id: 48536625152294
+    options:
+      - VRM JST Removal Tool
+      - null
+      - null
+    sku: TOL-0002
+    title: VRM JST Removal Tool
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/omio-cnc-x8-2200l-usb-110v?variant=49209108562214
+  product:
+    handle: omio-cnc-x8-2200l-usb-110v
+    id: 9468574925094
+    title: OMIO CNC (X8-2200L-USB 110V)
+  variant:
+    id: 49209108562214
+    options:
+      - OMIO CNC (X8-2200L-USB 110V)
+      - null
+      - null
+    sku: CNC-0001
+    title: OMIO CNC (X8-2200L-USB 110V)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/omio-cnc-x8-2200l-usb-110v?variant=49209108594982
+  product:
+    handle: omio-cnc-x8-2200l-usb-110v
+    id: 9468574925094
+    title: OMIO CNC (X8-2200L-USB 110V)
+  variant:
+    id: 49209108594982
+    options:
+      - ER20 Precision Spring Collet 10 Pack
+      - null
+      - null
+    sku: CNC-0003
+    title: ER20 Precision Spring Collet 10 Pack
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/130w-55-x-35-co2-laser-cutter?variant=49212831105318
+  product:
+    handle: 130w-55-x-35-co2-laser-cutter
+    id: 9469316989222
+    title: 130W 55.1" x 35.4" CO2 Laser Cutter
+  variant:
+    id: 49212831105318
+    options:
+      - Default Title
+      - null
+      - null
+    sku: SR-4001
+    title: Default Title
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/100w-35-x-24-co2-laser-cutter-recommended-for-frc-teams?variant=49212831760678
+  product:
+    handle: 100w-35-x-24-co2-laser-cutter-recommended-for-frc-teams
+    id: 9469317415206
+    title: 100W 39.4" × 31.5" CO2 Laser Cutter
+  variant:
+    id: 49212831760678
+    options:
+      - Default Title
+      - null
+      - null
+    sku: SR-4002
+    title: Default Title
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/80w-27-x-20-co2-laser-cutter-recommended-for-ftc-teams?variant=49212832317734
+  product:
+    handle: 80w-27-x-20-co2-laser-cutter-recommended-for-ftc-teams
+    id: 9469317742886
+    title: Compact 100W 27.6" x 19.6" CO2 Laser Cutter
+  variant:
+    id: 49212832317734
+    options:
+      - Default Title
+      - null
+      - null
+    sku: SR-4003
+    title: Default Title
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-sheets?variant=49301729476902
+  product:
+    handle: acetal-sheets
+    id: 9498658570534
+    title: Acetal Sheets
+  variant:
+    id: 49301729476902
+    options:
+      - 1/8" (3mm)
+      - Full Sheet 23.6" x 23.6" (600mm x 600mm)
+      - null
+    sku: ''
+    title: 1/8" (3mm) / Full Sheet 23.6" x 23.6" (600mm x 600mm)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ranger-distance-sensor?variant=49309806723366
+  product:
+    handle: swyft-ranger-distance-sensor
+    id: 9500711518502
+    title: SWYFT Ranger Distance Sensor
+  variant:
+    id: 49309806723366
+    options:
+      - Default Title
+      - null
+      - null
+    sku: SR-RANGER-02
+    title: Default Title
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-sense-magnetic-limit-switch?variant=49309888741670
+  product:
+    handle: swyft-sense-magnetic-limit-switch
+    id: 9500723937574
+    title: SWYFT Sense Magnetic Limit Switch
+  variant:
+    id: 49309888741670
+    options:
+      - Default Title
+      - null
+      - null
+    sku: SR-LIMIT-01
+    title: Default Title
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/voucher?variant=51698638618918
+  product:
+    handle: voucher
+    id: 9517974487334
+    title: '*FREE* Complete AprilTag Pack For FRC 2026 Game'
+  variant:
+    id: 51698638618918
+    options:
+      - Free (1 per team)
+      - null
+      - null
+    sku: SR-April-01
+    title: Free (1 per team)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/voucher?variant=51698638651686
+  product:
+    handle: voucher
+    id: 9517974487334
+    title: '*FREE* Complete AprilTag Pack For FRC 2026 Game'
+  variant:
+    id: 51698638651686
+    options:
+      - Paid
+      - null
+      - null
+    sku: SR-April-02
+    title: Paid
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ftc-robot-sign-free?variant=49402710163750
+  product:
+    handle: swyft-ftc-robot-sign-free
+    id: 9526223143206
+    title: SWYFT FTC Robot Sign V2 - FREE
+  variant:
+    id: 49402710163750
+    options:
+      - FREE (full kit for a single robot)
+      - null
+      - null
+    sku: SR-SIGN-02
+    title: FREE (full kit for a single robot)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ftc-robot-sign-free?variant=49402710196518
+  product:
+    handle: swyft-ftc-robot-sign-free
+    id: 9526223143206
+    title: SWYFT FTC Robot Sign V2 - FREE
+  variant:
+    id: 49402710196518
+    options:
+      - PAID (full kit for a single robot)
+      - null
+      - null
+    sku: SR-SIGN-02
+    title: PAID (full kit for a single robot)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/jst-connectors?variant=49691976532262
+  product:
+    handle: jst-connectors
+    id: 9905132536102
+    title: JST Connectors
+  variant:
+    id: 49691976532262
+    options:
+      - 2P Female JST-PH (25-Pack) CON-0005
+      - null
+      - null
+    sku: CON-0005
+    title: 2P Female JST-PH (25-Pack) CON-0005
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/jst-connectors?variant=49691976565030
+  product:
+    handle: jst-connectors
+    id: 9905132536102
+    title: JST Connectors
+  variant:
+    id: 49691976565030
+    options:
+      - 4P Female JST-PH (25-Pack) CON-0007
+      - null
+      - null
+    sku: CON-0007
+    title: 4P Female JST-PH (25-Pack) CON-0007
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/jst-connectors?variant=49692004516134
+  product:
+    handle: jst-connectors
+    id: 9905132536102
+    title: JST Connectors
+  variant:
+    id: 49692004516134
+    options:
+      - 2P Female JST-XH (25-Pack) CON-0001
+      - null
+      - null
+    sku: CON-0001
+    title: 2P Female JST-XH (25-Pack) CON-0001
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/jst-connectors?variant=49692004548902
+  product:
+    handle: jst-connectors
+    id: 9905132536102
+    title: JST Connectors
+  variant:
+    id: 49692004548902
+    options:
+      - 3P Female JST-XH (25-Pack) CON-0002
+      - null
+      - null
+    sku: CON-0002
+    title: 3P Female JST-XH (25-Pack) CON-0002
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/jst-connectors?variant=49692004581670
+  product:
+    handle: jst-connectors
+    id: 9905132536102
+    title: JST Connectors
+  variant:
+    id: 49692004581670
+    options:
+      - 4P Female JST-XH (25-Pack) CON-0003
+      - null
+      - null
+    sku: CON-0003
+    title: 4P Female JST-XH (25-Pack) CON-0003
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/jst-connectors?variant=49692004614438
+  product:
+    handle: jst-connectors
+    id: 9905132536102
+    title: JST Connectors
+  variant:
+    id: 49692004614438
+    options:
+      - 10P Female JST-XH (10-Pack) CON-0004
+      - null
+      - null
+    sku: CON-0004
+    title: 10P Female JST-XH (10-Pack) CON-0004
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/jst-connectors?variant=49692004647206
+  product:
+    handle: jst-connectors
+    id: 9905132536102
+    title: JST Connectors
+  variant:
+    id: 49692004647206
+    options:
+      - 3P Female JST-PH (25-Pack) CON-0006
+      - null
+      - null
+    sku: CON-0006
+    title: 3P Female JST-PH (25-Pack) CON-0006
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/jst-connectors?variant=49692004679974
+  product:
+    handle: jst-connectors
+    id: 9905132536102
+    title: JST Connectors
+  variant:
+    id: 49692004679974
+    options:
+      - 5P Female JST-PH (25-Pack) CON-0008
+      - null
+      - null
+    sku: CON-0008
+    title: 5P Female JST-PH (25-Pack) CON-0008
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692942795046
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692942795046
+    options:
+      - Elbow 6mm Tube 1/4″ NPT Male Pack of 5
+      - null
+      - null
+    sku: PNF-0001
+    title: Elbow 6mm Tube 1/4″ NPT Male Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692955607334
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692955607334
+    options:
+      - Elbow 6mm Tube 1/8″ NPT Male Pack of 5
+      - null
+      - null
+    sku: PNF-0002
+    title: Elbow 6mm Tube 1/8″ NPT Male Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692955672870
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692955672870
+    options:
+      - Straight 6mm Tube 1/8″ NPT Male Pack of 5
+      - null
+      - null
+    sku: PNF-0003
+    title: Straight 6mm Tube 1/8″ NPT Male Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692955738406
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692955738406
+    options:
+      - Straight 6mm Tube 1/4″ NPT Male Pack of 5
+      - null
+      - null
+    sku: PNF-0004
+    title: Straight 6mm Tube 1/4″ NPT Male Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692955803942
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692955803942
+    options:
+      - Flow Control In-Line 6mm Tube Pack of 2
+      - null
+      - null
+    sku: PNF-0005
+    title: Flow Control In-Line 6mm Tube Pack of 2
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692955869478
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692955869478
+    options:
+      - Union Tee 6mm Tube Pack of 5
+      - null
+      - null
+    sku: PNF-0006
+    title: Union Tee 6mm Tube Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692955935014
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692955935014
+    options:
+      - Straight “Y” 6mm Tube Pack of 5
+      - null
+      - null
+    sku: PNF-0007
+    title: Straight “Y” 6mm Tube Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956000550
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692956000550
+    options:
+      - Hand Valve 6mm Tube Pack of 2
+      - null
+      - null
+    sku: PNF-0008
+    title: Hand Valve 6mm Tube Pack of 2
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956066086
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692956066086
+    options:
+      - 6mm 3 Output Union Pack of 5
+      - null
+      - null
+    sku: PNF-0009
+    title: 6mm 3 Output Union Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956131622
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692956131622
+    options:
+      - Straight 6mm Tube Pack of 5
+      - null
+      - null
+    sku: PNF-0010
+    title: Straight 6mm Tube Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956197158
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692956197158
+    options:
+      - Elbow 6mm Tube Pack of 5
+      - null
+      - null
+    sku: PNF-0011
+    title: Elbow 6mm Tube Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956262694
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692956262694
+    options:
+      - “X” 6mm Tube Pack of 5
+      - null
+      - null
+    sku: PNF-0012
+    title: “X” 6mm Tube Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956328230
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692956328230
+    options:
+      - Elbow 5/32″ Tube 1/4″ NPT Male Pack of 5
+      - null
+      - null
+    sku: PNF-0013
+    title: Elbow 5/32″ Tube 1/4″ NPT Male Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956393766
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692956393766
+    options:
+      - Elbow 5/32″ Tube 1/8″ NPT Male Pack of 5
+      - null
+      - null
+    sku: PNF-0014
+    title: Elbow 5/32″ Tube 1/8″ NPT Male Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956459302
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692956459302
+    options:
+      - Straight 5/32″ Tube 1/8″ NPT Male Pack of 5
+      - null
+      - null
+    sku: PNF-0015
+    title: Straight 5/32″ Tube 1/8″ NPT Male Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956524838
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692956524838
+    options:
+      - Straight 5/32″ Tube 1/4″ NPT Male Pack of 5
+      - null
+      - null
+    sku: PNF-0016
+    title: Straight 5/32″ Tube 1/4″ NPT Male Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956590374
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692956590374
+    options:
+      - Flow Control In-Line 5/32″ Tube Pack of 2
+      - null
+      - null
+    sku: PNF-0017
+    title: Flow Control In-Line 5/32″ Tube Pack of 2
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956655910
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692956655910
+    options:
+      - Union Tee 5/32″ Tube Pack of 5
+      - null
+      - null
+    sku: PNF-0018
+    title: Union Tee 5/32″ Tube Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956721446
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692956721446
+    options:
+      - Straight “Y” 5/32″ Tube Pack of 5
+      - null
+      - null
+    sku: PNF-0019
+    title: Straight “Y” 5/32″ Tube Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956786982
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692956786982
+    options:
+      - Hand Valve 5/32″ Tube Pack of 2
+      - null
+      - null
+    sku: PNF-0020
+    title: Hand Valve 5/32″ Tube Pack of 2
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956852518
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692956852518
+    options:
+      - 5/32″ 3 Output Union Pack of 5
+      - null
+      - null
+    sku: PNF-0021
+    title: 5/32″ 3 Output Union Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956918054
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692956918054
+    options:
+      - Straight 5/32″ Tube Pack of 5
+      - null
+      - null
+    sku: PNF-0022
+    title: Straight 5/32″ Tube Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956983590
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692956983590
+    options:
+      - Elbow 5/32″ Tube Pack of 5
+      - null
+      - null
+    sku: PNF-0023
+    title: Elbow 5/32″ Tube Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692957049126
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692957049126
+    options:
+      - “X” 5/32″ Tube Pack of 5
+      - null
+      - null
+    sku: PNF-0024
+    title: “X” 5/32″ Tube Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692957114662
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692957114662
+    options:
+      - Straight 6mm Tube 5/32″ Tube Pack of 5
+      - null
+      - null
+    sku: PNF-0026
+    title: Straight 6mm Tube 5/32″ Tube Pack of 5
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692960063782
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692960063782
+    options:
+      - 20 Meters 5/32″ Tubing
+      - null
+      - null
+    sku: PNF-0025
+    title: 20 Meters 5/32″ Tubing
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692960096550
+  product:
+    handle: pnuematic-fittings
+    id: 9905398874406
+    title: Pnuematic Fittings
+  variant:
+    id: 49692960096550
+    options:
+      - 20 Meters 6mm Tubing
+      - null
+      - null
+    sku: PNF-0027
+    title: 20 Meters 6mm Tubing
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-servos?variant=49717135114534
+  product:
+    handle: swyft-servos
+    id: 9912482529574
+    title: SWYFT Servos
+  variant:
+    id: 49717135114534
+    options:
+      - Speed V1.1
+      - null
+      - null
+    sku: SR-Servo-01
+    title: Speed V1.1
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-servos?variant=49717135147302
+  product:
+    handle: swyft-servos
+    id: 9912482529574
+    title: SWYFT Servos
+  variant:
+    id: 49717135147302
+    options:
+      - Balance V1.1
+      - null
+      - null
+    sku: SR-Servo-02
+    title: Balance V1.1
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-servos?variant=49717135180070
+  product:
+    handle: swyft-servos
+    id: 9912482529574
+    title: SWYFT Servos
+  variant:
+    id: 49717135180070
+    options:
+      - Torque V1.1
+      - null
+      - null
+    sku: SR-Servo-03
+    title: Torque V1.1
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-servos?variant=49812010631462
+  product:
+    handle: swyft-servos
+    id: 9912482529574
+    title: SWYFT Servos
+  variant:
+    id: 49812010631462
+    options:
+      - Servo Programmer USB Dongle
+      - null
+      - null
+    sku: SR-Servo-10
+    title: Servo Programmer USB Dongle
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-servos?variant=51336279654694
+  product:
+    handle: swyft-servos
+    id: 9912482529574
+    title: SWYFT Servos
+  variant:
+    id: 51336279654694
+    options:
+      - Titan Servo Module
+      - null
+      - null
+    sku: null
+    title: Titan Servo Module
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-servos?variant=51735705321766
+  product:
+    handle: swyft-servos
+    id: 9912482529574
+    title: SWYFT Servos
+  variant:
+    id: 51735705321766
+    options:
+      - Speed - Continuous Rotation
+      - null
+      - null
+    sku: SR-Servo-01
+    title: Speed - Continuous Rotation
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-grounding-cable?variant=49793012302118
+  product:
+    handle: swyft-grounding-cable
+    id: 9934977106214
+    title: SWYFT Grounding Cable - FREE*
+  variant:
+    id: 49793012302118
+    options:
+      - FREE
+      - null
+      - null
+    sku: SR-Ground-01
+    title: FREE
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-grounding-cable?variant=49793012334886
+  product:
+    handle: swyft-grounding-cable
+    id: 9934977106214
+    title: SWYFT Grounding Cable - FREE*
+  variant:
+    id: 49793012334886
+    options:
+      - PAID
+      - null
+      - null
+    sku: SR-Ground-01
+    title: PAID
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-bumpers?variant=49853301784870
+  product:
+    handle: swyft-bumpers
+    id: 9950547804454
+    title: Custom-Built SWYFT FRC Bumpers
+  variant:
+    id: 49853301784870
+    options:
+      - FULL KIT Red + Blue Bumpers with Mounting Hardware
+      - null
+      - null
+    sku: SR-Bumper-01
+    title: FULL KIT Red + Blue Bumpers with Mounting Hardware
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-bumpers?variant=49981701456166
+  product:
+    handle: swyft-bumpers
+    id: 9950547804454
+    title: Custom-Built SWYFT FRC Bumpers
+  variant:
+    id: 49981701456166
+    options:
+      - (Spare Parts) Single Corner Segment
+      - null
+      - null
+    sku: SR-BUMPER-SPARE-CORNER
+    title: (Spare Parts) Single Corner Segment
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-bumpers?variant=50885370085670
+  product:
+    handle: swyft-bumpers
+    id: 9950547804454
+    title: Custom-Built SWYFT FRC Bumpers
+  variant:
+    id: 50885370085670
+    options:
+      - (Spare Parts) Full Screws Kit
+      - null
+      - null
+    sku: SR-BUMPER-SPARE-SCREWS
+    title: (Spare Parts) Full Screws Kit
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-bumpers?variant=50885370118438
+  product:
+    handle: swyft-bumpers
+    id: 9950547804454
+    title: Custom-Built SWYFT FRC Bumpers
+  variant:
+    id: 50885370118438
+    options:
+      - (Spare Parts) Mounting Blocks 4pcs
+      - null
+      - null
+    sku: SR-BUMPER-SPARE-BLOCKS
+    title: (Spare Parts) Mounting Blocks 4pcs
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-bumpers?variant=51853559726374
+  product:
+    handle: swyft-bumpers
+    id: 9950547804454
+    title: Custom-Built SWYFT FRC Bumpers
+  variant:
+    id: 51853559726374
+    options:
+      - (Spare Parts) Connecting Brackets 4pcs
+      - null
+      - null
+    sku: null
+    title: (Spare Parts) Connecting Brackets 4pcs
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332647206
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 49919332647206
+    options:
+      - 250mm Slide
+      - null
+      - null
+    sku: ''
+    title: 250mm Slide
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332679974
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 49919332679974
+    options:
+      - 350mm Slide
+      - null
+      - null
+    sku: ''
+    title: 350mm Slide
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332712742
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 49919332712742
+    options:
+      - 10mm x 20mm Extrusion 250mm Length
+      - null
+      - null
+    sku: ''
+    title: 10mm x 20mm Extrusion 250mm Length
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332745510
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 49919332745510
+    options:
+      - 10mm x 20mm Extrusion 350mm Length
+      - null
+      - null
+    sku: ''
+    title: 10mm x 20mm Extrusion 350mm Length
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332778278
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 49919332778278
+    options:
+      - 10mm x 20mm Extrusion 110mm Length
+      - null
+      - null
+    sku: ''
+    title: 10mm x 20mm Extrusion 110mm Length
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332811046
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 49919332811046
+    options:
+      - Idler Pulleys Pack of 8
+      - null
+      - null
+    sku: ''
+    title: Idler Pulleys Pack of 8
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332843814
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 49919332843814
+    options:
+      - Driven Pulley
+      - null
+      - null
+    sku: ''
+    title: Driven Pulley
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332876582
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 49919332876582
+    options:
+      - Kevlar GT2 6mm Timing Belt
+      - null
+      - null
+    sku: ''
+    title: Kevlar GT2 6mm Timing Belt
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332909350
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 49919332909350
+    options:
+      - Steel GT2 6mm Timing Belt
+      - null
+      - null
+    sku: ''
+    title: Steel GT2 6mm Timing Belt
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332942118
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 49919332942118
+    options:
+      - Kevlar GT2 10mm Timing Belt
+      - null
+      - null
+    sku: ''
+    title: Kevlar GT2 10mm Timing Belt
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=49919332974886
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 49919332974886
+    options:
+      - Steel GT2 10mm Timing Belt
+      - null
+      - null
+    sku: ''
+    title: Steel GT2 10mm Timing Belt
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=49919333007654
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 49919333007654
+    options:
+      - Tools + Screws Bag
+      - null
+      - null
+    sku: ''
+    title: Tools + Screws Bag
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159133990
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 53256159133990
+    options:
+      - Pulley Hat Pack of 6
+      - null
+      - null
+    sku: null
+    title: Pulley Hat Pack of 6
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159166758
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 53256159166758
+    options:
+      - Long Plate with Logo Pack of 3
+      - null
+      - null
+    sku: null
+    title: Long Plate with Logo Pack of 3
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159199526
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 53256159199526
+    options:
+      - Long Plate no Logo Pack of 3
+      - null
+      - null
+    sku: null
+    title: Long Plate no Logo Pack of 3
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159232294
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 53256159232294
+    options:
+      - Short Plate Pack of 2
+      - null
+      - null
+    sku: null
+    title: Short Plate Pack of 2
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159265062
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 53256159265062
+    options:
+      - Motor Mount
+      - null
+      - null
+    sku: null
+    title: Motor Mount
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159297830
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 53256159297830
+    options:
+      - Motor Mount Top C Plate
+      - null
+      - null
+    sku: null
+    title: Motor Mount Top C Plate
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159330598
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 53256159330598
+    options:
+      - Right Angle Extrusion Gussets Pack of 2
+      - null
+      - null
+    sku: null
+    title: Right Angle Extrusion Gussets Pack of 2
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159363366
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 53256159363366
+    options:
+      - Belt Clamp+Magnet Mount
+      - null
+      - null
+    sku: null
+    title: Belt Clamp+Magnet Mount
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slide-individual-components?variant=53256159396134
+  product:
+    handle: swyft-slide-individual-components
+    id: 9964160254246
+    title: SWYFT Slide FTC Individual Components
+  variant:
+    id: 53256159396134
+    options:
+      - Small Belt Clamp Plate
+      - null
+      - null
+    sku: null
+    title: Small Belt Clamp Plate
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-canender?variant=49941339865382
+  product:
+    handle: swyft-canender
+    id: 9970257494310
+    title: SWYFT CANender
+  variant:
+    id: 49941339865382
+    options:
+      - Wago
+      - Bundle of 4
+      - null
+    sku: SR-CAN-31
+    title: Wago / Bundle of 4
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-canender?variant=49941339898150
+  product:
+    handle: swyft-canender
+    id: 9970257494310
+    title: SWYFT CANender
+  variant:
+    id: 49941339898150
+    options:
+      - Wago
+      - Single Unit
+      - null
+    sku: SR-CAN-30
+    title: Wago / Single Unit
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-canender?variant=49941339930918
+  product:
+    handle: swyft-canender
+    id: 9970257494310
+    title: SWYFT CANender
+  variant:
+    id: 49941339930918
+    options:
+      - Molex
+      - Bundle of 4
+      - null
+    sku: SR-CAN-41
+    title: Molex / Bundle of 4
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-canender?variant=49941339963686
+  product:
+    handle: swyft-canender
+    id: 9970257494310
+    title: SWYFT CANender
+  variant:
+    id: 49941339963686
+    options:
+      - Molex
+      - Single Unit
+      - null
+    sku: SR-CAN-40
+    title: Molex / Single Unit
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-robotics-gift-cards?variant=49969878728998
+  product:
+    handle: swyft-robotics-gift-cards
+    id: 9976735301926
+    title: SWYFT Robotics Gift Cards
+  variant:
+    id: 49969878728998
+    options:
+      - $10.00
+      - null
+      - null
+    sku: null
+    title: $10.00
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-robotics-gift-cards?variant=49969878761766
+  product:
+    handle: swyft-robotics-gift-cards
+    id: 9976735301926
+    title: SWYFT Robotics Gift Cards
+  variant:
+    id: 49969878761766
+    options:
+      - $25.00
+      - null
+      - null
+    sku: null
+    title: $25.00
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-robotics-gift-cards?variant=49969878794534
+  product:
+    handle: swyft-robotics-gift-cards
+    id: 9976735301926
+    title: SWYFT Robotics Gift Cards
+  variant:
+    id: 49969878794534
+    options:
+      - $50.00
+      - null
+      - null
+    sku: null
+    title: $50.00
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-robotics-gift-cards?variant=49969878827302
+  product:
+    handle: swyft-robotics-gift-cards
+    id: 9976735301926
+    title: SWYFT Robotics Gift Cards
+  variant:
+    id: 49969878827302
+    options:
+      - $100.00
+      - null
+      - null
+    sku: null
+    title: $100.00
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ascend-individual-components?variant=50016479248678
+  product:
+    handle: swyft-ascend-individual-components
+    id: 9989104206118
+    title: SWYFT Ascend Individual Components
+  variant:
+    id: 50016479248678
+    options:
+      - Outer Extrusion
+      - null
+      - null
+    sku: ''
+    title: Outer Extrusion
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ascend-individual-components?variant=50016479281446
+  product:
+    handle: swyft-ascend-individual-components
+    id: 9989104206118
+    title: SWYFT Ascend Individual Components
+  variant:
+    id: 50016479281446
+    options:
+      - Middle Extrusion
+      - null
+      - null
+    sku: ''
+    title: Middle Extrusion
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ascend-individual-components?variant=50016479314214
+  product:
+    handle: swyft-ascend-individual-components
+    id: 9989104206118
+    title: SWYFT Ascend Individual Components
+  variant:
+    id: 50016479314214
+    options:
+      - Inner Extrusion
+      - null
+      - null
+    sku: ''
+    title: Inner Extrusion
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ascend-individual-components?variant=50140016214310
+  product:
+    handle: swyft-ascend-individual-components
+    id: 9989104206118
+    title: SWYFT Ascend Individual Components
+  variant:
+    id: 50140016214310
+    options:
+      - Screw and Bearing Balls Bag
+      - null
+      - null
+    sku: null
+    title: Screw and Bearing Balls Bag
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ascend-individual-components?variant=50140016247078
+  product:
+    handle: swyft-ascend-individual-components
+    id: 9989104206118
+    title: SWYFT Ascend Individual Components
+  variant:
+    id: 50140016247078
+    options:
+      - 10DP Steel Gear
+      - null
+      - null
+    sku: null
+    title: 10DP Steel Gear
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ascend-individual-components?variant=50140016279846
+  product:
+    handle: swyft-ascend-individual-components
+    id: 9989104206118
+    title: SWYFT Ascend Individual Components
+  variant:
+    id: 50140016279846
+    options:
+      - Plate Bundle (2x Top Plates + 2x 1" 10-32 Standoffs)
+      - null
+      - null
+    sku: null
+    title: Plate Bundle (2x Top Plates + 2x 1" 10-32 Standoffs)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ascend-individual-components?variant=50140016312614
+  product:
+    handle: swyft-ascend-individual-components
+    id: 9989104206118
+    title: SWYFT Ascend Individual Components
+  variant:
+    id: 50140016312614
+    options:
+      - Rope - 3mm Diameter - 10M Length
+      - null
+      - null
+    sku: null
+    title: Rope - 3mm Diameter - 10M Length
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ascend-individual-components?variant=50140016345382
+  product:
+    handle: swyft-ascend-individual-components
+    id: 9989104206118
+    title: SWYFT Ascend Individual Components
+  variant:
+    id: 50140016345382
+    options:
+      - Tube End Cap
+      - null
+      - null
+    sku: null
+    title: Tube End Cap
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ascend-individual-components?variant=50140016378150
+  product:
+    handle: swyft-ascend-individual-components
+    id: 9989104206118
+    title: SWYFT Ascend Individual Components
+  variant:
+    id: 50140016378150
+    options:
+      - Rope Clamp Block
+      - null
+      - null
+    sku: null
+    title: Rope Clamp Block
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ascend-individual-components?variant=50140016410918
+  product:
+    handle: swyft-ascend-individual-components
+    id: 9989104206118
+    title: SWYFT Ascend Individual Components
+  variant:
+    id: 50140016410918
+    options:
+      - 2" 1/2" Hex Axle
+      - null
+      - null
+    sku: null
+    title: 2" 1/2" Hex Axle
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ascend-individual-components?variant=50140016443686
+  product:
+    handle: swyft-ascend-individual-components
+    id: 9989104206118
+    title: SWYFT Ascend Individual Components
+  variant:
+    id: 50140016443686
+    options:
+      - Steel Pulley
+      - null
+      - null
+    sku: null
+    title: Steel Pulley
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ascend-individual-components?variant=50140016476454
+  product:
+    handle: swyft-ascend-individual-components
+    id: 9989104206118
+    title: SWYFT Ascend Individual Components
+  variant:
+    id: 50140016476454
+    options:
+      - Butterfly Plates
+      - null
+      - null
+    sku: null
+    title: Butterfly Plates
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ascend-individual-components?variant=50140016509222
+  product:
+    handle: swyft-ascend-individual-components
+    id: 9989104206118
+    title: SWYFT Ascend Individual Components
+  variant:
+    id: 50140016509222
+    options:
+      - Rope Clamp Plate
+      - null
+      - null
+    sku: null
+    title: Rope Clamp Plate
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ascend-individual-components?variant=51857976000806
+  product:
+    handle: swyft-ascend-individual-components
+    id: 9989104206118
+    title: SWYFT Ascend Individual Components
+  variant:
+    id: 51857976000806
+    options:
+      - Pulley Block Bottom (not Hat)
+      - null
+      - null
+    sku: null
+    title: Pulley Block Bottom (not Hat)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ascend-individual-components?variant=51857976033574
+  product:
+    handle: swyft-ascend-individual-components
+    id: 9989104206118
+    title: SWYFT Ascend Individual Components
+  variant:
+    id: 51857976033574
+    options:
+      - Pulley Block Top with Hat
+      - null
+      - null
+    sku: null
+    title: Pulley Block Top with Hat
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-drive-v2?variant=50799386001702
+  product:
+    handle: swyft-drive-v2
+    id: 10152455995686
+    title: SWYFT Drive V2
+  variant:
+    id: 50799386001702
+    options:
+      - SWYFT Drive V2 Module Pack of 4
+      - null
+      - null
+    sku: SR-DRIVE-02
+    title: SWYFT Drive V2 Module Pack of 4
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-drive-v2?variant=50799386034470
+  product:
+    handle: swyft-drive-v2
+    id: 10152455995686
+    title: SWYFT Drive V2
+  variant:
+    id: 50799386034470
+    options:
+      - SWYFT Drive V2 Frame Kit
+      - null
+      - null
+    sku: SR-DRIVE-FRAME-02
+    title: SWYFT Drive V2 Frame Kit
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slides-v2?variant=51057874927910
+  product:
+    handle: swyft-slides-v2
+    id: 10152457339174
+    title: SWYFT Slides V2
+  variant:
+    id: 51057874927910
+    options:
+      - Full Base Kit (3x 350mm Slide Kit)
+      - null
+      - null
+    sku: null
+    title: Full Base Kit (3x 350mm Slide Kit)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-slides-v2?variant=51057874960678
+  product:
+    handle: swyft-slides-v2
+    id: 10152457339174
+    title: SWYFT Slides V2
+  variant:
+    id: 51057874960678
+    options:
+      - Full Base Kit (3x 250mm Slide Kit)
+      - null
+      - null
+    sku: null
+    title: Full Base Kit (3x 250mm Slide Kit)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-mini-servos?variant=50800423633190
+  product:
+    handle: swyft-mini-servos
+    id: 10152461435174
+    title: SWYFT Mini Servos
+  variant:
+    id: 50800423633190
+    options:
+      - SWYFT Slim Servo
+      - null
+      - null
+    sku: SR-SERVO-04
+    title: SWYFT Slim Servo
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-mini-servos?variant=50800423665958
+  product:
+    handle: swyft-mini-servos
+    id: 10152461435174
+    title: SWYFT Mini Servos
+  variant:
+    id: 50800423665958
+    options:
+      - SWYFT Nano Servo
+      - null
+      - null
+    sku: SR-SERVO-05
+    title: SWYFT Nano Servo
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-mini-servos?variant=50800423698726
+  product:
+    handle: swyft-mini-servos
+    id: 10152461435174
+    title: SWYFT Mini Servos
+  variant:
+    id: 50800423698726
+    options:
+      - SWYFT Nano Replacement Gear Sets
+      - null
+      - null
+    sku: SR-SERVO-04-GEARS
+    title: SWYFT Nano Replacement Gear Sets
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-mini-servos?variant=50900111622438
+  product:
+    handle: swyft-mini-servos
+    id: 10152461435174
+    title: SWYFT Mini Servos
+  variant:
+    id: 50900111622438
+    options:
+      - SWYFT Nano Aluminum Servo Arm (B25T)
+      - null
+      - null
+    sku: SR-SERVO-05-ARM
+    title: SWYFT Nano Aluminum Servo Arm (B25T)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/heavy-duty-parts-organizer?variant=50796213010726
+  product:
+    handle: heavy-duty-parts-organizer
+    id: 10182202556710
+    title: Heavy Duty Parts Organizer
+  variant:
+    id: 50796213010726
+    options:
+      - Heavy Duty Shallow Parts Organizer (25 bins) (42x33x5.1cm)
+      - null
+      - null
+    sku: null
+    title: Heavy Duty Shallow Parts Organizer (25 bins) (42x33x5.1cm)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/heavy-duty-parts-organizer?variant=50796213043494
+  product:
+    handle: heavy-duty-parts-organizer
+    id: 10182202556710
+    title: Heavy Duty Parts Organizer
+  variant:
+    id: 50796213043494
+    options:
+      - Heavy Duty Deep Parts Organizer (10 bins) (42x33x10.5cm)
+      - null
+      - null
+    sku: null
+    title: Heavy Duty Deep Parts Organizer (10 bins) (42x33x10.5cm)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=50800428941606
+  product:
+    handle: swyft-spike-ftc-planetary-gearmotors
+    id: 10183129792806
+    title: SWYFT Spike FTC Planetary Gearmotors
+  variant:
+    id: 50800428941606
+    options:
+      - 3.7:1 Ratio
+      - null
+      - null
+    sku: SR-GEARBOX-36-01-04
+    title: 3.7:1 Ratio
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=50800428974374
+  product:
+    handle: swyft-spike-ftc-planetary-gearmotors
+    id: 10183129792806
+    title: SWYFT Spike FTC Planetary Gearmotors
+  variant:
+    id: 50800428974374
+    options:
+      - 5.18:1 Ratio
+      - null
+      - null
+    sku: SR-GEARBOX-36-01-05
+    title: 5.18:1 Ratio
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=50800429007142
+  product:
+    handle: swyft-spike-ftc-planetary-gearmotors
+    id: 10183129792806
+    title: SWYFT Spike FTC Planetary Gearmotors
+  variant:
+    id: 50800429007142
+    options:
+      - 13.7:1 Ratio
+      - null
+      - null
+    sku: SR-GEARBOX-36-02-14
+    title: 13.7:1 Ratio
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=50800429039910
+  product:
+    handle: swyft-spike-ftc-planetary-gearmotors
+    id: 10183129792806
+    title: SWYFT Spike FTC Planetary Gearmotors
+  variant:
+    id: 50800429039910
+    options:
+      - 19.2:1 Ratio
+      - null
+      - null
+    sku: SR-GEARBOX-36-02-19
+    title: 19.2:1 Ratio
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=50800429072678
+  product:
+    handle: swyft-spike-ftc-planetary-gearmotors
+    id: 10183129792806
+    title: SWYFT Spike FTC Planetary Gearmotors
+  variant:
+    id: 50800429072678
+    options:
+      - 27:1 Ratio
+      - null
+      - null
+    sku: SR-GEARBOX-36-02-27
+    title: 27:1 Ratio
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=50800429105446
+  product:
+    handle: swyft-spike-ftc-planetary-gearmotors
+    id: 10183129792806
+    title: SWYFT Spike FTC Planetary Gearmotors
+  variant:
+    id: 50800429105446
+    options:
+      - 50:1 Ratio
+      - null
+      - null
+    sku: SR-GEARBOX-36-03-50
+    title: 50:1 Ratio
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=50800429138214
+  product:
+    handle: swyft-spike-ftc-planetary-gearmotors
+    id: 10183129792806
+    title: SWYFT Spike FTC Planetary Gearmotors
+  variant:
+    id: 50800429138214
+    options:
+      - 71:1 Ratio
+      - null
+      - null
+    sku: SR-GEARBOX-36-03-71
+    title: 71:1 Ratio
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=50800429170982
+  product:
+    handle: swyft-spike-ftc-planetary-gearmotors
+    id: 10183129792806
+    title: SWYFT Spike FTC Planetary Gearmotors
+  variant:
+    id: 50800429170982
+    options:
+      - 100:1 Ratio
+      - null
+      - null
+    sku: SR-GEARBOX-36-03-100
+    title: 100:1 Ratio
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=50800429203750
+  product:
+    handle: swyft-spike-ftc-planetary-gearmotors
+    id: 10183129792806
+    title: SWYFT Spike FTC Planetary Gearmotors
+  variant:
+    id: 50800429203750
+    options:
+      - 139:1 Ratio
+      - null
+      - null
+    sku: SR-GEARBOX-36-3-139
+    title: 139:1 Ratio
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=50881328415014
+  product:
+    handle: swyft-spike-ftc-planetary-gearmotors
+    id: 10183129792806
+    title: SWYFT Spike FTC Planetary Gearmotors
+  variant:
+    id: 50881328415014
+    options:
+      - 1:1 Ratio
+      - null
+      - null
+    sku: SR-GEARBOX-36-01-01
+    title: 1:1 Ratio
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=51711502090534
+  product:
+    handle: swyft-spike-ftc-planetary-gearmotors
+    id: 10183129792806
+    title: SWYFT Spike FTC Planetary Gearmotors
+  variant:
+    id: 51711502090534
+    options:
+      - 5mm Hex Hub Adapter for REV Motion
+      - null
+      - null
+    sku: null
+    title: 5mm Hex Hub Adapter for REV Motion
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=51711502123302
+  product:
+    handle: swyft-spike-ftc-planetary-gearmotors
+    id: 10183129792806
+    title: SWYFT Spike FTC Planetary Gearmotors
+  variant:
+    id: 51711502123302
+    options:
+      - Gearbox Screws Packet
+      - null
+      - null
+    sku: null
+    title: Gearbox Screws Packet
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-intake-wheels?variant=50809728532774
+  product:
+    handle: swyft-intake-wheels
+    id: 10186466296102
+    title: SWYFT Intake Wheels
+  variant:
+    id: 50809728532774
+    options:
+      - 1.5" (Pack of 4)
+      - 1/2" Hex
+      - null
+    sku: SR-INTAKEWHEEL-15-12
+    title: 1.5" (Pack of 4) / 1/2" Hex
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-intake-wheels?variant=50809728565542
+  product:
+    handle: swyft-intake-wheels
+    id: 10186466296102
+    title: SWYFT Intake Wheels
+  variant:
+    id: 50809728565542
+    options:
+      - 1.5" (Pack of 4)
+      - 7mm Hex
+      - null
+    sku: SR-INTAKEWHEEL-15-7MM
+    title: 1.5" (Pack of 4) / 7mm Hex
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-intake-wheels?variant=50809728598310
+  product:
+    handle: swyft-intake-wheels
+    id: 10186466296102
+    title: SWYFT Intake Wheels
+  variant:
+    id: 50809728598310
+    options:
+      - 2.5" (Pack of 4)
+      - 1/2" Hex
+      - null
+    sku: SR-INTAKEWHEEL-25-12
+    title: 2.5" (Pack of 4) / 1/2" Hex
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-intake-wheels?variant=50809728631078
+  product:
+    handle: swyft-intake-wheels
+    id: 10186466296102
+    title: SWYFT Intake Wheels
+  variant:
+    id: 50809728631078
+    options:
+      - 2.5" (Pack of 4)
+      - 7mm Hex
+      - null
+    sku: SR-INTAKEWHEEL-25-7mm
+    title: 2.5" (Pack of 4) / 7mm Hex
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-intake-wheels?variant=50809728663846
+  product:
+    handle: swyft-intake-wheels
+    id: 10186466296102
+    title: SWYFT Intake Wheels
+  variant:
+    id: 50809728663846
+    options:
+      - 3.5" (Pack of 4)
+      - 1/2" Hex
+      - null
+    sku: SR-INTAKEWHEEL-35-12
+    title: 3.5" (Pack of 4) / 1/2" Hex
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-intake-wheels?variant=50809728729382
+  product:
+    handle: swyft-intake-wheels
+    id: 10186466296102
+    title: SWYFT Intake Wheels
+  variant:
+    id: 50809728729382
+    options:
+      - 4.5" (Pack of 4)
+      - 1/2" Hex
+      - null
+    sku: SR-INTAKEWHEEL-45-12
+    title: 4.5" (Pack of 4) / 1/2" Hex
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-intake-wheels?variant=50809889784102
+  product:
+    handle: swyft-intake-wheels
+    id: 10186466296102
+    title: SWYFT Intake Wheels
+  variant:
+    id: 50809889784102
+    options:
+      - Bundle, 4 of Every Size, 16 Wheels Total
+      - 1/2" Hex
+      - null
+    sku: SR-INTAKEWHEEL-BUNDLE-12
+    title: Bundle, 4 of Every Size, 16 Wheels Total / 1/2" Hex
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-intake-wheels?variant=51403790582054
+  product:
+    handle: swyft-intake-wheels
+    id: 10186466296102
+    title: SWYFT Intake Wheels
+  variant:
+    id: 51403790582054
+    options:
+      - Bundle, 4 of Every Size, 16 Wheels Total
+      - 7mm Hex
+      - null
+    sku: SR-INTAKEWHEEL-BUNDLE-7mm
+    title: Bundle, 4 of Every Size, 16 Wheels Total / 7mm Hex
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-intake-wheels?variant=51403792875814
+  product:
+    handle: swyft-intake-wheels
+    id: 10186466296102
+    title: SWYFT Intake Wheels
+  variant:
+    id: 51403792875814
+    options:
+      - 3.5" (Pack of 4)
+      - 7mm Hex
+      - null
+    sku: SR-INTAKEWHEEL-35-7mm
+    title: 3.5" (Pack of 4) / 7mm Hex
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-intake-wheels?variant=51403797954854
+  product:
+    handle: swyft-intake-wheels
+    id: 10186466296102
+    title: SWYFT Intake Wheels
+  variant:
+    id: 51403797954854
+    options:
+      - 4.5" (Pack of 4)
+      - 7mm Hex
+      - null
+    sku: SR-INTAKEWHEEL-45-7mm
+    title: 4.5" (Pack of 4) / 7mm Hex
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-aluminum-tube-inserts?variant=50847035392294
+  product:
+    handle: swyft-aluminum-tube-inserts
+    id: 10196106314022
+    title: SWYFT Tube Endcaps
+  variant:
+    id: 50847035392294
+    options:
+      - 2 Pack 1" x 1" Endcap For 1/8" Wall Tubing
+      - null
+      - null
+    sku: SR-TUBEBLOCK-01
+    title: 2 Pack 1" x 1" Endcap For 1/8" Wall Tubing
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-aluminum-tube-inserts?variant=50847035425062
+  product:
+    handle: swyft-aluminum-tube-inserts
+    id: 10196106314022
+    title: SWYFT Tube Endcaps
+  variant:
+    id: 50847035425062
+    options:
+      - 2 Pack 2" x 1" Endcap For 1/8" Wall Tubing
+      - null
+      - null
+    sku: SR-TUBEBLOCK-11
+    title: 2 Pack 2" x 1" Endcap For 1/8" Wall Tubing
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-aluminum-tube-inserts?variant=50847035457830
+  product:
+    handle: swyft-aluminum-tube-inserts
+    id: 10196106314022
+    title: SWYFT Tube Endcaps
+  variant:
+    id: 50847035457830
+    options:
+      - 2 Pack Low Weight 2" x 1" Endcap For 1/16" Wall Tubing
+      - null
+      - null
+    sku: SR-TUBEBLOCK-12
+    title: 2 Pack Low Weight 2" x 1" Endcap For 1/16" Wall Tubing
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-aluminum-tube-inserts?variant=50847035490598
+  product:
+    handle: swyft-aluminum-tube-inserts
+    id: 10196106314022
+    title: SWYFT Tube Endcaps
+  variant:
+    id: 50847035490598
+    options:
+      - 2 Pack Low Weight 2" x 1" Endcap For 0.035" Wall Tubing
+      - null
+      - null
+    sku: SR-TUBEBLOCK-13
+    title: 2 Pack Low Weight 2" x 1" Endcap For 0.035" Wall Tubing
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/10-32-threaded-standoffs?variant=50847870746918
+  product:
+    handle: 10-32-threaded-standoffs
+    id: 10196367180070
+    title: 10-32 Threaded Standoffs
+  variant:
+    id: 50847870746918
+    options:
+      - 4" Pack of 10
+      - null
+      - null
+    sku: SR-STANDOFF-1032-40
+    title: 4" Pack of 10
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/10-32-threaded-standoffs?variant=50847870779686
+  product:
+    handle: 10-32-threaded-standoffs
+    id: 10196367180070
+    title: 10-32 Threaded Standoffs
+  variant:
+    id: 50847870779686
+    options:
+      - 3.5" Pack of 10
+      - null
+      - null
+    sku: SR-STANDOFF-1032-35
+    title: 3.5" Pack of 10
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/10-32-threaded-standoffs?variant=50847870812454
+  product:
+    handle: 10-32-threaded-standoffs
+    id: 10196367180070
+    title: 10-32 Threaded Standoffs
+  variant:
+    id: 50847870812454
+    options:
+      - 3" Pack of 10
+      - null
+      - null
+    sku: SR-STANDOFF-1032-30
+    title: 3" Pack of 10
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/10-32-threaded-standoffs?variant=50847870845222
+  product:
+    handle: 10-32-threaded-standoffs
+    id: 10196367180070
+    title: 10-32 Threaded Standoffs
+  variant:
+    id: 50847870845222
+    options:
+      - 2.5" Pack of 10
+      - null
+      - null
+    sku: SR-STANDOFF-1032-25
+    title: 2.5" Pack of 10
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/10-32-threaded-standoffs?variant=50847870877990
+  product:
+    handle: 10-32-threaded-standoffs
+    id: 10196367180070
+    title: 10-32 Threaded Standoffs
+  variant:
+    id: 50847870877990
+    options:
+      - 2" Pack of 10
+      - null
+      - null
+    sku: SR-STANDOFF-1032-20
+    title: 2" Pack of 10
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/10-32-threaded-standoffs?variant=50847870910758
+  product:
+    handle: 10-32-threaded-standoffs
+    id: 10196367180070
+    title: 10-32 Threaded Standoffs
+  variant:
+    id: 50847870910758
+    options:
+      - 1.5" Pack of 10
+      - null
+      - null
+    sku: SR-STANDOFF-1032-15
+    title: 1.5" Pack of 10
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/10-32-threaded-standoffs?variant=50847870943526
+  product:
+    handle: 10-32-threaded-standoffs
+    id: 10196367180070
+    title: 10-32 Threaded Standoffs
+  variant:
+    id: 50847870943526
+    options:
+      - 1" Pack of 10
+      - null
+      - null
+    sku: SR-STANDOFF-1032-10
+    title: 1" Pack of 10
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/10-32-threaded-standoffs?variant=50847870976294
+  product:
+    handle: 10-32-threaded-standoffs
+    id: 10196367180070
+    title: 10-32 Threaded Standoffs
+  variant:
+    id: 50847870976294
+    options:
+      - 0.75" Pack of 10
+      - null
+      - null
+    sku: SR-STANDOFF-1032-07
+    title: 0.75" Pack of 10
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/10-32-threaded-standoffs?variant=50876742140198
+  product:
+    handle: 10-32-threaded-standoffs
+    id: 10196367180070
+    title: 10-32 Threaded Standoffs
+  variant:
+    id: 50876742140198
+    options:
+      - 1.25" Pack of 10
+      - null
+      - null
+    sku: SR-STANDOFF-1032-12
+    title: 1.25" Pack of 10
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-loadout-parts-bundles?variant=50850148352294
+  product:
+    handle: swyft-loadout-parts-bundles
+    id: 10196970340646
+    title: SWYFT Loadout Parts Bundles
+  variant:
+    id: 50850148352294
+    options:
+      - M3 Screw Kit
+      - null
+      - null
+    sku: SR-LOADOUT-M3
+    title: M3 Screw Kit
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-loadout-parts-bundles?variant=50850148385062
+  product:
+    handle: swyft-loadout-parts-bundles
+    id: 10196970340646
+    title: SWYFT Loadout Parts Bundles
+  variant:
+    id: 50850148385062
+    options:
+      - M4 Screw Kit
+      - null
+      - null
+    sku: SR-LOADOUT-M4
+    title: M4 Screw Kit
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-loadout-parts-bundles?variant=50850148417830
+  product:
+    handle: swyft-loadout-parts-bundles
+    id: 10196970340646
+    title: SWYFT Loadout Parts Bundles
+  variant:
+    id: 50850148417830
+    options:
+      - 10-32 Screw Kit
+      - null
+      - null
+    sku: SR-LOADOUT-1032
+    title: 10-32 Screw Kit
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-loadout-parts-bundles?variant=50850148450598
+  product:
+    handle: swyft-loadout-parts-bundles
+    id: 10196970340646
+    title: SWYFT Loadout Parts Bundles
+  variant:
+    id: 50850148450598
+    options:
+      - 10-32 Standoff And Spacer Kit
+      - null
+      - null
+    sku: SR-LOADOUT-1032S
+    title: 10-32 Standoff And Spacer Kit
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-loadout-parts-bundles?variant=50850148483366
+  product:
+    handle: swyft-loadout-parts-bundles
+    id: 10196970340646
+    title: SWYFT Loadout Parts Bundles
+  variant:
+    id: 50850148483366
+    options:
+      - 1/4"-20 Screw Kit
+      - null
+      - null
+    sku: SR-LOADOUT-1420
+    title: 1/4"-20 Screw Kit
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-loadout-parts-bundles?variant=50850148516134
+  product:
+    handle: swyft-loadout-parts-bundles
+    id: 10196970340646
+    title: SWYFT Loadout Parts Bundles
+  variant:
+    id: 50850148516134
+    options:
+      - 8-32 Screw Kit
+      - null
+      - null
+    sku: SR-LOADOUT-0832
+    title: 8-32 Screw Kit
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-loadout-parts-bundles?variant=51858251612454
+  product:
+    handle: swyft-loadout-parts-bundles
+    id: 10196970340646
+    title: SWYFT Loadout Parts Bundles
+  variant:
+    id: 51858251612454
+    options:
+      - FRC Tube Connectors Kit
+      - null
+      - null
+    sku: SR-LOADOUT-CONNECT-01
+    title: FRC Tube Connectors Kit
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-super-composite?variant=50917996101926
+  product:
+    handle: swyft-super-composite
+    id: 10214465863974
+    title: SWYFT Composite
+  variant:
+    id: 50917996101926
+    options:
+      - 1.75mm SWYFT Composite (100% SRPP) (660mm x 737mm)
+      - null
+      - null
+    sku: SR-SRPP-017
+    title: 1.75mm SWYFT Composite (100% SRPP) (660mm x 737mm)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-super-composite?variant=50917996134694
+  product:
+    handle: swyft-super-composite
+    id: 10214465863974
+    title: SWYFT Composite
+  variant:
+    id: 50917996134694
+    options:
+      - 3mm SWYFT Composite (100% SRPP) (610mm x 610mm)
+      - null
+      - null
+    sku: SR-SRPP-03
+    title: 3mm SWYFT Composite (100% SRPP) (610mm x 610mm)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-super-composite?variant=53150835081510
+  product:
+    handle: swyft-super-composite
+    id: 10214465863974
+    title: SWYFT Composite
+  variant:
+    id: 53150835081510
+    options:
+      - 6mm SWYFT Composite (SRPP + Foam Core) (610mm x 610mm)
+      - null
+      - null
+    sku: null
+    title: 6mm SWYFT Composite (SRPP + Foam Core) (610mm x 610mm)
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-tube-connectors?variant=50935003611430
+  product:
+    handle: swyft-tube-connectors
+    id: 10220163367206
+    title: SWYFT Tube Connectors
+  variant:
+    id: 50935003611430
+    options:
+      - 2 Pack SWYFT Tube Connectors for 1" Tubing Face
+      - null
+      - null
+    sku: SR-TUBECONNECTOR-01
+    title: 2 Pack SWYFT Tube Connectors for 1" Tubing Face
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-tube-connectors?variant=50935003644198
+  product:
+    handle: swyft-tube-connectors
+    id: 10220163367206
+    title: SWYFT Tube Connectors
+  variant:
+    id: 50935003644198
+    options:
+      - 2 Pack SWYFT Tube Connectors for 2" Tubing Face
+      - null
+      - null
+    sku: SR-TUBECONNECTOR-02
+    title: 2 Pack SWYFT Tube Connectors for 2" Tubing Face
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-tube-connectors?variant=51853283131686
+  product:
+    handle: swyft-tube-connectors
+    id: 10220163367206
+    title: SWYFT Tube Connectors
+  variant:
+    id: 51853283131686
+    options:
+      - 20 Pack Bundle SWYFT Tube Connector (10x 1" and 10x 2")
+      - null
+      - null
+    sku: null
+    title: 20 Pack Bundle SWYFT Tube Connector (10x 1" and 10x 2")
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-super-tube?variant=50935967842598
+  product:
+    handle: swyft-super-tube
+    id: 10220359713062
+    title: SWYFT Tube
+  variant:
+    id: 50935967842598
+    options:
+      - 0.125in Wall
+      - Plain
+      - 2"x1"  Length:47"
+    sku: null
+    title: 0.125in Wall / Plain / 2"x1"  Length:47"
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-super-tube?variant=50935967875366
+  product:
+    handle: swyft-super-tube
+    id: 10220359713062
+    title: SWYFT Tube
+  variant:
+    id: 50935967875366
+    options:
+      - 0.125in Wall
+      - Grid
+      - 2"x1"  Length:47"
+    sku: null
+    title: 0.125in Wall / Grid / 2"x1"  Length:47"
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-super-tube?variant=50935967908134
+  product:
+    handle: swyft-super-tube
+    id: 10220359713062
+    title: SWYFT Tube
+  variant:
+    id: 50935967908134
+    options:
+      - 0.125in Wall
+      - Grid + Bearing
+      - 2"x1"  Length:47"
+    sku: null
+    title: 0.125in Wall / Grid + Bearing / 2"x1"  Length:47"
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-super-tube?variant=50935967940902
+  product:
+    handle: swyft-super-tube
+    id: 10220359713062
+    title: SWYFT Tube
+  variant:
+    id: 50935967940902
+    options:
+      - 0.0625in Wall
+      - Plain
+      - 2"x1"  Length:47"
+    sku: null
+    title: 0.0625in Wall / Plain / 2"x1"  Length:47"
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-super-tube?variant=50935967973670
+  product:
+    handle: swyft-super-tube
+    id: 10220359713062
+    title: SWYFT Tube
+  variant:
+    id: 50935967973670
+    options:
+      - 0.0625in Wall
+      - Grid
+      - 2"x1"  Length:47"
+    sku: null
+    title: 0.0625in Wall / Grid / 2"x1"  Length:47"
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-super-tube?variant=50935968006438
+  product:
+    handle: swyft-super-tube
+    id: 10220359713062
+    title: SWYFT Tube
+  variant:
+    id: 50935968006438
+    options:
+      - 0.0625in Wall
+      - Grid + Bearing
+      - 2"x1"  Length:47"
+    sku: null
+    title: 0.0625in Wall / Grid + Bearing / 2"x1"  Length:47"
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-super-tube?variant=50935968039206
+  product:
+    handle: swyft-super-tube
+    id: 10220359713062
+    title: SWYFT Tube
+  variant:
+    id: 50935968039206
+    options:
+      - 0.035in Wall
+      - Plain
+      - 2"x1"  Length:47"
+    sku: null
+    title: 0.035in Wall / Plain / 2"x1"  Length:47"
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-super-tube?variant=50935968071974
+  product:
+    handle: swyft-super-tube
+    id: 10220359713062
+    title: SWYFT Tube
+  variant:
+    id: 50935968071974
+    options:
+      - 0.035in Wall
+      - Grid
+      - 2"x1"  Length:47"
+    sku: null
+    title: 0.035in Wall / Grid / 2"x1"  Length:47"
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-super-tube?variant=53198823096614
+  product:
+    handle: swyft-super-tube
+    id: 10220359713062
+    title: SWYFT Tube
+  variant:
+    id: 53198823096614
+    options:
+      - 0.125in Wall
+      - Grid
+      - 1"x1"  Length:47"
+    sku: null
+    title: 0.125in Wall / Grid / 1"x1"  Length:47"
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-super-tube?variant=53198823129382
+  product:
+    handle: swyft-super-tube
+    id: 10220359713062
+    title: SWYFT Tube
+  variant:
+    id: 53198823129382
+    options:
+      - 0.0625in Wall
+      - Grid
+      - 1"x1"  Length:47"
+    sku: null
+    title: 0.0625in Wall / Grid / 1"x1"  Length:47"
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/polycarbonate-sheets?variant=50964620116262
+  product:
+    handle: polycarbonate-sheets
+    id: 10229013053734
+    title: Polycarbonate Sheets
+  variant:
+    id: 50964620116262
+    options:
+      - 3mm (745mm x 745mm) 29.3in x 29.3in
+      - null
+      - null
+    sku: null
+    title: 3mm (745mm x 745mm) 29.3in x 29.3in
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/polycarbonate-sheets?variant=50964620149030
+  product:
+    handle: polycarbonate-sheets
+    id: 10229013053734
+    title: Polycarbonate Sheets
+  variant:
+    id: 50964620149030
+    options:
+      - 6mm (745mm x 745mm) 29.3in x 29.3in
+      - null
+      - null
+    sku: null
+    title: 6mm (745mm x 745mm) 29.3in x 29.3in
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-black-abs-grid-sheets?variant=50965504917798
+  product:
+    handle: swyft-black-abs-grid-sheets
+    id: 10229246099750
+    title: ABS Grid Sheets
+  variant:
+    id: 50965504917798
+    options:
+      - Default Title
+      - null
+      - null
+    sku: SR-ABS-GRID-1.5
+    title: Default Title
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-channel-endcaps?variant=51003312865574
+  product:
+    handle: swyft-channel-endcaps
+    id: 10231291674918
+    title: SWYFT Channel Endcaps
+  variant:
+    id: 51003312865574
+    options:
+      - SWYFT Channel Endcap 2 Pack
+      - null
+      - null
+    sku: SR-CHANNEL-L48-ENDCAP-01
+    title: SWYFT Channel Endcap 2 Pack
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-channel?variant=51036734357798
+  product:
+    handle: swyft-channel
+    id: 10232581161254
+    title: SWYFT Channel
+  variant:
+    id: 51036734357798
+    options:
+      - 424mm Length 17 Hole SWYFT Channel
+      - null
+      - null
+    sku: null
+    title: 424mm Length 17 Hole SWYFT Channel
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=51044922491174
+  product:
+    handle: spare-parts-swyft-drive-v2
+    id: 10234577584422
+    title: (Spare & Upgrade) SWYFT Drive V2
+  variant:
+    id: 51044922491174
+    options:
+      - Full Right Module
+      - null
+      - null
+    sku: null
+    title: Full Right Module
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=51044922523942
+  product:
+    handle: spare-parts-swyft-drive-v2
+    id: 10234577584422
+    title: (Spare & Upgrade) SWYFT Drive V2
+  variant:
+    id: 51044922523942
+    options:
+      - Full Left Module
+      - null
+      - null
+    sku: null
+    title: Full Left Module
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=51044922556710
+  product:
+    handle: spare-parts-swyft-drive-v2
+    id: 10234577584422
+    title: (Spare & Upgrade) SWYFT Drive V2
+  variant:
+    id: 51044922556710
+    options:
+      - 9pcs Wheel Rollers
+      - null
+      - null
+    sku: null
+    title: 9pcs Wheel Rollers
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=51044922589478
+  product:
+    handle: spare-parts-swyft-drive-v2
+    id: 10234577584422
+    title: (Spare & Upgrade) SWYFT Drive V2
+  variant:
+    id: 51044922589478
+    options:
+      - Bearings Kit
+      - null
+      - null
+    sku: null
+    title: Bearings Kit
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=51044922622246
+  product:
+    handle: spare-parts-swyft-drive-v2
+    id: 10234577584422
+    title: (Spare & Upgrade) SWYFT Drive V2
+  variant:
+    id: 51044922622246
+    options:
+      - Front Block with Planet Gear and Back Block
+      - null
+      - null
+    sku: null
+    title: Front Block with Planet Gear and Back Block
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=51044922655014
+  product:
+    handle: spare-parts-swyft-drive-v2
+    id: 10234577584422
+    title: (Spare & Upgrade) SWYFT Drive V2
+  variant:
+    id: 51044922655014
+    options:
+      - Ring Gear
+      - null
+      - null
+    sku: null
+    title: Ring Gear
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=51044922720550
+  product:
+    handle: spare-parts-swyft-drive-v2
+    id: 10234577584422
+    title: (Spare & Upgrade) SWYFT Drive V2
+  variant:
+    id: 51044922720550
+    options:
+      - 2x Wheel Plate Left & 2x Wheel Plate Right & 2x Wheel Hub
+      - null
+      - null
+    sku: null
+    title: 2x Wheel Plate Left & 2x Wheel Plate Right & 2x Wheel Hub
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=51044922753318
+  product:
+    handle: spare-parts-swyft-drive-v2
+    id: 10234577584422
+    title: (Spare & Upgrade) SWYFT Drive V2
+  variant:
+    id: 51044922753318
+    options:
+      - Module Screws Kit
+      - null
+      - null
+    sku: null
+    title: Module Screws Kit
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=51044922786086
+  product:
+    handle: spare-parts-swyft-drive-v2
+    id: 10234577584422
+    title: (Spare & Upgrade) SWYFT Drive V2
+  variant:
+    id: 51044922786086
+    options:
+      - SWYFT Spike Motor with Pinion for SWYFT Drive V2
+      - null
+      - null
+    sku: null
+    title: SWYFT Spike Motor with Pinion for SWYFT Drive V2
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=51911590904102
+  product:
+    handle: spare-parts-swyft-drive-v2
+    id: 10234577584422
+    title: (Spare & Upgrade) SWYFT Drive V2
+  variant:
+    id: 51911590904102
+    options:
+      - SWYFT Drive V2 110mm Wheel Upgrade Kit
+      - null
+      - null
+    sku: null
+    title: SWYFT Drive V2 110mm Wheel Upgrade Kit
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-titan-servo-module?variant=51336199340326
+  product:
+    handle: swyft-titan-servo-module
+    id: 10249363849510
+    title: SWYFT Titan Servo Module
+  variant:
+    id: 51336199340326
+    options:
+      - Default Title
+      - null
+      - null
+    sku: SR-SERVO-TITAN-01
+    title: Default Title
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ftc-driver-station?variant=51656282538278
+  product:
+    handle: swyft-ftc-driver-station
+    id: 10297040929062
+    title: SWYFT FTC Driver Station
+  variant:
+    id: 51656282538278
+    options:
+      - Default Title
+      - null
+      - null
+    sku: SR-DRIVERSTATION-01
+    title: Default Title
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/steel-flywheels?variant=51711422595366
+  product:
+    handle: steel-flywheels
+    id: 10312258355494
+    title: Steel Flywheels
+  variant:
+    id: 51711422595366
+    options:
+      - 72mm
+      - null
+      - null
+    sku: SR-FLYWHEEL-72mm
+    title: 72mm
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/steel-flywheels?variant=51711422628134
+  product:
+    handle: steel-flywheels
+    id: 10312258355494
+    title: Steel Flywheels
+  variant:
+    id: 51711422628134
+    options:
+      - 96mm
+      - null
+      - null
+    sku: SR-FLYWHEEL-96mm
+    title: 96mm
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/steel-flywheels?variant=51975335117094
+  product:
+    handle: steel-flywheels
+    id: 10312258355494
+    title: Steel Flywheels
+  variant:
+    id: 51975335117094
+    options:
+      - 4" FRC
+      - null
+      - null
+    sku: null
+    title: 4" FRC
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-linear-odometry-module?variant=51753250160934
+  product:
+    handle: swyft-linear-odometry-module
+    id: 10325598765350
+    title: SWYFT Linear Odometry Module
+  variant:
+    id: 51753250160934
+    options:
+      - Default Title
+      - null
+      - null
+    sku: SR-WHEELTRACKER-01
+    title: Default Title
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-cannect-v2?variant=51762829099302
+  product:
+    handle: swyft-cannect-v2
+    id: 10328693539110
+    title: SWYFT CANnect Wiring System V2
+  variant:
+    id: 51762829099302
+    options:
+      - Swerve Drive Bundle (4x Direct + 1x Inject + 5x Cable)
+      - null
+      - null
+    sku: null
+    title: Swerve Drive Bundle (4x Direct + 1x Inject + 5x Cable)
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-cannect-v2?variant=51762829132070
+  product:
+    handle: swyft-cannect-v2
+    id: 10328693539110
+    title: SWYFT CANnect Wiring System V2
+  variant:
+    id: 51762829132070
+    options:
+      - SWYFT Direct
+      - null
+      - null
+    sku: null
+    title: SWYFT Direct
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-cannect-v2?variant=51762829164838
+  product:
+    handle: swyft-cannect-v2
+    id: 10328693539110
+    title: SWYFT CANnect Wiring System V2
+  variant:
+    id: 51762829164838
+    options:
+      - SWYFT Inject
+      - null
+      - null
+    sku: null
+    title: SWYFT Inject
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-ascend-frc-telescoping-elevator-v2?variant=51774169973030
+  product:
+    handle: swyft-ascend-frc-telescoping-elevator-v2
+    id: 10332753199398
+    title: SWYFT Ascend FRC Telescoping Elevator V2
+  variant:
+    id: 51774169973030
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/aluminum-7075-sheets?variant=52888193171750
+  product:
+    handle: aluminum-7075-sheets
+    id: 10378907189542
+    title: Aluminum 7075 Sheets
+  variant:
+    id: 52888193171750
+    options:
+      - 3mm (700mm x 700mm) 27.5in x 27.5in
+      - null
+      - null
+    sku: SR-AL7075-SHEET-3
+    title: 3mm (700mm x 700mm) 27.5in x 27.5in
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/aluminum-7075-sheets?variant=52888193204518
+  product:
+    handle: aluminum-7075-sheets
+    id: 10378907189542
+    title: Aluminum 7075 Sheets
+  variant:
+    id: 52888193204518
+    options:
+      - 6mm (700mm x 700mm) 27.5in x 27.5in
+      - null
+      - null
+    sku: SR-AL7075-SHEET-6
+    title: 6mm (700mm x 700mm) 27.5in x 27.5in
+  firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-axles?variant=52965310300454
+  product:
+    handle: swyft-axles
+    id: 10490609238310
+    title: SWYFT Axles
+  variant:
+    id: 52965310300454
+    options:
+      - 1/2" Hex (Fits 13.75mm Bearings)  36" Length
+      - AL7075
+      - null
+    sku: SR-AXLE-HEX-0.5in-36in-AL7075
+    title: 1/2" Hex (Fits 13.75mm Bearings)  36" Length / AL7075
+  firstSeen: 2026-07-19T17:34:48.986Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-axles?variant=52965310333222
+  product:
+    handle: swyft-axles
+    id: 10490609238310
+    title: SWYFT Axles
+  variant:
+    id: 52965310333222
+    options:
+      - 1/2" Hex (Fits 13.75mm Bearings)  36" Length
+      - AL6061
+      - null
+    sku: SR-AXLE-HEX-0.5in-36in-AL6061
+    title: 1/2" Hex (Fits 13.75mm Bearings)  36" Length / AL6061
+  firstSeen: 2026-07-19T17:34:48.986Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-axles?variant=52965310365990
+  product:
+    handle: swyft-axles
+    id: 10490609238310
+    title: SWYFT Axles
+  variant:
+    id: 52965310365990
+    options:
+      - 7mm Hex (Fits 8mm Bearings)  450mm Length
+      - SS304
+      - null
+    sku: SR-AXLE-HEX-7mm-450mm-SS304
+    title: 7mm Hex (Fits 8mm Bearings)  450mm Length / SS304
+  firstSeen: 2026-07-19T17:34:48.986Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-axles?variant=52965310398758
+  product:
+    handle: swyft-axles
+    id: 10490609238310
+    title: SWYFT Axles
+  variant:
+    id: 52965310398758
+    options:
+      - 7mm Hex (Fits 8mm Bearings)  450mm Length
+      - AL7075
+      - null
+    sku: SR-AXLE-HEX-7mm-450mm-AL7075
+    title: 7mm Hex (Fits 8mm Bearings)  450mm Length / AL7075
+  firstSeen: 2026-07-19T17:34:48.986Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-axles?variant=52965310431526
+  product:
+    handle: swyft-axles
+    id: 10490609238310
+    title: SWYFT Axles
+  variant:
+    id: 52965310431526
+    options:
+      - 7mm Hex (Fits 8mm Bearings)  450mm Length
+      - AL6061
+      - null
+    sku: SR-AXLE-HEX-7mmH-450mm-AL6061
+    title: 7mm Hex (Fits 8mm Bearings)  450mm Length / AL6061
+  firstSeen: 2026-07-19T17:34:48.986Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-axles?variant=52965310464294
+  product:
+    handle: swyft-axles
+    id: 10490609238310
+    title: SWYFT Axles
+  variant:
+    id: 52965310464294
+    options:
+      - 15T SplineXS (Fits 8mm Bearings)  450mm Length
+      - SS304
+      - null
+    sku: SR-AXLE-SPLINE-15T-450mm-SS304
+    title: 15T SplineXS (Fits 8mm Bearings)  450mm Length / SS304
+  firstSeen: 2026-07-19T17:34:48.986Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-axles?variant=52965310497062
+  product:
+    handle: swyft-axles
+    id: 10490609238310
+    title: SWYFT Axles
+  variant:
+    id: 52965310497062
+    options:
+      - 15T SplineXS (Fits 8mm Bearings)  450mm Length
+      - AL7075
+      - null
+    sku: SR-AXLE-SPLINE-15T-450mm-AL7075
+    title: 15T SplineXS (Fits 8mm Bearings)  450mm Length / AL7075
+  firstSeen: 2026-07-19T17:34:48.986Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-electric-coreless-screwdriver-5nm?variant=53261107331366
+  product:
+    handle: swyft-electric-coreless-screwdriver-5nm
+    id: 10563074720038
+    title: SWYFT Electric Cordless Screwdriver
+  variant:
+    id: 53261107331366
+    options:
+      - Default Title
+      - null
+      - null
+    sku: SR-SCREWDRIVER-5NM
+    title: Default Title
+  firstSeen: 2026-06-06T00:24:48.421Z

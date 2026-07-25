@@ -1,0 +1,866 @@
+[
+  {
+    "teeth": 40,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/40-tooth-20-dp-0-375-in-hex-bore-steel-gear",
+    "sku": "am-0024",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 28,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/28-tooth-20-dp-0-375-in-hex-bore-steel-gear",
+    "sku": "am-0025",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 14,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://www.andymark.com/products/20-dp-pinion-gears",
+    "sku": "am-0034",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 14,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://www.andymark.com/products/sydney-20-dp-pinion-gears",
+    "sku": "am-0034AUS",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 14,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/14-tooth-20-dp-0-375-in-hex-bore-steel-gear-1",
+    "sku": "am-0151",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 19,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/sydney-19-tooth-20-dp-0-375-in-hex-bore-steel-gear",
+    "sku": "am-0176AUS",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 15,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://www.andymark.com/products/20-dp-pinion-gears",
+    "sku": "am-0259",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 15,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://www.andymark.com/products/sydney-20-dp-pinion-gears",
+    "sku": "am-0259AUS",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 15,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/15-tooth-20-dp-0-375-in-hex-bore-steel-gear",
+    "sku": "am-0451",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 12,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://www.andymark.com/products/20-dp-pinion-gears",
+    "sku": "am-0741",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 12,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://www.andymark.com/products/sydney-20-dp-pinion-gears",
+    "sku": "am-0741AUS",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 60,
+    "dp": 32,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/60-tooth-32-dp-0-375-in-hex-bore-steel-gear",
+    "sku": "am-0927",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 19,
+    "dp": 32,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/19-tooth-32-dp-0-375-in-hex-bore-steel-gear",
+    "sku": "am-2337",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 14,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/14-tooth-20-dp-0-375-in-hex-bore-steel-gear",
+    "sku": "am-2354",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 17,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://www.andymark.com/products/20-dp-pinion-gears",
+    "sku": "am-2357",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 17,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://www.andymark.com/products/sydney-20-dp-pinion-gears",
+    "sku": "am-2357AUS",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 40,
+    "dp": 20,
+    "bore": "1/4\" Round",
+    "url": "https://www.andymark.com/products/40-tooth-20-dp-0-5-in-round-bore-aluminum-bolt-circle-bearing-gear-for-swerve-and-steer",
+    "sku": "am-3013b",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 50,
+    "dp": 20,
+    "bore": "1.125\" Round",
+    "url": "https://www.andymark.com/products/50-tooth-20-dp-1-125-in-round-bore-steel-bolt-circle-bearing-gear",
+    "sku": "am-3209",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 35,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/35-tooth-20-dp-0-5-in-hex-bore-steel-gear",
+    "sku": "am-3329",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 15,
+    "dp": 32,
+    "bore": "8mm",
+    "url": "https://www.andymark.com/products/32-dp-pinion-gears",
+    "sku": "am-3482",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 60,
+    "dp": 32,
+    "bore": "1/4\" Round",
+    "url": "https://www.andymark.com/products/60-tooth-32-dp-0-250-in-round-bore-steel-gear-for-evo-encoder",
+    "sku": "am-3483",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 14,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3484",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 24,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3485",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 35,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3486",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 40,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3487",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 50,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3488",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 20,
+    "dp": 32,
+    "bore": "1/4\" Round",
+    "url": "https://www.andymark.com/products/20-tooth-32-dp-0-375-in-round-bore-steel-gear-for-evo-encoder",
+    "sku": "am-3532",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 85,
+    "dp": 32,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-32-dp-gears",
+    "sku": "am-3533",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 18,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3534",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 25,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3535",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 30,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3536",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 34,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3537",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 38,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3538",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 19,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3645",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 21,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3646",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 28,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3647",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 45,
+    "dp": 32,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-32-dp-gears",
+    "sku": "am-3694",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 56,
+    "dp": 20,
+    "bore": "1/4\" Round",
+    "url": "https://www.andymark.com/products/56-tooth-20-dp-0-5-in-round-bore-steel-bolt-circle-gear",
+    "sku": "am-3712",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 38,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3718",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 32,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3815",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 36,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3816",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 46,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3819",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 20,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3820",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 52,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3821",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 56,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3822",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 40,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-3976",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 16,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://www.andymark.com/products/20-dp-pinion-gears",
+    "sku": "am-4075",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 35,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4186",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 18,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4212",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 20,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4213",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 24,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4214",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 30,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4215",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 20,
+    "dp": 32,
+    "bore": "8mm",
+    "url": "https://www.andymark.com/products/32-dp-pinion-gears",
+    "sku": "am-4323",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 19,
+    "dp": 32,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-32-dp-gears",
+    "sku": "am-4324",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 20,
+    "dp": 32,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-32-dp-gears",
+    "sku": "am-4325",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 32,
+    "dp": 32,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-32-dp-gears",
+    "sku": "am-4326",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 35,
+    "dp": 32,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-32-dp-gears",
+    "sku": "am-4327",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 40,
+    "dp": 32,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-32-dp-gears",
+    "sku": "am-4328",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 32,
+    "dp": 32,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-32-dp-gears",
+    "sku": "am-4330",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 35,
+    "dp": 32,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-32-dp-gears",
+    "sku": "am-4331",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 40,
+    "dp": 32,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-32-dp-gears",
+    "sku": "am-4332",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 45,
+    "dp": 32,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-32-dp-gears",
+    "sku": "am-4333",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 60,
+    "dp": 32,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-32-dp-gears",
+    "sku": "am-4334",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 85,
+    "dp": 32,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-32-dp-gears",
+    "sku": "am-4335",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 50,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4367",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 15,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4389",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 17,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4390",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 25,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4391",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 28,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4392",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 43,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4393",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 45,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4394",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 48,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4395",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 16,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4665",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 36,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4709",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 40,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4710",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 43,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4711",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 45,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4712",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 46,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4713",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 48,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4714",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 50,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4715",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 50,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4720",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 52,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-4733",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 18,
+    "dp": 20,
+    "bore": "8mm",
+    "url": "https://www.andymark.com/products/20-dp-pinion-gears",
+    "sku": "am-4880",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 19,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5131",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 21,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5132",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 28,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5133",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 29,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5134",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 29,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5135",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 32,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5136",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 34,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5137",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 36,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5138",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 43,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5139",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 45,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5140",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 46,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5141",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 48,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5142",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 56,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5143",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 35,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5146",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 35,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5147",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 40,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5148",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 43,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5149",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 43,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5151",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 45,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5152",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 45,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5153",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 50,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5154",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 50,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5155",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 56,
+    "dp": 20,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5156",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 56,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://www.andymark.com/products/standard-20-dp-gears",
+    "sku": "am-5157",
+    "vendor": "AndyMark"
+  },
+  {
+    "teeth": 32,
+    "dp": 32,
+    "bore": "3/8\" Hex",
+    "url": "https://www.andymark.com/products/sds-32-tooth-32-dp-3-8-in-hex-bore-gear",
+    "sku": "am-5233",
+    "vendor": "AndyMark"
+  }
+]

@@ -1,0 +1,107 @@
+- heading "Flywheel Calculator" [level=1]
+- button "Copy Link":
+  - img
+  - img
+  - text: Copy Link
+- heading "Motors & Electrical" [level=2]
+- text: Motor
+- spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Target Speed Shooter Weight Max Achievable RPM Shooter MOI Projectile Diameter Projectile Weight Ball Initial Velocity Ball Initial Spin Ball MOI Max Stator Limit Max Supply Limit": "2"
+- combobox: Kraken X60 (FOC)
+- text: Efficiency (%)
+- spinbutton: "100"
+- text: Ratio
+- spinbutton: "1"
+- combobox: Reduction
+- text: Stator Limit
+- spinbutton: "80"
+- combobox: A
+- text: Supply Limit
+- spinbutton: "60"
+- combobox: A
+- text: Supply Voltage
+- spinbutton: "12.6"
+- combobox: V
+- text: Battery Resistance
+- spinbutton: "0.015"
+- combobox: Ohm
+- button "LQR Tuning":
+  - img
+  - heading "LQR Tuning" [level=2]
+- heading "Shooter Wheel" [level=2]
+- text: Type
+- combobox: Single Shooter Wheel + Hood
+- text: Shooter Diameter
+- spinbutton: "4"
+- combobox: in
+- text: Shooter Target Speed
+- spinbutton: "3000"
+- combobox: rpm
+- text: Shooter Weight
+- spinbutton: "1"
+- combobox: lbs
+- text: Max Achievable RPM
+- spinbutton [disabled]: "5784"
+- combobox: rpm
+- text: Shooter MOI
+- spinbutton [disabled]: "2.000"
+- combobox: in2*lbs
+- switch "Use Custom Shooter MOI"
+- text: Use Custom Shooter MOI
+- heading "Flywheel" [level=2]
+- switch "Enabled"
+- text: Enabled
+- heading "Projectile" [level=2]
+- text: Projectile Diameter
+- spinbutton: "5"
+- combobox: cm
+- text: Projectile Weight
+- spinbutton: "0.5"
+- combobox: lbs
+- text: Ball Initial Velocity
+- spinbutton: "0"
+- combobox: ft/s
+- text: Ball Initial Spin
+- spinbutton: "0"
+- combobox: rpm
+- text: Ball MOI
+- spinbutton [disabled]: "0.194"
+- combobox: in2*lbs
+- switch "Use Custom Ball MOI"
+- text: Use Custom Ball MOI Spinup Time 0.060
+- combobox: s
+- text: Recovery Time 0.016
+- combobox: s
+- heading "Simulation" [level=2]
+- list:
+  - listitem:
+    - img "Angular Velocity (RPM) legend icon"
+    - text: Angular Velocity (RPM)
+  - listitem:
+    - img "Battery Voltage (V) legend icon"
+    - text: Battery Voltage (V)
+  - listitem:
+    - img "Stator Current (A) legend icon"
+    - text: Stator Current (A)
+  - listitem:
+    - img "Supply Current (A) legend icon"
+    - text: Supply Current (A)
+- application: Time (s) Current (A) / Voltage (V) Angular Velocity (RPM) 0.00 0.01 0.01 0.02 0.02 0.03 0.03 0.04 0.04 0.05 0.05 0.06 0.06 0 40 80 120 160 0 800 1600 2400 3200
+- text: kV 0.020
+- combobox: V*s/rad
+- text: kA 0.000
+- combobox: V*s^2/rad
+- text: Effective MOI 2.000
+- combobox: in2*lbs
+- text: Feedback kP 0.0065
+- combobox: V*s/rad
+- heading "Shot Analysis" [level=2]
+- text: Ball Exit Velocity 19.393
+- combobox: ft/s
+- text: Ball Spin Rate 2258
+- combobox: rpm
+- text: Energy to Ball 5.547
+- combobox: J
+- text: Speed Drop 778
+- combobox: rpm
+- text: Post-Shot Speed 2222
+- combobox: rpm

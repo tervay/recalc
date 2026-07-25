@@ -1,93 +1,369 @@
-import { expect, test } from "@playwright/test";
+import { type Page, expect, test } from '@playwright/test';
+import { waitForChartSettled } from 'playwright-tests/helpers';
 
-test.describe("Linear Calculator", () => {
+async function waitForCalc(page: Page) {
+  await page.waitForTimeout(150);
+  await expect(page.getByTestId('linear-main')).toHaveAttribute(
+    'data-calculating',
+    'false',
+    { timeout: 30000 },
+  );
+  await waitForChartSettled(page, 'linear-main');
+}
+
+test.describe('Linear Mechanism Calculator', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("localhost:3000/linear");
+    await page.goto('/linear');
+    await page.waitForLoadState('networkidle');
   });
 
-  test("Default page", async ({ page }) => {
-    await expect(page.getByTestId("motor")).toHaveValue("2");
-    await expect(page.getByTestId("selectmotor")).toHaveValue(
-      "Kraken X60 (FOC)*",
-    );
-    await expect(page.getByTestId("efficiency")).toHaveValue("100");
-    await expect(page.getByTestId("ratio")).toHaveValue("2");
-    await expect(page.getByTestId("selectratio")).toHaveValue("Reduction");
-    await expect(page.getByTestId("travelDistance")).toHaveValue("60");
-    await expect(page.getByTestId("selecttravelDistance")).toHaveValue("in");
-    await expect(page.getByTestId("spoolDiameter")).toHaveValue("1");
-    await expect(page.getByTestId("selectspoolDiameter")).toHaveValue("in");
-    await expect(page.getByTestId("load")).toHaveValue("15");
-    await expect(page.getByTestId("selectload")).toHaveValue("lbs");
-    await expect(page.getByTestId("currentLimit")).toHaveValue("40");
-    await expect(page.getByTestId("selectcurrentLimit")).toHaveValue("A");
-    await expect(page.getByTestId("angle")).toHaveValue("90");
-    await expect(page.getByTestId("selectangle")).toHaveValue("deg");
-    await expect(page.getByTestId("timeToGoal")).toHaveValue("0.49");
-    await expect(page.getByTestId("selecttimeToGoal")).toHaveValue("s");
-    await expect(page.getByTestId("maxVelocity")).toHaveValue("148.64");
-    await expect(page.getByTestId("selectmaxVelocity")).toHaveValue("in/s");
-    await expect(page.getByTestId("maxAcceleration")).toHaveValue("847.95");
-    await expect(page.getByTestId("selectmaxAcceleration")).toHaveValue(
-      "in/s2",
-    );
-    await expect(page.getByTestId("stallLoad")).toHaveValue("52.87");
-    await expect(page.getByTestId("selectstallLoad")).toHaveValue("lbs");
-    await expect(page.getByTestId("kG")).toHaveValue("0.27");
-    await expect(page.getByTestId("selectkG")).toHaveValue("V");
-    await expect(page.getByTestId("kV")).toHaveValue("3.11");
-    await expect(page.getByTestId("selectkV")).toHaveValue("V*s/m");
-    await expect(page.getByTestId("kA")).toHaveValue("0.03");
-    await expect(page.getByTestId("selectkA")).toHaveValue("V*s^2/m");
-    await expect(page.getByTestId("responseTime")).toHaveValue("0.01");
-    await expect(page.getByTestId("selectresponseTime")).toHaveValue("s");
+  test('should match snapshot with motor magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('motor').fill('2');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'motor-magnitude-changed.yaml',
+    });
   });
 
-  test("NEO", async ({ page }) => {
-    await page.getByTestId("selectmotor").selectOption("NEO");
-    await expect(page.getByTestId("timeToGoal")).toHaveValue("0.51");
-    await expect(page.getByTestId("selecttimeToGoal")).toHaveValue("s");
-    await expect(page.getByTestId("maxVelocity")).toHaveValue("144.51");
-    await expect(page.getByTestId("maxAcceleration")).toHaveValue("771.11");
-    await expect(page.getByTestId("selectmaxVelocity")).toHaveValue("in/s");
-    await expect(page.getByTestId("stallLoad")).toHaveValue("49.64");
-    await expect(page.getByTestId("selectstallLoad")).toHaveValue("lbs");
-    await expect(page.getByTestId("kG")).toHaveValue("0.78");
-    await expect(page.getByTestId("selectkG")).toHaveValue("V");
-    await expect(page.getByTestId("kV")).toHaveValue("3.07");
-    await expect(page.getByTestId("selectkV")).toHaveValue("V*s/m");
-    await expect(page.getByTestId("kA")).toHaveValue("0.08");
-    await expect(page.getByTestId("selectkA")).toHaveValue("V*s^2/m");
-    await expect(page.getByTestId("responseTime")).toHaveValue("0.03");
-    await expect(page.getByTestId("selectresponseTime")).toHaveValue("s");
+  test('should match snapshot with motor unit changed', async ({ page }) => {
+    await page.getByTestId('selectmotor').click();
+    await page.getByRole('option', { name: 'NEO', exact: true }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'motor-unit-changed.yaml',
+    });
   });
 
-  test("CIM", async ({ page }) => {
-    await page.getByTestId("selectmotor").selectOption("CIM");
-    await expect(page.getByTestId("timeToGoal")).toHaveValue("0.55");
-    await expect(page.getByTestId("selecttimeToGoal")).toHaveValue("s");
-    await expect(page.getByTestId("maxVelocity")).toHaveValue("128.59");
-    await expect(page.getByTestId("maxAcceleration")).toHaveValue("787.60");
-    await expect(page.getByTestId("selectmaxVelocity")).toHaveValue("in/s");
-    await expect(page.getByTestId("stallLoad")).toHaveValue("48.57");
-    await expect(page.getByTestId("selectstallLoad")).toHaveValue("lbs");
-    await expect(page.getByTestId("kG")).toHaveValue("1.05");
-    await expect(page.getByTestId("selectkG")).toHaveValue("V");
-    await expect(page.getByTestId("kV")).toHaveValue("3.39");
-    await expect(page.getByTestId("selectkV")).toHaveValue("V*s/m");
-    await expect(page.getByTestId("kA")).toHaveValue("0.11");
-    await expect(page.getByTestId("selectkA")).toHaveValue("V*s^2/m");
-    await expect(page.getByTestId("responseTime")).toHaveValue("0.03");
-    await expect(page.getByTestId("selectresponseTime")).toHaveValue("s");
+  test('should match snapshot with ratio magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('ratio').fill('5');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'ratio-magnitude-changed.yaml',
+    });
   });
 
-  test("Copy link button works", async ({ page, browserName }) => {
-    test.skip(browserName === "webkit");
+  test('should match snapshot with ratio unit changed', async ({ page }) => {
+    await page.getByTestId('selectratio').click();
+    await page.getByRole('option', { name: 'Step-up' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'ratio-unit-changed.yaml',
+    });
+  });
 
-    await page.getByRole("button", { name: "Copy Link" }).click();
-    const value = await page.evaluate("navigator.clipboard.readText()");
-    expect(value).toEqual(
-      "http://localhost:3000/linear?angle=%7B%22s%22%3A90%2C%22u%22%3A%22deg%22%7D&currentLimit=%7B%22s%22%3A40%2C%22u%22%3A%22A%22%7D&efficiency=100&limitAcceleration=0&limitDeceleration=0&limitVelocity=0&limitedAcceleration=%7B%22s%22%3A400%2C%22u%22%3A%22in%2Fs2%22%7D&limitedDeceleration=%7B%22s%22%3A50%2C%22u%22%3A%22in%2Fs2%22%7D&limitedVelocity=%7B%22s%22%3A10%2C%22u%22%3A%22in%2Fs%22%7D&load=%7B%22s%22%3A15%2C%22u%22%3A%22lbs%22%7D&motor=%7B%22quantity%22%3A2%2C%22name%22%3A%22Kraken%20X60%20%28FOC%29%2A%22%7D&ratio=%7B%22magnitude%22%3A2%2C%22ratioType%22%3A%22Reduction%22%7D&spoolDiameter=%7B%22s%22%3A1%2C%22u%22%3A%22in%22%7D&travelDistance=%7B%22s%22%3A60%2C%22u%22%3A%22in%22%7D",
-    );
+  test('should match snapshot with travelDistance magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('travelDistance').fill('10');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'travelDistance-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with travelDistance unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selecttravelDistance').click();
+    await page.getByRole('option', { name: 'ft' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'travelDistance-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with spoolDiameter magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('spoolDiameter').fill('2');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'spoolDiameter-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with spoolDiameter unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectspoolDiameter').click();
+    await page.getByRole('option', { name: 'cm' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'spoolDiameter-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with load magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('load').fill('50');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'load-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with load unit changed', async ({ page }) => {
+    await page.getByTestId('selectload').click();
+    await page.getByRole('option', { name: 'kg' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'load-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with statorLimit magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('statorLimit').fill('80');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'statorLimit-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with statorLimit unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectstatorLimit').click();
+    await page.getByRole('option', { name: 'A' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'statorLimit-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with supplyLimit magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('supplyLimit').fill('30');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'supplyLimit-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with supplyLimit unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectsupplyLimit').click();
+    await page.getByRole('option', { name: 'A' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'supplyLimit-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with supplyVoltage magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('supplyVoltage').fill('10');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'supplyVoltage-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with supplyVoltage unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectsupplyVoltage').click();
+    await page.getByRole('option', { name: 'V' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'supplyVoltage-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with angle magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('angle').fill('45');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'angle-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with angle unit changed', async ({ page }) => {
+    await page.getByTestId('selectangle').click();
+    await page.getByRole('option', { name: 'rad' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'angle-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with batteryResistance magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('batteryResistance').fill('0.025');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'batteryResistance-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with batteryResistance unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectbatteryResistance').click();
+    await page.getByRole('option', { name: 'Ohm' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'batteryResistance-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with efficiency changed', async ({ page }) => {
+    await page.getByTestId('efficiency').fill('90');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'efficiency-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with cascade toggled', async ({ page }) => {
+    await page.getByTestId('cascade').click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'cascade-toggled.yaml',
+    });
+  });
+
+  test('should match snapshot with kV unit changed', async ({ page }) => {
+    await page.getByTestId('selectkV').click();
+    await page.getByRole('option', { name: 'V*s/in' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'kV-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with kA unit changed', async ({ page }) => {
+    await page.getByTestId('selectkA').click();
+    await page.getByRole('option', { name: 'V*s^2/in' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'kA-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with kG unit changed', async ({ page }) => {
+    await page.getByTestId('selectkG').click();
+    await page.getByRole('option', { name: 'V' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'kG-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with stallLoad unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectstallLoad').click();
+    await page.getByRole('option', { name: 'kg' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'stallLoad-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with timeToGoal unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selecttimeToGoal').click();
+    await page.getByRole('option', { name: 'min' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'timeToGoal-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with feedbackDt magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByText('LQR Tuning').click();
+    await page.waitForTimeout(300);
+    await page.getByTestId('feedbackDt').fill('40');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'feedbackDt-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with feedbackDt unit changed', async ({
+    page,
+  }) => {
+    await page.getByText('LQR Tuning').click();
+    await page.waitForTimeout(300);
+    await page.getByTestId('selectfeedbackDt').click();
+    await page.getByRole('option', { name: 's', exact: true }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'feedbackDt-unit-changed.yaml',
+    });
   });
 });

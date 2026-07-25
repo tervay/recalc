@@ -1,0 +1,29 @@
+[
+  {
+    "teeth": 64,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "",
+    "url": "https://www.swervedrivespecialties.com/products/mk4i-steering-belt-64t-x-15mm-htd",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 64,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "",
+    "url": "https://www.swervedrivespecialties.com/products/mk2-steering-belt-64t-x-9mm-htd",
+    "vendor": "SDS"
+  },
+  {
+    "teeth": 78,
+    "width": 15,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": null,
+    "url": "https://www.swervedrivespecialties.com/products/belt-timing-htd-390-5m-15",
+    "vendor": "SDS"
+  }
+]

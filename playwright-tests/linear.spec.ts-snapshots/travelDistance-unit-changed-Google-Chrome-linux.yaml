@@ -1,0 +1,86 @@
+- heading "Linear Motion Calculator" [level=1]
+- button "Copy Link":
+  - img
+  - img
+  - text: Copy Link
+- heading "Motor & Gearing" [level=2]
+- switch "Cascade"
+- text: Cascade Motor
+- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Stator Limit Supply Limit Supply Voltage Battery Resistance Max Stator Limit Max Supply Limit": "1"
+- combobox: Kraken X60 (FOC)
+- button "Efficiency %"
+- spinbutton: "100"
+- text: Ratio
+- spinbutton: "2"
+- combobox: Reduction
+- button "Spool Diameter"
+- spinbutton: "1"
+- combobox: in
+- heading "Load & Travel" [level=2]
+- text: Load
+- spinbutton: "5"
+- combobox: lbs
+- text: Angle
+- spinbutton: "90"
+- combobox: deg
+- button "Travel Distance"
+- spinbutton: "60"
+- combobox: ft
+- heading "Limits" [level=2]
+- button "Stator Limit"
+- spinbutton: "80"
+- combobox: A
+- button "Supply Limit"
+- spinbutton: "60"
+- combobox: A
+- button "Supply Voltage"
+- spinbutton: "12"
+- combobox: V
+- button "Battery Resistance"
+- spinbutton: "0.015"
+- combobox: Ohm
+- text: Max Velocity
+- switch "Custom"
+- text: Custom Guessed 135.219
+- combobox: in/s
+- text: Max Acceleration
+- switch "Custom"
+- text: Custom Guessed 3131.530
+- combobox: in/s2
+- button "LQR Tuning":
+  - img
+  - heading "LQR Tuning" [level=2]
+- text: Time to Goal 3.000
+- combobox: s
+- text: Stall Load 53.259
+- combobox: lbs
+- text: End Error 317.248
+- combobox: in
+- heading "Simulation" [level=2]
+- list:
+  - listitem:
+    - img "Motor Applied Voltage (V) legend icon"
+    - text: Motor Applied Voltage (V)
+  - listitem:
+    - img "Position (ft) legend icon"
+    - text: Position (ft)
+  - listitem:
+    - img "Stator Current (A) legend icon"
+    - text: Stator Current (A)
+  - listitem:
+    - img "Supply Current (A) legend icon"
+    - text: Supply Current (A)
+  - listitem:
+    - img "Velocity (ft/s) legend icon"
+    - text: Velocity (ft/s)
+- application: 0.21 0.41 0.61 0.82 1.03 1.23 1.43 1.62 1.82 2.01 2.21 2.42 2.64 2.85 3 Time (s) 0 20 40 60 80 Velocity (ft/s) / Current (A) 0 9 18 27 36 Position (ft)
+- text: kA 0.018
+- combobox: V*s^2/m
+- text: kV 3.097
+- combobox: V*s/m
+- text: kG 0.181
+- combobox: V
+- text: Feedback kP 51.147
+- combobox: V/m
+- text: Feedback kD 0.343
+- combobox: V*s/m

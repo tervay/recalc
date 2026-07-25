@@ -1,136 +1,616 @@
-import { expect, test } from "@playwright/test";
+import { type Page, expect, test } from '@playwright/test';
+import { waitForChartSettled } from 'playwright-tests/helpers';
 
-test.describe("Flywheel Calculator", () => {
+async function waitForCalc(page: Page) {
+  await page.waitForTimeout(100);
+  await expect(page.getByTestId('flywheel-main')).toHaveAttribute(
+    'data-calculating',
+    'false',
+    { timeout: 30000 },
+  );
+  await waitForChartSettled(page, 'flywheel-main');
+}
+
+test.describe('Flywheel Calculator', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("localhost:3000/flywheel");
+    await page.goto('/flywheel');
+    await page.waitForLoadState('networkidle');
   });
 
-  test("Default page", async ({ page }) => {
-    await expect(page.getByTestId("motor")).toHaveValue("2");
-    await expect(page.getByTestId("selectmotor")).toHaveValue(
-      "Kraken X60 (FOC)*",
-    );
-    await expect(page.getByTestId("efficiency")).toHaveValue("100");
-    await expect(page.getByTestId("currentLimit")).toHaveValue("40");
-    await expect(page.getByTestId("selectcurrentLimit")).toHaveValue("A");
-    await expect(page.getByTestId("shooterRatio")).toHaveValue("2");
-    await expect(page.getByTestId("selectshooterRatio")).toHaveValue("Step-up");
-    await expect(page.getByTestId("shooterMaxSpeed")).toHaveValue("11600");
-    await expect(page.getByTestId("selectshooterMaxSpeed")).toHaveValue("rpm");
-    await expect(page.getByTestId("shooterRPM")).toHaveValue("10000");
-    await expect(page.getByTestId("selectshooterRPM")).toHaveValue("rpm");
-    await expect(page.getByTestId("projectileWeight")).toHaveValue("5");
-    await expect(page.getByTestId("selectprojectileWeight")).toHaveValue("lbs");
-    await expect(page.getByTestId("shooterRadius")).toHaveValue("3");
-    await expect(page.getByTestId("selectshooterRadius")).toHaveValue("in");
-    await expect(page.getByTestId("shooterWeight")).toHaveValue("1");
-    await expect(page.getByTestId("selectshooterWeight")).toHaveValue("lbs");
-    await expect(page.getByTestId("useCustomShooterMOI")).not.toBeChecked();
-    await expect(page.getByTestId("customShooterMOI")).toHaveValue("4.500");
-    await expect(page.getByTestId("selectcustomShooterMOI")).toHaveValue(
-      "in^2 lbs",
-    );
-    await expect(page.getByTestId("flywheelRadius")).toHaveValue("2");
-    await expect(page.getByTestId("selectflywheelRadius")).toHaveValue("in");
-    await expect(page.getByTestId("flywheelWeight")).toHaveValue("1.5");
-    await expect(page.getByTestId("selectflywheelWeight")).toHaveValue("lbs");
-    await expect(page.getByTestId("flywheelShooterRatio")).toHaveValue("1");
-    await expect(page.getByTestId("selectflywheelShooterRatio")).toHaveValue(
-      "Reduction",
-    );
-    await expect(page.getByTestId("useCustomFlywheelMOI")).not.toBeChecked();
-    await expect(page.getByTestId("customFlywheelMOI")).toHaveValue("3.000");
-    await expect(page.getByTestId("selectcustomFlywheelMOI")).toHaveValue(
-      "in^2 lbs",
-    );
-    await expect(page.getByTestId("windupTime")).toHaveValue("3.54");
-    await expect(page.getByTestId("selectwindupTime")).toHaveValue("s");
-    await expect(page.getByTestId("recoveryTime")).toHaveValue("0.5733");
-    await expect(page.getByTestId("selectrecoveryTime")).toHaveValue("s");
-    await expect(page.getByTestId("surfaceSpeed")).toHaveValue("261.80");
-    await expect(page.getByTestId("selectsurfaceSpeed")).toHaveValue("ft/s");
-    await expect(page.getByTestId("projectileSpeed")).toHaveValue("25.17");
-    await expect(page.getByTestId("selectprojectileSpeed")).toHaveValue("ft/s");
-    await expect(page.getByTestId("speedAfterShot")).toHaveValue("9604");
-    await expect(page.getByTestId("selectspeedAfterShot")).toHaveValue("rpm");
-    await expect(page.getByTestId("flywheelEnergy")).toHaveValue("1203");
-    await expect(page.getByTestId("selectflywheelEnergy")).toHaveValue("J");
-    await expect(page.getByTestId("projectileEnergy")).toHaveValue("93");
-    await expect(page.getByTestId("selectprojectileEnergy")).toHaveValue("J");
-    await expect(page.getByTestId("kV")).toHaveValue("0.13");
-    await expect(page.getByTestId("selectkV")).toHaveValue("V*s/m");
-    await expect(page.getByTestId("kA")).toHaveValue("2.08");
-    await expect(page.getByTestId("selectkA")).toHaveValue("V*s^2/m");
-    await expect(page.getByTestId("responseTime")).toHaveValue("16.06");
-    await expect(page.getByTestId("selectresponseTime")).toHaveValue("s");
+  test('should match snapshot with statorLimit magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('statorLimit').fill('50');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'statorLimit-magnitude-changed.yaml',
+    });
   });
 
-  test('Outputs change with 4x x44s on 4" wheel', async ({ page }) => {
-    await page.getByTestId("motor").fill("4");
-    await page.getByTestId("selectmotor").selectOption("Kraken X44*");
-    await page.getByTestId("shooterRadius").fill("2");
-
-    await expect(page.getByTestId("efficiency")).toHaveValue("100");
-    await expect(page.getByTestId("currentLimit")).toHaveValue("40");
-    await expect(page.getByTestId("selectcurrentLimit")).toHaveValue("A");
-    await expect(page.getByTestId("shooterRatio")).toHaveValue("2");
-    await expect(page.getByTestId("selectshooterRatio")).toHaveValue("Step-up");
-    await expect(page.getByTestId("shooterMaxSpeed")).toHaveValue("15060");
-    await expect(page.getByTestId("selectshooterMaxSpeed")).toHaveValue("rpm");
-    await expect(page.getByTestId("shooterRPM")).toHaveValue("10000");
-    await expect(page.getByTestId("selectshooterRPM")).toHaveValue("rpm");
-    await expect(page.getByTestId("projectileWeight")).toHaveValue("5");
-    await expect(page.getByTestId("selectprojectileWeight")).toHaveValue("lbs");
-    await expect(page.getByTestId("selectshooterRadius")).toHaveValue("in");
-    await expect(page.getByTestId("shooterWeight")).toHaveValue("1");
-    await expect(page.getByTestId("selectshooterWeight")).toHaveValue("lbs");
-    await expect(page.getByTestId("useCustomShooterMOI")).not.toBeChecked();
-    await expect(page.getByTestId("customShooterMOI")).toHaveValue("2.000");
-    await expect(page.getByTestId("selectcustomShooterMOI")).toHaveValue(
-      "in^2 lbs",
-    );
-    await expect(page.getByTestId("flywheelRadius")).toHaveValue("2");
-    await expect(page.getByTestId("selectflywheelRadius")).toHaveValue("in");
-    await expect(page.getByTestId("flywheelWeight")).toHaveValue("1.5");
-    await expect(page.getByTestId("selectflywheelWeight")).toHaveValue("lbs");
-    await expect(page.getByTestId("flywheelShooterRatio")).toHaveValue("1");
-    await expect(page.getByTestId("selectflywheelShooterRatio")).toHaveValue(
-      "Reduction",
-    );
-    await expect(page.getByTestId("useCustomFlywheelMOI")).not.toBeChecked();
-    await expect(page.getByTestId("customFlywheelMOI")).toHaveValue("3.000");
-    await expect(page.getByTestId("selectcustomFlywheelMOI")).toHaveValue(
-      "in^2 lbs",
-    );
-    await expect(page.getByTestId("windupTime")).toHaveValue("1.11");
-    await expect(page.getByTestId("selectwindupTime")).toHaveValue("s");
-    await expect(page.getByTestId("recoveryTime")).toHaveValue("0.1505");
-    await expect(page.getByTestId("selectrecoveryTime")).toHaveValue("s");
-    await expect(page.getByTestId("surfaceSpeed")).toHaveValue("174.53");
-    await expect(page.getByTestId("selectsurfaceSpeed")).toHaveValue("ft/s");
-    await expect(page.getByTestId("projectileSpeed")).toHaveValue("22.96");
-    await expect(page.getByTestId("selectprojectileSpeed")).toHaveValue("ft/s");
-    await expect(page.getByTestId("speedAfterShot")).toHaveValue("9503");
-    await expect(page.getByTestId("selectspeedAfterShot")).toHaveValue("rpm");
-    await expect(page.getByTestId("flywheelEnergy")).toHaveValue("802");
-    await expect(page.getByTestId("selectflywheelEnergy")).toHaveValue("J");
-    await expect(page.getByTestId("projectileEnergy")).toHaveValue("78");
-    await expect(page.getByTestId("selectprojectileEnergy")).toHaveValue("J");
-    await expect(page.getByTestId("kV")).toHaveValue("0.15");
-    await expect(page.getByTestId("selectkV")).toHaveValue("V*s/m");
-    await expect(page.getByTestId("kA")).toHaveValue("0.61");
-    await expect(page.getByTestId("selectkA")).toHaveValue("V*s^2/m");
-    await expect(page.getByTestId("responseTime")).toHaveValue("4.06");
-    await expect(page.getByTestId("selectresponseTime")).toHaveValue("s");
+  test('should match snapshot with statorLimit unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectstatorLimit').click();
+    await page.getByRole('option', { name: 'A' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'statorLimit-unit-changed.yaml',
+    });
   });
 
-  test("Copy link button works", async ({ page, browserName }) => {
-    test.skip(browserName === "webkit");
+  test('should match snapshot with supplyLimit magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('supplyLimit').fill('10');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'supplyLimit-magnitude-changed.yaml',
+    });
+  });
 
-    await page.getByRole("button", { name: "Copy Link" }).click();
-    const value = await page.evaluate("navigator.clipboard.readText()");
-    expect(value).toEqual(
-      "http://localhost:3000/flywheel?currentLimit=%7B%22s%22%3A40%2C%22u%22%3A%22A%22%7D&efficiency=100&flywheelMomentOfInertia=%7B%22s%22%3A3%2C%22u%22%3A%22in2%2Albs%22%7D&flywheelRadius=%7B%22s%22%3A2%2C%22u%22%3A%22in%22%7D&flywheelRatio=%7B%22magnitude%22%3A1%2C%22ratioType%22%3A%22Reduction%22%7D&flywheelWeight=%7B%22s%22%3A1.5%2C%22u%22%3A%22lbs%22%7D&motor=%7B%22quantity%22%3A2%2C%22name%22%3A%22Kraken%20X60%20%28FOC%29%2A%22%7D&motorRatio=%7B%22magnitude%22%3A2%2C%22ratioType%22%3A%22Step-up%22%7D&projectileRadius=%7B%22s%22%3A2%2C%22u%22%3A%22in%22%7D&projectileWeight=%7B%22s%22%3A5%2C%22u%22%3A%22lbs%22%7D&shooterMomentOfInertia=%7B%22s%22%3A4.5%2C%22u%22%3A%22in2%2Albs%22%7D&shooterRadius=%7B%22s%22%3A3%2C%22u%22%3A%22in%22%7D&shooterTargetSpeed=%7B%22s%22%3A10000%2C%22u%22%3A%22rpm%22%7D&shooterWeight=%7B%22s%22%3A1%2C%22u%22%3A%22lbs%22%7D&useCustomFlywheelMoi=0&useCustomShooterMoi=0",
-    );
+  test('should match snapshot with supplyLimit unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectsupplyLimit').click();
+    await page.getByRole('option', { name: 'A' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'supplyLimit-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with supplyVoltage magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('supplyVoltage').fill('10');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'supplyVoltage-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with supplyVoltage unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectsupplyVoltage').click();
+    await page.getByRole('option', { name: 'V' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'supplyVoltage-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with batteryResistance magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('batteryResistance').fill('0.03');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'batteryResistance-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with batteryResistance unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectbatteryResistance').click();
+    await page.getByRole('option', { name: 'Ohm' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'batteryResistance-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with shooterDiameter magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('shooterDiameter').fill('4');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'shooterDiameter-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with shooterDiameter unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectshooterDiameter').click();
+    await page.getByRole('option', { name: 'cm' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'shooterDiameter-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with shooterWeight magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('shooterWeight').fill('2');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'shooterWeight-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with shooterWeight unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectshooterWeight').click();
+    await page.getByRole('option', { name: 'kg' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'shooterWeight-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with shooterTargetSpeed magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('shooterTargetSpeed').fill('2000');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'shooterTargetSpeed-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with shooterTargetSpeed unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectshooterTargetSpeed').click();
+    await page.getByRole('option', { name: 'rpm' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'shooterTargetSpeed-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with flywheelDiameter magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('flywheelEnabled').click();
+    await page.getByTestId('flywheelDiameter').fill('6');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'flywheelDiameter-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with flywheelDiameter unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('flywheelEnabled').click();
+    await page.getByTestId('selectflywheelDiameter').click();
+    await page.getByRole('option', { name: 'cm' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'flywheelDiameter-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with flywheelWeight magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('flywheelEnabled').click();
+    await page.getByTestId('flywheelWeight').fill('3');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'flywheelWeight-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with flywheelWeight unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('flywheelEnabled').click();
+    await page.getByTestId('selectflywheelWeight').click();
+    await page.getByRole('option', { name: 'kg' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'flywheelWeight-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with projectileDiameter magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('projectileDiameter').fill('2');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'projectileDiameter-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with projectileDiameter unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectprojectileDiameter').click();
+    await page.getByRole('option', { name: 'cm' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'projectileDiameter-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with projectileWeight magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('projectileWeight').fill('1');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'projectileWeight-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with projectileWeight unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectprojectileWeight').click();
+    await page.getByRole('option', { name: 'kg' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'projectileWeight-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with ballExitVelocity unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectballExitVelocity').click();
+    await page.getByRole('option', { name: 'm/s' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'ballExitVelocity-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with recoveryTime unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectrecoveryTime').click();
+    await page.getByRole('option', { name: 's', exact: true }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'recoveryTime-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with motor magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('motor').fill('1');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'motor-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with motor unit changed', async ({ page }) => {
+    await page.getByTestId('selectmotor').click();
+    await page.getByRole('option', { name: 'NEO', exact: true }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'motor-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with ratio magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('shooterTargetSpeed').fill('1000');
+    await page.getByTestId('ratio').fill('2');
+
+    await waitForCalc(page);
+
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'ratio-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with ratio unit changed', async ({ page }) => {
+    await page.getByTestId('selectratio').click();
+    await page.getByRole('option', { name: 'Step-up' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'ratio-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with flywheelToShooterRatio magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('flywheelEnabled').click();
+    await page.getByTestId('flywheelToShooterRatio').fill('2');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'flywheelToShooterRatio-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with flywheelToShooterRatio unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('flywheelEnabled').click();
+    await page.getByTestId('flywheelToShooterRatio').fill('2');
+    await page.getByTestId('selectflywheelToShooterRatio').click();
+    await page.getByRole('option', { name: 'Step-up' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'flywheelToShooterRatio-unit-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with efficiency changed', async ({ page }) => {
+    await page.getByTestId('efficiency').fill('90');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'efficiency-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with maxAchievableShooterRpm unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectmaxAchievableShooterRpm').click();
+    await page.getByRole('option', { name: 'rpm' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'maxAchievableShooterRpm-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with derivedShooterMoi unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectderivedShooterMoi').click();
+    await page.getByRole('option', { name: 'kg*m2' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'derivedShooterMoi-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with derivedFlywheelMoi unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('flywheelEnabled').click();
+    await page.getByTestId('selectderivedFlywheelMoi').click();
+    await page.getByRole('option', { name: 'kg*m2' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'derivedFlywheelMoi-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with kV unit changed', async ({ page }) => {
+    await page.getByTestId('selectkV').click();
+    await page.getByRole('option', { name: 'V*s/rotation' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'kV-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with kA unit changed', async ({ page }) => {
+    await page.getByTestId('selectkA').click();
+    await page.getByRole('option', { name: 'V*s^2/rotation' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'kA-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with spinupTime unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectspinupTime').click();
+    await page.getByRole('option', { name: 's', exact: true }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'spinupTime-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with effectiveMoi unit changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('selecteffectiveMoi').click();
+    await page.getByRole('option', { name: 'kg*m2' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'effectiveMoi-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with compound mode selected', async ({
+    page,
+  }) => {
+    await page.getByTestId('shooterMode').click();
+    await page
+      .getByRole('option', { name: 'Compound (Single + Dual)' })
+      .click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'shooterMode-compound.yaml',
+    });
+  });
+
+  test('should match snapshot with ballInitialVelocity changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('ballInitialVelocity').fill('5');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'ballInitialVelocity-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with ballInitialSpin changed', async ({
+    page,
+  }) => {
+    await page.getByTestId('ballInitialSpin').fill('100');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'ballInitialSpin-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with qVelocity magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByText('LQR Tuning').click();
+    await page.waitForTimeout(300);
+    await page.getByTestId('qVelocity').fill('100');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'qVelocity-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with feedbackDt magnitude changed', async ({
+    page,
+  }) => {
+    await page.getByText('LQR Tuning').click();
+    await page.waitForTimeout(300);
+    await page.getByTestId('feedbackDt').fill('40');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'feedbackDt-magnitude-changed.yaml',
+    });
+  });
+
+  test('should match snapshot with feedbackDt unit changed', async ({
+    page,
+  }) => {
+    await page.getByText('LQR Tuning').click();
+    await page.waitForTimeout(300);
+    await page.getByTestId('selectfeedbackDt').click();
+    await page.getByRole('option', { name: 's', exact: true }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('flywheel-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'feedbackDt-unit-changed.yaml',
+    });
+  });
+
+  test('mechanism optimization grid renders and selected config panel appears', async ({
+    page,
+  }) => {
+    // The optimization toggle defaults to enabled; assert it is present.
+    const toggle = page.getByTestId('optimizationEnabled');
+    await expect(toggle).toBeVisible();
+
+    // The grid heading should be visible immediately while loading.
+    await expect(page.getByText('Optimal Configuration Grid')).toBeVisible();
+
+    // Wait for the optimizer worker to finish — the Badge switches from "— configs"
+    // to "N configs" (a number) once results arrive.
+    const configsBadge = page
+      .locator('[data-slot="badge"]')
+      .filter({ hasText: /\d+ configs/ });
+    await expect(configsBadge).toBeVisible({ timeout: 30000 });
+
+    // The optimizer auto-selects the recommended config, so the Selected Config
+    // panel should already be visible.
+    await expect(page.getByText('Selected Config')).toBeVisible();
+    await expect(page.getByText('Optimal Ratio')).toBeVisible();
+
+    // Click a grid cell button (ratio label format: "N.NN:1") to verify
+    // selection is interactive.
+    const firstCell = page
+      .getByRole('button')
+      .filter({ hasText: /\d+\.\d+:1/ })
+      .first();
+    await expect(firstCell).toBeVisible();
+    await firstCell.click();
+
+    // Selected Config panel remains visible after clicking a cell.
+    await expect(page.getByText('Selected Config')).toBeVisible();
   });
 });

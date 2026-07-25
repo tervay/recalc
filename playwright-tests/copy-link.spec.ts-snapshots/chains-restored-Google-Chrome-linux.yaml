@@ -1,0 +1,96 @@
+- heading "Chain Calculator" [level=1]
+- button "Copy Link":
+  - img
+  - img
+  - text: Copy Link
+- text: Chain Type
+- combobox: "#35"
+- switch "Allow Half Links" [checked]
+- text: Allow Half Links Desired Center
+- spinbutton "Desired Center Extra Center Pitch Diameter Pitch Diameter Chain Links Center Distance Difference From Target Chain Links Center Distance Difference From Target": "8"
+- combobox: in
+- text: Extra Center
+- spinbutton: "1"
+- combobox: in
+- text: Sprocket 1 Teeth
+- spinbutton: "20"
+- text: Pitch Diameter
+- spinbutton [disabled]: "2.387"
+- combobox: in
+- text: Sprocket 2 Teeth
+- spinbutton: "40"
+- text: Pitch Diameter
+- spinbutton [disabled]: "4.775"
+- combobox: in
+- text: Smaller Chain
+- img
+- text: Suggested Chain Links
+- spinbutton [disabled]: "73"
+- text: Center Distance
+- spinbutton [disabled]: "7.973"
+- combobox: in
+- text: Difference From Target
+- spinbutton [disabled]: "-0.027"
+- combobox: in
+- text: Larger Chain Chain Links
+- spinbutton [disabled]: "74"
+- text: Center Distance
+- spinbutton [disabled]: "8.163"
+- combobox: in
+- text: Difference From Target
+- spinbutton [disabled]: "0.163"
+- combobox: in
+- table:
+  - rowgroup:
+    - row "Matching COTS Sprockets":
+      - columnheader "Matching COTS Sprockets"
+    - row "SKU Teeth Bore":
+      - columnheader "SKU"
+      - columnheader "Teeth"
+      - columnheader "Bore"
+  - rowgroup:
+    - row "REV REV-21-3712 20 1/2\" Hex":
+      - cell "REV REV-21-3712":
+        - link "REV":
+          - /url: https://www.revrobotics.com/ION-35-Sprockets/
+        - link "REV-21-3712":
+          - /url: https://www.revrobotics.com/ION-35-Sprockets/
+      - cell "20"
+      - cell "1/2\" Hex"
+    - row "REV REV-21-3716 20 MAXSpline":
+      - cell "REV REV-21-3716":
+        - link "REV":
+          - /url: https://www.revrobotics.com/ION-35-Sprockets/
+        - link "REV-21-3716":
+          - /url: https://www.revrobotics.com/ION-35-Sprockets/
+      - cell "20"
+      - cell "MAXSpline"
+    - row:
+      - cell
+    - row "AndyMark am-4795 40 1.125\" Round":
+      - cell "AndyMark am-4795":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets
+        - link "am-4795":
+          - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets
+      - cell "40"
+      - cell "1.125\" Round"
+    - row "AndyMark am-4795_black 40 1.125\" Round":
+      - cell "AndyMark am-4795_black":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets
+        - link "am-4795_black":
+          - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets
+      - cell "40"
+      - cell "1.125\" Round"
+    - row "REV REV-21-3721 40 MAXSpline":
+      - cell "REV REV-21-3721":
+        - link "REV":
+          - /url: https://www.revrobotics.com/ION-35-Sprockets/
+        - link "REV-21-3721":
+          - /url: https://www.revrobotics.com/ION-35-Sprockets/
+      - cell "40"
+      - cell "MAXSpline"
+- alert:
+  - img
+  - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

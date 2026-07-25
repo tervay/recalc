@@ -1,7 +1,0 @@
-src/lib/
-src/tests/
-node_modules/
-build/
-coverage/
-**/*.md
-.vercel/
