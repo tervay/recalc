@@ -63,7 +63,7 @@
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.2",
     "@types/js-quantities": "1.6.6",
-    "@types/node": "26.1.1",
+    "@types/node": "26.1.2",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "@vercel/config": "0.5.5",
