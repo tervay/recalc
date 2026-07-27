@@ -1,6 +1,124 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
+  "extends": ["config:recommended"],
+  "timezone": "America/New_York",
+  "schedule": ["* 12-13 * * *"],
+  "prConcurrentLimit": 10,
+  "prHourlyLimit": 0,
+  "minimumReleaseAge": "3 days",
+  "internalChecksFilter": "strict",
+  "packageRules": [
+    {
+      "groupName": "icons",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["@iconify-json/**", "@svgr/**", "unplugin-icons"]
+    },
+    {
+      "groupName": "math",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["js-quantities", "@types/js-quantities"]
+    },
+    {
+      "groupName": "oxc",
+      "matchManagers": ["npm"],
+      "matchPackageNames": [
+        "oxfmt",
+        "oxlint",
+        "oxlint-tsgolint",
+        "oxlint-tailwindcss",
+        "eslint-plugin-no-relative-import-paths",
+        "eslint-plugin-zod"
+      ]
+    },
+    {
+      "groupName": "react",
+      "matchManagers": ["npm"],
+      "matchPackageNames": [
+        "react",
+        "react-dom",
+        "@types/react",
+        "@types/react-dom",
+        "radix-ui"
+      ]
+    },
+    {
+      "groupName": "react-router",
+      "matchManagers": ["npm"],
+      "matchPackageNames": [
+        "@react-router/**",
+        "@vercel/react-router",
+        "react-router"
+      ]
+    },
+    {
+      "groupName": "testing",
+      "matchManagers": ["npm"],
+      "matchPackageNames": [
+        "@playwright/test",
+        "vitest",
+        "jsdom",
+        "@testing-library/**"
+      ]
+    },
+    {
+      "groupName": "typescript",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["typescript", "@types/node"]
+    },
+    {
+      "groupName": "vite",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["vite", "vite-**", "@tailwindcss/vite"]
+    },
+    {
+      "description": "Must follow the vite rule: the last matching rule wins, so @tailwindcss/vite groups here",
+      "groupName": "tailwind",
+      "matchManagers": ["npm"],
+      "matchPackageNames": [
+        "tailwindcss",
+        "@tailwindcss/**",
+        "tailwind-merge",
+        "tw-animate-css",
+        "class-variance-authority",
+        "clsx"
+      ]
+    },
+    {
+      "groupName": "github-actions",
+      "matchManagers": ["github-actions"]
+    },
+    {
+      "description": "Pinned in both wpilib/Dockerfile and wpilib/tests/Dockerfile; they must move together",
+      "groupName": "emscripten",
+      "matchManagers": ["dockerfile"],
+      "matchPackageNames": ["emscripten/emsdk"]
+    },
+    {
+      "description": "Pinned in .mise.toml, wpilib/.mise.toml and package.json engines",
+      "groupName": "node",
+      "matchPackageNames": ["node"]
+    },
+    {
+      "description": "Pinned in .mise.toml and package.json packageManager",
+      "groupName": "pnpm",
+      "matchPackageNames": ["pnpm"]
+    },
+    {
+      "description": "Stay on Temurin 21 LTS; the JDK only feeds the wpilib build container",
+      "matchPackageNames": ["java"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "clang-format resolves through mise's conda backend, which the mise manager cannot read",
+      "managerFilePatterns": ["/(^|/)\\.mise\\.toml$/"],
+      "matchStrings": ["clang-format\\s*=\\s*\"(?<currentValue>[^\"]+)\""],
+      "depNameTemplate": "clang-format",
+      "packageNameTemplate": "conda-forge/clang-format",
+      "datasourceTemplate": "conda"
+    }
   ]
 }
