@@ -2,7 +2,7 @@
 clang-format = "22.1.8"
 jq = "1.8.2"
 node = "26.5.0"
-pnpm = "11.15.0"
+pnpm = "11.17.0"
 
 [hooks]
 enter = "pnpm install --frozen-lockfile"
