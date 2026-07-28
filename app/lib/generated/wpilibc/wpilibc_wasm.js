@@ -59,7 +59,7 @@ async function createWpilibcModule(moduleArg = {}) {
     ia = (a) => a.startsWith('file://'),
     la = !1;
   function ma() {
-    if (!A?.buffer?.Fa) {
+    if (!A?.buffer?.resizable) {
       var a = B.buffer;
       A = new Int8Array(a);
       C = new Int16Array(a);
@@ -118,15 +118,7 @@ async function createWpilibcModule(moduleArg = {}) {
       this.status = a;
     }
   }
-  var C,
-    F,
-    pa,
-    A,
-    na,
-    oa,
-    E,
-    G,
-    qa,
+  var A,
     D,
     H = (a) => {
       for (var b = ''; ;) {
@@ -137,16 +129,16 @@ async function createWpilibcModule(moduleArg = {}) {
     },
     I = {},
     J = {},
-    K = {},
-    L = class extends Error {
-      constructor(a) {
-        super(a);
-        this.name = 'BindingError';
-      }
-    },
-    Aa = (a) => {
-      throw new L(a);
-    };
+    K = {};
+  class L extends Error {
+    constructor(a) {
+      super(a);
+      this.name = 'BindingError';
+    }
+  }
+  var Aa = (a) => {
+    throw new L(a);
+  };
   function Ba(a, b, c = {}) {
     var d = b.name;
     if (!a)
@@ -162,7 +154,13 @@ async function createWpilibcModule(moduleArg = {}) {
   function M(a, b, c = {}) {
     return Ba(a, b, c);
   }
-  var Ca = (a, b, c) => {
+  var C,
+    E,
+    F,
+    G,
+    pa,
+    qa,
+    Ca = (a, b, c) => {
       switch (b) {
         case 1:
           return c ? (d) => A[d] : (d) => D[d];
@@ -294,9 +292,7 @@ async function createWpilibcModule(moduleArg = {}) {
       );
     if (!this.oa && b.V.Y.oa)
       throw new L(
-        `Cannot convert argument of type ${
-          b.V.da ? b.V.da.name : b.V.Y.name
-        } to parameter type ${this.name}`,
+        `Cannot convert argument of type ${b.V.da ? b.V.da.name : b.V.Y.name} to parameter type ${this.name}`,
       );
     c = Na(b.V.X, b.V.Y.W, this.W);
     if (this.pa) {
@@ -360,21 +356,20 @@ async function createWpilibcModule(moduleArg = {}) {
       if (b === void 0) throw new L('ptr should not be undefined');
       for (; a.ba;) ((b = a.na(b)), (a = a.ba));
       return Ta[b];
-    },
-    Va = class extends Error {
-      constructor(a) {
-        super(a);
-        this.name = 'InternalError';
-      }
-    },
-    Wa = (a, b) => {
-      if (!b.Y || !b.X)
-        throw new Va('makeClassHandle requires ptr and ptrType');
-      if (!!b.da !== !!b.$)
-        throw new Va('Both smartPtrType and smartPtr must be specified');
-      b.count = { value: 1 };
-      return N(Object.create(a, { V: { value: b, writable: !0 } }));
     };
+  class Va extends Error {
+    constructor(a) {
+      super(a);
+      this.name = 'InternalError';
+    }
+  }
+  var Wa = (a, b) => {
+    if (!b.Y || !b.X) throw new Va('makeClassHandle requires ptr and ptrType');
+    if (!!b.da !== !!b.$)
+      throw new Va('Both smartPtrType and smartPtr must be specified');
+    b.count = { value: 1 };
+    return N(Object.create(a, { V: { value: b, writable: !0 } }));
+  };
   function Xa(a, b, c, d, e, g, f, h, k, n, l) {
     this.name = a;
     this.W = b;
@@ -465,7 +460,7 @@ async function createWpilibcModule(moduleArg = {}) {
     var f = b.length;
     if (f < 2)
       throw new L(
-        "argTypes array size mismatch! Must at least get return value and 'this' types!",
+        'argTypes array size mismatch! Must at least get return value and receiver (this) types!',
       );
     var h = b[1] !== null && c !== null,
       k = gb(b);
@@ -502,7 +497,7 @@ async function createWpilibcModule(moduleArg = {}) {
     if (k) l += 'runDestructors(destructors);\n';
     else
       for (f = h ? 1 : 2; f < b.length; ++f)
-        ((g = f === 1 ? 'thisWired' : 'arg' + (f - 2) + 'Wired'),
+        ((g = f === 1 ? 'thisWired' : `arg${f - 2}Wired`),
           b[f].fa !== null &&
             ((l += `${g}_dtor(${g});\n`), w.push(`${g}_dtor`)));
     c && (l += 'var ret = fromRetWire(rv);\nreturn ret;\n');
@@ -558,6 +553,8 @@ async function createWpilibcModule(moduleArg = {}) {
       ga: S,
       fa: null,
     },
+    na,
+    oa,
     ob = (a, b) => {
       switch (b) {
         case 4:
@@ -1238,7 +1235,7 @@ async function createWpilibcModule(moduleArg = {}) {
           delete Z[a];
           Ib(() => Qb(a, performance.now()));
         }, b);
-        Z[a] = { id: c, Ga: b };
+        Z[a] = { id: c, Fa: b };
         return 0;
       },
       w: (a, b, c, d) => {
