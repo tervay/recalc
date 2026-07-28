@@ -19,7 +19,7 @@ General guidelines:
 - Use pnpm instead of npm, yarn, or bun.
 - When making a change, before finishing the task, the build and tests must pass.
 - When making a change, before finishing the task, fix any formatting or linting problems.
-- You can fix formatting with `pnpm run format:fix` (web only), `pnpm run format:wpi` (C++ only), or `mise run format` (both simultaneously). Fix most linting problems with `pnpm run lint:fix`.
+- You can fix formatting with `pnpm run format:fix` (web only) or `pnpm run format:wpi` (C++ only); run both to cover the whole tree. Fix most linting problems with `pnpm run lint:fix`.
 - Accompany non-UI logic with unit tests where possible.
 - Accompany UI changes with playwright tests where possible.
 - Do not use emojis.
@@ -42,7 +42,7 @@ General guidelines:
 - Always check if a component exists in Shadcn.
 - If a component does exist in Shadcn, install it via the command line (`pnpm dlx shadcn@latest add <component>`).
 - When installing new NPM dependencies, always pin to a specific version.
-- Before running Playwright tests, make sure to build the app with `pnpm run build`. Use `mise run test:e2e` to handle the build step automatically.
+- Before running Playwright tests, make sure to build the app with `pnpm run build`, then run `pnpm run test:playwright`.
 - Prefer `rg` (ripgrep) over `grep`, `find`, or `eval` for searching.
 
 ### 1. Plan Node Default

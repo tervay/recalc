@@ -14,15 +14,7 @@ pnpm install
 pnpm run dev
 ```
 
-The mise `enter` hook runs `pnpm install --frozen-lockfile` automatically whenever you `cd` into the project.
-
 ## Commands
-
-### Mise tasks (orchestrate multiple steps)
-
-- `mise run check` - Typecheck, format check, and lint in parallel
-- `mise run format` - Format web (oxfmt) and C++ source simultaneously
-- `mise run test:e2e` - Build app then run Playwright tests (handles build prerequisite automatically)
 
 ### pnpm scripts
 
@@ -40,7 +32,6 @@ The mise `enter` hook runs `pnpm install --frozen-lockfile` automatically whenev
 
 - `pnpm run test` - Run unit tests (Vitest)
 - `pnpm run test -u` - Update snapshot tests (use when snapshot output changes)
-- `mise run test:e2e` - Run Playwright UI tests (builds first automatically)
 - `pnpm exec playwright test` - Run Playwright UI tests (requires build first: `pnpm run build`)
 
 ## Tech Stack
