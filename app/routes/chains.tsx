@@ -130,8 +130,8 @@ export default function Chains() {
         getSerializedState={() => serializedState}
       />
 
-      <div className="flex flex-row flex-wrap gap-x-4 gap-y-4 px-1 *:flex-1">
-        <div className="flex flex-col gap-x-4 gap-y-2">
+      <div className="flex flex-col gap-4 px-1 lg:flex-row">
+        <div className="flex min-w-0 flex-1 flex-col gap-x-4 gap-y-2">
           <div className="flex flex-wrap gap-y-2">
             <ButtonGroup>
               <Button
@@ -155,7 +155,7 @@ export default function Chains() {
             </ButtonGroup>
           </div>
 
-          <IOLine>
+          <IOLine className="flex-col md:flex-row">
             <MeasurementInput
               stateHook={[pitch, setPitch]}
               label="Pitch"
@@ -244,7 +244,7 @@ export default function Chains() {
               </CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-y-2">
-              <IOLine>
+              <IOLine className="flex-col md:flex-row">
                 <NumberOutput
                   state={results.smaller.links}
                   label="Chain Links"
@@ -277,7 +277,7 @@ export default function Chains() {
               </CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-y-2">
-              <IOLine>
+              <IOLine className="flex-col md:flex-row">
                 <NumberOutput
                   state={results.larger.links}
                   label="Chain Links"
@@ -303,7 +303,7 @@ export default function Chains() {
           </Card>
         </div>
 
-        <div className="flex w-auto flex-col gap-x-4 gap-y-4">
+        <div className="flex min-w-0 flex-1 flex-col gap-x-4 gap-y-4">
           <SprocketTable
             filterFn={(sprocket) =>
               sprocket.pitch.eq(pitch) &&
