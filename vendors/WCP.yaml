@@ -4339,7 +4339,7 @@
   product:
     handle: wcp-0129
     id: 5506917859488
-    title: Black Polycord (1/4" WD, 50FT)
+    title: 1/4" Black Polycord (50FT)
   variant:
     id: 35666725470368
     options:
@@ -5254,7 +5254,7 @@
   product:
     handle: wcp-0236
     id: 5506923397280
-    title: 2 Slot, Clear Wire Clamp Nut (10-Pack)
+    title: 2 Slot Clear Wire Clamp Nut (10-Pack)
   variant:
     id: 35666740183200
     options:
@@ -5269,7 +5269,7 @@
   product:
     handle: wcp-0237
     id: 5506923495584
-    title: 3 Slot, Clear Wire Clamp Nut (10-Pack)
+    title: 3 Slot Clear Wire Clamp Nut (10-Pack)
   variant:
     id: 35666740543648
     options:
@@ -5284,7 +5284,7 @@
   product:
     handle: wcp-0238
     id: 5506923561120
-    title: 4 Slot, Clear Wire Clamp Nut (10-Pack)
+    title: 4 Slot Clear Wire Clamp Nut (10-Pack)
   variant:
     id: 35666741199008
     options:
@@ -5299,7 +5299,7 @@
   product:
     handle: wcp-0239
     id: 5506923593888
-    title: 5 Slot, Clear Wire Clamp Nut (10-Pack)
+    title: 5 Slot Clear Wire Clamp Nut (10-Pack)
   variant:
     id: 35666741264544
     options:
@@ -8556,7 +8556,7 @@
   product:
     handle: wcp-0031
     id: 7016155316384
-    title: 22-18 AWG, Red Solder Seal Connector (10-Pack)
+    title: 22-18 AWG Red Solder Seal Connector (10-Pack)
   variant:
     id: 41027737354400
     options:
@@ -8571,7 +8571,7 @@
   product:
     handle: wcp-0032
     id: 7016157544608
-    title: 16-14 AWG, Blue Solder Seal Connector (10-Pack)
+    title: 16-14 AWG Blue Solder Seal Connector (10-Pack)
   variant:
     id: 41027741745312
     options:
@@ -8586,7 +8586,7 @@
   product:
     handle: wcp-0033
     id: 7016160362656
-    title: 12-10 AWG, Yellow Solder Seal Connector (10-Pack)
+    title: 12-10 AWG Yellow Solder Seal Connector (10-Pack)
   variant:
     id: 41027746758816
     options:
@@ -9786,7 +9786,7 @@
   product:
     handle: wcp-0477
     id: 7474386600148
-    title: 2 Slot, Clear Wire Lever Nut (10-Pack)
+    title: 2 Slot Clear Wire Lever Nut (10-Pack)
   variant:
     id: 42165442019540
     options:
@@ -9801,7 +9801,7 @@
   product:
     handle: wcp-0478
     id: 7474387124436
-    title: 3 Slot, Clear Wire Lever Nut (10-Pack)
+    title: 3 Slot Clear Wire Lever Nut (10-Pack)
   variant:
     id: 42165442609364
     options:
@@ -9816,7 +9816,7 @@
   product:
     handle: wcp-0479
     id: 7474388336852
-    title: 4 Slot, Clear Wire Lever Nut (10-Pack)
+    title: 4 Slot Clear Wire Lever Nut (10-Pack)
   variant:
     id: 42165443821780
     options:
@@ -9831,7 +9831,7 @@
   product:
     handle: wcp-0480
     id: 7474388402388
-    title: 5 Slot, Clear Wire Lever Nut (10-Pack)
+    title: 5 Slot Clear Wire Lever Nut (10-Pack)
   variant:
     id: 42165444247764
     options:
@@ -9846,7 +9846,7 @@
   product:
     handle: wcp-0481
     id: 7474390434004
-    title: 1 to 3 Slot, Clear Wire Lever Nut (10-Pack)
+    title: 1 to 3 Slot Clear Wire Lever Nut (10-Pack)
   variant:
     id: 42165447786708
     options:
@@ -9861,7 +9861,7 @@
   product:
     handle: wcp-0482
     id: 7474390958292
-    title: 1 to 4 Slot, Clear Wire Lever Nut (10-Pack)
+    title: 1 to 4 Slot Clear Wire Lever Nut (10-Pack)
   variant:
     id: 42165450506452
     options:
@@ -9876,7 +9876,7 @@
   product:
     handle: wcp-0483
     id: 7474391744724
-    title: 1 to 5 Slot, Clear Wire Lever Nut (10-Pack)
+    title: 1 to 5 Slot Clear Wire Lever Nut (10-Pack)
   variant:
     id: 42165454438612
     options:
@@ -9891,7 +9891,7 @@
   product:
     handle: wcp-0484
     id: 7474392432852
-    title: 1 to 2 Slot Green, Clear Wire Lever Nut (10-Pack)
+    title: 1 to 2 Slot Green Clear Wire Lever Nut (10-Pack)
   variant:
     id: 42165457584340
     options:
@@ -9906,7 +9906,7 @@
   product:
     handle: wcp-0485
     id: 7474392989908
-    title: 1 to 2 Slot Yellow, Clear Wire Lever Nut (10-Pack)
+    title: 1 to 2 Slot Yellow Clear Wire Lever Nut (10-Pack)
   variant:
     id: 42165460500692
     options:
@@ -9921,7 +9921,7 @@
   product:
     handle: wcp-0486
     id: 7474393645268
-    title: 2 Slot Green & Yellow, Clear Inline Wire Lever Nut (10-Pack)
+    title: 2 Slot Green & Yellow Clear Inline Wire Lever Nut (10-Pack)
   variant:
     id: 42165462302932
     options:
@@ -14592,7 +14592,7 @@
   product:
     handle: wcp-1389
     id: 8064598081748
-    title: 1-1/8" OD x 1/2" WD Roller Hub (5/16-18 Tapped Bore)
+    title: 5/16-18 Tapped ID 1-1/8" OD x 1/2" WD Aluminum Roller Hub
   variant:
     id: 44159873024212
     options:
@@ -15252,7 +15252,7 @@
   product:
     handle: wcp-1238
     id: 8086379331796
-    title: 1-1/8" OD x 1/2" WD Roller Hub (1/2" Hex Bore)
+    title: 1/2" Hex ID 1-1/8" OD x 1/2" WD Aluminum Roller Hub
   variant:
     id: 44223193776340
     options:
@@ -15267,7 +15267,7 @@
   product:
     handle: wcp-1239
     id: 8086379856084
-    title: 7/8" OD x 1/2" WD Roller Hub (1/2" Hex Bore)
+    title: 1/2" Hex ID x 7/8" OD x 1/2" WD Aluminum Roller Hub
   variant:
     id: 44223195316436
     options:
@@ -15342,7 +15342,7 @@
   product:
     handle: wcp-1390
     id: 8087050780884
-    title: 7/8" OD x 1/2" WD Roller Hub (5/16-18 Tapped Bore)
+    title: 5/16-18 Tapped ID x 7/8" OD x 1/2" WD Aluminum Roller Hub
   variant:
     id: 44226812805332
     options:
@@ -19227,7 +19227,7 @@
   product:
     handle: wcp-1637
     id: 8631024582868
-    title: 15t 1/2" Wide Steel Spur Gear (20DP, 17t CD, 8mm SplineXS Bore)
+    title: 15t x 1/2" Wide Steel Spur Gear (20DP, 17t CD, 8mm SplineXS Bore)
   variant:
     id: 45645066698964
     options:
@@ -19242,7 +19242,7 @@
   product:
     handle: wcp-1638
     id: 8631024648404
-    title: 16t 1/2" Wide Steel Spur Gear (20DP, 17t CD, 8mm SplineXS Bore)
+    title: 16t x 1/2" Wide Steel Spur Gear (20DP, 17t CD, 8mm SplineXS Bore)
   variant:
     id: 45645066797268
     options:
@@ -19257,7 +19257,7 @@
   product:
     handle: wcp-1639
     id: 8631024910548
-    title: 17t 1/2" Wide Steel Spur Gear (20DP, 8mm SplineXS Bore)
+    title: 17t x 1/2" Wide Steel Spur Gear (20DP, 8mm SplineXS Bore)
   variant:
     id: 45645067190484
     options:
@@ -19272,7 +19272,7 @@
   product:
     handle: wcp-1640
     id: 8631024943316
-    title: 17t 1/2" Wide Steel Spur Gear, (20DP, 19t CD, 8mm SplineXS Bore)
+    title: 17t x 1/2" Wide Steel Spur Gear, (20DP, 19t CD, 8mm SplineXS Bore)
   variant:
     id: 45645067419860
     options:
@@ -19287,7 +19287,7 @@
   product:
     handle: wcp-1641
     id: 8631025107156
-    title: 18t 1/2" Wide Steel Spur Gear (20DP, 19t CD, 8mm SplineXS Bore)
+    title: 18t x 1/2" Wide Steel Spur Gear (20DP, 19t CD, 8mm SplineXS Bore)
   variant:
     id: 45645068140756
     options:
@@ -19302,7 +19302,7 @@
   product:
     handle: wcp-1642
     id: 8631025205460
-    title: 19t 1/2" Wide Steel Spur Gear (20DP, 8mm SplineXS Bore)
+    title: 19t x 1/2" Wide Steel Spur Gear (20DP, 8mm SplineXS Bore)
   variant:
     id: 45645068402900
     options:
@@ -19317,7 +19317,7 @@
   product:
     handle: wcp-1643
     id: 8631025303764
-    title: 19t 1/2" Wide Steel Spur Gear (20DP, 21t CD, 8mm SplineXS Bore)
+    title: 19t x 1/2" Wide Steel Spur Gear (20DP, 21t CD, 8mm SplineXS Bore)
   variant:
     id: 45645068730580
     options:
@@ -19332,7 +19332,7 @@
   product:
     handle: wcp-1644
     id: 8631025369300
-    title: 20t 1/2" Wide Steel Spur Gear (20DP, 21t CD, 8mm SplineXS Bore)
+    title: 20t x 1/2" Wide Steel Spur Gear (20DP, 21t CD, 8mm SplineXS Bore)
   variant:
     id: 45645068796116
     options:
@@ -19347,7 +19347,7 @@
   product:
     handle: wcp-1645
     id: 8631025434836
-    title: 21t 1/2" Wide Steel Spur Gear (20DP, 8mm SplineXS Bore)
+    title: 21t x 1/2" Wide Steel Spur Gear (20DP, 8mm SplineXS Bore)
   variant:
     id: 45645068861652
     options:
@@ -24489,7 +24489,7 @@
   product:
     handle: wcp-2143
     id: 8960779092180
-    title: .505" OD x .159" ID Hex Stock (Oversized 1/2" Hex) (6")
+    title: .505" OD x .159" ID Hex Stock (Oversized 1/2" Hex, 6")
   variant:
     id: 47112510701780
     options:
@@ -24744,7 +24744,7 @@
   product:
     handle: wcp-1661
     id: 8972885557460
-    title: .5ft Slim Ethernet Cable (32AWG, Ultra Short Boot)
+    title: 0.5ft Slim Ethernet Cable (32AWG, Ultra Short Boot)
   variant:
     id: 47169685618900
     options:
@@ -29594,7 +29594,7 @@
   product:
     handle: wcp-0946
     id: 9092640211156
-    title: 8mm OD SplineXS Steel Stock (3")
+    title: 3" SplineXS Steel Stock (#10-32 Tapped)
   variant:
     id: 47618135982292
     options:
@@ -30059,8 +30059,7 @@
   product:
     handle: wcp-2213
     id: 9184101466324
-    title: WCP & Corgi Logo, Double Sided 600gsm Microfiber Towel, 30cm x 30cm
-      (2-Pack)
+    title: 30cm x 30cm Microfiber Towel with WCP/Corgi Logo (600gsm, 2-Pack)
   variant:
     id: 48014056653012
     options:
@@ -30075,8 +30074,7 @@
   product:
     handle: wcp-2214
     id: 9184101531860
-    title: WCP & Corgi Logo, Double Sided 600gsm Microfiber Towel, 30cm x 60cm
-      (2-Pack)
+    title: 30cm x 60cm Microfiber Towel with WCP/Corgi Logo (600gsm, 2-Pack)
   variant:
     id: 48014056685780
     options:
@@ -30091,7 +30089,7 @@
   product:
     handle: wcp-2156
     id: 9184101597396
-    title: WCP & Corgi Logo, Double Sided 600gsm Microfiber Towel, 60cm x 90cm
+    title: 60cm x 90cm Microfiber Towel with WCP/Corgi Logo (600gsm)
   variant:
     id: 48014056980692
     options:
@@ -30136,7 +30134,7 @@
   product:
     handle: wcp-1345
     id: 9188687577300
-    title: 8t 1/2" Wide Steel Spur Gear (20 DP, 10t CD, 8mm SplineXS Bore)
+    title: 8t x 1/2" Wide Steel Spur Gear (20 DP, 10t CD, 8mm SplineXS Bore)
   variant:
     id: 48042691657940
     options:
@@ -30151,7 +30149,7 @@
   product:
     handle: wcp-1346
     id: 9188687610068
-    title: 9t 1/2" Wide Steel Spur Gear (20 DP, 10t CD, 8mm SplineXS Bore)
+    title: 9t x 1/2" Wide Steel Spur Gear (20 DP, 10t CD, 8mm SplineXS Bore)
   variant:
     id: 48042691690708
     options:
@@ -30166,7 +30164,7 @@
   product:
     handle: wcp-1347
     id: 9188687642836
-    title: 10t 1/2" Wide Steel Spur Gear (20 DP, 12t CD, 8mm SplineXS Bore)
+    title: 10t x 1/2" Wide Steel Spur Gear (20 DP, 12t CD, 8mm SplineXS Bore)
   variant:
     id: 48042691723476
     options:
@@ -30181,7 +30179,7 @@
   product:
     handle: wcp-1348
     id: 9188687675604
-    title: 11t 1/2" Wide Steel Spur Gear (20 DP, 12t CD, 8mm SplineXS Bore)
+    title: 11t x 1/2" Wide Steel Spur Gear (20 DP, 12t CD, 8mm SplineXS Bore)
   variant:
     id: 48042691756244
     options:
@@ -30196,7 +30194,7 @@
   product:
     handle: wcp-1349
     id: 9188687708372
-    title: 12t 1/2" Wide Steel Spur Gear (20 DP, 14t CD, 8mm SplineXS Bore)
+    title: 12t x 1/2" Wide Steel Spur Gear (20 DP, 14t CD, 8mm SplineXS Bore)
   variant:
     id: 48042691789012
     options:
@@ -30211,7 +30209,7 @@
   product:
     handle: wcp-1350
     id: 9188687741140
-    title: 12t 1/2" Wide Steel Spur Gear (20 DP, 8mm SplineXS Bore)
+    title: 12t x 1/2" Wide Steel Spur Gear (20 DP, 8mm SplineXS Bore)
   variant:
     id: 48042691821780
     options:
@@ -30226,7 +30224,7 @@
   product:
     handle: wcp-1351
     id: 9188687773908
-    title: 13t 1/2" Wide Steel Spur Gear (20 DP, 14t CD, 8mm SplineXS Bore)
+    title: 13t x 1/2" Wide Steel Spur Gear (20 DP, 14t CD, 8mm SplineXS Bore)
   variant:
     id: 48042691854548
     options:
@@ -30241,7 +30239,7 @@
   product:
     handle: wcp-1352
     id: 9188687806676
-    title: 14t 1/2" Wide Steel Spur Gear (20 DP, 16t CD, 8mm SplineXS Bore)
+    title: 14t x 1/2" Wide Steel Spur Gear (20 DP, 16t CD, 8mm SplineXS Bore)
   variant:
     id: 48042691887316
     options:
@@ -30256,7 +30254,7 @@
   product:
     handle: wcp-1353
     id: 9188687904980
-    title: 14t 1/2" Wide Steel Spur Gear (20 DP, 8mm SplineXS Bore)
+    title: 14t x 1/2" Wide Steel Spur Gear (20 DP, 8mm SplineXS Bore)
   variant:
     id: 48042692182228
     options:
@@ -30271,7 +30269,7 @@
   product:
     handle: wcp-1382
     id: 9188687970516
-    title: 15t 1/2" Wide Steel Spur Gear (20 DP, 16t CD, 8mm SplineXS Bore)
+    title: 15t x 1/2" Wide Steel Spur Gear (20 DP, 16t CD, 8mm SplineXS Bore)
   variant:
     id: 48042692247764
     options:
@@ -30286,7 +30284,7 @@
   product:
     handle: wcp-1383
     id: 9188688003284
-    title: 16t 1/2" Wide Steel Spur Gear (20 DP, 8mm SplineXS Bore)
+    title: 16t x 1/2" Wide Steel Spur Gear (20 DP, 8mm SplineXS Bore)
   variant:
     id: 48042692280532
     options:
@@ -30301,7 +30299,7 @@
   product:
     handle: wcp-1384
     id: 9188688036052
-    title: 18t 1/2" Wide Steel Spur Gear (20 DP, 8mm SplineXS Bore)
+    title: 18t x 1/2" Wide Steel Spur Gear (20 DP, 8mm SplineXS Bore)
   variant:
     id: 48042692313300
     options:
@@ -30316,7 +30314,7 @@
   product:
     handle: wcp-1385
     id: 9188688068820
-    title: 20t 1/2" Wide Steel Spur Gear (20 DP, 8mm SplineXS Bore)
+    title: 20t x 1/2" Wide Steel Spur Gear (20 DP, 8mm SplineXS Bore)
   variant:
     id: 48042692346068
     options:
@@ -30331,7 +30329,7 @@
   product:
     handle: wcp-1386
     id: 9188688101588
-    title: 22t 1/2" Wide Steel Spur Gear (20 DP, 8mm SplineXS Bore)
+    title: 22t x 1/2" Wide Steel Spur Gear (20 DP, 8mm SplineXS Bore)
   variant:
     id: 48042692378836
     options:
@@ -30346,7 +30344,7 @@
   product:
     handle: wcp-1387
     id: 9188688134356
-    title: 24t 1/2" Wide Steel Spur Gear (20 DP, 8mm SplineXS Bore)
+    title: 24t x 1/2" Wide Steel Spur Gear (20 DP, 8mm SplineXS Bore)
   variant:
     id: 48042692411604
     options:
@@ -30436,7 +30434,7 @@
   product:
     handle: wcp-2436
     id: 9202657460436
-    title: .505" OD x .159" ID Rounded Hex Stock (Oversized 1/2" Hex) (6")
+    title: .505" OD x .159" ID Rounded Hex Stock (Oversized 1/2" Hex, 6")
   variant:
     id: 48092450717908
     options:
@@ -30611,3 +30609,18 @@
     sku: null
     title: Default Title
   firstSeen: 2026-07-19T17:34:16.781Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2656?variant=48352219300052
+  product:
+    handle: wcp-2656
+    id: 9276671426772
+    title: Loctite 380 Instant Adhesive Black Toughened (1oz)
+  variant:
+    id: 48352219300052
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2656
+    title: Default Title
+  firstSeen: 2026-07-30T16:39:15.670Z

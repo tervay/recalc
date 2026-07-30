@@ -16,11 +16,17 @@ type ThriftyPulleyBore = z.infer<typeof zThriftyPulleyBoreSchema>;
 
 const zThriftyPulleySchema = z.object({
   teeth: z.number(),
+  width: z.number().min(1), // (mm)
   profile: z.enum(['HTD']),
   bore: zThriftyPulleyBoreSchema,
   sku: z.string(),
   url: z.string().url(),
 });
+
+// Fallback for the products whose titles carry no width (TTB-0061, TTB-0062,
+// TTB-0128). Each is sold in a single width, matching their 18.5mm siblings
+// TTB-0125 (11T) and TTB-0345 (48T). Variant titles carry their own width.
+const DEFAULT_WIDTH = 18.5;
 
 const thriftyBoreToJsonBore: Record<ThriftyPulleyBore, Bore> = {
   'Kraken Spline': 'SplineXS',
@@ -37,7 +43,6 @@ function thriftyPulleyToJsonPulley(
     ...pulley,
     bore: thriftyBoreToJsonBore[pulley.bore],
     vendor: 'Thrifty',
-    width: 18.5,
     pitch: 5,
   };
 }
@@ -57,33 +62,44 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): JSONPulley[] {
             : '1/2" Hex';
 
         const variantRegex =
-          /(?<width>[\d.]+)mm Wide (?<tooth>\d+) Tooth(?:\s+(?<bore>[^(]+?))?(?:\s*\(.*?\))?$/i;
+          /^(?<width>[\d.]+)mm Wide (?<tooth>\d+) Tooth(?:\s+(?<bore>.+))?$/i;
 
         for (const variant of product.variants) {
-          const match = variantRegex.exec(variant.title);
-          if (match?.groups) {
-            const { tooth, bore } = match.groups;
-            let mappedBore = bore ? bore.trim() : defaultBore;
+          // Qualifiers like "(Lightened)" appear mid-title, before the bore.
+          const title = variant.title
+            .replace(/\s*\([^)]*\)/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+          const match = variantRegex.exec(title);
+          if (!match?.groups) {
+            console.warn(
+              `Skipping unrecognized Thrifty pulley variant: ${product.title} - ${variant.title}`,
+            );
+            continue;
+          }
 
-            if (mappedBore === 'Spline XS' || mappedBore === 'SplineXS') {
-              mappedBore = 'Kraken Spline';
-            }
+          const { width, tooth, bore } = match.groups;
+          let mappedBore = bore ? bore.trim() : defaultBore;
 
-            try {
-              const thriftyPulley = zThriftyPulleySchema.parse({
-                teeth: parseInt(tooth),
-                profile: 'HTD',
-                bore: mappedBore,
-                sku: variant.sku,
-                url: urlForHandle(product.handle, 'Thrifty'),
-              });
-              pulleys.push(thriftyPulleyToJsonPulley(thriftyPulley));
-            } catch (error) {
-              console.error(
-                `Error parsing Thrifty pulley variant: ${product.title} - ${variant.title}`,
-                error,
-              );
-            }
+          if (mappedBore === 'Spline XS' || mappedBore === 'SplineXS') {
+            mappedBore = 'Kraken Spline';
+          }
+
+          try {
+            const thriftyPulley = zThriftyPulleySchema.parse({
+              teeth: parseInt(tooth),
+              width: parseFloat(width),
+              profile: 'HTD',
+              bore: mappedBore,
+              sku: variant.sku,
+              url: urlForHandle(product.handle, 'Thrifty'),
+            });
+            pulleys.push(thriftyPulleyToJsonPulley(thriftyPulley));
+          } catch (error) {
+            console.error(
+              `Error parsing Thrifty pulley variant: ${product.title} - ${variant.title}`,
+              error,
+            );
           }
         }
       } else if (product.title.endsWith('Pulley')) {
@@ -96,6 +112,7 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): JSONPulley[] {
           try {
             const thriftyPulley = zThriftyPulleySchema.parse({
               teeth: parseInt(tooth),
+              width: DEFAULT_WIDTH,
               profile,
               bore,
               sku: product.variants[0].sku,
@@ -120,6 +137,7 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): JSONPulley[] {
           try {
             const thriftyPulley = zThriftyPulleySchema.parse({
               teeth: parseInt(tooth),
+              width: DEFAULT_WIDTH,
               profile,
               bore,
               sku: product.variants[0].sku,
