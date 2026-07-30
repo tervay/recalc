@@ -127,6 +127,15 @@
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
+    - row "Thrifty TTB-0348 24 9.5 mm 1/2\" Hex":
+      - cell "Thrifty TTB-0348":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+        - link "TTB-0348":
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+      - cell "24"
+      - cell "9.5 mm"
+      - cell "1/2\" Hex"
     - row "Thrifty TTB-0126 24 18.5 mm 1/2\" Hex":
       - cell "Thrifty TTB-0126":
         - link "Thrifty":
@@ -136,23 +145,14 @@
       - cell "24"
       - cell "18.5 mm"
       - cell "1/2\" Hex"
-    - row "Thrifty TTB-0348 24 18.5 mm 1/2\" Hex":
-      - cell "Thrifty TTB-0348":
-        - link "Thrifty":
-          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
-        - link "TTB-0348":
-          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
-      - cell "24"
-      - cell "18.5 mm"
-      - cell "1/2\" Hex"
-    - row "Thrifty TTB-0341 24 18.5 mm SplineXS":
+    - row "Thrifty TTB-0341 24 9.5 mm SplineXS":
       - cell "Thrifty TTB-0341":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys
         - link "TTB-0341":
           - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys
       - cell "24"
-      - cell "18.5 mm"
+      - cell "9.5 mm"
       - cell "SplineXS"
     - row "Thrifty TTB-0342 24 18.5 mm SplineXS":
       - cell "Thrifty TTB-0342":

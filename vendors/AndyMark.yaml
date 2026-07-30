@@ -58830,21 +58830,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:09.529Z
 - vendor: AndyMark
-  # https://www.andymark.com/products/andymark-20th-anniversary-t-shirt?variant=44493464666284
-  product:
-    handle: andymark-20th-anniversary-t-shirt
-    id: 8262916374700
-    title: AndyMark 20th Anniversary T-Shirt
-  variant:
-    id: 44493464666284
-    options:
-      - Default Title
-      - null
-      - null
-    sku: am-5205XL
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:09.529Z
-- vendor: AndyMark
   # https://www.andymark.com/products/jst-vh-2-pin-connector-board?variant=44493464699052
   product:
     handle: jst-vh-2-pin-connector-board
@@ -95869,3 +95854,33 @@
     sku: am-1775
     title: Default Title
   firstSeen: 2026-07-19T17:46:52.256Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/10-32-x-250-in-socket-head-cap-screw-with-nylon-thread-lock-patch?variant=46775515971756
+  product:
+    handle: 10-32-x-250-in-socket-head-cap-screw-with-nylon-thread-lock-patch
+    id: 8663338025132
+    title: 10-32 x 0.25 in. Socket Head Cap Screw with Nylon Thread Lock Patch
+  variant:
+    id: 46775515971756
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-1771
+    title: Default Title
+  firstSeen: 2026-07-30T16:42:23.928Z
+- vendor: AndyMark
+  # https://www.andymark.com/products/0020-in-thick-48-in-x-32-in-polycarbonate-sheet?variant=46775516233900
+  product:
+    handle: 0020-in-thick-48-in-x-32-in-polycarbonate-sheet
+    id: 8663338123436
+    title: 0.020 in. Thick 48 in. x 32 in. Polycarbonate Sheet
+  variant:
+    id: 46775516233900
+    options:
+      - Default Title
+      - null
+      - null
+    sku: am-5833
+    title: Default Title
+  firstSeen: 2026-07-30T16:42:23.928Z

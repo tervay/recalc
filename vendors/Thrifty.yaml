@@ -4566,9 +4566,9 @@
     title: Default Title
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
-  # https://www.thethriftybot.com/products/pre-order-thrifty-swerve-grip-lock-wheel-hubs-kit-copy?variant=49679827992875
+  # https://www.thethriftybot.com/products/colson-hub-kit?variant=49679827992875
   product:
-    handle: pre-order-thrifty-swerve-grip-lock-wheel-hubs-kit-copy
+    handle: colson-hub-kit
     id: 9717370945835
     title: Thrifty Swerve 4" Colson Wheel Hubs Kit
   variant:
@@ -4728,21 +4728,6 @@
       - null
       - null
     sku: TTB-0241
-    title: Default Title
-  firstSeen: 2026-03-13T10:23:55.113Z
-- vendor: Thrifty
-  # https://www.thethriftybot.com/products/thriftycam-lens-kit?variant=49995510415659
-  product:
-    handle: thriftycam-lens-kit
-    id: 9812184236331
-    title: ThriftyCam Lens Kit
-  variant:
-    id: 49995510415659
-    options:
-      - Default Title
-      - null
-      - null
-    sku: TTB-0242
     title: Default Title
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
@@ -6706,11 +6691,11 @@
   variant:
     id: 51701134000427
     options:
-      - 9.5mm Wide 24 Tooth
+      - 9.5mm Wide 24 Tooth 1/2" Hex
       - null
       - null
     sku: TTB-0348
-    title: 9.5mm Wide 24 Tooth
+    title: 9.5mm Wide 24 Tooth 1/2" Hex
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/1-2-hex-pulleys?variant=51701134033195
@@ -6721,11 +6706,11 @@
   variant:
     id: 51701134033195
     options:
-      - 18.5mm Wide 36 Tooth (Lightened)
+      - 18.5mm Wide 36 Tooth (Lightened) 1/2" Hex
       - null
       - null
     sku: TTB-0349
-    title: 18.5mm Wide 36 Tooth (Lightened)
+    title: 18.5mm Wide 36 Tooth (Lightened) 1/2" Hex
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/1-2-hex-pulleys?variant=51713641185579
@@ -6736,11 +6721,11 @@
   variant:
     id: 51713641185579
     options:
-      - 18.5mm Wide 24 Tooth
+      - 18.5mm Wide 24 Tooth 1/2" Hex
       - null
       - null
     sku: TTB-0126
-    title: 18.5mm Wide 24 Tooth
+    title: 18.5mm Wide 24 Tooth 1/2" Hex
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/1-2-hex-pulleys?variant=51713641218347
@@ -6751,11 +6736,11 @@
   variant:
     id: 51713641218347
     options:
-      - 18.5mm Wide 36 Tooth
+      - 18.5mm Wide 36 Tooth 1/2" Hex
       - null
       - null
     sku: TTB-0127
-    title: 18.5mm Wide 36 Tooth
+    title: 18.5mm Wide 36 Tooth 1/2" Hex
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/1-2-hex-pulleys?variant=51713646133547
@@ -6772,6 +6757,36 @@
     sku: TTB-0058
     title: 18.5mm Wide 15 Tooth 1/2" Hex
   firstSeen: 2026-03-13T10:23:55.113Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/1-2-hex-pulleys?variant=54537183363371
+  product:
+    handle: 1-2-hex-pulleys
+    id: 10229413839147
+    title: 1/2" Hex Bore Aluminum HTD Pulleys
+  variant:
+    id: 54537183363371
+    options:
+      - 9.5mm Wide 15 Tooth 1/2" Hex
+      - null
+      - null
+    sku: TTB-0435
+    title: 9.5mm Wide 15 Tooth 1/2" Hex
+  firstSeen: 2026-07-30T16:19:48.235Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/1-2-hex-pulleys?variant=54673523441963
+  product:
+    handle: 1-2-hex-pulleys
+    id: 10229413839147
+    title: 1/2" Hex Bore Aluminum HTD Pulleys
+  variant:
+    id: 54673523441963
+    options:
+      - 9.5mm Wide 36 Tooth 1/2" Hex
+      - null
+      - null
+    sku: TTB-0446
+    title: 9.5mm Wide 36 Tooth 1/2" Hex
+  firstSeen: 2026-07-30T16:19:48.235Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/3-flywheel-mass-disc-kit?variant=51701185413419
   product:
@@ -6957,7 +6972,7 @@
   product:
     handle: thriftiest-cam
     id: 10257269063979
-    title: 'Pre-Order: Thriftiest Cam'
+    title: Thriftiest Cam
   variant:
     id: 52035048833323
     options:
@@ -7147,3 +7162,123 @@
     sku: TTB-0377
     title: Default Title
   firstSeen: 2026-06-06T00:24:49.721Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/bumper-bundle-kit?variant=54234108100907
+  product:
+    handle: bumper-bundle-kit
+    id: 10488302240043
+    title: Bumper Bundle Kit
+  variant:
+    id: 54234108100907
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-BUMPER-BUNDLE-KIT
+    title: Default Title
+  firstSeen: 2026-07-30T16:19:48.235Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/solid-wheel-bundles?variant=54283177296171
+  product:
+    handle: solid-wheel-bundles
+    id: 10489993986347
+    title: Solid Wheel Bundles
+  variant:
+    id: 54283177296171
+    options:
+      - 45A Durometer Bundle
+      - null
+      - null
+    sku: SOLID-WHEEL-BUNDLE-45A
+    title: 45A Durometer Bundle
+  firstSeen: 2026-07-30T16:19:48.235Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/solid-wheel-bundles?variant=54283177328939
+  product:
+    handle: solid-wheel-bundles
+    id: 10489993986347
+    title: Solid Wheel Bundles
+  variant:
+    id: 54283177328939
+    options:
+      - 60A Durometer Bundle
+      - null
+      - null
+    sku: SOLID-WHEEL-BUNDLE-60A
+    title: 60A Durometer Bundle
+  firstSeen: 2026-07-30T16:19:48.235Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/squish-wheel-bundles?variant=54283568251179
+  product:
+    handle: squish-wheel-bundles
+    id: 10490005782827
+    title: Squish Wheel Bundles
+  variant:
+    id: 54283568251179
+    options:
+      - 30A Durometer Bundle
+      - null
+      - null
+    sku: SQUISH-WHEEL-BUNDLE-30A
+    title: 30A Durometer Bundle
+  firstSeen: 2026-07-30T16:19:48.235Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/squish-wheel-bundles?variant=54283568283947
+  product:
+    handle: squish-wheel-bundles
+    id: 10490005782827
+    title: Squish Wheel Bundles
+  variant:
+    id: 54283568283947
+    options:
+      - 60A Durometer Bundle
+      - null
+      - null
+    sku: SQUISH-WHEEL-BUNDLE-60A
+    title: 60A Durometer Bundle
+  firstSeen: 2026-07-30T16:19:48.235Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/2-x-1-tubing-aluminum-extrusion-bundles?variant=54321259217195
+  product:
+    handle: 2-x-1-tubing-aluminum-extrusion-bundles
+    id: 10491212890411
+    title: 2 x 1 Tubing Aluminum Extrusion Bundles
+  variant:
+    id: 54321259217195
+    options:
+      - .125" Wall - QTY 15
+      - null
+      - null
+    sku: 2x1_BUNDLE_.125WALL
+    title: .125" Wall - QTY 15
+  firstSeen: 2026-07-30T16:19:48.235Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/2-x-1-tubing-aluminum-extrusion-bundles?variant=54321259249963
+  product:
+    handle: 2-x-1-tubing-aluminum-extrusion-bundles
+    id: 10491212890411
+    title: 2 x 1 Tubing Aluminum Extrusion Bundles
+  variant:
+    id: 54321259249963
+    options:
+      - .080" Wall - QTY 25
+      - null
+      - null
+    sku: 2x1_BUNDLE_.080WALL
+    title: .080" Wall - QTY 25
+  firstSeen: 2026-07-30T16:19:48.235Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/single-flute-endmill-bundle?variant=54603592302891
+  product:
+    handle: single-flute-endmill-bundle
+    id: 10495661932843
+    title: Single Flute Endmill Bundle
+  variant:
+    id: 54603592302891
+    options:
+      - Default Title
+      - null
+      - null
+    sku: SINGLE-FLUTE-ENDMILL-BUNDLE
+    title: Default Title
+  firstSeen: 2026-07-30T16:19:48.235Z

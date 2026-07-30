@@ -77,46 +77,52 @@ program
   .description('Vendor product ingestion pipeline')
   .argument('<vendor>', 'Vendor name or "all"')
   .argument('[productType]', 'Product type or "all" (default: all)', 'all')
-  .action(async (vendorArg: string, productTypeArg: string) => {
-    try {
-      // Resolve vendors
-      const vendors: VendorName[] =
-        vendorArg.toLowerCase() === 'all'
-          ? [...INGESTION_VENDORS]
-          : (() => {
-              const match = INGESTION_VENDORS.find(
-                (v) => v.toLowerCase() === vendorArg.toLowerCase(),
-              );
-              if (!match)
-                throw new Error(
-                  `Unknown vendor: ${vendorArg}. Valid: ${INGESTION_VENDORS.join(', ')}`,
+  .option('--skip-vbg', 'Skip VBeltGuys', true)
+  .action(
+    async (vendorArg: string, productTypeArg: string, skipVbg: boolean) => {
+      try {
+        // Resolve vendors
+        const vendors: VendorName[] =
+          vendorArg.toLowerCase() === 'all'
+            ? [...INGESTION_VENDORS].filter(
+                (v) => !skipVbg || v !== 'VBeltGuys',
+              )
+            : (() => {
+                const match = INGESTION_VENDORS.find(
+                  (v) => v.toLowerCase() === vendorArg.toLowerCase(),
                 );
-              return [match];
-            })();
 
-      // Resolve product types
-      const productTypes: ProductType[] =
-        productTypeArg.toLowerCase() === 'all'
-          ? [...PRODUCT_TYPES]
-          : (() => {
-              const match = PRODUCT_TYPES.find(
-                (pt) => pt === productTypeArg.toLowerCase(),
-              );
-              if (!match)
-                throw new Error(
-                  `Unknown product type: ${productTypeArg}. Valid: ${PRODUCT_TYPES.join(', ')}`,
+                if (!match)
+                  throw new Error(
+                    `Unknown vendor: ${vendorArg}. Valid: ${INGESTION_VENDORS.join(', ')}`,
+                  );
+                return [match];
+              })();
+
+        // Resolve product types
+        const productTypes: ProductType[] =
+          productTypeArg.toLowerCase() === 'all'
+            ? [...PRODUCT_TYPES]
+            : (() => {
+                const match = PRODUCT_TYPES.find(
+                  (pt) => pt === productTypeArg.toLowerCase(),
                 );
-              return [match];
-            })();
+                if (!match)
+                  throw new Error(
+                    `Unknown product type: ${productTypeArg}. Valid: ${PRODUCT_TYPES.join(', ')}`,
+                  );
+                return [match];
+              })();
 
-      for (const vendor of vendors) {
-        await runPipeline(vendor, productTypes);
+        for (const vendor of vendors) {
+          await runPipeline(vendor, productTypes);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        process.exit(1);
       }
-    } catch (error) {
-      console.error('Error:', error);
-      process.exit(1);
-    }
-  });
+    },
+  );
 
 program.parse();
 

@@ -9206,36 +9206,6 @@
   firstSeen: 2026-07-19T18:12:42.561Z
 - vendor: REV
   product:
-    handle: https://www.revrobotics.com/EasySwerve-spare-parts
-    id: 2484638742
-    title: EasySwerve Spare Parts (4in EasySwerve Module - Base Plate
-      (REV-21-3006-P01))
-  variant:
-    id: 3826230356
-    options:
-      - null
-      - null
-      - null
-    sku: REV-21-3006-P01
-    title: EasySwerve Spare Parts (4in EasySwerve Module - Base Plate
-      (REV-21-3006-P01))
-  firstSeen: 2026-07-19T18:12:42.561Z
-- vendor: REV
-  product:
-    handle: https://www.revrobotics.com/EasySwerve-spare-parts
-    id: 2484638742
-    title: EasySwerve Spare Parts (4in EasySwerve Module - Cover ( REV-21-3006-P03))
-  variant:
-    id: 3859785594
-    options:
-      - null
-      - null
-      - null
-    sku: REV-21-3006-P03
-    title: EasySwerve Spare Parts (4in EasySwerve Module - Cover ( REV-21-3006-P03))
-  firstSeen: 2026-07-19T18:12:42.561Z
-- vendor: REV
-  product:
     handle: https://www.revrobotics.com/rev-21-2742/
     id: 2493474447
     title: Linear Actuator 2in Input Shaft Kit
@@ -9666,6 +9636,40 @@
     sku: REV-31-1381-PK4
     title: Anderson to JST VH Cable - 12 cm - 4 pack
   firstSeen: 2026-07-19T18:12:42.561Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/MAX-90-Gearbox-Spare-Parts
+    id: 2750431377
+    title:
+      MAX 90 Degree Gearbox Spare Parts ((REV-21-2122) MAXPlanetary Spline to
+      1/2in Hex Adapter)
+  variant:
+    id: 1196480274
+    options:
+      - null
+      - null
+      - null
+    sku: REV-21-2122
+    title:
+      MAX 90 Degree Gearbox Spare Parts ((REV-21-2122) MAXPlanetary Spline to
+      1/2in Hex Adapter)
+  firstSeen: 2026-07-30T16:42:27.799Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/MAX-90-Gearbox-Spare-Parts
+    id: 2750431377
+    title: MAX 90 Degree Gearbox Spare Parts ((REV-21-2120-P01) MAX 90 Degree
+      Gearbox Output Shaft)
+  variant:
+    id: 1511487726
+    options:
+      - null
+      - null
+      - null
+    sku: REV-21-2120-P01
+    title: MAX 90 Degree Gearbox Spare Parts ((REV-21-2120-P01) MAX 90 Degree
+      Gearbox Output Shaft)
+  firstSeen: 2026-07-30T16:42:27.799Z
 - vendor: REV
   product:
     handle: https://www.revrobotics.com/rev-41-1602/
