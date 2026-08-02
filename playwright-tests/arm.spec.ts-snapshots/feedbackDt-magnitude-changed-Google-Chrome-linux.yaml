@@ -5,59 +5,59 @@
   - text: Copy Link
 - heading "Motor & Gearing" [level=2]
 - text: Motor
-- spinbutton "Motor Ratio Arm Length Load Min Angle Max Angle Stator Limit Supply Limit Stator Voltage Supply Voltage Battery Resistance Q Position Q Velocity R (Volts) Sensor Delay Control Loop Period Max Stator Limit Max Supply Limit": "1"
+- spinbutton "Motor": "1"
 - combobox: Kraken X60 (FOC)
 - text: Ratio
-- spinbutton: "100"
+- spinbutton "Ratio": "100"
 - combobox: Reduction
 - heading "Arm Geometry" [level=2]
 - button "Arm Length"
-- spinbutton: "24"
+- spinbutton "Arm Length": "24"
 - combobox: in
 - button "Load"
-- spinbutton: "5"
+- spinbutton "Load": "5"
 - combobox: lbs
 - button "Min Angle"
-- spinbutton: "0"
+- spinbutton "Min Angle": "0"
 - combobox: deg
 - button "Max Angle"
-- spinbutton: "90"
+- spinbutton "Max Angle": "90"
 - combobox: deg
 - heading "Limits" [level=2]
 - button "Stator Limit"
-- spinbutton: "80"
+- spinbutton "Stator Limit": "80"
 - combobox: A
 - button "Supply Limit"
-- spinbutton: "60"
+- spinbutton "Supply Limit": "60"
 - combobox: A
 - button "Stator Voltage"
-- spinbutton: "12"
+- spinbutton "Stator Voltage": "12"
 - combobox: V
 - button "Supply Voltage"
-- spinbutton: "12"
+- spinbutton "Supply Voltage": "12"
 - combobox: V
 - button "Efficiency"
-- spinbutton: "100"
+- spinbutton "Efficiency": "100"
 - button "Battery Resistance"
-- spinbutton: "0.015"
+- spinbutton "Battery Resistance": "0.015"
 - combobox: Ohm
 - button "LQR Tuning" [expanded]:
   - img
   - heading "LQR Tuning" [level=2]
 - button "Q Position"
-- spinbutton: "2"
+- spinbutton "Q Position": "2"
 - combobox: deg
 - button "Q Velocity"
-- spinbutton: "40"
+- spinbutton "Q Velocity": "40"
 - combobox: deg/s
 - button "R (Volts)"
-- spinbutton: "12"
+- spinbutton "R (Volts)": "12"
 - combobox: V
 - button "Sensor Delay"
-- spinbutton: "1"
+- spinbutton "Sensor Delay": "1"
 - combobox: ms
 - button "Control Loop Period"
-- spinbutton: "40"
+- spinbutton "Control Loop Period": "40"
 - combobox: ms
 - text: Time to Goal (Up) 0.285
 - combobox: s

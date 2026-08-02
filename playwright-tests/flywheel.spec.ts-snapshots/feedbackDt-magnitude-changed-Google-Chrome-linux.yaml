@@ -5,57 +5,57 @@
   - text: Copy Link
 - heading "Motors & Electrical" [level=2]
 - text: Motor
-- spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Q Velocity R (Volts) Sensor Delay Control Loop Period Shooter Diameter Shooter Target Speed Shooter Weight Max Achievable RPM Shooter MOI Projectile Diameter Projectile Weight Ball Initial Velocity Ball Initial Spin Ball MOI Max Stator Limit Max Supply Limit": "2"
+- spinbutton "Motor": "2"
 - combobox: Kraken X60 (FOC)
 - text: Efficiency (%)
-- spinbutton: "100"
+- spinbutton "Efficiency (%)": "100"
 - text: Ratio
-- spinbutton: "1"
+- spinbutton "Ratio": "1"
 - combobox: Reduction
 - text: Stator Limit
-- spinbutton: "80"
+- spinbutton "Stator Limit": "80"
 - combobox: A
 - text: Supply Limit
-- spinbutton: "60"
+- spinbutton "Supply Limit": "60"
 - combobox: A
 - text: Supply Voltage
-- spinbutton: "12.6"
+- spinbutton "Supply Voltage": "12.6"
 - combobox: V
 - text: Battery Resistance
-- spinbutton: "0.015"
+- spinbutton "Battery Resistance": "0.015"
 - combobox: Ohm
 - button "LQR Tuning" [expanded]:
   - img
   - heading "LQR Tuning" [level=2]
 - button "Q Velocity"
-- spinbutton: "50"
+- spinbutton "Q Velocity": "50"
 - combobox: rpm
 - button "R (Volts)"
-- spinbutton: "12"
+- spinbutton "R (Volts)": "12"
 - combobox: V
 - button "Sensor Delay"
-- spinbutton: "1"
+- spinbutton "Sensor Delay": "1"
 - combobox: ms
 - button "Control Loop Period"
-- spinbutton: "40"
+- spinbutton "Control Loop Period": "40"
 - combobox: ms
 - heading "Shooter Wheel" [level=2]
 - text: Type
 - combobox: Single Shooter Wheel + Hood
 - text: Shooter Diameter
-- spinbutton: "4"
+- spinbutton "Shooter Diameter": "4"
 - combobox: in
 - text: Shooter Target Speed
-- spinbutton: "3000"
+- spinbutton "Shooter Target Speed": "3000"
 - combobox: rpm
 - text: Shooter Weight
-- spinbutton: "1"
+- spinbutton "Shooter Weight": "1"
 - combobox: lbs
 - text: Max Achievable RPM
-- spinbutton [disabled]: "5784"
+- spinbutton "Max Achievable RPM" [disabled]: "5784"
 - combobox: rpm
 - text: Shooter MOI
-- spinbutton [disabled]: "2.000"
+- spinbutton "Shooter MOI" [disabled]: "2.000"
 - combobox: in2*lbs
 - switch "Use Custom Shooter MOI"
 - text: Use Custom Shooter MOI
@@ -64,19 +64,19 @@
 - text: Enabled
 - heading "Projectile" [level=2]
 - text: Projectile Diameter
-- spinbutton: "5"
+- spinbutton "Projectile Diameter": "5"
 - combobox: in
 - text: Projectile Weight
-- spinbutton: "0.5"
+- spinbutton "Projectile Weight": "0.5"
 - combobox: lbs
 - text: Ball Initial Velocity
-- spinbutton: "0"
+- spinbutton "Ball Initial Velocity": "0"
 - combobox: ft/s
 - text: Ball Initial Spin
-- spinbutton: "0"
+- spinbutton "Ball Initial Spin": "0"
 - combobox: rpm
 - text: Ball MOI
-- spinbutton [disabled]: "1.250"
+- spinbutton "Ball MOI" [disabled]: "1.250"
 - combobox: in2*lbs
 - switch "Use Custom Ball MOI"
 - text: Use Custom Ball MOI Spinup Time 0.060

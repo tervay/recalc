@@ -11,22 +11,22 @@
   - button "HTD (5mm)"
   - button "RT25 (0.25in)"
 - text: Pitch
-- spinbutton "Pitch Target Center Extra Center": "5"
+- spinbutton "Pitch": "5"
 - combobox: mm
 - text: Tooth Increment
-- spinbutton: "5"
+- spinbutton "Tooth Increment": "5"
 - text: Target Center
-- spinbutton: "5"
+- spinbutton "Target Center": "5"
 - combobox: in
 - text: Extra Center
-- spinbutton: "1"
+- spinbutton "Extra Center": "1"
 - combobox: in
 - text: Pulley 1 Teeth
-- spinbutton: "16"
+- spinbutton "Teeth": "16"
 - text: Pitch Diameter 1.003
 - combobox: in
 - text: Pulley 2 Teeth
-- spinbutton: "24"
+- spinbutton "Teeth": "24"
 - text: Pitch Diameter 1.504
 - combobox: in
 - text: Smaller Belt

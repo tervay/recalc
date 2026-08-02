@@ -6,38 +6,38 @@
 - heading "Motor & Gearing" [level=2]
 - switch "Cascade"
 - text: Cascade Motor
-- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Stator Limit Supply Limit Supply Voltage Battery Resistance Q Position Q Velocity R (Volts) Sensor Delay Control Loop Period Kalman Filter Position Std Dev Kalman Filter Velocity Std Dev Kalman Filter Encoder Position Std Dev Max Stator Limit Max Supply Limit": "1"
+- spinbutton "Motor": "1"
 - combobox: Kraken X60 (FOC)
 - button "Efficiency %"
-- spinbutton: "100"
+- spinbutton "Efficiency %": "100"
 - text: Ratio
-- spinbutton: "2"
+- spinbutton "Ratio": "2"
 - combobox: Reduction
 - button "Spool Diameter"
-- spinbutton: "1"
+- spinbutton "Spool Diameter": "1"
 - combobox: in
 - heading "Load & Travel" [level=2]
 - text: Load
-- spinbutton: "5"
+- spinbutton "Load": "5"
 - combobox: lbs
 - text: Angle
-- spinbutton: "90"
+- spinbutton "Angle": "90"
 - combobox: deg
 - button "Travel Distance"
-- spinbutton: "60"
+- spinbutton "Travel Distance": "60"
 - combobox: in
 - heading "Limits" [level=2]
 - button "Stator Limit"
-- spinbutton: "80"
+- spinbutton "Stator Limit": "80"
 - combobox: A
 - button "Supply Limit"
-- spinbutton: "60"
+- spinbutton "Supply Limit": "60"
 - combobox: A
 - button "Supply Voltage"
-- spinbutton: "12"
+- spinbutton "Supply Voltage": "12"
 - combobox: V
 - button "Battery Resistance"
-- spinbutton: "0.015"
+- spinbutton "Battery Resistance": "0.015"
 - combobox: Ohm
 - text: Max Velocity
 - switch "Custom"
@@ -51,28 +51,28 @@
   - img
   - heading "LQR Tuning" [level=2]
 - button "Q Position"
-- spinbutton: "0.02"
+- spinbutton "Q Position": "0.02"
 - combobox: m
 - button "Q Velocity"
-- spinbutton: "0.4"
+- spinbutton "Q Velocity": "0.4"
 - combobox: m/s
 - button "R (Volts)"
-- spinbutton: "12"
+- spinbutton "R (Volts)": "12"
 - combobox: V
 - button "Sensor Delay"
-- spinbutton: "1"
+- spinbutton "Sensor Delay": "1"
 - combobox: ms
 - button "Control Loop Period"
-- spinbutton: "20"
+- spinbutton "Control Loop Period": "20"
 - combobox: s
 - button "Kalman Filter Position Std Dev"
-- spinbutton: "2"
+- spinbutton "Kalman Filter Position Std Dev": "2"
 - combobox: in
 - button "Kalman Filter Velocity Std Dev"
-- spinbutton: "40"
+- spinbutton "Kalman Filter Velocity Std Dev": "40"
 - combobox: in/s
 - button "Kalman Filter Encoder Position Std Dev"
-- spinbutton: "0.001"
+- spinbutton "Kalman Filter Encoder Position Std Dev": "0.001"
 - combobox: in
 - text: Time to Goal 0.487
 - combobox: s

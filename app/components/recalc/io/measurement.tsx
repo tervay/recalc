@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
@@ -33,6 +33,7 @@ export function MeasurementInput({
   labelAbove?: boolean;
 }) {
   const [meas, setMeas] = stateHook;
+  const inputId = useId();
 
   const [scalar, setScalar] = useState(meas.scalar);
   const [unit, setUnit] = useState(meas.units());
@@ -71,7 +72,7 @@ export function MeasurementInput({
   const labelEl =
     tooltip === undefined ? (
       <Label
-        htmlFor="measurement"
+        htmlFor={inputId}
         className={
           labelAbove ? 'mb-1 text-xs text-muted-foreground' : 'mr-2 text-nowrap'
         }
@@ -83,7 +84,7 @@ export function MeasurementInput({
         <Tooltip>
           <TooltipTrigger>
             <Label
-              htmlFor="measurement"
+              htmlFor={inputId}
               className={
                 labelAbove
                   ? 'mb-1 text-xs text-muted-foreground'
@@ -104,7 +105,7 @@ export function MeasurementInput({
       <div className="flex w-full flex-row">
         <Input
           type="number"
-          id="measurement"
+          id={inputId}
           placeholder={label}
           value={proxyValue}
           onChange={(e) => {
@@ -160,6 +161,7 @@ export function MeasurementOutput({
   testId?: string;
   labelAbove?: boolean;
 }) {
+  const inputId = useId();
   const [scalar, setScalar] = useState(state.scalar);
   const [unit, setUnit] = useState(defaultUnit ?? state.units());
   const kinds = useMemo(() => Measurement.choices(state), [state]);
@@ -176,7 +178,7 @@ export function MeasurementOutput({
   const labelEl =
     tooltip === undefined ? (
       <Label
-        htmlFor="measurement"
+        htmlFor={inputId}
         className={
           labelAbove ? 'mb-1 text-xs text-muted-foreground' : 'mr-2 text-nowrap'
         }
@@ -188,7 +190,7 @@ export function MeasurementOutput({
         <Tooltip>
           <TooltipTrigger>
             <Label
-              htmlFor="measurement"
+              htmlFor={inputId}
               className={
                 labelAbove
                   ? 'mb-1 text-xs text-muted-foreground'
@@ -209,7 +211,7 @@ export function MeasurementOutput({
       <div className="flex w-full flex-row">
         <Input
           type="number"
-          id="measurement"
+          id={inputId}
           disabled
           placeholder={label}
           value={stringified}

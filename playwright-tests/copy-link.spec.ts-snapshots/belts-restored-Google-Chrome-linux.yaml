@@ -14,15 +14,15 @@
 - spinbutton "Pitch": "3"
 - combobox: mm
 - text: Tooth Increment
-- spinbutton: "10"
+- spinbutton "Tooth Increment": "10"
 - text: Custom Belt Teeth
-- spinbutton: "100"
+- spinbutton "Custom Belt Teeth": "100"
 - text: Pulley 1 Teeth
-- spinbutton: "20"
+- spinbutton "Teeth": "20"
 - text: Pitch Diameter 0.752
 - combobox: in
 - text: Pulley 2 Teeth
-- spinbutton: "40"
+- spinbutton "Teeth": "40"
 - text: Pitch Diameter 1.504
 - combobox: in
 - text: Smaller Belt Belt Teeth 160 Center Distance 7.668

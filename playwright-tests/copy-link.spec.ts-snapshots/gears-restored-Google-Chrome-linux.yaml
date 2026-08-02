@@ -5,11 +5,11 @@
   - text: Copy Link
 - paragraph: Parameters
 - text: Gear 1 Teeth
-- spinbutton: "40"
+- spinbutton "Gear 1 Teeth": "40"
 - text: Gear 2 Teeth
-- spinbutton: "60"
+- spinbutton "Gear 2 Teeth": "60"
 - text: Gear DP
-- spinbutton: "32"
+- spinbutton "Gear DP": "32"
 - text: Center Distance 1.563
 - combobox: in
 - img

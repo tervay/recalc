@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useId, useState } from 'react';
 
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
@@ -107,6 +107,7 @@ export function MotorInput({
   labelAbove,
 }: HasStateHook<Motor> & { testId?: string; labelAbove?: boolean }) {
   const [motor, setMotor] = stateHook;
+  const inputId = useId();
   const [name, setName] = useState(motor.identifier);
   const [quantity, setQuantity] = useState(motor.quantity);
 
@@ -127,7 +128,7 @@ export function MotorInput({
   return (
     <div className={labelAbove ? 'flex flex-col' : 'flex flex-row'}>
       <Label
-        htmlFor="measurement"
+        htmlFor={inputId}
         className={
           labelAbove ? 'mb-1 text-xs text-muted-foreground' : 'mr-2 text-nowrap'
         }
@@ -137,7 +138,7 @@ export function MotorInput({
       <div className="flex w-full flex-row">
         <Input
           type="number"
-          id="measurement"
+          id={inputId}
           value={proxyQuantity}
           onChange={(e) => {
             if (e.target.value !== '') {
