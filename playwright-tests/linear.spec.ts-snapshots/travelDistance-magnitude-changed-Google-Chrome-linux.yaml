@@ -6,38 +6,38 @@
 - heading "Motor & Gearing" [level=2]
 - switch "Cascade"
 - text: Cascade Motor
-- spinbutton "Motor Ratio Spool Diameter Load Angle Travel Distance Stator Limit Supply Limit Supply Voltage Battery Resistance Max Stator Limit Max Supply Limit": "1"
+- spinbutton "Motor": "1"
 - combobox: Kraken X60 (FOC)
 - button "Efficiency %"
-- spinbutton: "100"
+- spinbutton "Efficiency %": "100"
 - text: Ratio
-- spinbutton: "2"
+- spinbutton "Ratio": "2"
 - combobox: Reduction
 - button "Spool Diameter"
-- spinbutton: "1"
+- spinbutton "Spool Diameter": "1"
 - combobox: in
 - heading "Load & Travel" [level=2]
 - text: Load
-- spinbutton: "5"
+- spinbutton "Load": "5"
 - combobox: lbs
 - text: Angle
-- spinbutton: "90"
+- spinbutton "Angle": "90"
 - combobox: deg
 - button "Travel Distance"
-- spinbutton: "10"
+- spinbutton "Travel Distance": "10"
 - combobox: in
 - heading "Limits" [level=2]
 - button "Stator Limit"
-- spinbutton: "80"
+- spinbutton "Stator Limit": "80"
 - combobox: A
 - button "Supply Limit"
-- spinbutton: "60"
+- spinbutton "Supply Limit": "60"
 - combobox: A
 - button "Supply Voltage"
-- spinbutton: "12"
+- spinbutton "Supply Voltage": "12"
 - combobox: V
 - button "Battery Resistance"
-- spinbutton: "0.015"
+- spinbutton "Battery Resistance": "0.015"
 - combobox: Ohm
 - text: Max Velocity
 - switch "Custom"

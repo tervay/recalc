@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
@@ -23,6 +23,7 @@ export default function NumberInput({
   labelAbove?: boolean;
 }) {
   const [value, setValue] = stateHook;
+  const inputId = useId();
   const [proxyValue, setProxyValue] = useState(value.toString());
 
   useEffect(() => {
@@ -41,7 +42,7 @@ export default function NumberInput({
     <div className={labelAbove ? 'flex flex-col' : 'flex flex-row'}>
       {tooltip === undefined ? (
         <Label
-          htmlFor="number"
+          htmlFor={inputId}
           className={
             labelAbove
               ? 'mb-1 text-xs text-muted-foreground'
@@ -55,7 +56,7 @@ export default function NumberInput({
           <Tooltip>
             <TooltipTrigger>
               <Label
-                htmlFor="number"
+                htmlFor={inputId}
                 className={
                   labelAbove
                     ? 'mb-1 text-xs text-muted-foreground'
@@ -71,6 +72,7 @@ export default function NumberInput({
       )}
       <Input
         type="number"
+        id={inputId}
         value={proxyValue}
         onChange={(e) => {
           if (e.target.value !== '') {
@@ -106,6 +108,7 @@ export function NumberOutput({
   roundTo?: number;
   testId?: string;
 }) {
+  const inputId = useId();
   const [stringified, setStringified] = useState(state.toFixed(roundTo));
 
   useEffect(() => {
@@ -114,12 +117,12 @@ export function NumberOutput({
 
   return (
     <div className="flex flex-row">
-      <Label htmlFor="measurement" className="mr-2 text-nowrap">
+      <Label htmlFor={inputId} className="mr-2 text-nowrap">
         {label}
       </Label>
       <Input
         type="number"
-        id="measurement"
+        id={inputId}
         disabled
         placeholder={label}
         value={stringified}

@@ -5,24 +5,24 @@
   - text: Copy Link
 - heading "Motors & Electrical" [level=2]
 - text: Motor
-- spinbutton "Motor Ratio Stator Limit Supply Limit Supply Voltage Battery Resistance Shooter Diameter Shooter Target Speed Shooter Weight Max Achievable RPM Custom Shooter MOI Flywheel Diameter Flywheel Weight Flywheel to Shooter Ratio Custom Flywheel MOI Projectile Diameter Projectile Weight Ball Initial Velocity Ball Initial Spin Ball MOI Max Stator Limit Max Supply Limit": "2"
+- spinbutton "Motor": "2"
 - combobox: NEO
 - text: Efficiency (%)
-- spinbutton: "85"
+- spinbutton "Efficiency (%)": "85"
 - text: Ratio
-- spinbutton: "2"
+- spinbutton "Ratio": "2"
 - combobox: Reduction
 - text: Stator Limit
-- spinbutton: "50"
+- spinbutton "Stator Limit": "50"
 - combobox: A
 - text: Supply Limit
-- spinbutton: "70"
+- spinbutton "Supply Limit": "70"
 - combobox: A
 - text: Supply Voltage
-- spinbutton: "12.6"
+- spinbutton "Supply Voltage": "12.6"
 - combobox: V
 - text: Battery Resistance
-- spinbutton: "0.03"
+- spinbutton "Battery Resistance": "0.03"
 - combobox: Ohm
 - button "LQR Tuning":
   - img
@@ -31,53 +31,53 @@
 - text: Type
 - combobox: Single Shooter Wheel + Hood
 - text: Shooter Diameter
-- spinbutton: "4"
+- spinbutton "Shooter Diameter": "4"
 - combobox: in
 - text: Shooter Target Speed
-- spinbutton: "2000"
+- spinbutton "Shooter Target Speed": "2000"
 - combobox: rpm
 - text: Shooter Weight
-- spinbutton: "0.8"
+- spinbutton "Shooter Weight": "0.8"
 - combobox: lbs
 - text: Max Achievable RPM
-- spinbutton [disabled]: "2953"
+- spinbutton "Max Achievable RPM" [disabled]: "2953"
 - combobox: rpm
 - text: Custom Shooter MOI
-- spinbutton: "3"
+- spinbutton "Custom Shooter MOI": "3"
 - combobox: in2*lbs
 - switch "Use Custom Shooter MOI" [checked]
 - text: Use Custom Shooter MOI
 - heading "Flywheel" [level=2]
 - switch "Enabled" [checked]
 - text: Enabled Flywheel Diameter
-- spinbutton: "3"
+- spinbutton "Flywheel Diameter": "3"
 - combobox: in
 - text: Flywheel Weight
-- spinbutton: "1"
+- spinbutton "Flywheel Weight": "1"
 - combobox: lbs
 - text: Flywheel to Shooter Ratio
-- spinbutton: "2"
+- spinbutton "Flywheel to Shooter Ratio": "2"
 - combobox: Reduction
 - text: Custom Flywheel MOI
-- spinbutton: "2"
+- spinbutton "Custom Flywheel MOI": "2"
 - combobox: in2*lbs
 - switch "Use Custom Flywheel MOI" [checked]
 - text: Use Custom Flywheel MOI
 - heading "Projectile" [level=2]
 - text: Projectile Diameter
-- spinbutton: "5"
+- spinbutton "Projectile Diameter": "5"
 - combobox: in
 - text: Projectile Weight
-- spinbutton: "0.5"
+- spinbutton "Projectile Weight": "0.5"
 - combobox: lbs
 - text: Ball Initial Velocity
-- spinbutton: "0"
+- spinbutton "Ball Initial Velocity": "0"
 - combobox: ft/s
 - text: Ball Initial Spin
-- spinbutton: "0"
+- spinbutton "Ball Initial Spin": "0"
 - combobox: rpm
 - text: Ball MOI
-- spinbutton [disabled]: "1.250"
+- spinbutton "Ball MOI" [disabled]: "1.250"
 - combobox: in2*lbs
 - switch "Use Custom Ball MOI"
 - text: Use Custom Ball MOI Spinup Time 0.093

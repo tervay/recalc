@@ -5,162 +5,162 @@
   - text: Copy Link
 - heading "Motor & Gearing" [level=2]
 - text: Motor
-- spinbutton "Motor Ratio Roller Diameter Travel Distance Stator Current Limit Drivetrain Speed Thrifty Pulsar Stall Torque Minion (Adv Hall) Stall Torque Falcon 500 (FOC) Stall Torque Falcon 500 Stall Torque Kraken X60 Stall Torque Minion Stall Torque NEO 2.0 Stall Torque NEO Stall Torque Kraken X44 Stall Torque NEO 550 Stall Torque Kraken X60 (FOC) Stall Torque Kraken X44 (FOC) Stall Torque BaneBots 550 Stall Torque BAG Stall Torque NEO Vortex Stall Torque 775 RedLine Stall Torque Modern Robotics Stall Torque 775pro Stall Torque CIM Stall Torque NeveRest Stall Torque MiniCIM Stall Torque Core Hex Stall Torque V5 Smart Motor (Red) Stall Torque HD Hex Stall Torque AM-9015 Stall Torque Snowblower Stall Torque Linear Speed Time to Goal": "1"
+- spinbutton "Motor": "1"
 - combobox: Kraken X60 (FOC)
 - text: Ratio
-- spinbutton: "2"
+- spinbutton "Ratio": "2"
 - combobox: Reduction
 - heading "Roller" [level=2]
 - button "Roller Diameter"
-- spinbutton: "2"
+- spinbutton "Roller Diameter": "2"
 - combobox: in
 - button "Travel Distance"
-- spinbutton: "15"
+- spinbutton "Travel Distance": "15"
 - combobox: in
 - button "Stator Current Limit"
-- spinbutton: "30"
+- spinbutton "Stator Current Limit": "30"
 - combobox: A
 - heading "Reverse Calculation" [level=2]
 - button "Drivetrain Speed"
-- spinbutton: "14"
+- spinbutton "Drivetrain Speed": "14"
 - combobox: m/s
 - heading "Recommended Ratios per Motor" [level=2]
 - paragraph: The recommended ratio is the ratio at which the rollers will spin at twice the drivetrain speed.
 - text: Thrifty Pulsar
-- spinbutton [disabled]: "0.71"
+- spinbutton "Thrifty Pulsar" [disabled]: "0.71"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.35"
+- spinbutton "Stall Torque" [disabled]: "0.35"
 - combobox: N*m
 - text: Minion (Adv Hall)
-- spinbutton [disabled]: "0.73"
+- spinbutton "Minion (Adv Hall)" [disabled]: "0.73"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.34"
+- spinbutton "Stall Torque" [disabled]: "0.34"
 - combobox: N*m
 - text: Falcon 500 (FOC)
-- spinbutton [disabled]: "0.58"
+- spinbutton "Falcon 500 (FOC)" [disabled]: "0.58"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.33"
+- spinbutton "Stall Torque" [disabled]: "0.33"
 - combobox: N*m
 - text: Falcon 500
-- spinbutton [disabled]: "0.61"
+- spinbutton "Falcon 500" [disabled]: "0.61"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.33"
+- spinbutton "Stall Torque" [disabled]: "0.33"
 - combobox: N*m
 - text: Kraken X60
-- spinbutton [disabled]: "0.58"
+- spinbutton "Kraken X60" [disabled]: "0.58"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.33"
+- spinbutton "Stall Torque" [disabled]: "0.33"
 - combobox: N*m
 - text: Minion
-- spinbutton [disabled]: "0.73"
+- spinbutton "Minion" [disabled]: "0.73"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.33"
+- spinbutton "Stall Torque" [disabled]: "0.33"
 - combobox: N*m
 - text: NEO 2.0
-- spinbutton [disabled]: "0.56"
+- spinbutton "NEO 2.0" [disabled]: "0.56"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.33"
+- spinbutton "Stall Torque" [disabled]: "0.33"
 - combobox: N*m
 - text: NEO
-- spinbutton [disabled]: "0.56"
+- spinbutton "NEO" [disabled]: "0.56"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.33"
+- spinbutton "Stall Torque" [disabled]: "0.33"
 - combobox: N*m
 - text: Kraken X44
-- spinbutton [disabled]: "0.74"
+- spinbutton "Kraken X44" [disabled]: "0.74"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.33"
+- spinbutton "Stall Torque" [disabled]: "0.33"
 - combobox: N*m
 - text: NEO 550
-- spinbutton [disabled]: "1.11"
+- spinbutton "NEO 550" [disabled]: "1.11"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.32"
+- spinbutton "Stall Torque" [disabled]: "0.32"
 - combobox: N*m
 - text: Kraken X60 (FOC)
-- spinbutton [disabled]: "0.55"
+- spinbutton "Kraken X60 (FOC)" [disabled]: "0.55"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.32"
+- spinbutton "Stall Torque" [disabled]: "0.32"
 - combobox: N*m
 - text: Kraken X44 (FOC)
-- spinbutton [disabled]: "0.70"
+- spinbutton "Kraken X44 (FOC)" [disabled]: "0.70"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.32"
+- spinbutton "Stall Torque" [disabled]: "0.32"
 - combobox: N*m
 - text: BaneBots 550
-- spinbutton [disabled]: "1.83"
+- spinbutton "BaneBots 550" [disabled]: "1.83"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.32"
+- spinbutton "Stall Torque" [disabled]: "0.32"
 - combobox: N*m
 - text: BAG
-- spinbutton [disabled]: "1.25"
+- spinbutton "BAG" [disabled]: "1.25"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.30"
+- spinbutton "Stall Torque" [disabled]: "0.30"
 - combobox: N*m
 - text: NEO Vortex
-- spinbutton [disabled]: "0.65"
+- spinbutton "NEO Vortex" [disabled]: "0.65"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.30"
+- spinbutton "Stall Torque" [disabled]: "0.30"
 - combobox: N*m
 - text: 775 RedLine
-- spinbutton [disabled]: "1.85"
+- spinbutton "775 RedLine" [disabled]: "1.85"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.29"
+- spinbutton "Stall Torque" [disabled]: "0.29"
 - combobox: N*m
 - text: Modern Robotics
-- spinbutton [disabled]: "0.56"
+- spinbutton "Modern Robotics" [disabled]: "0.56"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.29"
+- spinbutton "Stall Torque" [disabled]: "0.29"
 - combobox: N*m
 - text: 775pro
-- spinbutton [disabled]: "1.78"
+- spinbutton "775pro" [disabled]: "1.78"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.28"
+- spinbutton "Stall Torque" [disabled]: "0.28"
 - combobox: N*m
 - text: CIM
-- spinbutton [disabled]: "0.51"
+- spinbutton "CIM" [disabled]: "0.51"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.28"
+- spinbutton "Stall Torque" [disabled]: "0.28"
 - combobox: N*m
 - text: NeveRest
-- spinbutton [disabled]: "0.52"
+- spinbutton "NeveRest" [disabled]: "0.52"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.28"
+- spinbutton "Stall Torque" [disabled]: "0.28"
 - combobox: N*m
 - text: MiniCIM
-- spinbutton [disabled]: "0.55"
+- spinbutton "MiniCIM" [disabled]: "0.55"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.26"
+- spinbutton "Stall Torque" [disabled]: "0.26"
 - combobox: N*m
 - text: Core Hex
-- spinbutton [disabled]: "0.01"
+- spinbutton "Core Hex" [disabled]: "0.01"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.26"
+- spinbutton "Stall Torque" [disabled]: "0.26"
 - combobox: N*m
 - text: V5 Smart Motor (Red)
-- spinbutton [disabled]: "0.01"
+- spinbutton "V5 Smart Motor (Red)" [disabled]: "0.01"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.24"
+- spinbutton "Stall Torque" [disabled]: "0.24"
 - combobox: N*m
 - text: HD Hex
-- spinbutton [disabled]: "0.57"
+- spinbutton "HD Hex" [disabled]: "0.57"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.21"
+- spinbutton "Stall Torque" [disabled]: "0.21"
 - combobox: N*m
 - text: AM-9015
-- spinbutton [disabled]: "1.36"
+- spinbutton "AM-9015" [disabled]: "1.36"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.21"
+- spinbutton "Stall Torque" [disabled]: "0.21"
 - combobox: N*m
 - text: Snowblower
-- spinbutton [disabled]: "0.01"
+- spinbutton "Snowblower" [disabled]: "0.01"
 - button "Stall Torque"
-- spinbutton [disabled]: "0.09"
+- spinbutton "Stall Torque" [disabled]: "0.09"
 - combobox: N*m
 - button "Linear Speed"
-- spinbutton [disabled]: "25.2"
+- spinbutton "Linear Speed" [disabled]: "25.2"
 - combobox: ft/s
 - button "Time to Goal"
-- spinbutton [disabled]: "0.05"
+- spinbutton "Time to Goal" [disabled]: "0.05"
 - combobox: s
 - alert:
   - img

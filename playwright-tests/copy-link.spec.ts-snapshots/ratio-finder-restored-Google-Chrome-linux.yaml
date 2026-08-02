@@ -11,17 +11,17 @@
 - combobox: SplineXS
 - heading "Tooth Ranges" [level=2]
 - text: Min Gear Teeth
-- spinbutton: "10"
+- spinbutton "Min Gear Teeth": "10"
 - text: Max Gear Teeth
-- spinbutton: "60"
+- spinbutton "Max Gear Teeth": "60"
 - text: Min Pulley Teeth
-- spinbutton: "10"
+- spinbutton "Min Pulley Teeth": "10"
 - text: Max Pulley Teeth
-- spinbutton: "50"
+- spinbutton "Max Pulley Teeth": "50"
 - text: Min Sprocket Teeth
-- spinbutton: "10"
+- spinbutton "Min Sprocket Teeth": "10"
 - text: Max Sprocket Teeth
-- spinbutton: "60"
+- spinbutton "Max Sprocket Teeth": "60"
 - heading "Filters" [level=2]
 - heading "Gears" [level=3]
 - checkbox "20DP" [checked]:

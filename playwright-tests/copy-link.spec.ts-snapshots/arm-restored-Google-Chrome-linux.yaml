@@ -5,41 +5,41 @@
   - text: Copy Link
 - heading "Motor & Gearing" [level=2]
 - text: Motor
-- spinbutton "Motor Ratio Arm Length Load Min Angle Max Angle Stator Limit Supply Limit Stator Voltage Supply Voltage Battery Resistance Max Stator Limit Max Supply Limit": "1"
+- spinbutton "Motor": "1"
 - combobox: NEO
 - text: Ratio
-- spinbutton: "200"
+- spinbutton "Ratio": "200"
 - combobox: Reduction
 - heading "Arm Geometry" [level=2]
 - button "Arm Length"
-- spinbutton: "12"
+- spinbutton "Arm Length": "12"
 - combobox: in
 - button "Load"
-- spinbutton: "8"
+- spinbutton "Load": "8"
 - combobox: lbs
 - button "Min Angle"
-- spinbutton: "10"
+- spinbutton "Min Angle": "10"
 - combobox: deg
 - button "Max Angle"
-- spinbutton: "80"
+- spinbutton "Max Angle": "80"
 - combobox: deg
 - heading "Limits" [level=2]
 - button "Stator Limit"
-- spinbutton: "50"
+- spinbutton "Stator Limit": "50"
 - combobox: A
 - button "Supply Limit"
-- spinbutton: "70"
+- spinbutton "Supply Limit": "70"
 - combobox: A
 - button "Stator Voltage"
-- spinbutton: "11"
+- spinbutton "Stator Voltage": "11"
 - combobox: V
 - button "Supply Voltage"
-- spinbutton: "12.6"
+- spinbutton "Supply Voltage": "12.6"
 - combobox: V
 - button "Efficiency"
-- spinbutton: "90"
+- spinbutton "Efficiency": "90"
 - button "Battery Resistance"
-- spinbutton: "0.03"
+- spinbutton "Battery Resistance": "0.03"
 - combobox: Ohm
 - button "LQR Tuning":
   - img

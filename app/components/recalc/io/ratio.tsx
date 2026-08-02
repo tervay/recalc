@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import * as z from 'zod';
 
 import { Input } from '~/components/ui/input';
@@ -29,6 +29,7 @@ export function RatioInput({
   labelAbove?: boolean;
 }) {
   const [ratio, setRatio] = stateHook;
+  const inputId = useId();
   const [magnitude, setMagnitude] = useState(ratio.magnitude);
   const [type, setType] = useState(ratio.ratioType);
   const lastInternalRatio = useRef(ratio);
@@ -64,7 +65,7 @@ export function RatioInput({
   return (
     <div className={labelAbove ? 'flex flex-col' : 'flex flex-row'}>
       <Label
-        htmlFor="measurement"
+        htmlFor={inputId}
         className={
           labelAbove ? 'mb-1 text-xs text-muted-foreground' : 'mr-2 text-nowrap'
         }
@@ -74,7 +75,7 @@ export function RatioInput({
       <div className="flex w-full flex-row">
         <Input
           type="number"
-          id="measurement"
+          id={inputId}
           value={proxyMagnitude}
           onChange={(e) => {
             if (e.target.value !== '') {
