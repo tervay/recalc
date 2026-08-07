@@ -16,7 +16,10 @@ const EXCLUDED_ROUTES = ['/__spa-fallback', '/dev/error'];
 export default defineConfig({
   plugins: [
     tailwindcss(),
-    reactRouter(),
+    // The React Router plugin injects a dev-server HMR preamble that throws as
+    // soon as a component module is imported outside of it, so component tests
+    // run without it. JSX is still transformed via tsconfig's `jsx` setting.
+    ...(process.env.VITEST ? [] : [reactRouter()]),
     comlink(),
     Icons({
       compiler: 'jsx',
