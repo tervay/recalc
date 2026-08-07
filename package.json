@@ -26,7 +26,7 @@
     "format:wpi": "./wpilib/format.sh"
   },
   "dependencies": {
-    "@base-ui/react": "1.6.0",
+    "@base-ui/react": "1.7.0",
     "@openpanel/web": "1.4.1",
     "@react-router/node": "8.3.0",
     "@react-router/serve": "8.3.0",
