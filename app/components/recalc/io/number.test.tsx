@@ -100,31 +100,48 @@ describe('NumberInput', () => {
       );
       expect(field().value).toBe('7');
     });
+
+    // An empty box means 0, so a value arriving from elsewhere has to be
+    // adopted on the strength of the number alone -- the guard that protects an
+    // in-progress edit must not swallow a genuine change.
+    it('fills an emptied box when a new value arrives', async () => {
+      const { rerender, user } = renderNumber({ value: 0, label: LABEL });
+      await user.clear(field());
+      rerender(
+        <NumberInput stateHook={spyStateHook(5).stateHook} label={LABEL} />,
+      );
+      expect(field().value).toBe('5');
+    });
   });
 
-  // Quirk A: the effect that pushes `proxyValue` back out has no mount guard,
-  // so every NumberInput hands its own value straight back on the first render.
-  // The sibling io suites assert the opposite ("does not call the setter on
-  // render"); that assertion is false here, and pinning it keeps a future mount
-  // guard from landing unnoticed.
+  // A calculation upstream can divide by zero and hand this input a NaN. NaN is
+  // never equal to itself, so a value/text comparison written with `!==` would
+  // re-render forever and take the page down with it.
+  describe('a NaN value', () => {
+    it('renders instead of looping', () => {
+      renderNumber({ value: Number.NaN, label: LABEL });
+      expect(field()).toBeTruthy();
+    });
+
+    it('renders instead of looping with real state', () => {
+      renderStateful({ initial: Number.NaN, label: LABEL });
+      expect(field()).toBeTruthy();
+    });
+  });
+
+  // Writes are driven by events, not by an effect, so a NumberInput that is
+  // merely mounted reports nothing -- matching every sibling io input. A setter
+  // call here would mean a screen full of these inputs writes to shared state
+  // on load, before the user has touched anything.
   describe('setter on mount', () => {
-    it('calls the setter once on render', () => {
+    it('does not call the setter on render', () => {
       const { setValue } = renderNumber({ value: 12, label: LABEL });
-      expect(setValue).toHaveBeenCalledTimes(1);
+      expect(setValue).not.toHaveBeenCalled();
     });
 
-    it('hands the current value back unchanged', () => {
-      const { setValue } = renderNumber({ value: 12, label: LABEL });
-      expect(setValue).toHaveBeenCalledWith(12);
-    });
-
-    // Quirk C: `proxyValue !== '0'` sends a zero down the else branch, but
-    // `Number('0') === 0` makes the two branches indistinguishable -- only the
-    // empty string reaches the else branch meaningfully. The condition is dead
-    // weight, and this test pins the value either branch produces.
-    it('hands back 0 when the value is 0', () => {
+    it('does not call the setter when the value is 0', () => {
       const { setValue } = renderNumber({ value: 0, label: LABEL });
-      expect(setValue).toHaveBeenCalledWith(0);
+      expect(setValue).not.toHaveBeenCalled();
     });
   });
 
@@ -166,9 +183,10 @@ describe('NumberInput', () => {
     // would pin the environment rather than the component.
   });
 
-  // Quirk B: an emptied box reports 0, which the other effect then paints back
-  // into the box whenever that is a real change -- so the box can only stay
-  // empty when the value was already 0.
+  // An emptied box reads as 0 downstream, but the box itself stays empty: the
+  // text the user is editing is never overwritten by a value that already means
+  // the same thing. Otherwise clearing a field would immediately refill it with
+  // "0" and the next keystroke would land after that zero.
   describe('empty field', () => {
     it('reports 0 to the setter when the box is cleared', async () => {
       const { setValue, user } = renderNumber({ value: 12, label: LABEL });
@@ -182,10 +200,17 @@ describe('NumberInput', () => {
       expect(field().value).toBe('');
     });
 
-    it('refills with 0 when clearing changes the value', async () => {
+    it('stays empty when clearing does change the value', async () => {
       const { user } = renderStateful({ initial: 12, label: LABEL });
       await user.clear(field());
-      expect(field().value).toBe('0');
+      expect(field().value).toBe('');
+    });
+
+    it('types cleanly into a box cleared of a previous value', async () => {
+      const { user } = renderStateful({ initial: 12, label: LABEL });
+      await user.clear(field());
+      await user.type(field(), '4');
+      expect(field().value).toBe('4');
     });
   });
 

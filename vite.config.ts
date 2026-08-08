@@ -63,7 +63,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '~': path.resolve(__dirname, 'app'),
+      '~': path.resolve(import.meta.dirname, 'app'),
     },
     tsconfigPaths: true,
   },
