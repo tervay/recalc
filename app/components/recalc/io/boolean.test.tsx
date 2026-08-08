@@ -1,15 +1,11 @@
 // @vitest-environment jsdom
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {
-  type ComponentProps,
-  type Dispatch,
-  type SetStateAction,
-  useState,
-} from 'react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { type ComponentProps } from 'react';
+import { afterEach, describe, expect, it } from 'vitest';
 
 import BooleanInput from '~/components/recalc/io/boolean';
+import { Stateful, bySlot, spyStateHook } from '~/testUtils';
 
 type BooleanInputProps = ComponentProps<typeof BooleanInput>;
 
@@ -23,21 +19,21 @@ function renderBoolean({
   value,
   ...props
 }: Omit<BooleanInputProps, 'stateHook'> & { value: boolean }) {
-  const setValue = vi.fn<Dispatch<SetStateAction<boolean>>>();
-  render(<BooleanInput stateHook={[value, setValue]} {...props} />);
+  const { stateHook, setValue } = spyStateHook(value);
+  render(<BooleanInput stateHook={stateHook} {...props} />);
   return { setValue, user: userEvent.setup() };
 }
 
-function StatefulBoolean({
+function renderStateful({
   initial,
   ...props
 }: Omit<BooleanInputProps, 'stateHook'> & { initial: boolean }) {
-  const stateHook = useState(initial);
-  return <BooleanInput stateHook={stateHook} {...props} />;
-}
-
-function renderStateful(props: ComponentProps<typeof StatefulBoolean>) {
-  render(<StatefulBoolean {...props} />);
+  render(
+    <Stateful
+      initial={initial}
+      render={(stateHook) => <BooleanInput stateHook={stateHook} {...props} />}
+    />,
+  );
   return { user: userEvent.setup() };
 }
 
@@ -49,14 +45,6 @@ function switchEl() {
 /** The rendered `<label>`, which carries the visible text. */
 function labelEl() {
   return screen.getByText(LABEL);
-}
-
-/**
- * The tooltip renders through a portal, so it lives outside the render
- * container. Base UI's popup carries no `role="tooltip"`, hence the slot query.
- */
-function tooltipContent() {
-  return document.querySelector('[data-slot="tooltip-content"]');
 }
 
 function precedes(first: Element, second: Element) {
@@ -180,7 +168,7 @@ describe('BooleanInput', () => {
     it('shows no tooltip on hover when none is provided', async () => {
       const { user } = renderBoolean({ value: false, label: LABEL });
       await user.hover(labelEl());
-      expect(tooltipContent()).toBeNull();
+      expect(bySlot('tooltip-content')).toBeNull();
     });
 
     it('does not render the tooltip text before hover', () => {

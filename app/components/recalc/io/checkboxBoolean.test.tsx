@@ -1,15 +1,11 @@
 // @vitest-environment jsdom
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {
-  type ComponentProps,
-  type Dispatch,
-  type SetStateAction,
-  useState,
-} from 'react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { type ComponentProps } from 'react';
+import { afterEach, describe, expect, it } from 'vitest';
 
 import CheckboxBooleanInput from '~/components/recalc/io/checkboxBoolean';
+import { Stateful, bySlot, spyStateHook } from '~/testUtils';
 
 type CheckboxBooleanInputProps = ComponentProps<typeof CheckboxBooleanInput>;
 
@@ -23,21 +19,23 @@ function renderCheckbox({
   value,
   ...props
 }: Omit<CheckboxBooleanInputProps, 'stateHook'> & { value: boolean }) {
-  const setValue = vi.fn<Dispatch<SetStateAction<boolean>>>();
-  render(<CheckboxBooleanInput stateHook={[value, setValue]} {...props} />);
+  const { stateHook, setValue } = spyStateHook(value);
+  render(<CheckboxBooleanInput stateHook={stateHook} {...props} />);
   return { setValue, user: userEvent.setup() };
 }
 
-function StatefulCheckbox({
+function renderStateful({
   initial,
   ...props
 }: Omit<CheckboxBooleanInputProps, 'stateHook'> & { initial: boolean }) {
-  const stateHook = useState(initial);
-  return <CheckboxBooleanInput stateHook={stateHook} {...props} />;
-}
-
-function renderStateful(props: ComponentProps<typeof StatefulCheckbox>) {
-  render(<StatefulCheckbox {...props} />);
+  render(
+    <Stateful
+      initial={initial}
+      render={(stateHook) => (
+        <CheckboxBooleanInput stateHook={stateHook} {...props} />
+      )}
+    />,
+  );
   return { user: userEvent.setup() };
 }
 
@@ -47,7 +45,7 @@ function checkboxEl() {
 }
 
 function indicator() {
-  return document.querySelector('[data-slot="checkbox-indicator"]');
+  return bySlot('checkbox-indicator');
 }
 
 // RTL's automatic cleanup does not register because vitest runs without
