@@ -10,6 +10,15 @@ import {
 } from '~/components/ui/tooltip';
 import type { HasStateHook } from '~/lib/types/common';
 
+/**
+ * The text in the box is what the user is editing; the number is what everyone
+ * downstream reads. An empty box means zero -- there is no such thing as an
+ * absent value here.
+ */
+function readProxy(text: string) {
+  return text === '' ? 0 : Number(text);
+}
+
 export default function NumberInput({
   stateHook,
   label,
@@ -26,17 +35,29 @@ export default function NumberInput({
   const inputId = useId();
   const [proxyValue, setProxyValue] = useState(value.toString());
 
-  useEffect(() => {
-    setProxyValue(value.toString());
-  }, [value]);
-
-  useEffect(() => {
-    if (proxyValue !== '' && proxyValue !== '0') {
-      setValue(Number(proxyValue));
-    } else {
-      setValue(0);
+  // Adopt a value that changed elsewhere, but leave the text alone when it
+  // already means that number: an in-progress edit -- an emptied box, a typed
+  // "2." -- would otherwise be rewritten out from under the cursor. Adjusting
+  // during render rather than in an effect avoids painting the stale text
+  // first.
+  //
+  // Compared with `Object.is`, matching how React itself decides a value
+  // changed. A bare `!==` would call a NaN -- which an upstream divide by zero
+  // can produce -- different from itself on every render, and loop forever.
+  const [lastValue, setLastValue] = useState(value);
+  if (!Object.is(value, lastValue)) {
+    setLastValue(value);
+    if (!Object.is(value, readProxy(proxyValue))) {
+      setProxyValue(value.toString());
     }
-  }, [proxyValue, setValue]);
+  }
+
+  // Writes are driven by edits, not by an effect watching the text, so merely
+  // mounting an input reports nothing to the state hook.
+  const commit = (text: string) => {
+    setProxyValue(text);
+    setValue(readProxy(text));
+  };
 
   return (
     <div className={labelAbove ? 'flex flex-col' : 'flex flex-row'}>
@@ -74,20 +95,14 @@ export default function NumberInput({
         type="number"
         id={inputId}
         value={proxyValue}
-        onChange={(e) => {
-          if (e.target.value !== '') {
-            setProxyValue(e.target.value);
-          } else {
-            setProxyValue('');
-          }
-        }}
+        onChange={(e) => commit(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
             const currentValue = Number(proxyValue) || 0;
             const step = e.shiftKey ? 10 : 1;
             const newValue =
               e.key === 'ArrowUp' ? currentValue + step : currentValue - step;
-            setProxyValue(newValue.toString());
+            commit(newValue.toString());
             e.preventDefault();
           }
         }}

@@ -1,13 +1,14 @@
 import {
   type Column,
   type ColumnDef,
-  type ColumnFiltersState,
   type SortingState,
+  createSortedRowModel,
   flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getSortedRowModel,
-  useReactTable,
+  rowSortingFeature,
+  sortFn_alphanumeric,
+  sortFn_text,
+  tableFeatures,
+  useTable,
 } from '@tanstack/react-table';
 import { type ReactNode, useMemo, useState } from 'react';
 import ArrowDownIcon from '~icons/lucide/arrow-down';
@@ -36,6 +37,19 @@ import { cn } from '~/lib/utils';
 
 type MotorRow = { motor: Motor; motorSpecs: FullMotorSpecs };
 
+// Only sorting is registered, so everything else the library offers (filtering,
+// pagination, selection, column visibility) tree-shakes out of the bundle. The
+// two sort functions are what auto-detection resolves for the string columns;
+// numeric columns fall back to the built-in basic comparison.
+const features = tableFeatures({
+  rowSortingFeature,
+  sortedRowModel: createSortedRowModel(),
+  sortFns: {
+    alphanumeric: sortFn_alphanumeric,
+    text: sortFn_text,
+  },
+});
+
 /**
  * A column header button that toggles sorting and shows the current sort
  * direction. `align` matches the cell text alignment so the header lines up
@@ -46,7 +60,7 @@ function SortableHeader({
   align = 'right',
   children,
 }: {
-  column: Column<MotorRow>;
+  column: Column<typeof features, MotorRow>;
   align?: 'left' | 'right' | 'center';
   children: ReactNode;
 }) {
@@ -92,7 +106,6 @@ function calculatePowerAtCurrent(
 
 export default function MotorTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [currentDraw, setCurrentDraw] = useState(new Measurement(60, 'A'));
 
   const data = useMemo(
@@ -104,7 +117,7 @@ export default function MotorTable() {
     [],
   );
 
-  const columns: ColumnDef<MotorRow>[] = useMemo(
+  const columns: ColumnDef<typeof features, MotorRow>[] = useMemo(
     () => [
       {
         accessorFn: (row) => row.motor.identifier,
@@ -307,17 +320,13 @@ export default function MotorTable() {
     [currentDraw],
   );
 
-  const table = useReactTable({
+  const table = useTable({
+    features,
     data,
     columns,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
     onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
     state: {
       sorting,
-      columnFilters,
     },
   });
 
@@ -362,11 +371,8 @@ export default function MotorTable() {
           <TableBody>
             {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                >
-                  {row.getVisibleCells().map((cell) => (
+                <TableRow key={row.id}>
+                  {row.getAllCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
