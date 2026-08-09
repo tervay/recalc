@@ -18,6 +18,33 @@ import {
 import Measurement from '~/lib/models/Measurement';
 import type { HasStateHook } from '~/lib/types/common';
 
+/**
+ * Two measurements agree here only when the number and the unit both match.
+ * `Measurement.eq` compares physical quantity, so it calls `0 in` and `0 ft` --
+ * or `12 in` and `1 ft`, or `5 J` and `5 N*m` -- the same. Under that guard a
+ * unit change never reaches the parent, and a value arriving in another unit is
+ * never adopted. `Object.is` rather than `===` so a scalar that is not equal to
+ * itself cannot report a change on every render and loop, matching `number.tsx`.
+ */
+function sameReading(a: Measurement, b: Measurement) {
+  return Object.is(a.scalar, b.scalar) && a.units() === b.units();
+}
+
+/**
+ * `Qty` re-spells some units as it parses them: `in^2` comes back as `in2`, and
+ * `hr` as `h`. The dropdown lists the spellings `Measurement.choices` uses, so
+ * a raw `units()` string can name an option that is not there -- the trigger
+ * then shows nothing and the current unit is unreachable. Match on the parsed
+ * form and hand back the spelling the list uses.
+ */
+function selectableUnit(meas: Measurement, choices: string[]) {
+  const parsed = meas.units();
+  return (
+    choices.find((choice) => new Measurement(1, choice).units() === parsed) ??
+    parsed
+  );
+}
+
 export function MeasurementInput({
   stateHook,
   label,
@@ -35,29 +62,28 @@ export function MeasurementInput({
   const [meas, setMeas] = stateHook;
   const inputId = useId();
 
-  const [scalar, setScalar] = useState(meas.scalar);
-  const [unit, setUnit] = useState(meas.units());
   const kinds = useMemo(() => Measurement.choices(meas), [meas]);
+  const [scalar, setScalar] = useState(meas.scalar);
+  const [unit, setUnit] = useState(() => selectableUnit(meas, kinds));
   const lastInternalMeas = useRef(meas);
 
   useEffect(() => {
     const newMeas = new Measurement(scalar, unit);
-    if (!newMeas.eq(lastInternalMeas.current)) {
+    if (!sameReading(newMeas, lastInternalMeas.current)) {
       lastInternalMeas.current = newMeas;
       setMeas(newMeas);
     }
   }, [scalar, unit, setMeas]);
 
   useEffect(() => {
-    if (!meas.eq(lastInternalMeas.current)) {
+    if (!sameReading(meas, lastInternalMeas.current)) {
       lastInternalMeas.current = meas;
       const newScalar = meas.scalar;
-      const newUnit = meas.units();
       setScalar(newScalar);
-      setUnit(newUnit);
+      setUnit(selectableUnit(meas, kinds));
       setProxyValue(newScalar.toString());
     }
-  }, [meas]);
+  }, [meas, kinds]);
 
   const [proxyValue, setProxyValue] = useState(scalar.toString());
 
@@ -162,9 +188,11 @@ export function MeasurementOutput({
   labelAbove?: boolean;
 }) {
   const inputId = useId();
-  const [scalar, setScalar] = useState(state.scalar);
-  const [unit, setUnit] = useState(defaultUnit ?? state.units());
   const kinds = useMemo(() => Measurement.choices(state), [state]);
+  const [scalar, setScalar] = useState(state.scalar);
+  const [unit, setUnit] = useState(
+    () => defaultUnit ?? selectableUnit(state, kinds),
+  );
   const [stringified, setStringified] = useState(scalar.toFixed(roundTo));
 
   useEffect(() => {
@@ -258,8 +286,10 @@ export function MeasurementDisplayOutput({
   roundTo?: number;
   testId?: string;
 }) {
-  const [unit, setUnit] = useState(defaultUnit ?? state.units());
   const kinds = useMemo(() => Measurement.choices(state), [state]);
+  const [unit, setUnit] = useState(
+    () => defaultUnit ?? selectableUnit(state, kinds),
+  );
   const [scalar, setScalar] = useState(state.to(unit).scalar);
   const [stringified, setStringified] = useState(scalar.toFixed(roundTo));
 

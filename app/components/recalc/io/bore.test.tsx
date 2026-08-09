@@ -1,12 +1,21 @@
 // @vitest-environment jsdom
 import { cleanup, render, screen } from '@testing-library/react';
-import userEvent, { type UserEvent } from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import { type ComponentProps } from 'react';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import BoreInput from '~/components/recalc/io/bore';
 import { zBoreSchema, type Bore } from '~/lib/types/common';
-import { Stateful, spyStateHook } from '~/testUtils';
+import {
+  Stateful,
+  chooseOption,
+  findSelectOption,
+  layoutRoot,
+  openSelect,
+  selectOptions,
+  selectTrigger,
+  spyStateHook,
+} from '~/testUtils';
 
 type BoreInputProps = ComponentProps<typeof BoreInput>;
 
@@ -26,38 +35,6 @@ function renderBore({
     <BoreInput stateHook={stateHook} {...props} />,
   );
   return { setValue, container, rerender, user: userEvent.setup() };
-}
-
-/**
- * The label is not associated with the trigger, so the trigger has no
- * accessible name to query by -- the role alone identifies it.
- */
-function trigger() {
-  return screen.getByRole('combobox');
-}
-
-/** The layout wrapper `BoreInput` renders around the label and the select. */
-function wrapper(container: HTMLElement) {
-  const root = container.firstElementChild;
-  if (!root) throw new Error('BoreInput rendered nothing');
-  return root;
-}
-
-/** Options only exist while the portalled popup is open. */
-function options() {
-  return screen.queryAllByRole('option');
-}
-
-/**
- * Base UI wires up option labels and selection state in an effect after the
- * popup's first paint, so options are only queryable by name once settled.
- */
-function findOption(bore: Bore) {
-  return screen.findByRole('option', { name: bore });
-}
-
-async function choose(user: UserEvent, bore: Bore) {
-  await user.click(await findOption(bore));
 }
 
 // RTL's automatic cleanup does not register because vitest runs without
@@ -83,37 +60,37 @@ describe('BoreInput', () => {
   describe('displayed value', () => {
     it('shows the current bore in the trigger', () => {
       renderBore({ value: CURRENT });
-      expect(trigger().textContent).toBe(CURRENT);
+      expect(selectTrigger().textContent).toBe(CURRENT);
     });
 
     it('shows the new bore after the value changes', () => {
       const { rerender } = renderBore({ value: CURRENT });
       rerender(<BoreInput stateHook={spyStateHook<Bore>(OTHER).stateHook} />);
-      expect(trigger().textContent).toBe(OTHER);
+      expect(selectTrigger().textContent).toBe(OTHER);
     });
 
     it('starts collapsed', () => {
       renderBore({ value: CURRENT });
-      expect(trigger().getAttribute('aria-expanded')).toBe('false');
+      expect(selectTrigger().getAttribute('aria-expanded')).toBe('false');
     });
   });
 
   describe('testId', () => {
     it('applies the testId to the trigger', () => {
       renderBore({ value: CURRENT, testId: 'startingBore' });
-      expect(screen.getByTestId('startingBore')).toBe(trigger());
+      expect(screen.getByTestId('startingBore')).toBe(selectTrigger());
     });
 
     it('renders no data-testid when testId is omitted', () => {
       renderBore({ value: CURRENT });
-      expect(trigger().hasAttribute('data-testid')).toBe(false);
+      expect(selectTrigger().hasAttribute('data-testid')).toBe(false);
     });
   });
 
   describe('options', () => {
     it('renders no options while closed', () => {
       renderBore({ value: CURRENT });
-      expect(options()).toEqual([]);
+      expect(selectOptions()).toEqual([]);
     });
 
     // Guards against `BORE_OPTIONS` drifting out of sync with the schema that
@@ -121,24 +98,24 @@ describe('BoreInput', () => {
     // and one only here would be rejected by `safeParse`.
     it('offers every bore in the schema, in schema order', async () => {
       const { user } = renderBore({ value: CURRENT });
-      await user.click(trigger());
-      expect(options().map((option) => option.textContent)).toEqual(
+      const opened = await openSelect(user);
+      expect(opened.map((option) => option.textContent)).toEqual(
         zBoreSchema.options,
       );
     });
 
     it('marks the current bore as selected', async () => {
       const { user } = renderBore({ value: CURRENT });
-      await user.click(trigger());
-      const option = await findOption(CURRENT);
+      await user.click(selectTrigger());
+      const option = await findSelectOption(CURRENT);
       expect(option.getAttribute('aria-selected')).toBe('true');
     });
 
     it('marks no other bore as selected', async () => {
       const { user } = renderBore({ value: CURRENT });
-      await user.click(trigger());
-      const current = await findOption(CURRENT);
-      const selected = options().filter(
+      await user.click(selectTrigger());
+      const current = await findSelectOption(CURRENT);
+      const selected = selectOptions().filter(
         (option) => option.getAttribute('aria-selected') === 'true',
       );
       expect(selected).toEqual([current]);
@@ -156,28 +133,25 @@ describe('BoreInput', () => {
 
     it('does not call the setter merely on opening', async () => {
       const { setValue, user } = renderBore({ value: CURRENT });
-      await user.click(trigger());
+      await user.click(selectTrigger());
       expect(setValue).not.toHaveBeenCalled();
     });
 
     it('passes the chosen bore, and nothing else, to the setter', async () => {
       const { setValue, user } = renderBore({ value: CURRENT });
-      await user.click(trigger());
-      await choose(user, OTHER);
+      await chooseOption(user, OTHER);
       expect(setValue).toHaveBeenCalledWith(OTHER);
     });
 
     it('calls the setter exactly once per selection', async () => {
       const { setValue, user } = renderBore({ value: CURRENT });
-      await user.click(trigger());
-      await choose(user, OTHER);
+      await chooseOption(user, OTHER);
       expect(setValue).toHaveBeenCalledTimes(1);
     });
 
     it('calls the setter with the same bore when it is re-selected', async () => {
       const { setValue, user } = renderBore({ value: CURRENT });
-      await user.click(trigger());
-      await choose(user, CURRENT);
+      await chooseOption(user, CURRENT);
       expect(setValue).toHaveBeenCalledWith(CURRENT);
     });
   });
@@ -195,17 +169,15 @@ describe('BoreInput', () => {
 
     it('shows the chosen bore in the trigger', async () => {
       const { user } = renderStateful();
-      await user.click(trigger());
-      await choose(user, OTHER);
-      expect(trigger().textContent).toBe(OTHER);
+      await chooseOption(user, OTHER);
+      expect(selectTrigger().textContent).toBe(OTHER);
     });
 
     it('marks the chosen bore as selected when reopened', async () => {
       const { user } = renderStateful();
-      await user.click(trigger());
-      await choose(user, OTHER);
-      await user.click(trigger());
-      const option = await findOption(OTHER);
+      await chooseOption(user, OTHER);
+      await user.click(selectTrigger());
+      const option = await findSelectOption(OTHER);
       expect(option.getAttribute('aria-selected')).toBe('true');
     });
   });
@@ -215,22 +187,22 @@ describe('BoreInput', () => {
   describe('labelAbove', () => {
     it('lays the label beside the select by default', () => {
       const { container } = renderBore({ value: CURRENT });
-      expect(wrapper(container).classList.contains('flex-row')).toBe(true);
+      expect(layoutRoot(container).classList.contains('flex-row')).toBe(true);
     });
 
     it('stacks the label above the select when set', () => {
       const { container } = renderBore({ value: CURRENT, labelAbove: true });
-      expect(wrapper(container).classList.contains('flex-col')).toBe(true);
+      expect(layoutRoot(container).classList.contains('flex-col')).toBe(true);
     });
 
     it('gives the trigger a fixed width by default', () => {
       renderBore({ value: CURRENT });
-      expect(trigger().classList.contains('w-45')).toBe(true);
+      expect(selectTrigger().classList.contains('w-45')).toBe(true);
     });
 
     it('widens the trigger to fill the column when set', () => {
       renderBore({ value: CURRENT, labelAbove: true });
-      expect(trigger().classList.contains('w-full')).toBe(true);
+      expect(selectTrigger().classList.contains('w-full')).toBe(true);
     });
   });
 });
