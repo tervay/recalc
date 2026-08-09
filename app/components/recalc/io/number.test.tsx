@@ -8,7 +8,13 @@ import NumberInput, {
   NumberDisplayOutput,
   NumberOutput,
 } from '~/components/recalc/io/number';
-import { Stateful, bySlot, spyStateHook } from '~/testUtils';
+import {
+  Stateful,
+  bySlot,
+  layoutRoot,
+  numberField,
+  spyStateHook,
+} from '~/testUtils';
 
 type NumberInputProps = ComponentProps<typeof NumberInput>;
 type NumberOutputProps = ComponentProps<typeof NumberOutput>;
@@ -44,29 +50,9 @@ function renderStateful({
   return { container, user: userEvent.setup() };
 }
 
-/**
- * Unlike the select inputs, `number.tsx` ties the label to the field with
- * `useId`, so the field has a real accessible name. `type="number"` maps to the
- * spinbutton role.
- */
-function field() {
-  const el = screen.getByRole('spinbutton', { name: LABEL });
-  if (!(el instanceof HTMLInputElement)) {
-    throw new Error('expected the spinbutton to be an <input>');
-  }
-  return el;
-}
-
 /** The rendered `<label>`, which carries the visible text. */
 function labelEl() {
   return screen.getByText(LABEL);
-}
-
-/** The layout wrapper the component renders around the label and the input. */
-function wrapper(container: HTMLElement) {
-  const root = container.firstElementChild;
-  if (!root) throw new Error('rendered nothing');
-  return root;
 }
 
 // RTL's automatic cleanup does not register because vitest runs without
@@ -78,19 +64,19 @@ describe('NumberInput', () => {
   describe('label', () => {
     it('names the input with the label', () => {
       renderNumber({ value: 12, label: LABEL });
-      expect(field()).toBeTruthy();
+      expect(numberField(LABEL)).toBeTruthy();
     });
 
     it('points the label at the input', () => {
       renderNumber({ value: 12, label: LABEL });
-      expect(labelEl().getAttribute('for')).toBe(field().id);
+      expect(labelEl().getAttribute('for')).toBe(numberField(LABEL).id);
     });
   });
 
   describe('displayed value', () => {
     it('shows the current value', () => {
       renderNumber({ value: 12, label: LABEL });
-      expect(field().value).toBe('12');
+      expect(numberField(LABEL).value).toBe('12');
     });
 
     it('shows the new value after the value changes', () => {
@@ -98,7 +84,7 @@ describe('NumberInput', () => {
       rerender(
         <NumberInput stateHook={spyStateHook(7).stateHook} label={LABEL} />,
       );
-      expect(field().value).toBe('7');
+      expect(numberField(LABEL).value).toBe('7');
     });
 
     // An empty box means 0, so a value arriving from elsewhere has to be
@@ -106,11 +92,11 @@ describe('NumberInput', () => {
     // in-progress edit must not swallow a genuine change.
     it('fills an emptied box when a new value arrives', async () => {
       const { rerender, user } = renderNumber({ value: 0, label: LABEL });
-      await user.clear(field());
+      await user.clear(numberField(LABEL));
       rerender(
         <NumberInput stateHook={spyStateHook(5).stateHook} label={LABEL} />,
       );
-      expect(field().value).toBe('5');
+      expect(numberField(LABEL).value).toBe('5');
     });
   });
 
@@ -120,12 +106,12 @@ describe('NumberInput', () => {
   describe('a NaN value', () => {
     it('renders instead of looping', () => {
       renderNumber({ value: Number.NaN, label: LABEL });
-      expect(field()).toBeTruthy();
+      expect(numberField(LABEL)).toBeTruthy();
     });
 
     it('renders instead of looping with real state', () => {
       renderStateful({ initial: Number.NaN, label: LABEL });
-      expect(field()).toBeTruthy();
+      expect(numberField(LABEL)).toBeTruthy();
     });
   });
 
@@ -148,32 +134,32 @@ describe('NumberInput', () => {
   describe('typing', () => {
     it('passes the typed number to the setter', async () => {
       const { setValue, user } = renderNumber({ value: 0, label: LABEL });
-      await user.clear(field());
-      await user.type(field(), '25');
+      await user.clear(numberField(LABEL));
+      await user.type(numberField(LABEL), '25');
       expect(setValue).toHaveBeenLastCalledWith(25);
     });
 
     it('passes a typed decimal to the setter', async () => {
       const { setValue, user } = renderNumber({ value: 0, label: LABEL });
-      await user.clear(field());
-      await user.type(field(), '2.5');
+      await user.clear(numberField(LABEL));
+      await user.type(numberField(LABEL), '2.5');
       expect(setValue).toHaveBeenLastCalledWith(2.5);
     });
 
     it('shows the typed decimal in the box', async () => {
       const { user } = renderStateful({ initial: 0, label: LABEL });
-      await user.clear(field());
-      await user.type(field(), '2.5');
-      expect(field().value).toBe('2.5');
+      await user.clear(numberField(LABEL));
+      await user.type(numberField(LABEL), '2.5');
+      expect(numberField(LABEL).value).toBe('2.5');
     });
 
     // A lone "-" is not a valid number, so the field reports it as empty and
     // the value stays put until a digit follows -- no NaN reaches the setter.
     it('accepts a negative typed from scratch', async () => {
       const { user } = renderStateful({ initial: 0, label: LABEL });
-      await user.clear(field());
-      await user.type(field(), '-3');
-      expect(field().value).toBe('-3');
+      await user.clear(numberField(LABEL));
+      await user.type(numberField(LABEL), '-3');
+      expect(numberField(LABEL).value).toBe('-3');
     });
 
     // What a half-typed number looks like on screen ("2.", "2.50") is not
@@ -190,27 +176,27 @@ describe('NumberInput', () => {
   describe('empty field', () => {
     it('reports 0 to the setter when the box is cleared', async () => {
       const { setValue, user } = renderNumber({ value: 12, label: LABEL });
-      await user.clear(field());
+      await user.clear(numberField(LABEL));
       expect(setValue).toHaveBeenLastCalledWith(0);
     });
 
     it('stays empty when clearing does not change the value', async () => {
       const { user } = renderStateful({ initial: 0, label: LABEL });
-      await user.clear(field());
-      expect(field().value).toBe('');
+      await user.clear(numberField(LABEL));
+      expect(numberField(LABEL).value).toBe('');
     });
 
     it('stays empty when clearing does change the value', async () => {
       const { user } = renderStateful({ initial: 12, label: LABEL });
-      await user.clear(field());
-      expect(field().value).toBe('');
+      await user.clear(numberField(LABEL));
+      expect(numberField(LABEL).value).toBe('');
     });
 
     it('types cleanly into a box cleared of a previous value', async () => {
       const { user } = renderStateful({ initial: 12, label: LABEL });
-      await user.clear(field());
-      await user.type(field(), '4');
-      expect(field().value).toBe('4');
+      await user.clear(numberField(LABEL));
+      await user.type(numberField(LABEL), '4');
+      expect(numberField(LABEL).value).toBe('4');
     });
   });
 
@@ -220,52 +206,52 @@ describe('NumberInput', () => {
   describe('arrow keys', () => {
     it('steps up by one', async () => {
       const { user } = renderStateful({ initial: 5, label: LABEL });
-      await user.type(field(), '{ArrowUp}');
-      expect(field().value).toBe('6');
+      await user.type(numberField(LABEL), '{ArrowUp}');
+      expect(numberField(LABEL).value).toBe('6');
     });
 
     it('steps down by one', async () => {
       const { user } = renderStateful({ initial: 5, label: LABEL });
-      await user.type(field(), '{ArrowDown}');
-      expect(field().value).toBe('4');
+      await user.type(numberField(LABEL), '{ArrowDown}');
+      expect(numberField(LABEL).value).toBe('4');
     });
 
     it('steps up by ten while shift is held', async () => {
       const { user } = renderStateful({ initial: 5, label: LABEL });
-      await user.type(field(), '{Shift>}{ArrowUp}{/Shift}');
-      expect(field().value).toBe('15');
+      await user.type(numberField(LABEL), '{Shift>}{ArrowUp}{/Shift}');
+      expect(numberField(LABEL).value).toBe('15');
     });
 
     it('steps down by ten while shift is held', async () => {
       const { user } = renderStateful({ initial: 5, label: LABEL });
-      await user.type(field(), '{Shift>}{ArrowDown}{/Shift}');
-      expect(field().value).toBe('-5');
+      await user.type(numberField(LABEL), '{Shift>}{ArrowDown}{/Shift}');
+      expect(numberField(LABEL).value).toBe('-5');
     });
 
     it('steps below zero into negatives', async () => {
       const { user } = renderStateful({ initial: 0, label: LABEL });
-      await user.type(field(), '{ArrowDown}');
-      expect(field().value).toBe('-1');
+      await user.type(numberField(LABEL), '{ArrowDown}');
+      expect(numberField(LABEL).value).toBe('-1');
     });
 
     it('steps a decimal without rounding it', async () => {
       const { user } = renderStateful({ initial: 2.5, label: LABEL });
-      await user.type(field(), '{ArrowUp}');
-      expect(field().value).toBe('3.5');
+      await user.type(numberField(LABEL), '{ArrowUp}');
+      expect(numberField(LABEL).value).toBe('3.5');
     });
 
     // `Number(proxyValue) || 0` -- an empty box steps from zero rather than
     // from NaN.
     it('steps up from zero when the box is empty', async () => {
       const { user } = renderStateful({ initial: 0, label: LABEL });
-      await user.clear(field());
-      await user.type(field(), '{ArrowUp}');
-      expect(field().value).toBe('1');
+      await user.clear(numberField(LABEL));
+      await user.type(numberField(LABEL), '{ArrowUp}');
+      expect(numberField(LABEL).value).toBe('1');
     });
 
     it('passes the stepped value to the setter', async () => {
       const { setValue, user } = renderNumber({ value: 5, label: LABEL });
-      await user.type(field(), '{ArrowUp}');
+      await user.type(numberField(LABEL), '{ArrowUp}');
       expect(setValue).toHaveBeenLastCalledWith(6);
     });
   });
@@ -273,12 +259,12 @@ describe('NumberInput', () => {
   describe('testId', () => {
     it('applies the testId to the input', () => {
       renderNumber({ value: 12, label: LABEL, testId: 'spoolDiameter' });
-      expect(screen.getByTestId('spoolDiameter')).toBe(field());
+      expect(screen.getByTestId('spoolDiameter')).toBe(numberField(LABEL));
     });
 
     it('renders no data-testid when testId is omitted', () => {
       renderNumber({ value: 12, label: LABEL });
-      expect(field().hasAttribute('data-testid')).toBe(false);
+      expect(numberField(LABEL).hasAttribute('data-testid')).toBe(false);
     });
   });
 
@@ -287,7 +273,7 @@ describe('NumberInput', () => {
   describe('labelAbove', () => {
     it('lays the label beside the input by default', () => {
       const { container } = renderNumber({ value: 12, label: LABEL });
-      expect(wrapper(container).classList.contains('flex-row')).toBe(true);
+      expect(layoutRoot(container).classList.contains('flex-row')).toBe(true);
     });
 
     it('stacks the label above the input when set', () => {
@@ -296,7 +282,7 @@ describe('NumberInput', () => {
         label: LABEL,
         labelAbove: true,
       });
-      expect(wrapper(container).classList.contains('flex-col')).toBe(true);
+      expect(layoutRoot(container).classList.contains('flex-col')).toBe(true);
     });
 
     it('spaces the label to the left of the input by default', () => {
@@ -338,7 +324,7 @@ describe('NumberInput', () => {
     // must not come between the label and the field it names.
     it('still names the input when a tooltip is provided', () => {
       renderNumber({ value: 12, label: LABEL, tooltip: TOOLTIP });
-      expect(field()).toBeTruthy();
+      expect(numberField(LABEL)).toBeTruthy();
     });
 
     it('still accepts typing when a tooltip is provided', async () => {
@@ -347,9 +333,9 @@ describe('NumberInput', () => {
         label: LABEL,
         tooltip: TOOLTIP,
       });
-      await user.clear(field());
-      await user.type(field(), '25');
-      expect(field().value).toBe('25');
+      await user.clear(numberField(LABEL));
+      await user.type(numberField(LABEL), '25');
+      expect(numberField(LABEL).value).toBe('25');
     });
   });
 });
@@ -363,29 +349,29 @@ describe('NumberOutput', () => {
   describe('label', () => {
     it('points the label at the input', () => {
       renderOutput({ state: 1.23456, label: LABEL });
-      expect(labelEl().getAttribute('for')).toBe(field().id);
+      expect(labelEl().getAttribute('for')).toBe(numberField(LABEL).id);
     });
 
     it('uses the label as the placeholder', () => {
       renderOutput({ state: 1.23456, label: LABEL });
-      expect(field().getAttribute('placeholder')).toBe(LABEL);
+      expect(numberField(LABEL).getAttribute('placeholder')).toBe(LABEL);
     });
   });
 
   describe('rounding', () => {
     it('rounds to three decimals by default', () => {
       renderOutput({ state: 1.23456, label: LABEL });
-      expect(field().value).toBe('1.235');
+      expect(numberField(LABEL).value).toBe('1.235');
     });
 
     it('rounds to the requested number of decimals', () => {
       renderOutput({ state: 1.23456, label: LABEL, roundTo: 1 });
-      expect(field().value).toBe('1.2');
+      expect(numberField(LABEL).value).toBe('1.2');
     });
 
     it('pads a whole number out to the requested decimals', () => {
       renderOutput({ state: 2, label: LABEL });
-      expect(field().value).toBe('2.000');
+      expect(numberField(LABEL).value).toBe('2.000');
     });
   });
 
@@ -393,30 +379,30 @@ describe('NumberOutput', () => {
     it('shows the new value after the state changes', () => {
       const { rerender } = renderOutput({ state: 1.23456, label: LABEL });
       rerender(<NumberOutput state={9.87654} label={LABEL} />);
-      expect(field().value).toBe('9.877');
+      expect(numberField(LABEL).value).toBe('9.877');
     });
 
     it('re-rounds after roundTo changes', () => {
       const { rerender } = renderOutput({ state: 1.23456, label: LABEL });
       rerender(<NumberOutput state={1.23456} label={LABEL} roundTo={1} />);
-      expect(field().value).toBe('1.2');
+      expect(numberField(LABEL).value).toBe('1.2');
     });
   });
 
   it('disables the input', () => {
     renderOutput({ state: 1.23456, label: LABEL });
-    expect(field().disabled).toBe(true);
+    expect(numberField(LABEL).disabled).toBe(true);
   });
 
   describe('testId', () => {
     it('applies the testId to the input', () => {
       renderOutput({ state: 1.23456, label: LABEL, testId: 'spoolDiameter' });
-      expect(screen.getByTestId('spoolDiameter')).toBe(field());
+      expect(screen.getByTestId('spoolDiameter')).toBe(numberField(LABEL));
     });
 
     it('renders no data-testid when testId is omitted', () => {
       renderOutput({ state: 1.23456, label: LABEL });
-      expect(field().hasAttribute('data-testid')).toBe(false);
+      expect(numberField(LABEL).hasAttribute('data-testid')).toBe(false);
     });
   });
 });

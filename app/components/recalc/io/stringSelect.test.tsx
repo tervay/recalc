@@ -1,11 +1,20 @@
 // @vitest-environment jsdom
 import { cleanup, render, screen } from '@testing-library/react';
-import userEvent, { type UserEvent } from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import { type ComponentProps } from 'react';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { StringSelectInput } from '~/components/recalc/io/stringSelect';
-import { Stateful, spyStateHook } from '~/testUtils';
+import {
+  Stateful,
+  chooseOption,
+  findSelectOption,
+  layoutRoot,
+  openSelect,
+  selectOptions,
+  selectTrigger,
+  spyStateHook,
+} from '~/testUtils';
 
 type StringSelectInputProps = ComponentProps<typeof StringSelectInput>;
 
@@ -60,38 +69,6 @@ function renderStateful(
   return { user: userEvent.setup() };
 }
 
-/**
- * The label is not associated with the trigger, so the trigger has no
- * accessible name to query by -- the role alone identifies it.
- */
-function trigger() {
-  return screen.getByRole('combobox');
-}
-
-/** The layout wrapper `StringSelectInput` renders around the label and select. */
-function wrapper(container: HTMLElement) {
-  const root = container.firstElementChild;
-  if (!root) throw new Error('StringSelectInput rendered nothing');
-  return root;
-}
-
-/** Options only exist while the portalled popup is open. */
-function options() {
-  return screen.queryAllByRole('option');
-}
-
-/**
- * Base UI wires up option labels and selection state in an effect after the
- * popup's first paint, so options are only queryable by name once settled.
- */
-function findOption(label: string) {
-  return screen.findByRole('option', { name: label });
-}
-
-async function choose(user: UserEvent, label: string) {
-  await user.click(await findOption(label));
-}
-
 // RTL's automatic cleanup does not register because vitest runs without
 // `globals: true`, and clearing innerHTML would leave the React root (and the
 // portalled popup) mounted, so unmount explicitly.
@@ -111,7 +88,7 @@ describe('StringSelectInput', () => {
     // opened. Without it the trigger would sit empty until first open.
     it('shows the current choice by label, not by value', () => {
       renderSelect({ value: CURRENT.value });
-      expect(trigger().textContent).toBe(CURRENT.label);
+      expect(selectTrigger().textContent).toBe(CURRENT.label);
     });
 
     it('shows the new label after the value changes', () => {
@@ -123,53 +100,53 @@ describe('StringSelectInput', () => {
           label={LABEL}
         />,
       );
-      expect(trigger().textContent).toBe(OTHER.label);
+      expect(selectTrigger().textContent).toBe(OTHER.label);
     });
 
     it('starts collapsed', () => {
       renderSelect({ value: CURRENT.value });
-      expect(trigger().getAttribute('aria-expanded')).toBe('false');
+      expect(selectTrigger().getAttribute('aria-expanded')).toBe('false');
     });
   });
 
   describe('testId', () => {
     it('applies the testId to the trigger', () => {
       renderSelect({ value: CURRENT.value, testId: 'shooterMode' });
-      expect(screen.getByTestId('shooterMode')).toBe(trigger());
+      expect(screen.getByTestId('shooterMode')).toBe(selectTrigger());
     });
 
     it('renders no data-testid when testId is omitted', () => {
       renderSelect({ value: CURRENT.value });
-      expect(trigger().hasAttribute('data-testid')).toBe(false);
+      expect(selectTrigger().hasAttribute('data-testid')).toBe(false);
     });
   });
 
   describe('options', () => {
     it('renders no options while closed', () => {
       renderSelect({ value: CURRENT.value });
-      expect(options()).toEqual([]);
+      expect(selectOptions()).toEqual([]);
     });
 
     it('offers every choice by label, in choices order', async () => {
       const { user } = renderSelect({ value: CURRENT.value });
-      await user.click(trigger());
-      expect(options().map((option) => option.textContent)).toEqual(
+      const opened = await openSelect(user);
+      expect(opened.map((option) => option.textContent)).toEqual(
         CHOICES.map((choice) => choice.label),
       );
     });
 
     it('marks the current choice as selected', async () => {
       const { user } = renderSelect({ value: CURRENT.value });
-      await user.click(trigger());
-      const option = await findOption(CURRENT.label);
+      await user.click(selectTrigger());
+      const option = await findSelectOption(CURRENT.label);
       expect(option.getAttribute('aria-selected')).toBe('true');
     });
 
     it('marks no other choice as selected', async () => {
       const { user } = renderSelect({ value: CURRENT.value });
-      await user.click(trigger());
-      const current = await findOption(CURRENT.label);
-      const selected = options().filter(
+      await user.click(selectTrigger());
+      const current = await findSelectOption(CURRENT.label);
+      const selected = selectOptions().filter(
         (option) => option.getAttribute('aria-selected') === 'true',
       );
       expect(selected).toEqual([current]);
@@ -188,7 +165,7 @@ describe('StringSelectInput', () => {
 
     it('does not call the setter merely on opening', async () => {
       const { setValue, user } = renderSelect({ value: CURRENT.value });
-      await user.click(trigger());
+      await user.click(selectTrigger());
       expect(setValue).not.toHaveBeenCalled();
     });
 
@@ -196,22 +173,19 @@ describe('StringSelectInput', () => {
     // labels, but the state hook only ever sees values.
     it('passes the chosen value, and nothing else, to the setter', async () => {
       const { setValue, user } = renderSelect({ value: CURRENT.value });
-      await user.click(trigger());
-      await choose(user, OTHER.label);
+      await chooseOption(user, OTHER.label);
       expect(setValue).toHaveBeenCalledWith(OTHER.value);
     });
 
     it('calls the setter exactly once per selection', async () => {
       const { setValue, user } = renderSelect({ value: CURRENT.value });
-      await user.click(trigger());
-      await choose(user, OTHER.label);
+      await chooseOption(user, OTHER.label);
       expect(setValue).toHaveBeenCalledTimes(1);
     });
 
     it('calls the setter with the same value when it is re-selected', async () => {
       const { setValue, user } = renderSelect({ value: CURRENT.value });
-      await user.click(trigger());
-      await choose(user, CURRENT.label);
+      await chooseOption(user, CURRENT.label);
       expect(setValue).toHaveBeenCalledWith(CURRENT.value);
     });
   });
@@ -219,17 +193,15 @@ describe('StringSelectInput', () => {
   describe('with real state', () => {
     it('shows the chosen choice in the trigger', async () => {
       const { user } = renderStateful();
-      await user.click(trigger());
-      await choose(user, OTHER.label);
-      expect(trigger().textContent).toBe(OTHER.label);
+      await chooseOption(user, OTHER.label);
+      expect(selectTrigger().textContent).toBe(OTHER.label);
     });
 
     it('marks the chosen choice as selected when reopened', async () => {
       const { user } = renderStateful();
-      await user.click(trigger());
-      await choose(user, OTHER.label);
-      await user.click(trigger());
-      const option = await findOption(OTHER.label);
+      await chooseOption(user, OTHER.label);
+      await user.click(selectTrigger());
+      const option = await findSelectOption(OTHER.label);
       expect(option.getAttribute('aria-selected')).toBe('true');
     });
   });
@@ -239,7 +211,7 @@ describe('StringSelectInput', () => {
   describe('layout', () => {
     it('lays the label beside the select by default', () => {
       const { container } = renderSelect({ value: CURRENT.value });
-      expect(wrapper(container).classList.contains('flex-row')).toBe(true);
+      expect(layoutRoot(container).classList.contains('flex-row')).toBe(true);
     });
 
     it('stacks the label above the select when labelAbove is set', () => {
@@ -247,22 +219,22 @@ describe('StringSelectInput', () => {
         value: CURRENT.value,
         labelAbove: true,
       });
-      expect(wrapper(container).classList.contains('flex-col')).toBe(true);
+      expect(layoutRoot(container).classList.contains('flex-col')).toBe(true);
     });
 
     it('gives the trigger a fixed width by default', () => {
       renderSelect({ value: CURRENT.value });
-      expect(trigger().classList.contains('w-[180px]')).toBe(true);
+      expect(selectTrigger().classList.contains('w-[180px]')).toBe(true);
     });
 
     it('widens the trigger to fill the column when labelAbove is set', () => {
       renderSelect({ value: CURRENT.value, labelAbove: true });
-      expect(trigger().classList.contains('w-full')).toBe(true);
+      expect(selectTrigger().classList.contains('w-full')).toBe(true);
     });
 
     it('lets triggerClassName replace the default width', () => {
       renderSelect({ value: CURRENT.value, triggerClassName: 'w-auto' });
-      expect(trigger().classList.contains('w-[180px]')).toBe(false);
+      expect(selectTrigger().classList.contains('w-[180px]')).toBe(false);
     });
 
     // `triggerClassName ?? (labelAbove ? ... )` -- an explicit class wins over
@@ -273,12 +245,12 @@ describe('StringSelectInput', () => {
         labelAbove: true,
         triggerClassName: 'w-auto',
       });
-      expect(trigger().classList.contains('w-full')).toBe(false);
+      expect(selectTrigger().classList.contains('w-full')).toBe(false);
     });
 
     it('applies triggerClassName to the trigger', () => {
       renderSelect({ value: CURRENT.value, triggerClassName: 'w-auto' });
-      expect(trigger().classList.contains('w-auto')).toBe(true);
+      expect(selectTrigger().classList.contains('w-auto')).toBe(true);
     });
   });
 });
