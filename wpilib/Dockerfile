@@ -122,6 +122,7 @@ COPY patches/wpilibc/wasm/bindings.cc \
      patches/wpilibc/wasm/feedback_gains.h \
      patches/wpilibc/wasm/feedforward_gains.h \
      patches/wpilibc/wasm/flywheel_sim.h \
+     patches/wpilibc/wasm/hal_init.h \
      patches/wpilibc/wasm/sim_util.h \
      patches/wpilibc/wasm/wasm_console.h \
      /build/allwpilib/wpilibc/wasm/

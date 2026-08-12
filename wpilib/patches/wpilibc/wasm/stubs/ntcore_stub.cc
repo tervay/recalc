@@ -1,18 +1,28 @@
-// Minimal stub implementation of ntcore for WebAssembly builds
-// This provides just enough symbols for wpilibc to link against
-// without requiring the full wpinet/ntcore implementation
+// Minimal stub implementation of ntcore for WebAssembly builds.
 //
-// Note: These are empty stubs - NetworkTables functionality is not available
-// in WebAssembly builds, but wpilibc requires the symbols for linking.
+// wpinet/ntcore are not built under Emscripten (see the root CMakeLists
+// patch). wpilibc still references NetworkTables symbols: HAL initialization
+// constructs static DashboardOpModeSender objects whose Publisher/Subscriber
+// members call wpi::nt::Release on destruction. Without these no-ops,
+// EXIT_RUNTIME test binaries abort with "missing function: wpi::nt::Release"
+// (which can also surface as an Emscripten stack-cookie failure).
+//
+// Declarations intentionally avoid ntcore headers: those pull in generated
+// files (ntcore_c_types.h) that are not available in the stub-only build.
+// NT_Handle is int32_t upstream (see wpi/util/Handle.h).
 
-// We'll include the actual headers but provide minimal implementations
-// This allows the code to compile and link, even if NetworkTables won't work
+#include <cstdint>
 
-// The actual implementation would need to match the ntcore interface,
-// but for WebAssembly builds, we just need to satisfy the linker.
-// Since ElevatorSim doesn't use NetworkTables, these stubs are sufficient.
+namespace wpi::nt {
 
-// This file intentionally left mostly empty - the real ntcore headers
-// will be included, and we'll provide minimal stub implementations
-// through the CMake configuration that uses the actual headers but
-// skips the problematic wpinet parts.
+using NT_Handle = int32_t;
+
+void Release(NT_Handle) {}
+
+void ReleaseEntry(NT_Handle) {}
+
+void Unpublish(NT_Handle) {}
+
+void RemoveListener(NT_Handle) {}
+
+}  // namespace wpi::nt

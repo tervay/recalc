@@ -17,7 +17,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
     # or just let undefined symbols be handled at link time
     target_include_directories(ntcore_stub
         PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../../../ntcore/src/main/native/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../../ntcore/src/main/native/include
     )
 
     target_link_libraries(ntcore_stub PUBLIC wpiutil)

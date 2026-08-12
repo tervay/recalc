@@ -2,15 +2,18 @@
 
 #include <vector>
 
+#include "hal_init.h"
 #include "wpi/simulation/BatterySim.hpp"
 #include "wpi/simulation/RoboRioSim.hpp"
 #include "wpi/system/RobotController.hpp"
 
 inline void RoboRioSim_SetVInVoltage(double voltageVolts) {
+  EnsureHalInitialized();
   wpi::sim::RoboRioSim::SetVInVoltage(wpi::units::volt_t(voltageVolts));
 }
 
 inline double RobotController_GetInputVoltage() {
+  EnsureHalInitialized();
   return wpi::RobotController::GetInputVoltage();
 }
 

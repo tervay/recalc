@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "dc_motor.h"
+#include "hal_init.h"
 #include "sim_util.h"
 #include "wasm_console.h"
 #include "wpi/math/controller/LinearQuadraticRegulator.hpp"
@@ -107,10 +108,21 @@ inline emscripten::val SimulateElevatorImpl(
     double rVolts, double sensorDelaySeconds, double kalmanFilterPositionStdDev,
     double kalmanFilterVelocityStdDev,
     double kalmanFilterEncoderPositionStdDev) {
-  // Guard against degenerate profile constraints
-  if (maxVelocityMPS <= 0.0 || maxAccelerationMPS2 <= 0.0) {
+  // Guard degenerate inputs, mirroring feedforward_gains.h. A non-positive
+  // spoolRadiusMeters divides by zero when converting carriage velocity to
+  // motor shaft speed, and a non-positive efficiency divides by zero when
+  // deriving kG from kA -- both silently, producing inf/NaN states rather than
+  // raising. decimation is guarded too because DecimateToJsArray computes
+  // `i % decimation`: integer modulo by zero is a wasm trap, which the
+  // try/catch in SimulateElevator below cannot intercept.
+  if (maxVelocityMPS <= 0.0 || maxAccelerationMPS2 <= 0.0 || gearing <= 0.0 ||
+      spoolRadiusMeters <= 0.0 || efficiency <= 0.0 || decimation <= 0) {
     return emscripten::val::array();
   }
+
+  // RoboRioSim / RobotController / ElevatorSim::SetInputVoltage all touch
+  // SimRoboRioData without lazy-init; see hal_init.h.
+  EnsureHalInitialized();
 
   // Cascade rigging: the first stage travels half the carriage distance, and
   // the effective load is doubled (each side of the cascade belt carries the
