@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "dc_motor.h"
+#include "hal_init.h"
 #include "sim_util.h"
 #include "wpi/math/filter/LinearFilter.hpp"
 #include "wpi/math/system/Models.hpp"
@@ -74,6 +75,8 @@ inline emscripten::val SimulateFlywheel(
     double simTimestep, int decimation, double maxSimSeconds,
     double batteryVoltageFilterTimeConstantSeconds,
     double initialAngularVelocityRadPerSec = 0.0) {
+  EnsureHalInitialized();
+
   EfficiencyFlywheelSim flywheel(
       motor->getMotor(), gearing,
       wpi::units::kilogram_square_meter_t(moiKgMSquared), efficiency);

@@ -7,16 +7,23 @@ RUN apt-get update -qq && \
         git \
         libgtest-dev \
         ninja-build \
+        patch \
     && rm -rf /var/lib/apt/lists/*
 
-# ---- Stage: wpimath-libs ----
-# Builds the compiled wpimath (+ wpiutil) static libraries that the gain
-# tests link against, from the same pinned WPILib commit as the production
-# wasm build (see ../Dockerfile and ../wpilib.conf). Only wpi::math is
-# configured (no hal/wpilibc/ntcore), keeping this far cheaper than the
-# production "libs" stage. Layer-cached independently of test source
-# changes; only re-runs if WPILIB_COMMIT changes.
-FROM base AS wpimath-libs
+# ---- Stage: wpilib-libs ----
+# Builds the compiled WPILib static libraries the tests link against, from the
+# same pinned WPILib commit as the production wasm build (see ../Dockerfile and
+# ../wpilib.conf).
+#
+# This mirrors the production "libs" stage rather than the cheaper wpimath-only
+# build it replaced: elevator_sim.h's AngledElevatorSim derives from
+# wpi::sim::ElevatorSim and SimulateElevatorImpl calls BatterySim, RoboRioSim,
+# and RobotController, all of which live in wpilibc and the HAL. The gain tests
+# still only need wpimath, but a superset build keeps one stage instead of two.
+#
+# Layer-cached independently of test source changes; only re-runs if
+# WPILIB_COMMIT or the patches change.
+FROM base AS wpilib-libs
 
 ARG WPILIB_REPO=https://github.com/wpilibsuite/allwpilib
 ARG WPILIB_COMMIT
@@ -28,13 +35,43 @@ RUN test -n "${WPILIB_COMMIT}" || { echo "ERROR: WPILIB_COMMIT build arg is requ
     git fetch --depth 1 origin "${WPILIB_COMMIT}" && \
     git checkout FETCH_HEAD
 
-# Configure and build only the `wpimath` target (which pulls in `wpiutil` as
-# a dependency). No patches from ../patches/ are needed here: those patches
-# only affect wpilibc/hal/ntcore/wpinet wiring, none of which is configured
-# below (WITH_WPILIB=OFF, WITH_NTCORE=OFF).
+# The same patches the production build applies, minus wpimath's: that one only
+# adds add_subdirectory(wasm) for the wpimath wasm module, which is not built
+# here, and skipping it avoids having to stage a second placeholder bindings.cc.
+COPY patches/CMakeLists.patch /tmp/patches/root_CMakeLists.patch
+COPY patches/wpilibc/CMakeLists.patch /tmp/patches/wpilibc_CMakeLists.patch
+COPY patches/hal/CMakeLists.patch /tmp/patches/hal_CMakeLists.patch
+COPY patches/wpiutil/Handle.hpp.patch /tmp/patches/wpiutil_Handle.patch
+RUN patch -p1 -d /build/allwpilib < /tmp/patches/root_CMakeLists.patch && \
+    patch -p1 -d /build/allwpilib < /tmp/patches/wpilibc_CMakeLists.patch && \
+    patch -p1 -d /build/allwpilib < /tmp/patches/hal_CMakeLists.patch && \
+    patch -p1 -d /build/allwpilib < /tmp/patches/wpiutil_Handle.patch
+
+# The patched wpilibc/CMakeLists.txt calls add_subdirectory(wasm) under
+# Emscripten, and the patched root CMakeLists.txt adds wpilibc/wasm/stubs before
+# hal, so this scaffolding must exist for cmake to configure -- even though the
+# wpilibc_wasm target is never built below.
+COPY patches/wpilibc/wasm/CMakeLists.txt /build/allwpilib/wpilibc/wasm/CMakeLists.txt
+COPY patches/wpilibc/wasm/emscripten_toolchain.cmake /build/allwpilib/wpilibc/wasm/emscripten_toolchain.cmake
+COPY patches/wpilibc/wasm/stubs/CMakeLists.txt /build/allwpilib/wpilibc/wasm/stubs/CMakeLists.txt
+COPY patches/wpilibc/wasm/stubs/ntcore_stub.cc /build/allwpilib/wpilibc/wasm/stubs/ntcore_stub.cc
+RUN printf '#include <emscripten/bind.h>\nEMSCRIPTEN_BINDINGS(placeholder) {}\n' \
+      > /build/allwpilib/wpilibc/wasm/bindings.cc
+
+# Same option set as the production build. Target `wpilibc` (not
+# `wpilibc_wasm`), so the placeholder bindings.cc above is never compiled and no
+# wasm module is linked -- only the static archives the tests need.
 #
-# -fwasm-exceptions must be applied identically everywhere a throw/catch
-# crosses a compiled link boundary (here, GoogleTest, and the gain tests in
+# WITH_NTCORE=ON is required, not optional: upstream's CMakeLists.txt declares
+# `wpilib_config(OPTIONS WITH_WPILIB REQUIRES WITH_NTCORE WITH_WPIMATH)`, which
+# is a hard FATAL_ERROR when unmet. The stage this replaced could set it OFF
+# only because it also set WITH_WPILIB=OFF. It does not actually build
+# NetworkTables: the root patch skips add_subdirectory(wpinet)/(ntcore) under
+# Emscripten and links the empty wpilibc/wasm/stubs archive instead, so the
+# staged output is libntcore_stub.a with no libntcore.a or libwpinet.a.
+#
+# -fwasm-exceptions must be applied identically everywhere a throw/catch crosses
+# a compiled link boundary (here, GoogleTest, and the tests in
 # tests/CMakeLists.txt) -- see the comment at the top of that file.
 RUN cd /build/allwpilib && \
     emcmake cmake -B build -S . \
@@ -46,29 +83,28 @@ RUN cd /build/allwpilib && \
       -DWITH_GUI=OFF \
       -DWITH_CSCORE=OFF \
       -DWITH_WPIMATH=ON \
-      -DWITH_WPILIB=OFF \
-      -DWITH_NTCORE=OFF \
+      -DWITH_WPILIB=ON \
+      -DWITH_NTCORE=ON \
       -DWITH_EXAMPLES=OFF \
       -DWITH_JAVA=OFF \
       -DWITH_TESTS=OFF \
       -DNO_WERROR=ON \
       -G Ninja && \
     cd build && \
-    emmake ninja wpimath -j"$(nproc)"
+    emmake ninja wpilibc -j"$(nproc)"
 
-# Stage the compiled archives at a fixed, predictable path -- their exact
-# location under build/ is a CMake implementation detail we don't want the
-# final stage to have to know about.
-RUN mkdir -p /wpimath-artifacts/lib && \
-    for lib in libwpimath.a libwpiutil.a; do \
-        find /build/allwpilib/build -name "$lib" -exec cp {} /wpimath-artifacts/lib/ \; && \
-        test -f "/wpimath-artifacts/lib/$lib" || exit 1; \
-    done
+# Stage every archive the build produced at a fixed, predictable path. Copying
+# by glob rather than by name keeps this working when upstream renames a library
+# (e.g. libwpiHal.a vs libhal.a); tests/CMakeLists.txt globs the result too.
+RUN mkdir -p /wpilib-artifacts/lib && \
+    find /build/allwpilib/build -name '*.a' -exec cp {} /wpilib-artifacts/lib/ \; && \
+    test -f /wpilib-artifacts/lib/libwpilibc.a || \
+      { echo "ERROR: libwpilibc.a was not produced"; ls -la /wpilib-artifacts/lib; exit 1; }
 
 # ---- Stage: gtest-libs ----
 # Build GoogleTest with Emscripten before copying any test sources. Stable
 # layer, cached across CI runs as long as the base image and gtest package
-# version don't change. -fwasm-exceptions must match wpimath-libs above.
+# version don't change. -fwasm-exceptions must match wpilib-libs above.
 FROM base AS gtest-libs
 
 RUN emcmake cmake -S /usr/src/googletest -B /gtest-build \
@@ -83,13 +119,15 @@ RUN emcmake cmake -S /usr/src/googletest -B /gtest-build \
 FROM base
 
 COPY --from=gtest-libs /gtest-build /gtest-build
-COPY --from=wpimath-libs /wpimath-artifacts /wpimath-artifacts
-# Headers only (no build/ artifacts) for wpimath's and wpiutil's own sources
-# and bundled thirdparty deps (eigen, gcem, sleipnir, nanopb, fmtlib, etc.),
-# so feedback_gains_tests can include the same wpi/math headers it links
-# against above.
-COPY --from=wpimath-libs /build/allwpilib/wpimath/src /wpimath-artifacts/include/wpimath/src
-COPY --from=wpimath-libs /build/allwpilib/wpiutil/src /wpimath-artifacts/include/wpiutil/src
+COPY --from=wpilib-libs /wpilib-artifacts /wpilib-artifacts
+# Headers only (no build/ artifacts) for each library's own sources and bundled
+# thirdparty deps (eigen, gcem, sleipnir, nanopb, fmtlib, etc.), so the tests can
+# include the same headers they link against above.
+COPY --from=wpilib-libs /build/allwpilib/wpimath/src /wpilib-artifacts/include/wpimath/src
+COPY --from=wpilib-libs /build/allwpilib/wpiutil/src /wpilib-artifacts/include/wpiutil/src
+COPY --from=wpilib-libs /build/allwpilib/wpilibc/src /wpilib-artifacts/include/wpilibc/src
+COPY --from=wpilib-libs /build/allwpilib/hal/src /wpilib-artifacts/include/hal/src
+COPY --from=wpilib-libs /build/allwpilib/ntcore/src /wpilib-artifacts/include/ntcore/src
 
 WORKDIR /src
 
@@ -98,8 +136,10 @@ COPY tests/ /src/tests/
 COPY patches/wpilibc/wasm/sim_util.h /src/patches/wpilibc/wasm/sim_util.h
 COPY patches/wpilibc/wasm/wasm_console.h /src/patches/wpilibc/wasm/wasm_console.h
 COPY patches/wpilibc/wasm/dc_motor.h /src/patches/wpilibc/wasm/dc_motor.h
+COPY patches/wpilibc/wasm/hal_init.h /src/patches/wpilibc/wasm/hal_init.h
 COPY patches/wpilibc/wasm/feedback_gains.h /src/patches/wpilibc/wasm/feedback_gains.h
 COPY patches/wpilibc/wasm/feedforward_gains.h /src/patches/wpilibc/wasm/feedforward_gains.h
+COPY patches/wpilibc/wasm/elevator_sim.h /src/patches/wpilibc/wasm/elevator_sim.h
 
 WORKDIR /src/tests/build
 
@@ -108,6 +148,6 @@ RUN emcmake cmake .. \
         -DCMAKE_BUILD_TYPE=Debug \
     && emmake ninja
 
-# Run both test binaries unconditionally so a failure in one doesn't hide
-# the result of the other; fail the container if either fails.
-CMD ["sh", "-c", "set -u; status=0; node sim_util_tests.js || status=1; node wasm_console_tests.js || status=1; node feedback_gains_tests.js || status=1; node feedforward_gains_tests.js || status=1; exit \"$status\""]
+# Run every test binary unconditionally so a failure in one doesn't hide the
+# result of another; fail the container if any fails.
+CMD ["sh", "-c", "set -u; status=0; node sim_util_tests.js || status=1; node wasm_console_tests.js || status=1; node feedback_gains_tests.js || status=1; node feedforward_gains_tests.js || status=1; node elevator_sim_tests.js || status=1; exit \"$status\""]

@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "dc_motor.h"
+#include "hal_init.h"
 #include "sim_util.h"
 #include "wpi/math/filter/LinearFilter.hpp"
 #include "wpi/math/system/NumericalIntegration.hpp"
@@ -133,6 +134,8 @@ inline emscripten::val SimulateArm(
     double batteryVoltageVolts, double efficiency, bool goingUp,
     double simTimestep, int decimation, double maxSimSeconds,
     double batteryVoltageFilterTimeConstantSeconds) {
+  EnsureHalInitialized();
+
   EfficiencyArmSim arm(
       motor->getMotor(), gearing,
       wpi::units::kilogram_square_meter_t(momentOfInertiaKgMSquared),
