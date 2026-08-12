@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useId, useState } from 'react';
+import { Fragment, useEffect, useId, useRef, useState } from 'react';
 
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
@@ -27,6 +27,12 @@ const MOTOR_GROUPS = PROGRAM_ORDER.map(({ program, label }) => ({
   label,
   motors: ALL_MOTORS.filter((m) => m.intendedProgram === program),
 })).filter((group) => group.motors.length > 0);
+
+// Motor.eq compares only the name, so it cannot see a quantity change. Both
+// sync guards in MotorInput need both fields.
+function sameMotor(a: Motor, b: Motor) {
+  return a.identifier === b.identifier && a.quantity === b.quantity;
+}
 
 // Shared between MotorInput and MotorNameSelect so both selectors present
 // the same grouping and stay in sync if the grouping logic changes.
@@ -112,9 +118,23 @@ export function MotorInput({
   const [quantity, setQuantity] = useState(motor.quantity);
 
   const [proxyQuantity, setProxyQuantity] = useState(quantity.toString());
+  const lastInternalMotor = useRef(motor);
 
   useEffect(() => {
-    setMotor(Motor.fromName(name, quantity));
+    if (!sameMotor(motor, lastInternalMotor.current)) {
+      lastInternalMotor.current = motor;
+      setName(motor.identifier);
+      setQuantity(motor.quantity);
+      setProxyQuantity(motor.quantity.toString());
+    }
+  }, [motor]);
+
+  useEffect(() => {
+    const newMotor = Motor.fromName(name, quantity);
+    if (!sameMotor(newMotor, lastInternalMotor.current)) {
+      lastInternalMotor.current = newMotor;
+      setMotor(newMotor);
+    }
   }, [name, quantity, setMotor]);
 
   useEffect(() => {
