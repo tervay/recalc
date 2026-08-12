@@ -491,11 +491,12 @@ TEST(SimulateElevatorTrajectory, VelocityProfileRisesThenFalls) {
             rows.back().velocityMetersPerSecond);
 }
 
-// motorRpm is derived from the carriage velocity read BEFORE the timestep is
-// integrated, while velocityMetersPerSecond in the same row is read AFTER it.
-// The reported shaft speed therefore lags the reported velocity by exactly one
-// row. Pin that relationship so it cannot drift silently.
-TEST(SimulateElevatorTrajectory, MotorRpmLagsCarriageVelocityByOneTimestep) {
+// A row is stamped with the post-step timestamp, so motorRpm and
+// velocityMetersPerSecond must both describe the carriage at that instant. Pin
+// the identity within a row so the two cannot drift apart again. (The pre-step
+// shaft speed is still used for the back-EMF term feeding the voltage clamp,
+// which is correct -- that clamp acts on the state at the start of the step.)
+TEST(SimulateElevatorTrajectory, MotorRpmMatchesCarriageVelocityInTheSameRow) {
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
@@ -504,11 +505,11 @@ TEST(SimulateElevatorTrajectory, MotorRpmLagsCarriageVelocityByOneTimestep) {
   const double toRpm =
       1.0 / p.spoolRadiusMeters * p.gearing * 60.0 / (2.0 * M_PI);
 
-  // The first row is integrated from rest, so its shaft speed is still zero.
-  EXPECT_DOUBLE_EQ(rows.front().motorRpm, 0.0);
-  for (size_t i = 1; i < rows.size(); ++i) {
-    EXPECT_NEAR(rows[i].motorRpm, rows[i - 1].velocityMetersPerSecond * toRpm,
-                1e-9)
+  // The first row is recorded after a step has already been integrated, so the
+  // carriage is moving and the reported shaft speed must be non-zero.
+  EXPECT_GT(rows.front().motorRpm, 0.0);
+  for (size_t i = 0; i < rows.size(); ++i) {
+    EXPECT_NEAR(rows[i].motorRpm, rows[i].velocityMetersPerSecond * toRpm, 1e-9)
         << "at row " << i;
   }
 }

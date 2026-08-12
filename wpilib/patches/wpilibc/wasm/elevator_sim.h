@@ -260,11 +260,17 @@ inline emscripten::val SimulateElevatorImpl(
     const double filteredBatteryVoltage =
         batteryFilter.Calculate(rawBatteryVoltage);
 
-    const double motorRpm = motorShaftRadPerSec * 60.0 / (2.0 * M_PI);
-    states.push_back({elevator.GetPosition().to<double>(),
-                      elevator.GetVelocity().to<double>(), statorCurrent,
-                      supplyCurrent, timestamp, filteredBatteryVoltage,
-                      vApplied, motorRpm, energyJoules, true});
+    // The row is stamped with the post-step `timestamp`, so every field in it
+    // is read after the step. `motorShaftRadPerSec` above is the pre-step value
+    // and is deliberately not reused here: it feeds the back-EMF term of the
+    // voltage clamp, which must act on the state at the start of the step.
+    const double updatedVelocityMPS = elevator.GetVelocity().to<double>();
+    const double motorRpm =
+        updatedVelocityMPS / spoolRadiusMeters * gearing * 60.0 / (2.0 * M_PI);
+    states.push_back({elevator.GetPosition().to<double>(), updatedVelocityMPS,
+                      statorCurrent, supplyCurrent, timestamp,
+                      filteredBatteryVoltage, vApplied, motorRpm, energyJoules,
+                      true});
 
     wpi::sim::RoboRioSim::SetVInVoltage(
         wpi::units::volt_t(filteredBatteryVoltage));

@@ -7,6 +7,19 @@
   "prHourlyLimit": 0,
   "minimumReleaseAge": "3 days",
   "internalChecksFilter": "strict",
+  "description": [
+    "ignorePaths replaces, rather than extends, the list that config:recommended inherits from :ignoreModulesAndTests. It is restated here minus **/tests/**, which hid wpilib/tests/Dockerfile from Renovate and let its emscripten/emsdk pin drift behind wpilib/Dockerfile.",
+    "wpilib/tests/ is the only path this un-ignores: playwright-tests/ never matched the pattern, and scripts/ingest/__tests__/ stays ignored through **/__tests__/**."
+  ],
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/bower_components/**",
+    "**/vendor/**",
+    "**/examples/**",
+    "**/__tests__/**",
+    "**/test/**",
+    "**/__fixtures__/**"
+  ],
   "packageRules": [
     {
       "groupName": "icons",
@@ -94,7 +107,7 @@
       "matchManagers": ["github-actions"]
     },
     {
-      "description": "Pinned in both wpilib/Dockerfile and wpilib/tests/Dockerfile; they must move together",
+      "description": "Pinned in both wpilib/Dockerfile and wpilib/tests/Dockerfile; they must move together. This depends on ignorePaths above keeping wpilib/tests/ scannable.",
       "groupName": "emscripten",
       "matchManagers": ["dockerfile"],
       "matchPackageNames": ["emscripten/emsdk"]

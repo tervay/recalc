@@ -3,11 +3,13 @@
 #include <emscripten/val.h>
 
 #include <cmath>
+#include <stdexcept>
 #include <vector>
 
 #include "dc_motor.h"
 #include "hal_init.h"
 #include "sim_util.h"
+#include "wasm_console.h"
 #include "wpi/math/filter/LinearFilter.hpp"
 #include "wpi/math/system/Models.hpp"
 #include "wpi/math/system/NumericalIntegration.hpp"
@@ -67,14 +69,32 @@ struct FlywheelSimStateInternal {
 //   efficiency        — torque efficiency in [0, 1]
 // Returns a JS array of state objects decimated by `decimation`, with the last
 // state always included (matches obliterateArray behaviour in utils.ts).
-inline emscripten::val SimulateFlywheel(
+inline emscripten::val SimulateFlywheelImpl(
     DCMotorWasm* motor, double gearing, double moiKgMSquared,
     double targetAngularVelocityRadPerSec, double statorLimitAmps,
     double supplyLimitAmps, double statorVoltageVolts,
     double batteryResistanceOhms, double batteryVoltageVolts, double efficiency,
     double simTimestep, int decimation, double maxSimSeconds,
     double batteryVoltageFilterTimeConstantSeconds,
-    double initialAngularVelocityRadPerSec = 0.0) {
+    double initialAngularVelocityRadPerSec) {
+  // Guard degenerate inputs, mirroring elevator_sim.h. Three of these are not
+  // recoverable further down and so cannot be left to the try/catch below:
+  //   - decimation: DecimateToJsArray computes `i % decimation`, and integer
+  //     modulo by zero is a wasm trap rather than a C++ exception.
+  //   - simTimestep: a non-positive step never advances `timestamp`, so the
+  //     maxSimSeconds break is unreachable and Update() never spins the wheel.
+  //     The loop never terminates.
+  //   - batteryVoltageVolts: ClampVoltageForCurrentLimits ends with
+  //     std::clamp(x, -vSupply, vSupply), which is undefined behavior once
+  //     vSupply goes negative.
+  // A non-positive gearing or moment of inertia makes the model factory throw.
+  // A non-positive target needs no guard: the loop below exits immediately.
+  if (decimation <= 0 || simTimestep <= 0.0 || maxSimSeconds <= 0.0 ||
+      gearing <= 0.0 || moiKgMSquared <= 0.0 || efficiency <= 0.0 ||
+      batteryVoltageVolts <= 0.0) {
+    return emscripten::val::array();
+  }
+
   EnsureHalInitialized();
 
   EfficiencyFlywheelSim flywheel(
@@ -110,7 +130,9 @@ inline emscripten::val SimulateFlywheel(
     // Motor shaft angular velocity (rad/s) from flywheel velocity
     const double flywheelRadPerSec = flywheel.GetAngularVelocity().to<double>();
     const double motorShaftRadPerSec = flywheelRadPerSec * gearing;
-    const double vBackEmf = motorShaftRadPerSec / kvRadPerSecPerVolt;
+    const double vBackEmf = kvRadPerSecPerVolt > 0.0
+                                ? motorShaftRadPerSec / kvRadPerSecPerVolt
+                                : 0.0;
 
     const double vSupply = wpi::RobotController::GetInputVoltage();
 
@@ -137,10 +159,17 @@ inline emscripten::val SimulateFlywheel(
     const double filteredBatteryVoltage =
         batteryFilter.Calculate(rawBatteryVoltage);
 
-    const double motorRpm = motorShaftRadPerSec * 60.0 / (2.0 * M_PI);
-    states.push_back({flywheel.GetAngularVelocity().to<double>(), statorCurrent,
-                      supplyCurrent, timestamp, filteredBatteryVoltage,
-                      vApplied, motorRpm, energyJoules, true});
+    // The row is stamped with the post-step `timestamp`, so every field in it
+    // is read after the step. `motorShaftRadPerSec` above is the pre-step value
+    // and is deliberately not reused here: it feeds the back-EMF term of the
+    // voltage clamp, which must act on the state at the start of the step.
+    const double updatedFlywheelRadPerSec =
+        flywheel.GetAngularVelocity().to<double>();
+    const double motorRpm =
+        updatedFlywheelRadPerSec * gearing * 60.0 / (2.0 * M_PI);
+    states.push_back({updatedFlywheelRadPerSec, statorCurrent, supplyCurrent,
+                      timestamp, filteredBatteryVoltage, vApplied, motorRpm,
+                      energyJoules, true});
 
     wpi::sim::RoboRioSim::SetVInVoltage(
         wpi::units::volt_t(filteredBatteryVoltage));
@@ -167,4 +196,39 @@ inline emscripten::val SimulateFlywheel(
         state.set("success", s.success);
         return state;
       });
+}
+
+// Public entry point. Wraps SimulateFlywheelImpl in a try-catch so that
+// numerical exceptions return an empty array with a diagnostic console.warn
+// instead of aborting the worker.
+inline emscripten::val SimulateFlywheel(
+    DCMotorWasm* motor, double gearing, double moiKgMSquared,
+    double targetAngularVelocityRadPerSec, double statorLimitAmps,
+    double supplyLimitAmps, double statorVoltageVolts,
+    double batteryResistanceOhms, double batteryVoltageVolts, double efficiency,
+    double simTimestep, int decimation, double maxSimSeconds,
+    double batteryVoltageFilterTimeConstantSeconds,
+    double initialAngularVelocityRadPerSec = 0.0) {
+  try {
+    return SimulateFlywheelImpl(
+        motor, gearing, moiKgMSquared, targetAngularVelocityRadPerSec,
+        statorLimitAmps, supplyLimitAmps, statorVoltageVolts,
+        batteryResistanceOhms, batteryVoltageVolts, efficiency, simTimestep,
+        decimation, maxSimSeconds, batteryVoltageFilterTimeConstantSeconds,
+        initialAngularVelocityRadPerSec);
+  } catch (const std::exception& e) {
+    ConsoleWarn(
+        "SimulateFlywheel: {} (gearing={} moi={} target={} statorA={} "
+        "supplyA={})",
+        e.what(), gearing, moiKgMSquared, targetAngularVelocityRadPerSec,
+        statorLimitAmps, supplyLimitAmps);
+    return emscripten::val::array();
+  } catch (...) {
+    ConsoleWarn(
+        "SimulateFlywheel: unknown exception (gearing={} moi={} target={} "
+        "statorA={} supplyA={})",
+        gearing, moiKgMSquared, targetAngularVelocityRadPerSec, statorLimitAmps,
+        supplyLimitAmps);
+    return emscripten::val::array();
+  }
 }

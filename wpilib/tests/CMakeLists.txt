@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # applied uniformly to every compiled/linked piece that participates in
 # throw/catch across a translation unit or library boundary -- including
 # GoogleTest itself (see tests/Dockerfile's gtest-libs stage) and
-# libwpimath.a (see tests/Dockerfile's wpimath-libs stage) -- since mixing
+# libwpimath.a (see tests/Dockerfile's wpilib-libs stage) -- since mixing
 # it with Emscripten's default legacy JS-based exception model produces
 # "undefined symbol: __resumeException" at link time.
 if(EMSCRIPTEN)
@@ -32,6 +32,20 @@ endif()
 
 enable_testing()
 
+# Each test is one source file plus a set of dependency targets. Declaring the
+# executable and its CTest registration together keeps the Dockerfile out of the
+# loop: a new test needs one line at the bottom of this file and nothing else.
+# The container's entrypoint is `ctest`, which discovers whatever is registered
+# here.
+#
+# gtest_main pulls in gtest through its INTERFACE_LINK_LIBRARIES, so linking it
+# alone is enough.
+function(add_wasm_test name)
+  add_executable(${name}_tests ${name}_test.cc)
+  target_link_libraries(${name}_tests PRIVATE gtest_main ${ARGN})
+  add_test(NAME ${name}_tests COMMAND node $<TARGET_FILE_NAME:${name}_tests>)
+endfunction()
+
 # GoogleTest is pre-built by the Dockerfile before any test sources are
 # copied, so its compilation is Docker-layer-cached independently of test
 # source changes. Point at those artifacts directly rather than rebuilding.
@@ -50,14 +64,11 @@ set_target_properties(gtest_main PROPERTIES
 
 # Shared patch include dir: sim_util_tests only needs sim_util.h/dc_motor.h,
 # while the gain tests additionally need feedback_gains.h/feedforward_gains.h,
-# but all three pull from the same directory.
+# but every test pulls its header under test from this one directory.
 set(PATCH_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../patches/wpilibc/wasm)
 
-add_executable(sim_util_tests sim_util_test.cc)
-
-target_include_directories(sim_util_tests BEFORE PRIVATE ${PATCH_INCLUDE_DIR})
-
-target_link_libraries(sim_util_tests PRIVATE gtest gtest_main)
+add_library(patch_headers INTERFACE)
+target_include_directories(patch_headers INTERFACE ${PATCH_INCLUDE_DIR})
 
 # ----------------------------------------------------------------------------
 # wpimath_deps
@@ -95,7 +106,6 @@ set(WPIUTIL_SRC "${WPILIB_ARTIFACTS_DIR}/include/wpiutil/src")
 add_library(wpimath_deps INTERFACE)
 
 target_include_directories(wpimath_deps SYSTEM INTERFACE
-    ${PATCH_INCLUDE_DIR}
     ${WPIMATH_SRC}/main/native/include
     ${WPIMATH_SRC}/generated/main/native/cpp
     ${WPIMATH_SRC}/main/native/thirdparty/eigen/include
@@ -115,25 +125,23 @@ target_include_directories(wpimath_deps SYSTEM INTERFACE
     ${WPIUTIL_SRC}/main/native/thirdparty/fmtlib/include
 )
 
-target_link_libraries(wpimath_deps INTERFACE wpimath_prebuilt wpiutil_prebuilt)
+target_link_libraries(wpimath_deps INTERFACE
+    patch_headers
+    wpimath_prebuilt
+    wpiutil_prebuilt
+)
 
 # -fwasm-exceptions is already applied globally above.
 target_compile_features(wpimath_deps INTERFACE cxx_std_20)
 
-add_executable(wasm_console_tests wasm_console_test.cc)
+# wasm_console.h formats through fmtlib and resolves fmt's compiled symbols out
+# of libwpiutil.a, but needs none of the wpimath include set above.
+add_library(console_deps INTERFACE)
 
-target_include_directories(wasm_console_tests BEFORE PRIVATE
-    ${PATCH_INCLUDE_DIR}
-    ${WPIUTIL_SRC}/main/native/thirdparty/fmtlib/include
-)
+target_include_directories(console_deps SYSTEM INTERFACE
+    ${WPIUTIL_SRC}/main/native/thirdparty/fmtlib/include)
 
-target_link_libraries(wasm_console_tests PRIVATE gtest gtest_main wpiutil_prebuilt)
-
-add_executable(feedback_gains_tests feedback_gains_test.cc)
-target_link_libraries(feedback_gains_tests PRIVATE gtest gtest_main wpimath_deps)
-
-add_executable(feedforward_gains_tests feedforward_gains_test.cc)
-target_link_libraries(feedforward_gains_tests PRIVATE gtest gtest_main wpimath_deps)
+target_link_libraries(console_deps INTERFACE patch_headers wpiutil_prebuilt)
 
 # ----------------------------------------------------------------------------
 # wpilibc_deps
@@ -143,6 +151,10 @@ target_link_libraries(feedforward_gains_tests PRIVATE gtest gtest_main wpimath_d
 # RoboRioSim, and RobotController. Those live in wpilibc and the HAL, not
 # wpimath, so this target needs the full library set from the "wpilib-libs"
 # Dockerfile stage rather than the wpimath-only subset above.
+#
+# arm_sim.h, flywheel_sim.h and battery_sim.h reach the same libraries:
+# EfficiencyArmSim/EfficiencyFlywheelSim derive from the wpi::sim classes, and
+# all three call BatterySim, RoboRioSim, and RobotController.
 #
 # The archives are globbed rather than named individually: the exact file names
 # WPILib emits (e.g. libwpiHal.a vs libhal.a) vary across upstream commits, and
@@ -186,10 +198,16 @@ target_link_libraries(wpilibc_deps INTERFACE
 # symbols are reachable from the elevator simulation.
 target_link_options(wpilibc_deps INTERFACE -sERROR_ON_UNDEFINED_SYMBOLS=0)
 
-add_executable(elevator_sim_tests elevator_sim_test.cc)
-target_link_libraries(elevator_sim_tests PRIVATE gtest gtest_main wpilibc_deps)
+# ----------------------------------------------------------------------------
+# The tests. <name> maps to <name>_test.cc, the <name>_tests executable, and the
+# CTest case of the same name.
+# ----------------------------------------------------------------------------
 
-foreach(test_target sim_util_tests wasm_console_tests feedback_gains_tests
-                    feedforward_gains_tests elevator_sim_tests)
-  add_test(NAME ${test_target} COMMAND node ${test_target}.js)
-endforeach()
+add_wasm_test(sim_util          patch_headers)
+add_wasm_test(wasm_console      console_deps)
+add_wasm_test(feedback_gains    wpimath_deps)
+add_wasm_test(feedforward_gains wpimath_deps)
+add_wasm_test(elevator_sim      wpilibc_deps)
+add_wasm_test(arm_sim           wpilibc_deps)
+add_wasm_test(flywheel_sim      wpilibc_deps)
+add_wasm_test(battery_sim       wpilibc_deps)

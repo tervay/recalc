@@ -17,15 +17,6 @@ inline double RobotController_GetInputVoltage() {
   return wpi::RobotController::GetInputVoltage();
 }
 
-inline double BatterySim_Calculate(
-    const std::vector<double>& currentDrawsAmps) {
-  std::vector<wpi::units::ampere_t> currents;
-  for (double a : currentDrawsAmps) {
-    currents.push_back(wpi::units::ampere_t(a));
-  }
-  return wpi::sim::BatterySim::Calculate(currents).to<double>();
-}
-
 // Uses default 12 V nominal voltage and 20 mΩ internal resistance.
 inline double BatterySim_CalculateDefaultBatteryLoadedVoltage(
     const std::vector<double>& currentDrawsAmps) {
