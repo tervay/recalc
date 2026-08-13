@@ -17,7 +17,10 @@ import { ButtonGroup } from '~/components/ui/button-group';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
-import { calculateClosestCenters } from '~/lib/math/belts';
+import {
+  calculateClosestCenters,
+  calculateCustomBeltCenter,
+} from '~/lib/math/belts';
 import { Belt } from '~/lib/models/Belt';
 import Measurement from '~/lib/models/Measurement';
 import Pulley, { SimplePulley } from '~/lib/models/Pulley';
@@ -120,9 +123,21 @@ export default function Belts() {
         new SimplePulley(p1Teeth, pitch),
         new SimplePulley(p2Teeth, pitch),
         desiredCenter,
+        extraCenter,
         toothIncrement,
       ),
-    [p1Teeth, p2Teeth, pitch, desiredCenter, toothIncrement],
+    [p1Teeth, p2Teeth, pitch, desiredCenter, extraCenter, toothIncrement],
+  );
+
+  const customResult = useMemo(
+    () =>
+      calculateCustomBeltCenter(
+        new SimplePulley(p1Teeth, pitch),
+        new SimplePulley(p2Teeth, pitch),
+        customBeltTeeth,
+        extraCenter,
+      ),
+    [p1Teeth, p2Teeth, pitch, customBeltTeeth, extraCenter],
   );
 
   const p1PitchDiameter = useMemo(
@@ -153,9 +168,17 @@ export default function Belts() {
   const beltFilter = useCallback(
     (belt: Belt) =>
       belt.pitch.eq(pitch) &&
-      (belt.teeth === results.larger.belt.teeth ||
-        belt.teeth === results.smaller.belt.teeth),
-    [pitch, results.larger.belt.teeth, results.smaller.belt.teeth],
+      (useCustomBelt
+        ? belt.teeth === customResult.belt.teeth
+        : belt.teeth === results.larger.belt.teeth ||
+          belt.teeth === results.smaller.belt.teeth),
+    [
+      pitch,
+      useCustomBelt,
+      customResult.belt.teeth,
+      results.larger.belt.teeth,
+      results.smaller.belt.teeth,
+    ],
   );
 
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
@@ -242,6 +265,12 @@ export default function Belts() {
                     testId="specificBeltTeeth"
                     labelAbove
                   />
+                  <MeasurementInput
+                    stateHook={[extraCenter, setExtraCenter]}
+                    label="Extra Center"
+                    testId="extraCenter"
+                    labelAbove
+                  />
                 </div>
               ) : (
                 <div className="flex flex-col gap-3 *:flex-1 md:flex-row md:gap-x-4">
@@ -310,29 +339,43 @@ export default function Belts() {
           </div>
 
           {/* Result cards */}
-          <BeltResultCard
-            title="Smaller Belt"
-            isSuggested={isSmallerBeltSuggested}
-            beltTeeth={results.smaller.belt.teeth}
-            centerDistance={results.smaller.distance}
-            p1TeethInMesh={results.smaller.p1TeethInMesh}
-            p2TeethInMesh={results.smaller.p2TeethInMesh}
-            gapBetweenPulleys={results.smaller.gapBetweenPulleys}
-            differenceFromTarget={results.smaller.differenceFromTarget}
-            testPrefix="smaller"
-          />
+          {useCustomBelt ? (
+            <BeltResultCard
+              title="Custom Belt"
+              beltTeeth={customResult.belt.teeth}
+              centerDistance={customResult.distance}
+              p1TeethInMesh={customResult.p1TeethInMesh}
+              p2TeethInMesh={customResult.p2TeethInMesh}
+              gapBetweenPulleys={customResult.gapBetweenPulleys}
+              testPrefix="custom"
+            />
+          ) : (
+            <>
+              <BeltResultCard
+                title="Smaller Belt"
+                isSuggested={isSmallerBeltSuggested}
+                beltTeeth={results.smaller.belt.teeth}
+                centerDistance={results.smaller.distance}
+                p1TeethInMesh={results.smaller.p1TeethInMesh}
+                p2TeethInMesh={results.smaller.p2TeethInMesh}
+                gapBetweenPulleys={results.smaller.gapBetweenPulleys}
+                differenceFromTarget={results.smaller.differenceFromTarget}
+                testPrefix="smaller"
+              />
 
-          <BeltResultCard
-            title="Larger Belt"
-            isSuggested={!isSmallerBeltSuggested}
-            beltTeeth={results.larger.belt.teeth}
-            centerDistance={results.larger.distance}
-            p1TeethInMesh={results.larger.p1TeethInMesh}
-            p2TeethInMesh={results.larger.p2TeethInMesh}
-            gapBetweenPulleys={results.larger.gapBetweenPulleys}
-            differenceFromTarget={results.larger.differenceFromTarget}
-            testPrefix="larger"
-          />
+              <BeltResultCard
+                title="Larger Belt"
+                isSuggested={!isSmallerBeltSuggested}
+                beltTeeth={results.larger.belt.teeth}
+                centerDistance={results.larger.distance}
+                p1TeethInMesh={results.larger.p1TeethInMesh}
+                p2TeethInMesh={results.larger.p2TeethInMesh}
+                gapBetweenPulleys={results.larger.gapBetweenPulleys}
+                differenceFromTarget={results.larger.differenceFromTarget}
+                testPrefix="larger"
+              />
+            </>
+          )}
         </div>
 
         {/* Right column: COTS tables */}
@@ -347,7 +390,7 @@ export default function Belts() {
 
 function BeltResultCard({
   title,
-  isSuggested,
+  isSuggested = false,
   beltTeeth,
   centerDistance,
   p1TeethInMesh,
@@ -357,13 +400,13 @@ function BeltResultCard({
   testPrefix,
 }: {
   title: string;
-  isSuggested: boolean;
+  isSuggested?: boolean;
   beltTeeth: number;
   centerDistance: Measurement;
   p1TeethInMesh: number;
   p2TeethInMesh: number;
   gapBetweenPulleys: Measurement;
-  differenceFromTarget: Measurement;
+  differenceFromTarget?: Measurement;
   testPrefix: string;
 }) {
   return (
@@ -410,12 +453,14 @@ function BeltResultCard({
           defaultUnit="in"
           testId={`${testPrefix}PulleyGap`}
         />
-        <MeasurementDisplayOutput
-          state={differenceFromTarget}
-          label="Diff From Target"
-          defaultUnit="in"
-          testId={`${testPrefix}DiffFromTarget`}
-        />
+        {differenceFromTarget !== undefined && (
+          <MeasurementDisplayOutput
+            state={differenceFromTarget}
+            label="Diff From Target"
+            defaultUnit="in"
+            testId={`${testPrefix}DiffFromTarget`}
+          />
+        )}
       </CardContent>
     </Card>
   );

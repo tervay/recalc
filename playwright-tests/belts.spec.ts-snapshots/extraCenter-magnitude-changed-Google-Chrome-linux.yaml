@@ -31,15 +31,15 @@
 - combobox: in
 - text: Smaller Belt
 - img
-- text: Suggested Belt Teeth 70 Center Distance 4.915
+- text: Suggested Belt Teeth 70 Center Distance 4.954
 - combobox: in
-- text: P1 Teeth in Mesh 8 P2 Teeth in Mesh 11 Gap Between Pulleys 3.662
+- text: P1 Teeth in Mesh 8 P2 Teeth in Mesh 11 Gap Between Pulleys 3.701
 - combobox: in
 - text: Diff From Target -0.085
 - combobox: in
-- text: Larger Belt Belt Teeth 75 Center Distance 5.408
+- text: Larger Belt Belt Teeth 75 Center Distance 5.447
 - combobox: in
-- text: P1 Teeth in Mesh 8 P2 Teeth in Mesh 11 Gap Between Pulleys 4.154
+- text: P1 Teeth in Mesh 8 P2 Teeth in Mesh 11 Gap Between Pulleys 4.194
 - combobox: in
 - text: Diff From Target 0.408
 - combobox: in

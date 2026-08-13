@@ -12,6 +12,14 @@ Obviously, we can't have a belt with a fraction of a tooth, so we round this num
 
 The calculator outputs 2 options, rounding up and down to the nearest multiples, so that you can choose whether you want to go slightly shorter or slightly longer than your target C-C, depending on the constraints you're designing around.
 
+### Custom belt mode
+
+Sometimes you already know which belt you want to use, and you need the C-C distance it gives you. Turn on **Use Custom Belt** and enter the belt's tooth count. The calculator then works in the opposite direction: it uses formula 5 to solve the C-C distance directly from the belt pitch length and the two pulley pitch diameters. Only one result is possible, so the calculator shows a single output card. If the belt is too short to wrap both pulleys, there is no real solution and the C-C distance reads 0.
+
+### Extra center
+
+**Extra Center** is a mounting allowance. The calculator adds it to the solved C-C distance, which lets you spread the pulleys slightly farther apart than the theoretical distance to take up slack. It applies in both modes. Note that Extra Center does not change **Diff From Target**, which reports how far the belt itself puts you from your target C-C.
+
 ### [HTD vs GT2/3](https://www.sdp-si.com/D265/PDF/D265T003.pdf)
 
 HTD, or High Torque Drive, is a standard for a specific tooth shape on a timing belt. GT2 (Gates Tooth 2), sometimes referred to as PowerGrip GT2, is a secondary revision of HTD with a deeper tooth profile. HTD was developed in order to transmit high torque, but does not excel in high precision scenarios, as it inherently contains a sizeable amount of backlash. HTD and GT2 belts & pulleys are not recommended by Gates to be intermingled, due to load ratings, [but it's been done in FRC before](https://www.chiefdelphi.com/t/do-gt2-belts-work-on-htd-pulleys-reliably/148179), as not every subsystem may reach that load rating maximum.
