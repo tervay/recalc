@@ -17,6 +17,9 @@
 - spinbutton "Tooth Increment": "10"
 - text: Custom Belt Teeth
 - spinbutton "Custom Belt Teeth": "100"
+- text: Extra Center
+- spinbutton "Extra Center": "2"
+- combobox: mm
 - text: Pulley 1 Teeth
 - spinbutton "Teeth": "20"
 - text: Pitch Diameter 0.752
@@ -25,19 +28,9 @@
 - spinbutton "Teeth": "40"
 - text: Pitch Diameter 1.504
 - combobox: in
-- text: Smaller Belt Belt Teeth 160 Center Distance 7.668
+- text: Custom Belt Belt Teeth 100 Center Distance 4.195
 - combobox: in
-- text: P1 Teeth in Mesh 10 P2 Teeth in Mesh 19 Gap Between Pulleys 6.540
-- combobox: in
-- text: Diff From Target -0.332
-- combobox: in
-- text: Larger Belt
-- img
-- text: Suggested Belt Teeth 170 Center Distance 8.259
-- combobox: in
-- text: P1 Teeth in Mesh 10 P2 Teeth in Mesh 19 Gap Between Pulleys 7.131
-- combobox: in
-- text: Diff From Target 0.259
+- text: P1 Teeth in Mesh 10 P2 Teeth in Mesh 19 Gap Between Pulleys 3.068
 - combobox: in
 - table:
   - rowgroup:
@@ -53,62 +46,36 @@
       - cell "No matching pulleys found"
 - table:
   - rowgroup:
-    - row "Matching COTS Belts6":
-      - columnheader "Matching COTS Belts6"
+    - row "Matching COTS Belts3":
+      - columnheader "Matching COTS Belts3"
     - row "SKU Teeth Width":
       - columnheader "SKU"
       - columnheader "Teeth"
       - columnheader "Width"
   - rowgroup:
-    - row "VBeltGuys 480-3m-09 160 9 mm":
-      - cell "VBeltGuys 480-3m-09":
+    - row "VBeltGuys 300-3m-09 100 9 mm":
+      - cell "VBeltGuys 300-3m-09":
         - link "VBeltGuys":
-          - /url: https://www.vbeltguys.com/products/480-3m-09-synchronous-timing-belt
-        - link "480-3m-09":
-          - /url: https://www.vbeltguys.com/products/480-3m-09-synchronous-timing-belt
-      - cell "160"
+          - /url: https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt
+        - link "300-3m-09":
+          - /url: https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt
+      - cell "100"
       - cell "9 mm"
-    - row "VBeltGuys 480-3m-15 160 15 mm":
-      - cell "VBeltGuys 480-3m-15":
+    - row "VBeltGuys 300-3m-15 100 15 mm":
+      - cell "VBeltGuys 300-3m-15":
         - link "VBeltGuys":
-          - /url: https://www.vbeltguys.com/products/480-3m-15-synchronous-timing-belt
-        - link "480-3m-15":
-          - /url: https://www.vbeltguys.com/products/480-3m-15-synchronous-timing-belt
-      - cell "160"
+          - /url: https://www.vbeltguys.com/products/300-3m-15-synchronous-timing-belt
+        - link "300-3m-15":
+          - /url: https://www.vbeltguys.com/products/300-3m-15-synchronous-timing-belt
+      - cell "100"
       - cell "15 mm"
-    - row "WCP WCP-1053 160 9 mm":
-      - cell "WCP WCP-1053":
+    - row "WCP WCP-0673 100 9 mm":
+      - cell "WCP WCP-0673":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-1053
-        - link "WCP-1053":
-          - /url: https://wcproducts.com/products/wcp-1053
-      - cell "160"
-      - cell "9 mm"
-    - row "170T":
-      - cell "170T"
-    - row "VBeltGuys 510-3m-09 170 9 mm":
-      - cell "VBeltGuys 510-3m-09":
-        - link "VBeltGuys":
-          - /url: https://www.vbeltguys.com/products/510-3m-09-synchronous-timing-belt
-        - link "510-3m-09":
-          - /url: https://www.vbeltguys.com/products/510-3m-09-synchronous-timing-belt
-      - cell "170"
-      - cell "9 mm"
-    - row "VBeltGuys 510-3m-15 170 15 mm":
-      - cell "VBeltGuys 510-3m-15":
-        - link "VBeltGuys":
-          - /url: https://www.vbeltguys.com/products/510-3m-15-synchronous-timing-belt
-        - link "510-3m-15":
-          - /url: https://www.vbeltguys.com/products/510-3m-15-synchronous-timing-belt
-      - cell "170"
-      - cell "15 mm"
-    - row "WCP WCP-1054 170 9 mm":
-      - cell "WCP WCP-1054":
-        - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-1054
-        - link "WCP-1054":
-          - /url: https://wcproducts.com/products/wcp-1054
-      - cell "170"
+          - /url: https://wcproducts.com/products/wcp-0673
+        - link "WCP-0673":
+          - /url: https://wcproducts.com/products/wcp-0673
+      - cell "100"
       - cell "9 mm"
 - alert:
   - img

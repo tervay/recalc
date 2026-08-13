@@ -51,22 +51,75 @@ export function approximateBeltPitchLength(
   return t1.add(t2).add(t3Numerator.div(t3Denominator));
 }
 
-type Result = {
+export type BeltResult = {
   belt: SimpleBelt;
   distance: Measurement;
   p1TeethInMesh: number;
   p2TeethInMesh: number;
   gapBetweenPulleys: Measurement;
+};
+type Result = BeltResult & {
   differenceFromTarget: Measurement;
 };
 export type ClosestCentersResult = {
   smaller: Result;
   larger: Result;
 };
+
+function zeroBeltResult(): BeltResult {
+  return {
+    belt: new SimpleBelt(0, new Measurement(0, 'mm')),
+    distance: new Measurement(0, 'mm'),
+    p1TeethInMesh: 0,
+    p2TeethInMesh: 0,
+    gapBetweenPulleys: new Measurement(0, 'mm'),
+  };
+}
+
+/**
+ * Solves the center distance for a belt the user has already chosen, rather
+ * than choosing a belt to hit a target center distance.
+ */
+export function calculateCustomBeltCenter(
+  p1: SimplePulley,
+  p2: SimplePulley,
+  beltTeeth: number,
+  extraCenter: Measurement,
+): BeltResult {
+  if (
+    [p1.pitch.scalar, p1.teeth, p2.pitch.scalar, p2.teeth, beltTeeth].includes(
+      0.0,
+    )
+  ) {
+    return zeroBeltResult();
+  }
+
+  const belt = new SimpleBelt(beltTeeth, p1.pitch);
+  const solvedDistance = calculateDistance(p1, p2, belt);
+
+  // A belt too short to wrap both pulleys has no valid center distance.
+  // calculateDistance reports that as zero, or as a negative distance when the
+  // belt is shorter than half the combined pulley teeth.
+  if (solvedDistance.lte(new Measurement(0, 'mm'))) {
+    return { ...zeroBeltResult(), belt };
+  }
+
+  const distance = solvedDistance.add(extraCenter);
+
+  return {
+    belt,
+    distance,
+    p1TeethInMesh: teethInMesh(p1, p2, distance, p1),
+    p2TeethInMesh: teethInMesh(p1, p2, distance, p2),
+    gapBetweenPulleys: calculateDistanceBetweenPulleys(p1, p2, distance),
+  };
+}
+
 export function calculateClosestCenters(
   p1: SimplePulley,
   p2: SimplePulley,
   desiredCenter: Measurement,
+  extraCenter: Measurement,
   multipleOf: number,
 ): ClosestCentersResult {
   if (
@@ -79,23 +132,10 @@ export function calculateClosestCenters(
       multipleOf,
     ].includes(0.0)
   ) {
+    const differenceFromTarget = new Measurement(0, 'mm');
     return {
-      larger: {
-        belt: new SimpleBelt(0, new Measurement(0, 'mm')),
-        distance: new Measurement(0, 'mm'),
-        p1TeethInMesh: 0,
-        p2TeethInMesh: 0,
-        gapBetweenPulleys: new Measurement(0, 'mm'),
-        differenceFromTarget: new Measurement(0, 'mm'),
-      },
-      smaller: {
-        belt: new SimpleBelt(0, new Measurement(0, 'mm')),
-        distance: new Measurement(0, 'mm'),
-        p1TeethInMesh: 0,
-        p2TeethInMesh: 0,
-        gapBetweenPulleys: new Measurement(0, 'mm'),
-        differenceFromTarget: new Measurement(0, 'mm'),
-      },
+      larger: { ...zeroBeltResult(), differenceFromTarget },
+      smaller: { ...zeroBeltResult(), differenceFromTarget },
     };
   }
 
@@ -109,33 +149,38 @@ export function calculateClosestCenters(
   const smallerTeeth = largerTeeth - multipleOf;
   const smallerBelt = new SimpleBelt(smallerTeeth, p1.pitch);
 
-  const smallerDistance = calculateDistance(p1, p2, smallerBelt);
-  const largerDistance = calculateDistance(p1, p2, largerBelt);
+  const solvedSmallerDistance = calculateDistance(p1, p2, smallerBelt);
+  const solvedLargerDistance = calculateDistance(p1, p2, largerBelt);
+
+  const smallerDistance = solvedSmallerDistance.add(extraCenter);
+  const largerDistance = solvedLargerDistance.add(extraCenter);
 
   return {
     larger: {
       belt: largerBelt,
       distance: largerDistance,
-      p1TeethInMesh: teethInMesh(p1, p2, desiredCenter, p1),
-      p2TeethInMesh: teethInMesh(p1, p2, desiredCenter, p2),
+      p1TeethInMesh: teethInMesh(p1, p2, largerDistance, p1),
+      p2TeethInMesh: teethInMesh(p1, p2, largerDistance, p2),
       gapBetweenPulleys: calculateDistanceBetweenPulleys(
         p1,
         p2,
         largerDistance,
       ),
-      differenceFromTarget: largerDistance.sub(desiredCenter),
+      // Extra center is a mounting allowance, not belt selection error, so it
+      // is excluded here to keep the suggested-belt comparison meaningful.
+      differenceFromTarget: solvedLargerDistance.sub(desiredCenter),
     },
     smaller: {
       belt: smallerBelt,
       distance: smallerDistance,
-      p1TeethInMesh: teethInMesh(p1, p2, desiredCenter, p1),
-      p2TeethInMesh: teethInMesh(p1, p2, desiredCenter, p2),
+      p1TeethInMesh: teethInMesh(p1, p2, smallerDistance, p1),
+      p2TeethInMesh: teethInMesh(p1, p2, smallerDistance, p2),
       gapBetweenPulleys: calculateDistanceBetweenPulleys(
         p1,
         p2,
         smallerDistance,
       ),
-      differenceFromTarget: smallerDistance.sub(desiredCenter),
+      differenceFromTarget: solvedSmallerDistance.sub(desiredCenter),
     },
   };
 }

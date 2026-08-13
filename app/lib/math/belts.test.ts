@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   approximateBeltPitchLength,
   calculateClosestCenters,
+  calculateCustomBeltCenter,
   calculateDistance,
   calculateDistanceBetweenPulleys,
   getTIMFactor,
@@ -183,9 +184,16 @@ describe('calculateClosestCenters', () => {
     const p1 = new SimplePulley(20, new Measurement(5, 'mm'));
     const p2 = new SimplePulley(30, new Measurement(5, 'mm'));
     const desiredCenter = new Measurement(100, 'mm');
+    const extraCenter = new Measurement(0, 'mm');
     const multipleOf = 5;
 
-    const result = calculateClosestCenters(p1, p2, desiredCenter, multipleOf);
+    const result = calculateClosestCenters(
+      p1,
+      p2,
+      desiredCenter,
+      extraCenter,
+      multipleOf,
+    );
 
     expect(result.larger.distance.to('mm').scalar).toBeCloseTo(112.218, 3);
     expect(result.smaller.distance.to('mm').scalar).toBeCloseTo(99.682, 3);
@@ -195,9 +203,16 @@ describe('calculateClosestCenters', () => {
     const p1 = new SimplePulley(20, new Measurement(0, 'mm'));
     const p2 = new SimplePulley(30, new Measurement(5, 'mm'));
     const desiredCenter = new Measurement(100, 'mm');
+    const extraCenter = new Measurement(0, 'mm');
     const multipleOf = 5;
 
-    const result = calculateClosestCenters(p1, p2, desiredCenter, multipleOf);
+    const result = calculateClosestCenters(
+      p1,
+      p2,
+      desiredCenter,
+      extraCenter,
+      multipleOf,
+    );
 
     expect(result.larger.distance.to('mm').scalar).toBe(0);
     expect(result.smaller.distance.to('mm').scalar).toBe(0);
@@ -207,9 +222,16 @@ describe('calculateClosestCenters', () => {
     const p1 = new SimplePulley(0, new Measurement(5, 'mm'));
     const p2 = new SimplePulley(30, new Measurement(5, 'mm'));
     const desiredCenter = new Measurement(100, 'mm');
+    const extraCenter = new Measurement(0, 'mm');
     const multipleOf = 5;
 
-    const result = calculateClosestCenters(p1, p2, desiredCenter, multipleOf);
+    const result = calculateClosestCenters(
+      p1,
+      p2,
+      desiredCenter,
+      extraCenter,
+      multipleOf,
+    );
 
     expect(result.larger.distance.to('mm').scalar).toBe(0);
     expect(result.smaller.distance.to('mm').scalar).toBe(0);
@@ -219,9 +241,16 @@ describe('calculateClosestCenters', () => {
     const p1 = new SimplePulley(20, new Measurement(5, 'mm'));
     const p2 = new SimplePulley(30, new Measurement(5, 'mm'));
     const desiredCenter = new Measurement(0, 'mm');
+    const extraCenter = new Measurement(0, 'mm');
     const multipleOf = 5;
 
-    const result = calculateClosestCenters(p1, p2, desiredCenter, multipleOf);
+    const result = calculateClosestCenters(
+      p1,
+      p2,
+      desiredCenter,
+      extraCenter,
+      multipleOf,
+    );
 
     expect(result.larger.distance.to('mm').scalar).toBe(0);
     expect(result.smaller.distance.to('mm').scalar).toBe(0);
@@ -231,12 +260,331 @@ describe('calculateClosestCenters', () => {
     const p1 = new SimplePulley(20, new Measurement(5, 'mm'));
     const p2 = new SimplePulley(30, new Measurement(5, 'mm'));
     const desiredCenter = new Measurement(100, 'mm');
+    const extraCenter = new Measurement(0, 'mm');
     const multipleOf = 0;
 
-    const result = calculateClosestCenters(p1, p2, desiredCenter, multipleOf);
+    const result = calculateClosestCenters(
+      p1,
+      p2,
+      desiredCenter,
+      extraCenter,
+      multipleOf,
+    );
 
     expect(result.larger.distance.to('mm').scalar).toBe(0);
     expect(result.smaller.distance.to('mm').scalar).toBe(0);
+  });
+
+  it('adds extra center to both reported distances', () => {
+    const p1 = new SimplePulley(20, new Measurement(5, 'mm'));
+    const p2 = new SimplePulley(30, new Measurement(5, 'mm'));
+    const desiredCenter = new Measurement(100, 'mm');
+    const multipleOf = 5;
+
+    const withoutExtra = calculateClosestCenters(
+      p1,
+      p2,
+      desiredCenter,
+      new Measurement(0, 'mm'),
+      multipleOf,
+    );
+    const withExtra = calculateClosestCenters(
+      p1,
+      p2,
+      desiredCenter,
+      new Measurement(3, 'mm'),
+      multipleOf,
+    );
+
+    expect(withExtra.smaller.distance.to('mm').scalar).toBeCloseTo(
+      withoutExtra.smaller.distance.to('mm').scalar + 3,
+      6,
+    );
+    expect(withExtra.larger.distance.to('mm').scalar).toBeCloseTo(
+      withoutExtra.larger.distance.to('mm').scalar + 3,
+      6,
+    );
+  });
+
+  it('shrinks the pulley gap by the same amount extra center adds', () => {
+    const p1 = new SimplePulley(20, new Measurement(5, 'mm'));
+    const p2 = new SimplePulley(30, new Measurement(5, 'mm'));
+    const desiredCenter = new Measurement(100, 'mm');
+
+    const result = calculateClosestCenters(
+      p1,
+      p2,
+      desiredCenter,
+      new Measurement(3, 'mm'),
+      5,
+    );
+
+    expect(result.smaller.gapBetweenPulleys.to('mm').scalar).toBeCloseTo(
+      calculateDistanceBetweenPulleys(p1, p2, result.smaller.distance).to('mm')
+        .scalar,
+      6,
+    );
+  });
+
+  it('excludes extra center from the difference from target', () => {
+    const p1 = new SimplePulley(20, new Measurement(5, 'mm'));
+    const p2 = new SimplePulley(30, new Measurement(5, 'mm'));
+    const desiredCenter = new Measurement(100, 'mm');
+
+    const withoutExtra = calculateClosestCenters(
+      p1,
+      p2,
+      desiredCenter,
+      new Measurement(0, 'mm'),
+      5,
+    );
+    const withExtra = calculateClosestCenters(
+      p1,
+      p2,
+      desiredCenter,
+      new Measurement(3, 'mm'),
+      5,
+    );
+
+    expect(withExtra.smaller.differenceFromTarget.to('mm').scalar).toBeCloseTo(
+      withoutExtra.smaller.differenceFromTarget.to('mm').scalar,
+      6,
+    );
+  });
+
+  it('measures teeth in mesh at each belt own center distance', () => {
+    const p1 = new SimplePulley(20, new Measurement(5, 'mm'));
+    const p2 = new SimplePulley(30, new Measurement(5, 'mm'));
+    const desiredCenter = new Measurement(100, 'mm');
+
+    const result = calculateClosestCenters(
+      p1,
+      p2,
+      desiredCenter,
+      new Measurement(0, 'mm'),
+      5,
+    );
+
+    expect(result.smaller.p1TeethInMesh).toBe(
+      teethInMesh(p1, p2, result.smaller.distance, p1),
+    );
+    expect(result.smaller.p2TeethInMesh).toBe(
+      teethInMesh(p1, p2, result.smaller.distance, p2),
+    );
+    expect(result.larger.p1TeethInMesh).toBe(
+      teethInMesh(p1, p2, result.larger.distance, p1),
+    );
+    expect(result.larger.p2TeethInMesh).toBe(
+      teethInMesh(p1, p2, result.larger.distance, p2),
+    );
+  });
+
+  it('reports different teeth in mesh for the smaller and larger belt', () => {
+    const p1 = new SimplePulley(16, new Measurement(3, 'mm'));
+    const p2 = new SimplePulley(61, new Measurement(3, 'mm'));
+    const desiredCenter = new Measurement(30, 'mm');
+
+    const result = calculateClosestCenters(
+      p1,
+      p2,
+      desiredCenter,
+      new Measurement(0, 'mm'),
+      5,
+    );
+
+    expect(result.smaller.belt.teeth).toBe(60);
+    expect(result.larger.belt.teeth).toBe(65);
+    expect(result.smaller.p2TeethInMesh).toBe(29);
+    expect(result.larger.p2TeethInMesh).toBe(30);
+  });
+});
+
+describe('calculateCustomBeltCenter', () => {
+  it('solves the center distance for a specific belt', () => {
+    const pitch = new Measurement(5, 'mm');
+    const p1 = new SimplePulley(16, pitch);
+    const p2 = new SimplePulley(24, pitch);
+
+    const result = calculateCustomBeltCenter(
+      p1,
+      p2,
+      125,
+      new Measurement(0, 'mm'),
+    );
+
+    expect(result.distance.to('mm').scalar).toBeCloseTo(262.423, 3);
+  });
+
+  it('reports the belt it was given', () => {
+    const pitch = new Measurement(5, 'mm');
+    const result = calculateCustomBeltCenter(
+      new SimplePulley(16, pitch),
+      new SimplePulley(24, pitch),
+      125,
+      new Measurement(0, 'mm'),
+    );
+
+    expect(result.belt.teeth).toBe(125);
+    expect(result.belt.pitch.to('mm').scalar).toBe(5);
+  });
+
+  it('agrees with calculateDistance', () => {
+    const pitch = new Measurement(5, 'mm');
+    const p1 = new SimplePulley(16, pitch);
+    const p2 = new SimplePulley(24, pitch);
+
+    const result = calculateCustomBeltCenter(
+      p1,
+      p2,
+      125,
+      new Measurement(0, 'mm'),
+    );
+
+    expect(result.distance.to('mm').scalar).toBeCloseTo(
+      calculateDistance(p1, p2, new SimpleBelt(125, pitch)).to('mm').scalar,
+      6,
+    );
+  });
+
+  it('adds extra center to the reported distance', () => {
+    const pitch = new Measurement(5, 'mm');
+    const result = calculateCustomBeltCenter(
+      new SimplePulley(16, pitch),
+      new SimplePulley(24, pitch),
+      125,
+      new Measurement(3, 'mm'),
+    );
+
+    expect(result.distance.to('mm').scalar).toBeCloseTo(262.423 + 3, 3);
+  });
+
+  it('measures teeth in mesh at the computed center distance', () => {
+    const pitch = new Measurement(5, 'mm');
+    const p1 = new SimplePulley(16, pitch);
+    const p2 = new SimplePulley(24, pitch);
+
+    const result = calculateCustomBeltCenter(
+      p1,
+      p2,
+      125,
+      new Measurement(0, 'mm'),
+    );
+
+    expect(result.p1TeethInMesh).toBe(teethInMesh(p1, p2, result.distance, p1));
+    expect(result.p2TeethInMesh).toBe(teethInMesh(p1, p2, result.distance, p2));
+  });
+
+  it('reports the gap between the pulleys', () => {
+    const pitch = new Measurement(5, 'mm');
+    const p1 = new SimplePulley(16, pitch);
+    const p2 = new SimplePulley(24, pitch);
+
+    const result = calculateCustomBeltCenter(
+      p1,
+      p2,
+      125,
+      new Measurement(0, 'mm'),
+    );
+
+    expect(result.gapBetweenPulleys.to('mm').scalar).toBeCloseTo(
+      calculateDistanceBetweenPulleys(p1, p2, result.distance).to('mm').scalar,
+      6,
+    );
+  });
+
+  it('handles zero belt teeth', () => {
+    const pitch = new Measurement(5, 'mm');
+    const result = calculateCustomBeltCenter(
+      new SimplePulley(16, pitch),
+      new SimplePulley(24, pitch),
+      0,
+      new Measurement(0, 'mm'),
+    );
+
+    expect(result.distance.to('mm').scalar).toBe(0);
+    expect(result.gapBetweenPulleys.to('mm').scalar).toBe(0);
+    expect(result.p1TeethInMesh).toBe(0);
+    expect(result.p2TeethInMesh).toBe(0);
+  });
+
+  it('handles zero pitch', () => {
+    const pitch = new Measurement(0, 'mm');
+    const result = calculateCustomBeltCenter(
+      new SimplePulley(16, pitch),
+      new SimplePulley(24, pitch),
+      125,
+      new Measurement(0, 'mm'),
+    );
+
+    expect(result.distance.to('mm').scalar).toBe(0);
+  });
+
+  it('handles zero teeth for p1', () => {
+    const pitch = new Measurement(5, 'mm');
+    const result = calculateCustomBeltCenter(
+      new SimplePulley(0, pitch),
+      new SimplePulley(24, pitch),
+      125,
+      new Measurement(0, 'mm'),
+    );
+
+    expect(result.distance.to('mm').scalar).toBe(0);
+  });
+
+  it('handles zero teeth for p2', () => {
+    const pitch = new Measurement(5, 'mm');
+    const result = calculateCustomBeltCenter(
+      new SimplePulley(16, pitch),
+      new SimplePulley(0, pitch),
+      125,
+      new Measurement(0, 'mm'),
+    );
+
+    expect(result.distance.to('mm').scalar).toBe(0);
+  });
+
+  it('handles a belt too short to wrap the pulleys', () => {
+    const pitch = new Measurement(5, 'mm');
+    const result = calculateCustomBeltCenter(
+      new SimplePulley(20, pitch),
+      new SimplePulley(30, pitch),
+      25,
+      new Measurement(0, 'mm'),
+    );
+
+    expect(result.distance.to('mm').scalar).toBe(0);
+    expect(result.gapBetweenPulleys.to('mm').scalar).toBe(0);
+    expect(result.p1TeethInMesh).toBe(0);
+    expect(result.p2TeethInMesh).toBe(0);
+  });
+
+  it('handles a belt shorter than half the combined pulley teeth', () => {
+    // A 20 tooth belt cannot span 20T and 30T pulleys. The discriminant stays
+    // positive here, so the raw formula yields a negative center distance.
+    const pitch = new Measurement(5, 'mm');
+    const result = calculateCustomBeltCenter(
+      new SimplePulley(20, pitch),
+      new SimplePulley(30, pitch),
+      20,
+      new Measurement(0, 'mm'),
+    );
+
+    expect(result.distance.to('mm').scalar).toBe(0);
+    expect(result.gapBetweenPulleys.to('mm').scalar).toBe(0);
+    expect(result.p1TeethInMesh).toBe(0);
+    expect(result.p2TeethInMesh).toBe(0);
+  });
+
+  it('does not add extra center to a belt too short to wrap the pulleys', () => {
+    const pitch = new Measurement(5, 'mm');
+    const result = calculateCustomBeltCenter(
+      new SimplePulley(20, pitch),
+      new SimplePulley(30, pitch),
+      25,
+      new Measurement(3, 'mm'),
+    );
+
+    expect(result.distance.to('mm').scalar).toBe(0);
   });
 });
 
