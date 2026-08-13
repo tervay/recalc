@@ -3,52 +3,19 @@
 #include <emscripten/val.h>
 
 #include <cmath>
+#include <stdexcept>
 #include <vector>
 
 #include "dc_motor.h"
 #include "hal_init.h"
 #include "sim_util.h"
+#include "wasm_console.h"
 #include "wpi/math/filter/LinearFilter.hpp"
 #include "wpi/math/system/NumericalIntegration.hpp"
 #include "wpi/simulation/BatterySim.hpp"
 #include "wpi/simulation/RoboRioSim.hpp"
 #include "wpi/simulation/SingleJointedArmSim.hpp"
 #include "wpi/system/RobotController.hpp"
-
-// WASM wrapper for wpi::sim::SingleJointedArmSim.
-class SingleJointedArmSimWasm {
- public:
-  SingleJointedArmSimWasm(DCMotorWasm* gearbox, double gearing,
-                          double momentOfInertiaKgMSquared,
-                          double armLengthMeters, double minAngleRadians,
-                          double maxAngleRadians, bool simulateGravity,
-                          double startingAngleRadians)
-      : arm(gearbox->getMotor(), gearing,
-            wpi::units::kilogram_square_meter_t(momentOfInertiaKgMSquared),
-            wpi::units::meter_t(armLengthMeters),
-            wpi::units::radian_t(minAngleRadians),
-            wpi::units::radian_t(maxAngleRadians), simulateGravity,
-            wpi::units::radian_t(startingAngleRadians)) {}
-
-  void setInputVoltage(double voltageVolts) {
-    arm.SetInputVoltage(wpi::units::volt_t(voltageVolts));
-  }
-
-  void update(double dtSeconds) { arm.Update(wpi::units::second_t(dtSeconds)); }
-
-  double getAngle() const { return arm.GetAngle().to<double>(); }
-
-  double getAngularVelocity() const { return arm.GetVelocity().to<double>(); }
-
-  double getCurrentDraw() const { return arm.GetCurrentDraw().to<double>(); }
-
-  bool hasHitLowerLimit() const { return arm.HasHitLowerLimit(); }
-
-  bool hasHitUpperLimit() const { return arm.HasHitUpperLimit(); }
-
- private:
-  wpi::sim::SingleJointedArmSim arm;
-};
 
 // SingleJointedArmSim subclass that supports torque efficiency [0, 1].
 // Overrides UpdateX to scale the motor force (B matrix) by efficiency while
@@ -126,7 +93,7 @@ struct ArmSimStateInternal {
 //                       false: arm moves from startingAngle toward minAngle
 // Returns a JS array of state objects decimated by `decimation`, with the last
 // state always included (matches obliterateArray behaviour in utils.ts).
-inline emscripten::val SimulateArm(
+inline emscripten::val SimulateArmImpl(
     DCMotorWasm* motor, double gearing, double momentOfInertiaKgMSquared,
     double armLengthMeters, double minAngleRadians, double maxAngleRadians,
     double startingAngleRadians, double statorLimitAmps, double supplyLimitAmps,
@@ -134,6 +101,26 @@ inline emscripten::val SimulateArm(
     double batteryVoltageVolts, double efficiency, bool goingUp,
     double simTimestep, int decimation, double maxSimSeconds,
     double batteryVoltageFilterTimeConstantSeconds) {
+  // Guard degenerate inputs, mirroring elevator_sim.h. Three of these are not
+  // recoverable further down and so cannot be left to the try/catch below:
+  //   - decimation: DecimateToJsArray computes `i % decimation`, and integer
+  //     modulo by zero is a wasm trap rather than a C++ exception.
+  //   - simTimestep: a non-positive step never advances `timestamp`, so the
+  //     maxSimSeconds break is unreachable and Update() never moves the arm.
+  //     The loop never terminates.
+  //   - batteryVoltageVolts: ClampVoltageForCurrentLimits ends with
+  //     std::clamp(x, -vSupply, vSupply), which is undefined behavior once
+  //     vSupply goes negative.
+  // A non-positive gearing or moment of inertia makes the model factory throw,
+  // and an inverted travel range makes SetState's std::clamp undefined. Arm
+  // length is deliberately absent: nothing here divides by it, and
+  // EfficiencyArmSim's own `> 0.0` branch turns gravity off cleanly.
+  if (decimation <= 0 || simTimestep <= 0.0 || maxSimSeconds <= 0.0 ||
+      gearing <= 0.0 || momentOfInertiaKgMSquared <= 0.0 || efficiency <= 0.0 ||
+      batteryVoltageVolts <= 0.0 || maxAngleRadians <= minAngleRadians) {
+    return emscripten::val::array();
+  }
+
   EnsureHalInitialized();
 
   EfficiencyArmSim arm(
@@ -199,9 +186,15 @@ inline emscripten::val SimulateArm(
         batteryFilter.Calculate(rawBatteryVoltage);
 
     if (!isAtGoal()) {
+      // The row is stamped with the post-step `timestamp`, so every field in it
+      // is read after the step. `motorShaftRadPerSec` above is the pre-step
+      // value and is deliberately not reused here: it feeds the back-EMF term
+      // of the voltage clamp, which must act on the state at the start of the
+      // step. motorRpm is a magnitude because the arm runs in both directions.
+      const double updatedArmRadPerSec = arm.GetVelocity().to<double>();
       const double motorRpm =
-          std::abs(motorShaftRadPerSec) * 60.0 / (2.0 * M_PI);
-      states.push_back({arm.GetAngle().to<double>(), armRadPerSec,
+          std::abs(updatedArmRadPerSec * gearing) * 60.0 / (2.0 * M_PI);
+      states.push_back({arm.GetAngle().to<double>(), updatedArmRadPerSec,
                         statorCurrent, supplyCurrent, timestamp,
                         filteredBatteryVoltage, vApplied, motorRpm,
                         energyJoules, true});
@@ -233,4 +226,39 @@ inline emscripten::val SimulateArm(
         state.set("success", s.success);
         return state;
       });
+}
+
+// Public entry point. Wraps SimulateArmImpl in a try-catch so that numerical
+// exceptions return an empty array with a diagnostic console.warn instead of
+// aborting the worker.
+inline emscripten::val SimulateArm(
+    DCMotorWasm* motor, double gearing, double momentOfInertiaKgMSquared,
+    double armLengthMeters, double minAngleRadians, double maxAngleRadians,
+    double startingAngleRadians, double statorLimitAmps, double supplyLimitAmps,
+    double statorVoltageVolts, double batteryResistanceOhms,
+    double batteryVoltageVolts, double efficiency, bool goingUp,
+    double simTimestep, int decimation, double maxSimSeconds,
+    double batteryVoltageFilterTimeConstantSeconds) {
+  try {
+    return SimulateArmImpl(
+        motor, gearing, momentOfInertiaKgMSquared, armLengthMeters,
+        minAngleRadians, maxAngleRadians, startingAngleRadians, statorLimitAmps,
+        supplyLimitAmps, statorVoltageVolts, batteryResistanceOhms,
+        batteryVoltageVolts, efficiency, goingUp, simTimestep, decimation,
+        maxSimSeconds, batteryVoltageFilterTimeConstantSeconds);
+  } catch (const std::exception& e) {
+    ConsoleWarn(
+        "SimulateArm: {} (gearing={} moi={} armLen={} minAngle={} "
+        "maxAngle={})",
+        e.what(), gearing, momentOfInertiaKgMSquared, armLengthMeters,
+        minAngleRadians, maxAngleRadians);
+    return emscripten::val::array();
+  } catch (...) {
+    ConsoleWarn(
+        "SimulateArm: unknown exception (gearing={} moi={} armLen={} "
+        "minAngle={} maxAngle={})",
+        gearing, momentOfInertiaKgMSquared, armLengthMeters, minAngleRadians,
+        maxAngleRadians);
+    return emscripten::val::array();
+  }
 }

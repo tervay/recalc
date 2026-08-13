@@ -56,20 +56,6 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
       .function("getJ", &DCMotorSimWasm::getJ)
       .function("getCurrentDraw", &DCMotorSimWasm::getCurrentDraw);
 
-  // SingleJointedArmSim
-  class_<SingleJointedArmSimWasm>("SingleJointedArmSim")
-      .constructor<DCMotorWasm*, double, double, double, double, double, bool,
-                   double>(allow_raw_pointers())
-      .function("setInputVoltage(voltageVolts)",
-                &SingleJointedArmSimWasm::setInputVoltage)
-      .function("update(dtSeconds)", &SingleJointedArmSimWasm::update)
-      .function("getAngle", &SingleJointedArmSimWasm::getAngle)
-      .function("getAngularVelocity",
-                &SingleJointedArmSimWasm::getAngularVelocity)
-      .function("getCurrentDraw", &SingleJointedArmSimWasm::getCurrentDraw)
-      .function("hasHitLowerLimit", &SingleJointedArmSimWasm::hasHitLowerLimit)
-      .function("hasHitUpperLimit", &SingleJointedArmSimWasm::hasHitUpperLimit);
-
   // RoboRioSim static methods
   function("RoboRioSim_setVInVoltage(voltageVolts)", &RoboRioSim_SetVInVoltage);
 
@@ -77,7 +63,6 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
   function("RobotController_getInputVoltage", &RobotController_GetInputVoltage);
 
   // BatterySim static methods
-  function("BatterySim_calculate(currentDrawsAmps)", &BatterySim_Calculate);
   function("BatterySim_calculateDefaultBatteryLoadedVoltage(currentDrawsAmps)",
            &BatterySim_CalculateDefaultBatteryLoadedVoltage);
   function(

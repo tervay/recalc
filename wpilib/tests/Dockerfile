@@ -1,4 +1,4 @@
-FROM emscripten/emsdk:6.0.2 AS base
+FROM emscripten/emsdk:6.0.6 AS base
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -133,13 +133,14 @@ WORKDIR /src
 
 # Build context is wpilib/ — paths here are relative to that root.
 COPY tests/ /src/tests/
-COPY patches/wpilibc/wasm/sim_util.h /src/patches/wpilibc/wasm/sim_util.h
-COPY patches/wpilibc/wasm/wasm_console.h /src/patches/wpilibc/wasm/wasm_console.h
-COPY patches/wpilibc/wasm/dc_motor.h /src/patches/wpilibc/wasm/dc_motor.h
-COPY patches/wpilibc/wasm/hal_init.h /src/patches/wpilibc/wasm/hal_init.h
-COPY patches/wpilibc/wasm/feedback_gains.h /src/patches/wpilibc/wasm/feedback_gains.h
-COPY patches/wpilibc/wasm/feedforward_gains.h /src/patches/wpilibc/wasm/feedforward_gains.h
-COPY patches/wpilibc/wasm/elevator_sim.h /src/patches/wpilibc/wasm/elevator_sim.h
+# Every header under test, by glob: adding a test must not require a Dockerfile
+# edit. Only .h files are taken, so bindings.cc, CMakeLists.txt,
+# emscripten_toolchain.cmake and stubs/ stay out.
+#
+# Do not do this in the wpilib-libs stage above: that stage's COPY lines sit
+# above the expensive WPILib compile, so a glob there would rebuild the whole
+# library set on every header edit.
+COPY patches/wpilibc/wasm/*.h /src/patches/wpilibc/wasm/
 
 WORKDIR /src/tests/build
 
@@ -148,6 +149,10 @@ RUN emcmake cmake .. \
         -DCMAKE_BUILD_TYPE=Debug \
     && emmake ninja
 
-# Run every test binary unconditionally so a failure in one doesn't hide the
-# result of another; fail the container if any fails.
-CMD ["sh", "-c", "set -u; status=0; node sim_util_tests.js || status=1; node wasm_console_tests.js || status=1; node feedback_gains_tests.js || status=1; node feedforward_gains_tests.js || status=1; node elevator_sim_tests.js || status=1; exit \"$status\""]
+# ctest runs every case registered by tests/CMakeLists.txt, continues past a
+# failing one, and exits non-zero if any failed. --no-tests=error turns an empty
+# test list into a failure instead of a silent pass.
+#
+# ENTRYPOINT rather than CMD so `docker run --rm <image> -R arm_sim` filters
+# without restating the flags. For a shell, use --entrypoint sh.
+ENTRYPOINT ["ctest", "--output-on-failure", "--no-tests=error"]

@@ -59,16 +59,6 @@ export interface DCMotorSim extends ClassHandle {
   getCurrentDraw(): number;
 }
 
-export interface SingleJointedArmSim extends ClassHandle {
-  hasHitLowerLimit(): boolean;
-  hasHitUpperLimit(): boolean;
-  setInputVoltage(voltageVolts: number): void;
-  update(dtSeconds: number): void;
-  getAngle(): number;
-  getAngularVelocity(): number;
-  getCurrentDraw(): number;
-}
-
 interface EmbindModule {
   VectorDouble: {
     new (): VectorDouble;
@@ -86,21 +76,8 @@ interface EmbindModule {
   DCMotorSim: {
     new (_0: DCMotor | null, _1: number, _2: number): DCMotorSim;
   };
-  SingleJointedArmSim: {
-    new (
-      _0: DCMotor | null,
-      _1: number,
-      _2: number,
-      _3: number,
-      _4: number,
-      _5: number,
-      _6: boolean,
-      _7: number,
-    ): SingleJointedArmSim;
-  };
   RoboRioSim_setVInVoltage(voltageVolts: number): void;
   RobotController_getInputVoltage(): number;
-  BatterySim_calculate(currentDrawsAmps: VectorDouble): number;
   BatterySim_calculateDefaultBatteryLoadedVoltage(
     currentDrawsAmps: VectorDouble,
   ): number;
