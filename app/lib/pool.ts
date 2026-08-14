@@ -5,11 +5,9 @@ import type { WorkerPoolOptions } from 'workerpool';
 type Fn = (...args: any[]) => any;
 
 type PickFunctions<T> = {
-  [K in keyof T as K extends string
-    ? T[K] extends Fn
-      ? K
-      : never
-    : never]: T[K] extends Fn ? T[K] : never;
+  [
+    K in keyof T as K extends string ? (T[K] extends Fn ? K : never) : never
+  ]: T[K] extends Fn ? T[K] : never;
 };
 
 interface TypedPool<T extends Record<string, Fn>> {
