@@ -136,8 +136,8 @@ importers:
         specifier: 1.6.1
         version: 1.6.1
       eslint-plugin-zod:
-        specifier: 4.9.0
-        version: 4.9.0(eslint@10.7.0(jiti@2.7.0))(oxlint@1.78.0(oxlint-tsgolint@7.0.2001))(typescript@7.0.2)(zod@4.4.3)
+        specifier: 4.9.1
+        version: 4.9.1(eslint@10.7.0(jiti@2.7.0))(oxlint@1.78.0(oxlint-tsgolint@7.0.2001))(typescript@7.0.2)(zod@4.4.3)
       jsdom:
         specifier: 30.0.1
         version: 30.0.1
@@ -151,8 +151,8 @@ importers:
         specifier: 1.78.0
         version: 1.78.0(oxlint-tsgolint@7.0.2001)
       oxlint-tailwindcss:
-        specifier: 1.7.1
-        version: 1.7.1
+        specifier: 1.8.0
+        version: 1.8.0
       oxlint-tsgolint:
         specifier: 7.0.2001
         version: 7.0.2001
@@ -581,8 +581,8 @@ packages:
     resolution: {integrity: sha512-EriSTlt5OC9/7SXkRSCAhfSxxoSUgBm33OH+IkwbdpgoqsSsUg7y3uh+IICI/Qg4BBWr3U2i39RpmycbxMq4ew==}
     engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
 
-  '@eslint-zod/utils@2.5.0':
-    resolution: {integrity: sha512-8cWwRFB0hS06mW3avcsAEqxbGJ371S00OVDTaTMyCaGefRZWNo1ONQMstexhjrSPsJYJnBft6zwsmDVzfCO5Dg==}
+  '@eslint-zod/utils@3.0.0':
+    resolution: {integrity: sha512-4nmHpA400HOsSR4582DKtbOoXEi1ND6RuHTP3NFVd8nd2VIkw4IPGg3veiBPjpBtJ3Dk/TjgypFv9UWMWIh5TA==}
     engines: {node: ^20 || ^22 || >=24}
 
   '@eslint/config-array@0.23.5':
@@ -2029,8 +2029,8 @@ packages:
   eslint-plugin-no-relative-import-paths@1.6.1:
     resolution: {integrity: sha512-YZNeOnsOrJcwhFw0X29MXjIzu2P/f5X2BZDPWw1R3VUYBRFxNIh77lyoL/XrMU9ewZNQPcEvAgL/cBOT1P330A==}
 
-  eslint-plugin-zod@4.9.0:
-    resolution: {integrity: sha512-jWUbyQITQEsJxXfMtSw7HcD08Au9kJ6fatm3QrYPePfxJDbf6mbJ/lxdm5dIsyMbuO9A79jLnJjwDmjW2G8Asw==}
+  eslint-plugin-zod@4.9.1:
+    resolution: {integrity: sha512-Dqe9IA+QIngGG+JJoXSxC4n3l/8UEmpKRcTom2tohZ7Xq9+LBnJOgLHYsfNlh6kQY2GAI3PJWmvL+Rnqqx3LDg==}
     engines: {node: ^20 || ^22 || >=24}
     peerDependencies:
       eslint: ^9 || ^10
@@ -2754,8 +2754,8 @@ packages:
       vite-plus:
         optional: true
 
-  oxlint-tailwindcss@1.7.1:
-    resolution: {integrity: sha512-b1020t2FGEaqAubB9TF2+unoCqllj8Uo1NTh6JX1uR9Ht/s4Vmunc0Nh+UdobUFH55y059SlRMhy4ljdslXdUw==}
+  oxlint-tailwindcss@1.8.0:
+    resolution: {integrity: sha512-g5xdgucjlXI2pQboooVtE1XMpzdYchkzxoFy7X1CSdCxpJNfYodmRdGoniqDewTC+4cwWhWLQaZvo2b/6xuKbQ==}
     engines: {node: '>=20'}
 
   oxlint-tsgolint@7.0.2001:
@@ -3806,7 +3806,7 @@ snapshots:
 
   '@eslint-community/regexpp@4.12.2': {}
 
-  '@eslint-zod/utils@2.5.0(eslint@10.7.0(jiti@2.7.0))(typescript@7.0.2)':
+  '@eslint-zod/utils@3.0.0(eslint@10.7.0(jiti@2.7.0))(typescript@7.0.2)':
     dependencies:
       '@typescript-eslint/utils': 8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@7.0.2)
       esquery: 1.7.0
@@ -5020,9 +5020,9 @@ snapshots:
 
   eslint-plugin-no-relative-import-paths@1.6.1: {}
 
-  eslint-plugin-zod@4.9.0(eslint@10.7.0(jiti@2.7.0))(oxlint@1.78.0(oxlint-tsgolint@7.0.2001))(typescript@7.0.2)(zod@4.4.3):
+  eslint-plugin-zod@4.9.1(eslint@10.7.0(jiti@2.7.0))(oxlint@1.78.0(oxlint-tsgolint@7.0.2001))(typescript@7.0.2)(zod@4.4.3):
     dependencies:
-      '@eslint-zod/utils': 2.5.0(eslint@10.7.0(jiti@2.7.0))(typescript@7.0.2)
+      '@eslint-zod/utils': 3.0.0(eslint@10.7.0(jiti@2.7.0))(typescript@7.0.2)
       '@typescript-eslint/utils': 8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@7.0.2)
     optionalDependencies:
       eslint: 10.7.0(jiti@2.7.0)
@@ -5705,7 +5705,7 @@ snapshots:
       '@oxfmt/binding-win32-ia32-msvc': 0.63.0
       '@oxfmt/binding-win32-x64-msvc': 0.63.0
 
-  oxlint-tailwindcss@1.7.1:
+  oxlint-tailwindcss@1.8.0:
     dependencies:
       '@tailwindcss/node': 4.3.3
       tailwindcss: 4.3.3
