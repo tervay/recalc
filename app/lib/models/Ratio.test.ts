@@ -129,7 +129,22 @@ describe('Ratio', () => {
     it('handles zero magnitude conversion', () => {
       const ratio = new Ratio(0, RatioType.REDUCTION);
       const result = ratio.to(RatioType.STEP_UP);
-      expect(result.magnitude).toBe(Infinity);
+      expect(result.magnitude).toBe(0);
+      expect(result.ratioType).toBe(RatioType.STEP_UP);
+    });
+
+    it('handles zero magnitude conversion from STEP_UP to REDUCTION', () => {
+      const ratio = new Ratio(0, RatioType.STEP_UP);
+      const result = ratio.to(RatioType.REDUCTION);
+      expect(result.magnitude).toBe(0);
+      expect(result.ratioType).toBe(RatioType.REDUCTION);
+    });
+
+    it('leaves normal (non-zero) conversion unaffected by the zero-guard', () => {
+      const ratio = new Ratio(4, RatioType.REDUCTION);
+      const result = ratio.to(RatioType.STEP_UP);
+      expect(result.magnitude).toBeCloseTo(1 / 4);
+      expect(result.ratioType).toBe(RatioType.STEP_UP);
     });
 
     it('handles negative magnitude conversion', () => {

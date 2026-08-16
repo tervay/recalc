@@ -117,48 +117,58 @@ export async function optimizeRatio(
     efficiency,
     batteryVoltageFilterTimeConstantSeconds,
   );
-  const totalStatorAmps = statorLimitAmps * p.motorQuantity;
-  const supplyAmps = Measurement.fromDict(supplyLimitDict).to('A').scalar;
-  const totalSupplyAmps = supplyAmps * p.motorQuantity;
+  try {
+    const totalStatorAmps = statorLimitAmps * p.motorQuantity;
+    const supplyAmps = Measurement.fromDict(supplyLimitDict).to('A').scalar;
+    const totalSupplyAmps = supplyAmps * p.motorQuantity;
 
-  // Compute the maximum ratio where the motor can still reach the target speed.
-  // Free speed at the load = motorFreeSpeed / ratio, so ratio_max = motorFreeSpeed / targetSpeed.
-  // Leave some headroom (0.95) since you can't actually reach free speed under load.
-  const motorFreeSpeedRadPerSec = p.wpilibMotor.getFreeSpeedRadPerSec();
-  const maxRatio =
-    p.targetRadPerSec > 0
-      ? Math.max(1, (0.95 * motorFreeSpeedRadPerSec) / p.targetRadPerSec)
-      : 1;
+    // Compute the maximum ratio where the motor can still reach the target speed.
+    // Free speed at the load = motorFreeSpeed / ratio, so ratio_max = motorFreeSpeed / targetSpeed.
+    // Leave some headroom (0.95) since you can't actually reach free speed under load.
+    const motorFreeSpeedRadPerSec = p.wpilibMotor.getFreeSpeedRadPerSec();
+    const maxRatio =
+      p.targetRadPerSec > 0
+        ? Math.max(1, (0.95 * motorFreeSpeedRadPerSec) / p.targetRadPerSec)
+        : 1;
 
-  const optimalRatio = minimize(
-    (r) => {
-      const states = simulate(wpilibc, p, r, totalStatorAmps, totalSupplyAmps);
-      const last = states[states.length - 1];
-      return last?.success ? last.timeSeconds : Number.POSITIVE_INFINITY;
-    },
-    {
-      lowerBound: 0.25,
-      upperBound: Math.min(maxRatio, 20),
-      guess: Math.min(initialRatio, maxRatio),
-    },
-  );
+    const optimalRatio = minimize(
+      (r) => {
+        const states = simulate(
+          wpilibc,
+          p,
+          r,
+          totalStatorAmps,
+          totalSupplyAmps,
+        );
+        const last = states[states.length - 1];
+        return last?.success ? last.timeSeconds : Number.POSITIVE_INFINITY;
+      },
+      {
+        lowerBound: 0.25,
+        upperBound: Math.min(maxRatio, 20),
+        guess: Math.min(initialRatio, maxRatio),
+      },
+    );
 
-  const states = simulate(
-    wpilibc,
-    p,
-    optimalRatio,
-    totalStatorAmps,
-    totalSupplyAmps,
-  );
-  const last = states[states.length - 1];
+    const states = simulate(
+      wpilibc,
+      p,
+      optimalRatio,
+      totalStatorAmps,
+      totalSupplyAmps,
+    );
+    const last = states[states.length - 1];
 
-  return {
-    statorLimitAmps,
-    optimalRatio,
-    timeToGoalSeconds: last.timeSeconds,
-    energyJoules: last.energyJoules,
-    peakCurrentAmps: peakSupplyCurrent(states),
-  };
+    return {
+      statorLimitAmps,
+      optimalRatio,
+      timeToGoalSeconds: last.timeSeconds,
+      energyJoules: last.energyJoules,
+      peakCurrentAmps: peakSupplyCurrent(states),
+    };
+  } finally {
+    p.wpilibMotor.delete();
+  }
 }
 
 export async function optimizeConfiguration(
@@ -186,93 +196,112 @@ export async function optimizeConfiguration(
     batteryVoltageFilterTimeConstantSeconds,
   );
 
-  const maxStator = Measurement.fromDict(maximumComfortableStatorLimitDict).to(
-    'A',
-  ).scalar;
-  const maxSupply = Measurement.fromDict(maximumComfortableSupplyLimitDict).to(
-    'A',
-  ).scalar;
+  try {
+    const maxStator = Measurement.fromDict(
+      maximumComfortableStatorLimitDict,
+    ).to('A').scalar;
+    const maxSupply = Measurement.fromDict(
+      maximumComfortableSupplyLimitDict,
+    ).to('A').scalar;
 
-  const motorFreeSpeedRadPerSec = p.wpilibMotor.getFreeSpeedRadPerSec();
-  const maxRatio =
-    p.targetRadPerSec > 0
-      ? Math.max(1, (0.95 * motorFreeSpeedRadPerSec) / p.targetRadPerSec)
-      : 1;
+    const motorFreeSpeedRadPerSec = p.wpilibMotor.getFreeSpeedRadPerSec();
+    const maxRatio =
+      p.targetRadPerSec > 0
+        ? Math.max(1, (0.95 * motorFreeSpeedRadPerSec) / p.targetRadPerSec)
+        : 1;
 
-  const allResults: ConfigOptResult[] = [];
+    const allResults: ConfigOptResult[] = [];
 
-  for (const statorAmps of makeGrid(maxStator)) {
-    const totalStatorAmps = statorAmps * p.motorQuantity;
-    for (const supplyAmps of makeGrid(maxSupply)) {
-      const totalSupplyAmps = supplyAmps * p.motorQuantity;
+    for (const statorAmps of makeGrid(maxStator)) {
+      const totalStatorAmps = statorAmps * p.motorQuantity;
+      for (const supplyAmps of makeGrid(maxSupply)) {
+        const totalSupplyAmps = supplyAmps * p.motorQuantity;
 
-      let optimalRatio: number;
-      try {
-        optimalRatio = minimize(
-          (r) => {
-            const states = simulate(
-              wpilibc,
-              p,
-              r,
-              totalStatorAmps,
-              totalSupplyAmps,
-              1.5,
-            );
-            const last = states[states.length - 1];
-            return last?.success ? last.timeSeconds : Number.POSITIVE_INFINITY;
-          },
-          {
-            lowerBound: 0.25,
-            upperBound: Math.min(maxRatio, 20),
-            guess: Math.min(1, maxRatio),
-          },
+        let optimalRatio: number;
+        try {
+          optimalRatio = minimize(
+            (r) => {
+              const states = simulate(
+                wpilibc,
+                p,
+                r,
+                totalStatorAmps,
+                totalSupplyAmps,
+                1.5,
+              );
+              const last = states[states.length - 1];
+              return last?.success
+                ? last.timeSeconds
+                : Number.POSITIVE_INFINITY;
+            },
+            {
+              lowerBound: 0.25,
+              upperBound: Math.min(maxRatio, 20),
+              guess: Math.min(1, maxRatio),
+            },
+          );
+        } catch {
+          allResults.push({
+            statorLimitAmps: statorAmps,
+            supplyLimitAmps: supplyAmps,
+            optimalRatio: NaN,
+            timeToGoalSeconds: Number.POSITIVE_INFINITY,
+            peakCurrentAmps: 0,
+            energyJoules: 0,
+            success: false,
+          });
+          continue;
+        }
+
+        const states = simulate(
+          wpilibc,
+          p,
+          optimalRatio,
+          totalStatorAmps,
+          totalSupplyAmps,
+          1.5,
         );
-      } catch {
+        const last = states[states.length - 1];
+
+        if (!last) {
+          allResults.push({
+            statorLimitAmps: statorAmps,
+            supplyLimitAmps: supplyAmps,
+            optimalRatio,
+            timeToGoalSeconds: Number.POSITIVE_INFINITY,
+            peakCurrentAmps: 0,
+            energyJoules: 0,
+            success: false,
+          });
+          continue;
+        }
+
         allResults.push({
           statorLimitAmps: statorAmps,
           supplyLimitAmps: supplyAmps,
-          optimalRatio: NaN,
-          timeToGoalSeconds: Number.POSITIVE_INFINITY,
-          peakCurrentAmps: 0,
-          energyJoules: 0,
-          success: false,
+          optimalRatio,
+          timeToGoalSeconds: last.timeSeconds,
+          peakCurrentAmps: peakSupplyCurrent(states),
+          energyJoules: last.energyJoules,
+          success: last.success,
         });
-        continue;
       }
-
-      const states = simulate(
-        wpilibc,
-        p,
-        optimalRatio,
-        totalStatorAmps,
-        totalSupplyAmps,
-        1.5,
-      );
-      const last = states[states.length - 1];
-
-      allResults.push({
-        statorLimitAmps: statorAmps,
-        supplyLimitAmps: supplyAmps,
-        optimalRatio,
-        timeToGoalSeconds: last.timeSeconds,
-        peakCurrentAmps: peakSupplyCurrent(states),
-        energyJoules: last.energyJoules,
-        success: last.success,
-      });
     }
+
+    const successResults = allResults.filter((r) => r.success);
+
+    if (successResults.length === 0) {
+      return { recommended: null, allResults };
+    }
+
+    const recommended = successResults.reduce((best, r) =>
+      r.timeToGoalSeconds < best.timeToGoalSeconds ? r : best,
+    );
+
+    return { recommended, allResults };
+  } finally {
+    p.wpilibMotor.delete();
   }
-
-  const successResults = allResults.filter((r) => r.success);
-
-  if (successResults.length === 0) {
-    return { recommended: null, allResults };
-  }
-
-  const recommended = successResults.reduce((best, r) =>
-    r.timeToGoalSeconds < best.timeToGoalSeconds ? r : best,
-  );
-
-  return { recommended, allResults };
 }
 
 workerpool.worker({ optimizeRatio, optimizeConfiguration });

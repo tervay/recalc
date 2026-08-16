@@ -268,6 +268,20 @@ describe('NumberInput', () => {
     });
   });
 
+  // Most callers (angles, offsets) legitimately go negative, so the bound is
+  // opt-in per caller rather than baked into the component.
+  describe('min', () => {
+    it('applies a caller-supplied min to the input', () => {
+      renderNumber({ value: 12, label: LABEL, min: 1 });
+      expect(numberField(LABEL).min).toBe('1');
+    });
+
+    it('renders no min when none is given', () => {
+      renderNumber({ value: 12, label: LABEL });
+      expect(numberField(LABEL).hasAttribute('min')).toBe(false);
+    });
+  });
+
   // jsdom has no layout, so the stacking direction is only observable through
   // the classes the component picks.
   describe('labelAbove', () => {

@@ -95,12 +95,14 @@ export default function Gears() {
                   label="Gear 1 Teeth"
                   testId="gear1Teeth"
                   labelAbove
+                  min={1}
                 />
                 <NumberInput
                   stateHook={[gear2Teeth, setGear2Teeth]}
                   label="Gear 2 Teeth"
                   testId="gear2Teeth"
                   labelAbove
+                  min={1}
                 />
               </div>
               <div className="flex flex-col gap-3 *:flex-1 md:flex-row md:gap-x-4">

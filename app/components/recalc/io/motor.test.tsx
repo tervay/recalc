@@ -320,6 +320,15 @@ describe('MotorInput', () => {
     });
   });
 
+  // A negative motor count is meaningless, so the browser is told never to
+  // offer one.
+  describe('min', () => {
+    it('rejects a quantity below zero', () => {
+      renderInput({ value: Motor.NEO(2) });
+      expect(numberField(LABEL).min).toBe('0');
+    });
+  });
+
   // The component keeps the motor split into a name and a count, so it has to
   // re-adopt a Motor that arrives from anywhere else -- a preset, a reset
   // button, a link. Without this it would push its stale value back instead.

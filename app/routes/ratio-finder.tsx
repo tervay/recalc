@@ -176,7 +176,7 @@ export default function RatioFinder() {
   const [targetReduction, setTargetReduction] = useState(
     queryParams.targetReduction,
   );
-  const [targetReductionErrorThreshold, _setTargetReductionErrorThreshold] =
+  const [targetReductionErrorThreshold, setTargetReductionErrorThreshold] =
     useState(queryParams.targetReductionErrorThreshold);
   const [enableCustomGears, setEnableCustomGears] = useState(
     queryParams.enableCustomGears,
@@ -392,6 +392,14 @@ export default function RatioFinder() {
                 <BoreInput
                   stateHook={[startingBore, setStartingBore]}
                   label="Starting Bore"
+                  labelAbove
+                />
+                <NumberInput
+                  stateHook={[
+                    targetReductionErrorThreshold,
+                    setTargetReductionErrorThreshold,
+                  ]}
+                  label="Target Error Threshold"
                   labelAbove
                 />
               </IOLine>

@@ -25,11 +25,13 @@ export default function NumberInput({
   tooltip,
   testId,
   labelAbove,
+  min,
 }: HasStateHook<number> & {
   label: string;
   tooltip?: string;
   testId?: string;
   labelAbove?: boolean;
+  min?: number;
 }) {
   const [value, setValue] = stateHook;
   const inputId = useId();
@@ -93,6 +95,7 @@ export default function NumberInput({
       )}
       <Input
         type="number"
+        min={min}
         id={inputId}
         value={proxyValue}
         onChange={(e) => commit(e.target.value)}

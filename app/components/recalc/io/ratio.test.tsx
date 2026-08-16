@@ -475,6 +475,15 @@ describe('RatioInput', () => {
     });
   });
 
+  // A negative ratio magnitude is physically meaningless, so the browser is
+  // told never to offer one.
+  describe('min', () => {
+    it('rejects a magnitude below zero', () => {
+      renderInput({ value: new Ratio(2) });
+      expect(numberField(LABEL).min).toBe('0');
+    });
+  });
+
   // jsdom has no layout, so the stacking direction is only observable through
   // the classes the component picks.
   describe('labelAbove', () => {

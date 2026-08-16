@@ -43,8 +43,11 @@ export default class Ratio extends Model {
   }
 
   to(ratioType: RatioType): Ratio {
-    return ratioType == this.ratioType
-      ? this
+    if (ratioType == this.ratioType) {
+      return this;
+    }
+    return this.magnitude === 0
+      ? new Ratio(0, ratioType)
       : new Ratio(1 / this.magnitude, ratioType);
   }
 
