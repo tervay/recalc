@@ -213,7 +213,8 @@ export function teethInMesh(
   const P1 = p1.pitchDiameter;
   const P2 = p2.pitchDiameter;
   const d = P1.sub(P2).div(2).abs();
-  const a = Math.asin(d.to('in').scalar / center.to('in').scalar);
+  const a =
+    Math.asin(d.to('in').scalar / center.to('in').scalar) * (180 / Math.PI);
 
   if (Number.isNaN(a)) {
     return 0;
@@ -237,11 +238,11 @@ export function teethInMesh(
 export function getTIMFactor(teethInMesh: number): number {
   if (teethInMesh >= 6) {
     return 1.0;
-  } else if (teethInMesh > 5) {
+  } else if (teethInMesh >= 5) {
     return 0.8;
-  } else if (teethInMesh > 4) {
+  } else if (teethInMesh >= 4) {
     return 0.6;
-  } else if (teethInMesh > 3) {
+  } else if (teethInMesh >= 3) {
     return 0.4;
   }
 

@@ -394,8 +394,8 @@ describe('calculateClosestCenters', () => {
 
     expect(result.smaller.belt.teeth).toBe(60);
     expect(result.larger.belt.teeth).toBe(65);
-    expect(result.smaller.p2TeethInMesh).toBe(29);
-    expect(result.larger.p2TeethInMesh).toBe(30);
+    expect(result.smaller.p2TeethInMesh).toBe(1);
+    expect(result.larger.p2TeethInMesh).toBe(16);
   });
 });
 
@@ -654,6 +654,16 @@ describe('teethInMesh', () => {
 
     expect(result).toBe(9);
   });
+
+  it('computes the wrap angle in degrees, not radians, for pulleys with a large size mismatch', () => {
+    const p1 = new SimplePulley(60, new Measurement(5, 'mm'));
+    const p2 = new SimplePulley(10, new Measurement(5, 'mm'));
+    const center = new Measurement(50, 'mm');
+
+    const result = teethInMesh(p1, p2, center, p1);
+
+    expect(result).toBe(12);
+  });
 });
 
 describe('getTIMFactor', () => {
@@ -663,20 +673,22 @@ describe('getTIMFactor', () => {
     expect(getTIMFactor(100)).toBe(1.0);
   });
 
-  it('returns 0.8 for teeth > 5', () => {
+  it('returns 0.8 for 5 teeth', () => {
+    expect(getTIMFactor(5)).toBe(0.8);
     expect(getTIMFactor(5.5)).toBe(0.8);
   });
 
-  it('returns 0.6 for teeth > 4', () => {
+  it('returns 0.6 for 4 teeth', () => {
+    expect(getTIMFactor(4)).toBe(0.6);
     expect(getTIMFactor(4.5)).toBe(0.6);
   });
 
-  it('returns 0.4 for teeth > 3', () => {
+  it('returns 0.4 for 3 teeth', () => {
+    expect(getTIMFactor(3)).toBe(0.4);
     expect(getTIMFactor(3.5)).toBe(0.4);
   });
 
-  it('returns 0.2 for teeth <= 3', () => {
-    expect(getTIMFactor(3)).toBe(0.2);
+  it('returns 0.2 for 2 or fewer teeth', () => {
     expect(getTIMFactor(2)).toBe(0.2);
     expect(getTIMFactor(1)).toBe(0.2);
     expect(getTIMFactor(0)).toBe(0.2);
@@ -685,12 +697,13 @@ describe('getTIMFactor', () => {
   it('handles boundary values correctly', () => {
     expect(getTIMFactor(6)).toBe(1.0);
     expect(getTIMFactor(5.1)).toBe(0.8);
-    expect(getTIMFactor(5)).toBe(0.6);
+    expect(getTIMFactor(5)).toBe(0.8);
     expect(getTIMFactor(4.1)).toBe(0.6);
-    expect(getTIMFactor(4)).toBe(0.4);
+    expect(getTIMFactor(4)).toBe(0.6);
     expect(getTIMFactor(3.1)).toBe(0.4);
-    expect(getTIMFactor(3)).toBe(0.2);
+    expect(getTIMFactor(3)).toBe(0.4);
     expect(getTIMFactor(2.9)).toBe(0.2);
+    expect(getTIMFactor(2)).toBe(0.2);
   });
 
   it('handles negative values', () => {

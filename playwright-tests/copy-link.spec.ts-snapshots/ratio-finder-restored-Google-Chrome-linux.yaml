@@ -9,6 +9,8 @@
 - combobox: Reduction
 - text: Starting Bore
 - combobox: SplineXS
+- text: Target Error Threshold
+- spinbutton "Target Error Threshold": "0.1"
 - heading "Tooth Ranges" [level=2]
 - text: Min Gear Teeth
 - spinbutton "Min Gear Teeth": "10"

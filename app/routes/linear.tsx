@@ -380,6 +380,8 @@ export default function Linear() {
 
   useEffect(() => {
     setIsSimulating(true);
+    let cancelled = false;
+
     getWorker()
       .simulateElevatorWpilib({
         motorDict: motor.toDict(),
@@ -407,13 +409,19 @@ export default function Linear() {
           kalmanFilterEncoderPositionStdDev.toDict(),
       })
       .then((states) => {
+        if (cancelled) return;
         setWorkerWpilibSimStates(states);
         setIsSimulating(false);
       })
       .catch((error) => {
+        if (cancelled) return;
         console.error(error);
         setIsSimulating(false);
       });
+
+    return () => {
+      cancelled = true;
+    };
   }, [
     motor,
     ratio,

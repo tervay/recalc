@@ -158,6 +158,7 @@ export function MotorInput({
       <div className="flex w-full flex-row">
         <Input
           type="number"
+          min={0}
           id={inputId}
           value={proxyQuantity}
           onChange={(e) => {

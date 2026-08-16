@@ -199,6 +199,7 @@ export default function Chains() {
                     stateHook={[p1Teeth, setP1Teeth]}
                     label="Teeth"
                     testId="p1Teeth"
+                    min={1}
                   />
                 </IOLine>
                 <IOLine>
@@ -222,6 +223,7 @@ export default function Chains() {
                     stateHook={[p2Teeth, setP2Teeth]}
                     label="Teeth"
                     testId="p2Teeth"
+                    min={1}
                   />
                 </IOLine>
                 <IOLine>

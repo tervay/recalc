@@ -75,6 +75,7 @@ export function RatioInput({
       <div className="flex w-full flex-row">
         <Input
           type="number"
+          min={0}
           id={inputId}
           value={proxyMagnitude}
           onChange={(e) => {

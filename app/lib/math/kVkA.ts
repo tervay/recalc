@@ -60,7 +60,10 @@ export function calculateLinearSupplyLimitedMaxVelocity(
   // disc = η²·kG² + 4·(1−η)·P
   const kGSq = kG.mul(kG);
   const disc = kGSq.mul(eta * eta).add(P.mul(4 * (1 - eta)));
-  const sqrtDisc = new Measurement(Math.sqrt(disc.to('V^2').scalar), 'V');
+  const sqrtDisc = new Measurement(
+    Math.sqrt(Math.max(0, disc.to('V^2').scalar)),
+    'V',
+  );
   const numerator = sqrtDisc.sub(kG.mul(2 - eta));
   return numerator.div(kV.mul(2 * (1 - eta)));
 }

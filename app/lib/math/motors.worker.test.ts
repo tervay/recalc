@@ -1,8 +1,9 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { generateMotorCurve } from '~/lib/math/motors.worker';
 import Measurement from '~/lib/models/Measurement';
 import Motor, { ALL_MOTORS } from '~/lib/models/Motor';
+import { initWpilibc } from '~/lib/wpilib/wpilibc';
 
 const statorLimit = new Measurement(1000, 'A');
 const supplyLimit = new Measurement(1000, 'A');
@@ -68,5 +69,44 @@ describe('generateMotorCurve efficiency', () => {
     // Brushless FRC motors peak well above 50% but below 100%.
     expect(peak).toBeGreaterThan(0.5);
     expect(peak).toBeLessThan(1);
+  });
+});
+
+describe('generateMotorCurve termination', () => {
+  it('resolves instead of hanging when the current limit is zero', async () => {
+    // A zero stator limit drives iMax to 0, which pins vApplied at vBackEmf
+    // every iteration. At velocity 0 that keeps vApplied at 0 forever, so the
+    // loop never accelerates and would spin forever without an iteration cap.
+    const zeroStatorLimit = new Measurement(0, 'A');
+
+    const result = await generateMotorCurve(
+      Motor.fromName('Kraken X60', 1).toDict(),
+      zeroStatorLimit.toDict(),
+      supplyLimit.toDict(),
+      statorVoltage.toDict(),
+      supplyVoltage.toDict(),
+    );
+
+    expect(Array.isArray(result)).toBe(true);
+  }, 10_000);
+});
+
+describe('generateMotorCurve wasm cleanup', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('deletes the wpilib DCMotor and DCMotorSim it allocates', async () => {
+    const wpilibc = await initWpilibc();
+    const toWpilibMotorSpy = vi.spyOn(Motor.prototype, 'toWpilibMotor');
+    const motorSimDeleteSpy = vi.spyOn(wpilibc.DCMotorSim.prototype, 'delete');
+
+    await curveFor('Kraken X60');
+
+    // The fix reuses a single DCMotor instead of allocating one per use site.
+    expect(toWpilibMotorSpy).toHaveBeenCalledTimes(1);
+    const wpilibMotor = toWpilibMotorSpy.mock.results[0].value;
+    expect(wpilibMotor.isDeleted()).toBe(true);
+    expect(motorSimDeleteSpy).toHaveBeenCalledTimes(1);
   });
 });

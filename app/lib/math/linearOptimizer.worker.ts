@@ -385,53 +385,57 @@ export async function optimizeRatio({
     sensorDelaySeconds,
   };
 
-  const optimalRatio = minimize(
-    (r) => {
-      const states = simulate({
-        wpilibc,
-        mech: p,
-        ratioMagnitude: r,
-        totalStatorAmps,
-        supplyAmps,
-        maxVelocityMPS,
-        maxAccelerationMPS2,
-        control,
-      });
-      if (states.length === 0) return Number.POSITIVE_INFINITY;
-      return states[states.length - 1].timeSeconds;
-    },
-    { lowerBound: 0.25, upperBound: 50, guess: initialRatio },
-  );
+  try {
+    const optimalRatio = minimize(
+      (r) => {
+        const states = simulate({
+          wpilibc,
+          mech: p,
+          ratioMagnitude: r,
+          totalStatorAmps,
+          supplyAmps,
+          maxVelocityMPS,
+          maxAccelerationMPS2,
+          control,
+        });
+        if (states.length === 0) return Number.POSITIVE_INFINITY;
+        return states[states.length - 1].timeSeconds;
+      },
+      { lowerBound: 0.25, upperBound: 50, guess: initialRatio },
+    );
 
-  const states = simulate({
-    wpilibc,
-    mech: p,
-    ratioMagnitude: optimalRatio,
-    totalStatorAmps,
-    supplyAmps,
-    maxVelocityMPS,
-    maxAccelerationMPS2,
-    control,
-  });
+    const states = simulate({
+      wpilibc,
+      mech: p,
+      ratioMagnitude: optimalRatio,
+      totalStatorAmps,
+      supplyAmps,
+      maxVelocityMPS,
+      maxAccelerationMPS2,
+      control,
+    });
 
-  const result = extractSimResult(states);
-  if (!result) {
+    const result = extractSimResult(states);
+    if (!result) {
+      return {
+        statorLimitAmps,
+        optimalRatio,
+        timeToGoalSeconds: Number.POSITIVE_INFINITY,
+        energyJoules: 0,
+        peakCurrentAmps: 0,
+      };
+    }
+
     return {
       statorLimitAmps,
       optimalRatio,
-      timeToGoalSeconds: Number.POSITIVE_INFINITY,
-      energyJoules: 0,
-      peakCurrentAmps: 0,
+      timeToGoalSeconds: result.timeToGoalSeconds,
+      energyJoules: result.energyJoules,
+      peakCurrentAmps: result.peakCurrentAmps,
     };
+  } finally {
+    p.wpilibMotor.delete();
   }
-
-  return {
-    statorLimitAmps,
-    optimalRatio,
-    timeToGoalSeconds: result.timeToGoalSeconds,
-    energyJoules: result.energyJoules,
-    peakCurrentAmps: result.peakCurrentAmps,
-  };
 }
 
 export interface SimulateOnceParams extends BaseLinearParams {
@@ -478,42 +482,46 @@ export async function simulateOnce({
     batteryVoltageFilterTimeConstantSeconds,
   );
 
-  const states = simulate({
-    wpilibc,
-    mech: p,
-    ratioMagnitude,
-    totalStatorAmps: statorLimitAmps * p.motorQuantity,
-    supplyAmps: supplyLimitAmps,
-    maxVelocityMPS,
-    maxAccelerationMPS2,
-    control: {
-      qPositionMeters,
-      qVelocityMPS,
-      rVolts,
-      sensorDelaySeconds,
-    },
-  });
+  try {
+    const states = simulate({
+      wpilibc,
+      mech: p,
+      ratioMagnitude,
+      totalStatorAmps: statorLimitAmps * p.motorQuantity,
+      supplyAmps: supplyLimitAmps,
+      maxVelocityMPS,
+      maxAccelerationMPS2,
+      control: {
+        qPositionMeters,
+        qVelocityMPS,
+        rVolts,
+        sensorDelaySeconds,
+      },
+    });
 
-  const result = extractSimResult(states);
-  if (!result) {
+    const result = extractSimResult(states);
+    if (!result) {
+      return {
+        ratioMagnitude,
+        supplyLimitAmps,
+        statorLimitAmps,
+        timeToGoalSeconds: Number.POSITIVE_INFINITY,
+        energyJoules: 0,
+        peakCurrentAmps: 0,
+      };
+    }
+
     return {
       ratioMagnitude,
       supplyLimitAmps,
       statorLimitAmps,
-      timeToGoalSeconds: Number.POSITIVE_INFINITY,
-      energyJoules: 0,
-      peakCurrentAmps: 0,
+      timeToGoalSeconds: result.timeToGoalSeconds,
+      energyJoules: result.energyJoules,
+      peakCurrentAmps: result.peakCurrentAmps,
     };
+  } finally {
+    p.wpilibMotor.delete();
   }
-
-  return {
-    ratioMagnitude,
-    supplyLimitAmps,
-    statorLimitAmps,
-    timeToGoalSeconds: result.timeToGoalSeconds,
-    energyJoules: result.energyJoules,
-    peakCurrentAmps: result.peakCurrentAmps,
-  };
 }
 
 export interface OptimizeConfigurationParams extends BaseLinearParams {
