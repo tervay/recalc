@@ -1041,7 +1041,7 @@ async function createWpilibcModule(moduleArg = {}) {
           fa: null,
         });
       },
-      e: (a, b, c, d, e, g, f) => {
+      f: (a, b, c, d, e, g, f) => {
         var h = eb(b, c);
         a = H(a);
         a = ib(a);
@@ -1059,7 +1059,7 @@ async function createWpilibcModule(moduleArg = {}) {
           return [];
         });
       },
-      k: (a, b, c, d, e) => {
+      m: (a, b, c, d, e) => {
         b = H(b);
         var g = (h) => h;
         if (d === 0) {
@@ -1214,15 +1214,15 @@ async function createWpilibcModule(moduleArg = {}) {
         a > 9 && (W[a + 1] += 1);
       },
       h: (a, b, c, d, e) => Cb[a](b, c, d, e),
-      f: () => R([]),
-      l: (a) => R(Hb(a)),
+      e: () => R([]),
+      k: (a) => R(Hb(a)),
       d: () => R({}),
       g: (a) => {
         var b = X(a);
         fb(b);
         mb(a);
       },
-      m: (a, b, c) => {
+      l: (a, b, c) => {
         a = X(a);
         b = X(b);
         c = X(c);

@@ -11,14 +11,183 @@ const statorVoltage = new Measurement(12, 'V');
 const supplyVoltage = new Measurement(12, 'V');
 
 async function curveFor(motorName: string) {
-  return generateMotorCurve(
-    Motor.fromName(motorName, 1).toDict(),
-    statorLimit.toDict(),
-    supplyLimit.toDict(),
-    statorVoltage.toDict(),
-    supplyVoltage.toDict(),
-  );
+  return generateMotorCurve({
+    motor: Motor.fromName(motorName, 1).toDict(),
+    statorLimit: statorLimit.toDict(),
+    supplyLimit: supplyLimit.toDict(),
+    statorVoltage: statorVoltage.toDict(),
+    supplyVoltage: supplyVoltage.toDict(),
+  });
 }
+
+describe('generateMotorCurve linearity', () => {
+  // The data was always linear; the chart plotted it on a category axis. These
+  // lock the sweep itself down.
+  it('puts every current sample on the straight line from stall to free speed', async () => {
+    const motor = Motor.fromName('Kraken X60', 1);
+    const states = await curveFor('Kraken X60');
+    expect(states.length).toBeGreaterThan(100);
+
+    const stallCurrent = motor.stallCurrent.to('A').scalar;
+    const freeCurrent = motor.freeCurrent.to('A').scalar;
+    const freeSpeedRPM = motor.freeSpeed.to('rpm').scalar;
+
+    for (const state of states) {
+      const expected =
+        stallCurrent -
+        ((stallCurrent - freeCurrent) * state.angularVelocityRPM) /
+          freeSpeedRPM;
+      expect(
+        state.currentDrawAmps,
+        `${state.angularVelocityRPM} rpm`,
+      ).toBeCloseTo(expected, 4);
+    }
+  });
+
+  it('puts every torque sample on the straight line from stall to zero', async () => {
+    const motor = Motor.fromName('Kraken X60', 1);
+    const states = await curveFor('Kraken X60');
+
+    const kT =
+      motor.stallTorque.to('N*m').scalar / motor.stallCurrent.to('A').scalar;
+    const stallCurrent = motor.stallCurrent.to('A').scalar;
+    const freeCurrent = motor.freeCurrent.to('A').scalar;
+    const freeSpeedRPM = motor.freeSpeed.to('rpm').scalar;
+
+    for (const state of states) {
+      const expectedCurrent =
+        stallCurrent -
+        ((stallCurrent - freeCurrent) * state.angularVelocityRPM) /
+          freeSpeedRPM;
+      expect(
+        state.torqueNewtonMeters,
+        `${state.angularVelocityRPM} rpm`,
+      ).toBeCloseTo(kT * expectedCurrent, 4);
+    }
+  });
+
+  it('starts at the stall point rather than one timestep past it', async () => {
+    const motor = Motor.fromName('Kraken X60', 1);
+    const states = await curveFor('Kraken X60');
+
+    expect(states[0].angularVelocityRPM).toBe(0);
+    expect(states[0].currentDrawAmps).toBeCloseTo(
+      motor.stallCurrent.to('A').scalar,
+      4,
+    );
+    expect(states[0].torqueNewtonMeters).toBeCloseTo(
+      motor.stallTorque.to('N*m').scalar,
+      4,
+    );
+  });
+
+  it('sweeps monotonically up to free speed', async () => {
+    const motor = Motor.fromName('Kraken X60', 1);
+    const states = await curveFor('Kraken X60');
+    const last = states[states.length - 1];
+
+    for (let i = 1; i < states.length; i++) {
+      expect(states[i].angularVelocityRPM).toBeGreaterThan(
+        states[i - 1].angularVelocityRPM,
+      );
+    }
+
+    expect(last.angularVelocityRPM).toBeLessThanOrEqual(
+      motor.freeSpeed.to('rpm').scalar,
+    );
+    expect(last.angularVelocityRPM).toBeGreaterThan(
+      0.99 * motor.freeSpeed.to('rpm').scalar,
+    );
+  });
+});
+
+describe('generateMotorCurve voltages', () => {
+  // The route used to pass these two transposed. Both are MeasurementDict, so
+  // nothing caught it, and 12 V / 12 V defaults hid it.
+  it('does not treat the stator and supply voltage as interchangeable', async () => {
+    const args = {
+      motor: Motor.fromName('Kraken X60', 1).toDict(),
+      statorLimit: new Measurement(1000, 'A').toDict(),
+      supplyLimit: new Measurement(60, 'A').toDict(),
+    };
+
+    const sixOnTwelve = await generateMotorCurve({
+      ...args,
+      statorVoltage: new Measurement(6, 'V').toDict(),
+      supplyVoltage: new Measurement(12, 'V').toDict(),
+    });
+    const twelveOnSix = await generateMotorCurve({
+      ...args,
+      statorVoltage: new Measurement(12, 'V').toDict(),
+      supplyVoltage: new Measurement(6, 'V').toDict(),
+    });
+
+    expect(sixOnTwelve[0].currentDrawAmps).not.toBeCloseTo(
+      twelveOnSix[0].currentDrawAmps,
+      1,
+    );
+  });
+
+  it('caps the applied voltage, and so the stall current, at the supply voltage', async () => {
+    const motor = Motor.fromName('Kraken X60', 1);
+    const states = await generateMotorCurve({
+      motor: motor.toDict(),
+      statorLimit: statorLimit.toDict(),
+      supplyLimit: supplyLimit.toDict(),
+      statorVoltage: new Measurement(12, 'V').toDict(),
+      supplyVoltage: new Measurement(6, 'V').toDict(),
+    });
+
+    // 6 V across the winding resistance, not 12 V.
+    expect(states[0].currentDrawAmps).toBeCloseTo(
+      6 / motor.resistance.to('Ohm').scalar,
+      4,
+    );
+  });
+});
+
+describe('generateMotorCurve current limits', () => {
+  it('holds the stator current at its limit through the low-speed region', async () => {
+    const limit = 90;
+    const states = await generateMotorCurve({
+      motor: Motor.fromName('Kraken X60', 1).toDict(),
+      statorLimit: new Measurement(limit, 'A').toDict(),
+      supplyLimit: supplyLimit.toDict(),
+      statorVoltage: statorVoltage.toDict(),
+      supplyVoltage: supplyVoltage.toDict(),
+    });
+
+    expect(states[0].currentDrawAmps).toBeCloseTo(limit, 4);
+    for (const state of states) {
+      expect(
+        state.currentDrawAmps,
+        `${state.angularVelocityRPM} rpm`,
+      ).toBeLessThanOrEqual(limit + 1e-6);
+    }
+  });
+
+  it('scales the limits by the motor quantity', async () => {
+    const single = await generateMotorCurve({
+      motor: Motor.fromName('Kraken X60', 1).toDict(),
+      statorLimit: new Measurement(90, 'A').toDict(),
+      supplyLimit: supplyLimit.toDict(),
+      statorVoltage: statorVoltage.toDict(),
+      supplyVoltage: supplyVoltage.toDict(),
+    });
+    const double = await generateMotorCurve({
+      motor: Motor.fromName('Kraken X60', 2).toDict(),
+      statorLimit: new Measurement(90, 'A').toDict(),
+      supplyLimit: supplyLimit.toDict(),
+      statorVoltage: statorVoltage.toDict(),
+      supplyVoltage: supplyVoltage.toDict(),
+    });
+
+    expect(double[0].currentDrawAmps).toBeCloseTo(
+      2 * single[0].currentDrawAmps,
+      4,
+    );
+  });
+});
 
 describe('generateMotorCurve efficiency', () => {
   it('never reports efficiency at or above 100%', async () => {
@@ -70,25 +239,54 @@ describe('generateMotorCurve efficiency', () => {
     expect(peak).toBeGreaterThan(0.5);
     expect(peak).toBeLessThan(1);
   });
+
+  // The comparison table reports peak efficiency from a closed form rather than
+  // sweeping all 26 motors. These pin that form to the simulation the chart
+  // above the table plots.
+  it.each(['Kraken X60', 'NEO', 'CIM'])(
+    'peaks for %s where Motor.maxEfficiencyAtCurrentLimit says it should',
+    async (name) => {
+      const states = await curveFor(name);
+      const peak = Math.max(...states.map((s) => s.efficiency));
+
+      expect(peak).toBeCloseTo(
+        Motor.fromName(name, 1).maxEfficiencyAtCurrentLimit(statorLimit),
+        2,
+      );
+    },
+  );
 });
 
 describe('generateMotorCurve termination', () => {
   it('resolves instead of hanging when the current limit is zero', async () => {
-    // A zero stator limit drives iMax to 0, which pins vApplied at vBackEmf
-    // every iteration. At velocity 0 that keeps vApplied at 0 forever, so the
-    // loop never accelerates and would spin forever without an iteration cap.
-    const zeroStatorLimit = new Measurement(0, 'A');
-
-    const result = await generateMotorCurve(
-      Motor.fromName('Kraken X60', 1).toDict(),
-      zeroStatorLimit.toDict(),
-      supplyLimit.toDict(),
-      statorVoltage.toDict(),
-      supplyVoltage.toDict(),
-    );
+    // A zero stator limit pins the applied voltage at back-EMF, which is 0 V at
+    // rest, so the sweep never accelerates and would spin without the cap.
+    const result = await generateMotorCurve({
+      motor: Motor.fromName('Kraken X60', 1).toDict(),
+      statorLimit: new Measurement(0, 'A').toDict(),
+      supplyLimit: supplyLimit.toDict(),
+      statorVoltage: statorVoltage.toDict(),
+      supplyVoltage: supplyVoltage.toDict(),
+    });
 
     expect(Array.isArray(result)).toBe(true);
+    for (const state of result) {
+      expect(state.angularVelocityRPM).toBe(0);
+      expect(state.currentDrawAmps).toBeCloseTo(0, 6);
+    }
   }, 10_000);
+
+  it('returns an empty curve when the supply voltage is zero', async () => {
+    const result = await generateMotorCurve({
+      motor: Motor.fromName('Kraken X60', 1).toDict(),
+      statorLimit: statorLimit.toDict(),
+      supplyLimit: supplyLimit.toDict(),
+      statorVoltage: statorVoltage.toDict(),
+      supplyVoltage: new Measurement(0, 'V').toDict(),
+    });
+
+    expect(result).toEqual([]);
+  });
 });
 
 describe('generateMotorCurve wasm cleanup', () => {
@@ -96,17 +294,15 @@ describe('generateMotorCurve wasm cleanup', () => {
     vi.restoreAllMocks();
   });
 
-  it('deletes the wpilib DCMotor and DCMotorSim it allocates', async () => {
-    const wpilibc = await initWpilibc();
+  it('deletes the wpilib DCMotor it allocates', async () => {
+    await initWpilibc();
     const toWpilibMotorSpy = vi.spyOn(Motor.prototype, 'toWpilibMotor');
-    const motorSimDeleteSpy = vi.spyOn(wpilibc.DCMotorSim.prototype, 'delete');
 
     await curveFor('Kraken X60');
 
-    // The fix reuses a single DCMotor instead of allocating one per use site.
+    // The sweep reuses a single DCMotor instead of allocating one per use site.
     expect(toWpilibMotorSpy).toHaveBeenCalledTimes(1);
     const wpilibMotor = toWpilibMotorSpy.mock.results[0].value;
     expect(wpilibMotor.isDeleted()).toBe(true);
-    expect(motorSimDeleteSpy).toHaveBeenCalledTimes(1);
   });
 });

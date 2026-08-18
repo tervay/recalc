@@ -35,6 +35,51 @@ test.describe('Motor Calculator', () => {
     await expect(page.getByText('Efficiency (%)').first()).toBeVisible();
   });
 
+  test('current and torque are straight lines when no current limit binds', async ({
+    page,
+  }) => {
+    // Rendered as exponential decay while the XAxis defaulted to
+    // type="category", which spaces points by array index rather than RPM.
+    await page.goto(
+      '/motors?motor=Kraken+X60' +
+        '&statorLimit=%7B%22s%22%3A1000%2C%22u%22%3A%22A%22%7D' +
+        '&supplyLimit=%7B%22s%22%3A1000%2C%22u%22%3A%22A%22%7D' +
+        '&supplyVoltage=%7B%22s%22%3A12%2C%22u%22%3A%22V%22%7D' +
+        '&statorVoltage=%7B%22s%22%3A12%2C%22u%22%3A%22V%22%7D',
+    );
+    await page.waitForLoadState('networkidle');
+
+    for (const seriesIndex of [0, 1]) {
+      const d = await page
+        .locator('path.recharts-line-curve')
+        .nth(seriesIndex)
+        .getAttribute('d');
+      expect(d, `series ${seriesIndex} has no path`).toBeTruthy();
+
+      const points = parsePathPoints(d!);
+      expect(points.length).toBeGreaterThan(50);
+
+      const first = points[0];
+      const last = points[points.length - 1];
+      const yRange =
+        Math.max(...points.map((p) => p.y)) -
+        Math.min(...points.map((p) => p.y));
+      expect(yRange).toBeGreaterThan(0);
+
+      const slope = (last.y - first.y) / (last.x - first.x);
+      const maxDeviation = Math.max(
+        ...points.map((p) =>
+          Math.abs(p.y - (first.y + slope * (p.x - first.x))),
+        ),
+      );
+
+      expect(
+        maxDeviation / yRange,
+        `series ${seriesIndex} deviates from a straight line`,
+      ).toBeLessThan(0.01);
+    }
+  });
+
   test('copied URL restores motor and limit state', async ({ page }) => {
     await page.getByTestId('motor').click();
     await page.getByRole('option', { name: 'NEO', exact: true }).click();
@@ -54,4 +99,36 @@ test.describe('Motor Calculator', () => {
     await expect(page.getByTestId('statorLimit')).toHaveValue('45');
     await expect(page.getByTestId('supplyLimit')).toHaveValue('35');
   });
+
+  test('max efficiency in the comparison table follows the current draw', async ({
+    page,
+  }) => {
+    // The name cell renders the identifier in its own span ahead of the vendor
+    // badges, so an exact span match separates CIM from MiniCIM.
+    const cimEfficiency = page
+      .getByRole('row')
+      .filter({
+        has: page.locator('td:first-child span', { hasText: /^CIM$/ }),
+      })
+      .getByRole('cell')
+      .nth(6);
+
+    await expect(
+      page.getByRole('button', { name: 'Max Efficiency' }),
+    ).toBeVisible();
+    // CIM peaks at 18.8 A, comfortably under the default 60 A draw.
+    await expect(cimEfficiency).toHaveText('73.3%');
+
+    await page.getByTestId('currentDraw').fill('10');
+
+    await expect(cimEfficiency).toHaveText('67.4%');
+  });
 });
+
+/** Pulls the vertices out of a recharts `M x,y L x,y ...` line path. */
+function parsePathPoints(d: string): { x: number; y: number }[] {
+  return [...d.matchAll(/([-\d.]+),([-\d.]+)/g)].map((m) => ({
+    x: parseFloat(m[1]),
+    y: parseFloat(m[2]),
+  }));
+}

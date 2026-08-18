@@ -662,4 +662,89 @@ describe('Motor', () => {
       });
     });
   });
+
+  describe('maxEfficiencyAtCurrentLimit', () => {
+    it('places the efficiency peak at the geometric mean of free and stall current', () => {
+      const motor = Motor.KrakenX60(1);
+      expect(motor.peakEfficiencyCurrent.to('A').scalar).toBeCloseTo(32.55, 2);
+    });
+
+    it('returns the closed-form peak efficiency when the limit does not bind', () => {
+      const motor = Motor.KrakenX60(1);
+      expect(
+        motor.maxEfficiencyAtCurrentLimit(new Measurement(1000, 'A')),
+      ).toBeCloseTo(0.833673, 5);
+    });
+
+    it('returns the closed-form peak efficiency for a brushed motor', () => {
+      const motor = Motor.fromName('CIM', 1);
+      expect(
+        motor.maxEfficiencyAtCurrentLimit(new Measurement(1000, 'A')),
+      ).toBeCloseTo(0.733482, 5);
+    });
+
+    it('plateaus above the peak current', () => {
+      const motor = Motor.fromName('CIM', 1);
+      expect(
+        motor.maxEfficiencyAtCurrentLimit(new Measurement(1000, 'A')),
+      ).toBeCloseTo(
+        motor.maxEfficiencyAtCurrentLimit(motor.peakEfficiencyCurrent),
+        10,
+      );
+    });
+
+    it('evaluates efficiency at the limit when the limit binds', () => {
+      const motor = Motor.fromName('CIM', 1);
+      expect(
+        motor.maxEfficiencyAtCurrentLimit(new Measurement(10, 'A')),
+      ).toBeCloseTo(0.674275, 5);
+    });
+
+    it('is lower under a binding limit than under a non-binding one', () => {
+      const motor = Motor.fromName('CIM', 1);
+      expect(
+        motor.maxEfficiencyAtCurrentLimit(new Measurement(10, 'A')),
+      ).toBeLessThan(
+        motor.maxEfficiencyAtCurrentLimit(new Measurement(1000, 'A')),
+      );
+    });
+
+    it('ignores quantity, reporting a per-motor figure', () => {
+      expect(
+        Motor.fromName('CIM', 4).maxEfficiencyAtCurrentLimit(
+          new Measurement(1000, 'A'),
+        ),
+      ).toBe(
+        Motor.fromName('CIM', 1).maxEfficiencyAtCurrentLimit(
+          new Measurement(1000, 'A'),
+        ),
+      );
+    });
+
+    it('returns zero for a zero limit', () => {
+      const motor = Motor.fromName('CIM', 1);
+      expect(motor.maxEfficiencyAtCurrentLimit(new Measurement(0, 'A'))).toBe(
+        0,
+      );
+    });
+
+    it('returns zero for a negative limit', () => {
+      const motor = Motor.fromName('CIM', 1);
+      expect(motor.maxEfficiencyAtCurrentLimit(new Measurement(-5, 'A'))).toBe(
+        0,
+      );
+    });
+
+    it('returns zero when the limit equals the free current', () => {
+      const motor = Motor.fromName('CIM', 1);
+      expect(motor.maxEfficiencyAtCurrentLimit(motor.freeCurrent)).toBe(0);
+    });
+
+    it('converts the limit before comparing, so unit choice does not matter', () => {
+      const motor = Motor.fromName('CIM', 1);
+      expect(
+        motor.maxEfficiencyAtCurrentLimit(new Measurement(10000, 'mA')),
+      ).toBeCloseTo(0.674275, 5);
+    });
+  });
 });
