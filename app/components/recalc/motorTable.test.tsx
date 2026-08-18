@@ -13,6 +13,7 @@ const COLUMN_HEADERS = [
   'Stall Current',
   'Peak Power',
   'Power Density',
+  'Max Efficiency',
   'Free Current',
   'Weight',
   'kT (Nm/A)',
@@ -82,6 +83,33 @@ function freeSpeeds() {
   });
 }
 
+function maxEfficiencies() {
+  return bodyRows().map((row) => {
+    const text = within(row).getAllByRole('cell')[6].textContent ?? '';
+    return Number(text.replace('%', ''));
+  });
+}
+
+function maxEfficiencyFor(motorName: string) {
+  const row = bodyRows().find(
+    (candidate) =>
+      within(candidate).getAllByRole('cell')[0].querySelector('span')
+        ?.textContent === motorName,
+  );
+
+  if (row === undefined) {
+    throw new Error(`No row rendered for ${motorName}`);
+  }
+
+  return within(row).getAllByRole('cell')[6].textContent;
+}
+
+function setCurrentDraw(amps: string) {
+  fireEvent.change(screen.getByTestId('currentDraw'), {
+    target: { value: amps },
+  });
+}
+
 function clickHeader(name: string) {
   fireEvent.click(screen.getByRole('button', { name }));
 }
@@ -132,6 +160,58 @@ describe('MotorTable', () => {
 
     const speeds = freeSpeeds();
     expect(speeds).toEqual([...speeds].sort((a, b) => a - b));
+  });
+
+  it('reports the peak efficiency of a motor whose peak the current draw clears', () => {
+    renderMotorTable();
+
+    // (1 - sqrt(2.7 / 131))^2 = 73.35%, reached at 18.8 A, under the 60 A draw.
+    expect(maxEfficiencyFor('CIM')).toBe('73.3%');
+  });
+
+  it('caps the reported efficiency when the current draw falls below the peak', () => {
+    renderMotorTable();
+
+    setCurrentDraw('10');
+
+    // (1 - 2.7 / 10) * (1 - 10 / 131) = 67.43%.
+    expect(maxEfficiencyFor('CIM')).toBe('67.4%');
+  });
+
+  it('leaves a motor whose peak current is under the draw untouched', () => {
+    renderMotorTable();
+
+    setCurrentDraw('10');
+
+    // HD Hex peaks at 1.8 A, so a 10 A draw does not bind.
+    expect(maxEfficiencyFor('HD Hex')).toBe('61.3%');
+  });
+
+  it('reports zero efficiency when the current draw is zero', () => {
+    renderMotorTable();
+
+    setCurrentDraw('0');
+
+    expect(maxEfficiencyFor('CIM')).toBe('0.0%');
+  });
+
+  it('sorts by ascending max efficiency when the Max Efficiency header is clicked', () => {
+    renderMotorTable();
+
+    clickHeader('Max Efficiency');
+
+    const efficiencies = maxEfficiencies();
+    expect(efficiencies).toEqual([...efficiencies].sort((a, b) => a - b));
+  });
+
+  it('reverses the max efficiency order when the header is clicked twice', () => {
+    renderMotorTable();
+
+    clickHeader('Max Efficiency');
+    clickHeader('Max Efficiency');
+
+    const efficiencies = maxEfficiencies();
+    expect(efficiencies).toEqual([...efficiencies].sort((a, b) => b - a));
   });
 
   it('sorts by descending free speed when the Free Speed header is clicked twice', () => {

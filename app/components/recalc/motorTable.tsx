@@ -250,6 +250,24 @@ export default function MotorTable() {
         },
       },
       {
+        accessorFn: (row) => row.motor.maxEfficiencyAtCurrentLimit(currentDraw),
+        id: 'maxEfficiency',
+        header: ({ column }) => (
+          <SortableHeader column={column}>Max Efficiency</SortableHeader>
+        ),
+        cell: ({ row }) => {
+          return (
+            <div className="text-right text-sm tabular-nums">
+              {(
+                row.original.motor.maxEfficiencyAtCurrentLimit(currentDraw) *
+                100
+              ).toFixed(1)}
+              <span className="text-muted-foreground">%</span>
+            </div>
+          );
+        },
+      },
+      {
         accessorFn: (row) => row.motorSpecs.freeCurrent.to('A').scalar,
         id: 'freeCurrent',
         header: ({ column }) => (
@@ -341,14 +359,15 @@ export default function MotorTable() {
             <MeasurementInput
               stateHook={[currentDraw, setCurrentDraw]}
               label="Current Draw"
-              tooltip="The current used to compute the Peak Power and Power Density columns in the table below."
+              tooltip="The current used to compute the Peak Power and Power Density columns below, and the ceiling on the current considered for Max Efficiency."
               testId="currentDraw"
               labelAbove
             />
           </div>
           <p className="text-xs text-muted-foreground">
             Sets the current at which the Peak Power and Power Density columns
-            below are calculated.
+            below are calculated. Max Efficiency is the best efficiency
+            reachable without drawing more than this.
           </p>
         </div>
         <Table>

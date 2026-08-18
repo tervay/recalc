@@ -8,6 +8,7 @@
 #include "feedback_gains.h"
 #include "feedforward_gains.h"
 #include "flywheel_sim.h"
+#include "motor_curve_sim.h"
 
 using namespace emscripten;
 
@@ -92,6 +93,13 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
       "batteryVoltageFilterTimeConstantSeconds, "
       "initialAngularVelocityRadPerSec)",
       &SimulateFlywheel, allow_raw_pointers());
+
+  // Full motor characteristic-curve sweep
+  function(
+      "simulateMotorCurve(motor, momentOfInertiaKgMSquared, statorLimitAmps, "
+      "supplyLimitAmps, statorVoltageVolts, supplyVoltageVolts, simTimestep, "
+      "decimation, maxIterations)",
+      &SimulateMotorCurve, allow_raw_pointers());
 
   // Full arm simulation loop
   function(

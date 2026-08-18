@@ -145,6 +145,7 @@ export default class Motor extends Model {
   // public readonly maxPower: Measurement;
   public readonly resistance: Measurement;
   public readonly b: Measurement;
+  public readonly peakEfficiencyCurrent: Measurement;
 
   constructor(
     identifier: string,
@@ -167,12 +168,53 @@ export default class Motor extends Model {
       this.kT.scalar / Math.sqrt(this.resistance.scalar),
     );
     this.b = this.kT.mul(this.freeCurrent).div(this.freeSpeed);
+    this.peakEfficiencyCurrent = new Measurement(
+      Math.sqrt(
+        Math.max(
+          0,
+          this.freeCurrent.to('A').scalar * this.stallCurrent.to('A').scalar,
+        ),
+      ),
+      'A',
+    );
 
     // this.maxPower = new MotorRules(this, highCurrentLimit, {
     //   voltage: nominalVoltage,
     //   rpm: this.freeSpeed.div(2),
     //   torque: this.stallTorque.div(2),
     // }).solve().power;
+  }
+
+  /**
+   * The highest efficiency this motor reaches at nominal voltage while drawing
+   * no more than `currentLimit`.
+   *
+   * Efficiency along the curve is `(1 - iFree / i) * (1 - i / iStall)`, which
+   * rises monotonically up to `peakEfficiencyCurrent`, so a limit below that
+   * point is simply evaluated at the limit.
+   *
+   * Both currents are single-motor values, so `quantity` does not change the
+   * result and `currentLimit` is a per-motor limit.
+   *
+   * @returns a ratio in [0, 1), zero at or below the free current.
+   */
+  public maxEfficiencyAtCurrentLimit(currentLimit: Measurement): number {
+    const amps = Math.min(
+      currentLimit.to('A').scalar,
+      this.peakEfficiencyCurrent.to('A').scalar,
+    );
+
+    if (amps <= 0) {
+      return 0;
+    }
+
+    const freeCurrentAmps = this.freeCurrent.to('A').scalar;
+    const stallCurrentAmps = this.stallCurrent.to('A').scalar;
+
+    return Math.max(
+      0,
+      (1 - freeCurrentAmps / amps) * (1 - amps / stallCurrentAmps),
+    );
   }
 
   public static fromSpecs(specs: MotorSpecs, quantity: number) {

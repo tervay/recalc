@@ -65,7 +65,7 @@ const DEFAULT_PARAMS = {
 const CHART_CONFIG = {
   currentDrawAmps: { label: 'Current (A)', color: 'var(--chart-1)' },
   torqueNewtonMeters: { label: 'Torque (N·m)', color: 'var(--chart-2)' },
-  efficiency: { label: 'Efficiency (%)', color: 'var(--chart-3)' },
+  efficiencyPercent: { label: 'Efficiency (%)', color: 'var(--chart-3)' },
 } satisfies ChartConfig;
 
 // Constructed lazily (not at module scope) so importing this route module
@@ -115,13 +115,13 @@ export default function Motors() {
   useEffect(() => {
     setWorkerWpilibSimStates([]);
     getWorker()
-      .generateMotorCurve(
-        Motor.fromName(selectedMotor, 1).toDict(),
-        statorLimit.toDict(),
-        supplyLimit.toDict(),
-        supplyVoltage.toDict(),
-        statorVoltage.toDict(),
-      )
+      .generateMotorCurve({
+        motor: Motor.fromName(selectedMotor, 1).toDict(),
+        statorLimit: statorLimit.toDict(),
+        supplyLimit: supplyLimit.toDict(),
+        statorVoltage: statorVoltage.toDict(),
+        supplyVoltage: supplyVoltage.toDict(),
+      })
       .then((states) => {
         setWorkerWpilibSimStates(states);
       })
@@ -224,6 +224,9 @@ export default function Motors() {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis
                 dataKey="angularVelocityRPM"
+                type="number"
+                domain={[0, 'dataMax']}
+                tickFormatter={(v: number) => v.toFixed(0)}
                 label={{
                   value: 'Angular Velocity (RPM)',
                   position: 'insideBottom',
@@ -266,6 +269,11 @@ export default function Motors() {
                 }}
               />
               <Tooltip
+                labelFormatter={(label) =>
+                  typeof label === 'number' && Number.isFinite(label)
+                    ? `${label.toFixed(0)} RPM`
+                    : ''
+                }
                 formatter={(value) =>
                   typeof value === 'number' && Number.isFinite(value)
                     ? value.toFixed(2)
@@ -295,7 +303,7 @@ export default function Motors() {
                 dataKey="efficiencyPercent"
                 yAxisId="efficiency"
                 dot={false}
-                stroke="var(--color-efficiency)"
+                stroke="var(--color-efficiencyPercent)"
               />
             </LineChart>
           </ChartContainer>

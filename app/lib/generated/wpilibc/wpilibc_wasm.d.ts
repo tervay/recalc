@@ -130,6 +130,17 @@ interface EmbindModule {
     batteryVoltageFilterTimeConstantSeconds: number,
     initialAngularVelocityRadPerSec: number,
   ): any;
+  simulateMotorCurve(
+    motor: DCMotor | null,
+    momentOfInertiaKgMSquared: number,
+    statorLimitAmps: number,
+    supplyLimitAmps: number,
+    statorVoltageVolts: number,
+    supplyVoltageVolts: number,
+    simTimestep: number,
+    decimation: number,
+    maxIterations: number,
+  ): any;
   simulateArm(
     motor: DCMotor | null,
     gearing: number,
