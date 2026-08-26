@@ -49,12 +49,10 @@ COPY patches/CMakeLists.patch /tmp/patches/root_CMakeLists.patch
 COPY patches/wpimath/CMakeLists.patch /tmp/patches/wpimath_CMakeLists.patch
 COPY patches/wpilibc/CMakeLists.patch /tmp/patches/wpilibc_CMakeLists.patch
 COPY patches/hal/CMakeLists.patch /tmp/patches/hal_CMakeLists.patch
-COPY patches/wpiutil/Handle.hpp.patch /tmp/patches/wpiutil_Handle.patch
 RUN patch -p1 -d /build/allwpilib < /tmp/patches/root_CMakeLists.patch && \
     patch -p1 -d /build/allwpilib < /tmp/patches/wpimath_CMakeLists.patch && \
     patch -p1 -d /build/allwpilib < /tmp/patches/wpilibc_CMakeLists.patch && \
-    patch -p1 -d /build/allwpilib < /tmp/patches/hal_CMakeLists.patch && \
-    patch -p1 -d /build/allwpilib < /tmp/patches/wpiutil_Handle.patch
+    patch -p1 -d /build/allwpilib < /tmp/patches/hal_CMakeLists.patch
 
 # Copy new files (wasm/ directories don't exist in upstream)
 COPY patches/wpimath/wasm/CMakeLists.txt /build/allwpilib/wpimath/wasm/CMakeLists.txt
@@ -74,16 +72,16 @@ RUN printf '#include <emscripten/bind.h>\nEMSCRIPTEN_BINDINGS(placeholder) {}\n'
 #     emcmake cmake -B build -S . \
 #       -DCMAKE_BUILD_TYPE=Release \
 #       -DBUILD_SHARED_LIBS=OFF \
-#       -DWITH_SIMULATION_MODULES=OFF \
-#       -DWITH_PROTOBUF=OFF \
-#       -DWITH_GUI=OFF \
-#       -DWITH_CSCORE=OFF \
-#       -DWITH_WPIMATH=ON \
-#       -DWITH_WPILIB=OFF \
-#       -DWITH_NTCORE=OFF \
-#       -DWITH_EXAMPLES=OFF \
-#       -DWITH_JAVA=OFF \
-#       -DWITH_TESTS=OFF \
+#       -DWPILIB_WITH_SIMULATION_MODULES=OFF \
+#       -DWPILIB_WITH_GUI=OFF \
+#       -DWPILIB_WITH_CSCORE=OFF \
+#       -DWPILIB_WITH_WPIMATH=ON \
+#       -DWPILIB_WITH_WPILIB=OFF \
+#       -DWPILIB_WITH_NTCORE=OFF \
+#       -DWPILIB_WITH_EXAMPLES=OFF \
+#       -DWPILIB_WITH_TESTS=OFF \
+#       -DWPILIB_WITH_BENCHMARK=OFF \
+#       -DWPILIB_WITH_EXECUTABLES=OFF \
 #       -G Ninja && \
 #     cd build && \
 #     emmake ninja wpimath_wasm -j$(nproc)
@@ -94,17 +92,17 @@ RUN cd /build/allwpilib && \
     emcmake cmake -B build -S . \
       -DCMAKE_BUILD_TYPE=Release \
       -DBUILD_SHARED_LIBS=OFF \
-      -DWITH_SIMULATION_MODULES=OFF \
-      -DWITH_PROTOBUF=OFF \
-      -DWITH_GUI=OFF \
-      -DWITH_CSCORE=OFF \
-      -DWITH_WPIMATH=ON \
-      -DWITH_WPILIB=ON \
-      -DWITH_NTCORE=ON \
-      -DWITH_EXAMPLES=OFF \
-      -DWITH_JAVA=OFF \
-      -DWITH_TESTS=OFF \
-      -DNO_WERROR=ON \
+      -DWPILIB_WITH_SIMULATION_MODULES=OFF \
+      -DWPILIB_WITH_GUI=OFF \
+      -DWPILIB_WITH_CSCORE=OFF \
+      -DWPILIB_WITH_WPIMATH=ON \
+      -DWPILIB_WITH_WPILIB=ON \
+      -DWPILIB_WITH_NTCORE=ON \
+      -DWPILIB_WITH_EXAMPLES=OFF \
+      -DWPILIB_WITH_TESTS=OFF \
+      -DWPILIB_WITH_BENCHMARK=OFF \
+      -DWPILIB_WITH_EXECUTABLES=OFF \
+      -DWPILIB_NO_WERROR=ON \
       -G Ninja && \
     cd build && \
     emmake ninja wpilibc_wasm -j$(nproc)

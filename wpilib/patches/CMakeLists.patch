@@ -1,8 +1,6 @@
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 6670ec0..36d8082 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -34,6 +34,17 @@ endif()
+@@ -49,6 +49,17 @@
  
  set(WPILIB_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
  
@@ -20,8 +18,8 @@ index 6670ec0..36d8082 100644
  include(CMakeDependentOption)
  include(CPack)
  include(OptionValidation)
-@@ -298,8 +309,12 @@ add_subdirectory(datalog)
- if(WITH_NTCORE)
+@@ -291,8 +302,12 @@
+ if(WPILIB_WITH_NTCORE)
      set(NTCORE_DEP_REPLACE "find_dependency(ntcore)")
      set(WPINET_DEP_REPLACE "find_dependency(wpinet)")
 -    add_subdirectory(wpinet)
@@ -34,10 +32,10 @@ index 6670ec0..36d8082 100644
 +    endif()
  endif()
  
- if(WITH_WPIMATH)
-@@ -334,6 +349,10 @@ endif()
+ if(WPILIB_WITH_WPIMATH)
+@@ -324,6 +339,10 @@
  
- if(WITH_WPILIB OR WITH_SIMULATION_MODULES)
+ if(WPILIB_WITH_WPILIB OR WPILIB_WITH_SIMULATION_MODULES)
      set(HAL_DEP_REPLACE "find_dependency(hal)")
 +    # For Emscripten: create ntcore stub before hal so hal can link to it
 +    if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten" AND NOT TARGET ntcore)
@@ -46,33 +44,31 @@ index 6670ec0..36d8082 100644
      add_subdirectory(hal)
  endif()
  
-@@ -353,17 +372,23 @@ if(WITH_WPILIB)
-         set(WPILIBJ_DEP_REPLACE "find_dependency(wpilibj)")
-     endif()
+@@ -337,15 +356,19 @@
+     set(DRIVERS_DEP_REPLACE "find_dependency(drivers)")
+     set(WPILIBC_DEP_REPLACE "find_dependency(wpilibc)")
      set(COMMAND_DEP_REPLACE "find_dependency(commandsv2)")
 -    add_subdirectory(apriltag)
 +    if(NOT CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
 +        add_subdirectory(apriltag)
 +    endif()
-     add_subdirectory(wpilibj)
      add_subdirectory(wpilibc)
--    add_subdirectory(commandsv3) # must be after wpilibj
+-    add_subdirectory(drivers)
+-    if(WPILIB_WITH_CSCORE)
+-        add_subdirectory(cameraserver)
+-    endif()
 -    add_subdirectory(commandsv2)
 -    add_subdirectory(romiVendordep)
 -    add_subdirectory(xrpVendordep)
 +    if(NOT CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
-+        add_subdirectory(commandsv3) # must be after wpilibj
++        add_subdirectory(drivers)
++        if(WPILIB_WITH_CSCORE)
++            add_subdirectory(cameraserver)
++        endif()
 +        add_subdirectory(commandsv2)
 +        add_subdirectory(romiVendordep)
 +        add_subdirectory(xrpVendordep)
 +    endif()
-     if(WITH_EXAMPLES)
+     if(WPILIB_WITH_EXAMPLES)
          add_subdirectory(wpilibcExamples)
      endif()
--    add_subdirectory(developerRobot)
-+    if(NOT CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
-+        add_subdirectory(developerRobot)
-+    endif()
- endif()
- 
- if(WITH_BENCHMARK)

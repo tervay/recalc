@@ -41,11 +41,9 @@ RUN test -n "${WPILIB_COMMIT}" || { echo "ERROR: WPILIB_COMMIT build arg is requ
 COPY patches/CMakeLists.patch /tmp/patches/root_CMakeLists.patch
 COPY patches/wpilibc/CMakeLists.patch /tmp/patches/wpilibc_CMakeLists.patch
 COPY patches/hal/CMakeLists.patch /tmp/patches/hal_CMakeLists.patch
-COPY patches/wpiutil/Handle.hpp.patch /tmp/patches/wpiutil_Handle.patch
 RUN patch -p1 -d /build/allwpilib < /tmp/patches/root_CMakeLists.patch && \
     patch -p1 -d /build/allwpilib < /tmp/patches/wpilibc_CMakeLists.patch && \
-    patch -p1 -d /build/allwpilib < /tmp/patches/hal_CMakeLists.patch && \
-    patch -p1 -d /build/allwpilib < /tmp/patches/wpiutil_Handle.patch
+    patch -p1 -d /build/allwpilib < /tmp/patches/hal_CMakeLists.patch
 
 # The patched wpilibc/CMakeLists.txt calls add_subdirectory(wasm) under
 # Emscripten, and the patched root CMakeLists.txt adds wpilibc/wasm/stubs before
@@ -62,10 +60,13 @@ RUN printf '#include <emscripten/bind.h>\nEMSCRIPTEN_BINDINGS(placeholder) {}\n'
 # `wpilibc_wasm`), so the placeholder bindings.cc above is never compiled and no
 # wasm module is linked -- only the static archives the tests need.
 #
-# WITH_NTCORE=ON is required, not optional: upstream's CMakeLists.txt declares
-# `wpilib_config(OPTIONS WITH_WPILIB REQUIRES WITH_NTCORE WITH_WPIMATH)`, which
-# is a hard FATAL_ERROR when unmet. The stage this replaced could set it OFF
-# only because it also set WITH_WPILIB=OFF. It does not actually build
+# WPILIB_WITH_NTCORE=ON is required, not optional: upstream's CMakeLists.txt
+# declares `wpilib_config(OPTIONS WPILIB_WITH_WPILIB REQUIRES WPILIB_WITH_NTCORE
+# WPILIB_WITH_WPIMATH)`, which is a hard FATAL_ERROR when unmet. The stage this
+# replaced could set it OFF only because it also set WPILIB_WITH_WPILIB=OFF.
+# WPILIB_WITH_TESTS and WPILIB_WITH_BENCHMARK must be set OFF explicitly: they
+# now default ON and both REQUIRE WPILIB_WITH_EXECUTABLES, which we set OFF.
+# It does not actually build
 # NetworkTables: the root patch skips add_subdirectory(wpinet)/(ntcore) under
 # Emscripten and links the empty wpilibc/wasm/stubs archive instead, so the
 # staged output is libntcore_stub.a with no libntcore.a or libwpinet.a.
@@ -78,17 +79,17 @@ RUN cd /build/allwpilib && \
       -DCMAKE_BUILD_TYPE=Release \
       -DBUILD_SHARED_LIBS=OFF \
       -DCMAKE_CXX_FLAGS=-fwasm-exceptions \
-      -DWITH_SIMULATION_MODULES=OFF \
-      -DWITH_PROTOBUF=OFF \
-      -DWITH_GUI=OFF \
-      -DWITH_CSCORE=OFF \
-      -DWITH_WPIMATH=ON \
-      -DWITH_WPILIB=ON \
-      -DWITH_NTCORE=ON \
-      -DWITH_EXAMPLES=OFF \
-      -DWITH_JAVA=OFF \
-      -DWITH_TESTS=OFF \
-      -DNO_WERROR=ON \
+      -DWPILIB_WITH_SIMULATION_MODULES=OFF \
+      -DWPILIB_WITH_GUI=OFF \
+      -DWPILIB_WITH_CSCORE=OFF \
+      -DWPILIB_WITH_WPIMATH=ON \
+      -DWPILIB_WITH_WPILIB=ON \
+      -DWPILIB_WITH_NTCORE=ON \
+      -DWPILIB_WITH_EXAMPLES=OFF \
+      -DWPILIB_WITH_TESTS=OFF \
+      -DWPILIB_WITH_BENCHMARK=OFF \
+      -DWPILIB_WITH_EXECUTABLES=OFF \
+      -DWPILIB_NO_WERROR=ON \
       -G Ninja && \
     cd build && \
     emmake ninja wpilibc -j"$(nproc)"
@@ -121,13 +122,17 @@ FROM base
 COPY --from=gtest-libs /gtest-build /gtest-build
 COPY --from=wpilib-libs /wpilib-artifacts /wpilib-artifacts
 # Headers only (no build/ artifacts) for each library's own sources and bundled
-# thirdparty deps (eigen, gcem, sleipnir, nanopb, fmtlib, etc.), so the tests can
+# thirdparty deps (eigen, gcem, sleipnir, nanopb, etc.), so the tests can
 # include the same headers they link against above.
 COPY --from=wpilib-libs /build/allwpilib/wpimath/src /wpilib-artifacts/include/wpimath/src
 COPY --from=wpilib-libs /build/allwpilib/wpiutil/src /wpilib-artifacts/include/wpiutil/src
 COPY --from=wpilib-libs /build/allwpilib/wpilibc/src /wpilib-artifacts/include/wpilibc/src
 COPY --from=wpilib-libs /build/allwpilib/hal/src /wpilib-artifacts/include/hal/src
 COPY --from=wpilib-libs /build/allwpilib/ntcore/src /wpilib-artifacts/include/ntcore/src
+# wpilibc's public headers include wpi/telemetry/* and wpi/tunables/*, which
+# upstream split out into their own top-level libraries.
+COPY --from=wpilib-libs /build/allwpilib/telemetry/src /wpilib-artifacts/include/telemetry/src
+COPY --from=wpilib-libs /build/allwpilib/tunables/src /wpilib-artifacts/include/tunables/src
 
 WORKDIR /src
 

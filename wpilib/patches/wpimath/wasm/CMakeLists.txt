@@ -5,7 +5,7 @@
 # Only build wasm module if Emscripten toolchain is being used
 if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
     # Set C++ standard
-    set(CMAKE_CXX_STANDARD 20)
+    set(CMAKE_CXX_STANDARD 23)
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
     # Emscripten-specific settings
@@ -40,7 +40,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
     target_compile_options(wpimath_wasm PRIVATE
         -O3
         -flto
-        -std=c++20
+        -std=c++23
     )
 
     # Emscripten linker flags

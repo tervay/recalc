@@ -211,7 +211,7 @@ inline emscripten::val SimulateElevatorImpl(
 
   // Pre-compute total profile time
   profile.Calculate(wpi::units::second_t(0.0), profileState, goalState);
-  const double totalProfileTime = profile.TotalTime().to<double>();
+  const double totalProfileTime = profile.Duration().to<double>();
 
   std::vector<ElevatorSimStateInternal> states;
 

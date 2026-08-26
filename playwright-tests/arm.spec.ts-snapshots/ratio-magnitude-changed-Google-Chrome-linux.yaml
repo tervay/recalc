@@ -44,7 +44,7 @@
 - button "LQR Tuning":
   - img
   - heading "LQR Tuning" [level=2]
-- text: Time to Goal (Up) 0.527
+- text: Time to Goal (Up) 0.526
 - combobox: s
 - text: Time to Goal (Down) 0.517
 - combobox: s
@@ -62,7 +62,7 @@
   - listitem:
     - img "Supply Current (A) legend icon"
     - text: Supply Current (A)
-- application: Time (s) Current (A) / Voltage (V) Motor Speed (RPM) 0.001 0.051 0.101 0.141 0.181 0.231 0.281 0.331 0.381 0.431 0.481 0.527 0 15 30 45 60 0 1500 3000 4500 6000
+- application: Time (s) Current (A) / Voltage (V) Motor Speed (RPM) 0.001 0.051 0.101 0.141 0.181 0.231 0.281 0.331 0.381 0.431 0.481 0.526 0 15 30 45 60 0 1500 3000 4500 6000
 - heading "Simulation (Going Down)" [level=2]
 - list:
   - listitem:

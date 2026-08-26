@@ -9,7 +9,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
         add_subdirectory(stubs)
     endif()
     # Set C++ standard
-    set(CMAKE_CXX_STANDARD 20)
+    set(CMAKE_CXX_STANDARD 23)
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
     # Emscripten-specific settings
@@ -50,14 +50,13 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
         ${CMAKE_CURRENT_SOURCE_DIR}/../../wpimath/src/main/native/thirdparty/eigen/include
         ${CMAKE_CURRENT_SOURCE_DIR}/../../wpimath/src/main/native/thirdparty/gcem/include
         ${CMAKE_CURRENT_SOURCE_DIR}/../../wpimath/src/main/native/thirdparty/sleipnir/include
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../wpiutil/src/main/native/thirdparty/fmtlib/include
     )
 
     # Emscripten compilation flags (only compile-time flags here)
     target_compile_options(wpilibc_wasm PRIVATE
         -O3
         -flto
-        -std=c++20
+        -std=c++23
         -fwasm-exceptions
     )
 
