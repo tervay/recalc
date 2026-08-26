@@ -1,8 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
-  "timezone": "America/New_York",
-  "schedule": ["* 12-13 * * *"],
   "prConcurrentLimit": 10,
   "prHourlyLimit": 0,
   "minimumReleaseAge": "3 days",
