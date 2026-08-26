@@ -62,7 +62,7 @@
     "@tailwindcss/vite": "4.3.3",
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.2",
-    "@testing-library/user-event": "14.6.4",
+    "@testing-library/user-event": "14.6.6",
     "@types/js-quantities": "1.6.6",
     "@types/node": "26.2.0",
     "@types/react": "19.2.18",
@@ -86,7 +86,7 @@
     "vite": "8.2.1",
     "vite-plugin-comlink": "5.3.0",
     "vite-plugin-sitemap": "0.8.2",
-    "vitest": "4.1.10",
+    "vitest": "4.1.11",
     "yaml": "2.9.0",
     "zod": "4.4.3"
   },
