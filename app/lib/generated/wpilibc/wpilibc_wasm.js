@@ -144,7 +144,7 @@ async function createWpilibcModule(moduleArg = {}) {
     if (!a)
       throw new L(`type "${d}" must have a positive integer typeid pointer`);
     if (J.hasOwnProperty(a)) {
-      if (c.za) return;
+      if (c.xa) return;
       throw new L(`Cannot register type '${d}' twice`);
     }
     J[a] = b;
@@ -175,20 +175,20 @@ async function createWpilibcModule(moduleArg = {}) {
       }
     },
     Da = (a) => {
-      throw new L(a.V.Y.W.name + ' instance already deleted');
+      throw new L(a.T.W.U.name + ' instance already deleted');
     },
     Ea = !1,
     Fa = () => {},
     N = (a) => {
       if (!globalThis.FinalizationRegistry) return ((N = (b) => b), a);
       Ea = new FinalizationRegistry((b) => {
-        b = b.V;
+        b = b.T;
         --b.count.value;
-        0 === b.count.value && (b.$ ? b.da.ha(b.$) : b.Y.W.ha(b.X));
+        0 === b.count.value && (b.Y ? b.aa.fa(b.Y) : b.W.U.fa(b.V));
       });
       N = (b) => {
-        var c = b.V;
-        c.$ && Ea.register(b, { V: c }, b);
+        var c = b.T;
+        c.Y && Ea.register(b, { T: c }, b);
         return b;
       };
       Fa = (b) => {
@@ -201,33 +201,33 @@ async function createWpilibcModule(moduleArg = {}) {
   var Ha = (a, b) => Object.defineProperty(b, 'name', { value: a }),
     Ia = {},
     Ja = (a, b, c) => {
-      if (void 0 === a[b].Z) {
+      if (void 0 === a[b].X) {
         var d = a[b];
         a[b] = function (...e) {
-          if (!a[b].Z.hasOwnProperty(e.length))
+          if (!a[b].X.hasOwnProperty(e.length))
             throw new L(
-              `Function '${c}' called with an invalid number of arguments (${e.length}) - expects one of (${a[b].Z})!`,
+              `Function '${c}' called with an invalid number of arguments (${e.length}) - expects one of (${a[b].X})!`,
             );
-          return a[b].Z[e.length].apply(this, e);
+          return a[b].X[e.length].apply(this, e);
         };
-        a[b].Z = [];
-        a[b].Z[d.ka] = d;
+        a[b].X = [];
+        a[b].X[d.ia] = d;
       }
     },
     Ka = (a, b, c) => {
       if (Module.hasOwnProperty(a)) {
         if (
           void 0 === c ||
-          (void 0 !== Module[a].Z && void 0 !== Module[a].Z[c])
+          (void 0 !== Module[a].X && void 0 !== Module[a].X[c])
         )
           throw new L(`Cannot register public name '${a}' twice`);
         Ja(Module, a, a);
-        if (Module[a].Z.hasOwnProperty(c))
+        if (Module[a].X.hasOwnProperty(c))
           throw new L(
             `Cannot register multiple overloads of a function with the same number of arguments (${c})!`,
           );
-        Module[a].Z[c] = b;
-      } else ((Module[a] = b), (Module[a].ka = c));
+        Module[a].X[c] = b;
+      } else ((Module[a] = b), (Module[a].ia = c));
     },
     La = (a) => {
       a = a.replace(/[^a-zA-Z0-9_]/g, '$');
@@ -237,22 +237,22 @@ async function createWpilibcModule(moduleArg = {}) {
   function Ma(a, b, c, d, e, g, f, h) {
     this.name = a;
     this.constructor = b;
-    this.ja = c;
-    this.ha = d;
-    this.ba = e;
-    this.xa = g;
-    this.na = f;
-    this.wa = h;
-    this.Ba = [];
+    this.ha = c;
+    this.fa = d;
+    this.$ = e;
+    this.va = g;
+    this.la = f;
+    this.ua = h;
+    this.za = [];
   }
   var Na = (a, b, c) => {
       for (; b !== c;) {
-        if (!b.na)
+        if (!b.la)
           throw new L(
             `Expected null or instance of ${c.name}, got an instance of ${b.name}`,
           );
-        a = b.na(a);
-        b = b.ba;
+        a = b.la(a);
+        b = b.$;
       }
       return a;
     },
@@ -265,59 +265,59 @@ async function createWpilibcModule(moduleArg = {}) {
     };
   function Pa(a, b) {
     if (b === null) {
-      if (this.qa) throw new L(`null is not a valid ${this.name}`);
+      if (this.oa) throw new L(`null is not a valid ${this.name}`);
       return 0;
     }
-    if (!b.V) throw new L(`Cannot pass "${Oa(b)}" as a ${this.name}`);
-    if (!b.V.X)
+    if (!b.T) throw new L(`Cannot pass "${Oa(b)}" as a ${this.name}`);
+    if (!b.T.V)
       throw new L(
         `Cannot pass deleted object as a pointer of type ${this.name}`,
       );
-    return Na(b.V.X, b.V.Y.W, this.W);
+    return Na(b.T.V, b.T.W.U, this.U);
   }
   function Qa(a, b) {
     if (b === null) {
-      if (this.qa) throw new L(`null is not a valid ${this.name}`);
-      if (this.pa) {
-        var c = this.Ca();
-        a !== null && a.push(this.ha, c);
+      if (this.oa) throw new L(`null is not a valid ${this.name}`);
+      if (this.na) {
+        var c = this.Aa();
+        a !== null && a.push(this.fa, c);
         return c;
       }
       return 0;
     }
-    if (!b || !b.V) throw new L(`Cannot pass "${Oa(b)}" as a ${this.name}`);
-    if (!b.V.X)
+    if (!b || !b.T) throw new L(`Cannot pass "${Oa(b)}" as a ${this.name}`);
+    if (!b.T.V)
       throw new L(
         `Cannot pass deleted object as a pointer of type ${this.name}`,
       );
-    if (!this.oa && b.V.Y.oa)
+    if (!this.ma && b.T.W.ma)
       throw new L(
-        `Cannot convert argument of type ${b.V.da ? b.V.da.name : b.V.Y.name} to parameter type ${this.name}`,
+        `Cannot convert argument of type ${b.T.aa ? b.T.aa.name : b.T.W.name} to parameter type ${this.name}`,
       );
-    c = Na(b.V.X, b.V.Y.W, this.W);
-    if (this.pa) {
-      if (void 0 === b.V.$)
+    c = Na(b.T.V, b.T.W.U, this.U);
+    if (this.na) {
+      if (void 0 === b.T.Y)
         throw new L('Passing raw pointer to smart pointer is illegal');
-      switch (this.Ea) {
+      switch (this.Ca) {
         case 0:
-          if (b.V.da === this) c = b.V.$;
+          if (b.T.aa === this) c = b.T.Y;
           else
             throw new L(
-              `Cannot convert argument of type ${b.V.da ? b.V.da.name : b.V.Y.name} to parameter type ${this.name}`,
+              `Cannot convert argument of type ${b.T.aa ? b.T.aa.name : b.T.W.name} to parameter type ${this.name}`,
             );
           break;
         case 1:
-          c = b.V.$;
+          c = b.T.Y;
           break;
         case 2:
-          if (b.V.da === this) c = b.V.$;
+          if (b.T.aa === this) c = b.T.Y;
           else {
             var d = b.clone();
-            c = this.Da(
+            c = this.Ba(
               c,
               R(() => d['delete']()),
             );
-            a !== null && a.push(this.ha, c);
+            a !== null && a.push(this.fa, c);
           }
           break;
         default:
@@ -328,33 +328,33 @@ async function createWpilibcModule(moduleArg = {}) {
   }
   function Ra(a, b) {
     if (b === null) {
-      if (this.qa) throw new L(`null is not a valid ${this.name}`);
+      if (this.oa) throw new L(`null is not a valid ${this.name}`);
       return 0;
     }
-    if (!b.V) throw new L(`Cannot pass "${Oa(b)}" as a ${this.name}`);
-    if (!b.V.X)
+    if (!b.T) throw new L(`Cannot pass "${Oa(b)}" as a ${this.name}`);
+    if (!b.T.V)
       throw new L(
         `Cannot pass deleted object as a pointer of type ${this.name}`,
       );
-    if (b.V.Y.oa)
+    if (b.T.W.ma)
       throw new L(
-        `Cannot convert argument of type ${b.V.Y.name} to parameter type ${this.name}`,
+        `Cannot convert argument of type ${b.T.W.name} to parameter type ${this.name}`,
       );
-    return Na(b.V.X, b.V.Y.W, this.W);
+    return Na(b.T.V, b.T.W.U, this.U);
   }
   function S(a) {
-    return this.aa(G[a >> 2]);
+    return this.Z(G[a >> 2]);
   }
   var Sa = (a, b, c) => {
       if (b === c) return a;
-      if (void 0 === c.ba) return null;
-      a = Sa(a, b, c.ba);
-      return a === null ? null : c.wa(a);
+      if (void 0 === c.$) return null;
+      a = Sa(a, b, c.$);
+      return a === null ? null : c.ua(a);
     },
     Ta = {},
     Ua = (a, b) => {
       if (b === void 0) throw new L('ptr should not be undefined');
-      for (; a.ba;) ((b = a.na(b)), (a = a.ba));
+      for (; a.$;) ((b = a.la(b)), (a = a.$));
       return Ta[b];
     };
   class Va extends Error {
@@ -364,34 +364,34 @@ async function createWpilibcModule(moduleArg = {}) {
     }
   }
   var Wa = (a, b) => {
-    if (!b.Y || !b.X) throw new Va('makeClassHandle requires ptr and ptrType');
-    if (!!b.da !== !!b.$)
+    if (!b.W || !b.V) throw new Va('makeClassHandle requires ptr and ptrType');
+    if (!!b.aa !== !!b.Y)
       throw new Va('Both smartPtrType and smartPtr must be specified');
     b.count = { value: 1 };
-    return N(Object.create(a, { V: { value: b, writable: !0 } }));
+    return N(Object.create(a, { T: { value: b, writable: !0 } }));
   };
   function Xa(a, b, c, d, e, g, f, h, k, n, l) {
     this.name = a;
-    this.W = b;
-    this.qa = c;
-    this.oa = d;
-    this.pa = e;
-    this.Aa = g;
-    this.Ea = f;
-    this.ua = h;
-    this.Ca = k;
-    this.Da = n;
-    this.ha = l;
-    e || b.ba !== void 0
-      ? (this.ea = Qa)
-      : ((this.ea = d ? Pa : Ra), (this.fa = null));
+    this.U = b;
+    this.oa = c;
+    this.ma = d;
+    this.na = e;
+    this.ya = g;
+    this.Ca = f;
+    this.sa = h;
+    this.Aa = k;
+    this.Ba = n;
+    this.fa = l;
+    e || b.$ !== void 0
+      ? (this.ba = Qa)
+      : ((this.ba = d ? Pa : Ra), (this.da = null));
   }
   var Ya = (a, b, c) => {
       if (!Module.hasOwnProperty(a))
         throw new Va('Replacing nonexistent public symbol');
-      void 0 !== Module[a].Z && void 0 !== c
-        ? (Module[a].Z[c] = b)
-        : ((Module[a] = b), (Module[a].ka = c));
+      void 0 !== Module[a].X && void 0 !== c
+        ? (Module[a].X[c] = b)
+        : ((Module[a] = b), (Module[a].ia = c));
     },
     Za = [],
     T = (a, b) => {
@@ -453,7 +453,7 @@ async function createWpilibcModule(moduleArg = {}) {
     };
   function gb(a) {
     for (var b = 1; b < a.length; ++b)
-      if (a[b] !== null && a[b].fa === void 0) return !0;
+      if (a[b] !== null && a[b].da === void 0) return !0;
     return !1;
   }
   function hb(a, b, c, d, e, g) {
@@ -464,14 +464,14 @@ async function createWpilibcModule(moduleArg = {}) {
       );
     var h = b[1] !== null && c !== null,
       k = gb(b);
-    c = !b[0].ta;
+    c = !b[0].ra;
     var n = b[0],
       l = b[1];
-    d = [a, Aa, d, e, fb, n.aa.bind(n), l?.ea.bind(l)];
-    for (e = 2; e < f; ++e) ((n = b[e]), d.push(n.ea.bind(n)));
+    d = [a, Aa, d, e, fb, n.Z.bind(n), l?.ba.bind(l)];
+    for (e = 2; e < f; ++e) ((n = b[e]), d.push(n.ba.bind(n)));
     if (!k)
       for (e = h ? 1 : 2; e < b.length; ++e)
-        b[e].fa !== null && d.push(b[e].fa);
+        b[e].da !== null && d.push(b[e].da);
     k = gb(b);
     e = b.length - 2;
     l = [];
@@ -498,7 +498,7 @@ async function createWpilibcModule(moduleArg = {}) {
     else
       for (f = h ? 1 : 2; f < b.length; ++f)
         ((g = f === 1 ? 'thisWired' : `arg${f - 2}Wired`),
-          b[f].fa !== null &&
+          b[f].da !== null &&
             ((l += `${g}_dtor(${g});\n`), w.push(`${g}_dtor`)));
     c && (l += 'var ret = fromRetWire(rv);\nreturn ret;\n');
     b = new Function(w, l + '}\n')(...d);
@@ -544,14 +544,14 @@ async function createWpilibcModule(moduleArg = {}) {
     },
     nb = {
       name: 'emscripten::val',
-      aa: (a) => {
+      Z: (a) => {
         var b = X(a);
         mb(a);
         return b;
       },
-      ea: (a, b) => R(b),
-      ga: S,
-      fa: null,
+      ba: (a, b) => R(b),
+      ea: S,
+      da: null,
     },
     na,
     oa,
@@ -559,11 +559,11 @@ async function createWpilibcModule(moduleArg = {}) {
       switch (b) {
         case 4:
           return function (c) {
-            return this.aa(na[c >> 2]);
+            return this.Z(na[c >> 2]);
           };
         case 8:
           return function (c) {
-            return this.aa(oa[c >> 3]);
+            return this.Z(oa[c >> 3]);
           };
         default:
           throw new TypeError(`invalid float width (${b}): ${a}`);
@@ -792,60 +792,60 @@ async function createWpilibcModule(moduleArg = {}) {
     Object.assign(a, {
       isAliasOf: function (c) {
         if (!(this instanceof Q && c instanceof Q)) return !1;
-        var d = this.V.Y.W,
-          e = this.V.X;
-        c.V = c.V;
-        var g = c.V.Y.W;
-        for (c = c.V.X; d.ba;) ((e = d.na(e)), (d = d.ba));
-        for (; g.ba;) ((c = g.na(c)), (g = g.ba));
+        var d = this.T.W.U,
+          e = this.T.V;
+        c.T = c.T;
+        var g = c.T.W.U;
+        for (c = c.T.V; d.$;) ((e = d.la(e)), (d = d.$));
+        for (; g.$;) ((c = g.la(c)), (g = g.$));
         return d === g && e === c;
       },
       clone: function () {
-        this.V.X || Da(this);
-        if (this.V.ma) return ((this.V.count.value += 1), this);
+        this.T.V || Da(this);
+        if (this.T.ka) return ((this.T.count.value += 1), this);
         var c = N,
           d = Object,
           e = d.create,
           g = Object.getPrototypeOf(this),
-          f = this.V;
+          f = this.T;
         c = c(
           e.call(d, g, {
-            V: {
+            T: {
               value: {
                 count: f.count,
-                la: f.la,
-                ma: f.ma,
-                X: f.X,
+                ja: f.ja,
+                ka: f.ka,
+                V: f.V,
+                W: f.W,
                 Y: f.Y,
-                $: f.$,
-                da: f.da,
+                aa: f.aa,
               },
             },
           }),
         );
-        c.V.count.value += 1;
-        c.V.la = !1;
+        c.T.count.value += 1;
+        c.T.ja = !1;
         return c;
       },
       ['delete']() {
-        this.V.X || Da(this);
-        if (this.V.la && !this.V.ma)
+        this.T.V || Da(this);
+        if (this.T.ja && !this.T.ka)
           throw new L('Object already scheduled for deletion');
         Fa(this);
-        var c = this.V;
+        var c = this.T;
         --c.count.value;
-        0 === c.count.value && (c.$ ? c.da.ha(c.$) : c.Y.W.ha(c.X));
-        this.V.ma || ((this.V.$ = void 0), (this.V.X = void 0));
+        0 === c.count.value && (c.Y ? c.aa.fa(c.Y) : c.W.U.fa(c.V));
+        this.T.ka || ((this.T.Y = void 0), (this.T.V = void 0));
       },
       isDeleted: function () {
-        return !this.V.X;
+        return !this.T.V;
       },
       deleteLater: function () {
-        this.V.X || Da(this);
-        if (this.V.la && !this.V.ma)
+        this.T.V || Da(this);
+        if (this.T.ja && !this.T.ka)
           throw new L('Object already scheduled for deletion');
         Ga.push(this);
-        this.V.la = !0;
+        this.T.ja = !0;
         return this;
       },
     });
@@ -853,39 +853,39 @@ async function createWpilibcModule(moduleArg = {}) {
     b && (a[b] = a['delete']);
   })();
   Object.assign(Xa.prototype, {
-    ya(a) {
-      this.ua && (a = this.ua(a));
+    wa(a) {
+      this.sa && (a = this.sa(a));
       return a;
     },
-    sa(a) {
-      this.ha?.(a);
+    qa(a) {
+      this.fa?.(a);
     },
-    ga: S,
-    aa: function (a) {
+    ea: S,
+    Z: function (a) {
       function b() {
-        return this.pa
-          ? Wa(this.W.ja, { Y: this.Aa, X: c, da: this, $: a })
-          : Wa(this.W.ja, { Y: this, X: a });
+        return this.na
+          ? Wa(this.U.ha, { W: this.ya, V: c, aa: this, Y: a })
+          : Wa(this.U.ha, { W: this, V: a });
       }
-      var c = this.ya(a);
-      if (!c) return (this.sa(a), null);
-      var d = Ua(this.W, c);
+      var c = this.wa(a);
+      if (!c) return (this.qa(a), null);
+      var d = Ua(this.U, c);
       if (void 0 !== d) {
-        if (0 === d.V.count.value) return ((d.V.X = c), (d.V.$ = a), d.clone());
+        if (0 === d.T.count.value) return ((d.T.V = c), (d.T.Y = a), d.clone());
         d = d.clone();
-        this.sa(a);
+        this.qa(a);
         return d;
       }
-      d = this.W.xa(c);
+      d = this.U.va(c);
       d = Ia[d];
       if (!d) return b.call(this);
-      d = this.oa ? d.va : d.pointerType;
-      var e = Sa(c, this.W, d.W);
+      d = this.ma ? d.ta : d.pointerType;
+      var e = Sa(c, this.U, d.U);
       return e === null
         ? b.call(this)
-        : this.pa
-          ? Wa(d.W.ja, { Y: d, X: e, da: this, $: a })
-          : Wa(d.W.ja, { Y: d, X: e });
+        : this.na
+          ? Wa(d.U.ha, { W: d, V: e, aa: this, Y: a })
+          : Wa(d.U.ha, { W: d, V: e });
     },
   });
   var bb,
@@ -896,8 +896,8 @@ async function createWpilibcModule(moduleArg = {}) {
     B,
     $a,
     Rb = {
-      F: () => ra(''),
-      s: (a, b, c, d, e) => {
+      D: () => ra(''),
+      r: (a, b, c, d, e) => {
         b = H(b);
         d = d === 0n;
         var g = (f) => f;
@@ -908,29 +908,29 @@ async function createWpilibcModule(moduleArg = {}) {
         }
         M(a, {
           name: b,
-          aa: g,
-          ea: (f, h) => {
+          Z: g,
+          ba: (f, h) => {
             typeof h == 'number' && (h = BigInt(h));
             return h;
           },
-          ga: Ca(b, c, !d),
-          fa: null,
+          ea: Ca(b, c, !d),
+          da: null,
         });
       },
-      I: (a, b, c, d) => {
+      G: (a, b, c, d) => {
         b = H(b);
         M(a, {
           name: b,
-          aa: function (e) {
+          Z: function (e) {
             return !!e;
           },
-          ea: function (e, g) {
+          ba: function (e, g) {
             return g ? c : d;
           },
-          ga: function (e) {
-            return this.aa(D[e]);
+          ea: function (e) {
+            return this.Z(D[e]);
           },
-          fa: null,
+          da: null,
         });
       },
       p: (a, b, c, d, e, g, f, h, k, n, l, r, w) => {
@@ -946,33 +946,33 @@ async function createWpilibcModule(moduleArg = {}) {
         V([a, b, c], d ? [d] : [], (u) => {
           u = u[0];
           if (d) {
-            var y = u.W;
-            var O = y.ja;
+            var y = u.U;
+            var O = y.ha;
           } else O = Q.prototype;
           u = Ha(l, function (...ya) {
             if (Object.getPrototypeOf(this) !== za)
               throw new L(`Use 'new' to construct ${l}`);
-            if (void 0 === z.ia)
+            if (void 0 === z.ga)
               throw new L(`${l} has no accessible constructor`);
-            var lb = z.ia[ya.length];
+            var lb = z.ga[ya.length];
             if (void 0 === lb)
               throw new L(
-                `Tried to invoke ctor of ${l} with invalid number of parameters (${ya.length}) - expected (${Object.keys(z.ia).toString()}) parameters instead!`,
+                `Tried to invoke ctor of ${l} with invalid number of parameters (${ya.length}) - expected (${Object.keys(z.ga).toString()}) parameters instead!`,
               );
             return lb.apply(this, ya);
           });
           var za = Object.create(O, { constructor: { value: u } });
           u.prototype = za;
           var z = new Ma(l, u, za, w, y, g, h, n);
-          if (z.ba) {
+          if (z.$) {
             var P;
-            (P = z.ba).ra ?? (P.ra = []);
-            z.ba.ra.push(z);
+            (P = z.$).pa ?? (P.pa = []);
+            z.$.pa.push(z);
           }
           y = new Xa(l, z, !0, !1, !1);
           P = new Xa(l + '*', z, !1, !1, !1);
           O = new Xa(l + ' const*', z, !1, !0, !1);
-          Ia[a] = { pointerType: P, va: O };
+          Ia[a] = { pointerType: P, ta: O };
           Ya(t, u);
           return [y, P, O];
         });
@@ -983,19 +983,19 @@ async function createWpilibcModule(moduleArg = {}) {
         V([], [a], (h) => {
           h = h[0];
           var k = `constructor ${h.name}`;
-          void 0 === h.W.ia && (h.W.ia = []);
-          if (void 0 !== h.W.ia[b - 1])
+          void 0 === h.U.ga && (h.U.ga = []);
+          if (void 0 !== h.U.ga[b - 1])
             throw new L(
               `Cannot register multiple constructors with identical number of parameters (${
                 b - 1
               }) for class '${h.name}'! Overload resolution is currently only performed using the parameter count, not actual type info!`,
             );
-          h.W.ia[b - 1] = () => {
+          h.U.ga[b - 1] = () => {
             db(`Cannot construct ${h.name} due to unbound types`, f);
           };
           V([], f, (n) => {
             n.splice(1, 0, null);
-            h.W.ia[b - 1] = hb(k, n, null, e, g);
+            h.U.ga[b - 1] = hb(k, n, null, e, g);
             return [];
           });
           return [];
@@ -1013,33 +1013,27 @@ async function createWpilibcModule(moduleArg = {}) {
           l = l[0];
           var w = `${l.name}.${b}`;
           b.startsWith('@@') && (b = Symbol[b.substring(2)]);
-          h && l.W.Ba.push(b);
-          var t = l.W.ja,
+          h && l.U.za.push(b);
+          var t = l.U.ha,
             u = t[b];
           void 0 === u ||
-          (void 0 === u.Z && u.className !== l.name && u.ka === c - 2)
-            ? ((r.ka = c - 2), (r.className = l.name), (t[b] = r))
-            : (Ja(t, b, w), (t[b].Z[c - 2] = r));
+          (void 0 === u.X && u.className !== l.name && u.ia === c - 2)
+            ? ((r.ia = c - 2), (r.className = l.name), (t[b] = r))
+            : (Ja(t, b, w), (t[b].X[c - 2] = r));
           V([], n, (y) => {
             y = hb(w, y, l, g, f, k);
-            void 0 === t[b].Z
-              ? ((y.ka = c - 2), (t[b] = y))
-              : (t[b].Z[c - 2] = y);
+            void 0 === t[b].X
+              ? ((y.ia = c - 2), (t[b] = y))
+              : (t[b].X[c - 2] = y);
             return [];
           });
           return [];
         });
       },
-      G: (a) => M(a, nb),
-      r: (a, b, c) => {
+      E: (a) => M(a, nb),
+      q: (a, b, c) => {
         b = H(b);
-        M(a, {
-          name: b,
-          aa: (d) => d,
-          ea: (d, e) => e,
-          ga: ob(b, c),
-          fa: null,
-        });
+        M(a, { name: b, Z: (d) => d, ba: (d, e) => e, ea: ob(b, c), da: null });
       },
       f: (a, b, c, d, e, g, f) => {
         var h = eb(b, c);
@@ -1069,17 +1063,17 @@ async function createWpilibcModule(moduleArg = {}) {
         }
         M(a, {
           name: b,
-          aa: g,
-          ea: (h, k) => k,
-          ga: Ca(b, c, d !== 0),
-          fa: null,
+          Z: g,
+          ba: (h, k) => k,
+          ea: Ca(b, c, d !== 0),
+          da: null,
         });
       },
-      t: (a, b, c, d) => {
+      s: (a, b, c, d) => {
         c = H(c);
         d = H(d);
         V([], [a, b], (e) => {
-          pb(e[0].W.ja, c, d);
+          pb(e[0].U.ha, c, d);
           return [];
         });
       },
@@ -1100,21 +1094,21 @@ async function createWpilibcModule(moduleArg = {}) {
           BigUint64Array,
         ][b];
         c = H(c);
-        M(a, { name: c, aa: d, ga: d }, { za: !0 });
+        M(a, { name: c, Z: d, ea: d }, { xa: !0 });
       },
-      M: (a) => {
+      K: (a) => {
         M(a, qb);
       },
-      H: (a, b) => {
+      F: (a, b) => {
         b = H(b);
         M(a, {
           name: b,
-          aa(c) {
+          Z(c) {
             var d = (d = c + 4) ? ub(D, d, G[c >> 2], !0) : '';
             U(c);
             return d;
           },
-          ea(c, d) {
+          ba(c, d) {
             d instanceof ArrayBuffer && (d = new Uint8Array(d));
             var e = typeof d == 'string';
             if (!(e || (ArrayBuffer.isView(d) && d.BYTES_PER_ELEMENT == 1)))
@@ -1127,8 +1121,8 @@ async function createWpilibcModule(moduleArg = {}) {
             c !== null && c.push(U, f);
             return f;
           },
-          ga: S,
-          fa(c) {
+          ea: S,
+          da(c) {
             U(c);
           },
         });
@@ -1142,12 +1136,12 @@ async function createWpilibcModule(moduleArg = {}) {
         } else ((d = zb), (e = Ab), (g = Bb));
         M(a, {
           name: c,
-          aa: (f) => {
+          Z: (f) => {
             var h = d(f + 4, G[f >> 2] * b, !0);
             U(f);
             return h;
           },
-          ea: (f, h) => {
+          ba: (f, h) => {
             if (typeof h != 'string')
               throw new L(`Cannot pass non-string to C++ string type ${c}`);
             var k = g(h),
@@ -1157,22 +1151,22 @@ async function createWpilibcModule(moduleArg = {}) {
             f !== null && f.push(U, n);
             return n;
           },
-          ga: S,
-          fa(f) {
+          ea: S,
+          da(f) {
             U(f);
           },
         });
       },
-      J: (a, b) => {
+      H: (a, b) => {
         b = H(b);
-        M(a, { ta: !0, name: b, aa: () => {}, ea: () => {} });
+        M(a, { ra: !0, name: b, Z: () => {}, ba: () => {} });
       },
       A: () => {},
       i: (a, b, c) => {
         var d;
         [b, ...d] = Eb(a, b);
-        var e = b.ea.bind(b),
-          g = d.map((k) => k.ga.bind(k));
+        var e = b.ba.bind(b),
+          g = d.map((k) => k.ea.bind(k));
         a--;
         var f = { toValue: X };
         a = g.map((k, n) => {
@@ -1195,7 +1189,7 @@ async function createWpilibcModule(moduleArg = {}) {
               (h = 'toValue(handle)[getStringOrSymbol(methodName)]'));
         }
         h += `(${a})`;
-        b.ta ||
+        b.ra ||
           ((f.toReturnWire = e),
           (f.emval_returnValue = Fb),
           (h = `return emval_returnValue(toReturnWire, destructorsRef, ${h})`));
@@ -1205,12 +1199,12 @@ async function createWpilibcModule(moduleArg = {}) {
         return Db(Ha(b, c));
       },
       b: mb,
-      K: (a) => {
+      I: (a) => {
         if (!a) return R(globalThis);
         a = Hb(a);
         return R(globalThis[a]);
       },
-      L: (a) => {
+      J: (a) => {
         a > 9 && (W[a + 1] += 1);
       },
       h: (a, b, c, d, e) => Cb[a](b, c, d, e),
@@ -1228,17 +1222,17 @@ async function createWpilibcModule(moduleArg = {}) {
         c = X(c);
         a[b] = c;
       },
-      u: (a, b) => {
+      t: (a, b) => {
         Z[a] && (clearTimeout(Z[a].id), delete Z[a]);
         if (!b) return 0;
         var c = setTimeout(() => {
           delete Z[a];
           Ib(() => Qb(a, performance.now()));
         }, b);
-        Z[a] = { id: c, Fa: b };
+        Z[a] = { id: c, Da: b };
         return 0;
       },
-      w: (a, b, c, d) => {
+      v: (a, b, c, d) => {
         var e = new Date().getFullYear(),
           g = new Date(e, 0, 1).getTimezoneOffset();
         e = new Date(e, 6, 1).getTimezoneOffset();
@@ -1252,7 +1246,7 @@ async function createWpilibcModule(moduleArg = {}) {
         b = b(e);
         e < g ? (Y(a, c, 17), Y(b, d, 17)) : (Y(a, d, 17), Y(b, c, 17));
       },
-      x: function (a, b, c) {
+      w: function (a, b, c) {
         if (!(a >= 0 && a <= 3)) return 28;
         pa[c >> 3] = BigInt(
           Math.round((a === 0 ? Date.now() : performance.now()) * 1e3 * 1e3),
@@ -1260,7 +1254,7 @@ async function createWpilibcModule(moduleArg = {}) {
         return 0;
       },
       j: () => performance.now(),
-      y: (a) => {
+      x: (a) => {
         var b = D.length;
         a >>>= 0;
         if (a > 268435456) return !1;
@@ -1286,7 +1280,7 @@ async function createWpilibcModule(moduleArg = {}) {
         }
         return !1;
       },
-      C: (a, b) => {
+      B: (a, b) => {
         var c = 0,
           d = 0,
           e;
@@ -1298,7 +1292,7 @@ async function createWpilibcModule(moduleArg = {}) {
         }
         return 0;
       },
-      D: (a, b) => {
+      C: (a, b) => {
         var c = Lb();
         G[a >> 2] = c.length;
         a = 0;
@@ -1306,11 +1300,7 @@ async function createWpilibcModule(moduleArg = {}) {
         G[b >> 2] = a;
         return 0;
       },
-      E: () => 52,
-      B: function () {
-        return 70;
-      },
-      q: (a, b, c, d) => {
+      y: (a, b, c, d) => {
         for (var e = 0, g = 0; g < c; g++) {
           var f = G[b >> 2],
             h = G[(b + 4) >> 2];
@@ -1331,7 +1321,7 @@ async function createWpilibcModule(moduleArg = {}) {
       z: (a) => {
         da(a, new xa(a));
       },
-      v: (a, b) => Ob(D.subarray(a, a + b)),
+      u: (a, b) => Ob(D.subarray(a, a + b)),
     },
     Sb;
   Sb = await (async function () {
@@ -1342,18 +1332,18 @@ async function createWpilibcModule(moduleArg = {}) {
         : q + 'wpilibc_wasm.wasm'
       : new URL('wpilibc_wasm.wasm', import.meta.url).href;
     a = Sb = (await wa(a)).instance.exports;
-    bb = a.P;
-    Pb = Module._malloc = a.Q;
-    U = Module._free = a.R;
-    Qb = a.T;
-    sa = a.U;
-    B = a.N;
-    $a = a.S;
+    bb = a.N;
+    Pb = Module._malloc = a.O;
+    U = Module._free = a.P;
+    Qb = a.R;
+    sa = a.S;
+    B = a.L;
+    $a = a.Q;
     ma();
     return Sb;
   })();
   await (async function () {
-    ka || ((la = !0), Sb.O());
+    ka || ((la = !0), Sb.M());
   })();
   return Module;
 }

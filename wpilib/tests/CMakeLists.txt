@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 project(recalc_wpilib_tests CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # When compiling with Emscripten, target Node.js and ensure the process exits
@@ -122,7 +122,6 @@ target_include_directories(wpimath_deps SYSTEM INTERFACE
     ${WPIUTIL_SRC}/main/native/thirdparty/nanopb/include
     ${WPIUTIL_SRC}/main/native/thirdparty/sigslot/include
     ${WPIUTIL_SRC}/main/native/thirdparty/upb/include
-    ${WPIUTIL_SRC}/main/native/thirdparty/fmtlib/include
 )
 
 target_link_libraries(wpimath_deps INTERFACE
@@ -132,14 +131,11 @@ target_link_libraries(wpimath_deps INTERFACE
 )
 
 # -fwasm-exceptions is already applied globally above.
-target_compile_features(wpimath_deps INTERFACE cxx_std_20)
+target_compile_features(wpimath_deps INTERFACE cxx_std_23)
 
-# wasm_console.h formats through fmtlib and resolves fmt's compiled symbols out
-# of libwpiutil.a, but needs none of the wpimath include set above.
+# wasm_console.h formats through std::format, so it needs no include path of
+# its own and none of the wpimath include set above.
 add_library(console_deps INTERFACE)
-
-target_include_directories(console_deps SYSTEM INTERFACE
-    ${WPIUTIL_SRC}/main/native/thirdparty/fmtlib/include)
 
 target_link_libraries(console_deps INTERFACE patch_headers wpiutil_prebuilt)
 
@@ -173,6 +169,8 @@ endif()
 set(WPILIBC_SRC "${WPILIB_ARTIFACTS_DIR}/include/wpilibc/src")
 set(HAL_SRC     "${WPILIB_ARTIFACTS_DIR}/include/hal/src")
 set(NTCORE_SRC  "${WPILIB_ARTIFACTS_DIR}/include/ntcore/src")
+set(TELEMETRY_SRC "${WPILIB_ARTIFACTS_DIR}/include/telemetry/src")
+set(TUNABLES_SRC  "${WPILIB_ARTIFACTS_DIR}/include/tunables/src")
 
 add_library(wpilibc_deps INTERFACE)
 
@@ -183,10 +181,12 @@ target_include_directories(wpilibc_deps SYSTEM INTERFACE
     ${HAL_SRC}/generated/main/native/include
     ${NTCORE_SRC}/main/native/include
     ${NTCORE_SRC}/generated/main/native/include
+    ${TELEMETRY_SRC}/main/native/include
+    ${TUNABLES_SRC}/main/native/include
 )
 
 # Reuses wpimath_deps for the shared wpimath/wpiutil include dirs, the patch
-# include dir, and cxx_std_20.
+# include dir, and cxx_std_23.
 target_link_libraries(wpilibc_deps INTERFACE
     wpimath_deps
     -Wl,--start-group ${WPILIB_ARCHIVES} -Wl,--end-group

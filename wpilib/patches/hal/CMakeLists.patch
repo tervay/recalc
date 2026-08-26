@@ -1,8 +1,6 @@
-diff --git a/hal/CMakeLists.txt b/hal/CMakeLists.txt
-index 311231c..6685689 100644
 --- a/hal/CMakeLists.txt
 +++ b/hal/CMakeLists.txt
-@@ -23,12 +23,20 @@ target_include_directories(
+@@ -23,6 +23,15 @@
  )
  target_link_libraries(hal PUBLIC ntcore wpiutil)
  
@@ -18,9 +16,3 @@ index 311231c..6685689 100644
  set_property(TARGET hal PROPERTY FOLDER "libraries")
  
  install(TARGETS hal EXPORT hal)
- export(TARGETS hal FILE hal.cmake NAMESPACE hal::)
- install(DIRECTORY src/main/native/include/ DESTINATION "${include_dest}/hal")
--
- configure_file(hal-config.cmake.in ${WPILIB_BINARY_DIR}/hal-config.cmake)
- install(FILES ${WPILIB_BINARY_DIR}/hal-config.cmake DESTINATION share/hal)
- install(EXPORT hal DESTINATION share/hal)
