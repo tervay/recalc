@@ -53,8 +53,18 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
     )
 
     # Emscripten compilation flags (only compile-time flags here)
+    #
+    # -Oz over -O3: measured on the full bound API surface, -Oz shrinks the
+    # brotli-compressed payload (what Vercel serves) by 22,477 bytes, 205,220
+    # -> 182,743, an 11% cut. See wasm/OPTIMIZATION.md for the flag-by-flag
+    # measurements, including the ones that turned out to be worth nothing.
+    #
+    # -flto only ever applies to bindings.cc: the WPILib archives are compiled
+    # by the parent build without it. Compiling them with -flto too was tried
+    # and rejected -- it produces a module in which DCMotorSim::update() never
+    # returns. Do not add -flto to the parent build's CMAKE_CXX_FLAGS.
     target_compile_options(wpilibc_wasm PRIVATE
-        -O3
+        -Oz
         -flto
         -std=c++23
         -fwasm-exceptions
@@ -80,7 +90,14 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
         "-sINCOMING_MODULE_JS_API=[locateFile]"
         "-sERROR_ON_UNDEFINED_SYMBOLS=0"
         "-sEXPORT_ES6=1"
-        "-O3"
+        # emmalloc in place of dlmalloc: -1,788 bytes brotli, no behaviour change
+        # for this module, which only ever allocates through Embind.
+        "-sMALLOC=emmalloc"
+        # Embind's glue is generated without new Function(): -379 bytes brotli,
+        # and it keeps the module usable under a strict CSP.
+        "-sDYNAMIC_EXECUTION=0"
+        "-sTEXTDECODER=2"
+        "-Oz"
         "-flto"
         "-fwasm-exceptions"
         "--closure=1"
