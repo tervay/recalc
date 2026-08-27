@@ -25,6 +25,26 @@ export function buildCopyLinkData(
 }
 
 /**
+ * Re-encode a nuqs-serialized query string so every reserved character is
+ * percent-encoded.
+ *
+ * nuqs intentionally leaves `{}`, `[]`, `,`, `:` and `()` raw for readability
+ * (47ng/nuqs#372). Those URLs are standards-compliant, but they trip link
+ * parsers that scan bare URLs out of surrounding text -- Chief Delphi's
+ * Discourse autolinker truncates them. Every calculator serializes its
+ * Measurement/Motor/Ratio params as JSON, so essentially every shared ReCalc
+ * link is affected.
+ *
+ * Round-tripping through URLSearchParams is lossless, because nuqs's output
+ * already follows form-urlencoded conventions (`%` as `%25`, literal `+` as
+ * `%2B`, space as `+`). The read path (`useQueryParams`) decodes with
+ * URLSearchParams too, so links shared before this change still parse.
+ */
+export function strictlyEncodeQueryString(serializedState: string): string {
+  return new URLSearchParams(serializedState).toString();
+}
+
+/**
  * Perform the copy-link side effects: write the shareable URL to the
  * clipboard and fire the analytics event. Both derive from the same
  * `serializedState` so the tracked motor always matches what was copied.
@@ -39,7 +59,10 @@ export function handleCopyLink({
   track: TrackFn;
 }): void {
   void navigator.clipboard.writeText(
-    window.location.origin + window.location.pathname + '?' + serializedState,
+    window.location.origin +
+      window.location.pathname +
+      '?' +
+      strictlyEncodeQueryString(serializedState),
   );
   track('copy-link', buildCopyLinkData(title, serializedState));
 }

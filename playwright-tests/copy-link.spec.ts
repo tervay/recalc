@@ -293,4 +293,25 @@ test.describe('Copy Link', () => {
     expect(secondUrl.split('?')).toHaveLength(2);
     expect(secondUrl).toBe(firstUrl);
   });
+
+  // nuqs leaves `{}`, `[]` and `,` unencoded (47ng/nuqs#372). Every calculator
+  // serializes Measurement/Motor/Ratio params as JSON, so those characters
+  // otherwise land in every shared link and truncate it in link parsers that
+  // scan bare URLs out of text, such as Chief Delphi's Discourse autolinker.
+  for (const path of ['/linear', '/ratio']) {
+    test(`${path}: copied URL contains no unencoded braces, brackets or commas`, async ({
+      page,
+    }) => {
+      await page.goto(path);
+      await page.waitForLoadState('networkidle');
+
+      await page.getByRole('button', { name: 'Copy Link' }).click();
+
+      const url = await page.evaluate(() => navigator.clipboard.readText());
+      const queryString = url.slice(url.indexOf('?') + 1);
+
+      expect(queryString).not.toBe('');
+      expect(queryString).not.toMatch(/[{}[\],]/);
+    });
+  }
 });
