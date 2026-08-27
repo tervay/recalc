@@ -1,8 +1,108 @@
 // @vitest-environment jsdom
 import { act, renderHook } from '@testing-library/react';
+import { type ParserMap, type inferParserType, createLoader } from 'nuqs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { useDebounce } from '~/lib/hooks';
+import { strictlyEncodeQueryString } from '~/lib/copyLink';
+import { useDebounce, useSerializedState } from '~/lib/hooks';
+import Measurement from '~/lib/models/Measurement';
+import Motor from '~/lib/models/Motor';
+import Ratio, { RatioType } from '~/lib/models/Ratio';
+import {
+  BooleanParam,
+  MeasurementParam,
+  MotorParam,
+  NumberParam,
+  RatioPairListParam,
+  RatioParam,
+} from '~/lib/types/queryParams';
+
+/**
+ * Mirrors what a shared link goes through end to end: `useSerializedState`
+ * produces the nuqs query string, `handleCopyLink` strictly encodes it, and
+ * `useQueryParams` reads it back with `URLSearchParams` + `createLoader`.
+ */
+function roundTrip<M extends ParserMap>(map: M, state: inferParserType<M>) {
+  const { result } = renderHook(() => useSerializedState(map, state));
+  const encoded = strictlyEncodeQueryString(result.current);
+  return {
+    encoded,
+    loaded: createLoader(map)(new URLSearchParams(encoded)),
+  };
+}
+
+describe('useSerializedState -> strict encoding -> useQueryParams round-trip', () => {
+  it('restores a Measurement/Motor/Ratio state from a strictly encoded link', () => {
+    const map = {
+      motor: MotorParam.withDefault(Motor.KrakenX60sFOC(1)),
+      travelDistance: MeasurementParam.withDefault(new Measurement(60, 'in')),
+      ratio: RatioParam.withDefault(new Ratio(2, RatioType.REDUCTION)),
+      efficiency: NumberParam.withDefault(100),
+      cascade: BooleanParam.withDefault(false),
+    };
+    const state = {
+      motor: Motor.KrakenX60sFOC(3),
+      travelDistance: new Measurement(42.5, 'in'),
+      ratio: new Ratio(7.5, RatioType.STEP_UP),
+      efficiency: 92.5,
+      cascade: true,
+    };
+
+    const { loaded } = roundTrip(map, state);
+
+    expect(loaded.motor.identifier).toBe(state.motor.identifier);
+    expect(loaded.motor.quantity).toBe(3);
+    expect(loaded.travelDistance.scalar).toBe(42.5);
+    expect(loaded.travelDistance.units()).toBe('in');
+    expect(loaded.ratio.magnitude).toBe(7.5);
+    expect(loaded.ratio.ratioType).toBe(RatioType.STEP_UP);
+    expect(loaded.efficiency).toBe(92.5);
+    expect(loaded.cascade).toBe(true);
+  });
+
+  it('restores a nested RatioPairListParam state from a strictly encoded link', () => {
+    const map = { pairs: RatioPairListParam.withDefault([]) };
+    const state = {
+      pairs: [
+        [18, 72],
+        [24, 48],
+      ] as [number, number][],
+    };
+
+    const { loaded } = roundTrip(map, state);
+
+    expect(loaded.pairs).toEqual(state.pairs);
+  });
+
+  it('produces a link with no bare braces, brackets or commas', () => {
+    const map = {
+      motor: MotorParam.withDefault(Motor.KrakenX60sFOC(1)),
+      travelDistance: MeasurementParam.withDefault(new Measurement(60, 'in')),
+      pairs: RatioPairListParam.withDefault([]),
+    };
+
+    const { encoded } = roundTrip(map, {
+      motor: Motor.KrakenX60sFOC(2),
+      travelDistance: new Measurement(60, 'in'),
+      pairs: [[18, 72]] as [number, number][],
+    });
+
+    expect(encoded).not.toMatch(/[{}[\],]/);
+  });
+
+  it('still restores state from a legacy loosely encoded link (no strict pass)', () => {
+    const map = {
+      travelDistance: MeasurementParam.withDefault(new Measurement(60, 'in')),
+    };
+    const state = { travelDistance: new Measurement(42.5, 'in') };
+
+    const { result } = renderHook(() => useSerializedState(map, state));
+    const loaded = createLoader(map)(new URLSearchParams(result.current));
+
+    expect(loaded.travelDistance.scalar).toBe(42.5);
+    expect(loaded.travelDistance.units()).toBe('in');
+  });
+});
 
 describe('useDebounce', () => {
   beforeEach(() => {
