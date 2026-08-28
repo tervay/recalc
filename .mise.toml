@@ -1,5 +1,5 @@
 [tools]
 clang-format = "23.1.0"
 jq = "1.8.2"
-node = "26.7.0"
+node = "26.8.0"
 pnpm = "11.24.0"
