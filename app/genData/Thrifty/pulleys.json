@@ -180,6 +180,26 @@
     "vendor": "Thrifty"
   },
   {
+    "teeth": 30,
+    "width": 9.5,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0393",
+    "url": "https://www.thethriftybot.com/products/1-2-hex-pulleys",
+    "bore": "1/2\" Hex",
+    "vendor": "Thrifty"
+  },
+  {
+    "teeth": 30,
+    "width": 18.5,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "TTB-0394",
+    "url": "https://www.thethriftybot.com/products/1-2-hex-pulleys",
+    "bore": "1/2\" Hex",
+    "vendor": "Thrifty"
+  },
+  {
     "teeth": 15,
     "width": 9.5,
     "profile": "HTD",

@@ -1267,5 +1267,23 @@
     "sku": "WCP-2434",
     "url": "https://wcproducts.com/products/wcp-2434",
     "vendor": "WCP"
+  },
+  {
+    "teeth": 41,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "WCP-2707",
+    "url": "https://wcproducts.com/products/wcp-2707",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 47,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "WCP-2708",
+    "url": "https://wcproducts.com/products/wcp-2708",
+    "vendor": "WCP"
   }
 ]

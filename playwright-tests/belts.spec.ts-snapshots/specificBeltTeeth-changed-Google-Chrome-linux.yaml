@@ -204,19 +204,19 @@
           - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "100"
       - cell "15 mm"
+    - row "Swyft 500-5M-9 100 9 mm":
+      - cell "Swyft 500-5M-9":
+        - link "Swyft":
+          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+        - link "500-5M-9":
+          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+      - cell "100"
+      - cell "9 mm"
     - row "Swyft 500-5M-15 100 15 mm":
       - cell "Swyft 500-5M-15":
         - link "Swyft":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
         - link "500-5M-15":
-          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
-      - cell "100"
-      - cell "15 mm"
-    - row "Swyft 500-5M-9 100 15 mm":
-      - cell "Swyft 500-5M-9":
-        - link "Swyft":
-          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
-        - link "500-5M-9":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
       - cell "100"
       - cell "15 mm"

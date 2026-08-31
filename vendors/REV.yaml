@@ -3372,7 +3372,7 @@
   product:
     handle: https://www.revrobotics.com/PWM-Cables/
     id: 1249657385
-    title: PWM cables (36in PWM Cable - 4 Pack (REV-11-1130-PK4))
+    title: PWM Cables (36in PWM Cable - 4 Pack (REV-11-1130-PK4))
   variant:
     id: 745732949
     options:
@@ -3380,13 +3380,13 @@
       - null
       - null
     sku: REV-11-1130-PK4
-    title: PWM cables (36in PWM Cable - 4 Pack (REV-11-1130-PK4))
+    title: PWM Cables (36in PWM Cable - 4 Pack (REV-11-1130-PK4))
   firstSeen: 2026-07-19T18:12:42.561Z
 - vendor: REV
   product:
     handle: https://www.revrobotics.com/PWM-Cables/
     id: 1249657385
-    title: PWM cables (12in PWM Y Cable - 2 Pack (REV-11-1131-PK2))
+    title: PWM Cables (12in PWM Y Cable - 2 Pack (REV-11-1131-PK2))
   variant:
     id: 2566319044
     options:
@@ -3394,7 +3394,7 @@
       - null
       - null
     sku: REV-11-1131-PK2
-    title: PWM cables (12in PWM Y Cable - 2 Pack (REV-11-1131-PK2))
+    title: PWM Cables (12in PWM Y Cable - 2 Pack (REV-11-1131-PK2))
   firstSeen: 2026-07-19T18:12:42.561Z
 - vendor: REV
   product:
@@ -6912,6 +6912,40 @@
   firstSeen: 2026-07-19T18:12:42.561Z
 - vendor: REV
   product:
+    handle: https://www.revrobotics.com/15T-Spline-QA-Set/
+    id: 1848276152
+    title: 15T Spline Quality Assurance Set (15T Spline Go No-Go Test Block
+      (REV-46-4520))
+  variant:
+    id: 1585300027
+    options:
+      - null
+      - null
+      - null
+    sku: REV-46-4520
+    title: 15T Spline Quality Assurance Set (15T Spline Go No-Go Test Block
+      (REV-46-4520))
+  firstSeen: 2026-08-31T19:28:02.655Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/15T-Spline-QA-Set/
+    id: 1848276152
+    title:
+      15T Spline Quality Assurance Set (15T Spline Go No-Go Plunge Gauge Set
+      (REV-46-4519))
+  variant:
+    id: 3581292235
+    options:
+      - null
+      - null
+      - null
+    sku: REV-46-4519
+    title:
+      15T Spline Quality Assurance Set (15T Spline Go No-Go Plunge Gauge Set
+      (REV-46-4519))
+  firstSeen: 2026-08-31T19:28:02.655Z
+- vendor: REV
+  product:
     handle: https://www.revrobotics.com/3-8in-nut-strips/
     id: 1865240995
     title: 3/8in Nut Strips ((REV-21-3424-PK2) 3/8in Nut Strip - 7 Pos - 2 Pack)
@@ -9204,6 +9238,232 @@
     sku: REV-11-2852-PK4
     title: SPARK Flex Data Port Pigtail Cable - 4 Pack
   firstSeen: 2026-07-19T18:12:42.561Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/EasySwerve-spare-parts
+    id: 2484638742
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P32) 4in EasySwerve Module - Bearing
+      Set)
+  variant:
+    id: 1426589554
+    options:
+      - null
+      - null
+      - null
+    sku: REV-21-3006-P32
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P32) 4in EasySwerve Module - Bearing
+      Set)
+  firstSeen: 2026-08-31T19:28:02.655Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/EasySwerve-spare-parts
+    id: 2484638742
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P27) 4in EasySwerve Module - 20DP
+      Motor Gear- 15T Spline - 12T)
+  variant:
+    id: 3523939024
+    options:
+      - null
+      - null
+      - null
+    sku: REV-21-3006-P27
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P27) 4in EasySwerve Module - 20DP
+      Motor Gear- 15T Spline - 12T)
+  firstSeen: 2026-08-31T19:28:02.655Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/EasySwerve-spare-parts
+    id: 2484638742
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P22) 4in EasySwerve Module - 20DP
+      Speed Gear - 15T Spline - 18T)
+  variant:
+    id: 3607827119
+    options:
+      - null
+      - null
+      - null
+    sku: REV-21-3006-P22
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P22) 4in EasySwerve Module - 20DP
+      Speed Gear - 15T Spline - 18T)
+  firstSeen: 2026-08-31T19:28:02.655Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/EasySwerve-spare-parts
+    id: 2484638742
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P18) 4in EasySwerve Module - Drive
+      Gear)
+  variant:
+    id: 3607974214
+    options:
+      - null
+      - null
+      - null
+    sku: REV-21-3006-P18
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P18) 4in EasySwerve Module - Drive
+      Gear)
+  firstSeen: 2026-08-31T19:28:02.655Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/EasySwerve-spare-parts
+    id: 2484638742
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P21) 4in EasySwerve Module - 20DP
+      Speed Gear - MaxSpline - 36T)
+  variant:
+    id: 3624604738
+    options:
+      - null
+      - null
+      - null
+    sku: REV-21-3006-P21
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P21) 4in EasySwerve Module - 20DP
+      Speed Gear - MaxSpline - 36T)
+  firstSeen: 2026-08-31T19:28:02.655Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/EasySwerve-spare-parts
+    id: 2484638742
+    title: EasySwerve Spare Parts ((REV-21-3006-P19) 4in EasySwerve Module -
+      Steering Gear)
+  variant:
+    id: 3624751833
+    options:
+      - null
+      - null
+      - null
+    sku: REV-21-3006-P19
+    title: EasySwerve Spare Parts ((REV-21-3006-P19) 4in EasySwerve Module -
+      Steering Gear)
+  firstSeen: 2026-08-31T19:28:02.655Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/EasySwerve-spare-parts
+    id: 2484638742
+    title: EasySwerve Spare Parts ((REV-21-3006-P20) 4in EasySwerve Module -
+      20DP  Gear -MAXSpline -62T)
+  variant:
+    id: 3641382357
+    options:
+      - null
+      - null
+      - null
+    sku: REV-21-3006-P20
+    title: EasySwerve Spare Parts ((REV-21-3006-P20) 4in EasySwerve Module -
+      20DP  Gear -MAXSpline -62T)
+  firstSeen: 2026-08-31T19:28:02.655Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/EasySwerve-spare-parts
+    id: 2484638742
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P08) 4in EasySwerve Module - Azimuth
+      Gear)
+  variant:
+    id: 3708787023
+    options:
+      - null
+      - null
+      - null
+    sku: REV-21-3006-P08
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P08) 4in EasySwerve Module - Azimuth
+      Gear)
+  firstSeen: 2026-08-31T19:28:02.655Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/EasySwerve-spare-parts
+    id: 2484638742
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P16) 4in EasySwerve Module - Bevel
+      Drive Gear)
+  variant:
+    id: 3775750404
+    options:
+      - null
+      - null
+      - null
+    sku: REV-21-3006-P16
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P16) 4in EasySwerve Module - Bevel
+      Drive Gear)
+  firstSeen: 2026-08-31T19:28:02.655Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/EasySwerve-spare-parts
+    id: 2484638742
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P17) 4in EasySwerve Module - 20DP
+      Motor Gear- 8mm keyed - 12T)
+  variant:
+    id: 3792528023
+    options:
+      - null
+      - null
+      - null
+    sku: REV-21-3006-P17
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P17) 4in EasySwerve Module - 20DP
+      Motor Gear- 8mm keyed - 12T)
+  firstSeen: 2026-08-31T19:28:02.655Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/EasySwerve-spare-parts
+    id: 2484638742
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P15) 4in EasySwerve Module - Bevel
+      Pinion Shaft)
+  variant:
+    id: 3826083261
+    options:
+      - null
+      - null
+      - null
+    sku: REV-21-3006-P15
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P15) 4in EasySwerve Module - Bevel
+      Pinion Shaft)
+  firstSeen: 2026-08-31T19:28:02.655Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/EasySwerve-spare-parts
+    id: 2484638742
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P01) 4in EasySwerve Module - Base
+      Plate)
+  variant:
+    id: 3826230356
+    options:
+      - null
+      - null
+      - null
+    sku: REV-21-3006-P01
+    title:
+      EasySwerve Spare Parts ((REV-21-3006-P01) 4in EasySwerve Module - Base
+      Plate)
+  firstSeen: 2026-08-31T19:28:02.655Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/EasySwerve-spare-parts
+    id: 2484638742
+    title: EasySwerve Spare Parts ((REV-21-3006-P03) 4in EasySwerve Module - Cover)
+  variant:
+    id: 3859785594
+    options:
+      - null
+      - null
+      - null
+    sku: REV-21-3006-P03
+    title: EasySwerve Spare Parts ((REV-21-3006-P03) 4in EasySwerve Module - Cover)
+  firstSeen: 2026-08-31T19:28:02.655Z
 - vendor: REV
   product:
     handle: https://www.revrobotics.com/rev-21-2742/
@@ -14184,7 +14444,7 @@
   product:
     handle: https://www.revrobotics.com/Encoder-Adapters/
     id: 4240985275
-    title: Encoder adapters (Absolute Encoder Adapter (REV-11-3326))
+    title: Encoder Adapters (Absolute Encoder Adapter (REV-11-3326))
   variant:
     id: 140025180
     options:
@@ -14192,13 +14452,13 @@
       - null
       - null
     sku: REV-11-3326
-    title: Encoder adapters (Absolute Encoder Adapter (REV-11-3326))
+    title: Encoder Adapters (Absolute Encoder Adapter (REV-11-3326))
   firstSeen: 2026-07-19T18:12:42.561Z
 - vendor: REV
   product:
     handle: https://www.revrobotics.com/Encoder-Adapters/
     id: 4240985275
-    title: Encoder adapters (Alternate Encoder Adapter - 2 Pack (REV-11-1881-PK2))
+    title: Encoder Adapters (Alternate Encoder Adapter - 2 Pack (REV-11-1881-PK2))
   variant:
     id: 2128622260
     options:
@@ -14206,7 +14466,7 @@
       - null
       - null
     sku: REV-11-1881-PK2
-    title: Encoder adapters (Alternate Encoder Adapter - 2 Pack (REV-11-1881-PK2))
+    title: Encoder Adapters (Alternate Encoder Adapter - 2 Pack (REV-11-1881-PK2))
   firstSeen: 2026-07-19T18:12:42.561Z
 - vendor: REV
   product:
