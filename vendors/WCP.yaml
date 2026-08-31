@@ -11858,6 +11858,21 @@
     title: Default Title
   firstSeen: 2026-03-13T11:01:50.980Z
 - vendor: WCP
+  # https://wcproducts.com/products/kit-0052?variant=43813558550740
+  product:
+    handle: kit-0052
+    id: 7926652338388
+    title: Full SuperPit V2
+  variant:
+    id: 43813558550740
+    options:
+      - Default Title
+      - null
+      - null
+    sku: KIT-0052
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
   # https://wcproducts.com/products/wcp-1153?variant=43899085160660
   product:
     handle: wcp-1153
@@ -19943,21 +19958,6 @@
     title: Default Title
   firstSeen: 2026-03-13T11:01:50.980Z
 - vendor: WCP
-  # https://wcproducts.com/products/bnd-0017?variant=45879008297172
-  product:
-    handle: bnd-0017
-    id: 8701285630164
-    title: WCP Swag Pack
-  variant:
-    id: 45879008297172
-    options:
-      - Default Title
-      - null
-      - null
-    sku: BND-0017
-    title: Default Title
-  firstSeen: 2026-03-13T11:01:50.980Z
-- vendor: WCP
   # https://wcproducts.com/products/wcp-1584?variant=45884182003924
   product:
     handle: wcp-1584
@@ -23510,6 +23510,21 @@
     title: Default Title
   firstSeen: 2026-03-13T11:01:50.980Z
 - vendor: WCP
+  # https://wcproducts.com/products/wcp-2064?variant=46709926330580
+  product:
+    handle: wcp-2064
+    id: 8900655120596
+    title: 1"x1"x.125" Aluminum Tube Plug (#10-32 Tapped)
+  variant:
+    id: 46709926330580
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2064
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
   # https://wcproducts.com/products/wcp-2066?variant=46710296281300
   product:
     handle: wcp-2066
@@ -23554,6 +23569,21 @@
     sku: WCP-2070
     title: Default Title
   firstSeen: 2026-06-06T00:22:44.267Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2071?variant=46710896623828
+  product:
+    handle: wcp-2071
+    id: 8900674519252
+    title: 1.5"x1.5"x.062" Aluminum Tube Plug (#10-32 Tapped)
+  variant:
+    id: 46710896623828
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2071
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
 - vendor: WCP
   # https://wcproducts.com/products/wcp-2109?variant=46710991388884
   product:
@@ -24639,7 +24669,7 @@
   product:
     handle: wcp-2159
     id: 8967001374932
-    title: WCP Logo PVC Keychain (Black) (2-Pack)
+    title: WCP Logo PVC Keychain (Black)
   variant:
     id: 47151875621076
     options:
@@ -30265,6 +30295,21 @@
     title: Default Title
   firstSeen: 2026-06-06T00:22:44.267Z
 - vendor: WCP
+  # https://wcproducts.com/products/wcp-1379?variant=48042692214996
+  product:
+    handle: wcp-1379
+    id: 9188687937748
+    title: SplineXS Aluminum Stock (8mm OD, 36")
+  variant:
+    id: 48042692214996
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-1379
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
   # https://wcproducts.com/products/wcp-1382?variant=48042692247764
   product:
     handle: wcp-1382
@@ -30354,6 +30399,36 @@
     sku: WCP-1387
     title: Default Title
   firstSeen: 2026-06-06T00:22:44.267Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2052?variant=48045567672532
+  product:
+    handle: wcp-2052
+    id: 9189451759828
+    title: .375" OD x .159" ID Hex Stock (36")
+  variant:
+    id: 48045567672532
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2052
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2053?variant=48045567770836
+  product:
+    handle: wcp-2053
+    id: 9189451858132
+    title: .500" OD x .159" ID Hex Stock (36")
+  variant:
+    id: 48045567770836
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2053
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
 - vendor: WCP
   # https://wcproducts.com/products/wcp-2505?variant=48045581107412
   product:
@@ -30610,6 +30685,66 @@
     title: Default Title
   firstSeen: 2026-07-19T17:34:16.781Z
 - vendor: WCP
+  # https://wcproducts.com/products/wcp-2648?variant=48352206356692
+  product:
+    handle: wcp-2648
+    id: 9276667527380
+    title: Loctite 268 High Strength Red Threadlocker Solid Stick (0.32oz)
+  variant:
+    id: 48352206356692
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2648
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2679?variant=48352218218708
+  product:
+    handle: wcp-2679
+    id: 9276670968020
+    title: Loctite 680 High Strength Slip Fit Retaining Compound (0.34oz)
+  variant:
+    id: 48352218218708
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2679
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2680?variant=48352219005140
+  product:
+    handle: wcp-2680
+    id: 9276671262932
+    title: Loctite 648 High Strength Press Fit Retaining Compound (0.34oz)
+  variant:
+    id: 48352219005140
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2680
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2681?variant=48352219234516
+  product:
+    handle: wcp-2681
+    id: 9276671361236
+    title: Loctite 248 Medium Strength Blue Threadlocker Solid Stick (0.32oz)
+  variant:
+    id: 48352219234516
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2681
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
   # https://wcproducts.com/products/wcp-2656?variant=48352219300052
   product:
     handle: wcp-2656
@@ -30624,3 +30759,288 @@
     sku: WCP-2656
     title: Default Title
   firstSeen: 2026-07-30T16:39:15.670Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2682?variant=48352219332820
+  product:
+    handle: wcp-2682
+    id: 9276671459540
+    title: DP420 Off-White Epoxy Adhesive (1.69 fl oz)
+  variant:
+    id: 48352219332820
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2682
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2570?variant=48352696926420
+  product:
+    handle: wcp-2570
+    id: 9276856729812
+    title: .624" HSS Reamer (3/8" Shank)
+  variant:
+    id: 48352696926420
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2570
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2567?variant=48352697155796
+  product:
+    handle: wcp-2567
+    id: 9276856959188
+    title: 1.475mm Carbide Reamer (0.05" Shank)
+  variant:
+    id: 48352697155796
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2567
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2568?variant=48352697450708
+  product:
+    handle: wcp-2568
+    id: 9276857254100
+    title: 2.975mm Carbide Reamer (0.1" Shank)
+  variant:
+    id: 48352697450708
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2568
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2569?variant=48352697778388
+  product:
+    handle: wcp-2569
+    id: 9276857581780
+    title: 8.025mm HSS Reamer (1/4" Shank)
+  variant:
+    id: 48352697778388
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2569
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2571?variant=48352697909460
+  product:
+    handle: wcp-2571
+    id: 9276857712852
+    title: 15.975mm HSS Reamer (3/8" Shank)
+  variant:
+    id: 48352697909460
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2571
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2650?variant=48352724353236
+  product:
+    handle: wcp-2650
+    id: 9276880814292
+    title: Hex-Plus 454/10 HF T-handle screwdriver Set (Imperial, 10 Pieces)
+  variant:
+    id: 48352724353236
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2650
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2651?variant=48352724582612
+  product:
+    handle: wcp-2651
+    id: 9276881043668
+    title: Bit-Check 6 Universal 1 (6 Pieces)
+  variant:
+    id: 48352724582612
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2651
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2652?variant=48352724975828
+  product:
+    handle: wcp-2652
+    id: 9276881240276
+    title: 9/64" Hex-Plus Bit (25mm)
+  variant:
+    id: 48352724975828
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2652
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2653?variant=48352725074132
+  product:
+    handle: wcp-2653
+    id: 9276881371348
+    title: 9/64" Hex-Plus Bit (50mm)
+  variant:
+    id: 48352725074132
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2653
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-1737?variant=48353275412692
+  product:
+    handle: wcp-1737
+    id: 9277347168468
+    title: 1/4" L Kraken X60 to X44 Motor Adapter (44mm OD, .75" Nub)
+  variant:
+    id: 48353275412692
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-1737
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2707?variant=48398539063508
+  product:
+    handle: wcp-2707
+    id: 9288059125972
+    title: 41t x 9mm Wide Timing Belt (HTD 5mm)
+  variant:
+    id: 48398539063508
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2707
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2708?variant=48398539096276
+  product:
+    handle: wcp-2708
+    id: 9288059158740
+    title: 47t x 9mm Wide Timing Belt (HTD 5mm)
+  variant:
+    id: 48398539096276
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2708
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2595?variant=48434734661844
+  product:
+    handle: wcp-2595
+    id: 9293739294932
+    title: Toolbox Kit
+  variant:
+    id: 48434734661844
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2595
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2572?variant=48434734727380
+  product:
+    handle: wcp-2572
+    id: 9293739327700
+    title: Corner Case Kit
+  variant:
+    id: 48434734727380
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2572
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2642?variant=48434734760148
+  product:
+    handle: wcp-2642
+    id: 9293739360468
+    title: Table Kit
+  variant:
+    id: 48434734760148
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2642
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2596?variant=48434734792916
+  product:
+    handle: wcp-2596
+    id: 9293739393236
+    title: Toolbox Kit Powder Coating (Black)
+  variant:
+    id: 48434734792916
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2596
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2575?variant=48434734858452
+  product:
+    handle: wcp-2575
+    id: 9293739458772
+    title: Corner Case Kit Powder Coating (Black)
+  variant:
+    id: 48434734858452
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2575
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2643?variant=48434734956756
+  product:
+    handle: wcp-2643
+    id: 9293739557076
+    title: Table Kit Powder Coating (Black)
+  variant:
+    id: 48434734956756
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2643
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:53.660Z

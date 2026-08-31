@@ -374,6 +374,21 @@
     title: 90T (450 mm)
   firstSeen: 2026-03-13T10:25:14.452Z
 - vendor: LastAnvil
+  # https://www.lastanvil.com/products/htd-timing-belts-9mm?variant=48299643928782
+  product:
+    handle: htd-timing-belts-9mm
+    id: 7372827951310
+    title: HTD Timing Belts (9mm)
+  variant:
+    id: 48299643928782
+    options:
+      - 30T (150mm)
+      - null
+      - null
+    sku: '260162'
+    title: 30T (150mm)
+  firstSeen: 2026-08-31T19:28:01.249Z
+- vendor: LastAnvil
   # https://www.lastanvil.com/products/shipping-insurance?variant=42778786857166
   product:
     handle: shipping-insurance
@@ -2323,3 +2338,48 @@
     sku: '250158'
     title: Default Title
   firstSeen: 2026-03-13T10:25:14.452Z
+- vendor: LastAnvil
+  # https://www.lastanvil.com/products/rounded-hex-shaft?variant=48303937421518
+  product:
+    handle: rounded-hex-shaft
+    id: 8801615904974
+    title: Rounded Hex Shaft
+  variant:
+    id: 48303937421518
+    options:
+      - 1/2"
+      - null
+      - null
+    sku: '260159'
+    title: 1/2"
+  firstSeen: 2026-08-31T19:28:01.249Z
+- vendor: LastAnvil
+  # https://www.lastanvil.com/products/3dp-hex-inserts?variant=48304043458766
+  product:
+    handle: 3dp-hex-inserts
+    id: 8801625243854
+    title: 3DP Hex Inserts
+  variant:
+    id: 48304043458766
+    options:
+      - 1/2"
+      - null
+      - null
+    sku: '260161'
+    title: 1/2"
+  firstSeen: 2026-08-31T19:28:01.249Z
+- vendor: LastAnvil
+  # https://www.lastanvil.com/products/3dp-hex-inserts?variant=48304043491534
+  product:
+    handle: 3dp-hex-inserts
+    id: 8801625243854
+    title: 3DP Hex Inserts
+  variant:
+    id: 48304043491534
+    options:
+      - 3/8"
+      - null
+      - null
+    sku: '260160'
+    title: 3/8"
+  firstSeen: 2026-08-31T19:28:01.249Z

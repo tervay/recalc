@@ -308,6 +308,10 @@
           - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
         - link "LA-240329 - HTD Pulley (1/2\" Hex)":
           - /url: https://www.lastanvil.com/products/reinforced-htd-pulley-5mm
+        - link "TTB-0393 - HTD Pulley (1/2\" Hex)":
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+        - link "TTB-0394 - HTD Pulley (1/2\" Hex)":
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
         - link "WCP-0565 - HTD Pulley (1/2\" Hex)":
           - /url: https://wcproducts.com/products/wcp-0565
         - link "WCP-0993 - HTD Pulley (1/2\" Hex)":
@@ -341,6 +345,10 @@
           - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
         - link "LA-240329 - HTD Pulley (1/2\" Hex)":
           - /url: https://www.lastanvil.com/products/reinforced-htd-pulley-5mm
+        - link "TTB-0393 - HTD Pulley (1/2\" Hex)":
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+        - link "TTB-0394 - HTD Pulley (1/2\" Hex)":
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
         - link "WCP-0565 - HTD Pulley (1/2\" Hex)":
           - /url: https://wcproducts.com/products/wcp-0565
         - link "WCP-0993 - HTD Pulley (1/2\" Hex)":
@@ -544,6 +552,78 @@
           - /url: https://wcproducts.com/products/wcp-0580
     - 'row "Gearbox solution 7: 20.00:1"':
       - cell "20.00:1"
+      - cell "1:12 18:30"
+      - cell:
+        - text: Stage 1(Planetary) 1T
+        - link "REV-25-2109 - 3:4 Planetary (SplineXS)":
+          - /url: https://www.revrobotics.com/maxplanetary-system-kit/
+        - text: 12T
+        - link "REV-25-2109 - 3:4 Planetary (1/2\" Hex)":
+          - /url: https://www.revrobotics.com/maxplanetary-system-kit/
+        - text: Stage 2(Gear, Belt, Chain) 18T
+        - link "am-4212 - 20DP Gear (1/2\" Hex)":
+          - /url: https://www.andymark.com/products/standard-20-dp-gears
+        - link "REV-21-1920 - 20DP Gear (1/2\" Hex)":
+          - /url: https://www.revrobotics.com/20DP-Gears-0.5-Hex/
+        - link "WCP-0700 - 20DP Gear (1/2\" Hex)":
+          - /url: https://wcproducts.com/products/wcp-0700
+        - link "WCP-0733 - 20DP Gear (1/2\" Hex)":
+          - /url: https://wcproducts.com/products/wcp-0733
+        - link "LA-240107 - HTD Pulley (1/2\" Hex)":
+          - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
+        - link "TTB-0346 - HTD Pulley (1/2\" Hex)":
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+        - link "TTB-0347 - HTD Pulley (1/2\" Hex)":
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+        - link "WCP-0563 - HTD Pulley (1/2\" Hex)":
+          - /url: https://wcproducts.com/products/wcp-0563
+        - link "WCP-0991 - HTD Pulley (1/2\" Hex)":
+          - /url: https://wcproducts.com/products/wcp-0991
+        - 'link "am-4791 - #35 Sprocket (1/2\" Hex)"':
+          - /url: https://www.andymark.com/products/35-series-symmetrical-hub-sprockets
+        - 'link "REV-21-3711 - #35 Sprocket (1/2\" Hex)"':
+          - /url: https://www.revrobotics.com/ION-35-Sprockets/
+        - 'link "REV-21-3715 - #35 Sprocket (MAXSpline)"':
+          - /url: https://www.revrobotics.com/ION-35-Sprockets/
+        - 'link "WCP-0089 - #25 Sprocket (1/2\" Hex)"':
+          - /url: https://wcproducts.com/products/wcp-0089
+        - 'link "WCP-0559 - #25 Sprocket (1/2\" Hex)"':
+          - /url: https://wcproducts.com/products/wcp-0559
+        - 'link "WCP-0975 - #35 Sprocket (1/2\" Hex)"':
+          - /url: https://wcproducts.com/products/wcp-0975
+        - 'link "WCP-0979 - #35 Sprocket (1/2\" Hex)"':
+          - /url: https://wcproducts.com/products/wcp-0979
+        - 'link "WCP-0980 - #35 Sprocket (SplineXL)"':
+          - /url: https://wcproducts.com/products/wcp-0980
+        - text: 30T
+        - link "am-4215 - 20DP Gear (1/2\" Hex)":
+          - /url: https://www.andymark.com/products/standard-20-dp-gears
+        - link "REV-21-1926 - 20DP Gear (1/2\" Hex)":
+          - /url: https://www.revrobotics.com/20DP-Gears-0.5-Hex/
+        - link "WCP-0553 - 20DP Gear (1/2\" Hex)":
+          - /url: https://wcproducts.com/products/wcp-0553
+        - link "WCP-0706 - 20DP Gear (1/2\" Hex)":
+          - /url: https://wcproducts.com/products/wcp-0706
+        - link "LA-240109 - HTD Pulley (1/2\" Hex)":
+          - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
+        - link "LA-240329 - HTD Pulley (1/2\" Hex)":
+          - /url: https://www.lastanvil.com/products/reinforced-htd-pulley-5mm
+        - link "TTB-0393 - HTD Pulley (1/2\" Hex)":
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+        - link "TTB-0394 - HTD Pulley (1/2\" Hex)":
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+        - link "WCP-0565 - HTD Pulley (1/2\" Hex)":
+          - /url: https://wcproducts.com/products/wcp-0565
+        - link "WCP-0993 - HTD Pulley (1/2\" Hex)":
+          - /url: https://wcproducts.com/products/wcp-0993
+        - 'link "WCP-2103 - #25 Sprocket (1/2\" Hex)"':
+          - /url: https://wcproducts.com/products/wcp-2103
+        - 'link "WCP-0965 - #25 Sprocket (SplineXL)"':
+          - /url: https://wcproducts.com/products/wcp-0965
+        - 'link "WCP-0982 - #35 Sprocket (SplineXL)"':
+          - /url: https://wcproducts.com/products/wcp-0982
+    - 'row "Gearbox solution 8: 20.00:1"':
+      - cell "20.00:1"
       - cell "12:48 12:60"
       - cell:
         - text: Stage 1(Gear, Chain) 12T
@@ -612,7 +692,7 @@
           - /url: https://wcproducts.com/products/wcp-0970
         - 'link "WCP-0987 - #35 Sprocket (SplineXL)"':
           - /url: https://wcproducts.com/products/wcp-0987
-    - 'row "Gearbox solution 8: 20.00:1"':
+    - 'row "Gearbox solution 9: 20.00:1"':
       - cell "20.00:1"
       - cell "1:15 36:48"
       - cell:
@@ -682,7 +762,7 @@
           - /url: https://wcproducts.com/products/wcp-0968
         - 'link "WCP-0985 - #35 Sprocket (SplineXL)"':
           - /url: https://wcproducts.com/products/wcp-0985
-    - 'row "Gearbox solution 9: 20.00:1"':
+    - 'row "Gearbox solution 10: 20.00:1"':
       - cell "20.00:1"
       - cell "1:48 36:15"
       - cell:
@@ -752,7 +832,7 @@
           - /url: https://wcproducts.com/products/wcp-0974
         - 'link "WCP-0978 - #35 Sprocket (1/2\" Hex)"':
           - /url: https://wcproducts.com/products/wcp-0978
-    - 'row "Gearbox solution 10: 20.00:1"':
+    - 'row "Gearbox solution 11: 20.00:1"':
       - cell "20.00:1"
       - cell "12:60 15:60"
       - cell:
@@ -820,74 +900,6 @@
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
         - 'link "WCP-0987 - #35 Sprocket (SplineXL)"':
           - /url: https://wcproducts.com/products/wcp-0987
-    - 'row "Gearbox solution 11: 20.00:1"':
-      - cell "20.00:1"
-      - cell "1:12 18:30"
-      - cell:
-        - text: Stage 1(Planetary) 1T
-        - link "REV-25-2109 - 3:4 Planetary (SplineXS)":
-          - /url: https://www.revrobotics.com/maxplanetary-system-kit/
-        - text: 12T
-        - link "REV-25-2109 - 3:4 Planetary (1/2\" Hex)":
-          - /url: https://www.revrobotics.com/maxplanetary-system-kit/
-        - text: Stage 2(Gear, Belt, Chain) 18T
-        - link "am-4212 - 20DP Gear (1/2\" Hex)":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears
-        - link "REV-21-1920 - 20DP Gear (1/2\" Hex)":
-          - /url: https://www.revrobotics.com/20DP-Gears-0.5-Hex/
-        - link "WCP-0700 - 20DP Gear (1/2\" Hex)":
-          - /url: https://wcproducts.com/products/wcp-0700
-        - link "WCP-0733 - 20DP Gear (1/2\" Hex)":
-          - /url: https://wcproducts.com/products/wcp-0733
-        - link "LA-240107 - HTD Pulley (1/2\" Hex)":
-          - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
-        - link "TTB-0346 - HTD Pulley (1/2\" Hex)":
-          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
-        - link "TTB-0347 - HTD Pulley (1/2\" Hex)":
-          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
-        - link "WCP-0563 - HTD Pulley (1/2\" Hex)":
-          - /url: https://wcproducts.com/products/wcp-0563
-        - link "WCP-0991 - HTD Pulley (1/2\" Hex)":
-          - /url: https://wcproducts.com/products/wcp-0991
-        - 'link "am-4791 - #35 Sprocket (1/2\" Hex)"':
-          - /url: https://www.andymark.com/products/35-series-symmetrical-hub-sprockets
-        - 'link "REV-21-3711 - #35 Sprocket (1/2\" Hex)"':
-          - /url: https://www.revrobotics.com/ION-35-Sprockets/
-        - 'link "REV-21-3715 - #35 Sprocket (MAXSpline)"':
-          - /url: https://www.revrobotics.com/ION-35-Sprockets/
-        - 'link "WCP-0089 - #25 Sprocket (1/2\" Hex)"':
-          - /url: https://wcproducts.com/products/wcp-0089
-        - 'link "WCP-0559 - #25 Sprocket (1/2\" Hex)"':
-          - /url: https://wcproducts.com/products/wcp-0559
-        - 'link "WCP-0975 - #35 Sprocket (1/2\" Hex)"':
-          - /url: https://wcproducts.com/products/wcp-0975
-        - 'link "WCP-0979 - #35 Sprocket (1/2\" Hex)"':
-          - /url: https://wcproducts.com/products/wcp-0979
-        - 'link "WCP-0980 - #35 Sprocket (SplineXL)"':
-          - /url: https://wcproducts.com/products/wcp-0980
-        - text: 30T
-        - link "am-4215 - 20DP Gear (1/2\" Hex)":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears
-        - link "REV-21-1926 - 20DP Gear (1/2\" Hex)":
-          - /url: https://www.revrobotics.com/20DP-Gears-0.5-Hex/
-        - link "WCP-0553 - 20DP Gear (1/2\" Hex)":
-          - /url: https://wcproducts.com/products/wcp-0553
-        - link "WCP-0706 - 20DP Gear (1/2\" Hex)":
-          - /url: https://wcproducts.com/products/wcp-0706
-        - link "LA-240109 - HTD Pulley (1/2\" Hex)":
-          - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
-        - link "LA-240329 - HTD Pulley (1/2\" Hex)":
-          - /url: https://www.lastanvil.com/products/reinforced-htd-pulley-5mm
-        - link "WCP-0565 - HTD Pulley (1/2\" Hex)":
-          - /url: https://wcproducts.com/products/wcp-0565
-        - link "WCP-0993 - HTD Pulley (1/2\" Hex)":
-          - /url: https://wcproducts.com/products/wcp-0993
-        - 'link "WCP-2103 - #25 Sprocket (1/2\" Hex)"':
-          - /url: https://wcproducts.com/products/wcp-2103
-        - 'link "WCP-0965 - #25 Sprocket (SplineXL)"':
-          - /url: https://wcproducts.com/products/wcp-0965
-        - 'link "WCP-0982 - #35 Sprocket (SplineXL)"':
-          - /url: https://wcproducts.com/products/wcp-0982
     - 'row "Gearbox solution 12: 20.00:1"':
       - cell "20.00:1"
       - cell "10:50 15:60"

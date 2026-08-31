@@ -231,19 +231,19 @@
           - /url: https://www.lastanvil.com/products/htd-timing-belt-15mm
       - cell "70"
       - cell "15 mm"
+    - row "Swyft 350-5M-9 70 9 mm":
+      - cell "Swyft 350-5M-9":
+        - link "Swyft":
+          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+        - link "350-5M-9":
+          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+      - cell "70"
+      - cell "9 mm"
     - row "Swyft 350-5M-15 70 15 mm":
       - cell "Swyft 350-5M-15":
         - link "Swyft":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
         - link "350-5M-15":
-          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
-      - cell "70"
-      - cell "15 mm"
-    - row "Swyft 350-5M-9 70 15 mm":
-      - cell "Swyft 350-5M-9":
-        - link "Swyft":
-          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
-        - link "350-5M-9":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
       - cell "70"
       - cell "15 mm"
@@ -329,19 +329,19 @@
           - /url: https://www.lastanvil.com/products/htd-timing-belt-15mm
       - cell "80"
       - cell "15 mm"
+    - row "Swyft 400-5M-9 80 9 mm":
+      - cell "Swyft 400-5M-9":
+        - link "Swyft":
+          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+        - link "400-5M-9":
+          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+      - cell "80"
+      - cell "9 mm"
     - row "Swyft 400-5M-15 80 15 mm":
       - cell "Swyft 400-5M-15":
         - link "Swyft":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
         - link "400-5M-15":
-          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
-      - cell "80"
-      - cell "15 mm"
-    - row "Swyft 400-5M-9 80 15 mm":
-      - cell "Swyft 400-5M-9":
-        - link "Swyft":
-          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
-        - link "400-5M-9":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
       - cell "80"
       - cell "15 mm"

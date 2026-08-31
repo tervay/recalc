@@ -214,5 +214,14 @@
     "sku": "LA-240348",
     "url": "https://www.lastanvil.com/products/htd-timing-belt-15mm",
     "vendor": "LastAnvil"
+  },
+  {
+    "teeth": 30,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "LA-260162",
+    "url": "https://www.lastanvil.com/products/htd-timing-belts-9mm",
+    "vendor": "LastAnvil"
   }
 ]

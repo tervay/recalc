@@ -40,7 +40,7 @@
       - '#25'
       - Master Link (10 Pack)
       - null
-    sku: null
+    sku: TOL-0006
     title: '#25 / Master Link (10 Pack)'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -55,7 +55,7 @@
       - '#25'
       - Half Link (10 Pack)
       - null
-    sku: null
+    sku: TOL-0007
     title: '#25 / Half Link (10 Pack)'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -70,7 +70,7 @@
       - '#25'
       - Inline Chain Tensioner
       - null
-    sku: null
+    sku: TOL-0008
     title: '#25 / Inline Chain Tensioner'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -85,7 +85,7 @@
       - '#25'
       - Chain Tool
       - null
-    sku: null
+    sku: TOL-0009
     title: '#25 / Chain Tool'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -100,7 +100,7 @@
       - '#25H'
       - Master Link (10 Pack)
       - null
-    sku: null
+    sku: TOL-0011
     title: '#25H / Master Link (10 Pack)'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -115,7 +115,7 @@
       - '#25H'
       - Half Link (10 Pack)
       - null
-    sku: null
+    sku: TOL-0012
     title: '#25H / Half Link (10 Pack)'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -130,7 +130,7 @@
       - '#25H'
       - Inline Chain Tensioner
       - null
-    sku: null
+    sku: TOL-0013
     title: '#25H / Inline Chain Tensioner'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -145,7 +145,7 @@
       - '#25H'
       - Chain Tool
       - null
-    sku: null
+    sku: TOL-0014
     title: '#25H / Chain Tool'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -160,7 +160,7 @@
       - '#35'
       - Roller Chain 10ft
       - null
-    sku: null
+    sku: TOL-0005
     title: '#35 / Roller Chain 10ft'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -175,7 +175,7 @@
       - '#35'
       - Master Link (10 Pack)
       - null
-    sku: null
+    sku: TOL-0016
     title: '#35 / Master Link (10 Pack)'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -190,7 +190,7 @@
       - '#35'
       - Half Link (10 Pack)
       - null
-    sku: null
+    sku: TOL-0017
     title: '#35 / Half Link (10 Pack)'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -205,7 +205,7 @@
       - '#35'
       - Inline Chain Tensioner
       - null
-    sku: null
+    sku: TOL-0018
     title: '#35 / Inline Chain Tensioner'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -220,7 +220,7 @@
       - '#35'
       - Chain Tool
       - null
-    sku: null
+    sku: TOL-0019
     title: '#35 / Chain Tool'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -235,7 +235,7 @@
       - '#25'
       - Bundle
       - null
-    sku: null
+    sku: TOL-0010
     title: '#25 / Bundle'
   firstSeen: 2026-07-19T17:34:48.986Z
 - vendor: Swyft
@@ -250,7 +250,7 @@
       - '#25H'
       - Bundle
       - null
-    sku: null
+    sku: TOL-0015
     title: '#25H / Bundle'
   firstSeen: 2026-07-19T17:34:48.986Z
 - vendor: Swyft
@@ -265,7 +265,7 @@
       - '#35'
       - Bundle
       - null
-    sku: null
+    sku: TOL-0020
     title: '#35 / Bundle'
   firstSeen: 2026-07-19T17:34:48.986Z
 - vendor: Swyft
@@ -1090,7 +1090,7 @@
       - 165PCS Belt Bundle
       - 9mm Width
       - null
-    sku: null
+    sku: BUNDLE-5M-9
     title: 165PCS Belt Bundle / 9mm Width
   firstSeen: 2026-03-13T11:55:24.292Z
 - vendor: Swyft
@@ -1105,7 +1105,7 @@
       - 165PCS Belt Bundle
       - 15mm Width
       - null
-    sku: null
+    sku: BUNDLE-5M-15
     title: 165PCS Belt Bundle / 15mm Width
   firstSeen: 2026-03-13T11:55:24.292Z
 - vendor: Swyft
@@ -1589,9 +1589,9 @@
     title: Default Title
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/80w-27-x-20-co2-laser-cutter-recommended-for-ftc-teams?variant=49212832317734
+  # https://shop.swyftrobotics.com/products/100w-27-x-20-co2-laser-cutter-recommended-for-ftc-teams?variant=49212832317734
   product:
-    handle: 80w-27-x-20-co2-laser-cutter-recommended-for-ftc-teams
+    handle: 100w-27-x-20-co2-laser-cutter-recommended-for-ftc-teams
     id: 9469317742886
     title: Compact 100W 27.6" x 19.6" CO2 Laser Cutter
   variant:
@@ -1615,7 +1615,7 @@
       - 1/8" (3mm)
       - Full Sheet 23.6" x 23.6" (600mm x 600mm)
       - null
-    sku: ''
+    sku: SR-ACETAL-SHEET-3
     title: 1/8" (3mm) / Full Sheet 23.6" x 23.6" (600mm x 600mm)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -1690,7 +1690,7 @@
       - FREE (full kit for a single robot)
       - null
       - null
-    sku: SR-SIGN-02
+    sku: SR-SIGN-02-FREE
     title: FREE (full kit for a single robot)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -1833,7 +1833,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692942795046
     options:
@@ -1848,7 +1848,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692955607334
     options:
@@ -1863,7 +1863,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692955672870
     options:
@@ -1878,7 +1878,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692955738406
     options:
@@ -1893,7 +1893,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692955803942
     options:
@@ -1908,7 +1908,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692955869478
     options:
@@ -1923,7 +1923,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692955935014
     options:
@@ -1938,7 +1938,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692956000550
     options:
@@ -1953,7 +1953,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692956066086
     options:
@@ -1968,7 +1968,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692956131622
     options:
@@ -1983,7 +1983,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692956197158
     options:
@@ -1998,7 +1998,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692956262694
     options:
@@ -2013,7 +2013,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692956328230
     options:
@@ -2028,7 +2028,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692956393766
     options:
@@ -2043,7 +2043,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692956459302
     options:
@@ -2058,7 +2058,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692956524838
     options:
@@ -2073,7 +2073,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692956590374
     options:
@@ -2088,7 +2088,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692956655910
     options:
@@ -2103,7 +2103,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692956721446
     options:
@@ -2118,7 +2118,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692956786982
     options:
@@ -2133,7 +2133,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692956852518
     options:
@@ -2148,7 +2148,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692956918054
     options:
@@ -2163,7 +2163,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692956983590
     options:
@@ -2178,7 +2178,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692957049126
     options:
@@ -2193,7 +2193,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692957114662
     options:
@@ -2208,7 +2208,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692960063782
     options:
@@ -2223,7 +2223,7 @@
   product:
     handle: pnuematic-fittings
     id: 9905398874406
-    title: Pnuematic Fittings
+    title: Pneumatic Fittings
   variant:
     id: 49692960096550
     options:
@@ -2294,21 +2294,6 @@
     title: Servo Programmer USB Dongle
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-servos?variant=51336279654694
-  product:
-    handle: swyft-servos
-    id: 9912482529574
-    title: SWYFT Servos
-  variant:
-    id: 51336279654694
-    options:
-      - Titan Servo Module
-      - null
-      - null
-    sku: null
-    title: Titan Servo Module
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-servos?variant=51735705321766
   product:
     handle: swyft-servos
@@ -2320,7 +2305,7 @@
       - Speed - Continuous Rotation
       - null
       - null
-    sku: SR-Servo-01
+    sku: SR-Servo-01-CR
     title: Speed - Continuous Rotation
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2335,7 +2320,7 @@
       - FREE
       - null
       - null
-    sku: SR-Ground-01
+    sku: SR-Ground-01-FREE
     title: FREE
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2425,7 +2410,7 @@
       - (Spare Parts) Connecting Brackets 4pcs
       - null
       - null
-    sku: null
+    sku: SR-BUMPER-SPARE-BRACKETS
     title: (Spare Parts) Connecting Brackets 4pcs
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2440,7 +2425,7 @@
       - 250mm Slide
       - null
       - null
-    sku: ''
+    sku: SR-SLIDE-250
     title: 250mm Slide
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2455,7 +2440,7 @@
       - 350mm Slide
       - null
       - null
-    sku: ''
+    sku: SR-SLIDE-350
     title: 350mm Slide
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2470,7 +2455,7 @@
       - 10mm x 20mm Extrusion 250mm Length
       - null
       - null
-    sku: ''
+    sku: SR-SLIDE-EXT-1020-250
     title: 10mm x 20mm Extrusion 250mm Length
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2485,7 +2470,7 @@
       - 10mm x 20mm Extrusion 350mm Length
       - null
       - null
-    sku: ''
+    sku: SR-SLIDE-EXT-1020-350
     title: 10mm x 20mm Extrusion 350mm Length
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2500,7 +2485,7 @@
       - 10mm x 20mm Extrusion 110mm Length
       - null
       - null
-    sku: ''
+    sku: SR-SLIDE-EXT-1020-110
     title: 10mm x 20mm Extrusion 110mm Length
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2515,7 +2500,7 @@
       - Idler Pulleys Pack of 8
       - null
       - null
-    sku: ''
+    sku: SR-SLIDE-IDLER-8
     title: Idler Pulleys Pack of 8
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2530,7 +2515,7 @@
       - Driven Pulley
       - null
       - null
-    sku: ''
+    sku: SR-SLIDE-PULLEY-DRIVEN
     title: Driven Pulley
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2545,7 +2530,7 @@
       - Kevlar GT2 6mm Timing Belt
       - null
       - null
-    sku: ''
+    sku: SR-SLIDE-BELT-GT2-6-KEVLAR
     title: Kevlar GT2 6mm Timing Belt
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2560,7 +2545,7 @@
       - Steel GT2 6mm Timing Belt
       - null
       - null
-    sku: ''
+    sku: SR-SLIDE-BELT-GT2-6-STEEL
     title: Steel GT2 6mm Timing Belt
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2575,7 +2560,7 @@
       - Kevlar GT2 10mm Timing Belt
       - null
       - null
-    sku: ''
+    sku: SR-SLIDE-BELT-GT2-10-KEVLAR
     title: Kevlar GT2 10mm Timing Belt
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2590,7 +2575,7 @@
       - Steel GT2 10mm Timing Belt
       - null
       - null
-    sku: ''
+    sku: SR-SLIDE-BELT-GT2-10-STEEL
     title: Steel GT2 10mm Timing Belt
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2605,7 +2590,7 @@
       - Tools + Screws Bag
       - null
       - null
-    sku: ''
+    sku: SR-SLIDE-HARDWARE
     title: Tools + Screws Bag
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2620,7 +2605,7 @@
       - Pulley Hat Pack of 6
       - null
       - null
-    sku: null
+    sku: SR-SLIDE-PULLEYHAT-6
     title: Pulley Hat Pack of 6
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -2635,7 +2620,7 @@
       - Long Plate with Logo Pack of 3
       - null
       - null
-    sku: null
+    sku: SR-SLIDE-PLATE-LONG-LOGO
     title: Long Plate with Logo Pack of 3
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -2650,7 +2635,7 @@
       - Long Plate no Logo Pack of 3
       - null
       - null
-    sku: null
+    sku: SR-SLIDE-PLATE-LONG
     title: Long Plate no Logo Pack of 3
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -2665,7 +2650,7 @@
       - Short Plate Pack of 2
       - null
       - null
-    sku: null
+    sku: SR-SLIDE-PLATE-SHORT
     title: Short Plate Pack of 2
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -2680,7 +2665,7 @@
       - Motor Mount
       - null
       - null
-    sku: null
+    sku: SR-SLIDE-MOTORMOUNT
     title: Motor Mount
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -2695,7 +2680,7 @@
       - Motor Mount Top C Plate
       - null
       - null
-    sku: null
+    sku: SR-SLIDE-MOTORMOUNT-C
     title: Motor Mount Top C Plate
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -2710,7 +2695,7 @@
       - Right Angle Extrusion Gussets Pack of 2
       - null
       - null
-    sku: null
+    sku: SR-SLIDE-GUSSET-RA
     title: Right Angle Extrusion Gussets Pack of 2
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -2725,7 +2710,7 @@
       - Belt Clamp+Magnet Mount
       - null
       - null
-    sku: null
+    sku: SR-SLIDE-BELTCLAMP-MAG
     title: Belt Clamp+Magnet Mount
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -2740,7 +2725,7 @@
       - Small Belt Clamp Plate
       - null
       - null
-    sku: null
+    sku: SR-SLIDE-BELTCLAMP
     title: Small Belt Clamp Plate
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -2875,7 +2860,7 @@
       - Outer Extrusion
       - null
       - null
-    sku: ''
+    sku: SR-ASCEND-V2-OUTER
     title: Outer Extrusion
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2890,7 +2875,7 @@
       - Middle Extrusion
       - null
       - null
-    sku: ''
+    sku: SR-ASCEND-V2-MIDDLE
     title: Middle Extrusion
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2905,7 +2890,7 @@
       - Inner Extrusion
       - null
       - null
-    sku: ''
+    sku: SR-ASCEND-V2-INNER
     title: Inner Extrusion
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2920,7 +2905,7 @@
       - Screw and Bearing Balls Bag
       - null
       - null
-    sku: null
+    sku: SR-ASCEND-V2-BALLS
     title: Screw and Bearing Balls Bag
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2935,7 +2920,7 @@
       - 10DP Steel Gear
       - null
       - null
-    sku: null
+    sku: SR-ASCEND-V2-GEAR-10DP
     title: 10DP Steel Gear
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2950,7 +2935,7 @@
       - Plate Bundle (2x Top Plates + 2x 1" 10-32 Standoffs)
       - null
       - null
-    sku: null
+    sku: SR-ASCEND-V2-PLATES
     title: Plate Bundle (2x Top Plates + 2x 1" 10-32 Standoffs)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2965,7 +2950,7 @@
       - Rope - 3mm Diameter - 10M Length
       - null
       - null
-    sku: null
+    sku: SR-ASCEND-V2-ROPE-3MM-10M
     title: Rope - 3mm Diameter - 10M Length
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2980,7 +2965,7 @@
       - Tube End Cap
       - null
       - null
-    sku: null
+    sku: SR-ASCEND-V2-ENDCAP
     title: Tube End Cap
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -2995,7 +2980,7 @@
       - Rope Clamp Block
       - null
       - null
-    sku: null
+    sku: SR-ASCEND-V2-ROPECLAMP
     title: Rope Clamp Block
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3010,7 +2995,7 @@
       - 2" 1/2" Hex Axle
       - null
       - null
-    sku: null
+    sku: SR-ASCEND-V2-AXLE-2IN
     title: 2" 1/2" Hex Axle
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3025,7 +3010,7 @@
       - Steel Pulley
       - null
       - null
-    sku: null
+    sku: SR-ASCEND-V2-PULLEY
     title: Steel Pulley
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3040,7 +3025,7 @@
       - Butterfly Plates
       - null
       - null
-    sku: null
+    sku: SR-ASCEND-V2-BUTTERFLY
     title: Butterfly Plates
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3055,7 +3040,7 @@
       - Rope Clamp Plate
       - null
       - null
-    sku: null
+    sku: SR-ASCEND-V2-ROPEPLATE
     title: Rope Clamp Plate
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3070,7 +3055,7 @@
       - Pulley Block Bottom (not Hat)
       - null
       - null
-    sku: null
+    sku: SR-ASCEND-V2-PULLEYBLK-BOT
     title: Pulley Block Bottom (not Hat)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3085,7 +3070,7 @@
       - Pulley Block Top with Hat
       - null
       - null
-    sku: null
+    sku: SR-ASCEND-V2-PULLEYBLK-TOP
     title: Pulley Block Top with Hat
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3097,11 +3082,11 @@
   variant:
     id: 50799386001702
     options:
+      - 110mm 30A with Traction Spikes
       - SWYFT Drive V2 Module Pack of 4
       - null
-      - null
-    sku: SR-DRIVE-02
-    title: SWYFT Drive V2 Module Pack of 4
+    sku: SR-DRIVE-110mm-02
+    title: 110mm 30A with Traction Spikes / SWYFT Drive V2 Module Pack of 4
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-drive-v2?variant=50799386034470
@@ -3112,12 +3097,42 @@
   variant:
     id: 50799386034470
     options:
+      - 110mm 30A with Traction Spikes
       - SWYFT Drive V2 Frame Kit
       - null
+    sku: SR-DRIVE-FRAME-110mm-02
+    title: 110mm 30A with Traction Spikes / SWYFT Drive V2 Frame Kit
+  firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-drive-v2?variant=53787224637734
+  product:
+    handle: swyft-drive-v2
+    id: 10152455995686
+    title: SWYFT Drive V2
+  variant:
+    id: 53787224637734
+    options:
+      - 86mm 40A
+      - SWYFT Drive V2 Module Pack of 4
+      - null
+    sku: SR-DRIVE-02
+    title: 86mm 40A / SWYFT Drive V2 Module Pack of 4
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-drive-v2?variant=53787224670502
+  product:
+    handle: swyft-drive-v2
+    id: 10152455995686
+    title: SWYFT Drive V2
+  variant:
+    id: 53787224670502
+    options:
+      - 86mm 40A
+      - SWYFT Drive V2 Frame Kit
       - null
     sku: SR-DRIVE-FRAME-02
-    title: SWYFT Drive V2 Frame Kit
-  firstSeen: 2026-03-13T10:24:54.717Z
+    title: 86mm 40A / SWYFT Drive V2 Frame Kit
+  firstSeen: 2026-08-31T19:27:54.714Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-slides-v2?variant=51057874927910
   product:
@@ -3130,7 +3145,7 @@
       - Full Base Kit (3x 350mm Slide Kit)
       - null
       - null
-    sku: null
+    sku: SR-SLIDE-V2-350
     title: Full Base Kit (3x 350mm Slide Kit)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3145,7 +3160,7 @@
       - Full Base Kit (3x 250mm Slide Kit)
       - null
       - null
-    sku: null
+    sku: SR-SLIDE-V2-250
     title: Full Base Kit (3x 250mm Slide Kit)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3220,7 +3235,7 @@
       - Heavy Duty Shallow Parts Organizer (25 bins) (42x33x5.1cm)
       - null
       - null
-    sku: null
+    sku: SR-ORG-SHALLOW-25
     title: Heavy Duty Shallow Parts Organizer (25 bins) (42x33x5.1cm)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3235,7 +3250,7 @@
       - Heavy Duty Deep Parts Organizer (10 bins) (42x33x10.5cm)
       - null
       - null
-    sku: null
+    sku: SR-ORG-DEEP-10
     title: Heavy Duty Deep Parts Organizer (10 bins) (42x33x10.5cm)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3400,7 +3415,7 @@
       - 5mm Hex Hub Adapter for REV Motion
       - null
       - null
-    sku: null
+    sku: SR-GEARBOX-36-HUB-5MM
     title: 5mm Hex Hub Adapter for REV Motion
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3415,7 +3430,7 @@
       - Gearbox Screws Packet
       - null
       - null
-    sku: null
+    sku: SR-GEARBOX-36-SCREWS
     title: Gearbox Screws Packet
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3910,7 +3925,7 @@
       - 6mm SWYFT Composite (SRPP + Foam Core) (610mm x 610mm)
       - null
       - null
-    sku: null
+    sku: SR-SRPP-06
     title: 6mm SWYFT Composite (SRPP + Foam Core) (610mm x 610mm)
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -3955,7 +3970,7 @@
       - 20 Pack Bundle SWYFT Tube Connector (10x 1" and 10x 2")
       - null
       - null
-    sku: null
+    sku: SR-TUBECONNECTOR-20
     title: 20 Pack Bundle SWYFT Tube Connector (10x 1" and 10x 2")
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3970,7 +3985,7 @@
       - 0.125in Wall
       - Plain
       - 2"x1"  Length:47"
-    sku: null
+    sku: SR-TUBE-125-PLAIN-2X1-47
     title: 0.125in Wall / Plain / 2"x1"  Length:47"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3985,7 +4000,7 @@
       - 0.125in Wall
       - Grid
       - 2"x1"  Length:47"
-    sku: null
+    sku: SR-TUBE-125-GRID-2X1-47
     title: 0.125in Wall / Grid / 2"x1"  Length:47"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4000,7 +4015,7 @@
       - 0.125in Wall
       - Grid + Bearing
       - 2"x1"  Length:47"
-    sku: null
+    sku: SR-TUBE-125-GRIDBRG-2X1-47
     title: 0.125in Wall / Grid + Bearing / 2"x1"  Length:47"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4015,7 +4030,7 @@
       - 0.0625in Wall
       - Plain
       - 2"x1"  Length:47"
-    sku: null
+    sku: SR-TUBE-0625-PLAIN-2X1-47
     title: 0.0625in Wall / Plain / 2"x1"  Length:47"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4030,7 +4045,7 @@
       - 0.0625in Wall
       - Grid
       - 2"x1"  Length:47"
-    sku: null
+    sku: SR-TUBE-0625-GRID-2X1-47
     title: 0.0625in Wall / Grid / 2"x1"  Length:47"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4045,7 +4060,7 @@
       - 0.0625in Wall
       - Grid + Bearing
       - 2"x1"  Length:47"
-    sku: null
+    sku: SR-TUBE-0625-GRIDBRG-2X1-47
     title: 0.0625in Wall / Grid + Bearing / 2"x1"  Length:47"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4060,7 +4075,7 @@
       - 0.035in Wall
       - Plain
       - 2"x1"  Length:47"
-    sku: null
+    sku: SR-TUBE-035-PLAIN-2X1-47
     title: 0.035in Wall / Plain / 2"x1"  Length:47"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4075,7 +4090,7 @@
       - 0.035in Wall
       - Grid
       - 2"x1"  Length:47"
-    sku: null
+    sku: SR-TUBE-035-GRID-2X1-47
     title: 0.035in Wall / Grid / 2"x1"  Length:47"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4090,7 +4105,7 @@
       - 0.125in Wall
       - Grid
       - 1"x1"  Length:47"
-    sku: null
+    sku: SR-TUBE-125-GRID-1X1-47
     title: 0.125in Wall / Grid / 1"x1"  Length:47"
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -4105,7 +4120,7 @@
       - 0.0625in Wall
       - Grid
       - 1"x1"  Length:47"
-    sku: null
+    sku: SR-TUBE-0625-GRID-1X1-47
     title: 0.0625in Wall / Grid / 1"x1"  Length:47"
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
@@ -4120,7 +4135,7 @@
       - 3mm (745mm x 745mm) 29.3in x 29.3in
       - null
       - null
-    sku: null
+    sku: SR-PC-SHEET-3
     title: 3mm (745mm x 745mm) 29.3in x 29.3in
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4135,7 +4150,7 @@
       - 6mm (745mm x 745mm) 29.3in x 29.3in
       - null
       - null
-    sku: null
+    sku: SR-PC-SHEET-6
     title: 6mm (745mm x 745mm) 29.3in x 29.3in
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4180,7 +4195,7 @@
       - 424mm Length 17 Hole SWYFT Channel
       - null
       - null
-    sku: null
+    sku: SR-CHANNEL-L48-424
     title: 424mm Length 17 Hole SWYFT Channel
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4195,7 +4210,7 @@
       - Full Right Module
       - null
       - null
-    sku: null
+    sku: SR-DRIVE-V2-MODULE-R
     title: Full Right Module
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4210,7 +4225,7 @@
       - Full Left Module
       - null
       - null
-    sku: null
+    sku: SR-DRIVE-V2-MODULE-L
     title: Full Left Module
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4225,7 +4240,7 @@
       - 9pcs Wheel Rollers
       - null
       - null
-    sku: null
+    sku: SR-DRIVE-V2-ROLLERS
     title: 9pcs Wheel Rollers
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4240,7 +4255,7 @@
       - Bearings Kit
       - null
       - null
-    sku: null
+    sku: SR-DRIVE-V2-BEARINGS
     title: Bearings Kit
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4255,7 +4270,7 @@
       - Front Block with Planet Gear and Back Block
       - null
       - null
-    sku: null
+    sku: SR-DRIVE-V2-BLOCKS
     title: Front Block with Planet Gear and Back Block
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4270,7 +4285,7 @@
       - Ring Gear
       - null
       - null
-    sku: null
+    sku: SR-DRIVE-V2-RINGGEAR
     title: Ring Gear
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4285,7 +4300,7 @@
       - 2x Wheel Plate Left & 2x Wheel Plate Right & 2x Wheel Hub
       - null
       - null
-    sku: null
+    sku: SR-DRIVE-V2-PLATES
     title: 2x Wheel Plate Left & 2x Wheel Plate Right & 2x Wheel Hub
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4300,7 +4315,7 @@
       - Module Screws Kit
       - null
       - null
-    sku: null
+    sku: SR-DRIVE-V2-SCREWS
     title: Module Screws Kit
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4315,7 +4330,7 @@
       - SWYFT Spike Motor with Pinion for SWYFT Drive V2
       - null
       - null
-    sku: null
+    sku: SR-DRIVE-V2-SPIKE
     title: SWYFT Spike Motor with Pinion for SWYFT Drive V2
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4330,7 +4345,7 @@
       - SWYFT Drive V2 110mm Wheel Upgrade Kit
       - null
       - null
-    sku: null
+    sku: SR-DRIVE-V2-WHEEL-110
     title: SWYFT Drive V2 110mm Wheel Upgrade Kit
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4405,7 +4420,7 @@
       - 4" FRC
       - null
       - null
-    sku: null
+    sku: SR-FLYWHEEL-4in
     title: 4" FRC
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4435,7 +4450,7 @@
       - Swerve Drive Bundle (4x Direct + 1x Inject + 5x Cable)
       - null
       - null
-    sku: null
+    sku: SR-CANNECT-V2-SWERVE
     title: Swerve Drive Bundle (4x Direct + 1x Inject + 5x Cable)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4450,7 +4465,7 @@
       - SWYFT Direct
       - null
       - null
-    sku: null
+    sku: SR-CANNECT-V2-DIRECT
     title: SWYFT Direct
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4465,7 +4480,7 @@
       - SWYFT Inject
       - null
       - null
-    sku: null
+    sku: SR-CANNECT-V2-INJECT
     title: SWYFT Inject
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4480,7 +4495,7 @@
       - Default Title
       - null
       - null
-    sku: null
+    sku: SR-ASCEND-V2
     title: Default Title
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -4522,11 +4537,11 @@
   variant:
     id: 52965310300454
     options:
-      - 1/2" Hex (Fits 13.75mm Bearings)  36" Length
+      - 1/2" Hex | 36" Length
       - AL7075
       - null
     sku: SR-AXLE-HEX-0.5in-36in-AL7075
-    title: 1/2" Hex (Fits 13.75mm Bearings)  36" Length / AL7075
+    title: 1/2" Hex | 36" Length / AL7075
   firstSeen: 2026-07-19T17:34:48.986Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-axles?variant=52965310333222
@@ -4537,11 +4552,11 @@
   variant:
     id: 52965310333222
     options:
-      - 1/2" Hex (Fits 13.75mm Bearings)  36" Length
+      - 1/2" Hex | 36" Length
       - AL6061
       - null
     sku: SR-AXLE-HEX-0.5in-36in-AL6061
-    title: 1/2" Hex (Fits 13.75mm Bearings)  36" Length / AL6061
+    title: 1/2" Hex | 36" Length / AL6061
   firstSeen: 2026-07-19T17:34:48.986Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-axles?variant=52965310365990
@@ -4552,11 +4567,11 @@
   variant:
     id: 52965310365990
     options:
-      - 7mm Hex (Fits 8mm Bearings)  450mm Length
+      - 7mm Hex | 450mm Length
       - SS304
       - null
     sku: SR-AXLE-HEX-7mm-450mm-SS304
-    title: 7mm Hex (Fits 8mm Bearings)  450mm Length / SS304
+    title: 7mm Hex | 450mm Length / SS304
   firstSeen: 2026-07-19T17:34:48.986Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-axles?variant=52965310398758
@@ -4567,11 +4582,11 @@
   variant:
     id: 52965310398758
     options:
-      - 7mm Hex (Fits 8mm Bearings)  450mm Length
+      - 7mm Hex | 450mm Length
       - AL7075
       - null
     sku: SR-AXLE-HEX-7mm-450mm-AL7075
-    title: 7mm Hex (Fits 8mm Bearings)  450mm Length / AL7075
+    title: 7mm Hex | 450mm Length / AL7075
   firstSeen: 2026-07-19T17:34:48.986Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-axles?variant=52965310431526
@@ -4582,11 +4597,11 @@
   variant:
     id: 52965310431526
     options:
-      - 7mm Hex (Fits 8mm Bearings)  450mm Length
+      - 7mm Hex | 450mm Length
       - AL6061
       - null
     sku: SR-AXLE-HEX-7mmH-450mm-AL6061
-    title: 7mm Hex (Fits 8mm Bearings)  450mm Length / AL6061
+    title: 7mm Hex | 450mm Length / AL6061
   firstSeen: 2026-07-19T17:34:48.986Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-axles?variant=52965310464294
@@ -4597,11 +4612,11 @@
   variant:
     id: 52965310464294
     options:
-      - 15T SplineXS (Fits 8mm Bearings)  450mm Length
+      - 15T SplineXS | 450mm Length
       - SS304
       - null
     sku: SR-AXLE-SPLINE-15T-450mm-SS304
-    title: 15T SplineXS (Fits 8mm Bearings)  450mm Length / SS304
+    title: 15T SplineXS | 450mm Length / SS304
   firstSeen: 2026-07-19T17:34:48.986Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-axles?variant=52965310497062
@@ -4612,12 +4627,42 @@
   variant:
     id: 52965310497062
     options:
-      - 15T SplineXS (Fits 8mm Bearings)  450mm Length
+      - 15T SplineXS | 450mm Length
       - AL7075
       - null
     sku: SR-AXLE-SPLINE-15T-450mm-AL7075
-    title: 15T SplineXS (Fits 8mm Bearings)  450mm Length / AL7075
+    title: 15T SplineXS | 450mm Length / AL7075
   firstSeen: 2026-07-19T17:34:48.986Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/frc-axle-adapters?variant=52970239623462
+  product:
+    handle: frc-axle-adapters
+    id: 10492779397414
+    title: Axle Adapters
+  variant:
+    id: 52970239623462
+    options:
+      - 15T SplineXS to 1/2" Hex | Pack of 5
+      - null
+      - null
+    sku: SR-ADAPTER-SPLINE15T-HEX12
+    title: 15T SplineXS to 1/2" Hex | Pack of 5
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/frc-axle-adapters?variant=52970239656230
+  product:
+    handle: frc-axle-adapters
+    id: 10492779397414
+    title: Axle Adapters
+  variant:
+    id: 52970239656230
+    options:
+      - 1/2" Hex to 3D Print / 10DP Gear | Pack of 5
+      - null
+      - null
+    sku: SR-HEXto3DPRINT-01
+    title: 1/2" Hex to 3D Print / 10DP Gear | Pack of 5
+  firstSeen: 2026-08-31T19:27:54.714Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-electric-coreless-screwdriver-5nm?variant=53261107331366
   product:
@@ -4633,3 +4678,1248 @@
     sku: SR-SCREWDRIVER-5NM
     title: Default Title
   firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-usb-camera?variant=53786726236454
+  product:
+    handle: swyft-usb-camera
+    id: 10636628230438
+    title: SWYFT USB Camera
+  variant:
+    id: 53786726236454
+    options:
+      - SWYFT USB AprilTag Camera
+      - null
+      - null
+    sku: SR-CAMERA-OV9281-USBC-01
+    title: SWYFT USB AprilTag Camera
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-usb-camera?variant=53786726269222
+  product:
+    handle: swyft-usb-camera
+    id: 10636628230438
+    title: SWYFT USB Camera
+  variant:
+    id: 53786726269222
+    options:
+      - USB-C Locking to USB-A 2M (6.5ft)
+      - null
+      - null
+    sku: SR-CAMERA-CABLE-USBC-2M
+    title: USB-C Locking to USB-A 2M (6.5ft)
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-cnc-machine?variant=53487127691558
+  product:
+    handle: swyft-cnc-machine
+    id: 10636686295334
+    title: 8060Z CNC Machine
+  variant:
+    id: 53487127691558
+    options:
+      - 575x375x68
+      - 2200W
+      - Yes
+    sku: CNC-8060Z-575-2200-4AX
+    title: 575x375x68 / 2200W / Yes
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-cnc-machine?variant=53487127724326
+  product:
+    handle: swyft-cnc-machine
+    id: 10636686295334
+    title: 8060Z CNC Machine
+  variant:
+    id: 53487127724326
+    options:
+      - 790x580x105
+      - 2200W
+      - Yes
+    sku: CNC-8060Z-790-2200-4AX
+    title: 790x580x105 / 2200W / Yes
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-cnc-machine?variant=53487128379686
+  product:
+    handle: swyft-cnc-machine
+    id: 10636686295334
+    title: 8060Z CNC Machine
+  variant:
+    id: 53487128379686
+    options:
+      - 790x580x105
+      - 1500W
+      - Yes
+    sku: CNC-8060Z-790-1500-4AX
+    title: 790x580x105 / 1500W / Yes
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-cnc-machine?variant=53487128412454
+  product:
+    handle: swyft-cnc-machine
+    id: 10636686295334
+    title: 8060Z CNC Machine
+  variant:
+    id: 53487128412454
+    options:
+      - 575x375x68
+      - 1500W
+      - Yes
+    sku: CNC-8060Z-575-1500-4AX
+    title: 575x375x68 / 1500W / Yes
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-cnc-machine?variant=53487128707366
+  product:
+    handle: swyft-cnc-machine
+    id: 10636686295334
+    title: 8060Z CNC Machine
+  variant:
+    id: 53487128707366
+    options:
+      - 790x580x105
+      - 2200W
+      - No
+    sku: CNC-8060Z-790-2200-3AX
+    title: 790x580x105 / 2200W / No
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-cnc-machine?variant=53487128740134
+  product:
+    handle: swyft-cnc-machine
+    id: 10636686295334
+    title: 8060Z CNC Machine
+  variant:
+    id: 53487128740134
+    options:
+      - 790x580x105
+      - 1500W
+      - No
+    sku: CNC-8060Z-790-1500-3AX
+    title: 790x580x105 / 1500W / No
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-cnc-machine?variant=53487128772902
+  product:
+    handle: swyft-cnc-machine
+    id: 10636686295334
+    title: 8060Z CNC Machine
+  variant:
+    id: 53487128772902
+    options:
+      - 575x375x68
+      - 2200W
+      - No
+    sku: CNC-8060Z-575-2200-3AX
+    title: 575x375x68 / 2200W / No
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-cnc-machine?variant=53487128805670
+  product:
+    handle: swyft-cnc-machine
+    id: 10636686295334
+    title: 8060Z CNC Machine
+  variant:
+    id: 53487128805670
+    options:
+      - 575x375x68
+      - 1500W
+      - No
+    sku: CNC-8060Z-575-1500-3AX
+    title: 575x375x68 / 1500W / No
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742608449830
+  product:
+    handle: swyft-team-kits
+    id: 10715811873062
+    title: SWYFT Team Kits
+  variant:
+    id: 53742608449830
+    options:
+      - FTC Hardware Kit
+      - null
+      - null
+    sku: SR-KIT-FTC-HEX
+    title: FTC Hardware Kit
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742608482598
+  product:
+    handle: swyft-team-kits
+    id: 10715811873062
+    title: SWYFT Team Kits
+  variant:
+    id: 53742608482598
+    options:
+      - FRC 1/2" Hex Kit
+      - null
+      - null
+    sku: SR-KIT-FRC-HEX
+    title: FRC 1/2" Hex Kit
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742608515366
+  product:
+    handle: swyft-team-kits
+    id: 10715811873062
+    title: SWYFT Team Kits
+  variant:
+    id: 53742608515366
+    options:
+      - FTC Season Kit
+      - null
+      - null
+    sku: SR-KIT-FTC-SEASON
+    title: FTC Season Kit
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742608548134
+  product:
+    handle: swyft-team-kits
+    id: 10715811873062
+    title: SWYFT Team Kits
+  variant:
+    id: 53742608548134
+    options:
+      - FRC Season Kit
+      - null
+      - null
+    sku: SR-KIT-FRC-SEASON
+    title: FRC Season Kit
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742676082982
+  product:
+    handle: swyft-team-kits
+    id: 10715811873062
+    title: SWYFT Team Kits
+  variant:
+    id: 53742676082982
+    options:
+      - FRC Tube Kit
+      - null
+      - null
+    sku: SR-KIT-FRC-TUBE
+    title: FRC Tube Kit
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742676115750
+  product:
+    handle: swyft-team-kits
+    id: 10715811873062
+    title: SWYFT Team Kits
+  variant:
+    id: 53742676115750
+    options:
+      - FTC Channel Kit
+      - null
+      - null
+    sku: SR-KIT-FTC-CHANNEL
+    title: FTC Channel Kit
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742676148518
+  product:
+    handle: swyft-team-kits
+    id: 10715811873062
+    title: SWYFT Team Kits
+  variant:
+    id: 53742676148518
+    options:
+      - Sheet Material Kit
+      - null
+      - null
+    sku: SR-KIT-SHEET
+    title: Sheet Material Kit
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742676181286
+  product:
+    handle: swyft-team-kits
+    id: 10715811873062
+    title: SWYFT Team Kits
+  variant:
+    id: 53742676181286
+    options:
+      - FTC Servo Kit
+      - null
+      - null
+    sku: SR-KIT-FTC-SERVO
+    title: FTC Servo Kit
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742676214054
+  product:
+    handle: swyft-team-kits
+    id: 10715811873062
+    title: SWYFT Team Kits
+  variant:
+    id: 53742676214054
+    options:
+      - FTC Spike Motor Kit
+      - null
+      - null
+    sku: SR-KIT-FTC-SPIKE
+    title: FTC Spike Motor Kit
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871281446
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871281446
+    options:
+      - 40 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-40T-5MM
+    title: 40 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871314214
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871314214
+    options:
+      - 40 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-80-10
+    title: 40 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871346982
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871346982
+    options:
+      - 45 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-45T-5MM
+    title: 45 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871379750
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871379750
+    options:
+      - 45 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-90-10
+    title: 45 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871412518
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871412518
+    options:
+      - 50 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-50T-5MM
+    title: 50 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871445286
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871445286
+    options:
+      - 50 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-100-10
+    title: 50 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871478054
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871478054
+    options:
+      - 55 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-55T-5MM
+    title: 55 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871510822
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871510822
+    options:
+      - 55 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-110-10
+    title: 55 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871543590
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871543590
+    options:
+      - 60 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-60T-5MM
+    title: 60 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871576358
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871576358
+    options:
+      - 60 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-120-10
+    title: 60 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871609126
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871609126
+    options:
+      - 65 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-65T-5MM
+    title: 65 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871641894
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871641894
+    options:
+      - 65 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-130-10
+    title: 65 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871674662
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871674662
+    options:
+      - 70 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-70T-5MM
+    title: 70 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871707430
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871707430
+    options:
+      - 70 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-140-10
+    title: 70 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871740198
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871740198
+    options:
+      - 75 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-75T-5MM
+    title: 75 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871772966
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871772966
+    options:
+      - 75 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-150-10
+    title: 75 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871805734
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871805734
+    options:
+      - 80 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-80T-5MM
+    title: 80 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871838502
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871838502
+    options:
+      - 80 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-160-10
+    title: 80 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871871270
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871871270
+    options:
+      - 85 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-85T-5MM
+    title: 85 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871904038
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871904038
+    options:
+      - 85 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-170-10
+    title: 85 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871936806
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871936806
+    options:
+      - 90 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-90T-5MM
+    title: 90 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871969574
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787871969574
+    options:
+      - 90 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-180-10
+    title: 90 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872002342
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872002342
+    options:
+      - 95 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-95T-5MM
+    title: 95 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872035110
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872035110
+    options:
+      - 95 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-190-10
+    title: 95 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872067878
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872067878
+    options:
+      - 100 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-100T-5MM
+    title: 100 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872100646
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872100646
+    options:
+      - 100 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-200-10
+    title: 100 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872133414
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872133414
+    options:
+      - 110 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-110T-5MM
+    title: 110 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872166182
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872166182
+    options:
+      - 110 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-220-10
+    title: 110 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872198950
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872198950
+    options:
+      - 120 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-120T-5MM
+    title: 120 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872231718
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872231718
+    options:
+      - 120 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-240-10
+    title: 120 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872264486
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872264486
+    options:
+      - 130 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-130T-5MM
+    title: 130 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872297254
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872297254
+    options:
+      - 130 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-260-10
+    title: 130 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872330022
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872330022
+    options:
+      - 140 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-140T-5MM
+    title: 140 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872362790
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872362790
+    options:
+      - 140 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-280-10
+    title: 140 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872395558
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872395558
+    options:
+      - 150 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-150T-5MM
+    title: 150 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872428326
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872428326
+    options:
+      - 150 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-300-10
+    title: 150 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872461094
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872461094
+    options:
+      - 160 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-160T-5MM
+    title: 160 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872493862
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872493862
+    options:
+      - 160 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-320-10
+    title: 160 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872526630
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872526630
+    options:
+      - 170 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-170T-5MM
+    title: 170 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872559398
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872559398
+    options:
+      - 170 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-340-10
+    title: 170 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872592166
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872592166
+    options:
+      - 180 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-180T-5MM
+    title: 180 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872624934
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872624934
+    options:
+      - 180 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-360-10
+    title: 180 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872657702
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872657702
+    options:
+      - 190 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-190T-5MM
+    title: 190 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872690470
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872690470
+    options:
+      - 190 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-380-10
+    title: 190 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872723238
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872723238
+    options:
+      - 200 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-200T-5MM
+    title: 200 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872756006
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872756006
+    options:
+      - 200 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-400-10
+    title: 200 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872788774
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872788774
+    options:
+      - 220 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-220T-5MM
+    title: 220 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872821542
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872821542
+    options:
+      - 220 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-440-10
+    title: 220 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872854310
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872854310
+    options:
+      - 240 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-240T-5MM
+    title: 240 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872887078
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872887078
+    options:
+      - 240 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-480-10
+    title: 240 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872919846
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872919846
+    options:
+      - 260 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-260T-5MM
+    title: 260 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872952614
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872952614
+    options:
+      - 260 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-520-10
+    title: 260 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787872985382
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787872985382
+    options:
+      - 300 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-300T-5MM
+    title: 300 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787873018150
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787873018150
+    options:
+      - 300 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-600-10
+    title: 300 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787873050918
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787873050918
+    options:
+      - 320 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-320T-5MM
+    title: 320 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787873083686
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787873083686
+    options:
+      - 320 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-640-10
+    title: 320 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787873116454
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787873116454
+    options:
+      - 340 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-340T-5MM
+    title: 340 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787873149222
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787873149222
+    options:
+      - 340 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-680-10
+    title: 340 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787873181990
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787873181990
+    options:
+      - 380 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-380T-5MM
+    title: 380 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787873214758
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787873214758
+    options:
+      - 380 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-760-10
+    title: 380 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787873247526
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787873247526
+    options:
+      - 400 Tooth
+      - 5mm Width
+      - null
+    sku: GT2-400T-5MM
+    title: 400 Tooth / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787873280294
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787873280294
+    options:
+      - 400 Tooth
+      - 10mm Width
+      - null
+    sku: 2GT-800-10
+    title: 400 Tooth / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787890483494
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787890483494
+    options:
+      - 62PCS Belt Bundle
+      - 5mm Width
+      - null
+    sku: BUNDLE-2GT-5
+    title: 62PCS Belt Bundle / 5mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787890516262
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 53787890516262
+    options:
+      - 62PCS Belt Bundle
+      - 10mm Width
+      - null
+    sku: BUNDLE-2GT-10
+    title: 62PCS Belt Bundle / 10mm Width
+  firstSeen: 2026-08-31T19:27:54.714Z

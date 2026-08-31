@@ -802,11 +802,11 @@
   variant:
     id: 46006288089387
     options:
-      - Drill Bushings for 3/16 Rivets
+      - Drill Bushings for 3/16 Rivets (#11 Drill Bit)
       - null
       - null
     sku: TTB-0016-3/16
-    title: Drill Bushings for 3/16 Rivets
+    title: Drill Bushings for 3/16 Rivets (#11 Drill Bit)
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/thrifty-press-fit-drill-bushings?variant=46006288122155
@@ -817,12 +817,27 @@
   variant:
     id: 46006288122155
     options:
-      - Drill Bushings for 5/32 Rivets
+      - Drill Bushings for 5/32 Rivets (#21 Drill Bit)
       - null
       - null
     sku: TTB-0016-5/32
-    title: Drill Bushings for 5/32 Rivets
+    title: Drill Bushings for 5/32 Rivets (#21 Drill Bit)
   firstSeen: 2026-03-13T10:23:55.113Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/thrifty-press-fit-drill-bushings?variant=55037662921003
+  product:
+    handle: thrifty-press-fit-drill-bushings
+    id: 8493576323371
+    title: Thrifty Press-Fit Drill Bushings
+  variant:
+    id: 55037662921003
+    options:
+      - Drill Bushings for No. 10 or 5mm Hardware (#9 or 5mm Drill Bit)
+      - null
+      - null
+    sku: TTB-0016-No.10
+    title: Drill Bushings for No. 10 or 5mm Hardware (#9 or 5mm Drill Bit)
+  firstSeen: 2026-08-31T19:27:55.758Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/qty-50-thrifty-1-2-hex-spacers?variant=46862397636907
   product:
@@ -2995,7 +3010,7 @@
   product:
     handle: qty-4-kraken-spline-to-1-2-hex-adapter
     id: 9665402601771
-    title: QTY 4 - Kraken Spline to 1/2" Hex Adapter
+    title: QTY 4 - 15t SplineXS to 1/2" Hex Adapter
   variant:
     id: 49537576567083
     options:
@@ -6788,6 +6803,36 @@
     title: 9.5mm Wide 36 Tooth 1/2" Hex
   firstSeen: 2026-07-30T16:19:48.235Z
 - vendor: Thrifty
+  # https://www.thethriftybot.com/products/1-2-hex-pulleys?variant=55085850722603
+  product:
+    handle: 1-2-hex-pulleys
+    id: 10229413839147
+    title: 1/2" Hex Bore Aluminum HTD Pulleys
+  variant:
+    id: 55085850722603
+    options:
+      - 9.5mm Wide 30 Tooth 1/2" Hex
+      - null
+      - null
+    sku: TTB-0393
+    title: 9.5mm Wide 30 Tooth 1/2" Hex
+  firstSeen: 2026-08-31T19:27:55.758Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/1-2-hex-pulleys?variant=55085850755371
+  product:
+    handle: 1-2-hex-pulleys
+    id: 10229413839147
+    title: 1/2" Hex Bore Aluminum HTD Pulleys
+  variant:
+    id: 55085850755371
+    options:
+      - 18.5mm Wide 30 Tooth 1/2" Hex
+      - null
+      - null
+    sku: TTB-0394
+    title: 18.5mm Wide 30 Tooth 1/2" Hex
+  firstSeen: 2026-08-31T19:27:55.758Z
+- vendor: Thrifty
   # https://www.thethriftybot.com/products/3-flywheel-mass-disc-kit?variant=51701185413419
   product:
     handle: 3-flywheel-mass-disc-kit
@@ -7027,6 +7072,21 @@
     sku: TTB-0364
     title: Default Title
   firstSeen: 2026-03-13T11:55:25.331Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/thrifty-through-bore-encoder?variant=52250266566955
+  product:
+    handle: thrifty-through-bore-encoder
+    id: 10284417515819
+    title: 'PRE-ORDER: Thrifty Through Bore CAN Encoder'
+  variant:
+    id: 52250266566955
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0365
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:55.758Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/3-inch-solid-urethane-wheel-60a-durometer?variant=52960225263915
   product:
@@ -7282,3 +7342,48 @@
     sku: SINGLE-FLUTE-ENDMILL-BUNDLE
     title: Default Title
   firstSeen: 2026-07-30T16:19:48.235Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/nova-motor-controller-through-bore-can-encoder-bundle?variant=54869767258411
+  product:
+    handle: nova-motor-controller-through-bore-can-encoder-bundle
+    id: 10501651530027
+    title: Thrifty Nova Motor Controller + Through Bore CAN Encoder Bundle
+  variant:
+    id: 54869767258411
+    options:
+      - Default Title
+      - null
+      - null
+    sku: NOVA-THRUBORE-ENCODER-BUNDLE
+    title: Default Title
+  firstSeen: 2026-08-31T19:27:55.758Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/htd-belt-bundles?variant=54918542688555
+  product:
+    handle: htd-belt-bundles
+    id: 10504744272171
+    title: HTD Belt Bundles
+  variant:
+    id: 54918542688555
+    options:
+      - 9mm Belt Bundle
+      - null
+      - null
+    sku: 9MM-HTD-BELT-BUNDLE
+    title: 9mm Belt Bundle
+  firstSeen: 2026-08-31T19:27:55.758Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/htd-belt-bundles?variant=54918542721323
+  product:
+    handle: htd-belt-bundles
+    id: 10504744272171
+    title: HTD Belt Bundles
+  variant:
+    id: 54918542721323
+    options:
+      - 15mm Belt Bundle
+      - null
+      - null
+    sku: 15MM-HTD-BELT-BUNDLE
+    title: 15mm Belt Bundle
+  firstSeen: 2026-08-31T19:27:55.758Z
