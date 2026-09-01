@@ -5,7 +5,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -qq && \
     apt-get install -y -qq \
         git \
-        libgtest-dev \
         ninja-build \
         patch \
     && rm -rf /var/lib/apt/lists/*
@@ -72,7 +71,7 @@ RUN printf '#include <emscripten/bind.h>\nEMSCRIPTEN_BINDINGS(placeholder) {}\n'
 # staged output is libntcore_stub.a with no libntcore.a or libwpinet.a.
 #
 # -fwasm-exceptions must be applied identically everywhere a throw/catch crosses
-# a compiled link boundary (here, GoogleTest, and the tests in
+# a compiled link boundary (here, Catch2, and the tests in
 # tests/CMakeLists.txt) -- see the comment at the top of that file.
 RUN cd /build/allwpilib && \
     emcmake cmake -B build -S . \
@@ -102,24 +101,35 @@ RUN mkdir -p /wpilib-artifacts/lib && \
     test -f /wpilib-artifacts/lib/libwpilibc.a || \
       { echo "ERROR: libwpilibc.a was not produced"; ls -la /wpilib-artifacts/lib; exit 1; }
 
-# ---- Stage: gtest-libs ----
-# Build GoogleTest with Emscripten before copying any test sources. Stable
-# layer, cached across CI runs as long as the base image and gtest package
-# version don't change. -fwasm-exceptions must match wpilib-libs above.
-FROM base AS gtest-libs
+# ---- Stage: catch2-libs ----
+# Build Catch2 with Emscripten before copying any test sources. Stable layer,
+# cached across CI runs as long as the base image and CATCH2_VERSION don't
+# change. -fwasm-exceptions must match wpilib-libs above.
+#
+# Built from a pinned git tag rather than an apt package so the version is
+# reproducible across machines instead of floating with the base image's Debian
+# release. renovate.json carries a custom manager that bumps the ARG below.
+FROM base AS catch2-libs
 
-RUN emcmake cmake -S /usr/src/googletest -B /gtest-build \
+# renovate: datasource=github-tags depName=catchorg/Catch2
+ARG CATCH2_VERSION=v3.16.0
+
+RUN git clone --depth 1 --branch "${CATCH2_VERSION}" \
+        https://github.com/catchorg/Catch2 /catch2-src \
+    && emcmake cmake -S /catch2-src -B /catch2-build \
         -G Ninja \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_CXX_FLAGS=-fwasm-exceptions \
-        -DBUILD_GMOCK=OFF \
-        -DINSTALL_GTEST=OFF \
-    && cmake --build /gtest-build
+        -DCMAKE_INSTALL_PREFIX=/catch2-install \
+        -DBUILD_TESTING=OFF \
+        -DCATCH_INSTALL_DOCS=OFF \
+        -DCATCH_INSTALL_EXTRAS=ON \
+    && cmake --build /catch2-build --target install
 
 # ---- Stage: final ----
 FROM base
 
-COPY --from=gtest-libs /gtest-build /gtest-build
+COPY --from=catch2-libs /catch2-install /catch2-install
 COPY --from=wpilib-libs /wpilib-artifacts /wpilib-artifacts
 # Headers only (no build/ artifacts) for each library's own sources and bundled
 # thirdparty deps (eigen, gcem, sleipnir, nanopb, etc.), so the tests can
@@ -154,10 +164,13 @@ RUN emcmake cmake .. \
         -DCMAKE_BUILD_TYPE=Debug \
     && emmake ninja
 
-# ctest runs every case registered by tests/CMakeLists.txt, continues past a
-# failing one, and exits non-zero if any failed. --no-tests=error turns an empty
-# test list into a failure instead of a silent pass.
+# ctest runs the single case registered by tests/CMakeLists.txt and exits
+# non-zero if it failed. --no-tests=error turns an empty test list into a
+# failure instead of a silent pass.
 #
-# ENTRYPOINT rather than CMD so `docker run --rm <image> -R arm_sim` filters
-# without restating the flags. For a shell, use --entrypoint sh.
+# Subsetting is Catch2's job now that there is one binary rather than nine, so
+# it goes through the test executable rather than `ctest -R`:
+#   docker run --rm --entrypoint node <image> \
+#       /src/tests/build/recalc_tests.js "[ArmSim]"
+# For a shell, use --entrypoint sh.
 ENTRYPOINT ["ctest", "--output-on-failure", "--no-tests=error"]

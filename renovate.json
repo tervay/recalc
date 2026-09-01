@@ -130,6 +130,14 @@
   "customManagers": [
     {
       "customType": "regex",
+      "description": "Catch2 is built from source in wpilib/tests/Dockerfile, so the version lives in an ARG the dockerfile manager does not read (it only tracks ARGs referenced by a FROM line)",
+      "managerFilePatterns": ["/(^|/)wpilib/tests/Dockerfile$/"],
+      "matchStrings": ["ARG CATCH2_VERSION=(?<currentValue>v\\S+)"],
+      "depNameTemplate": "catchorg/Catch2",
+      "datasourceTemplate": "github-tags"
+    },
+    {
+      "customType": "regex",
       "description": "clang-format resolves through mise's conda backend, which the mise manager cannot read",
       "managerFilePatterns": ["/(^|/)\\.mise\\.toml$/"],
       "matchStrings": ["clang-format\\s*=\\s*\"(?<currentValue>[^\"]+)\""],

@@ -1,7 +1,8 @@
 #include "feedforward_gains.h"
 
-#include <gtest/gtest.h>
-
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/generators/catch_generators.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <cmath>
 #include <stdexcept>
 #include <vector>
@@ -10,6 +11,8 @@
 #include "wpi/math/system/DCMotor.hpp"
 #include "wpi/math/system/LinearSystem.hpp"
 #include "wpi/math/system/Models.hpp"
+
+using Catch::Matchers::WithinAbs;
 
 namespace {
 constexpr double kTol = 1e-9;
@@ -29,22 +32,28 @@ DCMotorWasm* MakeMotorWasm(const wpi::math::DCMotor& motor, int numMotors) {
 // ComputeLinearFeedforwardGainsCore
 // ============================================================================
 
+namespace {
 struct LinearConfig {
   wpi::math::DCMotor motor;
   double gearing;
   double loadKg;
   double spoolRadiusMeters;
 };
+}  // namespace
 
 // (a) Degenerate equivalence vs upstream WPILib: at efficiency = 1.0 and
 // angle = 0, kV/kA must match values extracted directly from
 // Models::ElevatorFromPhysicalConstants, and kG must be 0.
-class LinearFeedforwardEquivalenceTest
-    : public ::testing::TestWithParam<LinearConfig> {};
-
-TEST_P(LinearFeedforwardEquivalenceTest,
-       MatchesUpstreamModelsAtUnityEfficiencyAndZeroAngle) {
-  const LinearConfig& cfg = GetParam();
+TEST_CASE(
+    "LinearFeedforwardEquivalenceTest: "
+    "MatchesUpstreamModelsAtUnityEfficiencyAndZeroAngle",
+    "[LinearFeedforwardEquivalenceTest]") {
+  const LinearConfig cfg =
+      GENERATE(LinearConfig{wpi::math::DCMotor::NEO(1), 10.0, 5.0, 0.025},
+               LinearConfig{wpi::math::DCMotor::Falcon500(1), 20.0, 10.0, 0.05},
+               LinearConfig{wpi::math::DCMotor::KrakenX60(2), 5.0, 2.5, 0.019},
+               LinearConfig{wpi::math::DCMotor::NEO550(1), 15.0, 1.0, 0.03});
+  CAPTURE(cfg.gearing, cfg.loadKg, cfg.spoolRadiusMeters);
   auto idealPlant = wpi::math::Models::ElevatorFromPhysicalConstants(
       cfg.motor, wpi::units::kilogram_t(cfg.loadKg),
       wpi::units::meter_t(cfg.spoolRadiusMeters), cfg.gearing);
@@ -56,27 +65,22 @@ TEST_P(LinearFeedforwardEquivalenceTest,
       cfg.motor, cfg.gearing, cfg.loadKg, cfg.spoolRadiusMeters,
       /*efficiency=*/1.0, /*angleRadians=*/0.0);
 
-  EXPECT_NEAR(actual.kV, expectedKv, std::abs(expectedKv) * kTol);
-  EXPECT_NEAR(actual.kA, expectedKa, std::abs(expectedKa) * kTol);
-  EXPECT_NEAR(actual.kG, 0.0, kTol);
+  CHECK_THAT(actual.kV, WithinAbs(expectedKv, std::abs(expectedKv) * kTol));
+  CHECK_THAT(actual.kA, WithinAbs(expectedKa, std::abs(expectedKa) * kTol));
+  CHECK_THAT(actual.kG, WithinAbs(0.0, kTol));
 }
-
-INSTANTIATE_TEST_SUITE_P(
-    VariousConfigs, LinearFeedforwardEquivalenceTest,
-    ::testing::Values(
-        LinearConfig{wpi::math::DCMotor::NEO(1), 10.0, 5.0, 0.025},
-        LinearConfig{wpi::math::DCMotor::Falcon500(1), 20.0, 10.0, 0.05},
-        LinearConfig{wpi::math::DCMotor::KrakenX60(2), 5.0, 2.5, 0.019},
-        LinearConfig{wpi::math::DCMotor::NEO550(1), 15.0, 1.0, 0.03}));
 
 // (b) Efficiency monotonicity: decreasing efficiency must strictly increase
 // kV, kA, and |kG| (kG scales with kA).
-class LinearFeedforwardMonotonicityTest
-    : public ::testing::TestWithParam<LinearConfig> {};
-
-TEST_P(LinearFeedforwardMonotonicityTest,
-       EfficiencyMonotonicallyIncreasesKvKaAndKgMagnitude) {
-  const LinearConfig& cfg = GetParam();
+TEST_CASE(
+    "LinearFeedforwardMonotonicityTest: "
+    "EfficiencyMonotonicallyIncreasesKvKaAndKgMagnitude",
+    "[LinearFeedforwardMonotonicityTest]") {
+  const LinearConfig cfg = GENERATE(
+      LinearConfig{wpi::math::DCMotor::NEO(1), 12.0, 4.0, 0.02},
+      LinearConfig{wpi::math::DCMotor::Falcon500(1), 8.0, 6.0, 0.03},
+      LinearConfig{wpi::math::DCMotor::KrakenX60(1), 15.0, 3.0, 0.025});
+  CAPTURE(cfg.gearing, cfg.loadKg, cfg.spoolRadiusMeters);
   const std::vector<double> efficiencies = {1.0, 0.8, 0.6, 0.4};
   const double angleRadians = M_PI / 4.0;  // nonzero so kG != 0
 
@@ -86,9 +90,9 @@ TEST_P(LinearFeedforwardMonotonicityTest,
         cfg.motor, cfg.gearing, cfg.loadKg, cfg.spoolRadiusMeters, efficiency,
         angleRadians);
     if (prevKv >= 0.0) {
-      EXPECT_GT(gains.kV, prevKv);
-      EXPECT_GT(gains.kA, prevKa);
-      EXPECT_GT(std::abs(gains.kG), prevKgMag);
+      CHECK(gains.kV > prevKv);
+      CHECK(gains.kA > prevKa);
+      CHECK(std::abs(gains.kG) > prevKgMag);
     }
     prevKv = gains.kV;
     prevKa = gains.kA;
@@ -96,16 +100,10 @@ TEST_P(LinearFeedforwardMonotonicityTest,
   }
 }
 
-INSTANTIATE_TEST_SUITE_P(
-    VariousConfigs, LinearFeedforwardMonotonicityTest,
-    ::testing::Values(
-        LinearConfig{wpi::math::DCMotor::NEO(1), 12.0, 4.0, 0.02},
-        LinearConfig{wpi::math::DCMotor::Falcon500(1), 8.0, 6.0, 0.03},
-        LinearConfig{wpi::math::DCMotor::KrakenX60(1), 15.0, 3.0, 0.025}));
-
 // (c) Angle behavior: kG scales with sin(angle) -- 0 at horizontal, maximal
 // at vertical, monotonically increasing in between.
-TEST(LinearFeedforwardGainsTest, KgMonotonicallyIncreasesWithAngle) {
+TEST_CASE("LinearFeedforwardGainsTest: KgMonotonicallyIncreasesWithAngle",
+          "[LinearFeedforwardGainsTest]") {
   constexpr double kGearing = 10.0;
   constexpr double kLoadKg = 5.0;
   constexpr double kSpoolRadiusMeters = 0.025;
@@ -121,7 +119,7 @@ TEST(LinearFeedforwardGainsTest, KgMonotonicallyIncreasesWithAngle) {
         angleRadians);
 
     if (prevKg >= 0.0) {
-      EXPECT_GT(gains.kG, prevKg);
+      CHECK(gains.kG > prevKg);
     }
     prevKg = gains.kG;
   }
@@ -129,16 +127,18 @@ TEST(LinearFeedforwardGainsTest, KgMonotonicallyIncreasesWithAngle) {
 
 // kG must be ~0 at horizontal (angle = 0), where gravity contributes no
 // torque along the direction of motion.
-TEST(LinearFeedforwardGainsTest, KgIsZeroAtHorizontalAngle) {
+TEST_CASE("LinearFeedforwardGainsTest: KgIsZeroAtHorizontalAngle",
+          "[LinearFeedforwardGainsTest]") {
   FeedforwardGains gains = ComputeLinearFeedforwardGainsCore(
       wpi::math::DCMotor::NEO(1), /*gearing=*/10.0, /*loadKg=*/5.0,
       /*spoolRadiusMeters=*/0.025, /*efficiency=*/0.85, /*angleRadians=*/0.0);
-  EXPECT_NEAR(gains.kG, 0.0, kTol);
+  CHECK_THAT(gains.kG, WithinAbs(0.0, kTol));
 }
 
 // Sanity check against the closed-form expression at 90 degrees: at vertical,
 // the holding voltage must equal kA * g.
-TEST(LinearFeedforwardGainsTest, KgAtVerticalAngleMatchesClosedForm) {
+TEST_CASE("LinearFeedforwardGainsTest: KgAtVerticalAngleMatchesClosedForm",
+          "[LinearFeedforwardGainsTest]") {
   constexpr double kGearing = 10.0;
   constexpr double kLoadKg = 5.0;
   constexpr double kSpoolRadiusMeters = 0.025;
@@ -147,62 +147,78 @@ TEST(LinearFeedforwardGainsTest, KgAtVerticalAngleMatchesClosedForm) {
 
   FeedforwardGains vertical = ComputeLinearFeedforwardGainsCore(
       motor, kGearing, kLoadKg, kSpoolRadiusMeters, kEfficiency, M_PI / 2.0);
-  EXPECT_NEAR(vertical.kG, vertical.kA * kGravity,
-              vertical.kA * kGravity * kTol);
+  CHECK_THAT(vertical.kG,
+             WithinAbs(vertical.kA * kGravity, vertical.kA * kGravity * kTol));
 }
 
 // (d) Edge/guard cases, exercised via the non-throwing wasm entry point.
-class LinearFeedforwardGuardTest : public ::testing::Test {
+namespace {
+class LinearFeedforwardGuardTest {
  protected:
   DCMotorWasm* motorWasm = MakeMotorWasm(wpi::math::DCMotor::NEO(1), 1);
 
-  ~LinearFeedforwardGuardTest() override { delete motorWasm; }
+  ~LinearFeedforwardGuardTest() { delete motorWasm; }
 };
+}  // namespace
 
-TEST_F(LinearFeedforwardGuardTest, NonPositiveEfficiencyReturnsZeroedGains) {
+TEST_CASE_METHOD(
+    LinearFeedforwardGuardTest,
+    "LinearFeedforwardGuardTest: NonPositiveEfficiencyReturnsZeroedGains",
+    "[LinearFeedforwardGuardTest]") {
   emscripten::val result = ComputeLinearFeedforwardGains(
       motorWasm, /*gearing=*/10.0, /*loadKg=*/5.0,
       /*spoolRadiusMeters=*/0.025, /*efficiency=*/0.0, /*angleRadians=*/0.0);
-  EXPECT_EQ(result["kV"].as<double>(), 0.0);
-  EXPECT_EQ(result["kA"].as<double>(), 0.0);
-  EXPECT_EQ(result["kG"].as<double>(), 0.0);
+  CHECK(result["kV"].as<double>() == 0.0);
+  CHECK(result["kA"].as<double>() == 0.0);
+  CHECK(result["kG"].as<double>() == 0.0);
 }
 
-TEST_F(LinearFeedforwardGuardTest, NonPositiveSpoolRadiusReturnsZeroedGains) {
+TEST_CASE_METHOD(
+    LinearFeedforwardGuardTest,
+    "LinearFeedforwardGuardTest: NonPositiveSpoolRadiusReturnsZeroedGains",
+    "[LinearFeedforwardGuardTest]") {
   emscripten::val result = ComputeLinearFeedforwardGains(
       motorWasm, /*gearing=*/10.0, /*loadKg=*/5.0,
       /*spoolRadiusMeters=*/0.0, /*efficiency=*/1.0, /*angleRadians=*/0.0);
-  EXPECT_EQ(result["kV"].as<double>(), 0.0);
-  EXPECT_EQ(result["kA"].as<double>(), 0.0);
-  EXPECT_EQ(result["kG"].as<double>(), 0.0);
+  CHECK(result["kV"].as<double>() == 0.0);
+  CHECK(result["kA"].as<double>() == 0.0);
+  CHECK(result["kG"].as<double>() == 0.0);
 }
 
-TEST_F(LinearFeedforwardGuardTest, NonPositiveGearingReturnsZeroedGains) {
+TEST_CASE_METHOD(
+    LinearFeedforwardGuardTest,
+    "LinearFeedforwardGuardTest: NonPositiveGearingReturnsZeroedGains",
+    "[LinearFeedforwardGuardTest]") {
   emscripten::val result = ComputeLinearFeedforwardGains(
       motorWasm, /*gearing=*/0.0, /*loadKg=*/5.0,
       /*spoolRadiusMeters=*/0.025, /*efficiency=*/1.0, /*angleRadians=*/0.0);
-  EXPECT_EQ(result["kV"].as<double>(), 0.0);
-  EXPECT_EQ(result["kA"].as<double>(), 0.0);
-  EXPECT_EQ(result["kG"].as<double>(), 0.0);
+  CHECK(result["kV"].as<double>() == 0.0);
+  CHECK(result["kA"].as<double>() == 0.0);
+  CHECK(result["kG"].as<double>() == 0.0);
 }
 
 // ============================================================================
 // ComputeAngularFeedforwardGainsCore
 // ============================================================================
 
+namespace {
 struct AngularConfig {
   wpi::math::DCMotor motor;
   double gearing;
   double momentOfInertiaKgM2;
 };
+}  // namespace
 
 // (a) Degenerate equivalence vs upstream WPILib.
-class AngularFeedforwardEquivalenceTest
-    : public ::testing::TestWithParam<AngularConfig> {};
-
-TEST_P(AngularFeedforwardEquivalenceTest,
-       MatchesUpstreamModelsAtUnityEfficiency) {
-  const AngularConfig& cfg = GetParam();
+TEST_CASE(
+    "AngularFeedforwardEquivalenceTest: MatchesUpstreamModelsAtUnityEfficiency",
+    "[AngularFeedforwardEquivalenceTest]") {
+  const AngularConfig cfg =
+      GENERATE(AngularConfig{wpi::math::DCMotor::NEO(1), 100.0, 2.0},
+               AngularConfig{wpi::math::DCMotor::Falcon500(1), 150.0, 3.5},
+               AngularConfig{wpi::math::DCMotor::KrakenX60(2), 60.0, 1.2},
+               AngularConfig{wpi::math::DCMotor::NEO550(1), 200.0, 0.5});
+  CAPTURE(cfg.gearing, cfg.momentOfInertiaKgM2);
   auto idealPlant = wpi::math::Models::SingleJointedArmFromPhysicalConstants(
       cfg.motor, wpi::units::kilogram_square_meter_t(cfg.momentOfInertiaKgM2),
       cfg.gearing);
@@ -216,22 +232,15 @@ TEST_P(AngularFeedforwardEquivalenceTest,
       cfg.motor, cfg.gearing, cfg.momentOfInertiaKgM2, /*efficiency=*/1.0,
       /*comMassKg=*/0.0, /*comLengthMeters=*/0.0);
 
-  EXPECT_NEAR(actual.kV, expectedKv, std::abs(expectedKv) * kTol);
-  EXPECT_NEAR(actual.kA, expectedKa, std::abs(expectedKa) * kTol);
-  EXPECT_NEAR(actual.kG, 0.0, kTol);
+  CHECK_THAT(actual.kV, WithinAbs(expectedKv, std::abs(expectedKv) * kTol));
+  CHECK_THAT(actual.kA, WithinAbs(expectedKa, std::abs(expectedKa) * kTol));
+  CHECK_THAT(actual.kG, WithinAbs(0.0, kTol));
 }
-
-INSTANTIATE_TEST_SUITE_P(
-    VariousConfigs, AngularFeedforwardEquivalenceTest,
-    ::testing::Values(
-        AngularConfig{wpi::math::DCMotor::NEO(1), 100.0, 2.0},
-        AngularConfig{wpi::math::DCMotor::Falcon500(1), 150.0, 3.5},
-        AngularConfig{wpi::math::DCMotor::KrakenX60(2), 60.0, 1.2},
-        AngularConfig{wpi::math::DCMotor::NEO550(1), 200.0, 0.5}));
 
 // Cross-check: with efficiency = 1.0, kG should equal the closed-form
 // expression g * comLength * comMass / J scaled by kA.
-TEST(AngularFeedforwardGainsTest, KgMatchesClosedFormAtUnityEfficiency) {
+TEST_CASE("AngularFeedforwardGainsTest: KgMatchesClosedFormAtUnityEfficiency",
+          "[AngularFeedforwardGainsTest]") {
   constexpr double kGearing = 100.0;
   constexpr double kMomentOfInertiaKgM2 = 2.0;
   constexpr double kComMassKg = 3.0;
@@ -244,19 +253,22 @@ TEST(AngularFeedforwardGainsTest, KgMatchesClosedFormAtUnityEfficiency) {
 
   const double expectedKg = gains.kA * kGravity * kComLengthMeters *
                             kComMassKg / kMomentOfInertiaKgM2;
-  EXPECT_NEAR(gains.kG, expectedKg, std::abs(expectedKg) * kTol);
+  CHECK_THAT(gains.kG, WithinAbs(expectedKg, std::abs(expectedKg) * kTol));
   // Holding voltage should be positive: it must counteract gravity pulling
   // the arm down at the horizontal (worst-case) position.
-  EXPECT_GT(gains.kG, 0.0);
+  CHECK(gains.kG > 0.0);
 }
 
 // (b) Efficiency monotonicity.
-class AngularFeedforwardMonotonicityTest
-    : public ::testing::TestWithParam<AngularConfig> {};
-
-TEST_P(AngularFeedforwardMonotonicityTest,
-       EfficiencyMonotonicallyIncreasesKvKaAndKgMagnitude) {
-  const AngularConfig& cfg = GetParam();
+TEST_CASE(
+    "AngularFeedforwardMonotonicityTest: "
+    "EfficiencyMonotonicallyIncreasesKvKaAndKgMagnitude",
+    "[AngularFeedforwardMonotonicityTest]") {
+  const AngularConfig cfg =
+      GENERATE(AngularConfig{wpi::math::DCMotor::NEO(1), 80.0, 1.5},
+               AngularConfig{wpi::math::DCMotor::Falcon500(1), 120.0, 2.5},
+               AngularConfig{wpi::math::DCMotor::KrakenX60(1), 60.0, 1.0});
+  CAPTURE(cfg.gearing, cfg.momentOfInertiaKgM2);
   const std::vector<double> efficiencies = {1.0, 0.8, 0.6, 0.4};
   constexpr double kComMassKg = 2.0;
   constexpr double kComLengthMeters = 0.3;
@@ -267,9 +279,9 @@ TEST_P(AngularFeedforwardMonotonicityTest,
         cfg.motor, cfg.gearing, cfg.momentOfInertiaKgM2, efficiency, kComMassKg,
         kComLengthMeters);
     if (prevKv >= 0.0) {
-      EXPECT_GT(gains.kV, prevKv);
-      EXPECT_GT(gains.kA, prevKa);
-      EXPECT_GT(std::abs(gains.kG), prevKgMag);
+      CHECK(gains.kV > prevKv);
+      CHECK(gains.kA > prevKa);
+      CHECK(std::abs(gains.kG) > prevKgMag);
     }
     prevKv = gains.kV;
     prevKa = gains.kA;
@@ -277,66 +289,75 @@ TEST_P(AngularFeedforwardMonotonicityTest,
   }
 }
 
-INSTANTIATE_TEST_SUITE_P(
-    VariousConfigs, AngularFeedforwardMonotonicityTest,
-    ::testing::Values(
-        AngularConfig{wpi::math::DCMotor::NEO(1), 80.0, 1.5},
-        AngularConfig{wpi::math::DCMotor::Falcon500(1), 120.0, 2.5},
-        AngularConfig{wpi::math::DCMotor::KrakenX60(1), 60.0, 1.0}));
-
 // (d) Edge/guard cases, exercised via the non-throwing wasm entry point.
-class AngularFeedforwardGuardTest : public ::testing::Test {
+namespace {
+class AngularFeedforwardGuardTest {
  protected:
   DCMotorWasm* motorWasm = MakeMotorWasm(wpi::math::DCMotor::Falcon500(1), 1);
 
-  ~AngularFeedforwardGuardTest() override { delete motorWasm; }
+  ~AngularFeedforwardGuardTest() { delete motorWasm; }
 };
+}  // namespace
 
-TEST_F(AngularFeedforwardGuardTest, NonPositiveEfficiencyReturnsZeroedGains) {
+TEST_CASE_METHOD(
+    AngularFeedforwardGuardTest,
+    "AngularFeedforwardGuardTest: NonPositiveEfficiencyReturnsZeroedGains",
+    "[AngularFeedforwardGuardTest]") {
   emscripten::val result = ComputeAngularFeedforwardGains(
       motorWasm, /*gearing=*/100.0, /*momentOfInertiaKgM2=*/2.0,
       /*efficiency=*/-0.5, /*comMassKg=*/3.0, /*comLengthMeters=*/0.4);
-  EXPECT_EQ(result["kV"].as<double>(), 0.0);
-  EXPECT_EQ(result["kA"].as<double>(), 0.0);
-  EXPECT_EQ(result["kG"].as<double>(), 0.0);
+  CHECK(result["kV"].as<double>() == 0.0);
+  CHECK(result["kA"].as<double>() == 0.0);
+  CHECK(result["kG"].as<double>() == 0.0);
 }
 
-TEST_F(AngularFeedforwardGuardTest,
-       NonPositiveMomentOfInertiaReturnsZeroedGains) {
+TEST_CASE_METHOD(
+    AngularFeedforwardGuardTest,
+    "AngularFeedforwardGuardTest: NonPositiveMomentOfInertiaReturnsZeroedGains",
+    "[AngularFeedforwardGuardTest]") {
   emscripten::val result = ComputeAngularFeedforwardGains(
       motorWasm, /*gearing=*/100.0, /*momentOfInertiaKgM2=*/0.0,
       /*efficiency=*/1.0, /*comMassKg=*/3.0, /*comLengthMeters=*/0.4);
-  EXPECT_EQ(result["kV"].as<double>(), 0.0);
-  EXPECT_EQ(result["kA"].as<double>(), 0.0);
-  EXPECT_EQ(result["kG"].as<double>(), 0.0);
+  CHECK(result["kV"].as<double>() == 0.0);
+  CHECK(result["kA"].as<double>() == 0.0);
+  CHECK(result["kG"].as<double>() == 0.0);
 }
 
-TEST_F(AngularFeedforwardGuardTest, NonPositiveGearingReturnsZeroedGains) {
+TEST_CASE_METHOD(
+    AngularFeedforwardGuardTest,
+    "AngularFeedforwardGuardTest: NonPositiveGearingReturnsZeroedGains",
+    "[AngularFeedforwardGuardTest]") {
   emscripten::val result = ComputeAngularFeedforwardGains(
       motorWasm, /*gearing=*/0.0, /*momentOfInertiaKgM2=*/2.0,
       /*efficiency=*/1.0, /*comMassKg=*/3.0, /*comLengthMeters=*/0.4);
-  EXPECT_EQ(result["kV"].as<double>(), 0.0);
-  EXPECT_EQ(result["kA"].as<double>(), 0.0);
-  EXPECT_EQ(result["kG"].as<double>(), 0.0);
+  CHECK(result["kV"].as<double>() == 0.0);
+  CHECK(result["kA"].as<double>() == 0.0);
+  CHECK(result["kG"].as<double>() == 0.0);
 }
 
 // ============================================================================
 // ComputeFlywheelFeedforwardGainsCore
 // ============================================================================
 
+namespace {
 struct FlywheelConfig {
   wpi::math::DCMotor motor;
   double gearing;
   double momentOfInertiaKgM2;
 };
+}  // namespace
 
 // (a) Degenerate equivalence vs upstream WPILib. kG must always be 0.
-class FlywheelFeedforwardEquivalenceTest
-    : public ::testing::TestWithParam<FlywheelConfig> {};
-
-TEST_P(FlywheelFeedforwardEquivalenceTest,
-       MatchesUpstreamModelsAtUnityEfficiency) {
-  const FlywheelConfig& cfg = GetParam();
+TEST_CASE(
+    "FlywheelFeedforwardEquivalenceTest: "
+    "MatchesUpstreamModelsAtUnityEfficiency",
+    "[FlywheelFeedforwardEquivalenceTest]") {
+  const FlywheelConfig cfg =
+      GENERATE(FlywheelConfig{wpi::math::DCMotor::NEO(1), 1.0, 0.01},
+               FlywheelConfig{wpi::math::DCMotor::Falcon500(1), 2.0, 0.02},
+               FlywheelConfig{wpi::math::DCMotor::KrakenX60(3), 1.5, 0.05},
+               FlywheelConfig{wpi::math::DCMotor::NEO550(1), 3.0, 0.005});
+  CAPTURE(cfg.gearing, cfg.momentOfInertiaKgM2);
   auto idealPlant = wpi::math::Models::FlywheelFromPhysicalConstants(
       cfg.motor, wpi::units::kilogram_square_meter_t(cfg.momentOfInertiaKgM2),
       cfg.gearing);
@@ -347,81 +368,79 @@ TEST_P(FlywheelFeedforwardEquivalenceTest,
   FeedforwardGains actual = ComputeFlywheelFeedforwardGainsCore(
       cfg.motor, cfg.gearing, cfg.momentOfInertiaKgM2, /*efficiency=*/1.0);
 
-  EXPECT_NEAR(actual.kV, expectedKv, std::abs(expectedKv) * kTol);
-  EXPECT_NEAR(actual.kA, expectedKa, std::abs(expectedKa) * kTol);
-  EXPECT_EQ(actual.kG, 0.0);
+  CHECK_THAT(actual.kV, WithinAbs(expectedKv, std::abs(expectedKv) * kTol));
+  CHECK_THAT(actual.kA, WithinAbs(expectedKa, std::abs(expectedKa) * kTol));
+  CHECK(actual.kG == 0.0);
 }
 
-INSTANTIATE_TEST_SUITE_P(
-    VariousConfigs, FlywheelFeedforwardEquivalenceTest,
-    ::testing::Values(
-        FlywheelConfig{wpi::math::DCMotor::NEO(1), 1.0, 0.01},
-        FlywheelConfig{wpi::math::DCMotor::Falcon500(1), 2.0, 0.02},
-        FlywheelConfig{wpi::math::DCMotor::KrakenX60(3), 1.5, 0.05},
-        FlywheelConfig{wpi::math::DCMotor::NEO550(1), 3.0, 0.005}));
-
 // (b) Efficiency monotonicity (no kG term for flywheels).
-class FlywheelFeedforwardMonotonicityTest
-    : public ::testing::TestWithParam<FlywheelConfig> {};
-
-TEST_P(FlywheelFeedforwardMonotonicityTest,
-       EfficiencyMonotonicallyIncreasesKvAndKa) {
-  const FlywheelConfig& cfg = GetParam();
+TEST_CASE(
+    "FlywheelFeedforwardMonotonicityTest: "
+    "EfficiencyMonotonicallyIncreasesKvAndKa",
+    "[FlywheelFeedforwardMonotonicityTest]") {
+  const FlywheelConfig cfg =
+      GENERATE(FlywheelConfig{wpi::math::DCMotor::NEO(1), 1.0, 0.02},
+               FlywheelConfig{wpi::math::DCMotor::Falcon500(1), 2.0, 0.03},
+               FlywheelConfig{wpi::math::DCMotor::KrakenX60(1), 1.5, 0.01});
+  CAPTURE(cfg.gearing, cfg.momentOfInertiaKgM2);
   const std::vector<double> efficiencies = {1.0, 0.8, 0.6, 0.4};
 
   double prevKv = -1.0, prevKa = -1.0;
   for (double efficiency : efficiencies) {
     FeedforwardGains gains = ComputeFlywheelFeedforwardGainsCore(
         cfg.motor, cfg.gearing, cfg.momentOfInertiaKgM2, efficiency);
-    EXPECT_EQ(gains.kG, 0.0);
+    CHECK(gains.kG == 0.0);
     if (prevKv >= 0.0) {
-      EXPECT_GT(gains.kV, prevKv);
-      EXPECT_GT(gains.kA, prevKa);
+      CHECK(gains.kV > prevKv);
+      CHECK(gains.kA > prevKa);
     }
     prevKv = gains.kV;
     prevKa = gains.kA;
   }
 }
 
-INSTANTIATE_TEST_SUITE_P(
-    VariousConfigs, FlywheelFeedforwardMonotonicityTest,
-    ::testing::Values(
-        FlywheelConfig{wpi::math::DCMotor::NEO(1), 1.0, 0.02},
-        FlywheelConfig{wpi::math::DCMotor::Falcon500(1), 2.0, 0.03},
-        FlywheelConfig{wpi::math::DCMotor::KrakenX60(1), 1.5, 0.01}));
-
 // (d) Edge/guard cases, exercised via the non-throwing wasm entry point.
-class FlywheelFeedforwardGuardTest : public ::testing::Test {
+namespace {
+class FlywheelFeedforwardGuardTest {
  protected:
   DCMotorWasm* motorWasm = MakeMotorWasm(wpi::math::DCMotor::KrakenX60(1), 1);
 
-  ~FlywheelFeedforwardGuardTest() override { delete motorWasm; }
+  ~FlywheelFeedforwardGuardTest() { delete motorWasm; }
 };
+}  // namespace
 
-TEST_F(FlywheelFeedforwardGuardTest, NonPositiveEfficiencyReturnsZeroedGains) {
+TEST_CASE_METHOD(
+    FlywheelFeedforwardGuardTest,
+    "FlywheelFeedforwardGuardTest: NonPositiveEfficiencyReturnsZeroedGains",
+    "[FlywheelFeedforwardGuardTest]") {
   emscripten::val result = ComputeFlywheelFeedforwardGains(
       motorWasm, /*gearing=*/2.0, /*momentOfInertiaKgM2=*/0.01,
       /*efficiency=*/0.0);
-  EXPECT_EQ(result["kV"].as<double>(), 0.0);
-  EXPECT_EQ(result["kA"].as<double>(), 0.0);
-  EXPECT_EQ(result["kG"].as<double>(), 0.0);
+  CHECK(result["kV"].as<double>() == 0.0);
+  CHECK(result["kA"].as<double>() == 0.0);
+  CHECK(result["kG"].as<double>() == 0.0);
 }
 
-TEST_F(FlywheelFeedforwardGuardTest,
-       NonPositiveMomentOfInertiaReturnsZeroedGains) {
+TEST_CASE_METHOD(FlywheelFeedforwardGuardTest,
+                 "FlywheelFeedforwardGuardTest: "
+                 "NonPositiveMomentOfInertiaReturnsZeroedGains",
+                 "[FlywheelFeedforwardGuardTest]") {
   emscripten::val result = ComputeFlywheelFeedforwardGains(
       motorWasm, /*gearing=*/2.0, /*momentOfInertiaKgM2=*/-0.01,
       /*efficiency=*/1.0);
-  EXPECT_EQ(result["kV"].as<double>(), 0.0);
-  EXPECT_EQ(result["kA"].as<double>(), 0.0);
-  EXPECT_EQ(result["kG"].as<double>(), 0.0);
+  CHECK(result["kV"].as<double>() == 0.0);
+  CHECK(result["kA"].as<double>() == 0.0);
+  CHECK(result["kG"].as<double>() == 0.0);
 }
 
-TEST_F(FlywheelFeedforwardGuardTest, NonPositiveGearingReturnsZeroedGains) {
+TEST_CASE_METHOD(
+    FlywheelFeedforwardGuardTest,
+    "FlywheelFeedforwardGuardTest: NonPositiveGearingReturnsZeroedGains",
+    "[FlywheelFeedforwardGuardTest]") {
   emscripten::val result = ComputeFlywheelFeedforwardGains(
       motorWasm, /*gearing=*/0.0, /*momentOfInertiaKgM2=*/0.01,
       /*efficiency=*/1.0);
-  EXPECT_EQ(result["kV"].as<double>(), 0.0);
-  EXPECT_EQ(result["kA"].as<double>(), 0.0);
-  EXPECT_EQ(result["kG"].as<double>(), 0.0);
+  CHECK(result["kV"].as<double>() == 0.0);
+  CHECK(result["kA"].as<double>() == 0.0);
+  CHECK(result["kG"].as<double>() == 0.0);
 }
