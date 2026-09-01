@@ -117,11 +117,11 @@ test.describe('Motor Calculator', () => {
       page.getByRole('button', { name: 'Max Efficiency' }),
     ).toBeVisible();
     // CIM peaks at 18.8 A, comfortably under the default 60 A draw.
-    await expect(cimEfficiency).toHaveText('73.3%');
+    await expect(cimEfficiency).toHaveText('65.4%');
 
     await page.getByTestId('currentDraw').fill('10');
 
-    await expect(cimEfficiency).toHaveText('67.4%');
+    await expect(cimEfficiency).toHaveText('60.2%');
   });
 });
 

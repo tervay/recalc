@@ -39,7 +39,7 @@ export function completeMotorSpecs(specs: MotorSpecs): FullMotorSpecs {
   const kV = specs.freeSpeed.div(
     specs.voltage.sub(resistance.mul(specs.freeCurrent)),
   );
-  const kT = specs.stallTorque.div(specs.stallCurrent);
+  const kT = specs.stallTorque.div(specs.stallCurrent.sub(specs.freeCurrent));
 
   return {
     ...specs,
@@ -140,6 +140,7 @@ export interface MotorDict extends Record<string, unknown> {
 
 export default class Motor extends Model {
   public readonly kV: Measurement;
+  public readonly kE: Measurement;
   public readonly kT: Measurement;
   public readonly kM: Measurement;
   // public readonly maxPower: Measurement;
@@ -163,7 +164,8 @@ export default class Motor extends Model {
     this.kV = this.freeSpeed.div(
       this.voltage.sub(this.resistance.mul(this.freeCurrent)),
     );
-    this.kT = this.stallTorque.div(this.stallCurrent);
+    this.kE = this.voltage.div(this.freeSpeed);
+    this.kT = this.stallTorque.div(this.stallCurrent.sub(this.freeCurrent));
     this.kM = new Measurement(
       this.kT.scalar / Math.sqrt(this.resistance.scalar),
     );
@@ -189,7 +191,11 @@ export default class Motor extends Model {
    * The highest efficiency this motor reaches at nominal voltage while drawing
    * no more than `currentLimit`.
    *
-   * Efficiency along the curve is `(1 - iFree / i) * (1 - i / iStall)`, which
+   * Efficiency along the curve is
+   * `(kT / kE) * (1 - iFree / i) * (1 - (i - iFree) / (iStall - iFree))`: only
+   * the current above the free current makes torque, and the right-hand factor
+   * is the fraction of free speed, which reaches 1 at the free current rather
+   * than at zero. `kT` and `kE` are equal only for an ideal motor. The product
    * rises monotonically up to `peakEfficiencyCurrent`, so a limit below that
    * point is simply evaluated at the limit.
    *
@@ -209,11 +215,15 @@ export default class Motor extends Model {
     }
 
     const freeCurrentAmps = this.freeCurrent.to('A').scalar;
-    const stallCurrentAmps = this.stallCurrent.to('A').scalar;
+    const torqueCurrentAmps =
+      this.stallCurrent.to('A').scalar - freeCurrentAmps;
+    const kTOverKe = this.kT.to('N*m/A').scalar / this.kE.to('V*s/rad').scalar;
 
     return Math.max(
       0,
-      (1 - freeCurrentAmps / amps) * (1 - amps / stallCurrentAmps),
+      kTOverKe *
+        (1 - freeCurrentAmps / amps) *
+        (1 - (amps - freeCurrentAmps) / torqueCurrentAmps),
     );
   }
 

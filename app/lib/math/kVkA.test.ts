@@ -37,7 +37,7 @@ describe('calculateLinearSupplyLimitedMaxVelocity', () => {
     return { motor, kV, kG };
   }
 
-  it('returns ~1.62 m/s for the bug-report params (10A supply limit)', () => {
+  it('returns ~1.64 m/s for the bug-report params (10A supply limit)', () => {
     const { motor, kV, kG } = buildParams();
     const result = calculateLinearSupplyLimitedMaxVelocity(
       kV,
@@ -47,7 +47,7 @@ describe('calculateLinearSupplyLimitedMaxVelocity', () => {
       new Measurement(12, 'V'),
       1.0,
     );
-    expect(result.to('m/s').scalar).toBeCloseTo(1.622, 2);
+    expect(result.to('m/s').scalar).toBeCloseTo(1.637, 2);
   });
 
   it('returns unconstrained-sentinel (> 1000 m/s) when kG = 0 (horizontal mechanism)', () => {

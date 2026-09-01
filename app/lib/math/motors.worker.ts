@@ -28,7 +28,7 @@ const wasmRowSchema = z.object({
   angularVelocityRadPerSec: z.number(),
   statorCurrentDrawAmps: z.number(),
   torqueNewtonMeters: z.number(),
-  efficiency: z.number(),
+  motorAppliedVoltageVolts: z.number(),
 });
 
 const wasmRowsSchema = z.array(wasmRowSchema);
@@ -77,15 +77,35 @@ export async function generateMotorCurve({
       ),
     );
 
-    return rows.map((row) => ({
-      angularVelocityRPM: new Measurement(
-        row.angularVelocityRadPerSec,
-        'rad/s',
-      ).to('rpm').scalar,
-      currentDrawAmps: row.statorCurrentDrawAmps,
-      torqueNewtonMeters: row.torqueNewtonMeters,
-      efficiency: row.efficiency,
-    }));
+    // The sim's own efficiency field is derived from wpilib's Kt, which is
+    // stall-derived and so understates the torque constant (issue #2244).
+    // Recomputing it here from the sampled operating point leaves the wasm
+    // untouched. Sweep currents are totals, so the free current is scaled by
+    // quantity to match; the per-motor kT then cancels.
+    const kTNewtonMetersPerAmp = motor.kT.to('N*m/A').scalar;
+    const freeCurrentAmps = motor.freeCurrent.to('A').scalar * motor.quantity;
+
+    return rows.map((row) => {
+      const inputPowerWatts =
+        row.motorAppliedVoltageVolts * row.statorCurrentDrawAmps;
+      const outputPowerWatts =
+        kTNewtonMetersPerAmp *
+        (row.statorCurrentDrawAmps - freeCurrentAmps) *
+        row.angularVelocityRadPerSec;
+
+      return {
+        angularVelocityRPM: new Measurement(
+          row.angularVelocityRadPerSec,
+          'rad/s',
+        ).to('rpm').scalar,
+        currentDrawAmps: row.statorCurrentDrawAmps,
+        torqueNewtonMeters: row.torqueNewtonMeters,
+        efficiency:
+          inputPowerWatts <= 0
+            ? 0
+            : Math.max(0, outputPowerWatts / inputPowerWatts),
+      };
+    });
   } finally {
     wasmMotor.delete();
   }

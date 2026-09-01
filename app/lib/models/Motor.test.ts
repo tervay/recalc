@@ -61,7 +61,7 @@ describe('Motor', () => {
         new Measurement(12, 'V'),
         1,
       );
-      expect(motor.kT.scalar).toBeCloseTo(4.69 / 257, 5);
+      expect(motor.kT.scalar).toBeCloseTo(4.69 / (257 - 1.5), 5);
     });
 
     it('calculates kV correctly', () => {
@@ -79,6 +79,25 @@ describe('Motor', () => {
         motor.voltage.sub(resistance.mul(motor.freeCurrent)),
       );
       expect(motor.kV.scalar).toBeCloseTo(expectedKV.scalar, 3);
+    });
+
+    it('calculates kE as the supply voltage over the free speed', () => {
+      const motor = Motor.KrakenX60(1);
+      expect(motor.kE.to('V*s/rad').scalar).toBeCloseTo(0.0188939, 7);
+    });
+
+    it('throws when the stall current equals the free current', () => {
+      expect(() => {
+        new Motor(
+          'Test Motor',
+          new Measurement(6000, 'rpm'),
+          new Measurement(4.69, 'N*m'),
+          new Measurement(1.5, 'A'),
+          new Measurement(1.5, 'A'),
+          new Measurement(12, 'V'),
+          1,
+        );
+      }).toThrow('Divide by zero');
     });
 
     it('throws error with zero stallCurrent (division by zero)', () => {
@@ -198,7 +217,7 @@ describe('Motor', () => {
         new Measurement(12, 'V'),
         1,
       );
-      expect(motor.kT.scalar).toBeCloseTo(-4.69 / 257, 5);
+      expect(motor.kT.scalar).toBeCloseTo(-4.69 / (257 - 1.5), 5);
     });
 
     it('handles zero freeCurrent', () => {
@@ -449,7 +468,7 @@ describe('Motor', () => {
       };
       const complete = completeMotorSpecs(specs);
       expect(complete.resistance.scalar).toBeCloseTo(12 / 257, 5);
-      expect(complete.kT.scalar).toBeCloseTo(4.69 / 257, 5);
+      expect(complete.kT.scalar).toBeCloseTo(4.69 / (257 - 1.5), 5);
     });
 
     it('throws error with zero stallCurrent', () => {
@@ -673,14 +692,14 @@ describe('Motor', () => {
       const motor = Motor.KrakenX60(1);
       expect(
         motor.maxEfficiencyAtCurrentLimit(new Measurement(1000, 'A')),
-      ).toBeCloseTo(0.833673, 5);
+      ).toBeCloseTo(0.856406, 5);
     });
 
     it('returns the closed-form peak efficiency for a brushed motor', () => {
       const motor = Motor.fromName('CIM', 1);
       expect(
         motor.maxEfficiencyAtCurrentLimit(new Measurement(1000, 'A')),
-      ).toBeCloseTo(0.733482, 5);
+      ).toBeCloseTo(0.654334, 5);
     });
 
     it('plateaus above the peak current', () => {
@@ -697,7 +716,7 @@ describe('Motor', () => {
       const motor = Motor.fromName('CIM', 1);
       expect(
         motor.maxEfficiencyAtCurrentLimit(new Measurement(10, 'A')),
-      ).toBeCloseTo(0.674275, 5);
+      ).toBeCloseTo(0.601515, 5);
     });
 
     it('is lower under a binding limit than under a non-binding one', () => {
@@ -744,7 +763,36 @@ describe('Motor', () => {
       const motor = Motor.fromName('CIM', 1);
       expect(
         motor.maxEfficiencyAtCurrentLimit(new Measurement(10000, 'mA')),
-      ).toBeCloseTo(0.674275, 5);
+      ).toBeCloseTo(0.601515, 5);
+    });
+
+    // An ideal motor with kT === kE peaks at (sqrt(Istall) - sqrt(Ifree)) /
+    // (sqrt(Istall) + sqrt(Ifree)); a real one is that scaled by kT / kE.
+    it.each<[string, number]>([
+      ['Kraken X60', 1.0195],
+      ['CIM', 0.8737],
+    ])('scales the %s peak by kT / kE', (name, expectedRatio) => {
+      const motor = Motor.fromName(name, 1);
+      const stall = motor.stallCurrent.to('A').scalar;
+      const free = motor.freeCurrent.to('A').scalar;
+      const ideal =
+        (Math.sqrt(stall) - Math.sqrt(free)) /
+        (Math.sqrt(stall) + Math.sqrt(free));
+
+      expect(
+        motor.maxEfficiencyAtCurrentLimit(new Measurement(1000, 'A')) / ideal,
+      ).toBeCloseTo(expectedRatio, 4);
+    });
+
+    it('stays below 100% for every motor in the library', () => {
+      const overUnity = ALL_MOTORS.filter(
+        (spec) =>
+          Motor.fromSpecs(spec, 1).maxEfficiencyAtCurrentLimit(
+            new Measurement(1000, 'A'),
+          ) >= 1,
+      ).map((spec) => spec.name);
+
+      expect(overUnity).toEqual([]);
     });
   });
 });
