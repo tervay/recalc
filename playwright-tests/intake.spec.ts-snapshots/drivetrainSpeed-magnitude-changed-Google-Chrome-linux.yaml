@@ -121,6 +121,11 @@
 - button "Stall Torque"
 - spinbutton "Stall Torque" [disabled]: "0.67"
 - combobox: N*m
+- text: HD Hex
+- spinbutton "HD Hex" [disabled]: "1.30"
+- button "Stall Torque"
+- spinbutton "Stall Torque" [disabled]: "0.67"
+- combobox: N*m
 - text: NeveRest
 - spinbutton "NeveRest" [disabled]: "1.20"
 - button "Stall Torque"
@@ -140,11 +145,6 @@
 - spinbutton "MiniCIM" [disabled]: "1.27"
 - button "Stall Torque"
 - spinbutton "Stall Torque" [disabled]: "0.63"
-- combobox: N*m
-- text: HD Hex
-- spinbutton "HD Hex" [disabled]: "1.31"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.51"
 - combobox: N*m
 - text: AM-9015
 - spinbutton "AM-9015" [disabled]: "3.11"

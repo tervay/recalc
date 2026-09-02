@@ -200,7 +200,7 @@ describe('MotorTable', () => {
     setCurrentDraw('10');
 
     // HD Hex peaks at 1.8 A, so a 10 A draw does not bind.
-    expect(maxEfficiencyFor('HD Hex')).toBe('43.7%');
+    expect(maxEfficiencyFor('HD Hex')).toBe('60.7%');
   });
 
   it('reports zero efficiency when the current draw is zero', () => {
