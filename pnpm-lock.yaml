@@ -136,8 +136,8 @@ importers:
         specifier: 1.6.1
         version: 1.6.1
       eslint-plugin-zod:
-        specifier: 4.10.0
-        version: 4.10.0(eslint@10.7.0(jiti@2.7.0))(oxlint@1.80.0(oxlint-tsgolint@7.0.2001))(typescript@7.0.2)(zod@4.5.4)
+        specifier: 4.11.0
+        version: 4.11.0(eslint@10.7.0(jiti@2.7.0))(oxlint@1.80.0(oxlint-tsgolint@7.0.2001))(typescript@7.0.2)(zod@4.5.4)
       jsdom:
         specifier: 30.0.1
         version: 30.0.1
@@ -519,8 +519,8 @@ packages:
     resolution: {integrity: sha512-EriSTlt5OC9/7SXkRSCAhfSxxoSUgBm33OH+IkwbdpgoqsSsUg7y3uh+IICI/Qg4BBWr3U2i39RpmycbxMq4ew==}
     engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
 
-  '@eslint-zod/utils@3.1.0':
-    resolution: {integrity: sha512-NkheM8hp1oYpCY1/bDv6UXO2bdx9I4JUNEGdXFlHjlgriD2rhPP3Tl0mXuD+DJ2j3UEM+lZXTy1ZN+ojYwYdBQ==}
+  '@eslint-zod/utils@3.2.0':
+    resolution: {integrity: sha512-7kev7Df/450Ca95KmXiqxN2t0GM8UzgQHmuneQ31TMy29EwrFnPd11YF9RlOOAJGXKXc3sxWCx5kzsPgmupcGA==}
     engines: {node: ^20 || ^22 || >=24}
 
   '@eslint/config-array@0.23.5':
@@ -2099,8 +2099,8 @@ packages:
   eslint-plugin-no-relative-import-paths@1.6.1:
     resolution: {integrity: sha512-YZNeOnsOrJcwhFw0X29MXjIzu2P/f5X2BZDPWw1R3VUYBRFxNIh77lyoL/XrMU9ewZNQPcEvAgL/cBOT1P330A==}
 
-  eslint-plugin-zod@4.10.0:
-    resolution: {integrity: sha512-5YbjMowTC1jRKhqloyw8QgbizW099mSepoca9hHFWwg6FRg0jZRAdGsLAnRtzTUmUmvRqaMNvn7WBnxjcCQavA==}
+  eslint-plugin-zod@4.11.0:
+    resolution: {integrity: sha512-t+8IieINISQIss+UG50bEp7wRXc+HaCOFIc2s8EUMmApWPWbsoZvw3wDWOT05ZG1jB2hJlrW4dyh56EvVIOp4w==}
     engines: {node: ^20 || ^22 || >=24}
     peerDependencies:
       eslint: ^9 || ^10
@@ -3798,7 +3798,7 @@ snapshots:
 
   '@eslint-community/regexpp@4.12.2': {}
 
-  '@eslint-zod/utils@3.1.0(eslint@10.7.0(jiti@2.7.0))(typescript@7.0.2)':
+  '@eslint-zod/utils@3.2.0(eslint@10.7.0(jiti@2.7.0))(typescript@7.0.2)':
     dependencies:
       '@typescript-eslint/utils': 8.68.0(eslint@10.7.0(jiti@2.7.0))(typescript@7.0.2)
       esquery: 1.7.0
@@ -5079,9 +5079,9 @@ snapshots:
 
   eslint-plugin-no-relative-import-paths@1.6.1: {}
 
-  eslint-plugin-zod@4.10.0(eslint@10.7.0(jiti@2.7.0))(oxlint@1.80.0(oxlint-tsgolint@7.0.2001))(typescript@7.0.2)(zod@4.5.4):
+  eslint-plugin-zod@4.11.0(eslint@10.7.0(jiti@2.7.0))(oxlint@1.80.0(oxlint-tsgolint@7.0.2001))(typescript@7.0.2)(zod@4.5.4):
     dependencies:
-      '@eslint-zod/utils': 3.1.0(eslint@10.7.0(jiti@2.7.0))(typescript@7.0.2)
+      '@eslint-zod/utils': 3.2.0(eslint@10.7.0(jiti@2.7.0))(typescript@7.0.2)
       '@typescript-eslint/utils': 8.68.0(eslint@10.7.0(jiti@2.7.0))(typescript@7.0.2)
     optionalDependencies:
       eslint: 10.7.0(jiti@2.7.0)
