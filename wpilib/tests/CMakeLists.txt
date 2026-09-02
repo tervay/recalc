@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # -fwasm-exceptions selects native Wasm exception handling. It must be
 # applied uniformly to every compiled/linked piece that participates in
 # throw/catch across a translation unit or library boundary -- including
-# GoogleTest itself (see tests/Dockerfile's gtest-libs stage) and
+# Catch2 itself (see tests/Dockerfile's catch2-libs stage) and
 # libwpimath.a (see tests/Dockerfile's wpilib-libs stage) -- since mixing
 # it with Emscripten's default legacy JS-based exception model produces
 # "undefined symbol: __resumeException" at link time.
@@ -32,39 +32,22 @@ endif()
 
 enable_testing()
 
-# Each test is one source file plus a set of dependency targets. Declaring the
-# executable and its CTest registration together keeps the Dockerfile out of the
-# loop: a new test needs one line at the bottom of this file and nothing else.
-# The container's entrypoint is `ctest`, which discovers whatever is registered
-# here.
-#
-# gtest_main pulls in gtest through its INTERFACE_LINK_LIBRARIES, so linking it
-# alone is enough.
-function(add_wasm_test name)
-  add_executable(${name}_tests ${name}_test.cc)
-  target_link_libraries(${name}_tests PRIVATE gtest_main ${ARGN})
-  add_test(NAME ${name}_tests COMMAND node $<TARGET_FILE_NAME:${name}_tests>)
-endfunction()
+# Catch2 is pre-built and installed by the Dockerfile before any test sources
+# are copied, so its compilation is Docker-layer-cached independently of test
+# source changes. Catch2::Catch2WithMain carries the include dirs, the static
+# library, and main().
+set(CATCH2_INSTALL_DIR "/catch2-install" CACHE PATH
+    "Install prefix of the Emscripten-built Catch2 (see tests/Dockerfile)")
+list(PREPEND CMAKE_PREFIX_PATH "${CATCH2_INSTALL_DIR}")
 
-# GoogleTest is pre-built by the Dockerfile before any test sources are
-# copied, so its compilation is Docker-layer-cached independently of test
-# source changes. Point at those artifacts directly rather than rebuilding.
-set(GTEST_BUILD_DIR  "/gtest-build"                           CACHE PATH "")
-set(GTEST_INCLUDE_DIR "/usr/src/googletest/googletest/include" CACHE PATH "")
+# Emscripten's toolchain sets CMAKE_FIND_ROOT_PATH_MODE_PACKAGE to ONLY, which
+# confines find_package to the emsdk sysroot -- so CMAKE_PREFIX_PATH alone is
+# not enough to see a prefix installed outside it. NO_CMAKE_FIND_ROOT_PATH
+# lifts that restriction for this one lookup.
+find_package(Catch2 3 REQUIRED NO_CMAKE_FIND_ROOT_PATH)
 
-add_library(gtest STATIC IMPORTED GLOBAL)
-set_target_properties(gtest PROPERTIES
-    IMPORTED_LOCATION             "${GTEST_BUILD_DIR}/lib/libgtest.a"
-    INTERFACE_INCLUDE_DIRECTORIES "${GTEST_INCLUDE_DIR}")
-
-add_library(gtest_main STATIC IMPORTED GLOBAL)
-set_target_properties(gtest_main PROPERTIES
-    IMPORTED_LOCATION    "${GTEST_BUILD_DIR}/lib/libgtest_main.a"
-    INTERFACE_LINK_LIBRARIES gtest)
-
-# Shared patch include dir: sim_util_tests only needs sim_util.h/dc_motor.h,
-# while the gain tests additionally need feedback_gains.h/feedforward_gains.h,
-# but every test pulls its header under test from this one directory.
+# Shared patch include dir: every test pulls its header under test from this
+# one directory.
 set(PATCH_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../patches/wpilibc/wasm)
 
 add_library(patch_headers INTERFACE)
@@ -73,7 +56,7 @@ target_include_directories(patch_headers INTERFACE ${PATCH_INCLUDE_DIR})
 # ----------------------------------------------------------------------------
 # wpimath_deps
 #
-# Unlike sim_util_tests (header-only, no compiled WPILib dependency),
+# Unlike sim_util.h (header-only, no compiled WPILib dependency),
 # feedback_gains.h and feedforward_gains.h's Core functions call into
 # wpi::math::LinearQuadraticRegulator and the wpi::math::Models factories,
 # which are only partially header-only (e.g. MathSharedStore, the DARE
@@ -85,8 +68,8 @@ target_include_directories(patch_headers INTERFACE ${PATCH_INCLUDE_DIR})
 # for details.
 #
 # This INTERFACE library bundles the include dirs, prebuilt libs, and the
-# C++20 requirement (wpimath is compiled as C++20 upstream) shared by both
-# gain-test executables below.
+# C++20 requirement (wpimath is compiled as C++20 upstream). It is consumed
+# through wpilibc_deps below.
 # ----------------------------------------------------------------------------
 
 set(WPILIB_ARTIFACTS_DIR "/wpilib-artifacts" CACHE PATH
@@ -132,12 +115,6 @@ target_link_libraries(wpimath_deps INTERFACE
 
 # -fwasm-exceptions is already applied globally above.
 target_compile_features(wpimath_deps INTERFACE cxx_std_23)
-
-# wasm_console.h formats through std::format, so it needs no include path of
-# its own and none of the wpimath include set above.
-add_library(console_deps INTERFACE)
-
-target_link_libraries(console_deps INTERFACE patch_headers wpiutil_prebuilt)
 
 # ----------------------------------------------------------------------------
 # wpilibc_deps
@@ -199,16 +176,40 @@ target_link_libraries(wpilibc_deps INTERFACE
 target_link_options(wpilibc_deps INTERFACE -sERROR_ON_UNDEFINED_SYMBOLS=0)
 
 # ----------------------------------------------------------------------------
-# The tests. <name> maps to <name>_test.cc, the <name>_tests executable, and the
-# CTest case of the same name.
+# The tests.
+#
+# All test sources link into one binary. They used to be nine executables, one
+# per header under test, each linking its own minimal dependency set. Five of
+# those linked the full WPILib archive group, so collapsing them turns nine
+# expensive wasm links into one. Adding a test means adding its source file
+# below and nothing else.
+#
+# Everything links against wpilibc_deps -- the superset target -- rather than
+# the narrower dependency each source would need alone: wpilibc_deps already
+# pulls in wpimath_deps, which pulls in patch_headers, and a single binary can
+# only have one link line. That also means wpilibc_deps'
+# -sERROR_ON_UNDEFINED_SYMBOLS=0 now covers the whole binary rather than five of
+# nine targets. The rationale is unchanged -- ntcore_stub.cc is deliberately
+# empty and none of the NetworkTables symbols it leaves undefined are reachable
+# from the simulations.
+#
+# hal_init_listener.cc is not a test file: it registers the one-time HAL
+# initialization that runs before the first test case.
 # ----------------------------------------------------------------------------
 
-add_wasm_test(sim_util          patch_headers)
-add_wasm_test(wasm_console      console_deps)
-add_wasm_test(feedback_gains    wpimath_deps)
-add_wasm_test(feedforward_gains wpimath_deps)
-add_wasm_test(elevator_sim      wpilibc_deps)
-add_wasm_test(arm_sim           wpilibc_deps)
-add_wasm_test(flywheel_sim      wpilibc_deps)
-add_wasm_test(motor_curve_sim   wpilibc_deps)
-add_wasm_test(battery_sim       wpilibc_deps)
+add_executable(recalc_tests
+    hal_init_listener.cc
+    arm_sim_test.cc
+    battery_sim_test.cc
+    elevator_sim_test.cc
+    feedback_gains_test.cc
+    feedforward_gains_test.cc
+    flywheel_sim_test.cc
+    motor_curve_sim_test.cc
+    sim_util_test.cc
+    wasm_console_test.cc
+)
+
+target_link_libraries(recalc_tests PRIVATE Catch2::Catch2WithMain wpilibc_deps)
+
+add_test(NAME recalc_tests COMMAND node $<TARGET_FILE_NAME:recalc_tests>)

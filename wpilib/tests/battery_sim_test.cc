@@ -1,23 +1,14 @@
 #include "battery_sim.h"
 
-#include <gtest/gtest.h>
-
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/generators/catch_generators.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <vector>
 
-#include "hal_init.h"
+using Catch::Matchers::WithinAbs;
+using Catch::Matchers::WithinULP;
 
 namespace {
-
-// RoboRioSim_SetVInVoltage / RobotController_GetInputVoltage touch
-// SimRoboRioData, which has no lazy-init. Initialize once for the whole suite
-// (see hal_init.h). Both wrappers call EnsureHalInitialized themselves, so this
-// environment is belt-and-braces against declaration order.
-struct HalInitEnvironment : ::testing::Environment {
-  void SetUp() override { EnsureHalInitialized(); }
-};
-
-const ::testing::Environment* const kHalInitEnvironment =
-    ::testing::AddGlobalTestEnvironment(new HalInitEnvironment);
 
 // Upstream wpi::sim::BatterySim::Calculate's 2-argument overload delegates to
 // Calculate(12_V, 0.02_Ohm, currents). These mirror that so the expected values
@@ -42,23 +33,23 @@ double ExpectedVoltage(double nominalVolts, double resistanceOhms,
 // pin that the pair is a faithful round-trip rather than a constant.
 // ============================================================================
 
-TEST(RoboRioVoltage, SetThenGetRoundTripsNominal) {
+TEST_CASE("RoboRioVoltage: SetThenGetRoundTripsNominal", "[RoboRioVoltage]") {
   RoboRioSim_SetVInVoltage(12.0);
-  EXPECT_NEAR(RobotController_GetInputVoltage(), 12.0, 1e-9);
+  CHECK_THAT(RobotController_GetInputVoltage(), WithinAbs(12.0, 1e-9));
 }
 
 // A distinct, non-nominal value: a getter hardcoded to 12 would pass the test
 // above but fail this one.
-TEST(RoboRioVoltage, RoundTripsANonNominalValue) {
+TEST_CASE("RoboRioVoltage: RoundTripsANonNominalValue", "[RoboRioVoltage]") {
   RoboRioSim_SetVInVoltage(7.25);
-  EXPECT_NEAR(RobotController_GetInputVoltage(), 7.25, 1e-9);
+  CHECK_THAT(RobotController_GetInputVoltage(), WithinAbs(7.25, 1e-9));
 }
 
 // Zero is the boundary SupplyCurrentFromStator (sim_util.h:61) branches on, so
 // the sim loops depend on it surviving the round-trip exactly.
-TEST(RoboRioVoltage, RoundTripsZero) {
+TEST_CASE("RoboRioVoltage: RoundTripsZero", "[RoboRioVoltage]") {
   RoboRioSim_SetVInVoltage(0.0);
-  EXPECT_NEAR(RobotController_GetInputVoltage(), 0.0, 1e-9);
+  CHECK_THAT(RobotController_GetInputVoltage(), WithinAbs(0.0, 1e-9));
 
   // Restore, so a later test in this binary is not left with a dead battery.
   RoboRioSim_SetVInVoltage(12.0);
@@ -73,68 +64,68 @@ TEST(RoboRioVoltage, RoundTripsZero) {
 // mechanism raises the bus voltage.
 // ============================================================================
 
-TEST(BatterySimDefault, EmptyVectorReturnsNominal) {
-  EXPECT_DOUBLE_EQ(BatterySim_CalculateDefaultBatteryLoadedVoltage({}),
-                   kNominalVolts);
+TEST_CASE("BatterySimDefault: EmptyVectorReturnsNominal",
+          "[BatterySimDefault]") {
+  CHECK_THAT(BatterySim_CalculateDefaultBatteryLoadedVoltage({}),
+             WithinULP(kNominalVolts, 4));
 }
 
-TEST(BatterySimDefault, SingleCurrentSagsByIR) {
+TEST_CASE("BatterySimDefault: SingleCurrentSagsByIR", "[BatterySimDefault]") {
   // 12 - 0.02 * 10 = 11.8
-  EXPECT_NEAR(BatterySim_CalculateDefaultBatteryLoadedVoltage({10.0}), 11.8,
-              1e-12);
+  CHECK_THAT(BatterySim_CalculateDefaultBatteryLoadedVoltage({10.0}),
+             WithinAbs(11.8, 1e-12));
 }
 
 // Pins that every element is summed, not just the first. A model that read only
 // currents[0] would return 11.9 here.
-TEST(BatterySimDefault, MultipleCurrentsSumBeforeSagging) {
+TEST_CASE("BatterySimDefault: MultipleCurrentsSumBeforeSagging",
+          "[BatterySimDefault]") {
   // 12 - 0.02 * (5 + 10 + 15) = 11.4
-  EXPECT_NEAR(
-      BatterySim_CalculateDefaultBatteryLoadedVoltage({5.0, 10.0, 15.0}), 11.4,
-      1e-12);
+  CHECK_THAT(BatterySim_CalculateDefaultBatteryLoadedVoltage({5.0, 10.0, 15.0}),
+             WithinAbs(11.4, 1e-12));
 }
 
 // Regeneration. There is no upper clamp, so a negative current must push the
 // bus above nominal. The sim loops rely on this: their supply current goes
 // negative while decelerating.
-TEST(BatterySimDefault, NegativeCurrentRaisesVoltageAboveNominal) {
+TEST_CASE("BatterySimDefault: NegativeCurrentRaisesVoltageAboveNominal",
+          "[BatterySimDefault]") {
   // 12 - 0.02 * -50 = 13.0
-  EXPECT_NEAR(BatterySim_CalculateDefaultBatteryLoadedVoltage({-50.0}), 13.0,
-              1e-12);
+  CHECK_THAT(BatterySim_CalculateDefaultBatteryLoadedVoltage({-50.0}),
+             WithinAbs(13.0, 1e-12));
 }
 
 // Sign-preserving summation: the two currents must cancel rather than being
 // accumulated by magnitude.
-TEST(BatterySimDefault, MixedSignCurrentsNetOut) {
-  EXPECT_DOUBLE_EQ(
-      BatterySim_CalculateDefaultBatteryLoadedVoltage({100.0, -100.0}),
-      kNominalVolts);
+TEST_CASE("BatterySimDefault: MixedSignCurrentsNetOut", "[BatterySimDefault]") {
+  CHECK_THAT(BatterySim_CalculateDefaultBatteryLoadedVoltage({100.0, -100.0}),
+             WithinULP(kNominalVolts, 4));
 }
 
 // The lower clamp. Without it this would return -8 V, and the sim loops would
 // divide by a negative supply voltage in SupplyCurrentFromStator.
-TEST(BatterySimDefault, ClampsAtZeroUnderExtremeLoad) {
-  EXPECT_DOUBLE_EQ(BatterySim_CalculateDefaultBatteryLoadedVoltage({1000.0}),
-                   0.0);
+TEST_CASE("BatterySimDefault: ClampsAtZeroUnderExtremeLoad",
+          "[BatterySimDefault]") {
+  CHECK_THAT(BatterySim_CalculateDefaultBatteryLoadedVoltage({1000.0}),
+             WithinULP(0.0, 4));
 }
 
 // Exactly at the clamp boundary: 12 - 0.02 * 600 == 0.
-TEST(BatterySimDefault, ExactlyZeroAtTheClampBoundary) {
-  EXPECT_DOUBLE_EQ(BatterySim_CalculateDefaultBatteryLoadedVoltage({600.0}),
-                   0.0);
+TEST_CASE("BatterySimDefault: ExactlyZeroAtTheClampBoundary",
+          "[BatterySimDefault]") {
+  CHECK_THAT(BatterySim_CalculateDefaultBatteryLoadedVoltage({600.0}),
+             WithinULP(0.0, 4));
 }
 
-class BatterySimDefaultClosedFormTest
-    : public ::testing::TestWithParam<double> {};
-
-TEST_P(BatterySimDefaultClosedFormTest, MatchesNominalMinusIR) {
-  const double current = GetParam();
-  EXPECT_NEAR(BatterySim_CalculateDefaultBatteryLoadedVoltage({current}),
-              ExpectedVoltage(kNominalVolts, kInternalResistanceOhms, current),
-              1e-12);
+TEST_CASE("BatterySimDefaultClosedFormTest: MatchesNominalMinusIR",
+          "[BatterySimDefaultClosedFormTest]") {
+  const double current = GENERATE(0.0, 1.0, 12.5, 100.0, 300.0);
+  CAPTURE(current);
+  CHECK_THAT(BatterySim_CalculateDefaultBatteryLoadedVoltage({current}),
+             WithinAbs(ExpectedVoltage(kNominalVolts, kInternalResistanceOhms,
+                                       current),
+                       1e-12));
 }
-
-INSTANTIATE_TEST_SUITE_P(VariousCurrents, BatterySimDefaultClosedFormTest,
-                         ::testing::Values(0.0, 1.0, 12.5, 100.0, 300.0));
 
 // ============================================================================
 // BatterySim_CalculateLoadedBatteryVoltage (explicit nominal / resistance)
@@ -143,47 +134,54 @@ INSTANTIATE_TEST_SUITE_P(VariousCurrents, BatterySimDefaultClosedFormTest,
 // Resistance, not current, drives the sag. A 500 A load on an ideal battery
 // must not move the bus at all -- this is the configuration the C++ sim tests
 // use to make their energy assertions exact identities.
-TEST(BatterySimLoaded, ZeroResistanceReturnsNominalRegardlessOfCurrent) {
-  EXPECT_DOUBLE_EQ(BatterySim_CalculateLoadedBatteryVoltage(12.0, 0.0, {500.0}),
-                   12.0);
+TEST_CASE("BatterySimLoaded: ZeroResistanceReturnsNominalRegardlessOfCurrent",
+          "[BatterySimLoaded]") {
+  CHECK_THAT(BatterySim_CalculateLoadedBatteryVoltage(12.0, 0.0, {500.0}),
+             WithinULP(12.0, 4));
 }
 
 // Pins the 12 V / 20 mOhm defaults documented in battery_sim.h's comment: the
 // explicit overload with those values must agree with the default one.
-TEST(BatterySimLoaded, ExplicitDefaultsMatchTheDefaultOverload) {
+TEST_CASE("BatterySimLoaded: ExplicitDefaultsMatchTheDefaultOverload",
+          "[BatterySimLoaded]") {
   const std::vector<double> currents = {5.0, 10.0, 15.0};
-  EXPECT_DOUBLE_EQ(BatterySim_CalculateLoadedBatteryVoltage(
-                       kNominalVolts, kInternalResistanceOhms, currents),
-                   BatterySim_CalculateDefaultBatteryLoadedVoltage(currents));
+  CHECK_THAT(
+      BatterySim_CalculateLoadedBatteryVoltage(
+          kNominalVolts, kInternalResistanceOhms, currents),
+      WithinULP(BatterySim_CalculateDefaultBatteryLoadedVoltage(currents), 4));
 }
 
-TEST(BatterySimLoaded, CustomNominalVoltage) {
+TEST_CASE("BatterySimLoaded: CustomNominalVoltage", "[BatterySimLoaded]") {
   // 24 - 0.02 * 10 = 23.8
-  EXPECT_NEAR(BatterySim_CalculateLoadedBatteryVoltage(24.0, 0.02, {10.0}),
-              23.8, 1e-12);
+  CHECK_THAT(BatterySim_CalculateLoadedBatteryVoltage(24.0, 0.02, {10.0}),
+             WithinAbs(23.8, 1e-12));
 }
 
-TEST(BatterySimLoaded, CustomResistanceScalesTheSag) {
-  EXPECT_NEAR(BatterySim_CalculateLoadedBatteryVoltage(12.0, 0.01, {10.0}),
-              11.9, 1e-12);
-  EXPECT_NEAR(BatterySim_CalculateLoadedBatteryVoltage(12.0, 0.03, {10.0}),
-              11.7, 1e-12);
+TEST_CASE("BatterySimLoaded: CustomResistanceScalesTheSag",
+          "[BatterySimLoaded]") {
+  CHECK_THAT(BatterySim_CalculateLoadedBatteryVoltage(12.0, 0.01, {10.0}),
+             WithinAbs(11.9, 1e-12));
+  CHECK_THAT(BatterySim_CalculateLoadedBatteryVoltage(12.0, 0.03, {10.0}),
+             WithinAbs(11.7, 1e-12));
 }
 
-TEST(BatterySimLoaded, ClampsAtZeroWithCustomParameters) {
+TEST_CASE("BatterySimLoaded: ClampsAtZeroWithCustomParameters",
+          "[BatterySimLoaded]") {
   // Unclamped this would be 12 - 0.1 * 1000 = -88.
-  EXPECT_DOUBLE_EQ(
-      BatterySim_CalculateLoadedBatteryVoltage(12.0, 0.1, {1000.0}), 0.0);
+  CHECK_THAT(BatterySim_CalculateLoadedBatteryVoltage(12.0, 0.1, {1000.0}),
+             WithinULP(0.0, 4));
 }
 
 // A dead battery still rises under regeneration: the clamp is a floor on the
 // result, not a floor on the nominal voltage.
-TEST(BatterySimLoaded, ZeroNominalWithRegenStillRises) {
-  EXPECT_NEAR(BatterySim_CalculateLoadedBatteryVoltage(0.0, 0.02, {-100.0}),
-              2.0, 1e-12);
+TEST_CASE("BatterySimLoaded: ZeroNominalWithRegenStillRises",
+          "[BatterySimLoaded]") {
+  CHECK_THAT(BatterySim_CalculateLoadedBatteryVoltage(0.0, 0.02, {-100.0}),
+             WithinAbs(2.0, 1e-12));
 }
 
-TEST(BatterySimLoaded, EmptyCurrentsReturnsNominal) {
-  EXPECT_DOUBLE_EQ(BatterySim_CalculateLoadedBatteryVoltage(9.5, 0.02, {}),
-                   9.5);
+TEST_CASE("BatterySimLoaded: EmptyCurrentsReturnsNominal",
+          "[BatterySimLoaded]") {
+  CHECK_THAT(BatterySim_CalculateLoadedBatteryVoltage(9.5, 0.02, {}),
+             WithinULP(9.5, 4));
 }

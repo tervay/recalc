@@ -1,25 +1,19 @@
 #include "arm_sim.h"
 
-#include <gtest/gtest.h>
-
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/generators/catch_generators.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <cmath>
 #include <vector>
 
 #include "dc_motor.h"
-#include "hal_init.h"
 #include "wpi/math/system/DCMotor.hpp"
 #include "wpi/math/system/Models.hpp"
 
+using Catch::Matchers::WithinAbs;
+using Catch::Matchers::WithinULP;
+
 namespace {
-
-// SingleJointedArmSim::SetInputVoltage and RoboRioSim both touch SimRoboRioData
-// without lazy-init. Initialize once for the whole suite (see hal_init.h).
-struct HalInitEnvironment : ::testing::Environment {
-  void SetUp() override { EnsureHalInitialized(); }
-};
-
-const ::testing::Environment* const kHalInitEnvironment =
-    ::testing::AddGlobalTestEnvironment(new HalInitEnvironment);
 
 // EfficiencyArmSim re-applies gravity itself, reproducing upstream
 // SingleJointedArmSim's hardcoded 9.8 rather than the 9.80665 used by
@@ -185,9 +179,10 @@ double SteadyStateArmVelocity(double efficiency, double voltage) {
 // RoboRio sim data is usable after EnsureHalInitialized (see hal_init.h).
 // Production SimulateArm calls the same helper. Without it, SetVInVoltage
 // writes through a null SimRoboRioData into the Wasm null page.
-TEST(ArmSimHarness, RoboRioVoltageIsReadableAfterHalInit) {
+TEST_CASE("ArmSimHarness: RoboRioVoltageIsReadableAfterHalInit",
+          "[ArmSimHarness]") {
   wpi::sim::RoboRioSim::SetVInVoltage(wpi::units::volt_t{12.0});
-  EXPECT_NEAR(wpi::RobotController::GetInputVoltage(), 12.0, 1e-9);
+  CHECK_THAT(wpi::RobotController::GetInputVoltage(), WithinAbs(12.0, 1e-9));
 }
 
 // ============================================================================
@@ -208,13 +203,15 @@ TEST(ArmSimHarness, RoboRioVoltageIsReadableAfterHalInit) {
 // plant time constant of ~26 us, RKDP's local truncation error at 10 us is
 // ~4e-6 relative, which would swamp the 1e-6 tolerance. Ratio tests cancel that
 // error out; this absolute comparison cannot.
-TEST(EfficiencyArmGravity, HorizontalArmFallsAtFullGravity) {
+TEST_CASE("EfficiencyArmGravity: HorizontalArmFallsAtFullGravity",
+          "[EfficiencyArmGravity]") {
   const double dt = 1e-6;
   const double expected = ExpectedUnpoweredVelocity(0.0, kArmLenMeters, dt);
-  ASSERT_LT(expected, 0.0) << "a horizontal arm must fall";
+  INFO("a horizontal arm must fall");
+  REQUIRE(expected < 0.0);
 
-  EXPECT_NEAR(UnpoweredVelocityAfterOneStep(0.0, kArmLenMeters, dt), expected,
-              std::abs(expected) * 1e-6);
+  CHECK_THAT(UnpoweredVelocityAfterOneStep(0.0, kArmLenMeters, dt),
+             WithinAbs(expected, std::abs(expected) * 1e-6));
 }
 
 // A vertical arm has cos(pi/2) = 0, so the gravity term vanishes. M_PI / 2 is
@@ -222,32 +219,35 @@ TEST(EfficiencyArmGravity, HorizontalArmFallsAtFullGravity) {
 // -- so the residual velocity is ~1e-20 instead of a hard zero. Comparing
 // against the horizontal case pins that the model uses cos, not sin: a
 // sin-based term would be maximal here rather than negligible.
-TEST(EfficiencyArmGravity, VerticalArmHasNoGravityTorque) {
+TEST_CASE("EfficiencyArmGravity: VerticalArmHasNoGravityTorque",
+          "[EfficiencyArmGravity]") {
   const double dt = 1e-5;
   const double horizontal =
       UnpoweredVelocityAfterOneStep(0.0, kArmLenMeters, dt);
-  ASSERT_LT(horizontal, 0.0) << "a horizontal arm must fall";
+  INFO("a horizontal arm must fall");
+  REQUIRE(horizontal < 0.0);
 
-  EXPECT_LT(
-      std::abs(UnpoweredVelocityAfterOneStep(M_PI / 2.0, kArmLenMeters, dt)),
-      std::abs(horizontal) * 1e-12);
+  CHECK(std::abs(UnpoweredVelocityAfterOneStep(M_PI / 2.0, kArmLenMeters, dt)) <
+        std::abs(horizontal) * 1e-12);
 }
 
 // The `if (m_armLenMeters > 0.0)` branch exists to avoid dividing by zero. A
 // zero-length arm must therefore produce no gravity at all -- not an infinity,
 // not a NaN. This is why SimulateArm deliberately does not guard arm length.
-TEST(EfficiencyArmGravity, ZeroArmLengthDisablesGravity) {
+TEST_CASE("EfficiencyArmGravity: ZeroArmLengthDisablesGravity",
+          "[EfficiencyArmGravity]") {
   const double v = UnpoweredVelocityAfterOneStep(0.0, 0.0, 1e-5);
-  EXPECT_TRUE(std::isfinite(v));
-  EXPECT_DOUBLE_EQ(v, 0.0);
+  CHECK(std::isfinite(v));
+  CHECK_THAT(v, WithinULP(0.0, 4));
 }
 
 // The branch tests `> 0.0`, not `!= 0.0`, so a negative length disables gravity
 // rather than flipping its sign.
-TEST(EfficiencyArmGravity, NegativeArmLengthAlsoDisablesGravity) {
+TEST_CASE("EfficiencyArmGravity: NegativeArmLengthAlsoDisablesGravity",
+          "[EfficiencyArmGravity]") {
   const double v = UnpoweredVelocityAfterOneStep(0.0, -0.5, 1e-5);
-  EXPECT_TRUE(std::isfinite(v));
-  EXPECT_DOUBLE_EQ(v, 0.0);
+  CHECK(std::isfinite(v));
+  CHECK_THAT(v, WithinULP(0.0, 4));
 }
 
 // Gravity must scale with cos(angle), not sin(angle) and not a constant. The
@@ -256,30 +256,29 @@ TEST(EfficiencyArmGravity, NegativeArmLengthAlsoDisablesGravity) {
 // truncation error. It is only approximately independent -- unlike the
 // elevator's equivalent -- because the arm's gravity term depends on the state,
 // so a very short step is used to keep the angle effectively constant.
-class GravityAngleScalingTest : public ::testing::TestWithParam<double> {};
-
-TEST_P(GravityAngleScalingTest, VelocityRatioTracksCosineOfAngle) {
-  const double angle = GetParam();
+TEST_CASE("GravityAngleScalingTest: VelocityRatioTracksCosineOfAngle",
+          "[GravityAngleScalingTest]") {
+  const double angle =
+      GENERATE(0.0, M_PI / 6.0, M_PI / 4.0, M_PI / 3.0, M_PI / 2.0);
+  CAPTURE(angle);
   const double dt = 1e-5;
   const double horizontal =
       UnpoweredVelocityAfterOneStep(0.0, kArmLenMeters, dt);
-  ASSERT_LT(horizontal, 0.0) << "a horizontal arm must fall";
+  INFO("a horizontal arm must fall");
+  REQUIRE(horizontal < 0.0);
 
-  EXPECT_NEAR(
+  CHECK_THAT(
       UnpoweredVelocityAfterOneStep(angle, kArmLenMeters, dt) / horizontal,
-      std::cos(angle), 1e-6);
+      WithinAbs(std::cos(angle), 1e-6));
 }
-
-INSTANTIATE_TEST_SUITE_P(VariousAngles, GravityAngleScalingTest,
-                         ::testing::Values(0.0, M_PI / 6.0, M_PI / 4.0,
-                                           M_PI / 3.0, M_PI / 2.0));
 
 // The uniform-rod model puts no moment of inertia in the gravity term:
 // alpha = -3/2 * g * cos(theta) / L is the same for a heavy arm and a light
 // one. Inertia still enters A11, so the resulting velocities differ -- the
 // assertion is that each matches its own closed form built from the SAME
 // gravity term.
-TEST(EfficiencyArmGravity, GravityIsIndependentOfMomentOfInertia) {
+TEST_CASE("EfficiencyArmGravity: GravityIsIndependentOfMomentOfInertia",
+          "[EfficiencyArmGravity]") {
   const double dt = 1e-6;  // see HorizontalArmFallsAtFullGravity
   const double heavyMoi = 4.0 * kMoi;
 
@@ -287,24 +286,26 @@ TEST(EfficiencyArmGravity, GravityIsIndependentOfMomentOfInertia) {
       ExpectedUnpoweredVelocity(0.0, kArmLenMeters, dt);
   const double heavyExpected =
       ExpectedUnpoweredVelocity(0.0, kArmLenMeters, dt, heavyMoi);
-  ASSERT_NE(lightExpected, heavyExpected) << "inertia must still affect A11";
+  INFO("inertia must still affect A11");
+  REQUIRE(lightExpected != heavyExpected);
 
-  EXPECT_NEAR(UnpoweredVelocityAfterOneStep(0.0, kArmLenMeters, dt),
-              lightExpected, std::abs(lightExpected) * 1e-6);
-  EXPECT_NEAR(UnpoweredVelocityAfterOneStep(0.0, kArmLenMeters, dt, heavyMoi),
-              heavyExpected, std::abs(heavyExpected) * 1e-6);
+  CHECK_THAT(UnpoweredVelocityAfterOneStep(0.0, kArmLenMeters, dt),
+             WithinAbs(lightExpected, std::abs(lightExpected) * 1e-6));
+  CHECK_THAT(UnpoweredVelocityAfterOneStep(0.0, kArmLenMeters, dt, heavyMoi),
+             WithinAbs(heavyExpected, std::abs(heavyExpected) * 1e-6));
 }
 
 // alpha is inversely proportional to L, and inertia is unchanged here, so A11
 // is identical between the two runs and the ratio is exactly 1/2.
-TEST(EfficiencyArmGravity, GravityScalesInverselyWithArmLength) {
+TEST_CASE("EfficiencyArmGravity: GravityScalesInverselyWithArmLength",
+          "[EfficiencyArmGravity]") {
   const double dt = 1e-5;
   const double shortArm = UnpoweredVelocityAfterOneStep(0.0, kArmLenMeters, dt);
-  ASSERT_LT(shortArm, 0.0);
+  REQUIRE(shortArm < 0.0);
 
-  EXPECT_NEAR(
+  CHECK_THAT(
       UnpoweredVelocityAfterOneStep(0.0, 2.0 * kArmLenMeters, dt) / shortArm,
-      0.5, 1e-6);
+      WithinAbs(0.5, 1e-6));
 }
 
 // ============================================================================
@@ -319,24 +320,27 @@ TEST(EfficiencyArmGravity, GravityScalesInverselyWithArmLength) {
 // pins BOTH halves of the contract: efficiency multiplies B, and A is left
 // alone. If efficiency were also applied to A it would cancel out here and the
 // measured steady state would be the full-efficiency value.
-TEST(EfficiencyArm, SteadyStateMatchesEfficiencyScaledBOverA) {
+TEST_CASE("EfficiencyArm: SteadyStateMatchesEfficiencyScaledBOverA",
+          "[EfficiencyArm]") {
   const double efficiency = 0.5;
   const double voltage = 6.0;
   const auto plant = IdealPlant();
   const double expected =
       -efficiency * plant.B()(1, 0) * voltage / plant.A()(1, 1);
 
-  EXPECT_NEAR(SteadyStateArmVelocity(efficiency, voltage), expected,
-              std::abs(expected) * 1e-6);
+  CHECK_THAT(SteadyStateArmVelocity(efficiency, voltage),
+             WithinAbs(expected, std::abs(expected) * 1e-6));
 }
 
-TEST(EfficiencyArm, HalvingEfficiencyHalvesSteadyStateVelocity) {
+TEST_CASE("EfficiencyArm: HalvingEfficiencyHalvesSteadyStateVelocity",
+          "[EfficiencyArm]") {
   const double full = SteadyStateArmVelocity(1.0, 6.0);
-  ASSERT_GT(full, 0.0);
-  EXPECT_NEAR(SteadyStateArmVelocity(0.5, 6.0) / full, 0.5, 1e-6);
+  REQUIRE(full > 0.0);
+  CHECK_THAT(SteadyStateArmVelocity(0.5, 6.0) / full, WithinAbs(0.5, 1e-6));
 }
 
-TEST(EfficiencyArm, LowerEfficiencyReducesInitialAcceleration) {
+TEST_CASE("EfficiencyArm: LowerEfficiencyReducesInitialAcceleration",
+          "[EfficiencyArm]") {
   // From rest the back-EMF term is zero, so the first step isolates the motor
   // torque: v(dt) is proportional to efficiency.
   const double dt = 1e-6;
@@ -354,14 +358,14 @@ TEST(EfficiencyArm, LowerEfficiencyReducesInitialAcceleration) {
   full.Update(wpi::units::second_t(dt));
   half.Update(wpi::units::second_t(dt));
 
-  EXPECT_NEAR(half.GetVelocity().to<double>() / full.GetVelocity().to<double>(),
-              0.5, 1e-6);
+  CHECK_THAT(half.GetVelocity().to<double>() / full.GetVelocity().to<double>(),
+             WithinAbs(0.5, 1e-6));
 }
 
 // The gravity term is added outside the (efficiency - 1) * B * u correction, so
 // with no input voltage the B term vanishes entirely and efficiency cannot
 // affect the result. A gearbox does not make gravity weaker.
-TEST(EfficiencyArm, EfficiencyDoesNotAffectGravity) {
+TEST_CASE("EfficiencyArm: EfficiencyDoesNotAffectGravity", "[EfficiencyArm]") {
   const double dt = 1e-5;
   ResetSupplyVoltage();
   EfficiencyArmSim full(
@@ -377,16 +381,17 @@ TEST(EfficiencyArm, EfficiencyDoesNotAffectGravity) {
   full.Update(wpi::units::second_t(dt));
   quarter.Update(wpi::units::second_t(dt));
 
-  ASSERT_LT(full.GetVelocity().to<double>(), 0.0);
-  EXPECT_DOUBLE_EQ(quarter.GetVelocity().to<double>(),
-                   full.GetVelocity().to<double>());
+  REQUIRE(full.GetVelocity().to<double>() < 0.0);
+  CHECK_THAT(quarter.GetVelocity().to<double>(),
+             WithinULP(full.GetVelocity().to<double>(), 4));
 }
 
 // ============================================================================
 // EfficiencyArmSim: travel limits
 // ============================================================================
 
-TEST(EfficiencyArmLimits, LowerLimitPinsAngleAndZeroesVelocity) {
+TEST_CASE("EfficiencyArmLimits: LowerLimitPinsAngleAndZeroesVelocity",
+          "[EfficiencyArmLimits]") {
   ResetSupplyVoltage();
   EfficiencyArmSim sim(
       TestMotor(), kGearing, wpi::units::kilogram_square_meter_t(kMoi),
@@ -398,11 +403,12 @@ TEST(EfficiencyArmLimits, LowerLimitPinsAngleAndZeroesVelocity) {
   }
 
   // UpdateX returns the literal {m_minAngleRad, 0.0}, so both are exact.
-  EXPECT_DOUBLE_EQ(sim.GetAngle().to<double>(), 0.0);
-  EXPECT_DOUBLE_EQ(sim.GetVelocity().to<double>(), 0.0);
+  CHECK_THAT(sim.GetAngle().to<double>(), WithinULP(0.0, 4));
+  CHECK_THAT(sim.GetVelocity().to<double>(), WithinULP(0.0, 4));
 }
 
-TEST(EfficiencyArmLimits, UpperLimitPinsAngleAndZeroesVelocity) {
+TEST_CASE("EfficiencyArmLimits: UpperLimitPinsAngleAndZeroesVelocity",
+          "[EfficiencyArmLimits]") {
   ResetSupplyVoltage();
   EfficiencyArmSim sim(
       TestMotor(), kGearing, wpi::units::kilogram_square_meter_t(kMoi),
@@ -413,27 +419,28 @@ TEST(EfficiencyArmLimits, UpperLimitPinsAngleAndZeroesVelocity) {
     sim.Update(wpi::units::second_t(1e-3));
   }
 
-  EXPECT_DOUBLE_EQ(sim.GetAngle().to<double>(), 2.0);
-  EXPECT_DOUBLE_EQ(sim.GetVelocity().to<double>(), 0.0);
+  CHECK_THAT(sim.GetAngle().to<double>(), WithinULP(2.0, 4));
+  CHECK_THAT(sim.GetVelocity().to<double>(), WithinULP(0.0, 4));
 }
 
 // The limit predicates are inclusive (`angle <= minAngle`), which is what makes
 // SimulateArm return an empty array when it starts already at its goal.
-TEST(EfficiencyArmLimits, LimitPredicatesAreInclusiveAtConstruction) {
+TEST_CASE("EfficiencyArmLimits: LimitPredicatesAreInclusiveAtConstruction",
+          "[EfficiencyArmLimits]") {
   ResetSupplyVoltage();
   EfficiencyArmSim atLower(
       TestMotor(), kGearing, wpi::units::kilogram_square_meter_t(kMoi),
       wpi::units::meter_t(kArmLenMeters), wpi::units::radian_t(0.0),
       wpi::units::radian_t(2.0), 0.0, 1.0);
-  EXPECT_TRUE(atLower.HasHitLowerLimit());
-  EXPECT_FALSE(atLower.HasHitUpperLimit());
+  CHECK(atLower.HasHitLowerLimit());
+  CHECK_FALSE(atLower.HasHitUpperLimit());
 
   EfficiencyArmSim atUpper(
       TestMotor(), kGearing, wpi::units::kilogram_square_meter_t(kMoi),
       wpi::units::meter_t(kArmLenMeters), wpi::units::radian_t(0.0),
       wpi::units::radian_t(2.0), 2.0, 1.0);
-  EXPECT_TRUE(atUpper.HasHitUpperLimit());
-  EXPECT_FALSE(atUpper.HasHitLowerLimit());
+  CHECK(atUpper.HasHitUpperLimit());
+  CHECK_FALSE(atUpper.HasHitLowerLimit());
 }
 
 // ============================================================================
@@ -446,204 +453,231 @@ TEST(EfficiencyArmLimits, LimitPredicatesAreInclusiveAtConstruction) {
 // DecimateToJsArray computes `i % decimation`. Integer modulo by zero is a wasm
 // trap, not a C++ exception, so the try/catch in SimulateArm cannot intercept
 // it -- an unguarded 0 would abort the whole worker.
-TEST(SimulateArmGuards, ZeroDecimationReturnsEmpty) {
+TEST_CASE("SimulateArmGuards: ZeroDecimationReturnsEmpty",
+          "[SimulateArmGuards]") {
   Params p;
   p.decimation = 0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateArmGuards, NegativeDecimationReturnsEmpty) {
+TEST_CASE("SimulateArmGuards: NegativeDecimationReturnsEmpty",
+          "[SimulateArmGuards]") {
   Params p;
   p.decimation = -1;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // A non-positive timestep never advances `timestamp`, so the maxSimSeconds
 // break is unreachable, and Update(0s) never moves the arm, so the goal limit
 // is never reached. That is an infinite loop, which no try/catch can recover
 // from.
-TEST(SimulateArmGuards, ZeroSimTimestepReturnsEmpty) {
+TEST_CASE("SimulateArmGuards: ZeroSimTimestepReturnsEmpty",
+          "[SimulateArmGuards]") {
   Params p;
   p.simTimestep = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateArmGuards, NegativeSimTimestepReturnsEmpty) {
+TEST_CASE("SimulateArmGuards: NegativeSimTimestepReturnsEmpty",
+          "[SimulateArmGuards]") {
   Params p;
   p.simTimestep = -0.001;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateArmGuards, ZeroMaxSimSecondsReturnsEmpty) {
+TEST_CASE("SimulateArmGuards: ZeroMaxSimSecondsReturnsEmpty",
+          "[SimulateArmGuards]") {
   Params p;
   p.maxSimSeconds = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateArmGuards, NegativeMaxSimSecondsReturnsEmpty) {
+TEST_CASE("SimulateArmGuards: NegativeMaxSimSecondsReturnsEmpty",
+          "[SimulateArmGuards]") {
   Params p;
   p.maxSimSeconds = -1.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // Models::SingleJointedArmFromPhysicalConstants throws std::domain_error for a
 // non-positive gearing. Guarding avoids console spam from the optimizer grid.
-TEST(SimulateArmGuards, ZeroGearingReturnsEmpty) {
+TEST_CASE("SimulateArmGuards: ZeroGearingReturnsEmpty", "[SimulateArmGuards]") {
   Params p;
   p.gearing = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateArmGuards, NegativeGearingReturnsEmpty) {
+TEST_CASE("SimulateArmGuards: NegativeGearingReturnsEmpty",
+          "[SimulateArmGuards]") {
   Params p;
   p.gearing = -2.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // Same factory throws "J must be greater than zero."
-TEST(SimulateArmGuards, ZeroMomentOfInertiaReturnsEmpty) {
+TEST_CASE("SimulateArmGuards: ZeroMomentOfInertiaReturnsEmpty",
+          "[SimulateArmGuards]") {
   Params p;
   p.momentOfInertiaKgMSquared = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateArmGuards, NegativeMomentOfInertiaReturnsEmpty) {
+TEST_CASE("SimulateArmGuards: NegativeMomentOfInertiaReturnsEmpty",
+          "[SimulateArmGuards]") {
   Params p;
   p.momentOfInertiaKgMSquared = -0.001;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // A zero-efficiency mechanism is physically inert: the (efficiency - 1) * B * u
 // correction exactly cancels the motor torque, so the arm would otherwise hang
 // at its lower limit for the full maxSimSeconds producing a flat, useless
 // trace.
-TEST(SimulateArmGuards, ZeroEfficiencyReturnsEmpty) {
+TEST_CASE("SimulateArmGuards: ZeroEfficiencyReturnsEmpty",
+          "[SimulateArmGuards]") {
   Params p;
   p.efficiency = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateArmGuards, NegativeEfficiencyReturnsEmpty) {
+TEST_CASE("SimulateArmGuards: NegativeEfficiencyReturnsEmpty",
+          "[SimulateArmGuards]") {
   Params p;
   p.efficiency = -0.5;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // ClampVoltageForCurrentLimits ends with std::clamp(x, -vSupply, vSupply).
 // A negative supply voltage makes that lo > hi, which is undefined behavior.
-TEST(SimulateArmGuards, ZeroBatteryVoltageReturnsEmpty) {
+TEST_CASE("SimulateArmGuards: ZeroBatteryVoltageReturnsEmpty",
+          "[SimulateArmGuards]") {
   Params p;
   p.batteryVoltageVolts = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateArmGuards, NegativeBatteryVoltageReturnsEmpty) {
+TEST_CASE("SimulateArmGuards: NegativeBatteryVoltageReturnsEmpty",
+          "[SimulateArmGuards]") {
   Params p;
   p.batteryVoltageVolts = -12.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // An inverted travel range makes SingleJointedArmSim::SetState call
 // std::clamp(angle, min, max) with lo > hi, which is undefined behavior. The
 // guard is behavior-preserving: both limit predicates are already true in this
 // configuration, so the loop never ran and the result was already empty.
-TEST(SimulateArmGuards, MaxAngleBelowMinAngleReturnsEmpty) {
+TEST_CASE("SimulateArmGuards: MaxAngleBelowMinAngleReturnsEmpty",
+          "[SimulateArmGuards]") {
   Params p;
   p.minAngleRadians = 1.0;
   p.maxAngleRadians = 0.5;
   p.startingAngleRadians = 0.75;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateArmGuards, EqualMinAndMaxAngleReturnsEmpty) {
+TEST_CASE("SimulateArmGuards: EqualMinAndMaxAngleReturnsEmpty",
+          "[SimulateArmGuards]") {
   Params p;
   p.minAngleRadians = 1.0;
   p.maxAngleRadians = 1.0;
   p.startingAngleRadians = 1.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // Arm length is deliberately NOT guarded: SimulateArm never divides by it, and
 // EfficiencyArmSim's own `> 0.0` branch turns gravity off cleanly. A
 // zero-length arm is a gravity-free arm, not an error. Pinned so nobody
 // "helpfully" adds a guard here later.
-TEST(SimulateArmGuards, ZeroArmLengthStillSimulates) {
+TEST_CASE("SimulateArmGuards: ZeroArmLengthStillSimulates",
+          "[SimulateArmGuards]") {
   Params p;
   p.armLengthMeters = 0.0;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_TRUE(std::isfinite(rows[i].angleRadians)) << "at row " << i;
-    EXPECT_TRUE(std::isfinite(rows[i].angularVelocityRadPerSec))
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK(std::isfinite(rows[i].angleRadians));
+    CHECK(std::isfinite(rows[i].angularVelocityRadPerSec));
   }
 }
 
-TEST(SimulateArmGuards, NegativeArmLengthStillSimulates) {
+TEST_CASE("SimulateArmGuards: NegativeArmLengthStillSimulates",
+          "[SimulateArmGuards]") {
   Params p;
   p.armLengthMeters = -0.5;
-  EXPECT_GT(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) > 0);
 }
 
 // The public entry point must convert numerical failures into an empty array
 // rather than letting an exception escape and abort the worker. This config
 // passes every guard, keeping the try/catch path reachable.
-TEST(SimulateArmGuards, HostileButValidInputDoesNotThrow) {
+TEST_CASE("SimulateArmGuards: HostileButValidInputDoesNotThrow",
+          "[SimulateArmGuards]") {
   Params p;
   p.efficiency = 1e-12;
   p.maxSimSeconds = 0.05;
   emscripten::val result = emscripten::val::undefined();
-  EXPECT_NO_THROW({ result = RunRaw(p); });
-  EXPECT_GT(Length(result), 0);
+  CHECK_NOTHROW(result = RunRaw(p));
+  CHECK(Length(result) > 0);
 }
 
 // ============================================================================
 // SimulateArm: nominal trajectory
 // ============================================================================
 
-TEST(SimulateArmTrajectory, GoingUpDrivesTowardMaxAngleWithPositiveVoltage) {
+TEST_CASE(
+    "SimulateArmTrajectory: GoingUpDrivesTowardMaxAngleWithPositiveVoltage",
+    "[SimulateArmTrajectory]") {
   Params p;
   p.goingUp = true;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 2u);
+  REQUIRE(rows.size() > 2u);
 
-  EXPECT_TRUE(rows.back().success);
+  CHECK(rows.back().success);
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_GT(rows[i].motorAppliedVoltageVolts, 0.0) << "at row " << i;
+    INFO("at row " << i);
+    CHECK(rows[i].motorAppliedVoltageVolts > 0.0);
   }
   for (size_t i = 1; i < rows.size(); ++i) {
-    EXPECT_GT(rows[i].angleRadians, rows[i - 1].angleRadians) << "at row " << i;
+    INFO("at row " << i);
+    CHECK(rows[i].angleRadians > rows[i - 1].angleRadians);
   }
 }
 
-TEST(SimulateArmTrajectory, GoingDownDrivesTowardMinAngleWithNegativeVoltage) {
+TEST_CASE(
+    "SimulateArmTrajectory: GoingDownDrivesTowardMinAngleWithNegativeVoltage",
+    "[SimulateArmTrajectory]") {
   Params p;
   p.goingUp = false;
   p.startingAngleRadians = kMaxAngle;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 2u);
+  REQUIRE(rows.size() > 2u);
 
-  EXPECT_TRUE(rows.back().success);
+  CHECK(rows.back().success);
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_LT(rows[i].motorAppliedVoltageVolts, 0.0) << "at row " << i;
+    INFO("at row " << i);
+    CHECK(rows[i].motorAppliedVoltageVolts < 0.0);
   }
   for (size_t i = 1; i < rows.size(); ++i) {
-    EXPECT_LT(rows[i].angleRadians, rows[i - 1].angleRadians) << "at row " << i;
+    INFO("at row " << i);
+    CHECK(rows[i].angleRadians < rows[i - 1].angleRadians);
   }
 }
 
 // The push is guarded by `if (!isAtGoal())`, so the iteration that actually
 // reaches the limit is dropped. The reported trajectory therefore always stops
 // one timestep short of the goal and never reports the limit angle itself.
-TEST(SimulateArmTrajectory, FinalAtLimitStateIsNeverRecorded) {
+TEST_CASE("SimulateArmTrajectory: FinalAtLimitStateIsNeverRecorded",
+          "[SimulateArmTrajectory]") {
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 2u);
-  ASSERT_TRUE(rows.back().success);
+  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.back().success);
 
-  EXPECT_LT(rows.back().angleRadians, kMaxAngle);
+  CHECK(rows.back().angleRadians < kMaxAngle);
 
   double maxAbsVelocity = 0.0;
   for (const auto& row : rows) {
@@ -651,79 +685,86 @@ TEST(SimulateArmTrajectory, FinalAtLimitStateIsNeverRecorded) {
         std::max(maxAbsVelocity, std::abs(row.angularVelocityRadPerSec));
   }
   // The gap is whatever the arm covers in the single dropped timestep.
-  EXPECT_LE(kMaxAngle - rows.back().angleRadians,
-            maxAbsVelocity * p.simTimestep * 1.5);
+  CHECK(kMaxAngle - rows.back().angleRadians <=
+        maxAbsVelocity * p.simTimestep * 1.5);
 }
 
 // isAtGoal() is evaluated before the first iteration, and the constructor's
 // SetState has already populated the output vector the limit predicates read.
-TEST(SimulateArmTrajectory, StartingAtTheUpperGoalYieldsEmptyArray) {
+TEST_CASE("SimulateArmTrajectory: StartingAtTheUpperGoalYieldsEmptyArray",
+          "[SimulateArmTrajectory]") {
   Params p;
   p.goingUp = true;
   p.startingAngleRadians = kMaxAngle;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateArmTrajectory, StartingAtTheLowerGoalYieldsEmptyArray) {
+TEST_CASE("SimulateArmTrajectory: StartingAtTheLowerGoalYieldsEmptyArray",
+          "[SimulateArmTrajectory]") {
   Params p;
   p.goingUp = false;
   p.startingAngleRadians = kMinAngle;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // success is only meaningful on the final element -- it is the one the
 // simulation overwrites after the loop. Every earlier row keeps the `true` it
 // was constructed with.
-TEST(SimulateArmTrajectory, TruncatedRunReportsFailureOnTheLastRowOnly) {
+TEST_CASE("SimulateArmTrajectory: TruncatedRunReportsFailureOnTheLastRowOnly",
+          "[SimulateArmTrajectory]") {
   Params p;
   p.maxSimSeconds = 0.01;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 1u);
+  REQUIRE(rows.size() > 1u);
 
-  EXPECT_LT(rows.back().angleRadians, kMaxAngle);
-  EXPECT_FALSE(rows.back().success);
+  CHECK(rows.back().angleRadians < kMaxAngle);
+  CHECK_FALSE(rows.back().success);
   for (size_t i = 0; i + 1 < rows.size(); ++i) {
-    EXPECT_TRUE(rows[i].success) << "at row " << i;
+    INFO("at row " << i);
+    CHECK(rows[i].success);
   }
 }
 
-TEST(SimulateArmTrajectory, StopsAtMaxSimSeconds) {
+TEST_CASE("SimulateArmTrajectory: StopsAtMaxSimSeconds",
+          "[SimulateArmTrajectory]") {
   Params p;
   p.maxSimSeconds = 0.01;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
-  EXPECT_LE(rows.back().timeSeconds, p.maxSimSeconds + p.simTimestep);
+  CHECK(rows.back().timeSeconds <= p.maxSimSeconds + p.simTimestep);
 }
 
-TEST(SimulateArmTrajectory, TimeAdvancesByOneTimestepPerRow) {
+TEST_CASE("SimulateArmTrajectory: TimeAdvancesByOneTimestepPerRow",
+          "[SimulateArmTrajectory]") {
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 2u);
+  REQUIRE(rows.size() > 2u);
 
-  EXPECT_NEAR(rows[0].timeSeconds, p.simTimestep, 1e-12);
+  CHECK_THAT(rows[0].timeSeconds, WithinAbs(p.simTimestep, 1e-12));
   for (size_t i = 1; i < rows.size(); ++i) {
-    EXPECT_NEAR(rows[i].timeSeconds - rows[i - 1].timeSeconds, p.simTimestep,
-                1e-9)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK_THAT(rows[i].timeSeconds - rows[i - 1].timeSeconds,
+               WithinAbs(p.simTimestep, 1e-9));
   }
 }
 
 // Efficiency scales the motor torque, so a lossier gearbox reaches the same
 // goal strictly later. The C++ mirror of arm.worker.test.ts's efficiency case.
-TEST(SimulateArmTrajectory, LowerEfficiencyTakesLonger) {
+TEST_CASE("SimulateArmTrajectory: LowerEfficiencyTakesLonger",
+          "[SimulateArmTrajectory]") {
   Params full;
   Params lossy;
   lossy.efficiency = 0.7;
 
   const auto fullRows = Simulate(full);
   const auto lossyRows = Simulate(lossy);
-  ASSERT_FALSE(fullRows.empty());
-  ASSERT_FALSE(lossyRows.empty());
-  ASSERT_TRUE(lossyRows.back().success);
+  REQUIRE_FALSE(fullRows.empty());
+  REQUIRE_FALSE(lossyRows.empty());
+  REQUIRE(lossyRows.back().success);
 
-  EXPECT_GT(lossyRows.back().timeSeconds, fullRows.back().timeSeconds);
+  CHECK(lossyRows.back().timeSeconds > fullRows.back().timeSeconds);
 }
 
 // Gravity opposes an arm on the way up and assists it on the way down, so the
@@ -731,7 +772,9 @@ TEST(SimulateArmTrajectory, LowerEfficiencyTakesLonger) {
 // difference to clear numerical noise -- its motor torque outweighs gravity by
 // four orders of magnitude -- so this case uses a heavy arm where gravity is a
 // meaningful fraction of the available torque.
-TEST(SimulateArmTrajectory, GoingUpIsSlowerThanGoingDownForAGravityBoundArm) {
+TEST_CASE(
+    "SimulateArmTrajectory: GoingUpIsSlowerThanGoingDownForAGravityBoundArm",
+    "[SimulateArmTrajectory]") {
   Params up;
   up.momentOfInertiaKgMSquared = 2.0;
   up.goingUp = true;
@@ -743,12 +786,12 @@ TEST(SimulateArmTrajectory, GoingUpIsSlowerThanGoingDownForAGravityBoundArm) {
 
   const auto upRows = Simulate(up);
   const auto downRows = Simulate(down);
-  ASSERT_FALSE(upRows.empty());
-  ASSERT_FALSE(downRows.empty());
-  ASSERT_TRUE(upRows.back().success);
-  ASSERT_TRUE(downRows.back().success);
+  REQUIRE_FALSE(upRows.empty());
+  REQUIRE_FALSE(downRows.empty());
+  REQUIRE(upRows.back().success);
+  REQUIRE(downRows.back().success);
 
-  EXPECT_GT(upRows.back().timeSeconds, downRows.back().timeSeconds);
+  CHECK(upRows.back().timeSeconds > downRows.back().timeSeconds);
 }
 
 // ============================================================================
@@ -761,29 +804,33 @@ TEST(SimulateArmTrajectory, GoingUpIsSlowerThanGoingDownForAGravityBoundArm) {
 // -- that clamp must act on the state at the start of the step.)
 // ============================================================================
 
-TEST(SimulateArmCoherence, MotorRpmMatchesVelocityInTheSameRow) {
+TEST_CASE("SimulateArmCoherence: MotorRpmMatchesVelocityInTheSameRow",
+          "[SimulateArmCoherence]") {
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 2u);
+  REQUIRE(rows.size() > 2u);
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_NEAR(rows[i].motorRpm,
-                ToMotorRpm(rows[i].angularVelocityRadPerSec, p.gearing), 1e-9)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK_THAT(
+        rows[i].motorRpm,
+        WithinAbs(ToMotorRpm(rows[i].angularVelocityRadPerSec, p.gearing),
+                  1e-9));
   }
 }
 
 // The first row is recorded after a step has already been integrated, so the
 // arm is moving and both the velocity and the RPM must be non-zero.
-TEST(SimulateArmCoherence, FirstRowReportsNonZeroVelocityAndRpm) {
+TEST_CASE("SimulateArmCoherence: FirstRowReportsNonZeroVelocityAndRpm",
+          "[SimulateArmCoherence]") {
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
-  EXPECT_GT(rows.front().angularVelocityRadPerSec, 0.0);
-  EXPECT_GT(rows.front().motorRpm, 0.0);
+  CHECK(rows.front().angularVelocityRadPerSec > 0.0);
+  CHECK(rows.front().motorRpm > 0.0);
 }
 
 // The defect this contract fixes was a velocity that described the arm BEFORE
@@ -798,54 +845,62 @@ TEST(SimulateArmCoherence, FirstRowReportsNonZeroVelocityAndRpm) {
 // velocity says it should, which swamps the shift being tested for. A 2 kg-m^2
 // arm has a ~18 ms time constant, so the integration is accurate and the
 // bracket measures the contract rather than truncation error.
-TEST(SimulateArmCoherence, ReportedVelocityBracketsTheAngleSecant) {
+TEST_CASE("SimulateArmCoherence: ReportedVelocityBracketsTheAngleSecant",
+          "[SimulateArmCoherence]") {
   Params p;
   p.momentOfInertiaKgMSquared = 2.0;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 2u);
+  REQUIRE(rows.size() > 2u);
 
   for (size_t i = 1; i < rows.size(); ++i) {
+    INFO("at row " << i);
     const double secant =
         (rows[i].angleRadians - rows[i - 1].angleRadians) / p.simTimestep;
     const double lo = std::min(rows[i - 1].angularVelocityRadPerSec,
                                rows[i].angularVelocityRadPerSec);
     const double hi = std::max(rows[i - 1].angularVelocityRadPerSec,
                                rows[i].angularVelocityRadPerSec);
-    EXPECT_GE(secant, lo - 1e-6) << "at row " << i;
-    EXPECT_LE(secant, hi + 1e-6) << "at row " << i;
+    CHECK(secant >= lo - 1e-6);
+    CHECK(secant <= hi + 1e-6);
   }
 }
 
 // motorRpm is reported as a magnitude, so a descending arm pairs a negative
 // velocity with a positive shaft speed.
-TEST(SimulateArmCoherence, MotorRpmIsNonNegativeGoingDown) {
+TEST_CASE("SimulateArmCoherence: MotorRpmIsNonNegativeGoingDown",
+          "[SimulateArmCoherence]") {
   Params p;
   p.goingUp = false;
   p.startingAngleRadians = kMaxAngle;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 2u);
+  REQUIRE(rows.size() > 2u);
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_LT(rows[i].angularVelocityRadPerSec, 0.0) << "at row " << i;
-    EXPECT_GT(rows[i].motorRpm, 0.0) << "at row " << i;
-    EXPECT_NEAR(rows[i].motorRpm,
-                ToMotorRpm(rows[i].angularVelocityRadPerSec, p.gearing), 1e-9)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK(rows[i].angularVelocityRadPerSec < 0.0);
+    CHECK(rows[i].motorRpm > 0.0);
+    CHECK_THAT(
+        rows[i].motorRpm,
+        WithinAbs(ToMotorRpm(rows[i].angularVelocityRadPerSec, p.gearing),
+                  1e-9));
   }
 }
 
-TEST(SimulateArmCoherence, MotorRpmStaysConsistentUnderDecimation) {
+TEST_CASE("SimulateArmCoherence: MotorRpmStaysConsistentUnderDecimation",
+          "[SimulateArmCoherence]") {
   Params p;
   p.decimation = 10;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 2u);
+  REQUIRE(rows.size() > 2u);
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_NEAR(rows[i].motorRpm,
-                ToMotorRpm(rows[i].angularVelocityRadPerSec, p.gearing), 1e-9)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK_THAT(
+        rows[i].motorRpm,
+        WithinAbs(ToMotorRpm(rows[i].angularVelocityRadPerSec, p.gearing),
+                  1e-9));
   }
 }
 
@@ -853,7 +908,8 @@ TEST(SimulateArmCoherence, MotorRpmStaysConsistentUnderDecimation) {
 // SimulateArm: decimation
 // ============================================================================
 
-TEST(SimulateArmDecimation, EmitsEveryNthRowPlusTheLast) {
+TEST_CASE("SimulateArmDecimation: EmitsEveryNthRowPlusTheLast",
+          "[SimulateArmDecimation]") {
   Params full;
   full.decimation = 1;
   Params decimated;
@@ -861,17 +917,17 @@ TEST(SimulateArmDecimation, EmitsEveryNthRowPlusTheLast) {
 
   const auto fullRows = Simulate(full);
   const auto decimatedRows = Simulate(decimated);
-  ASSERT_GT(fullRows.size(), 10u);
+  REQUIRE(fullRows.size() > 10u);
 
   const size_t n = fullRows.size();
   const size_t expected = (n - 1) / 10 + 1 + ((n - 1) % 10 == 0 ? 0 : 1);
-  EXPECT_EQ(decimatedRows.size(), expected);
+  CHECK(decimatedRows.size() == expected);
 
   // The final raw sample is always included, even off a decimation boundary.
-  EXPECT_NEAR(decimatedRows.back().timeSeconds, fullRows.back().timeSeconds,
-              1e-12);
-  EXPECT_NEAR(decimatedRows.front().timeSeconds, fullRows.front().timeSeconds,
-              1e-12);
+  CHECK_THAT(decimatedRows.back().timeSeconds,
+             WithinAbs(fullRows.back().timeSeconds, 1e-12));
+  CHECK_THAT(decimatedRows.front().timeSeconds,
+             WithinAbs(fullRows.front().timeSeconds, 1e-12));
 }
 
 // ============================================================================
@@ -886,43 +942,46 @@ namespace {
 constexpr double kCurrentLimitMargin = 1.05;
 }  // namespace
 
-TEST(SimulateArmCurrentLimits, StatorCurrentStaysWithinLimit) {
+TEST_CASE("SimulateArmCurrentLimits: StatorCurrentStaysWithinLimit",
+          "[SimulateArmCurrentLimits]") {
   Params p;
   p.statorLimitAmps = 40.0;
   p.supplyLimitAmps = 1000.0;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_LE(std::abs(rows[i].statorCurrentDrawAmps),
-              p.statorLimitAmps * kCurrentLimitMargin)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK(std::abs(rows[i].statorCurrentDrawAmps) <=
+          p.statorLimitAmps * kCurrentLimitMargin);
   }
 }
 
-TEST(SimulateArmCurrentLimits, SupplyCurrentStaysWithinLimit) {
+TEST_CASE("SimulateArmCurrentLimits: SupplyCurrentStaysWithinLimit",
+          "[SimulateArmCurrentLimits]") {
   Params p;
   p.statorLimitAmps = 1000.0;
   p.supplyLimitAmps = 30.0;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_LE(std::abs(rows[i].supplyCurrentDrawAmps),
-              p.supplyLimitAmps * kCurrentLimitMargin)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK(std::abs(rows[i].supplyCurrentDrawAmps) <=
+          p.supplyLimitAmps * kCurrentLimitMargin);
   }
 }
 
-TEST(SimulateArmCurrentLimits, AppliedVoltageNeverExceedsSupply) {
+TEST_CASE("SimulateArmCurrentLimits: AppliedVoltageNeverExceedsSupply",
+          "[SimulateArmCurrentLimits]") {
   Params p;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_LE(std::abs(rows[i].motorAppliedVoltageVolts),
-              p.batteryVoltageVolts + 1e-9)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK(std::abs(rows[i].motorAppliedVoltageVolts) <=
+          p.batteryVoltageVolts + 1e-9);
   }
 }
 
@@ -930,44 +989,49 @@ TEST(SimulateArmCurrentLimits, AppliedVoltageNeverExceedsSupply) {
 // SimulateArm: battery model
 // ============================================================================
 
-TEST(SimulateArmBattery, StiffBatteryHoldsNominalVoltage) {
+TEST_CASE("SimulateArmBattery: StiffBatteryHoldsNominalVoltage",
+          "[SimulateArmBattery]") {
   Params p;
   p.batteryResistanceOhms = 0.0;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_NEAR(rows[i].batteryVoltageVolts, p.batteryVoltageVolts, 1e-9)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK_THAT(rows[i].batteryVoltageVolts,
+               WithinAbs(p.batteryVoltageVolts, 1e-9));
   }
 }
 
-TEST(SimulateArmBattery, RealBatterySagsUnderLoadButStaysPositive) {
+TEST_CASE("SimulateArmBattery: RealBatterySagsUnderLoadButStaysPositive",
+          "[SimulateArmBattery]") {
   Params p;
   p.batteryResistanceOhms = 0.015;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 1u);
+  REQUIRE(rows.size() > 1u);
 
   double minVoltage = p.batteryVoltageVolts;
   for (const auto& row : rows) {
     minVoltage = std::min(minVoltage, row.batteryVoltageVolts);
-    EXPECT_GT(row.batteryVoltageVolts, 0.0);
+    CHECK(row.batteryVoltageVolts > 0.0);
   }
-  EXPECT_LT(minVoltage, p.batteryVoltageVolts);
+  CHECK(minVoltage < p.batteryVoltageVolts);
 }
 
 // The single-pole IIR filter is seeded at the nominal voltage, so the first
 // sample must still be close to nominal even though the load is already
 // applied. Without the filter reset the first sample would jump straight to the
 // loaded voltage.
-TEST(SimulateArmBattery, FilterIsSeededAtNominalVoltage) {
+TEST_CASE("SimulateArmBattery: FilterIsSeededAtNominalVoltage",
+          "[SimulateArmBattery]") {
   Params p;
   p.batteryResistanceOhms = 0.015;
   p.batteryVoltageFilterTimeConstantSeconds = 0.1;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 1u);
+  REQUIRE(rows.size() > 1u);
 
-  EXPECT_NEAR(rows.front().batteryVoltageVolts, p.batteryVoltageVolts, 0.5);
+  CHECK_THAT(rows.front().batteryVoltageVolts,
+             WithinAbs(p.batteryVoltageVolts, 0.5));
 }
 
 // ============================================================================
@@ -979,32 +1043,34 @@ TEST(SimulateArmBattery, FilterIsSeededAtNominalVoltage) {
 // increment is an exact identity rather than an approximation. This pins the
 // accumulator to the supply side (not the stator side) and to the correct
 // timestep.
-TEST(SimulateArmEnergy, IsTheCumulativeIntegralOfSupplyPower) {
+TEST_CASE("SimulateArmEnergy: IsTheCumulativeIntegralOfSupplyPower",
+          "[SimulateArmEnergy]") {
   Params p;
   p.batteryResistanceOhms = 0.0;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 1u);
+  REQUIRE(rows.size() > 1u);
 
   const double firstExpected = rows.front().supplyCurrentDrawAmps *
                                p.batteryVoltageVolts * p.simTimestep;
-  EXPECT_NEAR(rows.front().energyJoules, firstExpected,
-              std::abs(firstExpected) * 1e-9);
+  CHECK_THAT(rows.front().energyJoules,
+             WithinAbs(firstExpected, std::abs(firstExpected) * 1e-9));
 
   for (size_t i = 1; i < rows.size(); ++i) {
+    INFO("at row " << i);
     const double expected =
         rows[i].supplyCurrentDrawAmps * p.batteryVoltageVolts * p.simTimestep;
-    EXPECT_NEAR(rows[i].energyJoules - rows[i - 1].energyJoules, expected,
-                std::abs(expected) * 1e-9 + 1e-12)
-        << "at row " << i;
+    CHECK_THAT(rows[i].energyJoules - rows[i - 1].energyJoules,
+               WithinAbs(expected, std::abs(expected) * 1e-9 + 1e-12));
   }
 }
 
-TEST(SimulateArmEnergy, NetEnergyIsPositiveWhenLifting) {
+TEST_CASE("SimulateArmEnergy: NetEnergyIsPositiveWhenLifting",
+          "[SimulateArmEnergy]") {
   Params p;
   p.goingUp = true;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
-  EXPECT_GT(rows.back().energyJoules, 0.0);
+  CHECK(rows.back().energyJoules > 0.0);
 }

@@ -1,24 +1,17 @@
 #include "motor_curve_sim.h"
 
-#include <gtest/gtest.h>
-
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <cmath>
 #include <vector>
 
 #include "dc_motor.h"
-#include "hal_init.h"
 #include "wpi/math/system/DCMotor.hpp"
 
+using Catch::Matchers::WithinAbs;
+using Catch::Matchers::WithinULP;
+
 namespace {
-
-// DCMotorSim::SetInputVoltage and RoboRioSim both touch SimRoboRioData without
-// lazy-init. Initialize once for the whole suite (see hal_init.h).
-struct HalInitEnvironment : ::testing::Environment {
-  void SetUp() override { EnsureHalInitialized(); }
-};
-
-const ::testing::Environment* const kHalInitEnvironment =
-    ::testing::AddGlobalTestEnvironment(new HalInitEnvironment);
 
 // Matches the inertia the /motors page uses.
 constexpr double kMoi = 0.1 * (0.95 * 0.0254) * (0.95 * 0.0254);
@@ -84,34 +77,40 @@ std::vector<MotorCurveSimStateInternal> Simulate(const Params& p) {
 // limit binding the motor follows I(w) = (V - w / Kv) / R, a straight line.
 // ============================================================================
 
-TEST(MotorCurveSimLinearity, StatorCurrentIsLinearInSpeedWhenNoLimitBinds) {
+TEST_CASE(
+    "MotorCurveSimLinearity: StatorCurrentIsLinearInSpeedWhenNoLimitBinds",
+    "[MotorCurveSimLinearity]") {
   const auto motor = TestMotor();
   const auto rows = Simulate({});
-  ASSERT_GT(rows.size(), 100u);
+  REQUIRE(rows.size() > 100u);
 
   const double v = 12.0;
   const double r = motor.R.to<double>();
   const double kv = motor.Kv.to<double>();
 
   for (const auto& row : rows) {
+    INFO("at " << row.angularVelocityRadPerSec << " rad/s");
     const double expected = (v - row.angularVelocityRadPerSec / kv) / r;
-    EXPECT_NEAR(row.statorCurrentDrawAmps, expected, 1e-6)
-        << "at " << row.angularVelocityRadPerSec << " rad/s";
+    CHECK_THAT(row.statorCurrentDrawAmps, WithinAbs(expected, 1e-6));
   }
 }
 
-TEST(MotorCurveSimLinearity,
-     AppliedVoltageStaysAtStatorVoltageWhenNoLimitBinds) {
+TEST_CASE(
+    "MotorCurveSimLinearity: "
+    "AppliedVoltageStaysAtStatorVoltageWhenNoLimitBinds",
+    "[MotorCurveSimLinearity]") {
   for (const auto& row : Simulate({})) {
-    EXPECT_NEAR(row.motorAppliedVoltageVolts, 12.0, 1e-9);
+    CHECK_THAT(row.motorAppliedVoltageVolts, WithinAbs(12.0, 1e-9));
   }
 }
 
-TEST(MotorCurveSimLinearity, TorqueTracksKtTimesStatorCurrent) {
+TEST_CASE("MotorCurveSimLinearity: TorqueTracksKtTimesStatorCurrent",
+          "[MotorCurveSimLinearity]") {
   const double kt = TestMotor().Kt.to<double>();
   for (const auto& row : Simulate({})) {
-    EXPECT_NEAR(row.torqueNewtonMeters, kt * row.statorCurrentDrawAmps, 1e-9)
-        << "at " << row.angularVelocityRadPerSec << " rad/s";
+    INFO("at " << row.angularVelocityRadPerSec << " rad/s");
+    CHECK_THAT(row.torqueNewtonMeters,
+               WithinAbs(kt * row.statorCurrentDrawAmps, 1e-9));
   }
 }
 
@@ -119,35 +118,38 @@ TEST(MotorCurveSimLinearity, TorqueTracksKtTimesStatorCurrent) {
 // Sweep endpoints
 // ============================================================================
 
-TEST(MotorCurveSimEndpoints, FirstRowIsTheStallPoint) {
+TEST_CASE("MotorCurveSimEndpoints: FirstRowIsTheStallPoint",
+          "[MotorCurveSimEndpoints]") {
   const auto rows = Simulate({});
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
-  EXPECT_DOUBLE_EQ(rows.front().angularVelocityRadPerSec, 0.0);
-  EXPECT_NEAR(rows.front().statorCurrentDrawAmps,
-              TestMotor().stallCurrent.to<double>(), 1e-6);
-  EXPECT_NEAR(rows.front().torqueNewtonMeters,
-              TestMotor().stallTorque.to<double>(), 1e-6);
+  CHECK_THAT(rows.front().angularVelocityRadPerSec, WithinULP(0.0, 4));
+  CHECK_THAT(rows.front().statorCurrentDrawAmps,
+             WithinAbs(TestMotor().stallCurrent.to<double>(), 1e-6));
+  CHECK_THAT(rows.front().torqueNewtonMeters,
+             WithinAbs(TestMotor().stallTorque.to<double>(), 1e-6));
 }
 
-TEST(MotorCurveSimEndpoints, SweepEndsAtFreeSpeedDrawingFreeCurrent) {
+TEST_CASE("MotorCurveSimEndpoints: SweepEndsAtFreeSpeedDrawingFreeCurrent",
+          "[MotorCurveSimEndpoints]") {
   const auto rows = Simulate({});
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
   const auto& last = rows.back();
 
   const double freeSpeed = TestMotor().freeSpeed.to<double>();
-  EXPECT_LE(last.angularVelocityRadPerSec, freeSpeed);
-  EXPECT_GT(last.angularVelocityRadPerSec, 0.99 * freeSpeed);
-  EXPECT_NEAR(last.statorCurrentDrawAmps, TestMotor().freeCurrent.to<double>(),
-              1.0);
+  CHECK(last.angularVelocityRadPerSec <= freeSpeed);
+  CHECK(last.angularVelocityRadPerSec > 0.99 * freeSpeed);
+  CHECK_THAT(last.statorCurrentDrawAmps,
+             WithinAbs(TestMotor().freeCurrent.to<double>(), 1.0));
 }
 
-TEST(MotorCurveSimEndpoints, SpeedIncreasesMonotonically) {
+TEST_CASE("MotorCurveSimEndpoints: SpeedIncreasesMonotonically",
+          "[MotorCurveSimEndpoints]") {
   const auto rows = Simulate({});
-  ASSERT_GT(rows.size(), 2u);
+  REQUIRE(rows.size() > 2u);
   for (size_t i = 1; i < rows.size(); ++i) {
-    EXPECT_GT(rows[i].angularVelocityRadPerSec,
-              rows[i - 1].angularVelocityRadPerSec);
+    CHECK(rows[i].angularVelocityRadPerSec >
+          rows[i - 1].angularVelocityRadPerSec);
   }
 }
 
@@ -155,81 +157,91 @@ TEST(MotorCurveSimEndpoints, SpeedIncreasesMonotonically) {
 // Binding current limits
 // ============================================================================
 
-TEST(MotorCurveSimLimits, StatorLimitCapsCurrentAcrossTheLowSpeedRegion) {
+TEST_CASE("MotorCurveSimLimits: StatorLimitCapsCurrentAcrossTheLowSpeedRegion",
+          "[MotorCurveSimLimits]") {
   const double statorLimit = 90.0;
   const auto rows =
       Simulate({.statorLimitAmps = statorLimit, .supplyLimitAmps = 1000.0});
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   for (const auto& row : rows) {
-    EXPECT_LE(row.statorCurrentDrawAmps, statorLimit + 1e-6)
-        << "at " << row.angularVelocityRadPerSec << " rad/s";
+    INFO("at " << row.angularVelocityRadPerSec << " rad/s");
+    CHECK(row.statorCurrentDrawAmps <= statorLimit + 1e-6);
   }
 
   // At stall the limit is what sets the current, not the winding resistance.
-  EXPECT_NEAR(rows.front().statorCurrentDrawAmps, statorLimit, 1e-6);
+  CHECK_THAT(rows.front().statorCurrentDrawAmps, WithinAbs(statorLimit, 1e-6));
 }
 
-TEST(MotorCurveSimLimits, SupplyLimitUsesTheQuadraticClampNotALinearScaling) {
+TEST_CASE(
+    "MotorCurveSimLimits: SupplyLimitUsesTheQuadraticClampNotALinearScaling",
+    "[MotorCurveSimLimits]") {
   // At stall the clamp reduces to vApplied = sqrt(I_supply*R*V), so the stator
   // current is sqrt(I_supply*V/R) -- not the linear power-balance
   // approximation I_supply * V_supply / V_stator the TypeScript version used.
   const double supplyLimit = 60.0;
   const auto rows =
       Simulate({.statorLimitAmps = 1000.0, .supplyLimitAmps = supplyLimit});
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   const double r = TestMotor().R.to<double>();
   const double expectedStall = std::sqrt(supplyLimit * 12.0 / r);
-  EXPECT_NEAR(rows.front().statorCurrentDrawAmps, expectedStall, 1e-6);
+  CHECK_THAT(rows.front().statorCurrentDrawAmps,
+             WithinAbs(expectedStall, 1e-6));
 
   // The linear approximation would have landed exactly on the supply limit.
-  EXPECT_GT(rows.front().statorCurrentDrawAmps, supplyLimit * 2.0);
+  CHECK(rows.front().statorCurrentDrawAmps > supplyLimit * 2.0);
 }
 
-TEST(MotorCurveSimLimits, SupplyCurrentStaysWithinItsLimit) {
+TEST_CASE("MotorCurveSimLimits: SupplyCurrentStaysWithinItsLimit",
+          "[MotorCurveSimLimits]") {
   const double supplyLimit = 60.0;
   for (const auto& row : Simulate({.supplyLimitAmps = supplyLimit})) {
-    EXPECT_LE(row.supplyCurrentDrawAmps, supplyLimit + 1e-6)
-        << "at " << row.angularVelocityRadPerSec << " rad/s";
+    INFO("at " << row.angularVelocityRadPerSec << " rad/s");
+    CHECK(row.supplyCurrentDrawAmps <= supplyLimit + 1e-6);
   }
 }
 
-TEST(MotorCurveSimLimits, TheTighterOfTheTwoLimitsBinds) {
+TEST_CASE("MotorCurveSimLimits: TheTighterOfTheTwoLimitsBinds",
+          "[MotorCurveSimLimits]") {
   const auto statorBound =
       Simulate({.statorLimitAmps = 40.0, .supplyLimitAmps = 1000.0});
-  ASSERT_FALSE(statorBound.empty());
-  EXPECT_NEAR(statorBound.front().statorCurrentDrawAmps, 40.0, 1e-6);
+  REQUIRE_FALSE(statorBound.empty());
+  CHECK_THAT(statorBound.front().statorCurrentDrawAmps, WithinAbs(40.0, 1e-6));
 }
 
 // ============================================================================
 // Voltages
 // ============================================================================
 
-TEST(MotorCurveSimVoltages,
-     StatorVoltageSetsTheSpeedAtWhichCurrentReachesZero) {
+TEST_CASE(
+    "MotorCurveSimVoltages: StatorVoltageSetsTheSpeedAtWhichCurrentReachesZero",
+    "[MotorCurveSimVoltages]") {
   // At half voltage the sweep asymptotes below free speed, so it ends on the
   // iteration cap.
   const auto rows =
       Simulate({.statorVoltageVolts = 6.0, .maxIterations = 5000});
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   const double r = TestMotor().R.to<double>();
-  EXPECT_NEAR(rows.front().statorCurrentDrawAmps, 6.0 / r, 1e-6);
+  CHECK_THAT(rows.front().statorCurrentDrawAmps, WithinAbs(6.0 / r, 1e-6));
 }
 
-TEST(MotorCurveSimVoltages, SupplyVoltageClampsAStatorVoltageAboveIt) {
+TEST_CASE("MotorCurveSimVoltages: SupplyVoltageClampsAStatorVoltageAboveIt",
+          "[MotorCurveSimVoltages]") {
   const auto rows = Simulate({.statorVoltageVolts = 12.0,
                               .supplyVoltageVolts = 6.0,
                               .maxIterations = 5000});
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   for (const auto& row : rows) {
-    EXPECT_LE(row.motorAppliedVoltageVolts, 6.0 + 1e-9);
+    CHECK(row.motorAppliedVoltageVolts <= 6.0 + 1e-9);
   }
 }
 
-TEST(MotorCurveSimVoltages, SwappingStatorAndSupplyVoltageChangesTheCurve) {
+TEST_CASE(
+    "MotorCurveSimVoltages: SwappingStatorAndSupplyVoltageChangesTheCurve",
+    "[MotorCurveSimVoltages]") {
   // The supply limit has to bind for the two to differ: the bus voltage enters
   // the clamp only through the supply-current constraint.
   const double supplyLimit = 60.0;
@@ -244,72 +256,78 @@ TEST(MotorCurveSimVoltages, SwappingStatorAndSupplyVoltageChangesTheCurve) {
                                      .supplyVoltageVolts = 6.0,
                                      .maxIterations = 5000});
 
-  ASSERT_FALSE(sixOnTwelve.empty());
-  ASSERT_FALSE(twelveOnSix.empty());
+  REQUIRE_FALSE(sixOnTwelve.empty());
+  REQUIRE_FALSE(twelveOnSix.empty());
 
   // Stall current is sqrt(I_supply * R * V_supply) / R in each case.
-  EXPECT_NEAR(sixOnTwelve.front().statorCurrentDrawAmps,
-              std::sqrt(supplyLimit * r * 12.0) / r, 1e-6);
-  EXPECT_NEAR(twelveOnSix.front().statorCurrentDrawAmps,
-              std::sqrt(supplyLimit * r * 6.0) / r, 1e-6);
+  CHECK_THAT(sixOnTwelve.front().statorCurrentDrawAmps,
+             WithinAbs(std::sqrt(supplyLimit * r * 12.0) / r, 1e-6));
+  CHECK_THAT(twelveOnSix.front().statorCurrentDrawAmps,
+             WithinAbs(std::sqrt(supplyLimit * r * 6.0) / r, 1e-6));
 }
 
 // ============================================================================
 // Efficiency
 // ============================================================================
 
-TEST(MotorCurveSimEfficiency, StaysWithinZeroToOneAcrossTheSweep) {
+TEST_CASE("MotorCurveSimEfficiency: StaysWithinZeroToOneAcrossTheSweep",
+          "[MotorCurveSimEfficiency]") {
   for (const auto& row : Simulate({})) {
-    EXPECT_GE(row.efficiency, 0.0);
-    EXPECT_LT(row.efficiency, 1.0) << "at " << row.angularVelocityRadPerSec;
+    INFO("at " << row.angularVelocityRadPerSec);
+    CHECK(row.efficiency >= 0.0);
+    CHECK(row.efficiency < 1.0);
   }
 }
 
-TEST(MotorCurveSimEfficiency, IsZeroAtStallAndPeaksInTheMiddle) {
+TEST_CASE("MotorCurveSimEfficiency: IsZeroAtStallAndPeaksInTheMiddle",
+          "[MotorCurveSimEfficiency]") {
   const auto rows = Simulate({});
-  ASSERT_GT(rows.size(), 2u);
+  REQUIRE(rows.size() > 2u);
 
-  EXPECT_DOUBLE_EQ(rows.front().efficiency, 0.0);
+  CHECK_THAT(rows.front().efficiency, WithinULP(0.0, 4));
 
   double peak = 0.0;
   for (const auto& row : rows) {
     peak = std::max(peak, row.efficiency);
   }
-  EXPECT_GT(peak, 0.5);
-  EXPECT_LT(peak, 1.0);
+  CHECK(peak > 0.5);
+  CHECK(peak < 1.0);
 }
 
 // ============================================================================
 // Degenerate inputs
 // ============================================================================
 
-TEST(MotorCurveSimGuards, ZeroStatorLimitTerminatesAtTheIterationCap) {
+TEST_CASE("MotorCurveSimGuards: ZeroStatorLimitTerminatesAtTheIterationCap",
+          "[MotorCurveSimGuards]") {
   // vApplied is pinned at vBackEmf, which is 0 V at rest.
   const auto rows = Simulate({.statorLimitAmps = 0.0, .maxIterations = 100});
-  EXPECT_EQ(rows.size(), 100u);
+  CHECK(rows.size() == 100u);
   for (const auto& row : rows) {
-    EXPECT_DOUBLE_EQ(row.angularVelocityRadPerSec, 0.0);
-    EXPECT_NEAR(row.statorCurrentDrawAmps, 0.0, 1e-9);
+    CHECK_THAT(row.angularVelocityRadPerSec, WithinULP(0.0, 4));
+    CHECK_THAT(row.statorCurrentDrawAmps, WithinAbs(0.0, 1e-9));
   }
 }
 
-TEST(MotorCurveSimGuards, NonPositiveInputsReturnAnEmptyArray) {
-  EXPECT_TRUE(Simulate({.decimation = 0}).empty());
-  EXPECT_TRUE(Simulate({.maxIterations = 0}).empty());
-  EXPECT_TRUE(Simulate({.simTimestep = 0.0}).empty());
-  EXPECT_TRUE(Simulate({.moiKgMSquared = 0.0}).empty());
-  EXPECT_TRUE(Simulate({.supplyVoltageVolts = 0.0}).empty());
-  EXPECT_TRUE(Simulate({.supplyVoltageVolts = -12.0}).empty());
+TEST_CASE("MotorCurveSimGuards: NonPositiveInputsReturnAnEmptyArray",
+          "[MotorCurveSimGuards]") {
+  CHECK(Simulate({.decimation = 0}).empty());
+  CHECK(Simulate({.maxIterations = 0}).empty());
+  CHECK(Simulate({.simTimestep = 0.0}).empty());
+  CHECK(Simulate({.moiKgMSquared = 0.0}).empty());
+  CHECK(Simulate({.supplyVoltageVolts = 0.0}).empty());
+  CHECK(Simulate({.supplyVoltageVolts = -12.0}).empty());
 }
 
-TEST(MotorCurveSimGuards, DecimationThinsTheOutputAndKeepsTheLastRow) {
+TEST_CASE("MotorCurveSimGuards: DecimationThinsTheOutputAndKeepsTheLastRow",
+          "[MotorCurveSimGuards]") {
   const auto full = Simulate({});
   const auto thinned = Simulate({.decimation = 10});
 
-  ASSERT_GT(full.size(), 10u);
-  EXPECT_LT(thinned.size(), full.size());
-  EXPECT_DOUBLE_EQ(thinned.front().angularVelocityRadPerSec,
-                   full.front().angularVelocityRadPerSec);
-  EXPECT_DOUBLE_EQ(thinned.back().angularVelocityRadPerSec,
-                   full.back().angularVelocityRadPerSec);
+  REQUIRE(full.size() > 10u);
+  CHECK(thinned.size() < full.size());
+  CHECK_THAT(thinned.front().angularVelocityRadPerSec,
+             WithinULP(full.front().angularVelocityRadPerSec, 4));
+  CHECK_THAT(thinned.back().angularVelocityRadPerSec,
+             WithinULP(full.back().angularVelocityRadPerSec, 4));
 }

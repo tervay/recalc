@@ -1,7 +1,7 @@
 #include "feedback_gains.h"
 
-#include <gtest/gtest.h>
-
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <cmath>
 #include <stdexcept>
 
@@ -10,13 +10,16 @@
 #include "wpi/math/system/LinearSystem.hpp"
 #include "wpi/math/system/Models.hpp"
 
+using Catch::Matchers::WithinAbs;
+
 static constexpr double kTol = 1e-9;
 
 // ============================================================================
 // ComputeElevatorFeedbackGainsCore
 // ============================================================================
 
-class ElevatorFeedbackGainsTest : public ::testing::Test {
+namespace {
+class ElevatorFeedbackGainsTest {
  protected:
   const wpi::math::DCMotor motor = wpi::math::DCMotor::NEO(1);
   static constexpr double kGearing = 10.0;
@@ -29,12 +32,15 @@ class ElevatorFeedbackGainsTest : public ::testing::Test {
   static constexpr double kDtSeconds = 0.02;
   static constexpr double kSensorDelaySeconds = 0.0;
 };
+}  // namespace
 
 // Regression test: cross-checks ComputeElevatorFeedbackGainsCore against an
 // LQR built directly from the same plant, mirroring elevator_sim.h's
 // internal LQR construction. If either implementation's efficiency-scaling
 // or plant rebuild drifts from the other, this catches it.
-TEST_F(ElevatorFeedbackGainsTest, MatchesDirectLqrConstruction) {
+TEST_CASE_METHOD(ElevatorFeedbackGainsTest,
+                 "ElevatorFeedbackGainsTest: MatchesDirectLqrConstruction",
+                 "[ElevatorFeedbackGainsTest]") {
   auto idealPlantFull = wpi::math::Models::ElevatorFromPhysicalConstants(
       motor, wpi::units::kilogram_t(kMassKg),
       wpi::units::meter_t(kSpoolRadiusMeters), kGearing);
@@ -60,11 +66,13 @@ TEST_F(ElevatorFeedbackGainsTest, MatchesDirectLqrConstruction) {
       kQPositionMeters, kQVelocityMPS, kRVolts, kDtSeconds,
       kSensorDelaySeconds);
 
-  EXPECT_NEAR(actual.kP, expected.K(0, 0), kTol);
-  EXPECT_NEAR(actual.kD, expected.K(0, 1), kTol);
+  CHECK_THAT(actual.kP, WithinAbs(expected.K(0, 0), kTol));
+  CHECK_THAT(actual.kD, WithinAbs(expected.K(0, 1), kTol));
 }
 
-TEST_F(ElevatorFeedbackGainsTest, ProducesPlausiblePositiveGains) {
+TEST_CASE_METHOD(ElevatorFeedbackGainsTest,
+                 "ElevatorFeedbackGainsTest: ProducesPlausiblePositiveGains",
+                 "[ElevatorFeedbackGainsTest]") {
   FeedbackGains gains = ComputeElevatorFeedbackGainsCore(
       motor, kGearing, kMassKg, kSpoolRadiusMeters, kEfficiency,
       kQPositionMeters, kQVelocityMPS, kRVolts, kDtSeconds,
@@ -72,11 +80,14 @@ TEST_F(ElevatorFeedbackGainsTest, ProducesPlausiblePositiveGains) {
 
   // A stable position controller must push harder in the direction of
   // increasing error, i.e. both gains should be strictly positive.
-  EXPECT_GT(gains.kP, 0.0);
-  EXPECT_GT(gains.kD, 0.0);
+  CHECK(gains.kP > 0.0);
+  CHECK(gains.kD > 0.0);
 }
 
-TEST_F(ElevatorFeedbackGainsTest, TighteningPositionToleranceIncreasesKP) {
+TEST_CASE_METHOD(
+    ElevatorFeedbackGainsTest,
+    "ElevatorFeedbackGainsTest: TighteningPositionToleranceIncreasesKP",
+    "[ElevatorFeedbackGainsTest]") {
   FeedbackGains loose = ComputeElevatorFeedbackGainsCore(
       motor, kGearing, kMassKg, kSpoolRadiusMeters, kEfficiency,
       /*qPositionMeters=*/0.05, kQVelocityMPS, kRVolts, kDtSeconds,
@@ -86,7 +97,7 @@ TEST_F(ElevatorFeedbackGainsTest, TighteningPositionToleranceIncreasesKP) {
       /*qPositionMeters=*/0.005, kQVelocityMPS, kRVolts, kDtSeconds,
       kSensorDelaySeconds);
 
-  EXPECT_GT(tight.kP, loose.kP);
+  CHECK(tight.kP > loose.kP);
 }
 
 // Unlike the position/kP relationship above, kD does not increase as the
@@ -101,7 +112,10 @@ TEST_F(ElevatorFeedbackGainsTest, TighteningPositionToleranceIncreasesKP) {
 // confirming the relationship is monotonic (not just a quirk of the two
 // sample points below) -- this is a real property of the coupled plant, not
 // a bug in ComputeElevatorFeedbackGainsCore.
-TEST_F(ElevatorFeedbackGainsTest, TighteningVelocityToleranceDecreasesKD) {
+TEST_CASE_METHOD(
+    ElevatorFeedbackGainsTest,
+    "ElevatorFeedbackGainsTest: TighteningVelocityToleranceDecreasesKD",
+    "[ElevatorFeedbackGainsTest]") {
   FeedbackGains loose = ComputeElevatorFeedbackGainsCore(
       motor, kGearing, kMassKg, kSpoolRadiusMeters, kEfficiency,
       kQPositionMeters, /*qVelocityMPS=*/0.5, kRVolts, kDtSeconds,
@@ -111,38 +125,47 @@ TEST_F(ElevatorFeedbackGainsTest, TighteningVelocityToleranceDecreasesKD) {
       kQPositionMeters, /*qVelocityMPS=*/0.05, kRVolts, kDtSeconds,
       kSensorDelaySeconds);
 
-  EXPECT_LT(tight.kD, loose.kD);
+  CHECK(tight.kD < loose.kD);
 }
 
-TEST_F(ElevatorFeedbackGainsTest, NonPositiveGearingThrowsDomainError) {
-  EXPECT_THROW(ComputeElevatorFeedbackGainsCore(
-                   motor, /*gearing=*/0.0, kMassKg, kSpoolRadiusMeters,
-                   kEfficiency, kQPositionMeters, kQVelocityMPS, kRVolts,
-                   kDtSeconds, kSensorDelaySeconds),
-               std::domain_error);
+TEST_CASE_METHOD(
+    ElevatorFeedbackGainsTest,
+    "ElevatorFeedbackGainsTest: NonPositiveGearingThrowsDomainError",
+    "[ElevatorFeedbackGainsTest]") {
+  CHECK_THROWS_AS(ComputeElevatorFeedbackGainsCore(
+                      motor, /*gearing=*/0.0, kMassKg, kSpoolRadiusMeters,
+                      kEfficiency, kQPositionMeters, kQVelocityMPS, kRVolts,
+                      kDtSeconds, kSensorDelaySeconds),
+                  std::domain_error);
 }
 
-TEST_F(ElevatorFeedbackGainsTest, NonPositiveMassThrowsDomainError) {
-  EXPECT_THROW(ComputeElevatorFeedbackGainsCore(
-                   motor, kGearing, /*massKg=*/-1.0, kSpoolRadiusMeters,
-                   kEfficiency, kQPositionMeters, kQVelocityMPS, kRVolts,
-                   kDtSeconds, kSensorDelaySeconds),
-               std::domain_error);
+TEST_CASE_METHOD(ElevatorFeedbackGainsTest,
+                 "ElevatorFeedbackGainsTest: NonPositiveMassThrowsDomainError",
+                 "[ElevatorFeedbackGainsTest]") {
+  CHECK_THROWS_AS(ComputeElevatorFeedbackGainsCore(
+                      motor, kGearing, /*massKg=*/-1.0, kSpoolRadiusMeters,
+                      kEfficiency, kQPositionMeters, kQVelocityMPS, kRVolts,
+                      kDtSeconds, kSensorDelaySeconds),
+                  std::domain_error);
 }
 
-TEST_F(ElevatorFeedbackGainsTest, NonPositiveSpoolRadiusThrowsDomainError) {
-  EXPECT_THROW(ComputeElevatorFeedbackGainsCore(
-                   motor, kGearing, kMassKg, /*spoolRadiusMeters=*/0.0,
-                   kEfficiency, kQPositionMeters, kQVelocityMPS, kRVolts,
-                   kDtSeconds, kSensorDelaySeconds),
-               std::domain_error);
+TEST_CASE_METHOD(
+    ElevatorFeedbackGainsTest,
+    "ElevatorFeedbackGainsTest: NonPositiveSpoolRadiusThrowsDomainError",
+    "[ElevatorFeedbackGainsTest]") {
+  CHECK_THROWS_AS(ComputeElevatorFeedbackGainsCore(
+                      motor, kGearing, kMassKg, /*spoolRadiusMeters=*/0.0,
+                      kEfficiency, kQPositionMeters, kQVelocityMPS, kRVolts,
+                      kDtSeconds, kSensorDelaySeconds),
+                  std::domain_error);
 }
 
 // ============================================================================
 // ComputeArmFeedbackGainsCore
 // ============================================================================
 
-class ArmFeedbackGainsTest : public ::testing::Test {
+namespace {
+class ArmFeedbackGainsTest {
  protected:
   const wpi::math::DCMotor motor = wpi::math::DCMotor::Falcon500(1);
   static constexpr double kGearing = 100.0;
@@ -154,8 +177,11 @@ class ArmFeedbackGainsTest : public ::testing::Test {
   static constexpr double kDtSeconds = 0.02;
   static constexpr double kSensorDelaySeconds = 0.01;
 };
+}  // namespace
 
-TEST_F(ArmFeedbackGainsTest, MatchesDirectLqrConstruction) {
+TEST_CASE_METHOD(ArmFeedbackGainsTest,
+                 "ArmFeedbackGainsTest: MatchesDirectLqrConstruction",
+                 "[ArmFeedbackGainsTest]") {
   auto idealPlantFull =
       wpi::math::Models::SingleJointedArmFromPhysicalConstants(
           motor,
@@ -182,40 +208,48 @@ TEST_F(ArmFeedbackGainsTest, MatchesDirectLqrConstruction) {
       motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency, kQPositionRad,
       kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds);
 
-  EXPECT_NEAR(actual.kP, expected.K(0, 0), kTol);
-  EXPECT_NEAR(actual.kD, expected.K(0, 1), kTol);
+  CHECK_THAT(actual.kP, WithinAbs(expected.K(0, 0), kTol));
+  CHECK_THAT(actual.kD, WithinAbs(expected.K(0, 1), kTol));
 }
 
-TEST_F(ArmFeedbackGainsTest, ProducesPlausiblePositiveGains) {
+TEST_CASE_METHOD(ArmFeedbackGainsTest,
+                 "ArmFeedbackGainsTest: ProducesPlausiblePositiveGains",
+                 "[ArmFeedbackGainsTest]") {
   FeedbackGains gains = ComputeArmFeedbackGainsCore(
       motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency, kQPositionRad,
       kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds);
 
-  EXPECT_GT(gains.kP, 0.0);
-  EXPECT_GT(gains.kD, 0.0);
+  CHECK(gains.kP > 0.0);
+  CHECK(gains.kD > 0.0);
 }
 
-TEST_F(ArmFeedbackGainsTest, NonPositiveMomentOfInertiaThrowsDomainError) {
-  EXPECT_THROW(ComputeArmFeedbackGainsCore(
-                   motor, kGearing, /*momentOfInertiaKgMSquared=*/0.0,
-                   kEfficiency, kQPositionRad, kQVelocityRadPerSec, kRVolts,
-                   kDtSeconds, kSensorDelaySeconds),
-               std::domain_error);
+TEST_CASE_METHOD(
+    ArmFeedbackGainsTest,
+    "ArmFeedbackGainsTest: NonPositiveMomentOfInertiaThrowsDomainError",
+    "[ArmFeedbackGainsTest]") {
+  CHECK_THROWS_AS(ComputeArmFeedbackGainsCore(
+                      motor, kGearing, /*momentOfInertiaKgMSquared=*/0.0,
+                      kEfficiency, kQPositionRad, kQVelocityRadPerSec, kRVolts,
+                      kDtSeconds, kSensorDelaySeconds),
+                  std::domain_error);
 }
 
-TEST_F(ArmFeedbackGainsTest, NonPositiveGearingThrowsDomainError) {
-  EXPECT_THROW(ComputeArmFeedbackGainsCore(
-                   motor, /*gearing=*/-5.0, kMomentOfInertiaKgMSquared,
-                   kEfficiency, kQPositionRad, kQVelocityRadPerSec, kRVolts,
-                   kDtSeconds, kSensorDelaySeconds),
-               std::domain_error);
+TEST_CASE_METHOD(ArmFeedbackGainsTest,
+                 "ArmFeedbackGainsTest: NonPositiveGearingThrowsDomainError",
+                 "[ArmFeedbackGainsTest]") {
+  CHECK_THROWS_AS(ComputeArmFeedbackGainsCore(
+                      motor, /*gearing=*/-5.0, kMomentOfInertiaKgMSquared,
+                      kEfficiency, kQPositionRad, kQVelocityRadPerSec, kRVolts,
+                      kDtSeconds, kSensorDelaySeconds),
+                  std::domain_error);
 }
 
 // ============================================================================
 // ComputeFlywheelFeedbackGainsCore
 // ============================================================================
 
-class FlywheelFeedbackGainsTest : public ::testing::Test {
+namespace {
+class FlywheelFeedbackGainsTest {
  protected:
   const wpi::math::DCMotor motor = wpi::math::DCMotor::KrakenX60(1);
   static constexpr double kGearing = 2.0;
@@ -226,8 +260,11 @@ class FlywheelFeedbackGainsTest : public ::testing::Test {
   static constexpr double kDtSeconds = 0.02;
   static constexpr double kSensorDelaySeconds = 0.0;
 };
+}  // namespace
 
-TEST_F(FlywheelFeedbackGainsTest, MatchesDirectLqrConstruction) {
+TEST_CASE_METHOD(FlywheelFeedbackGainsTest,
+                 "FlywheelFeedbackGainsTest: MatchesDirectLqrConstruction",
+                 "[FlywheelFeedbackGainsTest]") {
   auto idealPlant = wpi::math::Models::FlywheelFromPhysicalConstants(
       motor, wpi::units::kilogram_square_meter_t(kMomentOfInertiaKgMSquared),
       kGearing);
@@ -248,26 +285,33 @@ TEST_F(FlywheelFeedbackGainsTest, MatchesDirectLqrConstruction) {
       motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency,
       kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds);
 
-  EXPECT_NEAR(actual.kP, expected.K(0, 0), kTol);
+  CHECK_THAT(actual.kP, WithinAbs(expected.K(0, 0), kTol));
 }
 
-TEST_F(FlywheelFeedbackGainsTest, KDIsAlwaysZero) {
+TEST_CASE_METHOD(FlywheelFeedbackGainsTest,
+                 "FlywheelFeedbackGainsTest: KDIsAlwaysZero",
+                 "[FlywheelFeedbackGainsTest]") {
   FeedbackGains gains = ComputeFlywheelFeedbackGainsCore(
       motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency,
       kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds);
 
-  EXPECT_EQ(gains.kD, 0.0);
+  CHECK(gains.kD == 0.0);
 }
 
-TEST_F(FlywheelFeedbackGainsTest, ProducesPlausiblePositiveGain) {
+TEST_CASE_METHOD(FlywheelFeedbackGainsTest,
+                 "FlywheelFeedbackGainsTest: ProducesPlausiblePositiveGain",
+                 "[FlywheelFeedbackGainsTest]") {
   FeedbackGains gains = ComputeFlywheelFeedbackGainsCore(
       motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency,
       kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds);
 
-  EXPECT_GT(gains.kP, 0.0);
+  CHECK(gains.kP > 0.0);
 }
 
-TEST_F(FlywheelFeedbackGainsTest, TighteningVelocityToleranceIncreasesKP) {
+TEST_CASE_METHOD(
+    FlywheelFeedbackGainsTest,
+    "FlywheelFeedbackGainsTest: TighteningVelocityToleranceIncreasesKP",
+    "[FlywheelFeedbackGainsTest]") {
   FeedbackGains loose = ComputeFlywheelFeedbackGainsCore(
       motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency,
       /*qVelocityRadPerSec=*/50.0, kRVolts, kDtSeconds, kSensorDelaySeconds);
@@ -275,19 +319,25 @@ TEST_F(FlywheelFeedbackGainsTest, TighteningVelocityToleranceIncreasesKP) {
       motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency,
       /*qVelocityRadPerSec=*/1.0, kRVolts, kDtSeconds, kSensorDelaySeconds);
 
-  EXPECT_GT(tight.kP, loose.kP);
+  CHECK(tight.kP > loose.kP);
 }
 
-TEST_F(FlywheelFeedbackGainsTest, NonPositiveMomentOfInertiaThrowsDomainError) {
-  EXPECT_THROW(
+TEST_CASE_METHOD(
+    FlywheelFeedbackGainsTest,
+    "FlywheelFeedbackGainsTest: NonPositiveMomentOfInertiaThrowsDomainError",
+    "[FlywheelFeedbackGainsTest]") {
+  CHECK_THROWS_AS(
       ComputeFlywheelFeedbackGainsCore(
           motor, kGearing, /*momentOfInertiaKgMSquared=*/-0.01, kEfficiency,
           kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds),
       std::domain_error);
 }
 
-TEST_F(FlywheelFeedbackGainsTest, NonPositiveGearingThrowsDomainError) {
-  EXPECT_THROW(
+TEST_CASE_METHOD(
+    FlywheelFeedbackGainsTest,
+    "FlywheelFeedbackGainsTest: NonPositiveGearingThrowsDomainError",
+    "[FlywheelFeedbackGainsTest]") {
+  CHECK_THROWS_AS(
       ComputeFlywheelFeedbackGainsCore(
           motor, /*gearing=*/0.0, kMomentOfInertiaKgMSquared, kEfficiency,
           kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds),

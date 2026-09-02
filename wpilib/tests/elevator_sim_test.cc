@@ -1,25 +1,19 @@
 #include "elevator_sim.h"
 
-#include <gtest/gtest.h>
-
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/generators/catch_generators.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <cmath>
 #include <vector>
 
 #include "dc_motor.h"
-#include "hal_init.h"
 #include "wpi/math/system/DCMotor.hpp"
 #include "wpi/math/system/Models.hpp"
 
+using Catch::Matchers::WithinAbs;
+using Catch::Matchers::WithinULP;
+
 namespace {
-
-// ElevatorSim::SetInputVoltage and RoboRioSim both touch SimRoboRioData
-// without lazy-init. Initialize once for the whole suite (see hal_init.h).
-struct HalInitEnvironment : ::testing::Environment {
-  void SetUp() override { EnsureHalInitialized(); }
-};
-
-const ::testing::Environment* const kHalInitEnvironment =
-    ::testing::AddGlobalTestEnvironment(new HalInitEnvironment);
 
 constexpr double kGravity = kGravityMetersPerSecondSquared;
 
@@ -158,12 +152,14 @@ std::vector<ElevatorSimStateInternal> Simulate(Params p) {
 // Harness
 // ============================================================================
 
-// RoboRio sim data is usable after EnsureHalInitialized (see HalInitEnvironment
-// above). Production SimulateElevator calls the same helper. Without it,
+// RoboRio sim data is usable after EnsureHalInitialized (see
+// hal_init_listener.cc). Production SimulateElevator calls the same helper.
+// Without it,
 // SetVInVoltage writes through a null SimRoboRioData into the Wasm null page.
-TEST(ElevatorSimHarness, RoboRioVoltageIsReadableAfterHalInit) {
+TEST_CASE("ElevatorSimHarness: RoboRioVoltageIsReadableAfterHalInit",
+          "[ElevatorSimHarness]") {
   wpi::sim::RoboRioSim::SetVInVoltage(wpi::units::volt_t{12.0});
-  EXPECT_NEAR(wpi::RobotController::GetInputVoltage(), 12.0, 1e-9);
+  CHECK_THAT(wpi::RobotController::GetInputVoltage(), WithinAbs(12.0, 1e-9));
 }
 
 // ============================================================================
@@ -188,41 +184,41 @@ double UnpoweredVelocityAfterOneStep(double angleRadians, double dt) {
 }
 }  // namespace
 
-TEST(AngledElevatorGravity, HorizontalHasNoGravityComponent) {
+TEST_CASE("AngledElevatorGravity: HorizontalHasNoGravityComponent",
+          "[AngledElevatorGravity]") {
   // sin(0) = 0, so an unpowered horizontal elevator must not accelerate at all.
-  EXPECT_DOUBLE_EQ(UnpoweredVelocityAfterOneStep(0.0, 1e-3), 0.0);
+  CHECK_THAT(UnpoweredVelocityAfterOneStep(0.0, 1e-3), WithinULP(0.0, 4));
 }
 
-TEST(AngledElevatorGravity, VerticalFallsAtFullGravity) {
+TEST_CASE("AngledElevatorGravity: VerticalFallsAtFullGravity",
+          "[AngledElevatorGravity]") {
   // Closed-form solution of vdot = A11*v - g with v(0) = 0:
   //   v(t) = (-g / A11) * (exp(A11*t) - 1)
   const double dt = 1e-3;
   const double a11 = IdealPlant().A()(1, 1);
   const double expected = (-kGravity / a11) * (std::exp(a11 * dt) - 1.0);
 
-  EXPECT_NEAR(UnpoweredVelocityAfterOneStep(M_PI / 2.0, dt), expected,
-              std::abs(expected) * 1e-6);
+  CHECK_THAT(UnpoweredVelocityAfterOneStep(M_PI / 2.0, dt),
+             WithinAbs(expected, std::abs(expected) * 1e-6));
 }
 
 // Gravity must scale with sin(angle), not cos(angle) and not a constant. The
 // ODE is linear and the angle enters only through the constant gravity term, so
 // v(theta)/v(pi/2) is exactly sin(theta) regardless of the timestep. This ratio
 // form makes the test independent of the integrator's local truncation error.
-class GravityAngleScalingTest : public ::testing::TestWithParam<double> {};
-
-TEST_P(GravityAngleScalingTest, VelocityRatioTracksSineOfAngle) {
-  const double angle = GetParam();
+TEST_CASE("GravityAngleScalingTest: VelocityRatioTracksSineOfAngle",
+          "[GravityAngleScalingTest]") {
+  const double angle =
+      GENERATE(0.0, M_PI / 6.0, M_PI / 4.0, M_PI / 3.0, M_PI / 2.0);
+  CAPTURE(angle);
   const double dt = 1e-3;
   const double vertical = UnpoweredVelocityAfterOneStep(M_PI / 2.0, dt);
-  ASSERT_LT(vertical, 0.0) << "vertical elevator must fall";
+  INFO("vertical elevator must fall");
+  REQUIRE(vertical < 0.0);
 
-  EXPECT_NEAR(UnpoweredVelocityAfterOneStep(angle, dt) / vertical,
-              std::sin(angle), 1e-9);
+  CHECK_THAT(UnpoweredVelocityAfterOneStep(angle, dt) / vertical,
+             WithinAbs(std::sin(angle), 1e-9));
 }
-
-INSTANTIATE_TEST_SUITE_P(VariousAngles, GravityAngleScalingTest,
-                         ::testing::Values(0.0, M_PI / 6.0, M_PI / 4.0,
-                                           M_PI / 3.0, M_PI / 2.0));
 
 // ============================================================================
 // AngledElevatorSim: efficiency
@@ -249,24 +245,28 @@ double SteadyStateVelocity(double efficiency, double voltage) {
 // pins BOTH halves of the contract: efficiency multiplies B, and A is left
 // alone. If efficiency were also applied to A it would cancel out here and the
 // measured steady state would be the full-efficiency value.
-TEST(AngledElevatorEfficiency, SteadyStateMatchesEfficiencyScaledBOverA) {
+TEST_CASE("AngledElevatorEfficiency: SteadyStateMatchesEfficiencyScaledBOverA",
+          "[AngledElevatorEfficiency]") {
   const double efficiency = 0.5;
   const double voltage = 6.0;
   const auto plant = IdealPlant();
   const double expected =
       -efficiency * plant.B()(1, 0) * voltage / plant.A()(1, 1);
 
-  EXPECT_NEAR(SteadyStateVelocity(efficiency, voltage), expected,
-              std::abs(expected) * 1e-6);
+  CHECK_THAT(SteadyStateVelocity(efficiency, voltage),
+             WithinAbs(expected, std::abs(expected) * 1e-6));
 }
 
-TEST(AngledElevatorEfficiency, HalvingEfficiencyHalvesSteadyStateVelocity) {
+TEST_CASE(
+    "AngledElevatorEfficiency: HalvingEfficiencyHalvesSteadyStateVelocity",
+    "[AngledElevatorEfficiency]") {
   const double full = SteadyStateVelocity(1.0, 6.0);
-  ASSERT_GT(full, 0.0);
-  EXPECT_NEAR(SteadyStateVelocity(0.5, 6.0) / full, 0.5, 1e-6);
+  REQUIRE(full > 0.0);
+  CHECK_THAT(SteadyStateVelocity(0.5, 6.0) / full, WithinAbs(0.5, 1e-6));
 }
 
-TEST(AngledElevatorEfficiency, LowerEfficiencyReducesInitialAcceleration) {
+TEST_CASE("AngledElevatorEfficiency: LowerEfficiencyReducesInitialAcceleration",
+          "[AngledElevatorEfficiency]") {
   // From rest the back-EMF term is zero, so the first step isolates the motor
   // force: v(dt) is proportional to efficiency.
   const double dt = 1e-4;
@@ -281,15 +281,16 @@ TEST(AngledElevatorEfficiency, LowerEfficiencyReducesInitialAcceleration) {
   full.Update(wpi::units::second_t(dt));
   half.Update(wpi::units::second_t(dt));
 
-  EXPECT_NEAR(half.GetVelocity().to<double>() / full.GetVelocity().to<double>(),
-              0.5, 1e-6);
+  CHECK_THAT(half.GetVelocity().to<double>() / full.GetVelocity().to<double>(),
+             WithinAbs(0.5, 1e-6));
 }
 
 // ============================================================================
 // AngledElevatorSim: travel limits
 // ============================================================================
 
-TEST(AngledElevatorLimits, LowerLimitPinsPositionAndZeroesVelocity) {
+TEST_CASE("AngledElevatorLimits: LowerLimitPinsPositionAndZeroesVelocity",
+          "[AngledElevatorLimits]") {
   // Start just above the floor and let gravity pull the carriage through it.
   AngledElevatorSim sim(TestMotor(), kGearing, wpi::units::kilogram_t(kLoadKg),
                         wpi::units::meter_t(kSpoolRadiusMeters), 0.0, 2.0, 5e-4,
@@ -299,11 +300,12 @@ TEST(AngledElevatorLimits, LowerLimitPinsPositionAndZeroesVelocity) {
     sim.Update(wpi::units::second_t(1e-3));
   }
 
-  EXPECT_DOUBLE_EQ(sim.GetPosition().to<double>(), 0.0);
-  EXPECT_DOUBLE_EQ(sim.GetVelocity().to<double>(), 0.0);
+  CHECK_THAT(sim.GetPosition().to<double>(), WithinULP(0.0, 4));
+  CHECK_THAT(sim.GetVelocity().to<double>(), WithinULP(0.0, 4));
 }
 
-TEST(AngledElevatorLimits, UpperLimitPinsPositionAndZeroesVelocity) {
+TEST_CASE("AngledElevatorLimits: UpperLimitPinsPositionAndZeroesVelocity",
+          "[AngledElevatorLimits]") {
   // Start just below the ceiling and drive hard into it.
   AngledElevatorSim sim(TestMotor(), kGearing, wpi::units::kilogram_t(kLoadKg),
                         wpi::units::meter_t(kSpoolRadiusMeters), 0.0, 2.0,
@@ -313,8 +315,8 @@ TEST(AngledElevatorLimits, UpperLimitPinsPositionAndZeroesVelocity) {
     sim.Update(wpi::units::second_t(1e-3));
   }
 
-  EXPECT_DOUBLE_EQ(sim.GetPosition().to<double>(), 2.0);
-  EXPECT_DOUBLE_EQ(sim.GetVelocity().to<double>(), 0.0);
+  CHECK_THAT(sim.GetPosition().to<double>(), WithinULP(2.0, 4));
+  CHECK_THAT(sim.GetVelocity().to<double>(), WithinULP(0.0, 4));
 }
 
 // ============================================================================
@@ -325,70 +327,79 @@ TEST(AngledElevatorLimits, UpperLimitPinsPositionAndZeroesVelocity) {
 // feedforward_gains.h.
 // ============================================================================
 
-TEST(SimulateElevatorGuards, ZeroMaxVelocityReturnsEmpty) {
+TEST_CASE("SimulateElevatorGuards: ZeroMaxVelocityReturnsEmpty",
+          "[SimulateElevatorGuards]") {
   Params p;
   DeriveConstraints(p);
   p.maxVelocityMPS = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateElevatorGuards, NegativeMaxVelocityReturnsEmpty) {
+TEST_CASE("SimulateElevatorGuards: NegativeMaxVelocityReturnsEmpty",
+          "[SimulateElevatorGuards]") {
   Params p;
   DeriveConstraints(p);
   p.maxVelocityMPS = -1.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateElevatorGuards, ZeroMaxAccelerationReturnsEmpty) {
+TEST_CASE("SimulateElevatorGuards: ZeroMaxAccelerationReturnsEmpty",
+          "[SimulateElevatorGuards]") {
   Params p;
   DeriveConstraints(p);
   p.maxAccelerationMPS2 = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateElevatorGuards, NegativeMaxAccelerationReturnsEmpty) {
+TEST_CASE("SimulateElevatorGuards: NegativeMaxAccelerationReturnsEmpty",
+          "[SimulateElevatorGuards]") {
   Params p;
   DeriveConstraints(p);
   p.maxAccelerationMPS2 = -1.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // A zero spool radius divides by zero when converting carriage velocity to
 // motor shaft speed, producing inf/NaN rows instead of a clean empty result.
-TEST(SimulateElevatorGuards, ZeroSpoolRadiusReturnsEmpty) {
+TEST_CASE("SimulateElevatorGuards: ZeroSpoolRadiusReturnsEmpty",
+          "[SimulateElevatorGuards]") {
   Params p;
   DeriveConstraints(p);
   p.spoolRadiusMeters = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateElevatorGuards, NegativeSpoolRadiusReturnsEmpty) {
+TEST_CASE("SimulateElevatorGuards: NegativeSpoolRadiusReturnsEmpty",
+          "[SimulateElevatorGuards]") {
   Params p;
   DeriveConstraints(p);
   p.spoolRadiusMeters = -0.01;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // A zero efficiency divides by zero when deriving kG from kA.
-TEST(SimulateElevatorGuards, ZeroEfficiencyReturnsEmpty) {
+TEST_CASE("SimulateElevatorGuards: ZeroEfficiencyReturnsEmpty",
+          "[SimulateElevatorGuards]") {
   Params p;
   DeriveConstraints(p);
   p.efficiency = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateElevatorGuards, NegativeEfficiencyReturnsEmpty) {
+TEST_CASE("SimulateElevatorGuards: NegativeEfficiencyReturnsEmpty",
+          "[SimulateElevatorGuards]") {
   Params p;
   DeriveConstraints(p);
   p.efficiency = -0.5;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateElevatorGuards, ZeroGearingReturnsEmpty) {
+TEST_CASE("SimulateElevatorGuards: ZeroGearingReturnsEmpty",
+          "[SimulateElevatorGuards]") {
   Params p;
   DeriveConstraints(p);
   p.gearing = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // The public entry point must convert numerical failures into an empty array
@@ -396,85 +407,93 @@ TEST(SimulateElevatorGuards, ZeroGearingReturnsEmpty) {
 // worker. A non-positive load makes Models::ElevatorFromPhysicalConstants throw
 // std::domain_error, and it deliberately survives the guards above so this path
 // stays reachable.
-TEST(SimulateElevatorGuards, SolverFailureReturnsEmptyInsteadOfThrowing) {
+TEST_CASE("SimulateElevatorGuards: SolverFailureReturnsEmptyInsteadOfThrowing",
+          "[SimulateElevatorGuards]") {
   Params p;
   DeriveConstraints(p);
   p.loadKg = 0.0;
   emscripten::val result = emscripten::val::undefined();
-  EXPECT_NO_THROW({ result = RunRaw(p); });
-  EXPECT_EQ(Length(result), 0);
+  CHECK_NOTHROW(result = RunRaw(p));
+  CHECK(Length(result) == 0);
 }
 
 // DecimateToJsArray computes `i % decimation`. Integer modulo by zero is a wasm
 // trap, not a C++ exception, so the try/catch in SimulateElevator cannot
 // intercept it -- an unguarded 0 would abort the whole worker.
-TEST(SimulateElevatorGuards, ZeroDecimationReturnsEmpty) {
+TEST_CASE("SimulateElevatorGuards: ZeroDecimationReturnsEmpty",
+          "[SimulateElevatorGuards]") {
   Params p;
   DeriveConstraints(p);
   p.decimation = 0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateElevatorGuards, NegativeDecimationReturnsEmpty) {
+TEST_CASE("SimulateElevatorGuards: NegativeDecimationReturnsEmpty",
+          "[SimulateElevatorGuards]") {
   Params p;
   DeriveConstraints(p);
   p.decimation = -1;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // ============================================================================
 // SimulateElevator: nominal trajectory
 // ============================================================================
 
-TEST(SimulateElevatorTrajectory, ReachesGoalAndReportsSuccess) {
+TEST_CASE("SimulateElevatorTrajectory: ReachesGoalAndReportsSuccess",
+          "[SimulateElevatorTrajectory]") {
   const auto rows = Simulate(Params{});
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
-  EXPECT_LT(std::abs(rows.back().positionMeters - kTravelMeters),
-            kSuccessThresholdMeters);
-  EXPECT_TRUE(rows.back().success);
+  CHECK(std::abs(rows.back().positionMeters - kTravelMeters) <
+        kSuccessThresholdMeters);
+  CHECK(rows.back().success);
 }
 
 // success is only meaningful on the final element -- it is the one the
 // simulation overwrites after the loop. A run truncated long before the goal
 // must report failure.
-TEST(SimulateElevatorTrajectory, TruncatedRunReportsFailure) {
+TEST_CASE("SimulateElevatorTrajectory: TruncatedRunReportsFailure",
+          "[SimulateElevatorTrajectory]") {
   Params p;
   p.maxSimSeconds = 0.01;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
-  EXPECT_GT(std::abs(rows.back().positionMeters - kTravelMeters),
-            kSuccessThresholdMeters);
-  EXPECT_FALSE(rows.back().success);
+  CHECK(std::abs(rows.back().positionMeters - kTravelMeters) >
+        kSuccessThresholdMeters);
+  CHECK_FALSE(rows.back().success);
 }
 
-TEST(SimulateElevatorTrajectory, StopsAtMaxSimSeconds) {
+TEST_CASE("SimulateElevatorTrajectory: StopsAtMaxSimSeconds",
+          "[SimulateElevatorTrajectory]") {
   Params p;
   p.maxSimSeconds = 0.01;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
-  EXPECT_LE(rows.back().timeSeconds, p.maxSimSeconds + p.simTimestep);
+  CHECK(rows.back().timeSeconds <= p.maxSimSeconds + p.simTimestep);
 }
 
-TEST(SimulateElevatorTrajectory, TimeAdvancesByOneTimestepPerRow) {
+TEST_CASE("SimulateElevatorTrajectory: TimeAdvancesByOneTimestepPerRow",
+          "[SimulateElevatorTrajectory]") {
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 2u);
+  REQUIRE(rows.size() > 2u);
 
-  EXPECT_NEAR(rows[0].timeSeconds, p.simTimestep, 1e-12);
+  CHECK_THAT(rows[0].timeSeconds, WithinAbs(p.simTimestep, 1e-12));
   for (size_t i = 1; i < rows.size(); ++i) {
-    EXPECT_NEAR(rows[i].timeSeconds - rows[i - 1].timeSeconds, p.simTimestep,
-                1e-9)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK_THAT(rows[i].timeSeconds - rows[i - 1].timeSeconds,
+               WithinAbs(p.simTimestep, 1e-9));
   }
 }
 
-TEST(SimulateElevatorTrajectory, VelocityProfileRisesThenFalls) {
+TEST_CASE("SimulateElevatorTrajectory: VelocityProfileRisesThenFalls",
+          "[SimulateElevatorTrajectory]") {
   const auto rows = Simulate(Params{});
-  ASSERT_GT(rows.size(), 2u);
+  REQUIRE(rows.size() > 2u);
 
   size_t peak = 0;
   for (size_t i = 1; i < rows.size(); ++i) {
@@ -483,12 +502,12 @@ TEST(SimulateElevatorTrajectory, VelocityProfileRisesThenFalls) {
     }
   }
 
-  EXPECT_GT(peak, 0u);
-  EXPECT_LT(peak, rows.size() - 1);
-  EXPECT_GT(rows[peak].velocityMetersPerSecond,
-            rows.front().velocityMetersPerSecond);
-  EXPECT_GT(rows[peak].velocityMetersPerSecond,
-            rows.back().velocityMetersPerSecond);
+  CHECK(peak > 0u);
+  CHECK(peak < rows.size() - 1);
+  CHECK(rows[peak].velocityMetersPerSecond >
+        rows.front().velocityMetersPerSecond);
+  CHECK(rows[peak].velocityMetersPerSecond >
+        rows.back().velocityMetersPerSecond);
 }
 
 // A row is stamped with the post-step timestamp, so motorRpm and
@@ -496,21 +515,24 @@ TEST(SimulateElevatorTrajectory, VelocityProfileRisesThenFalls) {
 // the identity within a row so the two cannot drift apart again. (The pre-step
 // shaft speed is still used for the back-EMF term feeding the voltage clamp,
 // which is correct -- that clamp acts on the state at the start of the step.)
-TEST(SimulateElevatorTrajectory, MotorRpmMatchesCarriageVelocityInTheSameRow) {
+TEST_CASE(
+    "SimulateElevatorTrajectory: MotorRpmMatchesCarriageVelocityInTheSameRow",
+    "[SimulateElevatorTrajectory]") {
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 2u);
+  REQUIRE(rows.size() > 2u);
 
   const double toRpm =
       1.0 / p.spoolRadiusMeters * p.gearing * 60.0 / (2.0 * M_PI);
 
   // The first row is recorded after a step has already been integrated, so the
   // carriage is moving and the reported shaft speed must be non-zero.
-  EXPECT_GT(rows.front().motorRpm, 0.0);
+  CHECK(rows.front().motorRpm > 0.0);
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_NEAR(rows[i].motorRpm, rows[i].velocityMetersPerSecond * toRpm, 1e-9)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK_THAT(rows[i].motorRpm,
+               WithinAbs(rows[i].velocityMetersPerSecond * toRpm, 1e-9));
   }
 }
 
@@ -521,36 +543,38 @@ TEST(SimulateElevatorTrajectory, MotorRpmMatchesCarriageVelocityInTheSameRow) {
 // Cascade rigging halves the first stage's travel and doubles the effective
 // load. The reported trajectory is the first stage's, so the same requested
 // travel distance must end at half the height.
-TEST(SimulateElevatorCascade, HalvesReportedTravelDistance) {
+TEST_CASE("SimulateElevatorCascade: HalvesReportedTravelDistance",
+          "[SimulateElevatorCascade]") {
   Params direct;
   Params cascade;
   cascade.cascade = true;
 
   const auto directRows = Simulate(direct);
   const auto cascadeRows = Simulate(cascade);
-  ASSERT_FALSE(directRows.empty());
-  ASSERT_FALSE(cascadeRows.empty());
+  REQUIRE_FALSE(directRows.empty());
+  REQUIRE_FALSE(cascadeRows.empty());
 
-  EXPECT_NEAR(cascadeRows.back().positionMeters, kTravelMeters / 2.0,
-              kSuccessThresholdMeters);
-  EXPECT_NEAR(directRows.back().positionMeters, kTravelMeters,
-              kSuccessThresholdMeters);
+  CHECK_THAT(cascadeRows.back().positionMeters,
+             WithinAbs(kTravelMeters / 2.0, kSuccessThresholdMeters));
+  CHECK_THAT(directRows.back().positionMeters,
+             WithinAbs(kTravelMeters, kSuccessThresholdMeters));
 }
 
 // Doubling the load doubles kG, so a cascade elevator holds itself up with
 // roughly twice the gravity feedforward voltage.
-TEST(SimulateElevatorCascade, DoublesEffectiveLoad) {
+TEST_CASE("SimulateElevatorCascade: DoublesEffectiveLoad",
+          "[SimulateElevatorCascade]") {
   Params direct;
   Params cascade;
   cascade.cascade = true;
 
   const auto directRows = Simulate(direct);
   const auto cascadeRows = Simulate(cascade);
-  ASSERT_FALSE(directRows.empty());
-  ASSERT_FALSE(cascadeRows.empty());
+  REQUIRE_FALSE(directRows.empty());
+  REQUIRE_FALSE(cascadeRows.empty());
 
-  EXPECT_GT(cascadeRows.front().motorAppliedVoltageVolts,
-            directRows.front().motorAppliedVoltageVolts);
+  CHECK(cascadeRows.front().motorAppliedVoltageVolts >
+        directRows.front().motorAppliedVoltageVolts);
 }
 
 // ============================================================================
@@ -561,8 +585,10 @@ TEST(SimulateElevatorCascade, DoublesEffectiveLoad) {
 // needs no gravity feedforward at all. Both runs below share one set of profile
 // constraints and start from an identical state, so the closed-loop output on
 // the first step is identical and the applied voltages differ by exactly kG.
-TEST(SimulateElevatorGravityFeedforward,
-     VerticalAppliesExactlyKgMoreThanHorizontal) {
+TEST_CASE(
+    "SimulateElevatorGravityFeedforward: "
+    "VerticalAppliesExactlyKgMoreThanHorizontal",
+    "[SimulateElevatorGravityFeedforward]") {
   Params vertical;
   vertical.angleRadians = M_PI / 2.0;
   DeriveConstraints(vertical);
@@ -572,27 +598,28 @@ TEST(SimulateElevatorGravityFeedforward,
 
   const auto verticalRows = ToRows(RunRaw(vertical));
   const auto horizontalRows = ToRows(RunRaw(horizontal));
-  ASSERT_FALSE(verticalRows.empty());
-  ASSERT_FALSE(horizontalRows.empty());
+  REQUIRE_FALSE(verticalRows.empty());
+  REQUIRE_FALSE(horizontalRows.empty());
 
   // sin(pi/2) == 1 and efficiency == 1, so kG reduces to kA * g.
   const double expectedKg = (1.0 / IdealPlant().B()(1, 0)) * kGravity;
 
   // Neither run may be voltage-saturated on the first step, or the difference
   // would be a clamp artifact rather than the gravity term.
-  ASSERT_LT(std::abs(verticalRows.front().motorAppliedVoltageVolts),
-            vertical.batteryVoltageVolts - 1e-6);
+  REQUIRE(std::abs(verticalRows.front().motorAppliedVoltageVolts) <
+          vertical.batteryVoltageVolts - 1e-6);
 
-  EXPECT_NEAR(verticalRows.front().motorAppliedVoltageVolts -
-                  horizontalRows.front().motorAppliedVoltageVolts,
-              expectedKg, std::abs(expectedKg) * 1e-6);
+  CHECK_THAT(verticalRows.front().motorAppliedVoltageVolts -
+                 horizontalRows.front().motorAppliedVoltageVolts,
+             WithinAbs(expectedKg, std::abs(expectedKg) * 1e-6));
 }
 
 // ============================================================================
 // SimulateElevator: decimation
 // ============================================================================
 
-TEST(SimulateElevatorDecimation, EmitsEveryNthRowPlusTheLast) {
+TEST_CASE("SimulateElevatorDecimation: EmitsEveryNthRowPlusTheLast",
+          "[SimulateElevatorDecimation]") {
   Params full;
   full.decimation = 1;
   Params decimated;
@@ -600,17 +627,17 @@ TEST(SimulateElevatorDecimation, EmitsEveryNthRowPlusTheLast) {
 
   const auto fullRows = Simulate(full);
   const auto decimatedRows = Simulate(decimated);
-  ASSERT_GT(fullRows.size(), 10u);
+  REQUIRE(fullRows.size() > 10u);
 
   const size_t n = fullRows.size();
   const size_t expected = (n - 1) / 10 + 1 + ((n - 1) % 10 == 0 ? 0 : 1);
-  EXPECT_EQ(decimatedRows.size(), expected);
+  CHECK(decimatedRows.size() == expected);
 
   // The final raw sample is always included, even off a decimation boundary.
-  EXPECT_NEAR(decimatedRows.back().timeSeconds, fullRows.back().timeSeconds,
-              1e-12);
-  EXPECT_NEAR(decimatedRows.front().timeSeconds, fullRows.front().timeSeconds,
-              1e-12);
+  CHECK_THAT(decimatedRows.back().timeSeconds,
+             WithinAbs(fullRows.back().timeSeconds, 1e-12));
+  CHECK_THAT(decimatedRows.front().timeSeconds,
+             WithinAbs(fullRows.front().timeSeconds, 1e-12));
 }
 
 // ============================================================================
@@ -625,43 +652,46 @@ namespace {
 constexpr double kCurrentLimitMargin = 1.05;
 }  // namespace
 
-TEST(SimulateElevatorCurrentLimits, StatorCurrentStaysWithinLimit) {
+TEST_CASE("SimulateElevatorCurrentLimits: StatorCurrentStaysWithinLimit",
+          "[SimulateElevatorCurrentLimits]") {
   Params p;
   p.statorLimitAmps = 40.0;
   p.supplyLimitAmps = 1000.0;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_LE(std::abs(rows[i].statorCurrentDrawAmps),
-              p.statorLimitAmps * kCurrentLimitMargin)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK(std::abs(rows[i].statorCurrentDrawAmps) <=
+          p.statorLimitAmps * kCurrentLimitMargin);
   }
 }
 
-TEST(SimulateElevatorCurrentLimits, SupplyCurrentStaysWithinLimit) {
+TEST_CASE("SimulateElevatorCurrentLimits: SupplyCurrentStaysWithinLimit",
+          "[SimulateElevatorCurrentLimits]") {
   Params p;
   p.statorLimitAmps = 1000.0;
   p.supplyLimitAmps = 30.0;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_LE(std::abs(rows[i].supplyCurrentDrawAmps),
-              p.supplyLimitAmps * kCurrentLimitMargin)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK(std::abs(rows[i].supplyCurrentDrawAmps) <=
+          p.supplyLimitAmps * kCurrentLimitMargin);
   }
 }
 
-TEST(SimulateElevatorCurrentLimits, AppliedVoltageNeverExceedsSupply) {
+TEST_CASE("SimulateElevatorCurrentLimits: AppliedVoltageNeverExceedsSupply",
+          "[SimulateElevatorCurrentLimits]") {
   Params p;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_LE(std::abs(rows[i].motorAppliedVoltageVolts),
-              p.batteryVoltageVolts + 1e-9)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK(std::abs(rows[i].motorAppliedVoltageVolts) <=
+          p.batteryVoltageVolts + 1e-9);
   }
 }
 
@@ -669,46 +699,51 @@ TEST(SimulateElevatorCurrentLimits, AppliedVoltageNeverExceedsSupply) {
 // SimulateElevator: battery model
 // ============================================================================
 
-TEST(SimulateElevatorBattery, StiffBatteryHoldsNominalVoltage) {
+TEST_CASE("SimulateElevatorBattery: StiffBatteryHoldsNominalVoltage",
+          "[SimulateElevatorBattery]") {
   Params p;
   p.batteryResistanceOhms = 0.0;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_NEAR(rows[i].batteryVoltageVolts, p.batteryVoltageVolts, 1e-9)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK_THAT(rows[i].batteryVoltageVolts,
+               WithinAbs(p.batteryVoltageVolts, 1e-9));
   }
 }
 
-TEST(SimulateElevatorBattery, RealBatterySagsUnderLoadButStaysPositive) {
+TEST_CASE("SimulateElevatorBattery: RealBatterySagsUnderLoadButStaysPositive",
+          "[SimulateElevatorBattery]") {
   Params p;
   p.batteryResistanceOhms = 0.015;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 1u);
+  REQUIRE(rows.size() > 1u);
 
   double minVoltage = p.batteryVoltageVolts;
   for (const auto& row : rows) {
     minVoltage = std::min(minVoltage, row.batteryVoltageVolts);
-    EXPECT_GT(row.batteryVoltageVolts, 0.0);
-    EXPECT_LE(row.batteryVoltageVolts, p.batteryVoltageVolts + 1e-9);
+    CHECK(row.batteryVoltageVolts > 0.0);
+    CHECK(row.batteryVoltageVolts <= p.batteryVoltageVolts + 1e-9);
   }
-  EXPECT_LT(minVoltage, p.batteryVoltageVolts);
+  CHECK(minVoltage < p.batteryVoltageVolts);
 }
 
 // The single-pole IIR filter is seeded at the nominal voltage, so the first
 // sample must still be close to nominal even though the load is already
 // applied. Without the filter reset the first sample would jump straight to the
 // loaded voltage.
-TEST(SimulateElevatorBattery, FilterIsSeededAtNominalVoltage) {
+TEST_CASE("SimulateElevatorBattery: FilterIsSeededAtNominalVoltage",
+          "[SimulateElevatorBattery]") {
   Params p;
   p.batteryResistanceOhms = 0.015;
   p.batteryVoltageFilterTimeConstantSeconds = 0.1;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 1u);
+  REQUIRE(rows.size() > 1u);
 
-  EXPECT_NEAR(rows.front().batteryVoltageVolts, p.batteryVoltageVolts, 0.5);
-  EXPECT_LT(rows.back().batteryVoltageVolts, rows.front().batteryVoltageVolts);
+  CHECK_THAT(rows.front().batteryVoltageVolts,
+             WithinAbs(p.batteryVoltageVolts, 0.5));
+  CHECK(rows.back().batteryVoltageVolts < rows.front().batteryVoltageVolts);
 }
 
 // ============================================================================
@@ -720,34 +755,36 @@ TEST(SimulateElevatorBattery, FilterIsSeededAtNominalVoltage) {
 // increment is an exact identity rather than an approximation. This pins the
 // accumulator to the supply side (not the stator side) and to the correct
 // timestep.
-TEST(SimulateElevatorEnergy, IsTheCumulativeIntegralOfSupplyPower) {
+TEST_CASE("SimulateElevatorEnergy: IsTheCumulativeIntegralOfSupplyPower",
+          "[SimulateElevatorEnergy]") {
   Params p;
   p.batteryResistanceOhms = 0.0;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 1u);
+  REQUIRE(rows.size() > 1u);
 
   const double firstExpected = rows.front().supplyCurrentDrawAmps *
                                p.batteryVoltageVolts * p.simTimestep;
-  EXPECT_NEAR(rows.front().energyJoules, firstExpected,
-              std::abs(firstExpected) * 1e-9);
+  CHECK_THAT(rows.front().energyJoules,
+             WithinAbs(firstExpected, std::abs(firstExpected) * 1e-9));
 
   for (size_t i = 1; i < rows.size(); ++i) {
+    INFO("at row " << i);
     const double expected =
         rows[i].supplyCurrentDrawAmps * p.batteryVoltageVolts * p.simTimestep;
-    EXPECT_NEAR(rows[i].energyJoules - rows[i - 1].energyJoules, expected,
-                std::abs(expected) * 1e-9 + 1e-12)
-        << "at row " << i;
+    CHECK_THAT(rows[i].energyJoules - rows[i - 1].energyJoules,
+               WithinAbs(expected, std::abs(expected) * 1e-9 + 1e-12));
   }
 }
 
-TEST(SimulateElevatorEnergy, NetEnergyIsPositiveWhenLifting) {
+TEST_CASE("SimulateElevatorEnergy: NetEnergyIsPositiveWhenLifting",
+          "[SimulateElevatorEnergy]") {
   Params p;
   p.angleRadians = M_PI / 2.0;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
-  EXPECT_GT(rows.back().energyJoules, 0.0);
+  CHECK(rows.back().energyJoules > 0.0);
 }
 
 // While decelerating, back-EMF exceeds the applied voltage and the motor pushes
@@ -756,20 +793,22 @@ TEST(SimulateElevatorEnergy, NetEnergyIsPositiveWhenLifting) {
 // than counted as consumption. This is the whole-simulation counterpart to the
 // SupplyCurrent.Regen_NegativeStator_YieldsNegativeSupply case in
 // sim_util_test.cc.
-TEST(SimulateElevatorEnergy, RegenerationCreditsEnergyBack) {
+TEST_CASE("SimulateElevatorEnergy: RegenerationCreditsEnergyBack",
+          "[SimulateElevatorEnergy]") {
   Params p;
   p.angleRadians = M_PI / 2.0;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 1u);
+  REQUIRE(rows.size() > 1u);
 
   bool sawRegen = false;
   for (size_t i = 1; i < rows.size(); ++i) {
     if (rows[i].supplyCurrentDrawAmps < 0.0) {
+      INFO("at row " << i);
       sawRegen = true;
-      EXPECT_LT(rows[i].energyJoules, rows[i - 1].energyJoules)
-          << "at row " << i;
+      CHECK(rows[i].energyJoules < rows[i - 1].energyJoules);
     }
   }
-  EXPECT_TRUE(sawRegen) << "expected a regenerative phase while decelerating";
+  INFO("expected a regenerative phase while decelerating");
+  CHECK(sawRegen);
 }

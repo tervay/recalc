@@ -1,25 +1,17 @@
 #include "flywheel_sim.h"
 
-#include <gtest/gtest.h>
-
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <cmath>
 #include <vector>
 
 #include "dc_motor.h"
-#include "hal_init.h"
 #include "wpi/math/system/DCMotor.hpp"
 #include "wpi/math/system/Models.hpp"
 
+using Catch::Matchers::WithinAbs;
+
 namespace {
-
-// FlywheelSim::SetInputVoltage and RoboRioSim both touch SimRoboRioData
-// without lazy-init. Initialize once for the whole suite (see hal_init.h).
-struct HalInitEnvironment : ::testing::Environment {
-  void SetUp() override { EnsureHalInitialized(); }
-};
-
-const ::testing::Environment* const kHalInitEnvironment =
-    ::testing::AddGlobalTestEnvironment(new HalInitEnvironment);
 
 // A 1x KrakenX60 on a 1.5:1 reduction spinning a 0.003 kg-m^2 wheel. The
 // reduction is deliberately not 1.0 so the gearing factor in the reported
@@ -142,9 +134,10 @@ double SteadyStateVelocity(double efficiency, double voltage) {
 // RoboRio sim data is usable after EnsureHalInitialized (see hal_init.h).
 // Production SimulateFlywheel calls the same helper. Without it, SetVInVoltage
 // writes through a null SimRoboRioData into the Wasm null page.
-TEST(FlywheelSimHarness, RoboRioVoltageIsReadableAfterHalInit) {
+TEST_CASE("FlywheelSimHarness: RoboRioVoltageIsReadableAfterHalInit",
+          "[FlywheelSimHarness]") {
   wpi::sim::RoboRioSim::SetVInVoltage(wpi::units::volt_t{12.0});
-  EXPECT_NEAR(wpi::RobotController::GetInputVoltage(), 12.0, 1e-9);
+  CHECK_THAT(wpi::RobotController::GetInputVoltage(), WithinAbs(12.0, 1e-9));
 }
 
 // ============================================================================
@@ -159,24 +152,27 @@ TEST(FlywheelSimHarness, RoboRioVoltageIsReadableAfterHalInit) {
 // pins BOTH halves of the contract: efficiency multiplies B, and A is left
 // alone. If efficiency were also applied to A it would cancel out here and the
 // measured steady state would be the full-efficiency value.
-TEST(EfficiencyFlywheel, SteadyStateMatchesEfficiencyScaledBOverA) {
+TEST_CASE("EfficiencyFlywheel: SteadyStateMatchesEfficiencyScaledBOverA",
+          "[EfficiencyFlywheel]") {
   const double efficiency = 0.5;
   const double voltage = 6.0;
   const auto plant = IdealPlant();
   const double expected =
       -efficiency * plant.B()(0, 0) * voltage / plant.A()(0, 0);
 
-  EXPECT_NEAR(SteadyStateVelocity(efficiency, voltage), expected,
-              std::abs(expected) * 1e-6);
+  CHECK_THAT(SteadyStateVelocity(efficiency, voltage),
+             WithinAbs(expected, std::abs(expected) * 1e-6));
 }
 
-TEST(EfficiencyFlywheel, HalvingEfficiencyHalvesSteadyStateVelocity) {
+TEST_CASE("EfficiencyFlywheel: HalvingEfficiencyHalvesSteadyStateVelocity",
+          "[EfficiencyFlywheel]") {
   const double full = SteadyStateVelocity(1.0, 6.0);
-  ASSERT_GT(full, 0.0);
-  EXPECT_NEAR(SteadyStateVelocity(0.5, 6.0) / full, 0.5, 1e-6);
+  REQUIRE(full > 0.0);
+  CHECK_THAT(SteadyStateVelocity(0.5, 6.0) / full, WithinAbs(0.5, 1e-6));
 }
 
-TEST(EfficiencyFlywheel, LowerEfficiencyReducesInitialAcceleration) {
+TEST_CASE("EfficiencyFlywheel: LowerEfficiencyReducesInitialAcceleration",
+          "[EfficiencyFlywheel]") {
   // From rest the back-EMF term is zero, so the first step isolates the motor
   // torque: v(dt) is proportional to efficiency.
   const double dt = 1e-4;
@@ -190,15 +186,16 @@ TEST(EfficiencyFlywheel, LowerEfficiencyReducesInitialAcceleration) {
   full.Update(wpi::units::second_t(dt));
   half.Update(wpi::units::second_t(dt));
 
-  EXPECT_NEAR(half.GetAngularVelocity().to<double>() /
-                  full.GetAngularVelocity().to<double>(),
-              0.5, 1e-6);
+  CHECK_THAT(half.GetAngularVelocity().to<double>() /
+                 full.GetAngularVelocity().to<double>(),
+             WithinAbs(0.5, 1e-6));
 }
 
 // The direct statement that the A matrix is untouched. Coasting at zero input
 // removes the B term entirely, so the decay over one step must be exp(A00*dt)
 // regardless of the efficiency the sim was built with.
-TEST(EfficiencyFlywheel, EfficiencyDoesNotChangeTheBackEmfDecay) {
+TEST_CASE("EfficiencyFlywheel: EfficiencyDoesNotChangeTheBackEmfDecay",
+          "[EfficiencyFlywheel]") {
   const double dt = 1e-3;
   ResetSupplyVoltage();
   EfficiencyFlywheelSim sim(TestMotor(), kGearing,
@@ -208,13 +205,13 @@ TEST(EfficiencyFlywheel, EfficiencyDoesNotChangeTheBackEmfDecay) {
     sim.Update(wpi::units::second_t(1e-3));
   }
   const double before = sim.GetAngularVelocity().to<double>();
-  ASSERT_GT(before, 0.0);
+  REQUIRE(before > 0.0);
 
   sim.SetInputVoltage(wpi::units::volt_t(0.0));
   sim.Update(wpi::units::second_t(dt));
 
-  EXPECT_NEAR(sim.GetAngularVelocity().to<double>() / before,
-              std::exp(IdealPlant().A()(0, 0) * dt), 1e-9);
+  CHECK_THAT(sim.GetAngularVelocity().to<double>() / before,
+             WithinAbs(std::exp(IdealPlant().A()(0, 0) * dt), 1e-9));
 }
 
 // ============================================================================
@@ -227,226 +224,256 @@ TEST(EfficiencyFlywheel, EfficiencyDoesNotChangeTheBackEmfDecay) {
 // DecimateToJsArray computes `i % decimation`. Integer modulo by zero is a wasm
 // trap, not a C++ exception, so the try/catch in SimulateFlywheel cannot
 // intercept it -- an unguarded 0 would abort the whole worker.
-TEST(SimulateFlywheelGuards, ZeroDecimationReturnsEmpty) {
+TEST_CASE("SimulateFlywheelGuards: ZeroDecimationReturnsEmpty",
+          "[SimulateFlywheelGuards]") {
   Params p;
   p.decimation = 0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateFlywheelGuards, NegativeDecimationReturnsEmpty) {
+TEST_CASE("SimulateFlywheelGuards: NegativeDecimationReturnsEmpty",
+          "[SimulateFlywheelGuards]") {
   Params p;
   p.decimation = -1;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // A non-positive timestep never advances `timestamp`, so the maxSimSeconds
 // break is unreachable, and Update(0s) never moves the state, so the target is
 // never reached. That is an infinite loop, which no try/catch can recover from.
-TEST(SimulateFlywheelGuards, ZeroSimTimestepReturnsEmpty) {
+TEST_CASE("SimulateFlywheelGuards: ZeroSimTimestepReturnsEmpty",
+          "[SimulateFlywheelGuards]") {
   Params p;
   p.simTimestep = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateFlywheelGuards, NegativeSimTimestepReturnsEmpty) {
+TEST_CASE("SimulateFlywheelGuards: NegativeSimTimestepReturnsEmpty",
+          "[SimulateFlywheelGuards]") {
   Params p;
   p.simTimestep = -0.001;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateFlywheelGuards, ZeroMaxSimSecondsReturnsEmpty) {
+TEST_CASE("SimulateFlywheelGuards: ZeroMaxSimSecondsReturnsEmpty",
+          "[SimulateFlywheelGuards]") {
   Params p;
   p.maxSimSeconds = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateFlywheelGuards, NegativeMaxSimSecondsReturnsEmpty) {
+TEST_CASE("SimulateFlywheelGuards: NegativeMaxSimSecondsReturnsEmpty",
+          "[SimulateFlywheelGuards]") {
   Params p;
   p.maxSimSeconds = -1.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // Models::FlywheelFromPhysicalConstants throws std::domain_error for a
 // non-positive gearing. Guarding avoids console spam from the optimizer grid.
-TEST(SimulateFlywheelGuards, ZeroGearingReturnsEmpty) {
+TEST_CASE("SimulateFlywheelGuards: ZeroGearingReturnsEmpty",
+          "[SimulateFlywheelGuards]") {
   Params p;
   p.gearing = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateFlywheelGuards, NegativeGearingReturnsEmpty) {
+TEST_CASE("SimulateFlywheelGuards: NegativeGearingReturnsEmpty",
+          "[SimulateFlywheelGuards]") {
   Params p;
   p.gearing = -2.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // Same factory throws "J must be greater than zero."
-TEST(SimulateFlywheelGuards, ZeroMomentOfInertiaReturnsEmpty) {
+TEST_CASE("SimulateFlywheelGuards: ZeroMomentOfInertiaReturnsEmpty",
+          "[SimulateFlywheelGuards]") {
   Params p;
   p.moiKgMSquared = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateFlywheelGuards, NegativeMomentOfInertiaReturnsEmpty) {
+TEST_CASE("SimulateFlywheelGuards: NegativeMomentOfInertiaReturnsEmpty",
+          "[SimulateFlywheelGuards]") {
   Params p;
   p.moiKgMSquared = -0.001;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // A zero-efficiency mechanism is physically inert: the (efficiency - 1) * B * u
 // correction exactly cancels the motor torque, so the flywheel would otherwise
 // spin for the full maxSimSeconds producing a flat, useless trace.
-TEST(SimulateFlywheelGuards, ZeroEfficiencyReturnsEmpty) {
+TEST_CASE("SimulateFlywheelGuards: ZeroEfficiencyReturnsEmpty",
+          "[SimulateFlywheelGuards]") {
   Params p;
   p.efficiency = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateFlywheelGuards, NegativeEfficiencyReturnsEmpty) {
+TEST_CASE("SimulateFlywheelGuards: NegativeEfficiencyReturnsEmpty",
+          "[SimulateFlywheelGuards]") {
   Params p;
   p.efficiency = -0.5;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // ClampVoltageForCurrentLimits ends with std::clamp(x, -vSupply, vSupply).
 // A negative supply voltage makes that lo > hi, which is undefined behavior.
-TEST(SimulateFlywheelGuards, ZeroBatteryVoltageReturnsEmpty) {
+TEST_CASE("SimulateFlywheelGuards: ZeroBatteryVoltageReturnsEmpty",
+          "[SimulateFlywheelGuards]") {
   Params p;
   p.batteryVoltageVolts = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateFlywheelGuards, NegativeBatteryVoltageReturnsEmpty) {
+TEST_CASE("SimulateFlywheelGuards: NegativeBatteryVoltageReturnsEmpty",
+          "[SimulateFlywheelGuards]") {
   Params p;
   p.batteryVoltageVolts = -12.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // A non-positive target needs no guard: the `while (velocity < target)` loop
 // exits before the first iteration. Pinned so nobody adds a redundant check.
-TEST(SimulateFlywheelGuards, ZeroTargetReturnsEmptyWithoutAGuard) {
+TEST_CASE("SimulateFlywheelGuards: ZeroTargetReturnsEmptyWithoutAGuard",
+          "[SimulateFlywheelGuards]") {
   Params p;
   p.targetAngularVelocityRadPerSec = 0.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateFlywheelGuards, NegativeTargetReturnsEmptyWithoutAGuard) {
+TEST_CASE("SimulateFlywheelGuards: NegativeTargetReturnsEmptyWithoutAGuard",
+          "[SimulateFlywheelGuards]") {
   Params p;
   p.targetAngularVelocityRadPerSec = -50.0;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // The public entry point must convert numerical failures into an empty array
 // rather than letting an exception escape and abort the worker. This config
 // passes every guard, keeping the try/catch path reachable.
-TEST(SimulateFlywheelGuards, HostileButValidInputDoesNotThrow) {
+TEST_CASE("SimulateFlywheelGuards: HostileButValidInputDoesNotThrow",
+          "[SimulateFlywheelGuards]") {
   Params p;
   p.efficiency = 1e-12;
   p.maxSimSeconds = 0.05;
   emscripten::val result = emscripten::val::undefined();
-  EXPECT_NO_THROW({ result = RunRaw(p); });
-  EXPECT_GT(Length(result), 0);
+  CHECK_NOTHROW(result = RunRaw(p));
+  CHECK(Length(result) > 0);
 }
 
 // ============================================================================
 // SimulateFlywheel: nominal trajectory
 // ============================================================================
 
-TEST(SimulateFlywheelTrajectory, ReachesTargetAndReportsSuccess) {
+TEST_CASE("SimulateFlywheelTrajectory: ReachesTargetAndReportsSuccess",
+          "[SimulateFlywheelTrajectory]") {
   const auto rows = Simulate(Params{});
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
-  EXPECT_GE(rows.back().angularVelocityRadPerSec, kTargetRadPerSec);
-  EXPECT_TRUE(rows.back().success);
+  CHECK(rows.back().angularVelocityRadPerSec >= kTargetRadPerSec);
+  CHECK(rows.back().success);
 }
 
-TEST(SimulateFlywheelTrajectory, SpinUpIsMonotonic) {
+TEST_CASE("SimulateFlywheelTrajectory: SpinUpIsMonotonic",
+          "[SimulateFlywheelTrajectory]") {
   const auto rows = Simulate(Params{});
-  ASSERT_GT(rows.size(), 2u);
+  REQUIRE(rows.size() > 2u);
 
   for (size_t i = 1; i < rows.size(); ++i) {
-    EXPECT_GT(rows[i].angularVelocityRadPerSec,
-              rows[i - 1].angularVelocityRadPerSec)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK(rows[i].angularVelocityRadPerSec >
+          rows[i - 1].angularVelocityRadPerSec);
   }
 }
 
 // The loop condition is evaluated BEFORE the first step, and SetState updates
 // the output vector GetAngularVelocity reads. A flywheel already at or above
 // its target therefore produces no rows at all.
-TEST(SimulateFlywheelTrajectory, InitialVelocityAtTargetYieldsEmptyArray) {
+TEST_CASE("SimulateFlywheelTrajectory: InitialVelocityAtTargetYieldsEmptyArray",
+          "[SimulateFlywheelTrajectory]") {
   Params p;
   p.initialAngularVelocityRadPerSec = kTargetRadPerSec;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
-TEST(SimulateFlywheelTrajectory, InitialVelocityAboveTargetYieldsEmptyArray) {
+TEST_CASE(
+    "SimulateFlywheelTrajectory: InitialVelocityAboveTargetYieldsEmptyArray",
+    "[SimulateFlywheelTrajectory]") {
   Params p;
   p.initialAngularVelocityRadPerSec = kTargetRadPerSec * 1.1;
-  EXPECT_EQ(Length(RunRaw(p)), 0);
+  CHECK(Length(RunRaw(p)) == 0);
 }
 
 // A non-zero initial velocity seeds the plant state, so the very first recorded
 // row is already spinning faster than the seed rather than starting from rest.
-TEST(SimulateFlywheelTrajectory, InitialVelocitySeedsTheState) {
+TEST_CASE("SimulateFlywheelTrajectory: InitialVelocitySeedsTheState",
+          "[SimulateFlywheelTrajectory]") {
   Params p;
   p.initialAngularVelocityRadPerSec = kTargetRadPerSec / 2.0;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
-  EXPECT_GT(rows.front().angularVelocityRadPerSec,
-            p.initialAngularVelocityRadPerSec);
+  CHECK(rows.front().angularVelocityRadPerSec >
+        p.initialAngularVelocityRadPerSec);
   // A single 0.5 ms step cannot move the wheel far, so the first row must still
   // sit next to the seed rather than near zero (unseeded) or near the target.
-  EXPECT_LT(rows.front().angularVelocityRadPerSec,
-            p.initialAngularVelocityRadPerSec * 1.05);
+  CHECK(rows.front().angularVelocityRadPerSec <
+        p.initialAngularVelocityRadPerSec * 1.05);
 }
 
 // success is only meaningful on the final element -- it is the one the
 // simulation overwrites after the loop. Every earlier row keeps the `true` it
 // was constructed with.
-TEST(SimulateFlywheelTrajectory, TruncatedRunReportsFailureOnTheLastRowOnly) {
+TEST_CASE(
+    "SimulateFlywheelTrajectory: TruncatedRunReportsFailureOnTheLastRowOnly",
+    "[SimulateFlywheelTrajectory]") {
   Params p;
   p.maxSimSeconds = 0.01;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 1u);
+  REQUIRE(rows.size() > 1u);
 
-  EXPECT_LT(rows.back().angularVelocityRadPerSec, kTargetRadPerSec);
-  EXPECT_FALSE(rows.back().success);
+  CHECK(rows.back().angularVelocityRadPerSec < kTargetRadPerSec);
+  CHECK_FALSE(rows.back().success);
   for (size_t i = 0; i + 1 < rows.size(); ++i) {
-    EXPECT_TRUE(rows[i].success) << "at row " << i;
+    INFO("at row " << i);
+    CHECK(rows[i].success);
   }
 }
 
-TEST(SimulateFlywheelTrajectory, StopsAtMaxSimSeconds) {
+TEST_CASE("SimulateFlywheelTrajectory: StopsAtMaxSimSeconds",
+          "[SimulateFlywheelTrajectory]") {
   Params p;
   p.maxSimSeconds = 0.01;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
-  EXPECT_LE(rows.back().timeSeconds, p.maxSimSeconds + p.simTimestep);
+  CHECK(rows.back().timeSeconds <= p.maxSimSeconds + p.simTimestep);
 }
 
-TEST(SimulateFlywheelTrajectory, TimeAdvancesByOneTimestepPerRow) {
+TEST_CASE("SimulateFlywheelTrajectory: TimeAdvancesByOneTimestepPerRow",
+          "[SimulateFlywheelTrajectory]") {
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 2u);
+  REQUIRE(rows.size() > 2u);
 
-  EXPECT_NEAR(rows[0].timeSeconds, p.simTimestep, 1e-12);
+  CHECK_THAT(rows[0].timeSeconds, WithinAbs(p.simTimestep, 1e-12));
   for (size_t i = 1; i < rows.size(); ++i) {
-    EXPECT_NEAR(rows[i].timeSeconds - rows[i - 1].timeSeconds, p.simTimestep,
-                1e-9)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK_THAT(rows[i].timeSeconds - rows[i - 1].timeSeconds,
+               WithinAbs(p.simTimestep, 1e-9));
   }
 }
 
-TEST(SimulateFlywheelTrajectory, AppliedVoltageIsPositiveThroughout) {
+TEST_CASE("SimulateFlywheelTrajectory: AppliedVoltageIsPositiveThroughout",
+          "[SimulateFlywheelTrajectory]") {
   const auto rows = Simulate(Params{});
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_GT(rows[i].motorAppliedVoltageVolts, 0.0) << "at row " << i;
+    INFO("at row " << i);
+    CHECK(rows[i].motorAppliedVoltageVolts > 0.0);
   }
 }
 
@@ -460,43 +487,50 @@ TEST(SimulateFlywheelTrajectory, AppliedVoltageIsPositiveThroughout) {
 // correct -- that clamp must act on the state at the start of the step.)
 // ============================================================================
 
-TEST(SimulateFlywheelCoherence, MotorRpmMatchesVelocityInTheSameRow) {
+TEST_CASE("SimulateFlywheelCoherence: MotorRpmMatchesVelocityInTheSameRow",
+          "[SimulateFlywheelCoherence]") {
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 2u);
+  REQUIRE(rows.size() > 2u);
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_NEAR(rows[i].motorRpm,
-                ToMotorRpm(rows[i].angularVelocityRadPerSec, p.gearing), 1e-9)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK_THAT(
+        rows[i].motorRpm,
+        WithinAbs(ToMotorRpm(rows[i].angularVelocityRadPerSec, p.gearing),
+                  1e-9));
   }
 }
 
 // The first row is recorded after a step has already been integrated, so the
 // flywheel is turning and the reported RPM must be non-zero.
-TEST(SimulateFlywheelCoherence, FirstRowReportsNonZeroRpm) {
+TEST_CASE("SimulateFlywheelCoherence: FirstRowReportsNonZeroRpm",
+          "[SimulateFlywheelCoherence]") {
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
-  EXPECT_GT(rows.front().angularVelocityRadPerSec, 0.0);
-  EXPECT_GT(rows.front().motorRpm, 0.0);
+  CHECK(rows.front().angularVelocityRadPerSec > 0.0);
+  CHECK(rows.front().motorRpm > 0.0);
 }
 
 // Decimation must not break the identity: it selects whole rows, so each
 // surviving row stays internally consistent.
-TEST(SimulateFlywheelCoherence, MotorRpmStaysConsistentUnderDecimation) {
+TEST_CASE("SimulateFlywheelCoherence: MotorRpmStaysConsistentUnderDecimation",
+          "[SimulateFlywheelCoherence]") {
   Params p;
   p.decimation = 10;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 2u);
+  REQUIRE(rows.size() > 2u);
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_NEAR(rows[i].motorRpm,
-                ToMotorRpm(rows[i].angularVelocityRadPerSec, p.gearing), 1e-9)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK_THAT(
+        rows[i].motorRpm,
+        WithinAbs(ToMotorRpm(rows[i].angularVelocityRadPerSec, p.gearing),
+                  1e-9));
   }
 }
 
@@ -504,7 +538,8 @@ TEST(SimulateFlywheelCoherence, MotorRpmStaysConsistentUnderDecimation) {
 // SimulateFlywheel: decimation
 // ============================================================================
 
-TEST(SimulateFlywheelDecimation, EmitsEveryNthRowPlusTheLast) {
+TEST_CASE("SimulateFlywheelDecimation: EmitsEveryNthRowPlusTheLast",
+          "[SimulateFlywheelDecimation]") {
   Params full;
   full.decimation = 1;
   Params decimated;
@@ -512,17 +547,17 @@ TEST(SimulateFlywheelDecimation, EmitsEveryNthRowPlusTheLast) {
 
   const auto fullRows = Simulate(full);
   const auto decimatedRows = Simulate(decimated);
-  ASSERT_GT(fullRows.size(), 10u);
+  REQUIRE(fullRows.size() > 10u);
 
   const size_t n = fullRows.size();
   const size_t expected = (n - 1) / 10 + 1 + ((n - 1) % 10 == 0 ? 0 : 1);
-  EXPECT_EQ(decimatedRows.size(), expected);
+  CHECK(decimatedRows.size() == expected);
 
   // The final raw sample is always included, even off a decimation boundary.
-  EXPECT_NEAR(decimatedRows.back().timeSeconds, fullRows.back().timeSeconds,
-              1e-12);
-  EXPECT_NEAR(decimatedRows.front().timeSeconds, fullRows.front().timeSeconds,
-              1e-12);
+  CHECK_THAT(decimatedRows.back().timeSeconds,
+             WithinAbs(fullRows.back().timeSeconds, 1e-12));
+  CHECK_THAT(decimatedRows.front().timeSeconds,
+             WithinAbs(fullRows.front().timeSeconds, 1e-12));
 }
 
 // ============================================================================
@@ -537,108 +572,117 @@ namespace {
 constexpr double kCurrentLimitMargin = 1.05;
 }  // namespace
 
-TEST(SimulateFlywheelCurrentLimits, StatorCurrentStaysWithinLimit) {
+TEST_CASE("SimulateFlywheelCurrentLimits: StatorCurrentStaysWithinLimit",
+          "[SimulateFlywheelCurrentLimits]") {
   Params p;
   p.statorLimitAmps = 40.0;
   p.supplyLimitAmps = 1000.0;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_LE(std::abs(rows[i].statorCurrentDrawAmps),
-              p.statorLimitAmps * kCurrentLimitMargin)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK(std::abs(rows[i].statorCurrentDrawAmps) <=
+          p.statorLimitAmps * kCurrentLimitMargin);
   }
 }
 
-TEST(SimulateFlywheelCurrentLimits, SupplyCurrentStaysWithinLimit) {
+TEST_CASE("SimulateFlywheelCurrentLimits: SupplyCurrentStaysWithinLimit",
+          "[SimulateFlywheelCurrentLimits]") {
   Params p;
   p.statorLimitAmps = 1000.0;
   p.supplyLimitAmps = 30.0;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_LE(std::abs(rows[i].supplyCurrentDrawAmps),
-              p.supplyLimitAmps * kCurrentLimitMargin)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK(std::abs(rows[i].supplyCurrentDrawAmps) <=
+          p.supplyLimitAmps * kCurrentLimitMargin);
   }
 }
 
-TEST(SimulateFlywheelCurrentLimits, AppliedVoltageNeverExceedsSupply) {
+TEST_CASE("SimulateFlywheelCurrentLimits: AppliedVoltageNeverExceedsSupply",
+          "[SimulateFlywheelCurrentLimits]") {
   Params p;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_LE(std::abs(rows[i].motorAppliedVoltageVolts),
-              p.batteryVoltageVolts + 1e-9)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK(std::abs(rows[i].motorAppliedVoltageVolts) <=
+          p.batteryVoltageVolts + 1e-9);
   }
 }
 
 // A tighter stator limit caps the available torque, so the same flywheel must
 // take strictly longer to reach the same target.
-TEST(SimulateFlywheelCurrentLimits, TighterStatorLimitSlowsSpinUp) {
+TEST_CASE("SimulateFlywheelCurrentLimits: TighterStatorLimitSlowsSpinUp",
+          "[SimulateFlywheelCurrentLimits]") {
   Params loose;
   Params tight;
   tight.statorLimitAmps = 20.0;
 
   const auto looseRows = Simulate(loose);
   const auto tightRows = Simulate(tight);
-  ASSERT_FALSE(looseRows.empty());
-  ASSERT_FALSE(tightRows.empty());
-  ASSERT_TRUE(tightRows.back().success);
+  REQUIRE_FALSE(looseRows.empty());
+  REQUIRE_FALSE(tightRows.empty());
+  REQUIRE(tightRows.back().success);
 
-  EXPECT_GT(tightRows.back().timeSeconds, looseRows.back().timeSeconds);
+  CHECK(tightRows.back().timeSeconds > looseRows.back().timeSeconds);
 }
 
 // ============================================================================
 // SimulateFlywheel: battery model
 // ============================================================================
 
-TEST(SimulateFlywheelBattery, StiffBatteryHoldsNominalVoltage) {
+TEST_CASE("SimulateFlywheelBattery: StiffBatteryHoldsNominalVoltage",
+          "[SimulateFlywheelBattery]") {
   Params p;
   p.batteryResistanceOhms = 0.0;
   const auto rows = Simulate(p);
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
   for (size_t i = 0; i < rows.size(); ++i) {
-    EXPECT_NEAR(rows[i].batteryVoltageVolts, p.batteryVoltageVolts, 1e-9)
-        << "at row " << i;
+    INFO("at row " << i);
+    CHECK_THAT(rows[i].batteryVoltageVolts,
+               WithinAbs(p.batteryVoltageVolts, 1e-9));
   }
 }
 
-TEST(SimulateFlywheelBattery, RealBatterySagsUnderLoadButStaysPositive) {
+TEST_CASE("SimulateFlywheelBattery: RealBatterySagsUnderLoadButStaysPositive",
+          "[SimulateFlywheelBattery]") {
   Params p;
   p.batteryResistanceOhms = 0.015;
   p.statorLimitAmps = 60.0;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 1u);
+  REQUIRE(rows.size() > 1u);
 
   double minVoltage = p.batteryVoltageVolts;
   for (const auto& row : rows) {
     minVoltage = std::min(minVoltage, row.batteryVoltageVolts);
-    EXPECT_GT(row.batteryVoltageVolts, 0.0);
-    EXPECT_LE(row.batteryVoltageVolts, p.batteryVoltageVolts + 1e-9);
+    CHECK(row.batteryVoltageVolts > 0.0);
+    CHECK(row.batteryVoltageVolts <= p.batteryVoltageVolts + 1e-9);
   }
-  EXPECT_LT(minVoltage, p.batteryVoltageVolts);
+  CHECK(minVoltage < p.batteryVoltageVolts);
 }
 
 // The single-pole IIR filter is seeded at the nominal voltage, so the first
 // sample must still be close to nominal even though the load is already
 // applied. Without the filter reset the first sample would jump straight to the
 // loaded voltage.
-TEST(SimulateFlywheelBattery, FilterIsSeededAtNominalVoltage) {
+TEST_CASE("SimulateFlywheelBattery: FilterIsSeededAtNominalVoltage",
+          "[SimulateFlywheelBattery]") {
   Params p;
   p.batteryResistanceOhms = 0.015;
   p.statorLimitAmps = 60.0;
   p.batteryVoltageFilterTimeConstantSeconds = 0.1;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 1u);
+  REQUIRE(rows.size() > 1u);
 
-  EXPECT_NEAR(rows.front().batteryVoltageVolts, p.batteryVoltageVolts, 0.5);
-  EXPECT_LT(rows.back().batteryVoltageVolts, rows.front().batteryVoltageVolts);
+  CHECK_THAT(rows.front().batteryVoltageVolts,
+             WithinAbs(p.batteryVoltageVolts, 0.5));
+  CHECK(rows.back().batteryVoltageVolts < rows.front().batteryVoltageVolts);
 }
 
 // ============================================================================
@@ -650,45 +694,49 @@ TEST(SimulateFlywheelBattery, FilterIsSeededAtNominalVoltage) {
 // increment is an exact identity rather than an approximation. This pins the
 // accumulator to the supply side (not the stator side) and to the correct
 // timestep.
-TEST(SimulateFlywheelEnergy, IsTheCumulativeIntegralOfSupplyPower) {
+TEST_CASE("SimulateFlywheelEnergy: IsTheCumulativeIntegralOfSupplyPower",
+          "[SimulateFlywheelEnergy]") {
   Params p;
   p.batteryResistanceOhms = 0.0;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 1u);
+  REQUIRE(rows.size() > 1u);
 
   const double firstExpected = rows.front().supplyCurrentDrawAmps *
                                p.batteryVoltageVolts * p.simTimestep;
-  EXPECT_NEAR(rows.front().energyJoules, firstExpected,
-              std::abs(firstExpected) * 1e-9);
+  CHECK_THAT(rows.front().energyJoules,
+             WithinAbs(firstExpected, std::abs(firstExpected) * 1e-9));
 
   for (size_t i = 1; i < rows.size(); ++i) {
+    INFO("at row " << i);
     const double expected =
         rows[i].supplyCurrentDrawAmps * p.batteryVoltageVolts * p.simTimestep;
-    EXPECT_NEAR(rows[i].energyJoules - rows[i - 1].energyJoules, expected,
-                std::abs(expected) * 1e-9 + 1e-12)
-        << "at row " << i;
+    CHECK_THAT(rows[i].energyJoules - rows[i - 1].energyJoules,
+               WithinAbs(expected, std::abs(expected) * 1e-9 + 1e-12));
   }
 }
 
-TEST(SimulateFlywheelEnergy, NetEnergyIsPositiveDuringSpinUp) {
+TEST_CASE("SimulateFlywheelEnergy: NetEnergyIsPositiveDuringSpinUp",
+          "[SimulateFlywheelEnergy]") {
   const auto rows = Simulate(Params{});
-  ASSERT_FALSE(rows.empty());
+  REQUIRE_FALSE(rows.empty());
 
-  EXPECT_GT(rows.back().energyJoules, 0.0);
+  CHECK(rows.back().energyJoules > 0.0);
 }
 
 // A flywheel spin-up never decelerates, so it never regenerates. Energy must
 // increase on every step -- the counterpoint to the elevator suite's
 // RegenerationCreditsEnergyBack case.
-TEST(SimulateFlywheelEnergy, EnergyIsMonotonicWhenNeverRegenerating) {
+TEST_CASE("SimulateFlywheelEnergy: EnergyIsMonotonicWhenNeverRegenerating",
+          "[SimulateFlywheelEnergy]") {
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  ASSERT_GT(rows.size(), 1u);
+  REQUIRE(rows.size() > 1u);
 
   for (size_t i = 1; i < rows.size(); ++i) {
-    EXPECT_GE(rows[i].energyJoules, rows[i - 1].energyJoules) << "at row " << i;
-    EXPECT_GT(rows[i].supplyCurrentDrawAmps, 0.0) << "at row " << i;
+    INFO("at row " << i);
+    CHECK(rows[i].energyJoules >= rows[i - 1].energyJoules);
+    CHECK(rows[i].supplyCurrentDrawAmps > 0.0);
   }
 }
