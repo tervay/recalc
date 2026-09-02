@@ -16,6 +16,8 @@
 #include "wpi/simulation/RoboRioSim.hpp"
 #include "wpi/system/RobotController.hpp"
 
+EMSCRIPTEN_DECLARE_VAL_TYPE(MotorCurveRows);
+
 // One point on a motor's characteristic curve.
 struct MotorCurveSimStateInternal {
   double angularVelocityRadPerSec;
@@ -118,29 +120,29 @@ inline emscripten::val SimulateMotorCurveImpl(
 }
 
 // Numerical exceptions return an empty array rather than aborting the worker.
-inline emscripten::val SimulateMotorCurve(
+inline MotorCurveRows SimulateMotorCurve(
     DCMotorWasm* motor, double momentOfInertiaKgMSquared,
     double statorLimitAmps, double supplyLimitAmps, double statorVoltageVolts,
     double supplyVoltageVolts, double simTimestep, int decimation,
     int maxIterations) {
   try {
-    return SimulateMotorCurveImpl(motor, momentOfInertiaKgMSquared,
-                                  statorLimitAmps, supplyLimitAmps,
-                                  statorVoltageVolts, supplyVoltageVolts,
-                                  simTimestep, decimation, maxIterations);
+    return MotorCurveRows(SimulateMotorCurveImpl(
+        motor, momentOfInertiaKgMSquared, statorLimitAmps, supplyLimitAmps,
+        statorVoltageVolts, supplyVoltageVolts, simTimestep, decimation,
+        maxIterations));
   } catch (const std::exception& e) {
     ConsoleWarn(
         "SimulateMotorCurve: {} (moi={} statorA={} supplyA={} statorV={} "
         "supplyV={})",
         e.what(), momentOfInertiaKgMSquared, statorLimitAmps, supplyLimitAmps,
         statorVoltageVolts, supplyVoltageVolts);
-    return emscripten::val::array();
+    return MotorCurveRows(emscripten::val::array());
   } catch (...) {
     ConsoleWarn(
         "SimulateMotorCurve: unknown exception (moi={} statorA={} supplyA={} "
         "statorV={} supplyV={})",
         momentOfInertiaKgMSquared, statorLimitAmps, supplyLimitAmps,
         statorVoltageVolts, supplyVoltageVolts);
-    return emscripten::val::array();
+    return MotorCurveRows(emscripten::val::array());
   }
 }

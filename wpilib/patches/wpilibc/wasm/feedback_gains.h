@@ -31,6 +31,8 @@ struct FeedbackGains {
   double kD;
 };
 
+EMSCRIPTEN_DECLARE_VAL_TYPE(FeedbackGainsVal);
+
 // ============================================================================
 // Layer 1: Pure C++ compute. No emscripten dependency, so these are directly
 // unit-testable. May throw std::domain_error (bad physical constants, from
@@ -141,14 +143,14 @@ inline FeedbackGains ComputeFlywheelFeedbackGainsCore(
 // a JS object.
 // ============================================================================
 
-inline emscripten::val FeedbackGainsToVal(const FeedbackGains& gains) {
+inline FeedbackGainsVal FeedbackGainsToVal(const FeedbackGains& gains) {
   emscripten::val result = emscripten::val::object();
   result.set("kP", gains.kP);
   result.set("kD", gains.kD);
-  return result;
+  return FeedbackGainsVal(result);
 }
 
-inline emscripten::val ZeroFeedbackGains() {
+inline FeedbackGainsVal ZeroFeedbackGains() {
   return FeedbackGainsToVal(FeedbackGains{0.0, 0.0});
 }
 
@@ -156,7 +158,7 @@ inline emscripten::val ZeroFeedbackGains() {
 // ComputeElevatorFeedbackGainsCore in a try-catch so that DARE solver
 // failures and bad physical constants return {kP: 0, kD: 0} with a
 // diagnostic console.warn instead of aborting the worker.
-inline emscripten::val ComputeElevatorFeedbackGains(
+inline FeedbackGainsVal ComputeElevatorFeedbackGains(
     DCMotorWasm* motor, double gearing, double massKg, double spoolRadiusMeters,
     double efficiency, double qPositionMeters, double qVelocityMPS,
     double rVolts, double dtSeconds, double sensorDelaySeconds) {
@@ -186,7 +188,7 @@ inline emscripten::val ComputeElevatorFeedbackGains(
 
 // Public entry point for single-jointed arm feedback gains. Same try-catch
 // idiom as ComputeElevatorFeedbackGains.
-inline emscripten::val ComputeArmFeedbackGains(
+inline FeedbackGainsVal ComputeArmFeedbackGains(
     DCMotorWasm* motor, double gearing, double momentOfInertiaKgMSquared,
     double efficiency, double qPositionRad, double qVelocityRadPerSec,
     double rVolts, double dtSeconds, double sensorDelaySeconds) {
@@ -216,7 +218,7 @@ inline emscripten::val ComputeArmFeedbackGains(
 
 // Public entry point for flywheel feedback gain. Same try-catch idiom as
 // ComputeElevatorFeedbackGains.
-inline emscripten::val ComputeFlywheelFeedbackGains(
+inline FeedbackGainsVal ComputeFlywheelFeedbackGains(
     DCMotorWasm* motor, double gearing, double momentOfInertiaKgMSquared,
     double efficiency, double qVelocityRadPerSec, double rVolts,
     double dtSeconds, double sensorDelaySeconds) {

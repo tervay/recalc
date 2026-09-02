@@ -71,6 +71,8 @@ class EfficiencyArmSim : public wpi::sim::SingleJointedArmSim {
   double m_efficiency;
 };
 
+EMSCRIPTEN_DECLARE_VAL_TYPE(ArmSimRows);
+
 // Internal state record for one timestep of the arm simulation.
 struct ArmSimStateInternal {
   double angleRadians;
@@ -231,7 +233,7 @@ inline emscripten::val SimulateArmImpl(
 // Public entry point. Wraps SimulateArmImpl in a try-catch so that numerical
 // exceptions return an empty array with a diagnostic console.warn instead of
 // aborting the worker.
-inline emscripten::val SimulateArm(
+inline ArmSimRows SimulateArm(
     DCMotorWasm* motor, double gearing, double momentOfInertiaKgMSquared,
     double armLengthMeters, double minAngleRadians, double maxAngleRadians,
     double startingAngleRadians, double statorLimitAmps, double supplyLimitAmps,
@@ -240,25 +242,25 @@ inline emscripten::val SimulateArm(
     double simTimestep, int decimation, double maxSimSeconds,
     double batteryVoltageFilterTimeConstantSeconds) {
   try {
-    return SimulateArmImpl(
+    return ArmSimRows(SimulateArmImpl(
         motor, gearing, momentOfInertiaKgMSquared, armLengthMeters,
         minAngleRadians, maxAngleRadians, startingAngleRadians, statorLimitAmps,
         supplyLimitAmps, statorVoltageVolts, batteryResistanceOhms,
         batteryVoltageVolts, efficiency, goingUp, simTimestep, decimation,
-        maxSimSeconds, batteryVoltageFilterTimeConstantSeconds);
+        maxSimSeconds, batteryVoltageFilterTimeConstantSeconds));
   } catch (const std::exception& e) {
     ConsoleWarn(
         "SimulateArm: {} (gearing={} moi={} armLen={} minAngle={} "
         "maxAngle={})",
         e.what(), gearing, momentOfInertiaKgMSquared, armLengthMeters,
         minAngleRadians, maxAngleRadians);
-    return emscripten::val::array();
+    return ArmSimRows(emscripten::val::array());
   } catch (...) {
     ConsoleWarn(
         "SimulateArm: unknown exception (gearing={} moi={} armLen={} "
         "minAngle={} maxAngle={})",
         gearing, momentOfInertiaKgMSquared, armLengthMeters, minAngleRadians,
         maxAngleRadians);
-    return emscripten::val::array();
+    return ArmSimRows(emscripten::val::array());
   }
 }

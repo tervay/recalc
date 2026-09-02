@@ -16,6 +16,39 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
   // Register vector<double> for automatic conversion from JavaScript arrays
   register_vector<double>("VectorDouble");
 
+  // Custom val types: give the --emit-tsd output real shapes instead of `any`.
+  // Each string is the TypeScript type of the corresponding val the function
+  // returns; runtime behaviour is unchanged (still a plain JS array/object).
+  register_type<FeedbackGainsVal>("FeedbackGains",
+                                  "{ kP: number; kD: number }");
+  register_type<FeedforwardGainsVal>("FeedforwardGains",
+                                     "{ kV: number; kA: number; kG: number }");
+  register_type<ElevatorSimRows>(
+      "ElevatorSimRows",
+      "{ positionMeters: number; velocityMetersPerSecond: number; "
+      "statorCurrentDrawAmps: number; supplyCurrentDrawAmps: number; "
+      "timeSeconds: number; batteryVoltageVolts: number; "
+      "motorAppliedVoltageVolts: number; motorRpm: number; "
+      "energyJoules: number; success: boolean }[]");
+  register_type<ArmSimRows>(
+      "ArmSimRows",
+      "{ angleRadians: number; angularVelocityRadPerSec: number; "
+      "statorCurrentDrawAmps: number; supplyCurrentDrawAmps: number; "
+      "timeSeconds: number; batteryVoltageVolts: number; "
+      "motorAppliedVoltageVolts: number; motorRpm: number; "
+      "energyJoules: number; success: boolean }[]");
+  register_type<FlywheelSimRows>(
+      "FlywheelSimRows",
+      "{ angularVelocityRadPerSec: number; statorCurrentDrawAmps: number; "
+      "supplyCurrentDrawAmps: number; timeSeconds: number; "
+      "batteryVoltageVolts: number; motorAppliedVoltageVolts: number; "
+      "motorRpm: number; energyJoules: number; success: boolean }[]");
+  register_type<MotorCurveRows>(
+      "MotorCurveRows",
+      "{ angularVelocityRadPerSec: number; statorCurrentDrawAmps: number; "
+      "supplyCurrentDrawAmps: number; torqueNewtonMeters: number; "
+      "motorAppliedVoltageVolts: number; efficiency: number }[]");
+
   // DCMotor
   class_<DCMotorWasm>("DCMotor")
       .constructor<double, double, double, double, double, int>()

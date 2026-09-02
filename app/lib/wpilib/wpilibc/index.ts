@@ -1,6 +1,19 @@
 import type { MainModule } from '~/lib/generated/wpilibc/wpilibc_wasm';
 import wpilibcModuleFactory from '~/lib/generated/wpilibc/wpilibc_wasm.js';
 
+export type ElevatorSimRow = ReturnType<MainModule['simulateElevator']>[number];
+export type ArmSimRow = ReturnType<MainModule['simulateArm']>[number];
+export type FlywheelSimRow = ReturnType<MainModule['simulateFlywheel']>[number];
+export type MotorCurveRow = ReturnType<
+  MainModule['simulateMotorCurve']
+>[number];
+export type FeedbackGains = ReturnType<
+  MainModule['computeElevatorFeedbackGains']
+>;
+export type FeedforwardGains = ReturnType<
+  MainModule['computeLinearFeedforwardGains']
+>;
+
 let moduleInstance: MainModule | null = null;
 let modulePromise: Promise<MainModule> | null = null;
 

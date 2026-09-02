@@ -5,30 +5,15 @@ import Motor from '~/lib/models/Motor';
 import type { RatioDict } from '~/lib/models/Ratio';
 import Ratio from '~/lib/models/Ratio';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
+import type {
+  ArmSimRow,
+  FeedbackGains,
+  FeedforwardGains,
+} from '~/lib/wpilib/wpilibc';
 
-export interface WpilibArmSimState {
-  angleRadians: number;
-  angularVelocityRadPerSec: number;
-  statorCurrentDrawAmps: number;
-  supplyCurrentDrawAmps: number;
-  timeSeconds: number;
-  batteryVoltageVolts: number;
-  motorAppliedVoltageVolts: number;
-  motorRpm: number;
-  energyJoules: number;
-  success: boolean;
-}
+export type { FeedbackGains, FeedforwardGains };
 
-export interface FeedbackGains {
-  kP: number;
-  kD: number;
-}
-
-export interface FeedforwardGains {
-  kV: number;
-  kA: number;
-  kG: number;
-}
+export type WpilibArmSimState = ArmSimRow;
 
 export async function computeArmFeedforwardGains(
   motor_: MotorDict,
@@ -63,7 +48,7 @@ export async function computeArmFeedforwardGains(
       efficiency,
       load.to('kg').scalar,
       armLength.to('m').scalar,
-    ) as FeedforwardGains;
+    );
   } finally {
     wasmMotor.delete();
   }
@@ -110,7 +95,7 @@ export async function computeArmFeedbackGains(
       rVolts.to('V').scalar,
       feedbackDt.to('s').scalar,
       Measurement.fromDict(sensorDelay_).to('s').scalar,
-    ) as FeedbackGains;
+    );
   } finally {
     wasmMotor.delete();
   }
@@ -180,7 +165,7 @@ export async function simulateArmWpilib(
       10,
       3.0,
       batteryVoltageFilterTimeConstantSeconds,
-    ) as WpilibArmSimState[];
+    );
   } finally {
     wasmMotor.delete();
   }

@@ -21,6 +21,57 @@ export interface VectorDouble extends ClassHandle, Iterable<number> {
   set(_0: number, _1: number): boolean;
 }
 
+export type FeedbackGains = { kP: number; kD: number };
+
+export type FeedforwardGains = { kV: number; kA: number; kG: number };
+
+export type ElevatorSimRows = {
+  positionMeters: number;
+  velocityMetersPerSecond: number;
+  statorCurrentDrawAmps: number;
+  supplyCurrentDrawAmps: number;
+  timeSeconds: number;
+  batteryVoltageVolts: number;
+  motorAppliedVoltageVolts: number;
+  motorRpm: number;
+  energyJoules: number;
+  success: boolean;
+}[];
+
+export type ArmSimRows = {
+  angleRadians: number;
+  angularVelocityRadPerSec: number;
+  statorCurrentDrawAmps: number;
+  supplyCurrentDrawAmps: number;
+  timeSeconds: number;
+  batteryVoltageVolts: number;
+  motorAppliedVoltageVolts: number;
+  motorRpm: number;
+  energyJoules: number;
+  success: boolean;
+}[];
+
+export type FlywheelSimRows = {
+  angularVelocityRadPerSec: number;
+  statorCurrentDrawAmps: number;
+  supplyCurrentDrawAmps: number;
+  timeSeconds: number;
+  batteryVoltageVolts: number;
+  motorAppliedVoltageVolts: number;
+  motorRpm: number;
+  energyJoules: number;
+  success: boolean;
+}[];
+
+export type MotorCurveRows = {
+  angularVelocityRadPerSec: number;
+  statorCurrentDrawAmps: number;
+  supplyCurrentDrawAmps: number;
+  torqueNewtonMeters: number;
+  motorAppliedVoltageVolts: number;
+  efficiency: number;
+}[];
+
 export interface DCMotor extends ClassHandle {
   getFreeCurrentAmps(): number;
   getFreeSpeedRadPerSec(): number;
@@ -112,7 +163,7 @@ interface EmbindModule {
     kalmanFilterPositionStdDev: number,
     kalmanFilterVelocityStdDev: number,
     kalmanFilterEncoderPositionStdDev: number,
-  ): any;
+  ): ElevatorSimRows;
   simulateFlywheel(
     motor: DCMotor | null,
     gearing: number,
@@ -129,7 +180,7 @@ interface EmbindModule {
     maxSimSeconds: number,
     batteryVoltageFilterTimeConstantSeconds: number,
     initialAngularVelocityRadPerSec: number,
-  ): any;
+  ): FlywheelSimRows;
   simulateMotorCurve(
     motor: DCMotor | null,
     momentOfInertiaKgMSquared: number,
@@ -140,7 +191,7 @@ interface EmbindModule {
     simTimestep: number,
     decimation: number,
     maxIterations: number,
-  ): any;
+  ): MotorCurveRows;
   simulateArm(
     motor: DCMotor | null,
     gearing: number,
@@ -160,7 +211,7 @@ interface EmbindModule {
     decimation: number,
     maxSimSeconds: number,
     batteryVoltageFilterTimeConstantSeconds: number,
-  ): any;
+  ): ArmSimRows;
   computeElevatorFeedbackGains(
     motor: DCMotor | null,
     gearing: number,
@@ -172,7 +223,7 @@ interface EmbindModule {
     rVolts: number,
     dtSeconds: number,
     sensorDelaySeconds: number,
-  ): any;
+  ): FeedbackGains;
   computeArmFeedbackGains(
     motor: DCMotor | null,
     gearing: number,
@@ -183,7 +234,7 @@ interface EmbindModule {
     rVolts: number,
     dtSeconds: number,
     sensorDelaySeconds: number,
-  ): any;
+  ): FeedbackGains;
   computeFlywheelFeedbackGains(
     motor: DCMotor | null,
     gearing: number,
@@ -193,7 +244,7 @@ interface EmbindModule {
     rVolts: number,
     dtSeconds: number,
     sensorDelaySeconds: number,
-  ): any;
+  ): FeedbackGains;
   computeLinearFeedforwardGains(
     motor: DCMotor | null,
     gearing: number,
@@ -201,7 +252,7 @@ interface EmbindModule {
     spoolRadiusMeters: number,
     efficiency: number,
     angleRadians: number,
-  ): any;
+  ): FeedforwardGains;
   computeAngularFeedforwardGains(
     motor: DCMotor | null,
     gearing: number,
@@ -209,13 +260,13 @@ interface EmbindModule {
     efficiency: number,
     comMassKg: number,
     comLengthMeters: number,
-  ): any;
+  ): FeedforwardGains;
   computeFlywheelFeedforwardGains(
     motor: DCMotor | null,
     gearing: number,
     momentOfInertiaKgMSquared: number,
     efficiency: number,
-  ): any;
+  ): FeedforwardGains;
 }
 
 export type MainModule = WasmModule & EmbindModule;
