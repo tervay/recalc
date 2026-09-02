@@ -90,7 +90,7 @@ function maxEfficiencies() {
   });
 }
 
-function maxEfficiencyFor(motorName: string) {
+function rowFor(motorName: string) {
   const row = bodyRows().find(
     (candidate) =>
       within(candidate).getAllByRole('cell')[0].querySelector('span')
@@ -101,7 +101,15 @@ function maxEfficiencyFor(motorName: string) {
     throw new Error(`No row rendered for ${motorName}`);
   }
 
-  return within(row).getAllByRole('cell')[6].textContent;
+  return row;
+}
+
+function maxEfficiencyFor(motorName: string) {
+  return within(rowFor(motorName)).getAllByRole('cell')[6].textContent;
+}
+
+function kTFor(motorName: string) {
+  return within(rowFor(motorName)).getAllByRole('cell')[9].textContent;
 }
 
 function setCurrentDraw(amps: string) {
@@ -162,11 +170,19 @@ describe('MotorTable', () => {
     expect(speeds).toEqual([...speeds].sort((a, b) => a - b));
   });
 
+  it('reports kT net of the free current', () => {
+    renderMotorTable();
+
+    // 2.41 / (131 - 2.7), not 2.41 / 131.
+    expect(kTFor('CIM')).toBe('0.0188');
+  });
+
   it('reports the peak efficiency of a motor whose peak the current draw clears', () => {
     renderMotorTable();
 
-    // (1 - sqrt(2.7 / 131))^2 = 73.35%, reached at 18.8 A, under the 60 A draw.
-    expect(maxEfficiencyFor('CIM')).toBe('73.3%');
+    // (kT / kE) * (1 - 2.7 / 18.8) * (1 - (18.8 - 2.7) / 128.3) = 65.43%,
+    // reached at 18.8 A, under the 60 A draw.
+    expect(maxEfficiencyFor('CIM')).toBe('65.4%');
   });
 
   it('caps the reported efficiency when the current draw falls below the peak', () => {
@@ -174,8 +190,8 @@ describe('MotorTable', () => {
 
     setCurrentDraw('10');
 
-    // (1 - 2.7 / 10) * (1 - 10 / 131) = 67.43%.
-    expect(maxEfficiencyFor('CIM')).toBe('67.4%');
+    // (kT / kE) * (1 - 2.7 / 10) * (1 - (10 - 2.7) / 128.3) = 60.15%.
+    expect(maxEfficiencyFor('CIM')).toBe('60.2%');
   });
 
   it('leaves a motor whose peak current is under the draw untouched', () => {
@@ -184,7 +200,7 @@ describe('MotorTable', () => {
     setCurrentDraw('10');
 
     // HD Hex peaks at 1.8 A, so a 10 A draw does not bind.
-    expect(maxEfficiencyFor('HD Hex')).toBe('61.3%');
+    expect(maxEfficiencyFor('HD Hex')).toBe('43.7%');
   });
 
   it('reports zero efficiency when the current draw is zero', () => {

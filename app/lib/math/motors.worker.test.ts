@@ -240,6 +240,38 @@ describe('generateMotorCurve efficiency', () => {
     expect(peak).toBeLessThan(1);
   });
 
+  it('reports exactly zero efficiency at the stall point', async () => {
+    const states = await curveFor('Kraken X60');
+
+    expect(states[0].angularVelocityRPM).toBe(0);
+    expect(states[0].efficiency).toBe(0);
+  });
+
+  // eta = (kT / kE) * (1 - Ifree / I) * (1 - (I - Ifree) / (Istall - Ifree)),
+  // the form issue #2244 derives. The old curve used wpilib's stall-derived Kt
+  // and dropped the free current from the speed fraction.
+  it('follows the closed-form efficiency at every point of the sweep', async () => {
+    const motor = Motor.fromName('Kraken X60', 1);
+    const states = await curveFor('Kraken X60');
+    const kTOverKe =
+      motor.kT.to('N*m/A').scalar / motor.kE.to('V*s/rad').scalar;
+    const freeCurrent = motor.freeCurrent.to('A').scalar;
+    const torqueCurrent = motor.stallCurrent.to('A').scalar - freeCurrent;
+
+    for (const state of states) {
+      const i = state.currentDrawAmps;
+      const expected =
+        kTOverKe *
+        (1 - freeCurrent / i) *
+        (1 - (i - freeCurrent) / torqueCurrent);
+
+      expect(state.efficiency, `${state.angularVelocityRPM} rpm`).toBeCloseTo(
+        Math.max(0, expected),
+        6,
+      );
+    }
+  });
+
   // The comparison table reports peak efficiency from a closed form rather than
   // sweeping all 26 motors. These pin that form to the simulation the chart
   // above the table plots.
@@ -251,7 +283,7 @@ describe('generateMotorCurve efficiency', () => {
 
       expect(peak).toBeCloseTo(
         Motor.fromName(name, 1).maxEfficiencyAtCurrentLimit(statorLimit),
-        2,
+        4,
       );
     },
   );

@@ -41,18 +41,18 @@
 - combobox: Ohm
 - text: Max Velocity
 - switch "Custom"
-- text: Custom Guessed 53.730
+- text: Custom Guessed 53.733
 - combobox: in/s
 - text: Max Acceleration
 - switch "Custom"
-- text: Custom Guessed 8429.748
+- text: Custom Guessed 8494.390
 - combobox: in/s2
 - button "LQR Tuning":
   - img
   - heading "LQR Tuning" [level=2]
 - text: Time to Goal 1.123
 - combobox: s
-- text: Stall Load 135.279
+- text: Stall Load 136.280
 - combobox: lbs
 - text: End Error 0.001
 - combobox: in
