@@ -50,6 +50,8 @@ class EfficiencyFlywheelSim : public wpi::sim::FlywheelSim {
   double m_efficiency;
 };
 
+EMSCRIPTEN_DECLARE_VAL_TYPE(FlywheelSimRows);
+
 // Internal state record for one timestep of the flywheel simulation.
 struct FlywheelSimStateInternal {
   double angularVelocityRadPerSec;
@@ -201,7 +203,7 @@ inline emscripten::val SimulateFlywheelImpl(
 // Public entry point. Wraps SimulateFlywheelImpl in a try-catch so that
 // numerical exceptions return an empty array with a diagnostic console.warn
 // instead of aborting the worker.
-inline emscripten::val SimulateFlywheel(
+inline FlywheelSimRows SimulateFlywheel(
     DCMotorWasm* motor, double gearing, double moiKgMSquared,
     double targetAngularVelocityRadPerSec, double statorLimitAmps,
     double supplyLimitAmps, double statorVoltageVolts,
@@ -210,25 +212,25 @@ inline emscripten::val SimulateFlywheel(
     double batteryVoltageFilterTimeConstantSeconds,
     double initialAngularVelocityRadPerSec = 0.0) {
   try {
-    return SimulateFlywheelImpl(
+    return FlywheelSimRows(SimulateFlywheelImpl(
         motor, gearing, moiKgMSquared, targetAngularVelocityRadPerSec,
         statorLimitAmps, supplyLimitAmps, statorVoltageVolts,
         batteryResistanceOhms, batteryVoltageVolts, efficiency, simTimestep,
         decimation, maxSimSeconds, batteryVoltageFilterTimeConstantSeconds,
-        initialAngularVelocityRadPerSec);
+        initialAngularVelocityRadPerSec));
   } catch (const std::exception& e) {
     ConsoleWarn(
         "SimulateFlywheel: {} (gearing={} moi={} target={} statorA={} "
         "supplyA={})",
         e.what(), gearing, moiKgMSquared, targetAngularVelocityRadPerSec,
         statorLimitAmps, supplyLimitAmps);
-    return emscripten::val::array();
+    return FlywheelSimRows(emscripten::val::array());
   } catch (...) {
     ConsoleWarn(
         "SimulateFlywheel: unknown exception (gearing={} moi={} target={} "
         "statorA={} supplyA={})",
         gearing, moiKgMSquared, targetAngularVelocityRadPerSec, statorLimitAmps,
         supplyLimitAmps);
-    return emscripten::val::array();
+    return FlywheelSimRows(emscripten::val::array());
   }
 }

@@ -27,6 +27,8 @@
 
 inline constexpr double kGravityMetersPerSecondSquared = 9.80665;
 
+EMSCRIPTEN_DECLARE_VAL_TYPE(ElevatorSimRows);
+
 // ElevatorSim subclass that supports angle (radians from horizontal) and torque
 // efficiency [0, 1]. Overrides UpdateX to replace the hardcoded vertical
 // gravity with sin(angle) * g and to scale the motor force (B matrix) by
@@ -307,7 +309,7 @@ inline emscripten::val SimulateElevatorImpl(
 // Public entry point. Wraps SimulateElevatorImpl in a try-catch so that
 // DARE solver failures and other numerical exceptions return an empty array
 // with a diagnostic console.warn instead of aborting the worker.
-inline emscripten::val SimulateElevator(
+inline ElevatorSimRows SimulateElevator(
     DCMotorWasm* motor, double gearing, double loadKg, double spoolRadiusMeters,
     double travelDistanceMeters, double statorLimitAmps, double supplyLimitAmps,
     double batteryResistanceOhms, double batteryVoltageVolts,
@@ -319,7 +321,7 @@ inline emscripten::val SimulateElevator(
     double kalmanFilterVelocityStdDev,
     double kalmanFilterEncoderPositionStdDev) {
   try {
-    return SimulateElevatorImpl(
+    return ElevatorSimRows(SimulateElevatorImpl(
         motor, gearing, loadKg, spoolRadiusMeters, travelDistanceMeters,
         statorLimitAmps, supplyLimitAmps, batteryResistanceOhms,
         batteryVoltageVolts, simTimestep, decimation, maxSimSeconds,
@@ -327,19 +329,19 @@ inline emscripten::val SimulateElevator(
         batteryVoltageFilterTimeConstantSeconds, maxVelocityMPS,
         maxAccelerationMPS2, qPositionMeters, qVelocityMPS, rVolts,
         sensorDelaySeconds, kalmanFilterPositionStdDev,
-        kalmanFilterVelocityStdDev, kalmanFilterEncoderPositionStdDev);
+        kalmanFilterVelocityStdDev, kalmanFilterEncoderPositionStdDev));
   } catch (const std::exception& e) {
     ConsoleWarn(
         "SimulateElevator: {} (gearing={} loadKg={} spoolR={} statorA={} "
         "supplyA={})",
         e.what(), gearing, loadKg, spoolRadiusMeters, statorLimitAmps,
         supplyLimitAmps);
-    return emscripten::val::array();
+    return ElevatorSimRows(emscripten::val::array());
   } catch (...) {
     ConsoleWarn(
         "SimulateElevator: unknown exception (gearing={} loadKg={} spoolR={} "
         "statorA={} supplyA={})",
         gearing, loadKg, spoolRadiusMeters, statorLimitAmps, supplyLimitAmps);
-    return emscripten::val::array();
+    return ElevatorSimRows(emscripten::val::array());
   }
 }

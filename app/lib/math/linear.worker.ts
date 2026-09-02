@@ -3,23 +3,19 @@ import Motor, { type MotorDict } from '~/lib/models/Motor';
 import type { RatioDict } from '~/lib/models/Ratio';
 import Ratio from '~/lib/models/Ratio';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
+import type {
+  ElevatorSimRow,
+  FeedbackGains,
+  FeedforwardGains,
+} from '~/lib/wpilib/wpilibc';
+
+export type { FeedbackGains, FeedforwardGains };
 
 const SIM_TIMESTEP_S = 0.0001;
 const SIM_DECIMATION = 10;
 const SIM_MAX_SECONDS = 3.0;
 
-export interface WpilibElevatorSimState {
-  positionMeters: number;
-  velocityMetersPerSecond: number;
-  statorCurrentDrawAmps: number;
-  supplyCurrentDrawAmps: number;
-  timeSeconds: number;
-  batteryVoltageVolts: number;
-  motorAppliedVoltageVolts: number;
-  motorRpm: number;
-  energyJoules: number;
-  success: boolean;
-}
+export type WpilibElevatorSimState = ElevatorSimRow;
 
 export interface SimulateElevatorWpilibParams {
   motorDict: MotorDict;
@@ -59,11 +55,6 @@ export interface ComputeElevatorFeedbackGainsParams {
   sensorDelay: MeasurementDict;
 }
 
-export interface FeedbackGains {
-  kP: number;
-  kD: number;
-}
-
 export interface ComputeElevatorFeedforwardGainsParams {
   motorDict: MotorDict;
   ratio: RatioDict;
@@ -71,12 +62,6 @@ export interface ComputeElevatorFeedforwardGainsParams {
   spoolDiameter: MeasurementDict;
   efficiency: number;
   angle: MeasurementDict;
-}
-
-export interface FeedforwardGains {
-  kV: number;
-  kA: number;
-  kG: number;
 }
 
 export async function computeElevatorFeedforwardGains({
@@ -111,7 +96,7 @@ export async function computeElevatorFeedforwardGains({
       spoolRadius.to('m').scalar,
       efficiency,
       Measurement.fromDict(angle).to('rad').scalar,
-    ) as FeedforwardGains;
+    );
   } finally {
     wasmMotor.delete();
   }
@@ -161,7 +146,7 @@ export async function computeElevatorFeedbackGains({
       r.to('V').scalar,
       dt.to('s').scalar,
       Measurement.fromDict(sensorDelay).to('s').scalar,
-    ) as FeedbackGains;
+    );
   } finally {
     wasmMotor.delete();
   }
@@ -221,7 +206,7 @@ export async function simulateElevatorWpilib({
       Measurement.fromDict(kalmanFilterPositionStdDev).to('m').scalar,
       Measurement.fromDict(kalmanFilterVelocityStdDev).to('m/s').scalar,
       Measurement.fromDict(kalmanFilterEncoderPositionStdDev).to('m').scalar,
-    ) as WpilibElevatorSimState[];
+    );
   } finally {
     wasmMotor.delete();
   }

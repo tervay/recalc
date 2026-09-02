@@ -34,6 +34,8 @@ struct FeedforwardGains {
   double kG;
 };
 
+EMSCRIPTEN_DECLARE_VAL_TYPE(FeedforwardGainsVal);
+
 // ============================================================================
 // Layer 1: Pure C++ compute. No emscripten dependency, so these are directly
 // unit-testable. May throw std::domain_error (bad physical constants, from
@@ -129,15 +131,16 @@ inline FeedforwardGains ComputeFlywheelFeedforwardGainsCore(
 // a JS object.
 // ============================================================================
 
-inline emscripten::val FeedforwardGainsToVal(const FeedforwardGains& gains) {
+inline FeedforwardGainsVal FeedforwardGainsToVal(
+    const FeedforwardGains& gains) {
   emscripten::val result = emscripten::val::object();
   result.set("kV", gains.kV);
   result.set("kA", gains.kA);
   result.set("kG", gains.kG);
-  return result;
+  return FeedforwardGainsVal(result);
 }
 
-inline emscripten::val ZeroFeedforwardGains() {
+inline FeedforwardGainsVal ZeroFeedforwardGains() {
   return FeedforwardGainsToVal(FeedforwardGains{0.0, 0.0, 0.0});
 }
 
@@ -147,7 +150,7 @@ inline emscripten::val ZeroFeedforwardGains() {
 // instead of aborting the worker. efficiency <= 0 is guarded explicitly
 // (rather than left to throw) because it would otherwise silently produce an
 // infinite or wrongly-signed result via division, not a thrown exception.
-inline emscripten::val ComputeLinearFeedforwardGains(
+inline FeedforwardGainsVal ComputeLinearFeedforwardGains(
     DCMotorWasm* motor, double gearing, double loadKg, double spoolRadiusMeters,
     double efficiency, double angleRadians) {
   if (gearing <= 0.0 || spoolRadiusMeters <= 0.0 || efficiency <= 0.0) {
@@ -175,7 +178,7 @@ inline emscripten::val ComputeLinearFeedforwardGains(
 
 // Public entry point for single-jointed arm feedforward gains. Same
 // try-catch and efficiency-guard idiom as ComputeLinearFeedforwardGains.
-inline emscripten::val ComputeAngularFeedforwardGains(
+inline FeedforwardGainsVal ComputeAngularFeedforwardGains(
     DCMotorWasm* motor, double gearing, double momentOfInertiaKgM2,
     double efficiency, double comMassKg, double comLengthMeters) {
   if (gearing <= 0.0 || momentOfInertiaKgM2 <= 0.0 || efficiency <= 0.0) {
@@ -203,7 +206,7 @@ inline emscripten::val ComputeAngularFeedforwardGains(
 
 // Public entry point for flywheel feedforward gains. Same try-catch and
 // efficiency-guard idiom as ComputeLinearFeedforwardGains.
-inline emscripten::val ComputeFlywheelFeedforwardGains(
+inline FeedforwardGainsVal ComputeFlywheelFeedforwardGains(
     DCMotorWasm* motor, double gearing, double momentOfInertiaKgM2,
     double efficiency) {
   if (gearing <= 0.0 || momentOfInertiaKgM2 <= 0.0 || efficiency <= 0.0) {

@@ -3,6 +3,7 @@ import * as z from 'zod';
 import Measurement, { type MeasurementDict } from '~/lib/models/Measurement';
 import Motor, { type MotorDict } from '~/lib/models/Motor';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
+import type { MotorCurveRow } from '~/lib/wpilib/wpilibc';
 
 const SIM_TIMESTEP_SECONDS = 0.0001;
 
@@ -32,6 +33,14 @@ const wasmRowSchema = z.object({
 });
 
 const wasmRowsSchema = z.array(wasmRowSchema);
+
+type _SchemaMatchesWasm =
+  z.infer<typeof wasmRowSchema> extends Pick<
+    MotorCurveRow,
+    keyof z.infer<typeof wasmRowSchema>
+  >
+    ? true
+    : never;
 
 /**
  * Sweeps a motor from stall to free speed in WPILib's `DCMotorSim`.

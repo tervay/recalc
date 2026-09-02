@@ -5,31 +5,17 @@ import Motor from '~/lib/models/Motor';
 import type { RatioDict } from '~/lib/models/Ratio';
 import Ratio from '~/lib/models/Ratio';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
+import type {
+  FeedbackGains,
+  FeedforwardGains,
+  FlywheelSimRow,
+} from '~/lib/wpilib/wpilibc';
+
+export type { FeedbackGains, FeedforwardGains };
 
 export const FLYWHEEL_SIMULATION_TIMEOUT_SECONDS = 3;
 
-export interface WpilibFlywheelSimState {
-  angularVelocityRadPerSec: number;
-  statorCurrentDrawAmps: number;
-  supplyCurrentDrawAmps: number;
-  timeSeconds: number;
-  batteryVoltageVolts: number;
-  motorAppliedVoltageVolts: number;
-  motorRpm: number;
-  energyJoules: number;
-  success: boolean;
-}
-
-export interface FeedbackGains {
-  kP: number;
-  kD: number;
-}
-
-export interface FeedforwardGains {
-  kV: number;
-  kA: number;
-  kG: number;
-}
+export type WpilibFlywheelSimState = FlywheelSimRow;
 
 export async function computeFlywheelFeedbackGains(
   motor_: MotorDict,
@@ -70,7 +56,7 @@ export async function computeFlywheelFeedbackGains(
       rVolts.to('V').scalar,
       feedbackDt.to('s').scalar,
       Measurement.fromDict(sensorDelay_).to('s').scalar,
-    ) as FeedbackGains;
+    );
   } finally {
     wasmMotor.delete();
   }
@@ -103,7 +89,7 @@ export async function computeFlywheelFeedforwardGains(
       ratio.asNumber(),
       momentOfInertia.to('kg m^2').scalar,
       efficiency,
-    ) as FeedforwardGains;
+    );
   } finally {
     wasmMotor.delete();
   }
@@ -167,7 +153,7 @@ export async function simulateFlywheelWpilib(
       FLYWHEEL_SIMULATION_TIMEOUT_SECONDS,
       batteryVoltageFilterTimeConstantSeconds,
       initialAngularVelocityRadPerSec,
-    ) as WpilibFlywheelSimState[];
+    );
   } finally {
     wasmMotor.delete();
   }

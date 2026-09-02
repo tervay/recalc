@@ -1,17 +1,17 @@
 import { maxBy } from 'es-toolkit';
 
+import type { ElevatorSimRow } from '~/lib/wpilib/wpilibc';
+
 export type OptimizationPriority =
   | 'timeToGoal'
   | 'peakCurrent'
   | 'energy'
   | 'avgPower';
 
-export interface SimState {
-  supplyCurrentDrawAmps: number;
-  timeSeconds: number;
-  energyJoules: number;
-  success: boolean;
-}
+export type SimState = Pick<
+  ElevatorSimRow,
+  'supplyCurrentDrawAmps' | 'timeSeconds' | 'energyJoules' | 'success'
+>;
 
 export interface MetricSource {
   timeToGoalSeconds: number;
