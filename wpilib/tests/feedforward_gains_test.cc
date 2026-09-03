@@ -71,10 +71,12 @@ TEST_CASE(
 }
 
 // (b) Efficiency monotonicity: decreasing efficiency must strictly increase
-// kV, kA, and |kG| (kG scales with kA).
+// kA and |kG| (kG scales with kA), and must leave kV alone. Holding a steady
+// velocity demands no net output torque, so the gearbox losses have nothing to
+// act on -- see ComputeLinearFeedforwardGainsCore.
 TEST_CASE(
     "LinearFeedforwardMonotonicityTest: "
-    "EfficiencyMonotonicallyIncreasesKvKaAndKgMagnitude",
+    "EfficiencyIncreasesKaAndKgMagnitudeButNotKv",
     "[LinearFeedforwardMonotonicityTest]") {
   const LinearConfig cfg = GENERATE(
       LinearConfig{wpi::math::DCMotor::NEO(1), 12.0, 4.0, 0.02},
@@ -90,7 +92,7 @@ TEST_CASE(
         cfg.motor, cfg.gearing, cfg.loadKg, cfg.spoolRadiusMeters, efficiency,
         angleRadians);
     if (prevKv >= 0.0) {
-      CHECK(gains.kV > prevKv);
+      CHECK_THAT(gains.kV, WithinAbs(prevKv, std::abs(prevKv) * kTol));
       CHECK(gains.kA > prevKa);
       CHECK(std::abs(gains.kG) > prevKgMag);
     }
@@ -259,10 +261,11 @@ TEST_CASE("AngularFeedforwardGainsTest: KgMatchesClosedFormAtUnityEfficiency",
   CHECK(gains.kG > 0.0);
 }
 
-// (b) Efficiency monotonicity.
+// (b) Efficiency monotonicity: kA and |kG| rise as efficiency falls, kV does
+// not move. See the linear case above for why.
 TEST_CASE(
     "AngularFeedforwardMonotonicityTest: "
-    "EfficiencyMonotonicallyIncreasesKvKaAndKgMagnitude",
+    "EfficiencyIncreasesKaAndKgMagnitudeButNotKv",
     "[AngularFeedforwardMonotonicityTest]") {
   const AngularConfig cfg =
       GENERATE(AngularConfig{wpi::math::DCMotor::NEO(1), 80.0, 1.5},
@@ -279,7 +282,7 @@ TEST_CASE(
         cfg.motor, cfg.gearing, cfg.momentOfInertiaKgM2, efficiency, kComMassKg,
         kComLengthMeters);
     if (prevKv >= 0.0) {
-      CHECK(gains.kV > prevKv);
+      CHECK_THAT(gains.kV, WithinAbs(prevKv, std::abs(prevKv) * kTol));
       CHECK(gains.kA > prevKa);
       CHECK(std::abs(gains.kG) > prevKgMag);
     }
@@ -373,10 +376,11 @@ TEST_CASE(
   CHECK(actual.kG == 0.0);
 }
 
-// (b) Efficiency monotonicity (no kG term for flywheels).
+// (b) Efficiency monotonicity (no kG term for flywheels): kA rises as
+// efficiency falls, kV does not move. See the linear case above for why.
 TEST_CASE(
     "FlywheelFeedforwardMonotonicityTest: "
-    "EfficiencyMonotonicallyIncreasesKvAndKa",
+    "EfficiencyIncreasesKaButNotKv",
     "[FlywheelFeedforwardMonotonicityTest]") {
   const FlywheelConfig cfg =
       GENERATE(FlywheelConfig{wpi::math::DCMotor::NEO(1), 1.0, 0.02},
@@ -391,7 +395,7 @@ TEST_CASE(
         cfg.motor, cfg.gearing, cfg.momentOfInertiaKgM2, efficiency);
     CHECK(gains.kG == 0.0);
     if (prevKv >= 0.0) {
-      CHECK(gains.kV > prevKv);
+      CHECK_THAT(gains.kV, WithinAbs(prevKv, std::abs(prevKv) * kTol));
       CHECK(gains.kA > prevKa);
     }
     prevKv = gains.kV;

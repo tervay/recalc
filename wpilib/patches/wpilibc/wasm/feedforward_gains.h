@@ -45,16 +45,16 @@ EMSCRIPTEN_DECLARE_VAL_TYPE(FeedforwardGainsVal);
 
 // Computes linear (elevator/arm-extension-style) feedforward gains.
 //
-// Builds the ideal plant via Models::ElevatorFromPhysicalConstants, extracts
-// kV/kA from A/B exactly as the plant's B matrix maps voltage to
-// acceleration, then divides both by efficiency: the AngledElevatorSim
-// (elevator_sim.h) scales only the B matrix (motor force) by efficiency,
-// leaving back-EMF damping (A) untouched, so less of a given voltage
-// reaches the load as efficiency drops -- meaning *more* voltage is needed
-// per unit of commanded velocity/acceleration as efficiency decreases.
+// Builds the ideal plant via Models::ElevatorFromPhysicalConstants and
+// extracts kV/kA from A/B exactly as the plant's B matrix maps voltage to
+// acceleration.
 //
-// kG reuses the exact idiom already established in elevator_sim.h:132-142,
-// so the simulator and this feedforward computation stay consistent.
+// kA and kG divide by efficiency; kV does not. The AngledElevatorSim
+// (elevator_sim.h) scales the whole motor-side row by efficiency -- A and B
+// alike -- so accelerating the load or holding it against gravity needs more
+// voltage as efficiency drops, but holding a steady velocity demands no net
+// output torque and so gives the gearbox losses nothing to act on. Top speed
+// is set by the back-EMF balance, which efficiency cancels out of.
 inline FeedforwardGains ComputeLinearFeedforwardGainsCore(
     const wpi::math::DCMotor& motor, double gearing, double loadKg,
     double spoolRadiusMeters, double efficiency, double angleRadians) {
@@ -66,7 +66,7 @@ inline FeedforwardGains ComputeLinearFeedforwardGainsCore(
   const double kvIdeal = -idealPlantFull.A()(1, 1) / idealPlantFull.B()(1, 0);
 
   const double kA = kaIdeal / efficiency;
-  const double kV = kvIdeal / efficiency;
+  const double kV = kvIdeal;
   const double kG = (kaIdeal / efficiency) *
                     kFeedforwardGravityMetersPerSecondSquared *
                     std::sin(angleRadians);
@@ -101,7 +101,7 @@ inline FeedforwardGains ComputeAngularFeedforwardGainsCore(
   const double kvIdeal = -idealPlantFull.A()(1, 1) / idealPlantFull.B()(1, 0);
 
   const double kA = kaIdeal / efficiency;
-  const double kV = kvIdeal / efficiency;
+  const double kV = kvIdeal;
   const double kG = kA * kFeedforwardGravityMetersPerSecondSquared *
                     comLengthMeters * comMassKg / momentOfInertiaKgM2;
 
@@ -122,7 +122,7 @@ inline FeedforwardGains ComputeFlywheelFeedforwardGainsCore(
   const double kaIdeal = 1.0 / idealPlant.B()(0, 0);
   const double kvIdeal = -idealPlant.A()(0, 0) / idealPlant.B()(0, 0);
 
-  return FeedforwardGains{kvIdeal / efficiency, kaIdeal / efficiency, 0.0};
+  return FeedforwardGains{kvIdeal, kaIdeal / efficiency, 0.0};
 }
 
 // ============================================================================

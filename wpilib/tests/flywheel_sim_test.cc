@@ -147,35 +147,38 @@ TEST_CASE("FlywheelSimHarness: RoboRioVoltageIsReadableAfterHalInit",
 // so these test behavior rather than implementation.
 // ============================================================================
 
-// At steady state vdot = 0, so A00*v + efficiency*B00*u = 0, giving
-// v_ss = -efficiency*B00*u/A00. Asserting the absolute value (not just a ratio)
-// pins BOTH halves of the contract: efficiency multiplies B, and A is left
-// alone. If efficiency were also applied to A it would cancel out here and the
-// measured steady state would be the full-efficiency value.
-TEST_CASE("EfficiencyFlywheel: SteadyStateMatchesEfficiencyScaledBOverA",
+// Efficiency models a lossy gearbox: the delivered output torque is
+// efficiency * Kt * I, with I = (u - backEmf) / R. Scaling the whole state
+// derivative by efficiency therefore scales A and B alike, and the two cancel
+// at steady state -- top speed is a property of the back-EMF balance, not of
+// the gearbox losses. This test and LowerEfficiencyReducesInitialAcceleration
+// below are a pair: this one pins that efficiency cancels at steady state,
+// that one pins that efficiency is applied at all.
+TEST_CASE("EfficiencyFlywheel: SteadyStateIsIndependentOfEfficiency",
           "[EfficiencyFlywheel]") {
-  const double efficiency = 0.5;
   const double voltage = 6.0;
   const auto plant = IdealPlant();
-  const double expected =
-      -efficiency * plant.B()(0, 0) * voltage / plant.A()(0, 0);
+  const double expected = -plant.B()(0, 0) * voltage / plant.A()(0, 0);
 
-  CHECK_THAT(SteadyStateVelocity(efficiency, voltage),
+  CHECK_THAT(SteadyStateVelocity(0.5, voltage),
              WithinAbs(expected, std::abs(expected) * 1e-6));
 }
 
-TEST_CASE("EfficiencyFlywheel: HalvingEfficiencyHalvesSteadyStateVelocity",
+TEST_CASE("EfficiencyFlywheel: HalvingEfficiencyLeavesSteadyStateVelocity",
           "[EfficiencyFlywheel]") {
   const double full = SteadyStateVelocity(1.0, 6.0);
   REQUIRE(full > 0.0);
-  CHECK_THAT(SteadyStateVelocity(0.5, 6.0) / full, WithinAbs(0.5, 1e-6));
+  CHECK_THAT(SteadyStateVelocity(0.5, 6.0) / full, WithinAbs(1.0, 1e-6));
 }
 
 TEST_CASE("EfficiencyFlywheel: LowerEfficiencyReducesInitialAcceleration",
           "[EfficiencyFlywheel]") {
   // From rest the back-EMF term is zero, so the first step isolates the motor
-  // torque: v(dt) is proportional to efficiency.
-  const double dt = 1e-4;
+  // torque: v(dt) is proportional to efficiency. The integrator's intermediate
+  // stages do see a nonzero velocity, and that back-EMF is itself scaled by
+  // efficiency, leaving an O(dt * |A00|) residual on the ratio -- hence the
+  // small dt and the relative rather than exact tolerance.
+  const double dt = 1e-6;
   ResetSupplyVoltage();
   EfficiencyFlywheelSim full(TestMotor(), kGearing,
                              wpi::units::kilogram_square_meter_t(kMoi), 1.0);
@@ -188,18 +191,21 @@ TEST_CASE("EfficiencyFlywheel: LowerEfficiencyReducesInitialAcceleration",
 
   CHECK_THAT(half.GetAngularVelocity().to<double>() /
                  full.GetAngularVelocity().to<double>(),
-             WithinAbs(0.5, 1e-6));
+             WithinAbs(0.5, 1e-3));
 }
 
-// The direct statement that the A matrix is untouched. Coasting at zero input
-// removes the B term entirely, so the decay over one step must be exp(A00*dt)
-// regardless of the efficiency the sim was built with.
-TEST_CASE("EfficiencyFlywheel: EfficiencyDoesNotChangeTheBackEmfDecay",
+// The direct statement that the A matrix is scaled too. Coasting at zero input
+// removes the B term entirely, so the decay over one step is
+// exp(efficiency*A00*dt): a lossy gearbox also brakes the wheel more slowly,
+// because the losses sit between the rotor and the wheel in both directions.
+TEST_CASE("EfficiencyFlywheel: EfficiencyScalesTheBackEmfDecay",
           "[EfficiencyFlywheel]") {
   const double dt = 1e-3;
+  const double efficiency = 0.5;
   ResetSupplyVoltage();
   EfficiencyFlywheelSim sim(TestMotor(), kGearing,
-                            wpi::units::kilogram_square_meter_t(kMoi), 0.5);
+                            wpi::units::kilogram_square_meter_t(kMoi),
+                            efficiency);
   sim.SetInputVoltage(wpi::units::volt_t(6.0));
   for (int i = 0; i < 2000; ++i) {
     sim.Update(wpi::units::second_t(1e-3));
@@ -210,8 +216,9 @@ TEST_CASE("EfficiencyFlywheel: EfficiencyDoesNotChangeTheBackEmfDecay",
   sim.SetInputVoltage(wpi::units::volt_t(0.0));
   sim.Update(wpi::units::second_t(dt));
 
-  CHECK_THAT(sim.GetAngularVelocity().to<double>() / before,
-             WithinAbs(std::exp(IdealPlant().A()(0, 0) * dt), 1e-9));
+  CHECK_THAT(
+      sim.GetAngularVelocity().to<double>() / before,
+      WithinAbs(std::exp(efficiency * IdealPlant().A()(0, 0) * dt), 1e-9));
 }
 
 // ============================================================================
@@ -373,6 +380,32 @@ TEST_CASE("SimulateFlywheelTrajectory: ReachesTargetAndReportsSuccess",
 
   CHECK(rows.back().angularVelocityRadPerSec >= kTargetRadPerSec);
   CHECK(rows.back().success);
+}
+
+// Regression test for the efficiency model. flywheel.tsx clamps the user's
+// target to motor.freeSpeed / ratio, which carries no efficiency term. If
+// efficiency scaled the plant's top speed, every target in the band between
+// (efficiency * freeSpeed / ratio) and (freeSpeed / ratio) would be
+// unreachable: the `while (velocity < target)` loop would spin out to
+// maxSimSeconds and report failure with no explanation. Efficiency costs
+// spin-up time, never top speed.
+TEST_CASE(
+    "SimulateFlywheelTrajectory: ReachesATargetNearFreeSpeedAtLowerEfficiency",
+    "[SimulateFlywheelTrajectory]") {
+  const double freeSpeedRadPerSec =
+      TestMotor().freeSpeed.to<double>() / kGearing;
+  Params p;
+  p.efficiency = 0.9;
+  // Inside the band that the old efficiency-scaled-top-speed model could not
+  // reach, but still short of the asymptote the plant only approaches.
+  p.targetAngularVelocityRadPerSec = freeSpeedRadPerSec * 0.95;
+  p.maxSimSeconds = 30.0;
+
+  const auto rows = Simulate(p);
+  REQUIRE(!rows.empty());
+  CHECK(rows.back().success);
+  CHECK(rows.back().angularVelocityRadPerSec >=
+        p.targetAngularVelocityRadPerSec);
 }
 
 TEST_CASE("SimulateFlywheelTrajectory: SpinUpIsMonotonic",

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { calculateGuessedLimits } from '~/lib/math/linear';
 import {
   computeElevatorFeedforwardGains,
   simulateElevatorWpilib,
@@ -251,4 +252,80 @@ describe('simulateElevatorWpilib', () => {
     // Cascade goal is half the full goal
     expect(cascadeFinalPos).toBeLessThan(standardFinalPos * 0.75);
   });
+});
+
+// Regression tests for the reported efficiency bug: End Error grew from 0.003 in
+// at 100% efficiency to 2.883 in at 90% and 44 in at 50%, on an otherwise
+// identical mechanism. calculateGuessedLimits derives the profile's cruise
+// velocity from the back-EMF balance, which efficiency does not change; the
+// plant used to scale its top speed by efficiency, so the profile commanded a
+// velocity the carriage could never reach and the tracking lag landed in End
+// Error. These run the exact production path (guessed limits -> wasm sim) with
+// the parameters from the report.
+describe('simulateElevatorWpilib efficiency tracking', () => {
+  const motor = Motor.KrakenX60(2);
+  const ratio = new Ratio(5, RatioType.REDUCTION);
+  const load = new Measurement(10, 'lb');
+  const spoolDiameter = new Measurement(2, 'in');
+  const travelDistance = new Measurement(58, 'in');
+  const statorLimit = new Measurement(80, 'A');
+  const supplyLimit = new Measurement(60, 'A');
+  const supplyVoltage = new Measurement(12, 'V');
+  const batteryResistance = new Measurement(0.015, 'Ohm');
+  const angle = new Measurement(90, 'deg');
+
+  async function endErrorInches(efficiencyPercent: number) {
+    const { v_max_guessed, a_max_guessed } = calculateGuessedLimits(
+      motor,
+      ratio,
+      load,
+      spoolDiameter,
+      statorLimit,
+      supplyLimit,
+      supplyVoltage,
+      angle,
+      efficiencyPercent,
+      false,
+    );
+
+    const result = await simulateElevatorWpilib({
+      motorDict: motor.toDict(),
+      ratio: ratio.toDict(),
+      load: load.toDict(),
+      spoolDiameter: spoolDiameter.toDict(),
+      travelDistance: travelDistance.toDict(),
+      statorLimitDict: statorLimit.toDict(),
+      supplyLimitDict: supplyLimit.toDict(),
+      batteryResistance: batteryResistance.toDict(),
+      batteryVoltage: supplyVoltage.toDict(),
+      angle: angle.toDict(),
+      efficiency: efficiencyPercent / 100,
+      cascade: false,
+      batteryVoltageFilterTimeConstantSeconds: 0.1,
+      maxVelocityDict: v_max_guessed.toDict(),
+      maxAccelerationDict: a_max_guessed.toDict(),
+      qPositionMeters: 0.02,
+      qVelocityMPS: 0.4,
+      rVolts: 12,
+      sensorDelaySeconds: 0.001,
+      kalmanFilterPositionStdDev: KALMAN_FILTER_POSITION_STD_DEV.toDict(),
+      kalmanFilterVelocityStdDev: KALMAN_FILTER_VELOCITY_STD_DEV.toDict(),
+      kalmanFilterEncoderPositionStdDev:
+        KALMAN_FILTER_ENCODER_POSITION_STD_DEV.toDict(),
+    });
+
+    expect(result.length).toBeGreaterThan(0);
+    const lastPos = new Measurement(
+      result[result.length - 1].positionMeters,
+      'm',
+    );
+    return travelDistance.sub(lastPos).to('in').scalar;
+  }
+
+  it.each([100, 90, 50])(
+    'tracks the profile to within 1 inch at %i percent efficiency',
+    async (efficiencyPercent) => {
+      expect(Math.abs(await endErrorInches(efficiencyPercent))).toBeLessThan(1);
+    },
+  );
 });

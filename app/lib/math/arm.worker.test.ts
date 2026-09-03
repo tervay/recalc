@@ -82,11 +82,20 @@ describe('arm', () => {
     expect(result).toMatchSnapshot();
   });
 
+  // Efficiency costs acceleration, not top speed, so the difference only shows
+  // on an arm whose travel is dominated by the acceleration phase. The shared
+  // `momentOfInertia` above gives an electrical time constant of ~26us against
+  // a 0.25s sweep -- that arm is at top speed for essentially the whole move,
+  // and both runs finish in the same timestep. This heavier arm spends the
+  // whole sweep accelerating. Mirrored by arm_sim_test.cc's
+  // SimulateArmTrajectory: LowerEfficiencyTakesLonger.
   it('efficiency below 1.0 should result in slower movement', async () => {
+    const heavyMomentOfInertia = new Measurement(1, 'kg*m2');
+
     const fullEfficiency = await simulateArmWpilib(
       motor.toDict(),
       ratio.toDict(),
-      momentOfInertia.toDict(),
+      heavyMomentOfInertia.toDict(),
       armLength.toDict(),
       minAngle.toDict(),
       maxAngle.toDict(),
@@ -104,7 +113,7 @@ describe('arm', () => {
     const reducedEfficiency = await simulateArmWpilib(
       motor.toDict(),
       ratio.toDict(),
-      momentOfInertia.toDict(),
+      heavyMomentOfInertia.toDict(),
       armLength.toDict(),
       minAngle.toDict(),
       maxAngle.toDict(),

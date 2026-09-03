@@ -44,9 +44,9 @@ EMSCRIPTEN_DECLARE_VAL_TYPE(FeedbackGainsVal);
 // Computes elevator position/velocity feedback gains via LQR.
 //
 // Builds a position-only-output LinearSystem<2,1,1> from the ideal plant,
-// scaling B by efficiency to model mechanical losses (matches
-// elevator_sim.h's SimulateElevatorImpl), then solves the discrete-time LQR
-// and compensates for sensor latency.
+// scaling the motor-side row by efficiency to model mechanical losses
+// (matches elevator_sim.h's SimulateElevatorImpl), then solves the
+// discrete-time LQR and compensates for sensor latency.
 inline FeedbackGains ComputeElevatorFeedbackGainsCore(
     const wpi::math::DCMotor& motor, double gearing, double massKg,
     double spoolRadiusMeters, double efficiency, double qPositionMeters,
@@ -56,13 +56,17 @@ inline FeedbackGains ComputeElevatorFeedbackGainsCore(
       motor, wpi::units::kilogram_t(massKg),
       wpi::units::meter_t(spoolRadiusMeters), gearing);
 
+  // Efficiency scales the whole motor-side row, so A(1,1) moves with B.
+  // A(0,1) is the kinematic derivative relation and must stay exactly 1.
+  wpi::math::Matrixd<2, 2> controllerA = idealPlantFull.A();
+  controllerA(1, 1) *= efficiency;
   wpi::math::Matrixd<2, 1> controllerB = idealPlantFull.B() * efficiency;
   wpi::math::Matrixd<1, 2> controllerC;
   controllerC << 1, 0;
   wpi::math::Matrixd<1, 1> controllerD;
   controllerD << 0;
-  wpi::math::LinearSystem<2, 1, 1> plant{idealPlantFull.A(), controllerB,
-                                         controllerC, controllerD};
+  wpi::math::LinearSystem<2, 1, 1> plant{controllerA, controllerB, controllerC,
+                                         controllerD};
 
   wpi::math::LinearQuadraticRegulator<2, 1> controller{
       plant,
@@ -90,13 +94,17 @@ inline FeedbackGains ComputeArmFeedbackGainsCore(
           motor, wpi::units::kilogram_square_meter_t(momentOfInertiaKgMSquared),
           gearing);
 
+  // Efficiency scales the whole motor-side row, so A(1,1) moves with B.
+  // A(0,1) is the kinematic derivative relation and must stay exactly 1.
+  wpi::math::Matrixd<2, 2> controllerA = idealPlantFull.A();
+  controllerA(1, 1) *= efficiency;
   wpi::math::Matrixd<2, 1> controllerB = idealPlantFull.B() * efficiency;
   wpi::math::Matrixd<1, 2> controllerC;
   controllerC << 1, 0;
   wpi::math::Matrixd<1, 1> controllerD;
   controllerD << 0;
-  wpi::math::LinearSystem<2, 1, 1> plant{idealPlantFull.A(), controllerB,
-                                         controllerC, controllerD};
+  wpi::math::LinearSystem<2, 1, 1> plant{controllerA, controllerB, controllerC,
+                                         controllerD};
 
   wpi::math::LinearQuadraticRegulator<2, 1> controller{
       plant,
@@ -114,7 +122,8 @@ inline FeedbackGains ComputeArmFeedbackGainsCore(
 //
 // The ideal plant already has a single (velocity) output, so unlike the
 // elevator/arm cases there is no need to rebuild C/D for a position-only
-// output -- just rescale B by efficiency and reuse the ideal plant's C/D.
+// output -- just rescale A and B by efficiency and reuse the ideal plant's
+// C/D.
 inline FeedbackGains ComputeFlywheelFeedbackGainsCore(
     const wpi::math::DCMotor& motor, double gearing,
     double momentOfInertiaKgMSquared, double efficiency,
@@ -124,8 +133,9 @@ inline FeedbackGains ComputeFlywheelFeedbackGainsCore(
       motor, wpi::units::kilogram_square_meter_t(momentOfInertiaKgMSquared),
       gearing);
 
+  wpi::math::Matrixd<1, 1> controllerA = idealPlant.A() * efficiency;
   wpi::math::Matrixd<1, 1> controllerB = idealPlant.B() * efficiency;
-  wpi::math::LinearSystem<1, 1, 1> plant{idealPlant.A(), controllerB,
+  wpi::math::LinearSystem<1, 1, 1> plant{controllerA, controllerB,
                                          idealPlant.C(), idealPlant.D()};
 
   wpi::math::LinearQuadraticRegulator<1, 1> controller{

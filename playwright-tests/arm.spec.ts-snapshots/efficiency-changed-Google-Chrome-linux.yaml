@@ -44,9 +44,9 @@
 - button "LQR Tuning":
   - img
   - heading "LQR Tuning" [level=2]
-- text: Time to Goal (Up) 0.334
+- text: Time to Goal (Up) 0.288
 - combobox: s
-- text: Time to Goal (Down) 0.316
+- text: Time to Goal (Down) 0.275
 - combobox: s
 - heading "Simulation (Going Up)" [level=2]
 - list:
@@ -62,7 +62,7 @@
   - listitem:
     - img "Supply Current (A) legend icon"
     - text: Supply Current (A)
-- application: Time (s) Current (A) / Voltage (V) Motor Speed (RPM) 0.011 0.041 0.071 0.101 0.131 0.161 0.191 0.221 0.251 0.281 0.311 0.334 0 20 40 60 80 0 1500 3000 4500 6000
+- application: Time (s) Current (A) / Voltage (V) Motor Speed (RPM) 0.021 0.051 0.081 0.111 0.141 0.171 0.201 0.231 0.261 0.288 0 20 40 60 80 0 1500 3000 4500 6000
 - heading "Simulation (Going Down)" [level=2]
 - list:
   - listitem:
@@ -77,14 +77,14 @@
   - listitem:
     - img "Supply Current (A) legend icon"
     - text: Supply Current (A)
-- application: Time (s) Current (A) / Voltage (V) Motor Speed (RPM) 0.021 0.051 0.081 0.111 0.141 0.171 0.201 0.231 0.261 0.291 0.316 0 20 40 60 80 0 1500 3000 4500 6000
-- text: kV 2.185
+- application: Time (s) Current (A) / Voltage (V) Motor Speed (RPM) 0.021 0.051 0.081 0.111 0.131 0.161 0.191 0.221 0.251 0.275 -25 0 25 50 75 0 1500 3000 4500 6000
+- text: kV 1.967
 - combobox: V*s/rad
 - text: kA 0.012
 - combobox: V*s^2/rad
 - text: kG 0.193
 - combobox: V
-- text: Feedback kP 35.822
+- text: Feedback kP 32.520
 - combobox: V/rad
-- text: Feedback kD 0.217
+- text: Feedback kD 0.226
 - combobox: V*s/rad

@@ -18,9 +18,17 @@
 #include "wpi/system/RobotController.hpp"
 
 // SingleJointedArmSim subclass that supports torque efficiency [0, 1].
-// Overrides UpdateX to scale the motor force (B matrix) by efficiency while
-// leaving back-EMF damping (A matrix) untouched, and re-applies gravity
-// (which would otherwise be omitted since UpdateX is fully replaced).
+// Overrides UpdateX to scale the motor-side dynamics by efficiency, and
+// re-applies gravity (which would otherwise be omitted since UpdateX is fully
+// replaced).
+//
+// Efficiency models a lossy gearbox delivering efficiency * Kt * I to the arm,
+// with I = (u - backEmf) / R. Both the applied-voltage term and the back-EMF
+// term pass through the same gearbox, so efficiency multiplies the whole
+// angular-acceleration row -- A and B alike -- and cancels at steady state.
+// Efficiency therefore costs acceleration, never top speed. Gravity acts on
+// the arm directly rather than through the gearbox, so it is applied outside
+// the scale.
 class EfficiencyArmSim : public wpi::sim::SingleJointedArmSim {
  public:
   EfficiencyArmSim(const wpi::math::DCMotor& gearbox, double gearing,
@@ -45,8 +53,9 @@ class EfficiencyArmSim : public wpi::sim::SingleJointedArmSim {
         [&](const wpi::math::Vectord<2>& x,
             const wpi::math::Vectord<1>& u_) -> wpi::math::Vectord<2> {
           wpi::math::Vectord<2> xdot = m_plant.A() * x + m_plant.B() * u_;
-          // Scale motor torque by efficiency (B term only, preserves back-EMF)
-          xdot(1) += (m_efficiency - 1.0) * m_plant.B()(1, 0) * u_(0);
+          // Gearbox losses on the motor-side row. xdot(0) is the kinematic
+          // omega = dtheta/dt relation and must not be scaled.
+          xdot(1) *= m_efficiency;
           // Gravity: alpha = -3/2 * g / L * cos(theta), per WPILib arm model
           if (m_armLenMeters > 0.0) {
             xdot(1) += -3.0 / 2.0 * 9.8 / m_armLenMeters * std::cos(x(0));
