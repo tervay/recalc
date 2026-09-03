@@ -19,8 +19,13 @@
 #include "wpi/system/RobotController.hpp"
 
 // FlywheelSim subclass that supports torque efficiency [0, 1].
-// Overrides UpdateX to scale the motor force (B matrix) by efficiency while
-// leaving back-EMF damping (A matrix) untouched.
+// Overrides UpdateX to scale the motor-side dynamics by efficiency.
+//
+// Efficiency models a lossy gearbox delivering efficiency * Kt * I to the
+// wheel, with I = (u - backEmf) / R. Both the applied-voltage term and the
+// back-EMF term pass through the same gearbox, so efficiency multiplies the
+// whole state derivative -- A and B alike -- and cancels at steady state.
+// Efficiency therefore costs spin-up time, never top speed.
 class EfficiencyFlywheelSim : public wpi::sim::FlywheelSim {
  public:
   EfficiencyFlywheelSim(const wpi::math::DCMotor& gearbox, double gearing,
@@ -39,8 +44,8 @@ class EfficiencyFlywheelSim : public wpi::sim::FlywheelSim {
         [&](const wpi::math::Vectord<1>& x,
             const wpi::math::Vectord<1>& u_) -> wpi::math::Vectord<1> {
           wpi::math::Vectord<1> xdot = m_plant.A() * x + m_plant.B() * u_;
-          // Scale motor force by efficiency (B term only, preserves back-EMF)
-          xdot(0) += (m_efficiency - 1.0) * m_plant.B()(0, 0) * u_(0);
+          // Gearbox losses on the single motor-side state.
+          xdot *= m_efficiency;
           return xdot;
         },
         currentXhat, u, dt);

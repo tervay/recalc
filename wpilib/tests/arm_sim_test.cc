@@ -315,35 +315,40 @@ TEST_CASE("EfficiencyArmGravity: GravityScalesInverselyWithArmLength",
 // closed form.
 // ============================================================================
 
-// At steady state vdot = 0, so A11*v + efficiency*B10*u = 0, giving
-// v_ss = -efficiency*B10*u/A11. Asserting the absolute value (not just a ratio)
-// pins BOTH halves of the contract: efficiency multiplies B, and A is left
-// alone. If efficiency were also applied to A it would cancel out here and the
-// measured steady state would be the full-efficiency value.
-TEST_CASE("EfficiencyArm: SteadyStateMatchesEfficiencyScaledBOverA",
+// Efficiency models a lossy gearbox: the delivered output torque is
+// efficiency * Kt * I, with I = (u - backEmf) / R. Scaling the whole
+// motor-side row by efficiency therefore scales A and B alike, and the two
+// cancel at steady state -- top speed is a property of the back-EMF balance,
+// not of the gearbox losses. This test and
+// LowerEfficiencyReducesInitialAcceleration below are a pair: this one pins
+// that efficiency cancels at steady state, that one pins that efficiency is
+// applied at all.
+TEST_CASE("EfficiencyArm: SteadyStateIsIndependentOfEfficiency",
           "[EfficiencyArm]") {
-  const double efficiency = 0.5;
   const double voltage = 6.0;
   const auto plant = IdealPlant();
-  const double expected =
-      -efficiency * plant.B()(1, 0) * voltage / plant.A()(1, 1);
+  const double expected = -plant.B()(1, 0) * voltage / plant.A()(1, 1);
 
-  CHECK_THAT(SteadyStateArmVelocity(efficiency, voltage),
+  CHECK_THAT(SteadyStateArmVelocity(0.5, voltage),
              WithinAbs(expected, std::abs(expected) * 1e-6));
 }
 
-TEST_CASE("EfficiencyArm: HalvingEfficiencyHalvesSteadyStateVelocity",
+TEST_CASE("EfficiencyArm: HalvingEfficiencyLeavesSteadyStateVelocity",
           "[EfficiencyArm]") {
   const double full = SteadyStateArmVelocity(1.0, 6.0);
   REQUIRE(full > 0.0);
-  CHECK_THAT(SteadyStateArmVelocity(0.5, 6.0) / full, WithinAbs(0.5, 1e-6));
+  CHECK_THAT(SteadyStateArmVelocity(0.5, 6.0) / full, WithinAbs(1.0, 1e-6));
 }
 
 TEST_CASE("EfficiencyArm: LowerEfficiencyReducesInitialAcceleration",
           "[EfficiencyArm]") {
   // From rest the back-EMF term is zero, so the first step isolates the motor
-  // torque: v(dt) is proportional to efficiency.
-  const double dt = 1e-6;
+  // torque: v(dt) is proportional to efficiency. The integrator's intermediate
+  // stages do see a nonzero velocity, and that back-EMF is itself scaled by
+  // efficiency, leaving an O(dt * |A11|) residual on the ratio -- hence the
+  // small dt and the relative rather than exact tolerance. This arm's A11 is
+  // ~ -38000, so dt has to be very small for that residual to clear.
+  const double dt = 1e-9;
   ResetSupplyVoltage();
   EfficiencyArmSim full(TestMotor(), kGearing,
                         wpi::units::kilogram_square_meter_t(kMoi),
@@ -359,31 +364,63 @@ TEST_CASE("EfficiencyArm: LowerEfficiencyReducesInitialAcceleration",
   half.Update(wpi::units::second_t(dt));
 
   CHECK_THAT(half.GetVelocity().to<double>() / full.GetVelocity().to<double>(),
-             WithinAbs(0.5, 1e-6));
+             WithinAbs(0.5, 1e-3));
 }
 
-// The gravity term is added outside the (efficiency - 1) * B * u correction, so
-// with no input voltage the B term vanishes entirely and efficiency cannot
-// affect the result. A gearbox does not make gravity weaker.
-TEST_CASE("EfficiencyArm: EfficiencyDoesNotAffectGravity", "[EfficiencyArm]") {
-  const double dt = 1e-5;
-  ResetSupplyVoltage();
-  EfficiencyArmSim full(
-      TestMotor(), kGearing, wpi::units::kilogram_square_meter_t(kMoi),
-      wpi::units::meter_t(kArmLenMeters), wpi::units::radian_t(-10.0),
-      wpi::units::radian_t(10.0), 0.0, 1.0);
-  EfficiencyArmSim quarter(
-      TestMotor(), kGearing, wpi::units::kilogram_square_meter_t(kMoi),
-      wpi::units::meter_t(kArmLenMeters), wpi::units::radian_t(-10.0),
-      wpi::units::radian_t(10.0), 0.0, 0.25);
-  full.SetInputVoltage(wpi::units::volt_t(0.0));
-  quarter.SetInputVoltage(wpi::units::volt_t(0.0));
-  full.Update(wpi::units::second_t(dt));
-  quarter.Update(wpi::units::second_t(dt));
+// The other half of the contract: efficiency multiplies A as well as B, so
+// coasting to a stop at u = 0 is slowed by exactly the same factor. Without
+// the A scaling the decay would be efficiency-invariant and the steady-state
+// test above would pass for the wrong reason. Coasting removes the B term
+// entirely, leaving the exact solution v(dt) = v0 * exp(efficiency*A11*dt).
+// Arm length is 0 so gravity contributes nothing.
+TEST_CASE("EfficiencyArm: EfficiencyScalesTheBackEmfDecay", "[EfficiencyArm]") {
+  const double dt = 1e-6;
+  const double v0 = 1.0;
+  const double a11 = IdealPlant().A()(1, 1);
 
-  REQUIRE(full.GetVelocity().to<double>() < 0.0);
-  CHECK_THAT(quarter.GetVelocity().to<double>(),
-             WithinULP(full.GetVelocity().to<double>(), 4));
+  auto decayRatio = [&](double efficiency) {
+    ResetSupplyVoltage();
+    EfficiencyArmSim sim(TestMotor(), kGearing,
+                         wpi::units::kilogram_square_meter_t(kMoi),
+                         wpi::units::meter_t(0.0), wpi::units::radian_t(-10.0),
+                         wpi::units::radian_t(10.0), 0.0, efficiency);
+    sim.SetState(wpi::math::Vectord<2>{0.0, v0});
+    sim.SetInputVoltage(wpi::units::volt_t(0.0));
+    sim.Update(wpi::units::second_t(dt));
+    return sim.GetVelocity().to<double>() / v0;
+  };
+
+  CHECK_THAT(decayRatio(1.0), WithinAbs(std::exp(a11 * dt), 1e-9));
+  CHECK_THAT(decayRatio(0.5), WithinAbs(std::exp(0.5 * a11 * dt), 1e-9));
+}
+
+// Gravity is applied outside the efficiency scale: a gearbox does not make
+// gravity weaker. Asserting the closed-form initial acceleration at both
+// efficiencies pins that directly. Comparing the two sims against each other
+// would not: once the arm has any velocity at all, the back-EMF damping that
+// resists the fall is itself efficiency-scaled, so a lossier gearbox brakes a
+// back-driven arm less and the two runs legitimately diverge over a finite
+// step. dt is small enough that this second-order damping stays under the
+// tolerance.
+TEST_CASE("EfficiencyArm: EfficiencyDoesNotAffectGravity", "[EfficiencyArm]") {
+  const double dt = 1e-9;
+  const double expectedAlpha = -3.0 / 2.0 * 9.8 / kArmLenMeters;
+
+  auto initialAlpha = [&](double efficiency) {
+    ResetSupplyVoltage();
+    EfficiencyArmSim sim(
+        TestMotor(), kGearing, wpi::units::kilogram_square_meter_t(kMoi),
+        wpi::units::meter_t(kArmLenMeters), wpi::units::radian_t(-10.0),
+        wpi::units::radian_t(10.0), 0.0, efficiency);
+    sim.SetInputVoltage(wpi::units::volt_t(0.0));
+    sim.Update(wpi::units::second_t(dt));
+    return sim.GetVelocity().to<double>() / dt;
+  };
+
+  CHECK_THAT(initialAlpha(1.0),
+             WithinAbs(expectedAlpha, std::abs(expectedAlpha) * 1e-3));
+  CHECK_THAT(initialAlpha(0.25),
+             WithinAbs(expectedAlpha, std::abs(expectedAlpha) * 1e-3));
 }
 
 // ============================================================================
@@ -752,10 +789,17 @@ TEST_CASE("SimulateArmTrajectory: TimeAdvancesByOneTimestepPerRow",
 
 // Efficiency scales the motor torque, so a lossier gearbox reaches the same
 // goal strictly later. The C++ mirror of arm.worker.test.ts's efficiency case.
+//
+// Efficiency costs acceleration, not top speed, so the difference only shows
+// on an arm whose travel is dominated by the acceleration phase. The default
+// arm's electrical time constant is ~26us against a 0.25s sweep -- it is at
+// top speed for essentially the whole move, and both runs finish in the same
+// timestep. The heavier arm here spends the whole sweep accelerating.
 TEST_CASE("SimulateArmTrajectory: LowerEfficiencyTakesLonger",
           "[SimulateArmTrajectory]") {
   Params full;
-  Params lossy;
+  full.momentOfInertiaKgMSquared = 1.0;
+  Params lossy = full;
   lossy.efficiency = 0.7;
 
   const auto fullRows = Simulate(full);

@@ -67,9 +67,9 @@
 - spinbutton "Ball MOI" [disabled]: "1.250"
 - combobox: in2*lbs
 - switch "Use Custom Ball MOI"
-- text: Use Custom Ball MOI Spinup Time 0.081
+- text: Use Custom Ball MOI Spinup Time 0.066
 - combobox: s
-- text: Recovery Time 0.025
+- text: Recovery Time 0.018
 - combobox: s
 - heading "Simulation" [level=2]
 - list:
@@ -85,14 +85,14 @@
   - listitem:
     - img "Supply Current (A) legend icon"
     - text: Supply Current (A)
-- application: Time (s) Current (A) / Voltage (V) Angular Velocity (RPM) 0.01 0.01 0.02 0.03 0.04 0.05 0.06 0.07 0.08 0 40 80 120 160 0 800 1600 2400 3200
-- text: kV 0.022
+- application: Time (s) Current (A) / Voltage (V) Angular Velocity (RPM) 0.00 0.01 0.01 0.02 0.02 0.03 0.03 0.04 0.04 0.05 0.05 0.06 0.06 0.07 0.07 0 40 80 120 160 0 800 1600 2400 3200
+- text: kV 0.020
 - combobox: V*s/rad
 - text: kA 0.000
 - combobox: V*s^2/rad
 - text: Effective MOI 2.000
 - combobox: in2*lbs
-- text: Feedback kP 0.0073
+- text: Feedback kP 0.0078
 - combobox: V*s/rad
 - heading "Shot Analysis" [level=2]
 - text: Ball Exit Velocity 19.393

@@ -31,8 +31,16 @@ EMSCRIPTEN_DECLARE_VAL_TYPE(ElevatorSimRows);
 
 // ElevatorSim subclass that supports angle (radians from horizontal) and torque
 // efficiency [0, 1]. Overrides UpdateX to replace the hardcoded vertical
-// gravity with sin(angle) * g and to scale the motor force (B matrix) by
-// efficiency while leaving back-EMF damping (A matrix) untouched.
+// gravity with sin(angle) * g and to scale the motor-side dynamics by
+// efficiency.
+//
+// Efficiency models a lossy gearbox delivering efficiency * Kt * I to the
+// carriage, with I = (u - backEmf) / R. Both the applied-voltage term and the
+// back-EMF term pass through the same gearbox, so efficiency multiplies the
+// whole acceleration row -- A and B alike -- and cancels at steady state.
+// Efficiency therefore costs acceleration, never top speed. Gravity acts on
+// the carriage directly rather than through the gearbox, so it is applied
+// outside the scale.
 class AngledElevatorSim : public wpi::sim::ElevatorSim {
  public:
   AngledElevatorSim(const wpi::math::DCMotor& gearbox, double gearing,
@@ -58,8 +66,9 @@ class AngledElevatorSim : public wpi::sim::ElevatorSim {
         [&](const wpi::math::Vectord<2>& x,
             const wpi::math::Vectord<1>& u_) -> wpi::math::Vectord<2> {
           wpi::math::Vectord<2> xdot = m_plant.A() * x + m_plant.B() * u_;
-          // Scale motor force by efficiency (B term only, preserves back-EMF)
-          xdot(1) += (m_efficiency - 1.0) * m_plant.B()(1, 0) * u_(0);
+          // Gearbox losses on the motor-side row. xdot(0) is the kinematic
+          // v = dx/dt relation and must not be scaled.
+          xdot(1) *= m_efficiency;
           // Angle-adjusted gravity: full at 90deg (vertical), zero at 0deg
           // (horizontal)
           xdot(1) -= kGravityMetersPerSecondSquared * std::sin(m_angle);
@@ -155,14 +164,18 @@ inline emscripten::val SimulateElevatorImpl(
                          kGravityMetersPerSecondSquared *
                          std::sin(angleRadians);
 
-  // Build LinearSystem<2,1,1> for the controller, scaling B by efficiency.
+  // Build LinearSystem<2,1,1> for the controller, matching AngledElevatorSim:
+  // efficiency scales the motor-side row, so A(1,1) moves with B. A(0,1) is
+  // the kinematic v = dx/dt relation and must stay exactly 1.
+  wpi::math::Matrixd<2, 2> controllerA = idealPlantFull.A();
+  controllerA(1, 1) *= efficiency;
   wpi::math::Matrixd<2, 1> controllerB = idealPlantFull.B() * efficiency;
   wpi::math::Matrixd<1, 2> controllerC;
   controllerC << 1, 0;
   wpi::math::Matrixd<1, 1> controllerD;
   controllerD << 0;
-  wpi::math::LinearSystem<2, 1, 1> plant{idealPlantFull.A(), controllerB,
-                                         controllerC, controllerD};
+  wpi::math::LinearSystem<2, 1, 1> plant{controllerA, controllerB, controllerC,
+                                         controllerD};
 
   // Kalman filter (fixed noise -- not user-exposed)
   wpi::math::KalmanFilter<2, 1, 1> observer{

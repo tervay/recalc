@@ -54,7 +54,7 @@
 - combobox: s
 - text: Stall Load 37.614
 - combobox: lbs
-- text: End Error 0.023
+- text: End Error 0.000
 - combobox: in
 - heading "Simulation" [level=2]
 - list:
@@ -73,14 +73,14 @@
   - listitem:
     - img "Velocity (in/s) legend icon"
     - text: Velocity (in/s)
-- application: 0.0071 0.0571 0.101 0.142 0.181 0.221 0.26 0.301 0.34 0.381 0.42 0.464 0.5 Time (s) -30 0 30 60 90 Velocity (in/s) / Current (A) 0 6 12 18 24 Position (in)
+- application: 0.0071 0.0571 0.101 0.142 0.181 0.221 0.26 0.301 0.34 0.381 0.42 0.464 0.5 Time (s) -35 0 35 70 105 Velocity (in/s) / Current (A) 0 6 12 18 24 Position (in)
 - text: kA 0.073
 - combobox: V*s^2/m
-- text: kV 4.209
+- text: kV 3.788
 - combobox: V*s/m
 - text: kG 0.507
 - combobox: V
-- text: Feedback kP 90.358
+- text: Feedback kP 85.360
 - combobox: V/m
-- text: Feedback kD 2.261
+- text: Feedback kD 2.349
 - combobox: V*s/m

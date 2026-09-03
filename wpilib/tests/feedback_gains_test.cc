@@ -45,13 +45,17 @@ TEST_CASE_METHOD(ElevatorFeedbackGainsTest,
       motor, wpi::units::kilogram_t(kMassKg),
       wpi::units::meter_t(kSpoolRadiusMeters), kGearing);
 
+  // Efficiency scales the whole motor-side row, so A(1,1) moves with B.
+  // A(0,1) is the kinematic v = xdot relation and must stay exactly 1.
+  wpi::math::Matrixd<2, 2> controllerA = idealPlantFull.A();
+  controllerA(1, 1) *= kEfficiency;
   wpi::math::Matrixd<2, 1> controllerB = idealPlantFull.B() * kEfficiency;
   wpi::math::Matrixd<1, 2> controllerC;
   controllerC << 1, 0;
   wpi::math::Matrixd<1, 1> controllerD;
   controllerD << 0;
-  wpi::math::LinearSystem<2, 1, 1> plant{idealPlantFull.A(), controllerB,
-                                         controllerC, controllerD};
+  wpi::math::LinearSystem<2, 1, 1> plant{controllerA, controllerB, controllerC,
+                                         controllerD};
 
   wpi::math::LinearQuadraticRegulator<2, 1> expected{
       plant,
@@ -188,13 +192,17 @@ TEST_CASE_METHOD(ArmFeedbackGainsTest,
           wpi::units::kilogram_square_meter_t(kMomentOfInertiaKgMSquared),
           kGearing);
 
+  // Efficiency scales the whole motor-side row, so A(1,1) moves with B.
+  // A(0,1) is the kinematic v = xdot relation and must stay exactly 1.
+  wpi::math::Matrixd<2, 2> controllerA = idealPlantFull.A();
+  controllerA(1, 1) *= kEfficiency;
   wpi::math::Matrixd<2, 1> controllerB = idealPlantFull.B() * kEfficiency;
   wpi::math::Matrixd<1, 2> controllerC;
   controllerC << 1, 0;
   wpi::math::Matrixd<1, 1> controllerD;
   controllerD << 0;
-  wpi::math::LinearSystem<2, 1, 1> plant{idealPlantFull.A(), controllerB,
-                                         controllerC, controllerD};
+  wpi::math::LinearSystem<2, 1, 1> plant{controllerA, controllerB, controllerC,
+                                         controllerD};
 
   wpi::math::LinearQuadraticRegulator<2, 1> expected{
       plant,
@@ -269,8 +277,10 @@ TEST_CASE_METHOD(FlywheelFeedbackGainsTest,
       motor, wpi::units::kilogram_square_meter_t(kMomentOfInertiaKgMSquared),
       kGearing);
 
+  // Efficiency scales the whole state derivative, so A moves with B.
+  wpi::math::Matrixd<1, 1> controllerA = idealPlant.A() * kEfficiency;
   wpi::math::Matrixd<1, 1> controllerB = idealPlant.B() * kEfficiency;
-  wpi::math::LinearSystem<1, 1, 1> plant{idealPlant.A(), controllerB,
+  wpi::math::LinearSystem<1, 1, 1> plant{controllerA, controllerB,
                                          idealPlant.C(), idealPlant.D()};
 
   wpi::math::LinearQuadraticRegulator<1, 1> expected{

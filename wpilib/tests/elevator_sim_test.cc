@@ -240,36 +240,40 @@ double SteadyStateVelocity(double efficiency, double voltage) {
 }
 }  // namespace
 
-// At steady state vdot = 0, so A11*v + efficiency*B10*u = 0, giving
-// v_ss = -efficiency*B10*u/A11. Asserting the absolute value (not just a ratio)
-// pins BOTH halves of the contract: efficiency multiplies B, and A is left
-// alone. If efficiency were also applied to A it would cancel out here and the
-// measured steady state would be the full-efficiency value.
-TEST_CASE("AngledElevatorEfficiency: SteadyStateMatchesEfficiencyScaledBOverA",
+// Efficiency models a lossy gearbox: the delivered output torque is
+// efficiency * Kt * I, with I = (u - backEmf) / R. Scaling the whole
+// motor-side row by efficiency therefore scales A and B alike, and the two
+// cancel at steady state -- top speed is a property of the back-EMF balance,
+// not of the gearbox losses. This test and
+// LowerEfficiencyReducesInitialAcceleration below are a pair: this one pins
+// that efficiency cancels at steady state, that one pins that efficiency is
+// applied at all.
+TEST_CASE("AngledElevatorEfficiency: SteadyStateIsIndependentOfEfficiency",
           "[AngledElevatorEfficiency]") {
-  const double efficiency = 0.5;
   const double voltage = 6.0;
   const auto plant = IdealPlant();
-  const double expected =
-      -efficiency * plant.B()(1, 0) * voltage / plant.A()(1, 1);
+  const double expected = -plant.B()(1, 0) * voltage / plant.A()(1, 1);
 
-  CHECK_THAT(SteadyStateVelocity(efficiency, voltage),
+  CHECK_THAT(SteadyStateVelocity(0.5, voltage),
              WithinAbs(expected, std::abs(expected) * 1e-6));
 }
 
 TEST_CASE(
-    "AngledElevatorEfficiency: HalvingEfficiencyHalvesSteadyStateVelocity",
+    "AngledElevatorEfficiency: HalvingEfficiencyLeavesSteadyStateVelocity",
     "[AngledElevatorEfficiency]") {
   const double full = SteadyStateVelocity(1.0, 6.0);
   REQUIRE(full > 0.0);
-  CHECK_THAT(SteadyStateVelocity(0.5, 6.0) / full, WithinAbs(0.5, 1e-6));
+  CHECK_THAT(SteadyStateVelocity(0.5, 6.0) / full, WithinAbs(1.0, 1e-6));
 }
 
 TEST_CASE("AngledElevatorEfficiency: LowerEfficiencyReducesInitialAcceleration",
           "[AngledElevatorEfficiency]") {
   // From rest the back-EMF term is zero, so the first step isolates the motor
-  // force: v(dt) is proportional to efficiency.
-  const double dt = 1e-4;
+  // force: v(dt) is proportional to efficiency. The integrator's intermediate
+  // stages do see a nonzero velocity, and that back-EMF is itself scaled by
+  // efficiency, leaving an O(dt * |A11|) residual on the ratio -- hence the
+  // small dt and the relative rather than exact tolerance.
+  const double dt = 1e-6;
   AngledElevatorSim full(TestMotor(), kGearing, wpi::units::kilogram_t(kLoadKg),
                          wpi::units::meter_t(kSpoolRadiusMeters), -10.0, 10.0,
                          0.0, 0.0, 1.0);
@@ -282,7 +286,33 @@ TEST_CASE("AngledElevatorEfficiency: LowerEfficiencyReducesInitialAcceleration",
   half.Update(wpi::units::second_t(dt));
 
   CHECK_THAT(half.GetVelocity().to<double>() / full.GetVelocity().to<double>(),
-             WithinAbs(0.5, 1e-6));
+             WithinAbs(0.5, 1e-3));
+}
+
+// The other half of the contract: efficiency multiplies A as well as B, so
+// coasting to a stop at u = 0 is slowed by exactly the same factor. Without
+// the A scaling the decay would be efficiency-invariant and the steady-state
+// test above would pass for the wrong reason. Coasting removes the B term
+// entirely, leaving the exact solution v(dt) = v0 * exp(efficiency*A11*dt).
+TEST_CASE("AngledElevatorEfficiency: EfficiencyScalesTheBackEmfDecay",
+          "[AngledElevatorEfficiency]") {
+  const double dt = 1e-3;
+  const double v0 = 1.0;
+  const double a11 = IdealPlant().A()(1, 1);
+
+  auto decayRatio = [&](double efficiency) {
+    AngledElevatorSim sim(TestMotor(), kGearing,
+                          wpi::units::kilogram_t(kLoadKg),
+                          wpi::units::meter_t(kSpoolRadiusMeters), -10.0, 10.0,
+                          0.0, 0.0, efficiency);
+    sim.SetState(wpi::math::Vectord<2>{0.0, v0});
+    sim.SetInputVoltage(wpi::units::volt_t(0.0));
+    sim.Update(wpi::units::second_t(dt));
+    return sim.GetVelocity().to<double>() / v0;
+  };
+
+  CHECK_THAT(decayRatio(1.0), WithinAbs(std::exp(a11 * dt), 1e-9));
+  CHECK_THAT(decayRatio(0.5), WithinAbs(std::exp(0.5 * a11 * dt), 1e-9));
 }
 
 // ============================================================================
