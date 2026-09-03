@@ -30,37 +30,37 @@ export function RatioInput({
 }) {
   const [ratio, setRatio] = stateHook;
   const inputId = useId();
-  const [magnitude, setMagnitude] = useState(ratio.magnitude);
   const [type, setType] = useState(ratio.ratioType);
+  const [proxyMagnitude, setProxyMagnitude] = useState(() =>
+    ratio.magnitude.toString(),
+  );
   const lastInternalRatio = useRef(ratio);
 
-  const [proxyMagnitude, setProxyMagnitude] = useState(magnitude.toString());
   const debouncedProxyMagnitude = useDebounce(proxyMagnitude, debounceDelay);
+
+  const magnitude =
+    debouncedProxyMagnitude !== '' && debouncedProxyMagnitude !== '0'
+      ? Number(debouncedProxyMagnitude)
+      : 0;
 
   useEffect(() => {
     if (!ratio.eq(lastInternalRatio.current)) {
       lastInternalRatio.current = ratio;
-      setMagnitude(ratio.magnitude);
       setType(ratio.ratioType);
       setProxyMagnitude(ratio.magnitude.toString());
     }
   }, [ratio]);
 
   useEffect(() => {
+    if (debouncedProxyMagnitude !== proxyMagnitude) {
+      return;
+    }
     const newRatio = new Ratio(magnitude, type);
     if (!newRatio.eq(lastInternalRatio.current)) {
       lastInternalRatio.current = newRatio;
       setRatio(newRatio);
     }
-  }, [magnitude, type, setRatio]);
-
-  useEffect(() => {
-    if (debouncedProxyMagnitude !== '' && debouncedProxyMagnitude !== '0') {
-      setMagnitude(Number(debouncedProxyMagnitude));
-    } else {
-      setMagnitude(0);
-    }
-  }, [debouncedProxyMagnitude, setMagnitude]);
+  }, [magnitude, type, proxyMagnitude, debouncedProxyMagnitude, setRatio]);
 
   return (
     <div className={labelAbove ? 'flex flex-col' : 'flex flex-row'}>

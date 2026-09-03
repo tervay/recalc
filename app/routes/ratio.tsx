@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  type Dispatch,
+  type SetStateAction,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
 import Plus from '~icons/lucide/plus';
 import Trash2 from '~icons/lucide/trash-2';
 
@@ -48,6 +54,9 @@ interface RatioPairWithId {
   pair: RatioPair;
 }
 
+let ratioPairIdCounter = 0;
+const nextRatioPairId = () => `pair-${ratioPairIdCounter++}`;
+
 const DEFAULT_PARAMS = {
   ratioPairs: RatioPairListParam.withDefault([
     [18, 72],
@@ -66,11 +75,10 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 export default function Ratio() {
   const queryParams = useQueryParams(DEFAULT_PARAMS);
 
-  const idCounter = useRef(0);
   const [ratioPairsWithIds, setRatioPairsWithIds] = useState<RatioPairWithId[]>(
     () =>
       queryParams.ratioPairs.map((pair) => ({
-        id: `pair-${idCounter.current++}`,
+        id: nextRatioPairId(),
         pair,
       })),
   );
@@ -101,7 +109,7 @@ export default function Ratio() {
   const addStage = useCallback(() => {
     setRatioPairsWithIds((prev) => [
       ...prev,
-      { id: `pair-${idCounter.current++}`, pair: [1, 1] },
+      { id: nextRatioPairId(), pair: [1, 1] },
     ]);
   }, []);
 
@@ -275,22 +283,12 @@ function RatioPairRow({
   drivenTestId,
   removeTestId,
 }: RatioPairRowProps) {
-  const [drivingValue, setDrivingValue] = useState(driving);
-  const [drivenValue, setDrivenValue] = useState(driven);
+  const setDrivingValue: Dispatch<SetStateAction<number>> = (value) =>
+    onUpdate(id, typeof value === 'function' ? value(driving) : value, driven);
+  const setDrivenValue: Dispatch<SetStateAction<number>> = (value) =>
+    onUpdate(id, driving, typeof value === 'function' ? value(driven) : value);
 
-  useEffect(() => {
-    setDrivingValue(driving);
-  }, [driving]);
-
-  useEffect(() => {
-    setDrivenValue(driven);
-  }, [driven]);
-
-  useEffect(() => {
-    onUpdate(id, drivingValue, drivenValue);
-  }, [drivingValue, drivenValue, id, onUpdate]);
-
-  const stageRatio = drivingValue > 0 ? drivenValue / drivingValue : 0;
+  const stageRatio = driving > 0 ? driven / driving : 0;
   const inv = stageRatio > 0 ? 1 / stageRatio : 0;
   const stageRatioLabel =
     stageRatio === 0
@@ -304,14 +302,14 @@ function RatioPairRow({
       <span className="text-sm text-muted-foreground">{index + 1}</span>
       <div>
         <NumberInput
-          stateHook={[drivingValue, setDrivingValue]}
+          stateHook={[driving, setDrivingValue]}
           label=""
           testId={drivingTestId}
         />
       </div>
       <div>
         <NumberInput
-          stateHook={[drivenValue, setDrivenValue]}
+          stateHook={[driven, setDrivenValue]}
           label=""
           testId={drivenTestId}
         />

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   CartesianGrid,
   Legend,
@@ -20,6 +20,7 @@ import MotorTable from '~/components/recalc/motorTable';
 import { Button } from '~/components/ui/button';
 import { ButtonGroup } from '~/components/ui/button-group';
 import { type ChartConfig, ChartContainer } from '~/components/ui/chart';
+import { useWorkerSimulation } from '~/hooks/use-worker-simulation';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import {
@@ -93,7 +94,7 @@ const CHART_CONFIG = {
 // Constructed lazily (not at module scope) so importing this route module
 // never touches the `Worker` global — required for prerendering, where the
 // route component is rendered in Node and `Worker` does not exist. Every
-// call site below is inside a useEffect, so the getter is only ever invoked
+// call site below runs inside an effect, so the getter is only ever invoked
 // client-side.
 function createWorker() {
   return new ComlinkWorker<typeof MotorsWorker>(
@@ -113,6 +114,8 @@ function getWorker() {
 
 type WpilibMotorSimState = MotorsWorker.WpilibMotorSimState;
 
+const EMPTY_MOTOR_STATES: WpilibMotorSimState[] = [];
+
 export default function Motors() {
   const queryParams = useQueryParams(DEFAULT_PARAMS);
 
@@ -128,13 +131,6 @@ export default function Motors() {
 
   const hasMotorB = selectedMotorB !== '';
 
-  const [motorASimStates, setMotorASimStates] = useState<WpilibMotorSimState[]>(
-    [],
-  );
-  const [motorBSimStates, setMotorBSimStates] = useState<WpilibMotorSimState[]>(
-    [],
-  );
-
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
     motor: selectedMotor,
     motorB: selectedMotorB,
@@ -145,59 +141,41 @@ export default function Motors() {
     statorVoltage,
   });
 
-  useEffect(() => {
-    let cancelled = false;
-    setMotorASimStates([]);
-    getWorker()
-      .generateMotorCurve({
+  const limitsKey = JSON.stringify([
+    statorLimit.toDict(),
+    supplyLimit.toDict(),
+    statorVoltage.toDict(),
+    supplyVoltage.toDict(),
+  ]);
+
+  const { data: motorAResult } = useWorkerSimulation(
+    `${selectedMotor}:${limitsKey}`,
+    async () =>
+      getWorker().generateMotorCurve({
         motor: Motor.fromName(selectedMotor, 1).toDict(),
         statorLimit: statorLimit.toDict(),
         supplyLimit: supplyLimit.toDict(),
         statorVoltage: statorVoltage.toDict(),
         supplyVoltage: supplyVoltage.toDict(),
-      })
-      .then((states) => {
-        if (!cancelled) setMotorASimStates(states);
-      })
-      .catch((error) => {
-        if (!cancelled) console.error(error);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [selectedMotor, statorLimit, supplyLimit, supplyVoltage, statorVoltage]);
+      }),
+  );
 
-  useEffect(() => {
-    setMotorBSimStates([]);
-    if (!hasMotorB) {
-      return undefined;
-    }
-    let cancelled = false;
-    getWorker()
-      .generateMotorCurve({
+  const { data: motorBResult } = useWorkerSimulation(
+    hasMotorB ? `${selectedMotorB}:${limitsKey}` : 'none',
+    async () => {
+      if (!hasMotorB) return EMPTY_MOTOR_STATES;
+      return getWorker().generateMotorCurve({
         motor: Motor.fromName(selectedMotorB, 1).toDict(),
         statorLimit: statorLimit.toDict(),
         supplyLimit: supplyLimit.toDict(),
         statorVoltage: statorVoltage.toDict(),
         supplyVoltage: supplyVoltage.toDict(),
-      })
-      .then((states) => {
-        if (!cancelled) setMotorBSimStates(states);
-      })
-      .catch((error) => {
-        if (!cancelled) console.error(error);
       });
-    return () => {
-      cancelled = true;
-    };
-  }, [
-    hasMotorB,
-    selectedMotorB,
-    statorLimit,
-    supplyLimit,
-    supplyVoltage,
-    statorVoltage,
-  ]);
+    },
+  );
+
+  const motorASimStates = motorAResult ?? EMPTY_MOTOR_STATES;
+  const motorBSimStates = motorBResult ?? EMPTY_MOTOR_STATES;
 
   const motorASpec = useMemo(
     () => Motor.fromName(selectedMotor, 1),

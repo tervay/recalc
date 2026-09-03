@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   CartesianGrid,
   Legend,
@@ -27,14 +27,12 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '~/components/ui/collapsible';
+import { useWorkerSimulation } from '~/hooks/use-worker-simulation';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import type * as ArmWorker from '~/lib/math/arm.worker';
 import type * as ArmOptimizerWorker from '~/lib/math/armOptimizer.worker';
-import type {
-  ConfigOptOutput,
-  ConfigOptResult,
-} from '~/lib/math/armOptimizer.worker';
+import type { ConfigOptResult } from '~/lib/math/armOptimizer.worker';
 import optimizerWorkerUrl from '~/lib/math/armOptimizer.worker?worker&url';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
@@ -134,6 +132,8 @@ const optimizerPool = getPool<typeof ArmOptimizerWorker>(optimizerWorkerUrl);
 
 type WpilibArmSimState = ArmWorker.WpilibArmSimState;
 
+const EMPTY_ARM_STATES: WpilibArmSimState[] = [];
+
 export default function Arm() {
   const queryParams = useQueryParams(DEFAULT_PARAMS);
 
@@ -161,11 +161,92 @@ export default function Arm() {
   const [sensorDelay, setSensorDelay] = useState(queryParams.sensorDelay);
   const [feedbackDt, setFeedbackDt] = useState(queryParams.feedbackDt);
 
-  const [goingUpStates, setGoingUpStates] = useState<WpilibArmSimState[]>([]);
-  const [goingDownStates, setGoingDownStates] = useState<WpilibArmSimState[]>(
-    [],
+  const momentOfInertia = useMemo(() => {
+    return load.mul(armLength.mul(armLength));
+  }, [load, armLength]);
+
+  const armSimKey = useMemo(
+    () =>
+      JSON.stringify([
+        motor.toDict(),
+        ratio.toDict(),
+        momentOfInertia.toDict(),
+        armLength.toDict(),
+        minAngle.toDict(),
+        maxAngle.toDict(),
+        supplyVoltage.toDict(),
+        supplyLimit.toDict(),
+        statorLimit.toDict(),
+        batteryResistance.toDict(),
+        statorVoltage.toDict(),
+        efficiency,
+      ]),
+    [
+      motor,
+      ratio,
+      momentOfInertia,
+      armLength,
+      minAngle,
+      maxAngle,
+      supplyVoltage,
+      supplyLimit,
+      statorLimit,
+      batteryResistance,
+      statorVoltage,
+      efficiency,
+    ],
   );
-  const [isCalculating, setIsCalculating] = useState(false);
+
+  const { data: armSim, isLoading: isCalculating } = useWorkerSimulation(
+    armSimKey,
+    async () => {
+      const [up, down] = await Promise.allSettled([
+        getWorker().simulateArmWpilib(
+          motor.toDict(),
+          ratio.toDict(),
+          momentOfInertia.toDict(),
+          armLength.toDict(),
+          minAngle.toDict(),
+          maxAngle.toDict(),
+          minAngle.toDict(),
+          statorVoltage.toDict(),
+          supplyVoltage.toDict(),
+          statorLimit.toDict(),
+          supplyLimit.toDict(),
+          batteryResistance.toDict(),
+          'up',
+          efficiency / 100,
+          0.1,
+        ),
+        getWorker().simulateArmWpilib(
+          motor.toDict(),
+          ratio.toDict(),
+          momentOfInertia.toDict(),
+          armLength.toDict(),
+          minAngle.toDict(),
+          maxAngle.toDict(),
+          maxAngle.toDict(),
+          statorVoltage.toDict(),
+          supplyVoltage.toDict(),
+          statorLimit.toDict(),
+          supplyLimit.toDict(),
+          batteryResistance.toDict(),
+          'down',
+          efficiency / 100,
+          0.1,
+        ),
+      ]);
+      if (up.status === 'rejected') console.error(up.reason);
+      if (down.status === 'rejected') console.error(down.reason);
+      return {
+        up: up.status === 'fulfilled' ? up.value : EMPTY_ARM_STATES,
+        down: down.status === 'fulfilled' ? down.value : EMPTY_ARM_STATES,
+      };
+    },
+  );
+
+  const goingUpStates = armSim?.up ?? EMPTY_ARM_STATES;
+  const goingDownStates = armSim?.down ?? EMPTY_ARM_STATES;
 
   const goingUpTimeToGoal = useMemo(() => {
     return new Measurement(
@@ -184,10 +265,6 @@ export default function Arm() {
       's',
     );
   }, [goingDownStates]);
-
-  const momentOfInertia = useMemo(() => {
-    return load.mul(armLength.mul(armLength));
-  }, [load, armLength]);
 
   const [feedforwardGains, setFeedforwardGains] = useState({
     kV: new Measurement(0, 'V*s/rad'),
@@ -275,106 +352,50 @@ export default function Arm() {
     [goingDownStates],
   );
 
-  useEffect(() => {
-    setGoingUpStates([]);
-    setGoingDownStates([]);
-    setIsCalculating(true);
-    let cancelled = false;
-
-    const upPromise = getWorker().simulateArmWpilib(
-      motor.toDict(),
-      ratio.toDict(),
-      momentOfInertia.toDict(),
-      armLength.toDict(),
-      minAngle.toDict(),
-      maxAngle.toDict(),
-      minAngle.toDict(),
-      statorVoltage.toDict(),
-      supplyVoltage.toDict(),
-      statorLimit.toDict(),
-      supplyLimit.toDict(),
-      batteryResistance.toDict(),
-      'up',
-      efficiency / 100,
-      0.1,
-    );
-
-    const downPromise = getWorker().simulateArmWpilib(
-      motor.toDict(),
-      ratio.toDict(),
-      momentOfInertia.toDict(),
-      armLength.toDict(),
-      minAngle.toDict(),
-      maxAngle.toDict(),
-      maxAngle.toDict(),
-      statorVoltage.toDict(),
-      supplyVoltage.toDict(),
-      statorLimit.toDict(),
-      supplyLimit.toDict(),
-      batteryResistance.toDict(),
-      'down',
-      efficiency / 100,
-      0.1,
-    );
-
-    void Promise.allSettled([upPromise, downPromise]).then(
-      ([upResult, downResult]) => {
-        if (cancelled) return;
-        if (upResult.status === 'fulfilled') {
-          setGoingUpStates(upResult.value);
-        } else {
-          console.error(upResult.reason);
-        }
-        if (downResult.status === 'fulfilled') {
-          setGoingDownStates(downResult.value);
-        } else {
-          console.error(downResult.reason);
-        }
-        setIsCalculating(false);
-      },
-    );
-
-    return () => {
-      cancelled = true;
-    };
-  }, [
-    motor,
-    ratio,
-    momentOfInertia,
-    armLength,
-    minAngle,
-    maxAngle,
-    supplyVoltage,
-    supplyLimit,
-    statorLimit,
-    batteryResistance,
-    statorVoltage,
-    efficiency,
-  ]);
-
   // Optimizer
   const [optimizationEnabled, setOptimizationEnabled] = useState(true);
-  const [configOptResult, setConfigOptResult] =
-    useState<ConfigOptOutput | null>(null);
-  const [selectedConfigCell, setSelectedConfigCell] =
-    useState<ConfigOptResult | null>(null);
-  const configOptGeneration = useRef(0);
 
   const userStatorAmps = statorLimit.to('A').scalar;
   const userSupplyAmps = supplyLimit.to('A').scalar;
 
-  useEffect(() => {
-    if (!optimizationEnabled) {
-      setConfigOptResult(null);
-      setSelectedConfigCell(null);
-      return;
-    }
-    const gen = ++configOptGeneration.current;
-    setConfigOptResult(null);
-    setSelectedConfigCell(null);
+  const configOptKey = useMemo(
+    () =>
+      optimizationEnabled
+        ? JSON.stringify([
+            motor.toDict(),
+            momentOfInertia.toDict(),
+            armLength.toDict(),
+            minAngle.toDict(),
+            maxAngle.toDict(),
+            statorVoltage.toDict(),
+            batteryResistance.toDict(),
+            supplyVoltage.toDict(),
+            maximumComfortableStatorLimit.toDict(),
+            maximumComfortableSupplyLimit.toDict(),
+            efficiency,
+          ])
+        : 'disabled',
+    [
+      optimizationEnabled,
+      motor,
+      momentOfInertia,
+      armLength,
+      minAngle,
+      maxAngle,
+      statorVoltage,
+      batteryResistance,
+      supplyVoltage,
+      maximumComfortableStatorLimit,
+      maximumComfortableSupplyLimit,
+      efficiency,
+    ],
+  );
 
-    optimizerPool
-      .exec('optimizeConfiguration', [
+  const { data: configOptResult } = useWorkerSimulation(
+    configOptKey,
+    async () => {
+      if (!optimizationEnabled) return null;
+      return optimizerPool.exec('optimizeConfiguration', [
         motor.toDict(),
         momentOfInertia.toDict(),
         armLength.toDict(),
@@ -386,29 +407,23 @@ export default function Arm() {
         maximumComfortableStatorLimit.toDict(),
         maximumComfortableSupplyLimit.toDict(),
         efficiency / 100,
-      ])
-      .then((result: ConfigOptOutput) => {
-        if (gen !== configOptGeneration.current) return;
-        setConfigOptResult(result);
-        setSelectedConfigCell(result.recommended ?? null);
-      })
-      .catch((err: unknown) => {
-        console.error('Arm optimizer error:', err);
-      });
-  }, [
-    motor,
-    momentOfInertia,
-    armLength,
-    minAngle,
-    maxAngle,
-    statorVoltage,
-    batteryResistance,
-    supplyVoltage,
-    maximumComfortableStatorLimit,
-    maximumComfortableSupplyLimit,
-    efficiency,
-    optimizationEnabled,
-  ]);
+      ]);
+    },
+  );
+
+  const [selectedCellState, setSelectedCellState] = useState<{
+    key: string;
+    cell: ConfigOptResult | null;
+  } | null>(null);
+
+  const selectedConfigCell =
+    selectedCellState?.key === configOptKey
+      ? selectedCellState.cell
+      : (configOptResult?.recommended ?? null);
+
+  const setSelectedConfigCell = (cell: ConfigOptResult | null) => {
+    setSelectedCellState({ key: configOptKey, cell });
+  };
 
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
     motor,

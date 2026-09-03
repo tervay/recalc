@@ -30,6 +30,15 @@ const CHAINS_NAME = 'Chain Calculator';
 const CHAINS_DESCRIPTION =
   'Calculate chain drive configurations for FRC and FTC robots. Find optimal sprocket combinations and center-to-center distances for standard chain sizes.';
 
+function SuggestedBadge() {
+  return (
+    <span className="flex items-center gap-1 rounded border border-green-500/20 bg-green-500/10 px-1.5 py-0.5 text-xs text-green-700 dark:text-green-400">
+      <CheckIcon className="size-3" />
+      Suggested
+    </span>
+  );
+}
+
 export function meta() {
   return [
     ...buildMeta({
@@ -113,15 +122,6 @@ export default function Chains() {
     extraCenter,
     allowHalfLinks,
   });
-
-  function SuggestedBadge() {
-    return (
-      <span className="flex items-center gap-1 rounded border border-green-500/20 bg-green-500/10 px-1.5 py-0.5 text-xs text-green-700 dark:text-green-400">
-        <CheckIcon className="size-3" />
-        Suggested
-      </span>
-    );
-  }
 
   return (
     <div>
