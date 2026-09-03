@@ -115,16 +115,18 @@ export function MotorInput({
   const [motor, setMotor] = stateHook;
   const inputId = useId();
   const [name, setName] = useState(motor.identifier);
-  const [quantity, setQuantity] = useState(motor.quantity);
-
-  const [proxyQuantity, setProxyQuantity] = useState(quantity.toString());
+  const [proxyQuantity, setProxyQuantity] = useState(() =>
+    motor.quantity.toString(),
+  );
   const lastInternalMotor = useRef(motor);
+
+  const quantity =
+    proxyQuantity !== '' && proxyQuantity !== '0' ? Number(proxyQuantity) : 0;
 
   useEffect(() => {
     if (!sameMotor(motor, lastInternalMotor.current)) {
       lastInternalMotor.current = motor;
       setName(motor.identifier);
-      setQuantity(motor.quantity);
       setProxyQuantity(motor.quantity.toString());
     }
   }, [motor]);
@@ -136,14 +138,6 @@ export function MotorInput({
       setMotor(newMotor);
     }
   }, [name, quantity, setMotor]);
-
-  useEffect(() => {
-    if (proxyQuantity !== '' && proxyQuantity !== '0') {
-      setQuantity(Number(proxyQuantity));
-    } else {
-      setQuantity(0);
-    }
-  }, [proxyQuantity, setQuantity]);
 
   return (
     <div className={labelAbove ? 'flex flex-col' : 'flex flex-row'}>

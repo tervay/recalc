@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   CartesianGrid,
   Legend,
@@ -29,6 +29,7 @@ import {
 } from '~/components/ui/collapsible';
 import { Skeleton } from '~/components/ui/skeleton';
 import { useIsMobile } from '~/hooks/use-mobile';
+import { useWorkerSimulation } from '~/hooks/use-worker-simulation';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import { calculateGuessedLimits, calculateStallLoad } from '~/lib/math/linear';
@@ -36,7 +37,6 @@ import type * as LinearWorker from '~/lib/math/linear.worker';
 import { orchestrateConfigOptimization } from '~/lib/math/linearConfigOrchestrator';
 import type * as LinearOptimizerWorker from '~/lib/math/linearOptimizer.worker';
 import type {
-  ConfigOptOutput,
   ConfigOptResult,
   OptimizeConfigurationParams,
 } from '~/lib/math/linearOptimizer.worker';
@@ -89,6 +89,8 @@ const CASCADE_TRAVEL_FACTOR = 0.5;
 const BATTERY_VOLTAGE_FILTER_TC_S = 0.1;
 
 type WpilibElevatorSimState = LinearWorker.WpilibElevatorSimState;
+
+const EMPTY_ELEVATOR_STATES: WpilibElevatorSimState[] = [];
 
 const DEFAULT_PARAMS = {
   motor: MotorParam.withDefault(Motor.KrakenX60sFOC(1)),
@@ -258,10 +260,87 @@ export default function Linear() {
     );
   }, [motor, statorLimit, spoolDiameter, ratio, efficiency, supplyVoltage]);
 
-  const [workerWpilibSimStates, setWorkerWpilibSimStates] = useState<
-    WpilibElevatorSimState[]
-  >([]);
-  const [isSimulating, setIsSimulating] = useState(true);
+  const linearSimKey = useMemo(
+    () =>
+      JSON.stringify([
+        motor.toDict(),
+        ratio.toDict(),
+        load.toDict(),
+        spoolDiameter.toDict(),
+        travelDistance.toDict(),
+        statorLimit.toDict(),
+        supplyLimit.toDict(),
+        batteryResistance.toDict(),
+        supplyVoltage.toDict(),
+        angle.toDict(),
+        efficiency,
+        cascade,
+        effectiveMaxVelocity.toDict(),
+        effectiveMaxAcceleration.toDict(),
+        qPosition.toDict(),
+        qVelocity.toDict(),
+        rVolts.toDict(),
+        sensorDelay.toDict(),
+        kalmanFilterPositionStdDev.toDict(),
+        kalmanFilterVelocityStdDev.toDict(),
+        kalmanFilterEncoderPositionStdDev.toDict(),
+      ]),
+    [
+      motor,
+      ratio,
+      load,
+      spoolDiameter,
+      travelDistance,
+      statorLimit,
+      supplyLimit,
+      batteryResistance,
+      supplyVoltage,
+      angle,
+      efficiency,
+      cascade,
+      effectiveMaxVelocity,
+      effectiveMaxAcceleration,
+      qPosition,
+      qVelocity,
+      rVolts,
+      sensorDelay,
+      kalmanFilterPositionStdDev,
+      kalmanFilterVelocityStdDev,
+      kalmanFilterEncoderPositionStdDev,
+    ],
+  );
+
+  const { data: linearSim, isLoading: isSimulating } = useWorkerSimulation(
+    linearSimKey,
+    async () =>
+      getWorker().simulateElevatorWpilib({
+        motorDict: motor.toDict(),
+        ratio: ratio.toDict(),
+        load: load.toDict(),
+        spoolDiameter: spoolDiameter.toDict(),
+        travelDistance: travelDistance.toDict(),
+        statorLimitDict: statorLimit.toDict(),
+        supplyLimitDict: supplyLimit.toDict(),
+        batteryResistance: batteryResistance.toDict(),
+        batteryVoltage: supplyVoltage.toDict(),
+        angle: angle.toDict(),
+        efficiency: efficiency / 100,
+        cascade,
+        batteryVoltageFilterTimeConstantSeconds: BATTERY_VOLTAGE_FILTER_TC_S,
+        maxVelocityDict: effectiveMaxVelocity.toDict(),
+        maxAccelerationDict: effectiveMaxAcceleration.toDict(),
+        qPositionMeters: qPosition.to('m').scalar,
+        qVelocityMPS: qVelocity.to('m/s').scalar,
+        rVolts: rVolts.to('V').scalar,
+        sensorDelaySeconds: sensorDelay.to('s').scalar,
+        kalmanFilterPositionStdDev: kalmanFilterPositionStdDev.toDict(),
+        kalmanFilterVelocityStdDev: kalmanFilterVelocityStdDev.toDict(),
+        kalmanFilterEncoderPositionStdDev:
+          kalmanFilterEncoderPositionStdDev.toDict(),
+      }),
+  );
+
+  const workerWpilibSimStates = linearSim ?? EMPTY_ELEVATOR_STATES;
 
   const chartData = useMemo(() => {
     const travelUnit = travelDistance.units();
@@ -278,13 +357,6 @@ export default function Linear() {
       ).to(velocityUnit).scalar,
     }));
   }, [workerWpilibSimStates, travelDistance]);
-
-  const [configOptResult, setConfigOptResult] =
-    useState<ConfigOptOutput | null>(null);
-  const configOptGeneration = useRef(0);
-
-  const [selectedConfigCell, setSelectedConfigCell] =
-    useState<ConfigOptResult | null>(null);
 
   const timeToGoal = useMemo(() => {
     return new Measurement(
@@ -378,156 +450,69 @@ export default function Linear() {
     sensorDelay,
   ]);
 
-  useEffect(() => {
-    setIsSimulating(true);
-    let cancelled = false;
-
-    getWorker()
-      .simulateElevatorWpilib({
-        motorDict: motor.toDict(),
-        ratio: ratio.toDict(),
-        load: load.toDict(),
-        spoolDiameter: spoolDiameter.toDict(),
-        travelDistance: travelDistance.toDict(),
-        statorLimitDict: statorLimit.toDict(),
-        supplyLimitDict: supplyLimit.toDict(),
-        batteryResistance: batteryResistance.toDict(),
-        batteryVoltage: supplyVoltage.toDict(),
-        angle: angle.toDict(),
-        efficiency: efficiency / 100,
-        cascade,
-        batteryVoltageFilterTimeConstantSeconds: BATTERY_VOLTAGE_FILTER_TC_S,
-        maxVelocityDict: effectiveMaxVelocity.toDict(),
-        maxAccelerationDict: effectiveMaxAcceleration.toDict(),
-        qPositionMeters: qPosition.to('m').scalar,
-        qVelocityMPS: qVelocity.to('m/s').scalar,
-        rVolts: rVolts.to('V').scalar,
-        sensorDelaySeconds: sensorDelay.to('s').scalar,
-        kalmanFilterPositionStdDev: kalmanFilterPositionStdDev.toDict(),
-        kalmanFilterVelocityStdDev: kalmanFilterVelocityStdDev.toDict(),
-        kalmanFilterEncoderPositionStdDev:
-          kalmanFilterEncoderPositionStdDev.toDict(),
-      })
-      .then((states) => {
-        if (cancelled) return;
-        setWorkerWpilibSimStates(states);
-        setIsSimulating(false);
-      })
-      .catch((error) => {
-        if (cancelled) return;
-        console.error(error);
-        setIsSimulating(false);
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [
-    motor,
-    ratio,
-    load,
-    spoolDiameter,
-    travelDistance,
-    statorLimit,
-    supplyLimit,
-    batteryResistance,
-    supplyVoltage,
-    angle,
-    efficiency,
-    cascade,
-    effectiveMaxVelocity,
-    effectiveMaxAcceleration,
-    qPosition,
-    qVelocity,
-    rVolts,
-    sensorDelay,
-    kalmanFilterPositionStdDev,
-    kalmanFilterVelocityStdDev,
-    kalmanFilterEncoderPositionStdDev,
-  ]);
-
   const userStatorAmps = statorLimit.to('A').scalar;
   const userSupplyAmps = supplyLimit.to('A').scalar;
 
-  useEffect(() => {
-    if (!optimizationEnabled) {
-      setConfigOptResult(null);
-      setSelectedConfigCell(null);
-      return;
-    }
-    const gen = ++configOptGeneration.current;
-    setConfigOptResult(null);
-    setSelectedConfigCell(null);
-
-    const params: OptimizeConfigurationParams = {
-      motorDict: motor.toDict(),
-      loadDict: load.toDict(),
-      spoolDiameterDict: spoolDiameter.toDict(),
-      travelDistanceDict: travelDistance.toDict(),
-      batteryResistanceDict: batteryResistance.toDict(),
-      batteryVoltageDict: supplyVoltage.toDict(),
-      maximumComfortableStatorLimitDict: maximumComfortableStatorLimit.toDict(),
-      maximumComfortableSupplyLimitDict: maximumComfortableSupplyLimit.toDict(),
-      angleDict: angle.toDict(),
-      efficiency: efficiency / 100,
-      cascade,
-      batteryVoltageFilterTimeConstantSeconds: BATTERY_VOLTAGE_FILTER_TC_S,
-      maxVelocityMPS: enableCustomMaxVelocity
-        ? maxVelocity.to('m/s').scalar
-        : null,
-      maxAccelerationMPS2: enableCustomMaxAcceleration
-        ? maxAcceleration.to('m/s^2').scalar
-        : null,
-      qPositionMeters: qPosition.to('m').scalar,
-      qVelocityMPS: qVelocity.to('m/s').scalar,
-      rVolts: rVolts.to('V').scalar,
-      sensorDelaySeconds: sensorDelay.to('s').scalar,
-      kalmanFilterPositionStdDevDict: kalmanFilterPositionStdDev.toDict(),
-      kalmanFilterVelocityStdDevDict: kalmanFilterVelocityStdDev.toDict(),
-      kalmanFilterEncoderPositionStdDevDict:
-        kalmanFilterEncoderPositionStdDev.toDict(),
-    };
-
-    // Fan the stator x supply grid out across the worker pool instead of
-    // running every cell serially in a single worker.
-    orchestrateConfigOptimization(params, (statorAmps, supplyAmps) =>
-      optimizerPool.exec('optimizeConfigurationCell', [
-        { ...params, statorAmps, supplyAmps },
-      ]),
-    )
-      .then((result: ConfigOptOutput) => {
-        if (gen !== configOptGeneration.current) return;
-        setConfigOptResult(result);
-        setSelectedConfigCell(result.recommended ?? null);
-      })
-      .catch((err: unknown) => {
-        console.error('Config optimizer error:', err);
-      });
-  }, [
-    motor,
-    load,
-    spoolDiameter,
-    travelDistance,
-    batteryResistance,
-    supplyVoltage,
-    maximumComfortableStatorLimit,
-    maximumComfortableSupplyLimit,
-    angle,
-    efficiency,
+  const configOptParams: OptimizeConfigurationParams = {
+    motorDict: motor.toDict(),
+    loadDict: load.toDict(),
+    spoolDiameterDict: spoolDiameter.toDict(),
+    travelDistanceDict: travelDistance.toDict(),
+    batteryResistanceDict: batteryResistance.toDict(),
+    batteryVoltageDict: supplyVoltage.toDict(),
+    maximumComfortableStatorLimitDict: maximumComfortableStatorLimit.toDict(),
+    maximumComfortableSupplyLimitDict: maximumComfortableSupplyLimit.toDict(),
+    angleDict: angle.toDict(),
+    efficiency: efficiency / 100,
     cascade,
-    optimizationEnabled,
-    qPosition,
-    qVelocity,
-    rVolts,
-    enableCustomMaxVelocity,
-    enableCustomMaxAcceleration,
-    maxVelocity,
-    maxAcceleration,
-    sensorDelay,
-    kalmanFilterPositionStdDev,
-    kalmanFilterVelocityStdDev,
-    kalmanFilterEncoderPositionStdDev,
-  ]);
+    batteryVoltageFilterTimeConstantSeconds: BATTERY_VOLTAGE_FILTER_TC_S,
+    maxVelocityMPS: enableCustomMaxVelocity
+      ? maxVelocity.to('m/s').scalar
+      : null,
+    maxAccelerationMPS2: enableCustomMaxAcceleration
+      ? maxAcceleration.to('m/s^2').scalar
+      : null,
+    qPositionMeters: qPosition.to('m').scalar,
+    qVelocityMPS: qVelocity.to('m/s').scalar,
+    rVolts: rVolts.to('V').scalar,
+    sensorDelaySeconds: sensorDelay.to('s').scalar,
+    kalmanFilterPositionStdDevDict: kalmanFilterPositionStdDev.toDict(),
+    kalmanFilterVelocityStdDevDict: kalmanFilterVelocityStdDev.toDict(),
+    kalmanFilterEncoderPositionStdDevDict:
+      kalmanFilterEncoderPositionStdDev.toDict(),
+  };
+
+  const configOptKey = optimizationEnabled
+    ? JSON.stringify(configOptParams)
+    : 'disabled';
+
+  const { data: configOptResult } = useWorkerSimulation(
+    configOptKey,
+    async () => {
+      if (!optimizationEnabled) return null;
+      return orchestrateConfigOptimization(
+        configOptParams,
+        (statorAmps, supplyAmps) =>
+          optimizerPool.exec('optimizeConfigurationCell', [
+            { ...configOptParams, statorAmps, supplyAmps },
+          ]),
+      );
+    },
+  );
+
+  const [selectedCellState, setSelectedCellState] = useState<{
+    key: string;
+    cell: ConfigOptResult | null;
+  } | null>(null);
+
+  const selectedConfigCell =
+    selectedCellState?.key === configOptKey
+      ? selectedCellState.cell
+      : (configOptResult?.recommended ?? null);
+
+  const setSelectedConfigCell = (cell: ConfigOptResult | null) => {
+    setSelectedCellState({ key: configOptKey, cell });
+  };
 
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
     motor,

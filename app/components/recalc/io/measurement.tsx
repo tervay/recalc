@@ -63,9 +63,12 @@ export function MeasurementInput({
   const inputId = useId();
 
   const kinds = useMemo(() => Measurement.choices(meas), [meas]);
-  const [scalar, setScalar] = useState(meas.scalar);
   const [unit, setUnit] = useState(() => selectableUnit(meas, kinds));
+  const [proxyValue, setProxyValue] = useState(() => meas.scalar.toString());
   const lastInternalMeas = useRef(meas);
+
+  const scalar =
+    proxyValue !== '' && proxyValue !== '0' ? Number(proxyValue) : 0;
 
   useEffect(() => {
     const newMeas = new Measurement(scalar, unit);
@@ -78,22 +81,10 @@ export function MeasurementInput({
   useEffect(() => {
     if (!sameReading(meas, lastInternalMeas.current)) {
       lastInternalMeas.current = meas;
-      const newScalar = meas.scalar;
-      setScalar(newScalar);
       setUnit(selectableUnit(meas, kinds));
-      setProxyValue(newScalar.toString());
+      setProxyValue(meas.scalar.toString());
     }
   }, [meas, kinds]);
-
-  const [proxyValue, setProxyValue] = useState(scalar.toString());
-
-  useEffect(() => {
-    if (proxyValue !== '' && proxyValue !== '0') {
-      setScalar(Number(proxyValue));
-    } else {
-      setScalar(0);
-    }
-  }, [proxyValue, setScalar]);
 
   const labelEl =
     tooltip === undefined ? (
@@ -189,19 +180,10 @@ export function MeasurementOutput({
 }) {
   const inputId = useId();
   const kinds = useMemo(() => Measurement.choices(state), [state]);
-  const [scalar, setScalar] = useState(state.scalar);
   const [unit, setUnit] = useState(
     () => defaultUnit ?? selectableUnit(state, kinds),
   );
-  const [stringified, setStringified] = useState(scalar.toFixed(roundTo));
-
-  useEffect(() => {
-    setScalar(state.to(unit).scalar);
-  }, [state, unit]);
-
-  useEffect(() => {
-    setStringified(scalar.toFixed(roundTo));
-  }, [scalar, roundTo]);
+  const stringified = state.to(unit).scalar.toFixed(roundTo);
 
   const labelEl =
     tooltip === undefined ? (
@@ -290,16 +272,7 @@ export function MeasurementDisplayOutput({
   const [unit, setUnit] = useState(
     () => defaultUnit ?? selectableUnit(state, kinds),
   );
-  const [scalar, setScalar] = useState(state.to(unit).scalar);
-  const [stringified, setStringified] = useState(scalar.toFixed(roundTo));
-
-  useEffect(() => {
-    setScalar(state.to(unit).scalar);
-  }, [state, unit]);
-
-  useEffect(() => {
-    setStringified(scalar.toFixed(roundTo));
-  }, [scalar, roundTo]);
+  const stringified = state.to(unit).scalar.toFixed(roundTo);
 
   const inner = (
     <div className="flex flex-col gap-0.5 rounded-lg border bg-muted/30 px-3 py-2">

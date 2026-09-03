@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from 'react';
+import { useId, useState } from 'react';
 
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
@@ -127,11 +127,7 @@ export function NumberOutput({
   testId?: string;
 }) {
   const inputId = useId();
-  const [stringified, setStringified] = useState(state.toFixed(roundTo));
-
-  useEffect(() => {
-    setStringified(state.toFixed(roundTo));
-  }, [state, roundTo]);
+  const stringified = state.toFixed(roundTo);
 
   return (
     <div className="flex flex-row">
@@ -162,11 +158,7 @@ export function NumberDisplayOutput({
   roundTo?: number;
   testId?: string;
 }) {
-  const [stringified, setStringified] = useState(state.toFixed(roundTo));
-
-  useEffect(() => {
-    setStringified(state.toFixed(roundTo));
-  }, [state, roundTo]);
+  const stringified = state.toFixed(roundTo);
 
   return (
     <div className="flex flex-col gap-0.5 rounded-lg border bg-muted/30 px-3 py-2">

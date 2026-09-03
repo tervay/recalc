@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router';
 
 import IOLine from '~/components/recalc/blocks';
@@ -12,6 +12,7 @@ import { RatioInput } from '~/components/recalc/io/ratio';
 import { Checkbox } from '~/components/ui/checkbox';
 import { Label } from '~/components/ui/label';
 import { Spinner } from '~/components/ui/spinner';
+import { useWorkerSimulation } from '~/hooks/use-worker-simulation';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import type * as RatioFinderWorker from '~/lib/math/ratioFinder.worker';
@@ -99,7 +100,7 @@ const DEFAULT_PARAMS = {
 // Constructed lazily (not at module scope) so importing this route module
 // never touches the `Worker` global — required for prerendering, where the
 // route component is rendered in Node and `Worker` does not exist. Every
-// call site below is inside a useEffect, so the getter is only ever invoked
+// call site below runs inside an effect, so the getter is only ever invoked
 // client-side.
 function createWorker() {
   return new ComlinkWorker<typeof RatioFinderWorker>(
@@ -116,6 +117,8 @@ function getWorker() {
   workerInstance ??= createWorker();
   return workerInstance;
 }
+
+const EMPTY_SOLUTIONS: RatioFinderWorker.GearboxSolution[] = [];
 
 export default function RatioFinder() {
   const queryParams = useQueryParams(DEFAULT_PARAMS);
@@ -211,15 +214,6 @@ export default function RatioFinder() {
     [stage1Families, stage2Families, stage3Families],
   );
 
-  const [solutions, setSolutions] = useState<
-    RatioFinderWorker.GearboxSolution[]
-  >([]);
-  const [count, setCount] = useState(0);
-  const [loading, setLoading] = useState(false);
-  // True when the only gearboxes found needed a third stage.
-  const [autoExpandedToThreeStage, setAutoExpandedToThreeStage] =
-    useState(false);
-
   const filters: RatioFinderWorker.FindGearboxesFilters = useMemo(
     () => ({
       minGearTeeth,
@@ -289,48 +283,28 @@ export default function RatioFinder() {
     ],
   );
 
-  useEffect(() => {
-    // findGearboxes is async (it awaits dynamic data imports), so successive
-    // calls interleave inside the worker and may resolve out of order. Ignore
-    // any response that arrives after the inputs have changed so a slower,
-    // stale request can never overwrite the latest results.
-    let cancelled = false;
+  const findGearboxesKey = JSON.stringify([
+    targetReduction.toDict(),
+    targetReductionErrorThreshold,
+    startingBore,
+    filters,
+  ]);
 
-    setCount(0);
-    setSolutions([]);
-    setLoading(true);
-
-    getWorker()
-      .findGearboxes(
+  const { data: findResult, isLoading: loading } = useWorkerSimulation(
+    findGearboxesKey,
+    async () =>
+      getWorker().findGearboxes(
         targetReduction.toDict(),
         targetReductionErrorThreshold,
         startingBore,
         filters,
-      )
-      .then((results) => {
-        if (cancelled) {
-          return;
-        }
-        setCount(results.count);
-        setSolutions(results.solutions);
-        setAutoExpandedToThreeStage(results.autoExpandedToThreeStage);
-        setLoading(false);
-      })
-      .catch((error) => {
-        if (cancelled) {
-          return;
-        }
-        console.error(error);
-        setSolutions([]);
-        setCount(0);
-        setAutoExpandedToThreeStage(false);
-        setLoading(false);
-      });
+      ),
+  );
 
-    return () => {
-      cancelled = true;
-    };
-  }, [targetReduction, targetReductionErrorThreshold, startingBore, filters]);
+  const solutions = findResult?.solutions ?? EMPTY_SOLUTIONS;
+  const count = findResult?.count ?? 0;
+  const autoExpandedToThreeStage =
+    findResult?.autoExpandedToThreeStage ?? false;
 
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
     minGearTeeth,

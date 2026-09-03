@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
+import { useEffect, useMemo, useState, useTransition } from 'react';
 import {
   CartesianGrid,
   Legend,
@@ -32,16 +32,14 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '~/components/ui/collapsible';
+import { useWorkerSimulation } from '~/hooks/use-worker-simulation';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import { computeShotResult, type ShooterMode } from '~/lib/math/ballShot';
 import { FLYWHEEL_SIMULATION_TIMEOUT_SECONDS } from '~/lib/math/flywheel.worker';
 import type * as FlywheelWorker from '~/lib/math/flywheel.worker';
 import type * as FlywheelOptimizerWorker from '~/lib/math/flywheelOptimizer.worker';
-import type {
-  ConfigOptOutput,
-  ConfigOptResult,
-} from '~/lib/math/flywheelOptimizer.worker';
+import type { ConfigOptResult } from '~/lib/math/flywheelOptimizer.worker';
 import optimizerWorkerUrl from '~/lib/math/flywheelOptimizer.worker?worker&url';
 import Measurement from '~/lib/models/Measurement';
 import Motor, { nominalVoltage } from '~/lib/models/Motor';
@@ -186,6 +184,8 @@ const optimizerPool =
   getPool<typeof FlywheelOptimizerWorker>(optimizerWorkerUrl);
 
 type WpilibFlywheelSimState = FlywheelWorker.WpilibFlywheelSimState;
+
+const EMPTY_FLYWHEEL_STATES: WpilibFlywheelSimState[] = [];
 
 export default function Flywheel() {
   const queryParams = useQueryParams(DEFAULT_PARAMS);
@@ -481,10 +481,15 @@ export default function Flywheel() {
     [shotAnalysis],
   );
 
-  const [recoverySimStates, setRecoverySimStates] = useState<
+  const [recoverySimStatesRaw, setRecoverySimStatesRaw] = useState<
     WpilibFlywheelSimState[]
   >([]);
   const [isRecoveryCalculating, startRecoveryCalculating] = useTransition();
+
+  const recoverySimStates =
+    postShotOmegaRadPerSec === null
+      ? EMPTY_FLYWHEEL_STATES
+      : recoverySimStatesRaw;
 
   const spinupTime = useMemo(() => {
     return workerWpilibSimStates.length > 0
@@ -541,7 +546,6 @@ export default function Flywheel() {
   // Recovery simulation: runs from post-shot speed back to target speed.
   useEffect(() => {
     if (postShotOmegaRadPerSec === null) {
-      setRecoverySimStates([]);
       return undefined;
     }
     let cancelled = false;
@@ -561,7 +565,7 @@ export default function Flywheel() {
           0.1,
           postShotOmegaRadPerSec,
         );
-        if (!cancelled) setRecoverySimStates(states);
+        if (!cancelled) setRecoverySimStatesRaw(states);
       } catch (error) {
         console.error(error);
       }
@@ -602,27 +606,42 @@ export default function Flywheel() {
 
   // Optimizer
   const [optimizationEnabled, setOptimizationEnabled] = useState(true);
-  const [configOptResult, setConfigOptResult] =
-    useState<ConfigOptOutput | null>(null);
-  const configOptGeneration = useRef(0);
-  const [selectedConfigCell, setSelectedConfigCell] =
-    useState<ConfigOptResult | null>(null);
 
   const userStatorAmps = statorLimit.to('A').scalar;
   const userSupplyAmps = supplyLimit.to('A').scalar;
 
-  useEffect(() => {
-    if (!optimizationEnabled) {
-      setConfigOptResult(null);
-      setSelectedConfigCell(null);
-      return;
-    }
-    const gen = ++configOptGeneration.current;
-    setConfigOptResult(null);
-    setSelectedConfigCell(null);
+  const configOptKey = useMemo(
+    () =>
+      optimizationEnabled
+        ? JSON.stringify([
+            motor.toDict(),
+            combinedMOI.toDict(),
+            clampedShooterTargetSpeed.toDict(),
+            batteryResistance.toDict(),
+            supplyVoltage.toDict(),
+            maximumComfortableStatorLimit.toDict(),
+            maximumComfortableSupplyLimit.toDict(),
+            efficiency,
+          ])
+        : 'disabled',
+    [
+      optimizationEnabled,
+      motor,
+      combinedMOI,
+      clampedShooterTargetSpeed,
+      batteryResistance,
+      supplyVoltage,
+      maximumComfortableStatorLimit,
+      maximumComfortableSupplyLimit,
+      efficiency,
+    ],
+  );
 
-    optimizerPool
-      .exec('optimizeConfiguration', [
+  const { data: configOptResult } = useWorkerSimulation(
+    configOptKey,
+    async () => {
+      if (!optimizationEnabled) return null;
+      return optimizerPool.exec('optimizeConfiguration', [
         motor.toDict(),
         combinedMOI.toDict(),
         clampedShooterTargetSpeed.toDict(),
@@ -633,26 +652,23 @@ export default function Flywheel() {
         maximumComfortableSupplyLimit.toDict(),
         efficiency / 100,
         0.1,
-      ])
-      .then((result: ConfigOptOutput) => {
-        if (gen !== configOptGeneration.current) return;
-        setConfigOptResult(result);
-        setSelectedConfigCell(result.recommended ?? null);
-      })
-      .catch((err: unknown) => {
-        console.error('Flywheel optimizer error:', err);
-      });
-  }, [
-    motor,
-    combinedMOI,
-    clampedShooterTargetSpeed,
-    batteryResistance,
-    supplyVoltage,
-    maximumComfortableStatorLimit,
-    maximumComfortableSupplyLimit,
-    efficiency,
-    optimizationEnabled,
-  ]);
+      ]);
+    },
+  );
+
+  const [selectedCellState, setSelectedCellState] = useState<{
+    key: string;
+    cell: ConfigOptResult | null;
+  } | null>(null);
+
+  const selectedConfigCell =
+    selectedCellState?.key === configOptKey
+      ? selectedCellState.cell
+      : (configOptResult?.recommended ?? null);
+
+  const setSelectedConfigCell = (cell: ConfigOptResult | null) => {
+    setSelectedCellState({ key: configOptKey, cell });
+  };
 
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
     motor,
