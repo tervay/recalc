@@ -88,10 +88,8 @@
       "matchPackageNames": [
         "tailwindcss",
         "@tailwindcss/**",
-        "tailwind-merge",
         "tw-animate-css",
-        "class-variance-authority",
-        "clsx"
+        "class-variance-authority"
       ]
     },
     {

@@ -8,7 +8,7 @@
 - spinbutton "Motor": "1"
 - combobox: Kraken X60 (FOC)
 - text: Ratio
-- spinbutton "Ratio": "2"
+- spinbutton "Ratio": "1.5"
 - combobox: Reduction
 - heading "Roller" [level=2]
 - button "Roller Diameter"
@@ -21,147 +21,310 @@
 - spinbutton "Stator Current Limit": "30"
 - combobox: A
 - heading "Reverse Calculation" [level=2]
+- text: Quick set from a swerve module Drive Motor
+- combobox: Kraken X60
+- text: Module
+- combobox: MK5n
+- button "R1 15.1 ft/s"
+- button "R2 17.6 ft/s"
+- button "R3 20.1 ft/s"
 - button "Drivetrain Speed"
-- spinbutton "Drivetrain Speed": "14"
+- spinbutton "Drivetrain Speed": "17.6"
 - combobox: ft/s
 - heading "Recommended Ratios per Motor" [level=2]
 - paragraph: The recommended ratio is the ratio at which the rollers will spin at twice the drivetrain speed.
-- text: V5 Smart Motor (Red)
-- spinbutton "V5 Smart Motor (Red)" [disabled]: "0.02"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.61"
-- combobox: N*m
-- text: Thrifty Pulsar
-- spinbutton "Thrifty Pulsar" [disabled]: "1.17"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.58"
-- combobox: N*m
-- text: Minion (Adv Hall)
-- spinbutton "Minion (Adv Hall)" [disabled]: "1.19"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.56"
-- combobox: N*m
-- text: Falcon 500 (FOC)
-- spinbutton "Falcon 500 (FOC)" [disabled]: "0.95"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.55"
-- combobox: N*m
-- text: Falcon 500
-- spinbutton "Falcon 500" [disabled]: "0.99"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.55"
-- combobox: N*m
-- text: Kraken X60
-- spinbutton "Kraken X60" [disabled]: "0.95"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.55"
-- combobox: N*m
-- text: Minion
-- spinbutton "Minion" [disabled]: "1.20"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.55"
-- combobox: N*m
-- text: NEO 2.0
-- spinbutton "NEO 2.0" [disabled]: "0.92"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.54"
-- combobox: N*m
-- text: NEO
-- spinbutton "NEO" [disabled]: "0.92"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.54"
-- combobox: N*m
-- text: Kraken X44
-- spinbutton "Kraken X44" [disabled]: "1.21"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.54"
-- combobox: N*m
-- text: NEO 550
-- spinbutton "NEO 550" [disabled]: "1.82"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.54"
-- combobox: N*m
-- text: Kraken X60 (FOC)
-- spinbutton "Kraken X60 (FOC)" [disabled]: "0.90"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.54"
-- combobox: N*m
-- text: Kraken X44 (FOC)
-- spinbutton "Kraken X44 (FOC)" [disabled]: "1.15"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.53"
-- combobox: N*m
-- text: BaneBots 550
-- spinbutton "BaneBots 550" [disabled]: "3.01"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.53"
-- combobox: N*m
-- text: BAG
-- spinbutton "BAG" [disabled]: "2.05"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.52"
-- combobox: N*m
-- text: NEO Vortex
-- spinbutton "NEO Vortex" [disabled]: "1.06"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.49"
-- combobox: N*m
-- text: Modern Robotics
-- spinbutton "Modern Robotics" [disabled]: "0.92"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.49"
-- combobox: N*m
-- text: 775 RedLine
-- spinbutton "775 RedLine" [disabled]: "3.04"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.49"
-- combobox: N*m
-- text: Core Hex
-- spinbutton "Core Hex" [disabled]: "0.02"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.48"
-- combobox: N*m
-- text: HD Hex
-- spinbutton "HD Hex" [disabled]: "0.93"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.48"
-- combobox: N*m
-- text: NeveRest
-- spinbutton "NeveRest" [disabled]: "0.85"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.47"
-- combobox: N*m
-- text: CIM
-- spinbutton "CIM" [disabled]: "0.83"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.47"
-- combobox: N*m
-- text: 775pro
-- spinbutton "775pro" [disabled]: "2.92"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.47"
-- combobox: N*m
-- text: MiniCIM
-- spinbutton "MiniCIM" [disabled]: "0.91"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.45"
-- combobox: N*m
-- text: AM-9015
-- spinbutton "AM-9015" [disabled]: "2.22"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.36"
-- combobox: N*m
-- text: Snowblower
-- spinbutton "Snowblower" [disabled]: "0.02"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.19"
-- combobox: N*m
+- text: Motor Ratio Stall Torque Thrifty Pulsar 0.93 0.46 N*m
+- button "Set"
+- text: Minion (Adv Hall) 0.95 0.44 N*m
+- button "Set"
+- text: Falcon 500 (FOC) 0.75 0.44 N*m
+- button "Set"
+- text: Falcon 500 0.79 0.44 N*m
+- button "Set"
+- text: Kraken X60 0.75 0.43 N*m
+- button "Set"
+- text: Minion 0.95 0.43 N*m
+- button "Set"
+- text: NEO 2.0 0.73 0.43 N*m
+- button "Set"
+- text: NEO 0.73 0.43 N*m
+- button "Set"
+- text: Kraken X44 0.96 0.43 N*m
+- button "Set"
+- text: NEO 550 1.45 0.43 N*m
+- button "Set"
+- text: Kraken X60 (FOC) 0.72 0.43 N*m
+- button "Set"
+- text: Kraken X44 (FOC) 0.91 0.42 N*m
+- button "Set"
+- text: BaneBots 550 2.39 0.42 N*m
+- button "Set"
+- text: BAG 1.63 0.41 N*m
+- button "Set"
+- text: NEO Vortex 0.85 0.39 N*m
+- button "Set"
+- text: 775 RedLine 2.42 0.39 N*m
+- button "Set"
+- text: CIM 0.66 0.37 N*m
+- button "Set"
+- text: 775pro 2.32 0.37 N*m
+- button "Set"
+- text: MiniCIM 0.72 0.36 N*m
+- button "Set"
+- text: AM-9015 1.77 0.28 N*m
+- button "Set"
+- text: Snowblower 0.01 0.15 N*m
+- button "Set"
 - button "Linear Speed"
-- spinbutton "Linear Speed" [disabled]: "12.6"
+- spinbutton "Linear Speed" [disabled]: "16.8"
 - combobox: ft/s
 - button "Time to Goal"
-- spinbutton "Time to Goal" [disabled]: "0.10"
+- spinbutton "Time to Goal" [disabled]: "0.07"
 - combobox: s
+- text: Bore
+- group "Filter wheels by bore":
+  - button "1.125\" Round"
+  - button "1.25\" Round"
+  - button "1/2\" Hex"
+  - button "3/8\" Hex"
+  - button "AndyMark Hub"
+  - button "MAXSpline"
+  - button "Nub Bore"
+  - button "14mm Hex"
+  - button "5mm Hex"
+  - button "7mm Hex"
+  - button "8mm"
+- table:
+  - rowgroup:
+    - row "Matching COTS Wheels20":
+      - columnheader "Matching COTS Wheels20"
+    - row "Wheel Diameter Bore Type Durometer":
+      - columnheader "Wheel"
+      - columnheader "Diameter"
+      - columnheader "Bore"
+      - columnheader "Type"
+      - columnheader "Durometer"
+  - rowgroup:
+    - row "AndyMark Stealth and Sushi Wheels am-4541_green 1.00\" 1/2\" Hex Compliant 35A":
+      - cell "AndyMark Stealth and Sushi Wheels am-4541_green":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - link "Stealth and Sushi Wheels":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - text: am-4541_green
+      - cell "1.00\""
+      - cell "1/2\" Hex"
+      - cell "Compliant"
+      - cell "35A"
+    - row "AndyMark Stealth and Sushi Wheels am-4541_orange 1.00\" 1/2\" Hex Compliant 40A":
+      - cell "AndyMark Stealth and Sushi Wheels am-4541_orange":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - link "Stealth and Sushi Wheels":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - text: am-4541_orange
+      - cell "1.00\""
+      - cell "1/2\" Hex"
+      - cell "Compliant"
+      - cell "40A"
+    - row "AndyMark Stealth and Sushi Wheels am-4541_blue 1.00\" 1/2\" Hex Compliant 50A":
+      - cell "AndyMark Stealth and Sushi Wheels am-4541_blue":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - link "Stealth and Sushi Wheels":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - text: am-4541_blue
+      - cell "1.00\""
+      - cell "1/2\" Hex"
+      - cell "Compliant"
+      - cell "50A"
+    - row "AndyMark Stealth and Sushi Wheels am-4541_black 1.00\" 1/2\" Hex Compliant 60A":
+      - cell "AndyMark Stealth and Sushi Wheels am-4541_black":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - link "Stealth and Sushi Wheels":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - text: am-4541_black
+      - cell "1.00\""
+      - cell "1/2\" Hex"
+      - cell "Compliant"
+      - cell "60A"
+    - row "AndyMark Stealth and Sushi Wheels am-4541_gray 1.00\" 1/2\" Hex Compliant 80A":
+      - cell "AndyMark Stealth and Sushi Wheels am-4541_gray":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - link "Stealth and Sushi Wheels":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - text: am-4541_gray
+      - cell "1.00\""
+      - cell "1/2\" Hex"
+      - cell "Compliant"
+      - cell "80A"
+    - row "AndyMark Stealth and Sushi Wheels am-4590_green 1.00\" 3/8\" Hex Compliant 35A":
+      - cell "AndyMark Stealth and Sushi Wheels am-4590_green":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - link "Stealth and Sushi Wheels":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - text: am-4590_green
+      - cell "1.00\""
+      - cell "3/8\" Hex"
+      - cell "Compliant"
+      - cell "35A"
+    - row "AndyMark Stealth and Sushi Wheels am-4590_orange 1.00\" 3/8\" Hex Compliant 40A":
+      - cell "AndyMark Stealth and Sushi Wheels am-4590_orange":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - link "Stealth and Sushi Wheels":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - text: am-4590_orange
+      - cell "1.00\""
+      - cell "3/8\" Hex"
+      - cell "Compliant"
+      - cell "40A"
+    - row "AndyMark Stealth and Sushi Wheels am-4590_blue 1.00\" 3/8\" Hex Compliant 50A":
+      - cell "AndyMark Stealth and Sushi Wheels am-4590_blue":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - link "Stealth and Sushi Wheels":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - text: am-4590_blue
+      - cell "1.00\""
+      - cell "3/8\" Hex"
+      - cell "Compliant"
+      - cell "50A"
+    - row "AndyMark Stealth and Sushi Wheels am-4590_black 1.00\" 3/8\" Hex Compliant 60A":
+      - cell "AndyMark Stealth and Sushi Wheels am-4590_black":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - link "Stealth and Sushi Wheels":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - text: am-4590_black
+      - cell "1.00\""
+      - cell "3/8\" Hex"
+      - cell "Compliant"
+      - cell "60A"
+    - row "AndyMark Stealth and Sushi Wheels am-4590_gray 1.00\" 3/8\" Hex Compliant 80A":
+      - cell "AndyMark Stealth and Sushi Wheels am-4590_gray":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - link "Stealth and Sushi Wheels":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - text: am-4590_gray
+      - cell "1.00\""
+      - cell "3/8\" Hex"
+      - cell "Compliant"
+      - cell "80A"
+    - row "AndyMark Stealth and Sushi Wheels am-4592_green 1.00\" 5mm Hex Compliant 35A":
+      - cell "AndyMark Stealth and Sushi Wheels am-4592_green":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - link "Stealth and Sushi Wheels":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - text: am-4592_green
+      - cell "1.00\""
+      - cell "5mm Hex"
+      - cell "Compliant"
+      - cell "35A"
+    - row "AndyMark Stealth and Sushi Wheels am-4592_orange 1.00\" 5mm Hex Compliant 40A":
+      - cell "AndyMark Stealth and Sushi Wheels am-4592_orange":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - link "Stealth and Sushi Wheels":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - text: am-4592_orange
+      - cell "1.00\""
+      - cell "5mm Hex"
+      - cell "Compliant"
+      - cell "40A"
+    - row "AndyMark Stealth and Sushi Wheels am-4592_blue 1.00\" 5mm Hex Compliant 50A":
+      - cell "AndyMark Stealth and Sushi Wheels am-4592_blue":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - link "Stealth and Sushi Wheels":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - text: am-4592_blue
+      - cell "1.00\""
+      - cell "5mm Hex"
+      - cell "Compliant"
+      - cell "50A"
+    - row "AndyMark Stealth and Sushi Wheels am-4592_black 1.00\" 5mm Hex Compliant 60A":
+      - cell "AndyMark Stealth and Sushi Wheels am-4592_black":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - link "Stealth and Sushi Wheels":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - text: am-4592_black
+      - cell "1.00\""
+      - cell "5mm Hex"
+      - cell "Compliant"
+      - cell "60A"
+    - row "AndyMark Stealth and Sushi Wheels am-4592_gray 1.00\" 5mm Hex Compliant 80A":
+      - cell "AndyMark Stealth and Sushi Wheels am-4592_gray":
+        - link "AndyMark":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - link "Stealth and Sushi Wheels":
+          - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+        - text: am-4592_gray
+      - cell "1.00\""
+      - cell "5mm Hex"
+      - cell "Compliant"
+      - cell "80A"
+    - row "REV ION Grip Wheels REV-21-2024-PK4 1.00\" 1/2\" Hex Grip Hard":
+      - cell "REV ION Grip Wheels REV-21-2024-PK4":
+        - link "REV":
+          - /url: https://www.revrobotics.com/ION-Grip-Wheels/
+        - link "ION Grip Wheels":
+          - /url: https://www.revrobotics.com/ION-Grip-Wheels/
+        - text: REV-21-2024-PK4
+      - cell "1.00\""
+      - cell "1/2\" Hex"
+      - cell "Grip"
+      - cell "Hard"
+    - row "REV ION Grip Wheels REV-21-2047-PK4 1.00\" 1/2\" Hex Grip Medium":
+      - cell "REV ION Grip Wheels REV-21-2047-PK4":
+        - link "REV":
+          - /url: https://www.revrobotics.com/ION-Grip-Wheels/
+        - link "ION Grip Wheels":
+          - /url: https://www.revrobotics.com/ION-Grip-Wheels/
+        - text: REV-21-2047-PK4
+      - cell "1.00\""
+      - cell "1/2\" Hex"
+      - cell "Grip"
+      - cell "Medium"
+    - row "REV ION Grip Wheels REV-21-2048-PK4 1.00\" 1/2\" Hex Grip Soft":
+      - cell "REV ION Grip Wheels REV-21-2048-PK4":
+        - link "REV":
+          - /url: https://www.revrobotics.com/ION-Grip-Wheels/
+        - link "ION Grip Wheels":
+          - /url: https://www.revrobotics.com/ION-Grip-Wheels/
+        - text: REV-21-2048-PK4
+      - cell "1.00\""
+      - cell "1/2\" Hex"
+      - cell "Grip"
+      - cell "Soft"
+    - row "Thrifty Solid Urethane Wheel TTB-0333 1.00\" 1/2\" Hex Traction 45A":
+      - cell "Thrifty Solid Urethane Wheel TTB-0333":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/qty-10-1-inch-solid-urethane-wheel-45a-durometer
+        - link "Solid Urethane Wheel":
+          - /url: https://www.thethriftybot.com/products/qty-10-1-inch-solid-urethane-wheel-45a-durometer
+        - text: TTB-0333
+      - cell "1.00\""
+      - cell "1/2\" Hex"
+      - cell "Traction"
+      - cell "45A"
+    - row "Thrifty Solid Urethane Wheel TTB-0371 1.00\" 1/2\" Hex Traction 60A":
+      - cell "Thrifty Solid Urethane Wheel TTB-0371":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/qty-10-1-inch-solid-urethane-wheel-60a-durometer
+        - link "Solid Urethane Wheel":
+          - /url: https://www.thethriftybot.com/products/qty-10-1-inch-solid-urethane-wheel-60a-durometer
+        - text: TTB-0371
+      - cell "1.00\""
+      - cell "1/2\" Hex"
+      - cell "Traction"
+      - cell "60A"
 - alert:
   - img
   - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

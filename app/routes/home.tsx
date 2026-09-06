@@ -1,3 +1,4 @@
+import { cn } from 'cn';
 import { type ReactNode } from 'react';
 import { Link } from 'react-router';
 import CarbonTimingBelt from '~icons/carbon/timing-belt';
@@ -16,7 +17,6 @@ import StreamlineUltimateFactoryIndustrialRobotArm1 from '~icons/streamline-ulti
 
 import { buildJsonLd, buildWebPage, buildWebSite } from '~/lib/jsonld';
 import { buildMeta, pageUrl } from '~/lib/seo';
-import { cn } from '~/lib/utils';
 
 import type { Route } from '.react-router/types/app/routes/+types/home';
 

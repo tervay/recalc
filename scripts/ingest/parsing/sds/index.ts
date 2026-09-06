@@ -12,4 +12,5 @@ export const sdsParsers: Record<
   belts: parseSDSBelts,
   sprockets: () => [],
   gears: parseSDSGears,
+  wheels: () => [],
 };

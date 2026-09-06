@@ -1,11 +1,12 @@
+import { cn } from 'cn';
 import * as React from 'react';
 import { Link } from 'react-router';
 
 import { Badge } from '~/components/ui/badge';
 import type { Bore } from '~/lib/types/common';
-import { cn } from '~/lib/utils';
+import type { WheelOnlyBore } from '~/lib/types/wheels';
 
-const boreBadgeStyles: Record<Bore, string> = {
+const boreBadgeStyles: Record<Bore | WheelOnlyBore, string> = {
   '8mm':
     'border-blue-500/20 bg-blue-500/10 text-blue-700 dark:text-blue-400 rounded',
   '5mm Hex':
@@ -33,10 +34,20 @@ const boreBadgeStyles: Record<Bore, string> = {
   BAG: 'border-indigo-500/20 bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 rounded',
   Vortex:
     'border-teal-500/20 bg-teal-500/10 text-teal-700 dark:text-teal-400 rounded',
+  '7mm Hex':
+    'border-sky-500/20 bg-sky-500/10 text-sky-700 dark:text-sky-400 rounded',
+  '14mm Hex':
+    'border-violet-500/20 bg-violet-500/10 text-violet-700 dark:text-violet-400 rounded',
+  '1.25" Round':
+    'border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-400 rounded',
+  'Nub Bore':
+    'border-stone-500/20 bg-stone-500/10 text-stone-700 dark:text-stone-400 rounded',
+  'AndyMark Hub':
+    'border-yellow-500/20 bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 rounded',
 };
 
 interface BoreBadgeProps extends React.ComponentProps<typeof Badge> {
-  bore: Bore;
+  bore: Bore | WheelOnlyBore;
   url?: string;
 }
 

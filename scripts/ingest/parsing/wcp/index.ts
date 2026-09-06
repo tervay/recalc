@@ -2,6 +2,7 @@ import { parseWCPBelts } from 'scripts/ingest/parsing/wcp/belts';
 import { parseWCPGears } from 'scripts/ingest/parsing/wcp/gears';
 import { parseWCPPulleys } from 'scripts/ingest/parsing/wcp/pulleys';
 import { parseWCPSprockets } from 'scripts/ingest/parsing/wcp/sprockets';
+import { parseWCPWheels } from 'scripts/ingest/parsing/wcp/wheels';
 import type { ProductType } from 'scripts/ingest/productTypes';
 
 import type { ShopifyProduct } from '~/lib/types/shopify';
@@ -14,4 +15,5 @@ export const wcpParsers: Record<
   belts: parseWCPBelts,
   sprockets: parseWCPSprockets,
   gears: parseWCPGears,
+  wheels: parseWCPWheels,
 };

@@ -1,7 +1,6 @@
+import { cn } from 'cn';
 import { Link } from 'react-router';
 import ArrowRight from '~icons/lucide/arrow-right';
-
-import { cn } from '~/lib/utils';
 
 interface TileProps {
   to: string;

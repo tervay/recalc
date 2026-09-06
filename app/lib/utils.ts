@@ -1,11 +1,4 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
 export const SNAPSHOT_PRECISION = 5;
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
 
 export function roundToNearestMultiple(
   roundable: number,

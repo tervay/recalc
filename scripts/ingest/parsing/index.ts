@@ -14,8 +14,14 @@ import type { JSONGear } from '~/lib/types/gears';
 import type { JSONPulley } from '~/lib/types/pulleys';
 import type { ShopifyProduct } from '~/lib/types/shopify';
 import type { JSONSprocket } from '~/lib/types/sprockets';
+import type { JSONWheel } from '~/lib/types/wheels';
 
-export type ParsedProduct = JSONBelt | JSONPulley | JSONSprocket | JSONGear;
+export type ParsedProduct =
+  | JSONBelt
+  | JSONPulley
+  | JSONSprocket
+  | JSONGear
+  | JSONWheel;
 
 const VENDOR_PARSER_MAP: Record<
   VendorName,

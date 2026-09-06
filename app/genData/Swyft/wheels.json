@@ -1,0 +1,82 @@
+[
+  {
+    "name": "SWYFT Intake Wheels",
+    "diameter": 38.1,
+    "bore": "1/2\" Hex",
+    "type": "Compliant",
+    "durometer": null,
+    "url": "https://shop.swyftrobotics.com/products/swyft-intake-wheels",
+    "sku": "SR-INTAKEWHEEL-15-12",
+    "vendor": "Swyft"
+  },
+  {
+    "name": "SWYFT Intake Wheels",
+    "diameter": 38.1,
+    "bore": "7mm Hex",
+    "type": "Compliant",
+    "durometer": null,
+    "url": "https://shop.swyftrobotics.com/products/swyft-intake-wheels",
+    "sku": "SR-INTAKEWHEEL-15-7MM",
+    "vendor": "Swyft"
+  },
+  {
+    "name": "SWYFT Intake Wheels",
+    "diameter": 63.5,
+    "bore": "1/2\" Hex",
+    "type": "Compliant",
+    "durometer": null,
+    "url": "https://shop.swyftrobotics.com/products/swyft-intake-wheels",
+    "sku": "SR-INTAKEWHEEL-25-12",
+    "vendor": "Swyft"
+  },
+  {
+    "name": "SWYFT Intake Wheels",
+    "diameter": 63.5,
+    "bore": "7mm Hex",
+    "type": "Compliant",
+    "durometer": null,
+    "url": "https://shop.swyftrobotics.com/products/swyft-intake-wheels",
+    "sku": "SR-INTAKEWHEEL-25-7mm",
+    "vendor": "Swyft"
+  },
+  {
+    "name": "SWYFT Intake Wheels",
+    "diameter": 88.9,
+    "bore": "1/2\" Hex",
+    "type": "Compliant",
+    "durometer": null,
+    "url": "https://shop.swyftrobotics.com/products/swyft-intake-wheels",
+    "sku": "SR-INTAKEWHEEL-35-12",
+    "vendor": "Swyft"
+  },
+  {
+    "name": "SWYFT Intake Wheels",
+    "diameter": 88.9,
+    "bore": "7mm Hex",
+    "type": "Compliant",
+    "durometer": null,
+    "url": "https://shop.swyftrobotics.com/products/swyft-intake-wheels",
+    "sku": "SR-INTAKEWHEEL-35-7mm",
+    "vendor": "Swyft"
+  },
+  {
+    "name": "SWYFT Intake Wheels",
+    "diameter": 114.3,
+    "bore": "1/2\" Hex",
+    "type": "Compliant",
+    "durometer": null,
+    "url": "https://shop.swyftrobotics.com/products/swyft-intake-wheels",
+    "sku": "SR-INTAKEWHEEL-45-12",
+    "vendor": "Swyft"
+  },
+  {
+    "name": "SWYFT Intake Wheels",
+    "diameter": 114.3,
+    "bore": "7mm Hex",
+    "type": "Compliant",
+    "durometer": null,
+    "url": "https://shop.swyftrobotics.com/products/swyft-intake-wheels",
+    "sku": "SR-INTAKEWHEEL-45-7mm",
+    "vendor": "Swyft"
+  }
+]

@@ -796,3 +796,29 @@ describe('Motor', () => {
     });
   });
 });
+
+describe('intendedProgram', () => {
+  it('reports FRC for a catalog FRC motor', () => {
+    expect(Motor.NEO(1).intendedProgram).toBe(IntendedProgram.FRC);
+  });
+
+  it('reports FTC for a catalog FTC motor', () => {
+    expect(Motor.fromName('HD Hex', 1).intendedProgram).toBe(
+      IntendedProgram.FTC,
+    );
+  });
+
+  it('reports OTHER for a motor that is not in the catalog', () => {
+    const motor = new Motor(
+      'Not A Real Motor',
+      new Measurement(1000, 'rpm'),
+      new Measurement(1, 'N*m'),
+      new Measurement(100, 'A'),
+      new Measurement(1, 'A'),
+      new Measurement(12, 'V'),
+      1,
+    );
+
+    expect(motor.intendedProgram).toBe(IntendedProgram.OTHER);
+  });
+});

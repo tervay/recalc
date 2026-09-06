@@ -8,7 +8,7 @@
 - spinbutton "Motor": "1"
 - combobox: Kraken X60 (FOC)
 - text: Ratio
-- spinbutton "Ratio": "2"
+- spinbutton "Ratio": "1.5"
 - combobox: Reduction
 - heading "Roller" [level=2]
 - button "Roller Diameter"
@@ -21,147 +21,92 @@
 - spinbutton "Stator Current Limit": "30"
 - combobox: A
 - heading "Reverse Calculation" [level=2]
+- text: Quick set from a swerve module Drive Motor
+- combobox: Kraken X60
+- text: Module
+- combobox: MK5n
+- button "R1 15.1 ft/s"
+- button "R2 17.6 ft/s"
+- button "R3 20.1 ft/s"
 - button "Drivetrain Speed"
-- spinbutton "Drivetrain Speed": "14"
+- spinbutton "Drivetrain Speed": "17.6"
 - combobox: ft/s
 - heading "Recommended Ratios per Motor" [level=2]
 - paragraph: The recommended ratio is the ratio at which the rollers will spin at twice the drivetrain speed.
-- text: V5 Smart Motor (Red)
-- spinbutton "V5 Smart Motor (Red)" [disabled]: "0.01"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.48"
-- combobox: N*m
-- text: Thrifty Pulsar
-- spinbutton "Thrifty Pulsar" [disabled]: "0.92"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.46"
-- combobox: N*m
-- text: Minion (Adv Hall)
-- spinbutton "Minion (Adv Hall)" [disabled]: "0.94"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.44"
-- combobox: N*m
-- text: Falcon 500 (FOC)
-- spinbutton "Falcon 500 (FOC)" [disabled]: "0.75"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.43"
-- combobox: N*m
-- text: Falcon 500
-- spinbutton "Falcon 500" [disabled]: "0.78"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.43"
-- combobox: N*m
-- text: Kraken X60
-- spinbutton "Kraken X60" [disabled]: "0.74"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.43"
-- combobox: N*m
-- text: Minion
-- spinbutton "Minion" [disabled]: "0.95"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.43"
-- combobox: N*m
-- text: NEO 2.0
-- spinbutton "NEO 2.0" [disabled]: "0.72"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.43"
-- combobox: N*m
-- text: NEO
-- spinbutton "NEO" [disabled]: "0.72"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.43"
-- combobox: N*m
-- text: Kraken X44
-- spinbutton "Kraken X44" [disabled]: "0.95"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.43"
-- combobox: N*m
-- text: NEO 550
-- spinbutton "NEO 550" [disabled]: "1.44"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.42"
-- combobox: N*m
-- text: Kraken X60 (FOC)
-- spinbutton "Kraken X60 (FOC)" [disabled]: "0.71"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.42"
-- combobox: N*m
-- text: Kraken X44 (FOC)
-- spinbutton "Kraken X44 (FOC)" [disabled]: "0.90"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.42"
-- combobox: N*m
-- text: BaneBots 550
-- spinbutton "BaneBots 550" [disabled]: "2.37"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.41"
-- combobox: N*m
-- text: BAG
-- spinbutton "BAG" [disabled]: "1.62"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.41"
-- combobox: N*m
-- text: NEO Vortex
-- spinbutton "NEO Vortex" [disabled]: "0.84"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.39"
-- combobox: N*m
-- text: Modern Robotics
-- spinbutton "Modern Robotics" [disabled]: "0.72"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.39"
-- combobox: N*m
-- text: 775 RedLine
-- spinbutton "775 RedLine" [disabled]: "2.39"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.38"
-- combobox: N*m
-- text: Core Hex
-- spinbutton "Core Hex" [disabled]: "0.02"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.38"
-- combobox: N*m
-- text: HD Hex
-- spinbutton "HD Hex" [disabled]: "0.73"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.38"
-- combobox: N*m
-- text: NeveRest
-- spinbutton "NeveRest" [disabled]: "0.67"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.37"
-- combobox: N*m
-- text: CIM
-- spinbutton "CIM" [disabled]: "0.65"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.37"
-- combobox: N*m
-- text: 775pro
-- spinbutton "775pro" [disabled]: "2.30"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.37"
-- combobox: N*m
-- text: MiniCIM
-- spinbutton "MiniCIM" [disabled]: "0.72"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.35"
-- combobox: N*m
-- text: AM-9015
-- spinbutton "AM-9015" [disabled]: "1.75"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.28"
-- combobox: N*m
-- text: Snowblower
-- spinbutton "Snowblower" [disabled]: "0.01"
-- button "Stall Torque"
-- spinbutton "Stall Torque" [disabled]: "0.15"
-- combobox: N*m
+- text: Motor Ratio Stall Torque Thrifty Pulsar 0.73 0.36 N*m
+- button "Set"
+- text: Minion (Adv Hall) 0.75 0.35 N*m
+- button "Set"
+- text: Falcon 500 (FOC) 0.59 0.34 N*m
+- button "Set"
+- text: Falcon 500 0.62 0.34 N*m
+- button "Set"
+- text: Kraken X60 0.59 0.34 N*m
+- button "Set"
+- text: Minion 0.75 0.34 N*m
+- button "Set"
+- text: NEO 2.0 0.58 0.34 N*m
+- button "Set"
+- text: NEO 0.58 0.34 N*m
+- button "Set"
+- text: Kraken X44 0.76 0.34 N*m
+- button "Set"
+- text: NEO 550 1.14 0.34 N*m
+- button "Set"
+- text: Kraken X60 (FOC) 0.56 0.34 N*m
+- button "Set"
+- text: Kraken X44 (FOC) 0.72 0.33 N*m
+- button "Set"
+- text: BaneBots 550 1.88 0.33 N*m
+- button "Set"
+- text: BAG 1.29 0.32 N*m
+- button "Set"
+- text: NEO Vortex 0.67 0.31 N*m
+- button "Set"
+- text: 775 RedLine 1.90 0.31 N*m
+- button "Set"
+- text: CIM 0.52 0.29 N*m
+- button "Set"
+- text: 775pro 1.83 0.29 N*m
+- button "Set"
+- text: MiniCIM 0.57 0.28 N*m
+- button "Set"
+- text: AM-9015 1.39 0.22 N*m
+- button "Set"
+- text: Snowblower 0.01 0.12 N*m
+- button "Set"
 - button "Linear Speed"
-- spinbutton "Linear Speed" [disabled]: "9.9"
+- spinbutton "Linear Speed" [disabled]: "13.2"
 - combobox: ft/s
 - button "Time to Goal"
-- spinbutton "Time to Goal" [disabled]: "0.13"
+- spinbutton "Time to Goal" [disabled]: "0.09"
 - combobox: s
+- text: Bore
+- group "Filter wheels by bore":
+  - button "1.125\" Round"
+  - button "1.25\" Round"
+  - button "1/2\" Hex"
+  - button "3/8\" Hex"
+  - button "AndyMark Hub"
+  - button "MAXSpline"
+  - button "Nub Bore"
+  - button "14mm Hex"
+  - button "5mm Hex"
+  - button "7mm Hex"
+  - button "8mm"
+- table:
+  - rowgroup:
+    - row "Matching COTS Wheels0":
+      - columnheader "Matching COTS Wheels0"
+    - row "Wheel Diameter Bore Type Durometer":
+      - columnheader "Wheel"
+      - columnheader "Diameter"
+      - columnheader "Bore"
+      - columnheader "Type"
+      - columnheader "Durometer"
+  - rowgroup:
+    - row "No matching wheels found":
+      - cell "No matching wheels found"
 - alert:
   - img
   - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

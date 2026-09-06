@@ -1,9 +1,9 @@
+import { cn } from 'cn';
 import * as React from 'react';
 import { Link } from 'react-router';
 
 import { Badge } from '~/components/ui/badge';
 import type { Vendor } from '~/lib/types/common';
-import { cn } from '~/lib/utils';
 
 const vendorBadgeStyles: Record<Vendor, string> = {
   WCP: 'border-wcp/20 bg-wcp/10 text-wcp dark:text-wcp rounded',

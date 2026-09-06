@@ -1,4 +1,5 @@
 import { parseSwyftBelts } from 'scripts/ingest/parsing/swyft/belts';
+import { parseSwyftWheels } from 'scripts/ingest/parsing/swyft/wheels';
 import type { ProductType } from 'scripts/ingest/productTypes';
 
 import type { ShopifyProduct } from '~/lib/types/shopify';
@@ -11,4 +12,5 @@ export const swyftParsers: Record<
   belts: parseSwyftBelts,
   sprockets: () => [],
   gears: () => [],
+  wheels: parseSwyftWheels,
 };
