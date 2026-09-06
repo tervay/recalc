@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { renderHook, act } from '@testing-library/react';
-import { useMotionValue } from 'motion/react';
+import { animate, useMotionValue } from 'motion/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const inactiveShadow = '0px 0px 0px rgba(0,0,0,0.8)';
@@ -16,11 +16,9 @@ vi.mock('motion/react', async (importOriginal) => {
 });
 
 describe('useRaisedShadow', () => {
-  let animateMock: ReturnType<typeof vi.fn>;
+  const animateMock = vi.mocked(animate);
 
-  beforeEach(async () => {
-    const motionModule = await import('motion/react');
-    animateMock = motionModule.animate as ReturnType<typeof vi.fn>;
+  beforeEach(() => {
     animateMock.mockClear();
   });
 
