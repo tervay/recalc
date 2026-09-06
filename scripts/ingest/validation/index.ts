@@ -5,12 +5,14 @@ import { zJSONBeltSchema } from '~/lib/types/belts';
 import { zJSONGearSchema } from '~/lib/types/gears';
 import { zJSONPulleySchema } from '~/lib/types/pulleys';
 import { zJSONSprocketSchema } from '~/lib/types/sprockets';
+import { zJSONWheelSchema } from '~/lib/types/wheels';
 
 const SCHEMAS: Record<ProductType, z.ZodSchema> = {
   pulleys: zJSONPulleySchema,
   belts: zJSONBeltSchema,
   sprockets: zJSONSprocketSchema,
   gears: zJSONGearSchema,
+  wheels: zJSONWheelSchema,
 };
 
 export function validateParsedData<T>(

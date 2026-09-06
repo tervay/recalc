@@ -1,3 +1,4 @@
+import { cn } from 'cn';
 import { useState } from 'react';
 import TrendingUpIcon from '~icons/lucide/trending-up';
 
@@ -11,7 +12,6 @@ import type {
   ConfigOptOutput,
   ConfigOptResult,
 } from '~/lib/math/optimizerUtils';
-import { cn } from '~/lib/utils';
 
 interface OptimalConfigGridProps {
   configOptResult: ConfigOptOutput | null;

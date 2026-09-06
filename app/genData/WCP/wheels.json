@@ -1,0 +1,692 @@
+[
+  {
+    "name": "Aluminum Wheel",
+    "diameter": 82.55,
+    "bore": "1/2\" Hex",
+    "type": "Billet",
+    "durometer": null,
+    "url": "https://wcproducts.com/products/wcp-0074",
+    "sku": "WCP-0074",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Aluminum Wheel",
+    "diameter": 101.6,
+    "bore": "1/2\" Hex",
+    "type": "Billet",
+    "durometer": null,
+    "url": "https://wcproducts.com/products/wcp-0075",
+    "sku": "WCP-0075",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Aluminum Wheel",
+    "diameter": 152.4,
+    "bore": "1/2\" Hex",
+    "type": "Billet",
+    "durometer": null,
+    "url": "https://wcproducts.com/products/wcp-0213",
+    "sku": "WCP-0213",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Vector Intake Wheel",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Compliant",
+    "durometer": null,
+    "url": "https://wcproducts.com/products/wcp-0353",
+    "sku": "WCP-0353",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Vector Intake Wheel",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Compliant",
+    "durometer": null,
+    "url": "https://wcproducts.com/products/wcp-0354",
+    "sku": "WCP-0354",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Omni-Directional Intake Wheel",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Omni",
+    "durometer": "90A",
+    "url": "https://wcproducts.com/products/wcp-0355",
+    "sku": "WCP-0355",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Star Flex Wheel",
+    "diameter": 127,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-0406",
+    "sku": "WCP-0406",
+    "vendor": "WCP"
+  },
+  {
+    "name": "6 Spoke Straight Flex Wheel",
+    "diameter": 76.2,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-1073",
+    "sku": "WCP-1073",
+    "vendor": "WCP"
+  },
+  {
+    "name": "6 Spoke Straight Flex Wheel",
+    "diameter": 76.2,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-1074",
+    "sku": "WCP-1074",
+    "vendor": "WCP"
+  },
+  {
+    "name": "6 Spoke Straight Flex Wheel",
+    "diameter": 76.2,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-1075",
+    "sku": "WCP-1075",
+    "vendor": "WCP"
+  },
+  {
+    "name": "6 Spoke Straight Flex Wheel",
+    "diameter": 101.6,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-1076",
+    "sku": "WCP-1076",
+    "vendor": "WCP"
+  },
+  {
+    "name": "6 Spoke Straight Flex Wheel",
+    "diameter": 101.6,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-1077",
+    "sku": "WCP-1077",
+    "vendor": "WCP"
+  },
+  {
+    "name": "6 Spoke Straight Flex Wheel",
+    "diameter": 101.6,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-1078",
+    "sku": "WCP-1078",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 41.275,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-1281",
+    "sku": "WCP-1281",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 41.275,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-1282",
+    "sku": "WCP-1282",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 41.275,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-1283",
+    "sku": "WCP-1283",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-1284",
+    "sku": "WCP-1284",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-1285",
+    "sku": "WCP-1285",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-1286",
+    "sku": "WCP-1286",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 41.275,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-1287",
+    "sku": "WCP-1287",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 41.275,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-1288",
+    "sku": "WCP-1288",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 41.275,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-1289",
+    "sku": "WCP-1289",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-1290",
+    "sku": "WCP-1290",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-1291",
+    "sku": "WCP-1291",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-1292",
+    "sku": "WCP-1292",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 41.275,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-1293",
+    "sku": "WCP-1293",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 41.275,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-1294",
+    "sku": "WCP-1294",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 41.275,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-1295",
+    "sku": "WCP-1295",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-1296",
+    "sku": "WCP-1296",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-1297",
+    "sku": "WCP-1297",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-1298",
+    "sku": "WCP-1298",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 76.2,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-1299",
+    "sku": "WCP-1299",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 76.2,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-1300",
+    "sku": "WCP-1300",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 76.2,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-1301",
+    "sku": "WCP-1301",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 101.6,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-1302",
+    "sku": "WCP-1302",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 101.6,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-1303",
+    "sku": "WCP-1303",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 101.6,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-1304",
+    "sku": "WCP-1304",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Star Flex Wheel",
+    "diameter": 127,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-1356",
+    "sku": "WCP-1356",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Star Flex Wheel",
+    "diameter": 127,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-1357",
+    "sku": "WCP-1357",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 76.2,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-1358",
+    "sku": "WCP-1358",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 76.2,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-1359",
+    "sku": "WCP-1359",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 76.2,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-1360",
+    "sku": "WCP-1360",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 101.6,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-1361",
+    "sku": "WCP-1361",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 101.6,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-1362",
+    "sku": "WCP-1362",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 101.6,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-1363",
+    "sku": "WCP-1363",
+    "vendor": "WCP"
+  },
+  {
+    "name": "6 Spoke Straight Flex Wheel",
+    "diameter": 76.2,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-1412",
+    "sku": "WCP-1412",
+    "vendor": "WCP"
+  },
+  {
+    "name": "6 Spoke Straight Flex Wheel",
+    "diameter": 76.2,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-1413",
+    "sku": "WCP-1413",
+    "vendor": "WCP"
+  },
+  {
+    "name": "6 Spoke Straight Flex Wheel",
+    "diameter": 76.2,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-1414",
+    "sku": "WCP-1414",
+    "vendor": "WCP"
+  },
+  {
+    "name": "6 Spoke Straight Flex Wheel",
+    "diameter": 101.6,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-1415",
+    "sku": "WCP-1415",
+    "vendor": "WCP"
+  },
+  {
+    "name": "6 Spoke Straight Flex Wheel",
+    "diameter": 101.6,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-1416",
+    "sku": "WCP-1416",
+    "vendor": "WCP"
+  },
+  {
+    "name": "6 Spoke Straight Flex Wheel",
+    "diameter": 101.6,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-1417",
+    "sku": "WCP-1417",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Flex Wheel",
+    "diameter": 127,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-1811",
+    "sku": "WCP-1811",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Flex Wheel",
+    "diameter": 127,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-1812",
+    "sku": "WCP-1812",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Flex Wheel",
+    "diameter": 127,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-1813",
+    "sku": "WCP-1813",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Star Flex Wheel",
+    "diameter": 127,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-2088",
+    "sku": "WCP-2088",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Star Flex Wheel",
+    "diameter": 127,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-2089",
+    "sku": "WCP-2089",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Star Flex Wheel",
+    "diameter": 127,
+    "bore": "1/2\" Hex",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-2090",
+    "sku": "WCP-2090",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 76.2,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-2327",
+    "sku": "WCP-2327",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 76.2,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-2328",
+    "sku": "WCP-2328",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 76.2,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-2329",
+    "sku": "WCP-2329",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 101.6,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-2330",
+    "sku": "WCP-2330",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 101.6,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-2331",
+    "sku": "WCP-2331",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 101.6,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-2332",
+    "sku": "WCP-2332",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 41.275,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-2333",
+    "sku": "WCP-2333",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 41.275,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-2334",
+    "sku": "WCP-2334",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 41.275,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-2335",
+    "sku": "WCP-2335",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 50.8,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "30A",
+    "url": "https://wcproducts.com/products/wcp-2336",
+    "sku": "WCP-2336",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 50.8,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "45A",
+    "url": "https://wcproducts.com/products/wcp-2337",
+    "sku": "WCP-2337",
+    "vendor": "WCP"
+  },
+  {
+    "name": "Straight Flex Wheel",
+    "diameter": 50.8,
+    "bore": "1.25\" Round",
+    "type": "Flex",
+    "durometer": "60A",
+    "url": "https://wcproducts.com/products/wcp-2338",
+    "sku": "WCP-2338",
+    "vendor": "WCP"
+  }
+]

@@ -262,6 +262,13 @@ export default class Motor extends Model {
     return this.fromName('NEO', quantity);
   }
 
+  public get intendedProgram(): IntendedProgram {
+    return (
+      ALL_MOTORS.find((m) => m.name === this.identifier)?.intendedProgram ??
+      IntendedProgram.OTHER
+    );
+  }
+
   toDict(): MotorDict {
     return {
       name: this.identifier,

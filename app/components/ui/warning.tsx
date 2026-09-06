@@ -1,7 +1,7 @@
+import { cn } from 'cn';
 import AlertTriangleIcon from '~icons/lucide/triangle-alert';
 
 import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert';
-import { cn } from '~/lib/utils';
 
 function Warning() {
   return (

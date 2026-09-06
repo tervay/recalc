@@ -10,6 +10,7 @@ import {
   tableFeatures,
   useTable,
 } from '@tanstack/react-table';
+import { cn } from 'cn';
 import { type ReactNode, useMemo, useState } from 'react';
 import ArrowDownIcon from '~icons/lucide/arrow-down';
 import ArrowUpIcon from '~icons/lucide/arrow-up';
@@ -33,7 +34,6 @@ import {
   completeMotorSpecs,
 } from '~/lib/models/Motor';
 import Motor from '~/lib/models/Motor';
-import { cn } from '~/lib/utils';
 
 type MotorRow = { motor: Motor; motorSpecs: FullMotorSpecs };
 

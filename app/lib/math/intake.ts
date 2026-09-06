@@ -22,27 +22,35 @@ export function calculateRecommendedRatio(
 export function calculateAllRecommendedRatiosAndStallTorques(
   drivetrainSpeed: Measurement,
   rollerDiameter: Measurement,
-  motorQuantity: number,
+  selectedMotor: Motor,
   statorCurrentLimit: Measurement,
 ): {
   ratio: Ratio;
   stallTorque: Measurement;
   motor: Motor;
 }[] {
-  return ALL_MOTORS.map((ms) => Motor.fromSpecs(ms, motorQuantity)).map((m) => {
-    const ratio = calculateRecommendedRatio(m, drivetrainSpeed, rollerDiameter);
-    const stallTorque = m.kT
-      .mul(statorCurrentLimit)
-      .mul(motorQuantity)
-      .mul(ratio.asNumber())
-      .to('N*m');
+  return ALL_MOTORS.filter(
+    (ms) => ms.intendedProgram === selectedMotor.intendedProgram,
+  )
+    .map((ms) => Motor.fromSpecs(ms, selectedMotor.quantity))
+    .map((m) => {
+      const ratio = calculateRecommendedRatio(
+        m,
+        drivetrainSpeed,
+        rollerDiameter,
+      );
+      const stallTorque = m.kT
+        .mul(statorCurrentLimit)
+        .mul(selectedMotor.quantity)
+        .mul(ratio.asNumber())
+        .to('N*m');
 
-    return {
-      ratio,
-      stallTorque,
-      motor: m,
-    };
-  });
+      return {
+        ratio,
+        stallTorque,
+        motor: m,
+      };
+    });
 }
 
 export function calculateLinearSurfaceSpeed(

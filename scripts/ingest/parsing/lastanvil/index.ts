@@ -13,4 +13,5 @@ export const lastanvilParsers: Record<
   belts: parseLastAnvilBelts,
   sprockets: (_products: ShopifyProduct[]) => parseLastAnvilSprockets(),
   gears: () => [],
+  wheels: () => [],
 };

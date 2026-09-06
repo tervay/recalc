@@ -152,4 +152,119 @@ test.describe('Intake Calculator', () => {
       },
     );
   });
+
+  test('should list only wheels matching the roller diameter', async ({
+    page,
+  }) => {
+    const wheelRows = page
+      .getByRole('row')
+      .filter({ has: page.getByRole('link') });
+
+    await expect(wheelRows.first()).toBeVisible();
+    for (const cell of await page.getByRole('cell').allInnerTexts()) {
+      if (cell.endsWith('"')) expect(cell).toBe('2.00"');
+    }
+
+    const twoInchCount = await wheelRows.count();
+    expect(twoInchCount).toBeGreaterThan(0);
+
+    await page.getByTestId('rollerDiameter').fill('4');
+    await page.waitForTimeout(100);
+
+    for (const cell of await page.getByRole('cell').allInnerTexts()) {
+      if (cell.endsWith('"')) expect(cell).toBe('4.00"');
+    }
+    expect(await wheelRows.count()).not.toBe(twoInchCount);
+  });
+
+  test('should narrow the wheel table to a single selected bore', async ({
+    page,
+  }) => {
+    const boreCells = page.getByRole('cell').filter({ hasText: 'Hex' });
+
+    await page.getByRole('button', { name: '1/2" Hex', exact: true }).click();
+    await page.waitForTimeout(100);
+
+    const bores = await boreCells.allInnerTexts();
+    expect(bores.length).toBeGreaterThan(0);
+    expect(new Set(bores)).toEqual(new Set(['1/2" Hex']));
+  });
+
+  test('should show wheels for every selected bore', async ({ page }) => {
+    await page.getByRole('button', { name: '1/2" Hex', exact: true }).click();
+    await page.waitForTimeout(100);
+    const halfHexOnly = await page
+      .getByRole('cell')
+      .filter({ hasText: 'Hex' })
+      .allInnerTexts();
+
+    await page.getByRole('button', { name: '3/8" Hex', exact: true }).click();
+    await page.waitForTimeout(100);
+    const both = await page
+      .getByRole('cell')
+      .filter({ hasText: 'Hex' })
+      .allInnerTexts();
+
+    expect(new Set(both)).toEqual(new Set(['1/2" Hex', '3/8" Hex']));
+    expect(both.length).toBeGreaterThan(halfHexOnly.length);
+  });
+
+  test('should restore every wheel when all bores are deselected', async ({
+    page,
+  }) => {
+    const rows = page.getByRole('row').filter({ has: page.getByRole('link') });
+    const unfiltered = await rows.count();
+
+    const halfHex = page.getByRole('button', { name: '1/2" Hex', exact: true });
+    await halfHex.click();
+    await page.waitForTimeout(100);
+    expect(await rows.count()).toBeLessThan(unfiltered);
+
+    await halfHex.click();
+    await page.waitForTimeout(100);
+    expect(await rows.count()).toBe(unfiltered);
+  });
+
+  test('should show an empty state when no wheel matches', async ({ page }) => {
+    await page.getByTestId('rollerDiameter').fill('7.3');
+    await page.waitForTimeout(100);
+    await expect(page.getByText('No matching wheels found')).toBeVisible();
+  });
+
+  test('should set drivetrain speed from a swerve module drive ratio', async ({
+    page,
+  }) => {
+    const speedInput = page.getByTestId('drivetrainSpeed');
+    await expect(speedInput).toHaveValue('17.6');
+
+    await page.getByTestId('selectSwerveModule').click();
+    await page.getByRole('option', { name: 'MK5n', exact: true }).click();
+    await page.getByTestId('swerveRatio-R1').click();
+    await page.waitForTimeout(100);
+
+    expect(Number(await speedInput.inputValue())).toBeCloseTo(15.1, 1);
+
+    expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
+      {
+        name: 'swerve-quickset-applied.yaml',
+      },
+    );
+  });
+
+  test('should apply a recommended ratio and motor via its Set button', async ({
+    page,
+  }) => {
+    const setButton = page.getByRole('button', { name: 'Set', exact: true });
+    await setButton.first().click();
+    await page.waitForTimeout(100);
+
+    expect(await page.getByTestId('ratio').inputValue()).toMatch(
+      /^\d+(\.\d{1,2})?$/,
+    );
+    expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
+      {
+        name: 'recommended-ratio-set.yaml',
+      },
+    );
+  });
 });

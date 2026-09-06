@@ -11,4 +11,5 @@ export const vbeltguysParsers: Record<
   belts: parseVBeltGuysBelts,
   sprockets: () => [],
   gears: () => [],
+  wheels: () => [],
 };

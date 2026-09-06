@@ -1,3 +1,4 @@
+import { cn } from 'cn';
 import { useCallback, useMemo, useState } from 'react';
 import CheckIcon from '~icons/lucide/check';
 
@@ -30,7 +31,6 @@ import {
   MeasurementParam,
   NumberParam,
 } from '~/lib/types/queryParams';
-import { cn } from '~/lib/utils';
 
 const BELT_PATH = '/belts';
 const BELT_TITLE = 'FRC & FTC Belt Calculator | ReCalc';

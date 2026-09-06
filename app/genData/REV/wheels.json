@@ -1,0 +1,592 @@
+[
+  {
+    "name": "ION Grip Wheels",
+    "diameter": 25.4,
+    "bore": "1/2\" Hex",
+    "type": "Grip",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/ION-Grip-Wheels/",
+    "sku": "REV-21-2024-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Grip Wheels",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Grip",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/ION-Grip-Wheels/",
+    "sku": "REV-21-2026-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Compliant Wheels",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Compliant",
+    "durometer": "Soft",
+    "url": "https://www.revrobotics.com/ION-Compliant-Wheels/",
+    "sku": "REV-21-2029-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Compliant Wheels",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Compliant",
+    "durometer": "Medium",
+    "url": "https://www.revrobotics.com/ION-Compliant-Wheels/",
+    "sku": "REV-21-2030-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Compliant Wheels",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Compliant",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/ION-Compliant-Wheels/",
+    "sku": "REV-21-2031-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Grip Wheels",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Grip",
+    "durometer": "Medium",
+    "url": "https://www.revrobotics.com/ION-Grip-Wheels/",
+    "sku": "REV-21-2043-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Grip Wheels",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Grip",
+    "durometer": "Soft",
+    "url": "https://www.revrobotics.com/ION-Grip-Wheels/",
+    "sku": "REV-21-2044-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Grip Wheels",
+    "diameter": 25.4,
+    "bore": "1/2\" Hex",
+    "type": "Grip",
+    "durometer": "Medium",
+    "url": "https://www.revrobotics.com/ION-Grip-Wheels/",
+    "sku": "REV-21-2047-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Grip Wheels",
+    "diameter": 25.4,
+    "bore": "1/2\" Hex",
+    "type": "Grip",
+    "durometer": "Soft",
+    "url": "https://www.revrobotics.com/ION-Grip-Wheels/",
+    "sku": "REV-21-2048-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Traction Wheels",
+    "diameter": 50.8,
+    "bore": "MAXSpline",
+    "type": "Traction",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/ION-Traction-Wheels/",
+    "sku": "REV-21-2422-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Traction Wheels",
+    "diameter": 76.2,
+    "bore": "MAXSpline",
+    "type": "Traction",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/ION-Traction-Wheels/",
+    "sku": "REV-21-2423",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Traction Wheels",
+    "diameter": 127,
+    "bore": "MAXSpline",
+    "type": "Traction",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/ION-Traction-Wheels/",
+    "sku": "REV-21-2425",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Traction Wheels",
+    "diameter": 152.4,
+    "bore": "MAXSpline",
+    "type": "Traction",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/ION-Traction-Wheels/",
+    "sku": "REV-21-2426",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Grip Wheels",
+    "diameter": 50.8,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Soft",
+    "url": "https://www.revrobotics.com/ION-Grip-Wheels/",
+    "sku": "REV-21-2432-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Grip Wheels",
+    "diameter": 76.2,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Soft",
+    "url": "https://www.revrobotics.com/ION-Grip-Wheels/",
+    "sku": "REV-21-2433",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Grip Wheels",
+    "diameter": 50.8,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Medium",
+    "url": "https://www.revrobotics.com/ION-Grip-Wheels/",
+    "sku": "REV-21-2437-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Grip Wheels",
+    "diameter": 76.2,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Medium",
+    "url": "https://www.revrobotics.com/ION-Grip-Wheels/",
+    "sku": "REV-21-2438",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Grip Wheels",
+    "diameter": 50.8,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/ION-Grip-Wheels/",
+    "sku": "REV-21-2442-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Grip Wheels",
+    "diameter": 76.2,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/ION-Grip-Wheels/",
+    "sku": "REV-21-2443",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Grip Wheels",
+    "diameter": 101.6,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/ION-Grip-Wheels/",
+    "sku": "REV-21-2444",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Grip Wheels",
+    "diameter": 127,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/ION-Grip-Wheels/",
+    "sku": "REV-21-2445",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Grip Wheels",
+    "diameter": 152.4,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/ION-Grip-Wheels/",
+    "sku": "REV-21-2446",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Compliant Wheels",
+    "diameter": 76.2,
+    "bore": "MAXSpline",
+    "type": "Compliant",
+    "durometer": "Soft",
+    "url": "https://www.revrobotics.com/ION-Compliant-Wheels/",
+    "sku": "REV-21-2452",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Compliant Wheels",
+    "diameter": 101.6,
+    "bore": "MAXSpline",
+    "type": "Compliant",
+    "durometer": "Soft",
+    "url": "https://www.revrobotics.com/ION-Compliant-Wheels/",
+    "sku": "REV-21-2453",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Compliant Wheels",
+    "diameter": 76.2,
+    "bore": "MAXSpline",
+    "type": "Compliant",
+    "durometer": "Medium",
+    "url": "https://www.revrobotics.com/ION-Compliant-Wheels/",
+    "sku": "REV-21-2456",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Compliant Wheels",
+    "diameter": 101.6,
+    "bore": "MAXSpline",
+    "type": "Compliant",
+    "durometer": "Medium",
+    "url": "https://www.revrobotics.com/ION-Compliant-Wheels/",
+    "sku": "REV-21-2457",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Omni Wheels",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Omni",
+    "durometer": null,
+    "url": "https://www.revrobotics.com/ION-Omni-Wheels/",
+    "sku": "REV-21-2472",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Omni Wheels",
+    "diameter": 76.2,
+    "bore": "MAXSpline",
+    "type": "Omni",
+    "durometer": null,
+    "url": "https://www.revrobotics.com/ION-Omni-Wheels/",
+    "sku": "REV-21-2473",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Omni Wheels",
+    "diameter": 101.6,
+    "bore": "MAXSpline",
+    "type": "Omni",
+    "durometer": null,
+    "url": "https://www.revrobotics.com/ION-Omni-Wheels/",
+    "sku": "REV-21-2474",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Omni Wheels",
+    "diameter": 127,
+    "bore": "MAXSpline",
+    "type": "Omni",
+    "durometer": null,
+    "url": "https://www.revrobotics.com/ION-Omni-Wheels/",
+    "sku": "REV-21-2475",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Omni Wheels",
+    "diameter": 152.4,
+    "bore": "MAXSpline",
+    "type": "Omni",
+    "durometer": null,
+    "url": "https://www.revrobotics.com/ION-Omni-Wheels/",
+    "sku": "REV-21-2476",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Flap Wheels",
+    "diameter": 101.6,
+    "bore": "1/2\" Hex",
+    "type": "Grip",
+    "durometer": "Soft",
+    "url": "https://www.revrobotics.com/ion-flap-wheels/",
+    "sku": "REV-21-2704-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Flap Wheels",
+    "diameter": 101.6,
+    "bore": "1/2\" Hex",
+    "type": "Grip",
+    "durometer": "Medium",
+    "url": "https://www.revrobotics.com/ion-flap-wheels/",
+    "sku": "REV-21-2705-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Flap Wheels",
+    "diameter": 101.6,
+    "bore": "1/2\" Hex",
+    "type": "Grip",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/ion-flap-wheels/",
+    "sku": "REV-21-2706-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Traction Wheels",
+    "diameter": 101.6,
+    "bore": "MAXSpline",
+    "type": "Traction",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/ION-Traction-Wheels/",
+    "sku": "REV-21-3280",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Cone Wheels",
+    "diameter": 50.8,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/ION-cone-wheels",
+    "sku": "REV-21-6550",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Cone Wheels",
+    "diameter": 76.2,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/ION-cone-wheels",
+    "sku": "REV-21-6551",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Compliant Wheels",
+    "diameter": 50.8,
+    "bore": "MAXSpline",
+    "type": "Compliant",
+    "durometer": "Medium",
+    "url": "https://www.revrobotics.com/ION-Compliant-Wheels/",
+    "sku": "REV-21-6555-PK10",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Flap Wheels",
+    "diameter": 152.4,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/ion-flap-wheels/",
+    "sku": "REV-21-6559",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Cone Wheels",
+    "diameter": 50.8,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Soft",
+    "url": "https://www.revrobotics.com/ION-cone-wheels",
+    "sku": "REV-21-6563",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Cone Wheels",
+    "diameter": 50.8,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Medium",
+    "url": "https://www.revrobotics.com/ION-cone-wheels",
+    "sku": "REV-21-6564",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Cone Wheels",
+    "diameter": 76.2,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Soft",
+    "url": "https://www.revrobotics.com/ION-cone-wheels",
+    "sku": "REV-21-6565",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Cone Wheels",
+    "diameter": 76.2,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Medium",
+    "url": "https://www.revrobotics.com/ION-cone-wheels",
+    "sku": "REV-21-6566",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Flap Wheels",
+    "diameter": 152.4,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Soft",
+    "url": "https://www.revrobotics.com/ion-flap-wheels/",
+    "sku": "REV-21-6567",
+    "vendor": "REV"
+  },
+  {
+    "name": "ION Flap Wheels",
+    "diameter": 152.4,
+    "bore": "MAXSpline",
+    "type": "Grip",
+    "durometer": "Medium",
+    "url": "https://www.revrobotics.com/ion-flap-wheels/",
+    "sku": "REV-21-6568",
+    "vendor": "REV"
+  },
+  {
+    "name": "DUO Omni Wheels",
+    "diameter": 60,
+    "bore": "5mm Hex",
+    "type": "Omni",
+    "durometer": null,
+    "url": "https://www.revrobotics.com/DUO-Omni-Wheels/",
+    "sku": "REV-41-1160-PK2",
+    "vendor": "REV"
+  },
+  {
+    "name": "DUO Omni Wheels",
+    "diameter": 90,
+    "bore": "5mm Hex",
+    "type": "Omni",
+    "durometer": null,
+    "url": "https://www.revrobotics.com/DUO-Omni-Wheels/",
+    "sku": "REV-41-1190-PK2",
+    "vendor": "REV"
+  },
+  {
+    "name": "Grip Wheel",
+    "diameter": 90,
+    "bore": "5mm Hex",
+    "type": "Grip",
+    "durometer": null,
+    "url": "https://www.revrobotics.com/rev-41-1267/",
+    "sku": "REV-41-1267",
+    "vendor": "REV"
+  },
+  {
+    "name": "DUO Traction Wheels",
+    "diameter": 60,
+    "bore": "5mm Hex",
+    "type": "Traction",
+    "durometer": null,
+    "url": "https://www.revrobotics.com/DUO-Traction-Wheels/",
+    "sku": "REV-41-1350-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "DUO Traction Wheels",
+    "diameter": 30,
+    "bore": "5mm Hex",
+    "type": "Traction",
+    "durometer": null,
+    "url": "https://www.revrobotics.com/DUO-Traction-Wheels/",
+    "sku": "REV-41-1353-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "DUO Traction Wheels",
+    "diameter": 90,
+    "bore": "5mm Hex",
+    "type": "Traction",
+    "durometer": null,
+    "url": "https://www.revrobotics.com/DUO-Traction-Wheels/",
+    "sku": "REV-41-1354-PK2",
+    "vendor": "REV"
+  },
+  {
+    "name": "DUO Compliant Wheels",
+    "diameter": 5,
+    "bore": "5mm Hex",
+    "type": "Compliant",
+    "durometer": "Medium",
+    "url": "https://www.revrobotics.com/duo-compliant-wheels/",
+    "sku": "REV-41-2034-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "DUO Compliant Wheels",
+    "diameter": 5,
+    "bore": "5mm Hex",
+    "type": "Compliant",
+    "durometer": "Soft",
+    "url": "https://www.revrobotics.com/duo-compliant-wheels/",
+    "sku": "REV-41-2035-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "DUO Grip Wheels",
+    "diameter": 5,
+    "bore": "5mm Hex",
+    "type": "Grip",
+    "durometer": "Medium",
+    "url": "https://www.revrobotics.com/DUO-Grip-Wheels/",
+    "sku": "REV-41-2149-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "DUO Grip Wheels",
+    "diameter": 5,
+    "bore": "5mm Hex",
+    "type": "Grip",
+    "durometer": "Soft",
+    "url": "https://www.revrobotics.com/DUO-Grip-Wheels/",
+    "sku": "REV-41-2150-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "DUO Flap Wheels",
+    "diameter": 5,
+    "bore": "5mm Hex",
+    "type": "Grip",
+    "durometer": "Soft",
+    "url": "https://www.revrobotics.com/duo-flap-wheels/",
+    "sku": "REV-41-2701-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "DUO Flap Wheels",
+    "diameter": 5,
+    "bore": "5mm Hex",
+    "type": "Grip",
+    "durometer": "Medium",
+    "url": "https://www.revrobotics.com/duo-flap-wheels/",
+    "sku": "REV-41-2702-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "DUO Flap Wheels",
+    "diameter": 5,
+    "bore": "5mm Hex",
+    "type": "Grip",
+    "durometer": "Hard",
+    "url": "https://www.revrobotics.com/duo-flap-wheels/",
+    "sku": "REV-41-2703-PK4",
+    "vendor": "REV"
+  },
+  {
+    "name": "Mecanum Wheel Set",
+    "diameter": 75,
+    "bore": "5mm Hex",
+    "type": "Mecanum",
+    "durometer": null,
+    "url": "https://www.revrobotics.com/rev-45-1655/",
+    "sku": "REV-45-1655",
+    "vendor": "REV"
+  }
+]
