@@ -1,0 +1,1831 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`linear elevator simulation fuzz cases > returns coherent finite trajectories across mechanism variants 1`] = `
+[
+  {
+    "first": {
+      "position": 2.053636e-8,
+      "time": 0.0001,
+      "velocity": 0.0004105836,
+    },
+    "last": {
+      "energy": 39.89225,
+      "position": 0.507998,
+      "success": true,
+      "time": 0.7128,
+      "velocity": -0.00368307,
+    },
+    "maxSupplyCurrent": 10.86849,
+    "maxVelocity": 1.4248,
+    "middle": {
+      "position": 0.2551799,
+      "time": 0.3571,
+      "velocity": 1.422823,
+    },
+    "name": "vertical standard elevator",
+    "rows": 714,
+  },
+  {
+    "first": {
+      "position": 2.035954e-8,
+      "time": 0.0001,
+      "velocity": 0.0004045522,
+    },
+    "last": {
+      "energy": 0.05469146,
+      "position": 0.3047963,
+      "success": true,
+      "time": 0.5521,
+      "velocity": -0.003829514,
+    },
+    "maxSupplyCurrent": 0.8976616,
+    "maxVelocity": 1.10434,
+    "middle": {
+      "position": 0.1525565,
+      "time": 0.2761,
+      "velocity": 1.10434,
+    },
+    "name": "horizontal standard elevator",
+    "rows": 553,
+  },
+  {
+    "first": {
+      "position": 2.034044e-8,
+      "time": 0.0001,
+      "velocity": 0.0004066259,
+    },
+    "last": {
+      "energy": -3.240874,
+      "position": 0.2031967,
+      "success": true,
+      "time": 0.4508,
+      "velocity": -0.00493502,
+    },
+    "maxSupplyCurrent": 4.317905,
+    "maxVelocity": 0.9007997,
+    "middle": {
+      "position": 0.1023277,
+      "time": 0.2261,
+      "velocity": 0.8990187,
+    },
+    "name": "negative-angle cascade elevator",
+    "rows": 452,
+  },
+  {
+    "first": {
+      "position": 2.055587e-8,
+      "time": 0.0001,
+      "velocity": 0.000405077,
+    },
+    "last": {
+      "energy": 34.749,
+      "position": 0.2539993,
+      "success": true,
+      "time": 0.504,
+      "velocity": -0.001669628,
+    },
+    "maxSupplyCurrent": 14.95125,
+    "maxVelocity": 0.9463334,
+    "middle": {
+      "position": 0.1267,
+      "time": 0.2521,
+      "velocity": 0.9461836,
+    },
+    "name": "tight-current vertical elevator",
+    "rows": 505,
+  },
+]
+`;
+
+exports[`linear worker gain fuzz cases > returns finite feedforward and feedback gains across the input matrix 1`] = `
+[
+  {
+    "feedback": {
+      "kD": 0.3297146,
+      "kP": 27.12227,
+    },
+    "feedforward": {
+      "kA": 0.01476767,
+      "kG": -0.1448214,
+      "kV": 1.548531,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=1 spool=1 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.1272171,
+      "kP": 25.30289,
+    },
+    "feedforward": {
+      "kA": 0.007383836,
+      "kG": -0.0724107,
+      "kV": 1.548531,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=1 spool=1 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.3297146,
+      "kP": 27.12227,
+    },
+    "feedforward": {
+      "kA": 0.01476767,
+      "kG": 0,
+      "kV": 1.548531,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=1 spool=1 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.1272171,
+      "kP": 25.30289,
+    },
+    "feedforward": {
+      "kA": 0.007383836,
+      "kG": 0,
+      "kV": 1.548531,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=1 spool=1 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.3297146,
+      "kP": 27.12227,
+    },
+    "feedforward": {
+      "kA": 0.01476767,
+      "kG": 0.1448214,
+      "kV": 1.548531,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=1 spool=1 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.1272171,
+      "kP": 25.30289,
+    },
+    "feedforward": {
+      "kA": 0.007383836,
+      "kG": 0.0724107,
+      "kV": 1.548531,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=1 spool=1 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 1.050477,
+      "kP": 24.20459,
+    },
+    "feedforward": {
+      "kA": 0.02953535,
+      "kG": -0.2896428,
+      "kV": 0.7742654,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=1 spool=2 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.4232564,
+      "kP": 16.40739,
+    },
+    "feedforward": {
+      "kA": 0.01476767,
+      "kG": -0.1448214,
+      "kV": 0.7742654,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=1 spool=2 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 1.050477,
+      "kP": 24.20459,
+    },
+    "feedforward": {
+      "kA": 0.02953535,
+      "kG": 0,
+      "kV": 0.7742654,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=1 spool=2 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.4232564,
+      "kP": 16.40739,
+    },
+    "feedforward": {
+      "kA": 0.01476767,
+      "kG": 0,
+      "kV": 0.7742654,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=1 spool=2 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 1.050477,
+      "kP": 24.20459,
+    },
+    "feedforward": {
+      "kA": 0.02953535,
+      "kG": 0.2896428,
+      "kV": 0.7742654,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=1 spool=2 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.4232564,
+      "kP": 16.40739,
+    },
+    "feedforward": {
+      "kA": 0.01476767,
+      "kG": 0.1448214,
+      "kV": 0.7742654,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=1 spool=2 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 9.934526,
+      "kP": 153.1367,
+    },
+    "feedforward": {
+      "kA": 0.2215151,
+      "kG": -2.172321,
+      "kV": 1.548531,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=15 spool=1 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 4.732774,
+      "kP": 84.39107,
+    },
+    "feedforward": {
+      "kA": 0.1107575,
+      "kG": -1.086161,
+      "kV": 1.548531,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=15 spool=1 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 9.934526,
+      "kP": 153.1367,
+    },
+    "feedforward": {
+      "kA": 0.2215151,
+      "kG": 0,
+      "kV": 1.548531,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=15 spool=1 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 4.732774,
+      "kP": 84.39107,
+    },
+    "feedforward": {
+      "kA": 0.1107575,
+      "kG": 0,
+      "kV": 1.548531,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=15 spool=1 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 9.934526,
+      "kP": 153.1367,
+    },
+    "feedforward": {
+      "kA": 0.2215151,
+      "kG": 2.172321,
+      "kV": 1.548531,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=15 spool=1 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 4.732774,
+      "kP": 84.39107,
+    },
+    "feedforward": {
+      "kA": 0.1107575,
+      "kG": 1.086161,
+      "kV": 1.548531,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=15 spool=1 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 18.6665,
+      "kP": 247.8884,
+    },
+    "feedforward": {
+      "kA": 0.4430302,
+      "kG": -4.344642,
+      "kV": 0.7742654,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=15 spool=2 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 10.24417,
+      "kP": 146.446,
+    },
+    "feedforward": {
+      "kA": 0.2215151,
+      "kG": -2.172321,
+      "kV": 0.7742654,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=15 spool=2 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 18.6665,
+      "kP": 247.8884,
+    },
+    "feedforward": {
+      "kA": 0.4430302,
+      "kG": 0,
+      "kV": 0.7742654,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=15 spool=2 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 10.24417,
+      "kP": 146.446,
+    },
+    "feedforward": {
+      "kA": 0.2215151,
+      "kG": 0,
+      "kV": 0.7742654,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=15 spool=2 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 18.6665,
+      "kP": 247.8884,
+    },
+    "feedforward": {
+      "kA": 0.4430302,
+      "kG": 4.344642,
+      "kV": 0.7742654,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=15 spool=2 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 10.24417,
+      "kP": 146.446,
+    },
+    "feedforward": {
+      "kA": 0.2215151,
+      "kG": 2.172321,
+      "kV": 0.7742654,
+    },
+    "name": "kraken-x60-foc-1 ratio=1 load=15 spool=2 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.05847837,
+      "kP": 98.11219,
+    },
+    "feedforward": {
+      "kA": 0.003691918,
+      "kG": -0.03620535,
+      "kV": 6.194123,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=1 spool=1 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.02921394,
+      "kP": 98.02748,
+    },
+    "feedforward": {
+      "kA": 0.001845959,
+      "kG": -0.01810268,
+      "kV": 6.194123,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=1 spool=1 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.05847837,
+      "kP": 98.11219,
+    },
+    "feedforward": {
+      "kA": 0.003691918,
+      "kG": 0,
+      "kV": 6.194123,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=1 spool=1 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.02921394,
+      "kP": 98.02748,
+    },
+    "feedforward": {
+      "kA": 0.001845959,
+      "kG": 0,
+      "kV": 6.194123,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=1 spool=1 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.05847837,
+      "kP": 98.11219,
+    },
+    "feedforward": {
+      "kA": 0.003691918,
+      "kG": 0.03620535,
+      "kV": 6.194123,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=1 spool=1 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.02921394,
+      "kP": 98.02748,
+    },
+    "feedforward": {
+      "kA": 0.001845959,
+      "kG": 0.01810268,
+      "kV": 6.194123,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=1 spool=1 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.1191187,
+      "kP": 49.90394,
+    },
+    "feedforward": {
+      "kA": 0.007383836,
+      "kG": -0.0724107,
+      "kV": 3.097061,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=1 spool=2 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.05930285,
+      "kP": 49.74773,
+    },
+    "feedforward": {
+      "kA": 0.003691918,
+      "kG": -0.03620535,
+      "kV": 3.097061,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=1 spool=2 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.1191187,
+      "kP": 49.90394,
+    },
+    "feedforward": {
+      "kA": 0.007383836,
+      "kG": 0,
+      "kV": 3.097061,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=1 spool=2 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.05930285,
+      "kP": 49.74773,
+    },
+    "feedforward": {
+      "kA": 0.003691918,
+      "kG": 0,
+      "kV": 3.097061,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=1 spool=2 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.1191187,
+      "kP": 49.90394,
+    },
+    "feedforward": {
+      "kA": 0.007383836,
+      "kG": 0.0724107,
+      "kV": 3.097061,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=1 spool=2 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.05930285,
+      "kP": 49.74773,
+    },
+    "feedforward": {
+      "kA": 0.003691918,
+      "kG": 0.03620535,
+      "kV": 3.097061,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=1 spool=2 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 1.254202,
+      "kP": 106.9892,
+    },
+    "feedforward": {
+      "kA": 0.05537877,
+      "kG": -0.5430803,
+      "kV": 6.194123,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=15 spool=1 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.4697322,
+      "kP": 99.5503,
+    },
+    "feedforward": {
+      "kA": 0.02768939,
+      "kG": -0.2715401,
+      "kV": 6.194123,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=15 spool=1 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 1.254202,
+      "kP": 106.9892,
+    },
+    "feedforward": {
+      "kA": 0.05537877,
+      "kG": 0,
+      "kV": 6.194123,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=15 spool=1 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.4697322,
+      "kP": 99.5503,
+    },
+    "feedforward": {
+      "kA": 0.02768939,
+      "kG": 0,
+      "kV": 6.194123,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=15 spool=1 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 1.254202,
+      "kP": 106.9892,
+    },
+    "feedforward": {
+      "kA": 0.05537877,
+      "kG": 0.5430803,
+      "kV": 6.194123,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=15 spool=1 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.4697322,
+      "kP": 99.5503,
+    },
+    "feedforward": {
+      "kA": 0.02768939,
+      "kG": 0.2715401,
+      "kV": 6.194123,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=15 spool=1 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 4.262305,
+      "kP": 100.4065,
+    },
+    "feedforward": {
+      "kA": 0.1107575,
+      "kG": -1.086161,
+      "kV": 3.097061,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=15 spool=2 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 1.709884,
+      "kP": 67.07068,
+    },
+    "feedforward": {
+      "kA": 0.05537877,
+      "kG": -0.5430803,
+      "kV": 3.097061,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=15 spool=2 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 4.262305,
+      "kP": 100.4065,
+    },
+    "feedforward": {
+      "kA": 0.1107575,
+      "kG": 0,
+      "kV": 3.097061,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=15 spool=2 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 1.709884,
+      "kP": 67.07068,
+    },
+    "feedforward": {
+      "kA": 0.05537877,
+      "kG": 0,
+      "kV": 3.097061,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=15 spool=2 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 4.262305,
+      "kP": 100.4065,
+    },
+    "feedforward": {
+      "kA": 0.1107575,
+      "kG": 1.086161,
+      "kV": 3.097061,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=15 spool=2 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 1.709884,
+      "kP": 67.07068,
+    },
+    "feedforward": {
+      "kA": 0.05537877,
+      "kG": 0.5430803,
+      "kV": 3.097061,
+    },
+    "name": "kraken-x60-foc-1 ratio=4 load=15 spool=2 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.1830314,
+      "kP": 24.57981,
+    },
+    "feedforward": {
+      "kA": 0.009658723,
+      "kG": -0.09471971,
+      "kV": 1.476464,
+    },
+    "name": "kraken-x60-2 ratio=1 load=1 spool=1 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.07899852,
+      "kP": 23.93095,
+    },
+    "feedforward": {
+      "kA": 0.004829361,
+      "kG": -0.04735986,
+      "kV": 1.476464,
+    },
+    "name": "kraken-x60-2 ratio=1 load=1 spool=1 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.1830314,
+      "kP": 24.57981,
+    },
+    "feedforward": {
+      "kA": 0.009658723,
+      "kG": 0,
+      "kV": 1.476464,
+    },
+    "name": "kraken-x60-2 ratio=1 load=1 spool=1 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.07899852,
+      "kP": 23.93095,
+    },
+    "feedforward": {
+      "kA": 0.004829361,
+      "kG": 0,
+      "kV": 1.476464,
+    },
+    "name": "kraken-x60-2 ratio=1 load=1 spool=1 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.1830314,
+      "kP": 24.57981,
+    },
+    "feedforward": {
+      "kA": 0.009658723,
+      "kG": 0.09471971,
+      "kV": 1.476464,
+    },
+    "name": "kraken-x60-2 ratio=1 load=1 spool=1 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.07899852,
+      "kP": 23.93095,
+    },
+    "feedforward": {
+      "kA": 0.004829361,
+      "kG": 0.04735986,
+      "kV": 1.476464,
+    },
+    "name": "kraken-x60-2 ratio=1 load=1 spool=1 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.614252,
+      "kP": 18.18089,
+    },
+    "feedforward": {
+      "kA": 0.01931745,
+      "kG": -0.1894394,
+      "kV": 0.7382318,
+    },
+    "name": "kraken-x60-2 ratio=1 load=1 spool=2 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.2377152,
+      "kP": 13.72563,
+    },
+    "feedforward": {
+      "kA": 0.009658723,
+      "kG": -0.09471971,
+      "kV": 0.7382318,
+    },
+    "name": "kraken-x60-2 ratio=1 load=1 spool=2 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.614252,
+      "kP": 18.18089,
+    },
+    "feedforward": {
+      "kA": 0.01931745,
+      "kG": 0,
+      "kV": 0.7382318,
+    },
+    "name": "kraken-x60-2 ratio=1 load=1 spool=2 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.2377152,
+      "kP": 13.72563,
+    },
+    "feedforward": {
+      "kA": 0.009658723,
+      "kG": 0,
+      "kV": 0.7382318,
+    },
+    "name": "kraken-x60-2 ratio=1 load=1 spool=2 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.614252,
+      "kP": 18.18089,
+    },
+    "feedforward": {
+      "kA": 0.01931745,
+      "kG": 0.1894394,
+      "kV": 0.7382318,
+    },
+    "name": "kraken-x60-2 ratio=1 load=1 spool=2 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.2377152,
+      "kP": 13.72563,
+    },
+    "feedforward": {
+      "kA": 0.009658723,
+      "kG": 0.09471971,
+      "kV": 0.7382318,
+    },
+    "name": "kraken-x60-2 ratio=1 load=1 spool=2 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 6.41396,
+      "kP": 105.8523,
+    },
+    "feedforward": {
+      "kA": 0.1448808,
+      "kG": -1.420796,
+      "kV": 1.476464,
+    },
+    "name": "kraken-x60-2 ratio=1 load=15 spool=1 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 2.88658,
+      "kP": 58.64757,
+    },
+    "feedforward": {
+      "kA": 0.07244042,
+      "kG": -0.7103978,
+      "kV": 1.476464,
+    },
+    "name": "kraken-x60-2 ratio=1 load=15 spool=1 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 6.41396,
+      "kP": 105.8523,
+    },
+    "feedforward": {
+      "kA": 0.1448808,
+      "kG": 0,
+      "kV": 1.476464,
+    },
+    "name": "kraken-x60-2 ratio=1 load=15 spool=1 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 2.88658,
+      "kP": 58.64757,
+    },
+    "feedforward": {
+      "kA": 0.07244042,
+      "kG": 0,
+      "kV": 1.476464,
+    },
+    "name": "kraken-x60-2 ratio=1 load=15 spool=1 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 6.41396,
+      "kP": 105.8523,
+    },
+    "feedforward": {
+      "kA": 0.1448808,
+      "kG": 1.420796,
+      "kV": 1.476464,
+    },
+    "name": "kraken-x60-2 ratio=1 load=15 spool=1 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 2.88658,
+      "kP": 58.64757,
+    },
+    "feedforward": {
+      "kA": 0.07244042,
+      "kG": 0.7103978,
+      "kV": 1.476464,
+    },
+    "name": "kraken-x60-2 ratio=1 load=15 spool=1 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 13.15932,
+      "kP": 182.9518,
+    },
+    "feedforward": {
+      "kA": 0.2897617,
+      "kG": -2.841591,
+      "kV": 0.7382318,
+    },
+    "name": "kraken-x60-2 ratio=1 load=15 spool=2 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 6.675951,
+      "kP": 98.81283,
+    },
+    "feedforward": {
+      "kA": 0.1448808,
+      "kG": -1.420796,
+      "kV": 0.7382318,
+    },
+    "name": "kraken-x60-2 ratio=1 load=15 spool=2 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 13.15932,
+      "kP": 182.9518,
+    },
+    "feedforward": {
+      "kA": 0.2897617,
+      "kG": 0,
+      "kV": 0.7382318,
+    },
+    "name": "kraken-x60-2 ratio=1 load=15 spool=2 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 6.675951,
+      "kP": 98.81283,
+    },
+    "feedforward": {
+      "kA": 0.1448808,
+      "kG": 0,
+      "kV": 0.7382318,
+    },
+    "name": "kraken-x60-2 ratio=1 load=15 spool=2 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 13.15932,
+      "kP": 182.9518,
+    },
+    "feedforward": {
+      "kA": 0.2897617,
+      "kG": 2.841591,
+      "kV": 0.7382318,
+    },
+    "name": "kraken-x60-2 ratio=1 load=15 spool=2 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 6.675951,
+      "kP": 98.81283,
+    },
+    "feedforward": {
+      "kA": 0.1448808,
+      "kG": 1.420796,
+      "kV": 0.7382318,
+    },
+    "name": "kraken-x60-2 ratio=1 load=15 spool=2 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.03828316,
+      "kP": 93.63341,
+    },
+    "feedforward": {
+      "kA": 0.002414681,
+      "kG": -0.02367993,
+      "kV": 5.905855,
+    },
+    "name": "kraken-x60-2 ratio=4 load=1 spool=1 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.01913005,
+      "kP": 93.577,
+    },
+    "feedforward": {
+      "kA": 0.00120734,
+      "kG": -0.01183996,
+      "kV": 5.905855,
+    },
+    "name": "kraken-x60-2 ratio=4 load=1 spool=1 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.03828316,
+      "kP": 93.63341,
+    },
+    "feedforward": {
+      "kA": 0.002414681,
+      "kG": 0,
+      "kV": 5.905855,
+    },
+    "name": "kraken-x60-2 ratio=4 load=1 spool=1 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.01913005,
+      "kP": 93.577,
+    },
+    "feedforward": {
+      "kA": 0.00120734,
+      "kG": 0,
+      "kV": 5.905855,
+    },
+    "name": "kraken-x60-2 ratio=4 load=1 spool=1 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.03828316,
+      "kP": 93.63341,
+    },
+    "feedforward": {
+      "kA": 0.002414681,
+      "kG": 0.02367993,
+      "kV": 5.905855,
+    },
+    "name": "kraken-x60-2 ratio=4 load=1 spool=1 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.01913005,
+      "kP": 93.577,
+    },
+    "feedforward": {
+      "kA": 0.00120734,
+      "kG": 0.01183996,
+      "kV": 5.905855,
+    },
+    "name": "kraken-x60-2 ratio=4 load=1 spool=1 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.0776973,
+      "kP": 47.5073,
+    },
+    "feedforward": {
+      "kA": 0.004829361,
+      "kG": -0.04735986,
+      "kV": 2.952927,
+    },
+    "name": "kraken-x60-2 ratio=4 load=1 spool=2 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.03876056,
+      "kP": 47.40052,
+    },
+    "feedforward": {
+      "kA": 0.002414681,
+      "kG": -0.02367993,
+      "kV": 2.952927,
+    },
+    "name": "kraken-x60-2 ratio=4 load=1 spool=2 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.0776973,
+      "kP": 47.5073,
+    },
+    "feedforward": {
+      "kA": 0.004829361,
+      "kG": 0,
+      "kV": 2.952927,
+    },
+    "name": "kraken-x60-2 ratio=4 load=1 spool=2 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.03876056,
+      "kP": 47.40052,
+    },
+    "feedforward": {
+      "kA": 0.002414681,
+      "kG": 0,
+      "kV": 2.952927,
+    },
+    "name": "kraken-x60-2 ratio=4 load=1 spool=2 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.0776973,
+      "kP": 47.5073,
+    },
+    "feedforward": {
+      "kA": 0.004829361,
+      "kG": 0.04735986,
+      "kV": 2.952927,
+    },
+    "name": "kraken-x60-2 ratio=4 load=1 spool=2 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.03876056,
+      "kP": 47.40052,
+    },
+    "feedforward": {
+      "kA": 0.002414681,
+      "kG": 0.02367993,
+      "kV": 2.952927,
+    },
+    "name": "kraken-x60-2 ratio=4 load=1 spool=2 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.683514,
+      "kP": 96.87517,
+    },
+    "feedforward": {
+      "kA": 0.03622021,
+      "kG": -0.3551989,
+      "kV": 5.905855,
+    },
+    "name": "kraken-x60-2 ratio=4 load=15 spool=1 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.2916836,
+      "kP": 94.31958,
+    },
+    "feedforward": {
+      "kA": 0.0181101,
+      "kG": -0.1775995,
+      "kV": 5.905855,
+    },
+    "name": "kraken-x60-2 ratio=4 load=15 spool=1 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.683514,
+      "kP": 96.87517,
+    },
+    "feedforward": {
+      "kA": 0.03622021,
+      "kG": 0,
+      "kV": 5.905855,
+    },
+    "name": "kraken-x60-2 ratio=4 load=15 spool=1 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.2916836,
+      "kP": 94.31958,
+    },
+    "feedforward": {
+      "kA": 0.0181101,
+      "kG": 0,
+      "kV": 5.905855,
+    },
+    "name": "kraken-x60-2 ratio=4 load=15 spool=1 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.683514,
+      "kP": 96.87517,
+    },
+    "feedforward": {
+      "kA": 0.03622021,
+      "kG": 0.3551989,
+      "kV": 5.905855,
+    },
+    "name": "kraken-x60-2 ratio=4 load=15 spool=1 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.2916836,
+      "kP": 94.31958,
+    },
+    "feedforward": {
+      "kA": 0.0181101,
+      "kG": 0.1775995,
+      "kV": 5.905855,
+    },
+    "name": "kraken-x60-2 ratio=4 load=15 spool=1 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 2.505437,
+      "kP": 75.21305,
+    },
+    "feedforward": {
+      "kA": 0.07244042,
+      "kG": -0.7103978,
+      "kV": 2.952927,
+    },
+    "name": "kraken-x60-2 ratio=4 load=15 spool=2 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.9427689,
+      "kP": 55.41971,
+    },
+    "feedforward": {
+      "kA": 0.03622021,
+      "kG": -0.3551989,
+      "kV": 2.952927,
+    },
+    "name": "kraken-x60-2 ratio=4 load=15 spool=2 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 2.505437,
+      "kP": 75.21305,
+    },
+    "feedforward": {
+      "kA": 0.07244042,
+      "kG": 0,
+      "kV": 2.952927,
+    },
+    "name": "kraken-x60-2 ratio=4 load=15 spool=2 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.9427689,
+      "kP": 55.41971,
+    },
+    "feedforward": {
+      "kA": 0.03622021,
+      "kG": 0,
+      "kV": 2.952927,
+    },
+    "name": "kraken-x60-2 ratio=4 load=15 spool=2 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 2.505437,
+      "kP": 75.21305,
+    },
+    "feedforward": {
+      "kA": 0.07244042,
+      "kG": 0.7103978,
+      "kV": 2.952927,
+    },
+    "name": "kraken-x60-2 ratio=4 load=15 spool=2 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.9427689,
+      "kP": 55.41971,
+    },
+    "feedforward": {
+      "kA": 0.03622021,
+      "kG": 0.3551989,
+      "kV": 2.952927,
+    },
+    "name": "kraken-x60-2 ratio=4 load=15 spool=2 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 1.043393,
+      "kP": 35.14715,
+    },
+    "feedforward": {
+      "kA": 0.03291001,
+      "kG": -0.322737,
+      "kV": 1.515173,
+    },
+    "name": "neo-1 ratio=1 load=1 spool=1 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.3898119,
+      "kP": 27.26397,
+    },
+    "feedforward": {
+      "kA": 0.01645501,
+      "kG": -0.1613685,
+      "kV": 1.515173,
+    },
+    "name": "neo-1 ratio=1 load=1 spool=1 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 1.043393,
+      "kP": 35.14715,
+    },
+    "feedforward": {
+      "kA": 0.03291001,
+      "kG": 0,
+      "kV": 1.515173,
+    },
+    "name": "neo-1 ratio=1 load=1 spool=1 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.3898119,
+      "kP": 27.26397,
+    },
+    "feedforward": {
+      "kA": 0.01645501,
+      "kG": 0,
+      "kV": 1.515173,
+    },
+    "name": "neo-1 ratio=1 load=1 spool=1 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 1.043393,
+      "kP": 35.14715,
+    },
+    "feedforward": {
+      "kA": 0.03291001,
+      "kG": 0.322737,
+      "kV": 1.515173,
+    },
+    "name": "neo-1 ratio=1 load=1 spool=1 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.3898119,
+      "kP": 27.26397,
+    },
+    "feedforward": {
+      "kA": 0.01645501,
+      "kG": 0.1613685,
+      "kV": 1.515173,
+    },
+    "name": "neo-1 ratio=1 load=1 spool=1 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 2.771362,
+      "kP": 46.58025,
+    },
+    "feedforward": {
+      "kA": 0.06582002,
+      "kG": -0.6454739,
+      "kV": 0.7575864,
+    },
+    "name": "neo-1 ratio=1 load=1 spool=2 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 1.20666,
+      "kP": 25.96139,
+    },
+    "feedforward": {
+      "kA": 0.03291001,
+      "kG": -0.322737,
+      "kV": 0.7575864,
+    },
+    "name": "neo-1 ratio=1 load=1 spool=2 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 2.771362,
+      "kP": 46.58025,
+    },
+    "feedforward": {
+      "kA": 0.06582002,
+      "kG": 0,
+      "kV": 0.7575864,
+    },
+    "name": "neo-1 ratio=1 load=1 spool=2 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 1.20666,
+      "kP": 25.96139,
+    },
+    "feedforward": {
+      "kA": 0.03291001,
+      "kG": 0,
+      "kV": 0.7575864,
+    },
+    "name": "neo-1 ratio=1 load=1 spool=2 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 2.771362,
+      "kP": 46.58025,
+    },
+    "feedforward": {
+      "kA": 0.06582002,
+      "kG": 0.6454739,
+      "kV": 0.7575864,
+    },
+    "name": "neo-1 ratio=1 load=1 spool=2 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 1.20666,
+      "kP": 25.96139,
+    },
+    "feedforward": {
+      "kA": 0.03291001,
+      "kG": 0.322737,
+      "kV": 0.7575864,
+    },
+    "name": "neo-1 ratio=1 load=1 spool=2 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 19.85573,
+      "kP": 269.4269,
+    },
+    "feedforward": {
+      "kA": 0.4936502,
+      "kG": -4.841054,
+      "kV": 1.515173,
+    },
+    "name": "neo-1 ratio=1 load=15 spool=1 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 11.0469,
+      "kP": 166.9165,
+    },
+    "feedforward": {
+      "kA": 0.2468251,
+      "kG": -2.420527,
+      "kV": 1.515173,
+    },
+    "name": "neo-1 ratio=1 load=15 spool=1 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 19.85573,
+      "kP": 269.4269,
+    },
+    "feedforward": {
+      "kA": 0.4936502,
+      "kG": 0,
+      "kV": 1.515173,
+    },
+    "name": "neo-1 ratio=1 load=15 spool=1 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 11.0469,
+      "kP": 166.9165,
+    },
+    "feedforward": {
+      "kA": 0.2468251,
+      "kG": 0,
+      "kV": 1.515173,
+    },
+    "name": "neo-1 ratio=1 load=15 spool=1 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 19.85573,
+      "kP": 269.4269,
+    },
+    "feedforward": {
+      "kA": 0.4936502,
+      "kG": 4.841054,
+      "kV": 1.515173,
+    },
+    "name": "neo-1 ratio=1 load=15 spool=1 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 11.0469,
+      "kP": 166.9165,
+    },
+    "feedforward": {
+      "kA": 0.2468251,
+      "kG": 2.420527,
+      "kV": 1.515173,
+    },
+    "name": "neo-1 ratio=1 load=15 spool=1 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 31.72809,
+      "kP": 363.702,
+    },
+    "feedforward": {
+      "kA": 0.9873003,
+      "kG": -9.682109,
+      "kV": 0.7575864,
+    },
+    "name": "neo-1 ratio=1 load=15 spool=2 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 20.24588,
+      "kP": 264.6034,
+    },
+    "feedforward": {
+      "kA": 0.4936502,
+      "kG": -4.841054,
+      "kV": 0.7575864,
+    },
+    "name": "neo-1 ratio=1 load=15 spool=2 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 31.72809,
+      "kP": 363.702,
+    },
+    "feedforward": {
+      "kA": 0.9873003,
+      "kG": 0,
+      "kV": 0.7575864,
+    },
+    "name": "neo-1 ratio=1 load=15 spool=2 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 20.24588,
+      "kP": 264.6034,
+    },
+    "feedforward": {
+      "kA": 0.4936502,
+      "kG": 0,
+      "kV": 0.7575864,
+    },
+    "name": "neo-1 ratio=1 load=15 spool=2 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 31.72809,
+      "kP": 363.702,
+    },
+    "feedforward": {
+      "kA": 0.9873003,
+      "kG": 9.682109,
+      "kV": 0.7575864,
+    },
+    "name": "neo-1 ratio=1 load=15 spool=2 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 20.24588,
+      "kP": 264.6034,
+    },
+    "feedforward": {
+      "kA": 0.4936502,
+      "kG": 4.841054,
+      "kV": 0.7575864,
+    },
+    "name": "neo-1 ratio=1 load=15 spool=2 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.1306837,
+      "kP": 96.26643,
+    },
+    "feedforward": {
+      "kA": 0.008227503,
+      "kG": -0.08068424,
+      "kV": 6.060691,
+    },
+    "name": "neo-1 ratio=4 load=1 spool=1 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.06522038,
+      "kP": 96.08762,
+    },
+    "feedforward": {
+      "kA": 0.004113751,
+      "kG": -0.04034212,
+      "kV": 6.060691,
+    },
+    "name": "neo-1 ratio=4 load=1 spool=1 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.1306837,
+      "kP": 96.26643,
+    },
+    "feedforward": {
+      "kA": 0.008227503,
+      "kG": 0,
+      "kV": 6.060691,
+    },
+    "name": "neo-1 ratio=4 load=1 spool=1 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.06522038,
+      "kP": 96.08762,
+    },
+    "feedforward": {
+      "kA": 0.004113751,
+      "kG": 0,
+      "kV": 6.060691,
+    },
+    "name": "neo-1 ratio=4 load=1 spool=1 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.1306837,
+      "kP": 96.26643,
+    },
+    "feedforward": {
+      "kA": 0.008227503,
+      "kG": 0.08068424,
+      "kV": 6.060691,
+    },
+    "name": "neo-1 ratio=4 load=1 spool=1 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.06522038,
+      "kP": 96.08762,
+    },
+    "feedforward": {
+      "kA": 0.004113751,
+      "kG": 0.04034212,
+      "kV": 6.060691,
+    },
+    "name": "neo-1 ratio=4 load=1 spool=1 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.2959823,
+      "kP": 49.73354,
+    },
+    "feedforward": {
+      "kA": 0.01645501,
+      "kG": -0.1613685,
+      "kV": 3.030346,
+    },
+    "name": "neo-1 ratio=4 load=1 spool=2 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.1331488,
+      "kP": 48.88206,
+    },
+    "feedforward": {
+      "kA": 0.008227503,
+      "kG": -0.08068424,
+      "kV": 3.030346,
+    },
+    "name": "neo-1 ratio=4 load=1 spool=2 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.2959823,
+      "kP": 49.73354,
+    },
+    "feedforward": {
+      "kA": 0.01645501,
+      "kG": 0,
+      "kV": 3.030346,
+    },
+    "name": "neo-1 ratio=4 load=1 spool=2 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.1331488,
+      "kP": 48.88206,
+    },
+    "feedforward": {
+      "kA": 0.008227503,
+      "kG": 0,
+      "kV": 3.030346,
+    },
+    "name": "neo-1 ratio=4 load=1 spool=2 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 0.2959823,
+      "kP": 49.73354,
+    },
+    "feedforward": {
+      "kA": 0.01645501,
+      "kG": 0.1613685,
+      "kV": 3.030346,
+    },
+    "name": "neo-1 ratio=4 load=1 spool=2 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 0.1331488,
+      "kP": 48.88206,
+    },
+    "feedforward": {
+      "kA": 0.008227503,
+      "kG": 0.08068424,
+      "kV": 3.030346,
+    },
+    "name": "neo-1 ratio=4 load=1 spool=2 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 4.051121,
+      "kP": 139.4774,
+    },
+    "feedforward": {
+      "kA": 0.1234125,
+      "kG": -1.210264,
+      "kV": 6.060691,
+    },
+    "name": "neo-1 ratio=4 load=15 spool=1 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 1.494989,
+      "kP": 107.7994,
+    },
+    "feedforward": {
+      "kA": 0.06170627,
+      "kG": -0.6051318,
+      "kV": 6.060691,
+    },
+    "name": "neo-1 ratio=4 load=15 spool=1 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 4.051121,
+      "kP": 139.4774,
+    },
+    "feedforward": {
+      "kA": 0.1234125,
+      "kG": 0,
+      "kV": 6.060691,
+    },
+    "name": "neo-1 ratio=4 load=15 spool=1 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 1.494989,
+      "kP": 107.7994,
+    },
+    "feedforward": {
+      "kA": 0.06170627,
+      "kG": 0,
+      "kV": 6.060691,
+    },
+    "name": "neo-1 ratio=4 load=15 spool=1 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 4.051121,
+      "kP": 139.4774,
+    },
+    "feedforward": {
+      "kA": 0.1234125,
+      "kG": 1.210264,
+      "kV": 6.060691,
+    },
+    "name": "neo-1 ratio=4 load=15 spool=1 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 1.494989,
+      "kP": 107.7994,
+    },
+    "feedforward": {
+      "kA": 0.06170627,
+      "kG": 0.6051318,
+      "kV": 6.060691,
+    },
+    "name": "neo-1 ratio=4 load=15 spool=1 angle=90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 10.43924,
+      "kP": 179.6755,
+    },
+    "feedforward": {
+      "kA": 0.2468251,
+      "kG": -2.420527,
+      "kV": 3.030346,
+    },
+    "name": "neo-1 ratio=4 load=15 spool=2 angle=-90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 4.880647,
+      "kP": 107.6246,
+    },
+    "feedforward": {
+      "kA": 0.1234125,
+      "kG": -1.210264,
+      "kV": 3.030346,
+    },
+    "name": "neo-1 ratio=4 load=15 spool=2 angle=-90 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 10.43924,
+      "kP": 179.6755,
+    },
+    "feedforward": {
+      "kA": 0.2468251,
+      "kG": 0,
+      "kV": 3.030346,
+    },
+    "name": "neo-1 ratio=4 load=15 spool=2 angle=0 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 4.880647,
+      "kP": 107.6246,
+    },
+    "feedforward": {
+      "kA": 0.1234125,
+      "kG": 0,
+      "kV": 3.030346,
+    },
+    "name": "neo-1 ratio=4 load=15 spool=2 angle=0 efficiency=1",
+  },
+  {
+    "feedback": {
+      "kD": 10.43924,
+      "kP": 179.6755,
+    },
+    "feedforward": {
+      "kA": 0.2468251,
+      "kG": 2.420527,
+      "kV": 3.030346,
+    },
+    "name": "neo-1 ratio=4 load=15 spool=2 angle=90 efficiency=0.5",
+  },
+  {
+    "feedback": {
+      "kD": 4.880647,
+      "kP": 107.6246,
+    },
+    "feedforward": {
+      "kA": 0.1234125,
+      "kG": 1.210264,
+      "kV": 3.030346,
+    },
+    "name": "neo-1 ratio=4 load=15 spool=2 angle=90 efficiency=1",
+  },
+]
+`;

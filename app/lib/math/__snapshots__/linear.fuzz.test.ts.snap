@@ -1,0 +1,562 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`linear formula fuzz cases > produces stable guessed limits across realistic and boundary-adjacent mechanisms 1`] = `
+{
+  "caseCount": 11664,
+  "samples": [
+    {
+      "accelerationMps2": 62.8657,
+      "name": "kraken-x60-foc-1 load=1 spool=0.5 ratio=1 stator=20 supply=20 angle=-90 efficiency=50 cascade=false",
+      "velocityMps": 3.508064,
+    },
+    {
+      "accelerationMps2": 192.5259,
+      "name": "kraken-x60-foc-1 load=1 spool=0.5 ratio=4 stator=20 supply=60 angle=45 efficiency=90 cascade=true",
+      "velocityMps": 0.8707685,
+    },
+    {
+      "accelerationMps2": 3301.223,
+      "name": "kraken-x60-foc-1 load=1 spool=0.5 ratio=20 stator=60 supply=60 angle=0 efficiency=50 cascade=false",
+      "velocityMps": 0.1743588,
+    },
+    {
+      "accelerationMps2": 44.23615,
+      "name": "kraken-x60-foc-1 load=1 spool=2 ratio=1 stator=100 supply=20 angle=90 efficiency=90 cascade=true",
+      "velocityMps": 4.344757,
+    },
+    {
+      "accelerationMps2": 269.5544,
+      "name": "kraken-x60-foc-1 load=1 spool=2 ratio=20 stator=20 supply=20 angle=45 efficiency=50 cascade=false",
+      "velocityMps": 0.6968445,
+    },
+    {
+      "accelerationMps2": 20.22491,
+      "name": "kraken-x60-foc-1 load=1 spool=6 ratio=1 stator=60 supply=20 angle=-90 efficiency=90 cascade=true",
+      "velocityMps": 45.18818,
+    },
+    {
+      "accelerationMps2": 47.17506,
+      "name": "kraken-x60-foc-1 load=1 spool=6 ratio=4 stator=60 supply=60 angle=90 efficiency=50 cascade=false",
+      "velocityMps": 10.27354,
+    },
+    {
+      "accelerationMps2": 412.6529,
+      "name": "kraken-x60-foc-1 load=1 spool=6 ratio=20 stator=100 supply=60 angle=0 efficiency=90 cascade=true",
+      "velocityMps": 2.092306,
+    },
+    {
+      "accelerationMps2": 29.85347,
+      "name": "kraken-x60-foc-1 load=10 spool=0.5 ratio=4 stator=20 supply=60 angle=-90 efficiency=50 cascade=false",
+      "velocityMps": 0.8848491,
+    },
+    {
+      "accelerationMps2": 11.76005,
+      "name": "kraken-x60-foc-1 load=10 spool=0.5 ratio=20 stator=60 supply=20 angle=45 efficiency=90 cascade=true",
+      "velocityMps": 0.1735137,
+    },
+    {
+      "accelerationMps2": 6.711148,
+      "name": "kraken-x60-foc-1 load=10 spool=2 ratio=1 stator=100 supply=20 angle=0 efficiency=50 cascade=false",
+      "velocityMps": 13.94871,
+    },
+    {
+      "accelerationMps2": 16.91385,
+      "name": "kraken-x60-foc-1 load=10 spool=2 ratio=4 stator=100 supply=60 angle=90 efficiency=90 cascade=true",
+      "velocityMps": 3.255089,
+    },
+    {
+      "accelerationMps2": 0.1,
+      "name": "kraken-x60-foc-1 load=10 spool=6 ratio=1 stator=20 supply=60 angle=45 efficiency=50 cascade=false",
+      "velocityMps": 0.1,
+    },
+    {
+      "accelerationMps2": 12.79715,
+      "name": "kraken-x60-foc-1 load=10 spool=6 ratio=4 stator=60 supply=60 angle=-90 efficiency=90 cascade=true",
+      "velocityMps": 12.55032,
+    },
+    {
+      "accelerationMps2": 6.673631,
+      "name": "kraken-x60-foc-1 load=10 spool=6 ratio=20 stator=100 supply=20 angle=90 efficiency=50 cascade=false",
+      "velocityMps": 1.608645,
+    },
+    {
+      "accelerationMps2": 3.961468,
+      "name": "kraken-x60-foc-1 load=50 spool=0.5 ratio=4 stator=20 supply=20 angle=0 efficiency=90 cascade=true",
+      "velocityMps": 0.8717941,
+    },
+    {
+      "accelerationMps2": 73.86978,
+      "name": "kraken-x60-foc-1 load=50 spool=0.5 ratio=20 stator=60 supply=20 angle=-90 efficiency=50 cascade=false",
+      "velocityMps": 0.1769698,
+    },
+    {
+      "accelerationMps2": 0.1,
+      "name": "kraken-x60-foc-1 load=50 spool=2 ratio=1 stator=60 supply=60 angle=45 efficiency=90 cascade=true",
+      "velocityMps": 0.1,
+    },
+    {
+      "accelerationMps2": 5.502038,
+      "name": "kraken-x60-foc-1 load=50 spool=2 ratio=4 stator=100 supply=60 angle=0 efficiency=50 cascade=false",
+      "velocityMps": 3.487177,
+    },
+    {
+      "accelerationMps2": 0.1,
+      "name": "kraken-x60-foc-1 load=50 spool=6 ratio=1 stator=20 supply=20 angle=90 efficiency=90 cascade=true",
+      "velocityMps": 0.1,
+    },
+    {
+      "accelerationMps2": 0.1,
+      "name": "kraken-x60-foc-1 load=50 spool=6 ratio=4 stator=60 supply=20 angle=45 efficiency=50 cascade=false",
+      "velocityMps": 0.1,
+    },
+    {
+      "accelerationMps2": 15.8987,
+      "name": "kraken-x60-foc-1 load=50 spool=6 ratio=20 stator=100 supply=20 angle=-90 efficiency=90 cascade=true",
+      "velocityMps": 2.510064,
+    },
+    {
+      "accelerationMps2": 174.6739,
+      "name": "kraken-x60-2 load=1 spool=0.5 ratio=1 stator=100 supply=60 angle=90 efficiency=50 cascade=false",
+      "velocityMps": 3.483588,
+    },
+    {
+      "accelerationMps2": 1926.031,
+      "name": "kraken-x60-2 load=1 spool=0.5 ratio=20 stator=20 supply=60 angle=0 efficiency=90 cascade=true",
+      "velocityMps": 0.1828694,
+    },
+    {
+      "accelerationMps2": 88.09661,
+      "name": "kraken-x60-2 load=1 spool=2 ratio=1 stator=60 supply=60 angle=-90 efficiency=50 cascade=false",
+      "velocityMps": 15.08796,
+    },
+    {
+      "accelerationMps2": 172.197,
+      "name": "kraken-x60-2 load=1 spool=2 ratio=4 stator=100 supply=20 angle=45 efficiency=90 cascade=true",
+      "velocityMps": 3.471308,
+    },
+    {
+      "accelerationMps2": 8.91681,
+      "name": "kraken-x60-2 load=1 spool=6 ratio=1 stator=20 supply=20 angle=0 efficiency=50 cascade=false",
+      "velocityMps": 43.88865,
+    },
+    {
+      "accelerationMps2": 24.2552,
+      "name": "kraken-x60-2 load=1 spool=6 ratio=4 stator=20 supply=60 angle=90 efficiency=90 cascade=true",
+      "velocityMps": 10.68566,
+    },
+    {
+      "accelerationMps2": 529.4611,
+      "name": "kraken-x60-2 load=1 spool=6 ratio=20 stator=60 supply=60 angle=45 efficiency=50 cascade=false",
+      "velocityMps": 2.187139,
+    },
+    {
+      "accelerationMps2": 55.83438,
+      "name": "kraken-x60-2 load=10 spool=0.5 ratio=1 stator=100 supply=60 angle=-90 efficiency=90 cascade=true",
+      "velocityMps": 3.250158,
+    },
+    {
+      "accelerationMps2": 206.1581,
+      "name": "kraken-x60-2 load=10 spool=0.5 ratio=20 stator=20 supply=20 angle=90 efficiency=50 cascade=false",
+      "velocityMps": 0.1821531,
+    },
+    {
+      "accelerationMps2": 7.222616,
+      "name": "kraken-x60-2 load=10 spool=2 ratio=1 stator=60 supply=20 angle=0 efficiency=90 cascade=true",
+      "velocityMps": 14.62955,
+    },
+    {
+      "accelerationMps2": 36.0597,
+      "name": "kraken-x60-2 load=10 spool=2 ratio=4 stator=100 supply=20 angle=-90 efficiency=50 cascade=false",
+      "velocityMps": 3.470627,
+    },
+    {
+      "accelerationMps2": 235.2064,
+      "name": "kraken-x60-2 load=10 spool=2 ratio=20 stator=100 supply=60 angle=45 efficiency=90 cascade=true",
+      "velocityMps": 0.7224735,
+    },
+    {
+      "accelerationMps2": 3.566724,
+      "name": "kraken-x60-2 load=10 spool=6 ratio=4 stator=20 supply=60 angle=0 efficiency=50 cascade=false",
+      "velocityMps": 10.97216,
+    },
+    {
+      "accelerationMps2": 14.95681,
+      "name": "kraken-x60-2 load=10 spool=6 ratio=20 stator=60 supply=20 angle=90 efficiency=90 cascade=true",
+      "velocityMps": 2.07463,
+    },
+    {
+      "accelerationMps2": 0.3571325,
+      "name": "kraken-x60-2 load=50 spool=0.5 ratio=1 stator=100 supply=20 angle=45 efficiency=50 cascade=false",
+      "velocityMps": 0.3213409,
+    },
+    {
+      "accelerationMps2": 46.36594,
+      "name": "kraken-x60-2 load=50 spool=0.5 ratio=20 stator=20 supply=20 angle=-90 efficiency=90 cascade=true",
+      "velocityMps": 0.1868486,
+    },
+    {
+      "accelerationMps2": 0.1,
+      "name": "kraken-x60-2 load=50 spool=2 ratio=1 stator=20 supply=60 angle=90 efficiency=50 cascade=false",
+      "velocityMps": 0.1,
+    },
+    {
+      "accelerationMps2": 5.778093,
+      "name": "kraken-x60-2 load=50 spool=2 ratio=4 stator=60 supply=60 angle=0 efficiency=90 cascade=true",
+      "velocityMps": 3.657388,
+    },
+    {
+      "accelerationMps2": 15.69064,
+      "name": "kraken-x60-2 load=50 spool=2 ratio=20 stator=100 supply=60 angle=-90 efficiency=50 cascade=false",
+      "velocityMps": 0.7887789,
+    },
+    {
+      "accelerationMps2": 0.1,
+      "name": "kraken-x60-2 load=50 spool=6 ratio=4 stator=20 supply=20 angle=45 efficiency=90 cascade=true",
+      "velocityMps": 0.1,
+    },
+    {
+      "accelerationMps2": 6.798159,
+      "name": "kraken-x60-2 load=50 spool=6 ratio=20 stator=60 supply=20 angle=0 efficiency=50 cascade=false",
+      "velocityMps": 2.079225,
+    },
+    {
+      "accelerationMps2": 114.7488,
+      "name": "neo-1 load=1 spool=0.5 ratio=1 stator=60 supply=60 angle=90 efficiency=90 cascade=true",
+      "velocityMps": 3.124913,
+    },
+    {
+      "accelerationMps2": 46.94955,
+      "name": "neo-1 load=1 spool=0.5 ratio=4 stator=100 supply=60 angle=45 efficiency=50 cascade=false",
+      "velocityMps": 0.879998,
+    },
+    {
+      "accelerationMps2": 20.08541,
+      "name": "neo-1 load=1 spool=2 ratio=1 stator=20 supply=60 angle=-90 efficiency=90 cascade=true",
+      "velocityMps": 15.10079,
+    },
+    {
+      "accelerationMps2": 89.96368,
+      "name": "neo-1 load=1 spool=2 ratio=4 stator=60 supply=20 angle=90 efficiency=50 cascade=false",
+      "velocityMps": 3.243897,
+    },
+    {
+      "accelerationMps2": 52.94306,
+      "name": "neo-1 load=1 spool=2 ratio=20 stator=100 supply=20 angle=0 efficiency=90 cascade=true",
+      "velocityMps": 0.7056621,
+    },
+    {
+      "accelerationMps2": 25.97879,
+      "name": "neo-1 load=1 spool=6 ratio=4 stator=20 supply=20 angle=-90 efficiency=50 cascade=false",
+      "velocityMps": 11.11963,
+    },
+    {
+      "accelerationMps2": 76.05315,
+      "name": "neo-1 load=1 spool=6 ratio=20 stator=20 supply=60 angle=45 efficiency=90 cascade=true",
+      "velocityMps": 2.124926,
+    },
+    {
+      "accelerationMps2": 16.32013,
+      "name": "neo-1 load=10 spool=0.5 ratio=1 stator=60 supply=60 angle=0 efficiency=50 cascade=false",
+      "velocityMps": 3.064997,
+    },
+    {
+      "accelerationMps2": 18.35342,
+      "name": "neo-1 load=10 spool=0.5 ratio=4 stator=100 supply=20 angle=90 efficiency=90 cascade=true",
+      "velocityMps": 0.8193708,
+    },
+    {
+      "accelerationMps2": 0.1,
+      "name": "neo-1 load=10 spool=2 ratio=1 stator=20 supply=20 angle=45 efficiency=50 cascade=false",
+      "velocityMps": 0.1,
+    },
+    {
+      "accelerationMps2": 22.53343,
+      "name": "neo-1 load=10 spool=2 ratio=4 stator=60 supply=20 angle=-90 efficiency=90 cascade=true",
+      "velocityMps": 3.324807,
+    },
+    {
+      "accelerationMps2": 12.88272,
+      "name": "neo-1 load=10 spool=2 ratio=20 stator=60 supply=60 angle=90 efficiency=50 cascade=false",
+      "velocityMps": 0.6781676,
+    },
+    {
+      "accelerationMps2": 2.040016,
+      "name": "neo-1 load=10 spool=6 ratio=1 stator=100 supply=60 angle=0 efficiency=90 cascade=true",
+      "velocityMps": 42.7674,
+    },
+    {
+      "accelerationMps2": 16.91206,
+      "name": "neo-1 load=10 spool=6 ratio=20 stator=20 supply=60 angle=-90 efficiency=50 cascade=false",
+      "velocityMps": 2.309481,
+    },
+    {
+      "accelerationMps2": 0.1,
+      "name": "neo-1 load=50 spool=0.5 ratio=1 stator=60 supply=20 angle=45 efficiency=90 cascade=true",
+      "velocityMps": 0.1,
+    },
+    {
+      "accelerationMps2": 6.588469,
+      "name": "neo-1 load=50 spool=0.5 ratio=4 stator=100 supply=20 angle=0 efficiency=50 cascade=false",
+      "velocityMps": 0.8286184,
+    },
+    {
+      "accelerationMps2": 4.078538,
+      "name": "neo-1 load=50 spool=0.5 ratio=20 stator=100 supply=60 angle=90 efficiency=90 cascade=true",
+      "velocityMps": 0.16988,
+    },
+    {
+      "accelerationMps2": 0.1,
+      "name": "neo-1 load=50 spool=2 ratio=4 stator=20 supply=60 angle=45 efficiency=50 cascade=false",
+      "velocityMps": 0.4164865,
+    },
+    {
+      "accelerationMps2": 15.69064,
+      "name": "neo-1 load=50 spool=2 ratio=20 stator=60 supply=60 angle=-90 efficiency=90 cascade=true",
+      "velocityMps": 0.8184141,
+    },
+    {
+      "accelerationMps2": 0.1,
+      "name": "neo-1 load=50 spool=6 ratio=1 stator=100 supply=20 angle=90 efficiency=50 cascade=false",
+      "velocityMps": 0.1,
+    },
+    {
+      "accelerationMps2": 1.632013,
+      "name": "neo-1 load=50 spool=6 ratio=20 stator=20 supply=20 angle=0 efficiency=90 cascade=true",
+      "velocityMps": 2.13837,
+    },
+    {
+      "accelerationMps2": 1.132059,
+      "name": "neo-1 load=50 spool=6 ratio=20 stator=100 supply=60 angle=90 efficiency=100 cascade=true",
+      "velocityMps": 0.4657082,
+    },
+  ],
+}
+`;
+
+exports[`linear formula fuzz cases > produces stable stall-load results across the numeric input matrix 1`] = `
+{
+  "caseCount": 324,
+  "samples": [
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-foc-1 spool=0.5 ratio=0.5 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 9.906771,
+      "name": "kraken-x60-foc-1 spool=0.5 ratio=0.5 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-foc-1 spool=0.5 ratio=2 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 39.62709,
+      "name": "kraken-x60-foc-1 spool=0.5 ratio=2 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-foc-1 spool=0.5 ratio=10 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 198.1354,
+      "name": "kraken-x60-foc-1 spool=0.5 ratio=10 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-foc-1 spool=2 ratio=0.5 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 2.476693,
+      "name": "kraken-x60-foc-1 spool=2 ratio=0.5 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-foc-1 spool=2 ratio=2 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 9.906771,
+      "name": "kraken-x60-foc-1 spool=2 ratio=2 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-foc-1 spool=2 ratio=10 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 49.53386,
+      "name": "kraken-x60-foc-1 spool=2 ratio=10 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-foc-1 spool=10 ratio=0.5 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 0.4953386,
+      "name": "kraken-x60-foc-1 spool=10 ratio=0.5 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-foc-1 spool=10 ratio=2 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 1.981354,
+      "name": "kraken-x60-foc-1 spool=10 ratio=2 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-foc-1 spool=10 ratio=10 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 9.906771,
+      "name": "kraken-x60-foc-1 spool=10 ratio=10 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-2 spool=0.5 ratio=0.5 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 19.49343,
+      "name": "kraken-x60-2 spool=0.5 ratio=0.5 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-2 spool=0.5 ratio=2 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 77.97373,
+      "name": "kraken-x60-2 spool=0.5 ratio=2 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-2 spool=0.5 ratio=10 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 389.8686,
+      "name": "kraken-x60-2 spool=0.5 ratio=10 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-2 spool=2 ratio=0.5 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 4.873358,
+      "name": "kraken-x60-2 spool=2 ratio=0.5 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-2 spool=2 ratio=2 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 19.49343,
+      "name": "kraken-x60-2 spool=2 ratio=2 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-2 spool=2 ratio=10 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 97.46716,
+      "name": "kraken-x60-2 spool=2 ratio=10 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-2 spool=10 ratio=0.5 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 0.9746716,
+      "name": "kraken-x60-2 spool=10 ratio=0.5 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-2 spool=10 ratio=2 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 3.898686,
+      "name": "kraken-x60-2 spool=10 ratio=2 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "kraken-x60-2 spool=10 ratio=10 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 19.49343,
+      "name": "kraken-x60-2 spool=10 ratio=10 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "neo-1 spool=0.5 ratio=0.5 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 10.09227,
+      "name": "neo-1 spool=0.5 ratio=0.5 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "neo-1 spool=0.5 ratio=2 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 40.36908,
+      "name": "neo-1 spool=0.5 ratio=2 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "neo-1 spool=0.5 ratio=10 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 201.8454,
+      "name": "neo-1 spool=0.5 ratio=10 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "neo-1 spool=2 ratio=0.5 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 2.523067,
+      "name": "neo-1 spool=2 ratio=0.5 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "neo-1 spool=2 ratio=2 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 10.09227,
+      "name": "neo-1 spool=2 ratio=2 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "neo-1 spool=2 ratio=10 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 50.46135,
+      "name": "neo-1 spool=2 ratio=10 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "neo-1 spool=10 ratio=0.5 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 0.5046135,
+      "name": "neo-1 spool=10 ratio=0.5 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "neo-1 spool=10 ratio=2 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 2.018454,
+      "name": "neo-1 spool=10 ratio=2 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 0,
+      "name": "neo-1 spool=10 ratio=10 current=1 efficiency=50",
+    },
+    {
+      "loadLb": 10.09227,
+      "name": "neo-1 spool=10 ratio=10 current=60 efficiency=50",
+    },
+    {
+      "loadLb": 34.05279,
+      "name": "neo-1 spool=10 ratio=10 current=100 efficiency=100",
+    },
+  ],
+}
+`;
