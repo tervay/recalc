@@ -31,7 +31,7 @@
 - spinbutton "Stator Limit": "80"
 - combobox: A
 - button "Supply Limit"
-- spinbutton "Supply Limit": "30"
+- spinbutton "Supply Limit": "60"
 - combobox: A
 - button "Supply Voltage"
 - spinbutton "Supply Voltage": "12"
@@ -41,20 +41,20 @@
 - combobox: Ohm
 - text: Max Velocity
 - switch "Custom"
-- text: Custom Guessed 128.473
+- text: Custom Guessed 135.235
 - combobox: in/s
 - text: Max Acceleration
 - switch "Custom"
-- text: Custom Guessed 1984.618
+- text: Custom Guessed 3156.980
 - combobox: in/s2
 - button "LQR Tuning":
   - img
   - heading "LQR Tuning" [level=2]
-- text: Time to Goal 0.532
+- text: Time to Goal 0.487
 - combobox: s
 - text: Stall Load 53.653
 - combobox: lbs
-- text: End Error 0.002
+- text: End Error 0.003
 - combobox: in
 - heading "Simulation" [level=2]
 - list:
@@ -73,11 +73,11 @@
   - listitem:
     - img "Velocity (in/s) legend icon"
     - text: Velocity (in/s)
-- application: 0.0231 0.0751 0.121 0.164 0.2 0.24 0.28 0.32 0.362 0.4 0.44 0.485 0.532 Time (s) -45 0 45 90 135 Velocity (in/s) / Current (A) 0 15 30 45 60 Position (in)
+- application: 0.0171 0.0641 0.1 0.135 0.17 0.2 0.241 0.28 0.322 0.365 0.4 0.443 0.487 Time (s) -55 0 55 110 165 Velocity (in/s) / Current (A) 0 15 30 45 60 Position (in)
 - text: kA 0.018
 - combobox: V*s^2/m
-- text: kV 3.097
-- combobox: V*s/m
+- text: kV 0.124
+- combobox: V*s/rotation
 - text: kG 0.181
 - combobox: V
 - text: Feedback kP 51.147

@@ -501,6 +501,125 @@ describe('calculateGuessedLimits', () => {
     );
   });
 
+  const GRAVITY_MPS2 = 9.80665;
+
+  function peakSupplyWatts(
+    v: Measurement,
+    a: Measurement,
+    loadKg: number,
+    travelMeters: number,
+  ): number {
+    const vMPS = v.to('m/s').scalar;
+    const aMPS2 = a.to('m/s^2').scalar;
+    const peakV = Math.min(vMPS, Math.sqrt(aMPS2 * travelMeters));
+    return loadKg * (aMPS2 + GRAVITY_MPS2) * peakV;
+  }
+
+  it('clamps the guessed profile to the supply power budget when given a distance', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const args = [
+      motor,
+      new Ratio(1.75, RatioType.REDUCTION),
+      new Measurement(5, 'lb'),
+      new Measurement(1, 'in'),
+      new Measurement(50, 'A'),
+      new Measurement(10, 'A'),
+      new Measurement(12, 'V'),
+      new Measurement(90, 'deg'),
+      100,
+      false,
+      new Measurement(12, 'V'),
+    ] as const;
+
+    const unclamped = calculateGuessedLimits(...args);
+    const clamped = calculateGuessedLimits(...args, new Measurement(60, 'in'));
+
+    const loadKg = new Measurement(5, 'lb').to('kg').scalar;
+    const travelMeters = new Measurement(60, 'in').to('m').scalar;
+    const budget = 12 * 10;
+
+    expect(
+      peakSupplyWatts(
+        unclamped.v_max_guessed,
+        unclamped.a_max_guessed,
+        loadKg,
+        travelMeters,
+      ),
+    ).toBeGreaterThan(3 * budget);
+
+    expect(
+      peakSupplyWatts(
+        clamped.v_max_guessed,
+        clamped.a_max_guessed,
+        loadKg,
+        travelMeters,
+      ),
+    ).toBeLessThan(2 * budget);
+  });
+
+  it('leaves an already-feasible profile untouched when given a distance', () => {
+    const feasibleCases: Array<[number, number]> = [
+      [80, 60],
+      [50, 30],
+    ];
+
+    for (const [stator, supply] of feasibleCases) {
+      const args = [
+        Motor.KrakenX60sFOC(1),
+        new Ratio(2, RatioType.REDUCTION),
+        new Measurement(5, 'lb'),
+        new Measurement(1, 'in'),
+        new Measurement(stator, 'A'),
+        new Measurement(supply, 'A'),
+        new Measurement(12, 'V'),
+        new Measurement(90, 'deg'),
+        100,
+        false,
+        new Measurement(12, 'V'),
+      ] as const;
+
+      const without = calculateGuessedLimits(...args);
+      const withDistance = calculateGuessedLimits(
+        ...args,
+        new Measurement(60, 'in'),
+      );
+
+      expect(withDistance.v_max_guessed.to('m/s').scalar).toBeCloseTo(
+        without.v_max_guessed.to('m/s').scalar,
+        6,
+      );
+      expect(withDistance.a_max_guessed.to('m/s^2').scalar).toBeCloseTo(
+        without.a_max_guessed.to('m/s^2').scalar,
+        6,
+      );
+    }
+  });
+
+  it('prefers a lower acceleration over a lower cruise when clamping for power', () => {
+    const clamped = calculateGuessedLimits(
+      Motor.KrakenX60sFOC(1),
+      new Ratio(1.75, RatioType.REDUCTION),
+      new Measurement(5, 'lb'),
+      new Measurement(1, 'in'),
+      new Measurement(50, 'A'),
+      new Measurement(10, 'A'),
+      new Measurement(12, 'V'),
+      new Measurement(90, 'deg'),
+      100,
+      false,
+      new Measurement(12, 'V'),
+      new Measurement(60, 'in'),
+    );
+
+    const v = clamped.v_max_guessed.to('m/s').scalar;
+    const a = clamped.a_max_guessed.to('m/s^2').scalar;
+
+    expect(v).toBeGreaterThan(2);
+    expect(v).toBeLessThan(3.2);
+    expect(a).toBeGreaterThan(8);
+    expect(a).toBeLessThan(20);
+  });
+
   it('is unaffected by rVolts when it exceeds supply voltage', () => {
     const motor = Motor.KrakenX60sFOC(1);
     const ratio = new Ratio(4, RatioType.REDUCTION);

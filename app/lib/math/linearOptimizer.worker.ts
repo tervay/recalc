@@ -8,6 +8,7 @@ import {
   type MetricSource,
   type ConfigOptResult,
   type ConfigOptOutput,
+  adaptiveSimSeconds,
   peakSupplyCurrent,
   makeGrid,
   reduceConfigOutput,
@@ -32,6 +33,7 @@ export interface SingleSimResult extends MetricSource {
   ratioMagnitude: number;
   supplyLimitAmps: number;
   statorLimitAmps: number;
+  success: boolean;
 }
 
 interface SimControlParams {
@@ -111,6 +113,12 @@ function parseMech(
   };
 }
 
+// The elevator sim halves the travel for a cascade rig (elevator_sim.h), so the
+// motion profile the sim actually runs is over this distance.
+function simTravelMeters(p: MechParams): number {
+  return p.cascade ? p.travelDistanceMeters * 0.5 : p.travelDistanceMeters;
+}
+
 function guessLimitsFromMech(
   p: MechParams,
   ratioMagnitude: number,
@@ -130,6 +138,7 @@ function guessLimitsFromMech(
     p.efficiency * 100,
     p.cascade,
     rVolts ? new Measurement(rVolts, 'V') : undefined,
+    new Measurement(p.travelDistanceMeters, 'm'),
   );
   return {
     velocity: v_max_guessed.to('m/s').scalar,
@@ -256,7 +265,12 @@ function findOptimalRatio(
         rVolts,
         sensorDelaySeconds,
       },
-      timeoutSeconds: 1,
+      timeoutSeconds: adaptiveSimSeconds(
+        simTravelMeters(p),
+        velocity,
+        acceleration,
+        1.5,
+      ),
     });
     if (states.length === 0) return Number.POSITIVE_INFINITY;
     const last = states[states.length - 1];
@@ -288,31 +302,60 @@ function findOptimalRatio(
     return { r, t: objective(r) };
   });
 
-  let firstValidIdx = -1;
-  let lastValidIdx = -1;
   let bestIdx = -1;
   for (let i = 0; i < scan.length; i++) {
     if (isFinite(scan[i].t)) {
-      if (firstValidIdx === -1) firstValidIdx = i;
-      lastValidIdx = i;
       if (bestIdx === -1 || scan[i].t < scan[bestIdx].t) bestIdx = i;
     }
   }
 
-  if (firstValidIdx === -1) {
+  if (bestIdx === -1) {
     return NaN;
   }
 
-  const bracketLow = firstValidIdx > 0 ? scan[firstValidIdx - 1].r : 0.25;
-  const bracketHigh =
-    lastValidIdx < numScanPoints - 1 ? scan[lastValidIdx + 1].r : 50;
+  // Widen from the best sample to the enclosing run of feasible points. Using
+  // this contiguous band, rather than [firstValid, lastValid], keeps the
+  // bracket from spanning an infeasible gap when the valid region is split.
+  let bandLow = bestIdx;
+  let bandHigh = bestIdx;
+  while (bandLow > 0 && isFinite(scan[bandLow - 1].t)) bandLow--;
+  while (bandHigh < numScanPoints - 1 && isFinite(scan[bandHigh + 1].t)) {
+    bandHigh++;
+  }
 
-  return minimize(objective, {
-    lowerBound: bracketLow,
-    upperBound: bracketHigh,
-    guess: scan[bestIdx].r,
-    tolerance: 0.05,
+  const bestSample = scan[bestIdx].r;
+
+  // An externally pinned motion profile makes time-to-goal identical for every
+  // feasible ratio: the objective is a flat valley with no minimum to seek, so
+  // golden section terminates on an arbitrary ratio. When the band reads flat,
+  // take the best measured sample -- stable across cells and known feasible.
+  const bandIsFlat =
+    bandHigh > bandLow &&
+    scan[bandLow].t <= scan[bestIdx].t * 1.02 &&
+    scan[bandHigh].t <= scan[bestIdx].t * 1.02;
+  if (bandIsFlat) {
+    return bestSample;
+  }
+
+  const bracketLow = bandLow > 0 ? scan[bandLow - 1].r : 0.25;
+  const bracketHigh = bandHigh < numScanPoints - 1 ? scan[bandHigh + 1].r : 50;
+
+  // Golden section on log(ratio): the ratio axis spans two orders of magnitude,
+  // so a fixed absolute tolerance wastes probes at the high end.
+  const refinedLog = minimize((u) => objective(Math.exp(u)), {
+    lowerBound: Math.log(bracketLow),
+    upperBound: Math.log(bracketHigh),
+    guess: Math.log(bestSample),
+    tolerance: 0.02,
   });
+  const refined = Math.exp(refinedLog);
+
+  // Never return a ratio that verifies worse than a sample already known to
+  // work -- golden section can stop on a point it never evaluated as feasible.
+  const refinedTime = objective(refined);
+  return isFinite(refinedTime) && refinedTime <= scan[bestIdx].t
+    ? refined
+    : bestSample;
 }
 
 interface BaseLinearParams {
@@ -508,6 +551,7 @@ export async function simulateOnce({
         timeToGoalSeconds: Number.POSITIVE_INFINITY,
         energyJoules: 0,
         peakCurrentAmps: 0,
+        success: false,
       };
     }
 
@@ -518,6 +562,7 @@ export async function simulateOnce({
       timeToGoalSeconds: result.timeToGoalSeconds,
       energyJoules: result.energyJoules,
       peakCurrentAmps: result.peakCurrentAmps,
+      success: result.success,
     };
   } finally {
     p.wpilibMotor.delete();
@@ -632,7 +677,12 @@ function computeConfigCell(
     maxVelocityMPS: effectiveVelocity,
     maxAccelerationMPS2: effectiveAcceleration,
     control,
-    timeoutSeconds: 1.5,
+    timeoutSeconds: adaptiveSimSeconds(
+      simTravelMeters(p),
+      effectiveVelocity,
+      effectiveAcceleration,
+      1.5,
+    ),
   });
 
   const result = extractSimResult(states);

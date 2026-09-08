@@ -4,10 +4,13 @@ import {
   type OptimizationPriority,
   type SimState,
   type MetricSource,
+  OPTIMIZER_SIM_CEIL_SECONDS,
+  adaptiveSimSeconds,
   peakSupplyCurrent,
   getMetric,
   selectBest,
   makeGrid,
+  trapezoidProfileDurationSeconds,
 } from '~/lib/math/optimizerUtils';
 
 describe('optimizerUtils', () => {
@@ -122,6 +125,74 @@ describe('optimizerUtils', () => {
 
     it('handles zero', () => {
       expect(makeGrid(0)).toEqual([]);
+    });
+  });
+
+  describe('trapezoidProfileDurationSeconds', () => {
+    it('uses the triangular profile when cruise velocity is never reached', () => {
+      // 60 in at 3.5908 m/s^2, velocity high enough to stay triangular.
+      expect(trapezoidProfileDurationSeconds(1.524, 100, 3.5908)).toBeCloseTo(
+        2 * Math.sqrt(1.524 / 3.5908),
+        6,
+      );
+    });
+
+    it('adds a cruise phase once the velocity limit binds', () => {
+      // dist to reach vmax (accel + decel) = v^2 / a = 1 m; 1 < 10.
+      expect(trapezoidProfileDurationSeconds(10, 2, 4)).toBeCloseTo(
+        2 * (2 / 4) + (10 - 1) / 2,
+        6,
+      );
+    });
+
+    it('is zero for a zero-distance move', () => {
+      expect(trapezoidProfileDurationSeconds(0, 2, 4)).toBe(0);
+    });
+
+    it('is infinite when acceleration is non-positive', () => {
+      expect(trapezoidProfileDurationSeconds(1.524, 2, 0)).toBe(
+        Number.POSITIVE_INFINITY,
+      );
+    });
+
+    it('is infinite when velocity is non-positive', () => {
+      expect(trapezoidProfileDurationSeconds(1.524, 0, 4)).toBe(
+        Number.POSITIVE_INFINITY,
+      );
+    });
+
+    it('is infinite for a non-finite input', () => {
+      expect(trapezoidProfileDurationSeconds(NaN, 2, 4)).toBe(
+        Number.POSITIVE_INFINITY,
+      );
+    });
+  });
+
+  describe('adaptiveSimSeconds', () => {
+    it('pads the profile duration when it exceeds the floor', () => {
+      const duration = trapezoidProfileDurationSeconds(1.524, 3.4, 3.5908);
+      expect(adaptiveSimSeconds(1.524, 3.4, 3.5908, 1.0)).toBeCloseTo(
+        duration * 1.3 + 0.15,
+        6,
+      );
+    });
+
+    it('never returns less than the floor', () => {
+      // Fast move: padded duration is well under a second.
+      expect(adaptiveSimSeconds(1.524, 3.4, 80, 1.0)).toBe(1.0);
+      expect(adaptiveSimSeconds(1.524, 3.4, 80, 1.5)).toBe(1.5);
+    });
+
+    it('never exceeds the ceiling', () => {
+      expect(adaptiveSimSeconds(5, 1, 0.5, 1.0)).toBe(
+        OPTIMIZER_SIM_CEIL_SECONDS,
+      );
+    });
+
+    it('returns the ceiling for an unusable profile', () => {
+      expect(adaptiveSimSeconds(1.524, 0, 4, 1.0)).toBe(
+        OPTIMIZER_SIM_CEIL_SECONDS,
+      );
     });
   });
 });

@@ -101,6 +101,78 @@ export function makeGrid(max: number): number[] {
   );
 }
 
+export const OPTIMIZER_SIM_CEIL_SECONDS = 3.0;
+
+const OPTIMIZER_SIM_PROFILE_MARGIN = 1.3;
+const OPTIMIZER_SIM_PROFILE_PAD_SECONDS = 0.15;
+
+/**
+ * Duration of a rest-to-rest trapezoidal motion profile: the time WPILib's
+ * `TrapezoidProfile` reports for the same distance and limits. The elevator
+ * sim loop stops the moment the profile completes, so this is also the
+ * shortest sim window in which a config can possibly reach its goal.
+ *
+ * Infinite when the limits cannot produce motion; zero for a zero move.
+ */
+export function trapezoidProfileDurationSeconds(
+  distanceMeters: number,
+  maxVelocityMPS: number,
+  maxAccelerationMPS2: number,
+): number {
+  if (
+    !Number.isFinite(distanceMeters) ||
+    !Number.isFinite(maxVelocityMPS) ||
+    !Number.isFinite(maxAccelerationMPS2) ||
+    maxVelocityMPS <= 0 ||
+    maxAccelerationMPS2 <= 0
+  ) {
+    return Number.POSITIVE_INFINITY;
+  }
+
+  if (distanceMeters <= 0) {
+    return 0;
+  }
+
+  const distanceToReachVmax = maxVelocityMPS ** 2 / maxAccelerationMPS2;
+
+  if (distanceToReachVmax >= distanceMeters) {
+    return 2 * Math.sqrt(distanceMeters / maxAccelerationMPS2);
+  }
+
+  return (
+    2 * (maxVelocityMPS / maxAccelerationMPS2) +
+    (distanceMeters - distanceToReachVmax) / maxVelocityMPS
+  );
+}
+
+/**
+ * Sim window for one optimizer trial: the profile duration plus a margin for
+ * controller lag, never below `floorSeconds` (the caller's historical cap) and
+ * never above `OPTIMIZER_SIM_CEIL_SECONDS`. Bounding it keeps a pathologically
+ * slow config from stalling the grid.
+ */
+export function adaptiveSimSeconds(
+  distanceMeters: number,
+  maxVelocityMPS: number,
+  maxAccelerationMPS2: number,
+  floorSeconds: number,
+): number {
+  const duration = trapezoidProfileDurationSeconds(
+    distanceMeters,
+    maxVelocityMPS,
+    maxAccelerationMPS2,
+  );
+
+  if (!Number.isFinite(duration)) {
+    return OPTIMIZER_SIM_CEIL_SECONDS;
+  }
+
+  const padded =
+    duration * OPTIMIZER_SIM_PROFILE_MARGIN + OPTIMIZER_SIM_PROFILE_PAD_SECONDS;
+
+  return Math.min(OPTIMIZER_SIM_CEIL_SECONDS, Math.max(floorSeconds, padded));
+}
+
 /**
  * Collapse a flat list of grid-cell results into a ConfigOptOutput, selecting
  * the fastest successful cell as the recommendation. Shared by the serial

@@ -338,6 +338,34 @@ test.describe('Linear Mechanism Calculator', () => {
     });
   });
 
+  test('should match snapshot with kV expressed in motor rotations', async ({
+    page,
+  }) => {
+    await page.getByTestId('selectkV').click();
+    await page.getByRole('option', { name: 'V*s/rotation' }).click();
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'kV-motor-rotations.yaml',
+    });
+  });
+
+  test('should match snapshot with a custom max velocity in motor rotations per second', async ({
+    page,
+  }) => {
+    await page.getByTestId('enableCustomMaxVelocity').click();
+    await page.getByTestId('selectmaxVelocity').click();
+    await page.getByRole('option', { name: 'rotation/s', exact: true }).click();
+    await page.getByTestId('maxVelocity').fill('40');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'maxVelocity-motor-rotations.yaml',
+    });
+  });
+
   test('should match snapshot with feedbackDt magnitude changed', async ({
     page,
   }) => {

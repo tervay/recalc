@@ -41,6 +41,15 @@ import type {
   OptimizeConfigurationParams,
 } from '~/lib/math/linearOptimizer.worker';
 import optimizerWorkerUrl from '~/lib/math/linearOptimizer.worker?worker&url';
+import {
+  ACCELERATION_UNITS,
+  KA_UNITS,
+  KP_UNITS,
+  KV_UNITS,
+  metersPerMotorRotation,
+  toLinear,
+  VELOCITY_UNITS,
+} from '~/lib/math/motorRotations';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
@@ -223,6 +232,7 @@ export default function Linear() {
         efficiency,
         cascade,
         rVolts,
+        travelDistance,
       ),
     [
       motor,
@@ -236,17 +246,34 @@ export default function Linear() {
       efficiency,
       cascade,
       rVolts,
+      travelDistance,
     ],
   );
 
+  const rotationFactor = useMemo(
+    () => metersPerMotorRotation(spoolDiameter, ratio),
+    [spoolDiameter, ratio],
+  );
+
   const effectiveMaxVelocity = useMemo(
-    () => (enableCustomMaxVelocity ? maxVelocity : v_max_guessed),
-    [enableCustomMaxVelocity, maxVelocity, v_max_guessed],
+    () =>
+      enableCustomMaxVelocity
+        ? toLinear(maxVelocity, 'm/s', rotationFactor)
+        : v_max_guessed,
+    [enableCustomMaxVelocity, maxVelocity, v_max_guessed, rotationFactor],
   );
 
   const effectiveMaxAcceleration = useMemo(
-    () => (enableCustomMaxAcceleration ? maxAcceleration : a_max_guessed),
-    [enableCustomMaxAcceleration, maxAcceleration, a_max_guessed],
+    () =>
+      enableCustomMaxAcceleration
+        ? toLinear(maxAcceleration, 'm/s^2', rotationFactor)
+        : a_max_guessed,
+    [
+      enableCustomMaxAcceleration,
+      maxAcceleration,
+      a_max_guessed,
+      rotationFactor,
+    ],
   );
 
   const stallLoad = useMemo(() => {
@@ -467,10 +494,10 @@ export default function Linear() {
     cascade,
     batteryVoltageFilterTimeConstantSeconds: BATTERY_VOLTAGE_FILTER_TC_S,
     maxVelocityMPS: enableCustomMaxVelocity
-      ? maxVelocity.to('m/s').scalar
+      ? toLinear(maxVelocity, 'm/s', rotationFactor).scalar
       : null,
     maxAccelerationMPS2: enableCustomMaxAcceleration
-      ? maxAcceleration.to('m/s^2').scalar
+      ? toLinear(maxAcceleration, 'm/s^2', rotationFactor).scalar
       : null,
     qPositionMeters: qPosition.to('m').scalar,
     qVelocityMPS: qVelocity.to('m/s').scalar,
@@ -684,14 +711,17 @@ export default function Linear() {
                     <MeasurementInput
                       stateHook={[maxVelocity, setMaxVelocity]}
                       label="Custom"
-                      tooltip="Maximum trapezoidal profile velocity."
+                      tooltip="Maximum trapezoidal profile velocity. Choose motor rotations per second to enter it in rotor units."
                       testId="maxVelocity"
+                      units={VELOCITY_UNITS}
                     />
                   ) : (
                     <MeasurementDisplayOutput
                       state={effectiveMaxVelocity}
                       label="Guessed"
                       defaultUnit="in/s"
+                      units={VELOCITY_UNITS}
+                      conversionFactor={rotationFactor}
                     />
                   )}
                 </div>
@@ -713,14 +743,17 @@ export default function Linear() {
                     <MeasurementInput
                       stateHook={[maxAcceleration, setMaxAcceleration]}
                       label="Custom"
-                      tooltip="Maximum trapezoidal profile acceleration."
+                      tooltip="Maximum trapezoidal profile acceleration. Choose motor rotations per second squared to enter it in rotor units."
                       testId="maxAcceleration"
+                      units={ACCELERATION_UNITS}
                     />
                   ) : (
                     <MeasurementDisplayOutput
                       state={effectiveMaxAcceleration}
                       label="Guessed"
                       defaultUnit="in/s2"
+                      units={ACCELERATION_UNITS}
+                      conversionFactor={rotationFactor}
                     />
                   )}
                 </div>
@@ -984,6 +1017,8 @@ export default function Linear() {
                   defaultUnit="V*s^2/m"
                   roundTo={3}
                   testId="kA"
+                  units={KA_UNITS}
+                  conversionFactor={rotationFactor}
                 />
                 <MeasurementDisplayOutput
                   state={kV}
@@ -991,6 +1026,8 @@ export default function Linear() {
                   defaultUnit="V*s/m"
                   roundTo={3}
                   testId="kV"
+                  units={KV_UNITS}
+                  conversionFactor={rotationFactor}
                 />
                 <MeasurementDisplayOutput
                   state={kG}
@@ -1008,6 +1045,8 @@ export default function Linear() {
                   defaultUnit="V/m"
                   roundTo={3}
                   testId="feedbackKP"
+                  units={KP_UNITS}
+                  conversionFactor={rotationFactor}
                 />
                 <MeasurementDisplayOutput
                   state={feedbackGains.kD}
@@ -1015,6 +1054,8 @@ export default function Linear() {
                   defaultUnit="V*s/m"
                   roundTo={3}
                   testId="feedbackKD"
+                  units={KV_UNITS}
+                  conversionFactor={rotationFactor}
                 />
               </div>
             </section>

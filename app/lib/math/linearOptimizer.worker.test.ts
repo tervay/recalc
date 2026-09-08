@@ -108,3 +108,117 @@ describe('linearOptimizer wasm cleanup', () => {
     expect(wpilibMotor.isDeleted()).toBe(true);
   }, 60_000);
 });
+
+describe('optimizeConfiguration grid consistency', () => {
+  // A pinned motion profile (both max velocity and max acceleration fixed)
+  // makes time-to-goal identical for every feasible ratio, so the ratio search
+  // has no minimum to seek. The grid must still be monotonic in headroom: once
+  // a stator limit yields a config, every higher stator limit must too.
+  it('never drops a config as the stator limit rises with a pinned profile', async () => {
+    const out = await optimizeConfiguration({
+      ...baseParams,
+      efficiency: 0.9,
+      batteryVoltageFilterTimeConstantSeconds: 0.1,
+      maximumComfortableStatorLimitDict: new Measurement(80, 'A').toDict(),
+      maximumComfortableSupplyLimitDict: new Measurement(60, 'A').toDict(),
+      maxVelocityMPS: 3,
+      maxAccelerationMPS2: 10,
+    });
+
+    const bySupply = new Map<number, { stator: number; success: boolean }[]>();
+    for (const r of out.allResults) {
+      const row = bySupply.get(r.supplyLimitAmps) ?? [];
+      row.push({ stator: r.statorLimitAmps, success: r.success });
+      bySupply.set(r.supplyLimitAmps, row);
+    }
+
+    for (const row of bySupply.values()) {
+      row.sort((a, b) => a.stator - b.stator);
+      const firstSuccess = row.findIndex((c) => c.success);
+      expect(firstSuccess).toBeGreaterThanOrEqual(0);
+      for (const cell of row.slice(firstSuccess)) {
+        expect(cell.success).toBe(true);
+      }
+    }
+  }, 60_000);
+
+  it('never lets a higher stator limit produce a materially slower config', async () => {
+    const out = await optimizeConfiguration({
+      ...baseParams,
+      maxVelocityMPS: null,
+      maxAccelerationMPS2: null,
+      maximumComfortableStatorLimitDict: new Measurement(80, 'A').toDict(),
+      maximumComfortableSupplyLimitDict: new Measurement(60, 'A').toDict(),
+    });
+
+    const bySupply = new Map<
+      number,
+      { stator: number; time: number; ratio: number }[]
+    >();
+    for (const r of out.allResults) {
+      if (!r.success) continue;
+      const row = bySupply.get(r.supplyLimitAmps) ?? [];
+      row.push({
+        stator: r.statorLimitAmps,
+        time: r.timeToGoalSeconds,
+        ratio: r.optimalRatio,
+      });
+      bySupply.set(r.supplyLimitAmps, row);
+    }
+
+    for (const row of bySupply.values()) {
+      row.sort((a, b) => a.stator - b.stator);
+      let bestSoFar = Number.POSITIVE_INFINITY;
+      for (const cell of row) {
+        expect(cell.time).toBeLessThanOrEqual(bestSoFar * 1.25);
+        bestSoFar = Math.min(bestSoFar, cell.time);
+      }
+    }
+  }, 60_000);
+
+  it('never reports an outlier ratio in a supply-limited column', async () => {
+    const ratios: number[] = [];
+    for (const statorAmps of [10, 20, 30, 40, 50, 60]) {
+      const cell = await optimizeConfigurationCell({
+        ...baseParams,
+        maxVelocityMPS: null,
+        maxAccelerationMPS2: null,
+        statorAmps,
+        supplyAmps: 10,
+      });
+      expect(cell.success).toBe(true);
+      ratios.push(cell.optimalRatio);
+    }
+
+    const median = [...ratios].sort((a, b) => a - b)[
+      Math.floor(ratios.length / 2)
+    ];
+    for (const ratio of ratios) {
+      expect(ratio).toBeLessThan(median * 2);
+    }
+  }, 60_000);
+});
+
+describe('simulateOnce', () => {
+  it('reports whether the carriage reached the goal', async () => {
+    const reached = await simulateOnce({
+      ...baseParams,
+      ratioMagnitude: 2,
+      statorLimitAmps: 40,
+      supplyLimitAmps: 60,
+      maxVelocityMPS: 2,
+      maxAccelerationMPS2: 10,
+    });
+    expect(reached.success).toBe(true);
+
+    const stalled = await simulateOnce({
+      ...baseParams,
+      ratioMagnitude: 0.25,
+      statorLimitAmps: 40,
+      supplyLimitAmps: 60,
+      maxVelocityMPS: 8,
+      maxAccelerationMPS2: 200,
+    });
+    expect(stalled.success).toBe(false);
+  }, 60_000);
+});

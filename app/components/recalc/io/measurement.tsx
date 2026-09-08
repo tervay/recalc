@@ -15,6 +15,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '~/components/ui/tooltip';
+import { convertAcrossDomains } from '~/lib/math/motorRotations';
 import Measurement from '~/lib/models/Measurement';
 import type { HasStateHook } from '~/lib/types/common';
 
@@ -52,17 +53,22 @@ export function MeasurementInput({
   disabled,
   testId,
   labelAbove,
+  units,
 }: HasStateHook<Measurement> & {
   label: string;
   tooltip?: string;
   disabled?: () => boolean;
   testId?: string;
   labelAbove?: boolean;
+  units?: string[];
 }) {
   const [meas, setMeas] = stateHook;
   const inputId = useId();
 
-  const kinds = useMemo(() => Measurement.choices(meas), [meas]);
+  const kinds = useMemo(
+    () => units ?? Measurement.choices(meas),
+    [meas, units],
+  );
   const [unit, setUnit] = useState(() => selectableUnit(meas, kinds));
   const [proxyValue, setProxyValue] = useState(() => meas.scalar.toString());
   const lastInternalMeas = useRef(meas);
@@ -161,6 +167,41 @@ export function MeasurementInput({
   );
 }
 
+/**
+ * The outputs may list units from more than one physical domain -- linear and
+ * motor-rotation, say -- when given a `conversionFactor`. This resolves the
+ * unit the dropdown actually shows and the value under it:
+ *
+ *  - a `unit` no longer in `kinds` (the spool shrank the list) falls back to
+ *    the default;
+ *  - a `unit` in another domain converts through `conversionFactor`;
+ *  - a null `conversionFactor` (degenerate geometry) forces a compatible unit.
+ */
+function resolveDisplay(
+  state: Measurement,
+  unit: string,
+  kinds: string[],
+  defaultUnit: string | undefined,
+  conversionFactor: Measurement | null | undefined,
+) {
+  const fallback = defaultUnit ?? selectableUnit(state, kinds);
+  let displayUnit = kinds.includes(unit) ? unit : fallback;
+
+  if (
+    (conversionFactor === null || conversionFactor === undefined) &&
+    !state.isCompatible(displayUnit)
+  ) {
+    displayUnit = fallback;
+  }
+
+  const value =
+    conversionFactor != null && !state.isCompatible(displayUnit)
+      ? convertAcrossDomains(state, displayUnit, conversionFactor)
+      : state.to(displayUnit);
+
+  return { displayUnit, value };
+}
+
 export function MeasurementOutput({
   state,
   label,
@@ -169,6 +210,8 @@ export function MeasurementOutput({
   roundTo = 3,
   testId,
   labelAbove,
+  units,
+  conversionFactor,
 }: {
   state: Measurement;
   label: string;
@@ -177,13 +220,25 @@ export function MeasurementOutput({
   roundTo?: number;
   testId?: string;
   labelAbove?: boolean;
+  units?: string[];
+  conversionFactor?: Measurement | null;
 }) {
   const inputId = useId();
-  const kinds = useMemo(() => Measurement.choices(state), [state]);
+  const kinds = useMemo(
+    () => units ?? Measurement.choices(state),
+    [state, units],
+  );
   const [unit, setUnit] = useState(
     () => defaultUnit ?? selectableUnit(state, kinds),
   );
-  const stringified = state.to(unit).scalar.toFixed(roundTo);
+  const { displayUnit, value } = resolveDisplay(
+    state,
+    unit,
+    kinds,
+    defaultUnit,
+    conversionFactor,
+  );
+  const stringified = value.scalar.toFixed(roundTo);
 
   const labelEl =
     tooltip === undefined ? (
@@ -229,9 +284,9 @@ export function MeasurementOutput({
           data-testid={testId}
         />
         <Select
-          value={unit}
-          onValueChange={(value) => {
-            if (value !== null) setUnit(value);
+          value={displayUnit}
+          onValueChange={(next) => {
+            if (next !== null) setUnit(next);
           }}
         >
           <SelectTrigger
@@ -260,6 +315,8 @@ export function MeasurementDisplayOutput({
   tooltip,
   roundTo = 3,
   testId,
+  units,
+  conversionFactor,
 }: {
   state: Measurement;
   label: string;
@@ -267,12 +324,24 @@ export function MeasurementDisplayOutput({
   tooltip?: string;
   roundTo?: number;
   testId?: string;
+  units?: string[];
+  conversionFactor?: Measurement | null;
 }) {
-  const kinds = useMemo(() => Measurement.choices(state), [state]);
+  const kinds = useMemo(
+    () => units ?? Measurement.choices(state),
+    [state, units],
+  );
   const [unit, setUnit] = useState(
     () => defaultUnit ?? selectableUnit(state, kinds),
   );
-  const stringified = state.to(unit).scalar.toFixed(roundTo);
+  const { displayUnit, value } = resolveDisplay(
+    state,
+    unit,
+    kinds,
+    defaultUnit,
+    conversionFactor,
+  );
+  const stringified = value.scalar.toFixed(roundTo);
 
   const inner = (
     <div className="flex flex-col gap-0.5 rounded-lg border bg-muted/30 px-3 py-2">
@@ -285,9 +354,9 @@ export function MeasurementDisplayOutput({
           {stringified}
         </span>
         <Select
-          value={unit}
-          onValueChange={(value) => {
-            if (value !== null) setUnit(value);
+          value={displayUnit}
+          onValueChange={(next) => {
+            if (next !== null) setUnit(next);
           }}
         >
           <SelectTrigger

@@ -471,6 +471,47 @@ describe('MeasurementInput', () => {
     });
   });
 
+  describe('units override', () => {
+    const ROTATION_VELOCITY = ['m/s', 'ft/s', 'rotation/s', 'rpm'];
+
+    it('drives the dropdown from the override list, in order', async () => {
+      const { user } = renderInput({
+        value: new Measurement(2, 'm/s'),
+        label: LABEL,
+        units: ROTATION_VELOCITY,
+      });
+      const opened = await openSelect(user);
+      expect(opened.map((option) => option.textContent)).toEqual(
+        ROTATION_VELOCITY,
+      );
+    });
+
+    it('keeps the linear options while the value sits in a rotational unit', async () => {
+      const { user } = renderInput({
+        value: new Measurement(40, 'rotation/s'),
+        label: LABEL,
+        units: ROTATION_VELOCITY,
+      });
+      const opened = await openSelect(user);
+      expect(opened.map((option) => option.textContent)).toEqual(
+        ROTATION_VELOCITY,
+      );
+    });
+
+    it('re-interprets the number when a cross-domain unit is picked', async () => {
+      const { setValue, user } = renderInput({
+        value: new Measurement(2, 'm/s'),
+        label: LABEL,
+        units: ROTATION_VELOCITY,
+      });
+      await chooseOption(user, 'rotation/s');
+      expect(reading(lastWrite(setValue))).toEqual({
+        scalar: 2,
+        unit: 'rotation/s',
+      });
+    });
+  });
+
   describe('disabled', () => {
     it('disables the input when the predicate is true', () => {
       renderInput({
@@ -925,6 +966,38 @@ describe('MeasurementDisplayOutput', () => {
       });
       await chooseOption(user, 'ft');
       expect(selectTrigger().textContent).toBe('ft');
+    });
+  });
+
+  describe('conversionFactor', () => {
+    const FACTOR = new Measurement((Math.PI * 0.0254) / 2, 'm/rotation');
+    const KV_UNITS = ['V*s/m', 'V*s/rotation'];
+
+    it('converts the value into a cross-domain unit', async () => {
+      const { user } = renderDisplay({
+        state: new Measurement(3, 'V*s/m'),
+        label: LABEL,
+        testId: TEST_ID,
+        defaultUnit: 'V*s/m',
+        units: KV_UNITS,
+        conversionFactor: FACTOR,
+      });
+      await chooseOption(user, 'V*s/rotation');
+      expect(value().textContent).toBe('0.120');
+    });
+
+    it('falls back to the default unit when the factor is null and a cross-domain unit is picked', async () => {
+      const { user } = renderDisplay({
+        state: new Measurement(3, 'V*s/m'),
+        label: LABEL,
+        testId: TEST_ID,
+        defaultUnit: 'V*s/m',
+        units: KV_UNITS,
+        conversionFactor: null,
+      });
+      await chooseOption(user, 'V*s/rotation');
+      expect(value().textContent).toBe('3.000');
+      expect(selectTrigger().textContent).toBe('V*s/m');
     });
   });
 

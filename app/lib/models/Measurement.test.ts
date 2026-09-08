@@ -473,6 +473,24 @@ describe('Measurement', () => {
     });
   });
 
+  describe('isCompatible', () => {
+    it('is true for another unit of the same dimension', () => {
+      expect(new Measurement(12, 'in').isCompatible('ft')).toBe(true);
+    });
+
+    it('is false for a unit of a different dimension', () => {
+      expect(new Measurement(12, 'in').isCompatible('kg')).toBe(false);
+    });
+
+    it('is false across the linear/rotational divide', () => {
+      expect(new Measurement(2, 'm/s').isCompatible('rotation/s')).toBe(false);
+    });
+
+    it('is true for a compound unit of the same dimension', () => {
+      expect(new Measurement(3, 'V*s/m').isCompatible('V*s/ft')).toBe(true);
+    });
+  });
+
   describe('fromDict', () => {
     it('handles valid dict', () => {
       const dict = { s: 5, u: 'in' };
