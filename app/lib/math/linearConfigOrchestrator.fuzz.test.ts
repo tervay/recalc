@@ -10,6 +10,7 @@ import type {
   ConfigOptResult,
   OptimizeConfigurationParams,
 } from '~/lib/math/linearOptimizer.worker';
+import { reduceConfigOutput } from '~/lib/math/optimizerUtils';
 import Motor from '~/lib/models/Motor';
 
 function makeParams(
@@ -99,13 +100,9 @@ describe('linear configuration orchestration fuzz cases', () => {
         (maxStator === 0 ? 0 : Math.ceil(maxStator / 10)) *
           (maxSupply === 0 ? 0 : Math.ceil(maxSupply / 10)),
       );
-      const successful = result.allResults.filter((cell) => cell.success);
-      const expectedRecommendation =
-        successful.length === 0
-          ? null
-          : successful.reduce((best, cell) =>
-              cell.timeToGoalSeconds < best.timeToGoalSeconds ? cell : best,
-            );
+      const expectedRecommendation = reduceConfigOutput(
+        result.allResults,
+      ).recommended;
       expect(result.recommended).toBe(expectedRecommendation);
 
       snapshot.push({

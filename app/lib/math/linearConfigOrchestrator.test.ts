@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { orchestrateConfigOptimization } from '~/lib/math/linearConfigOrchestrator';
 import {
+  type ConfigOptResult,
   type OptimizeConfigurationParams,
   optimizeConfiguration,
   optimizeConfigurationCell,
@@ -53,6 +54,64 @@ function runInProcess(params: OptimizeConfigurationParams) {
 }
 
 describe('orchestrateConfigOptimization', () => {
+  it('applies the shared recommendation strategy to the parallel grid', async () => {
+    const params = makeParams({
+      maximumComfortableStatorLimitDict: new Measurement(20, 'A').toDict(),
+      maximumComfortableSupplyLimitDict: new Measurement(20, 'A').toDict(),
+    });
+    const results: ConfigOptResult[] = [
+      {
+        statorLimitAmps: 10,
+        supplyLimitAmps: 10,
+        optimalRatio: 1,
+        timeToGoalSeconds: 1.01,
+        peakCurrentAmps: 5.1,
+        energyJoules: 20,
+        success: true,
+      },
+      {
+        statorLimitAmps: 10,
+        supplyLimitAmps: 20,
+        optimalRatio: 2,
+        timeToGoalSeconds: 1.04,
+        peakCurrentAmps: 9.9,
+        energyJoules: 10,
+        success: true,
+      },
+      {
+        statorLimitAmps: 20,
+        supplyLimitAmps: 10,
+        optimalRatio: 3,
+        timeToGoalSeconds: 1.05,
+        peakCurrentAmps: 1,
+        energyJoules: 1,
+        success: true,
+      },
+      {
+        statorLimitAmps: 20,
+        supplyLimitAmps: 20,
+        optimalRatio: 4,
+        timeToGoalSeconds: 1.02,
+        peakCurrentAmps: 5.2,
+        energyJoules: 5,
+        success: true,
+      },
+    ];
+    let resultIndex = 0;
+
+    const output = await orchestrateConfigOptimization(params, async () => {
+      const result = results[resultIndex];
+      if (!result) {
+        throw new Error('Unexpected extra configuration cell');
+      }
+      resultIndex += 1;
+      return result;
+    });
+
+    expect(output.recommended).toBe(results[3]);
+    expect(output.allResults).toEqual(results);
+  });
+
   it('produces results identical to the serial optimizeConfiguration (guessed limits)', async () => {
     const params = makeParams();
     const [serial, parallel] = await Promise.all([

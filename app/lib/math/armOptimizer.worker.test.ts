@@ -4,6 +4,7 @@ import {
   type ConfigOptOutput,
   optimizeConfiguration,
 } from '~/lib/math/armOptimizer.worker';
+import { reduceConfigOutput } from '~/lib/math/optimizerUtils';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 
@@ -63,7 +64,7 @@ describe('armOptimizer', () => {
     expect(supplyLimits).toEqual([10, 20, 30, 40, 50, 60]);
   });
 
-  it('recommends the fastest successful configuration', () => {
+  it('uses the shared bucketed recommendation strategy', () => {
     expect(sharedResult.recommended).not.toBeNull();
     const recommended = sharedResult.recommended!;
     expect(recommended.success).toBe(true);
@@ -71,8 +72,9 @@ describe('armOptimizer', () => {
     const successResults = sharedResult.allResults.filter((r) => r.success);
     expect(successResults.length).toBeGreaterThan(0);
 
-    const fastest = Math.min(...successResults.map((r) => r.timeToGoalSeconds));
-    expect(recommended.timeToGoalSeconds).toBeCloseTo(fastest, 6);
+    expect(recommended).toBe(
+      reduceConfigOutput(sharedResult.allResults).recommended,
+    );
   });
 
   it('keeps optimal ratios within the search bracket for successful cells', () => {

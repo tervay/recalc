@@ -148,9 +148,6 @@ importers:
       js-quantities:
         specifier: 1.8.0
         version: 1.8.0
-      minimize-golden-section-1d:
-        specifier: 3.0.0
-        version: 3.0.0
       motion:
         specifier: 13.2.0
         version: 13.2.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -2758,9 +2755,6 @@ packages:
 
   minimatch@3.1.5:
     resolution: {integrity: sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==}
-
-  minimize-golden-section-1d@3.0.0:
-    resolution: {integrity: sha512-zwsb9Jvbmbnz1KskO2AZ1XhHShc5B7MrgQgX2Kpc7bpB4JWHG1PMHP7umM8St5xOi2wszci2QcDWjrp5Dr8Mmw==}
 
   minipass-collect@2.0.1:
     resolution: {integrity: sha512-D7V8PO9oaz7PWGLbCACuI1qEOsq7UKfLotx/C0Aet43fCUB/wfQ7DYeq2oR/svFJGYDHPr38SHATeaj/ZoKHKw==}
@@ -5686,8 +5680,6 @@ snapshots:
   minimatch@3.1.5:
     dependencies:
       brace-expansion: 1.1.16
-
-  minimize-golden-section-1d@3.0.0: {}
 
   minipass-collect@2.0.1:
     dependencies:

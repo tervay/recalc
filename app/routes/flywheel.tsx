@@ -25,6 +25,7 @@ import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
 import { StringSelectInput } from '~/components/recalc/io/stringSelect';
 import { OptimalConfigGrid } from '~/components/recalc/optimalConfigGrid';
+import { SelectedConfig } from '~/components/recalc/selectedConfig';
 import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert';
 import { ChartContainer } from '~/components/ui/chart';
 import {
@@ -668,6 +669,14 @@ export default function Flywheel() {
 
   const setSelectedConfigCell = (cell: ConfigOptResult | null) => {
     setSelectedCellState({ key: configOptKey, cell });
+  };
+
+  const setSelectedConfig = (config: ConfigOptResult) => {
+    setRatio(
+      new Ratio(Number(config.optimalRatio.toFixed(2)), RatioType.REDUCTION),
+    );
+    setStatorLimit(new Measurement(config.statorLimitAmps, 'A'));
+    setSupplyLimit(new Measurement(config.supplyLimitAmps, 'A'));
   };
 
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
@@ -1412,66 +1421,10 @@ export default function Flywheel() {
                 />
               </section>
               {selectedConfigCell?.success && (
-                <section className="flex flex-col gap-3 rounded-lg border p-4">
-                  <h2 className="flex items-center gap-1.5 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                    <div className="size-1.5 rounded-full bg-primary" />
-                    Selected Config
-                  </h2>
-                  <div className="grid grid-cols-2 gap-x-3 gap-y-2">
-                    <div>
-                      <p className="text-xs text-muted-foreground">Stator</p>
-                      <p className="text-sm font-semibold tabular-nums">
-                        {selectedConfigCell.statorLimitAmps}A
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">Supply</p>
-                      <p className="text-sm font-semibold tabular-nums">
-                        {selectedConfigCell.supplyLimitAmps}A
-                      </p>
-                    </div>
-                    <div className="col-span-2">
-                      <p className="text-xs text-muted-foreground">
-                        Optimal Ratio
-                      </p>
-                      <p className="text-sm font-semibold text-primary tabular-nums">
-                        {selectedConfigCell.optimalRatio.toFixed(2)}:1
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">Time</p>
-                      <p className="text-sm font-semibold tabular-nums">
-                        {selectedConfigCell.timeToGoalSeconds.toFixed(3)}s
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">
-                        Peak Supply
-                      </p>
-                      <p className="text-sm font-semibold tabular-nums">
-                        {selectedConfigCell.peakCurrentAmps.toFixed(1)}A
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">Energy</p>
-                      <p className="text-sm font-semibold tabular-nums">
-                        {selectedConfigCell.energyJoules.toFixed(1)}J
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">Avg Power</p>
-                      <p className="text-sm font-semibold tabular-nums">
-                        {selectedConfigCell.timeToGoalSeconds > 0
-                          ? (
-                              selectedConfigCell.energyJoules /
-                              selectedConfigCell.timeToGoalSeconds
-                            ).toFixed(1)
-                          : '—'}
-                        W
-                      </p>
-                    </div>
-                  </div>
-                </section>
+                <SelectedConfig
+                  config={selectedConfigCell}
+                  onSetConfig={setSelectedConfig}
+                />
               )}
             </div>
           </div>

@@ -14,6 +14,7 @@ import {
   type OptimizeRatioParams,
   type SimulateOnceParams,
 } from '~/lib/math/linearOptimizer.worker';
+import { reduceConfigOutput } from '~/lib/math/optimizerUtils';
 import Motor from '~/lib/models/Motor';
 
 function makeBaseParams(
@@ -253,17 +254,12 @@ describe('linear simulation optimizer fuzz cases', () => {
       ).toBe(true);
     }
 
-    const successful = result.allResults.filter((cell) => cell.success);
     const recommended = result.recommended;
     expect(recommended === null || recommended.success).toBe(true);
     expect(
       recommended === null || result.allResults.includes(recommended),
     ).toBe(true);
-    expect(
-      recommended === null ||
-        recommended.timeToGoalSeconds ===
-          Math.min(...successful.map((cell) => cell.timeToGoalSeconds)),
-    ).toBe(true);
+    expect(recommended).toBe(reduceConfigOutput(result.allResults).recommended);
 
     expect({
       recommended: result.recommended

@@ -5,6 +5,7 @@ import {
   optimizeConfiguration,
   optimizeRatio,
 } from '~/lib/math/flywheelOptimizer.worker';
+import { reduceConfigOutput } from '~/lib/math/optimizerUtils';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import { initWpilibc } from '~/lib/wpilib/wpilibc';
@@ -50,7 +51,7 @@ describe('flywheelOptimizer optimizeConfiguration', () => {
     expect(sharedResult.allResults).toHaveLength(48);
   });
 
-  it('recommends the fastest successful configuration', () => {
+  it('uses the shared bucketed recommendation strategy', () => {
     expect(sharedResult.recommended).not.toBeNull();
     const recommended = sharedResult.recommended!;
     expect(recommended.success).toBe(true);
@@ -58,8 +59,9 @@ describe('flywheelOptimizer optimizeConfiguration', () => {
     const successResults = sharedResult.allResults.filter((r) => r.success);
     expect(successResults.length).toBeGreaterThan(0);
 
-    const fastest = Math.min(...successResults.map((r) => r.timeToGoalSeconds));
-    expect(recommended.timeToGoalSeconds).toBeCloseTo(fastest, 6);
+    expect(recommended).toBe(
+      reduceConfigOutput(sharedResult.allResults).recommended,
+    );
   });
 
   it('reports no recommendation when the target speed is unreachable', async () => {

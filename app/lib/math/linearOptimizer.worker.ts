@@ -1,4 +1,3 @@
-import minimize from 'minimize-golden-section-1d';
 import workerpool from 'workerpool';
 
 import type { DCMotor } from '~/lib/generated/wpilibc/wpilibc_wasm';
@@ -12,6 +11,10 @@ import {
   peakSupplyCurrent,
   makeGrid,
   reduceConfigOutput,
+  RATIO_SEARCH_COARSE_SAMPLES,
+  RATIO_SEARCH_LOCAL_SAMPLES,
+  searchOptimalRatio,
+  type RatioSearchResult,
 } from '~/lib/math/optimizerUtils';
 import type { MeasurementDict } from '~/lib/models/Measurement';
 import Measurement from '~/lib/models/Measurement';
@@ -216,17 +219,6 @@ function simulate({
   );
 }
 
-/**
- * Find the optimal gear ratio by first doing a coarse logarithmic scan to
- * bracket the valid region, then refining with golden section search.
- *
- * Golden section search alone can get stuck when both interior sample points
- * land in the failure zone (ratio too low OR too high both produce
- * POSITIVE_INFINITY), giving it no gradient signal to escape. The pre-scan
- * locates the finite valley so the optimizer always starts inside it.
- *
- * Returns NaN if no ratio in [0.25, 50] produces a successful simulation.
- */
 function findOptimalRatio(
   wpilibc: WpilibcModule,
   p: MechParams,
@@ -235,7 +227,7 @@ function findOptimalRatio(
   maxVelocityMPS: number | null,
   maxAccelerationMPS2: number | null,
   control: SimControlParams,
-): number {
+): RatioSearchResult<MetricSource> | null {
   const { qPositionMeters, qVelocityMPS, rVolts, sensorDelaySeconds } = control;
   const needsGuessing = maxVelocityMPS === null || maxAccelerationMPS2 === null;
 
@@ -250,112 +242,51 @@ function findOptimalRatio(
         )
     : undefined;
 
-  function runSim(r: number, velocity: number, acceleration: number): number {
-    const states = simulate({
-      wpilibc,
-      mech: p,
-      ratioMagnitude: r,
-      totalStatorAmps,
-      supplyAmps,
-      maxVelocityMPS: velocity,
-      maxAccelerationMPS2: acceleration,
-      control: {
-        qPositionMeters,
-        qVelocityMPS,
-        rVolts,
-        sensorDelaySeconds,
-      },
-      timeoutSeconds: adaptiveSimSeconds(
-        simTravelMeters(p),
-        velocity,
-        acceleration,
-        1.5,
-      ),
-    });
-    if (states.length === 0) return Number.POSITIVE_INFINITY;
-    const last = states[states.length - 1];
-    return last.success ? last.timeSeconds : Number.POSITIVE_INFINITY;
-  }
+  return searchOptimalRatio(
+    (ratioMagnitude) => {
+      let velocity: number;
+      let acceleration: number;
 
-  function objective(r: number): number {
-    let velocity: number;
-    let acceleration: number;
+      if (needsGuessing) {
+        const guessed = guessLimitsForRatio!(ratioMagnitude);
+        velocity = maxVelocityMPS ?? guessed.velocity;
+        acceleration = maxAccelerationMPS2 ?? guessed.acceleration;
+      } else {
+        velocity = maxVelocityMPS!;
+        acceleration = maxAccelerationMPS2!;
+      }
 
-    if (needsGuessing) {
-      const guessed = guessLimitsForRatio!(r);
-      velocity = maxVelocityMPS ?? guessed.velocity;
-      acceleration = maxAccelerationMPS2 ?? guessed.acceleration;
-    } else {
-      velocity = maxVelocityMPS!;
-      acceleration = maxAccelerationMPS2!;
-    }
-
-    return runSim(r, velocity, acceleration);
-  }
-
-  // Coarse log-spaced scan: find any successful bracket before minimizing.
-  const numScanPoints = 16;
-  const logLow = Math.log(0.25);
-  const logHigh = Math.log(50);
-  const scan = Array.from({ length: numScanPoints }, (_, i) => {
-    const r = Math.exp(logLow + (i / (numScanPoints - 1)) * (logHigh - logLow));
-    return { r, t: objective(r) };
-  });
-
-  let bestIdx = -1;
-  for (let i = 0; i < scan.length; i++) {
-    if (isFinite(scan[i].t)) {
-      if (bestIdx === -1 || scan[i].t < scan[bestIdx].t) bestIdx = i;
-    }
-  }
-
-  if (bestIdx === -1) {
-    return NaN;
-  }
-
-  // Widen from the best sample to the enclosing run of feasible points. Using
-  // this contiguous band, rather than [firstValid, lastValid], keeps the
-  // bracket from spanning an infeasible gap when the valid region is split.
-  let bandLow = bestIdx;
-  let bandHigh = bestIdx;
-  while (bandLow > 0 && isFinite(scan[bandLow - 1].t)) bandLow--;
-  while (bandHigh < numScanPoints - 1 && isFinite(scan[bandHigh + 1].t)) {
-    bandHigh++;
-  }
-
-  const bestSample = scan[bestIdx].r;
-
-  // An externally pinned motion profile makes time-to-goal identical for every
-  // feasible ratio: the objective is a flat valley with no minimum to seek, so
-  // golden section terminates on an arbitrary ratio. When the band reads flat,
-  // take the best measured sample -- stable across cells and known feasible.
-  const bandIsFlat =
-    bandHigh > bandLow &&
-    scan[bandLow].t <= scan[bestIdx].t * 1.02 &&
-    scan[bandHigh].t <= scan[bestIdx].t * 1.02;
-  if (bandIsFlat) {
-    return bestSample;
-  }
-
-  const bracketLow = bandLow > 0 ? scan[bandLow - 1].r : 0.25;
-  const bracketHigh = bandHigh < numScanPoints - 1 ? scan[bandHigh + 1].r : 50;
-
-  // Golden section on log(ratio): the ratio axis spans two orders of magnitude,
-  // so a fixed absolute tolerance wastes probes at the high end.
-  const refinedLog = minimize((u) => objective(Math.exp(u)), {
-    lowerBound: Math.log(bracketLow),
-    upperBound: Math.log(bracketHigh),
-    guess: Math.log(bestSample),
-    tolerance: 0.02,
-  });
-  const refined = Math.exp(refinedLog);
-
-  // Never return a ratio that verifies worse than a sample already known to
-  // work -- golden section can stop on a point it never evaluated as feasible.
-  const refinedTime = objective(refined);
-  return isFinite(refinedTime) && refinedTime <= scan[bestIdx].t
-    ? refined
-    : bestSample;
+      const states = simulate({
+        wpilibc,
+        mech: p,
+        ratioMagnitude,
+        totalStatorAmps,
+        supplyAmps,
+        maxVelocityMPS: velocity,
+        maxAccelerationMPS2: acceleration,
+        control: {
+          qPositionMeters,
+          qVelocityMPS,
+          rVolts,
+          sensorDelaySeconds,
+        },
+        timeoutSeconds: adaptiveSimSeconds(
+          simTravelMeters(p),
+          velocity,
+          acceleration,
+          1.5,
+        ),
+      });
+      const result = extractSimResult(states);
+      return result?.success ? result : null;
+    },
+    {
+      lowerBound: 0.25,
+      upperBound: 50,
+      coarseSamples: RATIO_SEARCH_COARSE_SAMPLES,
+      localSamples: RATIO_SEARCH_LOCAL_SAMPLES,
+    },
+  );
 }
 
 interface BaseLinearParams {
@@ -392,7 +323,6 @@ export async function optimizeRatio({
   batteryResistanceDict,
   batteryVoltageDict,
   statorLimitAmps,
-  initialRatio,
   angleDict,
   efficiency,
   cascade,
@@ -429,40 +359,33 @@ export async function optimizeRatio({
   };
 
   try {
-    const optimalRatio = minimize(
-      (r) => {
+    const searchResult = searchOptimalRatio(
+      (ratioMagnitude) => {
         const states = simulate({
           wpilibc,
           mech: p,
-          ratioMagnitude: r,
+          ratioMagnitude,
           totalStatorAmps,
           supplyAmps,
           maxVelocityMPS,
           maxAccelerationMPS2,
           control,
         });
-        if (states.length === 0) return Number.POSITIVE_INFINITY;
-        return states[states.length - 1].timeSeconds;
+        const result = extractSimResult(states);
+        return result?.success ? result : null;
       },
-      { lowerBound: 0.25, upperBound: 50, guess: initialRatio },
+      {
+        lowerBound: 0.25,
+        upperBound: 50,
+        coarseSamples: RATIO_SEARCH_COARSE_SAMPLES,
+        localSamples: RATIO_SEARCH_LOCAL_SAMPLES,
+      },
     );
 
-    const states = simulate({
-      wpilibc,
-      mech: p,
-      ratioMagnitude: optimalRatio,
-      totalStatorAmps,
-      supplyAmps,
-      maxVelocityMPS,
-      maxAccelerationMPS2,
-      control,
-    });
-
-    const result = extractSimResult(states);
-    if (!result) {
+    if (!searchResult) {
       return {
         statorLimitAmps,
-        optimalRatio,
+        optimalRatio: Number.NaN,
         timeToGoalSeconds: Number.POSITIVE_INFINITY,
         energyJoules: 0,
         peakCurrentAmps: 0,
@@ -471,10 +394,10 @@ export async function optimizeRatio({
 
     return {
       statorLimitAmps,
-      optimalRatio,
-      timeToGoalSeconds: result.timeToGoalSeconds,
-      energyJoules: result.energyJoules,
-      peakCurrentAmps: result.peakCurrentAmps,
+      optimalRatio: searchResult.ratio,
+      timeToGoalSeconds: searchResult.metrics.timeToGoalSeconds,
+      energyJoules: searchResult.metrics.energyJoules,
+      peakCurrentAmps: searchResult.metrics.peakCurrentAmps,
     };
   } finally {
     p.wpilibMotor.delete();
@@ -631,7 +554,7 @@ function computeConfigCell(
 ): ConfigOptResult {
   const totalStatorAmps = statorAmps * p.motorQuantity;
 
-  const optimalRatio = findOptimalRatio(
+  const searchResult = findOptimalRatio(
     wpilibc,
     p,
     totalStatorAmps,
@@ -641,7 +564,7 @@ function computeConfigCell(
     control,
   );
 
-  if (isNaN(optimalRatio)) {
+  if (!searchResult) {
     return {
       statorLimitAmps: statorAmps,
       supplyLimitAmps: supplyAmps,
@@ -653,59 +576,14 @@ function computeConfigCell(
     };
   }
 
-  let effectiveVelocity = maxVelocityMPS;
-  let effectiveAcceleration = maxAccelerationMPS2;
-
-  if (effectiveVelocity === null || effectiveAcceleration === null) {
-    const guessed = guessLimitsFromMech(
-      p,
-      optimalRatio,
-      statorAmps,
-      supplyAmps,
-      control.rVolts,
-    );
-    effectiveVelocity = effectiveVelocity ?? guessed.velocity;
-    effectiveAcceleration = effectiveAcceleration ?? guessed.acceleration;
-  }
-
-  const states = simulate({
-    wpilibc,
-    mech: p,
-    ratioMagnitude: optimalRatio,
-    totalStatorAmps,
-    supplyAmps,
-    maxVelocityMPS: effectiveVelocity,
-    maxAccelerationMPS2: effectiveAcceleration,
-    control,
-    timeoutSeconds: adaptiveSimSeconds(
-      simTravelMeters(p),
-      effectiveVelocity,
-      effectiveAcceleration,
-      1.5,
-    ),
-  });
-
-  const result = extractSimResult(states);
-  if (!result) {
-    return {
-      statorLimitAmps: statorAmps,
-      supplyLimitAmps: supplyAmps,
-      optimalRatio,
-      timeToGoalSeconds: Number.POSITIVE_INFINITY,
-      peakCurrentAmps: 0,
-      energyJoules: 0,
-      success: false,
-    };
-  }
-
   return {
     statorLimitAmps: statorAmps,
     supplyLimitAmps: supplyAmps,
-    optimalRatio,
-    timeToGoalSeconds: result.timeToGoalSeconds,
-    peakCurrentAmps: result.peakCurrentAmps,
-    energyJoules: result.energyJoules,
-    success: result.success,
+    optimalRatio: searchResult.ratio,
+    timeToGoalSeconds: searchResult.metrics.timeToGoalSeconds,
+    peakCurrentAmps: searchResult.metrics.peakCurrentAmps,
+    energyJoules: searchResult.metrics.energyJoules,
+    success: true,
   };
 }
 

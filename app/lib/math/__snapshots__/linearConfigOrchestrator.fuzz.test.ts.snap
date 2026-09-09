@@ -368,7 +368,7 @@ exports[`linear configuration orchestration fuzz cases > enumerates every genera
     "maxSupply": 25,
     "recommended": [
       25,
-      25,
+      20,
     ],
   },
 ]
