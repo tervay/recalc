@@ -1117,28 +1117,28 @@ exports[`linear simulation optimizer fuzz cases > returns a complete and reducib
 {
   "cells": [
     {
-      "ratio": 11.89776,
+      "ratio": 4.568727,
       "stator": 10,
       "success": true,
       "supply": 10,
       "time": 0.6765,
     },
     {
-      "ratio": 11.89776,
+      "ratio": 4.568727,
       "stator": 10,
       "success": true,
       "supply": 20,
       "time": 0.6765,
     },
     {
-      "ratio": 11.89776,
+      "ratio": 4.568727,
       "stator": 20,
       "success": true,
       "supply": 10,
       "time": 0.6765,
     },
     {
-      "ratio": 11.89776,
+      "ratio": 4.568727,
       "stator": 20,
       "success": true,
       "supply": 20,
@@ -1146,7 +1146,7 @@ exports[`linear simulation optimizer fuzz cases > returns a complete and reducib
     },
   ],
   "recommended": {
-    "ratio": 11.89776,
+    "ratio": 4.568727,
     "stator": 10,
     "supply": 10,
     "time": 0.6765,

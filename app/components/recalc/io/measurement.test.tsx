@@ -547,6 +547,40 @@ describe('MeasurementInput', () => {
     });
   });
 
+  describe('validation error', () => {
+    const ERROR = 'The custom value is higher than the achievable limit.';
+
+    it('marks the numeric input invalid', () => {
+      renderInput({
+        value: new Measurement(12, 'in'),
+        label: LABEL,
+        error: ERROR,
+      });
+      expect(numberField(LABEL).getAttribute('aria-invalid')).toBe('true');
+    });
+
+    it('shows the warning icon with its error message', async () => {
+      const { user } = renderInput({
+        value: new Measurement(12, 'in'),
+        label: LABEL,
+        error: ERROR,
+      });
+      const warning = screen.getByTestId('measurement-input-warning');
+
+      await user.hover(warning);
+
+      expect(await screen.findByText(ERROR)).toBeTruthy();
+    });
+
+    it('does not mark the input invalid without an error', () => {
+      renderInput({
+        value: new Measurement(12, 'in'),
+        label: LABEL,
+      });
+      expect(numberField(LABEL).hasAttribute('aria-invalid')).toBe(false);
+    });
+  });
+
   describe('testId', () => {
     it('applies the testId to the input', () => {
       renderInput({

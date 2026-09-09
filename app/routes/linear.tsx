@@ -47,6 +47,7 @@ import {
   KA_UNITS,
   KP_UNITS,
   KV_UNITS,
+  convertAcrossDomains,
   metersPerMotorRotation,
   toLinear,
   VELOCITY_UNITS,
@@ -164,6 +165,34 @@ function getWorker() {
   return workerInstance;
 }
 
+function exceedsAchievableLimit(
+  requested: Measurement,
+  achievable: Measurement,
+  unit: string,
+) {
+  const requestedValue = requested.to(unit).scalar;
+  const achievableValue = achievable.to(unit).scalar;
+
+  return (
+    Number.isFinite(requestedValue) &&
+    Number.isFinite(achievableValue) &&
+    requestedValue > achievableValue
+  );
+}
+
+function formatAchievableLimit(
+  limit: Measurement,
+  unit: string,
+  conversionFactor: Measurement | null,
+) {
+  const display =
+    limit.isCompatible(unit) || conversionFactor === null
+      ? limit.to(limit.isCompatible(unit) ? unit : limit.units())
+      : convertAcrossDomains(limit, unit, conversionFactor);
+
+  return `${display.scalar.toFixed(2)} ${display.units()}`;
+}
+
 const optimizerPool = getPool<typeof LinearOptimizerWorker>(optimizerWorkerUrl);
 
 export default function Linear() {
@@ -276,6 +305,17 @@ export default function Linear() {
       rotationFactor,
     ],
   );
+
+  const maxVelocityError =
+    enableCustomMaxVelocity &&
+    exceedsAchievableLimit(effectiveMaxVelocity, v_max_guessed, 'm/s')
+      ? `This custom maximum velocity is higher than the system can achieve with the current motor, gearing, load, and limits. Current achievable limit: ${formatAchievableLimit(v_max_guessed, maxVelocity.units(), rotationFactor)}.`
+      : undefined;
+  const maxAccelerationError =
+    enableCustomMaxAcceleration &&
+    exceedsAchievableLimit(effectiveMaxAcceleration, a_max_guessed, 'm/s^2')
+      ? `This custom maximum acceleration is higher than the system can achieve with the current motor, gearing, load, and limits. Current achievable limit: ${formatAchievableLimit(a_max_guessed, maxAcceleration.units(), rotationFactor)}.`
+      : undefined;
 
   const stallLoad = useMemo(() => {
     return calculateStallLoad(
@@ -721,6 +761,7 @@ export default function Linear() {
                       stateHook={[maxVelocity, setMaxVelocity]}
                       label="Custom"
                       tooltip="Maximum trapezoidal profile velocity. Choose motor rotations per second to enter it in rotor units."
+                      error={maxVelocityError}
                       testId="maxVelocity"
                       units={VELOCITY_UNITS}
                     />
@@ -753,6 +794,7 @@ export default function Linear() {
                       stateHook={[maxAcceleration, setMaxAcceleration]}
                       label="Custom"
                       tooltip="Maximum trapezoidal profile acceleration. Choose motor rotations per second squared to enter it in rotor units."
+                      error={maxAccelerationError}
                       testId="maxAcceleration"
                       units={ACCELERATION_UNITS}
                     />

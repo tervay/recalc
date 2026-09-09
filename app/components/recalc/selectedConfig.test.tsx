@@ -23,7 +23,7 @@ describe('SelectedConfig', () => {
     const onSetConfig = vi.fn<(config: ConfigOptResult) => void>();
     render(<SelectedConfig config={CONFIG} onSetConfig={onSetConfig} />);
 
-    const button = screen.getByRole('button', { name: 'Set', exact: true });
+    const button = screen.getByRole('button', { name: 'Set' });
     expect(button).toBeTruthy();
     expect(button.className).toContain('cursor-pointer');
   });
@@ -32,9 +32,7 @@ describe('SelectedConfig', () => {
     const onSetConfig = vi.fn<(config: ConfigOptResult) => void>();
     render(<SelectedConfig config={CONFIG} onSetConfig={onSetConfig} />);
 
-    await userEvent
-      .setup()
-      .click(screen.getByRole('button', { name: 'Set', exact: true }));
+    await userEvent.setup().click(screen.getByRole('button', { name: 'Set' }));
 
     expect(onSetConfig).toHaveBeenCalledWith(CONFIG);
   });

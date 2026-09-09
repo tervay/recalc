@@ -149,6 +149,52 @@ function guessLimitsFromMech(
   };
 }
 
+function profileLimitsForRatio(
+  p: MechParams,
+  ratioMagnitude: number,
+  totalStatorAmps: number,
+  supplyAmps: number,
+  maxVelocityMPS: number | null,
+  maxAccelerationMPS2: number | null,
+  rVolts: number,
+): { velocity: number; acceleration: number } | null {
+  const guessed = guessLimitsFromMech(
+    p,
+    ratioMagnitude,
+    totalStatorAmps / p.motorQuantity,
+    supplyAmps,
+    rVolts,
+  );
+
+  if (
+    !Number.isFinite(guessed.velocity) ||
+    guessed.velocity <= 0 ||
+    !Number.isFinite(guessed.acceleration) ||
+    guessed.acceleration <= 0
+  ) {
+    return null;
+  }
+
+  const requestedLimits: Array<[number | null, number]> = [
+    [maxVelocityMPS, guessed.velocity],
+    [maxAccelerationMPS2, guessed.acceleration],
+  ];
+
+  for (const [requested, achievable] of requestedLimits) {
+    if (
+      requested !== null &&
+      (!Number.isFinite(requested) || requested <= 0 || requested > achievable)
+    ) {
+      return null;
+    }
+  }
+
+  return {
+    velocity: maxVelocityMPS ?? guessed.velocity,
+    acceleration: maxAccelerationMPS2 ?? guessed.acceleration,
+  };
+}
+
 function extractSimResult(states: SimState[]): {
   timeToGoalSeconds: number;
   energyJoules: number;
@@ -229,32 +275,19 @@ function findOptimalRatio(
   control: SimControlParams,
 ): RatioSearchResult<MetricSource> | null {
   const { qPositionMeters, qVelocityMPS, rVolts, sensorDelaySeconds } = control;
-  const needsGuessing = maxVelocityMPS === null || maxAccelerationMPS2 === null;
-
-  const guessLimitsForRatio = needsGuessing
-    ? (r: number) =>
-        guessLimitsFromMech(
-          p,
-          r,
-          totalStatorAmps / p.motorQuantity,
-          supplyAmps,
-          rVolts,
-        )
-    : undefined;
 
   return searchOptimalRatio(
     (ratioMagnitude) => {
-      let velocity: number;
-      let acceleration: number;
-
-      if (needsGuessing) {
-        const guessed = guessLimitsForRatio!(ratioMagnitude);
-        velocity = maxVelocityMPS ?? guessed.velocity;
-        acceleration = maxAccelerationMPS2 ?? guessed.acceleration;
-      } else {
-        velocity = maxVelocityMPS!;
-        acceleration = maxAccelerationMPS2!;
-      }
+      const profileLimits = profileLimitsForRatio(
+        p,
+        ratioMagnitude,
+        totalStatorAmps,
+        supplyAmps,
+        maxVelocityMPS,
+        maxAccelerationMPS2,
+        rVolts,
+      );
+      if (profileLimits === null) return null;
 
       const states = simulate({
         wpilibc,
@@ -262,8 +295,8 @@ function findOptimalRatio(
         ratioMagnitude,
         totalStatorAmps,
         supplyAmps,
-        maxVelocityMPS: velocity,
-        maxAccelerationMPS2: acceleration,
+        maxVelocityMPS: profileLimits.velocity,
+        maxAccelerationMPS2: profileLimits.acceleration,
         control: {
           qPositionMeters,
           qVelocityMPS,
@@ -272,8 +305,8 @@ function findOptimalRatio(
         },
         timeoutSeconds: adaptiveSimSeconds(
           simTravelMeters(p),
-          velocity,
-          acceleration,
+          profileLimits.velocity,
+          profileLimits.acceleration,
           1.5,
         ),
       });

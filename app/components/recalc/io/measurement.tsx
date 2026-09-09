@@ -1,4 +1,5 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
+import TriangleAlertIcon from '~icons/lucide/triangle-alert';
 
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
@@ -51,6 +52,7 @@ export function MeasurementInput({
   label,
   tooltip,
   disabled,
+  error,
   testId,
   labelAbove,
   units,
@@ -58,6 +60,7 @@ export function MeasurementInput({
   label: string;
   tooltip?: string;
   disabled?: () => boolean;
+  error?: string;
   testId?: string;
   labelAbove?: boolean;
   units?: string[];
@@ -122,46 +125,73 @@ export function MeasurementInput({
       </TooltipProvider>
     );
 
+  const errorEl =
+    error === undefined ? null : (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <button
+                type="button"
+                aria-label={error}
+                className="shrink-0 text-destructive"
+                data-testid={
+                  testId ? `${testId}Warning` : 'measurement-input-warning'
+                }
+              >
+                <TriangleAlertIcon className="size-4" />
+              </button>
+            }
+          />
+          <TooltipContent>{error}</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    );
+
   return (
     <div className={labelAbove ? 'flex flex-col' : 'flex flex-row'}>
       {labelEl}
-      <div className="flex w-full flex-row">
-        <Input
-          type="number"
-          id={inputId}
-          placeholder={label}
-          value={proxyValue}
-          onChange={(e) => {
-            if (e.target.value !== '') {
-              setProxyValue(e.target.value);
-            } else {
-              setProxyValue('');
-            }
-          }}
-          className="rounded-r-none disabled:bg-gray-100 disabled:text-gray-900"
-          disabled={disabled?.()}
-          data-testid={testId}
-        />
-        <Select
-          value={unit}
-          onValueChange={(value) => {
-            if (value !== null) setUnit(value);
-          }}
-        >
-          <SelectTrigger
-            className="rounded-l-none"
-            data-testid={testId ? `select${testId}` : undefined}
+      <div className="flex w-full min-w-0 flex-row items-center gap-1">
+        <div className="flex min-w-0 flex-1 flex-row">
+          <Input
+            type="number"
+            id={inputId}
+            placeholder={label}
+            value={proxyValue}
+            onChange={(e) => {
+              if (e.target.value !== '') {
+                setProxyValue(e.target.value);
+              } else {
+                setProxyValue('');
+              }
+            }}
+            className="rounded-r-none disabled:bg-gray-100 disabled:text-gray-900"
+            disabled={disabled?.()}
+            aria-invalid={error === undefined ? undefined : true}
+            data-testid={testId}
+          />
+          <Select
+            value={unit}
+            onValueChange={(value) => {
+              if (value !== null) setUnit(value);
+            }}
           >
-            <SelectValue placeholder="Theme" />
-          </SelectTrigger>
-          <SelectContent>
-            {kinds.map((kind) => (
-              <SelectItem key={kind} value={kind}>
-                {kind}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+            <SelectTrigger
+              className="rounded-l-none"
+              data-testid={testId ? `select${testId}` : undefined}
+            >
+              <SelectValue placeholder="Theme" />
+            </SelectTrigger>
+            <SelectContent>
+              {kinds.map((kind) => (
+                <SelectItem key={kind} value={kind}>
+                  {kind}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        {errorEl}
       </div>
     </div>
   );

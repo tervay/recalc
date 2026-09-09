@@ -366,6 +366,40 @@ test.describe('Linear Mechanism Calculator', () => {
     });
   });
 
+  test('warns when custom max velocity exceeds the achievable limit', async ({
+    page,
+  }) => {
+    await page.getByTestId('enableCustomMaxVelocity').click();
+    await page.getByTestId('selectmaxVelocity').click();
+    await page.getByRole('option', { name: 'rotation/s', exact: true }).click();
+    const input = page.getByTestId('maxVelocity');
+    await input.fill('1000000');
+
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
+    await page.getByTestId('maxVelocityWarning').hover();
+    await expect(
+      page.getByText(
+        /This custom maximum velocity is higher than the system can achieve with the current motor, gearing, load, and limits\. Current achievable limit: \d+\.\d+ rotation\/s\./,
+      ),
+    ).toBeVisible();
+  });
+
+  test('warns when custom max acceleration exceeds the achievable limit', async ({
+    page,
+  }) => {
+    await page.getByTestId('enableCustomMaxAcceleration').click();
+    const input = page.getByTestId('maxAcceleration');
+    await input.fill('1000000');
+
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
+    await page.getByTestId('maxAccelerationWarning').hover();
+    await expect(
+      page.getByText(
+        /This custom maximum acceleration is higher than the system can achieve with the current motor, gearing, load, and limits\. Current achievable limit: \d+\.\d+ m\/s(?:\^?2)\./,
+      ),
+    ).toBeVisible();
+  });
+
   test('should match snapshot with feedbackDt magnitude changed', async ({
     page,
   }) => {

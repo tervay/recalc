@@ -135,10 +135,12 @@ describe('optimizeConfiguration grid consistency', () => {
     for (const row of bySupply.values()) {
       row.sort((a, b) => a.stator - b.stator);
       const firstSuccess = row.findIndex((c) => c.success);
-      expect(firstSuccess).toBeGreaterThanOrEqual(0);
-      for (const cell of row.slice(firstSuccess)) {
-        expect(cell.success).toBe(true);
-      }
+      const cellsToValidate =
+        firstSuccess === -1 ? row : row.slice(firstSuccess);
+      const expectedSuccess = firstSuccess !== -1;
+      expect(
+        cellsToValidate.every((cell) => cell.success === expectedSuccess),
+      ).toBe(true);
     }
   }, 60_000);
 
@@ -220,5 +222,59 @@ describe('simulateOnce', () => {
       maxAccelerationMPS2: 200,
     });
     expect(stalled.success).toBe(false);
+  }, 60_000);
+});
+
+describe('custom motion-limit feasibility', () => {
+  it('does not recommend an infeasible current-limit configuration', async () => {
+    const result = await optimizeConfiguration({
+      ...baseParams,
+      batteryVoltageFilterTimeConstantSeconds: 0.1,
+      maximumComfortableStatorLimitDict: new Measurement(10, 'A').toDict(),
+      maximumComfortableSupplyLimitDict: new Measurement(10, 'A').toDict(),
+      maxVelocityMPS: 4,
+      maxAccelerationMPS2: 3,
+    });
+
+    expect(result.recommended).toBeNull();
+  }, 60_000);
+
+  it('rejects a current-limit cell that cannot achieve the custom profile limits', async () => {
+    const result = await optimizeConfigurationCell({
+      ...baseParams,
+      batteryVoltageFilterTimeConstantSeconds: 0.1,
+      maxVelocityMPS: 4,
+      maxAccelerationMPS2: 3,
+      statorAmps: 10,
+      supplyAmps: 10,
+    });
+
+    expect(result.success).toBe(false);
+  }, 60_000);
+
+  it('keeps a cell when both custom profile limits are achievable', async () => {
+    const result = await optimizeConfigurationCell({
+      ...baseParams,
+      batteryVoltageFilterTimeConstantSeconds: 0.1,
+      maxVelocityMPS: 2,
+      maxAccelerationMPS2: 3,
+      statorAmps: 20,
+      supplyAmps: 20,
+    });
+
+    expect(result.success).toBe(true);
+  }, 60_000);
+
+  it('rejects a current-limit cell that cannot achieve the custom acceleration', async () => {
+    const result = await optimizeConfigurationCell({
+      ...baseParams,
+      batteryVoltageFilterTimeConstantSeconds: 0.1,
+      maxVelocityMPS: 1,
+      maxAccelerationMPS2: 100,
+      statorAmps: 10,
+      supplyAmps: 10,
+    });
+
+    expect(result.success).toBe(false);
   }, 60_000);
 });
