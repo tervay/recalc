@@ -10,9 +10,7 @@ import {
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 
-// A realistic parameter set mirroring the /linear route defaults, but with a
-// smaller comfortable-limit grid so the test stays fast. maxStator 40 -> 4 rows,
-// maxSupply 20 -> 2 cols => 8 cells.
+// A realistic parameter set mirroring the /linear route defaults.
 function makeParams(
   overrides?: Partial<OptimizeConfigurationParams>,
 ): OptimizeConfigurationParams {
@@ -23,8 +21,8 @@ function makeParams(
     travelDistanceDict: new Measurement(60, 'in').toDict(),
     batteryResistanceDict: new Measurement(0.015, 'Ohm').toDict(),
     batteryVoltageDict: new Measurement(12, 'V').toDict(),
-    maximumComfortableStatorLimitDict: new Measurement(40, 'A').toDict(),
-    maximumComfortableSupplyLimitDict: new Measurement(20, 'A').toDict(),
+    statorInputAmps: 40,
+    supplyInputAmps: 20,
     angleDict: new Measurement(90, 'deg').toDict(),
     efficiency: 1.0,
     cascade: false,
@@ -56,8 +54,8 @@ function runInProcess(params: OptimizeConfigurationParams) {
 describe('orchestrateConfigOptimization', () => {
   it('applies the shared recommendation strategy to the parallel grid', async () => {
     const params = makeParams({
-      maximumComfortableStatorLimitDict: new Measurement(20, 'A').toDict(),
-      maximumComfortableSupplyLimitDict: new Measurement(20, 'A').toDict(),
+      statorInputAmps: 20,
+      supplyInputAmps: 20,
     });
     const results: ConfigOptResult[] = [
       {
@@ -96,6 +94,21 @@ describe('orchestrateConfigOptimization', () => {
         energyJoules: 5,
         success: true,
       },
+      ...[
+        [30, 10],
+        [30, 20],
+        [30, 30],
+        [40, 10],
+        [40, 20],
+      ].map(([statorLimitAmps, supplyLimitAmps]) => ({
+        statorLimitAmps,
+        supplyLimitAmps,
+        optimalRatio: 5,
+        timeToGoalSeconds: 2,
+        peakCurrentAmps: 100,
+        energyJoules: 100,
+        success: true,
+      })),
     ];
     let resultIndex = 0;
 
@@ -141,18 +154,19 @@ describe('orchestrateConfigOptimization', () => {
     const params = makeParams();
     const parallel = await runInProcess(params);
 
-    expect(parallel.allResults).toHaveLength(8);
+    expect(parallel.allResults).toHaveLength(9);
     expect(
       parallel.allResults.map((r) => [r.statorLimitAmps, r.supplyLimitAmps]),
     ).toEqual([
-      [10, 10],
-      [10, 20],
-      [20, 10],
-      [20, 20],
       [30, 10],
       [30, 20],
+      [30, 30],
       [40, 10],
       [40, 20],
+      [40, 30],
+      [50, 10],
+      [50, 20],
+      [50, 30],
     ]);
   }, 120_000);
 });

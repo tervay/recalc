@@ -136,12 +136,6 @@ const DEFAULT_PARAMS = {
     new Measurement(4.5, 'in2*lbs'),
   ),
   efficiency: NumberParam.withDefault(100),
-  maximumComfortableStatorLimit: MeasurementParam.withDefault(
-    new Measurement(80, 'A'),
-  ),
-  maximumComfortableSupplyLimit: MeasurementParam.withDefault(
-    new Measurement(60, 'A'),
-  ),
   qVelocity: MeasurementParam.withDefault(new Measurement(50, 'rpm')),
   rVolts: MeasurementParam.withDefault(new Measurement(12, 'V')),
   sensorDelay: MeasurementParam.withDefault(new Measurement(1, 'ms')),
@@ -237,10 +231,6 @@ export default function Flywheel() {
     queryParams.projectileWeight,
   );
   const [efficiency, setEfficiency] = useState(queryParams.efficiency);
-  const [maximumComfortableStatorLimit, setMaximumComfortableStatorLimit] =
-    useState(queryParams.maximumComfortableStatorLimit);
-  const [maximumComfortableSupplyLimit, setMaximumComfortableSupplyLimit] =
-    useState(queryParams.maximumComfortableSupplyLimit);
   const [qVelocity, setQVelocity] = useState(queryParams.qVelocity);
   const [rVolts, setRVolts] = useState(queryParams.rVolts);
   const [sensorDelay, setSensorDelay] = useState(queryParams.sensorDelay);
@@ -620,8 +610,8 @@ export default function Flywheel() {
             clampedShooterTargetSpeed.toDict(),
             batteryResistance.toDict(),
             supplyVoltage.toDict(),
-            maximumComfortableStatorLimit.toDict(),
-            maximumComfortableSupplyLimit.toDict(),
+            statorLimit.toDict(),
+            supplyLimit.toDict(),
             efficiency,
           ])
         : 'disabled',
@@ -632,8 +622,8 @@ export default function Flywheel() {
       clampedShooterTargetSpeed,
       batteryResistance,
       supplyVoltage,
-      maximumComfortableStatorLimit,
-      maximumComfortableSupplyLimit,
+      statorLimit,
+      supplyLimit,
       efficiency,
     ],
   );
@@ -649,8 +639,8 @@ export default function Flywheel() {
         nominalVoltage.toDict(),
         batteryResistance.toDict(),
         supplyVoltage.toDict(),
-        maximumComfortableStatorLimit.toDict(),
-        maximumComfortableSupplyLimit.toDict(),
+        userStatorAmps,
+        userSupplyAmps,
         efficiency / 100,
         0.1,
       ]);
@@ -710,8 +700,6 @@ export default function Flywheel() {
     useCustomSecondaryShooterMoi,
     customSecondaryShooterMoi,
     efficiency,
-    maximumComfortableStatorLimit,
-    maximumComfortableSupplyLimit,
     qVelocity,
     rVolts,
     sensorDelay,
@@ -1395,31 +1383,6 @@ export default function Flywheel() {
               />
             </div>
             <div className="flex w-full flex-col gap-3 md:w-64 md:shrink-0">
-              <section className="flex flex-col gap-3 rounded-lg border p-4">
-                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                  Settings
-                </h2>
-                <MeasurementInput
-                  stateHook={[
-                    maximumComfortableStatorLimit,
-                    setMaximumComfortableStatorLimit,
-                  ]}
-                  label="Max Stator Limit"
-                  tooltip="The maximum stator limit that is comfortable for you. Used for recommendations."
-                  testId="maximumComfortableStatorLimit"
-                  labelAbove
-                />
-                <MeasurementInput
-                  stateHook={[
-                    maximumComfortableSupplyLimit,
-                    setMaximumComfortableSupplyLimit,
-                  ]}
-                  label="Max Supply Limit"
-                  tooltip="The maximum supply limit that is comfortable for you. Used for recommendations."
-                  testId="maximumComfortableSupplyLimit"
-                  labelAbove
-                />
-              </section>
               {selectedConfigCell?.success && (
                 <SelectedConfig
                   config={selectedConfigCell}

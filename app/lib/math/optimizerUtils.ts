@@ -107,10 +107,9 @@ export function selectBest<T extends MetricSource>(
   return { result, tier1Count: tier1.length, tier2Count: tier2.length };
 }
 
-export function makeGrid(max: number): number[] {
-  return Array.from({ length: Math.ceil(max / 10) }, (_, i) =>
-    Math.min((i + 1) * 10, max),
-  );
+export function makeCenteredCurrentGrid(inputAmps: number): number[] {
+  const centerAmps = Math.max(15, inputAmps);
+  return [centerAmps - 10, centerAmps, centerAmps + 10];
 }
 
 export const OPTIMIZER_SIM_CEIL_SECONDS = 3.0;

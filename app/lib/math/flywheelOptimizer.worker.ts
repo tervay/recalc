@@ -8,7 +8,7 @@ import {
   type ConfigOptResult,
   type ConfigOptOutput,
   peakSupplyCurrent,
-  makeGrid,
+  makeCenteredCurrentGrid,
   reduceConfigOutput,
   RATIO_SEARCH_COARSE_SAMPLES,
   RATIO_SEARCH_LOCAL_SAMPLES,
@@ -189,8 +189,8 @@ export async function optimizeConfiguration(
   statorVoltageDict: MeasurementDict,
   batteryResistanceDict: MeasurementDict,
   batteryVoltageDict: MeasurementDict,
-  maximumComfortableStatorLimitDict: MeasurementDict,
-  maximumComfortableSupplyLimitDict: MeasurementDict,
+  statorInputAmps: number,
+  supplyInputAmps: number,
   efficiency: number,
   batteryVoltageFilterTimeConstantSeconds: number,
 ): Promise<ConfigOptOutput> {
@@ -208,13 +208,6 @@ export async function optimizeConfiguration(
   );
 
   try {
-    const maxStator = Measurement.fromDict(
-      maximumComfortableStatorLimitDict,
-    ).to('A').scalar;
-    const maxSupply = Measurement.fromDict(
-      maximumComfortableSupplyLimitDict,
-    ).to('A').scalar;
-
     const motorFreeSpeedRadPerSec = p.wpilibMotor.getFreeSpeedRadPerSec();
     const maxRatio =
       p.targetRadPerSec > 0
@@ -223,9 +216,9 @@ export async function optimizeConfiguration(
 
     const allResults: ConfigOptResult[] = [];
 
-    for (const statorAmps of makeGrid(maxStator)) {
+    for (const statorAmps of makeCenteredCurrentGrid(statorInputAmps)) {
       const totalStatorAmps = statorAmps * p.motorQuantity;
-      for (const supplyAmps of makeGrid(maxSupply)) {
+      for (const supplyAmps of makeCenteredCurrentGrid(supplyInputAmps)) {
         const totalSupplyAmps = supplyAmps * p.motorQuantity;
 
         try {

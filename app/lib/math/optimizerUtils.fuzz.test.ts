@@ -8,7 +8,7 @@ import {
 import {
   adaptiveSimSeconds,
   getMetric,
-  makeGrid,
+  makeCenteredCurrentGrid,
   OPTIMIZER_SIM_CEIL_SECONDS,
   peakSupplyCurrent,
   reduceConfigOutput,
@@ -181,18 +181,16 @@ describe('optimizer utility fuzz cases', () => {
     expect(snapshot).toMatchSnapshot();
   });
 
-  it('keeps grids ordered and bounded for every positive maximum', () => {
-    const snapshot = [0, ...positive].map((maximum) => {
-      const grid = makeGrid(maximum);
-      expect(grid.every((value) => value > 0 && value <= maximum)).toBe(true);
+  it('keeps centered grids ordered with a five-amp lower bound', () => {
+    const snapshot = [0, 5, 15, ...positive].map((input) => {
+      const grid = makeCenteredCurrentGrid(input);
+      expect(grid).toHaveLength(3);
+      expect(grid.every((value) => value >= 5)).toBe(true);
       expect(
         grid.every((value, index) => index === 0 || value > grid[index - 1]),
       ).toBe(true);
-      expect(
-        (maximum === 0 && grid.length === 0) ||
-          (maximum > 0 && grid.at(-1) === maximum),
-      ).toBe(true);
-      return { maximum, grid };
+      expect(grid[1]).toBe(Math.max(15, input));
+      return { input, grid };
     });
 
     expect(snapshot).toMatchSnapshot();

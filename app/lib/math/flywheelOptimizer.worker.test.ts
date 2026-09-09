@@ -16,13 +16,13 @@ const targetRpm = new Measurement(3000, 'rpm');
 const statorVoltage = new Measurement(12, 'V');
 const supplyVoltage = new Measurement(12, 'V');
 const batteryResistance = new Measurement(0.015, 'Ohm');
-const maxStator = new Measurement(80, 'A');
-const maxSupply = new Measurement(60, 'A');
+const statorInput = new Measurement(80, 'A');
+const supplyInput = new Measurement(60, 'A');
 const batteryVoltageFilterTimeConstantSeconds = 0.5;
 
 function runConfiguration(overrides?: {
-  maxStator?: Measurement;
-  maxSupply?: Measurement;
+  statorInput?: Measurement;
+  supplyInput?: Measurement;
   efficiency?: number;
 }) {
   return optimizeConfiguration(
@@ -32,8 +32,8 @@ function runConfiguration(overrides?: {
     statorVoltage.toDict(),
     batteryResistance.toDict(),
     supplyVoltage.toDict(),
-    (overrides?.maxStator ?? maxStator).toDict(),
-    (overrides?.maxSupply ?? maxSupply).toDict(),
+    overrides?.statorInput?.to('A').scalar ?? statorInput.to('A').scalar,
+    overrides?.supplyInput?.to('A').scalar ?? supplyInput.to('A').scalar,
     overrides?.efficiency ?? 1.0,
     batteryVoltageFilterTimeConstantSeconds,
   );
@@ -47,8 +47,7 @@ describe('flywheelOptimizer optimizeConfiguration', () => {
   }, 60_000);
 
   it('returns a full stator x supply grid', () => {
-    // makeGrid(80) -> 8 stator rows, makeGrid(60) -> 6 supply cols => 48 cells.
-    expect(sharedResult.allResults).toHaveLength(48);
+    expect(sharedResult.allResults).toHaveLength(9);
   });
 
   it('uses the shared bucketed recommendation strategy', () => {
@@ -74,8 +73,8 @@ describe('flywheelOptimizer optimizeConfiguration', () => {
       statorVoltage.toDict(),
       batteryResistance.toDict(),
       supplyVoltage.toDict(),
-      new Measurement(10, 'A').toDict(),
-      new Measurement(10, 'A').toDict(),
+      10,
+      10,
       1.0,
       batteryVoltageFilterTimeConstantSeconds,
     );
@@ -97,7 +96,7 @@ describe('flywheelOptimizer wasm cleanup', () => {
       motor.toDict(),
       momentOfInertia.toDict(),
       targetRpm.toDict(),
-      maxSupply.toDict(),
+      supplyInput.toDict(),
       statorVoltage.toDict(),
       batteryResistance.toDict(),
       supplyVoltage.toDict(),
@@ -116,8 +115,8 @@ describe('flywheelOptimizer wasm cleanup', () => {
     const toWpilibMotorSpy = vi.spyOn(Motor.prototype, 'toWpilibMotor');
 
     await runConfiguration({
-      maxStator: new Measurement(20, 'A'),
-      maxSupply: new Measurement(20, 'A'),
+      statorInput: new Measurement(20, 'A'),
+      supplyInput: new Measurement(20, 'A'),
     });
 
     expect(toWpilibMotorSpy).toHaveBeenCalledTimes(1);
@@ -137,8 +136,8 @@ describe('flywheelOptimizer optimizeConfiguration empty-states guard', () => {
 
     await expect(
       runConfiguration({
-        maxStator: new Measurement(10, 'A'),
-        maxSupply: new Measurement(10, 'A'),
+        statorInput: new Measurement(10, 'A'),
+        supplyInput: new Measurement(10, 'A'),
       }),
     ).resolves.not.toThrow();
   }, 60_000);

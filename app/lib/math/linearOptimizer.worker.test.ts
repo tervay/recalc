@@ -26,8 +26,8 @@ const baseParams: OptimizeConfigurationParams = {
   efficiency: 1.0,
   cascade: false,
   batteryVoltageFilterTimeConstantSeconds: 0.5,
-  maximumComfortableStatorLimitDict: new Measurement(20, 'A').toDict(),
-  maximumComfortableSupplyLimitDict: new Measurement(20, 'A').toDict(),
+  statorInputAmps: 20,
+  supplyInputAmps: 20,
   maxVelocityMPS: 2,
   maxAccelerationMPS2: 10,
   qPositionMeters: 0.02,
@@ -119,8 +119,8 @@ describe('optimizeConfiguration grid consistency', () => {
       ...baseParams,
       efficiency: 0.9,
       batteryVoltageFilterTimeConstantSeconds: 0.1,
-      maximumComfortableStatorLimitDict: new Measurement(80, 'A').toDict(),
-      maximumComfortableSupplyLimitDict: new Measurement(60, 'A').toDict(),
+      statorInputAmps: 80,
+      supplyInputAmps: 60,
       maxVelocityMPS: 3,
       maxAccelerationMPS2: 10,
     });
@@ -149,8 +149,8 @@ describe('optimizeConfiguration grid consistency', () => {
       ...baseParams,
       maxVelocityMPS: null,
       maxAccelerationMPS2: null,
-      maximumComfortableStatorLimitDict: new Measurement(80, 'A').toDict(),
-      maximumComfortableSupplyLimitDict: new Measurement(60, 'A').toDict(),
+      statorInputAmps: 80,
+      supplyInputAmps: 60,
     });
 
     const bySupply = new Map<
@@ -230,10 +230,10 @@ describe('custom motion-limit feasibility', () => {
     const result = await optimizeConfiguration({
       ...baseParams,
       batteryVoltageFilterTimeConstantSeconds: 0.1,
-      maximumComfortableStatorLimitDict: new Measurement(10, 'A').toDict(),
-      maximumComfortableSupplyLimitDict: new Measurement(10, 'A').toDict(),
-      maxVelocityMPS: 4,
-      maxAccelerationMPS2: 3,
+      statorInputAmps: 10,
+      supplyInputAmps: 10,
+      maxVelocityMPS: 1000,
+      maxAccelerationMPS2: 1000,
     });
 
     expect(result.recommended).toBeNull();

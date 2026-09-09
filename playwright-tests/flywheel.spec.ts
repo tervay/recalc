@@ -595,6 +595,13 @@ test.describe('Flywheel Calculator', () => {
       .locator('[data-slot="badge"]')
       .filter({ hasText: /\d+ configs/ });
     await expect(configsBadge).toBeVisible({ timeout: 30000 });
+    await expect(page.getByTestId('maximumComfortableStatorLimit')).toHaveCount(
+      0,
+    );
+    await expect(page.getByTestId('maximumComfortableSupplyLimit')).toHaveCount(
+      0,
+    );
+    await expect(page.getByTestId('optimal-config-cell')).toHaveCount(9);
 
     // The optimizer auto-selects the recommended config, so the Selected Config
     // panel should already be visible.
@@ -617,20 +624,18 @@ test.describe('Flywheel Calculator', () => {
         await selectedConfig.getByTestId('selected-config-supply').textContent()
       )?.replace('A', '') ?? '';
     const ratioInput = page.getByTestId('ratio');
-    await ratioInput.fill('99');
-    await page.getByTestId('statorLimit').fill('1');
-    await page.getByTestId('supplyLimit').fill('1');
     await page.getByRole('button', { name: 'Set', exact: true }).click();
     await expect
       .poll(async () => Number(await ratioInput.inputValue()).toFixed(2))
       .toBe(expectedRatio);
     await expect(page.getByTestId('statorLimit')).toHaveValue(expectedStator);
     await expect(page.getByTestId('supplyLimit')).toHaveValue(expectedSupply);
+    await expect(configsBadge).toBeVisible({ timeout: 30000 });
 
     // Click a grid cell button (ratio label format: "N.NN:1") to verify
     // selection is interactive.
     const firstCell = page
-      .getByRole('button')
+      .getByTestId('optimal-config-cell')
       .filter({ hasText: /\d+\.\d+:1/ })
       .first();
     await expect(firstCell).toBeVisible();

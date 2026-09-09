@@ -118,12 +118,6 @@ const DEFAULT_PARAMS = {
     new Measurement(0.015, 'Ohm'),
   ),
   cascade: BooleanParam.withDefault(false),
-  maximumComfortableStatorLimit: MeasurementParam.withDefault(
-    new Measurement(80, 'A'),
-  ),
-  maximumComfortableSupplyLimit: MeasurementParam.withDefault(
-    new Measurement(60, 'A'),
-  ),
   enableCustomMaxVelocity: BooleanParam.withDefault(false),
   maxVelocity: MeasurementParam.withDefault(new Measurement(2, 'm/s')),
   enableCustomMaxAcceleration: BooleanParam.withDefault(false),
@@ -216,10 +210,6 @@ export default function Linear() {
   );
   const [cascade, setCascade] = useState(queryParams.cascade);
   const [optimizationEnabled, setOptimizationEnabled] = useState(true);
-  const [maximumComfortableStatorLimit, setMaximumComfortableStatorLimit] =
-    useState(queryParams.maximumComfortableStatorLimit);
-  const [maximumComfortableSupplyLimit, setMaximumComfortableSupplyLimit] =
-    useState(queryParams.maximumComfortableSupplyLimit);
 
   const [enableCustomMaxVelocity, setEnableCustomMaxVelocity] = useState(
     queryParams.enableCustomMaxVelocity,
@@ -528,8 +518,8 @@ export default function Linear() {
     travelDistanceDict: travelDistance.toDict(),
     batteryResistanceDict: batteryResistance.toDict(),
     batteryVoltageDict: supplyVoltage.toDict(),
-    maximumComfortableStatorLimitDict: maximumComfortableStatorLimit.toDict(),
-    maximumComfortableSupplyLimitDict: maximumComfortableSupplyLimit.toDict(),
+    statorInputAmps: userStatorAmps,
+    supplyInputAmps: userSupplyAmps,
     angleDict: angle.toDict(),
     efficiency: efficiency / 100,
     cascade,
@@ -603,8 +593,6 @@ export default function Linear() {
     angle,
     batteryResistance,
     cascade,
-    maximumComfortableStatorLimit,
-    maximumComfortableSupplyLimit,
     enableCustomMaxVelocity,
     maxVelocity,
     enableCustomMaxAcceleration,
@@ -1139,34 +1127,8 @@ export default function Linear() {
               />
             </div>
 
-            {/* Right column: settings + selected config */}
+            {/* Right column: selected config */}
             <div className="flex w-full flex-col gap-3 md:w-64 md:shrink-0">
-              <section className="flex flex-col gap-3 rounded-lg border p-4">
-                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                  Settings
-                </h2>
-                <MeasurementInput
-                  stateHook={[
-                    maximumComfortableStatorLimit,
-                    setMaximumComfortableStatorLimit,
-                  ]}
-                  label="Max Stator Limit"
-                  tooltip="The maximum stator limit that is comfortable for you. Used for recommendations."
-                  testId="maximumComfortableStatorLimit"
-                  labelAbove
-                />
-                <MeasurementInput
-                  stateHook={[
-                    maximumComfortableSupplyLimit,
-                    setMaximumComfortableSupplyLimit,
-                  ]}
-                  label="Max Supply Limit"
-                  tooltip="The maximum supply limit that is comfortable for you. Used for recommendations."
-                  testId="maximumComfortableSupplyLimit"
-                  labelAbove
-                />
-              </section>
-
               {selectedConfigCell?.success && (
                 <SelectedConfig
                   config={selectedConfigCell}

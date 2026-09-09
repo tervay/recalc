@@ -9,7 +9,7 @@ import {
   type ConfigOptOutput,
   adaptiveSimSeconds,
   peakSupplyCurrent,
-  makeGrid,
+  makeCenteredCurrentGrid,
   reduceConfigOutput,
   RATIO_SEARCH_COARSE_SAMPLES,
   RATIO_SEARCH_LOCAL_SAMPLES,
@@ -526,8 +526,8 @@ export async function simulateOnce({
 }
 
 export interface OptimizeConfigurationParams extends BaseLinearParams {
-  maximumComfortableStatorLimitDict: MeasurementDict;
-  maximumComfortableSupplyLimitDict: MeasurementDict;
+  statorInputAmps: number;
+  supplyInputAmps: number;
   maxVelocityMPS: number | null;
   maxAccelerationMPS2: number | null;
   kalmanFilterPositionStdDevDict: MeasurementDict;
@@ -649,18 +649,13 @@ export async function optimizeConfiguration(
 ): Promise<ConfigOptOutput> {
   const { wpilibc, p, control } = await prepareConfig(params);
 
-  const maxStator = Measurement.fromDict(
-    params.maximumComfortableStatorLimitDict,
-  ).to('A').scalar;
-  const maxSupply = Measurement.fromDict(
-    params.maximumComfortableSupplyLimitDict,
-  ).to('A').scalar;
-
   const allResults: ConfigOptResult[] = [];
 
   try {
-    for (const statorAmps of makeGrid(maxStator)) {
-      for (const supplyAmps of makeGrid(maxSupply)) {
+    for (const statorAmps of makeCenteredCurrentGrid(params.statorInputAmps)) {
+      for (const supplyAmps of makeCenteredCurrentGrid(
+        params.supplyInputAmps,
+      )) {
         allResults.push(
           computeConfigCell(
             wpilibc,

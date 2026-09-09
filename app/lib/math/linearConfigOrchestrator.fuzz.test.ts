@@ -14,8 +14,8 @@ import { reduceConfigOutput } from '~/lib/math/optimizerUtils';
 import Motor from '~/lib/models/Motor';
 
 function makeParams(
-  maximumComfortableStatorLimit: number,
-  maximumComfortableSupplyLimit: number,
+  statorInputAmps: number,
+  supplyInputAmps: number,
 ): OptimizeConfigurationParams {
   return {
     motorDict: Motor.KrakenX60sFOC(1).toDict(),
@@ -28,14 +28,8 @@ function makeParams(
     efficiency: 1,
     cascade: false,
     batteryVoltageFilterTimeConstantSeconds: 0.1,
-    maximumComfortableStatorLimitDict: measurement(
-      maximumComfortableStatorLimit,
-      'A',
-    ).toDict(),
-    maximumComfortableSupplyLimitDict: measurement(
-      maximumComfortableSupplyLimit,
-      'A',
-    ).toDict(),
+    statorInputAmps,
+    supplyInputAmps,
     maxVelocityMPS: 1.5,
     maxAccelerationMPS2: 4,
     qPositionMeters: 0.02,
@@ -71,10 +65,10 @@ describe('linear configuration orchestration fuzz cases', () => {
     const cases = cartesian([0, 5, 20, 25], [0, 5, 20, 25]);
     const snapshot = [];
 
-    for (const [maxStator, maxSupply] of cases) {
+    for (const [statorInputAmps, supplyInputAmps] of cases) {
       const calls: Array<[number, number]> = [];
       const result = await orchestrateConfigOptimization(
-        makeParams(maxStator, maxSupply),
+        makeParams(statorInputAmps, supplyInputAmps),
         async (statorAmps, supplyAmps) => {
           calls.push([statorAmps, supplyAmps]);
           // Completion order intentionally differs from invocation order.
@@ -83,7 +77,7 @@ describe('linear configuration orchestration fuzz cases', () => {
               () => {
                 resolve();
               },
-              (maxStator - statorAmps + maxSupply - supplyAmps) % 3,
+              (statorInputAmps - statorAmps + supplyInputAmps - supplyAmps) % 3,
             );
           });
           return fakeCell(statorAmps, supplyAmps);
@@ -96,18 +90,15 @@ describe('linear configuration orchestration fuzz cases', () => {
           cell.supplyLimitAmps,
         ]),
       ).toEqual(calls);
-      expect(result.allResults).toHaveLength(
-        (maxStator === 0 ? 0 : Math.ceil(maxStator / 10)) *
-          (maxSupply === 0 ? 0 : Math.ceil(maxSupply / 10)),
-      );
+      expect(result.allResults).toHaveLength(9);
       const expectedRecommendation = reduceConfigOutput(
         result.allResults,
       ).recommended;
       expect(result.recommended).toBe(expectedRecommendation);
 
       snapshot.push({
-        maxStator,
-        maxSupply,
+        statorInputAmps,
+        supplyInputAmps,
         cells: result.allResults.map((cell) => ({
           stator: cell.statorLimitAmps,
           supply: cell.supplyLimitAmps,
@@ -133,9 +124,9 @@ describe('linear configuration orchestration fuzz cases', () => {
       async (statorAmps, supplyAmps) => fakeCell(statorAmps, supplyAmps),
     );
 
-    expect(result.allResults).toHaveLength(4);
-    expect(result.allResults.filter((cell) => cell.success)).toHaveLength(1);
-    expect(result.recommended?.statorLimitAmps).toBe(20);
-    expect(result.recommended?.supplyLimitAmps).toBe(20);
+    expect(result.allResults).toHaveLength(9);
+    expect(result.allResults.filter((cell) => cell.success)).toHaveLength(4);
+    expect(result.recommended?.statorLimitAmps).toBe(30);
+    expect(result.recommended?.supplyLimitAmps).toBe(30);
   });
 });

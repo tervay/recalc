@@ -93,12 +93,6 @@ const DEFAULT_PARAMS = {
   maxAngle: MeasurementParam.withDefault(new Measurement(90, 'deg')),
   efficiency: NumberParam.withDefault(100),
   load: MeasurementParam.withDefault(new Measurement(5, 'lb')),
-  maximumComfortableStatorLimit: MeasurementParam.withDefault(
-    new Measurement(80, 'A'),
-  ),
-  maximumComfortableSupplyLimit: MeasurementParam.withDefault(
-    new Measurement(60, 'A'),
-  ),
   qPosition: MeasurementParam.withDefault(new Measurement(2, 'deg')),
   qVelocity: MeasurementParam.withDefault(new Measurement(40, 'deg/s')),
   rVolts: MeasurementParam.withDefault(new Measurement(12, 'V')),
@@ -152,10 +146,6 @@ export default function Arm() {
   const [maxAngle, setMaxAngle] = useState(queryParams.maxAngle);
   const [efficiency, setEfficiency] = useState(queryParams.efficiency);
   const [load, setLoad] = useState(queryParams.load);
-  const [maximumComfortableStatorLimit, setMaximumComfortableStatorLimit] =
-    useState(queryParams.maximumComfortableStatorLimit);
-  const [maximumComfortableSupplyLimit, setMaximumComfortableSupplyLimit] =
-    useState(queryParams.maximumComfortableSupplyLimit);
   const [qPosition, setQPosition] = useState(queryParams.qPosition);
   const [qVelocity, setQVelocity] = useState(queryParams.qVelocity);
   const [rVolts, setRVolts] = useState(queryParams.rVolts);
@@ -371,8 +361,8 @@ export default function Arm() {
             statorVoltage.toDict(),
             batteryResistance.toDict(),
             supplyVoltage.toDict(),
-            maximumComfortableStatorLimit.toDict(),
-            maximumComfortableSupplyLimit.toDict(),
+            statorLimit.toDict(),
+            supplyLimit.toDict(),
             efficiency,
           ])
         : 'disabled',
@@ -386,8 +376,8 @@ export default function Arm() {
       statorVoltage,
       batteryResistance,
       supplyVoltage,
-      maximumComfortableStatorLimit,
-      maximumComfortableSupplyLimit,
+      statorLimit,
+      supplyLimit,
       efficiency,
     ],
   );
@@ -405,8 +395,8 @@ export default function Arm() {
         statorVoltage.toDict(),
         batteryResistance.toDict(),
         supplyVoltage.toDict(),
-        maximumComfortableStatorLimit.toDict(),
-        maximumComfortableSupplyLimit.toDict(),
+        userStatorAmps,
+        userSupplyAmps,
         efficiency / 100,
       ]);
     },
@@ -447,8 +437,6 @@ export default function Arm() {
     maxAngle,
     efficiency,
     load,
-    maximumComfortableStatorLimit,
-    maximumComfortableSupplyLimit,
     qPosition,
     qVelocity,
     rVolts,
@@ -922,34 +910,8 @@ export default function Arm() {
               />
             </div>
 
-            {/* Right column: settings + selected config */}
+            {/* Right column: selected config */}
             <div className="flex w-full flex-col gap-3 md:w-64 md:shrink-0">
-              <section className="flex flex-col gap-3 rounded-lg border p-4">
-                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                  Settings
-                </h2>
-                <MeasurementInput
-                  stateHook={[
-                    maximumComfortableStatorLimit,
-                    setMaximumComfortableStatorLimit,
-                  ]}
-                  label="Max Stator Limit"
-                  tooltip="The maximum stator limit that is comfortable for you. Used for recommendations."
-                  testId="maximumComfortableStatorLimit"
-                  labelAbove
-                />
-                <MeasurementInput
-                  stateHook={[
-                    maximumComfortableSupplyLimit,
-                    setMaximumComfortableSupplyLimit,
-                  ]}
-                  label="Max Supply Limit"
-                  tooltip="The maximum supply limit that is comfortable for you. Used for recommendations."
-                  testId="maximumComfortableSupplyLimit"
-                  labelAbove
-                />
-              </section>
-
               {selectedConfigCell?.success && (
                 <SelectedConfig
                   config={selectedConfigCell}

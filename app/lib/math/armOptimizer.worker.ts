@@ -9,7 +9,7 @@ import {
   type ConfigOptOutput,
   type RatioSearchResult,
   peakSupplyCurrent,
-  makeGrid,
+  makeCenteredCurrentGrid,
   reduceConfigOutput,
   RATIO_SEARCH_COARSE_SAMPLES,
   RATIO_SEARCH_LOCAL_SAMPLES,
@@ -282,8 +282,8 @@ export async function optimizeConfiguration(
   statorVoltageDict: MeasurementDict,
   batteryResistanceDict: MeasurementDict,
   batteryVoltageDict: MeasurementDict,
-  maximumComfortableStatorLimitDict: MeasurementDict,
-  maximumComfortableSupplyLimitDict: MeasurementDict,
+  statorInputAmps: number,
+  supplyInputAmps: number,
   efficiency: number,
 ): Promise<ConfigOptOutput> {
   const wpilibc = await initWpilibc();
@@ -301,18 +301,11 @@ export async function optimizeConfiguration(
   );
 
   try {
-    const maxStator = Measurement.fromDict(
-      maximumComfortableStatorLimitDict,
-    ).to('A').scalar;
-    const maxSupply = Measurement.fromDict(
-      maximumComfortableSupplyLimitDict,
-    ).to('A').scalar;
-
     const allResults: ConfigOptResult[] = [];
 
-    for (const statorAmps of makeGrid(maxStator)) {
+    for (const statorAmps of makeCenteredCurrentGrid(statorInputAmps)) {
       const totalStatorAmps = statorAmps * p.motorQuantity;
-      for (const supplyAmps of makeGrid(maxSupply)) {
+      for (const supplyAmps of makeCenteredCurrentGrid(supplyInputAmps)) {
         const totalSupplyAmps = supplyAmps * p.motorQuantity;
 
         let searchResult: RatioSearchResult<MetricSource> | null;

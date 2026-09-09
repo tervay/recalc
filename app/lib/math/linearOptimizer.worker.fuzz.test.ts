@@ -31,8 +31,8 @@ function makeBaseParams(
     efficiency: 1,
     cascade: false,
     batteryVoltageFilterTimeConstantSeconds: 0.1,
-    maximumComfortableStatorLimitDict: measurement(20, 'A').toDict(),
-    maximumComfortableSupplyLimitDict: measurement(20, 'A').toDict(),
+    statorInputAmps: 20,
+    supplyInputAmps: 20,
     maxVelocityMPS: 1.5,
     maxAccelerationMPS2: 4,
     qPositionMeters: 0.02,
@@ -230,14 +230,14 @@ describe('linear simulation optimizer fuzz cases', () => {
 
   it('returns a complete and reducible result for a generated configuration grid', async () => {
     const params = makeBaseParams({
-      maximumComfortableStatorLimitDict: measurement(20, 'A').toDict(),
-      maximumComfortableSupplyLimitDict: measurement(20, 'A').toDict(),
+      statorInputAmps: 20,
+      supplyInputAmps: 20,
       maxVelocityMPS: 1.5,
       maxAccelerationMPS2: 4,
     });
     const result = await optimizeConfiguration(params);
 
-    expect(result.allResults).toHaveLength(4);
+    expect(result.allResults).toHaveLength(9);
     expect(
       result.allResults.every(
         (cell) => Number.isNaN(cell.timeToGoalSeconds) === false,

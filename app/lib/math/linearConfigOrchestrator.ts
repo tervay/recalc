@@ -2,10 +2,9 @@ import type { OptimizeConfigurationParams } from '~/lib/math/linearOptimizer.wor
 import {
   type ConfigOptOutput,
   type ConfigOptResult,
-  makeGrid,
+  makeCenteredCurrentGrid,
   reduceConfigOutput,
 } from '~/lib/math/optimizerUtils';
-import Measurement from '~/lib/models/Measurement';
 
 /**
  * Runs the optimization for a single (stator, supply) grid cell. Supplied by
@@ -31,16 +30,9 @@ export async function orchestrateConfigOptimization(
   params: OptimizeConfigurationParams,
   runCell: RunConfigCell,
 ): Promise<ConfigOptOutput> {
-  const maxStator = Measurement.fromDict(
-    params.maximumComfortableStatorLimitDict,
-  ).to('A').scalar;
-  const maxSupply = Measurement.fromDict(
-    params.maximumComfortableSupplyLimitDict,
-  ).to('A').scalar;
-
   const cells: Array<[number, number]> = [];
-  for (const statorAmps of makeGrid(maxStator)) {
-    for (const supplyAmps of makeGrid(maxSupply)) {
+  for (const statorAmps of makeCenteredCurrentGrid(params.statorInputAmps)) {
+    for (const supplyAmps of makeCenteredCurrentGrid(params.supplyInputAmps)) {
       cells.push([statorAmps, supplyAmps]);
     }
   }

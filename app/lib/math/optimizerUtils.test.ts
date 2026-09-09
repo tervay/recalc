@@ -14,7 +14,7 @@ import {
   searchOptimalRatio,
   selectBestBucketed,
   selectBest,
-  makeGrid,
+  makeCenteredCurrentGrid,
   trapezoidProfileDurationSeconds,
 } from '~/lib/math/optimizerUtils';
 
@@ -399,21 +399,21 @@ describe('optimizerUtils', () => {
     });
   });
 
-  describe('makeGrid', () => {
-    it('creates grid with 10-unit steps up to max', () => {
-      expect(makeGrid(35)).toEqual([10, 20, 30, 35]);
+  describe('makeCenteredCurrentGrid', () => {
+    it('creates a three-point grid centered on the current input', () => {
+      expect(makeCenteredCurrentGrid(80)).toEqual([70, 80, 90]);
     });
 
-    it('creates grid with exact multiples of 10', () => {
-      expect(makeGrid(30)).toEqual([10, 20, 30]);
+    it('creates three distinct points for a low current input', () => {
+      expect(makeCenteredCurrentGrid(15)).toEqual([5, 15, 25]);
     });
 
-    it('handles small values', () => {
-      expect(makeGrid(5)).toEqual([5]);
+    it('raises an input below 15 amps before creating the grid', () => {
+      expect(makeCenteredCurrentGrid(5)).toEqual([5, 15, 25]);
     });
 
-    it('handles zero', () => {
-      expect(makeGrid(0)).toEqual([]);
+    it('raises a zero input before creating the grid', () => {
+      expect(makeCenteredCurrentGrid(0)).toEqual([5, 15, 25]);
     });
   });
 
