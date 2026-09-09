@@ -33,7 +33,7 @@
     "@tanstack/react-table": "9.2.4",
     "@vercel/react-router": "1.3.6",
     "class-variance-authority": "0.7.1",
-    "cn": "0.2.5",
+    "cn": "0.2.6",
     "comlink": "4.4.2",
     "es-toolkit": "1.52.0",
     "fast-cartesian": "9.0.1",
