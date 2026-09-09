@@ -204,6 +204,7 @@ export async function findGearboxes(
   const allPlanetaries: JSONPlanetaryInstance[] = await Promise.all([
     import('~/genData/REV/planetaries.json').then((m) => m.default),
     import('~/genData/Thrifty/planetaries.json').then((m) => m.default),
+    import('~/genData/WCP/planetaries.json').then((m) => m.default),
   ]).then((planetariesByVendor) =>
     planetariesByVendor
       .flat()
