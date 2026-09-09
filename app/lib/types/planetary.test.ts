@@ -2,12 +2,14 @@ import { describe, expect, it } from 'vitest';
 
 import revPlanetaries from '~/genData/REV/planetaries.json';
 import thriftyPlanetaries from '~/genData/Thrifty/planetaries.json';
+import wcpPlanetaries from '~/genData/WCP/planetaries.json';
 import { zJSONPlanetaryInstanceSchema } from '~/lib/types/planetary';
 
 describe('planetary genData integrity', () => {
   describe.each([
     ['REV', revPlanetaries],
     ['Thrifty', thriftyPlanetaries],
+    ['WCP', wcpPlanetaries],
   ])('%s/planetaries.json', (_vendorName, entries) => {
     it('is non-empty', () => {
       expect(entries.length).toBeGreaterThan(0);
@@ -64,6 +66,53 @@ describe('planetary genData integrity', () => {
           const match = entries.find(
             (entry) =>
               entry.outputBore === outputBore &&
+              entry.slices.length === combo.length &&
+              entry.slices.every((s, i) => s === combo[i]),
+          );
+          expect(match).toBeDefined();
+          expect(match?.ratio).toBeCloseTo(
+            combo.reduce((acc, s) => acc * s, 1),
+            6,
+          );
+        }
+      }
+    });
+  });
+
+  describe('WCP PlanetaryX (WCP-PLANETARYX)', () => {
+    const entries = wcpPlanetaries.filter((p) => p.sku === 'WCP-PLANETARYX');
+    const stageRatios = [3, 4, 5];
+    const inputBores = ['SplineXS', '8mm', '1/2" Hex'];
+
+    const expectedCombos: number[][] = [];
+    for (const a of stageRatios) {
+      expectedCombos.push([a]);
+      for (const b of stageRatios) {
+        if (b < a) continue;
+        expectedCombos.push([a, b]);
+        for (const c of stageRatios) {
+          if (c < b) continue;
+          expectedCombos.push([a, b, c]);
+        }
+      }
+    }
+
+    it('has one entry per stage stack per input bore', () => {
+      expect(entries.length).toBe(expectedCombos.length * inputBores.length);
+    });
+
+    it('only uses 1/2" Hex as the output bore', () => {
+      for (const entry of entries) {
+        expect(entry.outputBore).toBe('1/2" Hex');
+      }
+    });
+
+    it('offers every input bore for every stage stack', () => {
+      for (const combo of expectedCombos) {
+        for (const inputBore of inputBores) {
+          const match = entries.find(
+            (entry) =>
+              entry.inputBore === inputBore &&
               entry.slices.length === combo.length &&
               entry.slices.every((s, i) => s === combo[i]),
           );
