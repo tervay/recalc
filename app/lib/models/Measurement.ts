@@ -191,6 +191,10 @@ export default class Measurement extends Model {
     return Measurement.fromQty(this.innerQty.to(units));
   }
 
+  isCompatible(units: string): boolean {
+    return this.innerQty.isCompatible(units);
+  }
+
   toBase(): Measurement {
     this.innerQty = this.innerQty.toBase();
     return this;

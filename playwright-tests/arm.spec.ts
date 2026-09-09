@@ -321,16 +321,47 @@ test.describe('Arm Calculator', () => {
       .locator('[data-slot="badge"]')
       .filter({ hasText: /\d+ configs/ });
     await expect(configsBadge).toBeVisible({ timeout: 30000 });
+    await expect(page.getByTestId('maximumComfortableStatorLimit')).toHaveCount(
+      0,
+    );
+    await expect(page.getByTestId('maximumComfortableSupplyLimit')).toHaveCount(
+      0,
+    );
+    await expect(page.getByTestId('optimal-config-cell')).toHaveCount(9);
 
     // The optimizer auto-selects the recommended config, so the Selected Config
     // panel should already be visible.
-    await expect(page.getByText('Selected Config')).toBeVisible();
+    const selectedConfig = page.getByTestId('selected-config');
+    await expect(selectedConfig).toBeVisible();
     await expect(page.getByText('Optimal Ratio')).toBeVisible();
+
+    // Applying the selected configuration writes its rounded ratio and current
+    // limits to the calculator inputs.
+    const expectedRatio =
+      (
+        await selectedConfig.getByTestId('selected-config-ratio').textContent()
+      )?.replace(':1', '') ?? '';
+    const expectedStator =
+      (
+        await selectedConfig.getByTestId('selected-config-stator').textContent()
+      )?.replace('A', '') ?? '';
+    const expectedSupply =
+      (
+        await selectedConfig.getByTestId('selected-config-supply').textContent()
+      )?.replace('A', '') ?? '';
+    const ratioInput = page.getByTestId('ratio');
+    await page.getByRole('button', { name: 'Set', exact: true }).click();
+    await expect
+      .poll(async () => Number(await ratioInput.inputValue()).toFixed(2))
+      .toBe(expectedRatio);
+    await expect(page.getByTestId('statorLimit')).toHaveValue(expectedStator);
+    await expect(page.getByTestId('supplyLimit')).toHaveValue(expectedSupply);
+    await expect(configsBadge).toBeVisible({ timeout: 30000 });
 
     // Click a grid cell button (ratio label format: "N.NN:1") to verify
     // selection is interactive.
     const firstCell = page
-      .getByRole('button')
+      .getByTestId('optimal-config-cell')
       .filter({ hasText: /\d+\.\d+:1/ })
       .first();
     await expect(firstCell).toBeVisible();

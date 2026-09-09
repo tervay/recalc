@@ -1,14 +1,19 @@
 import { maxBy } from 'es-toolkit';
-import minimize from 'minimize-golden-section-1d';
 import workerpool from 'workerpool';
 
 import type { DCMotor } from '~/lib/generated/wpilibc/wpilibc_wasm';
 import {
   type SimState,
+  type MetricSource,
   type ConfigOptResult,
   type ConfigOptOutput,
+  type RatioSearchResult,
   peakSupplyCurrent,
-  makeGrid,
+  makeCenteredCurrentGrid,
+  reduceConfigOutput,
+  RATIO_SEARCH_COARSE_SAMPLES,
+  RATIO_SEARCH_LOCAL_SAMPLES,
+  searchOptimalRatio,
 } from '~/lib/math/optimizerUtils';
 import type { MeasurementDict } from '~/lib/models/Measurement';
 import Measurement from '~/lib/models/Measurement';
@@ -32,7 +37,6 @@ export interface ArmOptimizerResult {
 // above 1:1 to avoid the degenerate low-ratio region.
 const MIN_RATIO = 5;
 const MAX_RATIO = 500;
-const INITIAL_RATIO_GUESS = 100;
 
 interface MechParams {
   wpilibMotor: DCMotor;
@@ -201,7 +205,7 @@ async function optimizeRatio(
   batteryResistanceDict: MeasurementDict,
   batteryVoltageDict: MeasurementDict,
   statorLimitAmps: number,
-  initialRatio: number,
+  _initialRatio: number,
   efficiency: number,
 ): Promise<ArmOptimizerResult> {
   const wpilibc = await initWpilibc();
@@ -222,34 +226,47 @@ async function optimizeRatio(
     const totalSupplyAmps =
       Measurement.fromDict(supplyLimitDict).to('A').scalar * p.motorQuantity;
 
-    const optimalRatio = minimize(
-      (r) => {
+    const searchResult = searchOptimalRatio(
+      (ratioMagnitude) => {
         const result = simulate(
           wpilibc,
           p,
-          r,
+          ratioMagnitude,
           totalStatorAmps,
           totalSupplyAmps,
         );
-        return result.success ? result.timeSeconds : Number.POSITIVE_INFINITY;
+        return result.success
+          ? {
+              timeToGoalSeconds: result.timeSeconds,
+              energyJoules: result.energyJoules,
+              peakCurrentAmps: result.peakSupplyCurrent,
+            }
+          : null;
       },
-      { lowerBound: 5, upperBound: 500, guess: initialRatio },
+      {
+        lowerBound: MIN_RATIO,
+        upperBound: MAX_RATIO,
+        coarseSamples: RATIO_SEARCH_COARSE_SAMPLES,
+        localSamples: RATIO_SEARCH_LOCAL_SAMPLES,
+      },
     );
 
-    const result = simulate(
-      wpilibc,
-      p,
-      optimalRatio,
-      totalStatorAmps,
-      totalSupplyAmps,
-    );
+    if (!searchResult) {
+      return {
+        statorLimitAmps,
+        optimalRatio: Number.NaN,
+        timeToGoalSeconds: 3,
+        energyJoules: 0,
+        peakSupplyCurrentAmps: 0,
+      };
+    }
 
     return {
       statorLimitAmps,
-      optimalRatio,
-      timeToGoalSeconds: result.timeSeconds,
-      energyJoules: result.energyJoules,
-      peakSupplyCurrentAmps: result.peakSupplyCurrent,
+      optimalRatio: searchResult.ratio,
+      timeToGoalSeconds: searchResult.metrics.timeToGoalSeconds,
+      energyJoules: searchResult.metrics.energyJoules,
+      peakSupplyCurrentAmps: searchResult.metrics.peakCurrentAmps,
     };
   } finally {
     p.wpilibMotor.delete();
@@ -265,8 +282,8 @@ export async function optimizeConfiguration(
   statorVoltageDict: MeasurementDict,
   batteryResistanceDict: MeasurementDict,
   batteryVoltageDict: MeasurementDict,
-  maximumComfortableStatorLimitDict: MeasurementDict,
-  maximumComfortableSupplyLimitDict: MeasurementDict,
+  statorInputAmps: number,
+  supplyInputAmps: number,
   efficiency: number,
 ): Promise<ConfigOptOutput> {
   const wpilibc = await initWpilibc();
@@ -284,41 +301,39 @@ export async function optimizeConfiguration(
   );
 
   try {
-    const maxStator = Measurement.fromDict(
-      maximumComfortableStatorLimitDict,
-    ).to('A').scalar;
-    const maxSupply = Measurement.fromDict(
-      maximumComfortableSupplyLimitDict,
-    ).to('A').scalar;
-
     const allResults: ConfigOptResult[] = [];
 
-    for (const statorAmps of makeGrid(maxStator)) {
+    for (const statorAmps of makeCenteredCurrentGrid(statorInputAmps)) {
       const totalStatorAmps = statorAmps * p.motorQuantity;
-      for (const supplyAmps of makeGrid(maxSupply)) {
+      for (const supplyAmps of makeCenteredCurrentGrid(supplyInputAmps)) {
         const totalSupplyAmps = supplyAmps * p.motorQuantity;
 
-        let optimalRatio: number;
+        let searchResult: RatioSearchResult<MetricSource> | null;
         try {
-          optimalRatio = minimize(
-            (r) => {
+          searchResult = searchOptimalRatio(
+            (ratioMagnitude) => {
               const states = simulateUp(
                 wpilibc,
                 p,
-                r,
+                ratioMagnitude,
                 totalStatorAmps,
                 totalSupplyAmps,
                 1.5,
               );
               const last = states[states.length - 1];
               return last?.success
-                ? last.timeSeconds
-                : Number.POSITIVE_INFINITY;
+                ? {
+                    timeToGoalSeconds: last.timeSeconds,
+                    energyJoules: last.energyJoules,
+                    peakCurrentAmps: peakSupplyCurrent(states),
+                  }
+                : null;
             },
             {
               lowerBound: MIN_RATIO,
               upperBound: MAX_RATIO,
-              guess: INITIAL_RATIO_GUESS,
+              coarseSamples: RATIO_SEARCH_COARSE_SAMPLES,
+              localSamples: RATIO_SEARCH_LOCAL_SAMPLES,
             },
           );
         } catch {
@@ -334,21 +349,11 @@ export async function optimizeConfiguration(
           continue;
         }
 
-        const states = simulateUp(
-          wpilibc,
-          p,
-          optimalRatio,
-          totalStatorAmps,
-          totalSupplyAmps,
-          1.5,
-        );
-        const last = states[states.length - 1];
-
-        if (!last) {
+        if (!searchResult) {
           allResults.push({
             statorLimitAmps: statorAmps,
             supplyLimitAmps: supplyAmps,
-            optimalRatio,
+            optimalRatio: Number.NaN,
             timeToGoalSeconds: Number.POSITIVE_INFINITY,
             peakCurrentAmps: 0,
             energyJoules: 0,
@@ -360,26 +365,16 @@ export async function optimizeConfiguration(
         allResults.push({
           statorLimitAmps: statorAmps,
           supplyLimitAmps: supplyAmps,
-          optimalRatio,
-          timeToGoalSeconds: last.timeSeconds,
-          peakCurrentAmps: peakSupplyCurrent(states),
-          energyJoules: last.energyJoules,
-          success: last.success,
+          optimalRatio: searchResult.ratio,
+          timeToGoalSeconds: searchResult.metrics.timeToGoalSeconds,
+          peakCurrentAmps: searchResult.metrics.peakCurrentAmps,
+          energyJoules: searchResult.metrics.energyJoules,
+          success: true,
         });
       }
     }
 
-    const successResults = allResults.filter((r) => r.success);
-
-    if (successResults.length === 0) {
-      return { recommended: null, allResults };
-    }
-
-    const recommended = successResults.reduce((best, r) =>
-      r.timeToGoalSeconds < best.timeToGoalSeconds ? r : best,
-    );
-
-    return { recommended, allResults };
+    return reduceConfigOutput(allResults);
   } finally {
     p.wpilibMotor.delete();
   }

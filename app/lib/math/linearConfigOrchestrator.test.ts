@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { orchestrateConfigOptimization } from '~/lib/math/linearConfigOrchestrator';
 import {
+  type ConfigOptResult,
   type OptimizeConfigurationParams,
   optimizeConfiguration,
   optimizeConfigurationCell,
@@ -9,9 +10,7 @@ import {
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 
-// A realistic parameter set mirroring the /linear route defaults, but with a
-// smaller comfortable-limit grid so the test stays fast. maxStator 40 -> 4 rows,
-// maxSupply 20 -> 2 cols => 8 cells.
+// A realistic parameter set mirroring the /linear route defaults.
 function makeParams(
   overrides?: Partial<OptimizeConfigurationParams>,
 ): OptimizeConfigurationParams {
@@ -22,8 +21,8 @@ function makeParams(
     travelDistanceDict: new Measurement(60, 'in').toDict(),
     batteryResistanceDict: new Measurement(0.015, 'Ohm').toDict(),
     batteryVoltageDict: new Measurement(12, 'V').toDict(),
-    maximumComfortableStatorLimitDict: new Measurement(40, 'A').toDict(),
-    maximumComfortableSupplyLimitDict: new Measurement(20, 'A').toDict(),
+    statorInputAmps: 40,
+    supplyInputAmps: 20,
     angleDict: new Measurement(90, 'deg').toDict(),
     efficiency: 1.0,
     cascade: false,
@@ -53,6 +52,79 @@ function runInProcess(params: OptimizeConfigurationParams) {
 }
 
 describe('orchestrateConfigOptimization', () => {
+  it('applies the shared recommendation strategy to the parallel grid', async () => {
+    const params = makeParams({
+      statorInputAmps: 20,
+      supplyInputAmps: 20,
+    });
+    const results: ConfigOptResult[] = [
+      {
+        statorLimitAmps: 10,
+        supplyLimitAmps: 10,
+        optimalRatio: 1,
+        timeToGoalSeconds: 1.01,
+        peakCurrentAmps: 5.1,
+        energyJoules: 20,
+        success: true,
+      },
+      {
+        statorLimitAmps: 10,
+        supplyLimitAmps: 20,
+        optimalRatio: 2,
+        timeToGoalSeconds: 1.04,
+        peakCurrentAmps: 9.9,
+        energyJoules: 10,
+        success: true,
+      },
+      {
+        statorLimitAmps: 20,
+        supplyLimitAmps: 10,
+        optimalRatio: 3,
+        timeToGoalSeconds: 1.05,
+        peakCurrentAmps: 1,
+        energyJoules: 1,
+        success: true,
+      },
+      {
+        statorLimitAmps: 20,
+        supplyLimitAmps: 20,
+        optimalRatio: 4,
+        timeToGoalSeconds: 1.02,
+        peakCurrentAmps: 5.2,
+        energyJoules: 5,
+        success: true,
+      },
+      ...[
+        [30, 10],
+        [30, 20],
+        [30, 30],
+        [40, 10],
+        [40, 20],
+      ].map(([statorLimitAmps, supplyLimitAmps]) => ({
+        statorLimitAmps,
+        supplyLimitAmps,
+        optimalRatio: 5,
+        timeToGoalSeconds: 2,
+        peakCurrentAmps: 100,
+        energyJoules: 100,
+        success: true,
+      })),
+    ];
+    let resultIndex = 0;
+
+    const output = await orchestrateConfigOptimization(params, async () => {
+      const result = results[resultIndex];
+      if (!result) {
+        throw new Error('Unexpected extra configuration cell');
+      }
+      resultIndex += 1;
+      return result;
+    });
+
+    expect(output.recommended).toBe(results[3]);
+    expect(output.allResults).toEqual(results);
+  });
+
   it('produces results identical to the serial optimizeConfiguration (guessed limits)', async () => {
     const params = makeParams();
     const [serial, parallel] = await Promise.all([
@@ -82,18 +154,19 @@ describe('orchestrateConfigOptimization', () => {
     const params = makeParams();
     const parallel = await runInProcess(params);
 
-    expect(parallel.allResults).toHaveLength(8);
+    expect(parallel.allResults).toHaveLength(9);
     expect(
       parallel.allResults.map((r) => [r.statorLimitAmps, r.supplyLimitAmps]),
     ).toEqual([
-      [10, 10],
-      [10, 20],
-      [20, 10],
-      [20, 20],
       [30, 10],
       [30, 20],
+      [30, 30],
       [40, 10],
       [40, 20],
+      [40, 30],
+      [50, 10],
+      [50, 20],
+      [50, 30],
     ]);
   }, 120_000);
 });

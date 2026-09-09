@@ -21,6 +21,7 @@ import { MotorInput } from '~/components/recalc/io/motor';
 import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
 import { OptimalConfigGrid } from '~/components/recalc/optimalConfigGrid';
+import { SelectedConfig } from '~/components/recalc/selectedConfig';
 import { ChartContainer } from '~/components/ui/chart';
 import {
   Collapsible,
@@ -41,6 +42,16 @@ import type {
   OptimizeConfigurationParams,
 } from '~/lib/math/linearOptimizer.worker';
 import optimizerWorkerUrl from '~/lib/math/linearOptimizer.worker?worker&url';
+import {
+  ACCELERATION_UNITS,
+  KA_UNITS,
+  KP_UNITS,
+  KV_UNITS,
+  convertAcrossDomains,
+  metersPerMotorRotation,
+  toLinear,
+  VELOCITY_UNITS,
+} from '~/lib/math/motorRotations';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
@@ -107,12 +118,6 @@ const DEFAULT_PARAMS = {
     new Measurement(0.015, 'Ohm'),
   ),
   cascade: BooleanParam.withDefault(false),
-  maximumComfortableStatorLimit: MeasurementParam.withDefault(
-    new Measurement(80, 'A'),
-  ),
-  maximumComfortableSupplyLimit: MeasurementParam.withDefault(
-    new Measurement(60, 'A'),
-  ),
   enableCustomMaxVelocity: BooleanParam.withDefault(false),
   maxVelocity: MeasurementParam.withDefault(new Measurement(2, 'm/s')),
   enableCustomMaxAcceleration: BooleanParam.withDefault(false),
@@ -154,6 +159,34 @@ function getWorker() {
   return workerInstance;
 }
 
+function exceedsAchievableLimit(
+  requested: Measurement,
+  achievable: Measurement,
+  unit: string,
+) {
+  const requestedValue = requested.to(unit).scalar;
+  const achievableValue = achievable.to(unit).scalar;
+
+  return (
+    Number.isFinite(requestedValue) &&
+    Number.isFinite(achievableValue) &&
+    requestedValue > achievableValue
+  );
+}
+
+function formatAchievableLimit(
+  limit: Measurement,
+  unit: string,
+  conversionFactor: Measurement | null,
+) {
+  const display =
+    limit.isCompatible(unit) || conversionFactor === null
+      ? limit.to(limit.isCompatible(unit) ? unit : limit.units())
+      : convertAcrossDomains(limit, unit, conversionFactor);
+
+  return `${display.scalar.toFixed(2)} ${display.units()}`;
+}
+
 const optimizerPool = getPool<typeof LinearOptimizerWorker>(optimizerWorkerUrl);
 
 export default function Linear() {
@@ -177,10 +210,6 @@ export default function Linear() {
   );
   const [cascade, setCascade] = useState(queryParams.cascade);
   const [optimizationEnabled, setOptimizationEnabled] = useState(true);
-  const [maximumComfortableStatorLimit, setMaximumComfortableStatorLimit] =
-    useState(queryParams.maximumComfortableStatorLimit);
-  const [maximumComfortableSupplyLimit, setMaximumComfortableSupplyLimit] =
-    useState(queryParams.maximumComfortableSupplyLimit);
 
   const [enableCustomMaxVelocity, setEnableCustomMaxVelocity] = useState(
     queryParams.enableCustomMaxVelocity,
@@ -223,6 +252,7 @@ export default function Linear() {
         efficiency,
         cascade,
         rVolts,
+        travelDistance,
       ),
     [
       motor,
@@ -236,18 +266,46 @@ export default function Linear() {
       efficiency,
       cascade,
       rVolts,
+      travelDistance,
     ],
   );
 
+  const rotationFactor = useMemo(
+    () => metersPerMotorRotation(spoolDiameter, ratio),
+    [spoolDiameter, ratio],
+  );
+
   const effectiveMaxVelocity = useMemo(
-    () => (enableCustomMaxVelocity ? maxVelocity : v_max_guessed),
-    [enableCustomMaxVelocity, maxVelocity, v_max_guessed],
+    () =>
+      enableCustomMaxVelocity
+        ? toLinear(maxVelocity, 'm/s', rotationFactor)
+        : v_max_guessed,
+    [enableCustomMaxVelocity, maxVelocity, v_max_guessed, rotationFactor],
   );
 
   const effectiveMaxAcceleration = useMemo(
-    () => (enableCustomMaxAcceleration ? maxAcceleration : a_max_guessed),
-    [enableCustomMaxAcceleration, maxAcceleration, a_max_guessed],
+    () =>
+      enableCustomMaxAcceleration
+        ? toLinear(maxAcceleration, 'm/s^2', rotationFactor)
+        : a_max_guessed,
+    [
+      enableCustomMaxAcceleration,
+      maxAcceleration,
+      a_max_guessed,
+      rotationFactor,
+    ],
   );
+
+  const maxVelocityError =
+    enableCustomMaxVelocity &&
+    exceedsAchievableLimit(effectiveMaxVelocity, v_max_guessed, 'm/s')
+      ? `This custom maximum velocity is higher than the system can achieve with the current motor, gearing, load, and limits. Current achievable limit: ${formatAchievableLimit(v_max_guessed, maxVelocity.units(), rotationFactor)}.`
+      : undefined;
+  const maxAccelerationError =
+    enableCustomMaxAcceleration &&
+    exceedsAchievableLimit(effectiveMaxAcceleration, a_max_guessed, 'm/s^2')
+      ? `This custom maximum acceleration is higher than the system can achieve with the current motor, gearing, load, and limits. Current achievable limit: ${formatAchievableLimit(a_max_guessed, maxAcceleration.units(), rotationFactor)}.`
+      : undefined;
 
   const stallLoad = useMemo(() => {
     return calculateStallLoad(
@@ -460,17 +518,17 @@ export default function Linear() {
     travelDistanceDict: travelDistance.toDict(),
     batteryResistanceDict: batteryResistance.toDict(),
     batteryVoltageDict: supplyVoltage.toDict(),
-    maximumComfortableStatorLimitDict: maximumComfortableStatorLimit.toDict(),
-    maximumComfortableSupplyLimitDict: maximumComfortableSupplyLimit.toDict(),
+    statorInputAmps: userStatorAmps,
+    supplyInputAmps: userSupplyAmps,
     angleDict: angle.toDict(),
     efficiency: efficiency / 100,
     cascade,
     batteryVoltageFilterTimeConstantSeconds: BATTERY_VOLTAGE_FILTER_TC_S,
     maxVelocityMPS: enableCustomMaxVelocity
-      ? maxVelocity.to('m/s').scalar
+      ? toLinear(maxVelocity, 'm/s', rotationFactor).scalar
       : null,
     maxAccelerationMPS2: enableCustomMaxAcceleration
-      ? maxAcceleration.to('m/s^2').scalar
+      ? toLinear(maxAcceleration, 'm/s^2', rotationFactor).scalar
       : null,
     qPositionMeters: qPosition.to('m').scalar,
     qVelocityMPS: qVelocity.to('m/s').scalar,
@@ -514,6 +572,14 @@ export default function Linear() {
     setSelectedCellState({ key: configOptKey, cell });
   };
 
+  const setSelectedConfig = (config: ConfigOptResult) => {
+    setRatio(
+      new Ratio(Number(config.optimalRatio.toFixed(2)), RatioType.REDUCTION),
+    );
+    setStatorLimit(new Measurement(config.statorLimitAmps, 'A'));
+    setSupplyLimit(new Measurement(config.supplyLimitAmps, 'A'));
+  };
+
   const serializedState = useSerializedState(DEFAULT_PARAMS, {
     motor,
     ratio,
@@ -527,8 +593,6 @@ export default function Linear() {
     angle,
     batteryResistance,
     cascade,
-    maximumComfortableStatorLimit,
-    maximumComfortableSupplyLimit,
     enableCustomMaxVelocity,
     maxVelocity,
     enableCustomMaxAcceleration,
@@ -684,14 +748,18 @@ export default function Linear() {
                     <MeasurementInput
                       stateHook={[maxVelocity, setMaxVelocity]}
                       label="Custom"
-                      tooltip="Maximum trapezoidal profile velocity."
+                      tooltip="Maximum trapezoidal profile velocity. Choose motor rotations per second to enter it in rotor units."
+                      error={maxVelocityError}
                       testId="maxVelocity"
+                      units={VELOCITY_UNITS}
                     />
                   ) : (
                     <MeasurementDisplayOutput
                       state={effectiveMaxVelocity}
                       label="Guessed"
                       defaultUnit="in/s"
+                      units={VELOCITY_UNITS}
+                      conversionFactor={rotationFactor}
                     />
                   )}
                 </div>
@@ -713,14 +781,18 @@ export default function Linear() {
                     <MeasurementInput
                       stateHook={[maxAcceleration, setMaxAcceleration]}
                       label="Custom"
-                      tooltip="Maximum trapezoidal profile acceleration."
+                      tooltip="Maximum trapezoidal profile acceleration. Choose motor rotations per second squared to enter it in rotor units."
+                      error={maxAccelerationError}
                       testId="maxAcceleration"
+                      units={ACCELERATION_UNITS}
                     />
                   ) : (
                     <MeasurementDisplayOutput
                       state={effectiveMaxAcceleration}
                       label="Guessed"
                       defaultUnit="in/s2"
+                      units={ACCELERATION_UNITS}
+                      conversionFactor={rotationFactor}
                     />
                   )}
                 </div>
@@ -984,6 +1056,8 @@ export default function Linear() {
                   defaultUnit="V*s^2/m"
                   roundTo={3}
                   testId="kA"
+                  units={KA_UNITS}
+                  conversionFactor={rotationFactor}
                 />
                 <MeasurementDisplayOutput
                   state={kV}
@@ -991,6 +1065,8 @@ export default function Linear() {
                   defaultUnit="V*s/m"
                   roundTo={3}
                   testId="kV"
+                  units={KV_UNITS}
+                  conversionFactor={rotationFactor}
                 />
                 <MeasurementDisplayOutput
                   state={kG}
@@ -1008,6 +1084,8 @@ export default function Linear() {
                   defaultUnit="V/m"
                   roundTo={3}
                   testId="feedbackKP"
+                  units={KP_UNITS}
+                  conversionFactor={rotationFactor}
                 />
                 <MeasurementDisplayOutput
                   state={feedbackGains.kD}
@@ -1015,6 +1093,8 @@ export default function Linear() {
                   defaultUnit="V*s/m"
                   roundTo={3}
                   testId="feedbackKD"
+                  units={KV_UNITS}
+                  conversionFactor={rotationFactor}
                 />
               </div>
             </section>
@@ -1047,95 +1127,13 @@ export default function Linear() {
               />
             </div>
 
-            {/* Right column: settings + selected config */}
+            {/* Right column: selected config */}
             <div className="flex w-full flex-col gap-3 md:w-64 md:shrink-0">
-              <section className="flex flex-col gap-3 rounded-lg border p-4">
-                <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                  Settings
-                </h2>
-                <MeasurementInput
-                  stateHook={[
-                    maximumComfortableStatorLimit,
-                    setMaximumComfortableStatorLimit,
-                  ]}
-                  label="Max Stator Limit"
-                  tooltip="The maximum stator limit that is comfortable for you. Used for recommendations."
-                  testId="maximumComfortableStatorLimit"
-                  labelAbove
-                />
-                <MeasurementInput
-                  stateHook={[
-                    maximumComfortableSupplyLimit,
-                    setMaximumComfortableSupplyLimit,
-                  ]}
-                  label="Max Supply Limit"
-                  tooltip="The maximum supply limit that is comfortable for you. Used for recommendations."
-                  testId="maximumComfortableSupplyLimit"
-                  labelAbove
-                />
-              </section>
-
               {selectedConfigCell?.success && (
-                <section className="flex flex-col gap-3 rounded-lg border p-4">
-                  <h2 className="flex items-center gap-1.5 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                    <div className="size-1.5 rounded-full bg-primary" />
-                    Selected Config
-                  </h2>
-                  <div className="grid grid-cols-2 gap-x-3 gap-y-2">
-                    <div>
-                      <p className="text-xs text-muted-foreground">Stator</p>
-                      <p className="text-sm font-semibold tabular-nums">
-                        {selectedConfigCell.statorLimitAmps}A
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">Supply</p>
-                      <p className="text-sm font-semibold tabular-nums">
-                        {selectedConfigCell.supplyLimitAmps}A
-                      </p>
-                    </div>
-                    <div className="col-span-2">
-                      <p className="text-xs text-muted-foreground">
-                        Optimal Ratio
-                      </p>
-                      <p className="text-sm font-semibold text-primary tabular-nums">
-                        {selectedConfigCell.optimalRatio.toFixed(2)}:1
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">Time</p>
-                      <p className="text-sm font-semibold tabular-nums">
-                        {selectedConfigCell.timeToGoalSeconds.toFixed(3)}s
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">
-                        Peak Supply
-                      </p>
-                      <p className="text-sm font-semibold tabular-nums">
-                        {selectedConfigCell.peakCurrentAmps.toFixed(1)}A
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">Energy</p>
-                      <p className="text-sm font-semibold tabular-nums">
-                        {selectedConfigCell.energyJoules.toFixed(1)}J
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">Avg Power</p>
-                      <p className="text-sm font-semibold tabular-nums">
-                        {selectedConfigCell.timeToGoalSeconds > 0
-                          ? (
-                              selectedConfigCell.energyJoules /
-                              selectedConfigCell.timeToGoalSeconds
-                            ).toFixed(1)
-                          : '—'}
-                        W
-                      </p>
-                    </div>
-                  </div>
-                </section>
+                <SelectedConfig
+                  config={selectedConfigCell}
+                  onSetConfig={setSelectedConfig}
+                />
               )}
             </div>
           </div>

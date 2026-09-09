@@ -1,4 +1,5 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
+import TriangleAlertIcon from '~icons/lucide/triangle-alert';
 
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
@@ -15,6 +16,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '~/components/ui/tooltip';
+import { convertAcrossDomains } from '~/lib/math/motorRotations';
 import Measurement from '~/lib/models/Measurement';
 import type { HasStateHook } from '~/lib/types/common';
 
@@ -50,19 +52,26 @@ export function MeasurementInput({
   label,
   tooltip,
   disabled,
+  error,
   testId,
   labelAbove,
+  units,
 }: HasStateHook<Measurement> & {
   label: string;
   tooltip?: string;
   disabled?: () => boolean;
+  error?: string;
   testId?: string;
   labelAbove?: boolean;
+  units?: string[];
 }) {
   const [meas, setMeas] = stateHook;
   const inputId = useId();
 
-  const kinds = useMemo(() => Measurement.choices(meas), [meas]);
+  const kinds = useMemo(
+    () => units ?? Measurement.choices(meas),
+    [meas, units],
+  );
   const [unit, setUnit] = useState(() => selectableUnit(meas, kinds));
   const [proxyValue, setProxyValue] = useState(() => meas.scalar.toString());
   const lastInternalMeas = useRef(meas);
@@ -116,49 +125,111 @@ export function MeasurementInput({
       </TooltipProvider>
     );
 
+  const errorEl =
+    error === undefined ? null : (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <button
+                type="button"
+                aria-label={error}
+                className="shrink-0 text-destructive"
+                data-testid={
+                  testId ? `${testId}Warning` : 'measurement-input-warning'
+                }
+              >
+                <TriangleAlertIcon className="size-4" />
+              </button>
+            }
+          />
+          <TooltipContent>{error}</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    );
+
   return (
     <div className={labelAbove ? 'flex flex-col' : 'flex flex-row'}>
       {labelEl}
-      <div className="flex w-full flex-row">
-        <Input
-          type="number"
-          id={inputId}
-          placeholder={label}
-          value={proxyValue}
-          onChange={(e) => {
-            if (e.target.value !== '') {
-              setProxyValue(e.target.value);
-            } else {
-              setProxyValue('');
-            }
-          }}
-          className="rounded-r-none disabled:bg-gray-100 disabled:text-gray-900"
-          disabled={disabled?.()}
-          data-testid={testId}
-        />
-        <Select
-          value={unit}
-          onValueChange={(value) => {
-            if (value !== null) setUnit(value);
-          }}
-        >
-          <SelectTrigger
-            className="rounded-l-none"
-            data-testid={testId ? `select${testId}` : undefined}
+      <div className="flex w-full min-w-0 flex-row items-center gap-1">
+        <div className="flex min-w-0 flex-1 flex-row">
+          <Input
+            type="number"
+            id={inputId}
+            placeholder={label}
+            value={proxyValue}
+            onChange={(e) => {
+              if (e.target.value !== '') {
+                setProxyValue(e.target.value);
+              } else {
+                setProxyValue('');
+              }
+            }}
+            className="rounded-r-none disabled:bg-gray-100 disabled:text-gray-900"
+            disabled={disabled?.()}
+            aria-invalid={error === undefined ? undefined : true}
+            data-testid={testId}
+          />
+          <Select
+            value={unit}
+            onValueChange={(value) => {
+              if (value !== null) setUnit(value);
+            }}
           >
-            <SelectValue placeholder="Theme" />
-          </SelectTrigger>
-          <SelectContent>
-            {kinds.map((kind) => (
-              <SelectItem key={kind} value={kind}>
-                {kind}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+            <SelectTrigger
+              className="rounded-l-none"
+              data-testid={testId ? `select${testId}` : undefined}
+            >
+              <SelectValue placeholder="Theme" />
+            </SelectTrigger>
+            <SelectContent>
+              {kinds.map((kind) => (
+                <SelectItem key={kind} value={kind}>
+                  {kind}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        {errorEl}
       </div>
     </div>
   );
+}
+
+/**
+ * The outputs may list units from more than one physical domain -- linear and
+ * motor-rotation, say -- when given a `conversionFactor`. This resolves the
+ * unit the dropdown actually shows and the value under it:
+ *
+ *  - a `unit` no longer in `kinds` (the spool shrank the list) falls back to
+ *    the default;
+ *  - a `unit` in another domain converts through `conversionFactor`;
+ *  - a null `conversionFactor` (degenerate geometry) forces a compatible unit.
+ */
+function resolveDisplay(
+  state: Measurement,
+  unit: string,
+  kinds: string[],
+  defaultUnit: string | undefined,
+  conversionFactor: Measurement | null | undefined,
+) {
+  const fallback = defaultUnit ?? selectableUnit(state, kinds);
+  let displayUnit = kinds.includes(unit) ? unit : fallback;
+
+  if (
+    (conversionFactor === null || conversionFactor === undefined) &&
+    !state.isCompatible(displayUnit)
+  ) {
+    displayUnit = fallback;
+  }
+
+  const value =
+    conversionFactor != null && !state.isCompatible(displayUnit)
+      ? convertAcrossDomains(state, displayUnit, conversionFactor)
+      : state.to(displayUnit);
+
+  return { displayUnit, value };
 }
 
 export function MeasurementOutput({
@@ -169,6 +240,8 @@ export function MeasurementOutput({
   roundTo = 3,
   testId,
   labelAbove,
+  units,
+  conversionFactor,
 }: {
   state: Measurement;
   label: string;
@@ -177,13 +250,25 @@ export function MeasurementOutput({
   roundTo?: number;
   testId?: string;
   labelAbove?: boolean;
+  units?: string[];
+  conversionFactor?: Measurement | null;
 }) {
   const inputId = useId();
-  const kinds = useMemo(() => Measurement.choices(state), [state]);
+  const kinds = useMemo(
+    () => units ?? Measurement.choices(state),
+    [state, units],
+  );
   const [unit, setUnit] = useState(
     () => defaultUnit ?? selectableUnit(state, kinds),
   );
-  const stringified = state.to(unit).scalar.toFixed(roundTo);
+  const { displayUnit, value } = resolveDisplay(
+    state,
+    unit,
+    kinds,
+    defaultUnit,
+    conversionFactor,
+  );
+  const stringified = value.scalar.toFixed(roundTo);
 
   const labelEl =
     tooltip === undefined ? (
@@ -229,9 +314,9 @@ export function MeasurementOutput({
           data-testid={testId}
         />
         <Select
-          value={unit}
-          onValueChange={(value) => {
-            if (value !== null) setUnit(value);
+          value={displayUnit}
+          onValueChange={(next) => {
+            if (next !== null) setUnit(next);
           }}
         >
           <SelectTrigger
@@ -260,6 +345,8 @@ export function MeasurementDisplayOutput({
   tooltip,
   roundTo = 3,
   testId,
+  units,
+  conversionFactor,
 }: {
   state: Measurement;
   label: string;
@@ -267,12 +354,24 @@ export function MeasurementDisplayOutput({
   tooltip?: string;
   roundTo?: number;
   testId?: string;
+  units?: string[];
+  conversionFactor?: Measurement | null;
 }) {
-  const kinds = useMemo(() => Measurement.choices(state), [state]);
+  const kinds = useMemo(
+    () => units ?? Measurement.choices(state),
+    [state, units],
+  );
   const [unit, setUnit] = useState(
     () => defaultUnit ?? selectableUnit(state, kinds),
   );
-  const stringified = state.to(unit).scalar.toFixed(roundTo);
+  const { displayUnit, value } = resolveDisplay(
+    state,
+    unit,
+    kinds,
+    defaultUnit,
+    conversionFactor,
+  );
+  const stringified = value.scalar.toFixed(roundTo);
 
   const inner = (
     <div className="flex flex-col gap-0.5 rounded-lg border bg-muted/30 px-3 py-2">
@@ -285,9 +384,9 @@ export function MeasurementDisplayOutput({
           {stringified}
         </span>
         <Select
-          value={unit}
-          onValueChange={(value) => {
-            if (value !== null) setUnit(value);
+          value={displayUnit}
+          onValueChange={(next) => {
+            if (next !== null) setUnit(next);
           }}
         >
           <SelectTrigger

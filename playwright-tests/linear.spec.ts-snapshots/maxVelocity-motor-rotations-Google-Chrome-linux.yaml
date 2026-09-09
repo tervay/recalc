@@ -31,7 +31,7 @@
 - spinbutton "Stator Limit": "80"
 - combobox: A
 - button "Supply Limit"
-- spinbutton "Supply Limit": "30"
+- spinbutton "Supply Limit": "60"
 - combobox: A
 - button "Supply Voltage"
 - spinbutton "Supply Voltage": "12"
@@ -40,17 +40,19 @@
 - spinbutton "Battery Resistance": "0.015"
 - combobox: Ohm
 - text: Max Velocity
-- switch "Custom"
-- text: Custom Guessed 128.473
-- combobox: in/s
+- switch "Custom" [checked]
+- text: Custom
+- button "Custom"
+- spinbutton "Custom": "40"
+- combobox: rotation/s
 - text: Max Acceleration
 - switch "Custom"
-- text: Custom Guessed 1984.618
+- text: Custom Guessed 3156.980
 - combobox: in/s2
 - button "LQR Tuning":
   - img
   - heading "LQR Tuning" [level=2]
-- text: Time to Goal 0.532
+- text: Time to Goal 0.975
 - combobox: s
 - text: Stall Load 53.653
 - combobox: lbs
@@ -73,7 +75,7 @@
   - listitem:
     - img "Velocity (in/s) legend icon"
     - text: Velocity (in/s)
-- application: 0.0231 0.0751 0.121 0.164 0.2 0.24 0.28 0.32 0.362 0.4 0.44 0.485 0.532 Time (s) -45 0 45 90 135 Velocity (in/s) / Current (A) 0 15 30 45 60 Position (in)
+- application: 0.0311 0.1 0.16 0.231 0.3 0.371 0.451 0.531 0.6 0.671 0.751 0.831 0.9 0.975 Time (s) -70 -35 0 35 70 Velocity (in/s) / Current (A) 0 15 30 45 60 Position (in)
 - text: kA 0.018
 - combobox: V*s^2/m
 - text: kV 3.097

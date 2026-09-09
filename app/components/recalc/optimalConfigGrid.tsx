@@ -53,6 +53,7 @@ function GridCell({
   return (
     <button
       onClick={onSelect}
+      data-testid="optimal-config-cell"
       className={cn(
         'w-full rounded-md border text-center transition-all duration-200',
         isSelected
@@ -92,8 +93,8 @@ export function OptimalConfigGrid({
   const [expanded, setExpanded] = useState(false);
 
   if (!configOptResult) {
-    const SKELETON_COLS = 6;
-    const SKELETON_ROWS = 8;
+    const SKELETON_COLS = 3;
+    const SKELETON_ROWS = 3;
 
     return (
       <div className="flex flex-col gap-4">
@@ -287,6 +288,7 @@ export function OptimalConfigGrid({
                     return (
                       <div
                         key={supply}
+                        data-testid="optimal-config-cell"
                         className="flex items-center justify-center rounded-md border bg-muted/30 p-2"
                       >
                         <span className="text-sm text-muted-foreground">—</span>

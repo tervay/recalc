@@ -4,8 +4,10 @@ import type Ratio from '~/lib/models/Ratio';
 import { MotorRules } from '~/lib/rules';
 
 const CASCADE_LOAD_FACTOR = 2.0;
+const CASCADE_TRAVEL_FACTOR = 0.5;
 const ACCEL_GUESS_FACTOR = 0.8;
 const VELO_GUESS_FACTOR = 0.9;
+const PROFILE_TRACKING_MARGIN = 2.0;
 
 export function calculateStallLoad(
   motor: Motor,
@@ -44,6 +46,7 @@ export function calculateGuessedLimits(
   efficiency: number,
   cascade: boolean,
   rVolts: Measurement = new Measurement(12, 'V'),
+  travelDistance: Measurement | null = null,
 ) {
   if (
     Measurement.anyAreZero(spoolDiameter, ratio.asNumber(), load, efficiency)
@@ -120,5 +123,137 @@ export function calculateGuessedLimits(
     v_max_theoretical.mul(VELO_GUESS_FACTOR),
   );
 
-  return { v_max_guessed, a_max_guessed };
+  if (travelDistance === null) {
+    return { v_max_guessed, a_max_guessed };
+  }
+
+  const feasible = powerFeasibleProfile({
+    distanceMeters:
+      travelDistance.to('m').scalar * (cascade ? CASCADE_TRAVEL_FACTOR : 1),
+    velocityCapMPS: v_max_theoretical.to('m/s').scalar,
+    accelCapMPS2: a_max_theoretical.to('m/s^2').scalar,
+    guessVelocityMPS: v_max_guessed.to('m/s').scalar,
+    guessAccelMPS2: a_max_guessed.to('m/s^2').scalar,
+    massKg: m.to('kg').scalar,
+    gravityForceN: F_gravity.to('N').scalar,
+    resistanceOhms: R_motor.to('Ohm').scalar,
+    motorQuantity: motor.quantity,
+    statorLimitAmps: I_stator_limit.to('A').scalar,
+    supplyPowerWatts: powerLimit.to('W').scalar,
+    controlVolts: rVolts.to('V').scalar,
+    forcePerAmp: Kt.mul(G).mul(eta).div(r).baseScalar,
+    mpsPerBackEmfVolt: new Measurement(1, 'V').mul(Kv).mul(r).div(G).removeRad()
+      .baseScalar,
+  });
+
+  if (feasible === null) {
+    return { v_max_guessed, a_max_guessed };
+  }
+
+  return {
+    v_max_guessed: Measurement.max(
+      new Measurement(0.1, 'm/s'),
+      new Measurement(feasible.velocityMPS * VELO_GUESS_FACTOR, 'm/s'),
+    ),
+    a_max_guessed: Measurement.max(
+      new Measurement(0.1, 'm/s^2'),
+      new Measurement(feasible.accelMPS2 * ACCEL_GUESS_FACTOR, 'm/s^2'),
+    ),
+  };
+}
+
+interface PowerFeasibleInput {
+  distanceMeters: number;
+  velocityCapMPS: number;
+  accelCapMPS2: number;
+  guessVelocityMPS: number;
+  guessAccelMPS2: number;
+  massKg: number;
+  gravityForceN: number;
+  resistanceOhms: number;
+  motorQuantity: number;
+  statorLimitAmps: number;
+  supplyPowerWatts: number;
+  controlVolts: number;
+  forcePerAmp: number;
+  mpsPerBackEmfVolt: number;
+}
+
+function powerFeasibleProfile(
+  i: PowerFeasibleInput,
+): { velocityMPS: number; accelMPS2: number } | null {
+  if (
+    !Number.isFinite(i.distanceMeters) ||
+    i.distanceMeters <= 0 ||
+    i.velocityCapMPS <= 0 ||
+    i.accelCapMPS2 <= 0
+  ) {
+    return null;
+  }
+
+  const achievableAccelAt = (velocityMPS: number): number => {
+    const backEmfVolts = velocityMPS / i.mpsPerBackEmfVolt;
+    const supplyLimitedAmps =
+      (-backEmfVolts +
+        Math.sqrt(
+          backEmfVolts * backEmfVolts +
+            4 * i.resistanceOhms * i.supplyPowerWatts,
+        )) /
+      (2 * i.resistanceOhms);
+    const voltageLimitedAmps =
+      (Math.max(0, i.controlVolts - backEmfVolts) / i.resistanceOhms) *
+      i.motorQuantity;
+    const effectiveAmps = Math.min(
+      i.statorLimitAmps,
+      supplyLimitedAmps,
+      voltageLimitedAmps,
+    );
+    return (effectiveAmps * i.forcePerAmp - i.gravityForceN) / i.massKg;
+  };
+
+  const peakVelocity = (cruiseMPS: number, accel: number): number =>
+    Math.min(cruiseMPS, Math.sqrt(accel * i.distanceMeters));
+
+  const guessPeak = peakVelocity(i.guessVelocityMPS, i.guessAccelMPS2);
+  if (
+    i.guessAccelMPS2 <=
+    PROFILE_TRACKING_MARGIN * achievableAccelAt(guessPeak)
+  ) {
+    return null;
+  }
+
+  let best: {
+    velocityMPS: number;
+    accelMPS2: number;
+    timeSeconds: number;
+  } | null = null;
+
+  const steps = 400;
+  for (let step = 1; step <= steps; step++) {
+    const cruiseMPS = (step / steps) * i.velocityCapMPS;
+    const accel = Math.min(
+      i.accelCapMPS2,
+      PROFILE_TRACKING_MARGIN *
+        achievableAccelAt(peakVelocity(cruiseMPS, i.accelCapMPS2)),
+    );
+    if (accel <= 0.1) {
+      continue;
+    }
+
+    let velocityMPS: number;
+    let timeSeconds: number;
+    if ((cruiseMPS * cruiseMPS) / accel >= i.distanceMeters) {
+      velocityMPS = Math.sqrt(accel * i.distanceMeters);
+      timeSeconds = 2 * Math.sqrt(i.distanceMeters / accel);
+    } else {
+      velocityMPS = cruiseMPS;
+      timeSeconds = cruiseMPS / accel + i.distanceMeters / cruiseMPS;
+    }
+
+    if (best === null || timeSeconds < best.timeSeconds) {
+      best = { velocityMPS, accelMPS2: accel, timeSeconds };
+    }
+  }
+
+  return best;
 }

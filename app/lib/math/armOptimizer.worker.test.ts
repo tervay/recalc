@@ -4,6 +4,7 @@ import {
   type ConfigOptOutput,
   optimizeConfiguration,
 } from '~/lib/math/armOptimizer.worker';
+import { reduceConfigOutput } from '~/lib/math/optimizerUtils';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 
@@ -15,15 +16,15 @@ const maxAngle = new Measurement(90, 'deg');
 const statorVoltage = new Measurement(12, 'V');
 const supplyVoltage = new Measurement(12, 'V');
 const batteryResistance = new Measurement(0.015, 'Ohm');
-const maxStator = new Measurement(80, 'A');
-const maxSupply = new Measurement(60, 'A');
+const statorInput = new Measurement(80, 'A');
+const supplyInput = new Measurement(60, 'A');
 
 const MIN_RATIO = 5;
 const MAX_RATIO = 500;
 
 function run(overrides?: {
-  maxStator?: Measurement;
-  maxSupply?: Measurement;
+  statorInput?: Measurement;
+  supplyInput?: Measurement;
   efficiency?: number;
 }) {
   return optimizeConfiguration(
@@ -35,8 +36,8 @@ function run(overrides?: {
     statorVoltage.toDict(),
     batteryResistance.toDict(),
     supplyVoltage.toDict(),
-    (overrides?.maxStator ?? maxStator).toDict(),
-    (overrides?.maxSupply ?? maxSupply).toDict(),
+    overrides?.statorInput?.to('A').scalar ?? statorInput.to('A').scalar,
+    overrides?.supplyInput?.to('A').scalar ?? supplyInput.to('A').scalar,
     overrides?.efficiency ?? 1.0,
   );
 }
@@ -49,8 +50,7 @@ describe('armOptimizer', () => {
   }, 60_000);
 
   it('returns a full stator x supply grid', () => {
-    // makeGrid(80) -> 8 stator rows, makeGrid(60) -> 6 supply cols => 48 cells.
-    expect(sharedResult.allResults).toHaveLength(48);
+    expect(sharedResult.allResults).toHaveLength(9);
 
     const statorLimits = [
       ...new Set(sharedResult.allResults.map((r) => r.statorLimitAmps)),
@@ -59,11 +59,11 @@ describe('armOptimizer', () => {
       ...new Set(sharedResult.allResults.map((r) => r.supplyLimitAmps)),
     ].sort((a, b) => a - b);
 
-    expect(statorLimits).toEqual([10, 20, 30, 40, 50, 60, 70, 80]);
-    expect(supplyLimits).toEqual([10, 20, 30, 40, 50, 60]);
+    expect(statorLimits).toEqual([70, 80, 90]);
+    expect(supplyLimits).toEqual([50, 60, 70]);
   });
 
-  it('recommends the fastest successful configuration', () => {
+  it('uses the shared bucketed recommendation strategy', () => {
     expect(sharedResult.recommended).not.toBeNull();
     const recommended = sharedResult.recommended!;
     expect(recommended.success).toBe(true);
@@ -71,8 +71,9 @@ describe('armOptimizer', () => {
     const successResults = sharedResult.allResults.filter((r) => r.success);
     expect(successResults.length).toBeGreaterThan(0);
 
-    const fastest = Math.min(...successResults.map((r) => r.timeToGoalSeconds));
-    expect(recommended.timeToGoalSeconds).toBeCloseTo(fastest, 6);
+    expect(recommended).toBe(
+      reduceConfigOutput(sharedResult.allResults).recommended,
+    );
   });
 
   it('keeps optimal ratios within the search bracket for successful cells', () => {
@@ -96,13 +97,13 @@ describe('armOptimizer', () => {
       statorVoltage.toDict(),
       batteryResistance.toDict(),
       supplyVoltage.toDict(),
-      new Measurement(10, 'A').toDict(),
-      new Measurement(10, 'A').toDict(),
+      10,
+      10,
       1.0,
     );
 
     expect(result.recommended).toBeNull();
-    expect(result.allResults).toHaveLength(1);
+    expect(result.allResults).toHaveLength(9);
     expect(result.allResults.every((r) => !r.success)).toBe(true);
   });
 });
@@ -116,8 +117,8 @@ describe('armOptimizer wasm cleanup', () => {
     const toWpilibMotorSpy = vi.spyOn(Motor.prototype, 'toWpilibMotor');
 
     await run({
-      maxStator: new Measurement(10, 'A'),
-      maxSupply: new Measurement(10, 'A'),
+      statorInput: new Measurement(10, 'A'),
+      supplyInput: new Measurement(10, 'A'),
     });
 
     expect(toWpilibMotorSpy).toHaveBeenCalledTimes(1);
