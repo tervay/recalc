@@ -139,6 +139,8 @@ describe('calculateAllRecommendedRatiosAndStallTorques', () => {
 
     expect(results.map((r) => r.motor.identifier)).toEqual([
       'V5 Smart Motor (Red)',
+      'V5 Smart Motor (Green)',
+      'V5 Smart Motor (Blue)',
     ]);
   });
 
