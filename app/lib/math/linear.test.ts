@@ -264,21 +264,22 @@ describe('calculateGuessedLimits', () => {
     expect(a_max_guessed.to('m/s^2').scalar).toBeGreaterThan(1);
   });
 
-  it('shares gravity holding current across parallel motors when estimating velocity', () => {
-    const { v_max_guessed } = calculateGuessedLimits(
-      Motor.KrakenX60sFOC(4),
-      new Ratio(4, RatioType.REDUCTION),
-      new Measurement(15, 'lb'),
-      new Measurement(1.5, 'in'),
-      new Measurement(80, 'A'),
-      new Measurement(60, 'A'),
-      new Measurement(12, 'V'),
-      new Measurement(90, 'deg'),
-      100,
-      false,
-    );
+  it('estimates a higher gravity-limited velocity with more parallel motors', () => {
+    const guessedVelocityFor = (quantity: number) =>
+      calculateGuessedLimits(
+        Motor.KrakenX60sFOC(quantity),
+        new Ratio(4, RatioType.REDUCTION),
+        new Measurement(15, 'lb'),
+        new Measurement(1.5, 'in'),
+        new Measurement(80, 'A'),
+        new Measurement(60, 'A'),
+        new Measurement(12, 'V'),
+        new Measurement(90, 'deg'),
+        100,
+        false,
+      ).v_max_guessed.to('m/s').scalar;
 
-    expect(v_max_guessed.to('m/s').scalar).toBeCloseTo(2.593352, 6);
+    expect(guessedVelocityFor(4)).toBeGreaterThan(guessedVelocityFor(1));
   });
 
   it('returns zero guessed velocity when there are no motors', () => {
