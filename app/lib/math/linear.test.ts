@@ -264,6 +264,40 @@ describe('calculateGuessedLimits', () => {
     expect(a_max_guessed.to('m/s^2').scalar).toBeGreaterThan(1);
   });
 
+  it('shares gravity holding current across parallel motors when estimating velocity', () => {
+    const { v_max_guessed } = calculateGuessedLimits(
+      Motor.KrakenX60sFOC(4),
+      new Ratio(4, RatioType.REDUCTION),
+      new Measurement(15, 'lb'),
+      new Measurement(1.5, 'in'),
+      new Measurement(80, 'A'),
+      new Measurement(60, 'A'),
+      new Measurement(12, 'V'),
+      new Measurement(90, 'deg'),
+      100,
+      false,
+    );
+
+    expect(v_max_guessed.to('m/s').scalar).toBeCloseTo(2.593352, 6);
+  });
+
+  it('returns zero guessed velocity when there are no motors', () => {
+    const { v_max_guessed } = calculateGuessedLimits(
+      Motor.KrakenX60sFOC(0),
+      new Ratio(4, RatioType.REDUCTION),
+      new Measurement(15, 'lb'),
+      new Measurement(1.5, 'in'),
+      new Measurement(80, 'A'),
+      new Measurement(60, 'A'),
+      new Measurement(12, 'V'),
+      new Measurement(90, 'deg'),
+      100,
+      false,
+    );
+
+    expect(v_max_guessed.to('m/s').scalar).toBe(0);
+  });
+
   it('never returns the 0.1 floor for a reasonable mechanism', () => {
     const motor = Motor.KrakenX60sFOC(2);
     const ratio = new Ratio(2, RatioType.REDUCTION);
@@ -501,6 +535,24 @@ describe('calculateGuessedLimits', () => {
     );
   });
 
+  it('uses parallel resistance when supply power limits acceleration', () => {
+    const guessedAccelerationFor = (quantity: number) =>
+      calculateGuessedLimits(
+        Motor.KrakenX60sFOC(quantity),
+        new Ratio(2, RatioType.REDUCTION),
+        new Measurement(5 * quantity, 'lb'),
+        new Measurement(1, 'in'),
+        new Measurement(1000, 'A'),
+        new Measurement(1, 'A'),
+        new Measurement(12, 'V'),
+        new Measurement(0, 'deg'),
+        100,
+        false,
+      ).a_max_guessed.to('m/s^2').scalar;
+
+    expect(guessedAccelerationFor(4)).toBeCloseTo(guessedAccelerationFor(1), 6);
+  });
+
   const GRAVITY_MPS2 = 9.80665;
 
   function peakSupplyWatts(
@@ -555,6 +607,39 @@ describe('calculateGuessedLimits', () => {
         travelMeters,
       ),
     ).toBeLessThan(2 * budget);
+  });
+
+  it('uses parallel resistance in a distance-aware supply-limited profile', () => {
+    const guessedProfileFor = (quantity: number) => {
+      const result = calculateGuessedLimits(
+        Motor.KrakenX60sFOC(quantity),
+        new Ratio(1.75, RatioType.REDUCTION),
+        new Measurement(5 * quantity, 'lb'),
+        new Measurement(1, 'in'),
+        new Measurement(50, 'A'),
+        new Measurement(10, 'A'),
+        new Measurement(12, 'V'),
+        new Measurement(90, 'deg'),
+        100,
+        false,
+        new Measurement(12, 'V'),
+        new Measurement(60, 'in'),
+      );
+
+      return {
+        accelerationMPS2: result.a_max_guessed.to('m/s^2').scalar,
+        velocityMPS: result.v_max_guessed.to('m/s').scalar,
+      };
+    };
+
+    const oneMotor = guessedProfileFor(1);
+    const fourMotors = guessedProfileFor(4);
+
+    expect(fourMotors.velocityMPS).toBeCloseTo(oneMotor.velocityMPS, 6);
+    expect(fourMotors.accelerationMPS2).toBeCloseTo(
+      oneMotor.accelerationMPS2,
+      6,
+    );
   });
 
   it('leaves an already-feasible profile untouched when given a distance', () => {

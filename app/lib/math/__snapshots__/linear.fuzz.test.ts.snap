@@ -115,9 +115,9 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 2.510064,
     },
     {
-      "accelerationMps2": 174.6739,
+      "accelerationMps2": 179.5622,
       "name": "kraken-x60-2 load=1 spool=0.5 ratio=1 stator=100 supply=60 angle=90 efficiency=50 cascade=false",
-      "velocityMps": 3.483588,
+      "velocityMps": 3.479125,
     },
     {
       "accelerationMps2": 1926.031,
@@ -127,12 +127,12 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
     {
       "accelerationMps2": 88.09661,
       "name": "kraken-x60-2 load=1 spool=2 ratio=1 stator=60 supply=60 angle=-90 efficiency=50 cascade=false",
-      "velocityMps": 15.08796,
+      "velocityMps": 14.85876,
     },
     {
-      "accelerationMps2": 172.197,
+      "accelerationMps2": 179.7136,
       "name": "kraken-x60-2 load=1 spool=2 ratio=4 stator=100 supply=20 angle=45 efficiency=90 cascade=true",
-      "velocityMps": 3.471308,
+      "velocityMps": 3.463826,
     },
     {
       "accelerationMps2": 8.91681,
@@ -142,22 +142,22 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
     {
       "accelerationMps2": 24.2552,
       "name": "kraken-x60-2 load=1 spool=6 ratio=4 stator=20 supply=60 angle=90 efficiency=90 cascade=true",
-      "velocityMps": 10.68566,
+      "velocityMps": 10.82891,
     },
     {
       "accelerationMps2": 529.4611,
       "name": "kraken-x60-2 load=1 spool=6 ratio=20 stator=60 supply=60 angle=45 efficiency=50 cascade=false",
-      "velocityMps": 2.187139,
+      "velocityMps": 2.190786,
     },
     {
-      "accelerationMps2": 55.83438,
+      "accelerationMps2": 55.49352,
       "name": "kraken-x60-2 load=10 spool=0.5 ratio=1 stator=100 supply=60 angle=-90 efficiency=90 cascade=true",
-      "velocityMps": 3.250158,
+      "velocityMps": 3.253616,
     },
     {
       "accelerationMps2": 206.1581,
       "name": "kraken-x60-2 load=10 spool=0.5 ratio=20 stator=20 supply=20 angle=90 efficiency=50 cascade=false",
-      "velocityMps": 0.1821531,
+      "velocityMps": 0.1825113,
     },
     {
       "accelerationMps2": 7.222616,
@@ -165,14 +165,14 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 14.62955,
     },
     {
-      "accelerationMps2": 36.0597,
+      "accelerationMps2": 37.11001,
       "name": "kraken-x60-2 load=10 spool=2 ratio=4 stator=100 supply=20 angle=-90 efficiency=50 cascade=false",
-      "velocityMps": 3.470627,
+      "velocityMps": 3.458583,
     },
     {
-      "accelerationMps2": 235.2064,
+      "accelerationMps2": 35.83176,
       "name": "kraken-x60-2 load=10 spool=2 ratio=20 stator=100 supply=60 angle=45 efficiency=90 cascade=true",
-      "velocityMps": 0.7224735,
+      "velocityMps": 0.712436,
     },
     {
       "accelerationMps2": 3.566724,
@@ -180,19 +180,19 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 10.97216,
     },
     {
-      "accelerationMps2": 14.95681,
+      "accelerationMps2": 16.4681,
       "name": "kraken-x60-2 load=10 spool=6 ratio=20 stator=60 supply=20 angle=90 efficiency=90 cascade=true",
-      "velocityMps": 2.07463,
+      "velocityMps": 2.073017,
     },
     {
-      "accelerationMps2": 0.3571325,
+      "accelerationMps2": 1.366261,
       "name": "kraken-x60-2 load=50 spool=0.5 ratio=1 stator=100 supply=20 angle=45 efficiency=50 cascade=false",
-      "velocityMps": 0.3213409,
+      "velocityMps": 0.6873611,
     },
     {
       "accelerationMps2": 46.36594,
       "name": "kraken-x60-2 load=50 spool=0.5 ratio=20 stator=20 supply=20 angle=-90 efficiency=90 cascade=true",
-      "velocityMps": 0.1868486,
+      "velocityMps": 0.184859,
     },
     {
       "accelerationMps2": 0.1,
@@ -207,7 +207,7 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
     {
       "accelerationMps2": 15.69064,
       "name": "kraken-x60-2 load=50 spool=2 ratio=20 stator=100 supply=60 angle=-90 efficiency=50 cascade=false",
-      "velocityMps": 0.7887789,
+      "velocityMps": 0.7601282,
     },
     {
       "accelerationMps2": 0.1,
@@ -215,9 +215,9 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 0.1,
     },
     {
-      "accelerationMps2": 6.798159,
+      "accelerationMps2": 7.144154,
       "name": "kraken-x60-2 load=50 spool=6 ratio=20 stator=60 supply=20 angle=0 efficiency=50 cascade=false",
-      "velocityMps": 2.079225,
+      "velocityMps": 2.073739,
     },
     {
       "accelerationMps2": 114.7488,

@@ -49,7 +49,13 @@ export function calculateGuessedLimits(
   travelDistance: Measurement | null = null,
 ) {
   if (
-    Measurement.anyAreZero(spoolDiameter, ratio.asNumber(), load, efficiency)
+    Measurement.anyAreZero(
+      spoolDiameter,
+      ratio.asNumber(),
+      load,
+      efficiency,
+      motor.quantity,
+    )
   ) {
     return {
       v_max_guessed: new Measurement(0, 'm/s'),
@@ -71,6 +77,7 @@ export function calculateGuessedLimits(
   const voltage = motor.voltage;
 
   const R_motor = voltage.div(stallCurrent);
+  const R_equivalent = R_motor.div(motor.quantity);
   const Kt = motor.kT;
   const Kv = motor.kV;
 
@@ -78,7 +85,7 @@ export function calculateGuessedLimits(
   // At stall: Pin = Pout => V_batt * I_supply = I_stator^2 * R
   const I_supply_limit = supplyLimit.mul(motor.quantity);
   const powerLimit = supplyVoltage.mul(I_supply_limit);
-  const I_stator_max_from_supply_sq = powerLimit.div(R_motor);
+  const I_stator_max_from_supply_sq = powerLimit.div(R_equivalent);
   const I_stator_max_from_supply = new Measurement(
     Math.sqrt(Math.max(0, I_stator_max_from_supply_sq.to('A^2').scalar)),
     'A',
@@ -102,13 +109,14 @@ export function calculateGuessedLimits(
   // 2. Max Velocity (Voltage, Supply, or Control Effort Limited)
   // Holding current needed to fight gravity at steady state (a=0)
   const I_gravity = F_gravity.div(Kt.mul(G).mul(eta).div(r));
+  const V_resistance_drop = I_gravity.mul(R_equivalent);
 
   // Velocity is limited by Back-EMF (V_emf).
-  const V_emf_voltage_limited = supplyVoltage.sub(I_gravity.mul(R_motor));
+  const V_emf_voltage_limited = supplyVoltage.sub(V_resistance_drop);
   const V_emf_supply_limited = powerLimit
     .div(Measurement.max(new Measurement(0.01, 'A'), I_gravity))
-    .sub(I_gravity.mul(R_motor));
-  const V_emf_rVolts_limited = rVolts.sub(I_gravity.mul(R_motor));
+    .sub(V_resistance_drop);
+  const V_emf_rVolts_limited = rVolts.sub(V_resistance_drop);
 
   const V_emf_max = Measurement.min(
     Measurement.min(
@@ -136,8 +144,7 @@ export function calculateGuessedLimits(
     guessAccelMPS2: a_max_guessed.to('m/s^2').scalar,
     massKg: m.to('kg').scalar,
     gravityForceN: F_gravity.to('N').scalar,
-    resistanceOhms: R_motor.to('Ohm').scalar,
-    motorQuantity: motor.quantity,
+    equivalentResistanceOhms: R_equivalent.to('Ohm').scalar,
     statorLimitAmps: I_stator_limit.to('A').scalar,
     supplyPowerWatts: powerLimit.to('W').scalar,
     controlVolts: rVolts.to('V').scalar,
@@ -170,8 +177,7 @@ interface PowerFeasibleInput {
   guessAccelMPS2: number;
   massKg: number;
   gravityForceN: number;
-  resistanceOhms: number;
-  motorQuantity: number;
+  equivalentResistanceOhms: number;
   statorLimitAmps: number;
   supplyPowerWatts: number;
   controlVolts: number;
@@ -197,12 +203,11 @@ function powerFeasibleProfile(
       (-backEmfVolts +
         Math.sqrt(
           backEmfVolts * backEmfVolts +
-            4 * i.resistanceOhms * i.supplyPowerWatts,
+            4 * i.equivalentResistanceOhms * i.supplyPowerWatts,
         )) /
-      (2 * i.resistanceOhms);
+      (2 * i.equivalentResistanceOhms);
     const voltageLimitedAmps =
-      (Math.max(0, i.controlVolts - backEmfVolts) / i.resistanceOhms) *
-      i.motorQuantity;
+      Math.max(0, i.controlVolts - backEmfVolts) / i.equivalentResistanceOhms;
     const effectiveAmps = Math.min(
       i.statorLimitAmps,
       supplyLimitedAmps,
