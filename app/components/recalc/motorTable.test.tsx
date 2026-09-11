@@ -47,6 +47,8 @@ const NAMES_SORTED_ASCENDING = [
   'NeveRest',
   'Snowblower',
   'Thrifty Pulsar',
+  'V5 Smart Motor (Blue)',
+  'V5 Smart Motor (Green)',
   'V5 Smart Motor (Red)',
   '775 RedLine',
   '775pro',

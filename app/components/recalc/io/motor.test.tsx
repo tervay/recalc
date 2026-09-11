@@ -62,6 +62,8 @@ const MOTOR_NAMES = [
   'Modern Robotics',
   // Other
   'V5 Smart Motor (Red)',
+  'V5 Smart Motor (Green)',
+  'V5 Smart Motor (Blue)',
 ];
 
 /** One motor per group, to prove the grouping does not break selection. */
