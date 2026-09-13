@@ -86,7 +86,7 @@
     "vite-plugin-sitemap": "0.8.2",
     "vitest": "5.0.0",
     "yaml": "2.9.0",
-    "zod": "4.5.4"
+    "zod": "4.6.1"
   },
   "engines": {
     "node": ">=24"
