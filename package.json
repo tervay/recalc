@@ -73,7 +73,7 @@
     "node-fetch-cache": "5.1.0",
     "oxfmt": "0.67.0",
     "oxlint": "1.82.0",
-    "oxlint-tailwindcss": "1.10.2",
+    "oxlint-tailwindcss": "1.11.1",
     "oxlint-tsgolint": "7.0.2001",
     "p-limit": "7.3.2",
     "tailwindcss": "4.3.3",
