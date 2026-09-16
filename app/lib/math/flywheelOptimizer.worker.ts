@@ -230,7 +230,7 @@ export async function optimizeConfiguration(
                 ratioMagnitude,
                 totalStatorAmps,
                 totalSupplyAmps,
-                1.5,
+                FLYWHEEL_SIMULATION_TIMEOUT_SECONDS,
               );
               const last = states[states.length - 1];
               return last?.success

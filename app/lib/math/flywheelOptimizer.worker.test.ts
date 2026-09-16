@@ -63,6 +63,33 @@ describe('flywheelOptimizer optimizeConfiguration', () => {
     );
   });
 
+  it('finds a configuration that only reaches the target between 1.5s and 3s', async () => {
+    // 4x Kraken X60 FOC against a heavy 0.0512 kg*m^2 load only reaches 3150
+    // rpm in ~2.2s, past the old 1.5s per-trial cutoff but within the 3s
+    // ceiling used elsewhere in the flywheel simulation.
+    const heavyMotor = Motor.KrakenX60sFOC(4);
+    const heavyMoi = new Measurement(0.0512, 'kg*m2');
+    const heavyTargetRpm = new Measurement(3150, 'rpm');
+
+    const result = await optimizeConfiguration(
+      heavyMotor.toDict(),
+      heavyMoi.toDict(),
+      heavyTargetRpm.toDict(),
+      statorVoltage.toDict(),
+      batteryResistance.toDict(),
+      new Measurement(12.6, 'V').toDict(),
+      110,
+      60,
+      0.94,
+      0.1,
+    );
+
+    expect(result.recommended).not.toBeNull();
+    expect(result.recommended!.success).toBe(true);
+    expect(result.recommended!.timeToGoalSeconds).toBeGreaterThan(1.5);
+    expect(result.recommended!.timeToGoalSeconds).toBeLessThan(3);
+  }, 60_000);
+
   it('reports no recommendation when the target speed is unreachable', async () => {
     // An unreachably high target speed cannot be hit at any ratio within the
     // search bracket, so every cell fails.
