@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   buildComparisonChartData,
   buildMotorChartData,
+  gearMotorChartDataToSameSpeed,
   type MotorChartRow,
 } from '~/lib/math/motors';
 import type { WpilibMotorSimState } from '~/lib/math/motors.worker';
@@ -176,4 +177,152 @@ describe('buildComparisonChartData', () => {
 
     expect(result.at(-1)!.x).toBe(6000);
   });
+});
+
+describe('gearMotorChartDataToSameSpeed', () => {
+  const motorARows = [
+    chartRow({
+      angularVelocityRPM: 3000,
+      currentDrawAmps: 30,
+      torqueNewtonMeters: 1.5,
+      efficiencyPercent: 80,
+      percentOfFreeSpeed: 50,
+    }),
+    chartRow({
+      angularVelocityRPM: 6000,
+      currentDrawAmps: 10,
+      torqueNewtonMeters: 0.25,
+      efficiencyPercent: 60,
+      percentOfFreeSpeed: 100,
+    }),
+  ];
+  const motorBRows = [
+    chartRow({ angularVelocityRPM: 1500, torqueNewtonMeters: 2 }),
+    chartRow({ angularVelocityRPM: 3000, torqueNewtonMeters: 0 }),
+  ];
+
+  it('divides the faster motor speed by the required reduction', () => {
+    const result = gearMotorChartDataToSameSpeed({
+      motorARows,
+      motorAFreeSpeedRPM: 6000,
+      motorBRows,
+      motorBFreeSpeedRPM: 3000,
+    });
+
+    expect(result.motorARows.map((r) => r.angularVelocityRPM)).toEqual([
+      1500, 3000,
+    ]);
+  });
+
+  it('multiplies the faster motor torque by the required reduction', () => {
+    const result = gearMotorChartDataToSameSpeed({
+      motorARows,
+      motorAFreeSpeedRPM: 6000,
+      motorBRows,
+      motorBFreeSpeedRPM: 3000,
+    });
+
+    expect(result.motorARows.map((r) => r.torqueNewtonMeters)).toEqual([
+      3, 0.5,
+    ]);
+  });
+
+  it('gears motor B when motor B has the higher free speed', () => {
+    const result = gearMotorChartDataToSameSpeed({
+      motorARows: motorBRows,
+      motorAFreeSpeedRPM: 3000,
+      motorBRows: motorARows,
+      motorBFreeSpeedRPM: 6000,
+    });
+
+    expect(
+      result.motorBRows.map((r) => ({
+        angularVelocityRPM: r.angularVelocityRPM,
+        torqueNewtonMeters: r.torqueNewtonMeters,
+      })),
+    ).toEqual([
+      { angularVelocityRPM: 1500, torqueNewtonMeters: 3 },
+      { angularVelocityRPM: 3000, torqueNewtonMeters: 0.5 },
+    ]);
+  });
+
+  it('leaves current, efficiency, and percent of free speed unchanged', () => {
+    const result = gearMotorChartDataToSameSpeed({
+      motorARows,
+      motorAFreeSpeedRPM: 6000,
+      motorBRows,
+      motorBFreeSpeedRPM: 3000,
+    });
+
+    expect(
+      result.motorARows.map((r) => ({
+        currentDrawAmps: r.currentDrawAmps,
+        efficiencyPercent: r.efficiencyPercent,
+        percentOfFreeSpeed: r.percentOfFreeSpeed,
+      })),
+    ).toEqual([
+      {
+        currentDrawAmps: 30,
+        efficiencyPercent: 80,
+        percentOfFreeSpeed: 50,
+      },
+      {
+        currentDrawAmps: 10,
+        efficiencyPercent: 60,
+        percentOfFreeSpeed: 100,
+      },
+    ]);
+  });
+
+  it('leaves both motors unchanged when their free speeds are equal', () => {
+    const result = gearMotorChartDataToSameSpeed({
+      motorARows,
+      motorAFreeSpeedRPM: 6000,
+      motorBRows,
+      motorBFreeSpeedRPM: 6000,
+    });
+
+    expect(result).toEqual({ motorARows, motorBRows });
+  });
+
+  it.each<[string, number, number]>([
+    ['zero motor A free speed', 0, 3000],
+    ['negative motor A free speed', -6000, 3000],
+    ['non-finite motor A free speed', Number.NaN, 3000],
+    ['zero motor B free speed', 6000, 0],
+    ['negative motor B free speed', 6000, -3000],
+    ['non-finite motor B free speed', 6000, Number.POSITIVE_INFINITY],
+  ])(
+    'leaves both motors unchanged for %s',
+    (_, motorAFreeSpeedRPM, motorBFreeSpeedRPM) => {
+      const result = gearMotorChartDataToSameSpeed({
+        motorARows,
+        motorAFreeSpeedRPM,
+        motorBRows,
+        motorBFreeSpeedRPM,
+      });
+
+      expect(result).toEqual({ motorARows, motorBRows });
+    },
+  );
+
+  it.each<[string, MotorChartRow[], MotorChartRow[]]>([
+    ['motor A', [], motorBRows],
+    ['motor B', motorARows, []],
+  ])(
+    'leaves the available rows unchanged when %s rows are missing',
+    (_, availableMotorARows, availableMotorBRows) => {
+      const result = gearMotorChartDataToSameSpeed({
+        motorARows: availableMotorARows,
+        motorAFreeSpeedRPM: 6000,
+        motorBRows: availableMotorBRows,
+        motorBFreeSpeedRPM: 3000,
+      });
+
+      expect(result).toEqual({
+        motorARows: availableMotorARows,
+        motorBRows: availableMotorBRows,
+      });
+    },
+  );
 });

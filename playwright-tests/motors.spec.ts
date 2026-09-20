@@ -100,6 +100,30 @@ test.describe('Motor Calculator', () => {
     await expect(page.getByTestId('supplyLimit')).toHaveValue('35');
   });
 
+  test('copied URL restores geared-to-same-speed comparison mode', async ({
+    page,
+  }) => {
+    await page.getByTestId('addMotorB').click();
+    await page.getByTestId('motorB').click();
+    await page.getByRole('option', { name: 'NEO', exact: true }).click();
+
+    const gearedMode = page.getByTestId('xAxisModeGeared');
+    await gearedMode.click();
+    await expect(gearedMode).toHaveAttribute('aria-pressed', 'true');
+
+    await page.getByRole('button', { name: 'Copy Link' }).click();
+    const url = await page.evaluate(() => navigator.clipboard.readText());
+    expect(url).toContain('xAxisMode=geared');
+
+    await page.goto(url);
+    await page.waitForLoadState('networkidle');
+
+    await expect(page.getByTestId('xAxisModeGeared')).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+  });
+
   test('max efficiency in the comparison table follows the current draw', async ({
     page,
   }) => {
