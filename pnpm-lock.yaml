@@ -285,8 +285,8 @@ importers:
         specifier: 15.0.0
         version: 15.0.0
       eslint-plugin-no-relative-import-paths:
-        specifier: 1.6.1
-        version: 1.6.1
+        specifier: 1.7.3
+        version: 1.7.3
       eslint-plugin-zod:
         specifier: 4.13.1
         version: 4.13.1(eslint@10.7.0(jiti@2.7.0))(oxlint@1.83.0(oxlint-tsgolint@7.0.2001))(typescript@7.0.2)(zod@4.6.5)
@@ -2244,8 +2244,8 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
-  eslint-plugin-no-relative-import-paths@1.6.1:
-    resolution: {integrity: sha512-YZNeOnsOrJcwhFw0X29MXjIzu2P/f5X2BZDPWw1R3VUYBRFxNIh77lyoL/XrMU9ewZNQPcEvAgL/cBOT1P330A==}
+  eslint-plugin-no-relative-import-paths@1.7.3:
+    resolution: {integrity: sha512-vEpNX0fvhoHdBu8eI05+XXYswnGHW2HJYmnJJeR8zOwgo59GgWv98z22XyZvMEHHcjSX4yGX2Ni/GyxGpBjfgw==}
 
   eslint-plugin-zod@4.13.1:
     resolution: {integrity: sha512-BpgQWAoR5b0IICd5w3pQGe71KVZ0QwoKSbv2uY3edLiAquURrcvD7WOhPLDcp3pCJVnO/JX1/KzXgstpXi3DWw==}
@@ -5226,7 +5226,7 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-plugin-no-relative-import-paths@1.6.1: {}
+  eslint-plugin-no-relative-import-paths@1.7.3: {}
 
   eslint-plugin-zod@4.13.1(eslint@10.7.0(jiti@2.7.0))(oxlint@1.83.0(oxlint-tsgolint@7.0.2001))(typescript@7.0.2)(zod@4.6.5):
     dependencies:
