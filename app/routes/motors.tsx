@@ -26,6 +26,7 @@ import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import {
   buildComparisonChartData,
   buildMotorChartData,
+  gearMotorChartDataToSameSpeed,
 } from '~/lib/math/motors';
 import type * as MotorsWorker from '~/lib/math/motors.worker';
 import Measurement from '~/lib/models/Measurement';
@@ -74,7 +75,7 @@ const DEFAULT_PARAMS = {
   statorVoltage: MeasurementParam.withDefault(new Measurement(12, 'V')),
 };
 
-const XAxisModeSchema = z.enum(['absolute', 'relative']);
+const XAxisModeSchema = z.enum(['absolute', 'relative', 'geared']);
 type XAxisMode = z.infer<typeof XAxisModeSchema>;
 
 function lineName(
@@ -207,9 +208,26 @@ export default function Motors() {
 
   const comparisonXKey =
     xAxisMode === 'relative' ? 'percentOfFreeSpeed' : 'angularVelocityRPM';
+  const comparisonRows = useMemo(() => {
+    if (xAxisMode !== 'geared' || !motorBSpec) {
+      return { motorARows: chartDataA, motorBRows: chartDataB };
+    }
+
+    return gearMotorChartDataToSameSpeed({
+      motorARows: chartDataA,
+      motorAFreeSpeedRPM: motorASpec.freeSpeed.to('rpm').scalar,
+      motorBRows: chartDataB,
+      motorBFreeSpeedRPM: motorBSpec.freeSpeed.to('rpm').scalar,
+    });
+  }, [chartDataA, chartDataB, motorASpec, motorBSpec, xAxisMode]);
   const comparisonData = useMemo(
-    () => buildComparisonChartData(chartDataA, chartDataB, comparisonXKey),
-    [chartDataA, chartDataB, comparisonXKey],
+    () =>
+      buildComparisonChartData(
+        comparisonRows.motorARows,
+        comparisonRows.motorBRows,
+        comparisonXKey,
+      ),
+    [comparisonRows, comparisonXKey],
   );
 
   function addMotorB() {
@@ -321,12 +339,13 @@ export default function Motors() {
         </div>
 
         <div className="flex min-w-75 flex-2 flex-col gap-3">
-          <div className="flex flex-wrap items-center justify-end gap-2">
+          <div className="flex max-w-full items-center justify-start gap-2 overflow-x-auto pb-1 sm:justify-end">
             <ButtonGroup>
               <Button
                 variant={xAxisMode === 'absolute' ? 'default' : 'outline'}
                 onClick={() => setXAxisMode('absolute')}
                 data-testid="xAxisModeAbsolute"
+                aria-pressed={xAxisMode === 'absolute'}
               >
                 Absolute Free Speed
               </Button>
@@ -334,8 +353,17 @@ export default function Motors() {
                 variant={xAxisMode === 'relative' ? 'default' : 'outline'}
                 onClick={() => setXAxisMode('relative')}
                 data-testid="xAxisModeRelative"
+                aria-pressed={xAxisMode === 'relative'}
               >
                 Relative Free Speed
+              </Button>
+              <Button
+                variant={xAxisMode === 'geared' ? 'default' : 'outline'}
+                onClick={() => setXAxisMode('geared')}
+                data-testid="xAxisModeGeared"
+                aria-pressed={xAxisMode === 'geared'}
+              >
+                Geared to Same Speed
               </Button>
             </ButtonGroup>
           </div>

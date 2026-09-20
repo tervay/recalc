@@ -8,6 +8,18 @@ export interface MotorChartRow {
   percentOfFreeSpeed: number;
 }
 
+interface GearMotorChartDataParams {
+  motorARows: readonly MotorChartRow[];
+  motorAFreeSpeedRPM: number;
+  motorBRows: readonly MotorChartRow[];
+  motorBFreeSpeedRPM: number;
+}
+
+interface GearedMotorChartData {
+  motorARows: readonly MotorChartRow[];
+  motorBRows: readonly MotorChartRow[];
+}
+
 export function buildMotorChartData(
   states: WpilibMotorSimState[],
   freeSpeedRPM: number,
@@ -18,6 +30,59 @@ export function buildMotorChartData(
     percentOfFreeSpeed:
       freeSpeedRPM > 0 ? (s.angularVelocityRPM / freeSpeedRPM) * 100 : 0,
   }));
+}
+
+/**
+ * Applies an ideal reduction to the faster motor so both outputs have the same
+ * free speed. Electrical values and efficiency remain motor-side quantities.
+ */
+export function gearMotorChartDataToSameSpeed({
+  motorARows,
+  motorAFreeSpeedRPM,
+  motorBRows,
+  motorBFreeSpeedRPM,
+}: GearMotorChartDataParams): GearedMotorChartData {
+  const unchanged = { motorARows, motorBRows };
+  if (
+    motorARows.length === 0 ||
+    motorBRows.length === 0 ||
+    !Number.isFinite(motorAFreeSpeedRPM) ||
+    !Number.isFinite(motorBFreeSpeedRPM) ||
+    motorAFreeSpeedRPM <= 0 ||
+    motorBFreeSpeedRPM <= 0 ||
+    motorAFreeSpeedRPM === motorBFreeSpeedRPM
+  ) {
+    return unchanged;
+  }
+
+  function applyReduction(
+    rows: readonly MotorChartRow[],
+    reduction: number,
+  ): MotorChartRow[] {
+    return rows.map((row) => ({
+      ...row,
+      angularVelocityRPM: row.angularVelocityRPM / reduction,
+      torqueNewtonMeters: row.torqueNewtonMeters * reduction,
+    }));
+  }
+
+  if (motorAFreeSpeedRPM > motorBFreeSpeedRPM) {
+    return {
+      motorARows: applyReduction(
+        motorARows,
+        motorAFreeSpeedRPM / motorBFreeSpeedRPM,
+      ),
+      motorBRows,
+    };
+  }
+
+  return {
+    motorARows,
+    motorBRows: applyReduction(
+      motorBRows,
+      motorBFreeSpeedRPM / motorAFreeSpeedRPM,
+    ),
+  };
 }
 
 export type ComparisonXKey = 'angularVelocityRPM' | 'percentOfFreeSpeed';
@@ -46,7 +111,7 @@ export interface ComparisonChartRow {
 const COMPARISON_SAMPLE_COUNT = 400;
 
 function sampleAt(
-  rows: MotorChartRow[],
+  rows: readonly MotorChartRow[],
   xKey: ComparisonXKey,
   yKey: MotorMetricKey,
   targetX: number,
@@ -73,8 +138,8 @@ function sampleAt(
 }
 
 export function buildComparisonChartData(
-  motorARows: MotorChartRow[],
-  motorBRows: MotorChartRow[],
+  motorARows: readonly MotorChartRow[],
+  motorBRows: readonly MotorChartRow[],
   xKey: ComparisonXKey,
 ): ComparisonChartRow[] {
   const maxX = Math.max(
