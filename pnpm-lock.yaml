@@ -279,8 +279,8 @@ importers:
         specifier: 19.3.0
         version: 19.3.0(@types/react@19.3.0)
       '@vercel/config':
-        specifier: 0.7.1
-        version: 0.7.1
+        specifier: 0.7.2
+        version: 0.7.2
       commander:
         specifier: 15.0.0
         version: 15.0.0
@@ -1834,8 +1834,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@vercel/config@0.7.1':
-    resolution: {integrity: sha512-ciMhs9EzAYnrUMHSti/vhTbJmiyJu+WLPRAppb9WytoZvyOpw4OQCVVQdKs7G+fuQWL8O54THM/tHgGDXtwuFQ==}
+  '@vercel/config@0.7.2':
+    resolution: {integrity: sha512-q15jSDiYZIBw3iBApXPSkSPYrNTkXrtOs3mFHMIyCpW5WLVVdgfEr9lEj8dH3o34VugihJLz2FPnuE/odNLXEw==}
     hasBin: true
 
   '@vercel/react-router@1.3.6':
@@ -4825,7 +4825,7 @@ snapshots:
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
 
-  '@vercel/config@0.7.1':
+  '@vercel/config@0.7.2':
     dependencies:
       '@vercel/routing-utils': 6.6.0
       pretty-cache-header: 1.0.0
