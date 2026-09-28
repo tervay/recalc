@@ -45,7 +45,8 @@ export default defineConfig({
 
   /* Run the built production server before starting the tests */
   webServer: {
-    command: 'node ./node_modules/vite/bin/vite.js preview --outDir build/client --port 3000',
+    command:
+      'node ./node_modules/vite/bin/vite.js preview --outDir build/client --port 3000',
     port,
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
