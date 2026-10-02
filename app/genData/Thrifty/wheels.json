@@ -260,6 +260,56 @@
     "vendor": "Thrifty"
   },
   {
+    "name": "Molded 100mm Mecanum Wheels",
+    "diameter": 100,
+    "bore": "1/2\" Hex",
+    "type": "Mecanum",
+    "durometer": null,
+    "url": "https://www.thethriftybot.com/products/molded-100mm-mecanum-wheels-for-ftc",
+    "sku": "TTB-0378",
+    "vendor": "Thrifty"
+  },
+  {
+    "name": "Molded 100mm Mecanum Wheels",
+    "diameter": 100,
+    "bore": "1/2\" Hex",
+    "type": "Mecanum",
+    "durometer": null,
+    "url": "https://www.thethriftybot.com/products/molded-100mm-mecanum-wheels-for-ftc",
+    "sku": "TTB-0379",
+    "vendor": "Thrifty"
+  },
+  {
+    "name": "Molded 2 Inch Vectored Intake Wheels",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Compliant",
+    "durometer": null,
+    "url": "https://www.thethriftybot.com/products/2-inch-vectored-intake-wheels",
+    "sku": "TTB-0387",
+    "vendor": "Thrifty"
+  },
+  {
+    "name": "Molded 2 Inch Vectored Intake Wheels",
+    "diameter": 50.8,
+    "bore": "1/2\" Hex",
+    "type": "Compliant",
+    "durometer": null,
+    "url": "https://www.thethriftybot.com/products/2-inch-vectored-intake-wheels",
+    "sku": "TTB-0430",
+    "vendor": "Thrifty"
+  },
+  {
+    "name": "Molded 100mm Mecanum Wheels",
+    "diameter": 100,
+    "bore": "1/2\" Hex",
+    "type": "Mecanum",
+    "durometer": null,
+    "url": "https://www.thethriftybot.com/products/molded-100mm-mecanum-wheels-for-ftc",
+    "sku": null,
+    "vendor": "Thrifty"
+  },
+  {
     "name": "Vectored Intake Wheel",
     "diameter": 50.8,
     "bore": "7mm Hex",

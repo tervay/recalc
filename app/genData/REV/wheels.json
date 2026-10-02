@@ -578,15 +578,5 @@
     "url": "https://www.revrobotics.com/duo-flap-wheels/",
     "sku": "REV-41-2703-PK4",
     "vendor": "REV"
-  },
-  {
-    "name": "Mecanum Wheel Set",
-    "diameter": 75,
-    "bore": "5mm Hex",
-    "type": "Mecanum",
-    "durometer": null,
-    "url": "https://www.revrobotics.com/rev-45-1655/",
-    "sku": "REV-45-1655",
-    "vendor": "REV"
   }
 ]

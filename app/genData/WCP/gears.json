@@ -2206,5 +2206,29 @@
     "url": "https://wcproducts.com/products/wcp-2093",
     "sku": "WCP-2093",
     "vendor": "WCP"
+  },
+  {
+    "teeth": 8,
+    "dp": 10,
+    "bore": "SplineXS",
+    "url": "https://wcproducts.com/products/wcp-2250",
+    "sku": "WCP-2250",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 8,
+    "dp": 10,
+    "bore": "3/8\" Hex",
+    "url": "https://wcproducts.com/products/wcp-2251",
+    "sku": "WCP-2251",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 8,
+    "dp": 10,
+    "bore": "3/8\" Hex",
+    "url": "https://wcproducts.com/products/wcp-2252",
+    "sku": "WCP-2252",
+    "vendor": "WCP"
   }
 ]

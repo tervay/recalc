@@ -45,8 +45,8 @@
 - combobox: in
 - table:
   - rowgroup:
-    - row "Matching COTS Pulleys15":
-      - columnheader "Matching COTS Pulleys15"
+    - row "Matching COTS Pulleys20":
+      - columnheader "Matching COTS Pulleys20"
     - row "SKU Teeth Width Bore":
       - columnheader "SKU"
       - columnheader "Teeth"
@@ -71,6 +71,24 @@
       - cell "20"
       - cell "15 mm"
       - cell "1/2\" Hex"
+    - row "WCP WCP-2254 20 9 mm SplineXS":
+      - cell "WCP WCP-2254":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-2254
+        - link "WCP-2254":
+          - /url: https://wcproducts.com/products/wcp-2254
+      - cell "20"
+      - cell "9 mm"
+      - cell "SplineXS"
+    - row "WCP WCP-2259 20 15 mm SplineXS":
+      - cell "WCP WCP-2259":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-2259
+        - link "WCP-2259":
+          - /url: https://wcproducts.com/products/wcp-2259
+      - cell "20"
+      - cell "15 mm"
+      - cell "SplineXS"
     - row "24T":
       - cell "24T"
     - row "AndyMark am-3403 24 9 mm 1/2\" Hex":
@@ -124,6 +142,15 @@
           - /url: https://www.lastanvil.com/products/reinforced-htd-pulley-5mm
         - link "LA-240328":
           - /url: https://www.lastanvil.com/products/reinforced-htd-pulley-5mm
+      - cell "24"
+      - cell "9 mm"
+      - cell "1/2\" Hex"
+    - row "LastAnvil LA-260165 24 9 mm 1/2\" Hex":
+      - cell "LastAnvil LA-260165":
+        - link "LastAnvil":
+          - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
+        - link "LA-260165":
+          - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
@@ -190,6 +217,24 @@
       - cell "24"
       - cell "15 mm"
       - cell "1/2\" Hex"
+    - row "WCP WCP-2255 24 9 mm SplineXS":
+      - cell "WCP WCP-2255":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-2255
+        - link "WCP-2255":
+          - /url: https://wcproducts.com/products/wcp-2255
+      - cell "24"
+      - cell "9 mm"
+      - cell "SplineXS"
+    - row "WCP WCP-2260 24 15 mm SplineXS":
+      - cell "WCP WCP-2260":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-2260
+        - link "WCP-2260":
+          - /url: https://wcproducts.com/products/wcp-2260
+      - cell "24"
+      - cell "15 mm"
+      - cell "SplineXS"
 - table:
   - rowgroup:
     - row "Matching COTS Belts24":

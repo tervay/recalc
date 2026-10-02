@@ -338,10 +338,10 @@
     id: 51322149437739
     options:
       - Black
-      - 7mm Hex
+      - 7mm Hex (8mm Compatible)
       - null
     sku: null
-    title: Black / 7mm Hex
+    title: Black / 7mm Hex (8mm Compatible)
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel?variant=51322149470507
@@ -383,10 +383,10 @@
     id: 51322149536043
     options:
       - White
-      - 7mm Hex
+      - 7mm Hex (8mm Compatible)
       - null
     sku: null
-    title: White / 7mm Hex
+    title: White / 7mm Hex (8mm Compatible)
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel?variant=51322149568811
@@ -428,10 +428,10 @@
     id: 51322149634347
     options:
       - Red
-      - 7mm Hex
+      - 7mm Hex (8mm Compatible)
       - null
     sku: null
-    title: Red / 7mm Hex
+    title: Red / 7mm Hex (8mm Compatible)
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel?variant=51322149667115
@@ -473,10 +473,10 @@
     id: 51322149732651
     options:
       - Orange
-      - 7mm Hex
+      - 7mm Hex (8mm Compatible)
       - null
     sku: null
-    title: Orange / 7mm Hex
+    title: Orange / 7mm Hex (8mm Compatible)
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel?variant=51322149765419
@@ -518,10 +518,10 @@
     id: 51322149830955
     options:
       - Yellow
-      - 7mm Hex
+      - 7mm Hex (8mm Compatible)
       - null
     sku: null
-    title: Yellow / 7mm Hex
+    title: Yellow / 7mm Hex (8mm Compatible)
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel?variant=51322149863723
@@ -563,10 +563,10 @@
     id: 51322149929259
     options:
       - Green
-      - 7mm Hex
+      - 7mm Hex (8mm Compatible)
       - null
     sku: null
-    title: Green / 7mm Hex
+    title: Green / 7mm Hex (8mm Compatible)
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel?variant=51322149962027
@@ -608,10 +608,10 @@
     id: 51322150027563
     options:
       - Blue
-      - 7mm Hex
+      - 7mm Hex (8mm Compatible)
       - null
     sku: null
-    title: Blue / 7mm Hex
+    title: Blue / 7mm Hex (8mm Compatible)
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel?variant=51322150060331
@@ -653,10 +653,10 @@
     id: 51322150125867
     options:
       - Purple
-      - 7mm Hex
+      - 7mm Hex (8mm Compatible)
       - null
     sku: null
-    title: Purple / 7mm Hex
+    title: Purple / 7mm Hex (8mm Compatible)
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel?variant=51322150158635
@@ -713,10 +713,10 @@
     id: 51356416278827
     options:
       - Pink
-      - 7mm Hex
+      - 7mm Hex (8mm Compatible)
       - null
     sku: TTB-0010-PINK-7MM
-    title: Pink / 7mm Hex
+    title: Pink / 7mm Hex (8mm Compatible)
   firstSeen: 2026-03-13T10:23:55.113Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel?variant=51356416311595
@@ -7077,7 +7077,7 @@
   product:
     handle: thrifty-through-bore-encoder
     id: 10284417515819
-    title: 'PRE-ORDER: Thrifty Through Bore CAN Encoder'
+    title: Thrifty Through Bore CAN Encoder
   variant:
     id: 52250266566955
     options:
@@ -7222,6 +7222,111 @@
     sku: TTB-0377
     title: Default Title
   firstSeen: 2026-06-06T00:24:49.721Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/ftc-splinexs-hub?variant=53641222488363
+  product:
+    handle: ftc-splinexs-hub
+    id: 10410102751531
+    title: Aluminum 15 Tooth SplineXS Hub
+  variant:
+    id: 53641222488363
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0388
+    title: Default Title
+  firstSeen: 2026-10-01T20:10:19.796Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/ftc-7mm-hex-mini-hub?variant=53641222521131
+  product:
+    handle: ftc-7mm-hex-mini-hub
+    id: 10410102784299
+    title: Aluminum 7mm Hex Mini Hub
+  variant:
+    id: 53641222521131
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0389
+    title: Default Title
+  firstSeen: 2026-10-01T20:10:19.796Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/7mm-hex-3d-print-insert?variant=53769468674347
+  product:
+    handle: 7mm-hex-3d-print-insert
+    id: 10423886381355
+    title: Aluminum 7mm Hex 3D Print Insert
+  variant:
+    id: 53769468674347
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0437
+    title: Default Title
+  firstSeen: 2026-10-01T20:10:19.796Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/3-8-hex-3d-print-insert?variant=53769481617707
+  product:
+    handle: 3-8-hex-3d-print-insert
+    id: 10423888773419
+    title: Aluminum 3/8 Inch Hex 3D Print Insert
+  variant:
+    id: 53769481617707
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0438
+    title: Default Title
+  firstSeen: 2026-10-01T20:10:19.796Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/7mm-to-1-2-hex-aluminum-adapter?variant=53769491022123
+  product:
+    handle: 7mm-to-1-2-hex-aluminum-adapter
+    id: 10423890903339
+    title: 7mm to 1/2" Hex Aluminum Adapter
+  variant:
+    id: 53769491022123
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0439
+    title: Default Title
+  firstSeen: 2026-10-01T20:10:19.796Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/8mm-shaft-collar-hub?variant=53769535422763
+  product:
+    handle: 8mm-shaft-collar-hub
+    id: 10423907516715
+    title: Aluminum 8mm Clamping Shaft Collar + M4 Hub
+  variant:
+    id: 53769535422763
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0442
+    title: Default Title
+  firstSeen: 2026-10-01T20:10:19.796Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/8mm-shaft-collar-small?variant=54158692417835
+  product:
+    handle: 8mm-shaft-collar-small
+    id: 10464142164267
+    title: Small Aluminum 8mm Clamping Shaft Collar
+  variant:
+    id: 54158692417835
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0443
+    title: Default Title
+  firstSeen: 2026-10-01T20:10:19.796Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/bumper-bundle-kit?variant=54234108100907
   product:
@@ -7387,3 +7492,78 @@
     sku: 15MM-HTD-BELT-BUNDLE
     title: 15mm Belt Bundle
   firstSeen: 2026-08-31T19:27:55.758Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/2-inch-vectored-intake-wheels?variant=55533448626475
+  product:
+    handle: 2-inch-vectored-intake-wheels
+    id: 10605122257195
+    title: Molded 2 Inch Vectored Intake Wheels
+  variant:
+    id: 55533448626475
+    options:
+      - Left Handed
+      - null
+      - null
+    sku: TTB-0387
+    title: Left Handed
+  firstSeen: 2026-10-01T20:10:19.796Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/2-inch-vectored-intake-wheels?variant=55533448659243
+  product:
+    handle: 2-inch-vectored-intake-wheels
+    id: 10605122257195
+    title: Molded 2 Inch Vectored Intake Wheels
+  variant:
+    id: 55533448659243
+    options:
+      - Right Handed
+      - null
+      - null
+    sku: TTB-0430
+    title: Right Handed
+  firstSeen: 2026-10-01T20:10:19.796Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/molded-100mm-mecanum-wheels-for-ftc?variant=55533490602283
+  product:
+    handle: molded-100mm-mecanum-wheels-for-ftc
+    id: 10605141492011
+    title: Molded 100mm Mecanum Wheels for FTC
+  variant:
+    id: 55533490602283
+    options:
+      - Left Hand Wheel
+      - null
+      - null
+    sku: TTB-0378
+    title: Left Hand Wheel
+  firstSeen: 2026-10-01T20:10:19.796Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/molded-100mm-mecanum-wheels-for-ftc?variant=55533490635051
+  product:
+    handle: molded-100mm-mecanum-wheels-for-ftc
+    id: 10605141492011
+    title: Molded 100mm Mecanum Wheels for FTC
+  variant:
+    id: 55533490635051
+    options:
+      - Right Hand Wheel
+      - null
+      - null
+    sku: TTB-0379
+    title: Right Hand Wheel
+  firstSeen: 2026-10-01T20:10:19.796Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/molded-100mm-mecanum-wheels-for-ftc?variant=55533490667819
+  product:
+    handle: molded-100mm-mecanum-wheels-for-ftc
+    id: 10605141492011
+    title: Molded 100mm Mecanum Wheels for FTC
+  variant:
+    id: 55533490667819
+    options:
+      - 2 Left & 2 Right Wheels (Full Drive Train)
+      - null
+      - null
+    sku: null
+    title: 2 Left & 2 Right Wheels (Full Drive Train)
+  firstSeen: 2026-10-01T20:10:19.796Z

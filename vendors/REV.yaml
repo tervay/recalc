@@ -510,6 +510,20 @@
   firstSeen: 2026-07-19T18:12:42.561Z
 - vendor: REV
   product:
+    handle: https://www.revrobotics.com/rev-25-3132/
+    id: 221201475
+    title: MAXTube Classic Structure Bundle
+  variant:
+    id: 1761319858
+    options:
+      - null
+      - null
+      - null
+    sku: REV-25-3132
+    title: MAXTube Classic Structure Bundle
+  firstSeen: 2026-10-01T20:10:27.415Z
+- vendor: REV
+  product:
     handle: https://www.revrobotics.com/T-rev-plushies
     id: 221787033
     title: T-REV Plushies (T-REV Dino - Plush Toy (REV-54-9223))
@@ -1689,20 +1703,6 @@
       - null
     sku: REV-11-2158
     title: SPARK MAX Motor Controller
-  firstSeen: 2026-07-19T18:12:42.561Z
-- vendor: REV
-  product:
-    handle: https://www.revrobotics.com/rev-41-1097/
-    id: 680605517
-    title: Smart Robot Servo
-  variant:
-    id: 495366428
-    options:
-      - null
-      - null
-      - null
-    sku: REV-41-1097
-    title: Smart Robot Servo
   firstSeen: 2026-07-19T18:12:42.561Z
 - vendor: REV
   product:
@@ -13212,7 +13212,7 @@
   product:
     handle: https://www.revrobotics.com/rev-45-1655/
     id: 3986732437
-    title: 75mm Mecanum Wheel Set
+    title: DUO Mecanum Wheel Set
   variant:
     id: 2471791212
     options:
@@ -13220,7 +13220,7 @@
       - null
       - null
     sku: REV-45-1655
-    title: 75mm Mecanum Wheel Set
+    title: DUO Mecanum Wheel Set
   firstSeen: 2026-07-19T18:12:42.561Z
 - vendor: REV
   product:

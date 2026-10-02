@@ -96,8 +96,8 @@
   - button "8mm"
 - table:
   - rowgroup:
-    - row "Matching COTS Wheels91":
-      - columnheader "Matching COTS Wheels91"
+    - row "Matching COTS Wheels93":
+      - columnheader "Matching COTS Wheels93"
     - row "Wheel Diameter Bore Type Durometer":
       - columnheader "Wheel"
       - columnheader "Diameter"
@@ -732,6 +732,28 @@
       - cell "MAXSpline"
       - cell "Traction"
       - cell "Hard"
+    - row "Thrifty Molded 2 Inch Vectored Intake Wheels TTB-0387 2.00\" 1/2\" Hex Compliant —":
+      - cell "Thrifty Molded 2 Inch Vectored Intake Wheels TTB-0387":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/2-inch-vectored-intake-wheels
+        - link "Molded 2 Inch Vectored Intake Wheels":
+          - /url: https://www.thethriftybot.com/products/2-inch-vectored-intake-wheels
+        - text: TTB-0387
+      - cell "2.00\""
+      - cell "1/2\" Hex"
+      - cell "Compliant"
+      - cell "—"
+    - row "Thrifty Molded 2 Inch Vectored Intake Wheels TTB-0430 2.00\" 1/2\" Hex Compliant —":
+      - cell "Thrifty Molded 2 Inch Vectored Intake Wheels TTB-0430":
+        - link "Thrifty":
+          - /url: https://www.thethriftybot.com/products/2-inch-vectored-intake-wheels
+        - link "Molded 2 Inch Vectored Intake Wheels":
+          - /url: https://www.thethriftybot.com/products/2-inch-vectored-intake-wheels
+        - text: TTB-0430
+      - cell "2.00\""
+      - cell "1/2\" Hex"
+      - cell "Compliant"
+      - cell "—"
     - row "Thrifty Solid Urethane Wheel TTB-0332 2.00\" 1/2\" Hex Traction 45A":
       - cell "Thrifty Solid Urethane Wheel TTB-0332":
         - link "Thrifty":

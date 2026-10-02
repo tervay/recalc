@@ -68,10 +68,10 @@
     id: 42303470436558
     options:
       - 18T
-      - null
+      - 9mm
       - null
     sku: '240107'
-    title: 18T
+    title: 18T / 9mm
   firstSeen: 2026-03-13T10:25:14.452Z
 - vendor: LastAnvil
   # https://www.lastanvil.com/products/pulley-htd-5-mm?variant=42303470469326
@@ -83,10 +83,10 @@
     id: 42303470469326
     options:
       - 24T
-      - null
+      - 9mm
       - null
     sku: '240108'
-    title: 24T
+    title: 24T / 9mm
   firstSeen: 2026-03-13T10:25:14.452Z
 - vendor: LastAnvil
   # https://www.lastanvil.com/products/pulley-htd-5-mm?variant=42303470502094
@@ -98,10 +98,10 @@
     id: 42303470502094
     options:
       - 30T
-      - null
+      - 9mm
       - null
     sku: '240109'
-    title: 30T
+    title: 30T / 9mm
   firstSeen: 2026-03-13T10:25:14.452Z
 - vendor: LastAnvil
   # https://www.lastanvil.com/products/pulley-htd-5-mm?variant=42303470534862
@@ -113,11 +113,71 @@
     id: 42303470534862
     options:
       - 36T
-      - null
+      - 9mm
       - null
     sku: '240110'
-    title: 36T
+    title: 36T / 9mm
   firstSeen: 2026-03-13T10:25:14.452Z
+- vendor: LastAnvil
+  # https://www.lastanvil.com/products/pulley-htd-5-mm?variant=48374220325070
+  product:
+    handle: pulley-htd-5-mm
+    id: 7298621931726
+    title: HTD Pulley 5mm
+  variant:
+    id: 48374220325070
+    options:
+      - 18T
+      - 18mm
+      - null
+    sku: '260166'
+    title: 18T / 18mm
+  firstSeen: 2026-10-01T20:10:25.250Z
+- vendor: LastAnvil
+  # https://www.lastanvil.com/products/pulley-htd-5-mm?variant=48374220357838
+  product:
+    handle: pulley-htd-5-mm
+    id: 7298621931726
+    title: HTD Pulley 5mm
+  variant:
+    id: 48374220357838
+    options:
+      - 24T
+      - 18mm
+      - null
+    sku: '260165'
+    title: 24T / 18mm
+  firstSeen: 2026-10-01T20:10:25.250Z
+- vendor: LastAnvil
+  # https://www.lastanvil.com/products/pulley-htd-5-mm?variant=48374220390606
+  product:
+    handle: pulley-htd-5-mm
+    id: 7298621931726
+    title: HTD Pulley 5mm
+  variant:
+    id: 48374220390606
+    options:
+      - 30T
+      - 18mm
+      - null
+    sku: '260163'
+    title: 30T / 18mm
+  firstSeen: 2026-10-01T20:10:25.250Z
+- vendor: LastAnvil
+  # https://www.lastanvil.com/products/pulley-htd-5-mm?variant=48374220423374
+  product:
+    handle: pulley-htd-5-mm
+    id: 7298621931726
+    title: HTD Pulley 5mm
+  variant:
+    id: 48374220423374
+    options:
+      - 36T
+      - 18mm
+      - null
+    sku: '260164'
+    title: 36T / 18mm
+  firstSeen: 2026-10-01T20:10:25.250Z
 - vendor: LastAnvil
   # https://www.lastanvil.com/products/nut-strip?variant=42303475417294
   product:
@@ -2307,21 +2367,6 @@
       - null
     sku: '250156'
     title: 18mm
-  firstSeen: 2026-03-13T10:25:14.452Z
-- vendor: LastAnvil
-  # https://www.lastanvil.com/products/dual-layer-bumper-foam?variant=43307189633230
-  product:
-    handle: dual-layer-bumper-foam
-    id: 7643266285774
-    title: Prototyping Bumper Foam
-  variant:
-    id: 43307189633230
-    options:
-      - Default Title
-      - null
-      - null
-    sku: '250157'
-    title: Default Title
   firstSeen: 2026-03-13T10:25:14.452Z
 - vendor: LastAnvil
   # https://www.lastanvil.com/products/silicone-grip-roller?variant=43321339740366

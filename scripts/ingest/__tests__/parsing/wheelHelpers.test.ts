@@ -215,6 +215,14 @@ describe('wheelNameFromTitle', () => {
     ],
     ['3 in. Aluminum Omni Wheel With 3/8 Hex Bore', 'Aluminum Omni Wheel'],
     ['SWYFT Intake Wheels', 'SWYFT Intake Wheels'],
+    [
+      'Custom Colored 35A Durometer Compliant Wheels',
+      'Custom Colored Compliant Wheels',
+    ],
+    [
+      'Custom Colored 35A Durometer Stealth Wheels',
+      'Custom Colored Stealth Wheels',
+    ],
   ])('turns %s into %s', (title, expected) => {
     expect(wheelNameFromTitle(title)).toBe(expected);
   });
