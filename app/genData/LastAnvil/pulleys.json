@@ -78,5 +78,45 @@
     "url": "https://www.lastanvil.com/products/idler-pulley",
     "bore": "1/2\" Hex",
     "vendor": "LastAnvil"
+  },
+  {
+    "teeth": 30,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "LA-260163",
+    "url": "https://www.lastanvil.com/products/pulley-htd-5-mm",
+    "bore": "1/2\" Hex",
+    "vendor": "LastAnvil"
+  },
+  {
+    "teeth": 36,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "LA-260164",
+    "url": "https://www.lastanvil.com/products/pulley-htd-5-mm",
+    "bore": "1/2\" Hex",
+    "vendor": "LastAnvil"
+  },
+  {
+    "teeth": 24,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "LA-260165",
+    "url": "https://www.lastanvil.com/products/pulley-htd-5-mm",
+    "bore": "1/2\" Hex",
+    "vendor": "LastAnvil"
+  },
+  {
+    "teeth": 18,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "LA-260166",
+    "url": "https://www.lastanvil.com/products/pulley-htd-5-mm",
+    "bore": "1/2\" Hex",
+    "vendor": "LastAnvil"
   }
 ]

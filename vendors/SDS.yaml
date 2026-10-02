@@ -539,21 +539,6 @@
     title: Default Title
   firstSeen: 2026-03-13T10:25:20.170Z
 - vendor: SDS
-  # https://www.swervedrivespecialties.com/products/swerve-drive-specialties-sticker?variant=32214434349169
-  product:
-    handle: swerve-drive-specialties-sticker
-    id: 4624146366577
-    title: Sticker, Swerve Drive Specialties
-  variant:
-    id: 32214434349169
-    options:
-      - Default Title
-      - null
-      - null
-    sku: ''
-    title: Default Title
-  firstSeen: 2026-03-13T10:25:20.170Z
-- vendor: SDS
   # https://www.swervedrivespecialties.com/products/mk4-swerve-module?variant=39376675012721
   product:
     handle: mk4-swerve-module

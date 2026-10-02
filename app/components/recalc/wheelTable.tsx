@@ -89,7 +89,7 @@ export function WheelTable({
               key={bore}
               value={bore}
               aria-label={bore}
-              className="cursor-pointer aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-primary-foreground hover:aria-pressed:bg-primary/90 data-pressed:border-primary data-pressed:bg-primary data-pressed:text-primary-foreground"
+              className="cursor-pointer aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-primary-foreground aria-pressed:hover:bg-primary/90 data-pressed:border-primary data-pressed:bg-primary data-pressed:text-primary-foreground"
             >
               {bore}
             </ToggleGroupItem>

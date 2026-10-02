@@ -38,10 +38,10 @@
     id: 52970342940966
     options:
       - '#25'
-      - Master Link (10 Pack)
+      - Master Link (5 Pack)
       - null
     sku: TOL-0006
-    title: '#25 / Master Link (10 Pack)'
+    title: '#25 / Master Link (5 Pack)'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/chain-tools?variant=52970342973734
@@ -53,10 +53,10 @@
     id: 52970342973734
     options:
       - '#25'
-      - Half Link (10 Pack)
+      - Half Link (5 Pack)
       - null
     sku: TOL-0007
-    title: '#25 / Half Link (10 Pack)'
+    title: '#25 / Half Link (5 Pack)'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/chain-tools?variant=52970343006502
@@ -98,10 +98,10 @@
     id: 52970343072038
     options:
       - '#25H'
-      - Master Link (10 Pack)
+      - Master Link (5 Pack)
       - null
     sku: TOL-0011
-    title: '#25H / Master Link (10 Pack)'
+    title: '#25H / Master Link (5 Pack)'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/chain-tools?variant=52970343104806
@@ -113,10 +113,10 @@
     id: 52970343104806
     options:
       - '#25H'
-      - Half Link (10 Pack)
+      - Half Link (5 Pack)
       - null
     sku: TOL-0012
-    title: '#25H / Half Link (10 Pack)'
+    title: '#25H / Half Link (5 Pack)'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/chain-tools?variant=52970343137574
@@ -173,10 +173,10 @@
     id: 52970343235878
     options:
       - '#35'
-      - Master Link (10 Pack)
+      - Master Link (5 Pack)
       - null
     sku: TOL-0016
-    title: '#35 / Master Link (10 Pack)'
+    title: '#35 / Master Link (5 Pack)'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/chain-tools?variant=52970343268646
@@ -188,10 +188,10 @@
     id: 52970343268646
     options:
       - '#35'
-      - Half Link (10 Pack)
+      - Half Link (5 Pack)
       - null
     sku: TOL-0017
-    title: '#35 / Half Link (10 Pack)'
+    title: '#35 / Half Link (5 Pack)'
   firstSeen: 2026-06-06T00:24:48.421Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/chain-tools?variant=52970343301414
@@ -1258,6 +1258,21 @@
     sku: SR-COLLAR-8mm-CLAMPING
     title: 8mm Round Clamping Shaft Collar (10 Pack)
   firstSeen: 2026-03-13T11:55:24.292Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/shaft-collars?variant=53841363108134
+  product:
+    handle: shaft-collars
+    id: 9300201898278
+    title: SWYFT Shaft Collars
+  variant:
+    id: 53841363108134
+    options:
+      - 7mm Hex / 15T SplineXS Clamping (10 Pack)
+      - null
+      - null
+    sku: SR-COLLAR-HEXSPLINE-CLAMP
+    title: 7mm Hex / 15T SplineXS Clamping (10 Pack)
+  firstSeen: 2026-10-01T20:10:18.314Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609259814
   product:
@@ -3228,30 +3243,30 @@
   product:
     handle: heavy-duty-parts-organizer
     id: 10182202556710
-    title: Heavy Duty Parts Organizer
+    title: Parts Organizer
   variant:
     id: 50796213010726
     options:
-      - Heavy Duty Shallow Parts Organizer (25 bins) (42x33x5.1cm)
+      - Shallow Parts Organizer (25 bins) (42x33x5.1cm)
       - null
       - null
     sku: SR-ORG-SHALLOW-25
-    title: Heavy Duty Shallow Parts Organizer (25 bins) (42x33x5.1cm)
+    title: Shallow Parts Organizer (25 bins) (42x33x5.1cm)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/heavy-duty-parts-organizer?variant=50796213043494
   product:
     handle: heavy-duty-parts-organizer
     id: 10182202556710
-    title: Heavy Duty Parts Organizer
+    title: Parts Organizer
   variant:
     id: 50796213043494
     options:
-      - Heavy Duty Deep Parts Organizer (10 bins) (42x33x10.5cm)
+      - Deep Parts Organizer (10 bins) (42x33x10.5cm)
       - null
       - null
     sku: SR-ORG-DEEP-10
-    title: Heavy Duty Deep Parts Organizer (10 bins) (42x33x10.5cm)
+    title: Deep Parts Organizer (10 bins) (42x33x10.5cm)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=50800428941606
@@ -3433,6 +3448,21 @@
     sku: SR-GEARBOX-36-SCREWS
     title: Gearbox Screws Packet
   firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=53913509658918
+  product:
+    handle: swyft-spike-ftc-planetary-gearmotors
+    id: 10183129792806
+    title: SWYFT Spike FTC Planetary Gearmotors
+  variant:
+    id: 53913509658918
+    options:
+      - Bare Motor with 11T 0.5M Pinion (For Flywheel)
+      - null
+      - null
+    sku: null
+    title: Bare Motor with 11T 0.5M Pinion (For Flywheel)
+  firstSeen: 2026-10-01T20:10:18.314Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-intake-wheels?variant=50809728532774
   product:
@@ -3893,10 +3923,10 @@
     id: 50917996101926
     options:
       - 1.75mm SWYFT Composite (100% SRPP) (660mm x 737mm)
+      - Black
       - null
-      - null
-    sku: SR-SRPP-017
-    title: 1.75mm SWYFT Composite (100% SRPP) (660mm x 737mm)
+    sku: SR-SRPP-017-BLK
+    title: 1.75mm SWYFT Composite (100% SRPP) (660mm x 737mm) / Black
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-super-composite?variant=50917996134694
@@ -3908,10 +3938,10 @@
     id: 50917996134694
     options:
       - 3mm SWYFT Composite (100% SRPP) (610mm x 610mm)
+      - Black
       - null
-      - null
-    sku: SR-SRPP-03
-    title: 3mm SWYFT Composite (100% SRPP) (610mm x 610mm)
+    sku: SR-SRPP-03-BLK
+    title: 3mm SWYFT Composite (100% SRPP) (610mm x 610mm) / Black
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-super-composite?variant=53150835081510
@@ -3923,11 +3953,56 @@
     id: 53150835081510
     options:
       - 6mm SWYFT Composite (SRPP + Foam Core) (610mm x 610mm)
+      - Black
       - null
-      - null
-    sku: SR-SRPP-06
-    title: 6mm SWYFT Composite (SRPP + Foam Core) (610mm x 610mm)
+    sku: SR-SRPP-06-BLK
+    title: 6mm SWYFT Composite (SRPP + Foam Core) (610mm x 610mm) / Black
   firstSeen: 2026-06-06T00:24:48.421Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-super-composite?variant=53818529186086
+  product:
+    handle: swyft-super-composite
+    id: 10214465863974
+    title: SWYFT Composite
+  variant:
+    id: 53818529186086
+    options:
+      - 1.75mm SWYFT Composite (100% SRPP) (660mm x 737mm)
+      - White
+      - null
+    sku: SR-SRPP-017-WHT
+    title: 1.75mm SWYFT Composite (100% SRPP) (660mm x 737mm) / White
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-super-composite?variant=53818529218854
+  product:
+    handle: swyft-super-composite
+    id: 10214465863974
+    title: SWYFT Composite
+  variant:
+    id: 53818529218854
+    options:
+      - 3mm SWYFT Composite (100% SRPP) (610mm x 610mm)
+      - White
+      - null
+    sku: SR-SRPP-03-WHT
+    title: 3mm SWYFT Composite (100% SRPP) (610mm x 610mm) / White
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-super-composite?variant=53818529251622
+  product:
+    handle: swyft-super-composite
+    id: 10214465863974
+    title: SWYFT Composite
+  variant:
+    id: 53818529251622
+    options:
+      - 6mm SWYFT Composite (SRPP + Foam Core) (610mm x 610mm)
+      - White
+      - null
+    sku: SR-SRPP-06-WHT
+    title: 6mm SWYFT Composite (SRPP + Foam Core) (610mm x 610mm) / White
+  firstSeen: 2026-10-01T20:10:18.314Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-tube-connectors?variant=50935003611430
   product:
@@ -4207,11 +4282,11 @@
   variant:
     id: 51044922491174
     options:
-      - Full Right Module
+      - 86mm Full Right Module
       - null
       - null
     sku: SR-DRIVE-V2-MODULE-R
-    title: Full Right Module
+    title: 86mm Full Right Module
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=51044922523942
@@ -4222,11 +4297,11 @@
   variant:
     id: 51044922523942
     options:
-      - Full Left Module
+      - 86mm Full Left Module
       - null
       - null
     sku: SR-DRIVE-V2-MODULE-L
-    title: Full Left Module
+    title: 86mm Full Left Module
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=51044922556710
@@ -4237,11 +4312,11 @@
   variant:
     id: 51044922556710
     options:
-      - 9pcs Wheel Rollers
+      - 9pcs 40A Wheel Rollers
       - null
       - null
     sku: SR-DRIVE-V2-ROLLERS
-    title: 9pcs Wheel Rollers
+    title: 9pcs 40A Wheel Rollers
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=51044922589478
@@ -4297,11 +4372,11 @@
   variant:
     id: 51044922720550
     options:
-      - 2x Wheel Plate Left & 2x Wheel Plate Right & 2x Wheel Hub
+      - 86mm 2x Wheel Plate Left & 2x Wheel Plate Right & 2x Wheel Hub
       - null
       - null
     sku: SR-DRIVE-V2-PLATES
-    title: 2x Wheel Plate Left & 2x Wheel Plate Right & 2x Wheel Hub
+    title: 86mm 2x Wheel Plate Left & 2x Wheel Plate Right & 2x Wheel Hub
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=51044922753318
@@ -4342,12 +4417,72 @@
   variant:
     id: 51911590904102
     options:
-      - SWYFT Drive V2 110mm Wheel Upgrade Kit
+      - 110mm Wheel Upgrade Kit
       - null
       - null
     sku: SR-DRIVE-V2-WHEEL-110
-    title: SWYFT Drive V2 110mm Wheel Upgrade Kit
+    title: 110mm Wheel Upgrade Kit
   firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=53813151334694
+  product:
+    handle: spare-parts-swyft-drive-v2
+    id: 10234577584422
+    title: (Spare & Upgrade) SWYFT Drive V2
+  variant:
+    id: 53813151334694
+    options:
+      - 11pcs 30A Wheel Rollers with Traction Spikes
+      - null
+      - null
+    sku: SR-DRIVE-V2-ROLLERS-30A
+    title: 11pcs 30A Wheel Rollers with Traction Spikes
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=53826381283622
+  product:
+    handle: spare-parts-swyft-drive-v2
+    id: 10234577584422
+    title: (Spare & Upgrade) SWYFT Drive V2
+  variant:
+    id: 53826381283622
+    options:
+      - 110mm Full Right Module
+      - null
+      - null
+    sku: null
+    title: 110mm Full Right Module
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=53826381316390
+  product:
+    handle: spare-parts-swyft-drive-v2
+    id: 10234577584422
+    title: (Spare & Upgrade) SWYFT Drive V2
+  variant:
+    id: 53826381316390
+    options:
+      - 110mm Full Left Module
+      - null
+      - null
+    sku: null
+    title: 110mm Full Left Module
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-parts-swyft-drive-v2?variant=53826381349158
+  product:
+    handle: spare-parts-swyft-drive-v2
+    id: 10234577584422
+    title: (Spare & Upgrade) SWYFT Drive V2
+  variant:
+    id: 53826381349158
+    options:
+      - 110mm 2x Wheel Plate Left & 2x Wheel Plate Right & 2x Wheel Hub
+      - null
+      - null
+    sku: null
+    title: 110mm 2x Wheel Plate Left & 2x Wheel Plate Right & 2x Wheel Hub
+  firstSeen: 2026-10-01T20:10:18.314Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-titan-servo-module?variant=51336199340326
   product:
@@ -4555,7 +4690,7 @@
       - 1/2" Hex | 36" Length
       - AL6061
       - null
-    sku: SR-AXLE-HEX-0.5in-36in-AL6061
+    sku: SR-AXLE-HEXtoSPLINE-0.5in-36in-AL6061
     title: 1/2" Hex | 36" Length / AL6061
   firstSeen: 2026-07-19T17:34:48.986Z
 - vendor: Swyft
@@ -4600,7 +4735,7 @@
       - 7mm Hex | 450mm Length
       - AL6061
       - null
-    sku: SR-AXLE-HEX-7mmH-450mm-AL6061
+    sku: SR-AXLE-HEXH-7mm-450mm-AL6061
     title: 7mm Hex | 450mm Length / AL6061
   firstSeen: 2026-07-19T17:34:48.986Z
 - vendor: Swyft
@@ -4615,7 +4750,7 @@
       - 15T SplineXS | 450mm Length
       - SS304
       - null
-    sku: SR-AXLE-SPLINE-15T-450mm-SS304
+    sku: SR-AXLE-SPLINE-8mm-450mm-SS304
     title: 15T SplineXS | 450mm Length / SS304
   firstSeen: 2026-07-19T17:34:48.986Z
 - vendor: Swyft
@@ -4630,7 +4765,7 @@
       - 15T SplineXS | 450mm Length
       - AL7075
       - null
-    sku: SR-AXLE-SPLINE-15T-450mm-AL7075
+    sku: SR-AXLE-SPLINE-8mm-450mm-AL7075
     title: 15T SplineXS | 450mm Length / AL7075
   firstSeen: 2026-07-19T17:34:48.986Z
 - vendor: Swyft
@@ -4642,11 +4777,11 @@
   variant:
     id: 52970239623462
     options:
-      - 15T SplineXS to 1/2" Hex | Pack of 5
+      - 1/2" Hex to 15T SplineXS | Pack of 5
       - null
       - null
     sku: SR-ADAPTER-SPLINE15T-HEX12
-    title: 15T SplineXS to 1/2" Hex | Pack of 5
+    title: 1/2" Hex to 15T SplineXS | Pack of 5
   firstSeen: 2026-08-31T19:27:54.714Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/frc-axle-adapters?variant=52970239656230
@@ -4663,6 +4798,36 @@
     sku: SR-HEXto3DPRINT-01
     title: 1/2" Hex to 3D Print / 10DP Gear | Pack of 5
   firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/frc-axle-adapters?variant=53839590850854
+  product:
+    handle: frc-axle-adapters
+    id: 10492779397414
+    title: Axle Adapters
+  variant:
+    id: 53839590850854
+    options:
+      - 1/2" Hex to 15T SplineXS Steel Set Screw
+      - null
+      - null
+    sku: SR-ADAPTER-0.5HEXtoSPLINE-STEEL-SETSCREW-01
+    title: 1/2" Hex to 15T SplineXS Steel Set Screw
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/frc-axle-adapters?variant=53839590883622
+  product:
+    handle: frc-axle-adapters
+    id: 10492779397414
+    title: Axle Adapters
+  variant:
+    id: 53839590883622
+    options:
+      - 1/2" Hex to 7mm Hex Steel Set Screw
+      - null
+      - null
+    sku: SR-ADAPTER-0.5HEXto7mmHEX-STEEL-SETSCREW-01
+    title: 1/2" Hex to 7mm Hex Steel Set Screw
+  firstSeen: 2026-10-01T20:10:18.314Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-electric-coreless-screwdriver-5nm?variant=53261107331366
   product:
@@ -4827,141 +4992,6 @@
       - No
     sku: CNC-8060Z-575-1500-3AX
     title: 575x375x68 / 1500W / No
-  firstSeen: 2026-08-31T19:27:54.714Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742608449830
-  product:
-    handle: swyft-team-kits
-    id: 10715811873062
-    title: SWYFT Team Kits
-  variant:
-    id: 53742608449830
-    options:
-      - FTC Hardware Kit
-      - null
-      - null
-    sku: SR-KIT-FTC-HEX
-    title: FTC Hardware Kit
-  firstSeen: 2026-08-31T19:27:54.714Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742608482598
-  product:
-    handle: swyft-team-kits
-    id: 10715811873062
-    title: SWYFT Team Kits
-  variant:
-    id: 53742608482598
-    options:
-      - FRC 1/2" Hex Kit
-      - null
-      - null
-    sku: SR-KIT-FRC-HEX
-    title: FRC 1/2" Hex Kit
-  firstSeen: 2026-08-31T19:27:54.714Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742608515366
-  product:
-    handle: swyft-team-kits
-    id: 10715811873062
-    title: SWYFT Team Kits
-  variant:
-    id: 53742608515366
-    options:
-      - FTC Season Kit
-      - null
-      - null
-    sku: SR-KIT-FTC-SEASON
-    title: FTC Season Kit
-  firstSeen: 2026-08-31T19:27:54.714Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742608548134
-  product:
-    handle: swyft-team-kits
-    id: 10715811873062
-    title: SWYFT Team Kits
-  variant:
-    id: 53742608548134
-    options:
-      - FRC Season Kit
-      - null
-      - null
-    sku: SR-KIT-FRC-SEASON
-    title: FRC Season Kit
-  firstSeen: 2026-08-31T19:27:54.714Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742676082982
-  product:
-    handle: swyft-team-kits
-    id: 10715811873062
-    title: SWYFT Team Kits
-  variant:
-    id: 53742676082982
-    options:
-      - FRC Tube Kit
-      - null
-      - null
-    sku: SR-KIT-FRC-TUBE
-    title: FRC Tube Kit
-  firstSeen: 2026-08-31T19:27:54.714Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742676115750
-  product:
-    handle: swyft-team-kits
-    id: 10715811873062
-    title: SWYFT Team Kits
-  variant:
-    id: 53742676115750
-    options:
-      - FTC Channel Kit
-      - null
-      - null
-    sku: SR-KIT-FTC-CHANNEL
-    title: FTC Channel Kit
-  firstSeen: 2026-08-31T19:27:54.714Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742676148518
-  product:
-    handle: swyft-team-kits
-    id: 10715811873062
-    title: SWYFT Team Kits
-  variant:
-    id: 53742676148518
-    options:
-      - Sheet Material Kit
-      - null
-      - null
-    sku: SR-KIT-SHEET
-    title: Sheet Material Kit
-  firstSeen: 2026-08-31T19:27:54.714Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742676181286
-  product:
-    handle: swyft-team-kits
-    id: 10715811873062
-    title: SWYFT Team Kits
-  variant:
-    id: 53742676181286
-    options:
-      - FTC Servo Kit
-      - null
-      - null
-    sku: SR-KIT-FTC-SERVO
-    title: FTC Servo Kit
-  firstSeen: 2026-08-31T19:27:54.714Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-team-kits?variant=53742676214054
-  product:
-    handle: swyft-team-kits
-    id: 10715811873062
-    title: SWYFT Team Kits
-  variant:
-    id: 53742676214054
-    options:
-      - FTC Spike Motor Kit
-      - null
-      - null
-    sku: SR-KIT-FTC-SPIKE
-    title: FTC Spike Motor Kit
   firstSeen: 2026-08-31T19:27:54.714Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871281446
@@ -5923,3 +5953,213 @@
     sku: BUNDLE-2GT-10
     title: 62PCS Belt Bundle / 10mm Width
   firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-90deg-gearbox?variant=53790829183270
+  product:
+    handle: swyft-90deg-gearbox
+    id: 10736657334566
+    title: SWYFT 90° Gearbox
+  variant:
+    id: 53790829183270
+    options:
+      - 7mm Hex
+      - null
+      - null
+    sku: SR-90GEARBOX-7mmHEX-01
+    title: 7mm Hex
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-90deg-gearbox?variant=53790829216038
+  product:
+    handle: swyft-90deg-gearbox
+    id: 10736657334566
+    title: SWYFT 90° Gearbox
+  variant:
+    id: 53790829216038
+    options:
+      - 15T SplineXS
+      - null
+      - null
+    sku: SR-90GEARBOX-15TSPLINE-01
+    title: 15T SplineXS
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-2mm-pulleys?variant=53811436454182
+  product:
+    handle: gt2-2mm-pulleys
+    id: 10744850809126
+    title: GT2 2mm Pulleys
+  variant:
+    id: 53811436454182
+    options:
+      - 20 Tooth (2 Pack)
+      - null
+      - null
+    sku: SR-PULLEY-GT2-20T
+    title: 20 Tooth (2 Pack)
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-2mm-pulleys?variant=53811436486950
+  product:
+    handle: gt2-2mm-pulleys
+    id: 10744850809126
+    title: GT2 2mm Pulleys
+  variant:
+    id: 53811436486950
+    options:
+      - 25 Tooth (2 Pack)
+      - null
+      - null
+    sku: SR-PULLEY-GT2-25T
+    title: 25 Tooth (2 Pack)
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-2mm-pulleys?variant=53811436519718
+  product:
+    handle: gt2-2mm-pulleys
+    id: 10744850809126
+    title: GT2 2mm Pulleys
+  variant:
+    id: 53811436519718
+    options:
+      - 30 Tooth (2 Pack)
+      - null
+      - null
+    sku: SR-PULLEY-GT2-30T
+    title: 30 Tooth (2 Pack)
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-2mm-pulleys?variant=53811436552486
+  product:
+    handle: gt2-2mm-pulleys
+    id: 10744850809126
+    title: GT2 2mm Pulleys
+  variant:
+    id: 53811436552486
+    options:
+      - 35 Tooth (2 Pack)
+      - null
+      - null
+    sku: SR-PULLEY-GT2-35T
+    title: 35 Tooth (2 Pack)
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-2mm-pulleys?variant=53811436585254
+  product:
+    handle: gt2-2mm-pulleys
+    id: 10744850809126
+    title: GT2 2mm Pulleys
+  variant:
+    id: 53811436585254
+    options:
+      - 40 Tooth (2 Pack)
+      - null
+      - null
+    sku: SR-PULLEY-GT2-40T
+    title: 40 Tooth (2 Pack)
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-2mm-pulleys?variant=53811436618022
+  product:
+    handle: gt2-2mm-pulleys
+    id: 10744850809126
+    title: GT2 2mm Pulleys
+  variant:
+    id: 53811436618022
+    options:
+      - 45 Tooth (2 Pack)
+      - null
+      - null
+    sku: SR-PULLEY-GT2-45T
+    title: 45 Tooth (2 Pack)
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-2mm-pulleys?variant=53811436650790
+  product:
+    handle: gt2-2mm-pulleys
+    id: 10744850809126
+    title: GT2 2mm Pulleys
+  variant:
+    id: 53811436650790
+    options:
+      - 50 Tooth (2 Pack)
+      - null
+      - null
+    sku: SR-PULLEY-GT2-50T
+    title: 50 Tooth (2 Pack)
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-2mm-pulleys?variant=53811436683558
+  product:
+    handle: gt2-2mm-pulleys
+    id: 10744850809126
+    title: GT2 2mm Pulleys
+  variant:
+    id: 53811436683558
+    options:
+      - 14PCS Pulley Bundle
+      - null
+      - null
+    sku: BUNDLE-GT2-PULLEY
+    title: 14PCS Pulley Bundle
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-2mm-pulleys?variant=53811436716326
+  product:
+    handle: gt2-2mm-pulleys
+    id: 10744850809126
+    title: GT2 2mm Pulleys
+  variant:
+    id: 53811436716326
+    options:
+      - 60 Tooth Hub Mount (1 Pack)
+      - null
+      - null
+    sku: SR-PULLEY-GT2-60T
+    title: 60 Tooth Hub Mount (1 Pack)
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-bearing-plates?variant=53823001526566
+  product:
+    handle: swyft-bearing-plates
+    id: 10747258962214
+    title: Bearing Plates
+  variant:
+    id: 53823001526566
+    options:
+      - 8mm Round (10 Pack)
+      - null
+      - null
+    sku: SR-BEARINGHAT-8mm
+    title: 8mm Round (10 Pack)
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-bearing-plates?variant=53823001559334
+  product:
+    handle: swyft-bearing-plates
+    id: 10747258962214
+    title: Bearing Plates
+  variant:
+    id: 53823001559334
+    options:
+      - 1/2" Hex Thin (10 Pack)
+      - null
+      - null
+    sku: SR-BEARINGHAT-0.5inHEX-THIN
+    title: 1/2" Hex Thin (10 Pack)
+  firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-bearing-plates?variant=53823001592102
+  product:
+    handle: swyft-bearing-plates
+    id: 10747258962214
+    title: Bearing Plates
+  variant:
+    id: 53823001592102
+    options:
+      - 1/2" Hex Thick (10 Pack)
+      - null
+      - null
+    sku: SR-BEARINGHAT-0.5inHEX-BIG
+    title: 1/2" Hex Thick (10 Pack)
+  firstSeen: 2026-10-01T20:10:18.314Z

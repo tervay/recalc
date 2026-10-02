@@ -103,7 +103,10 @@ const LEADING_NOISE_PATTERNS = [
   /^\d+(?:\.\d+)?(?:\/\d+)?\s*(?:inch|in\.?|mm|")\s*(?:OD|WD|Wide)?\s*(?:x\s*)?/i,
 ];
 
-const DROPPED_SEGMENT_PATTERNS = [/^QTY\s+\d+$/i, /durometer/i];
+const QUANTITY_SEGMENT = /^QTY\s+\d+$/i;
+
+const DUROMETER_PHRASE =
+  /\b(?:\d{2}A\s+)?(?:\w+\s+)?durometer\b(?:\s+\d{2}A\b)?/i;
 
 export function wheelNameFromTitle(title: string): string {
   let name = title.split('(')[0].trim();
@@ -113,10 +116,10 @@ export function wheelNameFromTitle(title: string): string {
 
   name = name
     .split(' - ')
-    .filter(
-      (segment) =>
-        !DROPPED_SEGMENT_PATTERNS.some((pattern) => pattern.test(segment)),
+    .map((segment) =>
+      segment.replace(DUROMETER_PHRASE, '').replace(/\s+/g, ' ').trim(),
     )
+    .filter((segment) => segment !== '' && !QUANTITY_SEGMENT.test(segment))
     .join(' - ');
 
   let previous = '';

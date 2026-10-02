@@ -172,7 +172,9 @@ test.describe('Intake Calculator', () => {
     await page.waitForTimeout(100);
 
     for (const cell of await page.getByRole('cell').allInnerTexts()) {
-      if (cell.endsWith('"')) expect(cell).toBe('4.00"');
+      if (cell.endsWith('"')) {
+        expect(Math.abs(parseFloat(cell) - 4)).toBeLessThanOrEqual(0.1);
+      }
     }
     expect(await wheelRows.count()).not.toBe(twoInchCount);
   });

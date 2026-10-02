@@ -781,7 +781,7 @@ export default function Flywheel() {
               {/* LQR Tuning section */}
               <Collapsible defaultOpen={false} className="flex flex-col p-4">
                 <CollapsibleTrigger className="group flex cursor-pointer items-center gap-1">
-                  <ChevronDownIcon className="size-3.5 -rotate-90 text-muted-foreground transition-transform duration-200 group-data-[panel-open]:rotate-0" />
+                  <ChevronDownIcon className="size-3.5 -rotate-90 text-muted-foreground transition-transform duration-200 group-data-panel-open:rotate-0" />
                   <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
                     LQR Tuning
                   </h2>
