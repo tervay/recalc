@@ -482,7 +482,7 @@ export const ALL_MOTORS: MotorSpecs[] = [
     voltage: new Measurement(12, 'V'),
     stallTorque: new Measurement(3.1, 'N*m'),
     stallCurrent: new Measurement(189, 'A'),
-    freeCurrent: new Measurement(1, 'A'),
+    freeCurrent: new Measurement(2.7, 'A'),
     freeSpeed: new Measurement(7500, 'rpm'),
     motorWeight: new Measurement(0.65, 'lb'),
     controllerWeight: THRIFTY_NOVA_WEIGHT,
