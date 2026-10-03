@@ -114,6 +114,16 @@ function kTFor(motorName: string) {
   return within(rowFor(motorName)).getAllByRole('cell')[9].textContent;
 }
 
+function weightFor(motorName: string) {
+  return within(rowFor(motorName)).getAllByRole('cell')[8].textContent;
+}
+
+function numberInCell(motorName: string, cellIndex: number) {
+  const text =
+    within(rowFor(motorName)).getAllByRole('cell')[cellIndex].textContent ?? '';
+  return Number(text.split(' ')[0]);
+}
+
 function setCurrentDraw(amps: string) {
   fireEvent.change(screen.getByTestId('currentDraw'), {
     target: { value: amps },
@@ -170,6 +180,34 @@ describe('MotorTable', () => {
 
     const speeds = freeSpeeds();
     expect(speeds).toEqual([...speeds].sort((a, b) => a - b));
+  });
+
+  it('reports the combined motor and controller weight', () => {
+    renderMotorTable();
+
+    expect(weightFor('Thrifty Pulsar')).toBe('0.86 lb');
+  });
+
+  it('reports the motor weight alone when there is no controller', () => {
+    renderMotorTable();
+
+    expect(weightFor('Falcon 500')).toBe('1.25 lb');
+  });
+
+  it('includes the controller weight for a motor with a separate controller', () => {
+    renderMotorTable();
+
+    expect(weightFor('CIM')).toBe('3.05 lb');
+  });
+
+  it('divides peak power by the combined motor and controller weight for power density', () => {
+    renderMotorTable();
+
+    const peakPower = numberInCell('CIM', 4);
+    const powerDensity = numberInCell('CIM', 5);
+    const combinedWeight = numberInCell('CIM', 8);
+
+    expect(powerDensity).toBeCloseTo(peakPower / combinedWeight, 0);
   });
 
   it('reports kT net of the free current', () => {

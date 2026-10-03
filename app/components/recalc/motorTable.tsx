@@ -286,7 +286,10 @@ export default function MotorTable() {
         },
       },
       {
-        accessorFn: (row) => row.motorSpecs.motorWeight.to('lb').scalar,
+        accessorFn: (row) =>
+          row.motorSpecs.motorWeight
+            .add(row.motorSpecs.controllerWeight)
+            .to('lb').scalar,
         id: 'motorWeight',
         header: ({ column }) => (
           <SortableHeader column={column} align="center">
@@ -296,7 +299,10 @@ export default function MotorTable() {
         cell: ({ row }) => {
           return (
             <div className="text-right text-sm tabular-nums">
-              {row.original.motorSpecs.motorWeight.to('lb').scalar.toFixed(2)}{' '}
+              {row.original.motorSpecs.motorWeight
+                .add(row.original.motorSpecs.controllerWeight)
+                .to('lb')
+                .scalar.toFixed(2)}{' '}
               <span className="text-muted-foreground">lb</span>
             </div>
           );

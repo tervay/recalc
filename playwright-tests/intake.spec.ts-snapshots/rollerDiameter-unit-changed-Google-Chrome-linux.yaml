@@ -33,7 +33,7 @@
 - combobox: ft/s
 - heading "Recommended Ratios per Motor" [level=2]
 - paragraph: The recommended ratio is the ratio at which the rollers will spin at twice the drivetrain speed.
-- text: Motor Ratio Stall Torque Thrifty Pulsar 0.73 0.36 N*m
+- text: Motor Ratio Stall Torque Thrifty Pulsar 0.73 0.37 N*m
 - button "Set"
 - text: Minion (Adv Hall) 0.75 0.35 N*m
 - button "Set"

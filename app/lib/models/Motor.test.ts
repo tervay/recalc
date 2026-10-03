@@ -333,6 +333,11 @@ describe('Motor', () => {
       expect(motor.quantity).toBe(1);
     });
 
+    it('uses a free current of 2.7 A for the Thrifty Pulsar', () => {
+      const motor = Motor.fromName('Thrifty Pulsar', 1);
+      expect(motor.freeCurrent.to('A').scalar).toBeCloseTo(2.7, 10);
+    });
+
     it('handles zero quantity', () => {
       const motor = Motor.fromName('Falcon 500', 0);
       expect(motor.quantity).toBe(0);
