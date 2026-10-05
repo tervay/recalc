@@ -65,7 +65,7 @@
     "@types/node": "26.6.3",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
-    "@vercel/config": "0.7.2",
+    "@vercel/config": "0.9.0",
     "commander": "15.0.0",
     "eslint-plugin-no-relative-import-paths": "1.7.3",
     "eslint-plugin-zod": "5.0.0",
