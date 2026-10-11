@@ -112,7 +112,7 @@ RUN mkdir -p /wpilib-artifacts/lib && \
 FROM base AS catch2-libs
 
 # renovate: datasource=github-tags depName=catchorg/Catch2
-ARG CATCH2_VERSION=v3.16.0
+ARG CATCH2_VERSION=v3.16.1
 
 RUN git clone --depth 1 --branch "${CATCH2_VERSION}" \
         https://github.com/catchorg/Catch2 /catch2-src \
