@@ -96,14 +96,18 @@
   - button "8mm"
 - table:
   - rowgroup:
-    - row "Matching COTS Wheels0":
-      - columnheader "Matching COTS Wheels0"
-    - row "Wheel Diameter Bore Type Durometer":
+    - row "Matching COTS Wheels0 In stock only":
+      - columnheader "Matching COTS Wheels0 In stock only":
+        - text: Matching COTS Wheels0
+        - switch "In stock only"
+        - text: In stock only
+    - row "Wheel Diameter Bore Type Durometer Stock":
       - columnheader "Wheel"
       - columnheader "Diameter"
       - columnheader "Bore"
       - columnheader "Type"
       - columnheader "Durometer"
+      - columnheader "Stock"
   - rowgroup:
     - row "No matching wheels found":
       - cell "No matching wheels found"

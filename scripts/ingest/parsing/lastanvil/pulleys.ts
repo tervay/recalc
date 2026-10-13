@@ -23,7 +23,8 @@ export function parseLastAnvilPulleys(
         profile: 'HTD',
         pitch: 5,
         sku: `LA-${variant.sku}`,
-        url: urlForHandle(product.handle, 'LastAnvil'),
+        variantId: variant.id,
+        url: urlForHandle(product.handle, 'LastAnvil', variant.id),
         bore: '1/2" Hex',
         vendor: 'LastAnvil',
       });

@@ -20,6 +20,7 @@ const zThriftyPulleySchema = z.object({
   profile: z.enum(['HTD']),
   bore: zThriftyPulleyBoreSchema,
   sku: z.string(),
+  variantId: z.number(),
   url: z.string().url(),
 });
 
@@ -92,7 +93,8 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): JSONPulley[] {
               profile: 'HTD',
               bore: mappedBore,
               sku: variant.sku,
-              url: urlForHandle(product.handle, 'Thrifty'),
+              variantId: variant.id,
+              url: urlForHandle(product.handle, 'Thrifty', variant.id),
             });
             pulleys.push(thriftyPulleyToJsonPulley(thriftyPulley));
           } catch (error) {
@@ -116,7 +118,12 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): JSONPulley[] {
               profile,
               bore,
               sku: product.variants[0].sku,
-              url: urlForHandle(product.handle, 'Thrifty'),
+              variantId: product.variants[0].id,
+              url: urlForHandle(
+                product.handle,
+                'Thrifty',
+                product.variants[0].id,
+              ),
             });
             pulleys.push(thriftyPulleyToJsonPulley(thriftyPulley));
           } catch (error) {
@@ -141,7 +148,12 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): JSONPulley[] {
               profile,
               bore,
               sku: product.variants[0].sku,
-              url: urlForHandle(product.handle, 'Thrifty'),
+              variantId: product.variants[0].id,
+              url: urlForHandle(
+                product.handle,
+                'Thrifty',
+                product.variants[0].id,
+              ),
             });
             pulleys.push(thriftyPulleyToJsonPulley(thriftyPulley));
           } catch (error) {

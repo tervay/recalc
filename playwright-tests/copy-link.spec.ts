@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from 'playwright-tests/helpers';
 
 test.describe('Copy Link', () => {
   test('gears: copied URL restores state', async ({ page }) => {

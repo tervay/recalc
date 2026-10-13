@@ -11,6 +11,7 @@ const zAndyMarkPulleySchema = z.object({
   profile: z.string(),
   pitch: z.number().min(1),
   sku: z.string().nullable(),
+  variantId: z.number(),
   url: z.string().url(),
   bore: zBoreSchema,
 });
@@ -24,6 +25,7 @@ function andyMarkPulleyToJsonPulley(
     profile: pulley.profile,
     pitch: pulley.pitch,
     sku: pulley.sku,
+    variantId: pulley.variantId,
     url: pulley.url,
     bore: pulley.bore,
     vendor: 'AndyMark',
@@ -110,7 +112,8 @@ export function parseAndyMarkPulleys(products: ShopifyProduct[]): JSONPulley[] {
             profile: 'HTD',
             pitch,
             sku,
-            url: urlForHandle(product.handle, 'AndyMark'),
+            variantId: variant.id,
+            url: urlForHandle(product.handle, 'AndyMark', variant.id),
             bore,
           });
           pulleys.push(andyMarkPulleyToJsonPulley(andyMarkPulley));
@@ -135,7 +138,8 @@ export function parseAndyMarkPulleys(products: ShopifyProduct[]): JSONPulley[] {
           profile: 'HTD',
           pitch,
           sku,
-          url: urlForHandle(product.handle, 'AndyMark'),
+          variantId: variant.id,
+          url: urlForHandle(product.handle, 'AndyMark', variant.id),
           bore,
         });
         pulleys.push(andyMarkPulleyToJsonPulley(andyMarkPulley));

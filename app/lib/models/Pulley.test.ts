@@ -280,6 +280,7 @@ describe('Pulley', () => {
         width: 10,
         profile: 'HTD',
         sku: 'SKU123',
+        variantId: null,
         url: 'https://example.com',
         bore: '8mm',
         vendor: 'Custom',
@@ -295,6 +296,21 @@ describe('Pulley', () => {
       expect(pulley.vendor).toBe('Custom');
     });
 
+    it('keeps the variant id', () => {
+      const json: JSONPulley = {
+        teeth: 100,
+        pitch: 5,
+        width: 10,
+        profile: 'HTD',
+        sku: 'SKU123',
+        variantId: 42,
+        url: 'https://example.com',
+        bore: '8mm',
+        vendor: 'WCP',
+      };
+      expect(Pulley.fromJson(json).variantId).toBe(42);
+    });
+
     it('handles null sku', () => {
       const json: JSONPulley = {
         teeth: 100,
@@ -302,6 +318,7 @@ describe('Pulley', () => {
         width: 10,
         profile: 'HTD',
         sku: null,
+        variantId: null,
         url: 'https://example.com',
         bore: '8mm',
         vendor: 'Custom',
@@ -317,6 +334,7 @@ describe('Pulley', () => {
         width: 10,
         profile: 'HTD',
         sku: null,
+        variantId: null,
         url: 'https://example.com',
         bore: '8mm',
         vendor: 'Custom',
@@ -333,6 +351,7 @@ describe('Pulley', () => {
         width: 10,
         profile: 'HTD',
         sku: null,
+        variantId: null,
         url: 'https://example.com',
         bore: '8mm',
         vendor: 'Custom',
@@ -349,6 +368,7 @@ describe('Pulley', () => {
         width: 10,
         profile: 'HTD',
         sku: null,
+        variantId: null,
         url: 'https://example.com',
         bore: '8mm',
         vendor: 'Custom',
@@ -364,6 +384,7 @@ describe('Pulley', () => {
         width: 10,
         profile: 'HTD',
         sku: null,
+        variantId: null,
         url: 'https://example.com',
         bore: '8mm',
         vendor: 'Custom',
@@ -380,6 +401,7 @@ describe('Pulley', () => {
         width: 1,
         profile: 'HTD',
         sku: null,
+        variantId: null,
         url: 'https://example.com',
         bore: '8mm',
         vendor: 'Custom',
@@ -395,6 +417,7 @@ describe('Pulley', () => {
         width: 10,
         profile: '',
         sku: null,
+        variantId: null,
         url: 'https://example.com',
         bore: '8mm',
         vendor: 'Custom',
@@ -424,6 +447,7 @@ describe('Pulley', () => {
           width: 10,
           profile: 'HTD',
           sku: null,
+          variantId: null,
           url: 'https://example.com',
           bore,
           vendor: 'Custom',

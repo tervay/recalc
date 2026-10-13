@@ -48,8 +48,9 @@ export function parseSwyftWheels(products: ShopifyProduct[]): JSONWheel[] {
         durometer: parseDurometer(
           optionValueByName(product, variant, /durometer/i) ?? product.title,
         ),
-        url: urlForHandle(product.handle, 'Swyft'),
+        url: urlForHandle(product.handle, 'Swyft', variant.id),
         sku,
+        variantId: variant.id,
         vendor: 'Swyft',
       });
     }

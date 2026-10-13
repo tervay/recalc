@@ -82,8 +82,9 @@ export function parseAndyMarkSprockets(
         teeth,
         bore,
         chainType,
-        url: urlForHandle(product.handle, 'AndyMark'),
+        url: urlForHandle(product.handle, 'AndyMark', variant.id),
         sku,
+        variantId: variant.id,
         vendor: 'AndyMark',
       });
       continue;
@@ -133,8 +134,9 @@ export function parseAndyMarkSprockets(
         teeth,
         bore,
         chainType,
-        url: urlForHandle(product.handle, 'AndyMark'),
+        url: urlForHandle(product.handle, 'AndyMark', variant.id),
         sku,
+        variantId: variant.id,
         vendor: 'AndyMark',
       });
     }

@@ -9,6 +9,7 @@ import {
   readStoreCache,
   writeStoreCache,
 } from 'scripts/ingest/storeCache/index';
+import { dedupeParts } from 'scripts/ingest/validation/dedupe';
 import { validateParsedData } from 'scripts/ingest/validation/index';
 import { INGESTION_VENDORS, isVendorName } from 'scripts/ingest/vendors';
 import type { VendorName } from 'scripts/ingest/vendors';
@@ -49,17 +50,7 @@ async function runPipeline(
       }
     }
 
-    const seen = new Set<string>();
-    const deduped = valid.filter((item) => {
-      const typed = item as { sku?: string | null; vendor?: string };
-      const key =
-        typed.sku && typed.vendor
-          ? `${typed.vendor}:${typed.sku}`
-          : JSON.stringify(item);
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
+    const deduped = dedupeParts(valid);
     const duplicateCount = valid.length - deduped.length;
     if (duplicateCount > 0) {
       console.warn(`  ${duplicateCount} duplicate ${productType} removed`);

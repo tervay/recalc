@@ -40,6 +40,7 @@ export class Belt extends Model {
     public readonly sku: string | null,
     public readonly url: string,
     public readonly vendor: string,
+    public readonly variantId: number | null = null,
   ) {
     super('Belt');
     this.length = pitch.mul(teeth);
@@ -54,6 +55,7 @@ export class Belt extends Model {
       json.sku,
       json.url,
       json.vendor,
+      json.variantId,
     );
   }
 

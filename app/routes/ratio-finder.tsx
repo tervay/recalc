@@ -17,7 +17,7 @@ import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import type * as RatioFinderWorker from '~/lib/math/ratioFinder.worker';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
-import { buildMeta, pageUrl } from '~/lib/seo';
+import { buildMeta, calcTitle, pageUrl } from '~/lib/seo';
 import type { Bore, StageFamily } from '~/lib/types/common';
 import { STAGE_FAMILIES } from '~/lib/types/common';
 import {
@@ -29,7 +29,7 @@ import {
 } from '~/lib/types/queryParams';
 
 const RATIO_FINDER_PATH = '/ratio-finder';
-const RATIO_FINDER_TITLE = 'FRC & FTC Gear Ratio Finder | ReCalc';
+const RATIO_FINDER_TITLE = calcTitle('Gear Ratio Finder');
 const RATIO_FINDER_NAME = 'Ratio Finder';
 const RATIO_FINDER_DESCRIPTION =
   'Find optimal gear, belt, and chain drive ratios for FRC and FTC robots. Search through combinations of sprockets, pulleys, and gears to hit a target reduction.';

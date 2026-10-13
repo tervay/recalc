@@ -8,8 +8,9 @@ export function parseLastAnvilSprockets(): JSONSprocket[] {
       teeth: 12,
       bore: '1/4" Round',
       chainType: '#25',
-      url: urlForHandle('idler-sprocket', 'LastAnvil'),
+      url: urlForHandle('idler-sprocket', 'LastAnvil', 43296203997390),
       sku: '250153',
+      variantId: 43296203997390,
       vendor: 'LastAnvil',
     },
   ];

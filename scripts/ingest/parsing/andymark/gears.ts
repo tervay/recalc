@@ -50,8 +50,9 @@ export function parseAndyMarkGears(products: ShopifyProduct[]): JSONGear[] {
           teeth,
           dp,
           bore,
-          url: urlForHandle(product.handle, 'AndyMark'),
+          url: urlForHandle(product.handle, 'AndyMark', variant.id),
           sku,
+          variantId: variant.id,
           vendor: 'AndyMark',
         });
         gears.push(parsedData);
@@ -113,8 +114,9 @@ export function parseAndyMarkGears(products: ShopifyProduct[]): JSONGear[] {
           teeth,
           dp,
           bore,
-          url: urlForHandle(product.handle, 'AndyMark'),
+          url: urlForHandle(product.handle, 'AndyMark', variant.id),
           sku,
+          variantId: variant.id,
           vendor: 'AndyMark',
         });
         gears.push(parsedData);

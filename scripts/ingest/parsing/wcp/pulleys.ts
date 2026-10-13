@@ -22,6 +22,7 @@ const zWCPPulleySchema = z.object({
   profile: z.string(),
   pitch: z.number().min(1),
   sku: z.string().nullable(),
+  variantId: z.number(),
   url: z.string().url(),
   bore: zWCPPulleyBoreSchema,
 });
@@ -66,8 +67,9 @@ export function parseWCPPulleys(products: ShopifyProduct[]): JSONPulley[] {
             profile,
             pitch: parseInt(pitch),
             bore,
-            url: urlForHandle(product.handle, 'WCP'),
+            url: urlForHandle(product.handle, 'WCP', product.variants[0].id),
             sku: product.variants[0].sku,
+            variantId: product.variants[0].id,
           });
           pulleys.push(wcpPulleyToJsonPulley(wcpPulley));
         } catch (error) {

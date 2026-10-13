@@ -42,6 +42,7 @@ export function parseREVWheels(products: ShopifyProduct[]): JSONWheel[] {
       durometer: parseDurometer(product.title),
       url: product.handle,
       sku,
+      variantId: null,
       vendor: 'REV',
     });
   }

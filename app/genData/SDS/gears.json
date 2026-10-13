@@ -5,6 +5,7 @@
     "bore": "8mm",
     "url": "https://www.swervedrivespecialties.com/products/gear-32dp-15t-8mm-bore",
     "sku": "",
+    "variantId": 44151199400237,
     "vendor": "SDS"
   },
   {
@@ -13,6 +14,7 @@
     "bore": "3/8\" Hex",
     "url": "https://www.swervedrivespecialties.com/products/gear-20dp-50t-3-8-hex-bore",
     "sku": "",
+    "variantId": 44151191896365,
     "vendor": "SDS"
   },
   {
@@ -21,6 +23,7 @@
     "bore": "8mm",
     "url": "https://www.swervedrivespecialties.com/products/gear-20dp-16t-8mm-bore",
     "sku": "",
+    "variantId": 44151174136109,
     "vendor": "SDS"
   },
   {
@@ -29,6 +32,7 @@
     "bore": "8mm",
     "url": "https://www.swervedrivespecialties.com/products/gear-20dp-14t-8mm-bore",
     "sku": "",
+    "variantId": 44151169057069,
     "vendor": "SDS"
   },
   {
@@ -37,6 +41,7 @@
     "bore": "Falcon",
     "url": "https://www.swervedrivespecialties.com/products/15t-32dp-falcon-500-gear",
     "sku": "",
+    "variantId": 39620029874289,
     "vendor": "SDS"
   },
   {
@@ -45,6 +50,7 @@
     "bore": "Falcon",
     "url": "https://www.swervedrivespecialties.com/products/14t-20dp-falcon-500-gear",
     "sku": "",
+    "variantId": 39620028072049,
     "vendor": "SDS"
   },
   {
@@ -53,6 +59,7 @@
     "bore": "3/8\" Hex",
     "url": "https://www.swervedrivespecialties.com/products/16t-20dp-3-8-hex-gear",
     "sku": "",
+    "variantId": 39535614492785,
     "vendor": "SDS"
   },
   {
@@ -61,6 +68,7 @@
     "bore": "3/8\" Hex",
     "url": "https://www.swervedrivespecialties.com/products/19t-20dp-3-8-hex-gear",
     "sku": "",
+    "variantId": 39377998348401,
     "vendor": "SDS"
   },
   {
@@ -69,6 +77,7 @@
     "bore": "3/8\" Hex",
     "url": "https://www.swervedrivespecialties.com/products/17t-20dp-3-8-hex-gear",
     "sku": "",
+    "variantId": 39377999626353,
     "vendor": "SDS"
   },
   {
@@ -77,6 +86,7 @@
     "bore": "3/8\" Hex",
     "url": "https://www.swervedrivespecialties.com/products/32t-32dp-gear",
     "sku": "",
+    "variantId": 32068211998833,
     "vendor": "SDS"
   },
   {
@@ -85,6 +95,7 @@
     "bore": "Falcon",
     "url": "https://www.swervedrivespecialties.com/products/gear-20dp-16t-falcon-spline-bore",
     "sku": "SDS-16T-20DP-FALCON",
+    "variantId": 50435655827757,
     "vendor": "SDS"
   }
 ]

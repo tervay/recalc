@@ -184,7 +184,7 @@ describe('Thrifty Parsers', () => {
         pitch: 5,
         bore: '1/2" Hex',
         vendor: 'Thrifty',
-        url: 'https://www.thethriftybot.com/products/1-2-hex-pulleys',
+        url: 'https://www.thethriftybot.com/products/1-2-hex-pulleys?variant=100',
       });
     });
 

@@ -46,7 +46,7 @@ import Measurement from '~/lib/models/Measurement';
 import Motor, { nominalVoltage } from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 import { getPool } from '~/lib/pool';
-import { buildMeta, pageUrl } from '~/lib/seo';
+import { buildMeta, calcTitle, pageUrl } from '~/lib/seo';
 import {
   BooleanParam,
   MeasurementParam,
@@ -57,7 +57,7 @@ import {
 } from '~/lib/types/queryParams';
 
 const FLYWHEEL_PATH = '/flywheel';
-const FLYWHEEL_TITLE = 'FRC & FTC Flywheel Simulator | ReCalc';
+const FLYWHEEL_TITLE = calcTitle('Flywheel Simulator');
 const FLYWHEEL_NAME = 'Flywheel Calculator';
 const FLYWHEEL_DESCRIPTION =
   'Simulate flywheel mechanisms for FRC and FTC robots. Model spin-up time, energy storage, and motor performance under load.';

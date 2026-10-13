@@ -14,6 +14,7 @@ function json(overrides: Partial<JSONWheel> = {}): JSONWheel {
     durometer: '35A',
     url: 'https://example.com/wheel',
     sku: 'am-3462_green',
+    variantId: null,
     vendor: 'AndyMark',
     ...overrides,
   };
@@ -31,6 +32,10 @@ describe('Wheel', () => {
       expect(wheel.url).toBe('https://example.com/wheel');
       expect(wheel.sku).toBe('am-3462_green');
       expect(wheel.vendor).toBe('AndyMark');
+    });
+
+    it('keeps the variant id', () => {
+      expect(Wheel.fromJson(json({ variantId: 42 })).variantId).toBe(42);
     });
 
     it('interprets diameter as millimeters', () => {

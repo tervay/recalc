@@ -20,71 +20,89 @@
   - text: has 16t but an 18t center distance — use 18t in this calculator.
 - table:
   - rowgroup:
-    - row "Matching COTS Gears7":
-      - columnheader "Matching COTS Gears7"
-    - row "SKU Teeth Bore":
+    - row "Matching COTS Gears7 In stock only":
+      - columnheader "Matching COTS Gears7 In stock only":
+        - text: Matching COTS Gears7
+        - switch "In stock only"
+        - text: In stock only
+    - row "SKU Teeth Bore Stock":
       - columnheader "SKU"
       - columnheader "Teeth"
       - columnheader "Bore"
+      - columnheader "Stock"
   - rowgroup:
-    - row "AndyMark am-4332 40 1/2\" Hex":
+    - row "AndyMark am-4332 40 1/2\" Hex In stock":
       - cell "AndyMark am-4332":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-32-dp-gears
+          - /url: https://www.andymark.com/products/standard-32-dp-gears?variant=44495411642540
+          - img "AndyMark"
         - link "am-4332":
-          - /url: https://www.andymark.com/products/standard-32-dp-gears
+          - /url: https://www.andymark.com/products/standard-32-dp-gears?variant=44495411642540
       - cell "40"
       - cell "1/2\" Hex"
-    - row "AndyMark am-4328 40 3/8\" Hex":
+      - cell "In stock"
+    - row "AndyMark am-4328 40 3/8\" Hex In stock":
       - cell "AndyMark am-4328":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-32-dp-gears
+          - /url: https://www.andymark.com/products/standard-32-dp-gears?variant=44495411609772
+          - img "AndyMark"
         - link "am-4328":
-          - /url: https://www.andymark.com/products/standard-32-dp-gears
+          - /url: https://www.andymark.com/products/standard-32-dp-gears?variant=44495411609772
       - cell "40"
       - cell "3/8\" Hex"
-    - row "WCP WCP-0746 40 3/8\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-0746 40 3/8\" Hex In stock":
       - cell "WCP WCP-0746":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0746
+          - /url: https://wcproducts.com/products/wcp-0746?variant=35666703450272
+          - img "WCP"
         - link "WCP-0746":
-          - /url: https://wcproducts.com/products/wcp-0746
+          - /url: https://wcproducts.com/products/wcp-0746?variant=35666703450272
       - cell "40"
       - cell "3/8\" Hex"
+      - cell "In stock"
     - row "60T":
       - cell "60T"
-    - row "AndyMark am-4334 60 1/2\" Hex":
+    - row "AndyMark am-4334 60 1/2\" Hex In stock":
       - cell "AndyMark am-4334":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-32-dp-gears
+          - /url: https://www.andymark.com/products/standard-32-dp-gears?variant=44495411740844
+          - img "AndyMark"
         - link "am-4334":
-          - /url: https://www.andymark.com/products/standard-32-dp-gears
+          - /url: https://www.andymark.com/products/standard-32-dp-gears?variant=44495411740844
       - cell "60"
       - cell "1/2\" Hex"
-    - row "AndyMark am-3483 60 1/4\" Round":
+      - cell "In stock"
+    - row "AndyMark am-3483 60 1/4\" Round In stock":
       - cell "AndyMark am-3483":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/60-tooth-32-dp-0-250-in-round-bore-steel-gear-for-evo-encoder
+          - /url: https://www.andymark.com/products/60-tooth-32-dp-0-250-in-round-bore-steel-gear-for-evo-encoder?variant=44495376351404
+          - img "AndyMark"
         - link "am-3483":
-          - /url: https://www.andymark.com/products/60-tooth-32-dp-0-250-in-round-bore-steel-gear-for-evo-encoder
+          - /url: https://www.andymark.com/products/60-tooth-32-dp-0-250-in-round-bore-steel-gear-for-evo-encoder?variant=44495376351404
       - cell "60"
       - cell "1/4\" Round"
-    - row "AndyMark am-0927 60 3/8\" Hex":
+      - cell "In stock"
+    - row "AndyMark am-0927 60 3/8\" Hex In stock":
       - cell "AndyMark am-0927":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/60-tooth-32-dp-0-375-in-hex-bore-steel-gear
+          - /url: https://www.andymark.com/products/60-tooth-32-dp-0-375-in-hex-bore-steel-gear?variant=44497382998188
+          - img "AndyMark"
         - link "am-0927":
-          - /url: https://www.andymark.com/products/60-tooth-32-dp-0-375-in-hex-bore-steel-gear
+          - /url: https://www.andymark.com/products/60-tooth-32-dp-0-375-in-hex-bore-steel-gear?variant=44497382998188
       - cell "60"
       - cell "3/8\" Hex"
-    - row "WCP WCP-0747 60 3/8\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-0747 60 3/8\" Hex In stock":
       - cell "WCP WCP-0747":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0747
+          - /url: https://wcproducts.com/products/wcp-0747?variant=35666703483040
+          - img "WCP"
         - link "WCP-0747":
-          - /url: https://wcproducts.com/products/wcp-0747
+          - /url: https://wcproducts.com/products/wcp-0747?variant=35666703483040
       - cell "60"
       - cell "3/8\" Hex"
+      - cell "In stock"
 - alert:
   - img
   - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

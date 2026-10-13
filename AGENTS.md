@@ -119,6 +119,7 @@ This is not optional.
 ### Test Quality Standards
 
 - Test behavior, not implementation
+- Do not test stylistic behavior (CSS classes, colors, spacing, layout); only test functional behavior
 - One assertion per test when possible (easier diagnosis)
 - Clear naming
 - Use existing test utilities if present

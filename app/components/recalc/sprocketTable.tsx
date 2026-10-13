@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 
 import { BoreBadge } from '~/components/recalc/boreBadge';
+import { InStockToggle } from '~/components/recalc/inStockToggle';
+import { StockBadge } from '~/components/recalc/stockBadge';
 import { VendorBadge } from '~/components/recalc/vendorBadge';
 import {
   Table,
@@ -11,7 +13,10 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table';
+import { useStockStatus } from '~/hooks/useStockStatus';
 import Sprocket from '~/lib/models/Sprocket';
+import { withVariant } from '~/lib/productUrl';
+import { isUnavailable, stockKey } from '~/lib/stock';
 import type { Bore, Vendor } from '~/lib/types/common';
 import type { ChainType, JSONSprocket } from '~/lib/types/sprockets';
 
@@ -21,6 +26,7 @@ export function SprocketTable({
   filterFn?: (sprocket: Sprocket) => boolean;
 }) {
   const [allSprockets, setAllSprockets] = useState<JSONSprocket[] | null>(null);
+  const [inStockOnly, setInStockOnly] = useState(false);
   useEffect(() => {
     async function loadSprockets() {
       const [
@@ -67,33 +73,52 @@ export function SprocketTable({
           (a.sku ?? '').localeCompare(b.sku ?? ''),
       );
   }, [allSprockets, filterFn]);
+  const stock = useStockStatus(sprockets);
+  const shownSprockets = inStockOnly
+    ? sprockets.filter((s) => !isUnavailable(stock.get(stockKey(s))))
+    : sprockets;
 
   return (
     <div className="rounded-md border">
-      <Table>
+      <Table className="min-w-xl table-fixed">
+        <colgroup>
+          <col />
+          <col className="w-20" />
+          <col className="w-28" />
+          <col className="w-28" />
+        </colgroup>
+
         <TableHeader>
           <TableRow>
-            <TableHead colSpan={6} className="bg-blue-50 text-center font-bold">
-              Matching COTS Sprockets
+            <TableHead colSpan={4} className="bg-blue-50 font-bold">
+              <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+                <span className="col-start-2">Matching COTS Sprockets</span>
+                <InStockToggle
+                  checked={inStockOnly}
+                  onCheckedChange={setInStockOnly}
+                />
+              </div>
             </TableHead>
           </TableRow>
           <TableRow>
             <TableHead className="bg-blue-50/50">SKU</TableHead>
             <TableHead className="bg-blue-50/50">Teeth</TableHead>
             <TableHead className="bg-blue-50/50">Bore</TableHead>
+            <TableHead className="bg-blue-50/50">Stock</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {sprockets.map((sprocket, index) => {
-            const prevSprocket = index > 0 ? sprockets[index - 1] : null;
+          {shownSprockets.map((sprocket, index) => {
+            const prevSprocket = index > 0 ? shownSprockets[index - 1] : null;
             const showDivider =
               prevSprocket !== null && prevSprocket.teeth !== sprocket.teeth;
+            const url = withVariant(sprocket.url, sprocket.variantId);
 
             return (
               <>
                 {showDivider && (
                   <TableRow key={`divider-${sprocket.teeth}`}>
-                    <TableCell colSpan={3} className="h-px p-0">
+                    <TableCell colSpan={4} className="h-px p-0">
                       <div className="h-px bg-border" />
                     </TableCell>
                   </TableRow>
@@ -103,14 +128,17 @@ export function SprocketTable({
                     <div className="flex items-center gap-2">
                       <VendorBadge
                         vendor={sprocket.vendor as Vendor}
-                        url={sprocket.url}
+                        url={url}
                       />
-                      <Link to={sprocket.url}>{sprocket.sku}</Link>
+                      <Link to={url}>{sprocket.sku}</Link>
                     </div>
                   </TableCell>
                   <TableCell>{sprocket.teeth}</TableCell>
                   <TableCell>
                     <BoreBadge bore={sprocket.bore} />
+                  </TableCell>
+                  <TableCell>
+                    <StockBadge status={stock.get(stockKey(sprocket))} />
                   </TableCell>
                 </TableRow>
               </>

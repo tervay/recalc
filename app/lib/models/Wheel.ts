@@ -13,6 +13,7 @@ export default class Wheel extends Model {
     public readonly url: string,
     public readonly sku: string | null,
     public readonly vendor: Vendor,
+    public readonly variantId: number | null = null,
   ) {
     super('Wheel');
   }
@@ -27,6 +28,7 @@ export default class Wheel extends Model {
       json.url,
       json.sku,
       json.vendor,
+      json.variantId,
     );
   }
 

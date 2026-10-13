@@ -45,6 +45,7 @@ export const zJSONWheelSchema = z.object({
   durometer: z.string().nullable(),
   url: z.string().url(),
   sku: z.string().nullable(),
+  variantId: z.number().nullable(),
   vendor: zVendorSchema,
 });
 

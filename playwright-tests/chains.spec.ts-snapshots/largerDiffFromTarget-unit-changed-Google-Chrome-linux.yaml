@@ -47,103 +47,129 @@
 - combobox: cm
 - table:
   - rowgroup:
-    - row "Matching COTS Sprockets":
-      - columnheader "Matching COTS Sprockets"
-    - row "SKU Teeth Bore":
+    - row "Matching COTS Sprockets In stock only":
+      - columnheader "Matching COTS Sprockets In stock only":
+        - text: Matching COTS Sprockets
+        - switch "In stock only"
+        - text: In stock only
+    - row "SKU Teeth Bore Stock":
       - columnheader "SKU"
       - columnheader "Teeth"
       - columnheader "Bore"
+      - columnheader "Stock"
   - rowgroup:
-    - row "REV REV-21-2012 16 1/2\" Hex":
+    - row "REV REV-21-2012 16 1/2\" Hex In stock":
       - cell "REV REV-21-2012":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-25-Sprockets/
+          - img "REV"
         - link "REV-21-2012":
           - /url: https://www.revrobotics.com/ION-25-Sprockets/
       - cell "16"
       - cell "1/2\" Hex"
-    - row "REV REV-21-2016 16 1/2\" Hex":
+      - cell "In stock"
+    - row "REV REV-21-2016 16 1/2\" Hex In stock":
       - cell "REV REV-21-2016":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-25-Sprockets/
+          - img "REV"
         - link "REV-21-2016":
           - /url: https://www.revrobotics.com/ION-25-Sprockets/
       - cell "16"
       - cell "1/2\" Hex"
-    - row "WCP 217-2643 16 1/2\" Hex":
+      - cell "In stock"
+    - row "WCP 217-2643 16 1/2\" Hex In stock":
       - cell "WCP 217-2643":
         - link "WCP":
-          - /url: https://wcproducts.com/products/217-2643
+          - /url: https://wcproducts.com/products/217-2643?variant=35666587451552
+          - img "WCP"
         - link "217-2643":
-          - /url: https://wcproducts.com/products/217-2643
+          - /url: https://wcproducts.com/products/217-2643?variant=35666587451552
       - cell "16"
       - cell "1/2\" Hex"
-    - row "WCP WCP-0087 16 1/2\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-0087 16 1/2\" Hex In stock":
       - cell "WCP WCP-0087":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0087
+          - /url: https://wcproducts.com/products/wcp-0087?variant=35666721800352
+          - img "WCP"
         - link "WCP-0087":
-          - /url: https://wcproducts.com/products/wcp-0087
+          - /url: https://wcproducts.com/products/wcp-0087?variant=35666721800352
       - cell "16"
       - cell "1/2\" Hex"
-    - row "WCP WCP-0558 16 1/2\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-0558 16 1/2\" Hex In stock":
       - cell "WCP WCP-0558":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0558
+          - /url: https://wcproducts.com/products/wcp-0558?variant=43542919020756
+          - img "WCP"
         - link "WCP-0558":
-          - /url: https://wcproducts.com/products/wcp-0558
+          - /url: https://wcproducts.com/products/wcp-0558?variant=43542919020756
       - cell "16"
       - cell "1/2\" Hex"
-    - row "WCP WCP-0578 16 1/2\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-0578 16 1/2\" Hex In stock":
       - cell "WCP WCP-0578":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0578
+          - /url: https://wcproducts.com/products/wcp-0578?variant=43542918496468
+          - img "WCP"
         - link "WCP-0578":
-          - /url: https://wcproducts.com/products/wcp-0578
+          - /url: https://wcproducts.com/products/wcp-0578?variant=43542918496468
       - cell "16"
       - cell "1/2\" Hex"
-    - row "WCP 217-5833 16 3/8\" Hex":
+      - cell "In stock"
+    - row "WCP 217-5833 16 3/8\" Hex In stock":
       - cell "WCP 217-5833":
         - link "WCP":
-          - /url: https://wcproducts.com/products/217-5833
+          - /url: https://wcproducts.com/products/217-5833?variant=35666700107936
+          - img "WCP"
         - link "217-5833":
-          - /url: https://wcproducts.com/products/217-5833
+          - /url: https://wcproducts.com/products/217-5833?variant=35666700107936
       - cell "16"
       - cell "3/8\" Hex"
+      - cell "In stock"
     - row:
       - cell
-    - row "Thrifty TTB-0248 36 1.125\" Round":
+    - row "Thrifty TTB-0248 36 1.125\" Round In stock":
       - cell "Thrifty TTB-0248":
         - link "Thrifty":
-          - /url: https://www.thethriftybot.com/products/25-chain-billet-sprockets
+          - /url: https://www.thethriftybot.com/products/25-chain-billet-sprockets?variant=50088769683755
+          - img "Thrifty"
         - link "TTB-0248":
-          - /url: https://www.thethriftybot.com/products/25-chain-billet-sprockets
+          - /url: https://www.thethriftybot.com/products/25-chain-billet-sprockets?variant=50088769683755
       - cell "36"
       - cell "1.125\" Round"
-    - row "Thrifty TTB-0274 36 1.125\" Round":
+      - cell "In stock"
+    - row "Thrifty TTB-0274 36 1.125\" Round In stock":
       - cell "Thrifty TTB-0274":
         - link "Thrifty":
-          - /url: https://www.thethriftybot.com/products/25-flat-plate-sprockets
+          - /url: https://www.thethriftybot.com/products/25-flat-plate-sprockets?variant=50096753475883
+          - img "Thrifty"
         - link "TTB-0274":
-          - /url: https://www.thethriftybot.com/products/25-flat-plate-sprockets
+          - /url: https://www.thethriftybot.com/products/25-flat-plate-sprockets?variant=50096753475883
       - cell "36"
       - cell "1.125\" Round"
-    - row "WCP WCP-2106 36 1/2\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-2106 36 1/2\" Hex In stock":
       - cell "WCP WCP-2106":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-2106
+          - /url: https://wcproducts.com/products/wcp-2106?variant=46995776733396
+          - img "WCP"
         - link "WCP-2106":
-          - /url: https://wcproducts.com/products/wcp-2106
+          - /url: https://wcproducts.com/products/wcp-2106?variant=46995776733396
       - cell "36"
       - cell "1/2\" Hex"
-    - row "WCP WCP-0966 36 SplineXL":
+      - cell "In stock"
+    - row "WCP WCP-0966 36 SplineXL In stock":
       - cell "WCP WCP-0966":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0966
+          - /url: https://wcproducts.com/products/wcp-0966?variant=44112370663636
+          - img "WCP"
         - link "WCP-0966":
-          - /url: https://wcproducts.com/products/wcp-0966
+          - /url: https://wcproducts.com/products/wcp-0966?variant=44112370663636
       - cell "36"
       - cell "SplineXL"
+      - cell "In stock"
 - alert:
   - img
   - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

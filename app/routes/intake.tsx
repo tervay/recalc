@@ -22,7 +22,7 @@ import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 import Wheel from '~/lib/models/Wheel';
-import { buildMeta, pageUrl } from '~/lib/seo';
+import { buildMeta, calcTitle, pageUrl } from '~/lib/seo';
 import {
   MeasurementParam,
   MotorParam,
@@ -32,7 +32,7 @@ import {
 const ROLLER_DIAMETER_TOLERANCE = new Measurement(0.1, 'in');
 
 const INTAKE_PATH = '/intake';
-const INTAKE_TITLE = 'FRC & FTC Intake Calculator | ReCalc';
+const INTAKE_TITLE = calcTitle('Intake Calculator');
 const INTAKE_NAME = 'Intake Calculator';
 const INTAKE_DESCRIPTION =
   'Calculate intake roller mechanisms for FRC and FTC robots. Model surface speed, motor requirements, and compression for game piece collection.';

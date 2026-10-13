@@ -17,7 +17,7 @@ import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import { calculateCenters } from '~/lib/math/chains';
 import Measurement from '~/lib/models/Measurement';
-import { buildMeta, pageUrl } from '~/lib/seo';
+import { buildMeta, calcTitle, pageUrl } from '~/lib/seo';
 import {
   BooleanParam,
   MeasurementParam,
@@ -25,7 +25,7 @@ import {
 } from '~/lib/types/queryParams';
 
 const CHAINS_PATH = '/chains';
-const CHAINS_TITLE = 'FRC & FTC Chain Calculator | ReCalc';
+const CHAINS_TITLE = calcTitle('Chain Calculator');
 const CHAINS_NAME = 'Chain Calculator';
 const CHAINS_DESCRIPTION =
   'Calculate chain drive configurations for FRC and FTC robots. Find optimal sprocket combinations and center-to-center distances for standard chain sizes.';

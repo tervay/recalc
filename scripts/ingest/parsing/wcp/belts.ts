@@ -28,8 +28,9 @@ export function parseWCPBelts(products: ShopifyProduct[]): JSONBelt[] {
             width: parseInt(width),
             profile,
             pitch: parseInt(pitch),
-            url: urlForHandle(product.handle, 'WCP'),
+            url: urlForHandle(product.handle, 'WCP', product.variants[0].id),
             sku: product.variants[0].sku,
+            variantId: product.variants[0].id,
             vendor: 'WCP',
           });
           belts.push(wcpBeltToJsonBelt(wcpBelt));

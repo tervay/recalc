@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from 'playwright-tests/helpers';
 
 test.describe('Belt Calculator', () => {
   test.beforeEach(async ({ page }) => {

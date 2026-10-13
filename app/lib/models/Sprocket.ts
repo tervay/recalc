@@ -46,6 +46,7 @@ export default class Sprocket extends SimpleSprocket {
     public readonly url: string,
     public readonly sku: string | null,
     public readonly vendor: string,
+    public readonly variantId: number | null = null,
   ) {
     super(teeth, chainType);
   }
@@ -58,6 +59,7 @@ export default class Sprocket extends SimpleSprocket {
       json.url,
       json.sku,
       json.vendor,
+      json.variantId,
     );
   }
 

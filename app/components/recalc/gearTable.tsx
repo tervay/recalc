@@ -2,6 +2,8 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 
 import { BoreBadge } from '~/components/recalc/boreBadge';
+import { InStockToggle } from '~/components/recalc/inStockToggle';
+import { StockBadge } from '~/components/recalc/stockBadge';
 import { VendorBadge } from '~/components/recalc/vendorBadge';
 import { Skeleton } from '~/components/ui/skeleton';
 import {
@@ -12,7 +14,10 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table';
+import { useStockStatus } from '~/hooks/useStockStatus';
 import Gear from '~/lib/models/Gear';
+import { withVariant } from '~/lib/productUrl';
+import { isUnavailable, stockKey } from '~/lib/stock';
 import type { Bore, Vendor } from '~/lib/types/common';
 import type { JSONGear } from '~/lib/types/gears';
 
@@ -24,6 +29,7 @@ export function GearTable({
   filterFn?: (gear: Gear) => boolean;
 }) {
   const [allGears, setAllGears] = useState<JSONGear[] | null>(null);
+  const [inStockOnly, setInStockOnly] = useState(false);
   useEffect(() => {
     async function loadGears() {
       const [wcpGears, revGears, sdsGears, andyMarkGears] = await Promise.all([
@@ -56,22 +62,41 @@ export function GearTable({
           a.vendor.localeCompare(b.vendor),
       );
   }, [allGears, filterFn]);
+  const stock = useStockStatus(gears);
+  const shownGears = inStockOnly
+    ? gears.filter((g) => !isUnavailable(stock.get(stockKey(g))))
+    : gears;
 
   return (
     <div className="overflow-hidden rounded-md border shadow-sm">
-      <Table>
+      <Table className="min-w-xl table-fixed">
+        <colgroup>
+          <col />
+          <col className="w-20" />
+          <col className="w-28" />
+          <col className="w-28" />
+        </colgroup>
+
         <TableHeader>
           <TableRow>
             <TableHead
-              colSpan={3}
-              className="bg-primary/8 text-center font-semibold text-foreground"
+              colSpan={4}
+              className="bg-primary/8 font-semibold text-foreground"
             >
-              <span>Matching COTS Gears</span>
-              {allGears !== null && (
-                <span className="ml-2 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-                  {gears.length}
+              <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+                <span className="col-start-2">
+                  Matching COTS Gears
+                  {allGears !== null && (
+                    <span className="ml-2 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                      {shownGears.length}
+                    </span>
+                  )}
                 </span>
-              )}
+                <InStockToggle
+                  checked={inStockOnly}
+                  onCheckedChange={setInStockOnly}
+                />
+              </div>
             </TableHead>
           </TableRow>
           <TableRow>
@@ -83,6 +108,9 @@ export function GearTable({
             </TableHead>
             <TableHead className="bg-primary/4 text-xs font-medium tracking-wide text-muted-foreground uppercase">
               Bore
+            </TableHead>
+            <TableHead className="bg-primary/4 text-xs font-medium tracking-wide text-muted-foreground uppercase">
+              Stock
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -102,20 +130,23 @@ export function GearTable({
                 <TableCell>
                   <Skeleton className="h-4 w-10" />
                 </TableCell>
+                <TableCell>
+                  <Skeleton className="h-5 w-16 rounded-full" />
+                </TableCell>
               </TableRow>
             ))
-          ) : gears.length === 0 ? (
+          ) : shownGears.length === 0 ? (
             <TableRow>
               <TableCell
-                colSpan={3}
+                colSpan={4}
                 className="py-6 text-center text-sm text-muted-foreground"
               >
                 No matching gears found
               </TableCell>
             </TableRow>
           ) : (
-            gears.map((gear, index) => {
-              const prevGear = index > 0 ? gears[index - 1] : null;
+            shownGears.map((gear, index) => {
+              const prevGear = index > 0 ? shownGears[index - 1] : null;
               const isNewGroup =
                 prevGear !== null && prevGear.teeth !== gear.teeth;
 
@@ -125,13 +156,14 @@ export function GearTable({
                 // oxlint-disable-next-line typescript/prefer-nullish-coalescing
                 gear.sku ||
                 `${gear.vendor}-${gear.teeth}-${gear.dp}-${gear.bore}`;
+              const url = withVariant(gear.url, gear.variantId);
 
               return (
                 <Fragment key={key}>
                   {isNewGroup && (
                     <TableRow className="hover:bg-transparent">
                       <TableCell
-                        colSpan={3}
+                        colSpan={4}
                         className="bg-muted/40 py-1 pl-3 text-xs font-semibold text-muted-foreground"
                       >
                         {gear.teeth}T
@@ -141,12 +173,9 @@ export function GearTable({
                   <TableRow className="hover:bg-muted/40">
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-2">
-                        <VendorBadge
-                          vendor={gear.vendor as Vendor}
-                          url={gear.url}
-                        />
+                        <VendorBadge vendor={gear.vendor as Vendor} url={url} />
                         <Link
-                          to={gear.url}
+                          to={url}
                           className="text-primary underline-offset-4 hover:underline"
                         >
                           {
@@ -159,6 +188,9 @@ export function GearTable({
                     <TableCell className="tabular-nums">{gear.teeth}</TableCell>
                     <TableCell>
                       <BoreBadge bore={gear.bore} />
+                    </TableCell>
+                    <TableCell>
+                      <StockBadge status={stock.get(stockKey(gear))} />
                     </TableCell>
                   </TableRow>
                 </Fragment>

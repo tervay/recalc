@@ -11,6 +11,7 @@ const zAndyMarkBeltSchema = z.object({
   profile: z.string(),
   pitch: z.number().min(1),
   sku: z.string().nullable(),
+  variantId: z.number(),
   url: z.string().url(),
 });
 
@@ -51,7 +52,8 @@ export function parseAndyMarkBelts(products: ShopifyProduct[]): JSONBelt[] {
           profile: 'HTD',
           pitch: 5,
           sku,
-          url: urlForHandle(product.handle, 'AndyMark'),
+          variantId: variant.id,
+          url: urlForHandle(product.handle, 'AndyMark', variant.id),
         });
         belts.push(andyMarkBeltToJsonBelt(andyMarkBelt));
       } catch (error) {

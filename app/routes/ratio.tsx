@@ -15,11 +15,11 @@ import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import { calculateInverseRatio, calculateNetRatio } from '~/lib/math/ratio';
 import { ALL_MOTORS } from '~/lib/models/Motor';
-import { buildMeta, pageUrl } from '~/lib/seo';
+import { buildMeta, calcTitle, pageUrl } from '~/lib/seo';
 import { type RatioPair, RatioPairListParam } from '~/lib/types/queryParams';
 
 const RATIO_PATH = '/ratio';
-const RATIO_TITLE = 'FRC & FTC Gear Ratio Calculator | ReCalc';
+const RATIO_TITLE = calcTitle('Gear Ratio Calculator');
 const RATIO_NAME = 'Ratio Calculator';
 const RATIO_DESCRIPTION =
   'Calculate gear, belt, and chain drive ratios for FRC and FTC robot mechanisms. Chain multi-stage reduction calculations.';

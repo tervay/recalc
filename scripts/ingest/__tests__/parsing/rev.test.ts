@@ -39,6 +39,7 @@ describe('REV parsers (live feed)', () => {
         bore: '1/2" Hex',
         url: 'https://www.revrobotics.com/20DP-Gears-0.5-Hex/',
         sku: 'REV-21-1920',
+        variantId: null,
         vendor: 'REV',
       });
     });
@@ -62,6 +63,7 @@ describe('REV parsers (live feed)', () => {
         bore: 'MAXSpline',
         url: 'https://www.revrobotics.com/20DP-Gears-Maxspline/',
         sku: 'REV-21-3010',
+        variantId: null,
         vendor: 'REV',
       });
     });
@@ -73,6 +75,7 @@ describe('REV parsers (live feed)', () => {
         bore: '8mm',
         url: 'https://www.revrobotics.com/neo-pinions/',
         sku: 'REV-21-1998',
+        variantId: null,
         vendor: 'REV',
       });
     });
@@ -84,6 +87,7 @@ describe('REV parsers (live feed)', () => {
         bore: 'RS550',
         url: 'https://www.revrobotics.com/550-motor-pinions/',
         sku: 'REV-41-1660-PK2',
+        variantId: null,
         vendor: 'REV',
       });
     });
@@ -113,6 +117,7 @@ describe('REV parsers (live feed)', () => {
         pitch: 6.35,
         sku: 'REV-21-4032',
         url: 'https://www.revrobotics.com/RT25-Belts-1/2in-Width/',
+        variantId: null,
         vendor: 'REV',
       });
     });
@@ -140,6 +145,7 @@ describe('REV parsers (live feed)', () => {
         sku: 'REV-25-2224',
         url: 'https://www.revrobotics.com/RT25-Pulleys/',
         bore: 'MAXSpline',
+        variantId: null,
         vendor: 'REV',
       });
     });
@@ -153,6 +159,7 @@ describe('REV parsers (live feed)', () => {
         sku: 'REV-21-2200',
         url: 'https://www.revrobotics.com/RT25-Pulleys/',
         bore: '8mm',
+        variantId: null,
         vendor: 'REV',
       });
     });
@@ -175,6 +182,7 @@ describe('REV parsers (live feed)', () => {
         sku: 'REV-21-1908',
         url: 'https://www.revrobotics.com/550-motor-pinions/',
         bore: 'RS550',
+        variantId: null,
         vendor: 'REV',
       });
     });
@@ -188,6 +196,7 @@ describe('REV parsers (live feed)', () => {
         sku: 'REV-21-1909',
         url: 'https://www.revrobotics.com/neo-pinions/',
         bore: '8mm',
+        variantId: null,
         vendor: 'REV',
       });
     });
@@ -207,6 +216,7 @@ describe('REV parsers (live feed)', () => {
         chainType: '#25',
         url: 'https://www.revrobotics.com/ION-25-Sprockets/',
         sku: 'REV-21-2012',
+        variantId: null,
         vendor: 'REV',
       });
     });
@@ -224,6 +234,7 @@ describe('REV parsers (live feed)', () => {
         chainType: '#25',
         url: 'https://www.revrobotics.com/ION-25-Sprockets/',
         sku: 'REV-21-3370',
+        variantId: null,
         vendor: 'REV',
       });
       expect(result).toContainEqual(
@@ -249,6 +260,7 @@ describe('REV parsers (live feed)', () => {
         chainType: '#25',
         url: 'https://www.revrobotics.com/neo-pinions/',
         sku: 'REV-21-2020',
+        variantId: null,
         vendor: 'REV',
       });
     });
@@ -265,6 +277,7 @@ describe('REV parsers (live feed)', () => {
         chainType: '#25',
         url: 'https://www.revrobotics.com/neo-pinions/',
         sku: 'REV-21-3495',
+        variantId: null,
         vendor: 'REV',
       });
     });

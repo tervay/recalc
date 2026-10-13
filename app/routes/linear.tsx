@@ -56,7 +56,7 @@ import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 import { getPool } from '~/lib/pool';
-import { buildMeta, pageUrl } from '~/lib/seo';
+import { buildMeta, calcTitle, pageUrl } from '~/lib/seo';
 import {
   BooleanParam,
   MeasurementParam,
@@ -66,7 +66,7 @@ import {
 } from '~/lib/types/queryParams';
 
 const LINEAR_PATH = '/linear';
-const LINEAR_TITLE = 'FRC & FTC Linear Mechanism Calculator | ReCalc';
+const LINEAR_TITLE = calcTitle('Linear Mechanism Calculator');
 const LINEAR_NAME = 'Linear Mechanism Calculator';
 const LINEAR_DESCRIPTION =
   'Calculate linear mechanism performance for FRC and FTC robots. Model elevator and linear slide mechanisms with motor and gearbox selection.';

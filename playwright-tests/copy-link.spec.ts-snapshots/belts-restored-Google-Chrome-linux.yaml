@@ -34,49 +34,61 @@
 - combobox: in
 - table:
   - rowgroup:
-    - row "Matching COTS Pulleys0":
-      - columnheader "Matching COTS Pulleys0"
-    - row "SKU Teeth Width Bore":
+    - row "Matching COTS Pulleys0 In stock only":
+      - columnheader "Matching COTS Pulleys0 In stock only":
+        - text: Matching COTS Pulleys0
+        - switch "In stock only"
+        - text: In stock only
+    - row "SKU Teeth Width Bore Stock":
       - columnheader "SKU"
       - columnheader "Teeth"
       - columnheader "Width"
       - columnheader "Bore"
+      - columnheader "Stock"
   - rowgroup:
     - row "No matching pulleys found":
       - cell "No matching pulleys found"
 - table:
   - rowgroup:
-    - row "Matching COTS Belts3":
-      - columnheader "Matching COTS Belts3"
-    - row "SKU Teeth Width":
+    - row "Matching COTS Belts3 In stock only":
+      - columnheader "Matching COTS Belts3 In stock only":
+        - text: Matching COTS Belts3
+        - switch "In stock only"
+        - text: In stock only
+    - row "SKU Teeth Width Stock":
       - columnheader "SKU"
       - columnheader "Teeth"
       - columnheader "Width"
+      - columnheader "Stock"
   - rowgroup:
-    - row "VBeltGuys 300-3m-09 100 9 mm":
+    - row "VBeltGuys 300-3m-09 100 9 mm In stock":
       - cell "VBeltGuys 300-3m-09":
         - link "VBeltGuys":
-          - /url: https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt
+          - /url: https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt?variant=16650668867
         - link "300-3m-09":
-          - /url: https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt
+          - /url: https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt?variant=16650668867
       - cell "100"
       - cell "9 mm"
-    - row "VBeltGuys 300-3m-15 100 15 mm":
+      - cell "In stock"
+    - row "VBeltGuys 300-3m-15 100 15 mm In stock":
       - cell "VBeltGuys 300-3m-15":
         - link "VBeltGuys":
-          - /url: https://www.vbeltguys.com/products/300-3m-15-synchronous-timing-belt
+          - /url: https://www.vbeltguys.com/products/300-3m-15-synchronous-timing-belt?variant=16650669059
         - link "300-3m-15":
-          - /url: https://www.vbeltguys.com/products/300-3m-15-synchronous-timing-belt
+          - /url: https://www.vbeltguys.com/products/300-3m-15-synchronous-timing-belt?variant=16650669059
       - cell "100"
       - cell "15 mm"
-    - row "WCP WCP-0673 100 9 mm":
+      - cell "In stock"
+    - row "WCP WCP-0673 100 9 mm In stock":
       - cell "WCP WCP-0673":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0673
+          - /url: https://wcproducts.com/products/wcp-0673?variant=35666705186976
+          - img "WCP"
         - link "WCP-0673":
-          - /url: https://wcproducts.com/products/wcp-0673
+          - /url: https://wcproducts.com/products/wcp-0673?variant=35666705186976
       - cell "100"
       - cell "9 mm"
+      - cell "In stock"
 - alert:
   - img
   - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

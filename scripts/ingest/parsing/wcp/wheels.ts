@@ -40,8 +40,9 @@ export function parseWCPWheels(products: ShopifyProduct[]): JSONWheel[] {
       bore,
       type,
       durometer: parseDurometer(product.title),
-      url: urlForHandle(product.handle, 'WCP'),
+      url: urlForHandle(product.handle, 'WCP', product.variants[0].id),
       sku,
+      variantId: product.variants[0].id,
       vendor: 'WCP',
     });
   }

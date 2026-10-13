@@ -25,7 +25,7 @@ import {
 import { Belt } from '~/lib/models/Belt';
 import Measurement from '~/lib/models/Measurement';
 import Pulley, { SimplePulley } from '~/lib/models/Pulley';
-import { buildMeta, pageUrl } from '~/lib/seo';
+import { buildMeta, calcTitle, pageUrl } from '~/lib/seo';
 import {
   BooleanParam,
   MeasurementParam,
@@ -33,7 +33,7 @@ import {
 } from '~/lib/types/queryParams';
 
 const BELT_PATH = '/belts';
-const BELT_TITLE = 'FRC & FTC Belt Calculator | ReCalc';
+const BELT_TITLE = calcTitle('Belt Calculator');
 const BELT_NAME = 'Belt Calculator';
 const BELT_DESCRIPTION =
   'Calculate optimal belt drive configurations for FRC and FTC robots. Find center-to-center distances, belt lengths, and compatible pulley combinations.';

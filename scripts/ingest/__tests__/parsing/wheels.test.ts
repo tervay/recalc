@@ -58,8 +58,9 @@ describe('parseWCPWheels', () => {
         bore: '1/2" Hex',
         type: 'Flex',
         durometer: '30A',
-        url: 'https://wcproducts.com/products/wcp-1299',
+        url: 'https://wcproducts.com/products/wcp-1299?variant=10',
         sku: 'WCP-1299',
+        variantId: 10,
         vendor: 'WCP',
       },
     ]);
@@ -155,6 +156,7 @@ describe('parseREVWheels', () => {
         durometer: 'Medium',
         url: 'https://www.revrobotics.com/ION-Grip-Wheels/',
         sku: 'REV-21-2437-PK4',
+        variantId: null,
         vendor: 'REV',
       },
     ]);
@@ -259,8 +261,9 @@ describe('parseAndyMarkWheels', () => {
         bore: '3/8" Hex',
         type: 'Compliant',
         durometer: '35A',
-        url: 'https://www.andymark.com/products/compliant-wheels',
+        url: 'https://www.andymark.com/products/compliant-wheels?variant=10',
         sku: 'am-3571_green',
+        variantId: 10,
         vendor: 'AndyMark',
       },
       {
@@ -269,8 +272,9 @@ describe('parseAndyMarkWheels', () => {
         bore: '3/8" Hex',
         type: 'Compliant',
         durometer: '35A',
-        url: 'https://www.andymark.com/products/compliant-wheels',
+        url: 'https://www.andymark.com/products/compliant-wheels?variant=11',
         sku: 'am-3950_green',
+        variantId: 11,
         vendor: 'AndyMark',
       },
     ]);
@@ -421,8 +425,9 @@ describe('parseThriftyWheels', () => {
         bore: '7mm Hex',
         type: 'Compliant',
         durometer: null,
-        url: 'https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel',
+        url: 'https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel?variant=10',
         sku: 'TTB-0010-BLACK-7MM',
+        variantId: 10,
         vendor: 'Thrifty',
       },
     ]);
@@ -549,8 +554,9 @@ describe('parseSwyftWheels', () => {
         bore: '7mm Hex',
         type: 'Compliant',
         durometer: null,
-        url: 'https://shop.swyftrobotics.com/products/swyft-intake-wheels',
+        url: 'https://shop.swyftrobotics.com/products/swyft-intake-wheels?variant=11',
         sku: 'SR-INTAKEWHEEL-15-7MM',
+        variantId: 11,
         vendor: 'Swyft',
       },
     ]);

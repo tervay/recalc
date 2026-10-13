@@ -13,6 +13,7 @@ describe('Gear', () => {
         bore: '1/2" Hex',
         url: 'https://example.com/gear',
         sku: 'AM-0001',
+        variantId: null,
         vendor: 'AndyMark',
       };
       const gear = Gear.fromJson(json);
@@ -24,6 +25,19 @@ describe('Gear', () => {
       expect(gear.vendor).toBe('AndyMark');
     });
 
+    it('keeps the variant id', () => {
+      const json: JSONGear = {
+        teeth: 20,
+        dp: 20,
+        bore: '1/2" Hex',
+        url: 'https://example.com/gear',
+        sku: 'AM-0001',
+        variantId: 42,
+        vendor: 'AndyMark',
+      };
+      expect(Gear.fromJson(json).variantId).toBe(42);
+    });
+
     it('handles sku: null', () => {
       const json: JSONGear = {
         teeth: 40,
@@ -31,6 +45,7 @@ describe('Gear', () => {
         bore: '8mm',
         url: 'https://example.com/gear2',
         sku: null,
+        variantId: null,
         vendor: 'REV',
       };
       const gear = Gear.fromJson(json);
@@ -44,6 +59,7 @@ describe('Gear', () => {
         bore: '3/8" Hex',
         url: 'https://example.com',
         sku: null,
+        variantId: null,
         vendor: 'WCP',
       };
       const gear = Gear.fromJson(json);
@@ -57,6 +73,7 @@ describe('Gear', () => {
         bore: '3/8" Hex',
         url: 'https://example.com',
         sku: null,
+        variantId: null,
         vendor: 'VEX',
       };
       const gear = Gear.fromJson(json);
@@ -70,6 +87,7 @@ describe('Gear', () => {
         bore: 'MAXSpline',
         url: 'https://example.com',
         sku: null,
+        variantId: null,
         vendor: 'REV',
       };
       const gear = Gear.fromJson(json);
@@ -83,6 +101,7 @@ describe('Gear', () => {
         bore: '8mm',
         url: 'https://store.andymark.com/products/gear',
         sku: null,
+        variantId: null,
         vendor: 'AndyMark',
       };
       const gear = Gear.fromJson(json);
@@ -96,6 +115,7 @@ describe('Gear', () => {
         bore: '8mm',
         url: 'https://example.com',
         sku: null,
+        variantId: null,
         vendor: 'SDS',
       };
       const gear = Gear.fromJson(json);

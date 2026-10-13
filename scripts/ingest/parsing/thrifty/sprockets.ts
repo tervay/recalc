@@ -18,6 +18,7 @@ const zThriftySprocketSchema = z.object({
   bore: zThriftySprocketBoreSchema,
   chainType: zChainTypeSchema,
   sku: z.string(),
+  variantId: z.number(),
   url: z.string().url(),
 });
 
@@ -53,7 +54,8 @@ export function parseThriftySprockets(
           bore: '1.125" Round',
           chainType: '#35',
           sku: variant.sku,
-          url: urlForHandle(product.handle, 'Thrifty'),
+          variantId: variant.id,
+          url: urlForHandle(product.handle, 'Thrifty', variant.id),
           vendor: 'Thrifty',
         });
       } else if (
@@ -65,7 +67,8 @@ export function parseThriftySprockets(
           bore: '1.125" Round',
           chainType: '#25',
           sku: variant.sku,
-          url: urlForHandle(product.handle, 'Thrifty'),
+          variantId: variant.id,
+          url: urlForHandle(product.handle, 'Thrifty', variant.id),
           vendor: 'Thrifty',
         });
       } else if (
@@ -76,7 +79,8 @@ export function parseThriftySprockets(
           bore: '1/2" Hex',
           chainType: '#25',
           sku: variant.sku,
-          url: urlForHandle(product.handle, 'Thrifty'),
+          variantId: variant.id,
+          url: urlForHandle(product.handle, 'Thrifty', variant.id),
           vendor: 'Thrifty',
         });
       } else {
@@ -95,7 +99,8 @@ export function parseThriftySprockets(
                   teeth: Number(toothCount),
                   bore: boreType as ThriftySprocketBore,
                   sku: variantInner.sku,
-                  url: urlForHandle(product.handle, 'Thrifty'),
+                  variantId: variantInner.id,
+                  url: urlForHandle(product.handle, 'Thrifty', variantInner.id),
                 });
                 sprockets.push(thriftySprocketToJsonSprocket(thriftySprocket));
               } catch (error) {

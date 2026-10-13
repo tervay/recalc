@@ -45,7 +45,8 @@ describe('parseVBeltGuysBelts', () => {
         profile: 'GT2',
         pitch: 3,
         sku: '120-3m-09',
-        url: 'https://www.vbeltguys.com/products/120-3m-09-synchronous-timing-belt',
+        variantId: 10,
+        url: 'https://www.vbeltguys.com/products/120-3m-09-synchronous-timing-belt?variant=10',
         vendor: 'VBeltGuys',
       },
     ]);
