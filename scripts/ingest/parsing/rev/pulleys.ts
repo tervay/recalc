@@ -68,6 +68,7 @@ export function parseREVPulleys(products: ShopifyProduct[]): JSONPulley[] {
           profile,
           pitch: PROFILE_PITCH_MM[profile],
           sku,
+          variantId: null,
           url: product.handle,
           bore,
           vendor: 'REV',

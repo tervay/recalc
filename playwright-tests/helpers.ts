@@ -1,4 +1,62 @@
-import type { Page } from '@playwright/test';
+import { readdirSync, readFileSync } from 'fs';
+import { join } from 'path';
+
+import { test as base, type Page, type Route } from '@playwright/test';
+import * as z from 'zod';
+
+import { REV_FEED_URL } from '~/lib/stock';
+
+export { expect } from '@playwright/test';
+
+export const STOREFRONT_API = '**/api/*/graphql.json';
+
+export const IN_STOCK = { availableForSale: true, currentlyNotInStock: false };
+export const BACKORDER = { availableForSale: true, currentlyNotInStock: true };
+export const OUT_OF_STOCK = {
+  availableForSale: false,
+  currentlyNotInStock: false,
+};
+
+const zStockRequestSchema = z.object({
+  variables: z.object({ ids: z.array(z.string()) }),
+});
+
+export async function fulfillStock(
+  route: Route,
+  node: typeof IN_STOCK | null,
+): Promise<void> {
+  const { ids } = zStockRequestSchema.parse(
+    route.request().postDataJSON(),
+  ).variables;
+  await route.fulfill({ json: { data: { nodes: ids.map(() => node) } } });
+}
+
+const REV_DATA_DIR = 'app/genData/REV';
+const zSkusSchema = z.array(z.object({ sku: z.string().nullable() }));
+const REV_SKUS = readdirSync(REV_DATA_DIR).flatMap((file) =>
+  zSkusSchema
+    .parse(JSON.parse(readFileSync(join(REV_DATA_DIR, file), 'utf-8')))
+    .flatMap(({ sku }) => (sku === null ? [] : [sku])),
+);
+
+export async function fulfillRevFeed(
+  route: Route,
+  availability: string,
+): Promise<void> {
+  await route.fulfill({
+    json: REV_SKUS.map((sku) => ({ sku, availability_status: availability })),
+  });
+}
+
+export const test = base.extend({
+  page: async ({ page }, use) => {
+    await page.route(STOREFRONT_API, (route) => fulfillStock(route, IN_STOCK));
+    await page.route(REV_FEED_URL, (route) =>
+      fulfillRevFeed(route, 'Available'),
+    );
+    await use(page);
+  },
+});
 
 /**
  * Waits for a Recharts chart inside the given container to finish settling

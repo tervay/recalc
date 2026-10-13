@@ -111,6 +111,7 @@ function generateCustomGears(
       bore: bore,
       url: '#',
       sku: `CSTM-${teeth}-${dp}-${bore}`,
+      variantId: null,
       vendor: 'Custom',
     }),
   );
@@ -131,6 +132,7 @@ function generateCustomPulleys(
     bore: bore,
     url: '#',
     sku: `CSTM-${teeth}-${profile}-${bore}`,
+    variantId: null,
     vendor: 'Custom',
     width: 15,
     pitch:
@@ -157,6 +159,7 @@ function generateCustomSprockets(
     bore: bore,
     url: '#',
     sku: `CSTM-${teeth}-${chainType}-${bore}`,
+    variantId: null,
     vendor: 'Custom',
   }));
 }

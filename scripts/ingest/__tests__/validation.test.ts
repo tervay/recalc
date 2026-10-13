@@ -14,6 +14,7 @@ describe('validateParsedData', () => {
       profile: 'HTD',
       pitch: 5,
       sku: 'WCP-0001',
+      variantId: 1,
       url: 'https://wcproducts.com/products/test',
       bore: '1/2" Hex',
       vendor: 'WCP',
@@ -66,6 +67,7 @@ describe('validateParsedData', () => {
       profile: 'HTD',
       pitch: 5,
       sku: 'WCP-0100',
+      variantId: 1,
       url: 'https://wcproducts.com/products/belt',
       vendor: 'WCP',
     };
@@ -91,6 +93,7 @@ describe('validateParsedData', () => {
       chainType: '#25',
       url: 'https://wcproducts.com/products/sprocket',
       sku: 'WCP-0200',
+      variantId: 1,
       vendor: 'WCP',
     };
 
@@ -117,6 +120,7 @@ describe('validateParsedData', () => {
       bore: '1/2" Hex',
       url: 'https://wcproducts.com/products/gear',
       sku: 'WCP-0300',
+      variantId: 1,
       vendor: 'WCP',
     };
 

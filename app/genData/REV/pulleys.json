@@ -5,6 +5,7 @@
     "profile": "GT2",
     "pitch": 3,
     "sku": "REV-21-1908",
+    "variantId": null,
     "url": "https://www.revrobotics.com/550-motor-pinions/",
     "bore": "RS550",
     "vendor": "REV"
@@ -15,6 +16,7 @@
     "profile": "GT2",
     "pitch": 3,
     "sku": "REV-21-1909",
+    "variantId": null,
     "url": "https://www.revrobotics.com/neo-pinions/",
     "bore": "8mm",
     "vendor": "REV"
@@ -25,6 +27,7 @@
     "profile": "RT25",
     "pitch": 6.35,
     "sku": "REV-21-2200",
+    "variantId": null,
     "url": "https://www.revrobotics.com/RT25-Pulleys/",
     "bore": "8mm",
     "vendor": "REV"
@@ -35,6 +38,7 @@
     "profile": "RT25",
     "pitch": 6.35,
     "sku": "REV-21-2201",
+    "variantId": null,
     "url": "https://www.revrobotics.com/RT25-Pulleys/",
     "bore": "1/2\" Hex",
     "vendor": "REV"
@@ -45,6 +49,7 @@
     "profile": "RT25",
     "pitch": 6.35,
     "sku": "REV-21-2205",
+    "variantId": null,
     "url": "https://www.revrobotics.com/RT25-Pulleys/",
     "bore": "1/2\" Hex",
     "vendor": "REV"
@@ -55,6 +60,7 @@
     "profile": "RT25",
     "pitch": 6.35,
     "sku": "REV-21-2206",
+    "variantId": null,
     "url": "https://www.revrobotics.com/RT25-Pulleys/",
     "bore": "1/2\" Hex",
     "vendor": "REV"
@@ -65,6 +71,7 @@
     "profile": "RT25",
     "pitch": 6.35,
     "sku": "REV-25-2224",
+    "variantId": null,
     "url": "https://www.revrobotics.com/RT25-Pulleys/",
     "bore": "MAXSpline",
     "vendor": "REV"
@@ -75,6 +82,7 @@
     "profile": "RT25",
     "pitch": 6.35,
     "sku": "REV-25-2236",
+    "variantId": null,
     "url": "https://www.revrobotics.com/RT25-Pulleys/",
     "bore": "MAXSpline",
     "vendor": "REV"
@@ -85,6 +93,7 @@
     "profile": "RT25",
     "pitch": 6.35,
     "sku": "REV-25-2248",
+    "variantId": null,
     "url": "https://www.revrobotics.com/RT25-Pulleys/",
     "bore": "MAXSpline",
     "vendor": "REV"
@@ -95,6 +104,7 @@
     "profile": "RT25",
     "pitch": 6.35,
     "sku": "REV-25-2260",
+    "variantId": null,
     "url": "https://www.revrobotics.com/RT25-Pulleys/",
     "bore": "MAXSpline",
     "vendor": "REV"
@@ -105,6 +115,7 @@
     "profile": "RT25",
     "pitch": 6.35,
     "sku": "REV-25-2272",
+    "variantId": null,
     "url": "https://www.revrobotics.com/RT25-Pulleys/",
     "bore": "MAXSpline",
     "vendor": "REV"
@@ -115,6 +126,7 @@
     "profile": "RT25",
     "pitch": 6.35,
     "sku": "REV-25-2284",
+    "variantId": null,
     "url": "https://www.revrobotics.com/RT25-Pulleys/",
     "bore": "MAXSpline",
     "vendor": "REV"

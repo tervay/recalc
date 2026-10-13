@@ -67,6 +67,7 @@ export function parseSDSGears(products: ShopifyProduct[]): JSONGear[] {
         bore,
         url,
         sku,
+        variantId: variant.id,
         vendor: 'SDS',
       });
       gears.push(parsedData);

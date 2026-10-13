@@ -84,6 +84,7 @@ export function parseAndyMarkSprockets(
         chainType,
         url: urlForHandle(product.handle, 'AndyMark'),
         sku,
+        variantId: variant.id,
         vendor: 'AndyMark',
       });
       continue;
@@ -135,6 +136,7 @@ export function parseAndyMarkSprockets(
         chainType,
         url: urlForHandle(product.handle, 'AndyMark'),
         sku,
+        variantId: variant.id,
         vendor: 'AndyMark',
       });
     }

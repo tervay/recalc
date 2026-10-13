@@ -24,6 +24,7 @@ const zWCPSprocketSchema = z.object({
   chainType: zChainTypeSchema,
   url: z.string().url(),
   sku: z.string().nullable(),
+  variantId: z.number(),
 });
 type WCPSprocket = z.infer<typeof zWCPSprocketSchema>;
 
@@ -63,6 +64,7 @@ export function parseWCPSprockets(products: ShopifyProduct[]): JSONSprocket[] {
             bore,
             url: urlForHandle(product.handle, 'WCP'),
             sku: product.variants[0].sku,
+            variantId: product.variants[0].id,
           });
           sprockets.push(wcpSprocketToJsonSprocket(wcpSprocket));
         } catch (error) {

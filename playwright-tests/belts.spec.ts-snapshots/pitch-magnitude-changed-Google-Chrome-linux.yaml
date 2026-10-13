@@ -45,15 +45,19 @@
 - combobox: in
 - table:
   - rowgroup:
-    - row "Matching COTS Pulleys7":
-      - columnheader "Matching COTS Pulleys7"
-    - row "SKU Teeth Width Bore":
+    - row "Matching COTS Pulleys7 In stock only":
+      - columnheader "Matching COTS Pulleys7 In stock only":
+        - text: Matching COTS Pulleys7
+        - switch "In stock only"
+        - text: In stock only
+    - row "SKU Teeth Width Bore Stock":
       - columnheader "SKU"
       - columnheader "Teeth"
       - columnheader "Width"
       - columnheader "Bore"
+      - columnheader "Stock"
   - rowgroup:
-    - row "REV REV-21-1909 16 25.4 mm 8mm":
+    - row "REV REV-21-1909 16 25.4 mm 8mm In stock":
       - cell "REV REV-21-1909":
         - link "REV":
           - /url: https://www.revrobotics.com/neo-pinions/
@@ -63,7 +67,8 @@
       - cell "16"
       - cell "25.4 mm"
       - cell "8mm"
-    - row "WCP WCP-0393 16 15 mm 8mm":
+      - cell "In stock"
+    - row "WCP WCP-0393 16 15 mm 8mm In stock":
       - cell "WCP WCP-0393":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0393
@@ -73,7 +78,8 @@
       - cell "16"
       - cell "15 mm"
       - cell "8mm"
-    - row "WCP WCP-0603 16 9 mm Falcon":
+      - cell "In stock"
+    - row "WCP WCP-0603 16 9 mm Falcon In stock":
       - cell "WCP WCP-0603":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0603
@@ -83,7 +89,8 @@
       - cell "16"
       - cell "9 mm"
       - cell "Falcon"
-    - row "WCP WCP-0318 16 15 mm Falcon":
+      - cell "In stock"
+    - row "WCP WCP-0318 16 15 mm Falcon In stock":
       - cell "WCP WCP-0318":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0318
@@ -93,7 +100,8 @@
       - cell "16"
       - cell "15 mm"
       - cell "Falcon"
-    - row "WCP WCP-1178 16 9 mm SplineXS":
+      - cell "In stock"
+    - row "WCP WCP-1178 16 9 mm SplineXS In stock":
       - cell "WCP WCP-1178":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1178
@@ -103,7 +111,8 @@
       - cell "16"
       - cell "9 mm"
       - cell "SplineXS"
-    - row "WCP WCP-1179 16 15 mm SplineXS":
+      - cell "In stock"
+    - row "WCP WCP-1179 16 15 mm SplineXS In stock":
       - cell "WCP WCP-1179":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1179
@@ -113,9 +122,10 @@
       - cell "16"
       - cell "15 mm"
       - cell "SplineXS"
+      - cell "In stock"
     - row "24T":
       - cell "24T"
-    - row "WCP WCP-0662 24 9 mm 1/2\" Hex":
+    - row "WCP WCP-0662 24 9 mm 1/2\" Hex In stock":
       - cell "WCP WCP-0662":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0662
@@ -125,16 +135,21 @@
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
+      - cell "In stock"
 - table:
   - rowgroup:
-    - row "Matching COTS Belts6":
-      - columnheader "Matching COTS Belts6"
-    - row "SKU Teeth Width":
+    - row "Matching COTS Belts6 In stock only":
+      - columnheader "Matching COTS Belts6 In stock only":
+        - text: Matching COTS Belts6
+        - switch "In stock only"
+        - text: In stock only
+    - row "SKU Teeth Width Stock":
       - columnheader "SKU"
       - columnheader "Teeth"
       - columnheader "Width"
+      - columnheader "Stock"
   - rowgroup:
-    - row "VBeltGuys 300-3m-09 100 9 mm":
+    - row "VBeltGuys 300-3m-09 100 9 mm In stock":
       - cell "VBeltGuys 300-3m-09":
         - link "VBeltGuys":
           - /url: https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt
@@ -142,7 +157,8 @@
           - /url: https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt
       - cell "100"
       - cell "9 mm"
-    - row "VBeltGuys 300-3m-15 100 15 mm":
+      - cell "In stock"
+    - row "VBeltGuys 300-3m-15 100 15 mm In stock":
       - cell "VBeltGuys 300-3m-15":
         - link "VBeltGuys":
           - /url: https://www.vbeltguys.com/products/300-3m-15-synchronous-timing-belt
@@ -150,7 +166,8 @@
           - /url: https://www.vbeltguys.com/products/300-3m-15-synchronous-timing-belt
       - cell "100"
       - cell "15 mm"
-    - row "WCP WCP-0673 100 9 mm":
+      - cell "In stock"
+    - row "WCP WCP-0673 100 9 mm In stock":
       - cell "WCP WCP-0673":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0673
@@ -159,9 +176,10 @@
           - /url: https://wcproducts.com/products/wcp-0673
       - cell "100"
       - cell "9 mm"
+      - cell "In stock"
     - row "105T":
       - cell "105T"
-    - row "VBeltGuys 315-3m-09 105 9 mm":
+    - row "VBeltGuys 315-3m-09 105 9 mm In stock":
       - cell "VBeltGuys 315-3m-09":
         - link "VBeltGuys":
           - /url: https://www.vbeltguys.com/products/315-3m-09-synchronous-timing-belt
@@ -169,7 +187,8 @@
           - /url: https://www.vbeltguys.com/products/315-3m-09-synchronous-timing-belt
       - cell "105"
       - cell "9 mm"
-    - row "VBeltGuys 315-3m-15 105 15 mm":
+      - cell "In stock"
+    - row "VBeltGuys 315-3m-15 105 15 mm In stock":
       - cell "VBeltGuys 315-3m-15":
         - link "VBeltGuys":
           - /url: https://www.vbeltguys.com/products/315-3m-15-synchronous-timing-belt
@@ -177,7 +196,8 @@
           - /url: https://www.vbeltguys.com/products/315-3m-15-synchronous-timing-belt
       - cell "105"
       - cell "15 mm"
-    - row "WCP WCP-0674 105 9 mm":
+      - cell "In stock"
+    - row "WCP WCP-0674 105 9 mm In stock":
       - cell "WCP WCP-0674":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0674
@@ -186,6 +206,7 @@
           - /url: https://wcproducts.com/products/wcp-0674
       - cell "105"
       - cell "9 mm"
+      - cell "In stock"
 - alert:
   - img
   - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

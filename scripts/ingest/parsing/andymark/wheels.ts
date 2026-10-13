@@ -55,6 +55,7 @@ export function parseAndyMarkWheels(products: ShopifyProduct[]): JSONWheel[] {
         ),
         url: urlForHandle(product.handle, 'AndyMark'),
         sku,
+        variantId: variant.id,
         vendor: 'AndyMark',
       });
     }

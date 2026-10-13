@@ -8,6 +8,7 @@ export const zJSONGearSchema = z.object({
   bore: zBoreSchema,
   url: z.string().url(),
   sku: z.string().nullable(),
+  variantId: z.number().nullable(),
   vendor: zVendorSchema,
 });
 

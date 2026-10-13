@@ -42,6 +42,7 @@ export function parseREVGears(products: ShopifyProduct[]): JSONGear[] {
           bore,
           url: product.handle,
           sku: product.variants[0]?.sku ?? null,
+          variantId: null,
           vendor: 'REV',
         }),
       );

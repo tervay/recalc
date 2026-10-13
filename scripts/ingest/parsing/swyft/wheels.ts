@@ -50,6 +50,7 @@ export function parseSwyftWheels(products: ShopifyProduct[]): JSONWheel[] {
         ),
         url: urlForHandle(product.handle, 'Swyft'),
         sku,
+        variantId: variant.id,
         vendor: 'Swyft',
       });
     }

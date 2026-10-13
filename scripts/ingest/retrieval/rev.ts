@@ -1,6 +1,7 @@
 import { fetchWithRetry } from 'scripts/ingest/retrieval/fetchWithRetry';
 import * as z from 'zod';
 
+import { REV_FEED_URL } from '~/lib/stock';
 import type { ShopifyProduct, ShopifyVariant } from '~/lib/types/shopify';
 
 // REV publishes a live product feed with none of the pagination/store
@@ -8,9 +9,6 @@ import type { ShopifyProduct, ShopifyVariant } from '~/lib/types/shopify';
 // validated against this schema before anything downstream ever sees it, so
 // a malformed or unexpectedly-shaped upstream response fails loudly here
 // instead of producing bad parts data.
-export const REV_FEED_URL =
-  'https://dashboard.revrobotics.com/feeds/usa/products.json';
-
 const zREVFeedProductSchema = z.object({
   sku: z.string().min(1),
   name: z.string().min(1),

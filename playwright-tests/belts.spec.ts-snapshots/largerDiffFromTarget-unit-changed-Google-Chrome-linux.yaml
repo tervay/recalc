@@ -45,15 +45,19 @@
 - combobox: cm
 - table:
   - rowgroup:
-    - row "Matching COTS Pulleys18":
-      - columnheader "Matching COTS Pulleys18"
-    - row "SKU Teeth Width Bore":
+    - row "Matching COTS Pulleys18 In stock only":
+      - columnheader "Matching COTS Pulleys18 In stock only":
+        - text: Matching COTS Pulleys18
+        - switch "In stock only"
+        - text: In stock only
+    - row "SKU Teeth Width Bore Stock":
       - columnheader "SKU"
       - columnheader "Teeth"
       - columnheader "Width"
       - columnheader "Bore"
+      - columnheader "Stock"
   - rowgroup:
-    - row "WCP WCP-1802 16 9 mm SplineXS":
+    - row "WCP WCP-1802 16 9 mm SplineXS In stock":
       - cell "WCP WCP-1802":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1802
@@ -63,7 +67,8 @@
       - cell "16"
       - cell "9 mm"
       - cell "SplineXS"
-    - row "WCP WCP-1804 16 15 mm SplineXS":
+      - cell "In stock"
+    - row "WCP WCP-1804 16 15 mm SplineXS In stock":
       - cell "WCP WCP-1804":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1804
@@ -73,9 +78,10 @@
       - cell "16"
       - cell "15 mm"
       - cell "SplineXS"
+      - cell "In stock"
     - row "24T":
       - cell "24T"
-    - row "AndyMark am-3403 24 9 mm 1/2\" Hex":
+    - row "AndyMark am-3403 24 9 mm 1/2\" Hex In stock":
       - cell "AndyMark am-3403":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys
@@ -85,7 +91,8 @@
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
-    - row "AndyMark am-4625 24 9 mm 1/2\" Hex":
+      - cell "In stock"
+    - row "AndyMark am-4625 24 9 mm 1/2\" Hex In stock":
       - cell "AndyMark am-4625":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley
@@ -95,7 +102,8 @@
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
-    - row "AndyMark am-4626 24 18 mm 1/2\" Hex":
+      - cell "In stock"
+    - row "AndyMark am-4626 24 18 mm 1/2\" Hex In stock":
       - cell "AndyMark am-4626":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley
@@ -105,7 +113,8 @@
       - cell "24"
       - cell "18 mm"
       - cell "1/2\" Hex"
-    - row "AndyMark am-3402 24 9 mm 3/8\" Hex":
+      - cell "In stock"
+    - row "AndyMark am-3402 24 9 mm 3/8\" Hex In stock":
       - cell "AndyMark am-3402":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys
@@ -115,7 +124,8 @@
       - cell "24"
       - cell "9 mm"
       - cell "3/8\" Hex"
-    - row "LastAnvil LA-240108 24 9 mm 1/2\" Hex":
+      - cell "In stock"
+    - row "LastAnvil LA-240108 24 9 mm 1/2\" Hex In stock":
       - cell "LastAnvil LA-240108":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
@@ -125,7 +135,8 @@
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
-    - row "LastAnvil LA-240328 24 9 mm 1/2\" Hex":
+      - cell "In stock"
+    - row "LastAnvil LA-240328 24 9 mm 1/2\" Hex In stock":
       - cell "LastAnvil LA-240328":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/reinforced-htd-pulley-5mm
@@ -135,7 +146,8 @@
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
-    - row "LastAnvil LA-260165 24 9 mm 1/2\" Hex":
+      - cell "In stock"
+    - row "LastAnvil LA-260165 24 9 mm 1/2\" Hex In stock":
       - cell "LastAnvil LA-260165":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
@@ -145,7 +157,8 @@
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
-    - row "Thrifty TTB-0348 24 9.5 mm 1/2\" Hex":
+      - cell "In stock"
+    - row "Thrifty TTB-0348 24 9.5 mm 1/2\" Hex In stock":
       - cell "Thrifty TTB-0348":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
@@ -155,7 +168,8 @@
       - cell "24"
       - cell "9.5 mm"
       - cell "1/2\" Hex"
-    - row "Thrifty TTB-0126 24 18.5 mm 1/2\" Hex":
+      - cell "In stock"
+    - row "Thrifty TTB-0126 24 18.5 mm 1/2\" Hex In stock":
       - cell "Thrifty TTB-0126":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
@@ -165,7 +179,8 @@
       - cell "24"
       - cell "18.5 mm"
       - cell "1/2\" Hex"
-    - row "Thrifty TTB-0341 24 9.5 mm SplineXS":
+      - cell "In stock"
+    - row "Thrifty TTB-0341 24 9.5 mm SplineXS In stock":
       - cell "Thrifty TTB-0341":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys
@@ -175,7 +190,8 @@
       - cell "24"
       - cell "9.5 mm"
       - cell "SplineXS"
-    - row "Thrifty TTB-0342 24 18.5 mm SplineXS":
+      - cell "In stock"
+    - row "Thrifty TTB-0342 24 18.5 mm SplineXS In stock":
       - cell "Thrifty TTB-0342":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys
@@ -185,7 +201,8 @@
       - cell "24"
       - cell "18.5 mm"
       - cell "SplineXS"
-    - row "WCP WCP-0564 24 9 mm 1/2\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-0564 24 9 mm 1/2\" Hex In stock":
       - cell "WCP WCP-0564":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0564
@@ -195,7 +212,8 @@
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
-    - row "WCP WCP-1444 24 9 mm 1/2\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-1444 24 9 mm 1/2\" Hex In stock":
       - cell "WCP WCP-1444":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1444
@@ -205,7 +223,8 @@
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
-    - row "WCP WCP-0992 24 15 mm 1/2\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-0992 24 15 mm 1/2\" Hex In stock":
       - cell "WCP WCP-0992":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0992
@@ -215,7 +234,8 @@
       - cell "24"
       - cell "15 mm"
       - cell "1/2\" Hex"
-    - row "WCP WCP-2255 24 9 mm SplineXS":
+      - cell "In stock"
+    - row "WCP WCP-2255 24 9 mm SplineXS In stock":
       - cell "WCP WCP-2255":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-2255
@@ -225,7 +245,8 @@
       - cell "24"
       - cell "9 mm"
       - cell "SplineXS"
-    - row "WCP WCP-2260 24 15 mm SplineXS":
+      - cell "In stock"
+    - row "WCP WCP-2260 24 15 mm SplineXS In stock":
       - cell "WCP WCP-2260":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-2260
@@ -235,16 +256,21 @@
       - cell "24"
       - cell "15 mm"
       - cell "SplineXS"
+      - cell "In stock"
 - table:
   - rowgroup:
-    - row "Matching COTS Belts24":
-      - columnheader "Matching COTS Belts24"
-    - row "SKU Teeth Width":
+    - row "Matching COTS Belts24 In stock only":
+      - columnheader "Matching COTS Belts24 In stock only":
+        - text: Matching COTS Belts24
+        - switch "In stock only"
+        - text: In stock only
+    - row "SKU Teeth Width Stock":
       - columnheader "SKU"
       - columnheader "Teeth"
       - columnheader "Width"
+      - columnheader "Stock"
   - rowgroup:
-    - row "AndyMark am-5209_70T 70 9 mm":
+    - row "AndyMark am-5209_70T 70 9 mm In stock":
       - cell "AndyMark am-5209_70T":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
@@ -253,7 +279,8 @@
           - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "70"
       - cell "9 mm"
-    - row "AndyMark am-5215_70T 70 15 mm":
+      - cell "In stock"
+    - row "AndyMark am-5215_70T 70 15 mm In stock":
       - cell "AndyMark am-5215_70T":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
@@ -262,7 +289,8 @@
           - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "70"
       - cell "15 mm"
-    - row "LastAnvil LA-240218 70 9 mm":
+      - cell "In stock"
+    - row "LastAnvil LA-240218 70 9 mm In stock":
       - cell "LastAnvil LA-240218":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/htd-timing-belts-9mm
@@ -271,7 +299,8 @@
           - /url: https://www.lastanvil.com/products/htd-timing-belts-9mm
       - cell "70"
       - cell "9 mm"
-    - row "LastAnvil LA-240344 70 15 mm":
+      - cell "In stock"
+    - row "LastAnvil LA-240344 70 15 mm In stock":
       - cell "LastAnvil LA-240344":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/htd-timing-belt-15mm
@@ -280,7 +309,8 @@
           - /url: https://www.lastanvil.com/products/htd-timing-belt-15mm
       - cell "70"
       - cell "15 mm"
-    - row "Swyft 350-5M-9 70 9 mm":
+      - cell "In stock"
+    - row "Swyft 350-5M-9 70 9 mm In stock":
       - cell "Swyft 350-5M-9":
         - link "Swyft":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
@@ -289,7 +319,8 @@
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
       - cell "70"
       - cell "9 mm"
-    - row "Swyft 350-5M-15 70 15 mm":
+      - cell "In stock"
+    - row "Swyft 350-5M-15 70 15 mm In stock":
       - cell "Swyft 350-5M-15":
         - link "Swyft":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
@@ -298,7 +329,8 @@
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
       - cell "70"
       - cell "15 mm"
-    - row "Thrifty TTB-0138 70 9 mm":
+      - cell "In stock"
+    - row "Thrifty TTB-0138 70 9 mm In stock":
       - cell "Thrifty TTB-0138":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
@@ -307,7 +339,8 @@
           - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
       - cell "70"
       - cell "9 mm"
-    - row "Thrifty TTB-0183 70 15 mm":
+      - cell "In stock"
+    - row "Thrifty TTB-0183 70 15 mm In stock":
       - cell "Thrifty TTB-0183":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
@@ -316,7 +349,8 @@
           - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
       - cell "70"
       - cell "15 mm"
-    - row "VBeltGuys 350-5m-09 70 9 mm":
+      - cell "In stock"
+    - row "VBeltGuys 350-5m-09 70 9 mm In stock":
       - cell "VBeltGuys 350-5m-09":
         - link "VBeltGuys":
           - /url: https://www.vbeltguys.com/products/350-5m-09-synchronous-timing-belt
@@ -324,7 +358,8 @@
           - /url: https://www.vbeltguys.com/products/350-5m-09-synchronous-timing-belt
       - cell "70"
       - cell "9 mm"
-    - row "VBeltGuys 350-5m-15 70 15 mm":
+      - cell "In stock"
+    - row "VBeltGuys 350-5m-15 70 15 mm In stock":
       - cell "VBeltGuys 350-5m-15":
         - link "VBeltGuys":
           - /url: https://www.vbeltguys.com/products/350-5m-15-synchronous-timing-belt
@@ -332,7 +367,8 @@
           - /url: https://www.vbeltguys.com/products/350-5m-15-synchronous-timing-belt
       - cell "70"
       - cell "15 mm"
-    - row "WCP WCP-0619 70 9 mm":
+      - cell "In stock"
+    - row "WCP WCP-0619 70 9 mm In stock":
       - cell "WCP WCP-0619":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0619
@@ -341,7 +377,8 @@
           - /url: https://wcproducts.com/products/wcp-0619
       - cell "70"
       - cell "9 mm"
-    - row "WCP WCP-0645 70 15 mm":
+      - cell "In stock"
+    - row "WCP WCP-0645 70 15 mm In stock":
       - cell "WCP WCP-0645":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0645
@@ -350,9 +387,10 @@
           - /url: https://wcproducts.com/products/wcp-0645
       - cell "70"
       - cell "15 mm"
+      - cell "In stock"
     - row "75T":
       - cell "75T"
-    - row "AndyMark am-5209_75T 75 9 mm":
+    - row "AndyMark am-5209_75T 75 9 mm In stock":
       - cell "AndyMark am-5209_75T":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
@@ -361,7 +399,8 @@
           - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "75"
       - cell "9 mm"
-    - row "AndyMark am-5215_75T 75 15 mm":
+      - cell "In stock"
+    - row "AndyMark am-5215_75T 75 15 mm In stock":
       - cell "AndyMark am-5215_75T":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
@@ -370,7 +409,8 @@
           - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "75"
       - cell "15 mm"
-    - row "LastAnvil LA-240224 75 9 mm":
+      - cell "In stock"
+    - row "LastAnvil LA-240224 75 9 mm In stock":
       - cell "LastAnvil LA-240224":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/htd-timing-belts-9mm
@@ -379,7 +419,8 @@
           - /url: https://www.lastanvil.com/products/htd-timing-belts-9mm
       - cell "75"
       - cell "9 mm"
-    - row "LastAnvil LA-240345 75 15 mm":
+      - cell "In stock"
+    - row "LastAnvil LA-240345 75 15 mm In stock":
       - cell "LastAnvil LA-240345":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/htd-timing-belt-15mm
@@ -388,7 +429,8 @@
           - /url: https://www.lastanvil.com/products/htd-timing-belt-15mm
       - cell "75"
       - cell "15 mm"
-    - row "Swyft 375-5M-9 75 9 mm":
+      - cell "In stock"
+    - row "Swyft 375-5M-9 75 9 mm In stock":
       - cell "Swyft 375-5M-9":
         - link "Swyft":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
@@ -397,7 +439,8 @@
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
       - cell "75"
       - cell "9 mm"
-    - row "Swyft 375-5M-15 75 15 mm":
+      - cell "In stock"
+    - row "Swyft 375-5M-15 75 15 mm In stock":
       - cell "Swyft 375-5M-15":
         - link "Swyft":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
@@ -406,7 +449,8 @@
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
       - cell "75"
       - cell "15 mm"
-    - row "Thrifty TTB-0139 75 9 mm":
+      - cell "In stock"
+    - row "Thrifty TTB-0139 75 9 mm In stock":
       - cell "Thrifty TTB-0139":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
@@ -415,7 +459,8 @@
           - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
       - cell "75"
       - cell "9 mm"
-    - row "Thrifty TTB-0184 75 15 mm":
+      - cell "In stock"
+    - row "Thrifty TTB-0184 75 15 mm In stock":
       - cell "Thrifty TTB-0184":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
@@ -424,7 +469,8 @@
           - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
       - cell "75"
       - cell "15 mm"
-    - row "VBeltGuys 375-5m-09 75 9 mm":
+      - cell "In stock"
+    - row "VBeltGuys 375-5m-09 75 9 mm In stock":
       - cell "VBeltGuys 375-5m-09":
         - link "VBeltGuys":
           - /url: https://www.vbeltguys.com/products/375-5m-09-synchronous-timing-belt
@@ -432,7 +478,8 @@
           - /url: https://www.vbeltguys.com/products/375-5m-09-synchronous-timing-belt
       - cell "75"
       - cell "9 mm"
-    - row "VBeltGuys 375-5m-15 75 15 mm":
+      - cell "In stock"
+    - row "VBeltGuys 375-5m-15 75 15 mm In stock":
       - cell "VBeltGuys 375-5m-15":
         - link "VBeltGuys":
           - /url: https://www.vbeltguys.com/products/375-5m-15-synchronous-timing-belt
@@ -440,7 +487,8 @@
           - /url: https://www.vbeltguys.com/products/375-5m-15-synchronous-timing-belt
       - cell "75"
       - cell "15 mm"
-    - row "WCP WCP-0620 75 9 mm":
+      - cell "In stock"
+    - row "WCP WCP-0620 75 9 mm In stock":
       - cell "WCP WCP-0620":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0620
@@ -449,7 +497,8 @@
           - /url: https://wcproducts.com/products/wcp-0620
       - cell "75"
       - cell "9 mm"
-    - row "WCP WCP-0529 75 15 mm":
+      - cell "In stock"
+    - row "WCP WCP-0529 75 15 mm In stock":
       - cell "WCP WCP-0529":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0529
@@ -458,6 +507,7 @@
           - /url: https://wcproducts.com/products/wcp-0529
       - cell "75"
       - cell "15 mm"
+      - cell "In stock"
 - alert:
   - img
   - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

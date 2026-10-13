@@ -240,6 +240,7 @@ describe('Belt', () => {
         width: 10,
         profile: 'HTD',
         sku: 'SKU123',
+        variantId: null,
         url: 'https://example.com',
         vendor: 'Custom',
       };
@@ -253,6 +254,20 @@ describe('Belt', () => {
       expect(belt.vendor).toBe('Custom');
     });
 
+    it('keeps the variant id', () => {
+      const json: JSONBelt = {
+        teeth: 100,
+        pitch: 5,
+        width: 10,
+        profile: 'HTD',
+        sku: 'SKU123',
+        variantId: 42,
+        url: 'https://example.com',
+        vendor: 'WCP',
+      };
+      expect(Belt.fromJson(json).variantId).toBe(42);
+    });
+
     it('handles null sku', () => {
       const json: JSONBelt = {
         teeth: 100,
@@ -260,6 +275,7 @@ describe('Belt', () => {
         width: 10,
         profile: 'HTD',
         sku: null,
+        variantId: null,
         url: 'https://example.com',
         vendor: 'Custom',
       };
@@ -274,6 +290,7 @@ describe('Belt', () => {
         width: 10,
         profile: 'HTD',
         sku: null,
+        variantId: null,
         url: 'https://example.com',
         vendor: 'Custom',
       };
@@ -289,6 +306,7 @@ describe('Belt', () => {
         width: 10,
         profile: 'HTD',
         sku: null,
+        variantId: null,
         url: 'https://example.com',
         vendor: 'Custom',
       };
@@ -304,6 +322,7 @@ describe('Belt', () => {
         width: 10,
         profile: 'HTD',
         sku: null,
+        variantId: null,
         url: 'https://example.com',
         vendor: 'Custom',
       };
@@ -318,6 +337,7 @@ describe('Belt', () => {
         width: 10,
         profile: 'HTD',
         sku: null,
+        variantId: null,
         url: 'https://example.com',
         vendor: 'Custom',
       };
@@ -333,6 +353,7 @@ describe('Belt', () => {
         width: 1,
         profile: 'HTD',
         sku: null,
+        variantId: null,
         url: 'https://example.com',
         vendor: 'Custom',
       };
@@ -347,6 +368,7 @@ describe('Belt', () => {
         width: 10,
         profile: '',
         sku: null,
+        variantId: null,
         url: 'https://example.com',
         vendor: 'Custom',
       };

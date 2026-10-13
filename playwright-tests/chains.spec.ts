@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from 'playwright-tests/helpers';
 
 test.describe('Chain Calculator', () => {
   test.beforeEach(async ({ page }) => {

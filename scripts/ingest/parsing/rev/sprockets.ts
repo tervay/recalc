@@ -68,6 +68,7 @@ export function parseREVSprockets(products: ShopifyProduct[]): JSONSprocket[] {
           chainType,
           url: product.handle,
           sku,
+          variantId: null,
           vendor: 'REV',
         }),
       );

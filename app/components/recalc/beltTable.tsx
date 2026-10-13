@@ -1,6 +1,8 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 
+import { InStockToggle } from '~/components/recalc/inStockToggle';
+import { StockBadge } from '~/components/recalc/stockBadge';
 import { VendorBadge } from '~/components/recalc/vendorBadge';
 import { Skeleton } from '~/components/ui/skeleton';
 import {
@@ -11,7 +13,9 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table';
+import { useStockStatus } from '~/hooks/useStockStatus';
 import { Belt } from '~/lib/models/Belt';
+import { isUnavailable, stockKey } from '~/lib/stock';
 import { type JSONBelt, zJSONBeltSchema } from '~/lib/types/belts';
 import type { Vendor } from '~/lib/types/common';
 
@@ -23,6 +27,7 @@ export function BeltTable({
   filterFn?: (belt: Belt) => boolean;
 }) {
   const [allBelts, setAllBelts] = useState<JSONBelt[] | null>(null);
+  const [inStockOnly, setInStockOnly] = useState(false);
 
   useEffect(() => {
     async function loadBelts() {
@@ -75,22 +80,41 @@ export function BeltTable({
           a.width.baseScalar - b.width.baseScalar,
       );
   }, [allBelts, filterFn]);
+  const stock = useStockStatus(belts);
+  const shownBelts = inStockOnly
+    ? belts.filter((b) => !isUnavailable(stock.get(stockKey(b))))
+    : belts;
 
   return (
     <div className="overflow-hidden rounded-md border shadow-sm">
-      <Table>
+      <Table className="min-w-lg table-fixed">
+        <colgroup>
+          <col />
+          <col className="w-20" />
+          <col className="w-20" />
+          <col className="w-28" />
+        </colgroup>
+
         <TableHeader>
           <TableRow>
             <TableHead
-              colSpan={3}
-              className="bg-primary/8 text-center font-semibold text-foreground"
+              colSpan={4}
+              className="bg-primary/8 font-semibold text-foreground"
             >
-              <span>Matching COTS Belts</span>
-              {allBelts !== null && (
-                <span className="ml-2 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-                  {belts.length}
+              <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+                <span className="col-start-2">
+                  Matching COTS Belts
+                  {allBelts !== null && (
+                    <span className="ml-2 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                      {shownBelts.length}
+                    </span>
+                  )}
                 </span>
-              )}
+                <InStockToggle
+                  checked={inStockOnly}
+                  onCheckedChange={setInStockOnly}
+                />
+              </div>
             </TableHead>
           </TableRow>
           <TableRow>
@@ -102,6 +126,9 @@ export function BeltTable({
             </TableHead>
             <TableHead className="bg-primary/4 text-xs font-medium tracking-wide text-muted-foreground uppercase">
               Width
+            </TableHead>
+            <TableHead className="bg-primary/4 text-xs font-medium tracking-wide text-muted-foreground uppercase">
+              Stock
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -121,20 +148,23 @@ export function BeltTable({
                 <TableCell>
                   <Skeleton className="h-4 w-10" />
                 </TableCell>
+                <TableCell>
+                  <Skeleton className="h-5 w-16 rounded-full" />
+                </TableCell>
               </TableRow>
             ))
-          ) : belts.length === 0 ? (
+          ) : shownBelts.length === 0 ? (
             <TableRow>
               <TableCell
-                colSpan={3}
+                colSpan={4}
                 className="py-6 text-center text-sm text-muted-foreground"
               >
                 No matching belts found
               </TableCell>
             </TableRow>
           ) : (
-            belts.map((belt, index) => {
-              const prevBelt = index > 0 ? belts[index - 1] : null;
+            shownBelts.map((belt, index) => {
+              const prevBelt = index > 0 ? shownBelts[index - 1] : null;
               const isNewGroup =
                 prevBelt !== null && prevBelt.teeth !== belt.teeth;
 
@@ -149,7 +179,7 @@ export function BeltTable({
                   {isNewGroup && (
                     <TableRow className="hover:bg-transparent">
                       <TableCell
-                        colSpan={3}
+                        colSpan={4}
                         className="bg-muted/40 py-1 pl-3 text-xs font-semibold text-muted-foreground"
                       >
                         {belt.teeth}T
@@ -174,6 +204,9 @@ export function BeltTable({
                     <TableCell className="tabular-nums">{belt.teeth}</TableCell>
                     <TableCell className="tabular-nums">
                       {belt.width.format()}
+                    </TableCell>
+                    <TableCell>
+                      <StockBadge status={stock.get(stockKey(belt))} />
                     </TableCell>
                   </TableRow>
                 </Fragment>

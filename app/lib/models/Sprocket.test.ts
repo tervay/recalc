@@ -267,6 +267,7 @@ describe('Sprocket', () => {
         chainType: '#25',
         url: 'https://example.com',
         sku: 'SKU123',
+        variantId: null,
         vendor: 'Custom',
       };
       const sprocket = Sprocket.fromJson(json);
@@ -278,6 +279,19 @@ describe('Sprocket', () => {
       expect(sprocket.vendor).toBe('Custom');
     });
 
+    it('keeps the variant id', () => {
+      const json: JSONSprocket = {
+        teeth: 100,
+        bore: '8mm',
+        chainType: '#25',
+        url: 'https://example.com',
+        sku: 'SKU123',
+        variantId: 42,
+        vendor: 'WCP',
+      };
+      expect(Sprocket.fromJson(json).variantId).toBe(42);
+    });
+
     it('handles null sku', () => {
       const json: JSONSprocket = {
         teeth: 100,
@@ -285,6 +299,7 @@ describe('Sprocket', () => {
         chainType: '#25',
         url: 'https://example.com',
         sku: null,
+        variantId: null,
         vendor: 'Custom',
       };
       const sprocket = Sprocket.fromJson(json);
@@ -298,6 +313,7 @@ describe('Sprocket', () => {
         chainType: '#25',
         url: 'https://example.com',
         sku: null,
+        variantId: null,
         vendor: 'Custom',
       };
       const sprocket = Sprocket.fromJson(json);
@@ -312,6 +328,7 @@ describe('Sprocket', () => {
         chainType: '#25',
         url: 'https://example.com',
         sku: null,
+        variantId: null,
         vendor: 'Custom',
       };
       const sprocket = Sprocket.fromJson(json);
@@ -326,6 +343,7 @@ describe('Sprocket', () => {
         chainType: '#25',
         url: 'https://example.com',
         sku: null,
+        variantId: null,
         vendor: 'Custom',
       };
       const sprocket = Sprocket.fromJson(json);
@@ -340,6 +358,7 @@ describe('Sprocket', () => {
         chainType: '#35',
         url: 'https://example.com',
         sku: null,
+        variantId: null,
         vendor: 'Custom',
       };
       const sprocket = Sprocket.fromJson(json);
@@ -368,6 +387,7 @@ describe('Sprocket', () => {
           chainType: '#25',
           url: 'https://example.com',
           sku: null,
+          variantId: null,
           vendor: 'Custom',
         };
         const sprocket = Sprocket.fromJson(json);

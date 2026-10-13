@@ -10,6 +10,7 @@ export default class Gear extends Model {
     public readonly url: string,
     public readonly sku: string | null,
     public readonly vendor: string,
+    public readonly variantId: number | null = null,
   ) {
     super('Gear');
   }
@@ -22,6 +23,7 @@ export default class Gear extends Model {
       json.url,
       json.sku,
       json.vendor,
+      json.variantId,
     );
   }
 

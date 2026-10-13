@@ -60,6 +60,7 @@ describe('parseWCPWheels', () => {
         durometer: '30A',
         url: 'https://wcproducts.com/products/wcp-1299',
         sku: 'WCP-1299',
+        variantId: 10,
         vendor: 'WCP',
       },
     ]);
@@ -155,6 +156,7 @@ describe('parseREVWheels', () => {
         durometer: 'Medium',
         url: 'https://www.revrobotics.com/ION-Grip-Wheels/',
         sku: 'REV-21-2437-PK4',
+        variantId: null,
         vendor: 'REV',
       },
     ]);
@@ -261,6 +263,7 @@ describe('parseAndyMarkWheels', () => {
         durometer: '35A',
         url: 'https://www.andymark.com/products/compliant-wheels',
         sku: 'am-3571_green',
+        variantId: 10,
         vendor: 'AndyMark',
       },
       {
@@ -271,6 +274,7 @@ describe('parseAndyMarkWheels', () => {
         durometer: '35A',
         url: 'https://www.andymark.com/products/compliant-wheels',
         sku: 'am-3950_green',
+        variantId: 11,
         vendor: 'AndyMark',
       },
     ]);
@@ -423,6 +427,7 @@ describe('parseThriftyWheels', () => {
         durometer: null,
         url: 'https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel',
         sku: 'TTB-0010-BLACK-7MM',
+        variantId: 10,
         vendor: 'Thrifty',
       },
     ]);
@@ -551,6 +556,7 @@ describe('parseSwyftWheels', () => {
         durometer: null,
         url: 'https://shop.swyftrobotics.com/products/swyft-intake-wheels',
         sku: 'SR-INTAKEWHEEL-15-7MM',
+        variantId: 11,
         vendor: 'Swyft',
       },
     ]);

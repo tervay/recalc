@@ -96,16 +96,20 @@
   - button "8mm"
 - table:
   - rowgroup:
-    - row "Matching COTS Wheels93":
-      - columnheader "Matching COTS Wheels93"
-    - row "Wheel Diameter Bore Type Durometer":
+    - row "Matching COTS Wheels93 In stock only":
+      - columnheader "Matching COTS Wheels93 In stock only":
+        - text: Matching COTS Wheels93
+        - switch "In stock only"
+        - text: In stock only
+    - row "Wheel Diameter Bore Type Durometer Stock":
       - columnheader "Wheel"
       - columnheader "Diameter"
       - columnheader "Bore"
       - columnheader "Type"
       - columnheader "Durometer"
+      - columnheader "Stock"
   - rowgroup:
-    - row "AndyMark Compliant Wheels am-3462_green 2.00\" 1/2\" Hex Compliant 35A":
+    - row "AndyMark Compliant Wheels am-3462_green 2.00\" 1/2\" Hex Compliant 35A In stock":
       - cell "AndyMark Compliant Wheels am-3462_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
@@ -117,7 +121,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "35A"
-    - row "AndyMark Compliant Wheels am-3462_orange 2.00\" 1/2\" Hex Compliant 40A":
+      - cell "In stock"
+    - row "AndyMark Compliant Wheels am-3462_orange 2.00\" 1/2\" Hex Compliant 40A In stock":
       - cell "AndyMark Compliant Wheels am-3462_orange":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
@@ -129,7 +134,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "40A"
-    - row "AndyMark Compliant Wheels am-3462_blue 2.00\" 1/2\" Hex Compliant 50A":
+      - cell "In stock"
+    - row "AndyMark Compliant Wheels am-3462_blue 2.00\" 1/2\" Hex Compliant 50A In stock":
       - cell "AndyMark Compliant Wheels am-3462_blue":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
@@ -141,7 +147,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "50A"
-    - row "AndyMark Compliant Wheels am-3462_black 2.00\" 1/2\" Hex Compliant 60A":
+      - cell "In stock"
+    - row "AndyMark Compliant Wheels am-3462_black 2.00\" 1/2\" Hex Compliant 60A In stock":
       - cell "AndyMark Compliant Wheels am-3462_black":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
@@ -153,7 +160,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "60A"
-    - row "AndyMark Compliant Wheels am-3571_green 2.00\" 3/8\" Hex Compliant 35A":
+      - cell "In stock"
+    - row "AndyMark Compliant Wheels am-3571_green 2.00\" 3/8\" Hex Compliant 35A In stock":
       - cell "AndyMark Compliant Wheels am-3571_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
@@ -165,7 +173,8 @@
       - cell "3/8\" Hex"
       - cell "Compliant"
       - cell "35A"
-    - row "AndyMark Compliant Wheels am-3571_orange 2.00\" 3/8\" Hex Compliant 40A":
+      - cell "In stock"
+    - row "AndyMark Compliant Wheels am-3571_orange 2.00\" 3/8\" Hex Compliant 40A In stock":
       - cell "AndyMark Compliant Wheels am-3571_orange":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
@@ -177,7 +186,8 @@
       - cell "3/8\" Hex"
       - cell "Compliant"
       - cell "40A"
-    - row "AndyMark Compliant Wheels am-3571_blue 2.00\" 3/8\" Hex Compliant 50A":
+      - cell "In stock"
+    - row "AndyMark Compliant Wheels am-3571_blue 2.00\" 3/8\" Hex Compliant 50A In stock":
       - cell "AndyMark Compliant Wheels am-3571_blue":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
@@ -189,7 +199,8 @@
       - cell "3/8\" Hex"
       - cell "Compliant"
       - cell "50A"
-    - row "AndyMark Compliant Wheels am-3571_black 2.00\" 3/8\" Hex Compliant 60A":
+      - cell "In stock"
+    - row "AndyMark Compliant Wheels am-3571_black 2.00\" 3/8\" Hex Compliant 60A In stock":
       - cell "AndyMark Compliant Wheels am-3571_black":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
@@ -201,7 +212,8 @@
       - cell "3/8\" Hex"
       - cell "Compliant"
       - cell "60A"
-    - row "AndyMark Compliant Wheels am-3572_green 2.00\" Nub Bore Compliant 35A":
+      - cell "In stock"
+    - row "AndyMark Compliant Wheels am-3572_green 2.00\" Nub Bore Compliant 35A In stock":
       - cell "AndyMark Compliant Wheels am-3572_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
@@ -213,7 +225,8 @@
       - cell "Nub Bore"
       - cell "Compliant"
       - cell "35A"
-    - row "AndyMark Compliant Wheels am-3572_blue 2.00\" Nub Bore Compliant 50A":
+      - cell "In stock"
+    - row "AndyMark Compliant Wheels am-3572_blue 2.00\" Nub Bore Compliant 50A In stock":
       - cell "AndyMark Compliant Wheels am-3572_blue":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
@@ -225,7 +238,8 @@
       - cell "Nub Bore"
       - cell "Compliant"
       - cell "50A"
-    - row "AndyMark Compliant Wheels am-3572_black 2.00\" Nub Bore Compliant 60A":
+      - cell "In stock"
+    - row "AndyMark Compliant Wheels am-3572_black 2.00\" Nub Bore Compliant 60A In stock":
       - cell "AndyMark Compliant Wheels am-3572_black":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
@@ -237,7 +251,8 @@
       - cell "Nub Bore"
       - cell "Compliant"
       - cell "60A"
-    - row "AndyMark Dualie Omni Wheel am-3951_green 2.00\" 1/2\" Hex Omni 35A":
+      - cell "In stock"
+    - row "AndyMark Dualie Omni Wheel am-3951_green 2.00\" 1/2\" Hex Omni 35A In stock":
       - cell "AndyMark Dualie Omni Wheel am-3951_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/2-in-dualie-omni-wheel
@@ -249,7 +264,8 @@
       - cell "1/2\" Hex"
       - cell "Omni"
       - cell "35A"
-    - row "AndyMark Dualie Omni Wheel am-3951_blue 2.00\" 1/2\" Hex Omni 50A":
+      - cell "In stock"
+    - row "AndyMark Dualie Omni Wheel am-3951_blue 2.00\" 1/2\" Hex Omni 50A In stock":
       - cell "AndyMark Dualie Omni Wheel am-3951_blue":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/2-in-dualie-omni-wheel
@@ -261,7 +277,8 @@
       - cell "1/2\" Hex"
       - cell "Omni"
       - cell "50A"
-    - row "AndyMark Dualie Omni Wheel am-3951_gray 2.00\" 1/2\" Hex Omni 80A":
+      - cell "In stock"
+    - row "AndyMark Dualie Omni Wheel am-3951_gray 2.00\" 1/2\" Hex Omni 80A In stock":
       - cell "AndyMark Dualie Omni Wheel am-3951_gray":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/2-in-dualie-omni-wheel
@@ -273,7 +290,8 @@
       - cell "1/2\" Hex"
       - cell "Omni"
       - cell "80A"
-    - row "AndyMark Dualie Omni Wheel am-3952_green 2.00\" 3/8\" Hex Omni 35A":
+      - cell "In stock"
+    - row "AndyMark Dualie Omni Wheel am-3952_green 2.00\" 3/8\" Hex Omni 35A In stock":
       - cell "AndyMark Dualie Omni Wheel am-3952_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/2-in-dualie-omni-wheel
@@ -285,7 +303,8 @@
       - cell "3/8\" Hex"
       - cell "Omni"
       - cell "35A"
-    - row "AndyMark Dualie Omni Wheel am-3952_blue 2.00\" 3/8\" Hex Omni 50A":
+      - cell "In stock"
+    - row "AndyMark Dualie Omni Wheel am-3952_blue 2.00\" 3/8\" Hex Omni 50A In stock":
       - cell "AndyMark Dualie Omni Wheel am-3952_blue":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/2-in-dualie-omni-wheel
@@ -297,7 +316,8 @@
       - cell "3/8\" Hex"
       - cell "Omni"
       - cell "50A"
-    - row "AndyMark Dualie Omni Wheel am-3952_gray 2.00\" 3/8\" Hex Omni 80A":
+      - cell "In stock"
+    - row "AndyMark Dualie Omni Wheel am-3952_gray 2.00\" 3/8\" Hex Omni 80A In stock":
       - cell "AndyMark Dualie Omni Wheel am-3952_gray":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/2-in-dualie-omni-wheel
@@ -309,7 +329,8 @@
       - cell "3/8\" Hex"
       - cell "Omni"
       - cell "80A"
-    - row "AndyMark Dualie Omni Wheel am-3902_green 2.00\" 14mm Hex Omni 35A":
+      - cell "In stock"
+    - row "AndyMark Dualie Omni Wheel am-3902_green 2.00\" 14mm Hex Omni 35A In stock":
       - cell "AndyMark Dualie Omni Wheel am-3902_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/2-in-dualie-omni-wheel
@@ -321,7 +342,8 @@
       - cell "14mm Hex"
       - cell "Omni"
       - cell "35A"
-    - row "AndyMark Dualie Omni Wheel am-3902_blue 2.00\" 14mm Hex Omni 50A":
+      - cell "In stock"
+    - row "AndyMark Dualie Omni Wheel am-3902_blue 2.00\" 14mm Hex Omni 50A In stock":
       - cell "AndyMark Dualie Omni Wheel am-3902_blue":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/2-in-dualie-omni-wheel
@@ -333,7 +355,8 @@
       - cell "14mm Hex"
       - cell "Omni"
       - cell "50A"
-    - row "AndyMark Dualie Omni Wheel am-3902_gray 2.00\" 14mm Hex Omni 80A":
+      - cell "In stock"
+    - row "AndyMark Dualie Omni Wheel am-3902_gray 2.00\" 14mm Hex Omni 80A In stock":
       - cell "AndyMark Dualie Omni Wheel am-3902_gray":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/2-in-dualie-omni-wheel
@@ -345,7 +368,8 @@
       - cell "14mm Hex"
       - cell "Omni"
       - cell "80A"
-    - row "AndyMark Dualie Omni Wheel am-4044_green 2.00\" 5mm Hex Omni 35A":
+      - cell "In stock"
+    - row "AndyMark Dualie Omni Wheel am-4044_green 2.00\" 5mm Hex Omni 35A In stock":
       - cell "AndyMark Dualie Omni Wheel am-4044_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/2-in-dualie-omni-wheel
@@ -357,7 +381,8 @@
       - cell "5mm Hex"
       - cell "Omni"
       - cell "35A"
-    - row "AndyMark Dualie Omni Wheel am-4044_blue 2.00\" 5mm Hex Omni 50A":
+      - cell "In stock"
+    - row "AndyMark Dualie Omni Wheel am-4044_blue 2.00\" 5mm Hex Omni 50A In stock":
       - cell "AndyMark Dualie Omni Wheel am-4044_blue":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/2-in-dualie-omni-wheel
@@ -369,7 +394,8 @@
       - cell "5mm Hex"
       - cell "Omni"
       - cell "50A"
-    - row "AndyMark Dualie Omni Wheel am-4044_gray 2.00\" 5mm Hex Omni 80A":
+      - cell "In stock"
+    - row "AndyMark Dualie Omni Wheel am-4044_gray 2.00\" 5mm Hex Omni 80A In stock":
       - cell "AndyMark Dualie Omni Wheel am-4044_gray":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/2-in-dualie-omni-wheel
@@ -381,7 +407,8 @@
       - cell "5mm Hex"
       - cell "Omni"
       - cell "80A"
-    - row "AndyMark Stealth and Sushi Wheels am-3155_green 2.00\" 1/2\" Hex Compliant 35A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3155_green 2.00\" 1/2\" Hex Compliant 35A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3155_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -393,7 +420,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "35A"
-    - row "AndyMark Stealth and Sushi Wheels am-3155_orange 2.00\" 1/2\" Hex Compliant 40A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3155_orange 2.00\" 1/2\" Hex Compliant 40A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3155_orange":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -405,7 +433,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "40A"
-    - row "AndyMark Stealth and Sushi Wheels am-3155_blue 2.00\" 1/2\" Hex Compliant 50A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3155_blue 2.00\" 1/2\" Hex Compliant 50A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3155_blue":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -417,7 +446,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "50A"
-    - row "AndyMark Stealth and Sushi Wheels am-3155_blk 2.00\" 1/2\" Hex Compliant 60A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3155_blk 2.00\" 1/2\" Hex Compliant 60A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3155_blk":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -429,7 +459,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "60A"
-    - row "AndyMark Stealth and Sushi Wheels am-3155 2.00\" 1/2\" Hex Compliant 80A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3155 2.00\" 1/2\" Hex Compliant 80A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3155":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -441,7 +472,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "80A"
-    - row "AndyMark Stealth and Sushi Wheels am-3436_green 2.00\" 3/8\" Hex Compliant 35A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3436_green 2.00\" 3/8\" Hex Compliant 35A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3436_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -453,7 +485,8 @@
       - cell "3/8\" Hex"
       - cell "Compliant"
       - cell "35A"
-    - row "AndyMark Stealth and Sushi Wheels am-3436_orange 2.00\" 3/8\" Hex Compliant 40A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3436_orange 2.00\" 3/8\" Hex Compliant 40A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3436_orange":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -465,7 +498,8 @@
       - cell "3/8\" Hex"
       - cell "Compliant"
       - cell "40A"
-    - row "AndyMark Stealth and Sushi Wheels am-3436_blue 2.00\" 3/8\" Hex Compliant 50A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3436_blue 2.00\" 3/8\" Hex Compliant 50A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3436_blue":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -477,7 +511,8 @@
       - cell "3/8\" Hex"
       - cell "Compliant"
       - cell "50A"
-    - row "AndyMark Stealth and Sushi Wheels am-3436_blk 2.00\" 3/8\" Hex Compliant 60A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3436_blk 2.00\" 3/8\" Hex Compliant 60A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3436_blk":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -489,7 +524,8 @@
       - cell "3/8\" Hex"
       - cell "Compliant"
       - cell "60A"
-    - row "AndyMark Stealth and Sushi Wheels am-3436 2.00\" 3/8\" Hex Compliant 80A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3436 2.00\" 3/8\" Hex Compliant 80A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3436":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -501,7 +537,8 @@
       - cell "3/8\" Hex"
       - cell "Compliant"
       - cell "80A"
-    - row "AndyMark Stealth and Sushi Wheels am-3156_green 2.00\" Nub Bore Compliant 35A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3156_green 2.00\" Nub Bore Compliant 35A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3156_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -513,7 +550,8 @@
       - cell "Nub Bore"
       - cell "Compliant"
       - cell "35A"
-    - row "AndyMark Stealth and Sushi Wheels am-3156_orange 2.00\" Nub Bore Compliant 40A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3156_orange 2.00\" Nub Bore Compliant 40A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3156_orange":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -525,7 +563,8 @@
       - cell "Nub Bore"
       - cell "Compliant"
       - cell "40A"
-    - row "AndyMark Stealth and Sushi Wheels am-3156_blk 2.00\" Nub Bore Compliant 60A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3156_blk 2.00\" Nub Bore Compliant 60A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3156_blk":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -537,7 +576,8 @@
       - cell "Nub Bore"
       - cell "Compliant"
       - cell "60A"
-    - row "AndyMark Stealth and Sushi Wheels am-3156 2.00\" Nub Bore Compliant 80A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3156 2.00\" Nub Bore Compliant 80A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3156":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -549,7 +589,8 @@
       - cell "Nub Bore"
       - cell "Compliant"
       - cell "80A"
-    - row "AndyMark Stealth and Sushi Wheels am-3664_green 2.00\" 5mm Hex Compliant 35A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3664_green 2.00\" 5mm Hex Compliant 35A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3664_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -561,7 +602,8 @@
       - cell "5mm Hex"
       - cell "Compliant"
       - cell "35A"
-    - row "AndyMark Stealth and Sushi Wheels am-3664_orange 2.00\" 5mm Hex Compliant 40A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3664_orange 2.00\" 5mm Hex Compliant 40A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3664_orange":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -573,7 +615,8 @@
       - cell "5mm Hex"
       - cell "Compliant"
       - cell "40A"
-    - row "AndyMark Stealth and Sushi Wheels am-3664_blue 2.00\" 5mm Hex Compliant 50A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3664_blue 2.00\" 5mm Hex Compliant 50A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3664_blue":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -585,7 +628,8 @@
       - cell "5mm Hex"
       - cell "Compliant"
       - cell "50A"
-    - row "AndyMark Stealth and Sushi Wheels am-3664_blk 2.00\" 5mm Hex Compliant 60A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3664_blk 2.00\" 5mm Hex Compliant 60A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3664_blk":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -597,7 +641,8 @@
       - cell "5mm Hex"
       - cell "Compliant"
       - cell "60A"
-    - row "AndyMark Stealth and Sushi Wheels am-3664 2.00\" 5mm Hex Compliant 80A":
+      - cell "In stock"
+    - row "AndyMark Stealth and Sushi Wheels am-3664 2.00\" 5mm Hex Compliant 80A In stock":
       - cell "AndyMark Stealth and Sushi Wheels am-3664":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
@@ -609,7 +654,8 @@
       - cell "5mm Hex"
       - cell "Compliant"
       - cell "80A"
-    - row "REV ION Compliant Wheels REV-21-2031-PK4 2.00\" 1/2\" Hex Compliant Hard":
+      - cell "In stock"
+    - row "REV ION Compliant Wheels REV-21-2031-PK4 2.00\" 1/2\" Hex Compliant Hard In stock":
       - cell "REV ION Compliant Wheels REV-21-2031-PK4":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Compliant-Wheels/
@@ -621,7 +667,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "Hard"
-    - row "REV ION Compliant Wheels REV-21-2030-PK4 2.00\" 1/2\" Hex Compliant Medium":
+      - cell "In stock"
+    - row "REV ION Compliant Wheels REV-21-2030-PK4 2.00\" 1/2\" Hex Compliant Medium In stock":
       - cell "REV ION Compliant Wheels REV-21-2030-PK4":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Compliant-Wheels/
@@ -633,7 +680,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "Medium"
-    - row "REV ION Compliant Wheels REV-21-2029-PK4 2.00\" 1/2\" Hex Compliant Soft":
+      - cell "In stock"
+    - row "REV ION Compliant Wheels REV-21-2029-PK4 2.00\" 1/2\" Hex Compliant Soft In stock":
       - cell "REV ION Compliant Wheels REV-21-2029-PK4":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Compliant-Wheels/
@@ -645,7 +693,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "Soft"
-    - row "REV ION Compliant Wheels REV-21-6555-PK10 2.00\" MAXSpline Compliant Medium":
+      - cell "In stock"
+    - row "REV ION Compliant Wheels REV-21-6555-PK10 2.00\" MAXSpline Compliant Medium In stock":
       - cell "REV ION Compliant Wheels REV-21-6555-PK10":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Compliant-Wheels/
@@ -657,7 +706,8 @@
       - cell "MAXSpline"
       - cell "Compliant"
       - cell "Medium"
-    - row "REV ION Cone Wheels REV-21-6550 2.00\" MAXSpline Grip Hard":
+      - cell "In stock"
+    - row "REV ION Cone Wheels REV-21-6550 2.00\" MAXSpline Grip Hard In stock":
       - cell "REV ION Cone Wheels REV-21-6550":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-cone-wheels
@@ -669,7 +719,8 @@
       - cell "MAXSpline"
       - cell "Grip"
       - cell "Hard"
-    - row "REV ION Cone Wheels REV-21-6564 2.00\" MAXSpline Grip Medium":
+      - cell "In stock"
+    - row "REV ION Cone Wheels REV-21-6564 2.00\" MAXSpline Grip Medium In stock":
       - cell "REV ION Cone Wheels REV-21-6564":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-cone-wheels
@@ -681,7 +732,8 @@
       - cell "MAXSpline"
       - cell "Grip"
       - cell "Medium"
-    - row "REV ION Cone Wheels REV-21-6563 2.00\" MAXSpline Grip Soft":
+      - cell "In stock"
+    - row "REV ION Cone Wheels REV-21-6563 2.00\" MAXSpline Grip Soft In stock":
       - cell "REV ION Cone Wheels REV-21-6563":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-cone-wheels
@@ -693,7 +745,8 @@
       - cell "MAXSpline"
       - cell "Grip"
       - cell "Soft"
-    - row "REV ION Grip Wheels REV-21-2026-PK4 2.00\" 1/2\" Hex Grip Hard":
+      - cell "In stock"
+    - row "REV ION Grip Wheels REV-21-2026-PK4 2.00\" 1/2\" Hex Grip Hard In stock":
       - cell "REV ION Grip Wheels REV-21-2026-PK4":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Grip-Wheels/
@@ -705,7 +758,8 @@
       - cell "1/2\" Hex"
       - cell "Grip"
       - cell "Hard"
-    - row "REV ION Grip Wheels REV-21-2043-PK4 2.00\" 1/2\" Hex Grip Medium":
+      - cell "In stock"
+    - row "REV ION Grip Wheels REV-21-2043-PK4 2.00\" 1/2\" Hex Grip Medium In stock":
       - cell "REV ION Grip Wheels REV-21-2043-PK4":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Grip-Wheels/
@@ -717,7 +771,8 @@
       - cell "1/2\" Hex"
       - cell "Grip"
       - cell "Medium"
-    - row "REV ION Grip Wheels REV-21-2044-PK4 2.00\" 1/2\" Hex Grip Soft":
+      - cell "In stock"
+    - row "REV ION Grip Wheels REV-21-2044-PK4 2.00\" 1/2\" Hex Grip Soft In stock":
       - cell "REV ION Grip Wheels REV-21-2044-PK4":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Grip-Wheels/
@@ -729,7 +784,8 @@
       - cell "1/2\" Hex"
       - cell "Grip"
       - cell "Soft"
-    - row "REV ION Grip Wheels REV-21-2442-PK4 2.00\" MAXSpline Grip Hard":
+      - cell "In stock"
+    - row "REV ION Grip Wheels REV-21-2442-PK4 2.00\" MAXSpline Grip Hard In stock":
       - cell "REV ION Grip Wheels REV-21-2442-PK4":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Grip-Wheels/
@@ -741,7 +797,8 @@
       - cell "MAXSpline"
       - cell "Grip"
       - cell "Hard"
-    - row "REV ION Grip Wheels REV-21-2437-PK4 2.00\" MAXSpline Grip Medium":
+      - cell "In stock"
+    - row "REV ION Grip Wheels REV-21-2437-PK4 2.00\" MAXSpline Grip Medium In stock":
       - cell "REV ION Grip Wheels REV-21-2437-PK4":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Grip-Wheels/
@@ -753,7 +810,8 @@
       - cell "MAXSpline"
       - cell "Grip"
       - cell "Medium"
-    - row "REV ION Grip Wheels REV-21-2432-PK4 2.00\" MAXSpline Grip Soft":
+      - cell "In stock"
+    - row "REV ION Grip Wheels REV-21-2432-PK4 2.00\" MAXSpline Grip Soft In stock":
       - cell "REV ION Grip Wheels REV-21-2432-PK4":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Grip-Wheels/
@@ -765,7 +823,8 @@
       - cell "MAXSpline"
       - cell "Grip"
       - cell "Soft"
-    - row "REV ION Omni Wheels REV-21-2472 2.00\" 1/2\" Hex Omni —":
+      - cell "In stock"
+    - row "REV ION Omni Wheels REV-21-2472 2.00\" 1/2\" Hex Omni — In stock":
       - cell "REV ION Omni Wheels REV-21-2472":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Omni-Wheels/
@@ -777,7 +836,8 @@
       - cell "1/2\" Hex"
       - cell "Omni"
       - cell "—"
-    - row "REV ION Traction Wheels REV-21-2422-PK4 2.00\" MAXSpline Traction Hard":
+      - cell "In stock"
+    - row "REV ION Traction Wheels REV-21-2422-PK4 2.00\" MAXSpline Traction Hard In stock":
       - cell "REV ION Traction Wheels REV-21-2422-PK4":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Traction-Wheels/
@@ -789,7 +849,8 @@
       - cell "MAXSpline"
       - cell "Traction"
       - cell "Hard"
-    - row "Thrifty Molded 2 Inch Vectored Intake Wheels TTB-0387 2.00\" 1/2\" Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Molded 2 Inch Vectored Intake Wheels TTB-0387 2.00\" 1/2\" Hex Compliant — In stock":
       - cell "Thrifty Molded 2 Inch Vectored Intake Wheels TTB-0387":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/2-inch-vectored-intake-wheels
@@ -801,7 +862,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "—"
-    - row "Thrifty Molded 2 Inch Vectored Intake Wheels TTB-0430 2.00\" 1/2\" Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Molded 2 Inch Vectored Intake Wheels TTB-0430 2.00\" 1/2\" Hex Compliant — In stock":
       - cell "Thrifty Molded 2 Inch Vectored Intake Wheels TTB-0430":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/2-inch-vectored-intake-wheels
@@ -813,7 +875,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "—"
-    - row "Thrifty Solid Urethane Wheel TTB-0332 2.00\" 1/2\" Hex Traction 45A":
+      - cell "In stock"
+    - row "Thrifty Solid Urethane Wheel TTB-0332 2.00\" 1/2\" Hex Traction 45A In stock":
       - cell "Thrifty Solid Urethane Wheel TTB-0332":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-2-inch-solid-urethane-wheel-45a-durometer
@@ -825,7 +888,8 @@
       - cell "1/2\" Hex"
       - cell "Traction"
       - cell "45A"
-    - row "Thrifty Solid Urethane Wheel TTB-0369 2.00\" 1/2\" Hex Traction 60A":
+      - cell "In stock"
+    - row "Thrifty Solid Urethane Wheel TTB-0369 2.00\" 1/2\" Hex Traction 60A In stock":
       - cell "Thrifty Solid Urethane Wheel TTB-0369":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-2-inch-solid-urethane-wheel-60a-durometer
@@ -837,7 +901,8 @@
       - cell "1/2\" Hex"
       - cell "Traction"
       - cell "60A"
-    - row "Thrifty Thrifty Squish Wheels TTB-0032 2.00\" 1/2\" Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Thrifty Squish Wheels TTB-0032 2.00\" 1/2\" Hex Compliant — In stock":
       - cell "Thrifty Thrifty Squish Wheels TTB-0032":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-10-2-inch-thrifty-squish-wheels
@@ -849,7 +914,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "—"
-    - row "Thrifty Thrifty Squish Wheels TTB-0372 2.00\" 1/2\" Hex Compliant 60A":
+      - cell "In stock"
+    - row "Thrifty Thrifty Squish Wheels TTB-0372 2.00\" 1/2\" Hex Compliant 60A In stock":
       - cell "Thrifty Thrifty Squish Wheels TTB-0372":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-10-hard-durometer-60a-2-inch-thrifty-squish-wheels
@@ -861,7 +927,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "60A"
-    - row "Thrifty Vectored Intake Wheel TTB-0010-BLACK 2.00\" 1/2\" Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Vectored Intake Wheel TTB-0010-BLACK 2.00\" 1/2\" Hex Compliant — In stock":
       - cell "Thrifty Vectored Intake Wheel TTB-0010-BLACK":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel
@@ -873,7 +940,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "—"
-    - row "Thrifty Vectored Intake Wheel TTB-0010-BLUE 2.00\" 1/2\" Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Vectored Intake Wheel TTB-0010-BLUE 2.00\" 1/2\" Hex Compliant — In stock":
       - cell "Thrifty Vectored Intake Wheel TTB-0010-BLUE":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel
@@ -885,7 +953,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "—"
-    - row "Thrifty Vectored Intake Wheel TTB-0010-GREEN 2.00\" 1/2\" Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Vectored Intake Wheel TTB-0010-GREEN 2.00\" 1/2\" Hex Compliant — In stock":
       - cell "Thrifty Vectored Intake Wheel TTB-0010-GREEN":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel
@@ -897,7 +966,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "—"
-    - row "Thrifty Vectored Intake Wheel TTB-0010-ORANGE 2.00\" 1/2\" Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Vectored Intake Wheel TTB-0010-ORANGE 2.00\" 1/2\" Hex Compliant — In stock":
       - cell "Thrifty Vectored Intake Wheel TTB-0010-ORANGE":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel
@@ -909,7 +979,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "—"
-    - row "Thrifty Vectored Intake Wheel TTB-0010-PINK-1/2 2.00\" 1/2\" Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Vectored Intake Wheel TTB-0010-PINK-1/2 2.00\" 1/2\" Hex Compliant — In stock":
       - cell "Thrifty Vectored Intake Wheel TTB-0010-PINK-1/2":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel
@@ -921,7 +992,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "—"
-    - row "Thrifty Vectored Intake Wheel TTB-0010-PURPLE 2.00\" 1/2\" Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Vectored Intake Wheel TTB-0010-PURPLE 2.00\" 1/2\" Hex Compliant — In stock":
       - cell "Thrifty Vectored Intake Wheel TTB-0010-PURPLE":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel
@@ -933,7 +1005,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "—"
-    - row "Thrifty Vectored Intake Wheel TTB-0010-RED 2.00\" 1/2\" Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Vectored Intake Wheel TTB-0010-RED 2.00\" 1/2\" Hex Compliant — In stock":
       - cell "Thrifty Vectored Intake Wheel TTB-0010-RED":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel
@@ -945,7 +1018,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "—"
-    - row "Thrifty Vectored Intake Wheel TTB-0010-WHITE 2.00\" 1/2\" Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Vectored Intake Wheel TTB-0010-WHITE 2.00\" 1/2\" Hex Compliant — In stock":
       - cell "Thrifty Vectored Intake Wheel TTB-0010-WHITE":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel
@@ -957,7 +1031,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "—"
-    - row "Thrifty Vectored Intake Wheel TTB-0010-YELLOW 2.00\" 1/2\" Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Vectored Intake Wheel TTB-0010-YELLOW 2.00\" 1/2\" Hex Compliant — In stock":
       - cell "Thrifty Vectored Intake Wheel TTB-0010-YELLOW":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel
@@ -969,7 +1044,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "—"
-    - row "Thrifty Vectored Intake Wheel TTB-0010-PINK-3/8 2.00\" 3/8\" Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Vectored Intake Wheel TTB-0010-PINK-3/8 2.00\" 3/8\" Hex Compliant — In stock":
       - cell "Thrifty Vectored Intake Wheel TTB-0010-PINK-3/8":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel
@@ -981,7 +1057,8 @@
       - cell "3/8\" Hex"
       - cell "Compliant"
       - cell "—"
-    - row "Thrifty Vectored Intake Wheel 2.00\" 3/8\" Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Vectored Intake Wheel 2.00\" 3/8\" Hex Compliant — In stock":
       - cell "Thrifty Vectored Intake Wheel":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel
@@ -992,7 +1069,8 @@
       - cell "3/8\" Hex"
       - cell "Compliant"
       - cell "—"
-    - row "Thrifty Vectored Intake Wheel TTB-0010-PINK-5MM 2.00\" 5mm Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Vectored Intake Wheel TTB-0010-PINK-5MM 2.00\" 5mm Hex Compliant — In stock":
       - cell "Thrifty Vectored Intake Wheel TTB-0010-PINK-5MM":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel
@@ -1004,7 +1082,8 @@
       - cell "5mm Hex"
       - cell "Compliant"
       - cell "—"
-    - row "Thrifty Vectored Intake Wheel 2.00\" 5mm Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Vectored Intake Wheel 2.00\" 5mm Hex Compliant — In stock":
       - cell "Thrifty Vectored Intake Wheel":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel
@@ -1015,7 +1094,8 @@
       - cell "5mm Hex"
       - cell "Compliant"
       - cell "—"
-    - row "Thrifty Vectored Intake Wheel TTB-0010-PINK-7MM 2.00\" 7mm Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Vectored Intake Wheel TTB-0010-PINK-7MM 2.00\" 7mm Hex Compliant — In stock":
       - cell "Thrifty Vectored Intake Wheel TTB-0010-PINK-7MM":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel
@@ -1027,7 +1107,8 @@
       - cell "7mm Hex"
       - cell "Compliant"
       - cell "—"
-    - row "Thrifty Vectored Intake Wheel 2.00\" 7mm Hex Compliant —":
+      - cell "In stock"
+    - row "Thrifty Vectored Intake Wheel 2.00\" 7mm Hex Compliant — In stock":
       - cell "Thrifty Vectored Intake Wheel":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-2-inch-vectored-intake-wheel
@@ -1038,7 +1119,8 @@
       - cell "7mm Hex"
       - cell "Compliant"
       - cell "—"
-    - row "WCP Omni-Directional Intake Wheel WCP-0355 2.00\" 1/2\" Hex Omni 90A":
+      - cell "In stock"
+    - row "WCP Omni-Directional Intake Wheel WCP-0355 2.00\" 1/2\" Hex Omni 90A In stock":
       - cell "WCP Omni-Directional Intake Wheel WCP-0355":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0355
@@ -1050,7 +1132,8 @@
       - cell "1/2\" Hex"
       - cell "Omni"
       - cell "90A"
-    - row "WCP Straight Flex Wheel WCP-2336 2.00\" 1.25\" Round Flex 30A":
+      - cell "In stock"
+    - row "WCP Straight Flex Wheel WCP-2336 2.00\" 1.25\" Round Flex 30A In stock":
       - cell "WCP Straight Flex Wheel WCP-2336":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-2336
@@ -1062,7 +1145,8 @@
       - cell "1.25\" Round"
       - cell "Flex"
       - cell "30A"
-    - row "WCP Straight Flex Wheel WCP-2337 2.00\" 1.25\" Round Flex 45A":
+      - cell "In stock"
+    - row "WCP Straight Flex Wheel WCP-2337 2.00\" 1.25\" Round Flex 45A In stock":
       - cell "WCP Straight Flex Wheel WCP-2337":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-2337
@@ -1074,7 +1158,8 @@
       - cell "1.25\" Round"
       - cell "Flex"
       - cell "45A"
-    - row "WCP Straight Flex Wheel WCP-2338 2.00\" 1.25\" Round Flex 60A":
+      - cell "In stock"
+    - row "WCP Straight Flex Wheel WCP-2338 2.00\" 1.25\" Round Flex 60A In stock":
       - cell "WCP Straight Flex Wheel WCP-2338":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-2338
@@ -1086,7 +1171,8 @@
       - cell "1.25\" Round"
       - cell "Flex"
       - cell "60A"
-    - row "WCP Straight Flex Wheel WCP-1284 2.00\" 1/2\" Hex Flex 30A":
+      - cell "In stock"
+    - row "WCP Straight Flex Wheel WCP-1284 2.00\" 1/2\" Hex Flex 30A In stock":
       - cell "WCP Straight Flex Wheel WCP-1284":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1284
@@ -1098,7 +1184,8 @@
       - cell "1/2\" Hex"
       - cell "Flex"
       - cell "30A"
-    - row "WCP Straight Flex Wheel WCP-1290 2.00\" 1/2\" Hex Flex 30A":
+      - cell "In stock"
+    - row "WCP Straight Flex Wheel WCP-1290 2.00\" 1/2\" Hex Flex 30A In stock":
       - cell "WCP Straight Flex Wheel WCP-1290":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1290
@@ -1110,7 +1197,8 @@
       - cell "1/2\" Hex"
       - cell "Flex"
       - cell "30A"
-    - row "WCP Straight Flex Wheel WCP-1296 2.00\" 1/2\" Hex Flex 30A":
+      - cell "In stock"
+    - row "WCP Straight Flex Wheel WCP-1296 2.00\" 1/2\" Hex Flex 30A In stock":
       - cell "WCP Straight Flex Wheel WCP-1296":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1296
@@ -1122,7 +1210,8 @@
       - cell "1/2\" Hex"
       - cell "Flex"
       - cell "30A"
-    - row "WCP Straight Flex Wheel WCP-1285 2.00\" 1/2\" Hex Flex 45A":
+      - cell "In stock"
+    - row "WCP Straight Flex Wheel WCP-1285 2.00\" 1/2\" Hex Flex 45A In stock":
       - cell "WCP Straight Flex Wheel WCP-1285":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1285
@@ -1134,7 +1223,8 @@
       - cell "1/2\" Hex"
       - cell "Flex"
       - cell "45A"
-    - row "WCP Straight Flex Wheel WCP-1291 2.00\" 1/2\" Hex Flex 45A":
+      - cell "In stock"
+    - row "WCP Straight Flex Wheel WCP-1291 2.00\" 1/2\" Hex Flex 45A In stock":
       - cell "WCP Straight Flex Wheel WCP-1291":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1291
@@ -1146,7 +1236,8 @@
       - cell "1/2\" Hex"
       - cell "Flex"
       - cell "45A"
-    - row "WCP Straight Flex Wheel WCP-1297 2.00\" 1/2\" Hex Flex 45A":
+      - cell "In stock"
+    - row "WCP Straight Flex Wheel WCP-1297 2.00\" 1/2\" Hex Flex 45A In stock":
       - cell "WCP Straight Flex Wheel WCP-1297":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1297
@@ -1158,7 +1249,8 @@
       - cell "1/2\" Hex"
       - cell "Flex"
       - cell "45A"
-    - row "WCP Straight Flex Wheel WCP-1286 2.00\" 1/2\" Hex Flex 60A":
+      - cell "In stock"
+    - row "WCP Straight Flex Wheel WCP-1286 2.00\" 1/2\" Hex Flex 60A In stock":
       - cell "WCP Straight Flex Wheel WCP-1286":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1286
@@ -1170,7 +1262,8 @@
       - cell "1/2\" Hex"
       - cell "Flex"
       - cell "60A"
-    - row "WCP Straight Flex Wheel WCP-1292 2.00\" 1/2\" Hex Flex 60A":
+      - cell "In stock"
+    - row "WCP Straight Flex Wheel WCP-1292 2.00\" 1/2\" Hex Flex 60A In stock":
       - cell "WCP Straight Flex Wheel WCP-1292":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1292
@@ -1182,7 +1275,8 @@
       - cell "1/2\" Hex"
       - cell "Flex"
       - cell "60A"
-    - row "WCP Straight Flex Wheel WCP-1298 2.00\" 1/2\" Hex Flex 60A":
+      - cell "In stock"
+    - row "WCP Straight Flex Wheel WCP-1298 2.00\" 1/2\" Hex Flex 60A In stock":
       - cell "WCP Straight Flex Wheel WCP-1298":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1298
@@ -1194,7 +1288,8 @@
       - cell "1/2\" Hex"
       - cell "Flex"
       - cell "60A"
-    - row "WCP Vector Intake Wheel WCP-0353 2.00\" 1/2\" Hex Compliant —":
+      - cell "In stock"
+    - row "WCP Vector Intake Wheel WCP-0353 2.00\" 1/2\" Hex Compliant — In stock":
       - cell "WCP Vector Intake Wheel WCP-0353":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0353
@@ -1206,7 +1301,8 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "—"
-    - row "WCP Vector Intake Wheel WCP-0354 2.00\" 1/2\" Hex Compliant —":
+      - cell "In stock"
+    - row "WCP Vector Intake Wheel WCP-0354 2.00\" 1/2\" Hex Compliant — In stock":
       - cell "WCP Vector Intake Wheel WCP-0354":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0354
@@ -1218,6 +1314,7 @@
       - cell "1/2\" Hex"
       - cell "Compliant"
       - cell "—"
+      - cell "In stock"
 - alert:
   - img
   - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

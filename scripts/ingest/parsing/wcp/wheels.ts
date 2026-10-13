@@ -42,6 +42,7 @@ export function parseWCPWheels(products: ShopifyProduct[]): JSONWheel[] {
       durometer: parseDurometer(product.title),
       url: urlForHandle(product.handle, 'WCP'),
       sku,
+      variantId: product.variants[0].id,
       vendor: 'WCP',
     });
   }

@@ -8,6 +8,7 @@ export const zJSONPulleySchema = z.object({
   profile: z.string(),
   pitch: z.number().min(1), // (mm)
   sku: z.string().nullable(),
+  variantId: z.number().nullable(),
   url: z.string().url(),
   bore: zBoreSchema,
   vendor: zVendorSchema,

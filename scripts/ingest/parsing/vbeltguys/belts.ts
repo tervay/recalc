@@ -29,6 +29,7 @@ export function parseVBeltGuysBelts(products: ShopifyProduct[]): JSONBelt[] {
       profile,
       pitch,
       sku: `${match[1]}-${match[2]}m-${match[3]}`,
+      variantId: product.variants[0].id,
       url: urlForHandle(product.handle, 'VBeltGuys'),
       vendor: 'VBeltGuys',
     });

@@ -25,6 +25,7 @@ export function parseThriftyBelts(products: ShopifyProduct[]): JSONBelt[] {
           profile: 'HTD',
           pitch: 5,
           sku: variant.sku,
+          variantId: variant.id,
           url: urlForHandle(product.handle, 'Thrifty'),
           vendor: 'Thrifty',
         });

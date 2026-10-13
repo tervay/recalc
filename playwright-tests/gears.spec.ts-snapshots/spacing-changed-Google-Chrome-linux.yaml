@@ -20,14 +20,18 @@
   - text: has 16t but an 18t center distance — use 18t in this calculator.
 - table:
   - rowgroup:
-    - row "Matching COTS Gears28":
-      - columnheader "Matching COTS Gears28"
-    - row "SKU Teeth Bore":
+    - row "Matching COTS Gears28 In stock only":
+      - columnheader "Matching COTS Gears28 In stock only":
+        - text: Matching COTS Gears28
+        - switch "In stock only"
+        - text: In stock only
+    - row "SKU Teeth Bore Stock":
       - columnheader "SKU"
       - columnheader "Teeth"
       - columnheader "Bore"
+      - columnheader "Stock"
   - rowgroup:
-    - row "REV REV-21-2196 16 1/2\" Hex":
+    - row "REV REV-21-2196 16 1/2\" Hex In stock":
       - cell "REV REV-21-2196":
         - link "REV":
           - /url: https://www.revrobotics.com/20DP-Gears-0.5-Hex/
@@ -36,7 +40,8 @@
           - /url: https://www.revrobotics.com/20DP-Gears-0.5-Hex/
       - cell "16"
       - cell "1/2\" Hex"
-    - row "WCP WCP-0290 16 1/2\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-0290 16 1/2\" Hex In stock":
       - cell "WCP WCP-0290":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0290
@@ -45,7 +50,8 @@
           - /url: https://wcproducts.com/products/wcp-0290
       - cell "16"
       - cell "1/2\" Hex"
-    - row "AndyMark am-4665 16 3/8\" Hex":
+      - cell "In stock"
+    - row "AndyMark am-4665 16 3/8\" Hex In stock":
       - cell "AndyMark am-4665":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/standard-20-dp-gears
@@ -54,7 +60,8 @@
           - /url: https://www.andymark.com/products/standard-20-dp-gears
       - cell "16"
       - cell "3/8\" Hex"
-    - row "SDS N/A 16 3/8\" Hex":
+      - cell "In stock"
+    - row "SDS N/A 16 3/8\" Hex In stock":
       - cell "SDS N/A":
         - link "SDS":
           - /url: https://www.swervedrivespecialties.com/products/16t-20dp-3-8-hex-gear
@@ -63,7 +70,8 @@
           - /url: https://www.swervedrivespecialties.com/products/16t-20dp-3-8-hex-gear
       - cell "16"
       - cell "3/8\" Hex"
-    - row "WCP WCP-0681 16 3/8\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-0681 16 3/8\" Hex In stock":
       - cell "WCP WCP-0681":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0681
@@ -72,7 +80,8 @@
           - /url: https://wcproducts.com/products/wcp-0681
       - cell "16"
       - cell "3/8\" Hex"
-    - row "WCP WCP-0732 16 3/8\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-0732 16 3/8\" Hex In stock":
       - cell "WCP WCP-0732":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0732
@@ -81,7 +90,8 @@
           - /url: https://wcproducts.com/products/wcp-0732
       - cell "16"
       - cell "3/8\" Hex"
-    - row "WCP WCP-1719 16 3/8\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-1719 16 3/8\" Hex In stock":
       - cell "WCP WCP-1719":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1719
@@ -90,7 +100,8 @@
           - /url: https://wcproducts.com/products/wcp-1719
       - cell "16"
       - cell "3/8\" Hex"
-    - row "WCP WCP-1720 16 3/8\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-1720 16 3/8\" Hex In stock":
       - cell "WCP WCP-1720":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1720
@@ -99,7 +110,8 @@
           - /url: https://wcproducts.com/products/wcp-1720
       - cell "16"
       - cell "3/8\" Hex"
-    - row "AndyMark am-4075 16 8mm":
+      - cell "In stock"
+    - row "AndyMark am-4075 16 8mm In stock":
       - cell "AndyMark am-4075":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/20-dp-pinion-gears
@@ -108,7 +120,8 @@
           - /url: https://www.andymark.com/products/20-dp-pinion-gears
       - cell "16"
       - cell "8mm"
-    - row "SDS N/A 16 8mm":
+      - cell "In stock"
+    - row "SDS N/A 16 8mm In stock":
       - cell "SDS N/A":
         - link "SDS":
           - /url: https://www.swervedrivespecialties.com/products/gear-20dp-16t-8mm-bore
@@ -117,7 +130,8 @@
           - /url: https://www.swervedrivespecialties.com/products/gear-20dp-16t-8mm-bore
       - cell "16"
       - cell "8mm"
-    - row "WCP WCP-1236 16 8mm":
+      - cell "In stock"
+    - row "WCP WCP-1236 16 8mm In stock":
       - cell "WCP WCP-1236":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1236
@@ -126,7 +140,8 @@
           - /url: https://wcproducts.com/products/wcp-1236
       - cell "16"
       - cell "8mm"
-    - row "WCP WCP-1647 16 8mm":
+      - cell "In stock"
+    - row "WCP WCP-1647 16 8mm In stock":
       - cell "WCP WCP-1647":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1647
@@ -135,7 +150,8 @@
           - /url: https://wcproducts.com/products/wcp-1647
       - cell "16"
       - cell "8mm"
-    - row "SDS SDS-16T-20DP-FALCON 16 Falcon":
+      - cell "In stock"
+    - row "SDS SDS-16T-20DP-FALCON 16 Falcon In stock":
       - cell "SDS SDS-16T-20DP-FALCON":
         - link "SDS":
           - /url: https://www.swervedrivespecialties.com/products/gear-20dp-16t-falcon-spline-bore
@@ -144,7 +160,8 @@
           - /url: https://www.swervedrivespecialties.com/products/gear-20dp-16t-falcon-spline-bore
       - cell "16"
       - cell "Falcon"
-    - row "WCP WCP-1016 16 SplineXS":
+      - cell "In stock"
+    - row "WCP WCP-1016 16 SplineXS In stock":
       - cell "WCP WCP-1016":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1016
@@ -153,7 +170,8 @@
           - /url: https://wcproducts.com/products/wcp-1016
       - cell "16"
       - cell "SplineXS"
-    - row "WCP WCP-1383 16 SplineXS":
+      - cell "In stock"
+    - row "WCP WCP-1383 16 SplineXS In stock":
       - cell "WCP WCP-1383":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1383
@@ -162,7 +180,8 @@
           - /url: https://wcproducts.com/products/wcp-1383
       - cell "16"
       - cell "SplineXS"
-    - row "WCP WCP-1638 16 SplineXS":
+      - cell "In stock"
+    - row "WCP WCP-1638 16 SplineXS In stock":
       - cell "WCP WCP-1638":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1638
@@ -171,9 +190,10 @@
           - /url: https://wcproducts.com/products/wcp-1638
       - cell "16"
       - cell "SplineXS"
+      - cell "In stock"
     - row "36T":
       - cell "36T"
-    - row "AndyMark am-3816 36 1/2\" Hex":
+    - row "AndyMark am-3816 36 1/2\" Hex In stock":
       - cell "AndyMark am-3816":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/standard-20-dp-gears
@@ -182,7 +202,8 @@
           - /url: https://www.andymark.com/products/standard-20-dp-gears
       - cell "36"
       - cell "1/2\" Hex"
-    - row "AndyMark am-4709 36 1/2\" Hex":
+      - cell "In stock"
+    - row "AndyMark am-4709 36 1/2\" Hex In stock":
       - cell "AndyMark am-4709":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/standard-20-dp-gears
@@ -191,7 +212,8 @@
           - /url: https://www.andymark.com/products/standard-20-dp-gears
       - cell "36"
       - cell "1/2\" Hex"
-    - row "REV REV-21-1929 36 1/2\" Hex":
+      - cell "In stock"
+    - row "REV REV-21-1929 36 1/2\" Hex In stock":
       - cell "REV REV-21-1929":
         - link "REV":
           - /url: https://www.revrobotics.com/20DP-Gears-0.5-Hex/
@@ -200,7 +222,8 @@
           - /url: https://www.revrobotics.com/20DP-Gears-0.5-Hex/
       - cell "36"
       - cell "1/2\" Hex"
-    - row "WCP WCP-0175 36 1/2\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-0175 36 1/2\" Hex In stock":
       - cell "WCP WCP-0175":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0175
@@ -209,7 +232,8 @@
           - /url: https://wcproducts.com/products/wcp-0175
       - cell "36"
       - cell "1/2\" Hex"
-    - row "WCP WCP-0555 36 1/2\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-0555 36 1/2\" Hex In stock":
       - cell "WCP WCP-0555":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0555
@@ -218,7 +242,8 @@
           - /url: https://wcproducts.com/products/wcp-0555
       - cell "36"
       - cell "1/2\" Hex"
-    - row "WCP WCP-0709 36 1/2\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-0709 36 1/2\" Hex In stock":
       - cell "WCP WCP-0709":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0709
@@ -227,7 +252,8 @@
           - /url: https://wcproducts.com/products/wcp-0709
       - cell "36"
       - cell "1/2\" Hex"
-    - row "AndyMark am-5138 36 3/8\" Hex":
+      - cell "In stock"
+    - row "AndyMark am-5138 36 3/8\" Hex In stock":
       - cell "AndyMark am-5138":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/standard-20-dp-gears
@@ -236,7 +262,8 @@
           - /url: https://www.andymark.com/products/standard-20-dp-gears
       - cell "36"
       - cell "3/8\" Hex"
-    - row "WCP WCP-0549 36 3/8\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-0549 36 3/8\" Hex In stock":
       - cell "WCP WCP-0549":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0549
@@ -245,7 +272,8 @@
           - /url: https://wcproducts.com/products/wcp-0549
       - cell "36"
       - cell "3/8\" Hex"
-    - row "WCP WCP-0691 36 3/8\" Hex":
+      - cell "In stock"
+    - row "WCP WCP-0691 36 3/8\" Hex In stock":
       - cell "WCP WCP-0691":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0691
@@ -254,7 +282,8 @@
           - /url: https://wcproducts.com/products/wcp-0691
       - cell "36"
       - cell "3/8\" Hex"
-    - row "REV REV-21-3012 36 MAXSpline":
+      - cell "In stock"
+    - row "REV REV-21-3012 36 MAXSpline In stock":
       - cell "REV REV-21-3012":
         - link "REV":
           - /url: https://www.revrobotics.com/20DP-Gears-Maxspline/
@@ -263,7 +292,8 @@
           - /url: https://www.revrobotics.com/20DP-Gears-Maxspline/
       - cell "36"
       - cell "MAXSpline"
-    - row "WCP WCP-1083 36 SplineXL":
+      - cell "In stock"
+    - row "WCP WCP-1083 36 SplineXL In stock":
       - cell "WCP WCP-1083":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1083
@@ -272,7 +302,8 @@
           - /url: https://wcproducts.com/products/wcp-1083
       - cell "36"
       - cell "SplineXL"
-    - row "WCP WCP-1192 36 SplineXL":
+      - cell "In stock"
+    - row "WCP WCP-1192 36 SplineXL In stock":
       - cell "WCP WCP-1192":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1192
@@ -281,6 +312,7 @@
           - /url: https://wcproducts.com/products/wcp-1192
       - cell "36"
       - cell "SplineXL"
+      - cell "In stock"
 - alert:
   - img
   - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

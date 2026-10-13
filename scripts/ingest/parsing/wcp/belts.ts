@@ -30,6 +30,7 @@ export function parseWCPBelts(products: ShopifyProduct[]): JSONBelt[] {
             pitch: parseInt(pitch),
             url: urlForHandle(product.handle, 'WCP'),
             sku: product.variants[0].sku,
+            variantId: product.variants[0].id,
             vendor: 'WCP',
           });
           belts.push(wcpBeltToJsonBelt(wcpBelt));

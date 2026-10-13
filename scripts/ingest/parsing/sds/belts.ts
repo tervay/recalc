@@ -31,6 +31,7 @@ export function parseSDSBelts(products: ShopifyProduct[]): JSONBelt[] {
         profile: 'HTD',
         pitch: 5,
         sku: variant.sku,
+        variantId: variant.id,
         url: urlForHandle(product.handle, 'SDS'),
         vendor: 'SDS',
       });

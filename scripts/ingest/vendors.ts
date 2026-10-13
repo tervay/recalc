@@ -1,3 +1,5 @@
+import { SHOPIFY_DOMAINS } from '~/lib/stock';
+
 export const INGESTION_VENDORS = [
   'WCP',
   'Swyft',
@@ -17,13 +19,13 @@ export function isVendorName(s: string): s is VendorName {
 export const SHOPIFY_CONFIGS: Partial<
   Record<VendorName, { rootDomain: string }>
 > = {
-  WCP: { rootDomain: 'https://wcproducts.com' },
-  Swyft: { rootDomain: 'https://shop.swyftrobotics.com' },
-  Thrifty: { rootDomain: 'https://www.thethriftybot.com' },
-  VBeltGuys: { rootDomain: 'https://www.vbeltguys.com' },
-  AndyMark: { rootDomain: 'https://www.andymark.com' },
-  LastAnvil: { rootDomain: 'https://www.lastanvil.com' },
-  SDS: { rootDomain: 'https://www.swervedrivespecialties.com' },
+  WCP: { rootDomain: SHOPIFY_DOMAINS.WCP },
+  Swyft: { rootDomain: SHOPIFY_DOMAINS.Swyft },
+  Thrifty: { rootDomain: SHOPIFY_DOMAINS.Thrifty },
+  VBeltGuys: { rootDomain: SHOPIFY_DOMAINS.VBeltGuys },
+  AndyMark: { rootDomain: SHOPIFY_DOMAINS.AndyMark },
+  LastAnvil: { rootDomain: SHOPIFY_DOMAINS.LastAnvil },
+  SDS: { rootDomain: SHOPIFY_DOMAINS.SDS },
   // REV has no Shopify store
 };
 

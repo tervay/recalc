@@ -20,6 +20,7 @@ const zThriftyPulleySchema = z.object({
   profile: z.enum(['HTD']),
   bore: zThriftyPulleyBoreSchema,
   sku: z.string(),
+  variantId: z.number(),
   url: z.string().url(),
 });
 
@@ -92,6 +93,7 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): JSONPulley[] {
               profile: 'HTD',
               bore: mappedBore,
               sku: variant.sku,
+              variantId: variant.id,
               url: urlForHandle(product.handle, 'Thrifty'),
             });
             pulleys.push(thriftyPulleyToJsonPulley(thriftyPulley));
@@ -116,6 +118,7 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): JSONPulley[] {
               profile,
               bore,
               sku: product.variants[0].sku,
+              variantId: product.variants[0].id,
               url: urlForHandle(product.handle, 'Thrifty'),
             });
             pulleys.push(thriftyPulleyToJsonPulley(thriftyPulley));
@@ -141,6 +144,7 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): JSONPulley[] {
               profile,
               bore,
               sku: product.variants[0].sku,
+              variantId: product.variants[0].id,
               url: urlForHandle(product.handle, 'Thrifty'),
             });
             pulleys.push(thriftyPulleyToJsonPulley(thriftyPulley));

@@ -47,6 +47,7 @@ export function parseThriftyWheels(products: ShopifyProduct[]): JSONWheel[] {
         durometer: parseDurometer(product.title),
         url: urlForHandle(product.handle, 'Thrifty'),
         sku,
+        variantId: variant.id,
         vendor: 'Thrifty',
       });
     }

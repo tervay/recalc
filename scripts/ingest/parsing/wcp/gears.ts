@@ -29,6 +29,7 @@ const zWCPGearSchema = z.object({
   bore: zWCPGearBoreSchema,
   url: z.string().url(),
   sku: z.string().nullable(),
+  variantId: z.number(),
 });
 
 const wcpBoreToJsonBore: Record<WCPGearBore, Bore> = {
@@ -69,6 +70,7 @@ export function parseWCPGears(products: ShopifyProduct[]): JSONGear[] {
             bore,
             url: urlForHandle(product.handle, 'WCP'),
             sku: product.variants[0].sku,
+            variantId: product.variants[0].id,
           });
           gears.push(wcpGearToJsonGear(wcpGear));
         } catch (error) {

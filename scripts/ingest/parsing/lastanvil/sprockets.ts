@@ -10,6 +10,7 @@ export function parseLastAnvilSprockets(): JSONSprocket[] {
       chainType: '#25',
       url: urlForHandle('idler-sprocket', 'LastAnvil'),
       sku: '250153',
+      variantId: 43296203997390,
       vendor: 'LastAnvil',
     },
   ];

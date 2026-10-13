@@ -38,6 +38,7 @@ export function parseREVBelts(products: ShopifyProduct[]): JSONBelt[] {
           profile: 'RT25',
           pitch: RT25_PITCH_MM,
           sku: product.variants[0]?.sku ?? null,
+          variantId: null,
           url: product.handle,
           vendor: 'REV',
         }),

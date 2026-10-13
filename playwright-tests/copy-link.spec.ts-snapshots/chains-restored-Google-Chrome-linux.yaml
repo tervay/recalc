@@ -47,14 +47,18 @@
 - combobox: in
 - table:
   - rowgroup:
-    - row "Matching COTS Sprockets":
-      - columnheader "Matching COTS Sprockets"
-    - row "SKU Teeth Bore":
+    - row "Matching COTS Sprockets In stock only":
+      - columnheader "Matching COTS Sprockets In stock only":
+        - text: Matching COTS Sprockets
+        - switch "In stock only"
+        - text: In stock only
+    - row "SKU Teeth Bore Stock":
       - columnheader "SKU"
       - columnheader "Teeth"
       - columnheader "Bore"
+      - columnheader "Stock"
   - rowgroup:
-    - row "REV REV-21-3712 20 1/2\" Hex":
+    - row "REV REV-21-3712 20 1/2\" Hex In stock":
       - cell "REV REV-21-3712":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
@@ -63,7 +67,8 @@
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
       - cell "20"
       - cell "1/2\" Hex"
-    - row "REV REV-21-3716 20 MAXSpline":
+      - cell "In stock"
+    - row "REV REV-21-3716 20 MAXSpline In stock":
       - cell "REV REV-21-3716":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
@@ -72,9 +77,10 @@
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
       - cell "20"
       - cell "MAXSpline"
+      - cell "In stock"
     - row:
       - cell
-    - row "AndyMark am-4795 40 1.125\" Round":
+    - row "AndyMark am-4795 40 1.125\" Round In stock":
       - cell "AndyMark am-4795":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets
@@ -83,7 +89,8 @@
           - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets
       - cell "40"
       - cell "1.125\" Round"
-    - row "AndyMark am-4795_black 40 1.125\" Round":
+      - cell "In stock"
+    - row "AndyMark am-4795_black 40 1.125\" Round In stock":
       - cell "AndyMark am-4795_black":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets
@@ -92,7 +99,8 @@
           - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets
       - cell "40"
       - cell "1.125\" Round"
-    - row "REV REV-21-3721 40 MAXSpline":
+      - cell "In stock"
+    - row "REV REV-21-3721 40 MAXSpline In stock":
       - cell "REV REV-21-3721":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
@@ -101,6 +109,7 @@
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
       - cell "40"
       - cell "MAXSpline"
+      - cell "In stock"
 - alert:
   - img
   - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

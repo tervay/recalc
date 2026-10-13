@@ -11,6 +11,7 @@ export const zJSONSprocketSchema = z.object({
   chainType: zChainTypeSchema,
   url: z.string().url(),
   sku: z.string().nullable(),
+  variantId: z.number().nullable(),
   vendor: zVendorSchema,
 });
 

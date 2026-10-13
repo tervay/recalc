@@ -2,6 +2,8 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 
 import { BoreBadge } from '~/components/recalc/boreBadge';
+import { InStockToggle } from '~/components/recalc/inStockToggle';
+import { StockBadge } from '~/components/recalc/stockBadge';
 import { VendorBadge } from '~/components/recalc/vendorBadge';
 import { Skeleton } from '~/components/ui/skeleton';
 import {
@@ -12,7 +14,9 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table';
+import { useStockStatus } from '~/hooks/useStockStatus';
 import Pulley from '~/lib/models/Pulley';
+import { isUnavailable, stockKey } from '~/lib/stock';
 import type { Bore, Vendor } from '~/lib/types/common';
 import type { JSONPulley } from '~/lib/types/pulleys';
 
@@ -24,6 +28,7 @@ export function PulleyTable({
   filterFn?: (pulley: Pulley) => boolean;
 }) {
   const [allPulleys, setAllPulleys] = useState<JSONPulley[] | null>(null);
+  const [inStockOnly, setInStockOnly] = useState(false);
   useEffect(() => {
     async function loadPulleys() {
       const [
@@ -70,22 +75,42 @@ export function PulleyTable({
           a.width.baseScalar - b.width.baseScalar,
       );
   }, [allPulleys, filterFn]);
+  const stock = useStockStatus(pulleys);
+  const shownPulleys = inStockOnly
+    ? pulleys.filter((p) => !isUnavailable(stock.get(stockKey(p))))
+    : pulleys;
 
   return (
     <div className="overflow-hidden rounded-md border shadow-sm">
-      <Table>
+      <Table className="min-w-xl table-fixed">
+        <colgroup>
+          <col />
+          <col className="w-20" />
+          <col className="w-20" />
+          <col className="w-28" />
+          <col className="w-28" />
+        </colgroup>
+
         <TableHeader>
           <TableRow>
             <TableHead
-              colSpan={4}
-              className="bg-primary/8 text-center font-semibold text-foreground"
+              colSpan={5}
+              className="bg-primary/8 font-semibold text-foreground"
             >
-              <span>Matching COTS Pulleys</span>
-              {allPulleys !== null && (
-                <span className="ml-2 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-                  {pulleys.length}
+              <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+                <span className="col-start-2">
+                  Matching COTS Pulleys
+                  {allPulleys !== null && (
+                    <span className="ml-2 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                      {shownPulleys.length}
+                    </span>
+                  )}
                 </span>
-              )}
+                <InStockToggle
+                  checked={inStockOnly}
+                  onCheckedChange={setInStockOnly}
+                />
+              </div>
             </TableHead>
           </TableRow>
           <TableRow>
@@ -100,6 +125,9 @@ export function PulleyTable({
             </TableHead>
             <TableHead className="bg-primary/4 text-xs font-medium tracking-wide text-muted-foreground uppercase">
               Bore
+            </TableHead>
+            <TableHead className="bg-primary/4 text-xs font-medium tracking-wide text-muted-foreground uppercase">
+              Stock
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -122,20 +150,23 @@ export function PulleyTable({
                 <TableCell>
                   <Skeleton className="h-5 w-16 rounded-full" />
                 </TableCell>
+                <TableCell>
+                  <Skeleton className="h-5 w-16 rounded-full" />
+                </TableCell>
               </TableRow>
             ))
-          ) : pulleys.length === 0 ? (
+          ) : shownPulleys.length === 0 ? (
             <TableRow>
               <TableCell
-                colSpan={4}
+                colSpan={5}
                 className="py-6 text-center text-sm text-muted-foreground"
               >
                 No matching pulleys found
               </TableCell>
             </TableRow>
           ) : (
-            pulleys.map((pulley, index) => {
-              const prevPulley = index > 0 ? pulleys[index - 1] : null;
+            shownPulleys.map((pulley, index) => {
+              const prevPulley = index > 0 ? shownPulleys[index - 1] : null;
               const isNewGroup =
                 prevPulley !== null && prevPulley.teeth !== pulley.teeth;
 
@@ -144,7 +175,7 @@ export function PulleyTable({
                   {isNewGroup && (
                     <TableRow className="hover:bg-transparent">
                       <TableCell
-                        colSpan={4}
+                        colSpan={5}
                         className="bg-muted/40 py-1 pl-3 text-xs font-semibold text-muted-foreground"
                       >
                         {pulley.teeth}T
@@ -174,6 +205,9 @@ export function PulleyTable({
                     </TableCell>
                     <TableCell>
                       <BoreBadge bore={pulley.bore} />
+                    </TableCell>
+                    <TableCell>
+                      <StockBadge status={stock.get(stockKey(pulley))} />
                     </TableCell>
                   </TableRow>
                 </Fragment>
