@@ -57,6 +57,7 @@
       - cell "WCP WCP-1802":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1802
+          - img "WCP"
         - link "WCP-1802":
           - /url: https://wcproducts.com/products/wcp-1802
       - cell "16"
@@ -66,6 +67,7 @@
       - cell "WCP WCP-1804":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1804
+          - img "WCP"
         - link "WCP-1804":
           - /url: https://wcproducts.com/products/wcp-1804
       - cell "16"
@@ -84,6 +86,7 @@
       - cell "AndyMark am-5209_75T":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+          - img "AndyMark"
         - link "am-5209_75T":
           - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "75"
@@ -92,6 +95,7 @@
       - cell "AndyMark am-5215_75T":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+          - img "AndyMark"
         - link "am-5215_75T":
           - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "75"
@@ -100,6 +104,7 @@
       - cell "LastAnvil LA-240224":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/htd-timing-belts-9mm
+          - img "LastAnvil"
         - link "LA-240224":
           - /url: https://www.lastanvil.com/products/htd-timing-belts-9mm
       - cell "75"
@@ -108,6 +113,7 @@
       - cell "LastAnvil LA-240345":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/htd-timing-belt-15mm
+          - img "LastAnvil"
         - link "LA-240345":
           - /url: https://www.lastanvil.com/products/htd-timing-belt-15mm
       - cell "75"
@@ -116,6 +122,7 @@
       - cell "Swyft 375-5M-9":
         - link "Swyft":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+          - img "Swyft"
         - link "375-5M-9":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
       - cell "75"
@@ -124,6 +131,7 @@
       - cell "Swyft 375-5M-15":
         - link "Swyft":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+          - img "Swyft"
         - link "375-5M-15":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
       - cell "75"
@@ -132,6 +140,7 @@
       - cell "Thrifty TTB-0139":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
+          - img "Thrifty"
         - link "TTB-0139":
           - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
       - cell "75"
@@ -140,6 +149,7 @@
       - cell "Thrifty TTB-0184":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
+          - img "Thrifty"
         - link "TTB-0184":
           - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
       - cell "75"
@@ -164,6 +174,7 @@
       - cell "WCP WCP-0620":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0620
+          - img "WCP"
         - link "WCP-0620":
           - /url: https://wcproducts.com/products/wcp-0620
       - cell "75"
@@ -172,6 +183,7 @@
       - cell "WCP WCP-0529":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0529
+          - img "WCP"
         - link "WCP-0529":
           - /url: https://wcproducts.com/products/wcp-0529
       - cell "75"
@@ -182,6 +194,7 @@
       - cell "AndyMark am-5209_80T":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+          - img "AndyMark"
         - link "am-5209_80T":
           - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "80"
@@ -190,6 +203,7 @@
       - cell "AndyMark am-5215_80T":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+          - img "AndyMark"
         - link "am-5215_80T":
           - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "80"
@@ -198,6 +212,7 @@
       - cell "LastAnvil LA-240225":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/htd-timing-belts-9mm
+          - img "LastAnvil"
         - link "LA-240225":
           - /url: https://www.lastanvil.com/products/htd-timing-belts-9mm
       - cell "80"
@@ -206,6 +221,7 @@
       - cell "LastAnvil LA-240346":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/htd-timing-belt-15mm
+          - img "LastAnvil"
         - link "LA-240346":
           - /url: https://www.lastanvil.com/products/htd-timing-belt-15mm
       - cell "80"
@@ -214,6 +230,7 @@
       - cell "Swyft 400-5M-9":
         - link "Swyft":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+          - img "Swyft"
         - link "400-5M-9":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
       - cell "80"
@@ -222,6 +239,7 @@
       - cell "Swyft 400-5M-15":
         - link "Swyft":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+          - img "Swyft"
         - link "400-5M-15":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
       - cell "80"
@@ -230,6 +248,7 @@
       - cell "Thrifty TTB-0140":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
+          - img "Thrifty"
         - link "TTB-0140":
           - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
       - cell "80"
@@ -238,6 +257,7 @@
       - cell "Thrifty TTB-0185":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
+          - img "Thrifty"
         - link "TTB-0185":
           - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
       - cell "80"
@@ -262,6 +282,7 @@
       - cell "WCP WCP-0621":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0621
+          - img "WCP"
         - link "WCP-0621":
           - /url: https://wcproducts.com/products/wcp-0621
       - cell "80"
@@ -270,6 +291,7 @@
       - cell "WCP WCP-0646":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0646
+          - img "WCP"
         - link "WCP-0646":
           - /url: https://wcproducts.com/products/wcp-0646
       - cell "80"

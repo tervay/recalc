@@ -57,6 +57,7 @@
       - cell "WCP WCP-1802":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1802
+          - img "WCP"
         - link "WCP-1802":
           - /url: https://wcproducts.com/products/wcp-1802
       - cell "16"
@@ -66,6 +67,7 @@
       - cell "WCP WCP-1804":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1804
+          - img "WCP"
         - link "WCP-1804":
           - /url: https://wcproducts.com/products/wcp-1804
       - cell "16"
@@ -77,6 +79,7 @@
       - cell "AndyMark am-3403":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys
+          - img "AndyMark"
         - link "am-3403":
           - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys
       - cell "24"
@@ -86,6 +89,7 @@
       - cell "AndyMark am-4625":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley
+          - img "AndyMark"
         - link "am-4625":
           - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley
       - cell "24"
@@ -95,6 +99,7 @@
       - cell "AndyMark am-4626":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley
+          - img "AndyMark"
         - link "am-4626":
           - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley
       - cell "24"
@@ -104,6 +109,7 @@
       - cell "AndyMark am-3402":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys
+          - img "AndyMark"
         - link "am-3402":
           - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys
       - cell "24"
@@ -113,6 +119,7 @@
       - cell "LastAnvil LA-240108":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
+          - img "LastAnvil"
         - link "LA-240108":
           - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
       - cell "24"
@@ -122,6 +129,7 @@
       - cell "LastAnvil LA-240328":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/reinforced-htd-pulley-5mm
+          - img "LastAnvil"
         - link "LA-240328":
           - /url: https://www.lastanvil.com/products/reinforced-htd-pulley-5mm
       - cell "24"
@@ -131,6 +139,7 @@
       - cell "LastAnvil LA-260165":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
+          - img "LastAnvil"
         - link "LA-260165":
           - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
       - cell "24"
@@ -140,6 +149,7 @@
       - cell "Thrifty TTB-0348":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+          - img "Thrifty"
         - link "TTB-0348":
           - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
       - cell "24"
@@ -149,6 +159,7 @@
       - cell "Thrifty TTB-0126":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+          - img "Thrifty"
         - link "TTB-0126":
           - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
       - cell "24"
@@ -158,6 +169,7 @@
       - cell "Thrifty TTB-0341":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys
+          - img "Thrifty"
         - link "TTB-0341":
           - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys
       - cell "24"
@@ -167,6 +179,7 @@
       - cell "Thrifty TTB-0342":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys
+          - img "Thrifty"
         - link "TTB-0342":
           - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys
       - cell "24"
@@ -176,6 +189,7 @@
       - cell "WCP WCP-0564":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0564
+          - img "WCP"
         - link "WCP-0564":
           - /url: https://wcproducts.com/products/wcp-0564
       - cell "24"
@@ -185,6 +199,7 @@
       - cell "WCP WCP-1444":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1444
+          - img "WCP"
         - link "WCP-1444":
           - /url: https://wcproducts.com/products/wcp-1444
       - cell "24"
@@ -194,6 +209,7 @@
       - cell "WCP WCP-0992":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0992
+          - img "WCP"
         - link "WCP-0992":
           - /url: https://wcproducts.com/products/wcp-0992
       - cell "24"
@@ -203,6 +219,7 @@
       - cell "WCP WCP-2255":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-2255
+          - img "WCP"
         - link "WCP-2255":
           - /url: https://wcproducts.com/products/wcp-2255
       - cell "24"
@@ -212,6 +229,7 @@
       - cell "WCP WCP-2260":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-2260
+          - img "WCP"
         - link "WCP-2260":
           - /url: https://wcproducts.com/products/wcp-2260
       - cell "24"
@@ -230,6 +248,7 @@
       - cell "AndyMark am-5209_40T":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+          - img "AndyMark"
         - link "am-5209_40T":
           - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "40"
@@ -238,6 +257,7 @@
       - cell "AndyMark am-5215_40T":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+          - img "AndyMark"
         - link "am-5215_40T":
           - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "40"
@@ -246,6 +266,7 @@
       - cell "LastAnvil LA-240220":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/htd-timing-belts-9mm
+          - img "LastAnvil"
         - link "LA-240220":
           - /url: https://www.lastanvil.com/products/htd-timing-belts-9mm
       - cell "40"
@@ -254,6 +275,7 @@
       - cell "LastAnvil LA-240338":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/htd-timing-belt-15mm
+          - img "LastAnvil"
         - link "LA-240338":
           - /url: https://www.lastanvil.com/products/htd-timing-belt-15mm
       - cell "40"
@@ -262,6 +284,7 @@
       - cell "Swyft 200-5M-9":
         - link "Swyft":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+          - img "Swyft"
         - link "200-5M-9":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
       - cell "40"
@@ -270,6 +293,7 @@
       - cell "Swyft 200-5M-15":
         - link "Swyft":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+          - img "Swyft"
         - link "200-5M-15":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
       - cell "40"
@@ -278,6 +302,7 @@
       - cell "Thrifty TTB-0132":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
+          - img "Thrifty"
         - link "TTB-0132":
           - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
       - cell "40"
@@ -286,6 +311,7 @@
       - cell "Thrifty TTB-0176":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
+          - img "Thrifty"
         - link "TTB-0176":
           - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
       - cell "40"
@@ -310,6 +336,7 @@
       - cell "WCP WCP-0613":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0613
+          - img "WCP"
         - link "WCP-0613":
           - /url: https://wcproducts.com/products/wcp-0613
       - cell "40"
@@ -318,6 +345,7 @@
       - cell "WCP WCP-0526":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0526
+          - img "WCP"
         - link "WCP-0526":
           - /url: https://wcproducts.com/products/wcp-0526
       - cell "40"
@@ -328,6 +356,7 @@
       - cell "AndyMark am-5209_45T":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+          - img "AndyMark"
         - link "am-5209_45T":
           - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "45"
@@ -336,6 +365,7 @@
       - cell "AndyMark am-5215_45T":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+          - img "AndyMark"
         - link "am-5215_45T":
           - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
       - cell "45"
@@ -344,6 +374,7 @@
       - cell "LastAnvil LA-240221":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/htd-timing-belts-9mm
+          - img "LastAnvil"
         - link "LA-240221":
           - /url: https://www.lastanvil.com/products/htd-timing-belts-9mm
       - cell "45"
@@ -352,6 +383,7 @@
       - cell "LastAnvil LA-240339":
         - link "LastAnvil":
           - /url: https://www.lastanvil.com/products/htd-timing-belt-15mm
+          - img "LastAnvil"
         - link "LA-240339":
           - /url: https://www.lastanvil.com/products/htd-timing-belt-15mm
       - cell "45"
@@ -360,6 +392,7 @@
       - cell "Swyft 225-5M-9":
         - link "Swyft":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+          - img "Swyft"
         - link "225-5M-9":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
       - cell "45"
@@ -368,6 +401,7 @@
       - cell "Swyft 225-5M-15":
         - link "Swyft":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+          - img "Swyft"
         - link "225-5M-15":
           - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
       - cell "45"
@@ -376,6 +410,7 @@
       - cell "Thrifty TTB-0133":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
+          - img "Thrifty"
         - link "TTB-0133":
           - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
       - cell "45"
@@ -384,6 +419,7 @@
       - cell "Thrifty TTB-0177":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
+          - img "Thrifty"
         - link "TTB-0177":
           - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
       - cell "45"
@@ -408,6 +444,7 @@
       - cell "WCP WCP-0162":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0162
+          - img "WCP"
         - link "WCP-0162":
           - /url: https://wcproducts.com/products/wcp-0162
       - cell "45"
@@ -416,6 +453,7 @@
       - cell "WCP WCP-0163":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0163
+          - img "WCP"
         - link "WCP-0163":
           - /url: https://wcproducts.com/products/wcp-0163
       - cell "45"

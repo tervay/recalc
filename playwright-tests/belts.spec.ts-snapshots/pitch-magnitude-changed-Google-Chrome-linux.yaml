@@ -57,6 +57,7 @@
       - cell "REV REV-21-1909":
         - link "REV":
           - /url: https://www.revrobotics.com/neo-pinions/
+          - img "REV"
         - link "REV-21-1909":
           - /url: https://www.revrobotics.com/neo-pinions/
       - cell "16"
@@ -66,6 +67,7 @@
       - cell "WCP WCP-0393":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0393
+          - img "WCP"
         - link "WCP-0393":
           - /url: https://wcproducts.com/products/wcp-0393
       - cell "16"
@@ -75,6 +77,7 @@
       - cell "WCP WCP-0603":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0603
+          - img "WCP"
         - link "WCP-0603":
           - /url: https://wcproducts.com/products/wcp-0603
       - cell "16"
@@ -84,6 +87,7 @@
       - cell "WCP WCP-0318":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0318
+          - img "WCP"
         - link "WCP-0318":
           - /url: https://wcproducts.com/products/wcp-0318
       - cell "16"
@@ -93,6 +97,7 @@
       - cell "WCP WCP-1178":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1178
+          - img "WCP"
         - link "WCP-1178":
           - /url: https://wcproducts.com/products/wcp-1178
       - cell "16"
@@ -102,6 +107,7 @@
       - cell "WCP WCP-1179":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1179
+          - img "WCP"
         - link "WCP-1179":
           - /url: https://wcproducts.com/products/wcp-1179
       - cell "16"
@@ -113,6 +119,7 @@
       - cell "WCP WCP-0662":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0662
+          - img "WCP"
         - link "WCP-0662":
           - /url: https://wcproducts.com/products/wcp-0662
       - cell "24"
@@ -147,6 +154,7 @@
       - cell "WCP WCP-0673":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0673
+          - img "WCP"
         - link "WCP-0673":
           - /url: https://wcproducts.com/products/wcp-0673
       - cell "100"
@@ -173,6 +181,7 @@
       - cell "WCP WCP-0674":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0674
+          - img "WCP"
         - link "WCP-0674":
           - /url: https://wcproducts.com/products/wcp-0674
       - cell "105"

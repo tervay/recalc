@@ -73,6 +73,7 @@
       - cell "WCP WCP-0673":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0673
+          - img "WCP"
         - link "WCP-0673":
           - /url: https://wcproducts.com/products/wcp-0673
       - cell "100"

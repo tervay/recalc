@@ -58,6 +58,7 @@
       - cell "REV REV-21-3712":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
+          - img "REV"
         - link "REV-21-3712":
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
       - cell "20"
@@ -66,6 +67,7 @@
       - cell "REV REV-21-3716":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
+          - img "REV"
         - link "REV-21-3716":
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
       - cell "20"
@@ -76,6 +78,7 @@
       - cell "AndyMark am-4795":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets
+          - img "AndyMark"
         - link "am-4795":
           - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets
       - cell "40"
@@ -84,6 +87,7 @@
       - cell "AndyMark am-4795_black":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets
+          - img "AndyMark"
         - link "am-4795_black":
           - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets
       - cell "40"
@@ -92,6 +96,7 @@
       - cell "REV REV-21-3721":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
+          - img "REV"
         - link "REV-21-3721":
           - /url: https://www.revrobotics.com/ION-35-Sprockets/
       - cell "40"

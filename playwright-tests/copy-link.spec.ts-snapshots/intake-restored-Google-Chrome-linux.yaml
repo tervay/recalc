@@ -109,6 +109,7 @@
       - cell "AndyMark Aluminum Omni Wheel am-4967":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/3-in-aluminum-omni-wheel-with-3-8-hex-bore
+          - img "AndyMark"
         - link "Aluminum Omni Wheel":
           - /url: https://www.andymark.com/products/3-in-aluminum-omni-wheel-with-3-8-hex-bore
         - text: am-4967
@@ -120,6 +121,7 @@
       - cell "AndyMark BB Mecanum Wheels am-5503":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/3-in-bb-mecanum-wheels
+          - img "AndyMark"
         - link "BB Mecanum Wheels":
           - /url: https://www.andymark.com/products/3-in-bb-mecanum-wheels
         - text: am-5503
@@ -131,6 +133,7 @@
       - cell "AndyMark BB Mecanum Wheels am-5503L":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/3-in-bb-mecanum-wheels
+          - img "AndyMark"
         - link "BB Mecanum Wheels":
           - /url: https://www.andymark.com/products/3-in-bb-mecanum-wheels
         - text: am-5503L
@@ -142,6 +145,7 @@
       - cell "AndyMark BB Mecanum Wheels am-5503R":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/3-in-bb-mecanum-wheels
+          - img "AndyMark"
         - link "BB Mecanum Wheels":
           - /url: https://www.andymark.com/products/3-in-bb-mecanum-wheels
         - text: am-5503R
@@ -153,6 +157,7 @@
       - cell "AndyMark BB Mecanum Wheels am-5502":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/3-in-bb-mecanum-wheels
+          - img "AndyMark"
         - link "BB Mecanum Wheels":
           - /url: https://www.andymark.com/products/3-in-bb-mecanum-wheels
         - text: am-5502
@@ -164,6 +169,7 @@
       - cell "AndyMark BB Mecanum Wheels am-5502L":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/3-in-bb-mecanum-wheels
+          - img "AndyMark"
         - link "BB Mecanum Wheels":
           - /url: https://www.andymark.com/products/3-in-bb-mecanum-wheels
         - text: am-5502L
@@ -175,6 +181,7 @@
       - cell "AndyMark BB Mecanum Wheels am-5502R":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/3-in-bb-mecanum-wheels
+          - img "AndyMark"
         - link "BB Mecanum Wheels":
           - /url: https://www.andymark.com/products/3-in-bb-mecanum-wheels
         - text: am-5502R
@@ -186,6 +193,7 @@
       - cell "AndyMark Compliant Wheels am-3945_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
+          - img "AndyMark"
         - link "Compliant Wheels":
           - /url: https://www.andymark.com/products/compliant-wheels
         - text: am-3945_green
@@ -197,6 +205,7 @@
       - cell "AndyMark Compliant Wheels am-3945_orange":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
+          - img "AndyMark"
         - link "Compliant Wheels":
           - /url: https://www.andymark.com/products/compliant-wheels
         - text: am-3945_orange
@@ -208,6 +217,7 @@
       - cell "AndyMark Compliant Wheels am-3945_blue":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
+          - img "AndyMark"
         - link "Compliant Wheels":
           - /url: https://www.andymark.com/products/compliant-wheels
         - text: am-3945_blue
@@ -219,6 +229,7 @@
       - cell "AndyMark Compliant Wheels am-3945_black":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
+          - img "AndyMark"
         - link "Compliant Wheels":
           - /url: https://www.andymark.com/products/compliant-wheels
         - text: am-3945_black
@@ -230,6 +241,7 @@
       - cell "AndyMark Compliant Wheels am-3946_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
+          - img "AndyMark"
         - link "Compliant Wheels":
           - /url: https://www.andymark.com/products/compliant-wheels
         - text: am-3946_green
@@ -241,6 +253,7 @@
       - cell "AndyMark Compliant Wheels am-3946_orange":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
+          - img "AndyMark"
         - link "Compliant Wheels":
           - /url: https://www.andymark.com/products/compliant-wheels
         - text: am-3946_orange
@@ -252,6 +265,7 @@
       - cell "AndyMark Compliant Wheels am-3946_blue":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
+          - img "AndyMark"
         - link "Compliant Wheels":
           - /url: https://www.andymark.com/products/compliant-wheels
         - text: am-3946_blue
@@ -263,6 +277,7 @@
       - cell "AndyMark Compliant Wheels am-3946_black":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
+          - img "AndyMark"
         - link "Compliant Wheels":
           - /url: https://www.andymark.com/products/compliant-wheels
         - text: am-3946_black
@@ -274,6 +289,7 @@
       - cell "AndyMark Compliant Wheels am-4537_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
+          - img "AndyMark"
         - link "Compliant Wheels":
           - /url: https://www.andymark.com/products/compliant-wheels
         - text: am-4537_green
@@ -285,6 +301,7 @@
       - cell "AndyMark Compliant Wheels am-4537_orange":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
+          - img "AndyMark"
         - link "Compliant Wheels":
           - /url: https://www.andymark.com/products/compliant-wheels
         - text: am-4537_orange
@@ -296,6 +313,7 @@
       - cell "AndyMark Compliant Wheels am-4537_black":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/compliant-wheels
+          - img "AndyMark"
         - link "Compliant Wheels":
           - /url: https://www.andymark.com/products/compliant-wheels
         - text: am-4537_black
@@ -307,6 +325,7 @@
       - cell "AndyMark Custom Colored Compliant Wheels am-3945_35A_black":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/custom-colored-35a-durometer-compliant-wheels
+          - img "AndyMark"
         - link "Custom Colored Compliant Wheels":
           - /url: https://www.andymark.com/products/custom-colored-35a-durometer-compliant-wheels
         - text: am-3945_35A_black
@@ -318,6 +337,7 @@
       - cell "AndyMark Custom Colored Compliant Wheels am-3945_35A_red":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/custom-colored-35a-durometer-compliant-wheels
+          - img "AndyMark"
         - link "Custom Colored Compliant Wheels":
           - /url: https://www.andymark.com/products/custom-colored-35a-durometer-compliant-wheels
         - text: am-3945_35A_red
@@ -329,6 +349,7 @@
       - cell "AndyMark Custom Colored Compliant Wheels am-3945_35A_white":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/custom-colored-35a-durometer-compliant-wheels
+          - img "AndyMark"
         - link "Custom Colored Compliant Wheels":
           - /url: https://www.andymark.com/products/custom-colored-35a-durometer-compliant-wheels
         - text: am-3945_35A_white
@@ -340,6 +361,7 @@
       - cell "AndyMark Custom Colored Compliant Wheels am-3945_35A_yellow":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/custom-colored-35a-durometer-compliant-wheels
+          - img "AndyMark"
         - link "Custom Colored Compliant Wheels":
           - /url: https://www.andymark.com/products/custom-colored-35a-durometer-compliant-wheels
         - text: am-3945_35A_yellow
@@ -351,6 +373,7 @@
       - cell "AndyMark Custom Colored Stealth Wheels am-4716_35A_black":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/custom-colored-35a-durometer-stealth-wheels
+          - img "AndyMark"
         - link "Custom Colored Stealth Wheels":
           - /url: https://www.andymark.com/products/custom-colored-35a-durometer-stealth-wheels
         - text: am-4716_35A_black
@@ -362,6 +385,7 @@
       - cell "AndyMark Custom Colored Stealth Wheels am-4716_35A_red":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/custom-colored-35a-durometer-stealth-wheels
+          - img "AndyMark"
         - link "Custom Colored Stealth Wheels":
           - /url: https://www.andymark.com/products/custom-colored-35a-durometer-stealth-wheels
         - text: am-4716_35A_red
@@ -373,6 +397,7 @@
       - cell "AndyMark Custom Colored Stealth Wheels am-4716_35A_white":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/custom-colored-35a-durometer-stealth-wheels
+          - img "AndyMark"
         - link "Custom Colored Stealth Wheels":
           - /url: https://www.andymark.com/products/custom-colored-35a-durometer-stealth-wheels
         - text: am-4716_35A_white
@@ -384,6 +409,7 @@
       - cell "AndyMark Custom Colored Stealth Wheels am-4716_35A_yellow":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/custom-colored-35a-durometer-stealth-wheels
+          - img "AndyMark"
         - link "Custom Colored Stealth Wheels":
           - /url: https://www.andymark.com/products/custom-colored-35a-durometer-stealth-wheels
         - text: am-4716_35A_yellow
@@ -395,6 +421,7 @@
       - cell "AndyMark Plastic Dualie Wheel am-4979a":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/3-in-plastic-dualie-wheel-with-3-8-hex-bore
+          - img "AndyMark"
         - link "Plastic Dualie Wheel":
           - /url: https://www.andymark.com/products/3-in-plastic-dualie-wheel-with-3-8-hex-bore
         - text: am-4979a
@@ -406,6 +433,7 @@
       - cell "AndyMark Plastic Omni Wheel am-4967a":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/3-in-plastic-omni-wheel-with-3-8-hex-bore
+          - img "AndyMark"
         - link "Plastic Omni Wheel":
           - /url: https://www.andymark.com/products/3-in-plastic-omni-wheel-with-3-8-hex-bore
         - text: am-4967a
@@ -417,6 +445,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4716_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4716_green
@@ -428,6 +457,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4716_orange":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4716_orange
@@ -439,6 +469,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4716_blue":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4716_blue
@@ -450,6 +481,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4716_black":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4716_black
@@ -461,6 +493,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4716_gray":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4716_gray
@@ -472,6 +505,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4718_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4718_green
@@ -483,6 +517,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4718_orange":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4718_orange
@@ -494,6 +529,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4718_blue":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4718_blue
@@ -505,6 +541,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4718_black":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4718_black
@@ -516,6 +553,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4718_gray":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4718_gray
@@ -527,6 +565,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4717_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4717_green
@@ -538,6 +577,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4717_orange":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4717_orange
@@ -549,6 +589,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4717_blue":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4717_blue
@@ -560,6 +601,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4717_black":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4717_black
@@ -571,6 +613,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4717_gray":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4717_gray
@@ -582,6 +625,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4719_green":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4719_green
@@ -593,6 +637,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4719_orange":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4719_orange
@@ -604,6 +649,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4719_blue":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4719_blue
@@ -615,6 +661,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4719_black":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4719_black
@@ -626,6 +673,7 @@
       - cell "AndyMark Stealth and Sushi Wheels am-4719_gray":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
+          - img "AndyMark"
         - link "Stealth and Sushi Wheels":
           - /url: https://www.andymark.com/products/stealth-and-sushi-wheels
         - text: am-4719_gray
@@ -637,6 +685,7 @@
       - cell "REV ION Compliant Wheels REV-21-2456":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Compliant-Wheels/
+          - img "REV"
         - link "ION Compliant Wheels":
           - /url: https://www.revrobotics.com/ION-Compliant-Wheels/
         - text: REV-21-2456
@@ -648,6 +697,7 @@
       - cell "REV ION Compliant Wheels REV-21-2452":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Compliant-Wheels/
+          - img "REV"
         - link "ION Compliant Wheels":
           - /url: https://www.revrobotics.com/ION-Compliant-Wheels/
         - text: REV-21-2452
@@ -659,6 +709,7 @@
       - cell "REV ION Cone Wheels REV-21-6551":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-cone-wheels
+          - img "REV"
         - link "ION Cone Wheels":
           - /url: https://www.revrobotics.com/ION-cone-wheels
         - text: REV-21-6551
@@ -670,6 +721,7 @@
       - cell "REV ION Cone Wheels REV-21-6566":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-cone-wheels
+          - img "REV"
         - link "ION Cone Wheels":
           - /url: https://www.revrobotics.com/ION-cone-wheels
         - text: REV-21-6566
@@ -681,6 +733,7 @@
       - cell "REV ION Cone Wheels REV-21-6565":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-cone-wheels
+          - img "REV"
         - link "ION Cone Wheels":
           - /url: https://www.revrobotics.com/ION-cone-wheels
         - text: REV-21-6565
@@ -692,6 +745,7 @@
       - cell "REV ION Grip Wheels REV-21-2443":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Grip-Wheels/
+          - img "REV"
         - link "ION Grip Wheels":
           - /url: https://www.revrobotics.com/ION-Grip-Wheels/
         - text: REV-21-2443
@@ -703,6 +757,7 @@
       - cell "REV ION Grip Wheels REV-21-2438":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Grip-Wheels/
+          - img "REV"
         - link "ION Grip Wheels":
           - /url: https://www.revrobotics.com/ION-Grip-Wheels/
         - text: REV-21-2438
@@ -714,6 +769,7 @@
       - cell "REV ION Grip Wheels REV-21-2433":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Grip-Wheels/
+          - img "REV"
         - link "ION Grip Wheels":
           - /url: https://www.revrobotics.com/ION-Grip-Wheels/
         - text: REV-21-2433
@@ -725,6 +781,7 @@
       - cell "REV ION Omni Wheels REV-21-2473":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Omni-Wheels/
+          - img "REV"
         - link "ION Omni Wheels":
           - /url: https://www.revrobotics.com/ION-Omni-Wheels/
         - text: REV-21-2473
@@ -736,6 +793,7 @@
       - cell "REV ION Traction Wheels REV-21-2423":
         - link "REV":
           - /url: https://www.revrobotics.com/ION-Traction-Wheels/
+          - img "REV"
         - link "ION Traction Wheels":
           - /url: https://www.revrobotics.com/ION-Traction-Wheels/
         - text: REV-21-2423
@@ -747,6 +805,7 @@
       - cell "Thrifty Solid Urethane Wheel TTB-0334":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/3-inch-solid-urethane-wheel-45a-durometer
+          - img "Thrifty"
         - link "Solid Urethane Wheel":
           - /url: https://www.thethriftybot.com/products/3-inch-solid-urethane-wheel-45a-durometer
         - text: TTB-0334
@@ -758,6 +817,7 @@
       - cell "Thrifty Solid Urethane Wheel TTB-0367":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/3-inch-solid-urethane-wheel-60a-durometer
+          - img "Thrifty"
         - link "Solid Urethane Wheel":
           - /url: https://www.thethriftybot.com/products/3-inch-solid-urethane-wheel-60a-durometer
         - text: TTB-0367
@@ -769,6 +829,7 @@
       - cell "Thrifty Thrifty Squish Wheels TTB-0066":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-3-inch-thrifty-squish-wheels
+          - img "Thrifty"
         - link "Thrifty Squish Wheels":
           - /url: https://www.thethriftybot.com/products/qty-4-3-inch-thrifty-squish-wheels
         - text: TTB-0066
@@ -780,6 +841,7 @@
       - cell "Thrifty Thrifty Squish Wheels TTB-0376":
         - link "Thrifty":
           - /url: https://www.thethriftybot.com/products/qty-4-60a-harder-durometer-3-inch-thrifty-squish-wheels
+          - img "Thrifty"
         - link "Thrifty Squish Wheels":
           - /url: https://www.thethriftybot.com/products/qty-4-60a-harder-durometer-3-inch-thrifty-squish-wheels
         - text: TTB-0376
@@ -791,6 +853,7 @@
       - cell "WCP 6 Spoke Straight Flex Wheel WCP-1412":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1412
+          - img "WCP"
         - link "6 Spoke Straight Flex Wheel":
           - /url: https://wcproducts.com/products/wcp-1412
         - text: WCP-1412
@@ -802,6 +865,7 @@
       - cell "WCP 6 Spoke Straight Flex Wheel WCP-1413":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1413
+          - img "WCP"
         - link "6 Spoke Straight Flex Wheel":
           - /url: https://wcproducts.com/products/wcp-1413
         - text: WCP-1413
@@ -813,6 +877,7 @@
       - cell "WCP 6 Spoke Straight Flex Wheel WCP-1414":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1414
+          - img "WCP"
         - link "6 Spoke Straight Flex Wheel":
           - /url: https://wcproducts.com/products/wcp-1414
         - text: WCP-1414
@@ -824,6 +889,7 @@
       - cell "WCP 6 Spoke Straight Flex Wheel WCP-1073":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1073
+          - img "WCP"
         - link "6 Spoke Straight Flex Wheel":
           - /url: https://wcproducts.com/products/wcp-1073
         - text: WCP-1073
@@ -835,6 +901,7 @@
       - cell "WCP 6 Spoke Straight Flex Wheel WCP-1074":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1074
+          - img "WCP"
         - link "6 Spoke Straight Flex Wheel":
           - /url: https://wcproducts.com/products/wcp-1074
         - text: WCP-1074
@@ -846,6 +913,7 @@
       - cell "WCP 6 Spoke Straight Flex Wheel WCP-1075":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1075
+          - img "WCP"
         - link "6 Spoke Straight Flex Wheel":
           - /url: https://wcproducts.com/products/wcp-1075
         - text: WCP-1075
@@ -857,6 +925,7 @@
       - cell "WCP Straight Flex Wheel WCP-1358":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1358
+          - img "WCP"
         - link "Straight Flex Wheel":
           - /url: https://wcproducts.com/products/wcp-1358
         - text: WCP-1358
@@ -868,6 +937,7 @@
       - cell "WCP Straight Flex Wheel WCP-2327":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-2327
+          - img "WCP"
         - link "Straight Flex Wheel":
           - /url: https://wcproducts.com/products/wcp-2327
         - text: WCP-2327
@@ -879,6 +949,7 @@
       - cell "WCP Straight Flex Wheel WCP-1359":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1359
+          - img "WCP"
         - link "Straight Flex Wheel":
           - /url: https://wcproducts.com/products/wcp-1359
         - text: WCP-1359
@@ -890,6 +961,7 @@
       - cell "WCP Straight Flex Wheel WCP-2328":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-2328
+          - img "WCP"
         - link "Straight Flex Wheel":
           - /url: https://wcproducts.com/products/wcp-2328
         - text: WCP-2328
@@ -901,6 +973,7 @@
       - cell "WCP Straight Flex Wheel WCP-1360":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1360
+          - img "WCP"
         - link "Straight Flex Wheel":
           - /url: https://wcproducts.com/products/wcp-1360
         - text: WCP-1360
@@ -912,6 +985,7 @@
       - cell "WCP Straight Flex Wheel WCP-2329":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-2329
+          - img "WCP"
         - link "Straight Flex Wheel":
           - /url: https://wcproducts.com/products/wcp-2329
         - text: WCP-2329
@@ -923,6 +997,7 @@
       - cell "WCP Straight Flex Wheel WCP-1299":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1299
+          - img "WCP"
         - link "Straight Flex Wheel":
           - /url: https://wcproducts.com/products/wcp-1299
         - text: WCP-1299
@@ -934,6 +1009,7 @@
       - cell "WCP Straight Flex Wheel WCP-1300":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1300
+          - img "WCP"
         - link "Straight Flex Wheel":
           - /url: https://wcproducts.com/products/wcp-1300
         - text: WCP-1300
@@ -945,6 +1021,7 @@
       - cell "WCP Straight Flex Wheel WCP-1301":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1301
+          - img "WCP"
         - link "Straight Flex Wheel":
           - /url: https://wcproducts.com/products/wcp-1301
         - text: WCP-1301

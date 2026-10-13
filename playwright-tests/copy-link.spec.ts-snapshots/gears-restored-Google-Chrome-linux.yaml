@@ -31,6 +31,7 @@
       - cell "AndyMark am-4332":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/standard-32-dp-gears
+          - img "AndyMark"
         - link "am-4332":
           - /url: https://www.andymark.com/products/standard-32-dp-gears
       - cell "40"
@@ -39,6 +40,7 @@
       - cell "AndyMark am-4328":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/standard-32-dp-gears
+          - img "AndyMark"
         - link "am-4328":
           - /url: https://www.andymark.com/products/standard-32-dp-gears
       - cell "40"
@@ -47,6 +49,7 @@
       - cell "WCP WCP-0746":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0746
+          - img "WCP"
         - link "WCP-0746":
           - /url: https://wcproducts.com/products/wcp-0746
       - cell "40"
@@ -57,6 +60,7 @@
       - cell "AndyMark am-4334":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/standard-32-dp-gears
+          - img "AndyMark"
         - link "am-4334":
           - /url: https://www.andymark.com/products/standard-32-dp-gears
       - cell "60"
@@ -65,6 +69,7 @@
       - cell "AndyMark am-3483":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/60-tooth-32-dp-0-250-in-round-bore-steel-gear-for-evo-encoder
+          - img "AndyMark"
         - link "am-3483":
           - /url: https://www.andymark.com/products/60-tooth-32-dp-0-250-in-round-bore-steel-gear-for-evo-encoder
       - cell "60"
@@ -73,6 +78,7 @@
       - cell "AndyMark am-0927":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/60-tooth-32-dp-0-375-in-hex-bore-steel-gear
+          - img "AndyMark"
         - link "am-0927":
           - /url: https://www.andymark.com/products/60-tooth-32-dp-0-375-in-hex-bore-steel-gear
       - cell "60"
@@ -81,6 +87,7 @@
       - cell "WCP WCP-0747":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0747
+          - img "WCP"
         - link "WCP-0747":
           - /url: https://wcproducts.com/products/wcp-0747
       - cell "60"

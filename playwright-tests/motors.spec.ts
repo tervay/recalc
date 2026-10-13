@@ -147,6 +147,16 @@ test.describe('Motor Calculator', () => {
 
     await expect(cimEfficiency).toHaveText('60.2%');
   });
+
+  test('comparison table shows loaded vendor icons', async ({ page }) => {
+    const revIcon = page.getByRole('img', { name: 'REV' }).first();
+    await revIcon.scrollIntoViewIfNeeded();
+
+    await expect(revIcon).toBeVisible();
+    await expect
+      .poll(() => revIcon.evaluate((img: HTMLImageElement) => img.naturalWidth))
+      .toBeGreaterThan(0);
+  });
 });
 
 /** Pulls the vertices out of a recharts `M x,y L x,y ...` line path. */

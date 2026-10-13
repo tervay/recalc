@@ -31,6 +31,7 @@
       - cell "REV REV-21-2196":
         - link "REV":
           - /url: https://www.revrobotics.com/20DP-Gears-0.5-Hex/
+          - img "REV"
         - link "REV-21-2196":
           - /url: https://www.revrobotics.com/20DP-Gears-0.5-Hex/
       - cell "16"
@@ -39,6 +40,7 @@
       - cell "WCP WCP-0290":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0290
+          - img "WCP"
         - link "WCP-0290":
           - /url: https://wcproducts.com/products/wcp-0290
       - cell "16"
@@ -47,6 +49,7 @@
       - cell "AndyMark am-4665":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - img "AndyMark"
         - link "am-4665":
           - /url: https://www.andymark.com/products/standard-20-dp-gears
       - cell "16"
@@ -55,6 +58,7 @@
       - cell "SDS N/A":
         - link "SDS":
           - /url: https://www.swervedrivespecialties.com/products/16t-20dp-3-8-hex-gear
+          - img "SDS"
         - link "N/A":
           - /url: https://www.swervedrivespecialties.com/products/16t-20dp-3-8-hex-gear
       - cell "16"
@@ -63,6 +67,7 @@
       - cell "WCP WCP-0681":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0681
+          - img "WCP"
         - link "WCP-0681":
           - /url: https://wcproducts.com/products/wcp-0681
       - cell "16"
@@ -71,6 +76,7 @@
       - cell "WCP WCP-0732":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0732
+          - img "WCP"
         - link "WCP-0732":
           - /url: https://wcproducts.com/products/wcp-0732
       - cell "16"
@@ -79,6 +85,7 @@
       - cell "WCP WCP-1719":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1719
+          - img "WCP"
         - link "WCP-1719":
           - /url: https://wcproducts.com/products/wcp-1719
       - cell "16"
@@ -87,6 +94,7 @@
       - cell "WCP WCP-1720":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1720
+          - img "WCP"
         - link "WCP-1720":
           - /url: https://wcproducts.com/products/wcp-1720
       - cell "16"
@@ -95,6 +103,7 @@
       - cell "AndyMark am-4075":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/20-dp-pinion-gears
+          - img "AndyMark"
         - link "am-4075":
           - /url: https://www.andymark.com/products/20-dp-pinion-gears
       - cell "16"
@@ -103,6 +112,7 @@
       - cell "SDS N/A":
         - link "SDS":
           - /url: https://www.swervedrivespecialties.com/products/gear-20dp-16t-8mm-bore
+          - img "SDS"
         - link "N/A":
           - /url: https://www.swervedrivespecialties.com/products/gear-20dp-16t-8mm-bore
       - cell "16"
@@ -111,6 +121,7 @@
       - cell "WCP WCP-1236":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1236
+          - img "WCP"
         - link "WCP-1236":
           - /url: https://wcproducts.com/products/wcp-1236
       - cell "16"
@@ -119,6 +130,7 @@
       - cell "WCP WCP-1647":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1647
+          - img "WCP"
         - link "WCP-1647":
           - /url: https://wcproducts.com/products/wcp-1647
       - cell "16"
@@ -127,6 +139,7 @@
       - cell "SDS SDS-16T-20DP-FALCON":
         - link "SDS":
           - /url: https://www.swervedrivespecialties.com/products/gear-20dp-16t-falcon-spline-bore
+          - img "SDS"
         - link "SDS-16T-20DP-FALCON":
           - /url: https://www.swervedrivespecialties.com/products/gear-20dp-16t-falcon-spline-bore
       - cell "16"
@@ -135,6 +148,7 @@
       - cell "WCP WCP-1016":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1016
+          - img "WCP"
         - link "WCP-1016":
           - /url: https://wcproducts.com/products/wcp-1016
       - cell "16"
@@ -143,6 +157,7 @@
       - cell "WCP WCP-1383":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1383
+          - img "WCP"
         - link "WCP-1383":
           - /url: https://wcproducts.com/products/wcp-1383
       - cell "16"
@@ -151,6 +166,7 @@
       - cell "WCP WCP-1638":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1638
+          - img "WCP"
         - link "WCP-1638":
           - /url: https://wcproducts.com/products/wcp-1638
       - cell "16"
@@ -161,6 +177,7 @@
       - cell "AndyMark am-3816":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - img "AndyMark"
         - link "am-3816":
           - /url: https://www.andymark.com/products/standard-20-dp-gears
       - cell "36"
@@ -169,6 +186,7 @@
       - cell "AndyMark am-4709":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - img "AndyMark"
         - link "am-4709":
           - /url: https://www.andymark.com/products/standard-20-dp-gears
       - cell "36"
@@ -177,6 +195,7 @@
       - cell "REV REV-21-1929":
         - link "REV":
           - /url: https://www.revrobotics.com/20DP-Gears-0.5-Hex/
+          - img "REV"
         - link "REV-21-1929":
           - /url: https://www.revrobotics.com/20DP-Gears-0.5-Hex/
       - cell "36"
@@ -185,6 +204,7 @@
       - cell "WCP WCP-0175":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0175
+          - img "WCP"
         - link "WCP-0175":
           - /url: https://wcproducts.com/products/wcp-0175
       - cell "36"
@@ -193,6 +213,7 @@
       - cell "WCP WCP-0555":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0555
+          - img "WCP"
         - link "WCP-0555":
           - /url: https://wcproducts.com/products/wcp-0555
       - cell "36"
@@ -201,6 +222,7 @@
       - cell "WCP WCP-0709":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0709
+          - img "WCP"
         - link "WCP-0709":
           - /url: https://wcproducts.com/products/wcp-0709
       - cell "36"
@@ -209,6 +231,7 @@
       - cell "AndyMark am-5138":
         - link "AndyMark":
           - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - img "AndyMark"
         - link "am-5138":
           - /url: https://www.andymark.com/products/standard-20-dp-gears
       - cell "36"
@@ -217,6 +240,7 @@
       - cell "WCP WCP-0549":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0549
+          - img "WCP"
         - link "WCP-0549":
           - /url: https://wcproducts.com/products/wcp-0549
       - cell "36"
@@ -225,6 +249,7 @@
       - cell "WCP WCP-0691":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-0691
+          - img "WCP"
         - link "WCP-0691":
           - /url: https://wcproducts.com/products/wcp-0691
       - cell "36"
@@ -233,6 +258,7 @@
       - cell "REV REV-21-3012":
         - link "REV":
           - /url: https://www.revrobotics.com/20DP-Gears-Maxspline/
+          - img "REV"
         - link "REV-21-3012":
           - /url: https://www.revrobotics.com/20DP-Gears-Maxspline/
       - cell "36"
@@ -241,6 +267,7 @@
       - cell "WCP WCP-1083":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1083
+          - img "WCP"
         - link "WCP-1083":
           - /url: https://wcproducts.com/products/wcp-1083
       - cell "36"
@@ -249,6 +276,7 @@
       - cell "WCP WCP-1192":
         - link "WCP":
           - /url: https://wcproducts.com/products/wcp-1192
+          - img "WCP"
         - link "WCP-1192":
           - /url: https://wcproducts.com/products/wcp-1192
       - cell "36"

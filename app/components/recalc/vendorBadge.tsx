@@ -1,59 +1,76 @@
 import { cn } from 'cn';
-import * as React from 'react';
+import type { ComponentType, SVGProps } from 'react';
 import { Link } from 'react-router';
+import InfinityIcon from '~icons/lucide/infinity';
+import WrenchIcon from '~icons/lucide/wrench';
 
-import { Badge } from '~/components/ui/badge';
 import type { Vendor } from '~/lib/types/common';
 
-const vendorBadgeStyles: Record<Vendor, string> = {
-  WCP: 'border-wcp/20 bg-wcp/10 text-wcp dark:text-wcp rounded',
-  Swyft: 'border-swyft/20 bg-swyft/10 text-swyft dark:text-swyft rounded',
-  VBeltGuys:
-    'border-vbeltguys/20 bg-vbeltguys/10 text-vbeltguys dark:text-vbeltguys rounded',
-  REV: 'border-rev/20 bg-rev/10 text-rev dark:text-rev rounded',
-  AndyMark:
-    'border-andymark/20 bg-andymark/10 text-andymark dark:text-andymark rounded',
-  LastAnvil:
-    'border-lastanvil/20 bg-lastanvil/10 text-lastanvil dark:text-lastanvil-text-dark rounded',
-  Thrifty:
-    'border-thrifty/20 bg-thrifty/10 text-thrifty dark:text-thrifty rounded',
-  SDS: 'border-sds/20 bg-sds/10 text-sds dark:text-sds rounded',
-  BaneBots:
-    'border-banebots/20 bg-banebots/10 text-banebots dark:text-banebots rounded',
-  CTRE: 'border-ctre/20 bg-ctre/10 text-ctre dark:text-ctre rounded',
-  VEX: 'border-vex/20 bg-vex/10 text-vex dark:text-vex rounded',
-  Custom: 'border-custom/20 bg-custom/10 text-custom dark:text-custom rounded',
+const vendorIcons: Record<
+  Vendor,
+  string | ComponentType<SVGProps<SVGSVGElement>>
+> = {
+  AndyMark: '/vendors/andymark.png',
+  BaneBots: '/vendors/banebots.png',
+  CTRE: '/vendors/ctre.png',
+  Custom: WrenchIcon,
+  LastAnvil: '/vendors/lastanvil.png',
+  REV: '/vendors/rev.png',
+  SDS: '/vendors/sds.png',
+  Swyft: '/vendors/swyft.png',
+  Thrifty: '/vendors/thrifty.png',
+  VBeltGuys: InfinityIcon,
+  VEX: '/vendors/vex.png',
+  WCP: '/vendors/wcp.png',
 };
 
-interface VendorBadgeProps extends React.ComponentProps<typeof Badge> {
+const vendorImageClassNames: Partial<Record<Vendor, string>> = {
+  REV: 'rounded-sm',
+};
+
+interface VendorBadgeProps {
   vendor: Vendor;
   url?: string;
+  className?: string;
 }
 
-export function VendorBadge({
-  vendor,
-  url,
-  className,
-  ...props
-}: VendorBadgeProps) {
-  const vendorStyle = vendorBadgeStyles[vendor];
+export function VendorBadge({ vendor, url, className }: VendorBadgeProps) {
+  const Icon = vendorIcons[vendor];
+  const icon =
+    typeof Icon === 'string' ? (
+      <img
+        src={Icon}
+        alt={vendor}
+        width={16}
+        height={16}
+        loading="lazy"
+        className={cn(
+          'size-full object-contain',
+          vendorImageClassNames[vendor],
+        )}
+      />
+    ) : (
+      <>
+        <Icon aria-hidden className="size-full" />
+        <span className="sr-only">{vendor}</span>
+      </>
+    );
+  const tileClassName = cn(
+    'inline-flex size-5 shrink-0 items-center justify-center rounded-sm bg-white p-0.5 text-black ring-1 ring-border',
+    className,
+  );
 
   if (url) {
     return (
-      <Badge
-        variant="outline"
-        className={cn(vendorStyle, className)}
-        asChild
-        {...props}
-      >
-        <Link to={url}>{vendor}</Link>
-      </Badge>
+      <Link to={url} title={vendor} className={tileClassName}>
+        {icon}
+      </Link>
     );
   }
 
   return (
-    <Badge variant="outline" className={cn(vendorStyle, className)} {...props}>
-      {vendor}
-    </Badge>
+    <span title={vendor} className={tileClassName}>
+      {icon}
+    </span>
   );
 }
