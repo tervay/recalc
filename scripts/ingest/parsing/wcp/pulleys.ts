@@ -67,7 +67,7 @@ export function parseWCPPulleys(products: ShopifyProduct[]): JSONPulley[] {
             profile,
             pitch: parseInt(pitch),
             bore,
-            url: urlForHandle(product.handle, 'WCP'),
+            url: urlForHandle(product.handle, 'WCP', product.variants[0].id),
             sku: product.variants[0].sku,
             variantId: product.variants[0].id,
           });

@@ -55,7 +55,7 @@ export function parseThriftySprockets(
           chainType: '#35',
           sku: variant.sku,
           variantId: variant.id,
-          url: urlForHandle(product.handle, 'Thrifty'),
+          url: urlForHandle(product.handle, 'Thrifty', variant.id),
           vendor: 'Thrifty',
         });
       } else if (
@@ -68,7 +68,7 @@ export function parseThriftySprockets(
           chainType: '#25',
           sku: variant.sku,
           variantId: variant.id,
-          url: urlForHandle(product.handle, 'Thrifty'),
+          url: urlForHandle(product.handle, 'Thrifty', variant.id),
           vendor: 'Thrifty',
         });
       } else if (
@@ -80,7 +80,7 @@ export function parseThriftySprockets(
           chainType: '#25',
           sku: variant.sku,
           variantId: variant.id,
-          url: urlForHandle(product.handle, 'Thrifty'),
+          url: urlForHandle(product.handle, 'Thrifty', variant.id),
           vendor: 'Thrifty',
         });
       } else {
@@ -100,7 +100,7 @@ export function parseThriftySprockets(
                   bore: boreType as ThriftySprocketBore,
                   sku: variantInner.sku,
                   variantId: variantInner.id,
-                  url: urlForHandle(product.handle, 'Thrifty'),
+                  url: urlForHandle(product.handle, 'Thrifty', variantInner.id),
                 });
                 sprockets.push(thriftySprocketToJsonSprocket(thriftySprocket));
               } catch (error) {

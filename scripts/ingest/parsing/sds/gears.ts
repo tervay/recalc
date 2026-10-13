@@ -54,9 +54,9 @@ export function parseSDSGears(products: ShopifyProduct[]): JSONGear[] {
 
     if (bore === null) continue;
 
-    const url = urlForHandle(product.handle, 'SDS');
     const variant = product.variants[0];
     if (!variant) continue;
+    const url = urlForHandle(product.handle, 'SDS', variant.id);
     const skuSuffix = sdsBoreToSkuSuffix(bore);
     const sku = variant.sku ?? `SDS-${teeth}T-${dp}DP-${skuSuffix}`;
 

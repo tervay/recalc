@@ -34,20 +34,20 @@
     - row "AndyMark am-3816 36 1/2\" Hex In stock":
       - cell "AndyMark am-3816":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - /url: https://www.andymark.com/products/standard-20-dp-gears?variant=44493354139820
           - img "AndyMark"
         - link "am-3816":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - /url: https://www.andymark.com/products/standard-20-dp-gears?variant=44493354139820
       - cell "36"
       - cell "1/2\" Hex"
       - cell "In stock"
     - row "AndyMark am-4709 36 1/2\" Hex In stock":
       - cell "AndyMark am-4709":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - /url: https://www.andymark.com/products/standard-20-dp-gears?variant=44493354172588
           - img "AndyMark"
         - link "am-4709":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - /url: https://www.andymark.com/products/standard-20-dp-gears?variant=44493354172588
       - cell "36"
       - cell "1/2\" Hex"
       - cell "In stock"
@@ -64,60 +64,60 @@
     - row "WCP WCP-0175 36 1/2\" Hex In stock":
       - cell "WCP WCP-0175":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0175
+          - /url: https://wcproducts.com/products/wcp-0175?variant=35666729599136
           - img "WCP"
         - link "WCP-0175":
-          - /url: https://wcproducts.com/products/wcp-0175
+          - /url: https://wcproducts.com/products/wcp-0175?variant=35666729599136
       - cell "36"
       - cell "1/2\" Hex"
       - cell "In stock"
     - row "WCP WCP-0555 36 1/2\" Hex In stock":
       - cell "WCP WCP-0555":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0555
+          - /url: https://wcproducts.com/products/wcp-0555?variant=43542766485716
           - img "WCP"
         - link "WCP-0555":
-          - /url: https://wcproducts.com/products/wcp-0555
+          - /url: https://wcproducts.com/products/wcp-0555?variant=43542766485716
       - cell "36"
       - cell "1/2\" Hex"
       - cell "In stock"
     - row "WCP WCP-0709 36 1/2\" Hex In stock":
       - cell "WCP WCP-0709":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0709
+          - /url: https://wcproducts.com/products/wcp-0709?variant=35666631622816
           - img "WCP"
         - link "WCP-0709":
-          - /url: https://wcproducts.com/products/wcp-0709
+          - /url: https://wcproducts.com/products/wcp-0709?variant=35666631622816
       - cell "36"
       - cell "1/2\" Hex"
       - cell "In stock"
     - row "AndyMark am-5138 36 3/8\" Hex In stock":
       - cell "AndyMark am-5138":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - /url: https://www.andymark.com/products/standard-20-dp-gears?variant=44493358006444
           - img "AndyMark"
         - link "am-5138":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - /url: https://www.andymark.com/products/standard-20-dp-gears?variant=44493358006444
       - cell "36"
       - cell "3/8\" Hex"
       - cell "In stock"
     - row "WCP WCP-0549 36 3/8\" Hex In stock":
       - cell "WCP WCP-0549":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0549
+          - /url: https://wcproducts.com/products/wcp-0549?variant=43542744334548
           - img "WCP"
         - link "WCP-0549":
-          - /url: https://wcproducts.com/products/wcp-0549
+          - /url: https://wcproducts.com/products/wcp-0549?variant=43542744334548
       - cell "36"
       - cell "3/8\" Hex"
       - cell "In stock"
     - row "WCP WCP-0691 36 3/8\" Hex In stock":
       - cell "WCP WCP-0691":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0691
+          - /url: https://wcproducts.com/products/wcp-0691?variant=35666630574240
           - img "WCP"
         - link "WCP-0691":
-          - /url: https://wcproducts.com/products/wcp-0691
+          - /url: https://wcproducts.com/products/wcp-0691?variant=35666630574240
       - cell "36"
       - cell "3/8\" Hex"
       - cell "In stock"
@@ -134,20 +134,20 @@
     - row "WCP WCP-1083 36 SplineXL In stock":
       - cell "WCP WCP-1083":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-1083
+          - /url: https://wcproducts.com/products/wcp-1083?variant=44259191652564
           - img "WCP"
         - link "WCP-1083":
-          - /url: https://wcproducts.com/products/wcp-1083
+          - /url: https://wcproducts.com/products/wcp-1083?variant=44259191652564
       - cell "36"
       - cell "SplineXL"
       - cell "In stock"
     - row "WCP WCP-1192 36 SplineXL In stock":
       - cell "WCP WCP-1192":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-1192
+          - /url: https://wcproducts.com/products/wcp-1192?variant=44120296947924
           - img "WCP"
         - link "WCP-1192":
-          - /url: https://wcproducts.com/products/wcp-1192
+          - /url: https://wcproducts.com/products/wcp-1192?variant=44120296947924
       - cell "36"
       - cell "SplineXL"
       - cell "In stock"
@@ -156,40 +156,40 @@
     - row "WCP WCP-0093 40 1.125\" Round In stock":
       - cell "WCP WCP-0093":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0093
+          - /url: https://wcproducts.com/products/wcp-0093?variant=35666722128032
           - img "WCP"
         - link "WCP-0093":
-          - /url: https://wcproducts.com/products/wcp-0093
+          - /url: https://wcproducts.com/products/wcp-0093?variant=35666722128032
       - cell "40"
       - cell "1.125\" Round"
       - cell "In stock"
     - row "AndyMark am-3487 40 1/2\" Hex In stock":
       - cell "AndyMark am-3487":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - /url: https://www.andymark.com/products/standard-20-dp-gears?variant=44493354238124
           - img "AndyMark"
         - link "am-3487":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - /url: https://www.andymark.com/products/standard-20-dp-gears?variant=44493354238124
       - cell "40"
       - cell "1/2\" Hex"
       - cell "In stock"
     - row "AndyMark am-4710 40 1/2\" Hex In stock":
       - cell "AndyMark am-4710":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - /url: https://www.andymark.com/products/standard-20-dp-gears?variant=44493354270892
           - img "AndyMark"
         - link "am-4710":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - /url: https://www.andymark.com/products/standard-20-dp-gears?variant=44493354270892
       - cell "40"
       - cell "1/2\" Hex"
       - cell "In stock"
     - row "AndyMark am-5148 40 1/2\" Hex In stock":
       - cell "AndyMark am-5148":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - /url: https://www.andymark.com/products/standard-20-dp-gears?variant=44493354893484
           - img "AndyMark"
         - link "am-5148":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - /url: https://www.andymark.com/products/standard-20-dp-gears?variant=44493354893484
       - cell "40"
       - cell "1/2\" Hex"
       - cell "In stock"
@@ -206,80 +206,80 @@
     - row "WCP WCP-0116 40 1/2\" Hex In stock":
       - cell "WCP WCP-0116":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0116
+          - /url: https://wcproducts.com/products/wcp-0116?variant=35666724028576
           - img "WCP"
         - link "WCP-0116":
-          - /url: https://wcproducts.com/products/wcp-0116
+          - /url: https://wcproducts.com/products/wcp-0116?variant=35666724028576
       - cell "40"
       - cell "1/2\" Hex"
       - cell "In stock"
     - row "WCP WCP-0177 40 1/2\" Hex In stock":
       - cell "WCP WCP-0177":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0177
+          - /url: https://wcproducts.com/products/wcp-0177?variant=35666730811552
           - img "WCP"
         - link "WCP-0177":
-          - /url: https://wcproducts.com/products/wcp-0177
+          - /url: https://wcproducts.com/products/wcp-0177?variant=35666730811552
       - cell "40"
       - cell "1/2\" Hex"
       - cell "In stock"
     - row "WCP WCP-0711 40 1/2\" Hex In stock":
       - cell "WCP WCP-0711":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0711
+          - /url: https://wcproducts.com/products/wcp-0711?variant=35666591252640
           - img "WCP"
         - link "WCP-0711":
-          - /url: https://wcproducts.com/products/wcp-0711
+          - /url: https://wcproducts.com/products/wcp-0711?variant=35666591252640
       - cell "40"
       - cell "1/2\" Hex"
       - cell "In stock"
     - row "AndyMark am-3013b 40 1/4\" Round In stock":
       - cell "AndyMark am-3013b":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/40-tooth-20-dp-0-5-in-round-bore-aluminum-bolt-circle-bearing-gear-for-swerve-and-steer
+          - /url: https://www.andymark.com/products/40-tooth-20-dp-0-5-in-round-bore-aluminum-bolt-circle-bearing-gear-for-swerve-and-steer?variant=44495444279468
           - img "AndyMark"
         - link "am-3013b":
-          - /url: https://www.andymark.com/products/40-tooth-20-dp-0-5-in-round-bore-aluminum-bolt-circle-bearing-gear-for-swerve-and-steer
+          - /url: https://www.andymark.com/products/40-tooth-20-dp-0-5-in-round-bore-aluminum-bolt-circle-bearing-gear-for-swerve-and-steer?variant=44495444279468
       - cell "40"
       - cell "1/4\" Round"
       - cell "In stock"
     - row "AndyMark am-0024 40 3/8\" Hex In stock":
       - cell "AndyMark am-0024":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/40-tooth-20-dp-0-375-in-hex-bore-steel-gear
+          - /url: https://www.andymark.com/products/40-tooth-20-dp-0-375-in-hex-bore-steel-gear?variant=44497405411500
           - img "AndyMark"
         - link "am-0024":
-          - /url: https://www.andymark.com/products/40-tooth-20-dp-0-375-in-hex-bore-steel-gear
+          - /url: https://www.andymark.com/products/40-tooth-20-dp-0-375-in-hex-bore-steel-gear?variant=44497405411500
       - cell "40"
       - cell "3/8\" Hex"
       - cell "In stock"
     - row "AndyMark am-3976 40 3/8\" Hex In stock":
       - cell "AndyMark am-3976":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - /url: https://www.andymark.com/products/standard-20-dp-gears?variant=44493357842604
           - img "AndyMark"
         - link "am-3976":
-          - /url: https://www.andymark.com/products/standard-20-dp-gears
+          - /url: https://www.andymark.com/products/standard-20-dp-gears?variant=44493357842604
       - cell "40"
       - cell "3/8\" Hex"
       - cell "In stock"
     - row "WCP WCP-0551 40 3/8\" Hex In stock":
       - cell "WCP WCP-0551":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0551
+          - /url: https://wcproducts.com/products/wcp-0551?variant=43542750134484
           - img "WCP"
         - link "WCP-0551":
-          - /url: https://wcproducts.com/products/wcp-0551
+          - /url: https://wcproducts.com/products/wcp-0551?variant=43542750134484
       - cell "40"
       - cell "3/8\" Hex"
       - cell "In stock"
     - row "WCP WCP-0693 40 3/8\" Hex In stock":
       - cell "WCP WCP-0693":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0693
+          - /url: https://wcproducts.com/products/wcp-0693?variant=35666591056032
           - img "WCP"
         - link "WCP-0693":
-          - /url: https://wcproducts.com/products/wcp-0693
+          - /url: https://wcproducts.com/products/wcp-0693?variant=35666591056032
       - cell "40"
       - cell "3/8\" Hex"
       - cell "In stock"
@@ -296,20 +296,20 @@
     - row "WCP WCP-1085 40 SplineXL In stock":
       - cell "WCP WCP-1085":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-1085
+          - /url: https://wcproducts.com/products/wcp-1085?variant=44259214786772
           - img "WCP"
         - link "WCP-1085":
-          - /url: https://wcproducts.com/products/wcp-1085
+          - /url: https://wcproducts.com/products/wcp-1085?variant=44259214786772
       - cell "40"
       - cell "SplineXL"
       - cell "In stock"
     - row "WCP WCP-1194 40 SplineXL In stock":
       - cell "WCP WCP-1194":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-1194
+          - /url: https://wcproducts.com/products/wcp-1194?variant=44063008030932
           - img "WCP"
         - link "WCP-1194":
-          - /url: https://wcproducts.com/products/wcp-1194
+          - /url: https://wcproducts.com/products/wcp-1194?variant=44063008030932
       - cell "40"
       - cell "SplineXL"
       - cell "In stock"

@@ -39,7 +39,7 @@ import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 import { getPool } from '~/lib/pool';
-import { buildMeta, pageUrl } from '~/lib/seo';
+import { buildMeta, calcTitle, pageUrl } from '~/lib/seo';
 import {
   MeasurementParam,
   MotorParam,
@@ -48,7 +48,7 @@ import {
 } from '~/lib/types/queryParams';
 
 const ARM_PATH = '/arm';
-const ARM_TITLE = 'FRC & FTC Arm Calculator & Simulator | ReCalc';
+const ARM_TITLE = calcTitle('Arm Calculator & Simulator');
 const ARM_NAME = 'Arm Calculator';
 const ARM_DESCRIPTION =
   'Simulate arm mechanisms for FRC and FTC robots. Model DC motor performance, gear ratios, and arm dynamics using WPILib state-space simulation.';

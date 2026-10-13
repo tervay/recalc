@@ -46,7 +46,7 @@ describe('parseVBeltGuysBelts', () => {
         pitch: 3,
         sku: '120-3m-09',
         variantId: 10,
-        url: 'https://www.vbeltguys.com/products/120-3m-09-synchronous-timing-belt',
+        url: 'https://www.vbeltguys.com/products/120-3m-09-synchronous-timing-belt?variant=10',
         vendor: 'VBeltGuys',
       },
     ]);

@@ -64,28 +64,28 @@
     - row "VBeltGuys 300-3m-09 100 9 mm In stock":
       - cell "VBeltGuys 300-3m-09":
         - link "VBeltGuys":
-          - /url: https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt
+          - /url: https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt?variant=16650668867
         - link "300-3m-09":
-          - /url: https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt
+          - /url: https://www.vbeltguys.com/products/300-3m-09-synchronous-timing-belt?variant=16650668867
       - cell "100"
       - cell "9 mm"
       - cell "In stock"
     - row "VBeltGuys 300-3m-15 100 15 mm In stock":
       - cell "VBeltGuys 300-3m-15":
         - link "VBeltGuys":
-          - /url: https://www.vbeltguys.com/products/300-3m-15-synchronous-timing-belt
+          - /url: https://www.vbeltguys.com/products/300-3m-15-synchronous-timing-belt?variant=16650669059
         - link "300-3m-15":
-          - /url: https://www.vbeltguys.com/products/300-3m-15-synchronous-timing-belt
+          - /url: https://www.vbeltguys.com/products/300-3m-15-synchronous-timing-belt?variant=16650669059
       - cell "100"
       - cell "15 mm"
       - cell "In stock"
     - row "WCP WCP-0673 100 9 mm In stock":
       - cell "WCP WCP-0673":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0673
+          - /url: https://wcproducts.com/products/wcp-0673?variant=35666705186976
           - img "WCP"
         - link "WCP-0673":
-          - /url: https://wcproducts.com/products/wcp-0673
+          - /url: https://wcproducts.com/products/wcp-0673?variant=35666705186976
       - cell "100"
       - cell "9 mm"
       - cell "In stock"

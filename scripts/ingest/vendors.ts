@@ -29,8 +29,14 @@ export const SHOPIFY_CONFIGS: Partial<
   // REV has no Shopify store
 };
 
-export function urlForHandle(handle: string, vendor: VendorName): string {
+export function urlForHandle(
+  handle: string,
+  vendor: VendorName,
+  variantId?: number | null,
+): string {
   const config = SHOPIFY_CONFIGS[vendor];
   if (!config) throw new Error(`No Shopify config for vendor: ${vendor}`);
-  return `${config.rootDomain}/products/${handle}`;
+  const url = `${config.rootDomain}/products/${handle}`;
+  if (variantId == null) return url;
+  return `${url}?variant=${variantId}`;
 }

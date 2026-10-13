@@ -60,10 +60,10 @@
     - row "WCP WCP-1802 16 9 mm SplineXS In stock":
       - cell "WCP WCP-1802":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-1802
+          - /url: https://wcproducts.com/products/wcp-1802?variant=46086828490964
           - img "WCP"
         - link "WCP-1802":
-          - /url: https://wcproducts.com/products/wcp-1802
+          - /url: https://wcproducts.com/products/wcp-1802?variant=46086828490964
       - cell "16"
       - cell "9 mm"
       - cell "SplineXS"
@@ -71,10 +71,10 @@
     - row "WCP WCP-1804 16 15 mm SplineXS In stock":
       - cell "WCP WCP-1804":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-1804
+          - /url: https://wcproducts.com/products/wcp-1804?variant=46086836322516
           - img "WCP"
         - link "WCP-1804":
-          - /url: https://wcproducts.com/products/wcp-1804
+          - /url: https://wcproducts.com/products/wcp-1804?variant=46086836322516
       - cell "16"
       - cell "15 mm"
       - cell "SplineXS"
@@ -84,10 +84,10 @@
     - row "AndyMark am-3403 24 9 mm 1/2\" Hex In stock":
       - cell "AndyMark am-3403":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys
+          - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys?variant=44493442351276
           - img "AndyMark"
         - link "am-3403":
-          - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys
+          - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys?variant=44493442351276
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
@@ -95,10 +95,10 @@
     - row "AndyMark am-4625 24 9 mm 1/2\" Hex In stock":
       - cell "AndyMark am-4625":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley
+          - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley?variant=44493476659372
           - img "AndyMark"
         - link "am-4625":
-          - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley
+          - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley?variant=44493476659372
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
@@ -106,10 +106,10 @@
     - row "AndyMark am-4626 24 18 mm 1/2\" Hex In stock":
       - cell "AndyMark am-4626":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley
+          - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley?variant=44493476626604
           - img "AndyMark"
         - link "am-4626":
-          - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley
+          - /url: https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley?variant=44493476626604
       - cell "24"
       - cell "18 mm"
       - cell "1/2\" Hex"
@@ -117,10 +117,10 @@
     - row "AndyMark am-3402 24 9 mm 3/8\" Hex In stock":
       - cell "AndyMark am-3402":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys
+          - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys?variant=44493442318508
           - img "AndyMark"
         - link "am-3402":
-          - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys
+          - /url: https://www.andymark.com/products/24t-plastic-htd-pulleys?variant=44493442318508
       - cell "24"
       - cell "9 mm"
       - cell "3/8\" Hex"
@@ -128,10 +128,10 @@
     - row "LastAnvil LA-240108 24 9 mm 1/2\" Hex In stock":
       - cell "LastAnvil LA-240108":
         - link "LastAnvil":
-          - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
+          - /url: https://www.lastanvil.com/products/pulley-htd-5-mm?variant=42303470469326
           - img "LastAnvil"
         - link "LA-240108":
-          - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
+          - /url: https://www.lastanvil.com/products/pulley-htd-5-mm?variant=42303470469326
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
@@ -139,10 +139,10 @@
     - row "LastAnvil LA-240328 24 9 mm 1/2\" Hex In stock":
       - cell "LastAnvil LA-240328":
         - link "LastAnvil":
-          - /url: https://www.lastanvil.com/products/reinforced-htd-pulley-5mm
+          - /url: https://www.lastanvil.com/products/reinforced-htd-pulley-5mm?variant=42837321056462
           - img "LastAnvil"
         - link "LA-240328":
-          - /url: https://www.lastanvil.com/products/reinforced-htd-pulley-5mm
+          - /url: https://www.lastanvil.com/products/reinforced-htd-pulley-5mm?variant=42837321056462
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
@@ -150,10 +150,10 @@
     - row "LastAnvil LA-260165 24 9 mm 1/2\" Hex In stock":
       - cell "LastAnvil LA-260165":
         - link "LastAnvil":
-          - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
+          - /url: https://www.lastanvil.com/products/pulley-htd-5-mm?variant=48374220357838
           - img "LastAnvil"
         - link "LA-260165":
-          - /url: https://www.lastanvil.com/products/pulley-htd-5-mm
+          - /url: https://www.lastanvil.com/products/pulley-htd-5-mm?variant=48374220357838
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
@@ -161,10 +161,10 @@
     - row "Thrifty TTB-0348 24 9.5 mm 1/2\" Hex In stock":
       - cell "Thrifty TTB-0348":
         - link "Thrifty":
-          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys?variant=51701134000427
           - img "Thrifty"
         - link "TTB-0348":
-          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys?variant=51701134000427
       - cell "24"
       - cell "9.5 mm"
       - cell "1/2\" Hex"
@@ -172,10 +172,10 @@
     - row "Thrifty TTB-0126 24 18.5 mm 1/2\" Hex In stock":
       - cell "Thrifty TTB-0126":
         - link "Thrifty":
-          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys?variant=51713641185579
           - img "Thrifty"
         - link "TTB-0126":
-          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys
+          - /url: https://www.thethriftybot.com/products/1-2-hex-pulleys?variant=51713641185579
       - cell "24"
       - cell "18.5 mm"
       - cell "1/2\" Hex"
@@ -183,10 +183,10 @@
     - row "Thrifty TTB-0341 24 9.5 mm SplineXS In stock":
       - cell "Thrifty TTB-0341":
         - link "Thrifty":
-          - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys
+          - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys?variant=51701127053611
           - img "Thrifty"
         - link "TTB-0341":
-          - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys
+          - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys?variant=51701127053611
       - cell "24"
       - cell "9.5 mm"
       - cell "SplineXS"
@@ -194,10 +194,10 @@
     - row "Thrifty TTB-0342 24 18.5 mm SplineXS In stock":
       - cell "Thrifty TTB-0342":
         - link "Thrifty":
-          - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys
+          - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys?variant=51701127086379
           - img "Thrifty"
         - link "TTB-0342":
-          - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys
+          - /url: https://www.thethriftybot.com/products/kraken-spline-pulleys?variant=51701127086379
       - cell "24"
       - cell "18.5 mm"
       - cell "SplineXS"
@@ -205,10 +205,10 @@
     - row "WCP WCP-0564 24 9 mm 1/2\" Hex In stock":
       - cell "WCP WCP-0564":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0564
+          - /url: https://wcproducts.com/products/wcp-0564?variant=35666635423904
           - img "WCP"
         - link "WCP-0564":
-          - /url: https://wcproducts.com/products/wcp-0564
+          - /url: https://wcproducts.com/products/wcp-0564?variant=35666635423904
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
@@ -216,10 +216,10 @@
     - row "WCP WCP-1444 24 9 mm 1/2\" Hex In stock":
       - cell "WCP WCP-1444":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-1444
+          - /url: https://wcproducts.com/products/wcp-1444?variant=47317208957140
           - img "WCP"
         - link "WCP-1444":
-          - /url: https://wcproducts.com/products/wcp-1444
+          - /url: https://wcproducts.com/products/wcp-1444?variant=47317208957140
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"
@@ -227,10 +227,10 @@
     - row "WCP WCP-0992 24 15 mm 1/2\" Hex In stock":
       - cell "WCP WCP-0992":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0992
+          - /url: https://wcproducts.com/products/wcp-0992?variant=35666688311456
           - img "WCP"
         - link "WCP-0992":
-          - /url: https://wcproducts.com/products/wcp-0992
+          - /url: https://wcproducts.com/products/wcp-0992?variant=35666688311456
       - cell "24"
       - cell "15 mm"
       - cell "1/2\" Hex"
@@ -238,10 +238,10 @@
     - row "WCP WCP-2255 24 9 mm SplineXS In stock":
       - cell "WCP WCP-2255":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-2255
+          - /url: https://wcproducts.com/products/wcp-2255?variant=48472352784596
           - img "WCP"
         - link "WCP-2255":
-          - /url: https://wcproducts.com/products/wcp-2255
+          - /url: https://wcproducts.com/products/wcp-2255?variant=48472352784596
       - cell "24"
       - cell "9 mm"
       - cell "SplineXS"
@@ -249,10 +249,10 @@
     - row "WCP WCP-2260 24 15 mm SplineXS In stock":
       - cell "WCP WCP-2260":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-2260
+          - /url: https://wcproducts.com/products/wcp-2260?variant=48472353276116
           - img "WCP"
         - link "WCP-2260":
-          - /url: https://wcproducts.com/products/wcp-2260
+          - /url: https://wcproducts.com/products/wcp-2260?variant=48472353276116
       - cell "24"
       - cell "15 mm"
       - cell "SplineXS"
@@ -273,108 +273,108 @@
     - row "AndyMark am-5209_120T 120 9 mm In stock":
       - cell "AndyMark am-5209_120T":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts?variant=44493457490092
           - img "AndyMark"
         - link "am-5209_120T":
-          - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts?variant=44493457490092
       - cell "120"
       - cell "9 mm"
       - cell "In stock"
     - row "AndyMark am-2704 120 15 mm In stock":
       - cell "AndyMark am-2704":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts?variant=44497417273516
           - img "AndyMark"
         - link "am-2704":
-          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts?variant=44497417273516
       - cell "120"
       - cell "15 mm"
       - cell "In stock"
     - row "AndyMark am-5215_120T 120 15 mm In stock":
       - cell "AndyMark am-5215_120T":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts?variant=44497417240748
           - img "AndyMark"
         - link "am-5215_120T":
-          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts?variant=44497417240748
       - cell "120"
       - cell "15 mm"
       - cell "In stock"
     - row "Swyft 600-5M-9 120 9 mm In stock":
       - cell "Swyft 600-5M-9":
         - link "Swyft":
-          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536563908902
           - img "Swyft"
         - link "600-5M-9":
-          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts?variant=48536563908902
       - cell "120"
       - cell "9 mm"
       - cell "In stock"
     - row "Swyft 600-5M-15 120 15 mm In stock":
       - cell "Swyft 600-5M-15":
         - link "Swyft":
-          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015419686
           - img "Swyft"
         - link "600-5M-15":
-          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts
+          - /url: https://shop.swyftrobotics.com/products/htd-timing-belts?variant=50796015419686
       - cell "120"
       - cell "15 mm"
       - cell "In stock"
     - row "Thrifty TTB-0148 120 9 mm In stock":
       - cell "Thrifty TTB-0148":
         - link "Thrifty":
-          - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
+          - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts?variant=49610166829355
           - img "Thrifty"
         - link "TTB-0148":
-          - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
+          - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts?variant=49610166829355
       - cell "120"
       - cell "9 mm"
       - cell "In stock"
     - row "Thrifty TTB-0193 120 15 mm In stock":
       - cell "Thrifty TTB-0193":
         - link "Thrifty":
-          - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
+          - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts?variant=49610444833067
           - img "Thrifty"
         - link "TTB-0193":
-          - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
+          - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts?variant=49610444833067
       - cell "120"
       - cell "15 mm"
       - cell "In stock"
     - row "VBeltGuys 600-5m-09 120 9 mm In stock":
       - cell "VBeltGuys 600-5m-09":
         - link "VBeltGuys":
-          - /url: https://www.vbeltguys.com/products/600-5m-09-synchronous-timing-belt
+          - /url: https://www.vbeltguys.com/products/600-5m-09-synchronous-timing-belt?variant=16651013507
         - link "600-5m-09":
-          - /url: https://www.vbeltguys.com/products/600-5m-09-synchronous-timing-belt
+          - /url: https://www.vbeltguys.com/products/600-5m-09-synchronous-timing-belt?variant=16651013507
       - cell "120"
       - cell "9 mm"
       - cell "In stock"
     - row "VBeltGuys 600-5m-15 120 15 mm In stock":
       - cell "VBeltGuys 600-5m-15":
         - link "VBeltGuys":
-          - /url: https://www.vbeltguys.com/products/600-5m-15-synchronous-timing-belt
+          - /url: https://www.vbeltguys.com/products/600-5m-15-synchronous-timing-belt?variant=16651013699
         - link "600-5m-15":
-          - /url: https://www.vbeltguys.com/products/600-5m-15-synchronous-timing-belt
+          - /url: https://www.vbeltguys.com/products/600-5m-15-synchronous-timing-belt?variant=16651013699
       - cell "120"
       - cell "15 mm"
       - cell "In stock"
     - row "WCP WCP-0630 120 9 mm In stock":
       - cell "WCP WCP-0630":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0630
+          - /url: https://wcproducts.com/products/wcp-0630?variant=35666672255136
           - img "WCP"
         - link "WCP-0630":
-          - /url: https://wcproducts.com/products/wcp-0630
+          - /url: https://wcproducts.com/products/wcp-0630?variant=35666672255136
       - cell "120"
       - cell "9 mm"
       - cell "In stock"
     - row "WCP WCP-0651 120 15 mm In stock":
       - cell "WCP WCP-0651":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0651
+          - /url: https://wcproducts.com/products/wcp-0651?variant=35666676940960
           - img "WCP"
         - link "WCP-0651":
-          - /url: https://wcproducts.com/products/wcp-0651
+          - /url: https://wcproducts.com/products/wcp-0651?variant=35666676940960
       - cell "120"
       - cell "15 mm"
       - cell "In stock"
@@ -383,118 +383,118 @@
     - row "AndyMark am-5209_125T 125 9 mm In stock":
       - cell "AndyMark am-5209_125T":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts?variant=44493457555628
           - img "AndyMark"
         - link "am-5209_125T":
-          - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/9-mm-wide-5-mm-pitch-htd-timing-belts?variant=44493457555628
       - cell "125"
       - cell "9 mm"
       - cell "In stock"
     - row "AndyMark am-5215_125T 125 15 mm In stock":
       - cell "AndyMark am-5215_125T":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts?variant=44497417306284
           - img "AndyMark"
         - link "am-5215_125T":
-          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts
+          - /url: https://www.andymark.com/products/15-mm-wide-5-mm-pitch-htd-timing-belts?variant=44497417306284
       - cell "125"
       - cell "15 mm"
       - cell "In stock"
     - row "Thrifty TTB-0149 125 9 mm In stock":
       - cell "Thrifty TTB-0149":
         - link "Thrifty":
-          - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
+          - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts?variant=49610168697131
           - img "Thrifty"
         - link "TTB-0149":
-          - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts
+          - /url: https://www.thethriftybot.com/products/single-sided-9mm-wide-htd-timing-belts?variant=49610168697131
       - cell "125"
       - cell "9 mm"
       - cell "In stock"
     - row "Thrifty TTB-0221 125 9 mm In stock":
       - cell "Thrifty TTB-0221":
         - link "Thrifty":
-          - /url: https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts
+          - /url: https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts?variant=49610656710955
           - img "Thrifty"
         - link "TTB-0221":
-          - /url: https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts
+          - /url: https://www.thethriftybot.com/products/double-sided-9mm-wide-htd-timing-belts?variant=49610656710955
       - cell "125"
       - cell "9 mm"
       - cell "In stock"
     - row "Thrifty TTB-0194 125 15 mm In stock":
       - cell "Thrifty TTB-0194":
         - link "Thrifty":
-          - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
+          - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts?variant=49610449027371
           - img "Thrifty"
         - link "TTB-0194":
-          - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts
+          - /url: https://www.thethriftybot.com/products/single-sided-15mm-wide-htd-timing-belts?variant=49610449027371
       - cell "125"
       - cell "15 mm"
       - cell "In stock"
     - row "Thrifty TTB-0228 125 15 mm In stock":
       - cell "Thrifty TTB-0228":
         - link "Thrifty":
-          - /url: https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts
+          - /url: https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts?variant=49610680467755
           - img "Thrifty"
         - link "TTB-0228":
-          - /url: https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts
+          - /url: https://www.thethriftybot.com/products/double-sided-15mm-wide-htd-timing-belts?variant=49610680467755
       - cell "125"
       - cell "15 mm"
       - cell "In stock"
     - row "VBeltGuys 625-5m-09 125 9 mm In stock":
       - cell "VBeltGuys 625-5m-09":
         - link "VBeltGuys":
-          - /url: https://www.vbeltguys.com/products/625-5m-09-synchronous-timing-belt
+          - /url: https://www.vbeltguys.com/products/625-5m-09-synchronous-timing-belt?variant=16651016771
         - link "625-5m-09":
-          - /url: https://www.vbeltguys.com/products/625-5m-09-synchronous-timing-belt
+          - /url: https://www.vbeltguys.com/products/625-5m-09-synchronous-timing-belt?variant=16651016771
       - cell "125"
       - cell "9 mm"
       - cell "In stock"
     - row "VBeltGuys 625-5m-15 125 15 mm In stock":
       - cell "VBeltGuys 625-5m-15":
         - link "VBeltGuys":
-          - /url: https://www.vbeltguys.com/products/625-5m-15-synchronous-timing-belt
+          - /url: https://www.vbeltguys.com/products/625-5m-15-synchronous-timing-belt?variant=16651017027
         - link "625-5m-15":
-          - /url: https://www.vbeltguys.com/products/625-5m-15-synchronous-timing-belt
+          - /url: https://www.vbeltguys.com/products/625-5m-15-synchronous-timing-belt?variant=16651017027
       - cell "125"
       - cell "15 mm"
       - cell "In stock"
     - row "WCP WCP-0631 125 9 mm In stock":
       - cell "WCP WCP-0631":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0631
+          - /url: https://wcproducts.com/products/wcp-0631?variant=42165193670868
           - img "WCP"
         - link "WCP-0631":
-          - /url: https://wcproducts.com/products/wcp-0631
+          - /url: https://wcproducts.com/products/wcp-0631?variant=42165193670868
       - cell "125"
       - cell "9 mm"
       - cell "In stock"
     - row "WCP WCP-1773 125 9 mm In stock":
       - cell "WCP WCP-1773":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-1773
+          - /url: https://wcproducts.com/products/wcp-1773?variant=45898460725460
           - img "WCP"
         - link "WCP-1773":
-          - /url: https://wcproducts.com/products/wcp-1773
+          - /url: https://wcproducts.com/products/wcp-1773?variant=45898460725460
       - cell "125"
       - cell "9 mm"
       - cell "In stock"
     - row "WCP WCP-0534 125 15 mm In stock":
       - cell "WCP WCP-0534":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0534
+          - /url: https://wcproducts.com/products/wcp-0534?variant=43331006300372
           - img "WCP"
         - link "WCP-0534":
-          - /url: https://wcproducts.com/products/wcp-0534
+          - /url: https://wcproducts.com/products/wcp-0534?variant=43331006300372
       - cell "125"
       - cell "15 mm"
       - cell "In stock"
     - row "WCP WCP-1795 125 15 mm In stock":
       - cell "WCP WCP-1795":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-1795
+          - /url: https://wcproducts.com/products/wcp-1795?variant=45898683973844
           - img "WCP"
         - link "WCP-1795":
-          - /url: https://wcproducts.com/products/wcp-1795
+          - /url: https://wcproducts.com/products/wcp-1795?variant=45898683973844
       - cell "125"
       - cell "15 mm"
       - cell "In stock"

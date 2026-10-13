@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { BASE_URL, OG_IMAGE, buildMeta, pageUrl } from '~/lib/seo';
+import { BASE_URL, OG_IMAGE, buildMeta, calcTitle, pageUrl } from '~/lib/seo';
 
 describe('pageUrl', () => {
   it('resolves the root path to the bare base URL with no trailing slash', () => {
@@ -20,10 +20,18 @@ describe('pageUrl', () => {
   });
 });
 
+describe('calcTitle', () => {
+  it('formats a calculator page title as brand, page, then competitions', () => {
+    expect(calcTitle('Belt Calculator')).toBe(
+      'ReCalc | Belt Calculator | FRC & FTC',
+    );
+  });
+});
+
 describe('buildMeta', () => {
   const opts = {
     path: '/belts',
-    title: 'FRC & FTC Belt Calculator | ReCalc',
+    title: 'ReCalc | Belt Calculator | FRC & FTC',
     description: 'Calculate belt drives.',
   };
 

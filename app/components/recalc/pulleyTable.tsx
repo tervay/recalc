@@ -16,6 +16,7 @@ import {
 } from '~/components/ui/table';
 import { useStockStatus } from '~/hooks/useStockStatus';
 import Pulley from '~/lib/models/Pulley';
+import { withVariant } from '~/lib/productUrl';
 import { isUnavailable, stockKey } from '~/lib/stock';
 import type { Bore, Vendor } from '~/lib/types/common';
 import type { JSONPulley } from '~/lib/types/pulleys';
@@ -170,6 +171,8 @@ export function PulleyTable({
               const isNewGroup =
                 prevPulley !== null && prevPulley.teeth !== pulley.teeth;
 
+              const url = withVariant(pulley.url, pulley.variantId);
+
               return (
                 <Fragment key={pulley.sku}>
                   {isNewGroup && (
@@ -187,10 +190,10 @@ export function PulleyTable({
                       <div className="flex items-center gap-2">
                         <VendorBadge
                           vendor={pulley.vendor as Vendor}
-                          url={pulley.url}
+                          url={url}
                         />
                         <Link
-                          to={pulley.url}
+                          to={url}
                           className="text-primary underline-offset-4 hover:underline"
                         >
                           {pulley.sku}

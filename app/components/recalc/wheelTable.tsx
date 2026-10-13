@@ -17,6 +17,7 @@ import {
 import { ToggleGroup, ToggleGroupItem } from '~/components/ui/toggle-group';
 import { useStockStatus } from '~/hooks/useStockStatus';
 import Wheel from '~/lib/models/Wheel';
+import { withVariant } from '~/lib/productUrl';
 import { isUnavailable, stockKey } from '~/lib/stock';
 import {
   compareWheelBores,
@@ -209,6 +210,7 @@ export function WheelTable({
                 const key =
                   wheel.sku ??
                   `${wheel.vendor}-${wheel.name}-${wheel.diameter.baseScalar}-${wheel.bore}-${wheel.durometer}`;
+                const url = withVariant(wheel.url, wheel.variantId);
 
                 return (
                   <Fragment key={key}>
@@ -225,10 +227,10 @@ export function WheelTable({
                     <TableRow className="hover:bg-muted/40">
                       <TableCell className="font-medium">
                         <div className="flex items-center gap-2">
-                          <VendorBadge vendor={wheel.vendor} url={wheel.url} />
+                          <VendorBadge vendor={wheel.vendor} url={url} />
                           <div className="flex flex-col">
                             <Link
-                              to={wheel.url}
+                              to={url}
                               className="text-primary underline-offset-4 hover:underline"
                             >
                               {wheel.name}

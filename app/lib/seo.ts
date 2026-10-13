@@ -17,10 +17,14 @@ export function pageUrl(path: string): string {
   return `${BASE_URL}${normalized}`;
 }
 
+export function calcTitle(page: string): string {
+  return `${SITE_NAME} | ${page} | FRC & FTC`;
+}
+
 interface BuildMetaOpts {
   /** Route path, e.g. "/flywheel". Used for canonical + og:url. */
   path: string;
-  /** Browser tab title. Should be keyword-rich with a brand suffix. */
+  /** Browser tab title. Calculator pages should use calcTitle(). */
   title: string;
   description: string;
   ogType?: 'website' | 'article';

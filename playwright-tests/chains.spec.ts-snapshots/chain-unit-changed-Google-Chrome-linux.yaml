@@ -83,20 +83,20 @@
     - row "Thrifty TTB-0245 36 1.125\" Round In stock":
       - cell "Thrifty TTB-0245":
         - link "Thrifty":
-          - /url: https://www.thethriftybot.com/products/35-chain-billet-sprockets
+          - /url: https://www.thethriftybot.com/products/35-chain-billet-sprockets?variant=50088760410411
           - img "Thrifty"
         - link "TTB-0245":
-          - /url: https://www.thethriftybot.com/products/35-chain-billet-sprockets
+          - /url: https://www.thethriftybot.com/products/35-chain-billet-sprockets?variant=50088760410411
       - cell "36"
       - cell "1.125\" Round"
       - cell "In stock"
     - row "Thrifty TTB-0280 36 1.125\" Round In stock":
       - cell "Thrifty TTB-0280":
         - link "Thrifty":
-          - /url: https://www.thethriftybot.com/products/35-flat-plate-sprockets
+          - /url: https://www.thethriftybot.com/products/35-flat-plate-sprockets?variant=50096983015723
           - img "Thrifty"
         - link "TTB-0280":
-          - /url: https://www.thethriftybot.com/products/35-flat-plate-sprockets
+          - /url: https://www.thethriftybot.com/products/35-flat-plate-sprockets?variant=50096983015723
       - cell "36"
       - cell "1.125\" Round"
       - cell "In stock"
@@ -113,10 +113,10 @@
     - row "WCP WCP-0983 36 SplineXL In stock":
       - cell "WCP WCP-0983":
         - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-0983
+          - /url: https://wcproducts.com/products/wcp-0983?variant=44112357654740
           - img "WCP"
         - link "WCP-0983":
-          - /url: https://wcproducts.com/products/wcp-0983
+          - /url: https://wcproducts.com/products/wcp-0983?variant=44112357654740
       - cell "36"
       - cell "SplineXL"
       - cell "In stock"

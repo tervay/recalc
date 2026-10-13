@@ -53,7 +53,7 @@ export function parseAndyMarkBelts(products: ShopifyProduct[]): JSONBelt[] {
           pitch: 5,
           sku,
           variantId: variant.id,
-          url: urlForHandle(product.handle, 'AndyMark'),
+          url: urlForHandle(product.handle, 'AndyMark', variant.id),
         });
         belts.push(andyMarkBeltToJsonBelt(andyMarkBelt));
       } catch (error) {

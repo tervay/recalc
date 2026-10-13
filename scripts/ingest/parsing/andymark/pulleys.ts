@@ -113,7 +113,7 @@ export function parseAndyMarkPulleys(products: ShopifyProduct[]): JSONPulley[] {
             pitch,
             sku,
             variantId: variant.id,
-            url: urlForHandle(product.handle, 'AndyMark'),
+            url: urlForHandle(product.handle, 'AndyMark', variant.id),
             bore,
           });
           pulleys.push(andyMarkPulleyToJsonPulley(andyMarkPulley));
@@ -139,7 +139,7 @@ export function parseAndyMarkPulleys(products: ShopifyProduct[]): JSONPulley[] {
           pitch,
           sku,
           variantId: variant.id,
-          url: urlForHandle(product.handle, 'AndyMark'),
+          url: urlForHandle(product.handle, 'AndyMark', variant.id),
           bore,
         });
         pulleys.push(andyMarkPulleyToJsonPulley(andyMarkPulley));

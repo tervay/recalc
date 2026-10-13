@@ -53,7 +53,7 @@ export function parseAndyMarkWheels(products: ShopifyProduct[]): JSONWheel[] {
         durometer: parseDurometer(
           optionValueByName(product, variant, /durometer/i) ?? product.title,
         ),
-        url: urlForHandle(product.handle, 'AndyMark'),
+        url: urlForHandle(product.handle, 'AndyMark', variant.id),
         sku,
         variantId: variant.id,
         vendor: 'AndyMark',

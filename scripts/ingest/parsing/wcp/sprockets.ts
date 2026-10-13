@@ -62,7 +62,7 @@ export function parseWCPSprockets(products: ShopifyProduct[]): JSONSprocket[] {
             teeth: parseInt(tooth),
             chainType: chain,
             bore,
-            url: urlForHandle(product.handle, 'WCP'),
+            url: urlForHandle(product.handle, 'WCP', product.variants[0].id),
             sku: product.variants[0].sku,
             variantId: product.variants[0].id,
           });

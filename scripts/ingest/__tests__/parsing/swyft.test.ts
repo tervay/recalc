@@ -61,7 +61,7 @@ describe('parseSwyftBelts', () => {
         pitch: 5,
         sku: 'HTD-40T-15MM',
         variantId: 10,
-        url: 'https://shop.swyftrobotics.com/products/htd-timing-belts',
+        url: 'https://shop.swyftrobotics.com/products/htd-timing-belts?variant=10',
         vendor: 'Swyft',
       },
     ]);

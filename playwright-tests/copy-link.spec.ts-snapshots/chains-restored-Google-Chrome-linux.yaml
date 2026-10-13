@@ -83,20 +83,20 @@
     - row "AndyMark am-4795 40 1.125\" Round In stock":
       - cell "AndyMark am-4795":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets
+          - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets?variant=44495359901868
           - img "AndyMark"
         - link "am-4795":
-          - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets
+          - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets?variant=44495359901868
       - cell "40"
       - cell "1.125\" Round"
       - cell "In stock"
     - row "AndyMark am-4795_black 40 1.125\" Round In stock":
       - cell "AndyMark am-4795_black":
         - link "AndyMark":
-          - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets
+          - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets?variant=44495359934636
           - img "AndyMark"
         - link "am-4795_black":
-          - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets
+          - /url: https://www.andymark.com/products/35-series-bearing-bore-plate-sprockets?variant=44495359934636
       - cell "40"
       - cell "1.125\" Round"
       - cell "In stock"

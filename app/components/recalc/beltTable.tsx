@@ -15,6 +15,7 @@ import {
 } from '~/components/ui/table';
 import { useStockStatus } from '~/hooks/useStockStatus';
 import { Belt } from '~/lib/models/Belt';
+import { withVariant } from '~/lib/productUrl';
 import { isUnavailable, stockKey } from '~/lib/stock';
 import { type JSONBelt, zJSONBeltSchema } from '~/lib/types/belts';
 import type { Vendor } from '~/lib/types/common';
@@ -173,6 +174,7 @@ export function BeltTable({
               // back to defaultSku the same as a missing (null) one.
               // oxlint-disable-next-line typescript/prefer-nullish-coalescing
               const sku = belt.sku || defaultSku;
+              const url = withVariant(belt.url, belt.variantId);
 
               return (
                 <Fragment key={sku}>
@@ -189,12 +191,9 @@ export function BeltTable({
                   <TableRow className="hover:bg-muted/40">
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-2">
-                        <VendorBadge
-                          vendor={belt.vendor as Vendor}
-                          url={belt.url}
-                        />
+                        <VendorBadge vendor={belt.vendor as Vendor} url={url} />
                         <Link
-                          to={belt.url}
+                          to={url}
                           className="text-primary underline-offset-4 hover:underline"
                         >
                           {sku}

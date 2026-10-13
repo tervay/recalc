@@ -8,11 +8,11 @@ import NumberInput from '~/components/recalc/io/number';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
 import { calculateSpacing } from '~/lib/math/gears';
-import { buildMeta, pageUrl } from '~/lib/seo';
+import { buildMeta, calcTitle, pageUrl } from '~/lib/seo';
 import { NumberParam } from '~/lib/types/queryParams';
 
 const GEARS_PATH = '/gears';
-const GEARS_TITLE = 'FRC & FTC Gear Calculator | ReCalc';
+const GEARS_TITLE = calcTitle('Gear Calculator');
 const GEARS_NAME = 'Gears Calculator';
 const GEARS_DESCRIPTION =
   'Calculate gear drive configurations for FRC and FTC robots. Determine gear ratios, center-to-center distances, and mesh compatibility.';

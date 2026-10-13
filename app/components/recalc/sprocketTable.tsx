@@ -15,6 +15,7 @@ import {
 } from '~/components/ui/table';
 import { useStockStatus } from '~/hooks/useStockStatus';
 import Sprocket from '~/lib/models/Sprocket';
+import { withVariant } from '~/lib/productUrl';
 import { isUnavailable, stockKey } from '~/lib/stock';
 import type { Bore, Vendor } from '~/lib/types/common';
 import type { ChainType, JSONSprocket } from '~/lib/types/sprockets';
@@ -111,6 +112,7 @@ export function SprocketTable({
             const prevSprocket = index > 0 ? shownSprockets[index - 1] : null;
             const showDivider =
               prevSprocket !== null && prevSprocket.teeth !== sprocket.teeth;
+            const url = withVariant(sprocket.url, sprocket.variantId);
 
             return (
               <>
@@ -126,9 +128,9 @@ export function SprocketTable({
                     <div className="flex items-center gap-2">
                       <VendorBadge
                         vendor={sprocket.vendor as Vendor}
-                        url={sprocket.url}
+                        url={url}
                       />
-                      <Link to={sprocket.url}>{sprocket.sku}</Link>
+                      <Link to={url}>{sprocket.sku}</Link>
                     </div>
                   </TableCell>
                   <TableCell>{sprocket.teeth}</TableCell>

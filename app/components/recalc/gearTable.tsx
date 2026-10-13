@@ -16,6 +16,7 @@ import {
 } from '~/components/ui/table';
 import { useStockStatus } from '~/hooks/useStockStatus';
 import Gear from '~/lib/models/Gear';
+import { withVariant } from '~/lib/productUrl';
 import { isUnavailable, stockKey } from '~/lib/stock';
 import type { Bore, Vendor } from '~/lib/types/common';
 import type { JSONGear } from '~/lib/types/gears';
@@ -155,6 +156,7 @@ export function GearTable({
                 // oxlint-disable-next-line typescript/prefer-nullish-coalescing
                 gear.sku ||
                 `${gear.vendor}-${gear.teeth}-${gear.dp}-${gear.bore}`;
+              const url = withVariant(gear.url, gear.variantId);
 
               return (
                 <Fragment key={key}>
@@ -171,12 +173,9 @@ export function GearTable({
                   <TableRow className="hover:bg-muted/40">
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-2">
-                        <VendorBadge
-                          vendor={gear.vendor as Vendor}
-                          url={gear.url}
-                        />
+                        <VendorBadge vendor={gear.vendor as Vendor} url={url} />
                         <Link
-                          to={gear.url}
+                          to={url}
                           className="text-primary underline-offset-4 hover:underline"
                         >
                           {

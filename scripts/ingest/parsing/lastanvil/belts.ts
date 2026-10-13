@@ -27,7 +27,7 @@ export function parseLastAnvilBelts(products: ShopifyProduct[]): JSONBelt[] {
         pitch: 5,
         sku: `LA-${variant.sku}`,
         variantId: variant.id,
-        url: urlForHandle(product.handle, 'LastAnvil'),
+        url: urlForHandle(product.handle, 'LastAnvil', variant.id),
         vendor: 'LastAnvil',
       });
     }

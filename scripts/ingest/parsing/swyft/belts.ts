@@ -29,7 +29,7 @@ export function parseSwyftBelts(products: ShopifyProduct[]): JSONBelt[] {
             pitch: Number(pitch),
             sku: variant.sku,
             variantId: variant.id,
-            url: urlForHandle(product.handle, 'Swyft'),
+            url: urlForHandle(product.handle, 'Swyft', variant.id),
             vendor: 'Swyft',
           }),
         );

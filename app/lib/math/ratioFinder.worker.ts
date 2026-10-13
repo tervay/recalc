@@ -6,6 +6,7 @@ import Pulley from '~/lib/models/Pulley';
 import type { RatioDict } from '~/lib/models/Ratio';
 import Ratio from '~/lib/models/Ratio';
 import Sprocket from '~/lib/models/Sprocket';
+import { withVariant } from '~/lib/productUrl';
 import {
   type Bore,
   type StageFamily,
@@ -320,7 +321,7 @@ export async function findGearboxes(
           pitch: g.dp.toString(),
           bore: g.bore as Bore,
           vendor: g.vendor,
-          url: g.url,
+          url: withVariant(g.url, g.variantId),
         });
       });
       return gears;
@@ -402,7 +403,7 @@ export async function findGearboxes(
           pitch: p.pitch.toString(),
           bore: p.bore as Bore,
           vendor: p.vendor,
-          url: p.url,
+          url: withVariant(p.url, p.variantId),
         });
       });
       return pulleys;
@@ -486,7 +487,7 @@ export async function findGearboxes(
           pitch: s.chainType,
           bore: s.bore as Bore,
           vendor: s.vendor,
-          url: s.url,
+          url: withVariant(s.url, s.variantId),
         });
       });
       return sprockets;

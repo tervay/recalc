@@ -94,7 +94,7 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): JSONPulley[] {
               bore: mappedBore,
               sku: variant.sku,
               variantId: variant.id,
-              url: urlForHandle(product.handle, 'Thrifty'),
+              url: urlForHandle(product.handle, 'Thrifty', variant.id),
             });
             pulleys.push(thriftyPulleyToJsonPulley(thriftyPulley));
           } catch (error) {
@@ -119,7 +119,11 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): JSONPulley[] {
               bore,
               sku: product.variants[0].sku,
               variantId: product.variants[0].id,
-              url: urlForHandle(product.handle, 'Thrifty'),
+              url: urlForHandle(
+                product.handle,
+                'Thrifty',
+                product.variants[0].id,
+              ),
             });
             pulleys.push(thriftyPulleyToJsonPulley(thriftyPulley));
           } catch (error) {
@@ -145,7 +149,11 @@ export function parseThriftyPulleys(products: ShopifyProduct[]): JSONPulley[] {
               bore,
               sku: product.variants[0].sku,
               variantId: product.variants[0].id,
-              url: urlForHandle(product.handle, 'Thrifty'),
+              url: urlForHandle(
+                product.handle,
+                'Thrifty',
+                product.variants[0].id,
+              ),
             });
             pulleys.push(thriftyPulleyToJsonPulley(thriftyPulley));
           } catch (error) {
