@@ -3,6 +3,9 @@
   - img
   - img
   - text: Copy Link
+- paragraph: Parameters
+- switch "Allow Half Links"
+- text: Allow Half Links
 - group:
   - button "#25"
   - button "#35"
@@ -10,8 +13,7 @@
 - text: Pitch
 - spinbutton "Pitch": "0.25"
 - combobox: in
-- switch "Allow Half Links"
-- text: Allow Half Links Desired Center
+- text: Desired Center
 - spinbutton "Desired Center": "10"
 - combobox: in
 - text: Extra Center
@@ -19,31 +21,21 @@
 - combobox: in
 - text: Sprocket 1 Teeth
 - spinbutton "Teeth": "16"
-- text: Pitch Diameter
-- spinbutton "Pitch Diameter" [disabled]: "1.273"
+- text: Pitch Diameter 1.273
 - combobox: in
 - text: Sprocket 2 Teeth
 - spinbutton "Teeth": "36"
-- text: Pitch Diameter
-- spinbutton "Pitch Diameter" [disabled]: "2.865"
+- text: Pitch Diameter 2.865
 - combobox: in
 - text: Smaller Chain
 - img
-- text: Suggested Chain Links
-- spinbutton "Chain Links" [disabled]: "106"
-- text: Center Distance
-- spinbutton "Center Distance" [disabled]: "9.968"
+- text: Suggested Chain Links 106 Center Distance 9.968
 - combobox: in
-- text: Difference From Target
-- spinbutton "Difference From Target" [disabled]: "-0.032"
+- text: Error -0.032
 - combobox: in
-- text: Larger Chain Chain Links
-- spinbutton "Chain Links" [disabled]: "108"
-- text: Center Distance
-- spinbutton "Center Distance" [disabled]: "10.219"
+- text: Larger Chain Chain Links 108 Center Distance 10.219
 - combobox: in
-- text: Difference From Target
-- spinbutton "Difference From Target" [disabled]: "0.219"
+- text: Error 0.219
 - combobox: in
 - table:
   - rowgroup:

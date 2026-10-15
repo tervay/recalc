@@ -115,6 +115,7 @@ describe('calculateCenters', () => {
       20,
       30,
       new Measurement(10, 'in'),
+      new Measurement(0, 'in'),
       false,
     );
 
@@ -129,6 +130,7 @@ describe('calculateCenters', () => {
       new Measurement(0.25, 'in'),
       20,
       30,
+      new Measurement(0, 'in'),
       new Measurement(0, 'in'),
       false,
     );
@@ -145,6 +147,7 @@ describe('calculateCenters', () => {
       20,
       30,
       new Measurement(10, 'in'),
+      new Measurement(0, 'in'),
       false,
     );
 
@@ -160,6 +163,7 @@ describe('calculateCenters', () => {
       0,
       30,
       new Measurement(10, 'in'),
+      new Measurement(0, 'in'),
       false,
     );
 
@@ -175,6 +179,7 @@ describe('calculateCenters', () => {
       20,
       0,
       new Measurement(10, 'in'),
+      new Measurement(0, 'in'),
       false,
     );
 
@@ -190,6 +195,7 @@ describe('calculateCenters', () => {
       200,
       200,
       new Measurement(1, 'in'),
+      new Measurement(0, 'in'),
       false,
     );
 
@@ -205,6 +211,7 @@ describe('calculateCenters', () => {
       20,
       30,
       new Measurement(10, 'in'),
+      new Measurement(0, 'in'),
       true,
     );
 
@@ -220,6 +227,7 @@ describe('calculateCenters', () => {
       20,
       30,
       new Measurement(10, 'in'),
+      new Measurement(0, 'in'),
       false,
     );
 
@@ -235,6 +243,7 @@ describe('calculateCenters', () => {
       20,
       20,
       new Measurement(10, 'in'),
+      new Measurement(0, 'in'),
       false,
     );
 
@@ -248,6 +257,7 @@ describe('calculateCenters', () => {
       20,
       30,
       new Measurement(0.1, 'in'),
+      new Measurement(0, 'in'),
       false,
     );
 
@@ -261,6 +271,7 @@ describe('calculateCenters', () => {
       20,
       30,
       new Measurement(100, 'in'),
+      new Measurement(0, 'in'),
       false,
     );
 
@@ -275,6 +286,7 @@ describe('calculateCenters', () => {
       20,
       30,
       desiredCenter,
+      new Measurement(0, 'in'),
       false,
     );
 
@@ -291,5 +303,90 @@ describe('calculateCenters', () => {
         .abs()
         .lte(result.smaller.differenceFromTarget.abs()),
     ).toBe(true);
+  });
+
+  describe('extra center', () => {
+    const extraCenterResult = () =>
+      calculateCenters(
+        new Measurement(0.25, 'in'),
+        20,
+        30,
+        new Measurement(10, 'in'),
+        new Measurement(0.5, 'in'),
+        false,
+      );
+
+    it('adds extra center to the larger distance', () => {
+      expect(extraCenterResult().larger.distance.to('in').scalar).toBeCloseTo(
+        10.617,
+        3,
+      );
+    });
+
+    it('adds extra center to the smaller distance', () => {
+      expect(extraCenterResult().smaller.distance.to('in').scalar).toBeCloseTo(
+        10.367,
+        3,
+      );
+    });
+
+    it('excludes extra center from the larger difference from target', () => {
+      expect(
+        extraCenterResult().larger.differenceFromTarget.to('in').scalar,
+      ).toBeCloseTo(0.117, 3);
+    });
+
+    it('excludes extra center from the smaller difference from target', () => {
+      expect(
+        extraCenterResult().smaller.differenceFromTarget.to('in').scalar,
+      ).toBeCloseTo(-0.133, 3);
+    });
+
+    it('does not change the larger link count', () => {
+      expect(extraCenterResult().larger.links).toBe(106);
+    });
+
+    it('does not change the smaller link count', () => {
+      expect(extraCenterResult().smaller.links).toBe(104);
+    });
+
+    it('converts extra center given in another unit', () => {
+      const result = calculateCenters(
+        new Measurement(0.25, 'in'),
+        20,
+        30,
+        new Measurement(10, 'in'),
+        new Measurement(10, 'mm'),
+        false,
+      );
+
+      expect(result.larger.distance.to('in').scalar).toBeCloseTo(10.511, 3);
+    });
+
+    it('subtracts a negative extra center', () => {
+      const result = calculateCenters(
+        new Measurement(0.25, 'in'),
+        20,
+        30,
+        new Measurement(10, 'in'),
+        new Measurement(-0.5, 'in'),
+        false,
+      );
+
+      expect(result.larger.distance.to('in').scalar).toBeCloseTo(9.617, 3);
+    });
+
+    it('keeps a zero distance for an invalid configuration', () => {
+      const result = calculateCenters(
+        new Measurement(0.25, 'in'),
+        200,
+        200,
+        new Measurement(1, 'in'),
+        new Measurement(0.5, 'in'),
+        false,
+      );
+
+      expect(result.larger.distance.to('in').scalar).toBe(0);
+    });
   });
 });

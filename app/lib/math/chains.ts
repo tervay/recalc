@@ -29,6 +29,7 @@ export function calculateCenters(
   p1Teeth: number,
   p2Teeth: number,
   desiredCenter: Measurement,
+  extraCenter: Measurement,
   allowHalfLinks: boolean,
 ): ChainClosestCentersResult {
   if (
@@ -68,13 +69,13 @@ export function calculateCenters(
   const roundLinksDown = (n: number) =>
     allowHalfLinks ? Math.floor(n) : Math.floor(n / 2) * 2;
 
-  const smallerDistance = calculateCenterDistance(
+  const solvedSmallerDistance = calculateCenterDistance(
     pitch,
     z1,
     z2,
     roundLinksDown(x0),
   );
-  const largerDistance = calculateCenterDistance(
+  const solvedLargerDistance = calculateCenterDistance(
     pitch,
     z1,
     z2,
@@ -84,13 +85,13 @@ export function calculateCenters(
   return {
     smaller: {
       links: roundLinksDown(x0),
-      distance: smallerDistance,
-      differenceFromTarget: smallerDistance.sub(desiredCenter),
+      distance: solvedSmallerDistance.add(extraCenter),
+      differenceFromTarget: solvedSmallerDistance.sub(desiredCenter),
     },
     larger: {
       links: roundLinksUp(x0),
-      distance: largerDistance,
-      differenceFromTarget: largerDistance.sub(desiredCenter),
+      distance: solvedLargerDistance.add(extraCenter),
+      differenceFromTarget: solvedLargerDistance.sub(desiredCenter),
     },
   };
 }

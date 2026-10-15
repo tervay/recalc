@@ -4,6 +4,7 @@
   - img
   - text: Copy Link
 - paragraph: Parameters
+- button "Import from Onshape"
 - switch "Use Custom Belt"
 - text: Use Custom Belt
 - group:
@@ -31,17 +32,25 @@
 - combobox: in
 - text: Smaller Belt
 - img
-- text: Suggested Belt Teeth 40 Center Distance 1.952
+- text: Suggested
+- button "Copy Onshape"
+- button "About Onshape export":
+  - img
+- text: Belt Teeth 40 Center Distance 1.952
 - combobox: in
-- text: P1 Teeth in Mesh 8 P2 Teeth in Mesh 11 Gap Between Pulleys 0.699
+- text: P1 Teeth in Mesh 8 P2 Teeth in Mesh 11 Pulley Clearance 0.699
 - combobox: in
-- text: Diff From Target -0.016
+- text: Error -0.016
 - combobox: in
-- text: Larger Belt Belt Teeth 45 Center Distance 2.448
+- text: Larger Belt
+- button "Copy Onshape"
+- button "About Onshape export":
+  - img
+- text: Belt Teeth 45 Center Distance 2.448
 - combobox: in
-- text: P1 Teeth in Mesh 8 P2 Teeth in Mesh 11 Gap Between Pulleys 1.195
+- text: P1 Teeth in Mesh 8 P2 Teeth in Mesh 11 Pulley Clearance 1.195
 - combobox: in
-- text: Diff From Target 0.479
+- text: Error 0.479
 - combobox: in
 - table:
   - rowgroup:

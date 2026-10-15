@@ -20,6 +20,15 @@ Sometimes you already know which belt you want to use, and you need the C-C dist
 
 **Extra Center** is a mounting allowance. The calculator adds it to the solved C-C distance, which lets you spread the pulleys slightly farther apart than the theoretical distance to take up slack. It applies in both modes. Note that Extra Center does not change **Diff From Target**, which reports how far the belt itself puts you from your target C-C.
 
+### Onshape Origin Cube
+
+The [Origin Cube FeatureScript](https://frcdesign.org/learning-course/stage1/1b/belts/) adds helper functions for belt C-C distances in Onshape sketches, such as `#BeltCTC_5mm(70, 24, 16)` for a 70T belt on 24T and 16T pulleys. The calculator supports `#BeltCTC_3mm`, `#BeltCTC_5mm`, and `#BeltCTC_RT25`.
+
+- **Import:** Paste an expression into the import box and press **Import**. The calculator switches to custom belt mode and fills in the pitch, belt teeth, and pulley teeth. An extra distance after the function, such as `+ 0.5 mm`, fills in **Extra Center**.
+- **Export:** Press **Copy Onshape** on a result card to copy that belt as an expression. A non-zero **Extra Center** is added to the end. The button only appears for 3mm, 5mm, and RT25 pitches.
+
+The Origin Cube may use a slightly different C-C formula than this calculator, so the two can differ in the last decimal places.
+
 ### [HTD vs GT2/3](https://www.sdp-si.com/D265/PDF/D265T003.pdf)
 
 HTD, or High Torque Drive, is a standard for a specific tooth shape on a timing belt. GT2 (Gates Tooth 2), sometimes referred to as PowerGrip GT2, is a secondary revision of HTD with a deeper tooth profile. HTD was developed in order to transmit high torque, but does not excel in high precision scenarios, as it inherently contains a sizeable amount of backlash. HTD and GT2 belts & pulleys are not recommended by Gates to be intermingled, due to load ratings, [but it's been done in FRC before](https://www.chiefdelphi.com/t/do-gt2-belts-work-on-htd-pulleys-reliably/148179), as not every subsystem may reach that load rating maximum.

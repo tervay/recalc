@@ -1,3 +1,4 @@
+import type { Page } from '@playwright/test';
 import { expect, test } from 'playwright-tests/helpers';
 
 test.describe('Belt Calculator', () => {
@@ -227,5 +228,119 @@ test.describe('Belt Calculator', () => {
         name: 'largerDiffFromTarget-unit-changed.yaml',
       },
     );
+  });
+});
+
+test.describe('Belt Calculator Onshape import/export', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/belts');
+    await page.waitForLoadState('networkidle');
+    await page.getByTestId('onshapeImportToggle').click();
+  });
+
+  test('toggle hides the import box', async ({ page }) => {
+    await page.getByTestId('onshapeImportToggle').click();
+    await expect(page.getByTestId('onshapeImport')).toHaveCount(0);
+  });
+
+  async function importExpression(page: Page, expression: string) {
+    await page.getByTestId('onshapeImport').fill(expression);
+    await page.getByTestId('onshapeImportButton').click();
+  }
+
+  test('import enables custom belt mode', async ({ page }) => {
+    await importExpression(page, '#BeltCTC_5mm(70, 24, 16)');
+    await expect(page.getByTestId('specificBeltTeeth')).toBeVisible();
+  });
+
+  test('import sets custom belt teeth', async ({ page }) => {
+    await importExpression(page, '#BeltCTC_5mm(70, 24, 16)');
+    await expect(page.getByTestId('specificBeltTeeth')).toHaveValue('70');
+  });
+
+  test('import sets pulley 1 teeth', async ({ page }) => {
+    await importExpression(page, '#BeltCTC_5mm(70, 24, 16)');
+    await expect(page.getByTestId('p1Teeth')).toHaveValue('24');
+  });
+
+  test('import sets pulley 2 teeth', async ({ page }) => {
+    await importExpression(page, '#BeltCTC_5mm(70, 16, 18)');
+    await expect(page.getByTestId('p2Teeth')).toHaveValue('18');
+  });
+
+  test('import submits on Enter', async ({ page }) => {
+    await page.getByTestId('onshapeImport').fill('#BeltCTC_5mm(70, 24, 16)');
+    await page.getByTestId('onshapeImport').press('Enter');
+    await expect(page.getByTestId('specificBeltTeeth')).toHaveValue('70');
+  });
+
+  test('import sets RT25 pitch', async ({ page }) => {
+    await importExpression(page, '#BeltCTC_RT25(80, 18, 36)');
+    await expect(page.getByTestId('pitch')).toHaveValue('0.25');
+  });
+
+  test('import sets RT25 tooth increment', async ({ page }) => {
+    await importExpression(page, '#BeltCTC_RT25(80, 18, 36)');
+    await expect(page.getByTestId('beltToothIncrement')).toHaveValue('8');
+  });
+
+  test('import sets extra center', async ({ page }) => {
+    await importExpression(page, '#BeltCTC_5mm(70, 24, 16) + 0.5 mm');
+    await expect(page.getByTestId('extraCenter')).toHaveValue('0.5');
+  });
+
+  test('import clears the input on success', async ({ page }) => {
+    await importExpression(page, '#BeltCTC_5mm(70, 24, 16)');
+    await expect(page.getByTestId('onshapeImport')).toHaveValue('');
+  });
+
+  test('invalid import shows an error', async ({ page }) => {
+    await importExpression(page, '#BeltCTC_2mm(70, 24, 16)');
+    await expect(page.getByTestId('onshapeImportError')).toBeVisible();
+  });
+
+  test('invalid import leaves inputs unchanged', async ({ page }) => {
+    await importExpression(page, '#BeltCTC_5mm(70, 24)');
+    await expect(page.getByTestId('p1Teeth')).toHaveValue('16');
+  });
+
+  test('copies the larger belt as an Onshape expression', async ({ page }) => {
+    const teeth = await page.getByTestId('largerBeltTeeth').textContent();
+    await page.getByTestId('largerCopyOnshape').click();
+    const copied = await page.evaluate(() => navigator.clipboard.readText());
+    expect(copied).toBe(`#BeltCTC_5mm(${teeth}, 16, 24)`);
+  });
+
+  test('copies the custom belt with extra center', async ({ page }) => {
+    await importExpression(page, '#BeltCTC_3mm(100, 20, 30) - 0.1 in');
+    await page.getByTestId('customCopyOnshape').click();
+    const copied = await page.evaluate(() => navigator.clipboard.readText());
+    expect(copied).toBe('#BeltCTC_3mm(100, 20, 30) - 0.1 in');
+  });
+
+  test('links to the FRCDesign belt guide', async ({ page }) => {
+    await expect(
+      page.getByRole('link', { name: 'FRCDesign belt guide' }),
+    ).toHaveAttribute(
+      'href',
+      'https://frcdesign.org/learning-course/stage1/1b/belts/',
+    );
+  });
+
+  test('copy help links to the FRCDesign belt guide', async ({ page }) => {
+    await page.getByTestId('largerOnshapeHelp').click();
+    await expect(
+      page
+        .getByRole('dialog')
+        .getByRole('link', { name: 'FRCDesign belt guide' }),
+    ).toHaveAttribute(
+      'href',
+      'https://frcdesign.org/learning-course/stage1/1b/belts/',
+    );
+  });
+
+  test('hides the copy button for unsupported pitches', async ({ page }) => {
+    await page.getByTestId('pitch').fill('2');
+    await expect(page.getByTestId('largerCopyOnshape')).toHaveCount(0);
   });
 });

@@ -1,28 +1,36 @@
+import { cn } from 'cn';
 import { useMemo, useState } from 'react';
 import CheckIcon from '~icons/lucide/check';
 
-import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
 import BooleanInput from '~/components/recalc/io/boolean';
 import {
+  MeasurementDisplayOutput,
   MeasurementInput,
-  MeasurementOutput,
 } from '~/components/recalc/io/measurement';
-import NumberInput, { NumberOutput } from '~/components/recalc/io/number';
+import NumberInput, {
+  NumberDisplayOutput,
+} from '~/components/recalc/io/number';
 import { SprocketTable } from '~/components/recalc/sprocketTable';
 import { Button } from '~/components/ui/button';
 import { ButtonGroup } from '~/components/ui/button-group';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
-import { calculateCenters } from '~/lib/math/chains';
+import {
+  calculateCenters,
+  type ChainClosestCentersResult,
+} from '~/lib/math/chains';
 import Measurement from '~/lib/models/Measurement';
 import { buildMeta, calcTitle, pageUrl } from '~/lib/seo';
+import type { StateHook } from '~/lib/types/common';
 import {
   BooleanParam,
   MeasurementParam,
   NumberParam,
 } from '~/lib/types/queryParams';
+
+type ChainResult = ChainClosestCentersResult['smaller'];
 
 const CHAINS_PATH = '/chains';
 const CHAINS_TITLE = calcTitle('Chain Calculator');
@@ -36,6 +44,14 @@ function SuggestedBadge() {
       <CheckIcon className="size-3" />
       Suggested
     </span>
+  );
+}
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
+      {children}
+    </p>
   );
 }
 
@@ -102,8 +118,15 @@ export default function Chains() {
 
   const results = useMemo(
     () =>
-      calculateCenters(pitch, p1Teeth, p2Teeth, desiredCenter, allowHalfLinks),
-    [pitch, p1Teeth, p2Teeth, desiredCenter, allowHalfLinks],
+      calculateCenters(
+        pitch,
+        p1Teeth,
+        p2Teeth,
+        desiredCenter,
+        extraCenter,
+        allowHalfLinks,
+      ),
+    [pitch, p1Teeth, p2Teeth, desiredCenter, extraCenter, allowHalfLinks],
   );
 
   const isSmallerChainSuggested = useMemo(
@@ -130,182 +153,94 @@ export default function Chains() {
         getSerializedState={() => serializedState}
       />
 
-      <div className="flex flex-col gap-4 px-1 lg:flex-row">
-        <div className="flex min-w-0 flex-1 flex-col gap-x-4 gap-y-2">
-          <div className="flex flex-wrap gap-y-2">
-            <ButtonGroup>
-              <Button
-                variant={activeChainType === '#25' ? 'default' : 'outline'}
-                onClick={() => setPitch(new Measurement(0.25, 'in'))}
-              >
-                #25
-              </Button>
-              <Button
-                variant={activeChainType === '#35' ? 'default' : 'outline'}
-                onClick={() => setPitch(new Measurement(0.375, 'in'))}
-              >
-                #35
-              </Button>
-              <Button
-                variant={activeChainType === '8mm' ? 'default' : 'outline'}
-                onClick={() => setPitch(new Measurement(8, 'mm'))}
-              >
-                8mm
-              </Button>
-            </ButtonGroup>
-          </div>
-
-          <IOLine className="flex-col md:flex-row">
-            <MeasurementInput
-              stateHook={[pitch, setPitch]}
-              label="Pitch"
-              testId="pitch"
-              labelAbove
-            />
-            <div className="flex flex-col">
-              <div className="mb-1 text-xs" aria-hidden>
-                {' '}
+      <div className="flex flex-col gap-6 px-1 lg:flex-row">
+        <div className="flex min-w-0 flex-1 flex-col gap-y-4">
+          <div className="rounded-xl border bg-muted/20 p-4 shadow-sm">
+            <div className="mb-3 flex items-center justify-between">
+              <SectionLabel>Parameters</SectionLabel>
+              <BooleanInput
+                stateHook={[allowHalfLinks, setAllowHalfLinks]}
+                label="Allow Half Links"
+              />
+            </div>
+            <div className="flex flex-col gap-y-3">
+              <div className="flex flex-wrap gap-y-2">
+                <ButtonGroup>
+                  <Button
+                    variant={activeChainType === '#25' ? 'default' : 'outline'}
+                    onClick={() => setPitch(new Measurement(0.25, 'in'))}
+                  >
+                    #25
+                  </Button>
+                  <Button
+                    variant={activeChainType === '#35' ? 'default' : 'outline'}
+                    onClick={() => setPitch(new Measurement(0.375, 'in'))}
+                  >
+                    #35
+                  </Button>
+                  <Button
+                    variant={activeChainType === '8mm' ? 'default' : 'outline'}
+                    onClick={() => setPitch(new Measurement(8, 'mm'))}
+                  >
+                    8mm
+                  </Button>
+                </ButtonGroup>
               </div>
-              <div className="flex h-9 items-center">
-                <BooleanInput
-                  stateHook={[allowHalfLinks, setAllowHalfLinks]}
-                  label="Allow Half Links"
+              <div className="grid gap-3 md:grid-cols-2 md:gap-x-4">
+                <MeasurementInput
+                  stateHook={[pitch, setPitch]}
+                  label="Pitch"
+                  testId="pitch"
+                  labelAbove
+                />
+              </div>
+              <div className="grid gap-3 md:grid-cols-2 md:gap-x-4">
+                <MeasurementInput
+                  stateHook={[desiredCenter, setDesiredCenter]}
+                  label="Desired Center"
+                  testId="desiredCenter"
+                  labelAbove
+                />
+                <MeasurementInput
+                  stateHook={[extraCenter, setExtraCenter]}
+                  label="Extra Center"
+                  testId="extraCenter"
+                  labelAbove
                 />
               </div>
             </div>
-          </IOLine>
-
-          <IOLine className="flex-col md:flex-row">
-            <MeasurementInput
-              stateHook={[desiredCenter, setDesiredCenter]}
-              label="Desired Center"
-              testId="desiredCenter"
-            />
-            <MeasurementInput
-              stateHook={[extraCenter, setExtraCenter]}
-              label="Extra Center"
-              testId="extraCenter"
-            />
-          </IOLine>
-
-          <div className="flex flex-col gap-2 md:flex-row">
-            <Card className="flex-1">
-              <CardHeader>
-                <CardTitle>Sprocket 1</CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-y-2">
-                <IOLine>
-                  <NumberInput
-                    stateHook={[p1Teeth, setP1Teeth]}
-                    label="Teeth"
-                    testId="p1Teeth"
-                    min={1}
-                  />
-                </IOLine>
-                <IOLine>
-                  <MeasurementOutput
-                    state={p1PitchDiameter}
-                    label="Pitch Diameter"
-                    defaultUnit="in"
-                    testId="p1PitchDiameter"
-                  />
-                </IOLine>
-              </CardContent>
-            </Card>
-
-            <Card className="flex-1">
-              <CardHeader>
-                <CardTitle>Sprocket 2</CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-y-2">
-                <IOLine>
-                  <NumberInput
-                    stateHook={[p2Teeth, setP2Teeth]}
-                    label="Teeth"
-                    testId="p2Teeth"
-                    min={1}
-                  />
-                </IOLine>
-                <IOLine>
-                  <MeasurementOutput
-                    state={p2PitchDiameter}
-                    label="Pitch Diameter"
-                    defaultUnit="in"
-                    testId="p2PitchDiameter"
-                  />
-                </IOLine>
-              </CardContent>
-            </Card>
           </div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex min-h-7 items-center gap-2">
-                Smaller Chain
-                {isSmallerChainSuggested && <SuggestedBadge />}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-col gap-y-2">
-              <IOLine className="flex-col md:flex-row">
-                <NumberOutput
-                  state={results.smaller.links}
-                  label="Chain Links"
-                  roundTo={0}
-                  testId="smallerCenter"
-                />
-                <MeasurementOutput
-                  state={results.smaller.distance}
-                  label="Center Distance"
-                  defaultUnit="in"
-                  testId="smallerDistance"
-                />
-              </IOLine>
-              <IOLine>
-                <MeasurementOutput
-                  state={results.smaller.differenceFromTarget}
-                  label="Difference From Target"
-                  defaultUnit="in"
-                  testId="smallerDiffFromTarget"
-                />
-              </IOLine>
-            </CardContent>
-          </Card>
+          <div className="flex flex-col gap-3 md:flex-row">
+            <SprocketCard
+              title="Sprocket 1"
+              teethHook={[p1Teeth, setP1Teeth]}
+              pitchDiameter={p1PitchDiameter}
+              testPrefix="p1"
+            />
+            <SprocketCard
+              title="Sprocket 2"
+              teethHook={[p2Teeth, setP2Teeth]}
+              pitchDiameter={p2PitchDiameter}
+              testPrefix="p2"
+            />
+          </div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex min-h-7 items-center gap-2">
-                Larger Chain
-                {!isSmallerChainSuggested && <SuggestedBadge />}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-col gap-y-2">
-              <IOLine className="flex-col md:flex-row">
-                <NumberOutput
-                  state={results.larger.links}
-                  label="Chain Links"
-                  roundTo={0}
-                  testId="largerCenter"
-                />
-                <MeasurementOutput
-                  state={results.larger.distance}
-                  label="Center Distance"
-                  defaultUnit="in"
-                  testId="largerDistance"
-                />
-              </IOLine>
-              <IOLine>
-                <MeasurementOutput
-                  state={results.larger.differenceFromTarget}
-                  label="Difference From Target"
-                  defaultUnit="in"
-                  testId="largerDiffFromTarget"
-                />
-              </IOLine>
-            </CardContent>
-          </Card>
+          <ChainResultCard
+            title="Smaller Chain"
+            isSuggested={isSmallerChainSuggested}
+            result={results.smaller}
+            testPrefix="smaller"
+          />
+          <ChainResultCard
+            title="Larger Chain"
+            isSuggested={!isSmallerChainSuggested}
+            result={results.larger}
+            testPrefix="larger"
+          />
         </div>
 
-        <div className="flex min-w-0 flex-1 flex-col gap-x-4 gap-y-4">
+        <div className="flex min-w-0 flex-1 flex-col gap-y-4">
           <SprocketTable
             filterFn={(sprocket) =>
               sprocket.pitch.eq(pitch) &&
@@ -315,5 +250,95 @@ export default function Chains() {
         </div>
       </div>
     </div>
+  );
+}
+
+function SprocketCard({
+  title,
+  teethHook,
+  pitchDiameter,
+  testPrefix,
+}: {
+  title: string;
+  teethHook: StateHook<number>;
+  pitchDiameter: Measurement;
+  testPrefix: string;
+}) {
+  return (
+    <Card className="flex-1 gap-3 py-4 shadow-sm">
+      <CardHeader className="px-4">
+        <CardTitle className="border-l-2 border-primary/50 pl-3">
+          {title}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-y-2 px-4">
+        <NumberInput
+          stateHook={teethHook}
+          label="Teeth"
+          testId={`${testPrefix}Teeth`}
+          min={1}
+          labelAbove
+        />
+        <MeasurementDisplayOutput
+          state={pitchDiameter}
+          label="Pitch Diameter"
+          defaultUnit="in"
+          testId={`${testPrefix}PitchDiameter`}
+        />
+      </CardContent>
+    </Card>
+  );
+}
+
+function ChainResultCard({
+  title,
+  isSuggested,
+  result,
+  testPrefix,
+}: {
+  title: string;
+  isSuggested: boolean;
+  result: ChainResult;
+  testPrefix: string;
+}) {
+  return (
+    <Card
+      className={cn(
+        'gap-3 py-4 shadow-sm transition-colors',
+        isSuggested && 'border-primary/40 ring-1 ring-primary/20',
+      )}
+    >
+      <CardHeader className="px-4">
+        <CardTitle className="flex min-h-7 items-center gap-2">
+          {title}
+          {isSuggested && <SuggestedBadge />}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-3 px-4">
+        <div className="grid grid-cols-2 gap-2">
+          <NumberDisplayOutput
+            state={result.links}
+            label="Chain Links"
+            roundTo={0}
+            testId={`${testPrefix}Center`}
+          />
+          <MeasurementDisplayOutput
+            state={result.distance}
+            label="Center Distance"
+            defaultUnit="in"
+            testId={`${testPrefix}Distance`}
+          />
+        </div>
+        <div className="grid grid-cols-2 items-baseline gap-x-2 gap-y-1 px-3">
+          <MeasurementDisplayOutput
+            state={result.differenceFromTarget}
+            label="Error"
+            defaultUnit="in"
+            testId={`${testPrefix}DiffFromTarget`}
+            compact
+          />
+        </div>
+      </CardContent>
+    </Card>
   );
 }
