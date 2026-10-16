@@ -1,3 +1,4 @@
+import { cn } from 'cn';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import TriangleAlertIcon from '~icons/lucide/triangle-alert';
 
@@ -347,6 +348,7 @@ export function MeasurementDisplayOutput({
   testId,
   units,
   conversionFactor,
+  compact = false,
 }: {
   state: Measurement;
   label: string;
@@ -356,6 +358,7 @@ export function MeasurementDisplayOutput({
   testId?: string;
   units?: string[];
   conversionFactor?: Measurement | null;
+  compact?: boolean;
 }) {
   const kinds = useMemo(
     () => units ?? Measurement.choices(state),
@@ -374,11 +377,21 @@ export function MeasurementDisplayOutput({
   const stringified = value.scalar.toFixed(roundTo);
 
   const inner = (
-    <div className="flex flex-col gap-0.5 rounded-lg border bg-muted/30 px-3 py-2">
+    <div
+      className={cn(
+        'flex',
+        compact
+          ? 'items-baseline gap-1.5'
+          : 'flex-col gap-0.5 rounded-lg border bg-muted/30 px-3 py-2',
+      )}
+    >
       <span className="text-xs font-medium text-muted-foreground">{label}</span>
       <div className="flex items-baseline gap-1">
         <span
-          className="text-xl font-semibold tabular-nums"
+          className={cn(
+            'tabular-nums',
+            compact ? 'text-sm font-medium' : 'text-xl font-semibold',
+          )}
           data-testid={testId}
         >
           {stringified}
@@ -390,7 +403,10 @@ export function MeasurementDisplayOutput({
           }}
         >
           <SelectTrigger
-            className="h-auto w-auto border-none bg-transparent p-0 text-sm text-muted-foreground shadow-none focus-visible:ring-0"
+            className={cn(
+              'h-auto w-auto border-none bg-transparent p-0 text-muted-foreground shadow-none focus-visible:ring-0',
+              compact ? 'text-xs' : 'text-sm',
+            )}
             data-testid={testId ? `select${testId}` : undefined}
           >
             <SelectValue />

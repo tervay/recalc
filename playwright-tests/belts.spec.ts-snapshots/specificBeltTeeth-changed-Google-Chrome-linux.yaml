@@ -4,6 +4,7 @@
   - img
   - text: Copy Link
 - paragraph: Parameters
+- button "Import from Onshape"
 - switch "Use Custom Belt" [checked]
 - text: Use Custom Belt
 - group:
@@ -28,9 +29,13 @@
 - spinbutton "Teeth": "24"
 - text: Pitch Diameter 1.504
 - combobox: in
-- text: Custom Belt Belt Teeth 100 Center Distance 7.870
+- text: Custom Belt
+- button "Copy Onshape"
+- button "About Onshape export":
+  - img
+- text: Belt Teeth 100 Center Distance 7.870
 - combobox: in
-- text: P1 Teeth in Mesh 8 P2 Teeth in Mesh 11 Gap Between Pulleys 6.617
+- text: P1 Teeth in Mesh 8 P2 Teeth in Mesh 11 Pulley Clearance 6.617
 - combobox: in
 - table:
   - rowgroup:
