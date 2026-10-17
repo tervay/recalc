@@ -351,9 +351,9 @@ export default function Belts() {
         title="Belt Calculator"
         getSerializedState={() => serializedState}
       />
-      <div className="flex flex-col gap-6 px-1 lg:flex-row">
+      <div className="flex flex-wrap gap-6 px-1">
         {/* Left column: configuration + results */}
-        <div className="flex min-w-0 flex-1 flex-col gap-y-4">
+        <div className="flex min-w-0 grow basis-md flex-col gap-y-4">
           {/* Parameters */}
           <div className="rounded-xl border bg-muted/20 p-4 shadow-sm">
             <div className="mb-3 flex items-center justify-between">
@@ -408,7 +408,7 @@ export default function Belts() {
                 </ButtonGroup>
               </div>
               {showOnshapeImport && <OnshapeImport onImport={importOnshape} />}
-              <div className="flex flex-col gap-3 *:flex-1 md:flex-row md:gap-x-4">
+              <div className="flex flex-wrap gap-x-4 gap-y-3 *:grow *:basis-48">
                 <MeasurementInput
                   stateHook={[pitch, setPitch]}
                   label="Pitch"
@@ -423,7 +423,7 @@ export default function Belts() {
                 />
               </div>
               {useCustomBelt ? (
-                <div className="flex flex-col gap-3 *:flex-1 md:flex-row md:gap-x-4">
+                <div className="flex flex-wrap gap-x-4 gap-y-3 *:grow *:basis-48">
                   <NumberInput
                     stateHook={[customBeltTeeth, setCustomBeltTeeth]}
                     label="Custom Belt Teeth"
@@ -438,7 +438,7 @@ export default function Belts() {
                   />
                 </div>
               ) : (
-                <div className="flex flex-col gap-3 *:flex-1 md:flex-row md:gap-x-4">
+                <div className="flex flex-wrap gap-x-4 gap-y-3 *:grow *:basis-48">
                   <MeasurementInput
                     stateHook={[desiredCenter, setDesiredCenter]}
                     label="Target Center"
@@ -457,8 +457,8 @@ export default function Belts() {
           </div>
 
           {/* Pulley cards */}
-          <div className="flex flex-col gap-3 md:flex-row">
-            <Card className="flex-1 gap-3 py-4 shadow-sm">
+          <div className="flex flex-wrap gap-3">
+            <Card className="grow basis-64 gap-3 py-4 shadow-sm">
               <CardHeader className="px-4">
                 <CardTitle className="border-l-2 border-primary/50 pl-3">
                   Pulley 1
@@ -480,7 +480,7 @@ export default function Belts() {
               </CardContent>
             </Card>
 
-            <Card className="flex-1 gap-3 py-4 shadow-sm">
+            <Card className="grow basis-64 gap-3 py-4 shadow-sm">
               <CardHeader className="px-4">
                 <CardTitle className="border-l-2 border-primary/50 pl-3">
                   Pulley 2
@@ -549,7 +549,7 @@ export default function Belts() {
         </div>
 
         {/* Right column: COTS tables */}
-        <div className="flex min-w-0 flex-1 flex-col gap-y-4">
+        <div className="flex min-w-0 grow basis-md flex-col gap-y-4">
           <PulleyTable filterFn={pulleyFilter} />
           <BeltTable filterFn={beltFilter} />
         </div>

@@ -55,7 +55,7 @@ function GridCell({
       onClick={onSelect}
       data-testid="optimal-config-cell"
       className={cn(
-        'w-full rounded-md border text-center transition-all duration-200',
+        'w-full rounded-md border text-center transition-[color,background-color,box-shadow] duration-200',
         isSelected
           ? 'relative z-10 shadow-lg ring-2 ring-primary ring-offset-2 ring-offset-background'
           : isRecommended
@@ -98,7 +98,7 @@ export function OptimalConfigGrid({
 
     return (
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <div>
             <h2 className="text-sm font-semibold">
               Optimal Configuration Grid
@@ -194,7 +194,7 @@ export function OptimalConfigGrid({
   return (
     <div className="flex flex-col gap-4">
       {/* Header */}
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
           <h2 className="text-sm font-semibold">Optimal Configuration Grid</h2>
           <p className="text-xs text-muted-foreground">

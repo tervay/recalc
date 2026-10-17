@@ -2,6 +2,13 @@
 @import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @slot;
+    }
+  }
+}
 
 /* Base UI data-attribute variants */
 @custom-variant data-open (&[data-open]);
@@ -56,16 +63,8 @@
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
-
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
-}
-
 :root {
+  color-scheme: light;
   --background: #fcfcfc;
   --foreground: #1d2226;
   --card: #fafafa;
@@ -126,6 +125,7 @@ body {
 }
 
 .dark {
+  color-scheme: dark;
   --background: #050607;
   --foreground: #edeff0;
   --card: #090c0d;

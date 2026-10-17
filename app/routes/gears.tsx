@@ -80,16 +80,16 @@ export default function Gears() {
         title="Gears Calculator"
         getSerializedState={() => serializedState}
       />
-      <div className="flex flex-col gap-6 px-1 lg:flex-row">
+      <div className="flex flex-wrap gap-6 px-1">
         {/* Left column: configuration + results */}
-        <div className="flex min-w-0 flex-1 flex-col gap-y-4">
+        <div className="flex min-w-0 grow basis-md flex-col gap-y-4">
           {/* Parameters */}
           <div className="rounded-xl border bg-muted/20 p-4 shadow-sm">
             <div className="mb-3">
               <SectionLabel>Parameters</SectionLabel>
             </div>
             <div className="flex flex-col gap-y-3">
-              <div className="flex flex-col gap-3 *:flex-1 md:flex-row md:gap-x-4">
+              <div className="flex flex-wrap gap-x-4 gap-y-3 *:grow *:basis-48">
                 <NumberInput
                   stateHook={[gear1Teeth, setGear1Teeth]}
                   label="Gear 1 Teeth"
@@ -105,7 +105,7 @@ export default function Gears() {
                   min={1}
                 />
               </div>
-              <div className="flex flex-col gap-3 *:flex-1 md:flex-row md:gap-x-4">
+              <div className="flex flex-wrap gap-x-4 gap-y-3 *:grow *:basis-48">
                 <NumberInput
                   stateHook={[gearDP, setGearDP]}
                   label="Gear DP"
@@ -145,7 +145,7 @@ export default function Gears() {
         </div>
 
         {/* Right column: COTS table */}
-        <div className="flex min-w-0 flex-1 flex-col gap-y-4">
+        <div className="flex min-w-0 grow basis-md flex-col gap-y-4">
           <GearTable
             filterFn={(gear) =>
               (gear.teeth === gear1Teeth || gear.teeth === gear2Teeth) &&

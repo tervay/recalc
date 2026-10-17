@@ -427,7 +427,7 @@ export default function RatioFinder() {
               <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
                 Filters
               </h2>
-              <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,12rem),1fr))] gap-3">
                 <div className="rounded-lg border bg-card p-3">
                   <h3 className="mb-2 text-center text-sm font-semibold text-muted-foreground">
                     Gears
@@ -583,7 +583,7 @@ export default function RatioFinder() {
                 when nothing else reaches the target, so the Stage 3 filter
                 applies only in that case.
               </p>
-              <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,12rem),1fr))] gap-3">
                 <StageFamilySelect
                   families={stage1Families}
                   setFamilies={setStage1Families}

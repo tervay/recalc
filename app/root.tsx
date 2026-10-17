@@ -55,7 +55,7 @@ export function Layout({ children }: { children: ReactNode }) {
             <SidebarInset>
               <Nav />
               <div
-                className="container mx-auto px-2 sm:px-0"
+                className="mx-auto w-[min(100%-2rem,96rem)]"
                 data-testid="entrypoint"
               >
                 {children}

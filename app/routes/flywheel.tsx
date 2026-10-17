@@ -727,7 +727,7 @@ export default function Flywheel() {
                 </h2>
                 {/* Motor and Efficiency each get their own row on mobile;
                     paired at md+. */}
-                <div className="flex flex-col gap-3 *:flex-1 md:flex-row md:gap-x-4">
+                <div className="flex flex-wrap gap-x-4 gap-y-3 *:grow *:basis-48">
                   <MotorInput
                     stateHook={[motor, setMotor]}
                     testId="motor"
@@ -827,7 +827,7 @@ export default function Flywheel() {
 
               {/* Shooter Wheel */}
               <div className="flex flex-col gap-3 p-4">
-                <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                <div className="flex flex-wrap items-center justify-between gap-2">
                   <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
                     Shooter Wheel
                   </h2>
@@ -1264,7 +1264,7 @@ export default function Flywheel() {
               <div className="border-t" />
 
               {/* Feedforward constants + Effective MOI */}
-              <div className="grid grid-cols-1 gap-2 p-4 md:grid-cols-3">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,12rem),1fr))] gap-2 p-4">
                 <MeasurementDisplayOutput
                   state={feedforwardGains.kV}
                   label="kV"
@@ -1372,8 +1372,8 @@ export default function Flywheel() {
 
       {optimizationEnabled && (
         <div className="flex flex-col gap-4 px-1">
-          <div className="flex flex-col gap-4 md:flex-row">
-            <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap gap-4">
+            <div className="min-w-[66%] grow-999 basis-0">
               <OptimalConfigGrid
                 configOptResult={configOptResult}
                 userStatorAmps={userStatorAmps}
@@ -1382,7 +1382,7 @@ export default function Flywheel() {
                 onSelectCell={setSelectedConfigCell}
               />
             </div>
-            <div className="flex w-full flex-col gap-3 md:w-64 md:shrink-0">
+            <div className="flex grow basis-64 flex-col gap-3">
               {selectedConfigCell?.success && (
                 <SelectedConfig
                   config={selectedConfigCell}

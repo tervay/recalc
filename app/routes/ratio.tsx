@@ -146,7 +146,7 @@ export default function Ratio() {
         title="Ratio Calculator"
         getSerializedState={() => serializedState}
       />
-      <div className="flex flex-col gap-4 px-1 *:flex-1 md:flex-row md:gap-x-4">
+      <div className="flex flex-wrap gap-4 px-1 *:grow *:basis-sm">
         {/* Left column: stage inputs */}
         <div className="rounded-xl border bg-muted/20 p-4 shadow-sm">
           <div className="mb-3">

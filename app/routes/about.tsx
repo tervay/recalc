@@ -51,7 +51,7 @@ export default function About() {
         {/* Main Content Grid */}
         <div className="space-y-4">
           {/* What is ReCalc */}
-          <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
+          <div className="group rounded-xl border bg-card p-5 shadow-sm">
             <div className="mb-3 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
                 <InfoIcon className="h-5 w-5 text-primary" />
@@ -87,7 +87,7 @@ export default function About() {
           </div>
 
           {/* Thanks & Credits */}
-          <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
+          <div className="group rounded-xl border bg-card p-5 shadow-sm">
             <div className="mb-3 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
                 <Heart className="h-5 w-5 text-primary" />
@@ -185,7 +185,7 @@ export default function About() {
           </div>
 
           {/* Accuracy Section */}
-          <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
+          <div className="group rounded-xl border bg-card p-5 shadow-sm">
             <div className="mb-3 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
                 <AlertCircle className="h-5 w-5 text-primary" />
@@ -229,7 +229,7 @@ export default function About() {
           </div>
 
           {/* Source Code */}
-          <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
+          <div className="group rounded-xl border bg-card p-5 shadow-sm">
             <div className="mb-3 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
                 <Code className="h-5 w-5 text-primary" />
@@ -256,7 +256,7 @@ export default function About() {
           </div>
 
           {/* Privacy Policy */}
-          <div className="group rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md">
+          <div className="group rounded-xl border bg-card p-5 shadow-sm">
             <div className="mb-3 flex items-center gap-3">
               <div className="rounded-lg bg-primary/10 p-2">
                 <Shield className="h-5 w-5 text-primary" />

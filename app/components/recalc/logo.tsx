@@ -23,7 +23,7 @@ export default function Logo({
         />
         <span
           className={cn(
-            'relative text-3xl font-light transition-all duration-300',
+            'relative text-3xl font-light',
             color === 'white' ? 'text-white' : 'text-black',
           )}
         >
@@ -32,12 +32,11 @@ export default function Logo({
             <>
               {/* Shiny gradient overlay */}
               <span
-                className="absolute inset-0 z-20 block overflow-hidden opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                className="absolute inset-0 z-20 block overflow-hidden opacity-0 transition-opacity duration-300 group-hover:opacity-100 motion-safe:group-hover:animate-[shimmer_2s_infinite]"
                 style={{
                   background:
                     'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
                   backgroundSize: '200% 100%',
-                  animation: 'shimmer 2s infinite',
                   WebkitBackgroundClip: 'text',
                   backgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -50,12 +49,11 @@ export default function Logo({
             <>
               {/* Shiny gradient overlay for black text */}
               <span
-                className="absolute inset-0 z-20 block overflow-hidden opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                className="absolute inset-0 z-20 block overflow-hidden opacity-0 transition-opacity duration-300 group-hover:opacity-100 motion-safe:group-hover:animate-[shimmer_2s_infinite]"
                 style={{
                   background:
                     'linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%)',
                   backgroundSize: '200% 100%',
-                  animation: 'shimmer 2s infinite',
                   WebkitBackgroundClip: 'text',
                   backgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -69,7 +67,7 @@ export default function Logo({
         {/* Animated underline spanning both SVG and text */}
         <span
           className={cn(
-            `absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 transition-all duration-500 group-hover:w-full`,
+            'absolute inset-x-0 bottom-0 h-0.5 scale-x-0 group-hover:scale-x-100 motion-safe:transition-[scale] motion-safe:duration-500',
             color === 'white' ? 'bg-white' : 'bg-black',
           )}
         />
