@@ -73,7 +73,7 @@
   - listitem:
     - img "Velocity (in/s) legend icon"
     - text: Velocity (in/s)
-- application: 0.0181 0.0651 0.1 0.134 0.173 0.211 0.251 0.29 0.332 0.37 0.4 0.441 0.484 Time (s) -60 0 60 120 180 Velocity (in/s) / Current (A) 0 15 30 45 60 Position (in)
+- application: 0.0141 0.0631 0.1 0.134 0.17 0.2 0.241 0.28 0.321 0.364 0.4 0.44 0.484 Time (s) -60 0 60 120 180 Velocity (in/s) / Current (A) 0 15 30 45 60 Position (in)
 - text: kA 0.018
 - combobox: V*s^2/m
 - text: kV 3.097

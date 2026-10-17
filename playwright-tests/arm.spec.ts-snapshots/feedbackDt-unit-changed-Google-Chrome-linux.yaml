@@ -92,7 +92,7 @@
   - listitem:
     - img "Supply Current (A) legend icon"
     - text: Supply Current (A)
-- application: Time (s) Current (A) / Voltage (V) Motor Speed (RPM) 0.021 0.051 0.081 0.111 0.131 0.161 0.191 0.221 0.251 0.273 -25 0 25 50 75 0 1500 3000 4500 6000
+- application: Time (s) Current (A) / Voltage (V) Motor Speed (RPM) 0.011 0.041 0.071 0.101 0.131 0.161 0.191 0.221 0.251 0.273 -25 0 25 50 75 0 1500 3000 4500 6000
 - text: kV 1.967
 - combobox: V*s/rad
 - text: kA 0.011

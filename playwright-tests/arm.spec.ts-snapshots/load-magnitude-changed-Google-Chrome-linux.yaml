@@ -62,7 +62,7 @@
   - listitem:
     - img "Supply Current (A) legend icon"
     - text: Supply Current (A)
-- application: Time (s) Current (A) / Voltage (V) Motor Speed (RPM) 0.021 0.051 0.081 0.111 0.141 0.171 0.201 0.231 0.261 0.291 0.321 0.358 0 20 40 60 80 0 1500 3000 4500 6000
+- application: Time (s) Current (A) / Voltage (V) Motor Speed (RPM) 0.011 0.051 0.091 0.121 0.151 0.181 0.211 0.241 0.281 0.321 0.358 0 20 40 60 80 0 1500 3000 4500 6000
 - heading "Simulation (Going Down)" [level=2]
 - list:
   - listitem:

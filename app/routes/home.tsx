@@ -116,7 +116,7 @@ function CalcCard({ to, title, icon: Icon, className }: CalcCardProps) {
       <div
         className={cn(
           'relative flex h-full items-center gap-3 rounded-xl border bg-card p-5 shadow-sm',
-          'transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md',
+          'transition-[border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md active:scale-[0.98] motion-safe:transition-[border-color,box-shadow,translate,scale]',
           className,
         )}
       >
@@ -126,7 +126,7 @@ function CalcCard({ to, title, icon: Icon, className }: CalcCardProps) {
         <h3 className="flex-1 font-semibold text-foreground transition-colors duration-200 group-hover:text-primary">
           {title}
         </h3>
-        <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground/40 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-primary" />
+        <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground/40 transition-colors duration-200 group-hover:translate-x-0.5 group-hover:text-primary motion-safe:transition-[color,translate]" />
       </div>
     </Link>
   );
@@ -145,14 +145,14 @@ interface InfoCardProps {
 function InfoCard({ to, title, icon: Icon }: InfoCardProps) {
   return (
     <Link to={to} className="group block">
-      <div className="flex items-center gap-3 rounded-xl border bg-card p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md">
+      <div className="flex items-center gap-3 rounded-xl border bg-card p-5 shadow-sm transition-[border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md active:scale-[0.98] motion-safe:transition-[border-color,box-shadow,translate,scale]">
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-muted transition-colors duration-200 group-hover:bg-primary/10">
           <Icon className="h-4 w-4 text-muted-foreground transition-colors duration-200 group-hover:text-primary" />
         </div>
         <p className="flex-1 font-medium text-foreground transition-colors duration-200 group-hover:text-primary">
           {title}
         </p>
-        <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground/40 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-primary" />
+        <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground/40 transition-colors duration-200 group-hover:translate-x-0.5 group-hover:text-primary motion-safe:transition-[color,translate]" />
       </div>
     </Link>
   );
@@ -173,12 +173,12 @@ function Shortcut({ name, url }: ShortcutProps) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex items-center justify-between rounded-lg border bg-card px-4 py-3 text-sm shadow-sm transition-all duration-150 hover:border-primary/40 hover:bg-accent"
+      className="group flex items-center justify-between rounded-lg border bg-card px-4 py-3 text-sm shadow-sm transition-[border-color,background-color] duration-150 hover:border-primary/40 hover:bg-accent active:scale-[0.98] motion-safe:transition-[border-color,background-color,scale]"
     >
       <span className="text-foreground transition-colors duration-150 group-hover:text-primary">
         {name}
       </span>
-      <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground/50 transition-all duration-150 group-hover:text-primary" />
+      <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground/50 transition-colors duration-150 group-hover:text-primary" />
     </a>
   );
 }
@@ -194,7 +194,9 @@ function ShortcutGroup({ label, children }: ShortcutGroupProps) {
       <p className="mb-2.5 text-xs font-medium text-muted-foreground">
         {label}
       </p>
-      <div className="grid gap-2 sm:grid-cols-3">{children}</div>
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,14rem),1fr))] gap-2">
+        {children}
+      </div>
     </div>
   );
 }
@@ -209,11 +211,11 @@ export default function Home() {
     <div className="pb-16">
       <Hero />
 
-      <div className="space-y-14 px-2 md:px-0">
+      <div className="space-y-14">
         {/* Calculators */}
         <section>
           <SectionHeader label="Calculators" />
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,max(18rem,(100%-1.5rem)/3)),1fr))] gap-3">
             <CalcCard
               to="/belts"
               title="Belt Calculator"
@@ -261,7 +263,7 @@ export default function Home() {
         {/* Information */}
         <section>
           <SectionHeader label="Information" />
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,18rem),1fr))] gap-3">
             <InfoCard to="/motors" title="Motors" icon={ZapIcon} />
             <InfoCard to="/about" title="About" icon={InfoIcon} />
           </div>

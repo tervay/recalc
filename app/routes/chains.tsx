@@ -153,8 +153,8 @@ export default function Chains() {
         getSerializedState={() => serializedState}
       />
 
-      <div className="flex flex-col gap-6 px-1 lg:flex-row">
-        <div className="flex min-w-0 flex-1 flex-col gap-y-4">
+      <div className="flex flex-wrap gap-6 px-1">
+        <div className="flex min-w-0 grow basis-md flex-col gap-y-4">
           <div className="rounded-xl border bg-muted/20 p-4 shadow-sm">
             <div className="mb-3 flex items-center justify-between">
               <SectionLabel>Parameters</SectionLabel>
@@ -186,7 +186,7 @@ export default function Chains() {
                   </Button>
                 </ButtonGroup>
               </div>
-              <div className="grid gap-3 md:grid-cols-2 md:gap-x-4">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,12rem),1fr))] gap-x-4 gap-y-3">
                 <MeasurementInput
                   stateHook={[pitch, setPitch]}
                   label="Pitch"
@@ -194,7 +194,7 @@ export default function Chains() {
                   labelAbove
                 />
               </div>
-              <div className="grid gap-3 md:grid-cols-2 md:gap-x-4">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,12rem),1fr))] gap-x-4 gap-y-3">
                 <MeasurementInput
                   stateHook={[desiredCenter, setDesiredCenter]}
                   label="Desired Center"
@@ -211,7 +211,7 @@ export default function Chains() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 md:flex-row">
+          <div className="flex flex-wrap gap-3">
             <SprocketCard
               title="Sprocket 1"
               teethHook={[p1Teeth, setP1Teeth]}
@@ -240,7 +240,7 @@ export default function Chains() {
           />
         </div>
 
-        <div className="flex min-w-0 flex-1 flex-col gap-y-4">
+        <div className="flex min-w-0 grow basis-md flex-col gap-y-4">
           <SprocketTable
             filterFn={(sprocket) =>
               sprocket.pitch.eq(pitch) &&
@@ -265,7 +265,7 @@ function SprocketCard({
   testPrefix: string;
 }) {
   return (
-    <Card className="flex-1 gap-3 py-4 shadow-sm">
+    <Card className="grow basis-64 gap-3 py-4 shadow-sm">
       <CardHeader className="px-4">
         <CardTitle className="border-l-2 border-primary/50 pl-3">
           {title}

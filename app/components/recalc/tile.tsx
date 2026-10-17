@@ -21,7 +21,7 @@ export default function Tile({
     <Link to={to} className="block">
       <div
         className={cn(
-          `group relative overflow-hidden rounded-lg border bg-card p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-primary/50 hover:shadow-md`,
+          `group relative overflow-hidden rounded-lg border bg-card p-6 shadow-sm transition-[border-color,box-shadow] duration-200 hover:-translate-y-1 hover:border-primary/50 hover:shadow-md active:scale-[0.98] motion-safe:transition-[border-color,box-shadow,translate,scale]`,
           className,
         )}
       >
@@ -41,7 +41,7 @@ export default function Tile({
               )}
             </div>
           </div>
-          <ArrowRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-primary" />
+          <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:translate-x-1 group-hover:text-primary motion-safe:transition-transform" />
         </div>
       </div>
     </Link>
