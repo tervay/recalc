@@ -1,6 +1,6 @@
 --- a/wpimath/CMakeLists.txt
 +++ b/wpimath/CMakeLists.txt
-@@ -150,3 +150,8 @@
+@@ -149,3 +149,8 @@
      target_include_directories(wpimath_test PRIVATE src/test/native/include)
      target_link_libraries(wpimath_test wpimath)
  endif()
