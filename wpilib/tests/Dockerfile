@@ -1,4 +1,4 @@
-FROM emscripten/emsdk:6.0.12 AS base
+FROM emscripten/emsdk:6.0.13 AS base
 
 ENV DEBIAN_FRONTEND=noninteractive
 
