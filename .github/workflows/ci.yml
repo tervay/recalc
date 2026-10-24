@@ -80,7 +80,34 @@ jobs:
       - name: Run unit tests
         run: pnpm test --run
 
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Install mise and tools
+        uses: jdx/mise-action@v5
+        with:
+          install: true
+          cache: true
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build application
+        run: pnpm build
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-output
+          path: build
+          retention-days: 1
+
   playwright-tests:
+    needs: [build]
     strategy:
       fail-fast: false
       matrix:
@@ -102,11 +129,21 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install Playwright browsers
-        run: pnpm exec playwright install --with-deps
+      # Tests run against the runner image's preinstalled Google Chrome
+      # (channel: 'chrome'), so only install it if the image lacks it.
+      - name: Ensure Google Chrome is available
+        timeout-minutes: 5
+        run: |
+          if ! command -v google-chrome >/dev/null 2>&1; then
+            pnpm exec playwright install --with-deps chrome
+          fi
+          google-chrome --version
 
-      - name: Build application
-        run: pnpm build
+      - name: Download build output
+        uses: actions/download-artifact@v8
+        with:
+          name: build-output
+          path: build
 
       - name: Run Playwright tests
         run: pnpm exec playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
