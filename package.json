@@ -74,7 +74,7 @@
     "oxfmt": "0.74.0",
     "oxlint": "1.89.0",
     "oxlint-tailwindcss": "1.16.0",
-    "oxlint-tsgolint": "7.0.2004",
+    "oxlint-tsgolint": "7.0.2005",
     "p-limit": "7.3.3",
     "tailwindcss": "4.3.3",
     "tsx": "4.23.15",
