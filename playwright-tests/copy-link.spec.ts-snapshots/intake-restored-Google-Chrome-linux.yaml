@@ -96,9 +96,9 @@
   - button "8mm"
 - table:
   - rowgroup:
-    - row "Matching COTS Wheels77 In stock only":
-      - columnheader "Matching COTS Wheels77 In stock only":
-        - text: Matching COTS Wheels77
+    - row "Matching COTS Wheels80 In stock only":
+      - columnheader "Matching COTS Wheels80 In stock only":
+        - text: Matching COTS Wheels80
         - switch "In stock only"
         - text: In stock only
     - row "Wheel Diameter Bore Type Durometer Stock":
@@ -988,6 +988,45 @@
         - link "6 Spoke Straight Flex Wheel":
           - /url: https://wcproducts.com/products/wcp-1075?variant=47568237363412
         - text: WCP-1075
+      - cell "3.00\""
+      - cell "1/2\" Hex"
+      - cell "Flex"
+      - cell "60A"
+      - cell "In stock"
+    - row "WCP Star Flex Wheel WCP-2204 3.00\" 1/2\" Hex Flex 30A In stock":
+      - cell "WCP Star Flex Wheel WCP-2204":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-2204?variant=48472352522452
+          - img "WCP"
+        - link "Star Flex Wheel":
+          - /url: https://wcproducts.com/products/wcp-2204?variant=48472352522452
+        - text: WCP-2204
+      - cell "3.00\""
+      - cell "1/2\" Hex"
+      - cell "Flex"
+      - cell "30A"
+      - cell "In stock"
+    - row "WCP Star Flex Wheel WCP-2205 3.00\" 1/2\" Hex Flex 45A In stock":
+      - cell "WCP Star Flex Wheel WCP-2205":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-2205?variant=48472352555220
+          - img "WCP"
+        - link "Star Flex Wheel":
+          - /url: https://wcproducts.com/products/wcp-2205?variant=48472352555220
+        - text: WCP-2205
+      - cell "3.00\""
+      - cell "1/2\" Hex"
+      - cell "Flex"
+      - cell "45A"
+      - cell "In stock"
+    - row "WCP Star Flex Wheel WCP-2206 3.00\" 1/2\" Hex Flex 60A In stock":
+      - cell "WCP Star Flex Wheel WCP-2206":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-2206?variant=48472352587988
+          - img "WCP"
+        - link "Star Flex Wheel":
+          - /url: https://wcproducts.com/products/wcp-2206?variant=48472352587988
+        - text: WCP-2206
       - cell "3.00\""
       - cell "1/2\" Hex"
       - cell "Flex"

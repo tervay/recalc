@@ -1,6 +1,7 @@
 import {
   boreForWheel,
   classifyWheelType,
+  isNonWheelVariant,
   isWheelProduct,
   optionValueByName,
   parseDiameterMm,
@@ -28,6 +29,7 @@ export function parseThriftyWheels(products: ShopifyProduct[]): JSONWheel[] {
     if (type === null) continue;
 
     for (const variant of product.variants) {
+      if (isNonWheelVariant(variant.title)) continue;
       const sku = skuOrNull(variant.sku);
 
       const bore = boreForWheel(

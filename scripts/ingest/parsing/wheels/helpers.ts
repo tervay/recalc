@@ -196,6 +196,11 @@ export function isWheelProduct(title: string): boolean {
   return !NON_WHEEL_KEYWORDS.some((keyword) => lower.includes(keyword));
 }
 
+export function isNonWheelVariant(title: string): boolean {
+  const lower = title.toLowerCase();
+  return NON_WHEEL_KEYWORDS.some((keyword) => lower.includes(keyword));
+}
+
 const TYPE_PATTERNS: [RegExp, WheelType][] = [
   [/flex/i, 'Flex'],
   [/omni|dualie/i, 'Omni'],

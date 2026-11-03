@@ -4,9 +4,9 @@
     "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "am-2234a",
-    "variantId": 44495544778924,
-    "url": "https://www.andymark.com/products/42-tooth-5-mm-htd-15-mm-wide-bearing-bore-plastic-pulley",
+    "sku": "am-2234aAUS",
+    "variantId": 45225674768556,
+    "url": "https://www.andymark.com/products/sydney-42-tooth-5-mm-htd-15-mm-wide-bearing-bore-plastic-pulley?variant=45225674768556",
     "bore": "1.125\" Round",
     "vendor": "AndyMark"
   },
@@ -15,9 +15,9 @@
     "width": 15,
     "profile": "HTD",
     "pitch": 5,
-    "sku": "am-2234aAUS",
-    "variantId": 45225674768556,
-    "url": "https://www.andymark.com/products/sydney-42-tooth-5-mm-htd-15-mm-wide-bearing-bore-plastic-pulley",
+    "sku": "am-2234b",
+    "variantId": 47571693830316,
+    "url": "https://www.andymark.com/products/42-tooth-5-mm-htd-15-mm-wide-bearing-bore-pulley?variant=47571693830316",
     "bore": "1.125\" Round",
     "vendor": "AndyMark"
   },
@@ -28,7 +28,7 @@
     "pitch": 5,
     "sku": "am-3265",
     "variantId": 44495416066220,
-    "url": "https://www.andymark.com/products/30-tooth-htd-pulley-with-8-mm-bore",
+    "url": "https://www.andymark.com/products/30-tooth-htd-pulley-with-8-mm-bore?variant=44495416066220",
     "bore": "8mm",
     "vendor": "AndyMark"
   },
@@ -39,7 +39,7 @@
     "pitch": 5,
     "sku": "am-3402",
     "variantId": 44493442318508,
-    "url": "https://www.andymark.com/products/24t-plastic-htd-pulleys",
+    "url": "https://www.andymark.com/products/24t-plastic-htd-pulleys?variant=44493442318508",
     "bore": "3/8\" Hex",
     "vendor": "AndyMark"
   },
@@ -50,7 +50,7 @@
     "pitch": 5,
     "sku": "am-3403",
     "variantId": 44493442351276,
-    "url": "https://www.andymark.com/products/24t-plastic-htd-pulleys",
+    "url": "https://www.andymark.com/products/24t-plastic-htd-pulleys?variant=44493442351276",
     "bore": "1/2\" Hex",
     "vendor": "AndyMark"
   },
@@ -61,7 +61,7 @@
     "pitch": 5,
     "sku": "am-4625",
     "variantId": 44493476659372,
-    "url": "https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley",
+    "url": "https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-9-mm-wide-aluminum-pulley?variant=44493476659372",
     "bore": "1/2\" Hex",
     "vendor": "AndyMark"
   },
@@ -72,7 +72,7 @@
     "pitch": 5,
     "sku": "am-4626",
     "variantId": 44493476626604,
-    "url": "https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley",
+    "url": "https://www.andymark.com/products/24-tooth-0-5-in-hex-bore-5-mm-htd-18-mm-wide-aluminum-pulley?variant=44493476626604",
     "bore": "1/2\" Hex",
     "vendor": "AndyMark"
   },
@@ -83,7 +83,7 @@
     "pitch": 5,
     "sku": "am-4960",
     "variantId": 44493470367916,
-    "url": "https://www.andymark.com/products/14-tooth-0-375-in-hex-bore-htd-pulley",
+    "url": "https://www.andymark.com/products/14-tooth-0-375-in-hex-bore-htd-pulley?variant=44493470367916",
     "bore": "3/8\" Hex",
     "vendor": "AndyMark"
   }

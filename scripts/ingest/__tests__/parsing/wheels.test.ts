@@ -499,6 +499,31 @@ describe('parseThriftyWheels', () => {
     expect(result[0].bore).toBe('1/2" Hex');
   });
 
+  it('skips an accessory variant listed under a wheel product', () => {
+    const result = parseThriftyWheels([
+      makeProduct({
+        id: 7,
+        title: 'Molded 2 Inch Vectored Intake Wheels',
+        handle: '2-inch-vectored-intake-wheels',
+        variants: [
+          makeVariant({
+            id: 70,
+            sku: 'TTB-0387',
+            title: 'Left Handed Vectored Intake Wheel',
+            option1: 'Left Handed Vectored Intake Wheel',
+          }),
+          makeVariant({
+            id: 71,
+            sku: 'TTB-0452',
+            title: 'QTY 6 - 40A Soft Rollers for Vectored Intake Wheels',
+            option1: 'QTY 6 - 40A Soft Rollers for Vectored Intake Wheels',
+          }),
+        ],
+      }),
+    ]);
+    expect(result.map((w) => w.sku)).toEqual(['TTB-0387']);
+  });
+
   it('does not report an unresolved bore for Thrifty wheels', () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     parseThriftyWheels([
