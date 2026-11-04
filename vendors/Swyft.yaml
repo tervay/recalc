@@ -1162,11 +1162,11 @@
   variant:
     id: 48536596021542
     options:
-      - 1/2" Hex High Strength Clamping Split Hub (10 Pack)
+      - 1/2" Hex High Strength Clamping Hub (10 Pack)
       - null
       - null
     sku: SR-HUB-01
-    title: 1/2" Hex High Strength Clamping Split Hub (10 Pack)
+    title: 1/2" Hex High Strength Clamping Hub (10 Pack)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/shaft-collars?variant=48536596054310
@@ -1177,11 +1177,11 @@
   variant:
     id: 48536596054310
     options:
-      - 1/2" Hex Ultra Light Shaft Collar (10 Pack)
+      - 1/2" Hex Ultra Light Clamping Shaft Collar (10 Pack)
       - null
       - null
     sku: SR-HUB-03
-    title: 1/2" Hex Ultra Light Shaft Collar (10 Pack)
+    title: 1/2" Hex Ultra Light Clamping Shaft Collar (10 Pack)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/shaft-collars?variant=48536596087078
@@ -1237,26 +1237,11 @@
   variant:
     id: 52733261709606
     options:
-      - 8mm Round Set Screw Shaft Collar (10 Pack)
+      - 7mm Hex / 15T SplineXS Set Screw Shaft Collar (10 Pack)
       - null
       - null
     sku: SR-COLLAR-8mm-SETSCREW
-    title: 8mm Round Set Screw Shaft Collar (10 Pack)
-  firstSeen: 2026-03-13T11:55:24.292Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/shaft-collars?variant=52733261742374
-  product:
-    handle: shaft-collars
-    id: 9300201898278
-    title: SWYFT Shaft Collars
-  variant:
-    id: 52733261742374
-    options:
-      - 8mm Round Clamping Shaft Collar (10 Pack)
-      - null
-      - null
-    sku: SR-COLLAR-8mm-CLAMPING
-    title: 8mm Round Clamping Shaft Collar (10 Pack)
+    title: 7mm Hex / 15T SplineXS Set Screw Shaft Collar (10 Pack)
   firstSeen: 2026-03-13T11:55:24.292Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/shaft-collars?variant=53841363108134
@@ -1267,11 +1252,11 @@
   variant:
     id: 53841363108134
     options:
-      - 7mm Hex / 15T SplineXS Clamping (10 Pack)
+      - 7mm Hex / 15T SplineXS Clamping Shaft Collar (10 Pack)
       - null
       - null
     sku: SR-COLLAR-HEXSPLINE-CLAMP
-    title: 7mm Hex / 15T SplineXS Clamping (10 Pack)
+    title: 7mm Hex / 15T SplineXS Clamping Shaft Collar (10 Pack)
   firstSeen: 2026-10-01T20:10:18.314Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609259814
@@ -3460,7 +3445,7 @@
       - Bare Motor with 11T 0.5M Pinion (For Flywheel)
       - null
       - null
-    sku: null
+    sku: SR-GEARBOX-36-BARE-11T
     title: Bare Motor with 11T 0.5M Pinion (For Flywheel)
   firstSeen: 2026-10-01T20:10:18.314Z
 - vendor: Swyft
@@ -4450,7 +4435,7 @@
       - 110mm Full Right Module
       - null
       - null
-    sku: null
+    sku: SR-DRIVE-V2-MODULE-110-R
     title: 110mm Full Right Module
   firstSeen: 2026-10-01T20:10:18.314Z
 - vendor: Swyft
@@ -4465,7 +4450,7 @@
       - 110mm Full Left Module
       - null
       - null
-    sku: null
+    sku: SR-DRIVE-V2-MODULE-110-L
     title: 110mm Full Left Module
   firstSeen: 2026-10-01T20:10:18.314Z
 - vendor: Swyft
@@ -4480,7 +4465,7 @@
       - 110mm 2x Wheel Plate Left & 2x Wheel Plate Right & 2x Wheel Hub
       - null
       - null
-    sku: null
+    sku: SR-DRIVE-V2-PLATES-110
     title: 110mm 2x Wheel Plate Left & 2x Wheel Plate Right & 2x Wheel Hub
   firstSeen: 2026-10-01T20:10:18.314Z
 - vendor: Swyft
@@ -4623,7 +4608,7 @@
   product:
     handle: swyft-ascend-frc-telescoping-elevator-v2
     id: 10332753199398
-    title: SWYFT Ascend FRC Telescoping Elevator V2
+    title: SWYFT Telescoping Elevator V2
   variant:
     id: 51774169973030
     options:
@@ -4747,11 +4732,11 @@
   variant:
     id: 52965310464294
     options:
-      - 15T SplineXS | 450mm Length
+      - FRC 15T SplineXS | 450mm Length
       - SS304
       - null
     sku: SR-AXLE-SPLINE-8mm-450mm-SS304
-    title: 15T SplineXS | 450mm Length / SS304
+    title: FRC 15T SplineXS | 450mm Length / SS304
   firstSeen: 2026-07-19T17:34:48.986Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-axles?variant=52965310497062
@@ -4762,12 +4747,42 @@
   variant:
     id: 52965310497062
     options:
-      - 15T SplineXS | 450mm Length
+      - FRC 15T SplineXS | 450mm Length
       - AL7075
       - null
-    sku: SR-AXLE-SPLINE-8mm-450mm-AL7075
-    title: 15T SplineXS | 450mm Length / AL7075
+    sku: SR-AXLE-SPLINE-8mm-450mm-AL7075-FRC
+    title: FRC 15T SplineXS | 450mm Length / AL7075
   firstSeen: 2026-07-19T17:34:48.986Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-axles?variant=54052477206822
+  product:
+    handle: swyft-axles
+    id: 10490609238310
+    title: SWYFT Axles
+  variant:
+    id: 54052477206822
+    options:
+      - FTC 15T SplineXS | 450mm Length
+      - AL7075
+      - null
+    sku: SR-AXLE-SPLINE-8mm-450mm-AL7075-FTC
+    title: FTC 15T SplineXS | 450mm Length / AL7075
+  firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-axles?variant=54052477272358
+  product:
+    handle: swyft-axles
+    id: 10490609238310
+    title: SWYFT Axles
+  variant:
+    id: 54052477272358
+    options:
+      - FTC 15T SplineXS | 450mm Length
+      - SS304
+      - null
+    sku: SR-AXLE-SPLINE-8mm-450mm-SS304-FTC
+    title: FTC 15T SplineXS | 450mm Length / SS304
+  firstSeen: 2026-11-03T17:46:08.807Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/frc-axle-adapters?variant=52970239623462
   product:
@@ -4852,11 +4867,11 @@
   variant:
     id: 53786726236454
     options:
-      - SWYFT USB AprilTag Camera
+      - SWYFT USB Camera
       - null
       - null
     sku: SR-CAMERA-OV9281-USBC-01
-    title: SWYFT USB AprilTag Camera
+    title: SWYFT USB Camera
   firstSeen: 2026-08-31T19:27:54.714Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-usb-camera?variant=53786726269222
@@ -4993,6 +5008,66 @@
     sku: CNC-8060Z-575-1500-3AX
     title: 575x375x68 / 1500W / No
   firstSeen: 2026-08-31T19:27:54.714Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-frc-box-elevator?variant=53488990421286
+  product:
+    handle: swyft-frc-box-elevator
+    id: 10637231882534
+    title: SWYFT Box Elevator
+  variant:
+    id: 53488990421286
+    options:
+      - 2 Stage Base Kit
+      - None
+      - null
+    sku: SR-BOXELEV-FRC-2STG
+    title: 2 Stage Base Kit / None
+  firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-frc-box-elevator?variant=53488990454054
+  product:
+    handle: swyft-frc-box-elevator
+    id: 10637231882534
+    title: SWYFT Box Elevator
+  variant:
+    id: 53488990454054
+    options:
+      - 2 Stage Base Kit
+      - 11x Grid 0.125" Tubes + Endcaps + Axles
+      - null
+    sku: SR-BOXELEV-FRC-2STG-TUBES-0125
+    title: 2 Stage Base Kit / 11x Grid 0.125" Tubes + Endcaps + Axles
+  firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-frc-box-elevator?variant=53488990486822
+  product:
+    handle: swyft-frc-box-elevator
+    id: 10637231882534
+    title: SWYFT Box Elevator
+  variant:
+    id: 53488990486822
+    options:
+      - 2 Stage Base Kit
+      - 11x Grid 0.0625" Tubes + Endcaps + Axles
+      - null
+    sku: SR-BOXELEV-FRC-2STG-TUBES-00625
+    title: 2 Stage Base Kit / 11x Grid 0.0625" Tubes + Endcaps + Axles
+  firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-frc-box-elevator?variant=53488990519590
+  product:
+    handle: swyft-frc-box-elevator
+    id: 10637231882534
+    title: SWYFT Box Elevator
+  variant:
+    id: 53488990519590
+    options:
+      - 2 Stage Base Kit
+      - 11x Grid 0.035" Tubes + Endcaps + Axles
+      - null
+    sku: SR-BOXELEV-FRC-2STG-TUBES-0035
+    title: 2 Stage Base Kit / 11x Grid 0.035" Tubes + Endcaps + Axles
+  firstSeen: 2026-11-03T17:46:08.807Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871281446
   product:
@@ -5954,6 +6029,36 @@
     title: 62PCS Belt Bundle / 10mm Width
   firstSeen: 2026-08-31T19:27:54.714Z
 - vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=54065094197542
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 54065094197542
+    options:
+      - 5 Meter Open Loop (for Elevators)
+      - 5mm Width
+      - null
+    sku: null
+    title: 5 Meter Open Loop (for Elevators) / 5mm Width
+  firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=54065094230310
+  product:
+    handle: gt2-timing-belts
+    id: 10736075276582
+    title: GT2 2mm Pitch Timing Belts
+  variant:
+    id: 54065094230310
+    options:
+      - 5 Meter Open Loop (for Elevators)
+      - 10mm Width
+      - null
+    sku: null
+    title: 5 Meter Open Loop (for Elevators) / 10mm Width
+  firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-90deg-gearbox?variant=53790829183270
   product:
     handle: swyft-90deg-gearbox
@@ -6112,12 +6217,27 @@
   variant:
     id: 53811436716326
     options:
-      - 60 Tooth Hub Mount (1 Pack)
+      - V2 60 Tooth Hub Mount (1 Pack)
       - null
       - null
     sku: SR-PULLEY-GT2-60T
-    title: 60 Tooth Hub Mount (1 Pack)
+    title: V2 60 Tooth Hub Mount (1 Pack)
   firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/gt2-2mm-pulleys?variant=54064429400358
+  product:
+    handle: gt2-2mm-pulleys
+    id: 10744850809126
+    title: GT2 2mm Pulleys
+  variant:
+    id: 54064429400358
+    options:
+      - V1 60 Tooth 7mm Hex Mount (1 Pack)
+      - null
+      - null
+    sku: SR-PULLEY-GT2-60T-7mmHEX
+    title: V1 60 Tooth 7mm Hex Mount (1 Pack)
+  firstSeen: 2026-11-03T17:46:08.807Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-bearing-plates?variant=53823001526566
   product:
@@ -6163,3 +6283,183 @@
     sku: SR-BEARINGHAT-0.5inHEX-BIG
     title: 1/2" Hex Thick (10 Pack)
   firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/25-sprockets?variant=53836933497126
+  product:
+    handle: 25-sprockets
+    id: 10749990109478
+    title: 'SWYFT #25 Sprockets'
+  variant:
+    id: 53836933497126
+    options:
+      - 9 Tooth 7mm Hex Pinion
+      - null
+      - null
+    sku: SR-SPROCKET-#25-9T-7mmHEX-PINION-01
+    title: 9 Tooth 7mm Hex Pinion
+  firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/25-sprockets?variant=53836933529894
+  product:
+    handle: 25-sprockets
+    id: 10749990109478
+    title: 'SWYFT #25 Sprockets'
+  variant:
+    id: 53836933529894
+    options:
+      - 9 Tooth Spline Pinion
+      - null
+      - null
+    sku: SR-SPROCKET-#25-9T-SPLINE-PINION-01
+    title: 9 Tooth Spline Pinion
+  firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/25-sprockets?variant=53836933562662
+  product:
+    handle: 25-sprockets
+    id: 10749990109478
+    title: 'SWYFT #25 Sprockets'
+  variant:
+    id: 53836933562662
+    options:
+      - 11 Tooth Hex
+      - null
+      - null
+    sku: SR-SPROCKET-#25-11T-HEX-01
+    title: 11 Tooth Hex
+  firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/25-sprockets?variant=53836933595430
+  product:
+    handle: 25-sprockets
+    id: 10749990109478
+    title: 'SWYFT #25 Sprockets'
+  variant:
+    id: 53836933595430
+    options:
+      - 14 Tooth Hex
+      - null
+      - null
+    sku: SR-SPROCKET-#25-14T-HEX-01
+    title: 14 Tooth Hex
+  firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/25-sprockets?variant=53836933628198
+  product:
+    handle: 25-sprockets
+    id: 10749990109478
+    title: 'SWYFT #25 Sprockets'
+  variant:
+    id: 53836933628198
+    options:
+      - 18 Tooth Hex
+      - null
+      - null
+    sku: SR-SPROCKET-#25-18T-HEX-01
+    title: 18 Tooth Hex
+  firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/25-sprockets?variant=53836933660966
+  product:
+    handle: 25-sprockets
+    id: 10749990109478
+    title: 'SWYFT #25 Sprockets'
+  variant:
+    id: 53836933660966
+    options:
+      - 22 Tooth Plate
+      - null
+      - null
+    sku: SR-SPROCKET-#25-22T-PLATE-01
+    title: 22 Tooth Plate
+  firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/25-sprockets?variant=53836933693734
+  product:
+    handle: 25-sprockets
+    id: 10749990109478
+    title: 'SWYFT #25 Sprockets'
+  variant:
+    id: 53836933693734
+    options:
+      - 32 Tooth Plate
+      - null
+      - null
+    sku: SR-SPROCKET-#25-32T-PLATE-01
+    title: 32 Tooth Plate
+  firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/25-sprockets?variant=53836933726502
+  product:
+    handle: 25-sprockets
+    id: 10749990109478
+    title: 'SWYFT #25 Sprockets'
+  variant:
+    id: 53836933726502
+    options:
+      - 40 Tooth Plate
+      - null
+      - null
+    sku: SR-SPROCKET-#25-40T-PLATE-01
+    title: 40 Tooth Plate
+  firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/25-sprockets?variant=53836933759270
+  product:
+    handle: 25-sprockets
+    id: 10749990109478
+    title: 'SWYFT #25 Sprockets'
+  variant:
+    id: 53836933759270
+    options:
+      - 48 Tooth Plate
+      - null
+      - null
+    sku: SR-SPROCKET-#25-48T-PLATE-01
+    title: 48 Tooth Plate
+  firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/25-sprockets?variant=53836933792038
+  product:
+    handle: 25-sprockets
+    id: 10749990109478
+    title: 'SWYFT #25 Sprockets'
+  variant:
+    id: 53836933792038
+    options:
+      - 54 Tooth Plate
+      - null
+      - null
+    sku: SR-SPROCKET-#25-54T-PLATE-01
+    title: 54 Tooth Plate
+  firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/25-sprockets?variant=53836933824806
+  product:
+    handle: 25-sprockets
+    id: 10749990109478
+    title: 'SWYFT #25 Sprockets'
+  variant:
+    id: 53836933824806
+    options:
+      - 60 Tooth Plate
+      - null
+      - null
+    sku: SR-SPROCKET-#25-60T-PLATE-01
+    title: 60 Tooth Plate
+  firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/25-sprockets?variant=53836933857574
+  product:
+    handle: 25-sprockets
+    id: 10749990109478
+    title: 'SWYFT #25 Sprockets'
+  variant:
+    id: 53836933857574
+    options:
+      - 72 Tooth Plate
+      - null
+      - null
+    sku: SR-SPROCKET-#25-72T-PLATE-01
+    title: 72 Tooth Plate
+  firstSeen: 2026-11-03T17:46:08.807Z

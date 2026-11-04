@@ -20,9 +20,9 @@
   - text: has 16t but an 18t center distance — use 18t in this calculator.
 - table:
   - rowgroup:
-    - row "Matching COTS Gears28 In stock only":
-      - columnheader "Matching COTS Gears28 In stock only":
-        - text: Matching COTS Gears28
+    - row "Matching COTS Gears27 In stock only":
+      - columnheader "Matching COTS Gears27 In stock only":
+        - text: Matching COTS Gears27
         - switch "In stock only"
         - text: In stock only
     - row "SKU Teeth Bore Stock":
@@ -300,16 +300,6 @@
           - img "WCP"
         - link "WCP-1083":
           - /url: https://wcproducts.com/products/wcp-1083?variant=44259191652564
-      - cell "36"
-      - cell "SplineXL"
-      - cell "In stock"
-    - row "WCP WCP-1192 36 SplineXL In stock":
-      - cell "WCP WCP-1192":
-        - link "WCP":
-          - /url: https://wcproducts.com/products/wcp-1192?variant=44120296947924
-          - img "WCP"
-        - link "WCP-1192":
-          - /url: https://wcproducts.com/products/wcp-1192?variant=44120296947924
       - cell "36"
       - cell "SplineXL"
       - cell "In stock"

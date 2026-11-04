@@ -26,6 +26,42 @@ describe('dedupeParts', () => {
     expect(dedupeParts(parts)).toEqual([parts[0]]);
   });
 
+  it('drops sku-less parts whose urls differ only by variant query', () => {
+    const parts = [
+      {
+        sku: null,
+        vendor: 'Thrifty',
+        url: 'https://x.com/products/a?variant=1',
+        variantId: 1,
+      },
+      {
+        sku: null,
+        vendor: 'Thrifty',
+        url: 'https://x.com/products/a?variant=2',
+        variantId: 2,
+      },
+    ];
+    expect(dedupeParts(parts)).toEqual([parts[0]]);
+  });
+
+  it('keeps sku-less parts with identical specs from different products', () => {
+    const parts = [
+      {
+        sku: null,
+        vendor: 'Thrifty',
+        url: 'https://x.com/products/a?variant=1',
+        variantId: 1,
+      },
+      {
+        sku: null,
+        vendor: 'Thrifty',
+        url: 'https://x.com/products/b?variant=2',
+        variantId: 2,
+      },
+    ];
+    expect(dedupeParts(parts)).toEqual(parts);
+  });
+
   it('keeps sku-less parts that differ in specs', () => {
     const parts = [
       { sku: null, vendor: 'Thrifty', bore: '5mm Hex', variantId: 1 },

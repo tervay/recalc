@@ -6799,7 +6799,7 @@
       - 9.5mm Wide 36 Tooth 1/2" Hex
       - null
       - null
-    sku: TTB-0446
+    sku: TTB-0436
     title: 9.5mm Wide 36 Tooth 1/2" Hex
   firstSeen: 2026-07-30T16:19:48.235Z
 - vendor: Thrifty
@@ -7193,6 +7193,21 @@
     title: Default Title
   firstSeen: 2026-06-06T00:24:49.721Z
 - vendor: Thrifty
+  # https://www.thethriftybot.com/products/thrifty-powerhub?variant=53169178804523
+  product:
+    handle: thrifty-powerhub
+    id: 10336318292267
+    title: Thrifty PowerHub
+  variant:
+    id: 53169178804523
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0375
+    title: Default Title
+  firstSeen: 2026-11-03T17:46:10.166Z
+- vendor: Thrifty
   # https://www.thethriftybot.com/products/qty-4-60a-harder-durometer-3-inch-thrifty-squish-wheels?variant=53169292312875
   product:
     handle: qty-4-60a-harder-durometer-3-inch-thrifty-squish-wheels
@@ -7223,6 +7238,21 @@
     title: Default Title
   firstSeen: 2026-06-06T00:24:49.721Z
 - vendor: Thrifty
+  # https://www.thethriftybot.com/products/thrifty-can-wire-2-0?variant=53641222291755
+  product:
+    handle: thrifty-can-wire-2-0
+    id: 10410102587691
+    title: Thrifty CAN Wire 2.0
+  variant:
+    id: 53641222291755
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0384
+    title: Default Title
+  firstSeen: 2026-11-03T17:46:10.166Z
+- vendor: Thrifty
   # https://www.thethriftybot.com/products/ftc-splinexs-hub?variant=53641222488363
   product:
     handle: ftc-splinexs-hub
@@ -7252,6 +7282,66 @@
     sku: TTB-0389
     title: Default Title
   firstSeen: 2026-10-01T20:10:19.796Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/breakers?variant=53753235145003
+  product:
+    handle: breakers
+    id: 10420784398635
+    title: ATO Auto-resetting Breakers
+  variant:
+    id: 53753235145003
+    options:
+      - '40'
+      - null
+      - null
+    sku: TTB-0431
+    title: '40'
+  firstSeen: 2026-11-03T17:46:10.166Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/breakers?variant=53753235177771
+  product:
+    handle: breakers
+    id: 10420784398635
+    title: ATO Auto-resetting Breakers
+  variant:
+    id: 53753235177771
+    options:
+      - '30'
+      - null
+      - null
+    sku: TTB-0432
+    title: '30'
+  firstSeen: 2026-11-03T17:46:10.166Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/breakers?variant=53753235210539
+  product:
+    handle: breakers
+    id: 10420784398635
+    title: ATO Auto-resetting Breakers
+  variant:
+    id: 53753235210539
+    options:
+      - '20'
+      - null
+      - null
+    sku: TTB-0433
+    title: '20'
+  firstSeen: 2026-11-03T17:46:10.166Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/breakers?variant=53753235243307
+  product:
+    handle: breakers
+    id: 10420784398635
+    title: ATO Auto-resetting Breakers
+  variant:
+    id: 53753235243307
+    options:
+      - '10'
+      - null
+      - null
+    sku: TTB-0434
+    title: '10'
+  firstSeen: 2026-11-03T17:46:10.166Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/7mm-hex-3d-print-insert?variant=53769468674347
   product:
@@ -7297,6 +7387,21 @@
     sku: TTB-0439
     title: Default Title
   firstSeen: 2026-10-01T20:10:19.796Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/thriftiest-voltage-regulator?variant=53769497706795
+  product:
+    handle: thriftiest-voltage-regulator
+    id: 10423893950763
+    title: Thriftiest Voltage Regulator
+  variant:
+    id: 53769497706795
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0440
+    title: Default Title
+  firstSeen: 2026-11-03T17:46:10.166Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/8mm-shaft-collar-hub?variant=53769535422763
   product:
@@ -7501,11 +7606,11 @@
   variant:
     id: 55533448626475
     options:
-      - Left Handed
+      - Left Handed Vectored Intake Wheel
       - null
       - null
     sku: TTB-0387
-    title: Left Handed
+    title: Left Handed Vectored Intake Wheel
   firstSeen: 2026-10-01T20:10:19.796Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/2-inch-vectored-intake-wheels?variant=55533448659243
@@ -7516,12 +7621,27 @@
   variant:
     id: 55533448659243
     options:
-      - Right Handed
+      - Right Handed Vectored Intake Wheel
       - null
       - null
     sku: TTB-0430
-    title: Right Handed
+    title: Right Handed Vectored Intake Wheel
   firstSeen: 2026-10-01T20:10:19.796Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/2-inch-vectored-intake-wheels?variant=67677591011627
+  product:
+    handle: 2-inch-vectored-intake-wheels
+    id: 10605122257195
+    title: Molded 2 Inch Vectored Intake Wheels
+  variant:
+    id: 67677591011627
+    options:
+      - QTY 6 - 40A Soft Rollers for Vectored Intake Wheels
+      - null
+      - null
+    sku: TTB-0452
+    title: QTY 6 - 40A Soft Rollers for Vectored Intake Wheels
+  firstSeen: 2026-11-03T17:46:10.166Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/molded-100mm-mecanum-wheels-for-ftc?variant=55533490602283
   product:
@@ -7567,3 +7687,18 @@
     sku: null
     title: 2 Left & 2 Right Wheels (Full Drive Train)
   firstSeen: 2026-10-01T20:10:19.796Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/qty-10-oversized-36-inch-long-1-2-rounded-hex-shaft-6061-aluminum?variant=67630116438315
+  product:
+    handle: qty-10-oversized-36-inch-long-1-2-rounded-hex-shaft-6061-aluminum
+    id: 15398048989483
+    title: QTY 10 - Oversized 36 Inch Long 1/2" Rounded Hex Shaft - 6061 Aluminum
+  variant:
+    id: 67630116438315
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0068-OVERSIZED
+    title: Default Title
+  firstSeen: 2026-11-03T17:46:10.166Z

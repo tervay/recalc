@@ -3342,20 +3342,6 @@
   firstSeen: 2026-07-19T18:12:42.561Z
 - vendor: REV
   product:
-    handle: https://www.revrobotics.com/rev-41-1629/
-    id: 1235233816
-    title: Slim Shaft Collar - 10 Pack
-  variant:
-    id: 3847818046
-    options:
-      - null
-      - null
-      - null
-    sku: REV-41-1629-PK10
-    title: Slim Shaft Collar - 10 Pack
-  firstSeen: 2026-07-19T18:12:42.561Z
-- vendor: REV
-  product:
     handle: https://www.revrobotics.com/rev-31-1596-rfb/
     id: 1238524891
     title: Driver Hub Repair Service
@@ -6148,6 +6134,34 @@
     sku: REV-21-2120
     title: MAX 90 Degree Gearbox
   firstSeen: 2026-07-19T18:12:42.561Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/shaft-collars
+    id: 1645957084
+    title: Shaft Collars (Shaft Collars - 10 Pack (REV-41-1327-PK10))
+  variant:
+    id: 1559930597
+    options:
+      - null
+      - null
+      - null
+    sku: REV-41-1327-PK10
+    title: Shaft Collars (Shaft Collars - 10 Pack (REV-41-1327-PK10))
+  firstSeen: 2026-11-03T17:46:17.181Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/shaft-collars
+    id: 1645957084
+    title: Shaft Collars (Slim Shaft Collar - 10 Pack (REV-41-1629-PK10))
+  variant:
+    id: 3847818046
+    options:
+      - null
+      - null
+      - null
+    sku: REV-41-1629-PK10
+    title: Shaft Collars (Slim Shaft Collar - 10 Pack (REV-41-1629-PK10))
+  firstSeen: 2026-11-03T17:46:17.181Z
 - vendor: REV
   product:
     handle: https://www.revrobotics.com/rev-29-1223/
@@ -9194,7 +9208,7 @@
   product:
     handle: https://www.revrobotics.com/ION-Compliant-Wheels/
     id: 2454361673
-    title: ION Compliant Wheels (2in - MAXSpline - Medium - Complaint Wheel - 10
+    title: ION Compliant Wheels (2in - MAXSpline - Medium - Compliant Wheel - 10
       Pack (REV-21-6555-PK10))
   variant:
     id: 2299335143
@@ -9203,7 +9217,7 @@
       - null
       - null
     sku: REV-21-6555-PK10
-    title: ION Compliant Wheels (2in - MAXSpline - Medium - Complaint Wheel - 10
+    title: ION Compliant Wheels (2in - MAXSpline - Medium - Compliant Wheel - 10
       Pack (REV-21-6555-PK10))
   firstSeen: 2026-07-19T18:12:42.561Z
 - vendor: REV
@@ -12098,20 +12112,6 @@
   firstSeen: 2026-07-19T18:12:42.561Z
 - vendor: REV
   product:
-    handle: https://www.revrobotics.com/rev-41-1327-pk10/
-    id: 3567215970
-    title: Shaft Collars - 10 Pack
-  variant:
-    id: 1559930597
-    options:
-      - null
-      - null
-      - null
-    sku: REV-41-1327-PK10
-    title: Shaft Collars - 10 Pack
-  firstSeen: 2026-07-19T18:12:42.561Z
-- vendor: REV
-  product:
     handle: https://www.revrobotics.com/rev-19-2487/
     id: 3596165466
     title: MK Battery ES17-12 - 2 Pack
@@ -12124,6 +12124,20 @@
     sku: REV-19-2487-PK2
     title: MK Battery ES17-12 - 2 Pack
   firstSeen: 2026-07-19T18:12:42.561Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/rev-11-3350/
+    id: 3616568798
+    title: SPARK Lite Motor Controller
+  variant:
+    id: 139186537
+    options:
+      - null
+      - null
+      - null
+    sku: REV-11-3350
+    title: SPARK Lite Motor Controller
+  firstSeen: 2026-11-03T17:46:17.181Z
 - vendor: REV
   product:
     handle: https://www.revrobotics.com/1in-extrusion/
@@ -12166,6 +12180,20 @@
     sku: REV-21-2052-PK5
     title: 36in CAN Extension Cable - 5 Pack
   firstSeen: 2026-07-19T18:12:42.561Z
+- vendor: REV
+  product:
+    handle: https://www.revrobotics.com/rev-74-3351/
+    id: 3620940314
+    title: FRC Robot Basics Guidebook V2 - 25 Pack
+  variant:
+    id: 3256673164
+    options:
+      - null
+      - null
+      - null
+    sku: REV-74-3351-PK25
+    title: FRC Robot Basics Guidebook V2 - 25 Pack
+  firstSeen: 2026-11-03T17:46:17.181Z
 - vendor: REV
   product:
     handle: https://www.revrobotics.com/rev-41-2080/
