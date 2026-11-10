@@ -48,6 +48,9 @@
 - combobox: s
 - text: Time to Goal (Down) 1.984
 - combobox: s
+- alert:
+  - img
+  - text: Goal not reached The arm could not reach its goal angle within 3 seconds. Try increasing current limits, changing the ratio, or adding more motors.
 - heading "Simulation (Going Up)" [level=2]
 - list:
   - listitem:
