@@ -13,7 +13,11 @@ import NumberInput from '~/components/recalc/io/number';
 import { Button } from '~/components/ui/button';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
-import { calculateInverseRatio, calculateNetRatio } from '~/lib/math/ratio';
+import {
+  calculateInverseRatio,
+  calculateNetRatio,
+  formatStageRatioLabel,
+} from '~/lib/math/ratio';
 import { ALL_MOTORS } from '~/lib/models/Motor';
 import { buildMeta, calcTitle, pageUrl } from '~/lib/seo';
 import { type RatioPair, RatioPairListParam } from '~/lib/types/queryParams';
@@ -288,14 +292,7 @@ function RatioPairRow({
   const setDrivenValue: Dispatch<SetStateAction<number>> = (value) =>
     onUpdate(id, driving, typeof value === 'function' ? value(driven) : value);
 
-  const stageRatio = driving > 0 ? driven / driving : 0;
-  const inv = stageRatio > 0 ? 1 / stageRatio : 0;
-  const stageRatioLabel =
-    stageRatio === 0
-      ? '—'
-      : stageRatio < 1
-        ? `${inv.toFixed(2)}:1`
-        : `1:${stageRatio.toFixed(2)}`;
+  const stageRatioLabel = formatStageRatioLabel(driving, driven);
 
   return (
     <div className="grid grid-cols-[auto_1fr_1fr_5rem_2.25rem] items-center gap-2 py-2">

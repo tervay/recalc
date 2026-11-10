@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
-import { calculateInverseRatio, calculateNetRatio } from '~/lib/math/ratio';
+import {
+  calculateInverseRatio,
+  calculateNetRatio,
+  formatStageRatioLabel,
+} from '~/lib/math/ratio';
 import type { RatioPair } from '~/lib/types/queryParams';
 
 describe('calculateNetRatio', () => {
@@ -99,5 +103,23 @@ describe('calculateInverseRatio', () => {
   it('handles very large ratios', () => {
     const result = calculateInverseRatio(1000);
     expect(result).toBeCloseTo(0.001, 3);
+  });
+});
+
+describe('formatStageRatioLabel', () => {
+  it('labels a reduction stage the same way as the net ratio', () => {
+    expect(formatStageRatioLabel(18, 72)).toBe('4.00:1');
+  });
+
+  it('labels a step-up stage the same way as the net ratio', () => {
+    expect(formatStageRatioLabel(72, 18)).toBe('1:4.00');
+  });
+
+  it('labels a stage with no driven teeth as undefined', () => {
+    expect(formatStageRatioLabel(18, 0)).toBe('—');
+  });
+
+  it('labels a stage with negative teeth as undefined', () => {
+    expect(formatStageRatioLabel(18, -72)).toBe('—');
   });
 });
