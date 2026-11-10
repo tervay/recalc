@@ -138,8 +138,6 @@ export function calculateGuessedLimits(
   const feasible = powerFeasibleProfile({
     distanceMeters:
       travelDistance.to('m').scalar * (cascade ? CASCADE_TRAVEL_FACTOR : 1),
-    velocityCapMPS: v_max_theoretical.to('m/s').scalar,
-    accelCapMPS2: a_max_theoretical.to('m/s^2').scalar,
     guessVelocityMPS: v_max_guessed.to('m/s').scalar,
     guessAccelMPS2: a_max_guessed.to('m/s^2').scalar,
     massKg: m.to('kg').scalar,
@@ -160,19 +158,17 @@ export function calculateGuessedLimits(
   return {
     v_max_guessed: Measurement.max(
       new Measurement(0.1, 'm/s'),
-      new Measurement(feasible.velocityMPS * VELO_GUESS_FACTOR, 'm/s'),
+      new Measurement(feasible.velocityMPS, 'm/s'),
     ),
     a_max_guessed: Measurement.max(
       new Measurement(0.1, 'm/s^2'),
-      new Measurement(feasible.accelMPS2 * ACCEL_GUESS_FACTOR, 'm/s^2'),
+      new Measurement(feasible.accelMPS2, 'm/s^2'),
     ),
   };
 }
 
 interface PowerFeasibleInput {
   distanceMeters: number;
-  velocityCapMPS: number;
-  accelCapMPS2: number;
   guessVelocityMPS: number;
   guessAccelMPS2: number;
   massKg: number;
@@ -188,12 +184,7 @@ interface PowerFeasibleInput {
 function powerFeasibleProfile(
   i: PowerFeasibleInput,
 ): { velocityMPS: number; accelMPS2: number } | null {
-  if (
-    !Number.isFinite(i.distanceMeters) ||
-    i.distanceMeters <= 0 ||
-    i.velocityCapMPS <= 0 ||
-    i.accelCapMPS2 <= 0
-  ) {
+  if (!Number.isFinite(i.distanceMeters) || i.distanceMeters <= 0) {
     return null;
   }
 
@@ -235,11 +226,11 @@ function powerFeasibleProfile(
 
   const steps = 400;
   for (let step = 1; step <= steps; step++) {
-    const cruiseMPS = (step / steps) * i.velocityCapMPS;
+    const cruiseMPS = (step / steps) * i.guessVelocityMPS;
     const accel = Math.min(
-      i.accelCapMPS2,
+      i.guessAccelMPS2,
       PROFILE_TRACKING_MARGIN *
-        achievableAccelAt(peakVelocity(cruiseMPS, i.accelCapMPS2)),
+        achievableAccelAt(peakVelocity(cruiseMPS, i.guessAccelMPS2)),
     );
     if (accel <= 0.1) {
       continue;

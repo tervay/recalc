@@ -706,6 +706,51 @@ describe('calculateGuessedLimits', () => {
     expect(a).toBeLessThan(20);
   });
 
+  function guessedProfileForStatorLimit(statorAmps: number) {
+    const result = calculateGuessedLimits(
+      Motor.KrakenX60sFOC(2),
+      new Ratio(2, RatioType.REDUCTION),
+      new Measurement(12, 'lb'),
+      new Measurement(1, 'in'),
+      new Measurement(statorAmps, 'A'),
+      new Measurement(60, 'A'),
+      new Measurement(12, 'V'),
+      new Measurement(90, 'deg'),
+      95,
+      false,
+      new Measurement(12, 'V'),
+      new Measurement(60, 'in'),
+    );
+    return {
+      accelerationMPS2: result.a_max_guessed.to('m/s^2').scalar,
+      velocityMPS: result.v_max_guessed.to('m/s').scalar,
+    };
+  }
+
+  const STATOR_SWEEP_AMPS = Array.from({ length: 61 }, (_, i) => 100 + i);
+
+  it('never lowers the guessed acceleration when the stator limit increases', () => {
+    const accelerations = STATOR_SWEEP_AMPS.map(
+      (amps) => guessedProfileForStatorLimit(amps).accelerationMPS2,
+    );
+    const drops = accelerations.filter(
+      (a, i) => i > 0 && a < accelerations[i - 1] - 1e-9,
+    );
+
+    expect(drops).toEqual([]);
+  });
+
+  it('never lowers the guessed velocity when the stator limit increases', () => {
+    const velocities = STATOR_SWEEP_AMPS.map(
+      (amps) => guessedProfileForStatorLimit(amps).velocityMPS,
+    );
+    const drops = velocities.filter(
+      (v, i) => i > 0 && v < velocities[i - 1] - 1e-9,
+    );
+
+    expect(drops).toEqual([]);
+  });
+
   it('is unaffected by rVolts when it exceeds supply voltage', () => {
     const motor = Motor.KrakenX60sFOC(1);
     const ratio = new Ratio(4, RatioType.REDUCTION);

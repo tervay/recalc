@@ -4,6 +4,7 @@ import { calculateGuessedLimits } from '~/lib/math/linear';
 import {
   computeElevatorFeedforwardGains,
   simulateElevatorWpilib,
+  type WpilibElevatorSimState,
 } from '~/lib/math/linear.worker';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
@@ -328,4 +329,84 @@ describe('simulateElevatorWpilib efficiency tracking', () => {
       expect(Math.abs(await endErrorInches(efficiencyPercent))).toBeLessThan(1);
     },
   );
+});
+
+describe('simulateElevatorWpilib stator limit monotonicity', () => {
+  const motor = Motor.KrakenX60sFOC(2);
+  const ratio = new Ratio(2, RatioType.REDUCTION);
+  const load = new Measurement(12, 'lb');
+  const spoolDiameter = new Measurement(1, 'in');
+  const travelDistance = new Measurement(60, 'in');
+  const supplyLimit = new Measurement(60, 'A');
+  const supplyVoltage = new Measurement(12, 'V');
+  const batteryResistance = new Measurement(0.015, 'Ohm');
+  const angle = new Measurement(90, 'deg');
+  const rVolts = new Measurement(12, 'V');
+
+  async function simulateWithStatorLimit(statorAmps: number) {
+    const statorLimit = new Measurement(statorAmps, 'A');
+    const { v_max_guessed, a_max_guessed } = calculateGuessedLimits(
+      motor,
+      ratio,
+      load,
+      spoolDiameter,
+      statorLimit,
+      supplyLimit,
+      supplyVoltage,
+      angle,
+      95,
+      false,
+      rVolts,
+      travelDistance,
+    );
+
+    return simulateElevatorWpilib({
+      motorDict: motor.toDict(),
+      ratio: ratio.toDict(),
+      load: load.toDict(),
+      spoolDiameter: spoolDiameter.toDict(),
+      travelDistance: travelDistance.toDict(),
+      statorLimitDict: statorLimit.toDict(),
+      supplyLimitDict: supplyLimit.toDict(),
+      batteryResistance: batteryResistance.toDict(),
+      batteryVoltage: supplyVoltage.toDict(),
+      angle: angle.toDict(),
+      efficiency: 0.95,
+      cascade: false,
+      batteryVoltageFilterTimeConstantSeconds: 0.1,
+      maxVelocityDict: v_max_guessed.toDict(),
+      maxAccelerationDict: a_max_guessed.toDict(),
+      qPositionMeters: 0.02,
+      qVelocityMPS: 0.4,
+      rVolts: rVolts.to('V').scalar,
+      sensorDelaySeconds: 0.001,
+      kalmanFilterPositionStdDev: KALMAN_FILTER_POSITION_STD_DEV.toDict(),
+      kalmanFilterVelocityStdDev: KALMAN_FILTER_VELOCITY_STD_DEV.toDict(),
+      kalmanFilterEncoderPositionStdDev:
+        KALMAN_FILTER_ENCODER_POSITION_STD_DEV.toDict(),
+    });
+  }
+
+  function timeToGoalSeconds(states: WpilibElevatorSimState[]) {
+    return states[states.length - 1].timeSeconds;
+  }
+
+  it('does not take longer to reach the goal with a 126 A stator limit than with 125 A', async () => {
+    const at125 = timeToGoalSeconds(await simulateWithStatorLimit(125));
+    const at126 = timeToGoalSeconds(await simulateWithStatorLimit(126));
+
+    expect(at126).toBeLessThanOrEqual(at125);
+  });
+
+  it('reaches the goal within 1 inch with a 126 A stator limit', async () => {
+    const states = await simulateWithStatorLimit(126);
+    const lastPos = new Measurement(
+      states[states.length - 1].positionMeters,
+      'm',
+    );
+
+    expect(Math.abs(travelDistance.sub(lastPos).to('in').scalar)).toBeLessThan(
+      1,
+    );
+  });
 });

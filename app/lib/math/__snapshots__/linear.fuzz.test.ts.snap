@@ -20,9 +20,9 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 0.1743588,
     },
     {
-      "accelerationMps2": 44.23615,
+      "accelerationMps2": 52.55501,
       "name": "kraken-x60-foc-1 load=1 spool=2 ratio=1 stator=100 supply=20 angle=90 efficiency=90 cascade=true",
-      "velocityMps": 4.344757,
+      "velocityMps": 5.125456,
     },
     {
       "accelerationMps2": 269.5544,
@@ -50,9 +50,9 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 0.8848491,
     },
     {
-      "accelerationMps2": 11.76005,
+      "accelerationMps2": 248.8405,
       "name": "kraken-x60-foc-1 load=10 spool=0.5 ratio=20 stator=60 supply=20 angle=45 efficiency=90 cascade=true",
-      "velocityMps": 0.1735137,
+      "velocityMps": 0.1739486,
     },
     {
       "accelerationMps2": 6.711148,
@@ -75,9 +75,9 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 12.55032,
     },
     {
-      "accelerationMps2": 6.673631,
+      "accelerationMps2": 8.303424,
       "name": "kraken-x60-foc-1 load=10 spool=6 ratio=20 stator=100 supply=20 angle=90 efficiency=50 cascade=false",
-      "velocityMps": 1.608645,
+      "velocityMps": 1.790185,
     },
     {
       "accelerationMps2": 3.961468,
@@ -115,9 +115,9 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 2.510064,
     },
     {
-      "accelerationMps2": 179.5622,
+      "accelerationMps2": 498.784,
       "name": "kraken-x60-2 load=1 spool=0.5 ratio=1 stator=100 supply=60 angle=90 efficiency=50 cascade=false",
-      "velocityMps": 3.479125,
+      "velocityMps": 3.643062,
     },
     {
       "accelerationMps2": 1926.031,
@@ -130,9 +130,9 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 14.85876,
     },
     {
-      "accelerationMps2": 179.7136,
+      "accelerationMps2": 238.687,
       "name": "kraken-x60-2 load=1 spool=2 ratio=4 stator=100 supply=20 angle=45 efficiency=90 cascade=true",
-      "velocityMps": 3.463826,
+      "velocityMps": 3.646133,
     },
     {
       "accelerationMps2": 8.91681,
@@ -150,9 +150,9 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 2.190786,
     },
     {
-      "accelerationMps2": 55.49352,
+      "accelerationMps2": 55.99609,
       "name": "kraken-x60-2 load=10 spool=0.5 ratio=1 stator=100 supply=60 angle=-90 efficiency=90 cascade=true",
-      "velocityMps": 3.253616,
+      "velocityMps": 3.730686,
     },
     {
       "accelerationMps2": 206.1581,
@@ -165,14 +165,14 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 14.62955,
     },
     {
-      "accelerationMps2": 37.11001,
+      "accelerationMps2": 46.65434,
       "name": "kraken-x60-2 load=10 spool=2 ratio=4 stator=100 supply=20 angle=-90 efficiency=50 cascade=false",
-      "velocityMps": 3.458583,
+      "velocityMps": 3.800641,
     },
     {
-      "accelerationMps2": 35.83176,
+      "accelerationMps2": 223.9485,
       "name": "kraken-x60-2 load=10 spool=2 ratio=20 stator=100 supply=60 angle=45 efficiency=90 cascade=true",
-      "velocityMps": 0.712436,
+      "velocityMps": 0.7269755,
     },
     {
       "accelerationMps2": 3.566724,
@@ -180,14 +180,14 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 10.97216,
     },
     {
-      "accelerationMps2": 16.4681,
+      "accelerationMps2": 23.36099,
       "name": "kraken-x60-2 load=10 spool=6 ratio=20 stator=60 supply=20 angle=90 efficiency=90 cascade=true",
-      "velocityMps": 2.073017,
+      "velocityMps": 2.137131,
     },
     {
-      "accelerationMps2": 1.366261,
+      "accelerationMps2": 1.703968,
       "name": "kraken-x60-2 load=50 spool=0.5 ratio=1 stator=100 supply=20 angle=45 efficiency=50 cascade=false",
-      "velocityMps": 0.6873611,
+      "velocityMps": 0.764237,
     },
     {
       "accelerationMps2": 46.36594,
@@ -205,7 +205,7 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 3.657388,
     },
     {
-      "accelerationMps2": 15.69064,
+      "accelerationMps2": 52.03586,
       "name": "kraken-x60-2 load=50 spool=2 ratio=20 stator=100 supply=60 angle=-90 efficiency=50 cascade=false",
       "velocityMps": 0.7601282,
     },
@@ -215,19 +215,19 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 0.1,
     },
     {
-      "accelerationMps2": 7.144154,
+      "accelerationMps2": 9.328314,
       "name": "kraken-x60-2 load=50 spool=6 ratio=20 stator=60 supply=20 angle=0 efficiency=50 cascade=false",
-      "velocityMps": 2.073739,
+      "velocityMps": 2.194433,
     },
     {
-      "accelerationMps2": 114.7488,
+      "accelerationMps2": 139.0358,
       "name": "neo-1 load=1 spool=0.5 ratio=1 stator=60 supply=60 angle=90 efficiency=90 cascade=true",
-      "velocityMps": 3.124913,
+      "velocityMps": 3.484804,
     },
     {
-      "accelerationMps2": 46.94955,
+      "accelerationMps2": 586.8693,
       "name": "neo-1 load=1 spool=0.5 ratio=4 stator=100 supply=60 angle=45 efficiency=50 cascade=false",
-      "velocityMps": 0.879998,
+      "velocityMps": 0.8888869,
     },
     {
       "accelerationMps2": 20.08541,
@@ -235,14 +235,14 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 15.10079,
     },
     {
-      "accelerationMps2": 89.96368,
+      "accelerationMps2": 118.8588,
       "name": "neo-1 load=1 spool=2 ratio=4 stator=60 supply=20 angle=90 efficiency=50 cascade=false",
-      "velocityMps": 3.243897,
+      "velocityMps": 3.516419,
     },
     {
-      "accelerationMps2": 52.94306,
+      "accelerationMps2": 616.2455,
       "name": "neo-1 load=1 spool=2 ratio=20 stator=100 supply=20 angle=0 efficiency=90 cascade=true",
-      "velocityMps": 0.7056621,
+      "velocityMps": 0.71279,
     },
     {
       "accelerationMps2": 25.97879,
@@ -257,12 +257,12 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
     {
       "accelerationMps2": 16.32013,
       "name": "neo-1 load=10 spool=0.5 ratio=1 stator=60 supply=60 angle=0 efficiency=50 cascade=false",
-      "velocityMps": 3.064997,
+      "velocityMps": 3.519401,
     },
     {
-      "accelerationMps2": 18.35342,
+      "accelerationMps2": 31.24314,
       "name": "neo-1 load=10 spool=0.5 ratio=4 stator=100 supply=20 angle=90 efficiency=90 cascade=true",
-      "velocityMps": 0.8193708,
+      "velocityMps": 0.8579799,
     },
     {
       "accelerationMps2": 0.1,
@@ -272,12 +272,12 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
     {
       "accelerationMps2": 22.53343,
       "name": "neo-1 load=10 spool=2 ratio=4 stator=60 supply=20 angle=-90 efficiency=90 cascade=true",
-      "velocityMps": 3.324807,
+      "velocityMps": 3.867007,
     },
     {
-      "accelerationMps2": 12.88272,
+      "accelerationMps2": 71.57069,
       "name": "neo-1 load=10 spool=2 ratio=20 stator=60 supply=60 angle=90 efficiency=50 cascade=false",
-      "velocityMps": 0.6781676,
+      "velocityMps": 0.6937776,
     },
     {
       "accelerationMps2": 2.040016,
@@ -295,14 +295,14 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 0.1,
     },
     {
-      "accelerationMps2": 6.588469,
+      "accelerationMps2": 10.95548,
       "name": "neo-1 load=50 spool=0.5 ratio=4 stator=100 supply=20 angle=0 efficiency=50 cascade=false",
-      "velocityMps": 0.8286184,
+      "velocityMps": 0.8909875,
     },
     {
-      "accelerationMps2": 4.078538,
+      "accelerationMps2": 50.98173,
       "name": "neo-1 load=50 spool=0.5 ratio=20 stator=100 supply=60 angle=90 efficiency=90 cascade=true",
-      "velocityMps": 0.16988,
+      "velocityMps": 0.171596,
     },
     {
       "accelerationMps2": 0.1,
@@ -310,7 +310,7 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 0.4164865,
     },
     {
-      "accelerationMps2": 15.69064,
+      "accelerationMps2": 19.6133,
       "name": "neo-1 load=50 spool=2 ratio=20 stator=60 supply=60 angle=-90 efficiency=90 cascade=true",
       "velocityMps": 0.8184141,
     },
@@ -325,9 +325,9 @@ exports[`linear formula fuzz cases > produces stable guessed limits across reali
       "velocityMps": 2.13837,
     },
     {
-      "accelerationMps2": 1.132059,
+      "accelerationMps2": 1.221416,
       "name": "neo-1 load=50 spool=6 ratio=20 stator=100 supply=60 angle=90 efficiency=100 cascade=true",
-      "velocityMps": 0.4657082,
+      "velocityMps": 0.5409742,
     },
   ],
 }
