@@ -181,12 +181,16 @@ export async function findGearboxes(
 }> {
   const targetReduction = Ratio.fromDict(targetReduction_);
   const skuInfoMap = new Map<string, SkuInfo>();
+  const partKey = (part: { sku: string | null; url: string }) =>
+    part.sku === null || part.sku === '' ? part.url : part.sku;
 
   const vendorMap: Record<string, boolean> = {
     REV: filters.enableREV,
     WCP: filters.enableWCP,
     AndyMark: filters.enableAM,
     Thrifty: filters.enableTTB,
+    LastAnvil: filters.enableLastAnvil,
+    SDS: filters.enableSDS,
   };
   const boreFilters: Record<string, boolean> = {
     '1/2" Hex': filters.enableBore12Hex,
@@ -315,7 +319,7 @@ export async function findGearboxes(
     ])
     .then((gears) => {
       gears.forEach((g) => {
-        skuInfoMap.set(g.sku ?? '', {
+        skuInfoMap.set(partKey(g), {
           sku: g.sku ?? 'Unknown',
           family: 'Gear',
           pitch: g.dp.toString(),
@@ -397,7 +401,7 @@ export async function findGearboxes(
     )
     .then((pulleys) => {
       pulleys.forEach((p) => {
-        skuInfoMap.set(p.sku ?? '', {
+        skuInfoMap.set(partKey(p), {
           sku: p.sku ?? 'Unknown',
           family: 'Pulley',
           pitch: p.pitch.toString(),
@@ -481,7 +485,7 @@ export async function findGearboxes(
     )
     .then((sprockets) => {
       sprockets.forEach((s) => {
-        skuInfoMap.set(s.sku ?? '', {
+        skuInfoMap.set(partKey(s), {
           sku: s.sku ?? 'Unknown',
           family: 'Sprocket',
           pitch: s.chainType,
@@ -567,10 +571,11 @@ export async function findGearboxes(
   const gear32 = newBucket();
   const gt2 = newBucket();
   const htd = newBucket();
+  const rt25 = newBucket();
   const chain25 = newBucket();
   const chain35 = newBucket();
   for (const g of allGears) {
-    const sku = skuInfoMap.get(g.sku ?? '');
+    const sku = skuInfoMap.get(partKey(g));
     if (!sku) continue;
     // Only 20DP and 32DP gears mesh in the families the finder supports; any
     // other diametral pitch is ignored (matching the original matchers).
@@ -579,14 +584,16 @@ export async function findGearboxes(
   }
   const mm3 = new Measurement(3, 'mm');
   const mm5 = new Measurement(5, 'mm');
+  const quarterInch = new Measurement(0.25, 'in');
   for (const p of allPulleys) {
-    const sku = skuInfoMap.get(p.sku ?? '');
+    const sku = skuInfoMap.get(partKey(p));
     if (!sku) continue;
     if (p.pitch.eq(mm3)) addToBucket(gt2, p.teeth, p.bore, sku);
     else if (p.pitch.eq(mm5)) addToBucket(htd, p.teeth, p.bore, sku);
+    else if (p.pitch.eq(quarterInch)) addToBucket(rt25, p.teeth, p.bore, sku);
   }
   for (const s of allSprockets) {
-    const sku = skuInfoMap.get(s.sku ?? '');
+    const sku = skuInfoMap.get(partKey(s));
     if (!sku) continue;
     if (s.chainType === '#25') addToBucket(chain25, s.teeth, s.bore, sku);
     else if (s.chainType === '#35') addToBucket(chain35, s.teeth, s.bore, sku);
@@ -628,6 +635,7 @@ export async function findGearboxes(
     [gear32, 'Gear'],
     [gt2, 'Belt'],
     [htd, 'Belt'],
+    [rt25, 'Belt'],
     [chain25, 'Chain'],
     [chain35, 'Chain'],
   ];
