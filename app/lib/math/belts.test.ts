@@ -225,6 +225,24 @@ describe('calculateClosestCenters', () => {
     );
   });
 
+  it('picks the same belts after converting the target to inches', () => {
+    const pitch = new Measurement(5, 'mm');
+    const teethFor = (target: Measurement) => {
+      const result = calculateClosestCenters(
+        new SimplePulley(10, pitch),
+        new SimplePulley(10, pitch),
+        target,
+        new Measurement(0, 'mm'),
+        1,
+      );
+      return [result.smaller.belt.teeth, result.larger.belt.teeth];
+    };
+
+    expect(teethFor(new Measurement(500 / 25.4, 'in'))).toEqual(
+      teethFor(new Measurement(500, 'mm')),
+    );
+  });
+
   it('offers no belts when the target center would overlap the pulleys', () => {
     const pitch = new Measurement(5, 'mm');
 

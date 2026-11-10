@@ -277,6 +277,24 @@ describe('calculateCenters', () => {
     expect([result.smaller.links, result.larger.links]).toEqual([48, 49]);
   });
 
+  it('picks the same chains after converting the target to millimeters', () => {
+    const linksFor = (target: Measurement) => {
+      const result = calculateCenters(
+        new Measurement(0.25, 'in'),
+        8,
+        8,
+        target,
+        new Measurement(0, 'in'),
+        false,
+      );
+      return [result.smaller.links, result.larger.links];
+    };
+
+    expect(linksFor(new Measurement(3 * 25.4, 'mm'))).toEqual(
+      linksFor(new Measurement(3, 'in')),
+    );
+  });
+
   it('never offers a smaller chain whose center exceeds the target', () => {
     const desiredCenter = new Measurement(6.85, 'in');
 

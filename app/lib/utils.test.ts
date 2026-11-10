@@ -3,6 +3,10 @@ import { describe, expect, it } from 'vitest';
 import { range, roundToNearestMultiple, toFixed } from '~/lib/utils';
 
 describe('roundToNearestMultiple', () => {
+  it('treats a value within floating-point noise of a multiple as that multiple', () => {
+    expect(roundToNearestMultiple(15.000000000000002, 5)).toBe(15);
+  });
+
   it('rounds up to nearest multiple', () => {
     expect(roundToNearestMultiple(7, 5)).toBe(10);
     expect(roundToNearestMultiple(13, 5)).toBe(15);

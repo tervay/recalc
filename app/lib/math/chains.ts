@@ -1,4 +1,5 @@
 import Measurement from '~/lib/models/Measurement';
+import { snapToInteger } from '~/lib/utils';
 
 export function calculateCenterDistance(
   pitch: Measurement,
@@ -65,7 +66,7 @@ export function calculateCenters(
   const x0 = t1.scalar + t2 + t3.scalar;
 
   const linkStep = allowHalfLinks ? 1 : 2;
-  const smallerLinks = Math.floor(x0 / linkStep) * linkStep;
+  const smallerLinks = Math.floor(snapToInteger(x0 / linkStep)) * linkStep;
   const largerLinks = smallerLinks + linkStep;
 
   const solvedSmallerDistance = calculateCenterDistance(
