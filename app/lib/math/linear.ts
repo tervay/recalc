@@ -21,8 +21,11 @@ export function calculateStallLoad(
     return new Measurement(0, 'lb');
   }
 
-  return new MotorRules(motor, currentLimit, {
-    current: currentLimit,
+  const stallCurrentAtVoltage = statorVoltage.div(motor.resistance);
+  const current = Measurement.min(currentLimit, stallCurrentAtVoltage);
+
+  return new MotorRules(motor, current, {
+    current,
     voltage: statorVoltage,
   })
     .solve()
@@ -80,6 +83,7 @@ export function calculateGuessedLimits(
   const R_equivalent = R_motor.div(motor.quantity);
   const Kt = motor.kT;
   const Kv = motor.kV;
+  const controlVolts = Measurement.min(rVolts, supplyVoltage);
 
   // 1. Max Accel (Stator, Supply, or Voltage Limited)
   // At stall: Pin = Pout => V_batt * I_supply = I_stator^2 * R
@@ -91,8 +95,10 @@ export function calculateGuessedLimits(
     'A',
   );
   const I_stator_limit = statorLimit.mul(motor.quantity);
-  // At stall with max voltage rVolts: I_per_motor = rVolts / R_motor
-  const I_stator_max_from_voltage = rVolts.div(R_motor).mul(motor.quantity);
+  // At stall with max voltage controlVolts: I_per_motor = controlVolts / R_motor
+  const I_stator_max_from_voltage = controlVolts
+    .div(R_motor)
+    .mul(motor.quantity);
   const I_eff_accel = Measurement.min(
     Measurement.min(I_stator_limit, I_stator_max_from_supply),
     I_stator_max_from_voltage,
@@ -145,7 +151,7 @@ export function calculateGuessedLimits(
     equivalentResistanceOhms: R_equivalent.to('Ohm').scalar,
     statorLimitAmps: I_stator_limit.to('A').scalar,
     supplyPowerWatts: powerLimit.to('W').scalar,
-    controlVolts: rVolts.to('V').scalar,
+    controlVolts: controlVolts.to('V').scalar,
     forcePerAmp: Kt.mul(G).mul(eta).div(r).baseScalar,
     mpsPerBackEmfVolt: new Measurement(1, 'V').mul(Kv).mul(r).div(G).removeRad()
       .baseScalar,

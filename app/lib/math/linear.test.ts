@@ -233,6 +233,38 @@ describe('calculateStallLoad', () => {
 
     expect(result.to('lb').scalar).toBeCloseTo(35664.377, 2);
   });
+  it('never exceeds the motor stall torque when the current limit is above stall current', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const stallLoadAt = (amps: number) =>
+      calculateStallLoad(
+        motor,
+        new Measurement(amps, 'A'),
+        new Measurement(2, 'in'),
+        new Ratio(1, RatioType.REDUCTION),
+        100,
+        new Measurement(12, 'V'),
+      ).to('lb').scalar;
+
+    expect(stallLoadAt(1000)).toBeCloseTo(
+      stallLoadAt(motor.stallCurrent.to('A').scalar),
+      6,
+    );
+  });
+
+  it('scales the stall current with stator voltage', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const stallLoadAt = (volts: number) =>
+      calculateStallLoad(
+        motor,
+        new Measurement(1000, 'A'),
+        new Measurement(2, 'in'),
+        new Ratio(1, RatioType.REDUCTION),
+        100,
+        new Measurement(volts, 'V'),
+      ).to('lb').scalar;
+
+    expect(stallLoadAt(6)).toBeLessThan(stallLoadAt(12));
+  });
 });
 
 describe('calculateGuessedLimits', () => {
@@ -797,6 +829,42 @@ describe('calculateGuessedLimits', () => {
     expect(at12V.a_max_guessed.to('m/s^2').scalar).toBeCloseTo(
       at24V.a_max_guessed.to('m/s^2').scalar,
       3,
+    );
+  });
+
+  function accelerationWithUnboundedLimits(
+    rVolts: number,
+    travelDistance: Measurement | null,
+  ): number {
+    return calculateGuessedLimits(
+      Motor.KrakenX60sFOC(1),
+      new Ratio(10, RatioType.REDUCTION),
+      new Measurement(15, 'lb'),
+      new Measurement(1.5, 'in'),
+      new Measurement(1000, 'A'),
+      new Measurement(1000, 'A'),
+      new Measurement(12, 'V'),
+      new Measurement(90, 'deg'),
+      100,
+      false,
+      new Measurement(rVolts, 'V'),
+      travelDistance,
+    ).a_max_guessed.to('m/s^2').scalar;
+  }
+
+  it('caps stall current at the supply voltage when rVolts exceeds it', () => {
+    expect(accelerationWithUnboundedLimits(24, null)).toBeCloseTo(
+      accelerationWithUnboundedLimits(12, null),
+      6,
+    );
+  });
+
+  it('caps the distance-aware profile at the supply voltage when rVolts exceeds it', () => {
+    const travel = new Measurement(60, 'in');
+
+    expect(accelerationWithUnboundedLimits(24, travel)).toBeCloseTo(
+      accelerationWithUnboundedLimits(12, travel),
+      6,
     );
   });
 });
