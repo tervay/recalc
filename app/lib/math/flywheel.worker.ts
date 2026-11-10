@@ -124,12 +124,9 @@ export async function simulateFlywheelWpilib(
   if (
     ratio.asNumber() === 0 ||
     motor.quantity === 0 ||
-    statorLimit.scalar === 0 ||
-    supplyLimit.scalar === 0 ||
     momentOfInertia.scalar === 0 ||
     statorVoltage.scalar === 0 ||
     batteryVoltage.scalar === 0 ||
-    batteryResistance.scalar === 0 ||
     targetRPM.scalar === 0
   ) {
     return [];
