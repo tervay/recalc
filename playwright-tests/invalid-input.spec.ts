@@ -374,3 +374,49 @@ test.describe('Belt Calculator — invalid input', () => {
     await expect(page.getByTestId('entrypoint')).toBeVisible();
   });
 });
+
+// ---------------------------------------------------------------------------
+// Untrusted URL parameters
+// ---------------------------------------------------------------------------
+
+test.describe('Untrusted URL parameters', () => {
+  const param = (value: unknown) => encodeURIComponent(JSON.stringify(value));
+
+  const cases = [
+    {
+      name: 'belts with a time unit for a length',
+      url: `/belts?desiredCenter=${param({ s: 5, u: 's' })}`,
+      renderedTestId: 'desiredCenter',
+    },
+    {
+      name: 'chains with a time unit for a length',
+      url: `/chains?desiredCenter=${param({ s: 5, u: 's' })}`,
+      renderedTestId: 'desiredCenter',
+    },
+    {
+      name: 'motors with an unknown motor',
+      url: `/motors?motor=${encodeURIComponent('Not A Motor')}`,
+      renderedTestId: 'motor',
+    },
+    {
+      name: 'motors with an unknown comparison motor',
+      url: `/motors?motorB=${encodeURIComponent('Not A Motor')}`,
+      renderedTestId: 'motor',
+    },
+    {
+      name: 'linear with an unknown ratio type',
+      url: `/linear?ratio=${param({ magnitude: 2, ratioType: 'Sideways' })}`,
+      renderedTestId: 'linear-main',
+    },
+  ];
+
+  for (const { name, url, renderedTestId } of cases) {
+    test(`${name} still renders the calculator`, async ({ page }) => {
+      await page.goto(url);
+      await page.waitForLoadState('networkidle');
+
+      await expect(page.getByTestId(renderedTestId)).toBeVisible();
+      await expectNoNaNOrInfinity(page);
+    });
+  }
+});
