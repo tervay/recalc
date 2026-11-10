@@ -8,6 +8,7 @@ const CASCADE_TRAVEL_FACTOR = 0.5;
 const ACCEL_GUESS_FACTOR = 0.8;
 const VELO_GUESS_FACTOR = 0.9;
 const PROFILE_TRACKING_MARGIN = 2.0;
+const GUESS_FLOOR = 0.1;
 
 export function calculateStallLoad(
   motor: Motor,
@@ -21,8 +22,11 @@ export function calculateStallLoad(
     return new Measurement(0, 'lb');
   }
 
-  return new MotorRules(motor, currentLimit, {
-    current: currentLimit,
+  const stallCurrentAtVoltage = statorVoltage.div(motor.resistance);
+  const current = Measurement.min(currentLimit, stallCurrentAtVoltage);
+
+  return new MotorRules(motor, current, {
+    current,
     voltage: statorVoltage,
   })
     .solve()
@@ -60,6 +64,8 @@ export function calculateGuessedLimits(
     return {
       v_max_guessed: new Measurement(0, 'm/s'),
       a_max_guessed: new Measurement(0, 'm/s^2'),
+      v_max_achievable: new Measurement(0, 'm/s'),
+      a_max_achievable: new Measurement(0, 'm/s^2'),
     };
   }
 
@@ -80,6 +86,8 @@ export function calculateGuessedLimits(
   const R_equivalent = R_motor.div(motor.quantity);
   const Kt = motor.kT;
   const Kv = motor.kV;
+  const I_free = motor.freeCurrent.mul(motor.quantity);
+  const controlVolts = Measurement.min(rVolts, supplyVoltage);
 
   // 1. Max Accel (Stator, Supply, or Voltage Limited)
   // At stall: Pin = Pout => V_batt * I_supply = I_stator^2 * R
@@ -91,24 +99,31 @@ export function calculateGuessedLimits(
     'A',
   );
   const I_stator_limit = statorLimit.mul(motor.quantity);
-  // At stall with max voltage rVolts: I_per_motor = rVolts / R_motor
-  const I_stator_max_from_voltage = rVolts.div(R_motor).mul(motor.quantity);
+  // At stall with max voltage controlVolts: I_per_motor = controlVolts / R_motor
+  const I_stator_max_from_voltage = controlVolts
+    .div(R_motor)
+    .mul(motor.quantity);
   const I_eff_accel = Measurement.min(
     Measurement.min(I_stator_limit, I_stator_max_from_supply),
     I_stator_max_from_voltage,
   );
 
   const F_gravity = m.mul(Measurement.GRAVITY.abs()).mul(Math.sin(angleRad));
-  const F_max = I_eff_accel.mul(Kt).mul(G).mul(eta).div(r);
+  const F_max = I_eff_accel.sub(I_free)
+    .forcePositive()
+    .mul(Kt)
+    .mul(G)
+    .mul(eta)
+    .div(r);
   const a_max_theoretical = F_max.sub(F_gravity).div(m);
   const a_max_guessed = Measurement.max(
-    new Measurement(0.1, 'm/s^2'),
+    new Measurement(GUESS_FLOOR, 'm/s^2'),
     a_max_theoretical.mul(ACCEL_GUESS_FACTOR),
   );
 
   // 2. Max Velocity (Voltage, Supply, or Control Effort Limited)
   // Holding current needed to fight gravity at steady state (a=0)
-  const I_gravity = F_gravity.div(Kt.mul(G).mul(eta).div(r));
+  const I_gravity = F_gravity.div(Kt.mul(G).mul(eta).div(r)).add(I_free);
   const V_resistance_drop = I_gravity.mul(R_equivalent);
 
   // Velocity is limited by Back-EMF (V_emf).
@@ -127,58 +142,64 @@ export function calculateGuessedLimits(
   );
   const v_max_theoretical = V_emf_max.mul(Kv).mul(r).div(G).removeRad();
   const v_max_guessed = Measurement.max(
-    new Measurement(0.1, 'm/s'),
+    new Measurement(GUESS_FLOOR, 'm/s'),
     v_max_theoretical.mul(VELO_GUESS_FACTOR),
   );
 
+  const achievable = {
+    v_max_achievable: v_max_guessed,
+    a_max_achievable: a_max_guessed,
+  };
+
   if (travelDistance === null) {
-    return { v_max_guessed, a_max_guessed };
+    return { v_max_guessed, a_max_guessed, ...achievable };
   }
 
   const feasible = powerFeasibleProfile({
     distanceMeters:
       travelDistance.to('m').scalar * (cascade ? CASCADE_TRAVEL_FACTOR : 1),
-    velocityCapMPS: v_max_theoretical.to('m/s').scalar,
-    accelCapMPS2: a_max_theoretical.to('m/s^2').scalar,
     guessVelocityMPS: v_max_guessed.to('m/s').scalar,
     guessAccelMPS2: a_max_guessed.to('m/s^2').scalar,
     massKg: m.to('kg').scalar,
     gravityForceN: F_gravity.to('N').scalar,
     equivalentResistanceOhms: R_equivalent.to('Ohm').scalar,
     statorLimitAmps: I_stator_limit.to('A').scalar,
+    freeCurrentAmps: I_free.to('A').scalar,
     supplyPowerWatts: powerLimit.to('W').scalar,
-    controlVolts: rVolts.to('V').scalar,
+    controlVolts: controlVolts.to('V').scalar,
     forcePerAmp: Kt.mul(G).mul(eta).div(r).baseScalar,
     mpsPerBackEmfVolt: new Measurement(1, 'V').mul(Kv).mul(r).div(G).removeRad()
       .baseScalar,
   });
 
   if (feasible === null) {
-    return { v_max_guessed, a_max_guessed };
+    return { v_max_guessed, a_max_guessed, ...achievable };
+  }
+
+  if (feasible.velocityMPS < GUESS_FLOOR) {
+    return {
+      v_max_guessed: new Measurement(GUESS_FLOOR, 'm/s'),
+      a_max_guessed: new Measurement(GUESS_FLOOR, 'm/s^2'),
+      ...achievable,
+    };
   }
 
   return {
-    v_max_guessed: Measurement.max(
-      new Measurement(0.1, 'm/s'),
-      new Measurement(feasible.velocityMPS * VELO_GUESS_FACTOR, 'm/s'),
-    ),
-    a_max_guessed: Measurement.max(
-      new Measurement(0.1, 'm/s^2'),
-      new Measurement(feasible.accelMPS2 * ACCEL_GUESS_FACTOR, 'm/s^2'),
-    ),
+    v_max_guessed: new Measurement(feasible.velocityMPS, 'm/s'),
+    a_max_guessed: new Measurement(feasible.accelMPS2, 'm/s^2'),
+    ...achievable,
   };
 }
 
 interface PowerFeasibleInput {
   distanceMeters: number;
-  velocityCapMPS: number;
-  accelCapMPS2: number;
   guessVelocityMPS: number;
   guessAccelMPS2: number;
   massKg: number;
   gravityForceN: number;
   equivalentResistanceOhms: number;
   statorLimitAmps: number;
+  freeCurrentAmps: number;
   supplyPowerWatts: number;
   controlVolts: number;
   forcePerAmp: number;
@@ -188,12 +209,7 @@ interface PowerFeasibleInput {
 function powerFeasibleProfile(
   i: PowerFeasibleInput,
 ): { velocityMPS: number; accelMPS2: number } | null {
-  if (
-    !Number.isFinite(i.distanceMeters) ||
-    i.distanceMeters <= 0 ||
-    i.velocityCapMPS <= 0 ||
-    i.accelCapMPS2 <= 0
-  ) {
+  if (!Number.isFinite(i.distanceMeters) || i.distanceMeters <= 0) {
     return null;
   }
 
@@ -213,7 +229,8 @@ function powerFeasibleProfile(
       supplyLimitedAmps,
       voltageLimitedAmps,
     );
-    return (effectiveAmps * i.forcePerAmp - i.gravityForceN) / i.massKg;
+    const torqueAmps = Math.max(0, effectiveAmps - i.freeCurrentAmps);
+    return (torqueAmps * i.forcePerAmp - i.gravityForceN) / i.massKg;
   };
 
   const peakVelocity = (cruiseMPS: number, accel: number): number =>
@@ -235,13 +252,13 @@ function powerFeasibleProfile(
 
   const steps = 400;
   for (let step = 1; step <= steps; step++) {
-    const cruiseMPS = (step / steps) * i.velocityCapMPS;
+    const cruiseMPS = (step / steps) * i.guessVelocityMPS;
     const accel = Math.min(
-      i.accelCapMPS2,
+      i.guessAccelMPS2,
       PROFILE_TRACKING_MARGIN *
-        achievableAccelAt(peakVelocity(cruiseMPS, i.accelCapMPS2)),
+        achievableAccelAt(peakVelocity(cruiseMPS, i.guessAccelMPS2)),
     );
-    if (accel <= 0.1) {
+    if (accel <= GUESS_FLOOR) {
       continue;
     }
 

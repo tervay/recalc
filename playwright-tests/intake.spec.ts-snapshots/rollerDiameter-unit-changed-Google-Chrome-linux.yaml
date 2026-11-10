@@ -33,47 +33,47 @@
 - combobox: ft/s
 - heading "Recommended Ratios per Motor" [level=2]
 - paragraph: The recommended ratio is the ratio at which the rollers will spin at twice the drivetrain speed.
-- text: Motor Ratio Stall Torque Thrifty Pulsar 0.73 0.37 N*m
+- text: Motor Ratio Stall Torque Thrifty Pulsar 0.73 0.33 N*m
 - button "Set"
-- text: Minion (Adv Hall) 0.75 0.35 N*m
+- text: Falcon 500 (FOC) 0.59 0.33 N*m
 - button "Set"
-- text: Falcon 500 (FOC) 0.59 0.34 N*m
+- text: Falcon 500 0.62 0.33 N*m
 - button "Set"
-- text: Falcon 500 0.62 0.34 N*m
+- text: NEO 550 1.14 0.32 N*m
 - button "Set"
-- text: Kraken X60 0.59 0.34 N*m
+- text: Minion (Adv Hall) 0.75 0.32 N*m
 - button "Set"
-- text: Minion 0.75 0.34 N*m
+- text: NEO 2.0 0.58 0.32 N*m
 - button "Set"
-- text: NEO 2.0 0.58 0.34 N*m
+- text: NEO 0.58 0.32 N*m
 - button "Set"
-- text: NEO 0.58 0.34 N*m
+- text: Minion 0.75 0.32 N*m
 - button "Set"
-- text: Kraken X44 0.76 0.34 N*m
+- text: BaneBots 550 1.88 0.31 N*m
 - button "Set"
-- text: NEO 550 1.14 0.34 N*m
+- text: Kraken X60 0.59 0.31 N*m
 - button "Set"
-- text: Kraken X60 (FOC) 0.56 0.34 N*m
+- text: BAG 1.29 0.30 N*m
 - button "Set"
-- text: Kraken X44 (FOC) 0.72 0.33 N*m
+- text: Kraken X44 0.76 0.30 N*m
 - button "Set"
-- text: BaneBots 550 1.88 0.33 N*m
+- text: Kraken X60 (FOC) 0.56 0.30 N*m
 - button "Set"
-- text: BAG 1.29 0.32 N*m
-- button "Set"
-- text: NEO Vortex 0.67 0.31 N*m
-- button "Set"
-- text: 775 RedLine 1.90 0.31 N*m
-- button "Set"
-- text: CIM 0.52 0.29 N*m
+- text: Kraken X44 (FOC) 0.72 0.30 N*m
 - button "Set"
 - text: 775pro 1.83 0.29 N*m
 - button "Set"
-- text: MiniCIM 0.57 0.28 N*m
+- text: 775 RedLine 1.90 0.28 N*m
 - button "Set"
-- text: AM-9015 1.39 0.22 N*m
+- text: CIM 0.52 0.27 N*m
 - button "Set"
-- text: Snowblower 0.01 0.12 N*m
+- text: NEO Vortex 0.67 0.25 N*m
+- button "Set"
+- text: MiniCIM 0.57 0.25 N*m
+- button "Set"
+- text: AM-9015 1.39 0.20 N*m
+- button "Set"
+- text: Snowblower 0.01 0.08 N*m
 - button "Set"
 - button "Linear Speed"
 - spinbutton "Linear Speed" [disabled]: "13.2"

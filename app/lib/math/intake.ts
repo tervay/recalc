@@ -39,8 +39,13 @@ export function calculateAllRecommendedRatiosAndStallTorques(
         drivetrainSpeed,
         rollerDiameter,
       );
+      const torqueCurrent = Measurement.min(
+        statorCurrentLimit,
+        m.stallCurrent,
+      ).sub(m.freeCurrent);
       const stallTorque = m.kT
-        .mul(statorCurrentLimit)
+        .mul(torqueCurrent)
+        .forcePositive()
         .mul(selectedMotor.quantity)
         .mul(ratio.asNumber())
         .to('N*m');

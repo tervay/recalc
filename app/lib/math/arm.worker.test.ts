@@ -158,3 +158,40 @@ describe('arm', () => {
     expect(result).toEqual([]);
   });
 });
+
+describe('arm gravity model', () => {
+  it('holds a horizontal point-mass arm still at exactly the reported kG', async () => {
+    const load = new Measurement(10, 'lb');
+    const length = new Measurement(20, 'in');
+    const pointMassMoi = load.mul(length).mul(length);
+    const { kG } = await computeArmFeedforwardGains(
+      motor.toDict(),
+      ratio.toDict(),
+      pointMassMoi.toDict(),
+      0.9,
+      load.toDict(),
+      length.toDict(),
+    );
+
+    const states = await simulateArmWpilib(
+      motor.toDict(),
+      ratio.toDict(),
+      pointMassMoi.toDict(),
+      length.toDict(),
+      new Measurement(-45, 'deg').toDict(),
+      new Measurement(90, 'deg').toDict(),
+      new Measurement(0, 'deg').toDict(),
+      new Measurement(kG, 'V').toDict(),
+      supplyVoltage.toDict(),
+      new Measurement(200, 'A').toDict(),
+      new Measurement(200, 'A').toDict(),
+      new Measurement(0, 'Ohm').toDict(),
+      'up',
+      0.9,
+      0.1,
+    );
+    const halfSecond = states.find((s) => s.timeSeconds >= 0.5)!;
+
+    expect(Math.abs(halfSecond.angleRadians)).toBeLessThan(1e-9);
+  });
+});

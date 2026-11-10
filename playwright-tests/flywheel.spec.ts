@@ -644,4 +644,28 @@ test.describe('Flywheel Calculator', () => {
     // Selected Config panel remains visible after clicking a cell.
     await expect(page.getByText('Selected Config')).toBeVisible();
   });
+
+  test('recommends the same configuration regardless of the current ratio', async ({
+    page,
+  }) => {
+    const recommendedRatio = async () => {
+      await expect(
+        page.locator('[data-slot="badge"]').filter({ hasText: /\d+ configs/ }),
+      ).toBeVisible({ timeout: 30000 });
+      return page
+        .getByTestId('selected-config')
+        .getByTestId('selected-config-ratio')
+        .textContent();
+    };
+
+    const fromDefaultRatio = await recommendedRatio();
+
+    const clampingRatio = encodeURIComponent(
+      JSON.stringify({ magnitude: 4, ratioType: 'Reduction' }),
+    );
+    await page.goto(`/flywheel?ratio=${clampingRatio}`);
+    await page.waitForLoadState('networkidle');
+
+    expect(await recommendedRatio()).toBe(fromDefaultRatio);
+  });
 });

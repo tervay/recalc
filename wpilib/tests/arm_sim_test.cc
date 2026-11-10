@@ -15,11 +15,10 @@ using Catch::Matchers::WithinULP;
 
 namespace {
 
-// EfficiencyArmSim re-applies gravity itself, reproducing upstream
-// SingleJointedArmSim's hardcoded 9.8 rather than the 9.80665 used by
-// elevator_sim.h and feedforward_gains.h. These tests assert the code as
-// written, so the constant must match arm_sim.h exactly.
-constexpr double kArmGravity = 9.8;
+// EfficiencyArmSim re-applies gravity itself with the same 9.80665 used by
+// elevator_sim.h and feedforward_gains.h, so the sim's holding voltage matches
+// the kG the arm calculator reports.
+constexpr double kArmGravity = 9.80665;
 
 // Physical configuration shared by most tests: a 1x KrakenX60 on a 100:1
 // reduction swinging a 24in arm with 10 in^2*lb of inertia from horizontal to
@@ -150,7 +149,7 @@ double ExpectedUnpoweredVelocity(double startingAngleRadians,
                                  double moi = kMoi) {
   const double a11 = IdealPlant(moi).A()(1, 1);
   const double gravity =
-      -3.0 / 2.0 * kArmGravity / armLenMeters * std::cos(startingAngleRadians);
+      -kArmGravity / armLenMeters * std::cos(startingAngleRadians);
   return (gravity / a11) * (std::exp(a11 * dt) - 1.0);
 }
 
@@ -190,8 +189,9 @@ TEST_CASE("ArmSimHarness: RoboRioVoltageIsReadableAfterHalInit",
 //
 // EfficiencyArmSim passes simulateGravity=false to its base and re-applies
 // gravity inside UpdateX, because replacing UpdateX wholesale would otherwise
-// drop the base class's gravity term entirely. The model is the WPILib uniform
-// rod: alpha = -3/2 * g * cos(theta) / L.
+// drop the base class's gravity term entirely. The model is a point mass at
+// the arm length, matching the calculator's J = m * L^2 and kG = m * g * L / J:
+// alpha = -g * cos(theta) / L.
 //
 // Driven through the public API (SetInputVoltage / Update / GetVelocity) rather
 // than the protected UpdateX, so these test behavior rather than
@@ -272,8 +272,8 @@ TEST_CASE("GravityAngleScalingTest: VelocityRatioTracksCosineOfAngle",
       WithinAbs(std::cos(angle), 1e-6));
 }
 
-// The uniform-rod model puts no moment of inertia in the gravity term:
-// alpha = -3/2 * g * cos(theta) / L is the same for a heavy arm and a light
+// The point-mass model puts no moment of inertia in the gravity term:
+// alpha = -g * cos(theta) / L is the same for a heavy arm and a light
 // one. Inertia still enters A11, so the resulting velocities differ -- the
 // assertion is that each matches its own closed form built from the SAME
 // gravity term.
@@ -404,7 +404,7 @@ TEST_CASE("EfficiencyArm: EfficiencyScalesTheBackEmfDecay", "[EfficiencyArm]") {
 // tolerance.
 TEST_CASE("EfficiencyArm: EfficiencyDoesNotAffectGravity", "[EfficiencyArm]") {
   const double dt = 1e-9;
-  const double expectedAlpha = -3.0 / 2.0 * 9.8 / kArmLenMeters;
+  const double expectedAlpha = -kArmGravity / kArmLenMeters;
 
   auto initialAlpha = [&](double efficiency) {
     ResetSupplyVoltage();

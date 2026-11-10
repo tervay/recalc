@@ -93,3 +93,44 @@ describe('simulateFlywheelWpilib', () => {
     expect(result).toMatchSnapshot();
   });
 });
+
+describe('simulateFlywheelWpilib degenerate electrical inputs', () => {
+  const spinUp = (overrides: {
+    statorLimit?: Measurement;
+    supplyLimit?: Measurement;
+    batteryResistance?: Measurement;
+  }) =>
+    simulateFlywheelWpilib(
+      Motor.KrakenX60sFOC(2).toDict(),
+      new Ratio(1, RatioType.REDUCTION).toDict(),
+      (overrides.statorLimit ?? new Measurement(80, 'A')).toDict(),
+      (overrides.supplyLimit ?? new Measurement(60, 'A')).toDict(),
+      new Measurement(12, 'V').toDict(),
+      (overrides.batteryResistance ?? new Measurement(0.015, 'Ohm')).toDict(),
+      new Measurement(12, 'V').toDict(),
+      new Measurement(10, 'in2*lbs').toDict(),
+      new Measurement(3000, 'rpm').toDict(),
+      1.0,
+      0.1,
+    );
+
+  it('reaches the target with an ideal zero-resistance battery', async () => {
+    const states = await spinUp({
+      batteryResistance: new Measurement(0, 'Ohm'),
+    });
+
+    expect(states.at(-1)?.success).toBe(true);
+  });
+
+  it('reports a timeout rather than no result for a zero stator limit', async () => {
+    const states = await spinUp({ statorLimit: new Measurement(0, 'A') });
+
+    expect(states.at(-1)?.success).toBe(false);
+  });
+
+  it('reports a timeout rather than no result for a zero supply limit', async () => {
+    const states = await spinUp({ supplyLimit: new Measurement(0, 'A') });
+
+    expect(states.at(-1)?.success).toBe(false);
+  });
+});

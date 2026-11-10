@@ -4,7 +4,7 @@ import {
   cartesian,
   measurement,
   snapshotNumber,
-} from '~/lib/math/linearFuzzTestUtils';
+} from '~/lib/math/fuzzTestUtils';
 import {
   optimizeConfiguration,
   optimizeConfigurationCell,

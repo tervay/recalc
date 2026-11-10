@@ -7,13 +7,13 @@
 - text: Stage Driving Driven Ratio 1
 - spinbutton: "18"
 - spinbutton: "72"
-- text: 1:4.00
+- text: 4.00:1
 - button:
   - img
 - text: "2"
 - spinbutton: "24"
 - spinbutton: "56"
-- text: 1:2.33
+- text: 2.33:1
 - button:
   - img
 - button "Add Stage":

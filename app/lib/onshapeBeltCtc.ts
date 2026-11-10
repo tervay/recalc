@@ -7,7 +7,7 @@ const BELT_CTC_PROFILES = [
 ];
 
 const BELT_CTC_PATTERN =
-  /^#?BeltCTC_(3mm|5mm|RT25)\s*\(([^,()]*),([^,()]*),([^,()]*)\)\s*(?:([+-])\s*(\d*\.?\d+)\s*([a-z]+))?$/i;
+  /^#?BeltCTC_(3mm|5mm|RT25)\s*\(([^,()]*),([^,()]*),([^,()]*)\)\s*(?:([+-])\s*(\d*\.?\d+(?:e[+-]?\d+)?)\s*([a-z]+))?$/i;
 
 export type BeltCtc = {
   pitch: Measurement;

@@ -135,7 +135,10 @@ describe('approximateBeltPitchLength', () => {
 
     const result = approximateBeltPitchLength(p1, p2, desiredCenter);
 
-    expect(result.to('mm').scalar).toBeCloseTo(325.57, 3);
+    expect(result.to('mm').scalar).toBeCloseTo(
+      325 + 2500 / Math.PI ** 2 / 400,
+      9,
+    );
   });
 
   it('handles zero desired center', () => {
@@ -155,7 +158,10 @@ describe('approximateBeltPitchLength', () => {
 
     const result = approximateBeltPitchLength(p1, p2, desiredCenter);
 
-    expect(result.to('mm').scalar).toBeCloseTo(280.661, 3);
+    expect(result.to('mm').scalar).toBeCloseTo(
+      275 + 22500 / Math.PI ** 2 / 400,
+      9,
+    );
   });
 
   it('handles zero pitch diameter for p2', () => {
@@ -165,7 +171,10 @@ describe('approximateBeltPitchLength', () => {
 
     const result = approximateBeltPitchLength(p1, p2, desiredCenter);
 
-    expect(result.to('mm').scalar).toBeCloseTo(252.508, 3);
+    expect(result.to('mm').scalar).toBeCloseTo(
+      250 + 10000 / Math.PI ** 2 / 400,
+      9,
+    );
   });
 
   it('handles equal pulleys', () => {
@@ -175,7 +184,7 @@ describe('approximateBeltPitchLength', () => {
 
     const result = approximateBeltPitchLength(p1, p2, desiredCenter);
 
-    expect(result.to('mm').scalar).toBeCloseTo(299.949, 3);
+    expect(result.to('mm').scalar).toBeCloseTo(300, 9);
   });
 });
 
@@ -197,6 +206,57 @@ describe('calculateClosestCenters', () => {
 
     expect(result.larger.distance.to('mm').scalar).toBeCloseTo(112.218, 3);
     expect(result.smaller.distance.to('mm').scalar).toBeCloseTo(99.682, 3);
+  });
+
+  it('never offers a larger belt whose center falls short of the target', () => {
+    const pitch = new Measurement(0.25, 'in');
+    const desiredCenter = new Measurement(306.5, 'mm');
+
+    const result = calculateClosestCenters(
+      new SimplePulley(72, pitch),
+      new SimplePulley(73, pitch),
+      desiredCenter,
+      new Measurement(0, 'mm'),
+      1,
+    );
+
+    expect(result.larger.distance.to('mm').scalar).toBeGreaterThanOrEqual(
+      desiredCenter.to('mm').scalar,
+    );
+  });
+
+  it('picks the same belts after converting the target to inches', () => {
+    const pitch = new Measurement(5, 'mm');
+    const teethFor = (target: Measurement) => {
+      const result = calculateClosestCenters(
+        new SimplePulley(10, pitch),
+        new SimplePulley(10, pitch),
+        target,
+        new Measurement(0, 'mm'),
+        1,
+      );
+      return [result.smaller.belt.teeth, result.larger.belt.teeth];
+    };
+
+    expect(teethFor(new Measurement(500 / 25.4, 'in'))).toEqual(
+      teethFor(new Measurement(500, 'mm')),
+    );
+  });
+
+  it('offers no belts when the target center would overlap the pulleys', () => {
+    const pitch = new Measurement(5, 'mm');
+
+    const result = calculateClosestCenters(
+      new SimplePulley(16, pitch),
+      new SimplePulley(24, pitch),
+      new Measurement(20, 'mm'),
+      new Measurement(0, 'mm'),
+      5,
+    );
+
+    expect([result.smaller.belt.teeth, result.larger.belt.teeth]).toEqual([
+      0, 0,
+    ]);
   });
 
   it('handles zero pitch for p1', () => {
@@ -382,7 +442,7 @@ describe('calculateClosestCenters', () => {
   it('reports different teeth in mesh for the smaller and larger belt', () => {
     const p1 = new SimplePulley(16, new Measurement(3, 'mm'));
     const p2 = new SimplePulley(61, new Measurement(3, 'mm'));
-    const desiredCenter = new Measurement(30, 'mm');
+    const desiredCenter = new Measurement(60, 'mm');
 
     const result = calculateClosestCenters(
       p1,
@@ -392,10 +452,10 @@ describe('calculateClosestCenters', () => {
       5,
     );
 
-    expect(result.smaller.belt.teeth).toBe(60);
-    expect(result.larger.belt.teeth).toBe(65);
-    expect(result.smaller.p2TeethInMesh).toBe(1);
-    expect(result.larger.p2TeethInMesh).toBe(16);
+    expect(result.smaller.belt.teeth).toBe(80);
+    expect(result.larger.belt.teeth).toBe(85);
+    expect(result.smaller.p2TeethInMesh).toBe(37);
+    expect(result.larger.p2TeethInMesh).toBe(36);
   });
 });
 
@@ -597,7 +657,7 @@ describe('teethInMesh', () => {
 
     const result = teethInMesh(p1, p2, center, pulleyToUse);
 
-    expect(result).toBe(14);
+    expect(result).toBe(15);
   });
 
   it('calculates teeth in mesh correctly for smaller pulley', () => {
@@ -608,7 +668,7 @@ describe('teethInMesh', () => {
 
     const result = teethInMesh(p1, p2, center, pulleyToUse);
 
-    expect(result).toBe(10);
+    expect(result).toBe(9);
   });
 
   it('handles zero center distance', () => {
@@ -644,7 +704,7 @@ describe('teethInMesh', () => {
     expect(result).toBe(0);
   });
 
-  it('handles equal pulleys', () => {
+  it('meshes exactly half the teeth of equal pulleys', () => {
     const p1 = new SimplePulley(20, new Measurement(5, 'mm'));
     const p2 = new SimplePulley(20, new Measurement(5, 'mm'));
     const center = new Measurement(100, 'mm');
@@ -652,7 +712,7 @@ describe('teethInMesh', () => {
 
     const result = teethInMesh(p1, p2, center, pulleyToUse);
 
-    expect(result).toBe(9);
+    expect(result).toBe(10);
   });
 
   it('computes the wrap angle in degrees, not radians, for pulleys with a large size mismatch', () => {
@@ -662,7 +722,17 @@ describe('teethInMesh', () => {
 
     const result = teethInMesh(p1, p2, center, p1);
 
-    expect(result).toBe(12);
+    expect(result).toBe(47);
+  });
+
+  it('wraps the smaller pulley by less than half its teeth for a large size mismatch', () => {
+    const p1 = new SimplePulley(60, new Measurement(5, 'mm'));
+    const p2 = new SimplePulley(10, new Measurement(5, 'mm'));
+    const center = new Measurement(50, 'mm');
+
+    const result = teethInMesh(p1, p2, center, p2);
+
+    expect(result).toBe(2);
   });
 });
 

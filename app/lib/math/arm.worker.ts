@@ -15,6 +15,8 @@ export type { FeedbackGains, FeedforwardGains };
 
 export type WpilibArmSimState = ArmSimRow;
 
+export const ARM_SIMULATION_TIMEOUT_SECONDS = 3;
+
 export async function computeArmFeedforwardGains(
   motor_: MotorDict,
   ratio_: RatioDict,
@@ -163,7 +165,7 @@ export async function simulateArmWpilib(
       goingDownOrUp === 'up',
       0.001,
       10,
-      3.0,
+      ARM_SIMULATION_TIMEOUT_SECONDS,
       batteryVoltageFilterTimeConstantSeconds,
     );
   } finally {

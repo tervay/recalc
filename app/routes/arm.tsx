@@ -9,6 +9,7 @@ import {
   YAxis,
 } from 'recharts';
 import ChevronDownIcon from '~icons/lucide/chevron-down';
+import TriangleAlertIcon from '~icons/lucide/triangle-alert';
 
 import IOLine from '~/components/recalc/blocks';
 import CalcHeading from '~/components/recalc/calcHeading';
@@ -22,6 +23,7 @@ import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
 import { OptimalConfigGrid } from '~/components/recalc/optimalConfigGrid';
 import { SelectedConfig } from '~/components/recalc/selectedConfig';
+import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert';
 import { ChartContainer } from '~/components/ui/chart';
 import {
   Collapsible,
@@ -31,6 +33,7 @@ import {
 import { useWorkerSimulation } from '~/hooks/use-worker-simulation';
 import { useQueryParams, useSerializedState } from '~/lib/hooks';
 import { buildCalculatorApp, buildJsonLd, buildWebPage } from '~/lib/jsonld';
+import { ARM_SIMULATION_TIMEOUT_SECONDS } from '~/lib/math/arm.worker';
 import type * as ArmWorker from '~/lib/math/arm.worker';
 import type * as ArmOptimizerWorker from '~/lib/math/armOptimizer.worker';
 import type { ConfigOptResult } from '~/lib/math/armOptimizer.worker';
@@ -256,6 +259,14 @@ export default function Arm() {
       's',
     );
   }, [goingDownStates]);
+
+  const goalNotReached = useMemo(
+    () =>
+      [goingUpStates, goingDownStates].some(
+        (states) => states.length > 0 && !states[states.length - 1].success,
+      ),
+    [goingUpStates, goingDownStates],
+  );
 
   const [feedforwardGains, setFeedforwardGains] = useState({
     kV: new Measurement(0, 'V*s/rad'),
@@ -645,6 +656,19 @@ export default function Arm() {
                   testId="goingDownTimeToGoal"
                 />
               </div>
+              {goalNotReached && (
+                <div className="px-4 pb-4">
+                  <Alert variant="destructive">
+                    <TriangleAlertIcon />
+                    <AlertTitle>Goal not reached</AlertTitle>
+                    <AlertDescription>
+                      The arm could not reach its goal angle within{' '}
+                      {ARM_SIMULATION_TIMEOUT_SECONDS} seconds. Try increasing
+                      current limits, changing the ratio, or adding more motors.
+                    </AlertDescription>
+                  </Alert>
+                </div>
+              )}
               <div className="border-t" />
 
               {/* Going Up chart */}

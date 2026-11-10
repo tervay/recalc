@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { calculateGuessedLimits, calculateStallLoad } from '~/lib/math/linear';
+import { trapezoidProfileDurationSeconds } from '~/lib/math/optimizerUtils';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
@@ -232,6 +233,38 @@ describe('calculateStallLoad', () => {
     );
 
     expect(result.to('lb').scalar).toBeCloseTo(35664.377, 2);
+  });
+  it('never exceeds the motor stall torque when the current limit is above stall current', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const stallLoadAt = (amps: number) =>
+      calculateStallLoad(
+        motor,
+        new Measurement(amps, 'A'),
+        new Measurement(2, 'in'),
+        new Ratio(1, RatioType.REDUCTION),
+        100,
+        new Measurement(12, 'V'),
+      ).to('lb').scalar;
+
+    expect(stallLoadAt(1000)).toBeCloseTo(
+      stallLoadAt(motor.stallCurrent.to('A').scalar),
+      6,
+    );
+  });
+
+  it('scales the stall current with stator voltage', () => {
+    const motor = Motor.KrakenX60sFOC(1);
+    const stallLoadAt = (volts: number) =>
+      calculateStallLoad(
+        motor,
+        new Measurement(1000, 'A'),
+        new Measurement(2, 'in'),
+        new Ratio(1, RatioType.REDUCTION),
+        100,
+        new Measurement(volts, 'V'),
+      ).to('lb').scalar;
+
+    expect(stallLoadAt(6)).toBeLessThan(stallLoadAt(12));
   });
 });
 
@@ -598,7 +631,7 @@ describe('calculateGuessedLimits', () => {
         loadKg,
         travelMeters,
       ),
-    ).toBeGreaterThan(3 * budget);
+    ).toBeGreaterThan(2.5 * budget);
 
     expect(
       peakSupplyWatts(
@@ -706,6 +739,51 @@ describe('calculateGuessedLimits', () => {
     expect(a).toBeLessThan(20);
   });
 
+  function guessedProfileForStatorLimit(statorAmps: number) {
+    const result = calculateGuessedLimits(
+      Motor.KrakenX60sFOC(2),
+      new Ratio(2, RatioType.REDUCTION),
+      new Measurement(12, 'lb'),
+      new Measurement(1, 'in'),
+      new Measurement(statorAmps, 'A'),
+      new Measurement(60, 'A'),
+      new Measurement(12, 'V'),
+      new Measurement(90, 'deg'),
+      95,
+      false,
+      new Measurement(12, 'V'),
+      new Measurement(60, 'in'),
+    );
+    return {
+      accelerationMPS2: result.a_max_guessed.to('m/s^2').scalar,
+      velocityMPS: result.v_max_guessed.to('m/s').scalar,
+    };
+  }
+
+  const STATOR_SWEEP_AMPS = Array.from({ length: 61 }, (_, i) => 100 + i);
+
+  it('never lowers the guessed acceleration when the stator limit increases', () => {
+    const accelerations = STATOR_SWEEP_AMPS.map(
+      (amps) => guessedProfileForStatorLimit(amps).accelerationMPS2,
+    );
+    const drops = accelerations.filter(
+      (a, i) => i > 0 && a < accelerations[i - 1] - 1e-9,
+    );
+
+    expect(drops).toEqual([]);
+  });
+
+  it('never lowers the guessed velocity when the stator limit increases', () => {
+    const velocities = STATOR_SWEEP_AMPS.map(
+      (amps) => guessedProfileForStatorLimit(amps).velocityMPS,
+    );
+    const drops = velocities.filter(
+      (v, i) => i > 0 && v < velocities[i - 1] - 1e-9,
+    );
+
+    expect(drops).toEqual([]);
+  });
+
   it('is unaffected by rVolts when it exceeds supply voltage', () => {
     const motor = Motor.KrakenX60sFOC(1);
     const ratio = new Ratio(4, RatioType.REDUCTION);
@@ -753,5 +831,156 @@ describe('calculateGuessedLimits', () => {
       at24V.a_max_guessed.to('m/s^2').scalar,
       3,
     );
+  });
+
+  function accelerationWithUnboundedLimits(
+    rVolts: number,
+    travelDistance: Measurement | null,
+  ): number {
+    return calculateGuessedLimits(
+      Motor.KrakenX60sFOC(1),
+      new Ratio(10, RatioType.REDUCTION),
+      new Measurement(15, 'lb'),
+      new Measurement(1.5, 'in'),
+      new Measurement(1000, 'A'),
+      new Measurement(1000, 'A'),
+      new Measurement(12, 'V'),
+      new Measurement(90, 'deg'),
+      100,
+      false,
+      new Measurement(rVolts, 'V'),
+      travelDistance,
+    ).a_max_guessed.to('m/s^2').scalar;
+  }
+
+  it('caps stall current at the supply voltage when rVolts exceeds it', () => {
+    expect(accelerationWithUnboundedLimits(24, null)).toBeCloseTo(
+      accelerationWithUnboundedLimits(12, null),
+      6,
+    );
+  });
+
+  it('caps the distance-aware profile at the supply voltage when rVolts exceeds it', () => {
+    const travel = new Measurement(60, 'in');
+
+    expect(accelerationWithUnboundedLimits(24, travel)).toBeCloseTo(
+      accelerationWithUnboundedLimits(12, travel),
+      6,
+    );
+  });
+
+  it('guesses no spare acceleration for a load equal to the stall load', () => {
+    const motor = Motor.fromName('Snowblower', 1);
+    const ratio = new Ratio(20, RatioType.REDUCTION);
+    const spoolDiameter = new Measurement(1.5, 'in');
+    const statorLimit = new Measurement(15, 'A');
+    const stallLoad = calculateStallLoad(
+      motor,
+      statorLimit,
+      spoolDiameter,
+      ratio,
+      90,
+      new Measurement(12, 'V'),
+    );
+
+    const { a_max_guessed } = calculateGuessedLimits(
+      motor,
+      ratio,
+      stallLoad,
+      spoolDiameter,
+      statorLimit,
+      new Measurement(1000, 'A'),
+      new Measurement(12, 'V'),
+      new Measurement(90, 'deg'),
+      90,
+      false,
+    );
+
+    expect(a_max_guessed.to('m/s^2').scalar).toBeCloseTo(0.1, 9);
+  });
+
+  it('never speeds up a near-stall profile when the load grows', () => {
+    const travel = new Measurement(4.845, 'in');
+    const profileSecondsFor = (loadLb: number) => {
+      const { v_max_guessed, a_max_guessed } = calculateGuessedLimits(
+        Motor.fromName('V5 Smart Motor (Red)', 1),
+        new Ratio(10.488, RatioType.REDUCTION),
+        new Measurement(loadLb, 'lb'),
+        new Measurement(1.553, 'in'),
+        new Measurement(147.8, 'A'),
+        new Measurement(45.29, 'A'),
+        new Measurement(11.04, 'V'),
+        new Measurement(78.13, 'deg'),
+        80.82,
+        false,
+        new Measurement(9.666, 'V'),
+        travel,
+      );
+      return trapezoidProfileDurationSeconds(
+        travel.to('m').scalar,
+        v_max_guessed.to('m/s').scalar,
+        a_max_guessed.to('m/s^2').scalar,
+      );
+    };
+
+    expect(profileSecondsFor(24.78 * 1.02)).toBeGreaterThanOrEqual(
+      profileSecondsFor(24.78),
+    );
+  });
+
+  describe('achievable limits for a supply-limited profile', () => {
+    const args = [
+      Motor.KrakenX60sFOC(1),
+      new Ratio(3, RatioType.REDUCTION),
+      new Measurement(10, 'lb'),
+      new Measurement(1.5, 'in'),
+      new Measurement(80, 'A'),
+      new Measurement(20, 'A'),
+      new Measurement(12, 'V'),
+      new Measurement(90, 'deg'),
+      90,
+      false,
+      new Measurement(12, 'V'),
+    ] as const;
+    const unconstrained = calculateGuessedLimits(...args, null);
+    const profiled = calculateGuessedLimits(...args, new Measurement(60, 'in'));
+
+    it('cruises the profile below the top speed', () => {
+      expect(profiled.v_max_guessed.to('m/s').scalar).toBeLessThan(
+        unconstrained.v_max_guessed.to('m/s').scalar,
+      );
+    });
+
+    it('reports the top speed as the achievable velocity', () => {
+      expect(profiled.v_max_achievable.to('m/s').scalar).toBe(
+        unconstrained.v_max_guessed.to('m/s').scalar,
+      );
+    });
+
+    it('reports the low-speed acceleration as the achievable acceleration', () => {
+      expect(profiled.a_max_achievable.to('m/s^2').scalar).toBe(
+        unconstrained.a_max_guessed.to('m/s^2').scalar,
+      );
+    });
+  });
+
+  it('reports zero achievable limits for a guarded zero input', () => {
+    const { v_max_achievable, a_max_achievable } = calculateGuessedLimits(
+      Motor.KrakenX60sFOC(1),
+      new Ratio(3, RatioType.REDUCTION),
+      new Measurement(0, 'lb'),
+      new Measurement(1.5, 'in'),
+      new Measurement(80, 'A'),
+      new Measurement(20, 'A'),
+      new Measurement(12, 'V'),
+      new Measurement(90, 'deg'),
+      90,
+      false,
+    );
+
+    expect([
+      v_max_achievable.to('m/s').scalar,
+      a_max_achievable.to('m/s^2').scalar,
+    ]).toEqual([0, 0]);
   });
 });

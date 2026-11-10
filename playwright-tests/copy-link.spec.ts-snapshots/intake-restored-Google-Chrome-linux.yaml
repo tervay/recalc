@@ -33,47 +33,47 @@
 - combobox: ft/s
 - heading "Recommended Ratios per Motor" [level=2]
 - paragraph: The recommended ratio is the ratio at which the rollers will spin at twice the drivetrain speed.
-- text: Motor Ratio Stall Torque Thrifty Pulsar 4.09 2.72 N*m
+- text: Motor Ratio Stall Torque Thrifty Pulsar 4.09 2.54 N*m
 - button "Set"
-- text: Minion (Adv Hall) 4.17 2.61 N*m
+- text: Falcon 500 (FOC) 3.32 2.46 N*m
 - button "Set"
-- text: Falcon 500 (FOC) 3.32 2.56 N*m
+- text: Falcon 500 3.48 2.46 N*m
 - button "Set"
-- text: Falcon 500 3.48 2.55 N*m
+- text: Minion (Adv Hall) 4.17 2.45 N*m
 - button "Set"
-- text: Kraken X60 3.31 2.55 N*m
+- text: NEO 550 6.39 2.44 N*m
 - button "Set"
-- text: Minion 4.20 2.55 N*m
+- text: NEO 2.0 3.22 2.41 N*m
 - button "Set"
-- text: NEO 2.0 3.22 2.52 N*m
+- text: NEO 3.22 2.41 N*m
 - button "Set"
-- text: NEO 3.22 2.52 N*m
+- text: Minion 4.20 2.41 N*m
 - button "Set"
-- text: Kraken X44 4.23 2.52 N*m
+- text: BaneBots 550 10.53 2.37 N*m
 - button "Set"
-- text: NEO 550 6.39 2.51 N*m
+- text: Kraken X60 3.31 2.37 N*m
 - button "Set"
-- text: Kraken X60 (FOC) 3.15 2.50 N*m
+- text: Kraken X44 4.23 2.32 N*m
 - button "Set"
-- text: Kraken X44 (FOC) 4.02 2.47 N*m
+- text: BAG 7.19 2.31 N*m
 - button "Set"
-- text: BaneBots 550 10.53 2.46 N*m
+- text: Kraken X60 (FOC) 3.15 2.28 N*m
 - button "Set"
-- text: BAG 7.19 2.41 N*m
+- text: Kraken X44 (FOC) 4.02 2.27 N*m
 - button "Set"
-- text: NEO Vortex 3.72 2.30 N*m
+- text: 775pro 10.22 2.14 N*m
 - button "Set"
-- text: 775 RedLine 10.64 2.28 N*m
+- text: 775 RedLine 10.64 2.13 N*m
 - button "Set"
-- text: CIM 2.91 2.18 N*m
+- text: CIM 2.91 2.04 N*m
 - button "Set"
-- text: 775pro 10.22 2.18 N*m
+- text: NEO Vortex 3.72 1.99 N*m
 - button "Set"
-- text: MiniCIM 3.19 2.09 N*m
+- text: MiniCIM 3.19 1.93 N*m
 - button "Set"
-- text: AM-9015 7.78 1.67 N*m
+- text: AM-9015 7.78 1.51 N*m
 - button "Set"
-- text: Snowblower 0.05 0.91 N*m
+- text: Snowblower 0.05 0.43 N*m
 - button "Set"
 - button "Linear Speed"
 - spinbutton "Linear Speed" [disabled]: "19.3"

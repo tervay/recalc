@@ -84,8 +84,8 @@ inline FeedforwardGains ComputeLinearFeedforwardGainsCore(
 // convention: torque_gravity = -comMass * g * comLength * cos(angle), which
 // is maximal in magnitude at angle = 0 (horizontal) and zero at angle = 90deg
 // (vertical) -- see arm_sim.h's EfficiencyArmSim gravity term
-// (`-3/2 * g/L * cos(theta)`, the same physical model specialized to a
-// uniform rod) for the cross-check on this angle convention. Since this
+// (`-g/L * cos(theta)`, the same physical model specialized to a point mass
+// with J = m * L^2) for the cross-check on this angle convention. Since this
 // function has no angle parameter (mirroring the TS signature), callers are
 // responsible for scaling kG by cos(angle-from-horizontal) if a
 // non-horizontal holding voltage is needed.

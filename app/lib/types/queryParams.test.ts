@@ -1,3 +1,4 @@
+import { createLoader } from 'nuqs';
 import { describe, expect, it } from 'vitest';
 
 import Measurement from '~/lib/models/Measurement';
@@ -6,6 +7,7 @@ import Ratio, { RatioType } from '~/lib/models/Ratio';
 import {
   BooleanParam,
   MeasurementParam,
+  MotorNameParam,
   MotorParam,
   NumberParam,
   RatioPairListParam,
@@ -539,5 +541,50 @@ describe('RatioPairListParam', () => {
         RatioPairListParam.parse(RatioPairListParam.serialize(value)),
       ).toEqual(value);
     });
+  });
+});
+
+describe('untrusted URL values', () => {
+  const loadCenter = (value: string) =>
+    createLoader({
+      center: MeasurementParam.withDefault(new Measurement(5, 'in')),
+    })(`?center=${encodeURIComponent(value)}`).center;
+
+  it('falls back to the default when the URL unit has a different dimension', () => {
+    expect(loadCenter('{"s":5,"u":"s"}').to('in').scalar).toBe(5);
+  });
+
+  it('keeps a URL measurement whose unit is compatible with the default', () => {
+    expect(loadCenter('{"s":127,"u":"mm"}').to('in').scalar).toBeCloseTo(5, 9);
+  });
+
+  it('rejects a measurement whose scalar overflows to Infinity', () => {
+    expect(MeasurementParam.parse('{"s":1e999,"u":"in"}')).toBeNull();
+  });
+
+  it('rejects a ratio with an unknown ratio type', () => {
+    expect(
+      RatioParam.parse('{"magnitude":2,"ratioType":"Sideways"}'),
+    ).toBeNull();
+  });
+
+  it('rejects a ratio whose magnitude overflows to Infinity', () => {
+    expect(
+      RatioParam.parse('{"magnitude":1e999,"ratioType":"Reduction"}'),
+    ).toBeNull();
+  });
+
+  it('rejects a motor whose quantity overflows to Infinity', () => {
+    expect(
+      MotorParam.parse('{"name":"Kraken X60","quantity":1e999}'),
+    ).toBeNull();
+  });
+
+  it('accepts a known motor name', () => {
+    expect(MotorNameParam.parse('Kraken X60')).toBe('Kraken X60');
+  });
+
+  it('rejects an unknown motor name', () => {
+    expect(MotorNameParam.parse('Not A Motor')).toBeNull();
   });
 });

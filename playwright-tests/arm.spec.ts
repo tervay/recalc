@@ -370,4 +370,19 @@ test.describe('Arm Calculator', () => {
     // Selected Config panel remains visible after clicking a cell.
     await expect(page.getByText('Selected Config')).toBeVisible();
   });
+
+  test('warns when the arm cannot reach its goal', async ({ page }) => {
+    await page.getByTestId('load').fill('1000');
+    await waitForCalc(page);
+    await expect(page.getByTestId('arm-main').getByRole('alert')).toContainText(
+      'Goal not reached',
+    );
+  });
+
+  test('does not warn when the arm reaches its goal', async ({ page }) => {
+    await waitForCalc(page);
+    await expect(page.getByTestId('arm-main').getByRole('alert')).toHaveCount(
+      0,
+    );
+  });
 });

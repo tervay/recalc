@@ -42,7 +42,7 @@ export function approximateBeltPitchLength(
   desiredCenter: Measurement,
 ): Measurement {
   const t1 = desiredCenter.mul(2);
-  const t2 = p1.pitchDiameter.add(p2.pitchDiameter).mul(1.57);
+  const t2 = p1.pitchDiameter.add(p2.pitchDiameter).mul(Math.PI / 2);
   const t3Numerator = p1.pitchDiameter
     .sub(p2.pitchDiameter)
     .mul(p1.pitchDiameter.sub(p2.pitchDiameter));
@@ -130,7 +130,8 @@ export function calculateClosestCenters(
       p2.teeth,
       desiredCenter.scalar,
       multipleOf,
-    ].includes(0.0)
+    ].includes(0.0) ||
+    desiredCenter.lt(p1.pitchDiameter.add(p2.pitchDiameter).div(2))
   ) {
     const differenceFromTarget = new Measurement(0, 'mm');
     return {
@@ -220,19 +221,13 @@ export function teethInMesh(
     return 0;
   }
 
-  if (mode === 'larger') {
-    const cl2 = pulleyToUse.pitchDiameter
-      .mul(90 - a)
-      .mul(Math.PI)
-      .div(180);
-    return Math.floor(cl2.div(pulleyToUse.pitch).scalar);
-  }
-
-  const cl2 = pulleyToUse.pitchDiameter
-    .mul(90 + a)
+  const halfWrapDegrees = mode === 'larger' ? 90 + a : 90 - a;
+  const meshedTeeth = pulleyToUse.pitchDiameter
+    .mul(halfWrapDegrees)
     .mul(Math.PI)
-    .div(180);
-  return Math.floor(cl2.div(pulleyToUse.pitch).scalar);
+    .div(180)
+    .div(pulleyToUse.pitch).scalar;
+  return Math.floor(meshedTeeth + 1e-9);
 }
 
 export function getTIMFactor(teethInMesh: number): number {

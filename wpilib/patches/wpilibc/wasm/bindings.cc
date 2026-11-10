@@ -29,7 +29,7 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
       "statorCurrentDrawAmps: number; supplyCurrentDrawAmps: number; "
       "timeSeconds: number; batteryVoltageVolts: number; "
       "motorAppliedVoltageVolts: number; motorRpm: number; "
-      "energyJoules: number; success: boolean }[]");
+      "energyJoules: number; success: boolean; timeToGoalSeconds: number }[]");
   register_type<ArmSimRows>(
       "ArmSimRows",
       "{ angleRadians: number; angularVelocityRadPerSec: number; "

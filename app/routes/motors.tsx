@@ -32,7 +32,11 @@ import type * as MotorsWorker from '~/lib/math/motors.worker';
 import Measurement from '~/lib/models/Measurement';
 import Motor, { ALL_MOTORS } from '~/lib/models/Motor';
 import { buildMeta, pageUrl } from '~/lib/seo';
-import { MeasurementParam, StringParam } from '~/lib/types/queryParams';
+import {
+  MeasurementParam,
+  MotorNameParam,
+  StringParam,
+} from '~/lib/types/queryParams';
 
 const MOTORS_PATH = '/motors';
 const MOTORS_TITLE = 'FRC Motor Comparison & Specs | ReCalc';
@@ -66,8 +70,8 @@ export function meta() {
 }
 
 const DEFAULT_PARAMS = {
-  motor: StringParam.withDefault(ALL_MOTORS[0].name),
-  motorB: StringParam.withDefault(''),
+  motor: MotorNameParam.withDefault(ALL_MOTORS[0].name),
+  motorB: MotorNameParam.withDefault(''),
   xAxisMode: StringParam.withDefault('absolute'),
   statorLimit: MeasurementParam.withDefault(new Measurement(90, 'A')),
   supplyLimit: MeasurementParam.withDefault(new Measurement(60, 'A')),

@@ -221,6 +221,104 @@ describe('ratioFinderWorker', () => {
     }
   }, 30_000);
 
+  const onlyFamilies = (
+    overrides: Partial<FindGearboxesFilters>,
+  ): FindGearboxesFilters => ({
+    ...baseFilters,
+    enablePlanetaries: false,
+    enable20DP: false,
+    enable32DP: false,
+    enableGT2: false,
+    enableHTD: false,
+    enableRT25: false,
+    enable25Chain: false,
+    enable35Chain: false,
+    ...overrides,
+  });
+
+  const solutionSkus = (result: Awaited<ReturnType<typeof findGearboxes>>) =>
+    result.solutions.flatMap((s) =>
+      s.stages.flatMap((stage) => [...stage.from.skus, ...stage.to.skus]),
+    );
+
+  it('offers RT25 belt stages when RT25 is the only enabled family', async () => {
+    const result = await findGearboxes(
+      new Ratio(2, RatioType.REDUCTION),
+      0.001,
+      '8mm',
+      onlyFamilies({ enableRT25: true }),
+      2,
+    );
+
+    expect(
+      result.solutions.some((s) =>
+        s.stages[0].from.skus.some((sku) => sku.sku === 'REV-21-2200'),
+      ),
+    ).toBe(true);
+  }, 15_000);
+
+  it('offers LastAnvil parts when the vendor is enabled', async () => {
+    const result = await findGearboxes(
+      new Ratio(2, RatioType.REDUCTION),
+      0.001,
+      'SplineXS',
+      onlyFamilies({ enableHTD: true }),
+      2,
+    );
+
+    expect(solutionSkus(result).some((sku) => sku.vendor === 'LastAnvil')).toBe(
+      true,
+    );
+  }, 15_000);
+
+  it('removes LastAnvil parts when the vendor is disabled', async () => {
+    const result = await findGearboxes(
+      new Ratio(2, RatioType.REDUCTION),
+      0.001,
+      'SplineXS',
+      onlyFamilies({ enableHTD: true, enableLastAnvil: false }),
+      2,
+    );
+
+    expect(solutionSkus(result).some((sku) => sku.vendor === 'LastAnvil')).toBe(
+      false,
+    );
+  }, 15_000);
+
+  it('removes SDS parts when the vendor is disabled', async () => {
+    const result = await findGearboxes(
+      new Ratio(60 / 14, RatioType.REDUCTION),
+      0.001,
+      'Falcon',
+      onlyFamilies({ enable20DP: true, enableSDS: false }),
+      2,
+    );
+
+    expect(solutionSkus(result).some((sku) => sku.vendor === 'SDS')).toBe(
+      false,
+    );
+  }, 15_000);
+
+  it('attaches each SDS gear its own product details even without a SKU', async () => {
+    const result = await findGearboxes(
+      new Ratio(60 / 14, RatioType.REDUCTION),
+      0.001,
+      'Falcon',
+      onlyFamilies({ enable20DP: true }),
+      2,
+    );
+
+    const sdsMotorGears = result.solutions.flatMap((s) =>
+      s.stages[0].from.skus
+        .filter((sku) => sku.vendor === 'SDS')
+        .map((sku) => ({ teeth: s.stages[0].from.teeth, sku })),
+    );
+    expect(sdsMotorGears.length).toBeGreaterThan(0);
+    for (const { teeth, sku } of sdsMotorGears) {
+      expect(sku.url).toMatch(new RegExp(`\\b${teeth}t-.*falcon`));
+    }
+  }, 15_000);
+
   describe('Thrifty cycloidal gearbox (23:1 planetary)', () => {
     const allSkus = (result: Awaited<ReturnType<typeof findGearboxes>>) =>
       result.solutions.flatMap((s) =>

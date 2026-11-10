@@ -247,8 +247,69 @@ describe('calculateCenters', () => {
       false,
     );
 
-    expect(result.larger.distance.to('in').scalar).toBeCloseTo(10.0, 3);
-    expect(result.smaller.distance.to('in').scalar).toBeCloseTo(10.0, 3);
+    expect(result.larger.distance.to('in').scalar).toBeCloseTo(10.25, 9);
+    expect(result.smaller.distance.to('in').scalar).toBeCloseTo(10.0, 9);
+  });
+
+  it('offers a longer chain than the exact fit when the target is achievable', () => {
+    const result = calculateCenters(
+      new Measurement(0.25, 'in'),
+      16,
+      16,
+      new Measurement(4, 'in'),
+      new Measurement(0, 'in'),
+      false,
+    );
+
+    expect([result.smaller.links, result.larger.links]).toEqual([48, 50]);
+  });
+
+  it('offers a longer chain than the exact fit with half links allowed', () => {
+    const result = calculateCenters(
+      new Measurement(0.25, 'in'),
+      16,
+      16,
+      new Measurement(4, 'in'),
+      new Measurement(0, 'in'),
+      true,
+    );
+
+    expect([result.smaller.links, result.larger.links]).toEqual([48, 49]);
+  });
+
+  it('picks the same chains after converting the target to millimeters', () => {
+    const linksFor = (target: Measurement) => {
+      const result = calculateCenters(
+        new Measurement(0.25, 'in'),
+        8,
+        8,
+        target,
+        new Measurement(0, 'in'),
+        false,
+      );
+      return [result.smaller.links, result.larger.links];
+    };
+
+    expect(linksFor(new Measurement(3 * 25.4, 'mm'))).toEqual(
+      linksFor(new Measurement(3, 'in')),
+    );
+  });
+
+  it('never offers a smaller chain whose center exceeds the target', () => {
+    const desiredCenter = new Measurement(6.85, 'in');
+
+    const result = calculateCenters(
+      new Measurement(0.375, 'in'),
+      8,
+      58,
+      desiredCenter,
+      new Measurement(0, 'in'),
+      true,
+    );
+
+    expect(result.smaller.distance.to('in').scalar).toBeLessThanOrEqual(
+      desiredCenter.to('in').scalar,
+    );
   });
 
   it('handles very small desired center', () => {

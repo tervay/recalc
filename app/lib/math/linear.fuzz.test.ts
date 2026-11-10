@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 
-import { calculateGuessedLimits, calculateStallLoad } from '~/lib/math/linear';
 import {
   cartesian,
   LINEAR_FUZZ_MOTORS,
@@ -9,8 +8,11 @@ import {
   sampleForSnapshot,
   snapshotMeasurement,
   snapshotNumber,
-} from '~/lib/math/linearFuzzTestUtils';
+} from '~/lib/math/fuzzTestUtils';
+import { calculateGuessedLimits, calculateStallLoad } from '~/lib/math/linear';
+import { trapezoidProfileDurationSeconds } from '~/lib/math/optimizerUtils';
 import Motor from '~/lib/models/Motor';
+import Ratio, { RatioType } from '~/lib/models/Ratio';
 
 const efficiencies = [50, 90, 100];
 const angles = [-90, 0, 45, 90];
@@ -294,5 +296,189 @@ describe('linear formula fuzz cases', () => {
       expect(guarded.v_max_guessed.to('m/s').scalar).toBe(0);
       expect(guarded.a_max_guessed.to('m/s^2').scalar).toBe(0);
     }
+  });
+});
+
+type ProfileCase = {
+  motor: Motor;
+  ratio: number;
+  loadLb: number;
+  spoolIn: number;
+  statorA: number;
+  supplyA: number;
+  supplyV: number;
+  angleDeg: number;
+  efficiency: number;
+  cascade: boolean;
+  rVolts: number;
+  travelIn: number;
+};
+
+function guessedLimits(c: ProfileCase, travel: boolean, ratio?: Ratio) {
+  return calculateGuessedLimits(
+    c.motor,
+    ratio ?? reduction(c.ratio),
+    measurement(c.loadLb, 'lb'),
+    measurement(c.spoolIn, 'in'),
+    measurement(c.statorA, 'A'),
+    measurement(c.supplyA, 'A'),
+    measurement(c.supplyV, 'V'),
+    measurement(c.angleDeg, 'deg'),
+    c.efficiency,
+    c.cascade,
+    measurement(c.rVolts, 'V'),
+    travel ? measurement(c.travelIn, 'in') : null,
+  );
+}
+
+function profileSeconds(c: ProfileCase): number {
+  const { v_max_guessed, a_max_guessed } = guessedLimits(c, true);
+  return trapezoidProfileDurationSeconds(
+    c.travelIn * 0.0254 * (c.cascade ? 0.5 : 1),
+    v_max_guessed.to('m/s').scalar,
+    a_max_guessed.to('m/s^2').scalar,
+  );
+}
+
+function hitsGuessFloor(c: ProfileCase): boolean {
+  const { v_max_guessed, a_max_guessed } = guessedLimits(c, false);
+  return (
+    v_max_guessed.to('m/s').scalar <= 0.1 + 1e-12 ||
+    a_max_guessed.to('m/s^2').scalar <= 0.1 + 1e-12
+  );
+}
+
+const PROFILE_TOLERANCE = 1e-3;
+
+const profileCases: ProfileCase[] = cartesian(
+  LINEAR_FUZZ_MOTORS,
+  [3, 8, 20],
+  [5, 15, 40],
+  [1, 1.75],
+  [40, 80, 120],
+  [30, 60],
+  [0, 90],
+  [80],
+  [false, true],
+  [12, 40],
+).map(
+  ([
+    [, motor],
+    ratio,
+    loadLb,
+    spoolIn,
+    statorA,
+    supplyA,
+    angleDeg,
+    efficiency,
+    cascade,
+    travelIn,
+  ]) => ({
+    motor,
+    ratio,
+    loadLb,
+    spoolIn,
+    statorA,
+    supplyA,
+    supplyV: 12,
+    angleDeg,
+    efficiency,
+    cascade,
+    rVolts: 11,
+    travelIn,
+  }),
+);
+
+function monotonicViolations(
+  bump: (c: ProfileCase) => ProfileCase,
+  direction: 'faster' | 'slower',
+) {
+  return profileCases
+    .filter((c) => !hitsGuessFloor(c) && !hitsGuessFloor(bump(c)))
+    .map((c) => ({
+      c,
+      before: profileSeconds(c),
+      after: profileSeconds(bump(c)),
+    }))
+    .filter(({ before, after }) =>
+      direction === 'faster'
+        ? after > before * (1 + PROFILE_TOLERANCE)
+        : after < before * (1 - PROFILE_TOLERANCE),
+    )
+    .map(({ before, after }) => ({ before, after }));
+}
+
+describe('linear guessed profile invariants', { timeout: 30_000 }, () => {
+  it('covers a meaningful number of unfloored mechanisms', () => {
+    expect(
+      profileCases.filter((c) => !hitsGuessFloor(c)).length,
+    ).toBeGreaterThan(1000);
+  });
+
+  it('never slows the profile when the stator limit rises', () => {
+    expect(
+      monotonicViolations(
+        (c) => ({ ...c, statorA: c.statorA * 1.25 }),
+        'faster',
+      ),
+    ).toEqual([]);
+  });
+
+  it('never slows the profile when the supply limit rises', () => {
+    expect(
+      monotonicViolations(
+        (c) => ({ ...c, supplyA: c.supplyA * 1.25 }),
+        'faster',
+      ),
+    ).toEqual([]);
+  });
+
+  it('never slows the profile when efficiency rises', () => {
+    expect(
+      monotonicViolations(
+        (c) => ({ ...c, efficiency: Math.min(100, c.efficiency + 10) }),
+        'faster',
+      ),
+    ).toEqual([]);
+  });
+
+  it('never slows the profile when the control voltage rises toward the supply', () => {
+    expect(
+      monotonicViolations((c) => ({ ...c, rVolts: c.supplyV }), 'faster'),
+    ).toEqual([]);
+  });
+
+  it('never speeds up the profile when the load rises', () => {
+    expect(
+      monotonicViolations((c) => ({ ...c, loadLb: c.loadLb * 1.25 }), 'slower'),
+    ).toEqual([]);
+  });
+
+  it('never speeds up the profile when the travel rises', () => {
+    expect(
+      monotonicViolations(
+        (c) => ({ ...c, travelIn: c.travelIn * 1.25 }),
+        'slower',
+      ),
+    ).toEqual([]);
+  });
+
+  it('treats a reduction and the equivalent step-up identically', () => {
+    const violations = profileCases.filter((c) => {
+      const reductionLimits = guessedLimits(c, true);
+      const stepUpLimits = guessedLimits(
+        c,
+        true,
+        new Ratio(1 / c.ratio, RatioType.STEP_UP),
+      );
+      return (
+        Math.abs(
+          reductionLimits.a_max_guessed.to('m/s^2').scalar -
+            stepUpLimits.a_max_guessed.to('m/s^2').scalar,
+        ) > 1e-9
+      );
+    });
+
+    expect(violations).toEqual([]);
   });
 });

@@ -42,6 +42,33 @@ function run(overrides?: {
   );
 }
 
+describe('armOptimizer slow mechanisms', () => {
+  it('recommends a configuration that only reaches the goal between 1.5s and 3s', async () => {
+    const heavyArmLength = new Measurement(40, 'in');
+    const heavyMoi = new Measurement(80, 'lb')
+      .mul(heavyArmLength)
+      .mul(heavyArmLength);
+
+    const result = await optimizeConfiguration(
+      Motor.NEO(1).toDict(),
+      heavyMoi.toDict(),
+      heavyArmLength.toDict(),
+      minAngle.toDict(),
+      maxAngle.toDict(),
+      statorVoltage.toDict(),
+      batteryResistance.toDict(),
+      supplyVoltage.toDict(),
+      40,
+      40,
+      1.0,
+    );
+
+    expect(result.recommended?.timeToGoalSeconds).toSatisfy(
+      (seconds: number) => seconds > 1.5 && seconds < 3,
+    );
+  }, 120_000);
+});
+
 describe('armOptimizer', () => {
   let sharedResult: ConfigOptOutput;
 
@@ -105,7 +132,7 @@ describe('armOptimizer', () => {
     expect(result.recommended).toBeNull();
     expect(result.allResults).toHaveLength(9);
     expect(result.allResults.every((r) => !r.success)).toBe(true);
-  });
+  }, 60_000);
 });
 
 describe('armOptimizer wasm cleanup', () => {

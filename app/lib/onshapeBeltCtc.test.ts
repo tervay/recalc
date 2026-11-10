@@ -230,4 +230,18 @@ describe('formatBeltCtc', () => {
     const parsed = parseBeltCtc(expression);
     expect(parsed && formatBeltCtc(parsed)).toBe(expression);
   });
+
+  it('round-trips a tiny extra center that formats in exponent notation', () => {
+    const formatted = formatBeltCtc({
+      ...base,
+      pitch: new Measurement(5, 'mm'),
+      extraCenter: new Measurement(1e-7, 'mm'),
+    });
+
+    expect(
+      formatted === null
+        ? null
+        : parseBeltCtc(formatted)?.extraCenter.to('mm').scalar,
+    ).toBe(1e-7);
+  });
 });

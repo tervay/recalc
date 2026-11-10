@@ -135,7 +135,8 @@ std::vector<ElevatorSimStateInternal> ToRows(const emscripten::val& v) {
          s["supplyCurrentDrawAmps"].as<double>(), s["timeSeconds"].as<double>(),
          s["batteryVoltageVolts"].as<double>(),
          s["motorAppliedVoltageVolts"].as<double>(), s["motorRpm"].as<double>(),
-         s["energyJoules"].as<double>(), s["success"].as<bool>()});
+         s["energyJoules"].as<double>(), s["success"].as<bool>(),
+         s["timeToGoalSeconds"].as<double>()});
   }
   return rows;
 }
@@ -478,6 +479,116 @@ TEST_CASE("SimulateElevatorTrajectory: ReachesGoalAndReportsSuccess",
   CHECK(std::abs(rows.back().positionMeters - kTravelMeters) <
         kSuccessThresholdMeters);
   CHECK(rows.back().success);
+}
+
+double ProfileDurationSeconds(Params p) {
+  DeriveConstraints(p);
+  wpi::math::TrapezoidProfile<wpi::units::meters> profile{
+      {wpi::units::meters_per_second_t(p.maxVelocityMPS),
+       wpi::units::meters_per_second_squared_t(p.maxAccelerationMPS2)}};
+  profile.Calculate(
+      wpi::units::second_t(0.0),
+      {wpi::units::meter_t(0.0), wpi::units::meters_per_second_t(0.0)},
+      {wpi::units::meter_t(p.travelDistanceMeters),
+       wpi::units::meters_per_second_t(0.0)});
+  return profile.Duration().to<double>();
+}
+
+TEST_CASE("SimulateElevatorTrajectory: EndsWithinHalfAnInchOfTheGoal",
+          "[SimulateElevatorTrajectory]") {
+  const auto rows = Simulate(Params{});
+  REQUIRE_FALSE(rows.empty());
+
+  CHECK(std::abs(rows.back().positionMeters - kTravelMeters) <=
+        kGoalToleranceMeters);
+}
+
+size_t RowAt(const std::vector<ElevatorSimStateInternal>& rows,
+             double timeSeconds) {
+  size_t index = 0;
+  while (index + 1 < rows.size() && rows[index].timeSeconds < timeSeconds) {
+    ++index;
+  }
+  return index;
+}
+
+// The time to goal is the moment the carriage entered the goal band for good:
+// the row before it is still outside the band.
+TEST_CASE(
+    "SimulateElevatorTrajectory: TimeToGoalIsWhenTheCarriageEntersTheBand",
+    "[SimulateElevatorTrajectory]") {
+  Params p;
+  p.decimation = 1;
+  const auto rows = Simulate(p);
+  const size_t entered = RowAt(rows, rows.back().timeToGoalSeconds);
+  REQUIRE(entered > 0u);
+
+  CHECK(std::abs(rows[entered - 1].positionMeters - kTravelMeters) >
+        kGoalToleranceMeters);
+}
+
+TEST_CASE("SimulateElevatorTrajectory: StaysInTheBandAfterTheTimeToGoal",
+          "[SimulateElevatorTrajectory]") {
+  Params p;
+  p.decimation = 1;
+  const auto rows = Simulate(p);
+  REQUIRE_FALSE(rows.empty());
+
+  for (size_t i = RowAt(rows, rows.back().timeToGoalSeconds); i < rows.size();
+       ++i) {
+    INFO("at row " << i);
+    CHECK(std::abs(rows[i].positionMeters - kTravelMeters) <=
+          kGoalToleranceMeters);
+  }
+}
+
+TEST_CASE("SimulateElevatorTrajectory: HoldsTheGoalBeforeEndingTheRun",
+          "[SimulateElevatorTrajectory]") {
+  const auto rows = Simulate(Params{});
+  REQUIRE_FALSE(rows.empty());
+
+  CHECK(rows.back().timeSeconds - rows.back().timeToGoalSeconds >=
+        kGoalHoldSeconds - 1e-9);
+}
+
+TEST_CASE(
+    "SimulateElevatorTrajectory: ReportsTheRunLengthAsTimeToGoalOnFailure",
+    "[SimulateElevatorTrajectory]") {
+  Params p;
+  p.maxSimSeconds = 0.01;
+  const auto rows = Simulate(p);
+  REQUIRE_FALSE(rows.empty());
+
+  CHECK(rows.back().timeToGoalSeconds == rows.back().timeSeconds);
+}
+
+// A profile derived for half the real load is too aggressive to follow, so
+// the carriage reaches the goal after the profile itself has finished.
+TEST_CASE(
+    "SimulateElevatorTrajectory: KeepsSimulatingUntilALaggingCarriageSettles",
+    "[SimulateElevatorTrajectory]") {
+  Params p;
+  DeriveConstraints(p);
+  p.loadKg *= 2.0;
+  const auto rows = ToRows(RunRaw(p));
+  REQUIRE_FALSE(rows.empty());
+
+  REQUIRE(rows.back().timeToGoalSeconds > ProfileDurationSeconds(p));
+  CHECK(std::abs(rows.back().positionMeters - kTravelMeters) <=
+        kGoalToleranceMeters);
+}
+
+// A cascade's first stage moves half as far as the carriage, so the half-inch
+// carriage tolerance is a quarter inch on the simulated stage.
+TEST_CASE("SimulateElevatorCascade: SettlesWithinAQuarterInchOnTheFirstStage",
+          "[SimulateElevatorCascade]") {
+  Params p;
+  p.cascade = true;
+  const auto rows = Simulate(p);
+  REQUIRE_FALSE(rows.empty());
+
+  CHECK(std::abs(rows.back().positionMeters - kTravelMeters / 2.0) <=
+        kGoalToleranceMeters / 2.0);
 }
 
 // success is only meaningful on the final element -- it is the one the
