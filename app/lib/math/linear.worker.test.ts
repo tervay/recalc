@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { calculateGuessedLimits } from '~/lib/math/linear';
 import {
+  computeElevatorFeedbackGains,
   computeElevatorFeedforwardGains,
   simulateElevatorWpilib,
   type WpilibElevatorSimState,
@@ -408,5 +409,54 @@ describe('simulateElevatorWpilib stator limit monotonicity', () => {
     expect(Math.abs(travelDistance.sub(lastPos).to('in').scalar)).toBeLessThan(
       1,
     );
+  });
+});
+
+describe('cascade elevator gains', () => {
+  const feedforwardFor = (load: Measurement, cascade: boolean) =>
+    computeElevatorFeedforwardGains({
+      motorDict: Motor.KrakenX60sFOC(2).toDict(),
+      ratio: new Ratio(6, RatioType.REDUCTION).toDict(),
+      load: load.toDict(),
+      spoolDiameter: new Measurement(1.5, 'in').toDict(),
+      efficiency: 0.9,
+      angle: new Measurement(90, 'deg').toDict(),
+      cascade,
+    });
+
+  const feedbackFor = (load: Measurement, cascade: boolean) =>
+    computeElevatorFeedbackGains({
+      motorDict: Motor.KrakenX60sFOC(2).toDict(),
+      ratio: new Ratio(6, RatioType.REDUCTION).toDict(),
+      load: load.toDict(),
+      spoolDiameter: new Measurement(1.5, 'in').toDict(),
+      efficiency: 0.9,
+      qPosition: new Measurement(0.02, 'm').toDict(),
+      qVelocity: new Measurement(0.4, 'm/s').toDict(),
+      rVolts: new Measurement(12, 'V').toDict(),
+      feedbackDt: new Measurement(20, 'ms').toDict(),
+      sensorDelay: new Measurement(1, 'ms').toDict(),
+      cascade,
+    });
+
+  it('doubles kG for a cascade, matching the doubled load the sim holds', async () => {
+    const single = await feedforwardFor(new Measurement(15, 'lb'), false);
+    const cascade = await feedforwardFor(new Measurement(15, 'lb'), true);
+
+    expect(cascade.kG).toBeCloseTo(single.kG * 2, 9);
+  });
+
+  it('computes cascade feedforward gains for the doubled stage-one load', async () => {
+    const cascade = await feedforwardFor(new Measurement(15, 'lb'), true);
+    const doubled = await feedforwardFor(new Measurement(30, 'lb'), false);
+
+    expect(cascade).toEqual(doubled);
+  });
+
+  it('computes cascade feedback gains for the doubled stage-one load', async () => {
+    const cascade = await feedbackFor(new Measurement(15, 'lb'), true);
+    const doubled = await feedbackFor(new Measurement(30, 'lb'), false);
+
+    expect(cascade).toEqual(doubled);
   });
 });

@@ -452,6 +452,7 @@ export default function Linear() {
         spoolDiameter: spoolDiameter.toDict(),
         efficiency: efficiency / 100,
         angle: angle.toDict(),
+        cascade,
       })
       .then(({ kV, kA, kG }) => {
         setFeedforwardGains({
@@ -463,7 +464,7 @@ export default function Linear() {
       .catch((error: unknown) => {
         console.error(error);
       });
-  }, [motor, ratio, load, spoolDiameter, efficiency, angle]);
+  }, [motor, ratio, load, spoolDiameter, efficiency, angle, cascade]);
 
   const { kV, kA, kG } = feedforwardGains;
 
@@ -485,6 +486,7 @@ export default function Linear() {
         rVolts: rVolts.toDict(),
         feedbackDt: feedbackDt.toDict(),
         sensorDelay: sensorDelay.toDict(),
+        cascade,
       })
       .then(({ kP, kD }) => {
         setFeedbackGains({
@@ -506,6 +508,7 @@ export default function Linear() {
     rVolts,
     feedbackDt,
     sensorDelay,
+    cascade,
   ]);
 
   const userStatorAmps = statorLimit.to('A').scalar;

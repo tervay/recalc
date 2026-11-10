@@ -53,6 +53,7 @@ export interface ComputeElevatorFeedbackGainsParams {
   rVolts: MeasurementDict;
   feedbackDt: MeasurementDict;
   sensorDelay: MeasurementDict;
+  cascade?: boolean;
 }
 
 export interface ComputeElevatorFeedforwardGainsParams {
@@ -62,6 +63,12 @@ export interface ComputeElevatorFeedforwardGainsParams {
   spoolDiameter: MeasurementDict;
   efficiency: number;
   angle: MeasurementDict;
+  cascade?: boolean;
+}
+
+function stageOneLoad(load: MeasurementDict, cascade: boolean): Measurement {
+  const measurement = Measurement.fromDict(load);
+  return cascade ? measurement.mul(2) : measurement;
 }
 
 export async function computeElevatorFeedforwardGains({
@@ -71,11 +78,12 @@ export async function computeElevatorFeedforwardGains({
   spoolDiameter,
   efficiency,
   angle,
+  cascade = false,
 }: ComputeElevatorFeedforwardGainsParams): Promise<FeedforwardGains> {
   const wpilibc = await initWpilibc();
   const motor = Motor.fromDict(motorDict);
   const ratioValue = Ratio.fromDict(ratio);
-  const loadMeasurement = Measurement.fromDict(load);
+  const loadMeasurement = stageOneLoad(load, cascade);
   const spoolRadius = Measurement.fromDict(spoolDiameter).div(2);
 
   if (
@@ -113,11 +121,12 @@ export async function computeElevatorFeedbackGains({
   rVolts,
   feedbackDt,
   sensorDelay,
+  cascade = false,
 }: ComputeElevatorFeedbackGainsParams): Promise<FeedbackGains> {
   const wpilibc = await initWpilibc();
   const motor = Motor.fromDict(motorDict);
   const ratioValue = Ratio.fromDict(ratio);
-  const loadMeasurement = Measurement.fromDict(load);
+  const loadMeasurement = stageOneLoad(load, cascade);
   const spoolRadius = Measurement.fromDict(spoolDiameter).div(2);
   const dt = Measurement.fromDict(feedbackDt);
   const r = Measurement.fromDict(rVolts);
