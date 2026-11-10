@@ -318,7 +318,6 @@ export async function optimizeConfiguration(
                 ratioMagnitude,
                 totalStatorAmps,
                 totalSupplyAmps,
-                1.5,
               );
               const last = states[states.length - 1];
               return last?.success
