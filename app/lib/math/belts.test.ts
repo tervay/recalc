@@ -394,8 +394,8 @@ describe('calculateClosestCenters', () => {
 
     expect(result.smaller.belt.teeth).toBe(60);
     expect(result.larger.belt.teeth).toBe(65);
-    expect(result.smaller.p2TeethInMesh).toBe(1);
-    expect(result.larger.p2TeethInMesh).toBe(16);
+    expect(result.smaller.p2TeethInMesh).toBe(59);
+    expect(result.larger.p2TeethInMesh).toBe(44);
   });
 });
 
@@ -597,7 +597,7 @@ describe('teethInMesh', () => {
 
     const result = teethInMesh(p1, p2, center, pulleyToUse);
 
-    expect(result).toBe(14);
+    expect(result).toBe(15);
   });
 
   it('calculates teeth in mesh correctly for smaller pulley', () => {
@@ -608,7 +608,7 @@ describe('teethInMesh', () => {
 
     const result = teethInMesh(p1, p2, center, pulleyToUse);
 
-    expect(result).toBe(10);
+    expect(result).toBe(9);
   });
 
   it('handles zero center distance', () => {
@@ -644,7 +644,7 @@ describe('teethInMesh', () => {
     expect(result).toBe(0);
   });
 
-  it('handles equal pulleys', () => {
+  it('meshes exactly half the teeth of equal pulleys', () => {
     const p1 = new SimplePulley(20, new Measurement(5, 'mm'));
     const p2 = new SimplePulley(20, new Measurement(5, 'mm'));
     const center = new Measurement(100, 'mm');
@@ -652,7 +652,7 @@ describe('teethInMesh', () => {
 
     const result = teethInMesh(p1, p2, center, pulleyToUse);
 
-    expect(result).toBe(9);
+    expect(result).toBe(10);
   });
 
   it('computes the wrap angle in degrees, not radians, for pulleys with a large size mismatch', () => {
@@ -662,7 +662,17 @@ describe('teethInMesh', () => {
 
     const result = teethInMesh(p1, p2, center, p1);
 
-    expect(result).toBe(12);
+    expect(result).toBe(47);
+  });
+
+  it('wraps the smaller pulley by less than half its teeth for a large size mismatch', () => {
+    const p1 = new SimplePulley(60, new Measurement(5, 'mm'));
+    const p2 = new SimplePulley(10, new Measurement(5, 'mm'));
+    const center = new Measurement(50, 'mm');
+
+    const result = teethInMesh(p1, p2, center, p2);
+
+    expect(result).toBe(2);
   });
 });
 

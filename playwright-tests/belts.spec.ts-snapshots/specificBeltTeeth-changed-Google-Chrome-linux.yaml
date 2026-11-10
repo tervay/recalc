@@ -35,7 +35,7 @@
   - img
 - text: Belt Teeth 100 Center Distance 7.870
 - combobox: in
-- text: P1 Teeth in Mesh 8 P2 Teeth in Mesh 11 Pulley Clearance 6.617
+- text: P1 Teeth in Mesh 7 P2 Teeth in Mesh 12 Pulley Clearance 6.617
 - combobox: in
 - table:
   - rowgroup:
