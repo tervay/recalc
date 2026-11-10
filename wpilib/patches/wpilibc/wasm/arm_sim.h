@@ -17,6 +17,8 @@
 #include "wpi/simulation/SingleJointedArmSim.hpp"
 #include "wpi/system/RobotController.hpp"
 
+inline constexpr double kArmGravityMetersPerSecondSquared = 9.80665;
+
 // SingleJointedArmSim subclass that supports torque efficiency [0, 1].
 // Overrides UpdateX to scale the motor-side dynamics by efficiency, and
 // re-applies gravity (which would otherwise be omitted since UpdateX is fully
@@ -56,9 +58,11 @@ class EfficiencyArmSim : public wpi::sim::SingleJointedArmSim {
           // Gearbox losses on the motor-side row. xdot(0) is the kinematic
           // omega = dtheta/dt relation and must not be scaled.
           xdot(1) *= m_efficiency;
-          // Gravity: alpha = -3/2 * g / L * cos(theta), per WPILib arm model
+          // Gravity on a point mass at the arm length: alpha = -g / L *
+          // cos(theta), matching the calculator's J = m * L^2 and kG.
           if (m_armLenMeters > 0.0) {
-            xdot(1) += -3.0 / 2.0 * 9.8 / m_armLenMeters * std::cos(x(0));
+            xdot(1) += -kArmGravityMetersPerSecondSquared / m_armLenMeters *
+                       std::cos(x(0));
           }
           return xdot;
         },
