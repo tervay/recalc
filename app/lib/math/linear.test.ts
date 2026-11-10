@@ -927,4 +927,60 @@ describe('calculateGuessedLimits', () => {
       profileSecondsFor(24.78),
     );
   });
+
+  describe('achievable limits for a supply-limited profile', () => {
+    const args = [
+      Motor.KrakenX60sFOC(1),
+      new Ratio(3, RatioType.REDUCTION),
+      new Measurement(10, 'lb'),
+      new Measurement(1.5, 'in'),
+      new Measurement(80, 'A'),
+      new Measurement(20, 'A'),
+      new Measurement(12, 'V'),
+      new Measurement(90, 'deg'),
+      90,
+      false,
+      new Measurement(12, 'V'),
+    ] as const;
+    const unconstrained = calculateGuessedLimits(...args, null);
+    const profiled = calculateGuessedLimits(...args, new Measurement(60, 'in'));
+
+    it('cruises the profile below the top speed', () => {
+      expect(profiled.v_max_guessed.to('m/s').scalar).toBeLessThan(
+        unconstrained.v_max_guessed.to('m/s').scalar,
+      );
+    });
+
+    it('reports the top speed as the achievable velocity', () => {
+      expect(profiled.v_max_achievable.to('m/s').scalar).toBe(
+        unconstrained.v_max_guessed.to('m/s').scalar,
+      );
+    });
+
+    it('reports the low-speed acceleration as the achievable acceleration', () => {
+      expect(profiled.a_max_achievable.to('m/s^2').scalar).toBe(
+        unconstrained.a_max_guessed.to('m/s^2').scalar,
+      );
+    });
+  });
+
+  it('reports zero achievable limits for a guarded zero input', () => {
+    const { v_max_achievable, a_max_achievable } = calculateGuessedLimits(
+      Motor.KrakenX60sFOC(1),
+      new Ratio(3, RatioType.REDUCTION),
+      new Measurement(0, 'lb'),
+      new Measurement(1.5, 'in'),
+      new Measurement(80, 'A'),
+      new Measurement(20, 'A'),
+      new Measurement(12, 'V'),
+      new Measurement(90, 'deg'),
+      90,
+      false,
+    );
+
+    expect([
+      v_max_achievable.to('m/s').scalar,
+      a_max_achievable.to('m/s^2').scalar,
+    ]).toEqual([0, 0]);
+  });
 });

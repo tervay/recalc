@@ -429,3 +429,42 @@ test.describe('Linear Mechanism Calculator', () => {
     });
   });
 });
+
+test.describe('Linear custom velocity limit', () => {
+  const param = (value: unknown) => encodeURIComponent(JSON.stringify(value));
+  const supplyLimitedUrl = (maxVelocityMPS: number) =>
+    [
+      '/linear?ratio=',
+      param({ magnitude: 3, ratioType: 'Reduction' }),
+      '&load=',
+      param({ s: 10, u: 'lb' }),
+      '&spoolDiameter=',
+      param({ s: 1.5, u: 'in' }),
+      '&supplyLimit=',
+      param({ s: 20, u: 'A' }),
+      '&efficiency=90&enableCustomMaxVelocity=true&maxVelocity=',
+      param({ s: maxVelocityMPS, u: 'm/s' }),
+    ].join('');
+
+  test('accepts a custom velocity above the profile cruise but below the top speed', async ({
+    page,
+  }) => {
+    await page.goto(supplyLimitedUrl(3));
+    await page.waitForLoadState('networkidle');
+
+    await expect(page.getByTestId('maxVelocity')).not.toHaveAttribute(
+      'aria-invalid',
+      'true',
+    );
+  });
+
+  test('rejects a custom velocity above the top speed', async ({ page }) => {
+    await page.goto(supplyLimitedUrl(4));
+    await page.waitForLoadState('networkidle');
+
+    await expect(page.getByTestId('maxVelocity')).toHaveAttribute(
+      'aria-invalid',
+      'true',
+    );
+  });
+});

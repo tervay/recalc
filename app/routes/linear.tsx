@@ -238,9 +238,24 @@ export default function Linear() {
     setKalmanFilterEncoderPositionStdDev,
   ] = useState(queryParams.kalmanFilterEncoderPositionStdDev);
 
-  const { v_max_guessed, a_max_guessed } = useMemo(
-    () =>
-      calculateGuessedLimits(
+  const { v_max_guessed, a_max_guessed, v_max_achievable, a_max_achievable } =
+    useMemo(
+      () =>
+        calculateGuessedLimits(
+          motor,
+          ratio,
+          load,
+          spoolDiameter,
+          statorLimit,
+          supplyLimit,
+          supplyVoltage,
+          angle,
+          efficiency,
+          cascade,
+          rVolts,
+          travelDistance,
+        ),
+      [
         motor,
         ratio,
         load,
@@ -253,22 +268,8 @@ export default function Linear() {
         cascade,
         rVolts,
         travelDistance,
-      ),
-    [
-      motor,
-      ratio,
-      load,
-      spoolDiameter,
-      statorLimit,
-      supplyLimit,
-      supplyVoltage,
-      angle,
-      efficiency,
-      cascade,
-      rVolts,
-      travelDistance,
-    ],
-  );
+      ],
+    );
 
   const rotationFactor = useMemo(
     () => metersPerMotorRotation(spoolDiameter, ratio),
@@ -298,13 +299,13 @@ export default function Linear() {
 
   const maxVelocityError =
     enableCustomMaxVelocity &&
-    exceedsAchievableLimit(effectiveMaxVelocity, v_max_guessed, 'm/s')
-      ? `This custom maximum velocity is higher than the system can achieve with the current motor, gearing, load, and limits. Current achievable limit: ${formatAchievableLimit(v_max_guessed, maxVelocity.units(), rotationFactor)}.`
+    exceedsAchievableLimit(effectiveMaxVelocity, v_max_achievable, 'm/s')
+      ? `This custom maximum velocity is higher than the system can achieve with the current motor, gearing, load, and limits. Current achievable limit: ${formatAchievableLimit(v_max_achievable, maxVelocity.units(), rotationFactor)}.`
       : undefined;
   const maxAccelerationError =
     enableCustomMaxAcceleration &&
-    exceedsAchievableLimit(effectiveMaxAcceleration, a_max_guessed, 'm/s^2')
-      ? `This custom maximum acceleration is higher than the system can achieve with the current motor, gearing, load, and limits. Current achievable limit: ${formatAchievableLimit(a_max_guessed, maxAcceleration.units(), rotationFactor)}.`
+    exceedsAchievableLimit(effectiveMaxAcceleration, a_max_achievable, 'm/s^2')
+      ? `This custom maximum acceleration is higher than the system can achieve with the current motor, gearing, load, and limits. Current achievable limit: ${formatAchievableLimit(a_max_achievable, maxAcceleration.units(), rotationFactor)}.`
       : undefined;
 
   const stallLoad = useMemo(() => {

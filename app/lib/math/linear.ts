@@ -64,6 +64,8 @@ export function calculateGuessedLimits(
     return {
       v_max_guessed: new Measurement(0, 'm/s'),
       a_max_guessed: new Measurement(0, 'm/s^2'),
+      v_max_achievable: new Measurement(0, 'm/s'),
+      a_max_achievable: new Measurement(0, 'm/s^2'),
     };
   }
 
@@ -144,8 +146,13 @@ export function calculateGuessedLimits(
     v_max_theoretical.mul(VELO_GUESS_FACTOR),
   );
 
+  const achievable = {
+    v_max_achievable: v_max_guessed,
+    a_max_achievable: a_max_guessed,
+  };
+
   if (travelDistance === null) {
-    return { v_max_guessed, a_max_guessed };
+    return { v_max_guessed, a_max_guessed, ...achievable };
   }
 
   const feasible = powerFeasibleProfile({
@@ -166,19 +173,21 @@ export function calculateGuessedLimits(
   });
 
   if (feasible === null) {
-    return { v_max_guessed, a_max_guessed };
+    return { v_max_guessed, a_max_guessed, ...achievable };
   }
 
   if (feasible.velocityMPS < GUESS_FLOOR) {
     return {
       v_max_guessed: new Measurement(GUESS_FLOOR, 'm/s'),
       a_max_guessed: new Measurement(GUESS_FLOOR, 'm/s^2'),
+      ...achievable,
     };
   }
 
   return {
     v_max_guessed: new Measurement(feasible.velocityMPS, 'm/s'),
     a_max_guessed: new Measurement(feasible.accelMPS2, 'm/s^2'),
+    ...achievable,
   };
 }
 

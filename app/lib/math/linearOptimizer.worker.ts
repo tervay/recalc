@@ -128,24 +128,32 @@ function guessLimitsFromMech(
   statorAmps: number,
   supplyAmps: number,
   rVolts?: number,
-): { velocity: number; acceleration: number } {
-  const { v_max_guessed, a_max_guessed } = calculateGuessedLimits(
-    Motor.fromName(p.motorName, p.motorQuantity),
-    new Ratio(ratioMagnitude, RatioType.REDUCTION),
-    new Measurement(p.loadKg, 'kg'),
-    new Measurement(p.spoolRadiusMeters * 2, 'm'),
-    new Measurement(statorAmps, 'A'),
-    new Measurement(supplyAmps, 'A'),
-    new Measurement(p.batteryVoltageVolts, 'V'),
-    new Measurement(p.angleRadians, 'rad'),
-    p.efficiency * 100,
-    p.cascade,
-    rVolts ? new Measurement(rVolts, 'V') : undefined,
-    new Measurement(p.travelDistanceMeters, 'm'),
-  );
+): {
+  velocity: number;
+  acceleration: number;
+  achievableVelocity: number;
+  achievableAcceleration: number;
+} {
+  const { v_max_guessed, a_max_guessed, v_max_achievable, a_max_achievable } =
+    calculateGuessedLimits(
+      Motor.fromName(p.motorName, p.motorQuantity),
+      new Ratio(ratioMagnitude, RatioType.REDUCTION),
+      new Measurement(p.loadKg, 'kg'),
+      new Measurement(p.spoolRadiusMeters * 2, 'm'),
+      new Measurement(statorAmps, 'A'),
+      new Measurement(supplyAmps, 'A'),
+      new Measurement(p.batteryVoltageVolts, 'V'),
+      new Measurement(p.angleRadians, 'rad'),
+      p.efficiency * 100,
+      p.cascade,
+      rVolts ? new Measurement(rVolts, 'V') : undefined,
+      new Measurement(p.travelDistanceMeters, 'm'),
+    );
   return {
     velocity: v_max_guessed.to('m/s').scalar,
     acceleration: a_max_guessed.to('m/s^2').scalar,
+    achievableVelocity: v_max_achievable.to('m/s').scalar,
+    achievableAcceleration: a_max_achievable.to('m/s^2').scalar,
   };
 }
 
@@ -176,8 +184,8 @@ function profileLimitsForRatio(
   }
 
   const requestedLimits: Array<[number | null, number]> = [
-    [maxVelocityMPS, guessed.velocity],
-    [maxAccelerationMPS2, guessed.acceleration],
+    [maxVelocityMPS, guessed.achievableVelocity],
+    [maxAccelerationMPS2, guessed.achievableAcceleration],
   ];
 
   for (const [requested, achievable] of requestedLimits) {
