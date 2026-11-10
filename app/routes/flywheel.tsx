@@ -607,7 +607,7 @@ export default function Flywheel() {
         ? JSON.stringify([
             motor.toDict(),
             combinedMOI.toDict(),
-            clampedShooterTargetSpeed.toDict(),
+            shooterTargetSpeed.toDict(),
             batteryResistance.toDict(),
             supplyVoltage.toDict(),
             statorLimit.toDict(),
@@ -619,7 +619,7 @@ export default function Flywheel() {
       optimizationEnabled,
       motor,
       combinedMOI,
-      clampedShooterTargetSpeed,
+      shooterTargetSpeed,
       batteryResistance,
       supplyVoltage,
       statorLimit,
@@ -635,7 +635,7 @@ export default function Flywheel() {
       return optimizerPool.exec('optimizeConfiguration', [
         motor.toDict(),
         combinedMOI.toDict(),
-        clampedShooterTargetSpeed.toDict(),
+        shooterTargetSpeed.toDict(),
         nominalVoltage.toDict(),
         batteryResistance.toDict(),
         supplyVoltage.toDict(),
