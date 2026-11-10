@@ -123,6 +123,12 @@
       "matchPackageNames": ["java"],
       "matchUpdateTypes": ["major"],
       "enabled": false
+    },
+    {
+      "description": "The mise manager tracks clang-format through LLVM GitHub releases, which land before conda-forge builds them and leave mise.lock unresolvable. The conda regex manager below is the only source.",
+      "matchManagers": ["mise"],
+      "matchDepNames": ["clang-format"],
+      "enabled": false
     }
   ],
   "customManagers": [
@@ -136,7 +142,7 @@
     },
     {
       "customType": "regex",
-      "description": "clang-format resolves through mise's conda backend, which the mise manager cannot read",
+      "description": "clang-format resolves through mise's conda backend, which the mise manager does not query",
       "managerFilePatterns": ["/(^|/)\\.mise\\.toml$/"],
       "matchStrings": ["clang-format\\s*=\\s*\"(?<currentValue>[^\"]+)\""],
       "depNameTemplate": "clang-format",
