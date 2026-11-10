@@ -8,6 +8,7 @@ const CASCADE_TRAVEL_FACTOR = 0.5;
 const ACCEL_GUESS_FACTOR = 0.8;
 const VELO_GUESS_FACTOR = 0.9;
 const PROFILE_TRACKING_MARGIN = 2.0;
+const GUESS_FLOOR = 0.1;
 
 export function calculateStallLoad(
   motor: Motor,
@@ -114,7 +115,7 @@ export function calculateGuessedLimits(
     .div(r);
   const a_max_theoretical = F_max.sub(F_gravity).div(m);
   const a_max_guessed = Measurement.max(
-    new Measurement(0.1, 'm/s^2'),
+    new Measurement(GUESS_FLOOR, 'm/s^2'),
     a_max_theoretical.mul(ACCEL_GUESS_FACTOR),
   );
 
@@ -139,7 +140,7 @@ export function calculateGuessedLimits(
   );
   const v_max_theoretical = V_emf_max.mul(Kv).mul(r).div(G).removeRad();
   const v_max_guessed = Measurement.max(
-    new Measurement(0.1, 'm/s'),
+    new Measurement(GUESS_FLOOR, 'm/s'),
     v_max_theoretical.mul(VELO_GUESS_FACTOR),
   );
 
@@ -168,15 +169,16 @@ export function calculateGuessedLimits(
     return { v_max_guessed, a_max_guessed };
   }
 
+  if (feasible.velocityMPS < GUESS_FLOOR) {
+    return {
+      v_max_guessed: new Measurement(GUESS_FLOOR, 'm/s'),
+      a_max_guessed: new Measurement(GUESS_FLOOR, 'm/s^2'),
+    };
+  }
+
   return {
-    v_max_guessed: Measurement.max(
-      new Measurement(0.1, 'm/s'),
-      new Measurement(feasible.velocityMPS, 'm/s'),
-    ),
-    a_max_guessed: Measurement.max(
-      new Measurement(0.1, 'm/s^2'),
-      new Measurement(feasible.accelMPS2, 'm/s^2'),
-    ),
+    v_max_guessed: new Measurement(feasible.velocityMPS, 'm/s'),
+    a_max_guessed: new Measurement(feasible.accelMPS2, 'm/s^2'),
   };
 }
 
@@ -247,7 +249,7 @@ function powerFeasibleProfile(
       PROFILE_TRACKING_MARGIN *
         achievableAccelAt(peakVelocity(cruiseMPS, i.guessAccelMPS2)),
     );
-    if (accel <= 0.1) {
+    if (accel <= GUESS_FLOOR) {
       continue;
     }
 

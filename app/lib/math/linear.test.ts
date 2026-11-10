@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { calculateGuessedLimits, calculateStallLoad } from '~/lib/math/linear';
+import { trapezoidProfileDurationSeconds } from '~/lib/math/optimizerUtils';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
@@ -896,5 +897,34 @@ describe('calculateGuessedLimits', () => {
     );
 
     expect(a_max_guessed.to('m/s^2').scalar).toBeCloseTo(0.1, 9);
+  });
+
+  it('never speeds up a near-stall profile when the load grows', () => {
+    const travel = new Measurement(4.845, 'in');
+    const profileSecondsFor = (loadLb: number) => {
+      const { v_max_guessed, a_max_guessed } = calculateGuessedLimits(
+        Motor.fromName('V5 Smart Motor (Red)', 1),
+        new Ratio(10.488, RatioType.REDUCTION),
+        new Measurement(loadLb, 'lb'),
+        new Measurement(1.553, 'in'),
+        new Measurement(147.8, 'A'),
+        new Measurement(45.29, 'A'),
+        new Measurement(11.04, 'V'),
+        new Measurement(78.13, 'deg'),
+        80.82,
+        false,
+        new Measurement(9.666, 'V'),
+        travel,
+      );
+      return trapezoidProfileDurationSeconds(
+        travel.to('m').scalar,
+        v_max_guessed.to('m/s').scalar,
+        a_max_guessed.to('m/s^2').scalar,
+      );
+    };
+
+    expect(profileSecondsFor(24.78 * 1.02)).toBeGreaterThanOrEqual(
+      profileSecondsFor(24.78),
+    );
   });
 });
