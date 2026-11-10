@@ -4,7 +4,7 @@ import {
   cartesian,
   LINEAR_FUZZ_NUMBERS,
   snapshotNumber,
-} from '~/lib/math/linearFuzzTestUtils';
+} from '~/lib/math/fuzzTestUtils';
 import {
   adaptiveSimSeconds,
   getMetric,

@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import { orchestrateConfigOptimization } from '~/lib/math/linearConfigOrchestrator';
 import {
   cartesian,
   measurement,
   snapshotNumber,
-} from '~/lib/math/linearFuzzTestUtils';
+} from '~/lib/math/fuzzTestUtils';
+import { orchestrateConfigOptimization } from '~/lib/math/linearConfigOrchestrator';
 import type {
   ConfigOptResult,
   OptimizeConfigurationParams,

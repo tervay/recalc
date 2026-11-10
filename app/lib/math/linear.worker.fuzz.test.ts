@@ -1,18 +1,18 @@
 import { describe, expect, it } from 'vitest';
 
 import {
-  computeElevatorFeedbackGains,
-  computeElevatorFeedforwardGains,
-  simulateElevatorWpilib,
-} from '~/lib/math/linear.worker';
-import type { WpilibElevatorSimState } from '~/lib/math/linear.worker';
-import {
   cartesian,
   LINEAR_FUZZ_MOTORS,
   measurement,
   reduction,
   snapshotNumber,
-} from '~/lib/math/linearFuzzTestUtils';
+} from '~/lib/math/fuzzTestUtils';
+import {
+  computeElevatorFeedbackGains,
+  computeElevatorFeedforwardGains,
+  simulateElevatorWpilib,
+} from '~/lib/math/linear.worker';
+import type { WpilibElevatorSimState } from '~/lib/math/linear.worker';
 import Measurement from '~/lib/models/Measurement';
 import Motor from '~/lib/models/Motor';
 
