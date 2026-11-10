@@ -10,7 +10,7 @@ export function calculateCenterDistance(
   const N = Math.max(p1Teeth, p2Teeth);
   const n = Math.min(p1Teeth, p2Teeth);
   const t1_ = 2 * links - N - n;
-  const t2_ = t1_ * t1_ - 0.81 * (N - n) * (N - n);
+  const t2_ = t1_ * t1_ - (8 / Math.PI ** 2) * (N - n) * (N - n);
   const c = P.div(8).mul(t1_ + Math.sqrt(t2_));
   return c.to('in');
 }
@@ -64,32 +64,31 @@ export function calculateCenters(
   const t3 = p.mul(Math.pow(Math.abs(z2 - z1) / (2 * Math.PI), 2)).div(c0);
   const x0 = t1.scalar + t2 + t3.scalar;
 
-  const roundLinksUp = (n: number) =>
-    allowHalfLinks ? Math.ceil(n) : Math.ceil(n / 2) * 2;
-  const roundLinksDown = (n: number) =>
-    allowHalfLinks ? Math.floor(n) : Math.floor(n / 2) * 2;
+  const linkStep = allowHalfLinks ? 1 : 2;
+  const smallerLinks = Math.floor(x0 / linkStep) * linkStep;
+  const largerLinks = smallerLinks + linkStep;
 
   const solvedSmallerDistance = calculateCenterDistance(
     pitch,
     z1,
     z2,
-    roundLinksDown(x0),
+    smallerLinks,
   );
   const solvedLargerDistance = calculateCenterDistance(
     pitch,
     z1,
     z2,
-    roundLinksUp(x0),
+    largerLinks,
   );
 
   return {
     smaller: {
-      links: roundLinksDown(x0),
+      links: smallerLinks,
       distance: solvedSmallerDistance.add(extraCenter),
       differenceFromTarget: solvedSmallerDistance.sub(desiredCenter),
     },
     larger: {
-      links: roundLinksUp(x0),
+      links: largerLinks,
       distance: solvedLargerDistance.add(extraCenter),
       differenceFromTarget: solvedLargerDistance.sub(desiredCenter),
     },
