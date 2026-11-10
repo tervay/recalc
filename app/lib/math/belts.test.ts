@@ -135,7 +135,10 @@ describe('approximateBeltPitchLength', () => {
 
     const result = approximateBeltPitchLength(p1, p2, desiredCenter);
 
-    expect(result.to('mm').scalar).toBeCloseTo(325.57, 3);
+    expect(result.to('mm').scalar).toBeCloseTo(
+      325 + 2500 / Math.PI ** 2 / 400,
+      9,
+    );
   });
 
   it('handles zero desired center', () => {
@@ -155,7 +158,10 @@ describe('approximateBeltPitchLength', () => {
 
     const result = approximateBeltPitchLength(p1, p2, desiredCenter);
 
-    expect(result.to('mm').scalar).toBeCloseTo(280.661, 3);
+    expect(result.to('mm').scalar).toBeCloseTo(
+      275 + 22500 / Math.PI ** 2 / 400,
+      9,
+    );
   });
 
   it('handles zero pitch diameter for p2', () => {
@@ -165,7 +171,10 @@ describe('approximateBeltPitchLength', () => {
 
     const result = approximateBeltPitchLength(p1, p2, desiredCenter);
 
-    expect(result.to('mm').scalar).toBeCloseTo(252.508, 3);
+    expect(result.to('mm').scalar).toBeCloseTo(
+      250 + 10000 / Math.PI ** 2 / 400,
+      9,
+    );
   });
 
   it('handles equal pulleys', () => {
@@ -175,7 +184,7 @@ describe('approximateBeltPitchLength', () => {
 
     const result = approximateBeltPitchLength(p1, p2, desiredCenter);
 
-    expect(result.to('mm').scalar).toBeCloseTo(299.949, 3);
+    expect(result.to('mm').scalar).toBeCloseTo(300, 9);
   });
 });
 
@@ -197,6 +206,39 @@ describe('calculateClosestCenters', () => {
 
     expect(result.larger.distance.to('mm').scalar).toBeCloseTo(112.218, 3);
     expect(result.smaller.distance.to('mm').scalar).toBeCloseTo(99.682, 3);
+  });
+
+  it('never offers a larger belt whose center falls short of the target', () => {
+    const pitch = new Measurement(0.25, 'in');
+    const desiredCenter = new Measurement(306.5, 'mm');
+
+    const result = calculateClosestCenters(
+      new SimplePulley(72, pitch),
+      new SimplePulley(73, pitch),
+      desiredCenter,
+      new Measurement(0, 'mm'),
+      1,
+    );
+
+    expect(result.larger.distance.to('mm').scalar).toBeGreaterThanOrEqual(
+      desiredCenter.to('mm').scalar,
+    );
+  });
+
+  it('offers no belts when the target center would overlap the pulleys', () => {
+    const pitch = new Measurement(5, 'mm');
+
+    const result = calculateClosestCenters(
+      new SimplePulley(16, pitch),
+      new SimplePulley(24, pitch),
+      new Measurement(20, 'mm'),
+      new Measurement(0, 'mm'),
+      5,
+    );
+
+    expect([result.smaller.belt.teeth, result.larger.belt.teeth]).toEqual([
+      0, 0,
+    ]);
   });
 
   it('handles zero pitch for p1', () => {
@@ -382,7 +424,7 @@ describe('calculateClosestCenters', () => {
   it('reports different teeth in mesh for the smaller and larger belt', () => {
     const p1 = new SimplePulley(16, new Measurement(3, 'mm'));
     const p2 = new SimplePulley(61, new Measurement(3, 'mm'));
-    const desiredCenter = new Measurement(30, 'mm');
+    const desiredCenter = new Measurement(60, 'mm');
 
     const result = calculateClosestCenters(
       p1,
@@ -392,10 +434,10 @@ describe('calculateClosestCenters', () => {
       5,
     );
 
-    expect(result.smaller.belt.teeth).toBe(60);
-    expect(result.larger.belt.teeth).toBe(65);
-    expect(result.smaller.p2TeethInMesh).toBe(59);
-    expect(result.larger.p2TeethInMesh).toBe(44);
+    expect(result.smaller.belt.teeth).toBe(80);
+    expect(result.larger.belt.teeth).toBe(85);
+    expect(result.smaller.p2TeethInMesh).toBe(37);
+    expect(result.larger.p2TeethInMesh).toBe(36);
   });
 });
 

@@ -32,17 +32,17 @@
 - combobox: in
 - text: Smaller Belt
 - img
-- text: Suggested Belt Teeth 20 Center Distance 0.000
+- text: Suggested Belt Teeth 0 Center Distance 0.000
 - combobox: in
-- text: P1 Teeth in Mesh 0 P2 Teeth in Mesh 0 Pulley Clearance -31.831
+- text: P1 Teeth in Mesh 0 P2 Teeth in Mesh 0 Pulley Clearance 0.000
 - combobox: in
-- text: Error -5.000
+- text: Error 0.000
 - combobox: in
-- text: Larger Belt Belt Teeth 25 Center Distance 10.586
+- text: Larger Belt Belt Teeth 0 Center Distance 0.000
 - combobox: in
-- text: P1 Teeth in Mesh 4 P2 Teeth in Mesh 16 Pulley Clearance -21.245
+- text: P1 Teeth in Mesh 0 P2 Teeth in Mesh 0 Pulley Clearance 0.000
 - combobox: in
-- text: Error 5.586
+- text: Error 0.000
 - combobox: in
 - table:
   - rowgroup:
