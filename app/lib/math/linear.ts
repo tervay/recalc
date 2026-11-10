@@ -83,6 +83,7 @@ export function calculateGuessedLimits(
   const R_equivalent = R_motor.div(motor.quantity);
   const Kt = motor.kT;
   const Kv = motor.kV;
+  const I_free = motor.freeCurrent.mul(motor.quantity);
   const controlVolts = Measurement.min(rVolts, supplyVoltage);
 
   // 1. Max Accel (Stator, Supply, or Voltage Limited)
@@ -105,7 +106,12 @@ export function calculateGuessedLimits(
   );
 
   const F_gravity = m.mul(Measurement.GRAVITY.abs()).mul(Math.sin(angleRad));
-  const F_max = I_eff_accel.mul(Kt).mul(G).mul(eta).div(r);
+  const F_max = I_eff_accel.sub(I_free)
+    .forcePositive()
+    .mul(Kt)
+    .mul(G)
+    .mul(eta)
+    .div(r);
   const a_max_theoretical = F_max.sub(F_gravity).div(m);
   const a_max_guessed = Measurement.max(
     new Measurement(0.1, 'm/s^2'),
@@ -114,7 +120,7 @@ export function calculateGuessedLimits(
 
   // 2. Max Velocity (Voltage, Supply, or Control Effort Limited)
   // Holding current needed to fight gravity at steady state (a=0)
-  const I_gravity = F_gravity.div(Kt.mul(G).mul(eta).div(r));
+  const I_gravity = F_gravity.div(Kt.mul(G).mul(eta).div(r)).add(I_free);
   const V_resistance_drop = I_gravity.mul(R_equivalent);
 
   // Velocity is limited by Back-EMF (V_emf).
@@ -150,6 +156,7 @@ export function calculateGuessedLimits(
     gravityForceN: F_gravity.to('N').scalar,
     equivalentResistanceOhms: R_equivalent.to('Ohm').scalar,
     statorLimitAmps: I_stator_limit.to('A').scalar,
+    freeCurrentAmps: I_free.to('A').scalar,
     supplyPowerWatts: powerLimit.to('W').scalar,
     controlVolts: controlVolts.to('V').scalar,
     forcePerAmp: Kt.mul(G).mul(eta).div(r).baseScalar,
@@ -181,6 +188,7 @@ interface PowerFeasibleInput {
   gravityForceN: number;
   equivalentResistanceOhms: number;
   statorLimitAmps: number;
+  freeCurrentAmps: number;
   supplyPowerWatts: number;
   controlVolts: number;
   forcePerAmp: number;
@@ -210,7 +218,8 @@ function powerFeasibleProfile(
       supplyLimitedAmps,
       voltageLimitedAmps,
     );
-    return (effectiveAmps * i.forcePerAmp - i.gravityForceN) / i.massKg;
+    const torqueAmps = Math.max(0, effectiveAmps - i.freeCurrentAmps);
+    return (torqueAmps * i.forcePerAmp - i.gravityForceN) / i.massKg;
   };
 
   const peakVelocity = (cruiseMPS: number, accel: number): number =>

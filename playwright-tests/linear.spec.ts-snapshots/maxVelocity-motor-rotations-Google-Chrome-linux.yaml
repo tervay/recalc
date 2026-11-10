@@ -47,12 +47,12 @@
 - combobox: rotation/s
 - text: Max Acceleration
 - switch "Custom"
-- text: Custom Guessed 3156.980
+- text: Custom Guessed 3005.522
 - combobox: in/s2
 - button "LQR Tuning":
   - img
   - heading "LQR Tuning" [level=2]
-- text: Time to Goal 0.975
+- text: Time to Goal 0.976
 - combobox: s
 - text: Stall Load 53.653
 - combobox: lbs
@@ -75,7 +75,7 @@
   - listitem:
     - img "Velocity (in/s) legend icon"
     - text: Velocity (in/s)
-- application: 0.0631 0.151 0.231 0.3 0.371 0.45 0.531 0.6 0.671 0.75 0.831 0.9 0.975 Time (s) -70 -35 0 35 70 Velocity (in/s) / Current (A) 0 15 30 45 60 Position (in)
+- application: 0.0631 0.151 0.231 0.3 0.371 0.45 0.531 0.6 0.671 0.75 0.831 0.9 0.976 Time (s) -70 -35 0 35 70 Velocity (in/s) / Current (A) 0 15 30 45 60 Position (in)
 - text: kA 0.018
 - combobox: V*s^2/m
 - text: kV 3.097

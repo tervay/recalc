@@ -630,7 +630,7 @@ describe('calculateGuessedLimits', () => {
         loadKg,
         travelMeters,
       ),
-    ).toBeGreaterThan(3 * budget);
+    ).toBeGreaterThan(2.5 * budget);
 
     expect(
       peakSupplyWatts(
@@ -866,5 +866,35 @@ describe('calculateGuessedLimits', () => {
       accelerationWithUnboundedLimits(12, travel),
       6,
     );
+  });
+
+  it('guesses no spare acceleration for a load equal to the stall load', () => {
+    const motor = Motor.fromName('Snowblower', 1);
+    const ratio = new Ratio(20, RatioType.REDUCTION);
+    const spoolDiameter = new Measurement(1.5, 'in');
+    const statorLimit = new Measurement(15, 'A');
+    const stallLoad = calculateStallLoad(
+      motor,
+      statorLimit,
+      spoolDiameter,
+      ratio,
+      90,
+      new Measurement(12, 'V'),
+    );
+
+    const { a_max_guessed } = calculateGuessedLimits(
+      motor,
+      ratio,
+      stallLoad,
+      spoolDiameter,
+      statorLimit,
+      new Measurement(1000, 'A'),
+      new Measurement(12, 'V'),
+      new Measurement(90, 'deg'),
+      90,
+      false,
+    );
+
+    expect(a_max_guessed.to('m/s^2').scalar).toBeCloseTo(0.1, 9);
   });
 });

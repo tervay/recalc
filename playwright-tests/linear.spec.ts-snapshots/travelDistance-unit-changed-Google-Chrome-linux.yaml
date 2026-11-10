@@ -41,11 +41,11 @@
 - combobox: Ohm
 - text: Max Velocity
 - switch "Custom"
-- text: Custom Guessed 135.235
+- text: Custom Guessed 134.226
 - combobox: in/s
 - text: Max Acceleration
 - switch "Custom"
-- text: Custom Guessed 3156.980
+- text: Custom Guessed 3005.522
 - combobox: in/s2
 - button "LQR Tuning":
   - img
@@ -54,7 +54,7 @@
 - combobox: s
 - text: Stall Load 53.653
 - combobox: lbs
-- text: End Error 317.179
+- text: End Error 320.305
 - combobox: in
 - heading "Simulation" [level=2]
 - list:
