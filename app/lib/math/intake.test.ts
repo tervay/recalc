@@ -169,4 +169,31 @@ describe('calculateAllRecommendedRatiosAndStallTorques', () => {
       6,
     );
   });
+
+  function krakenTorqueAt(amps: number): number {
+    return calculateAllRecommendedRatiosAndStallTorques(
+      drivetrainSpeed,
+      rollerDiameter,
+      Motor.KrakenX60sFOC(1),
+      new Measurement(amps, 'A'),
+    )
+      .find((r) => r.motor.identifier === 'Kraken X60 (FOC)')!
+      .stallTorque.to('N*m').scalar;
+  }
+
+  it('never reports more than the motor stall torque through the ratio', () => {
+    const kraken = run(Motor.KrakenX60sFOC(1)).find(
+      (r) => r.motor.identifier === 'Kraken X60 (FOC)',
+    )!;
+    const stallTorqueThroughRatio =
+      kraken.motor.stallTorque.to('N*m').scalar * kraken.ratio.asNumber();
+
+    expect(krakenTorqueAt(1000)).toBeCloseTo(stallTorqueThroughRatio, 6);
+  });
+
+  it('reports no torque at the free current', () => {
+    const freeCurrent = Motor.KrakenX60sFOC(1).freeCurrent.to('A').scalar;
+
+    expect(krakenTorqueAt(freeCurrent)).toBeCloseTo(0, 9);
+  });
 });

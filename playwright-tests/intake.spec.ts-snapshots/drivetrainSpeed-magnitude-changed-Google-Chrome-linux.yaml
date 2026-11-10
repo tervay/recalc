@@ -33,47 +33,47 @@
 - combobox: ft/s
 - heading "Recommended Ratios per Motor" [level=2]
 - paragraph: The recommended ratio is the ratio at which the rollers will spin at twice the drivetrain speed.
-- text: Motor Ratio Stall Torque Thrifty Pulsar 1.64 0.82 N*m
+- text: Motor Ratio Stall Torque Thrifty Pulsar 1.64 0.74 N*m
 - button "Set"
-- text: Minion (Adv Hall) 1.67 0.78 N*m
+- text: Falcon 500 (FOC) 1.33 0.73 N*m
 - button "Set"
-- text: Falcon 500 (FOC) 1.33 0.77 N*m
+- text: Falcon 500 1.39 0.73 N*m
 - button "Set"
-- text: Falcon 500 1.39 0.77 N*m
+- text: NEO 550 2.55 0.73 N*m
 - button "Set"
-- text: Kraken X60 1.32 0.76 N*m
+- text: Minion (Adv Hall) 1.67 0.72 N*m
 - button "Set"
-- text: Minion 1.68 0.76 N*m
+- text: NEO 2.0 1.29 0.71 N*m
 - button "Set"
-- text: NEO 2.0 1.29 0.76 N*m
+- text: NEO 1.29 0.71 N*m
 - button "Set"
-- text: NEO 1.29 0.76 N*m
+- text: Minion 1.68 0.71 N*m
 - button "Set"
-- text: Kraken X44 1.69 0.76 N*m
+- text: BaneBots 550 4.21 0.70 N*m
 - button "Set"
-- text: NEO 550 2.55 0.75 N*m
+- text: Kraken X60 1.32 0.69 N*m
 - button "Set"
-- text: Kraken X60 (FOC) 1.26 0.75 N*m
+- text: BAG 2.88 0.68 N*m
 - button "Set"
-- text: Kraken X44 (FOC) 1.61 0.74 N*m
+- text: Kraken X44 1.69 0.68 N*m
 - button "Set"
-- text: BaneBots 550 4.21 0.74 N*m
+- text: Kraken X60 (FOC) 1.26 0.66 N*m
 - button "Set"
-- text: BAG 2.88 0.72 N*m
+- text: Kraken X44 (FOC) 1.61 0.66 N*m
 - button "Set"
-- text: NEO Vortex 1.49 0.69 N*m
+- text: 775pro 4.09 0.64 N*m
 - button "Set"
-- text: 775 RedLine 4.25 0.68 N*m
+- text: 775 RedLine 4.25 0.62 N*m
 - button "Set"
-- text: CIM 1.16 0.66 N*m
+- text: CIM 1.16 0.60 N*m
 - button "Set"
-- text: 775pro 4.09 0.65 N*m
+- text: NEO Vortex 1.49 0.57 N*m
 - button "Set"
-- text: MiniCIM 1.27 0.63 N*m
+- text: MiniCIM 1.27 0.56 N*m
 - button "Set"
-- text: AM-9015 3.11 0.50 N*m
+- text: AM-9015 3.11 0.44 N*m
 - button "Set"
-- text: Snowblower 0.02 0.27 N*m
+- text: Snowblower 0.02 0.17 N*m
 - button "Set"
 - button "Linear Speed"
 - spinbutton "Linear Speed" [disabled]: "33.6"
