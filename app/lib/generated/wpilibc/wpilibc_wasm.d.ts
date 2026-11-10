@@ -36,6 +36,7 @@ export type ElevatorSimRows = {
   motorRpm: number;
   energyJoules: number;
   success: boolean;
+  timeToGoalSeconds: number;
 }[];
 
 export type ArmSimRows = {

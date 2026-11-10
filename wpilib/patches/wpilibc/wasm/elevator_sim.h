@@ -26,6 +26,8 @@
 #include "wpi/units/math.hpp"
 
 inline constexpr double kGravityMetersPerSecondSquared = 9.80665;
+inline constexpr double kGoalToleranceMeters = 0.0127;
+inline constexpr double kGoalHoldSeconds = 0.1;
 
 EMSCRIPTEN_DECLARE_VAL_TYPE(ElevatorSimRows);
 
@@ -104,6 +106,7 @@ struct ElevatorSimStateInternal {
   double motorRpm;
   double energyJoules;
   bool success;
+  double timeToGoalSeconds;
 };
 
 // Core simulation logic. May throw (e.g. from the DARE solver inside LQR or
@@ -230,7 +233,15 @@ inline emscripten::val SimulateElevatorImpl(
 
   std::vector<ElevatorSimStateInternal> states;
 
-  while (timestamp < totalProfileTime && timestamp < maxSimSeconds) {
+  const double goalToleranceMeters =
+      cascade ? kGoalToleranceMeters / 2.0 : kGoalToleranceMeters;
+  bool inGoalBand = false;
+  double goalBandEnteredAt = 0.0;
+  size_t goalBandEnteredIndex = 0;
+
+  while (timestamp < maxSimSeconds &&
+         !(timestamp >= totalProfileTime && inGoalBand &&
+           timestamp - goalBandEnteredAt >= kGoalHoldSeconds)) {
     const auto nextProfileState = profile.Calculate(
         wpi::units::second_t(simTimestep), profileState, goalState);
 
@@ -285,21 +296,33 @@ inline emscripten::val SimulateElevatorImpl(
     states.push_back({elevator.GetPosition().to<double>(), updatedVelocityMPS,
                       statorCurrent, supplyCurrent, timestamp,
                       filteredBatteryVoltage, vApplied, motorRpm, energyJoules,
-                      true});
+                      true, 0.0});
+
+    const bool nowInGoalBand =
+        std::abs(states.back().positionMeters - travelDistanceMeters) <=
+        goalToleranceMeters;
+    if (nowInGoalBand && !inGoalBand) {
+      goalBandEnteredAt = timestamp;
+      goalBandEnteredIndex = states.size() - 1;
+    }
+    inGoalBand = nowInGoalBand;
 
     wpi::sim::RoboRioSim::SetVInVoltage(
         wpi::units::volt_t(filteredBatteryVoltage));
   }
 
-  // Mark success based on whether the position reached the goal within 3 inches
-  const wpi::units::meter_t successThreshold = wpi::units::inch_t{3.0};
-  const bool success =
-      !states.empty() &&
-      wpi::units::math::abs(elevator.GetPosition() -
-                            wpi::units::meter_t{travelDistanceMeters}) <
-          successThreshold;
+  // Success means the carriage settled within the goal band. The time to goal
+  // is when it entered the band for good, or the end of the run if it never
+  // settled.
+  const bool success = !states.empty() && inGoalBand;
   if (!states.empty()) {
     states.back().success = success;
+    const double timeToGoalSeconds =
+        success ? states[goalBandEnteredIndex].timeSeconds
+                : states.back().timeSeconds;
+    for (auto& state : states) {
+      state.timeToGoalSeconds = timeToGoalSeconds;
+    }
   }
 
   return DecimateToJsArray<ElevatorSimStateInternal>(
@@ -315,6 +338,7 @@ inline emscripten::val SimulateElevatorImpl(
         state.set("motorRpm", s.motorRpm);
         state.set("energyJoules", s.energyJoules);
         state.set("success", s.success);
+        state.set("timeToGoalSeconds", s.timeToGoalSeconds);
         return state;
       });
 }

@@ -420,7 +420,8 @@ export default function Linear() {
   const timeToGoal = useMemo(() => {
     return new Measurement(
       workerWpilibSimStates.length > 0
-        ? workerWpilibSimStates[workerWpilibSimStates.length - 1].timeSeconds
+        ? workerWpilibSimStates[workerWpilibSimStates.length - 1]
+            .timeToGoalSeconds
         : 0,
       's',
     );

@@ -3,7 +3,6 @@ import workerpool from 'workerpool';
 import type { DCMotor } from '~/lib/generated/wpilibc/wpilibc_wasm';
 import { calculateGuessedLimits } from '~/lib/math/linear';
 import {
-  type SimState,
   type MetricSource,
   type ConfigOptResult,
   type ConfigOptOutput,
@@ -20,7 +19,7 @@ import type { MeasurementDict } from '~/lib/models/Measurement';
 import Measurement from '~/lib/models/Measurement';
 import Motor, { type MotorDict } from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
-import { initWpilibc } from '~/lib/wpilib/wpilibc';
+import { type ElevatorSimRow, initWpilibc } from '~/lib/wpilib/wpilibc';
 
 export type {
   ConfigOptResult,
@@ -203,7 +202,7 @@ function profileLimitsForRatio(
   };
 }
 
-function extractSimResult(states: SimState[]): {
+function extractSimResult(states: ElevatorSimRow[]): {
   timeToGoalSeconds: number;
   energyJoules: number;
   peakCurrentAmps: number;
@@ -214,7 +213,7 @@ function extractSimResult(states: SimState[]): {
   }
   const last = states[states.length - 1];
   return {
-    timeToGoalSeconds: last.timeSeconds,
+    timeToGoalSeconds: last.timeToGoalSeconds,
     energyJoules: last.energyJoules,
     peakCurrentAmps: peakSupplyCurrent(states),
     success: last.success,
@@ -243,7 +242,7 @@ function simulate({
   maxAccelerationMPS2,
   control,
   timeoutSeconds = 3.0,
-}: SimulateParams): SimState[] {
+}: SimulateParams): ElevatorSimRow[] {
   return wpilibc.simulateElevator(
     p.wpilibMotor,
     ratioMagnitude,

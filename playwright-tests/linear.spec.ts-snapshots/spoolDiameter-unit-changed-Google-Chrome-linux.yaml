@@ -50,7 +50,7 @@
 - button "LQR Tuning":
   - img
   - heading "LQR Tuning" [level=2]
-- text: Time to Goal 1.132
+- text: Time to Goal 1.119
 - combobox: s
 - text: Stall Load 136.280
 - combobox: lbs
@@ -73,7 +73,7 @@
   - listitem:
     - img "Velocity (in/s) legend icon"
     - text: Velocity (in/s)
-- application: 0.0651 0.16 0.24 0.33 0.42 0.5 0.581 0.67 0.761 0.85 0.941 1 1.06 1.13 Time (s) -60 -30 0 30 60 Velocity (in/s) / Current (A) 0 15 30 45 60 Position (in)
+- application: 0.0511 0.15 0.24 0.33 0.42 0.5 0.58 0.67 0.76 0.85 0.94 1 1.06 1.14 1.22 Time (s) -60 -30 0 30 60 Velocity (in/s) / Current (A) 0 15 30 45 60 Position (in)
 - text: kA 0.007
 - combobox: V*s^2/m
 - text: kV 7.867
