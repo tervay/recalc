@@ -13,7 +13,11 @@ export const config: VercelConfig = {
     }),
     routes.header('/(.*)', [
       { key: 'X-Content-Type-Options', value: 'nosniff' },
-      { key: 'X-Frame-Options', value: 'DENY' },
+      {
+        key: 'Content-Security-Policy',
+        value:
+          "frame-ancestors 'self' https://*.onshape.com moz-extension: chrome-extension:",
+      },
       { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
     ]),
   ],
