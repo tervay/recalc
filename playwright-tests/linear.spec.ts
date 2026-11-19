@@ -351,6 +351,19 @@ test.describe('Linear Mechanism Calculator', () => {
     });
   });
 
+  for (const gain of ['kA', 'kV', 'feedbackKP', 'feedbackKD']) {
+    test(`explains that ${gain} rotation units are motor rotations`, async ({
+      page,
+    }) => {
+      await page.getByTestId(gain).hover();
+      await expect(
+        page.getByText(
+          'Rotation units are per motor shaft rotation, not per spool rotation.',
+        ),
+      ).toBeVisible();
+    });
+  }
+
   test('should match snapshot with a custom max velocity in motor rotations per second', async ({
     page,
   }) => {

@@ -98,6 +98,8 @@ export function meta() {
 
 const CASCADE_TRAVEL_FACTOR = 0.5;
 const BATTERY_VOLTAGE_FILTER_TC_S = 0.1;
+const MOTOR_ROTATION_TOOLTIP =
+  'Rotation units are per motor shaft rotation, not per spool rotation.';
 
 type WpilibElevatorSimState = LinearWorker.WpilibElevatorSimState;
 
@@ -1063,6 +1065,7 @@ export default function Linear() {
                   testId="kA"
                   units={KA_UNITS}
                   conversionFactor={rotationFactor}
+                  tooltip={MOTOR_ROTATION_TOOLTIP}
                 />
                 <MeasurementDisplayOutput
                   state={kV}
@@ -1072,6 +1075,7 @@ export default function Linear() {
                   testId="kV"
                   units={KV_UNITS}
                   conversionFactor={rotationFactor}
+                  tooltip={MOTOR_ROTATION_TOOLTIP}
                 />
                 <MeasurementDisplayOutput
                   state={kG}
@@ -1091,6 +1095,7 @@ export default function Linear() {
                   testId="feedbackKP"
                   units={KP_UNITS}
                   conversionFactor={rotationFactor}
+                  tooltip={MOTOR_ROTATION_TOOLTIP}
                 />
                 <MeasurementDisplayOutput
                   state={feedbackGains.kD}
@@ -1100,6 +1105,7 @@ export default function Linear() {
                   testId="feedbackKD"
                   units={KV_UNITS}
                   conversionFactor={rotationFactor}
+                  tooltip={MOTOR_ROTATION_TOOLTIP}
                 />
               </div>
             </section>
