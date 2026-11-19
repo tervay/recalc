@@ -95,6 +95,12 @@ export default defineConfig({
       },
     },
     {
+      files: ['react-router.config.ts'],
+      rules: {
+        'no-relative-import-paths/no-relative-import-paths': 'off',
+      },
+    },
+    {
       files: ['**/*.{ts,tsx}'],
       jsPlugins: ['eslint-plugin-zod'],
       rules: {
