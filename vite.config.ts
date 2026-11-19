@@ -25,18 +25,21 @@ export default defineConfig({
       compiler: 'jsx',
       jsx: 'react',
     }),
-    Sitemap({
-      hostname: 'https://reca.lc',
-      exclude: EXCLUDED_ROUTES,
-      generateRobotsTxt: true,
-      robots: [
-        {
-          userAgent: '*',
-          allow: '/',
-        },
-      ],
-      outDir: 'build/client',
-    }),
+    {
+      ...Sitemap({
+        hostname: 'https://reca.lc',
+        exclude: EXCLUDED_ROUTES,
+        generateRobotsTxt: true,
+        robots: [
+          {
+            userAgent: '*',
+            allow: '/',
+          },
+        ],
+        outDir: 'build/client',
+      }),
+      apply: 'build',
+    },
   ],
   build: {
     rollupOptions: {
