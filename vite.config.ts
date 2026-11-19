@@ -4,14 +4,7 @@ import { reactRouter } from '@react-router/dev/vite';
 import tailwindcss from '@tailwindcss/vite';
 import Icons from 'unplugin-icons/vite';
 import { comlink } from 'vite-plugin-comlink';
-import Sitemap from 'vite-plugin-sitemap';
 import { defineConfig } from 'vitest/config';
-
-// The sitemap plugin auto-discovers every prerendered route by globbing the
-// built HTML in `build/client`, so we only need to exclude non-public pages
-// that still emit HTML. `/dev/error` isn't prerendered, so it never appears;
-// `/__spa-fallback` is React Router's client fallback shell, not a real page.
-const EXCLUDED_ROUTES = ['/__spa-fallback', '/dev/error'];
 
 export default defineConfig({
   plugins: [
@@ -24,18 +17,6 @@ export default defineConfig({
     Icons({
       compiler: 'jsx',
       jsx: 'react',
-    }),
-    Sitemap({
-      hostname: 'https://reca.lc',
-      exclude: EXCLUDED_ROUTES,
-      generateRobotsTxt: true,
-      robots: [
-        {
-          userAgent: '*',
-          allow: '/',
-        },
-      ],
-      outDir: 'build/client',
     }),
   ],
   build: {
