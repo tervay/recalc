@@ -127,6 +127,25 @@ describe('WCP Parsers', () => {
       expect(result).toHaveLength(1);
       expect(result[0].bore).toBe('SplineXS');
     });
+
+    it('should map HXL Bore plastic pulley to HXL', () => {
+      const product = makeProduct({
+        id: 6,
+        title: '72t x 9mm Wide Plastic Pulley (HTD 5mm, HXL Bore)',
+        handle: '72t-x-9mm-wide-plastic-pulley-htd-5mm-hxl-bore',
+      });
+
+      const result = parseWCPPulleys([product]);
+      expect(result).toEqual([
+        expect.objectContaining({
+          teeth: 72,
+          width: 9,
+          profile: 'HTD',
+          pitch: 5,
+          bore: 'HXL',
+        }),
+      ]);
+    });
   });
 
   describe('parseWCPBelts', () => {
@@ -186,6 +205,32 @@ describe('WCP Parsers', () => {
       expect(result[0].chainType).toBe('#35');
       expect(result[0].bore).toBe('8mm');
     });
+
+    it('should map #35 HXL Bore plate sprocket to HXL', () => {
+      const product = makeProduct({
+        id: 22,
+        title: '84t Aluminum Plate Sprocket (#35 Chain, HXL Bore)',
+        handle: '84t-aluminum-plate-sprocket-35-chain-hxl-bore',
+      });
+
+      const result = parseWCPSprockets([product]);
+      expect(result).toEqual([
+        expect.objectContaining({ teeth: 84, chainType: '#35', bore: 'HXL' }),
+      ]);
+    });
+
+    it('should map #25 HXL Bore plate sprocket to HXL', () => {
+      const product = makeProduct({
+        id: 23,
+        title: '24t Aluminum Plate Sprocket (#25 Chain, HXL Bore)',
+        handle: '24t-aluminum-plate-sprocket-25-chain-hxl-bore',
+      });
+
+      const result = parseWCPSprockets([product]);
+      expect(result).toEqual([
+        expect.objectContaining({ teeth: 24, chainType: '#25', bore: 'HXL' }),
+      ]);
+    });
   });
 
   describe('parseWCPGears', () => {
@@ -214,6 +259,43 @@ describe('WCP Parsers', () => {
       const result = parseWCPGears([product]);
       expect(result).toHaveLength(1);
       expect(result[0].bore).toBe('BAG');
+    });
+
+    it('should map HXL Bore aluminum gear to HXL', () => {
+      const product = makeProduct({
+        id: 32,
+        title: '84t Aluminum Spur Gear (20 DP, HXL Bore)',
+        handle: '84t-aluminum-spur-gear-20-dp-hxl-bore',
+      });
+
+      const result = parseWCPGears([product]);
+      expect(result).toEqual([
+        expect.objectContaining({ teeth: 84, dp: 20, bore: 'HXL' }),
+      ]);
+    });
+
+    it('should map HXL Bore steel gear to HXL', () => {
+      const product = makeProduct({
+        id: 33,
+        title: '32t Steel Spur Gear (20 DP, HXL Bore)',
+        handle: '32t-steel-spur-gear-20-dp-hxl-bore',
+      });
+
+      const result = parseWCPGears([product]);
+      expect(result).toEqual([
+        expect.objectContaining({ teeth: 32, dp: 20, bore: 'HXL' }),
+      ]);
+    });
+
+    it('should skip HXL gear collection product without tooth count', () => {
+      const product = makeProduct({
+        id: 34,
+        title: 'Steel HXL Bore Gears',
+        handle: 'steel-hxl-bore-gears',
+      });
+
+      const result = parseWCPGears([product]);
+      expect(result).toHaveLength(0);
     });
   });
 });

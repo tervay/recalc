@@ -13,6 +13,7 @@ const zWCPPulleyBoreSchema = z.enum([
   'Falcon',
   'RS775',
   'RS550',
+  'HXL',
 ] as const);
 type WCPPulleyBore = z.infer<typeof zWCPPulleyBoreSchema>;
 
@@ -36,6 +37,7 @@ const wcpBoreToJsonBore: Record<WCPPulleyBore, Bore> = {
   Falcon: 'Falcon',
   RS775: 'RS775',
   RS550: 'RS550',
+  HXL: 'HXL',
 };
 
 function wcpPulleyToJsonPulley(pulley: WCPPulley): JSONPulley {

@@ -142,6 +142,16 @@
       - cell "60"
       - cell "1.125\" Round"
       - cell "In stock"
+    - row "WCP WCP-1996 60 HXL In stock":
+      - cell "WCP WCP-1996":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-1996?variant=48014052720852
+          - img "WCP"
+        - link "WCP-1996":
+          - /url: https://wcproducts.com/products/wcp-1996?variant=48014052720852
+      - cell "60"
+      - cell "HXL"
+      - cell "In stock"
 - alert:
   - img
   - text: Warning These calculators are provided as reference only . These should not be taken as the holy truth of the universe - they are estimates created in order to guide you to the best solution. I cannot guarantee the math is perfectly accurate in all scenarios.

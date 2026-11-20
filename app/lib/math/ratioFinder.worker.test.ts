@@ -27,6 +27,7 @@ const baseFilters: FindGearboxesFilters = {
   enableBoreSplineXL: true,
   enableBore5mmHex: true,
   enableBore14Round: true,
+  enableBoreHXL: true,
   enableCustomGears: false,
   enableCustomPulleys: false,
   enableCustomSprockets: false,
@@ -283,6 +284,38 @@ describe('ratioFinderWorker', () => {
     expect(solutionSkus(result).some((sku) => sku.vendor === 'LastAnvil')).toBe(
       false,
     );
+  }, 15_000);
+
+  it('offers HXL bore parts when the HXL bore is enabled', async () => {
+    const result = await findGearboxes(
+      new Ratio(2, RatioType.REDUCTION),
+      0.001,
+      '1/2" Hex',
+      onlyFamilies({
+        enable20DP: true,
+        enableCustomGears: true,
+        enableBoreHXL: true,
+      }),
+      2,
+    );
+
+    expect(solutionSkus(result).some((sku) => sku.bore === 'HXL')).toBe(true);
+  }, 15_000);
+
+  it('removes HXL bore parts when the HXL bore is disabled', async () => {
+    const result = await findGearboxes(
+      new Ratio(2, RatioType.REDUCTION),
+      0.001,
+      '1/2" Hex',
+      onlyFamilies({
+        enable20DP: true,
+        enableCustomGears: true,
+        enableBoreHXL: false,
+      }),
+      2,
+    );
+
+    expect(solutionSkus(result).some((sku) => sku.bore === 'HXL')).toBe(false);
   }, 15_000);
 
   it('removes SDS parts when the vendor is disabled', async () => {

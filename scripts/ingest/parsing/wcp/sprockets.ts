@@ -15,6 +15,7 @@ const zWCPSprocketBoreSchema = z.enum([
   'Falcon Bore',
   '1/2" ID',
   '3/8" Hex Bore',
+  'HXL Bore',
 ]);
 type WCPSprocketBore = z.infer<typeof zWCPSprocketBoreSchema>;
 
@@ -37,6 +38,7 @@ const wcpBoreToJsonBore: Record<WCPSprocketBore, Bore> = {
   'Falcon Bore': 'Falcon',
   '1/2" ID': '1/2" Hex',
   '3/8" Hex Bore': '3/8" Hex',
+  'HXL Bore': 'HXL',
 };
 
 function wcpSprocketToJsonSprocket(sprocket: WCPSprocket): JSONSprocket {

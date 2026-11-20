@@ -87,6 +87,7 @@ const DEFAULT_PARAMS = {
   enableBoreSplineXL: BooleanParam.withDefault(true),
   enableBore5mmHex: BooleanParam.withDefault(false),
   enableBore14Round: BooleanParam.withDefault(false),
+  enableBoreHXL: BooleanParam.withDefault(true),
   targetReduction: RatioParam.withDefault(new Ratio(20, RatioType.REDUCTION)),
   targetReductionErrorThreshold: NumberParam.withDefault(0.25),
   enableCustomGears: BooleanParam.withDefault(false),
@@ -176,6 +177,7 @@ export default function RatioFinder() {
   const [enableBore14Round, setEnableBore14Round] = useState(
     queryParams.enableBore14Round,
   );
+  const [enableBoreHXL, setEnableBoreHXL] = useState(queryParams.enableBoreHXL);
   const [targetReduction, setTargetReduction] = useState(
     queryParams.targetReduction,
   );
@@ -243,6 +245,7 @@ export default function RatioFinder() {
       enableBoreMAXSpline,
       enableBoreSplineXL,
       enableBore14Round,
+      enableBoreHXL,
       enableCustomGears,
       enableCustomPulleys,
       enableCustomSprockets,
@@ -276,6 +279,7 @@ export default function RatioFinder() {
       enableBoreMAXSpline,
       enableBoreSplineXL,
       enableBore14Round,
+      enableBoreHXL,
       enableCustomGears,
       enableCustomPulleys,
       enableCustomSprockets,
@@ -334,6 +338,7 @@ export default function RatioFinder() {
     enableBoreSplineXL,
     enableBore5mmHex,
     enableBore14Round,
+    enableBoreHXL,
     targetReduction,
     targetReductionErrorThreshold,
     enableCustomGears,
@@ -524,6 +529,10 @@ export default function RatioFinder() {
                     <CheckboxBooleanInput
                       stateHook={[enableBoreSplineXL, setEnableBoreSplineXL]}
                       label="SplineXL"
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enableBoreHXL, setEnableBoreHXL]}
+                      label="HXL"
                     />
                     <CheckboxBooleanInput
                       stateHook={[enableBore38Hex, setEnableBore38Hex]}

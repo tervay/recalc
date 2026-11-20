@@ -20,6 +20,7 @@ const zWCPGearBoreSchema = z.enum([
   'RS775 Bore',
   '8mm Round Bore',
   'Pinion Only',
+  'HXL Bore',
 ] as const);
 type WCPGearBore = z.infer<typeof zWCPGearBoreSchema>;
 
@@ -47,6 +48,7 @@ const wcpBoreToJsonBore: Record<WCPGearBore, Bore> = {
   'RS775 Bore': 'RS775',
   '8mm Round Bore': '8mm',
   'Pinion Only': '8mm',
+  'HXL Bore': 'HXL',
 };
 
 function wcpGearToJsonGear(gear: z.infer<typeof zWCPGearSchema>): JSONGear {

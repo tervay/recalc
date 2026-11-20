@@ -29,6 +29,7 @@ const filters: FindGearboxesFilters = {
   enableBoreSplineXL: true,
   enableBore5mmHex: true,
   enableBore14Round: true,
+  enableBoreHXL: true,
   enableCustomGears: false,
   enableCustomPulleys: false,
   enableCustomSprockets: false,

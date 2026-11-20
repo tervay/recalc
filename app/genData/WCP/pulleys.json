@@ -396,6 +396,72 @@
     "vendor": "WCP"
   },
   {
+    "teeth": 30,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "WCP-2036",
+    "variantId": 68301890257108,
+    "url": "https://wcproducts.com/products/wcp-2036?variant=68301890257108",
+    "bore": "HXL",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 36,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "WCP-2038",
+    "variantId": 68301890519252,
+    "url": "https://wcproducts.com/products/wcp-2038?variant=68301890519252",
+    "bore": "HXL",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 42,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "WCP-2040",
+    "variantId": 68301890584788,
+    "url": "https://wcproducts.com/products/wcp-2040?variant=68301890584788",
+    "bore": "HXL",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 48,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "WCP-2042",
+    "variantId": 68301890650324,
+    "url": "https://wcproducts.com/products/wcp-2042?variant=68301890650324",
+    "bore": "HXL",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 60,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "WCP-2044",
+    "variantId": 68301890781396,
+    "url": "https://wcproducts.com/products/wcp-2044?variant=68301890781396",
+    "bore": "HXL",
+    "vendor": "WCP"
+  },
+  {
+    "teeth": 72,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "WCP-2046",
+    "variantId": 68301890846932,
+    "url": "https://wcproducts.com/products/wcp-2046?variant=68301890846932",
+    "bore": "HXL",
+    "vendor": "WCP"
+  },
+  {
     "teeth": 15,
     "width": 9,
     "profile": "HTD",
