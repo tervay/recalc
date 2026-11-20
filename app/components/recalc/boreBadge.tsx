@@ -42,6 +42,7 @@ const boreBadgeStyles: Record<Bore | WheelOnlyBore, string> = {
     'border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-400 rounded',
   'Nub Bore':
     'border-stone-500/20 bg-stone-500/10 text-stone-700 dark:text-stone-400 rounded',
+  HXL: 'border-zinc-500/20 bg-zinc-500/10 text-zinc-700 dark:text-zinc-400 rounded',
   'AndyMark Hub':
     'border-yellow-500/20 bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 rounded',
 };

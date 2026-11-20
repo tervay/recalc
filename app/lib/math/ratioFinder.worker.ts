@@ -62,6 +62,7 @@ export interface FindGearboxesFilters {
   enableBoreSplineXL: boolean;
   enableBore5mmHex: boolean;
   enableBore14Round: boolean;
+  enableBoreHXL: boolean;
   enableCustomGears: boolean;
   enableCustomPulleys: boolean;
   enableCustomSprockets: boolean;
@@ -200,6 +201,7 @@ export async function findGearboxes(
     SplineXL: filters.enableBoreSplineXL,
     '5mm Hex': filters.enableBore5mmHex,
     '1/4" Round': filters.enableBore14Round,
+    HXL: filters.enableBoreHXL,
   };
 
   const vendorIsEnabled = (vendor: string) => {

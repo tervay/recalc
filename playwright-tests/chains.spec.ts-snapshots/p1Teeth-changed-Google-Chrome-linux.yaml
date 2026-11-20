@@ -60,6 +60,16 @@
       - cell "30"
       - cell "1/2\" Hex"
       - cell "In stock"
+    - row "WCP WCP-1991 30 HXL In stock":
+      - cell "WCP WCP-1991":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-1991?variant=48014052262100
+          - img "WCP"
+        - link "WCP-1991":
+          - /url: https://wcproducts.com/products/wcp-1991?variant=48014052262100
+      - cell "30"
+      - cell "HXL"
+      - cell "In stock"
     - row "WCP WCP-0965 30 SplineXL In stock":
       - cell "WCP WCP-0965":
         - link "WCP":
@@ -101,6 +111,16 @@
           - /url: https://wcproducts.com/products/wcp-2106?variant=46995776733396
       - cell "36"
       - cell "1/2\" Hex"
+      - cell "In stock"
+    - row "WCP WCP-1992 36 HXL In stock":
+      - cell "WCP WCP-1992":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-1992?variant=47618120548564
+          - img "WCP"
+        - link "WCP-1992":
+          - /url: https://wcproducts.com/products/wcp-1992?variant=47618120548564
+      - cell "36"
+      - cell "HXL"
       - cell "In stock"
 - alert:
   - img

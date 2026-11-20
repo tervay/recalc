@@ -23,6 +23,7 @@ const BORE_OPTIONS: Bore[] = [
   'BAG',
   'Vortex',
   '5mm Hex',
+  'HXL',
 ];
 
 export default function BoreInput({

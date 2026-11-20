@@ -92,6 +92,16 @@
       - cell "36"
       - cell "1.125\" Round"
       - cell "In stock"
+    - row "WCP WCP-2003 36 HXL In stock":
+      - cell "WCP WCP-2003":
+        - link "WCP":
+          - /url: https://wcproducts.com/products/wcp-2003?variant=48014053638356
+          - img "WCP"
+        - link "WCP-2003":
+          - /url: https://wcproducts.com/products/wcp-2003?variant=48014053638356
+      - cell "36"
+      - cell "HXL"
+      - cell "In stock"
     - row "REV REV-21-3720 36 MAXSpline In stock":
       - cell "REV REV-21-3720":
         - link "REV":
