@@ -13,6 +13,8 @@
 - text: Ratio
 - spinbutton "Ratio": "5"
 - combobox: Reduction
+- text: Spool
+- combobox: Custom Diameter
 - button "Spool Diameter"
 - spinbutton "Spool Diameter": "2"
 - combobox: in

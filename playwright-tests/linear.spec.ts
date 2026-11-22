@@ -113,6 +113,38 @@ test.describe('Linear Mechanism Calculator', () => {
     });
   });
 
+  test('should match snapshot with an HTD spool of 22 teeth', async ({
+    page,
+  }) => {
+    await page.getByTestId('spoolType').click();
+    await page.getByRole('option', { name: 'HTD (5mm)' }).click();
+    await page.getByTestId('spoolTeeth').fill('22');
+    await waitForCalc(page);
+    expect(
+      await page.getByTestId('linear-main').ariaSnapshot(),
+    ).toMatchSnapshot({
+      name: 'spoolType-htd-22.yaml',
+    });
+  });
+
+  test('shows the pitch diameter of a 22 tooth HTD pulley', async ({
+    page,
+  }) => {
+    await page.getByTestId('spoolType').click();
+    await page.getByRole('option', { name: 'HTD (5mm)' }).click();
+    await page.getByTestId('spoolTeeth').fill('22');
+    await expect(page.getByTestId('spoolPitchDiameter')).toHaveValue('1.379');
+  });
+
+  test('shows the pitch diameter of an 18 tooth #35 sprocket', async ({
+    page,
+  }) => {
+    await page.getByTestId('spoolType').click();
+    await page.getByRole('option', { name: '#35 Chain' }).click();
+    await page.getByTestId('spoolTeeth').fill('18');
+    await expect(page.getByTestId('spoolPitchDiameter')).toHaveValue('2.149');
+  });
+
   test('should match snapshot with load magnitude changed', async ({
     page,
   }) => {
@@ -440,6 +472,28 @@ test.describe('Linear Mechanism Calculator', () => {
     ).toMatchSnapshot({
       name: 'feedbackDt-unit-changed.yaml',
     });
+  });
+});
+
+test.describe('Linear spool type from URL', () => {
+  test('restores the tooth count of an RT25 spool', async ({ page }) => {
+    await page.goto('/linear?spoolType=RT25&spoolTeeth=24');
+    await page.waitForLoadState('networkidle');
+    await expect(page.getByTestId('spoolTeeth')).toHaveValue('24');
+  });
+
+  test('restores the pitch diameter of an RT25 spool', async ({ page }) => {
+    await page.goto('/linear?spoolType=RT25&spoolTeeth=24');
+    await page.waitForLoadState('networkidle');
+    await expect(page.getByTestId('spoolPitchDiameter')).toHaveValue('1.910');
+  });
+
+  test('falls back to a custom diameter for an unknown spool type', async ({
+    page,
+  }) => {
+    await page.goto('/linear?spoolType=bogus');
+    await page.waitForLoadState('networkidle');
+    await expect(page.getByTestId('spoolDiameter')).toBeVisible();
   });
 });
 

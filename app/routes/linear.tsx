@@ -8,6 +8,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
+import * as z from 'zod';
 import ChevronDownIcon from '~icons/lucide/chevron-down';
 
 import IOLine from '~/components/recalc/blocks';
@@ -16,10 +17,12 @@ import BooleanInput from '~/components/recalc/io/boolean';
 import {
   MeasurementDisplayOutput,
   MeasurementInput,
+  MeasurementOutput,
 } from '~/components/recalc/io/measurement';
 import { MotorInput } from '~/components/recalc/io/motor';
 import NumberInput from '~/components/recalc/io/number';
 import { RatioInput } from '~/components/recalc/io/ratio';
+import { StringSelectInput } from '~/components/recalc/io/stringSelect';
 import { OptimalConfigGrid } from '~/components/recalc/optimalConfigGrid';
 import { SelectedConfig } from '~/components/recalc/selectedConfig';
 import { ChartContainer } from '~/components/ui/chart';
@@ -57,13 +60,17 @@ import Motor from '~/lib/models/Motor';
 import Ratio, { RatioType } from '~/lib/models/Ratio';
 import { getPool } from '~/lib/pool';
 import { buildMeta, calcTitle, pageUrl } from '~/lib/seo';
+import { spoolPitchDiameter } from '~/lib/spoolPitchDiameter';
+import { zBeltProfileSchema } from '~/lib/types/pulleys';
 import {
   BooleanParam,
   MeasurementParam,
   MotorParam,
   NumberParam,
   RatioParam,
+  StringParam,
 } from '~/lib/types/queryParams';
+import { zChainTypeSchema } from '~/lib/types/sprockets';
 
 const LINEAR_PATH = '/linear';
 const LINEAR_TITLE = calcTitle('Linear Mechanism Calculator');
@@ -105,10 +112,27 @@ type WpilibElevatorSimState = LinearWorker.WpilibElevatorSimState;
 
 const EMPTY_ELEVATOR_STATES: WpilibElevatorSimState[] = [];
 
+const zSpoolTypeSchema = z.union([
+  z.literal('custom'),
+  zBeltProfileSchema,
+  zChainTypeSchema,
+]);
+
+const SPOOL_TYPE_CHOICES = [
+  { label: 'Custom Diameter', value: 'custom' },
+  { label: 'GT2 (3mm)', value: 'GT2' },
+  { label: 'HTD (5mm)', value: 'HTD' },
+  { label: 'RT25 (0.25in)', value: 'RT25' },
+  { label: '#25 Chain', value: '#25' },
+  { label: '#35 Chain', value: '#35' },
+];
+
 const DEFAULT_PARAMS = {
   motor: MotorParam.withDefault(Motor.KrakenX60sFOC(1)),
   travelDistance: MeasurementParam.withDefault(new Measurement(60, 'in')),
   spoolDiameter: MeasurementParam.withDefault(new Measurement(1, 'in')),
+  spoolType: StringParam.withDefault('custom'),
+  spoolTeeth: NumberParam.withDefault(18),
   load: MeasurementParam.withDefault(new Measurement(5, 'lb')),
   ratio: RatioParam.withDefault(new Ratio(2, RatioType.REDUCTION)),
   efficiency: NumberParam.withDefault(100),
@@ -199,7 +223,20 @@ export default function Linear() {
   const [travelDistance, setTravelDistance] = useState(
     queryParams.travelDistance,
   );
-  const [spoolDiameter, setSpoolDiameter] = useState(queryParams.spoolDiameter);
+  const [customSpoolDiameter, setCustomSpoolDiameter] = useState(
+    queryParams.spoolDiameter,
+  );
+  const [spoolType, setSpoolType] = useState(
+    zSpoolTypeSchema.catch('custom').parse(queryParams.spoolType),
+  );
+  const [spoolTeeth, setSpoolTeeth] = useState(queryParams.spoolTeeth);
+  const spoolDiameter = useMemo(
+    () =>
+      spoolType === 'custom'
+        ? customSpoolDiameter
+        : spoolPitchDiameter(spoolType, spoolTeeth),
+    [spoolType, customSpoolDiameter, spoolTeeth],
+  );
   const [load, setLoad] = useState(queryParams.load);
   const [ratio, setRatio] = useState(queryParams.ratio);
   const [efficiency, setEfficiency] = useState(queryParams.efficiency);
@@ -591,7 +628,9 @@ export default function Linear() {
     motor,
     ratio,
     load,
-    spoolDiameter,
+    spoolDiameter: customSpoolDiameter,
+    spoolType,
+    spoolTeeth,
     travelDistance,
     efficiency,
     statorLimit,
@@ -660,13 +699,44 @@ export default function Linear() {
                     testId="ratio"
                     labelAbove
                   />
-                  <MeasurementInput
-                    stateHook={[spoolDiameter, setSpoolDiameter]}
-                    label="Spool Diameter"
-                    tooltip="The diameter of the spool or wheel that the elevator rigging is wrapped around. If a pulley or sprocket, use the pitch diameter."
-                    testId="spoolDiameter"
+                  <StringSelectInput
+                    stateHook={[
+                      spoolType,
+                      (v) =>
+                        setSpoolType(zSpoolTypeSchema.catch('custom').parse(v)),
+                    ]}
+                    label="Spool"
+                    choices={SPOOL_TYPE_CHOICES}
+                    testId="spoolType"
                     labelAbove
                   />
+                </IOLine>
+                <IOLine>
+                  {spoolType === 'custom' ? (
+                    <MeasurementInput
+                      stateHook={[customSpoolDiameter, setCustomSpoolDiameter]}
+                      label="Spool Diameter"
+                      tooltip="The diameter of the spool or wheel that the elevator rigging is wrapped around."
+                      testId="spoolDiameter"
+                      labelAbove
+                    />
+                  ) : (
+                    <>
+                      <NumberInput
+                        stateHook={[spoolTeeth, setSpoolTeeth]}
+                        label="Teeth"
+                        testId="spoolTeeth"
+                        labelAbove
+                      />
+                      <MeasurementOutput
+                        state={spoolDiameter}
+                        label="Pitch Diameter"
+                        defaultUnit="in"
+                        testId="spoolPitchDiameter"
+                        labelAbove
+                      />
+                    </>
+                  )}
                 </IOLine>
               </div>
               <div className="border-t" />
