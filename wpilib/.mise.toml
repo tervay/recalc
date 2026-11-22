@@ -1,5 +1,5 @@
 [tools]
-cmake = "4.5.0"
+cmake = "4.5.1"
 ninja = "1.13.2"
 node = "26.13.1"
 java = "temurin-21"
