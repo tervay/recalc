@@ -141,6 +141,14 @@
       "matchStrings": ["ARG CATCH2_VERSION=(?<currentValue>v\\S+)"],
       "depNameTemplate": "catchorg/Catch2",
       "datasourceTemplate": "github-tags"
+    },
+    {
+      "customType": "regex",
+      "description": "clang-tidy is installed from PyPI in wpilib/tests/Dockerfile, so the version lives in an ARG the dockerfile manager does not read",
+      "managerFilePatterns": ["/(^|/)wpilib/tests/Dockerfile$/"],
+      "matchStrings": ["ARG CLANG_TIDY_VERSION=(?<currentValue>\\S+)"],
+      "depNameTemplate": "clang-tidy",
+      "datasourceTemplate": "pypi"
     }
   ]
 }

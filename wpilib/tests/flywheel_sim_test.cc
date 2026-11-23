@@ -1,13 +1,25 @@
 #include "flywheel_sim.h"
 
+#include <emscripten/val.h>
+
+#include <algorithm>
+#include <catch2/catch_message.hpp>
 #include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers.hpp>
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <cmath>
+#include <cstddef>
+#include <memory>
+#include <numbers>
 #include <vector>
 
 #include "dc_motor.h"
 #include "wpi/math/system/DCMotor.hpp"
 #include "wpi/math/system/Models.hpp"
+#include "wpi/simulation/RoboRioSim.hpp"
+#include "wpi/system/RobotController.hpp"
+#include "wpi/units/moment_of_inertia.hpp"
+#include "wpi/units/time.hpp"
 
 using Catch::Matchers::WithinAbs;
 
@@ -22,10 +34,11 @@ constexpr double kTargetRadPerSec = 300.0;
 
 wpi::math::DCMotor TestMotor() { return wpi::math::DCMotor::KrakenX60(1); }
 
-// Caller owns the returned pointer. Mirrors the helper in
+// Mirrors the helper in
 // elevator_sim_test.cc.
-DCMotorWasm* MakeMotorWasm(const wpi::math::DCMotor& motor, int numMotors) {
-  return new DCMotorWasm(
+std::unique_ptr<DCMotorWasm> MakeMotorWasm(const wpi::math::DCMotor& motor,
+                                           int numMotors) {
+  return std::make_unique<DCMotorWasm>(
       motor.nominalVoltage.to<double>(), motor.stallTorque.to<double>(),
       motor.stallCurrent.to<double>(), motor.freeCurrent.to<double>(),
       motor.freeSpeed.to<double>(), numMotors);
@@ -69,15 +82,14 @@ struct Params {
 };
 
 emscripten::val RunRaw(const Params& p) {
-  DCMotorWasm* motor = MakeMotorWasm(TestMotor(), 1);
+  const auto motor = MakeMotorWasm(TestMotor(), 1);
   emscripten::val result = SimulateFlywheel(
-      motor, p.gearing, p.moiKgMSquared, p.targetAngularVelocityRadPerSec,
+      motor.get(), p.gearing, p.moiKgMSquared, p.targetAngularVelocityRadPerSec,
       p.statorLimitAmps, p.supplyLimitAmps, p.statorVoltageVolts,
       p.batteryResistanceOhms, p.batteryVoltageVolts, p.efficiency,
       p.simTimestep, p.decimation, p.maxSimSeconds,
       p.batteryVoltageFilterTimeConstantSeconds,
       p.initialAngularVelocityRadPerSec);
-  delete motor;
   return result;
 }
 
@@ -89,13 +101,17 @@ std::vector<FlywheelSimStateInternal> ToRows(const emscripten::val& v) {
   rows.reserve(n);
   for (int i = 0; i < n; ++i) {
     const emscripten::val s = v[i];
-    rows.push_back(
-        {s["angularVelocityRadPerSec"].as<double>(),
-         s["statorCurrentDrawAmps"].as<double>(),
-         s["supplyCurrentDrawAmps"].as<double>(), s["timeSeconds"].as<double>(),
-         s["batteryVoltageVolts"].as<double>(),
-         s["motorAppliedVoltageVolts"].as<double>(), s["motorRpm"].as<double>(),
-         s["energyJoules"].as<double>(), s["success"].as<bool>()});
+    rows.push_back({
+        .angularVelocityRadPerSec = s["angularVelocityRadPerSec"].as<double>(),
+        .statorCurrentDrawAmps = s["statorCurrentDrawAmps"].as<double>(),
+        .supplyCurrentDrawAmps = s["supplyCurrentDrawAmps"].as<double>(),
+        .timeSeconds = s["timeSeconds"].as<double>(),
+        .batteryVoltageVolts = s["batteryVoltageVolts"].as<double>(),
+        .motorAppliedVoltageVolts = s["motorAppliedVoltageVolts"].as<double>(),
+        .motorRpm = s["motorRpm"].as<double>(),
+        .energyJoules = s["energyJoules"].as<double>(),
+        .success = s["success"].as<bool>(),
+    });
   }
   return rows;
 }
@@ -106,7 +122,7 @@ std::vector<FlywheelSimStateInternal> Simulate(const Params& p) {
 
 // Converts a flywheel angular velocity to the reported motor shaft RPM.
 double ToMotorRpm(double flywheelRadPerSec, double gearing = kGearing) {
-  return flywheelRadPerSec * gearing * 60.0 / (2.0 * M_PI);
+  return flywheelRadPerSec * gearing * 60.0 / (2.0 * std::numbers::pi);
 }
 
 // Runs a flywheel at a fixed voltage long enough to reach steady state, and
@@ -210,7 +226,7 @@ TEST_CASE("EfficiencyFlywheel: EfficiencyScalesTheBackEmfDecay",
   for (int i = 0; i < 2000; ++i) {
     sim.Update(wpi::units::second_t(1e-3));
   }
-  const double before = sim.GetAngularVelocity().to<double>();
+  const auto before = sim.GetAngularVelocity().to<double>();
   REQUIRE(before > 0.0);
 
   sim.SetInputVoltage(wpi::units::volt_t(0.0));
@@ -411,7 +427,7 @@ TEST_CASE(
 TEST_CASE("SimulateFlywheelTrajectory: SpinUpIsMonotonic",
           "[SimulateFlywheelTrajectory]") {
   const auto rows = Simulate(Params{});
-  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.size() > 2U);
 
   for (size_t i = 1; i < rows.size(); ++i) {
     INFO("at row " << i);
@@ -464,7 +480,7 @@ TEST_CASE(
   Params p;
   p.maxSimSeconds = 0.01;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 1u);
+  REQUIRE(rows.size() > 1U);
 
   CHECK(rows.back().angularVelocityRadPerSec < kTargetRadPerSec);
   CHECK_FALSE(rows.back().success);
@@ -489,7 +505,7 @@ TEST_CASE("SimulateFlywheelTrajectory: TimeAdvancesByOneTimestepPerRow",
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.size() > 2U);
 
   CHECK_THAT(rows[0].timeSeconds, WithinAbs(p.simTimestep, 1e-12));
   for (size_t i = 1; i < rows.size(); ++i) {
@@ -525,7 +541,7 @@ TEST_CASE("SimulateFlywheelCoherence: MotorRpmMatchesVelocityInTheSameRow",
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.size() > 2U);
 
   for (size_t i = 0; i < rows.size(); ++i) {
     INFO("at row " << i);
@@ -556,7 +572,7 @@ TEST_CASE("SimulateFlywheelCoherence: MotorRpmStaysConsistentUnderDecimation",
   Params p;
   p.decimation = 10;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.size() > 2U);
 
   for (size_t i = 0; i < rows.size(); ++i) {
     INFO("at row " << i);
@@ -580,10 +596,10 @@ TEST_CASE("SimulateFlywheelDecimation: EmitsEveryNthRowPlusTheLast",
 
   const auto fullRows = Simulate(full);
   const auto decimatedRows = Simulate(decimated);
-  REQUIRE(fullRows.size() > 10u);
+  REQUIRE(fullRows.size() > 10U);
 
   const size_t n = fullRows.size();
-  const size_t expected = (n - 1) / 10 + 1 + ((n - 1) % 10 == 0 ? 0 : 1);
+  const size_t expected = ((n - 1) / 10) + 1 + ((n - 1) % 10 == 0 ? 0 : 1);
   CHECK(decimatedRows.size() == expected);
 
   // The final raw sample is always included, even off a decimation boundary.
@@ -637,7 +653,7 @@ TEST_CASE("SimulateFlywheelCurrentLimits: SupplyCurrentStaysWithinLimit",
 
 TEST_CASE("SimulateFlywheelCurrentLimits: AppliedVoltageNeverExceedsSupply",
           "[SimulateFlywheelCurrentLimits]") {
-  Params p;
+  const Params p;
   const auto rows = Simulate(p);
   REQUIRE_FALSE(rows.empty());
 
@@ -652,7 +668,7 @@ TEST_CASE("SimulateFlywheelCurrentLimits: AppliedVoltageNeverExceedsSupply",
 // take strictly longer to reach the same target.
 TEST_CASE("SimulateFlywheelCurrentLimits: TighterStatorLimitSlowsSpinUp",
           "[SimulateFlywheelCurrentLimits]") {
-  Params loose;
+  const Params loose;
   Params tight;
   tight.statorLimitAmps = 20.0;
 
@@ -689,7 +705,7 @@ TEST_CASE("SimulateFlywheelBattery: RealBatterySagsUnderLoadButStaysPositive",
   p.batteryResistanceOhms = 0.015;
   p.statorLimitAmps = 60.0;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 1u);
+  REQUIRE(rows.size() > 1U);
 
   double minVoltage = p.batteryVoltageVolts;
   for (const auto& row : rows) {
@@ -711,7 +727,7 @@ TEST_CASE("SimulateFlywheelBattery: FilterIsSeededAtNominalVoltage",
   p.statorLimitAmps = 60.0;
   p.batteryVoltageFilterTimeConstantSeconds = 0.1;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 1u);
+  REQUIRE(rows.size() > 1U);
 
   CHECK_THAT(rows.front().batteryVoltageVolts,
              WithinAbs(p.batteryVoltageVolts, 0.5));
@@ -733,7 +749,7 @@ TEST_CASE("SimulateFlywheelEnergy: IsTheCumulativeIntegralOfSupplyPower",
   p.batteryResistanceOhms = 0.0;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 1u);
+  REQUIRE(rows.size() > 1U);
 
   const double firstExpected = rows.front().supplyCurrentDrawAmps *
                                p.batteryVoltageVolts * p.simTimestep;
@@ -745,7 +761,7 @@ TEST_CASE("SimulateFlywheelEnergy: IsTheCumulativeIntegralOfSupplyPower",
     const double expected =
         rows[i].supplyCurrentDrawAmps * p.batteryVoltageVolts * p.simTimestep;
     CHECK_THAT(rows[i].energyJoules - rows[i - 1].energyJoules,
-               WithinAbs(expected, std::abs(expected) * 1e-9 + 1e-12));
+               WithinAbs(expected, (std::abs(expected) * 1e-9) + 1e-12));
   }
 }
 
@@ -765,7 +781,7 @@ TEST_CASE("SimulateFlywheelEnergy: EnergyIsMonotonicWhenNeverRegenerating",
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 1u);
+  REQUIRE(rows.size() > 1U);
 
   for (size_t i = 1; i < rows.size(); ++i) {
     INFO("at row " << i);

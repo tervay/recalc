@@ -19,7 +19,7 @@ General guidelines:
 - Use pnpm instead of npm, yarn, or bun.
 - When making a change, before finishing the task, the build and tests must pass.
 - When making a change, before finishing the task, fix any formatting or linting problems.
-- You can fix formatting with `pnpm run format:fix` (web only) or `pnpm run format:wpi` (C++ only); run both to cover the whole tree. Fix most linting problems with `pnpm run lint:fix`.
+- You can fix formatting with `pnpm run format:fix` (web only) or `pnpm run format:wpi` (C++ only); run both to cover the whole tree. Fix most linting problems with `pnpm run lint:fix`. Lint C++ with `pnpm run lint:wpi` (clang-tidy, runs in Docker).
 - Accompany non-UI logic with unit tests where possible.
 - Accompany UI changes with playwright tests where possible.
 - Do not use emojis.

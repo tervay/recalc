@@ -1,14 +1,28 @@
 #include "arm_sim.h"
 
+#include <emscripten/val.h>
+
+#include <algorithm>
+#include <catch2/catch_message.hpp>
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
+#include <catch2/matchers/catch_matchers.hpp>
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <cmath>
+#include <cstddef>
+#include <memory>
+#include <numbers>
 #include <vector>
 
 #include "dc_motor.h"
 #include "wpi/math/system/DCMotor.hpp"
 #include "wpi/math/system/Models.hpp"
+#include "wpi/simulation/RoboRioSim.hpp"
+#include "wpi/system/RobotController.hpp"
+#include "wpi/units/angle.hpp"
+#include "wpi/units/length.hpp"
+#include "wpi/units/moment_of_inertia.hpp"
+#include "wpi/units/time.hpp"
 
 using Catch::Matchers::WithinAbs;
 using Catch::Matchers::WithinULP;
@@ -25,17 +39,18 @@ constexpr double kArmGravity = 9.80665;
 // vertical. These mirror the values used by the TypeScript integration test in
 // app/lib/math/arm.worker.test.ts so the two layers stay comparable.
 constexpr double kGearing = 100.0;
-constexpr double kMoi = 0.0029263965;     // 10 in^2*lb
-constexpr double kArmLenMeters = 0.6096;  // 24 in
-constexpr double kMinAngle = 0.0;         // horizontal
-const double kMaxAngle = M_PI / 2.0;      // vertical
+constexpr double kMoi = 0.0029263965;             // 10 in^2*lb
+constexpr double kArmLenMeters = 0.6096;          // 24 in
+constexpr double kMinAngle = 0.0;                 // horizontal
+const double kMaxAngle = std::numbers::pi / 2.0;  // vertical
 
 wpi::math::DCMotor TestMotor() { return wpi::math::DCMotor::KrakenX60(1); }
 
-// Caller owns the returned pointer. Mirrors the helper in
+// Mirrors the helper in
 // elevator_sim_test.cc.
-DCMotorWasm* MakeMotorWasm(const wpi::math::DCMotor& motor, int numMotors) {
-  return new DCMotorWasm(
+std::unique_ptr<DCMotorWasm> MakeMotorWasm(const wpi::math::DCMotor& motor,
+                                           int numMotors) {
+  return std::make_unique<DCMotorWasm>(
       motor.nominalVoltage.to<double>(), motor.stallTorque.to<double>(),
       motor.stallCurrent.to<double>(), motor.freeCurrent.to<double>(),
       motor.freeSpeed.to<double>(), numMotors);
@@ -82,15 +97,14 @@ struct Params {
 };
 
 emscripten::val RunRaw(const Params& p) {
-  DCMotorWasm* motor = MakeMotorWasm(TestMotor(), 1);
+  const auto motor = MakeMotorWasm(TestMotor(), 1);
   emscripten::val result = SimulateArm(
-      motor, p.gearing, p.momentOfInertiaKgMSquared, p.armLengthMeters,
+      motor.get(), p.gearing, p.momentOfInertiaKgMSquared, p.armLengthMeters,
       p.minAngleRadians, p.maxAngleRadians, p.startingAngleRadians,
       p.statorLimitAmps, p.supplyLimitAmps, p.statorVoltageVolts,
       p.batteryResistanceOhms, p.batteryVoltageVolts, p.efficiency, p.goingUp,
       p.simTimestep, p.decimation, p.maxSimSeconds,
       p.batteryVoltageFilterTimeConstantSeconds);
-  delete motor;
   return result;
 }
 
@@ -102,14 +116,18 @@ std::vector<ArmSimStateInternal> ToRows(const emscripten::val& v) {
   rows.reserve(n);
   for (int i = 0; i < n; ++i) {
     const emscripten::val s = v[i];
-    rows.push_back(
-        {s["angleRadians"].as<double>(),
-         s["angularVelocityRadPerSec"].as<double>(),
-         s["statorCurrentDrawAmps"].as<double>(),
-         s["supplyCurrentDrawAmps"].as<double>(), s["timeSeconds"].as<double>(),
-         s["batteryVoltageVolts"].as<double>(),
-         s["motorAppliedVoltageVolts"].as<double>(), s["motorRpm"].as<double>(),
-         s["energyJoules"].as<double>(), s["success"].as<bool>()});
+    rows.push_back({
+        .angleRadians = s["angleRadians"].as<double>(),
+        .angularVelocityRadPerSec = s["angularVelocityRadPerSec"].as<double>(),
+        .statorCurrentDrawAmps = s["statorCurrentDrawAmps"].as<double>(),
+        .supplyCurrentDrawAmps = s["supplyCurrentDrawAmps"].as<double>(),
+        .timeSeconds = s["timeSeconds"].as<double>(),
+        .batteryVoltageVolts = s["batteryVoltageVolts"].as<double>(),
+        .motorAppliedVoltageVolts = s["motorAppliedVoltageVolts"].as<double>(),
+        .motorRpm = s["motorRpm"].as<double>(),
+        .energyJoules = s["energyJoules"].as<double>(),
+        .success = s["success"].as<bool>(),
+    });
   }
   return rows;
 }
@@ -122,7 +140,7 @@ std::vector<ArmSimStateInternal> Simulate(const Params& p) {
 // reports a magnitude (see the std::abs at arm_sim.h), unlike the flywheel and
 // elevator, because the arm is the only mechanism that runs in both directions.
 double ToMotorRpm(double armRadPerSec, double gearing = kGearing) {
-  return std::abs(armRadPerSec) * gearing * 60.0 / (2.0 * M_PI);
+  return std::abs(armRadPerSec) * gearing * 60.0 / (2.0 * std::numbers::pi);
 }
 
 // Free-swings an unpowered arm for one timestep from rest and returns the
@@ -214,8 +232,9 @@ TEST_CASE("EfficiencyArmGravity: HorizontalArmFallsAtFullGravity",
              WithinAbs(expected, std::abs(expected) * 1e-6));
 }
 
-// A vertical arm has cos(pi/2) = 0, so the gravity term vanishes. M_PI / 2 is
-// not exactly pi/2 in double precision -- its cosine is 6.1e-17 rather than 0
+// A vertical arm has cos(pi/2) = 0, so the gravity term vanishes.
+// std::numbers::pi / 2 is not exactly pi/2 in double precision -- its cosine
+// is 6.1e-17 rather than 0
 // -- so the residual velocity is ~1e-20 instead of a hard zero. Comparing
 // against the horizontal case pins that the model uses cos, not sin: a
 // sin-based term would be maximal here rather than negligible.
@@ -227,7 +246,8 @@ TEST_CASE("EfficiencyArmGravity: VerticalArmHasNoGravityTorque",
   INFO("a horizontal arm must fall");
   REQUIRE(horizontal < 0.0);
 
-  CHECK(std::abs(UnpoweredVelocityAfterOneStep(M_PI / 2.0, kArmLenMeters, dt)) <
+  CHECK(std::abs(UnpoweredVelocityAfterOneStep(std::numbers::pi / 2.0,
+                                               kArmLenMeters, dt)) <
         std::abs(horizontal) * 1e-12);
 }
 
@@ -259,7 +279,8 @@ TEST_CASE("EfficiencyArmGravity: NegativeArmLengthAlsoDisablesGravity",
 TEST_CASE("GravityAngleScalingTest: VelocityRatioTracksCosineOfAngle",
           "[GravityAngleScalingTest]") {
   const double angle =
-      GENERATE(0.0, M_PI / 6.0, M_PI / 4.0, M_PI / 3.0, M_PI / 2.0);
+      GENERATE(0.0, std::numbers::pi / 6.0, std::numbers::pi / 4.0,
+               std::numbers::pi / 3.0, std::numbers::pi / 2.0);
   CAPTURE(angle);
   const double dt = 1e-5;
   const double horizontal =
@@ -378,7 +399,7 @@ TEST_CASE("EfficiencyArm: EfficiencyScalesTheBackEmfDecay", "[EfficiencyArm]") {
   const double v0 = 1.0;
   const double a11 = IdealPlant().A()(1, 1);
 
-  auto decayRatio = [&](double efficiency) {
+  const auto decayRatio = [&](double efficiency) {
     ResetSupplyVoltage();
     EfficiencyArmSim sim(TestMotor(), kGearing,
                          wpi::units::kilogram_square_meter_t(kMoi),
@@ -406,7 +427,7 @@ TEST_CASE("EfficiencyArm: EfficiencyDoesNotAffectGravity", "[EfficiencyArm]") {
   const double dt = 1e-9;
   const double expectedAlpha = -kArmGravity / kArmLenMeters;
 
-  auto initialAlpha = [&](double efficiency) {
+  const auto initialAlpha = [&](double efficiency) {
     ResetSupplyVoltage();
     EfficiencyArmSim sim(
         TestMotor(), kGearing, wpi::units::kilogram_square_meter_t(kMoi),
@@ -465,14 +486,14 @@ TEST_CASE("EfficiencyArmLimits: UpperLimitPinsAngleAndZeroesVelocity",
 TEST_CASE("EfficiencyArmLimits: LimitPredicatesAreInclusiveAtConstruction",
           "[EfficiencyArmLimits]") {
   ResetSupplyVoltage();
-  EfficiencyArmSim atLower(
+  const EfficiencyArmSim atLower(
       TestMotor(), kGearing, wpi::units::kilogram_square_meter_t(kMoi),
       wpi::units::meter_t(kArmLenMeters), wpi::units::radian_t(0.0),
       wpi::units::radian_t(2.0), 0.0, 1.0);
   CHECK(atLower.HasHitLowerLimit());
   CHECK_FALSE(atLower.HasHitUpperLimit());
 
-  EfficiencyArmSim atUpper(
+  const EfficiencyArmSim atUpper(
       TestMotor(), kGearing, wpi::units::kilogram_square_meter_t(kMoi),
       wpi::units::meter_t(kArmLenMeters), wpi::units::radian_t(0.0),
       wpi::units::radian_t(2.0), 2.0, 1.0);
@@ -670,7 +691,7 @@ TEST_CASE(
   Params p;
   p.goingUp = true;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.size() > 2U);
 
   CHECK(rows.back().success);
   for (size_t i = 0; i < rows.size(); ++i) {
@@ -690,7 +711,7 @@ TEST_CASE(
   p.goingUp = false;
   p.startingAngleRadians = kMaxAngle;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.size() > 2U);
 
   CHECK(rows.back().success);
   for (size_t i = 0; i < rows.size(); ++i) {
@@ -711,7 +732,7 @@ TEST_CASE("SimulateArmTrajectory: FinalAtLimitStateIsNeverRecorded",
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.size() > 2U);
   REQUIRE(rows.back().success);
 
   CHECK(rows.back().angleRadians < kMaxAngle);
@@ -752,7 +773,7 @@ TEST_CASE("SimulateArmTrajectory: TruncatedRunReportsFailureOnTheLastRowOnly",
   Params p;
   p.maxSimSeconds = 0.01;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 1u);
+  REQUIRE(rows.size() > 1U);
 
   CHECK(rows.back().angleRadians < kMaxAngle);
   CHECK_FALSE(rows.back().success);
@@ -777,7 +798,7 @@ TEST_CASE("SimulateArmTrajectory: TimeAdvancesByOneTimestepPerRow",
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.size() > 2U);
 
   CHECK_THAT(rows[0].timeSeconds, WithinAbs(p.simTimestep, 1e-12));
   for (size_t i = 1; i < rows.size(); ++i) {
@@ -853,7 +874,7 @@ TEST_CASE("SimulateArmCoherence: MotorRpmMatchesVelocityInTheSameRow",
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.size() > 2U);
 
   for (size_t i = 0; i < rows.size(); ++i) {
     INFO("at row " << i);
@@ -895,7 +916,7 @@ TEST_CASE("SimulateArmCoherence: ReportedVelocityBracketsTheAngleSecant",
   p.momentOfInertiaKgMSquared = 2.0;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.size() > 2U);
 
   for (size_t i = 1; i < rows.size(); ++i) {
     INFO("at row " << i);
@@ -919,7 +940,7 @@ TEST_CASE("SimulateArmCoherence: MotorRpmIsNonNegativeGoingDown",
   p.startingAngleRadians = kMaxAngle;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.size() > 2U);
 
   for (size_t i = 0; i < rows.size(); ++i) {
     INFO("at row " << i);
@@ -937,7 +958,7 @@ TEST_CASE("SimulateArmCoherence: MotorRpmStaysConsistentUnderDecimation",
   Params p;
   p.decimation = 10;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.size() > 2U);
 
   for (size_t i = 0; i < rows.size(); ++i) {
     INFO("at row " << i);
@@ -961,10 +982,10 @@ TEST_CASE("SimulateArmDecimation: EmitsEveryNthRowPlusTheLast",
 
   const auto fullRows = Simulate(full);
   const auto decimatedRows = Simulate(decimated);
-  REQUIRE(fullRows.size() > 10u);
+  REQUIRE(fullRows.size() > 10U);
 
   const size_t n = fullRows.size();
-  const size_t expected = (n - 1) / 10 + 1 + ((n - 1) % 10 == 0 ? 0 : 1);
+  const size_t expected = ((n - 1) / 10) + 1 + ((n - 1) % 10 == 0 ? 0 : 1);
   CHECK(decimatedRows.size() == expected);
 
   // The final raw sample is always included, even off a decimation boundary.
@@ -1018,7 +1039,7 @@ TEST_CASE("SimulateArmCurrentLimits: SupplyCurrentStaysWithinLimit",
 
 TEST_CASE("SimulateArmCurrentLimits: AppliedVoltageNeverExceedsSupply",
           "[SimulateArmCurrentLimits]") {
-  Params p;
+  const Params p;
   const auto rows = Simulate(p);
   REQUIRE_FALSE(rows.empty());
 
@@ -1052,7 +1073,7 @@ TEST_CASE("SimulateArmBattery: RealBatterySagsUnderLoadButStaysPositive",
   Params p;
   p.batteryResistanceOhms = 0.015;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 1u);
+  REQUIRE(rows.size() > 1U);
 
   double minVoltage = p.batteryVoltageVolts;
   for (const auto& row : rows) {
@@ -1072,7 +1093,7 @@ TEST_CASE("SimulateArmBattery: FilterIsSeededAtNominalVoltage",
   p.batteryResistanceOhms = 0.015;
   p.batteryVoltageFilterTimeConstantSeconds = 0.1;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 1u);
+  REQUIRE(rows.size() > 1U);
 
   CHECK_THAT(rows.front().batteryVoltageVolts,
              WithinAbs(p.batteryVoltageVolts, 0.5));
@@ -1093,7 +1114,7 @@ TEST_CASE("SimulateArmEnergy: IsTheCumulativeIntegralOfSupplyPower",
   p.batteryResistanceOhms = 0.0;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 1u);
+  REQUIRE(rows.size() > 1U);
 
   const double firstExpected = rows.front().supplyCurrentDrawAmps *
                                p.batteryVoltageVolts * p.simTimestep;
@@ -1105,7 +1126,7 @@ TEST_CASE("SimulateArmEnergy: IsTheCumulativeIntegralOfSupplyPower",
     const double expected =
         rows[i].supplyCurrentDrawAmps * p.batteryVoltageVolts * p.simTimestep;
     CHECK_THAT(rows[i].energyJoules - rows[i - 1].energyJoules,
-               WithinAbs(expected, std::abs(expected) * 1e-9 + 1e-12));
+               WithinAbs(expected, (std::abs(expected) * 1e-9) + 1e-12));
   }
 }
 

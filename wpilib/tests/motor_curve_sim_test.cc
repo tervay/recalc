@@ -1,8 +1,15 @@
 #include "motor_curve_sim.h"
 
+#include <emscripten/val.h>
+
+#include <algorithm>
+#include <catch2/catch_message.hpp>
 #include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers.hpp>
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <cmath>
+#include <cstddef>
+#include <memory>
 #include <vector>
 
 #include "dc_motor.h"
@@ -23,9 +30,10 @@ constexpr double kUnlimitedAmps = 1000.0;
 
 wpi::math::DCMotor TestMotor() { return wpi::math::DCMotor::KrakenX60(1); }
 
-// Caller owns the returned pointer. Mirrors the helper in flywheel_sim_test.cc.
-DCMotorWasm* MakeMotorWasm(const wpi::math::DCMotor& motor, int numMotors) {
-  return new DCMotorWasm(
+// Mirrors the helper in flywheel_sim_test.cc.
+std::unique_ptr<DCMotorWasm> MakeMotorWasm(const wpi::math::DCMotor& motor,
+                                           int numMotors) {
+  return std::make_unique<DCMotorWasm>(
       motor.nominalVoltage.to<double>(), motor.stallTorque.to<double>(),
       motor.stallCurrent.to<double>(), motor.freeCurrent.to<double>(),
       motor.freeSpeed.to<double>(), numMotors);
@@ -50,23 +58,24 @@ std::vector<MotorCurveSimStateInternal> ToRows(const emscripten::val& v) {
   rows.reserve(n);
   for (int i = 0; i < n; ++i) {
     const emscripten::val s = v[i];
-    rows.push_back({s["angularVelocityRadPerSec"].as<double>(),
-                    s["statorCurrentDrawAmps"].as<double>(),
-                    s["supplyCurrentDrawAmps"].as<double>(),
-                    s["torqueNewtonMeters"].as<double>(),
-                    s["motorAppliedVoltageVolts"].as<double>(),
-                    s["efficiency"].as<double>()});
+    rows.push_back({
+        .angularVelocityRadPerSec = s["angularVelocityRadPerSec"].as<double>(),
+        .statorCurrentDrawAmps = s["statorCurrentDrawAmps"].as<double>(),
+        .supplyCurrentDrawAmps = s["supplyCurrentDrawAmps"].as<double>(),
+        .torqueNewtonMeters = s["torqueNewtonMeters"].as<double>(),
+        .motorAppliedVoltageVolts = s["motorAppliedVoltageVolts"].as<double>(),
+        .efficiency = s["efficiency"].as<double>(),
+    });
   }
   return rows;
 }
 
 std::vector<MotorCurveSimStateInternal> Simulate(const Params& p) {
-  DCMotorWasm* motor = MakeMotorWasm(TestMotor(), 1);
-  emscripten::val result = SimulateMotorCurve(
-      motor, p.moiKgMSquared, p.statorLimitAmps, p.supplyLimitAmps,
+  const auto motor = MakeMotorWasm(TestMotor(), 1);
+  const emscripten::val result = SimulateMotorCurve(
+      motor.get(), p.moiKgMSquared, p.statorLimitAmps, p.supplyLimitAmps,
       p.statorVoltageVolts, p.supplyVoltageVolts, p.simTimestep, p.decimation,
       p.maxIterations);
-  delete motor;
   return ToRows(result);
 }
 
@@ -82,15 +91,15 @@ TEST_CASE(
     "[MotorCurveSimLinearity]") {
   const auto motor = TestMotor();
   const auto rows = Simulate({});
-  REQUIRE(rows.size() > 100u);
+  REQUIRE(rows.size() > 100U);
 
   const double v = 12.0;
-  const double r = motor.R.to<double>();
-  const double kv = motor.Kv.to<double>();
+  const auto r = motor.R.to<double>();
+  const auto kv = motor.Kv.to<double>();
 
   for (const auto& row : rows) {
     INFO("at " << row.angularVelocityRadPerSec << " rad/s");
-    const double expected = (v - row.angularVelocityRadPerSec / kv) / r;
+    const double expected = (v - (row.angularVelocityRadPerSec / kv)) / r;
     CHECK_THAT(row.statorCurrentDrawAmps, WithinAbs(expected, 1e-6));
   }
 }
@@ -106,7 +115,7 @@ TEST_CASE(
 
 TEST_CASE("MotorCurveSimLinearity: TorqueTracksKtTimesStatorCurrent",
           "[MotorCurveSimLinearity]") {
-  const double kt = TestMotor().Kt.to<double>();
+  const auto kt = TestMotor().Kt.to<double>();
   for (const auto& row : Simulate({})) {
     INFO("at " << row.angularVelocityRadPerSec << " rad/s");
     CHECK_THAT(row.torqueNewtonMeters,
@@ -136,7 +145,7 @@ TEST_CASE("MotorCurveSimEndpoints: SweepEndsAtFreeSpeedDrawingFreeCurrent",
   REQUIRE_FALSE(rows.empty());
   const auto& last = rows.back();
 
-  const double freeSpeed = TestMotor().freeSpeed.to<double>();
+  const auto freeSpeed = TestMotor().freeSpeed.to<double>();
   CHECK(last.angularVelocityRadPerSec <= freeSpeed);
   CHECK(last.angularVelocityRadPerSec > 0.99 * freeSpeed);
   CHECK_THAT(last.statorCurrentDrawAmps,
@@ -146,7 +155,7 @@ TEST_CASE("MotorCurveSimEndpoints: SweepEndsAtFreeSpeedDrawingFreeCurrent",
 TEST_CASE("MotorCurveSimEndpoints: SpeedIncreasesMonotonically",
           "[MotorCurveSimEndpoints]") {
   const auto rows = Simulate({});
-  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.size() > 2U);
   for (size_t i = 1; i < rows.size(); ++i) {
     CHECK(rows[i].angularVelocityRadPerSec >
           rows[i - 1].angularVelocityRadPerSec);
@@ -184,7 +193,7 @@ TEST_CASE(
       Simulate({.statorLimitAmps = 1000.0, .supplyLimitAmps = supplyLimit});
   REQUIRE_FALSE(rows.empty());
 
-  const double r = TestMotor().R.to<double>();
+  const auto r = TestMotor().R.to<double>();
   const double expectedStall = std::sqrt(supplyLimit * 12.0 / r);
   CHECK_THAT(rows.front().statorCurrentDrawAmps,
              WithinAbs(expectedStall, 1e-6));
@@ -223,15 +232,17 @@ TEST_CASE(
       Simulate({.statorVoltageVolts = 6.0, .maxIterations = 5000});
   REQUIRE_FALSE(rows.empty());
 
-  const double r = TestMotor().R.to<double>();
+  const auto r = TestMotor().R.to<double>();
   CHECK_THAT(rows.front().statorCurrentDrawAmps, WithinAbs(6.0 / r, 1e-6));
 }
 
 TEST_CASE("MotorCurveSimVoltages: SupplyVoltageClampsAStatorVoltageAboveIt",
           "[MotorCurveSimVoltages]") {
-  const auto rows = Simulate({.statorVoltageVolts = 12.0,
-                              .supplyVoltageVolts = 6.0,
-                              .maxIterations = 5000});
+  const auto rows = Simulate({
+      .statorVoltageVolts = 12.0,
+      .supplyVoltageVolts = 6.0,
+      .maxIterations = 5000,
+  });
   REQUIRE_FALSE(rows.empty());
 
   for (const auto& row : rows) {
@@ -245,16 +256,20 @@ TEST_CASE(
   // The supply limit has to bind for the two to differ: the bus voltage enters
   // the clamp only through the supply-current constraint.
   const double supplyLimit = 60.0;
-  const double r = TestMotor().R.to<double>();
+  const auto r = TestMotor().R.to<double>();
 
-  const auto sixOnTwelve = Simulate({.supplyLimitAmps = supplyLimit,
-                                     .statorVoltageVolts = 6.0,
-                                     .supplyVoltageVolts = 12.0,
-                                     .maxIterations = 5000});
-  const auto twelveOnSix = Simulate({.supplyLimitAmps = supplyLimit,
-                                     .statorVoltageVolts = 12.0,
-                                     .supplyVoltageVolts = 6.0,
-                                     .maxIterations = 5000});
+  const auto sixOnTwelve = Simulate({
+      .supplyLimitAmps = supplyLimit,
+      .statorVoltageVolts = 6.0,
+      .supplyVoltageVolts = 12.0,
+      .maxIterations = 5000,
+  });
+  const auto twelveOnSix = Simulate({
+      .supplyLimitAmps = supplyLimit,
+      .statorVoltageVolts = 12.0,
+      .supplyVoltageVolts = 6.0,
+      .maxIterations = 5000,
+  });
 
   REQUIRE_FALSE(sixOnTwelve.empty());
   REQUIRE_FALSE(twelveOnSix.empty());
@@ -282,7 +297,7 @@ TEST_CASE("MotorCurveSimEfficiency: StaysWithinZeroToOneAcrossTheSweep",
 TEST_CASE("MotorCurveSimEfficiency: IsZeroAtStallAndPeaksInTheMiddle",
           "[MotorCurveSimEfficiency]") {
   const auto rows = Simulate({});
-  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.size() > 2U);
 
   CHECK_THAT(rows.front().efficiency, WithinULP(0.0, 4));
 
@@ -302,7 +317,7 @@ TEST_CASE("MotorCurveSimGuards: ZeroStatorLimitTerminatesAtTheIterationCap",
           "[MotorCurveSimGuards]") {
   // vApplied is pinned at vBackEmf, which is 0 V at rest.
   const auto rows = Simulate({.statorLimitAmps = 0.0, .maxIterations = 100});
-  CHECK(rows.size() == 100u);
+  CHECK(rows.size() == 100U);
   for (const auto& row : rows) {
     CHECK_THAT(row.angularVelocityRadPerSec, WithinULP(0.0, 4));
     CHECK_THAT(row.statorCurrentDrawAmps, WithinAbs(0.0, 1e-9));
@@ -324,7 +339,7 @@ TEST_CASE("MotorCurveSimGuards: DecimationThinsTheOutputAndKeepsTheLastRow",
   const auto full = Simulate({});
   const auto thinned = Simulate({.decimation = 10});
 
-  REQUIRE(full.size() > 10u);
+  REQUIRE(full.size() > 10U);
   CHECK(thinned.size() < full.size());
   CHECK_THAT(thinned.front().angularVelocityRadPerSec,
              WithinULP(full.front().angularVelocityRadPerSec, 4));

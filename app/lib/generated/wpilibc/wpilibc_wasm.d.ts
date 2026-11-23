@@ -96,7 +96,7 @@ export interface DCMotor extends ClassHandle {
     torqueNewtonMeters: number,
     inputVoltageVolts: number,
   ): number;
-  withReduction(gearboxReduction: number): DCMotor | null;
+  withReduction(gearboxReduction: number): DCMotor;
 }
 
 export interface DCMotorSim extends ClassHandle {

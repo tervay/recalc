@@ -1,5 +1,7 @@
 #pragma once
 
+#include <mutex>
+
 namespace wpi::hal::init {
 void InitializeRoboRioData();
 }
@@ -15,9 +17,6 @@ void InitializeRoboRioData();
 // "thread constructor failed: Not supported". Only the RoboRio sim data
 // store is required for voltage get/set and ElevatorSim clamping.
 inline void EnsureHalInitialized() {
-  static const bool once = [] {
-    wpi::hal::init::InitializeRoboRioData();
-    return true;
-  }();
-  (void)once;
+  static std::once_flag once;
+  std::call_once(once, wpi::hal::init::InitializeRoboRioData);
 }

@@ -21,6 +21,7 @@
     "test:wpi": "./wpilib/tests/run_tests.sh",
     "lint": "oxlint --type-aware",
     "lint:fix": "oxlint --type-aware --fix",
+    "lint:wpi": "./wpilib/lint.sh",
     "format": "oxfmt --check",
     "format:fix": "oxfmt",
     "format:wpi": "./wpilib/format.sh"

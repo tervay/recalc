@@ -3,6 +3,7 @@
 #include <emscripten/val.h>
 
 #include <cmath>
+#include <numbers>
 #include <stdexcept>
 #include <vector>
 
@@ -77,7 +78,7 @@ struct FlywheelSimStateInternal {
 // Returns a JS array of state objects decimated by `decimation`, with the last
 // state always included (matches obliterateArray behaviour in utils.ts).
 inline emscripten::val SimulateFlywheelImpl(
-    DCMotorWasm* motor, double gearing, double moiKgMSquared,
+    const DCMotorWasm* motor, double gearing, double moiKgMSquared,
     double targetAngularVelocityRadPerSec, double statorLimitAmps,
     double supplyLimitAmps, double statorVoltageVolts,
     double batteryResistanceOhms, double batteryVoltageVolts, double efficiency,
@@ -135,7 +136,7 @@ inline emscripten::val SimulateFlywheelImpl(
     double vApplied = statorVoltageVolts;
 
     // Motor shaft angular velocity (rad/s) from flywheel velocity
-    const double flywheelRadPerSec = flywheel.GetAngularVelocity().to<double>();
+    const auto flywheelRadPerSec = flywheel.GetAngularVelocity().to<double>();
     const double motorShaftRadPerSec = flywheelRadPerSec * gearing;
     const double vBackEmf = kvRadPerSecPerVolt > 0.0
                                 ? motorShaftRadPerSec / kvRadPerSecPerVolt
@@ -150,15 +151,16 @@ inline emscripten::val SimulateFlywheelImpl(
     flywheel.Update(wpi::units::second_t(simTimestep));
     timestamp += simTimestep;
 
-    const double statorCurrent = flywheel.GetCurrentDraw().to<double>();
+    const auto statorCurrent = flywheel.GetCurrentDraw().to<double>();
     const double supplyCurrent =
         SupplyCurrentFromStator(statorCurrent, vApplied, vSupply);
     energyJoules += supplyCurrent * vSupply * simTimestep;
 
     // Battery voltage under load, smoothed by a single-pole IIR filter
     std::vector<wpi::units::ampere_t> currents = {
-        wpi::units::ampere_t(supplyCurrent)};
-    const double rawBatteryVoltage =
+        wpi::units::ampere_t(supplyCurrent),
+    };
+    const auto rawBatteryVoltage =
         wpi::sim::BatterySim::Calculate(
             wpi::units::volt_t(batteryVoltageVolts),
             wpi::units::ohm_t(batteryResistanceOhms), currents)
@@ -170,13 +172,21 @@ inline emscripten::val SimulateFlywheelImpl(
     // is read after the step. `motorShaftRadPerSec` above is the pre-step value
     // and is deliberately not reused here: it feeds the back-EMF term of the
     // voltage clamp, which must act on the state at the start of the step.
-    const double updatedFlywheelRadPerSec =
+    const auto updatedFlywheelRadPerSec =
         flywheel.GetAngularVelocity().to<double>();
     const double motorRpm =
-        updatedFlywheelRadPerSec * gearing * 60.0 / (2.0 * M_PI);
-    states.push_back({updatedFlywheelRadPerSec, statorCurrent, supplyCurrent,
-                      timestamp, filteredBatteryVoltage, vApplied, motorRpm,
-                      energyJoules, true});
+        updatedFlywheelRadPerSec * gearing * 60.0 / (2.0 * std::numbers::pi);
+    states.push_back({
+        .angularVelocityRadPerSec = updatedFlywheelRadPerSec,
+        .statorCurrentDrawAmps = statorCurrent,
+        .supplyCurrentDrawAmps = supplyCurrent,
+        .timeSeconds = timestamp,
+        .batteryVoltageVolts = filteredBatteryVoltage,
+        .motorAppliedVoltageVolts = vApplied,
+        .motorRpm = motorRpm,
+        .energyJoules = energyJoules,
+        .success = true,
+    });
 
     wpi::sim::RoboRioSim::SetVInVoltage(
         wpi::units::volt_t(filteredBatteryVoltage));
@@ -209,7 +219,7 @@ inline emscripten::val SimulateFlywheelImpl(
 // numerical exceptions return an empty array with a diagnostic console.warn
 // instead of aborting the worker.
 inline FlywheelSimRows SimulateFlywheel(
-    DCMotorWasm* motor, double gearing, double moiKgMSquared,
+    const DCMotorWasm* motor, double gearing, double moiKgMSquared,
     double targetAngularVelocityRadPerSec, double statorLimitAmps,
     double supplyLimitAmps, double statorVoltageVolts,
     double batteryResistanceOhms, double batteryVoltageVolts, double efficiency,

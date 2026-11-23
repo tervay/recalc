@@ -1,6 +1,9 @@
 #include "sim_util.h"
 
+#include <emscripten/val.h>
+
 #include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers.hpp>
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <cmath>
 #include <functional>
@@ -141,16 +144,19 @@ TEST_CASE("SupplyCurrent: EnergyIsCreditedDuringRegen", "[SupplyCurrent]") {
 // DecimateToJsArray
 // ============================================================================
 
-static std::vector<int> RunDecimate(const std::vector<int>& states,
-                                    int decimation) {
+namespace {
+
+std::vector<int> RunDecimate(const std::vector<int>& states, int decimation) {
   std::vector<int> seen;
-  auto serialize = [&](const int& s) -> emscripten::val {
+  const auto serialize = [&](const int& s) -> emscripten::val {
     seen.push_back(s);
     return emscripten::val{};
   };
   DecimateToJsArray<int>(states, decimation, serialize);
   return seen;
 }
+
+}  // namespace
 
 TEST_CASE("Decimate: EmptyVector", "[Decimate]") {
   CHECK(RunDecimate({}, 1).empty());
@@ -193,10 +199,15 @@ TEST_CASE("Decimate: SerializerReceivesCorrectStateValues", "[Decimate]") {
     double x;
     double y;
   };
-  std::vector<Point> pts = {{1.0, 2.0}, {3.0, 4.0}, {5.0, 6.0}, {7.0, 8.0}};
+  const std::vector<Point> pts = {
+      {.x = 1.0, .y = 2.0},
+      {.x = 3.0, .y = 4.0},
+      {.x = 5.0, .y = 6.0},
+      {.x = 7.0, .y = 8.0},
+  };
   std::vector<double> xs_seen;
 
-  auto serialize = [&](const Point& p) -> emscripten::val {
+  const auto serialize = [&](const Point& p) -> emscripten::val {
     xs_seen.push_back(p.x);
     return emscripten::val{};
   };

@@ -20,20 +20,16 @@ inline double RobotController_GetInputVoltage() {
 // Uses default 12 V nominal voltage and 20 mΩ internal resistance.
 inline double BatterySim_CalculateDefaultBatteryLoadedVoltage(
     const std::vector<double>& currentDrawsAmps) {
-  std::vector<wpi::units::ampere_t> currents;
-  for (double a : currentDrawsAmps) {
-    currents.push_back(wpi::units::ampere_t(a));
-  }
+  const std::vector<wpi::units::ampere_t> currents(currentDrawsAmps.begin(),
+                                                   currentDrawsAmps.end());
   return wpi::sim::BatterySim::Calculate(currents).to<double>();
 }
 
 inline double BatterySim_CalculateLoadedBatteryVoltage(
     double nominalVoltageVolts, double resistanceOhms,
     const std::vector<double>& currentDrawsAmps) {
-  std::vector<wpi::units::ampere_t> currents;
-  for (double a : currentDrawsAmps) {
-    currents.push_back(wpi::units::ampere_t(a));
-  }
+  const std::vector<wpi::units::ampere_t> currents(currentDrawsAmps.begin(),
+                                                   currentDrawsAmps.end());
   return wpi::sim::BatterySim::Calculate(
              wpi::units::volt_t(nominalVoltageVolts),
              wpi::units::ohm_t(resistanceOhms), currents)

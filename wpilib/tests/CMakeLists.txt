@@ -213,3 +213,8 @@ add_executable(recalc_tests
 target_link_libraries(recalc_tests PRIVATE Catch2::Catch2WithMain wpilibc_deps)
 
 add_test(NAME recalc_tests COMMAND node $<TARGET_FILE_NAME:recalc_tests>)
+
+add_library(recalc_bindings_lint OBJECT EXCLUDE_FROM_ALL
+    ${PATCH_INCLUDE_DIR}/bindings.cc
+)
+target_link_libraries(recalc_bindings_lint PRIVATE wpilibc_deps)

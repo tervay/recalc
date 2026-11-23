@@ -1,4 +1,5 @@
 #include <catch2/catch_test_run_info.hpp>
+#include <catch2/interfaces/catch_interfaces_reporter.hpp>
 #include <catch2/reporters/catch_reporter_event_listener.hpp>
 #include <catch2/reporters/catch_reporter_registrars.hpp>
 
@@ -16,7 +17,7 @@ namespace {
 struct HalInitListener : Catch::EventListenerBase {
   using EventListenerBase::EventListenerBase;
 
-  void testRunStarting(Catch::TestRunInfo const&) override {
+  void testRunStarting(Catch::TestRunInfo const& /*testRunInfo*/) override {
     EnsureHalInitialized();
   }
 };
