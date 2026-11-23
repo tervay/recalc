@@ -1,4 +1,4 @@
-FROM emscripten/emsdk:7.0.0 AS base
+FROM emscripten/emsdk:7.0.1 AS base
 
 RUN apt-get update -qq && \
     apt-get install -y -qq \
