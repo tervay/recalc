@@ -23,6 +23,7 @@ import type { Route } from '.react-router/types/app/routes/+types/home';
 const TITLE = 'ReCalc – FRC & FTC Robotics Design Calculator & Simulator';
 const DESCRIPTION =
   'Free FRC and FTC robotics calculators and simulators. Design belt, chain, gear, arm, flywheel, and linear mechanisms for FIRST Robotics Competition and FIRST Tech Challenge teams.';
+const YEAR = new Date().getFullYear();
 
 export function meta(_: Route.MetaArgs) {
   return [
@@ -206,7 +207,6 @@ function ShortcutGroup({ label, children }: ShortcutGroupProps) {
 // ---------------------------------------------------------------------------
 
 export default function Home() {
-  const year = new Date().getFullYear();
   return (
     <div className="pb-16">
       <Hero />
@@ -273,33 +273,33 @@ export default function Home() {
         <section>
           <SectionHeader label="Shortcuts" />
           <div className="space-y-6">
-            <ShortcutGroup label={`${year} Rules & Manuals`}>
+            <ShortcutGroup label={`${YEAR} Rules & Manuals`}>
               <Shortcut
-                name={`${year} Official PDF Manual`}
-                url={`https://firstfrc.blob.core.windows.net/frc${year}/Manual/${year}GameManual.pdf`}
+                name={`${YEAR} Official PDF Manual`}
+                url={`https://firstfrc.blob.core.windows.net/frc${YEAR}/Manual/${YEAR}GameManual.pdf`}
               />
               <Shortcut
-                name={`${year} Unofficial Web Manual`}
-                url={`https://www.frcmanual.com/${year}/introduction`}
+                name={`${YEAR} Unofficial Web Manual`}
+                url={`https://www.frcmanual.com/${YEAR}/introduction`}
               />
               <Shortcut
-                name={`${year} Q&A`}
+                name={`${YEAR} Q&A`}
                 url="https://frc-qa.firstinspires.org/"
               />
             </ShortcutGroup>
 
-            <ShortcutGroup label={`${year} Events & Teams`}>
+            <ShortcutGroup label={`${YEAR} Events & Teams`}>
               <Shortcut
                 name="Team / Event Search"
-                url={`https://www.firstinspires.org/team-event-search#type=teams&sort=name&programs=FRC&year=${year}`}
+                url={`https://www.firstinspires.org/team-event-search#type=teams&sort=name&programs=FRC&year=${YEAR}`}
               />
               <Shortcut
                 name="FRC-Events"
-                url={`https://frc-events.firstinspires.org/${year}/Events/EventList`}
+                url={`https://frc-events.firstinspires.org/${YEAR}/Events/EventList`}
               />
               <Shortcut
                 name="TheBlueAlliance"
-                url={`https://www.thebluealliance.com/events/${year}`}
+                url={`https://www.thebluealliance.com/events/${YEAR}`}
               />
             </ShortcutGroup>
 
