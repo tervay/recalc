@@ -107,6 +107,21 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
         "${CMAKE_BINARY_DIR}/wpilibc/wasm/wpilibc_wasm.d.ts"
     )
 
+    option(RECALC_WASM_LEAK_CHECK "Link wpilibc_wasm with LeakSanitizer" OFF)
+    if(RECALC_WASM_LEAK_CHECK)
+        list(REMOVE_ITEM EMSCRIPTEN_LINK_FLAGS
+            "-sEXPORTED_FUNCTIONS=[_malloc,_free]"
+            "-sMALLOC=emmalloc"
+            "--closure=1"
+        )
+        list(APPEND EMSCRIPTEN_LINK_FLAGS
+            "-sEXPORTED_FUNCTIONS=[_malloc,_free,___lsan_do_recoverable_leak_check]"
+            "-fsanitize=leak"
+            "--profiling-funcs"
+        )
+        target_compile_options(wpilibc_wasm PRIVATE -fsanitize=leak)
+    endif()
+
     target_link_options(wpilibc_wasm PRIVATE ${EMSCRIPTEN_LINK_FLAGS})
 
     # Set output directory

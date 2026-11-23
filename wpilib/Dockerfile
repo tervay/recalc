@@ -109,7 +109,7 @@ RUN cd /build/allwpilib && \
 
 # ---- Stage: final ----
 # Copies real bindings and relinks. Only this stage re-runs when bindings.cc changes.
-FROM libs
+FROM libs AS sources
 
 COPY patches/wpilibc/wasm/bindings.cc \
      patches/wpilibc/wasm/arm_sim.h \
@@ -128,5 +128,17 @@ COPY patches/wpilibc/wasm/bindings.cc \
 
 # Touch to ensure mtime is newer than the placeholder object file, so ninja
 # recompiles bindings.cc. All static libs from the libs stage are already built.
-RUN touch /build/allwpilib/wpilibc/wasm/bindings.cc && \
-    cd /build/allwpilib/build && emmake ninja wpilibc_wasm -j$(nproc)
+RUN touch /build/allwpilib/wpilibc/wasm/bindings.cc
+
+FROM sources AS leak-check
+
+RUN cd /build/allwpilib && \
+    emcmake cmake -B build -S . -DRECALC_WASM_LEAK_CHECK=ON && \
+    cd build && emmake ninja wpilibc_wasm -j$(nproc)
+
+COPY leak-check/check.mjs /leak-check/check.mjs
+ENTRYPOINT ["node", "/leak-check/check.mjs", "/build/allwpilib/build/wpilibc/wasm/wpilibc_wasm.js"]
+
+FROM sources
+
+RUN cd /build/allwpilib/build && emmake ninja wpilibc_wasm -j$(nproc)

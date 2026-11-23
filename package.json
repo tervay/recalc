@@ -22,6 +22,7 @@
     "lint": "oxlint --type-aware",
     "lint:fix": "oxlint --type-aware --fix",
     "lint:wpi": "./wpilib/lint.sh",
+    "leaks:wpi": "./wpilib/leak_check.sh",
     "format": "oxfmt --check",
     "format:fix": "oxfmt",
     "format:wpi": "./wpilib/format.sh"
