@@ -1,7 +1,10 @@
 import { maxBy } from 'es-toolkit';
 import workerpool from 'workerpool';
 
-import type { DCMotor } from '~/lib/generated/wpilibc/wpilibc_wasm';
+import type {
+  ArmSimParams,
+  DCMotor,
+} from '~/lib/generated/wpilibc/wpilibc_wasm';
 import {
   type SimState,
   type MetricSource,
@@ -95,47 +98,32 @@ function simulate(
   peakSupplyCurrent: number;
   success: boolean;
 } {
-  const upStates: SimState[] = wpilibc.simulateArm(
-    p.wpilibMotor,
-    ratioMagnitude,
-    p.moiKgMSquared,
-    p.armLengthMeters,
-    p.minAngleRadians,
-    p.maxAngleRadians,
-    p.minAngleRadians,
-    totalStatorAmps,
-    totalSupplyAmps,
-    p.statorVoltageVolts,
-    p.batteryResistanceOhms,
-    p.batteryVoltageVolts,
-    p.efficiency,
-    true,
-    0.001,
-    10,
-    timeoutSeconds,
-    0.1,
-  );
+  const upParams: ArmSimParams = {
+    gearing: ratioMagnitude,
+    momentOfInertiaKgMSquared: p.moiKgMSquared,
+    armLengthMeters: p.armLengthMeters,
+    minAngleRadians: p.minAngleRadians,
+    maxAngleRadians: p.maxAngleRadians,
+    startingAngleRadians: p.minAngleRadians,
+    statorLimitAmps: totalStatorAmps,
+    supplyLimitAmps: totalSupplyAmps,
+    statorVoltageVolts: p.statorVoltageVolts,
+    batteryResistanceOhms: p.batteryResistanceOhms,
+    batteryVoltageVolts: p.batteryVoltageVolts,
+    efficiency: p.efficiency,
+    goingUp: true,
+    simTimestep: 0.001,
+    decimation: 10,
+    maxSimSeconds: timeoutSeconds,
+    batteryVoltageFilterTimeConstantSeconds: 0.1,
+  };
+  const upStates: SimState[] = wpilibc.simulateArm(p.wpilibMotor, upParams);
 
-  const downStates: SimState[] = wpilibc.simulateArm(
-    p.wpilibMotor,
-    ratioMagnitude,
-    p.moiKgMSquared,
-    p.armLengthMeters,
-    p.minAngleRadians,
-    p.maxAngleRadians,
-    p.maxAngleRadians,
-    totalStatorAmps,
-    totalSupplyAmps,
-    p.statorVoltageVolts,
-    p.batteryResistanceOhms,
-    p.batteryVoltageVolts,
-    p.efficiency,
-    false,
-    0.001,
-    10,
-    timeoutSeconds,
-    0.1,
-  );
+  const downStates: SimState[] = wpilibc.simulateArm(p.wpilibMotor, {
+    ...upParams,
+    startingAngleRadians: p.maxAngleRadians,
+    goingUp: false,
+  });
 
   const upLast = upStates[upStates.length - 1];
   const downLast = downStates[downStates.length - 1];
@@ -172,26 +160,25 @@ function simulateUp(
   totalSupplyAmps: number,
   timeoutSeconds = 3.0,
 ): SimState[] {
-  return wpilibc.simulateArm(
-    p.wpilibMotor,
-    ratioMagnitude,
-    p.moiKgMSquared,
-    p.armLengthMeters,
-    p.minAngleRadians,
-    p.maxAngleRadians,
-    p.minAngleRadians,
-    totalStatorAmps,
-    totalSupplyAmps,
-    p.statorVoltageVolts,
-    p.batteryResistanceOhms,
-    p.batteryVoltageVolts,
-    p.efficiency,
-    true,
-    0.001,
-    10,
-    timeoutSeconds,
-    0.1,
-  );
+  return wpilibc.simulateArm(p.wpilibMotor, {
+    gearing: ratioMagnitude,
+    momentOfInertiaKgMSquared: p.moiKgMSquared,
+    armLengthMeters: p.armLengthMeters,
+    minAngleRadians: p.minAngleRadians,
+    maxAngleRadians: p.maxAngleRadians,
+    startingAngleRadians: p.minAngleRadians,
+    statorLimitAmps: totalStatorAmps,
+    supplyLimitAmps: totalSupplyAmps,
+    statorVoltageVolts: p.statorVoltageVolts,
+    batteryResistanceOhms: p.batteryResistanceOhms,
+    batteryVoltageVolts: p.batteryVoltageVolts,
+    efficiency: p.efficiency,
+    goingUp: true,
+    simTimestep: 0.001,
+    decimation: 10,
+    maxSimSeconds: timeoutSeconds,
+    batteryVoltageFilterTimeConstantSeconds: 0.1,
+  });
 }
 
 async function optimizeRatio(

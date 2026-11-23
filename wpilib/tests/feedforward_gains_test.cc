@@ -71,8 +71,13 @@ TEST_CASE(
   const double expectedKa = 1.0 / idealPlant.B()(1, 0);
 
   FeedforwardGains actual = ComputeLinearFeedforwardGainsCore(
-      cfg.motor, cfg.gearing, cfg.loadKg, cfg.spoolRadiusMeters,
-      /*efficiency=*/1.0, /*angleRadians=*/0.0);
+      cfg.motor, {
+                     .gearing = cfg.gearing,
+                     .loadKg = cfg.loadKg,
+                     .spoolRadiusMeters = cfg.spoolRadiusMeters,
+                     .efficiency = 1.0,
+                     .angleRadians = 0.0,
+                 });
 
   CHECK_THAT(actual.kV, WithinAbs(expectedKv, std::abs(expectedKv) * kTol));
   CHECK_THAT(actual.kA, WithinAbs(expectedKa, std::abs(expectedKa) * kTol));
@@ -100,8 +105,13 @@ TEST_CASE(
   double prevKgMag = -1.0;
   for (const double efficiency : efficiencies) {
     FeedforwardGains gains = ComputeLinearFeedforwardGainsCore(
-        cfg.motor, cfg.gearing, cfg.loadKg, cfg.spoolRadiusMeters, efficiency,
-        angleRadians);
+        cfg.motor, {
+                       .gearing = cfg.gearing,
+                       .loadKg = cfg.loadKg,
+                       .spoolRadiusMeters = cfg.spoolRadiusMeters,
+                       .efficiency = efficiency,
+                       .angleRadians = angleRadians,
+                   });
     if (prevKv >= 0.0) {
       CHECK_THAT(gains.kV, WithinAbs(prevKv, std::abs(prevKv) * kTol));
       CHECK(gains.kA > prevKa);
@@ -128,8 +138,13 @@ TEST_CASE("LinearFeedforwardGainsTest: KgMonotonicallyIncreasesWithAngle",
   for (const double angleDeg : anglesDeg) {
     const double angleRadians = angleDeg * std::numbers::pi / 180.0;
     const FeedforwardGains gains = ComputeLinearFeedforwardGainsCore(
-        motor, kGearing, kLoadKg, kSpoolRadiusMeters, kEfficiency,
-        angleRadians);
+        motor, {
+                   .gearing = kGearing,
+                   .loadKg = kLoadKg,
+                   .spoolRadiusMeters = kSpoolRadiusMeters,
+                   .efficiency = kEfficiency,
+                   .angleRadians = angleRadians,
+               });
 
     if (prevKg >= 0.0) {
       CHECK(gains.kG > prevKg);
@@ -143,8 +158,13 @@ TEST_CASE("LinearFeedforwardGainsTest: KgMonotonicallyIncreasesWithAngle",
 TEST_CASE("LinearFeedforwardGainsTest: KgIsZeroAtHorizontalAngle",
           "[LinearFeedforwardGainsTest]") {
   FeedforwardGains gains = ComputeLinearFeedforwardGainsCore(
-      wpi::math::DCMotor::NEO(1), /*gearing=*/10.0, /*loadKg=*/5.0,
-      /*spoolRadiusMeters=*/0.025, /*efficiency=*/0.85, /*angleRadians=*/0.0);
+      wpi::math::DCMotor::NEO(1), {
+                                      .gearing = 10.0,
+                                      .loadKg = 5.0,
+                                      .spoolRadiusMeters = 0.025,
+                                      .efficiency = 0.85,
+                                      .angleRadians = 0.0,
+                                  });
   CHECK_THAT(gains.kG, WithinAbs(0.0, kTol));
 }
 
@@ -159,8 +179,13 @@ TEST_CASE("LinearFeedforwardGainsTest: KgAtVerticalAngleMatchesClosedForm",
   const wpi::math::DCMotor motor = wpi::math::DCMotor::NEO(1);
 
   FeedforwardGains vertical = ComputeLinearFeedforwardGainsCore(
-      motor, kGearing, kLoadKg, kSpoolRadiusMeters, kEfficiency,
-      std::numbers::pi / 2.0);
+      motor, {
+                 .gearing = kGearing,
+                 .loadKg = kLoadKg,
+                 .spoolRadiusMeters = kSpoolRadiusMeters,
+                 .efficiency = kEfficiency,
+                 .angleRadians = std::numbers::pi / 2.0,
+             });
   CHECK_THAT(vertical.kG,
              WithinAbs(vertical.kA * kGravity, vertical.kA * kGravity * kTol));
 }
@@ -180,8 +205,13 @@ TEST_CASE_METHOD(
     "LinearFeedforwardGuardTest: NonPositiveEfficiencyReturnsZeroedGains",
     "[LinearFeedforwardGuardTest]") {
   const emscripten::val result = ComputeLinearFeedforwardGains(
-      motorWasm.get(), /*gearing=*/10.0, /*loadKg=*/5.0,
-      /*spoolRadiusMeters=*/0.025, /*efficiency=*/0.0, /*angleRadians=*/0.0);
+      motorWasm.get(), {
+                           .gearing = 10.0,
+                           .loadKg = 5.0,
+                           .spoolRadiusMeters = 0.025,
+                           .efficiency = 0.0,
+                           .angleRadians = 0.0,
+                       });
   CHECK(result["kV"].as<double>() == 0.0);
   CHECK(result["kA"].as<double>() == 0.0);
   CHECK(result["kG"].as<double>() == 0.0);
@@ -192,8 +222,13 @@ TEST_CASE_METHOD(
     "LinearFeedforwardGuardTest: NonPositiveSpoolRadiusReturnsZeroedGains",
     "[LinearFeedforwardGuardTest]") {
   const emscripten::val result = ComputeLinearFeedforwardGains(
-      motorWasm.get(), /*gearing=*/10.0, /*loadKg=*/5.0,
-      /*spoolRadiusMeters=*/0.0, /*efficiency=*/1.0, /*angleRadians=*/0.0);
+      motorWasm.get(), {
+                           .gearing = 10.0,
+                           .loadKg = 5.0,
+                           .spoolRadiusMeters = 0.0,
+                           .efficiency = 1.0,
+                           .angleRadians = 0.0,
+                       });
   CHECK(result["kV"].as<double>() == 0.0);
   CHECK(result["kA"].as<double>() == 0.0);
   CHECK(result["kG"].as<double>() == 0.0);
@@ -204,8 +239,13 @@ TEST_CASE_METHOD(
     "LinearFeedforwardGuardTest: NonPositiveGearingReturnsZeroedGains",
     "[LinearFeedforwardGuardTest]") {
   const emscripten::val result = ComputeLinearFeedforwardGains(
-      motorWasm.get(), /*gearing=*/0.0, /*loadKg=*/5.0,
-      /*spoolRadiusMeters=*/0.025, /*efficiency=*/1.0, /*angleRadians=*/0.0);
+      motorWasm.get(), {
+                           .gearing = 0.0,
+                           .loadKg = 5.0,
+                           .spoolRadiusMeters = 0.025,
+                           .efficiency = 1.0,
+                           .angleRadians = 0.0,
+                       });
   CHECK(result["kV"].as<double>() == 0.0);
   CHECK(result["kA"].as<double>() == 0.0);
   CHECK(result["kG"].as<double>() == 0.0);
@@ -245,8 +285,13 @@ TEST_CASE(
   // comMassKg/comLengthMeters = 0 isolates kV/kA from the (nonzero-by-design)
   // kG term for this equivalence check.
   FeedforwardGains actual = ComputeAngularFeedforwardGainsCore(
-      cfg.motor, cfg.gearing, cfg.momentOfInertiaKgM2, /*efficiency=*/1.0,
-      /*comMassKg=*/0.0, /*comLengthMeters=*/0.0);
+      cfg.motor, {
+                     .gearing = cfg.gearing,
+                     .momentOfInertiaKgMSquared = cfg.momentOfInertiaKgM2,
+                     .efficiency = 1.0,
+                     .comMassKg = 0.0,
+                     .comLengthMeters = 0.0,
+                 });
 
   CHECK_THAT(actual.kV, WithinAbs(expectedKv, std::abs(expectedKv) * kTol));
   CHECK_THAT(actual.kA, WithinAbs(expectedKa, std::abs(expectedKa) * kTol));
@@ -264,8 +309,13 @@ TEST_CASE("AngularFeedforwardGainsTest: KgMatchesClosedFormAtUnityEfficiency",
   const wpi::math::DCMotor motor = wpi::math::DCMotor::Falcon500(1);
 
   FeedforwardGains gains = ComputeAngularFeedforwardGainsCore(
-      motor, kGearing, kMomentOfInertiaKgM2, /*efficiency=*/1.0, kComMassKg,
-      kComLengthMeters);
+      motor, {
+                 .gearing = kGearing,
+                 .momentOfInertiaKgMSquared = kMomentOfInertiaKgM2,
+                 .efficiency = 1.0,
+                 .comMassKg = kComMassKg,
+                 .comLengthMeters = kComLengthMeters,
+             });
 
   const double expectedKg = gains.kA * kGravity * kComLengthMeters *
                             kComMassKg / kMomentOfInertiaKgM2;
@@ -295,8 +345,13 @@ TEST_CASE(
   double prevKgMag = -1.0;
   for (const double efficiency : efficiencies) {
     FeedforwardGains gains = ComputeAngularFeedforwardGainsCore(
-        cfg.motor, cfg.gearing, cfg.momentOfInertiaKgM2, efficiency, kComMassKg,
-        kComLengthMeters);
+        cfg.motor, {
+                       .gearing = cfg.gearing,
+                       .momentOfInertiaKgMSquared = cfg.momentOfInertiaKgM2,
+                       .efficiency = efficiency,
+                       .comMassKg = kComMassKg,
+                       .comLengthMeters = kComLengthMeters,
+                   });
     if (prevKv >= 0.0) {
       CHECK_THAT(gains.kV, WithinAbs(prevKv, std::abs(prevKv) * kTol));
       CHECK(gains.kA > prevKa);
@@ -323,8 +378,13 @@ TEST_CASE_METHOD(
     "AngularFeedforwardGuardTest: NonPositiveEfficiencyReturnsZeroedGains",
     "[AngularFeedforwardGuardTest]") {
   const emscripten::val result = ComputeAngularFeedforwardGains(
-      motorWasm.get(), /*gearing=*/100.0, /*momentOfInertiaKgM2=*/2.0,
-      /*efficiency=*/-0.5, /*comMassKg=*/3.0, /*comLengthMeters=*/0.4);
+      motorWasm.get(), {
+                           .gearing = 100.0,
+                           .momentOfInertiaKgMSquared = 2.0,
+                           .efficiency = -0.5,
+                           .comMassKg = 3.0,
+                           .comLengthMeters = 0.4,
+                       });
   CHECK(result["kV"].as<double>() == 0.0);
   CHECK(result["kA"].as<double>() == 0.0);
   CHECK(result["kG"].as<double>() == 0.0);
@@ -335,8 +395,13 @@ TEST_CASE_METHOD(
     "AngularFeedforwardGuardTest: NonPositiveMomentOfInertiaReturnsZeroedGains",
     "[AngularFeedforwardGuardTest]") {
   const emscripten::val result = ComputeAngularFeedforwardGains(
-      motorWasm.get(), /*gearing=*/100.0, /*momentOfInertiaKgM2=*/0.0,
-      /*efficiency=*/1.0, /*comMassKg=*/3.0, /*comLengthMeters=*/0.4);
+      motorWasm.get(), {
+                           .gearing = 100.0,
+                           .momentOfInertiaKgMSquared = 0.0,
+                           .efficiency = 1.0,
+                           .comMassKg = 3.0,
+                           .comLengthMeters = 0.4,
+                       });
   CHECK(result["kV"].as<double>() == 0.0);
   CHECK(result["kA"].as<double>() == 0.0);
   CHECK(result["kG"].as<double>() == 0.0);
@@ -347,8 +412,13 @@ TEST_CASE_METHOD(
     "AngularFeedforwardGuardTest: NonPositiveGearingReturnsZeroedGains",
     "[AngularFeedforwardGuardTest]") {
   const emscripten::val result = ComputeAngularFeedforwardGains(
-      motorWasm.get(), /*gearing=*/0.0, /*momentOfInertiaKgM2=*/2.0,
-      /*efficiency=*/1.0, /*comMassKg=*/3.0, /*comLengthMeters=*/0.4);
+      motorWasm.get(), {
+                           .gearing = 0.0,
+                           .momentOfInertiaKgMSquared = 2.0,
+                           .efficiency = 1.0,
+                           .comMassKg = 3.0,
+                           .comLengthMeters = 0.4,
+                       });
   CHECK(result["kV"].as<double>() == 0.0);
   CHECK(result["kA"].as<double>() == 0.0);
   CHECK(result["kG"].as<double>() == 0.0);
@@ -385,7 +455,11 @@ TEST_CASE(
   const double expectedKa = 1.0 / idealPlant.B()(0, 0);
 
   FeedforwardGains actual = ComputeFlywheelFeedforwardGainsCore(
-      cfg.motor, cfg.gearing, cfg.momentOfInertiaKgM2, /*efficiency=*/1.0);
+      cfg.motor, {
+                     .gearing = cfg.gearing,
+                     .momentOfInertiaKgMSquared = cfg.momentOfInertiaKgM2,
+                     .efficiency = 1.0,
+                 });
 
   CHECK_THAT(actual.kV, WithinAbs(expectedKv, std::abs(expectedKv) * kTol));
   CHECK_THAT(actual.kA, WithinAbs(expectedKa, std::abs(expectedKa) * kTol));
@@ -409,7 +483,11 @@ TEST_CASE(
   double prevKa = -1.0;
   for (const double efficiency : efficiencies) {
     FeedforwardGains gains = ComputeFlywheelFeedforwardGainsCore(
-        cfg.motor, cfg.gearing, cfg.momentOfInertiaKgM2, efficiency);
+        cfg.motor, {
+                       .gearing = cfg.gearing,
+                       .momentOfInertiaKgMSquared = cfg.momentOfInertiaKgM2,
+                       .efficiency = efficiency,
+                   });
     CHECK(gains.kG == 0.0);
     if (prevKv >= 0.0) {
       CHECK_THAT(gains.kV, WithinAbs(prevKv, std::abs(prevKv) * kTol));
@@ -435,8 +513,11 @@ TEST_CASE_METHOD(
     "FlywheelFeedforwardGuardTest: NonPositiveEfficiencyReturnsZeroedGains",
     "[FlywheelFeedforwardGuardTest]") {
   const emscripten::val result = ComputeFlywheelFeedforwardGains(
-      motorWasm.get(), /*gearing=*/2.0, /*momentOfInertiaKgM2=*/0.01,
-      /*efficiency=*/0.0);
+      motorWasm.get(), {
+                           .gearing = 2.0,
+                           .momentOfInertiaKgMSquared = 0.01,
+                           .efficiency = 0.0,
+                       });
   CHECK(result["kV"].as<double>() == 0.0);
   CHECK(result["kA"].as<double>() == 0.0);
   CHECK(result["kG"].as<double>() == 0.0);
@@ -447,8 +528,11 @@ TEST_CASE_METHOD(FlywheelFeedforwardGuardTest,
                  "NonPositiveMomentOfInertiaReturnsZeroedGains",
                  "[FlywheelFeedforwardGuardTest]") {
   const emscripten::val result = ComputeFlywheelFeedforwardGains(
-      motorWasm.get(), /*gearing=*/2.0, /*momentOfInertiaKgM2=*/-0.01,
-      /*efficiency=*/1.0);
+      motorWasm.get(), {
+                           .gearing = 2.0,
+                           .momentOfInertiaKgMSquared = -0.01,
+                           .efficiency = 1.0,
+                       });
   CHECK(result["kV"].as<double>() == 0.0);
   CHECK(result["kA"].as<double>() == 0.0);
   CHECK(result["kG"].as<double>() == 0.0);
@@ -459,8 +543,11 @@ TEST_CASE_METHOD(
     "FlywheelFeedforwardGuardTest: NonPositiveGearingReturnsZeroedGains",
     "[FlywheelFeedforwardGuardTest]") {
   const emscripten::val result = ComputeFlywheelFeedforwardGains(
-      motorWasm.get(), /*gearing=*/0.0, /*momentOfInertiaKgM2=*/0.01,
-      /*efficiency=*/1.0);
+      motorWasm.get(), {
+                           .gearing = 0.0,
+                           .momentOfInertiaKgMSquared = 0.01,
+                           .efficiency = 1.0,
+                       });
   CHECK(result["kV"].as<double>() == 0.0);
   CHECK(result["kA"].as<double>() == 0.0);
   CHECK(result["kG"].as<double>() == 0.0);

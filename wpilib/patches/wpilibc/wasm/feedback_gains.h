@@ -33,6 +33,39 @@ struct FeedbackGains {
 
 EMSCRIPTEN_DECLARE_VAL_TYPE(FeedbackGainsVal);
 
+struct ElevatorFeedbackParams {
+  double gearing;
+  double massKg;
+  double spoolRadiusMeters;
+  double efficiency;
+  double qPositionMeters;
+  double qVelocityMPS;
+  double rVolts;
+  double dtSeconds;
+  double sensorDelaySeconds;
+};
+
+struct ArmFeedbackParams {
+  double gearing;
+  double momentOfInertiaKgMSquared;
+  double efficiency;
+  double qPositionRad;
+  double qVelocityRadPerSec;
+  double rVolts;
+  double dtSeconds;
+  double sensorDelaySeconds;
+};
+
+struct FlywheelFeedbackParams {
+  double gearing;
+  double momentOfInertiaKgMSquared;
+  double efficiency;
+  double qVelocityRadPerSec;
+  double rVolts;
+  double dtSeconds;
+  double sensorDelaySeconds;
+};
+
 // ============================================================================
 // Layer 1: Pure C++ compute. No emscripten dependency, so these are directly
 // unit-testable. May throw std::domain_error (bad physical constants, from
@@ -48,19 +81,17 @@ EMSCRIPTEN_DECLARE_VAL_TYPE(FeedbackGainsVal);
 // (matches elevator_sim.h's SimulateElevatorImpl), then solves the
 // discrete-time LQR and compensates for sensor latency.
 inline FeedbackGains ComputeElevatorFeedbackGainsCore(
-    const wpi::math::DCMotor& motor, double gearing, double massKg,
-    double spoolRadiusMeters, double efficiency, double qPositionMeters,
-    double qVelocityMPS, double rVolts, double dtSeconds,
-    double sensorDelaySeconds) {
+    const wpi::math::DCMotor& motor, const ElevatorFeedbackParams& params) {
   const auto idealPlantFull = wpi::math::Models::ElevatorFromPhysicalConstants(
-      motor, wpi::units::kilogram_t(massKg),
-      wpi::units::meter_t(spoolRadiusMeters), gearing);
+      motor, wpi::units::kilogram_t(params.massKg),
+      wpi::units::meter_t(params.spoolRadiusMeters), params.gearing);
 
   // Efficiency scales the whole motor-side row, so A(1,1) moves with B.
   // A(0,1) is the kinematic derivative relation and must stay exactly 1.
   wpi::math::Matrixd<2, 2> controllerA = idealPlantFull.A();
-  controllerA(1, 1) *= efficiency;
-  const wpi::math::Matrixd<2, 1> controllerB = idealPlantFull.B() * efficiency;
+  controllerA(1, 1) *= params.efficiency;
+  const wpi::math::Matrixd<2, 1> controllerB =
+      idealPlantFull.B() * params.efficiency;
   wpi::math::Matrixd<1, 2> controllerC;
   controllerC << 1, 0;
   wpi::math::Matrixd<1, 1> controllerD;
@@ -70,12 +101,12 @@ inline FeedbackGains ComputeElevatorFeedbackGainsCore(
 
   wpi::math::LinearQuadraticRegulator<2, 1> controller{
       plant,
-      {qPositionMeters, qVelocityMPS},
-      {rVolts},
-      wpi::units::second_t(dtSeconds)};
+      {params.qPositionMeters, params.qVelocityMPS},
+      {params.rVolts},
+      wpi::units::second_t(params.dtSeconds)};
 
-  controller.LatencyCompensate(plant, wpi::units::second_t(dtSeconds),
-                               wpi::units::second_t(sensorDelaySeconds));
+  controller.LatencyCompensate(plant, wpi::units::second_t(params.dtSeconds),
+                               wpi::units::second_t(params.sensorDelaySeconds));
 
   return FeedbackGains{.kP = controller.K(0, 0), .kD = controller.K(0, 1)};
 }
@@ -85,20 +116,19 @@ inline FeedbackGains ComputeElevatorFeedbackGainsCore(
 // Same idiom as ComputeElevatorFeedbackGainsCore, using
 // Models::SingleJointedArmFromPhysicalConstants for the ideal plant.
 inline FeedbackGains ComputeArmFeedbackGainsCore(
-    const wpi::math::DCMotor& motor, double gearing,
-    double momentOfInertiaKgMSquared, double efficiency, double qPositionRad,
-    double qVelocityRadPerSec, double rVolts, double dtSeconds,
-    double sensorDelaySeconds) {
+    const wpi::math::DCMotor& motor, const ArmFeedbackParams& params) {
   const auto idealPlantFull =
       wpi::math::Models::SingleJointedArmFromPhysicalConstants(
-          motor, wpi::units::kilogram_square_meter_t(momentOfInertiaKgMSquared),
-          gearing);
+          motor,
+          wpi::units::kilogram_square_meter_t(params.momentOfInertiaKgMSquared),
+          params.gearing);
 
   // Efficiency scales the whole motor-side row, so A(1,1) moves with B.
   // A(0,1) is the kinematic derivative relation and must stay exactly 1.
   wpi::math::Matrixd<2, 2> controllerA = idealPlantFull.A();
-  controllerA(1, 1) *= efficiency;
-  const wpi::math::Matrixd<2, 1> controllerB = idealPlantFull.B() * efficiency;
+  controllerA(1, 1) *= params.efficiency;
+  const wpi::math::Matrixd<2, 1> controllerB =
+      idealPlantFull.B() * params.efficiency;
   wpi::math::Matrixd<1, 2> controllerC;
   controllerC << 1, 0;
   wpi::math::Matrixd<1, 1> controllerD;
@@ -108,12 +138,12 @@ inline FeedbackGains ComputeArmFeedbackGainsCore(
 
   wpi::math::LinearQuadraticRegulator<2, 1> controller{
       plant,
-      {qPositionRad, qVelocityRadPerSec},
-      {rVolts},
-      wpi::units::second_t(dtSeconds)};
+      {params.qPositionRad, params.qVelocityRadPerSec},
+      {params.rVolts},
+      wpi::units::second_t(params.dtSeconds)};
 
-  controller.LatencyCompensate(plant, wpi::units::second_t(dtSeconds),
-                               wpi::units::second_t(sensorDelaySeconds));
+  controller.LatencyCompensate(plant, wpi::units::second_t(params.dtSeconds),
+                               wpi::units::second_t(params.sensorDelaySeconds));
 
   return FeedbackGains{.kP = controller.K(0, 0), .kD = controller.K(0, 1)};
 }
@@ -125,24 +155,27 @@ inline FeedbackGains ComputeArmFeedbackGainsCore(
 // output -- just rescale A and B by efficiency and reuse the ideal plant's
 // C/D.
 inline FeedbackGains ComputeFlywheelFeedbackGainsCore(
-    const wpi::math::DCMotor& motor, double gearing,
-    double momentOfInertiaKgMSquared, double efficiency,
-    double qVelocityRadPerSec, double rVolts, double dtSeconds,
-    double sensorDelaySeconds) {
+    const wpi::math::DCMotor& motor, const FlywheelFeedbackParams& params) {
   const auto idealPlant = wpi::math::Models::FlywheelFromPhysicalConstants(
-      motor, wpi::units::kilogram_square_meter_t(momentOfInertiaKgMSquared),
-      gearing);
+      motor,
+      wpi::units::kilogram_square_meter_t(params.momentOfInertiaKgMSquared),
+      params.gearing);
 
-  const wpi::math::Matrixd<1, 1> controllerA = idealPlant.A() * efficiency;
-  const wpi::math::Matrixd<1, 1> controllerB = idealPlant.B() * efficiency;
+  const wpi::math::Matrixd<1, 1> controllerA =
+      idealPlant.A() * params.efficiency;
+  const wpi::math::Matrixd<1, 1> controllerB =
+      idealPlant.B() * params.efficiency;
   const wpi::math::LinearSystem<1, 1, 1> plant{controllerA, controllerB,
                                                idealPlant.C(), idealPlant.D()};
 
   wpi::math::LinearQuadraticRegulator<1, 1> controller{
-      plant, {qVelocityRadPerSec}, {rVolts}, wpi::units::second_t(dtSeconds)};
+      plant,
+      {params.qVelocityRadPerSec},
+      {params.rVolts},
+      wpi::units::second_t(params.dtSeconds)};
 
-  controller.LatencyCompensate(plant, wpi::units::second_t(dtSeconds),
-                               wpi::units::second_t(sensorDelaySeconds));
+  controller.LatencyCompensate(plant, wpi::units::second_t(params.dtSeconds),
+                               wpi::units::second_t(params.sensorDelaySeconds));
 
   return FeedbackGains{.kP = controller.K(0, 0), .kD = 0.0};
 }
@@ -169,30 +202,26 @@ inline FeedbackGainsVal ZeroFeedbackGains() {
 // failures and bad physical constants return {kP: 0, kD: 0} with a
 // diagnostic console.warn instead of aborting the worker.
 inline FeedbackGainsVal ComputeElevatorFeedbackGains(
-    const DCMotorWasm* motor, double gearing, double massKg,
-    double spoolRadiusMeters, double efficiency, double qPositionMeters,
-    double qVelocityMPS, double rVolts, double dtSeconds,
-    double sensorDelaySeconds) {
-  if (dtSeconds <= 0.0 || qPositionMeters <= 0.0 || qVelocityMPS <= 0.0 ||
-      rVolts <= 0.0) {
+    const DCMotorWasm* motor, const ElevatorFeedbackParams& params) {
+  if (params.dtSeconds <= 0.0 || params.qPositionMeters <= 0.0 ||
+      params.qVelocityMPS <= 0.0 || params.rVolts <= 0.0) {
     return ZeroFeedbackGains();
   }
 
   try {
-    return FeedbackGainsToVal(ComputeElevatorFeedbackGainsCore(
-        motor->getMotor(), gearing, massKg, spoolRadiusMeters, efficiency,
-        qPositionMeters, qVelocityMPS, rVolts, dtSeconds, sensorDelaySeconds));
+    return FeedbackGainsToVal(
+        ComputeElevatorFeedbackGainsCore(motor->getMotor(), params));
   } catch (const std::exception& e) {
     ConsoleWarn(
         "ComputeElevatorFeedbackGains: {} (gearing={} massKg={} "
         "spoolRadiusMeters={})",
-        e.what(), gearing, massKg, spoolRadiusMeters);
+        e.what(), params.gearing, params.massKg, params.spoolRadiusMeters);
     return ZeroFeedbackGains();
   } catch (...) {
     ConsoleWarn(
         "ComputeElevatorFeedbackGains: unknown exception (gearing={} massKg={} "
         "spoolRadiusMeters={})",
-        gearing, massKg, spoolRadiusMeters);
+        params.gearing, params.massKg, params.spoolRadiusMeters);
     return ZeroFeedbackGains();
   }
 }
@@ -200,29 +229,25 @@ inline FeedbackGainsVal ComputeElevatorFeedbackGains(
 // Public entry point for single-jointed arm feedback gains. Same try-catch
 // idiom as ComputeElevatorFeedbackGains.
 inline FeedbackGainsVal ComputeArmFeedbackGains(
-    const DCMotorWasm* motor, double gearing, double momentOfInertiaKgMSquared,
-    double efficiency, double qPositionRad, double qVelocityRadPerSec,
-    double rVolts, double dtSeconds, double sensorDelaySeconds) {
-  if (dtSeconds <= 0.0 || qPositionRad <= 0.0 || qVelocityRadPerSec <= 0.0 ||
-      rVolts <= 0.0) {
+    const DCMotorWasm* motor, const ArmFeedbackParams& params) {
+  if (params.dtSeconds <= 0.0 || params.qPositionRad <= 0.0 ||
+      params.qVelocityRadPerSec <= 0.0 || params.rVolts <= 0.0) {
     return ZeroFeedbackGains();
   }
 
   try {
-    return FeedbackGainsToVal(ComputeArmFeedbackGainsCore(
-        motor->getMotor(), gearing, momentOfInertiaKgMSquared, efficiency,
-        qPositionRad, qVelocityRadPerSec, rVolts, dtSeconds,
-        sensorDelaySeconds));
+    return FeedbackGainsToVal(
+        ComputeArmFeedbackGainsCore(motor->getMotor(), params));
   } catch (const std::exception& e) {
     ConsoleWarn(
         "ComputeArmFeedbackGains: {} (gearing={} momentOfInertiaKgMSquared={})",
-        e.what(), gearing, momentOfInertiaKgMSquared);
+        e.what(), params.gearing, params.momentOfInertiaKgMSquared);
     return ZeroFeedbackGains();
   } catch (...) {
     ConsoleWarn(
         "ComputeArmFeedbackGains: unknown exception (gearing={} "
         "momentOfInertiaKgMSquared={})",
-        gearing, momentOfInertiaKgMSquared);
+        params.gearing, params.momentOfInertiaKgMSquared);
     return ZeroFeedbackGains();
   }
 }
@@ -230,28 +255,26 @@ inline FeedbackGainsVal ComputeArmFeedbackGains(
 // Public entry point for flywheel feedback gain. Same try-catch idiom as
 // ComputeElevatorFeedbackGains.
 inline FeedbackGainsVal ComputeFlywheelFeedbackGains(
-    const DCMotorWasm* motor, double gearing, double momentOfInertiaKgMSquared,
-    double efficiency, double qVelocityRadPerSec, double rVolts,
-    double dtSeconds, double sensorDelaySeconds) {
-  if (dtSeconds <= 0.0 || qVelocityRadPerSec <= 0.0 || rVolts <= 0.0) {
+    const DCMotorWasm* motor, const FlywheelFeedbackParams& params) {
+  if (params.dtSeconds <= 0.0 || params.qVelocityRadPerSec <= 0.0 ||
+      params.rVolts <= 0.0) {
     return ZeroFeedbackGains();
   }
 
   try {
-    return FeedbackGainsToVal(ComputeFlywheelFeedbackGainsCore(
-        motor->getMotor(), gearing, momentOfInertiaKgMSquared, efficiency,
-        qVelocityRadPerSec, rVolts, dtSeconds, sensorDelaySeconds));
+    return FeedbackGainsToVal(
+        ComputeFlywheelFeedbackGainsCore(motor->getMotor(), params));
   } catch (const std::exception& e) {
     ConsoleWarn(
         "ComputeFlywheelFeedbackGains: {} (gearing={} "
         "momentOfInertiaKgMSquared={})",
-        e.what(), gearing, momentOfInertiaKgMSquared);
+        e.what(), params.gearing, params.momentOfInertiaKgMSquared);
     return ZeroFeedbackGains();
   } catch (...) {
     ConsoleWarn(
         "ComputeFlywheelFeedbackGains: unknown exception (gearing={} "
         "momentOfInertiaKgMSquared={})",
-        gearing, momentOfInertiaKgMSquared);
+        params.gearing, params.momentOfInertiaKgMSquared);
     return ZeroFeedbackGains();
   }
 }

@@ -16,6 +16,7 @@ using emscripten::class_;
 using emscripten::function;
 using emscripten::register_type;
 using emscripten::register_vector;
+using emscripten::value_object;
 
 EMSCRIPTEN_BINDINGS(wpilibc) {
   // Register vector<double> for automatic conversion from JavaScript arrays
@@ -109,77 +110,162 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
       &BatterySim_CalculateLoadedBatteryVoltage);
 
   // Full elevator simulation loop
-  function(
-      "simulateElevator(motor, gearing, loadKg, spoolRadiusMeters, "
-      "travelDistanceMeters, statorLimitAmps, supplyLimitAmps, "
-      "batteryResistanceOhms, batteryVoltageVolts, "
-      "simTimestep, decimation, maxSimSeconds, angleRadians, efficiency, "
-      "cascade, batteryVoltageFilterTimeConstantSeconds, "
-      "maxVelocityMPS, maxAccelerationMPS2, "
-      "qPositionMeters, qVelocityMPS, rVolts, sensorDelaySeconds, "
-      "kalmanFilterPositionStdDev, kalmanFilterVelocityStdDev, "
-      "kalmanFilterEncoderPositionStdDev)",
-      &SimulateElevator, allow_raw_pointers());
+  value_object<ElevatorSimParams>("ElevatorSimParams")
+      .field("gearing", &ElevatorSimParams::gearing)
+      .field("loadKg", &ElevatorSimParams::loadKg)
+      .field("spoolRadiusMeters", &ElevatorSimParams::spoolRadiusMeters)
+      .field("travelDistanceMeters", &ElevatorSimParams::travelDistanceMeters)
+      .field("statorLimitAmps", &ElevatorSimParams::statorLimitAmps)
+      .field("supplyLimitAmps", &ElevatorSimParams::supplyLimitAmps)
+      .field("batteryResistanceOhms", &ElevatorSimParams::batteryResistanceOhms)
+      .field("batteryVoltageVolts", &ElevatorSimParams::batteryVoltageVolts)
+      .field("simTimestep", &ElevatorSimParams::simTimestep)
+      .field("decimation", &ElevatorSimParams::decimation)
+      .field("maxSimSeconds", &ElevatorSimParams::maxSimSeconds)
+      .field("angleRadians", &ElevatorSimParams::angleRadians)
+      .field("efficiency", &ElevatorSimParams::efficiency)
+      .field("cascade", &ElevatorSimParams::cascade)
+      .field("batteryVoltageFilterTimeConstantSeconds",
+             &ElevatorSimParams::batteryVoltageFilterTimeConstantSeconds)
+      .field("maxVelocityMPS", &ElevatorSimParams::maxVelocityMPS)
+      .field("maxAccelerationMPS2", &ElevatorSimParams::maxAccelerationMPS2)
+      .field("qPositionMeters", &ElevatorSimParams::qPositionMeters)
+      .field("qVelocityMPS", &ElevatorSimParams::qVelocityMPS)
+      .field("rVolts", &ElevatorSimParams::rVolts)
+      .field("sensorDelaySeconds", &ElevatorSimParams::sensorDelaySeconds)
+      .field("kalmanFilterPositionStdDev",
+             &ElevatorSimParams::kalmanFilterPositionStdDev)
+      .field("kalmanFilterVelocityStdDev",
+             &ElevatorSimParams::kalmanFilterVelocityStdDev)
+      .field("kalmanFilterEncoderPositionStdDev",
+             &ElevatorSimParams::kalmanFilterEncoderPositionStdDev);
+  function("simulateElevator(motor, params)", &SimulateElevator,
+           allow_raw_pointers());
 
   // Full flywheel simulation loop
-  function(
-      "simulateFlywheel(motor, gearing, moiKgMSquared, "
-      "targetAngularVelocityRadPerSec, statorLimitAmps, supplyLimitAmps, "
-      "statorVoltageVolts, batteryResistanceOhms, batteryVoltageVolts, "
-      "efficiency, simTimestep, decimation, maxSimSeconds, "
-      "batteryVoltageFilterTimeConstantSeconds, "
-      "initialAngularVelocityRadPerSec)",
-      &SimulateFlywheel, allow_raw_pointers());
+  value_object<FlywheelSimParams>("FlywheelSimParams")
+      .field("gearing", &FlywheelSimParams::gearing)
+      .field("momentOfInertiaKgMSquared",
+             &FlywheelSimParams::momentOfInertiaKgMSquared)
+      .field("targetAngularVelocityRadPerSec",
+             &FlywheelSimParams::targetAngularVelocityRadPerSec)
+      .field("statorLimitAmps", &FlywheelSimParams::statorLimitAmps)
+      .field("supplyLimitAmps", &FlywheelSimParams::supplyLimitAmps)
+      .field("statorVoltageVolts", &FlywheelSimParams::statorVoltageVolts)
+      .field("batteryResistanceOhms", &FlywheelSimParams::batteryResistanceOhms)
+      .field("batteryVoltageVolts", &FlywheelSimParams::batteryVoltageVolts)
+      .field("efficiency", &FlywheelSimParams::efficiency)
+      .field("simTimestep", &FlywheelSimParams::simTimestep)
+      .field("decimation", &FlywheelSimParams::decimation)
+      .field("maxSimSeconds", &FlywheelSimParams::maxSimSeconds)
+      .field("batteryVoltageFilterTimeConstantSeconds",
+             &FlywheelSimParams::batteryVoltageFilterTimeConstantSeconds)
+      .field("initialAngularVelocityRadPerSec",
+             &FlywheelSimParams::initialAngularVelocityRadPerSec);
+  function("simulateFlywheel(motor, params)", &SimulateFlywheel,
+           allow_raw_pointers());
 
   // Full motor characteristic-curve sweep
-  function(
-      "simulateMotorCurve(motor, momentOfInertiaKgMSquared, statorLimitAmps, "
-      "supplyLimitAmps, statorVoltageVolts, supplyVoltageVolts, simTimestep, "
-      "decimation, maxIterations)",
-      &SimulateMotorCurve, allow_raw_pointers());
+  value_object<MotorCurveParams>("MotorCurveParams")
+      .field("momentOfInertiaKgMSquared",
+             &MotorCurveParams::momentOfInertiaKgMSquared)
+      .field("statorLimitAmps", &MotorCurveParams::statorLimitAmps)
+      .field("supplyLimitAmps", &MotorCurveParams::supplyLimitAmps)
+      .field("statorVoltageVolts", &MotorCurveParams::statorVoltageVolts)
+      .field("supplyVoltageVolts", &MotorCurveParams::supplyVoltageVolts)
+      .field("simTimestep", &MotorCurveParams::simTimestep)
+      .field("decimation", &MotorCurveParams::decimation)
+      .field("maxIterations", &MotorCurveParams::maxIterations);
+  function("simulateMotorCurve(motor, params)", &SimulateMotorCurve,
+           allow_raw_pointers());
 
   // Full arm simulation loop
-  function(
-      "simulateArm(motor, gearing, momentOfInertiaKgMSquared, "
-      "armLengthMeters, minAngleRadians, maxAngleRadians, "
-      "startingAngleRadians, statorLimitAmps, supplyLimitAmps, "
-      "statorVoltageVolts, batteryResistanceOhms, batteryVoltageVolts, "
-      "efficiency, goingUp, simTimestep, decimation, maxSimSeconds, "
-      "batteryVoltageFilterTimeConstantSeconds)",
-      &SimulateArm, allow_raw_pointers());
+  value_object<ArmSimParams>("ArmSimParams")
+      .field("gearing", &ArmSimParams::gearing)
+      .field("momentOfInertiaKgMSquared",
+             &ArmSimParams::momentOfInertiaKgMSquared)
+      .field("armLengthMeters", &ArmSimParams::armLengthMeters)
+      .field("minAngleRadians", &ArmSimParams::minAngleRadians)
+      .field("maxAngleRadians", &ArmSimParams::maxAngleRadians)
+      .field("startingAngleRadians", &ArmSimParams::startingAngleRadians)
+      .field("statorLimitAmps", &ArmSimParams::statorLimitAmps)
+      .field("supplyLimitAmps", &ArmSimParams::supplyLimitAmps)
+      .field("statorVoltageVolts", &ArmSimParams::statorVoltageVolts)
+      .field("batteryResistanceOhms", &ArmSimParams::batteryResistanceOhms)
+      .field("batteryVoltageVolts", &ArmSimParams::batteryVoltageVolts)
+      .field("efficiency", &ArmSimParams::efficiency)
+      .field("goingUp", &ArmSimParams::goingUp)
+      .field("simTimestep", &ArmSimParams::simTimestep)
+      .field("decimation", &ArmSimParams::decimation)
+      .field("maxSimSeconds", &ArmSimParams::maxSimSeconds)
+      .field("batteryVoltageFilterTimeConstantSeconds",
+             &ArmSimParams::batteryVoltageFilterTimeConstantSeconds);
+  function("simulateArm(motor, params)", &SimulateArm, allow_raw_pointers());
 
   // LQR-derived feedback gains (kP, kD)
-  function(
-      "computeElevatorFeedbackGains(motor, gearing, massKg, "
-      "spoolRadiusMeters, efficiency, qPositionMeters, qVelocityMPS, "
-      "rVolts, dtSeconds, sensorDelaySeconds)",
-      &ComputeElevatorFeedbackGains, allow_raw_pointers());
+  value_object<ElevatorFeedbackParams>("ElevatorFeedbackParams")
+      .field("gearing", &ElevatorFeedbackParams::gearing)
+      .field("massKg", &ElevatorFeedbackParams::massKg)
+      .field("spoolRadiusMeters", &ElevatorFeedbackParams::spoolRadiusMeters)
+      .field("efficiency", &ElevatorFeedbackParams::efficiency)
+      .field("qPositionMeters", &ElevatorFeedbackParams::qPositionMeters)
+      .field("qVelocityMPS", &ElevatorFeedbackParams::qVelocityMPS)
+      .field("rVolts", &ElevatorFeedbackParams::rVolts)
+      .field("dtSeconds", &ElevatorFeedbackParams::dtSeconds)
+      .field("sensorDelaySeconds", &ElevatorFeedbackParams::sensorDelaySeconds);
+  function("computeElevatorFeedbackGains(motor, params)",
+           &ComputeElevatorFeedbackGains, allow_raw_pointers());
 
-  function(
-      "computeArmFeedbackGains(motor, gearing, momentOfInertiaKgMSquared, "
-      "efficiency, qPositionRad, qVelocityRadPerSec, rVolts, dtSeconds, "
-      "sensorDelaySeconds)",
-      &ComputeArmFeedbackGains, allow_raw_pointers());
+  value_object<ArmFeedbackParams>("ArmFeedbackParams")
+      .field("gearing", &ArmFeedbackParams::gearing)
+      .field("momentOfInertiaKgMSquared",
+             &ArmFeedbackParams::momentOfInertiaKgMSquared)
+      .field("efficiency", &ArmFeedbackParams::efficiency)
+      .field("qPositionRad", &ArmFeedbackParams::qPositionRad)
+      .field("qVelocityRadPerSec", &ArmFeedbackParams::qVelocityRadPerSec)
+      .field("rVolts", &ArmFeedbackParams::rVolts)
+      .field("dtSeconds", &ArmFeedbackParams::dtSeconds)
+      .field("sensorDelaySeconds", &ArmFeedbackParams::sensorDelaySeconds);
+  function("computeArmFeedbackGains(motor, params)", &ComputeArmFeedbackGains,
+           allow_raw_pointers());
 
-  function(
-      "computeFlywheelFeedbackGains(motor, gearing, "
-      "momentOfInertiaKgMSquared, efficiency, qVelocityRadPerSec, rVolts, "
-      "dtSeconds, sensorDelaySeconds)",
-      &ComputeFlywheelFeedbackGains, allow_raw_pointers());
+  value_object<FlywheelFeedbackParams>("FlywheelFeedbackParams")
+      .field("gearing", &FlywheelFeedbackParams::gearing)
+      .field("momentOfInertiaKgMSquared",
+             &FlywheelFeedbackParams::momentOfInertiaKgMSquared)
+      .field("efficiency", &FlywheelFeedbackParams::efficiency)
+      .field("qVelocityRadPerSec", &FlywheelFeedbackParams::qVelocityRadPerSec)
+      .field("rVolts", &FlywheelFeedbackParams::rVolts)
+      .field("dtSeconds", &FlywheelFeedbackParams::dtSeconds)
+      .field("sensorDelaySeconds", &FlywheelFeedbackParams::sensorDelaySeconds);
+  function("computeFlywheelFeedbackGains(motor, params)",
+           &ComputeFlywheelFeedbackGains, allow_raw_pointers());
 
   // Feedforward gains (kV, kA, kG)
-  function(
-      "computeLinearFeedforwardGains(motor, gearing, loadKg, "
-      "spoolRadiusMeters, efficiency, angleRadians)",
-      &ComputeLinearFeedforwardGains, allow_raw_pointers());
+  value_object<LinearFeedforwardParams>("LinearFeedforwardParams")
+      .field("gearing", &LinearFeedforwardParams::gearing)
+      .field("loadKg", &LinearFeedforwardParams::loadKg)
+      .field("spoolRadiusMeters", &LinearFeedforwardParams::spoolRadiusMeters)
+      .field("efficiency", &LinearFeedforwardParams::efficiency)
+      .field("angleRadians", &LinearFeedforwardParams::angleRadians);
+  function("computeLinearFeedforwardGains(motor, params)",
+           &ComputeLinearFeedforwardGains, allow_raw_pointers());
 
-  function(
-      "computeAngularFeedforwardGains(motor, gearing, "
-      "momentOfInertiaKgMSquared, efficiency, comMassKg, comLengthMeters)",
-      &ComputeAngularFeedforwardGains, allow_raw_pointers());
+  value_object<AngularFeedforwardParams>("AngularFeedforwardParams")
+      .field("gearing", &AngularFeedforwardParams::gearing)
+      .field("momentOfInertiaKgMSquared",
+             &AngularFeedforwardParams::momentOfInertiaKgMSquared)
+      .field("efficiency", &AngularFeedforwardParams::efficiency)
+      .field("comMassKg", &AngularFeedforwardParams::comMassKg)
+      .field("comLengthMeters", &AngularFeedforwardParams::comLengthMeters);
+  function("computeAngularFeedforwardGains(motor, params)",
+           &ComputeAngularFeedforwardGains, allow_raw_pointers());
 
-  function(
-      "computeFlywheelFeedforwardGains(motor, gearing, "
-      "momentOfInertiaKgMSquared, efficiency)",
-      &ComputeFlywheelFeedforwardGains, allow_raw_pointers());
+  value_object<FlywheelFeedforwardParams>("FlywheelFeedforwardParams")
+      .field("gearing", &FlywheelFeedforwardParams::gearing)
+      .field("momentOfInertiaKgMSquared",
+             &FlywheelFeedforwardParams::momentOfInertiaKgMSquared)
+      .field("efficiency", &FlywheelFeedforwardParams::efficiency);
+  function("computeFlywheelFeedforwardGains(motor, params)",
+           &ComputeFlywheelFeedforwardGains, allow_raw_pointers());
 }

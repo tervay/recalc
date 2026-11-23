@@ -73,9 +73,16 @@ std::vector<MotorCurveSimStateInternal> ToRows(const emscripten::val& v) {
 std::vector<MotorCurveSimStateInternal> Simulate(const Params& p) {
   const auto motor = MakeMotorWasm(TestMotor(), 1);
   const emscripten::val result = SimulateMotorCurve(
-      motor.get(), p.moiKgMSquared, p.statorLimitAmps, p.supplyLimitAmps,
-      p.statorVoltageVolts, p.supplyVoltageVolts, p.simTimestep, p.decimation,
-      p.maxIterations);
+      motor.get(), {
+                       .momentOfInertiaKgMSquared = p.moiKgMSquared,
+                       .statorLimitAmps = p.statorLimitAmps,
+                       .supplyLimitAmps = p.supplyLimitAmps,
+                       .statorVoltageVolts = p.statorVoltageVolts,
+                       .supplyVoltageVolts = p.supplyVoltageVolts,
+                       .simTimestep = p.simTimestep,
+                       .decimation = p.decimation,
+                       .maxIterations = p.maxIterations,
+                   });
   return ToRows(result);
 }
 

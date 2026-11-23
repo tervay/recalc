@@ -13,10 +13,18 @@
 // The stator limit produces a linear voltage clamp around back-EMF.
 // The supply limit produces a quadratic clamp derived from the power equation
 // P = V_supply * I_supply, where I_supply = I_stator * V_applied / V_supply.
-inline double ClampVoltageForCurrentLimits(double vApplied, double vBackEmf,
-                                           double rOhms, double statorLimitAmps,
-                                           double supplyLimitAmps,
-                                           double vSupply) {
+struct VoltageClampInputs {
+  double vApplied;
+  double vBackEmf;
+  double rOhms;
+  double statorLimitAmps;
+  double supplyLimitAmps;
+  double vSupply;
+};
+
+inline double ClampVoltageForCurrentLimits(const VoltageClampInputs& inputs) {
+  const auto [vApplied, vBackEmf, rOhms, statorLimitAmps, supplyLimitAmps,
+              vSupply] = inputs;
   // Stator current limit: |V_applied - V_backEmf| / R <= I_stator_limit
   const double minATerm = vBackEmf - (statorLimitAmps * rOhms);
   const double maxATerm = vBackEmf + (statorLimitAmps * rOhms);

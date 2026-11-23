@@ -76,23 +76,23 @@ function simulate(
   totalSupplyAmps: number,
   timeoutSeconds = FLYWHEEL_SIMULATION_TIMEOUT_SECONDS,
 ): SimState[] {
-  return wpilibc.simulateFlywheel(
-    p.wpilibMotor,
-    ratioMagnitude,
-    p.moiKgMSquared,
-    p.targetRadPerSec,
-    totalStatorAmps,
-    totalSupplyAmps,
-    p.statorVoltageVolts,
-    p.batteryResistanceOhms,
-    p.batteryVoltageVolts,
-    p.efficiency,
-    0.001,
-    10,
-    timeoutSeconds,
-    p.batteryVoltageFilterTimeConstantSeconds,
-    0,
-  );
+  return wpilibc.simulateFlywheel(p.wpilibMotor, {
+    gearing: ratioMagnitude,
+    momentOfInertiaKgMSquared: p.moiKgMSquared,
+    targetAngularVelocityRadPerSec: p.targetRadPerSec,
+    statorLimitAmps: totalStatorAmps,
+    supplyLimitAmps: totalSupplyAmps,
+    statorVoltageVolts: p.statorVoltageVolts,
+    batteryResistanceOhms: p.batteryResistanceOhms,
+    batteryVoltageVolts: p.batteryVoltageVolts,
+    efficiency: p.efficiency,
+    simTimestep: 0.001,
+    decimation: 10,
+    maxSimSeconds: timeoutSeconds,
+    batteryVoltageFilterTimeConstantSeconds:
+      p.batteryVoltageFilterTimeConstantSeconds,
+    initialAngularVelocityRadPerSec: 0,
+  });
 }
 
 export async function optimizeRatio(

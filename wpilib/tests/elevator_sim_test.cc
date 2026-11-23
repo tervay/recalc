@@ -21,6 +21,7 @@
 #include "wpi/simulation/RoboRioSim.hpp"
 #include "wpi/system/RobotController.hpp"
 #include "wpi/units/acceleration.hpp"
+#include "wpi/units/angle.hpp"
 #include "wpi/units/length.hpp"
 #include "wpi/units/mass.hpp"
 #include "wpi/units/time.hpp"
@@ -124,14 +125,35 @@ void DeriveConstraints(Params& p) {
 emscripten::val RunRaw(const Params& p) {
   const auto motor = MakeMotorWasm(TestMotor(), 1);
   emscripten::val result = SimulateElevator(
-      motor.get(), p.gearing, p.loadKg, p.spoolRadiusMeters,
-      p.travelDistanceMeters, p.statorLimitAmps, p.supplyLimitAmps,
-      p.batteryResistanceOhms, p.batteryVoltageVolts, p.simTimestep,
-      p.decimation, p.maxSimSeconds, p.angleRadians, p.efficiency, p.cascade,
-      p.batteryVoltageFilterTimeConstantSeconds, p.maxVelocityMPS,
-      p.maxAccelerationMPS2, p.qPositionMeters, p.qVelocityMPS, p.rVolts,
-      p.sensorDelaySeconds, p.kalmanFilterPositionStdDev,
-      p.kalmanFilterVelocityStdDev, p.kalmanFilterEncoderPositionStdDev);
+      motor.get(),
+      {
+          .gearing = p.gearing,
+          .loadKg = p.loadKg,
+          .spoolRadiusMeters = p.spoolRadiusMeters,
+          .travelDistanceMeters = p.travelDistanceMeters,
+          .statorLimitAmps = p.statorLimitAmps,
+          .supplyLimitAmps = p.supplyLimitAmps,
+          .batteryResistanceOhms = p.batteryResistanceOhms,
+          .batteryVoltageVolts = p.batteryVoltageVolts,
+          .simTimestep = p.simTimestep,
+          .decimation = p.decimation,
+          .maxSimSeconds = p.maxSimSeconds,
+          .angleRadians = p.angleRadians,
+          .efficiency = p.efficiency,
+          .cascade = p.cascade,
+          .batteryVoltageFilterTimeConstantSeconds =
+              p.batteryVoltageFilterTimeConstantSeconds,
+          .maxVelocityMPS = p.maxVelocityMPS,
+          .maxAccelerationMPS2 = p.maxAccelerationMPS2,
+          .qPositionMeters = p.qPositionMeters,
+          .qVelocityMPS = p.qVelocityMPS,
+          .rVolts = p.rVolts,
+          .sensorDelaySeconds = p.sensorDelaySeconds,
+          .kalmanFilterPositionStdDev = p.kalmanFilterPositionStdDev,
+          .kalmanFilterVelocityStdDev = p.kalmanFilterVelocityStdDev,
+          .kalmanFilterEncoderPositionStdDev =
+              p.kalmanFilterEncoderPositionStdDev,
+      });
   return result;
 }
 
@@ -194,12 +216,21 @@ namespace {
 // Free-falls an unpowered elevator for one timestep starting from rest at
 // mid-travel (so neither height limit clamps the result) and returns the
 // resulting velocity.
-double UnpoweredVelocityAfterOneStep(double angleRadians, double dt) {
-  AngledElevatorSim sim(TestMotor(), kGearing, wpi::units::kilogram_t(kLoadKg),
-                        wpi::units::meter_t(kSpoolRadiusMeters), 0.0, 2.0, 1.0,
-                        angleRadians, 1.0);
+double UnpoweredVelocityAfterOneStep(wpi::units::radian_t angle,
+                                     wpi::units::second_t dt) {
+  AngledElevatorSim sim(TestMotor(),
+                        {
+                            .gearing = kGearing,
+                            .loadKg = kLoadKg,
+                            .spoolRadiusMeters = kSpoolRadiusMeters,
+                            .minHeightMeters = 0.0,
+                            .maxHeightMeters = 2.0,
+                            .startingHeightMeters = 1.0,
+                            .angleRadians = angle.value(),
+                            .efficiency = 1.0,
+                        });
   sim.SetInputVoltage(wpi::units::volt_t(0.0));
-  sim.Update(wpi::units::second_t(dt));
+  sim.Update(dt);
   return sim.GetVelocity().to<double>();
 }
 }  // namespace
@@ -207,7 +238,9 @@ double UnpoweredVelocityAfterOneStep(double angleRadians, double dt) {
 TEST_CASE("AngledElevatorGravity: HorizontalHasNoGravityComponent",
           "[AngledElevatorGravity]") {
   // sin(0) = 0, so an unpowered horizontal elevator must not accelerate at all.
-  CHECK_THAT(UnpoweredVelocityAfterOneStep(0.0, 1e-3), WithinULP(0.0, 4));
+  CHECK_THAT(UnpoweredVelocityAfterOneStep(wpi::units::radian_t{0.0},
+                                           wpi::units::second_t{1e-3}),
+             WithinULP(0.0, 4));
 }
 
 TEST_CASE("AngledElevatorGravity: VerticalFallsAtFullGravity",
@@ -218,7 +251,9 @@ TEST_CASE("AngledElevatorGravity: VerticalFallsAtFullGravity",
   const double a11 = IdealPlant().A()(1, 1);
   const double expected = (-kGravity / a11) * (std::exp(a11 * dt) - 1.0);
 
-  CHECK_THAT(UnpoweredVelocityAfterOneStep(std::numbers::pi / 2.0, dt),
+  CHECK_THAT(UnpoweredVelocityAfterOneStep(
+                 wpi::units::radian_t{std::numbers::pi / 2.0},
+                 wpi::units::second_t{dt}),
              WithinAbs(expected, std::abs(expected) * 1e-6));
 }
 
@@ -233,12 +268,14 @@ TEST_CASE("GravityAngleScalingTest: VelocityRatioTracksSineOfAngle",
                std::numbers::pi / 3.0, std::numbers::pi / 2.0);
   CAPTURE(angle);
   const double dt = 1e-3;
-  const double vertical =
-      UnpoweredVelocityAfterOneStep(std::numbers::pi / 2.0, dt);
+  const double vertical = UnpoweredVelocityAfterOneStep(
+      wpi::units::radian_t{std::numbers::pi / 2.0}, wpi::units::second_t{dt});
   INFO("vertical elevator must fall");
   REQUIRE(vertical < 0.0);
 
-  CHECK_THAT(UnpoweredVelocityAfterOneStep(angle, dt) / vertical,
+  CHECK_THAT(UnpoweredVelocityAfterOneStep(wpi::units::radian_t{angle},
+                                           wpi::units::second_t{dt}) /
+                 vertical,
              WithinAbs(std::sin(angle), 1e-9));
 }
 
@@ -250,11 +287,19 @@ namespace {
 // Runs a horizontal (gravity-free) elevator at a fixed voltage long enough to
 // reach steady state, and returns the terminal velocity. Height limits are set
 // far away so the carriage never clamps.
-double SteadyStateVelocity(double efficiency, double voltage) {
-  AngledElevatorSim sim(TestMotor(), kGearing, wpi::units::kilogram_t(kLoadKg),
-                        wpi::units::meter_t(kSpoolRadiusMeters), -1000.0,
-                        1000.0, 0.0, 0.0, efficiency);
-  sim.SetInputVoltage(wpi::units::volt_t(voltage));
+double SteadyStateVelocity(double efficiency, wpi::units::volt_t voltage) {
+  AngledElevatorSim sim(TestMotor(),
+                        {
+                            .gearing = kGearing,
+                            .loadKg = kLoadKg,
+                            .spoolRadiusMeters = kSpoolRadiusMeters,
+                            .minHeightMeters = -1000.0,
+                            .maxHeightMeters = 1000.0,
+                            .startingHeightMeters = 0.0,
+                            .angleRadians = 0.0,
+                            .efficiency = efficiency,
+                        });
+  sim.SetInputVoltage(voltage);
   for (int i = 0; i < 2000; ++i) {
     sim.Update(wpi::units::second_t(1e-3));
   }
@@ -276,16 +321,17 @@ TEST_CASE("AngledElevatorEfficiency: SteadyStateIsIndependentOfEfficiency",
   const auto plant = IdealPlant();
   const double expected = -plant.B()(1, 0) * voltage / plant.A()(1, 1);
 
-  CHECK_THAT(SteadyStateVelocity(0.5, voltage),
+  CHECK_THAT(SteadyStateVelocity(0.5, wpi::units::volt_t{voltage}),
              WithinAbs(expected, std::abs(expected) * 1e-6));
 }
 
 TEST_CASE(
     "AngledElevatorEfficiency: HalvingEfficiencyLeavesSteadyStateVelocity",
     "[AngledElevatorEfficiency]") {
-  const double full = SteadyStateVelocity(1.0, 6.0);
+  const double full = SteadyStateVelocity(1.0, wpi::units::volt_t{6.0});
   REQUIRE(full > 0.0);
-  CHECK_THAT(SteadyStateVelocity(0.5, 6.0) / full, WithinAbs(1.0, 1e-6));
+  CHECK_THAT(SteadyStateVelocity(0.5, wpi::units::volt_t{6.0}) / full,
+             WithinAbs(1.0, 1e-6));
 }
 
 TEST_CASE("AngledElevatorEfficiency: LowerEfficiencyReducesInitialAcceleration",
@@ -296,12 +342,28 @@ TEST_CASE("AngledElevatorEfficiency: LowerEfficiencyReducesInitialAcceleration",
   // efficiency, leaving an O(dt * |A11|) residual on the ratio -- hence the
   // small dt and the relative rather than exact tolerance.
   const double dt = 1e-6;
-  AngledElevatorSim full(TestMotor(), kGearing, wpi::units::kilogram_t(kLoadKg),
-                         wpi::units::meter_t(kSpoolRadiusMeters), -10.0, 10.0,
-                         0.0, 0.0, 1.0);
-  AngledElevatorSim half(TestMotor(), kGearing, wpi::units::kilogram_t(kLoadKg),
-                         wpi::units::meter_t(kSpoolRadiusMeters), -10.0, 10.0,
-                         0.0, 0.0, 0.5);
+  AngledElevatorSim full(TestMotor(),
+                         {
+                             .gearing = kGearing,
+                             .loadKg = kLoadKg,
+                             .spoolRadiusMeters = kSpoolRadiusMeters,
+                             .minHeightMeters = -10.0,
+                             .maxHeightMeters = 10.0,
+                             .startingHeightMeters = 0.0,
+                             .angleRadians = 0.0,
+                             .efficiency = 1.0,
+                         });
+  AngledElevatorSim half(TestMotor(),
+                         {
+                             .gearing = kGearing,
+                             .loadKg = kLoadKg,
+                             .spoolRadiusMeters = kSpoolRadiusMeters,
+                             .minHeightMeters = -10.0,
+                             .maxHeightMeters = 10.0,
+                             .startingHeightMeters = 0.0,
+                             .angleRadians = 0.0,
+                             .efficiency = 0.5,
+                         });
   full.SetInputVoltage(wpi::units::volt_t(6.0));
   half.SetInputVoltage(wpi::units::volt_t(6.0));
   full.Update(wpi::units::second_t(dt));
@@ -323,10 +385,17 @@ TEST_CASE("AngledElevatorEfficiency: EfficiencyScalesTheBackEmfDecay",
   const double a11 = IdealPlant().A()(1, 1);
 
   const auto decayRatio = [&](double efficiency) {
-    AngledElevatorSim sim(TestMotor(), kGearing,
-                          wpi::units::kilogram_t(kLoadKg),
-                          wpi::units::meter_t(kSpoolRadiusMeters), -10.0, 10.0,
-                          0.0, 0.0, efficiency);
+    AngledElevatorSim sim(TestMotor(),
+                          {
+                              .gearing = kGearing,
+                              .loadKg = kLoadKg,
+                              .spoolRadiusMeters = kSpoolRadiusMeters,
+                              .minHeightMeters = -10.0,
+                              .maxHeightMeters = 10.0,
+                              .startingHeightMeters = 0.0,
+                              .angleRadians = 0.0,
+                              .efficiency = efficiency,
+                          });
     sim.SetState(wpi::math::Vectord<2>{0.0, v0});
     sim.SetInputVoltage(wpi::units::volt_t(0.0));
     sim.Update(wpi::units::second_t(dt));
@@ -344,9 +413,17 @@ TEST_CASE("AngledElevatorEfficiency: EfficiencyScalesTheBackEmfDecay",
 TEST_CASE("AngledElevatorLimits: LowerLimitPinsPositionAndZeroesVelocity",
           "[AngledElevatorLimits]") {
   // Start just above the floor and let gravity pull the carriage through it.
-  AngledElevatorSim sim(TestMotor(), kGearing, wpi::units::kilogram_t(kLoadKg),
-                        wpi::units::meter_t(kSpoolRadiusMeters), 0.0, 2.0, 5e-4,
-                        std::numbers::pi / 2.0, 1.0);
+  AngledElevatorSim sim(TestMotor(),
+                        {
+                            .gearing = kGearing,
+                            .loadKg = kLoadKg,
+                            .spoolRadiusMeters = kSpoolRadiusMeters,
+                            .minHeightMeters = 0.0,
+                            .maxHeightMeters = 2.0,
+                            .startingHeightMeters = 5e-4,
+                            .angleRadians = std::numbers::pi / 2.0,
+                            .efficiency = 1.0,
+                        });
   sim.SetInputVoltage(wpi::units::volt_t(0.0));
   for (int i = 0; i < 50; ++i) {
     sim.Update(wpi::units::second_t(1e-3));
@@ -359,9 +436,17 @@ TEST_CASE("AngledElevatorLimits: LowerLimitPinsPositionAndZeroesVelocity",
 TEST_CASE("AngledElevatorLimits: UpperLimitPinsPositionAndZeroesVelocity",
           "[AngledElevatorLimits]") {
   // Start just below the ceiling and drive hard into it.
-  AngledElevatorSim sim(TestMotor(), kGearing, wpi::units::kilogram_t(kLoadKg),
-                        wpi::units::meter_t(kSpoolRadiusMeters), 0.0, 2.0,
-                        1.9995, std::numbers::pi / 2.0, 1.0);
+  AngledElevatorSim sim(TestMotor(),
+                        {
+                            .gearing = kGearing,
+                            .loadKg = kLoadKg,
+                            .spoolRadiusMeters = kSpoolRadiusMeters,
+                            .minHeightMeters = 0.0,
+                            .maxHeightMeters = 2.0,
+                            .startingHeightMeters = 1.9995,
+                            .angleRadians = std::numbers::pi / 2.0,
+                            .efficiency = 1.0,
+                        });
   sim.SetInputVoltage(wpi::units::volt_t(12.0));
   for (int i = 0; i < 50; ++i) {
     sim.Update(wpi::units::second_t(1e-3));

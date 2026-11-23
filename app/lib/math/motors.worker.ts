@@ -73,17 +73,16 @@ export async function generateMotorCurve({
   const wasmMotor = motor.toWpilibMotor();
   try {
     const rows = wasmRowsSchema.parse(
-      wpilibc.simulateMotorCurve(
-        wasmMotor,
-        SWEEP_INERTIA_KG_M2,
-        statorLimit.to('A').scalar * motor.quantity,
-        supplyLimit.to('A').scalar * motor.quantity,
-        statorVoltage.to('V').scalar,
-        supplyVoltage.to('V').scalar,
-        SIM_TIMESTEP_SECONDS,
-        DECIMATION,
-        MAX_ITERATIONS,
-      ),
+      wpilibc.simulateMotorCurve(wasmMotor, {
+        momentOfInertiaKgMSquared: SWEEP_INERTIA_KG_M2,
+        statorLimitAmps: statorLimit.to('A').scalar * motor.quantity,
+        supplyLimitAmps: supplyLimit.to('A').scalar * motor.quantity,
+        statorVoltageVolts: statorVoltage.to('V').scalar,
+        supplyVoltageVolts: supplyVoltage.to('V').scalar,
+        simTimestep: SIM_TIMESTEP_SECONDS,
+        decimation: DECIMATION,
+        maxIterations: MAX_ITERATIONS,
+      }),
     );
 
     // The sim's own efficiency field is derived from wpilib's Kt, which is

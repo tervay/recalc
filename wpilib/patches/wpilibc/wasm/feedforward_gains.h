@@ -36,6 +36,28 @@ struct FeedforwardGains {
 
 EMSCRIPTEN_DECLARE_VAL_TYPE(FeedforwardGainsVal);
 
+struct LinearFeedforwardParams {
+  double gearing;
+  double loadKg;
+  double spoolRadiusMeters;
+  double efficiency;
+  double angleRadians;
+};
+
+struct AngularFeedforwardParams {
+  double gearing;
+  double momentOfInertiaKgMSquared;
+  double efficiency;
+  double comMassKg;
+  double comLengthMeters;
+};
+
+struct FlywheelFeedforwardParams {
+  double gearing;
+  double momentOfInertiaKgMSquared;
+  double efficiency;
+};
+
 // ============================================================================
 // Layer 1: Pure C++ compute. No emscripten dependency, so these are directly
 // unit-testable. May throw std::domain_error (bad physical constants, from
@@ -56,20 +78,19 @@ EMSCRIPTEN_DECLARE_VAL_TYPE(FeedforwardGainsVal);
 // output torque and so gives the gearbox losses nothing to act on. Top speed
 // is set by the back-EMF balance, which efficiency cancels out of.
 inline FeedforwardGains ComputeLinearFeedforwardGainsCore(
-    const wpi::math::DCMotor& motor, double gearing, double loadKg,
-    double spoolRadiusMeters, double efficiency, double angleRadians) {
+    const wpi::math::DCMotor& motor, const LinearFeedforwardParams& params) {
   const auto idealPlantFull = wpi::math::Models::ElevatorFromPhysicalConstants(
-      motor, wpi::units::kilogram_t(loadKg),
-      wpi::units::meter_t(spoolRadiusMeters), gearing);
+      motor, wpi::units::kilogram_t(params.loadKg),
+      wpi::units::meter_t(params.spoolRadiusMeters), params.gearing);
 
   const double kaIdeal = 1.0 / idealPlantFull.B()(1, 0);
   const double kvIdeal = -idealPlantFull.A()(1, 1) / idealPlantFull.B()(1, 0);
 
-  const double kA = kaIdeal / efficiency;
+  const double kA = kaIdeal / params.efficiency;
   const double kV = kvIdeal;
-  const double kG = (kaIdeal / efficiency) *
+  const double kG = (kaIdeal / params.efficiency) *
                     kFeedforwardGravityMetersPerSecondSquared *
-                    std::sin(angleRadians);
+                    std::sin(params.angleRadians);
 
   return FeedforwardGains{.kV = kV, .kA = kA, .kG = kG};
 }
@@ -90,20 +111,21 @@ inline FeedforwardGains ComputeLinearFeedforwardGainsCore(
 // responsible for scaling kG by cos(angle-from-horizontal) if a
 // non-horizontal holding voltage is needed.
 inline FeedforwardGains ComputeAngularFeedforwardGainsCore(
-    const wpi::math::DCMotor& motor, double gearing, double momentOfInertiaKgM2,
-    double efficiency, double comMassKg, double comLengthMeters) {
+    const wpi::math::DCMotor& motor, const AngularFeedforwardParams& params) {
   const auto idealPlantFull =
       wpi::math::Models::SingleJointedArmFromPhysicalConstants(
-          motor, wpi::units::kilogram_square_meter_t(momentOfInertiaKgM2),
-          gearing);
+          motor,
+          wpi::units::kilogram_square_meter_t(params.momentOfInertiaKgMSquared),
+          params.gearing);
 
   const double kaIdeal = 1.0 / idealPlantFull.B()(1, 0);
   const double kvIdeal = -idealPlantFull.A()(1, 1) / idealPlantFull.B()(1, 0);
 
-  const double kA = kaIdeal / efficiency;
+  const double kA = kaIdeal / params.efficiency;
   const double kV = kvIdeal;
   const double kG = kA * kFeedforwardGravityMetersPerSecondSquared *
-                    comLengthMeters * comMassKg / momentOfInertiaKgM2;
+                    params.comLengthMeters * params.comMassKg /
+                    params.momentOfInertiaKgMSquared;
 
   return FeedforwardGains{.kV = kV, .kA = kA, .kG = kG};
 }
@@ -114,15 +136,20 @@ inline FeedforwardGains ComputeAngularFeedforwardGainsCore(
 // are not gravity-loaded (the load spins about an axis with no net torque
 // due to gravity), so kG is always 0.
 inline FeedforwardGains ComputeFlywheelFeedforwardGainsCore(
-    const wpi::math::DCMotor& motor, double gearing, double momentOfInertiaKgM2,
-    double efficiency) {
+    const wpi::math::DCMotor& motor, const FlywheelFeedforwardParams& params) {
   const auto idealPlant = wpi::math::Models::FlywheelFromPhysicalConstants(
-      motor, wpi::units::kilogram_square_meter_t(momentOfInertiaKgM2), gearing);
+      motor,
+      wpi::units::kilogram_square_meter_t(params.momentOfInertiaKgMSquared),
+      params.gearing);
 
   const double kaIdeal = 1.0 / idealPlant.B()(0, 0);
   const double kvIdeal = -idealPlant.A()(0, 0) / idealPlant.B()(0, 0);
 
-  return FeedforwardGains{.kV = kvIdeal, .kA = kaIdeal / efficiency, .kG = 0.0};
+  return FeedforwardGains{
+      .kV = kvIdeal,
+      .kA = kaIdeal / params.efficiency,
+      .kG = 0.0,
+  };
 }
 
 // ============================================================================
@@ -152,27 +179,26 @@ inline FeedforwardGainsVal ZeroFeedforwardGains() {
 // (rather than left to throw) because it would otherwise silently produce an
 // infinite or wrongly-signed result via division, not a thrown exception.
 inline FeedforwardGainsVal ComputeLinearFeedforwardGains(
-    const DCMotorWasm* motor, double gearing, double loadKg,
-    double spoolRadiusMeters, double efficiency, double angleRadians) {
-  if (gearing <= 0.0 || spoolRadiusMeters <= 0.0 || efficiency <= 0.0) {
+    const DCMotorWasm* motor, const LinearFeedforwardParams& params) {
+  if (params.gearing <= 0.0 || params.spoolRadiusMeters <= 0.0 ||
+      params.efficiency <= 0.0) {
     return ZeroFeedforwardGains();
   }
 
   try {
-    return FeedforwardGainsToVal(ComputeLinearFeedforwardGainsCore(
-        motor->getMotor(), gearing, loadKg, spoolRadiusMeters, efficiency,
-        angleRadians));
+    return FeedforwardGainsToVal(
+        ComputeLinearFeedforwardGainsCore(motor->getMotor(), params));
   } catch (const std::exception& e) {
     ConsoleWarn(
         "ComputeLinearFeedforwardGains: {} (gearing={} loadKg={} "
         "spoolRadiusMeters={})",
-        e.what(), gearing, loadKg, spoolRadiusMeters);
+        e.what(), params.gearing, params.loadKg, params.spoolRadiusMeters);
     return ZeroFeedforwardGains();
   } catch (...) {
     ConsoleWarn(
         "ComputeLinearFeedforwardGains: unknown exception (gearing={} "
         "loadKg={} spoolRadiusMeters={})",
-        gearing, loadKg, spoolRadiusMeters);
+        params.gearing, params.loadKg, params.spoolRadiusMeters);
     return ZeroFeedforwardGains();
   }
 }
@@ -180,27 +206,27 @@ inline FeedforwardGainsVal ComputeLinearFeedforwardGains(
 // Public entry point for single-jointed arm feedforward gains. Same
 // try-catch and efficiency-guard idiom as ComputeLinearFeedforwardGains.
 inline FeedforwardGainsVal ComputeAngularFeedforwardGains(
-    const DCMotorWasm* motor, double gearing, double momentOfInertiaKgM2,
-    double efficiency, double comMassKg, double comLengthMeters) {
-  if (gearing <= 0.0 || momentOfInertiaKgM2 <= 0.0 || efficiency <= 0.0) {
+    const DCMotorWasm* motor, const AngularFeedforwardParams& params) {
+  if (params.gearing <= 0.0 || params.momentOfInertiaKgMSquared <= 0.0 ||
+      params.efficiency <= 0.0) {
     return ZeroFeedforwardGains();
   }
 
   try {
-    return FeedforwardGainsToVal(ComputeAngularFeedforwardGainsCore(
-        motor->getMotor(), gearing, momentOfInertiaKgM2, efficiency, comMassKg,
-        comLengthMeters));
+    return FeedforwardGainsToVal(
+        ComputeAngularFeedforwardGainsCore(motor->getMotor(), params));
   } catch (const std::exception& e) {
     ConsoleWarn(
-        "ComputeAngularFeedforwardGains: {} (gearing={} momentOfInertiaKgM2="
+        "ComputeAngularFeedforwardGains: {} (gearing={} "
+        "momentOfInertiaKgMSquared="
         "{})",
-        e.what(), gearing, momentOfInertiaKgM2);
+        e.what(), params.gearing, params.momentOfInertiaKgMSquared);
     return ZeroFeedforwardGains();
   } catch (...) {
     ConsoleWarn(
         "ComputeAngularFeedforwardGains: unknown exception (gearing={} "
-        "momentOfInertiaKgM2={})",
-        gearing, momentOfInertiaKgM2);
+        "momentOfInertiaKgMSquared={})",
+        params.gearing, params.momentOfInertiaKgMSquared);
     return ZeroFeedforwardGains();
   }
 }
@@ -208,26 +234,27 @@ inline FeedforwardGainsVal ComputeAngularFeedforwardGains(
 // Public entry point for flywheel feedforward gains. Same try-catch and
 // efficiency-guard idiom as ComputeLinearFeedforwardGains.
 inline FeedforwardGainsVal ComputeFlywheelFeedforwardGains(
-    const DCMotorWasm* motor, double gearing, double momentOfInertiaKgM2,
-    double efficiency) {
-  if (gearing <= 0.0 || momentOfInertiaKgM2 <= 0.0 || efficiency <= 0.0) {
+    const DCMotorWasm* motor, const FlywheelFeedforwardParams& params) {
+  if (params.gearing <= 0.0 || params.momentOfInertiaKgMSquared <= 0.0 ||
+      params.efficiency <= 0.0) {
     return ZeroFeedforwardGains();
   }
 
   try {
-    return FeedforwardGainsToVal(ComputeFlywheelFeedforwardGainsCore(
-        motor->getMotor(), gearing, momentOfInertiaKgM2, efficiency));
+    return FeedforwardGainsToVal(
+        ComputeFlywheelFeedforwardGainsCore(motor->getMotor(), params));
   } catch (const std::exception& e) {
     ConsoleWarn(
-        "ComputeFlywheelFeedforwardGains: {} (gearing={} momentOfInertiaKgM2="
+        "ComputeFlywheelFeedforwardGains: {} (gearing={} "
+        "momentOfInertiaKgMSquared="
         "{})",
-        e.what(), gearing, momentOfInertiaKgM2);
+        e.what(), params.gearing, params.momentOfInertiaKgMSquared);
     return ZeroFeedforwardGains();
   } catch (...) {
     ConsoleWarn(
         "ComputeFlywheelFeedforwardGains: unknown exception (gearing={} "
-        "momentOfInertiaKgM2={})",
-        gearing, momentOfInertiaKgM2);
+        "momentOfInertiaKgMSquared={})",
+        params.gearing, params.momentOfInertiaKgMSquared);
     return ZeroFeedforwardGains();
   }
 }

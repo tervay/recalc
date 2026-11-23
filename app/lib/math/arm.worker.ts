@@ -43,14 +43,13 @@ export async function computeArmFeedforwardGains(
 
   const wasmMotor = motor.toWpilibMotor();
   try {
-    return wpilibc.computeAngularFeedforwardGains(
-      wasmMotor,
-      ratio.asNumber(),
-      momentOfInertia.to('kg m^2').scalar,
+    return wpilibc.computeAngularFeedforwardGains(wasmMotor, {
+      gearing: ratio.asNumber(),
+      momentOfInertiaKgMSquared: momentOfInertia.to('kg m^2').scalar,
       efficiency,
-      load.to('kg').scalar,
-      armLength.to('m').scalar,
-    );
+      comMassKg: load.to('kg').scalar,
+      comLengthMeters: armLength.to('m').scalar,
+    });
   } finally {
     wasmMotor.delete();
   }
@@ -87,17 +86,16 @@ export async function computeArmFeedbackGains(
 
   const wasmMotor = motor.toWpilibMotor();
   try {
-    return wpilibc.computeArmFeedbackGains(
-      wasmMotor,
-      ratio.asNumber(),
-      momentOfInertia.to('kg m^2').scalar,
+    return wpilibc.computeArmFeedbackGains(wasmMotor, {
+      gearing: ratio.asNumber(),
+      momentOfInertiaKgMSquared: momentOfInertia.to('kg m^2').scalar,
       efficiency,
-      Measurement.fromDict(qPosition_).to('rad').scalar,
-      Measurement.fromDict(qVelocity_).to('rad/s').scalar,
-      rVolts.to('V').scalar,
-      feedbackDt.to('s').scalar,
-      Measurement.fromDict(sensorDelay_).to('s').scalar,
-    );
+      qPositionRad: Measurement.fromDict(qPosition_).to('rad').scalar,
+      qVelocityRadPerSec: Measurement.fromDict(qVelocity_).to('rad/s').scalar,
+      rVolts: rVolts.to('V').scalar,
+      dtSeconds: feedbackDt.to('s').scalar,
+      sensorDelaySeconds: Measurement.fromDict(sensorDelay_).to('s').scalar,
+    });
   } finally {
     wasmMotor.delete();
   }
@@ -148,26 +146,25 @@ export async function simulateArmWpilib(
 
   const wasmMotor = motor.toWpilibMotor();
   try {
-    return wpilibc.simulateArm(
-      wasmMotor,
-      ratio.asNumber(),
-      momentOfInertia.to('kg m^2').scalar,
-      armLength.to('m').scalar,
-      minAngle.to('rad').scalar,
-      maxAngle.to('rad').scalar,
-      startingAngle.to('rad').scalar,
-      statorLimit.to('A').scalar * motor.quantity,
-      supplyLimit.to('A').scalar * motor.quantity,
-      statorVoltage.to('V').scalar,
-      batteryResistance.to('Ohm').scalar,
-      supplyVoltage.to('V').scalar,
+    return wpilibc.simulateArm(wasmMotor, {
+      gearing: ratio.asNumber(),
+      momentOfInertiaKgMSquared: momentOfInertia.to('kg m^2').scalar,
+      armLengthMeters: armLength.to('m').scalar,
+      minAngleRadians: minAngle.to('rad').scalar,
+      maxAngleRadians: maxAngle.to('rad').scalar,
+      startingAngleRadians: startingAngle.to('rad').scalar,
+      statorLimitAmps: statorLimit.to('A').scalar * motor.quantity,
+      supplyLimitAmps: supplyLimit.to('A').scalar * motor.quantity,
+      statorVoltageVolts: statorVoltage.to('V').scalar,
+      batteryResistanceOhms: batteryResistance.to('Ohm').scalar,
+      batteryVoltageVolts: supplyVoltage.to('V').scalar,
       efficiency,
-      goingDownOrUp === 'up',
-      0.001,
-      10,
-      ARM_SIMULATION_TIMEOUT_SECONDS,
+      goingUp: goingDownOrUp === 'up',
+      simTimestep: 0.001,
+      decimation: 10,
+      maxSimSeconds: ARM_SIMULATION_TIMEOUT_SECONDS,
       batteryVoltageFilterTimeConstantSeconds,
-    );
+    });
   } finally {
     wasmMotor.delete();
   }

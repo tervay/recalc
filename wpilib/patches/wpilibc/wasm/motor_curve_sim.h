@@ -28,19 +28,28 @@ struct MotorCurveSimStateInternal {
   double efficiency;
 };
 
+struct MotorCurveParams {
+  double momentOfInertiaKgMSquared;
+  double statorLimitAmps;
+  double supplyLimitAmps;
+  double statorVoltageVolts;
+  double supplyVoltageVolts;
+  double simTimestep;
+  int decimation;
+  int maxIterations;
+};
+
 // Sweeps a motor from stall to free speed. SI units; current limits are totals
 // (per-motor limit * quantity). The moment of inertia only sets sample density,
 // not the steady-state curve. Returns a JS array decimated by `decimation`.
-inline emscripten::val SimulateMotorCurveImpl(
-    const DCMotorWasm* motor, double momentOfInertiaKgMSquared,
-    double statorLimitAmps, double supplyLimitAmps, double statorVoltageVolts,
-    double supplyVoltageVolts, double simTimestep, int decimation,
-    int maxIterations) {
+inline emscripten::val SimulateMotorCurveImpl(const DCMotorWasm* motor,
+                                              const MotorCurveParams& params) {
   // Not recoverable further down: modulo by zero traps, a non-positive timestep
   // never accelerates the motor, and ClampVoltageForCurrentLimits' trailing
   // std::clamp(x, -vSupply, vSupply) is UB once vSupply goes negative.
-  if (decimation <= 0 || maxIterations <= 0 || simTimestep <= 0.0 ||
-      momentOfInertiaKgMSquared <= 0.0 || supplyVoltageVolts <= 0.0) {
+  if (params.decimation <= 0 || params.maxIterations <= 0 ||
+      params.simTimestep <= 0.0 || params.momentOfInertiaKgMSquared <= 0.0 ||
+      params.supplyVoltageVolts <= 0.0) {
     return emscripten::val::array();
   }
 
@@ -51,12 +60,13 @@ inline emscripten::val SimulateMotorCurveImpl(
   wpi::sim::DCMotorSim sim(
       wpi::math::Models::SingleJointedArmFromPhysicalConstants(
           motor->getMotor(),
-          wpi::units::kilogram_square_meter_t(momentOfInertiaKgMSquared),
+          wpi::units::kilogram_square_meter_t(params.momentOfInertiaKgMSquared),
           kGearing),
       motor->getMotor());
 
   // SetInputVoltage clamps to the RoboRIO bus voltage, so publish it here.
-  wpi::sim::RoboRioSim::SetVInVoltage(wpi::units::volt_t(supplyVoltageVolts));
+  wpi::sim::RoboRioSim::SetVInVoltage(
+      wpi::units::volt_t(params.supplyVoltageVolts));
 
   const double rOhms = motor->getROhms();
   const double kvRadPerSecPerVolt = motor->getKvRadPerSecPerVolt();
@@ -67,7 +77,7 @@ inline emscripten::val SimulateMotorCurveImpl(
 
   int iterations = 0;
   while (sim.GetAngularVelocity().to<double>() <= freeSpeedRadPerSec &&
-         iterations < maxIterations) {
+         iterations < params.maxIterations) {
     iterations++;
 
     const auto motorShaftRadPerSec = sim.GetAngularVelocity().to<double>();
@@ -76,9 +86,14 @@ inline emscripten::val SimulateMotorCurveImpl(
                                 : 0.0;
     const double vSupply = wpi::RobotController::GetInputVoltage();
 
-    const double vApplied =
-        ClampVoltageForCurrentLimits(statorVoltageVolts, vBackEmf, rOhms,
-                                     statorLimitAmps, supplyLimitAmps, vSupply);
+    const double vApplied = ClampVoltageForCurrentLimits({
+        .vApplied = params.statorVoltageVolts,
+        .vBackEmf = vBackEmf,
+        .rOhms = rOhms,
+        .statorLimitAmps = params.statorLimitAmps,
+        .supplyLimitAmps = params.supplyLimitAmps,
+        .vSupply = vSupply,
+    });
 
     sim.SetInputVoltage(wpi::units::volt_t(vApplied));
 
@@ -109,11 +124,11 @@ inline emscripten::val SimulateMotorCurveImpl(
         .efficiency = efficiency,
     });
 
-    sim.Update(wpi::units::second_t(simTimestep));
+    sim.Update(wpi::units::second_t(params.simTimestep));
   }
 
   return DecimateToJsArray<MotorCurveSimStateInternal>(
-      states, decimation, [](const MotorCurveSimStateInternal& s) {
+      states, params.decimation, [](const MotorCurveSimStateInternal& s) {
         emscripten::val state = emscripten::val::object();
         state.set("angularVelocityRadPerSec", s.angularVelocityRadPerSec);
         state.set("statorCurrentDrawAmps", s.statorCurrentDrawAmps);
@@ -126,29 +141,25 @@ inline emscripten::val SimulateMotorCurveImpl(
 }
 
 // Numerical exceptions return an empty array rather than aborting the worker.
-inline MotorCurveRows SimulateMotorCurve(
-    const DCMotorWasm* motor, double momentOfInertiaKgMSquared,
-    double statorLimitAmps, double supplyLimitAmps, double statorVoltageVolts,
-    double supplyVoltageVolts, double simTimestep, int decimation,
-    int maxIterations) {
+inline MotorCurveRows SimulateMotorCurve(const DCMotorWasm* motor,
+                                         const MotorCurveParams& params) {
   try {
-    return MotorCurveRows(SimulateMotorCurveImpl(
-        motor, momentOfInertiaKgMSquared, statorLimitAmps, supplyLimitAmps,
-        statorVoltageVolts, supplyVoltageVolts, simTimestep, decimation,
-        maxIterations));
+    return MotorCurveRows(SimulateMotorCurveImpl(motor, params));
   } catch (const std::exception& e) {
     ConsoleWarn(
         "SimulateMotorCurve: {} (moi={} statorA={} supplyA={} statorV={} "
         "supplyV={})",
-        e.what(), momentOfInertiaKgMSquared, statorLimitAmps, supplyLimitAmps,
-        statorVoltageVolts, supplyVoltageVolts);
+        e.what(), params.momentOfInertiaKgMSquared, params.statorLimitAmps,
+        params.supplyLimitAmps, params.statorVoltageVolts,
+        params.supplyVoltageVolts);
     return MotorCurveRows(emscripten::val::array());
   } catch (...) {
     ConsoleWarn(
         "SimulateMotorCurve: unknown exception (moi={} statorA={} supplyA={} "
         "statorV={} supplyV={})",
-        momentOfInertiaKgMSquared, statorLimitAmps, supplyLimitAmps,
-        statorVoltageVolts, supplyVoltageVolts);
+        params.momentOfInertiaKgMSquared, params.statorLimitAmps,
+        params.supplyLimitAmps, params.statorVoltageVolts,
+        params.supplyVoltageVolts);
     return MotorCurveRows(emscripten::val::array());
   }
 }

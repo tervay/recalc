@@ -71,20 +71,31 @@ struct FlywheelSimStateInternal {
   bool success;
 };
 
+struct FlywheelSimParams {
+  double gearing;
+  double momentOfInertiaKgMSquared;
+  double targetAngularVelocityRadPerSec;
+  double statorLimitAmps;
+  double supplyLimitAmps;
+  double statorVoltageVolts;
+  double batteryResistanceOhms;
+  double batteryVoltageVolts;
+  double efficiency;
+  double simTimestep;
+  int decimation;
+  double maxSimSeconds;
+  double batteryVoltageFilterTimeConstantSeconds;
+  double initialAngularVelocityRadPerSec;
+};
+
 // Full flywheel simulation loop. Parameters must be in SI units:
 //   statorLimitAmps   — total stator current limit (per-motor limit * quantity)
 //   supplyLimitAmps   — total supply current limit (per-motor limit * quantity)
 //   efficiency        — torque efficiency in [0, 1]
 // Returns a JS array of state objects decimated by `decimation`, with the last
 // state always included (matches obliterateArray behaviour in utils.ts).
-inline emscripten::val SimulateFlywheelImpl(
-    const DCMotorWasm* motor, double gearing, double moiKgMSquared,
-    double targetAngularVelocityRadPerSec, double statorLimitAmps,
-    double supplyLimitAmps, double statorVoltageVolts,
-    double batteryResistanceOhms, double batteryVoltageVolts, double efficiency,
-    double simTimestep, int decimation, double maxSimSeconds,
-    double batteryVoltageFilterTimeConstantSeconds,
-    double initialAngularVelocityRadPerSec) {
+inline emscripten::val SimulateFlywheelImpl(const DCMotorWasm* motor,
+                                            const FlywheelSimParams& params) {
   // Guard degenerate inputs, mirroring elevator_sim.h. Three of these are not
   // recoverable further down and so cannot be left to the try/catch below:
   //   - decimation: DecimateToJsArray computes `i % decimation`, and integer
@@ -97,26 +108,29 @@ inline emscripten::val SimulateFlywheelImpl(
   //     vSupply goes negative.
   // A non-positive gearing or moment of inertia makes the model factory throw.
   // A non-positive target needs no guard: the loop below exits immediately.
-  if (decimation <= 0 || simTimestep <= 0.0 || maxSimSeconds <= 0.0 ||
-      gearing <= 0.0 || moiKgMSquared <= 0.0 || efficiency <= 0.0 ||
-      batteryVoltageVolts <= 0.0) {
+  if (params.decimation <= 0 || params.simTimestep <= 0.0 ||
+      params.maxSimSeconds <= 0.0 || params.gearing <= 0.0 ||
+      params.momentOfInertiaKgMSquared <= 0.0 || params.efficiency <= 0.0 ||
+      params.batteryVoltageVolts <= 0.0) {
     return emscripten::val::array();
   }
 
   EnsureHalInitialized();
 
   EfficiencyFlywheelSim flywheel(
-      motor->getMotor(), gearing,
-      wpi::units::kilogram_square_meter_t(moiKgMSquared), efficiency);
+      motor->getMotor(), params.gearing,
+      wpi::units::kilogram_square_meter_t(params.momentOfInertiaKgMSquared),
+      params.efficiency);
 
   // Set initial angular velocity (non-zero for recovery simulations)
-  if (initialAngularVelocityRadPerSec != 0.0) {
+  if (params.initialAngularVelocityRadPerSec != 0.0) {
     wpi::math::Vectord<1> initialState;
-    initialState(0) = initialAngularVelocityRadPerSec;
+    initialState(0) = params.initialAngularVelocityRadPerSec;
     flywheel.SetState(initialState);
   }
 
-  wpi::sim::RoboRioSim::SetVInVoltage(wpi::units::volt_t(batteryVoltageVolts));
+  wpi::sim::RoboRioSim::SetVInVoltage(
+      wpi::units::volt_t(params.batteryVoltageVolts));
 
   const double rOhms = motor->getROhms();
   const double kvRadPerSecPerVolt = motor->getKvRadPerSecPerVolt();
@@ -124,37 +138,43 @@ inline emscripten::val SimulateFlywheelImpl(
   double energyJoules = 0.0;
 
   auto batteryFilter = wpi::math::LinearFilter<double>::SinglePoleIIR(
-      batteryVoltageFilterTimeConstantSeconds,
-      wpi::units::second_t(simTimestep));
-  batteryFilter.Reset(std::span<const double>{&batteryVoltageVolts, 1},
-                      std::span<const double>{&batteryVoltageVolts, 1});
+      params.batteryVoltageFilterTimeConstantSeconds,
+      wpi::units::second_t(params.simTimestep));
+  batteryFilter.Reset(std::span<const double>{&params.batteryVoltageVolts, 1},
+                      std::span<const double>{&params.batteryVoltageVolts, 1});
 
   std::vector<FlywheelSimStateInternal> states;
 
   while (flywheel.GetAngularVelocity().to<double>() <
-         targetAngularVelocityRadPerSec) {
-    double vApplied = statorVoltageVolts;
+         params.targetAngularVelocityRadPerSec) {
+    double vApplied = params.statorVoltageVolts;
 
     // Motor shaft angular velocity (rad/s) from flywheel velocity
     const auto flywheelRadPerSec = flywheel.GetAngularVelocity().to<double>();
-    const double motorShaftRadPerSec = flywheelRadPerSec * gearing;
+    const double motorShaftRadPerSec = flywheelRadPerSec * params.gearing;
     const double vBackEmf = kvRadPerSecPerVolt > 0.0
                                 ? motorShaftRadPerSec / kvRadPerSecPerVolt
                                 : 0.0;
 
     const double vSupply = wpi::RobotController::GetInputVoltage();
 
-    vApplied = ClampVoltageForCurrentLimits(
-        vApplied, vBackEmf, rOhms, statorLimitAmps, supplyLimitAmps, vSupply);
+    vApplied = ClampVoltageForCurrentLimits({
+        .vApplied = vApplied,
+        .vBackEmf = vBackEmf,
+        .rOhms = rOhms,
+        .statorLimitAmps = params.statorLimitAmps,
+        .supplyLimitAmps = params.supplyLimitAmps,
+        .vSupply = vSupply,
+    });
 
     flywheel.SetInputVoltage(wpi::units::volt_t(vApplied));
-    flywheel.Update(wpi::units::second_t(simTimestep));
-    timestamp += simTimestep;
+    flywheel.Update(wpi::units::second_t(params.simTimestep));
+    timestamp += params.simTimestep;
 
     const auto statorCurrent = flywheel.GetCurrentDraw().to<double>();
     const double supplyCurrent =
         SupplyCurrentFromStator(statorCurrent, vApplied, vSupply);
-    energyJoules += supplyCurrent * vSupply * simTimestep;
+    energyJoules += supplyCurrent * vSupply * params.simTimestep;
 
     // Battery voltage under load, smoothed by a single-pole IIR filter
     std::vector<wpi::units::ampere_t> currents = {
@@ -162,8 +182,8 @@ inline emscripten::val SimulateFlywheelImpl(
     };
     const auto rawBatteryVoltage =
         wpi::sim::BatterySim::Calculate(
-            wpi::units::volt_t(batteryVoltageVolts),
-            wpi::units::ohm_t(batteryResistanceOhms), currents)
+            wpi::units::volt_t(params.batteryVoltageVolts),
+            wpi::units::ohm_t(params.batteryResistanceOhms), currents)
             .to<double>();
     const double filteredBatteryVoltage =
         batteryFilter.Calculate(rawBatteryVoltage);
@@ -174,8 +194,8 @@ inline emscripten::val SimulateFlywheelImpl(
     // voltage clamp, which must act on the state at the start of the step.
     const auto updatedFlywheelRadPerSec =
         flywheel.GetAngularVelocity().to<double>();
-    const double motorRpm =
-        updatedFlywheelRadPerSec * gearing * 60.0 / (2.0 * std::numbers::pi);
+    const double motorRpm = updatedFlywheelRadPerSec * params.gearing * 60.0 /
+                            (2.0 * std::numbers::pi);
     states.push_back({
         .angularVelocityRadPerSec = updatedFlywheelRadPerSec,
         .statorCurrentDrawAmps = statorCurrent,
@@ -191,7 +211,7 @@ inline emscripten::val SimulateFlywheelImpl(
     wpi::sim::RoboRioSim::SetVInVoltage(
         wpi::units::volt_t(filteredBatteryVoltage));
 
-    if (timestamp > maxSimSeconds) {
+    if (timestamp > params.maxSimSeconds) {
       if (!states.empty()) {
         states.back().success = false;
       }
@@ -200,7 +220,7 @@ inline emscripten::val SimulateFlywheelImpl(
   }
 
   return DecimateToJsArray<FlywheelSimStateInternal>(
-      states, decimation, [](const FlywheelSimStateInternal& s) {
+      states, params.decimation, [](const FlywheelSimStateInternal& s) {
         emscripten::val state = emscripten::val::object();
         state.set("angularVelocityRadPerSec", s.angularVelocityRadPerSec);
         state.set("statorCurrentDrawAmps", s.statorCurrentDrawAmps);
@@ -218,34 +238,25 @@ inline emscripten::val SimulateFlywheelImpl(
 // Public entry point. Wraps SimulateFlywheelImpl in a try-catch so that
 // numerical exceptions return an empty array with a diagnostic console.warn
 // instead of aborting the worker.
-inline FlywheelSimRows SimulateFlywheel(
-    const DCMotorWasm* motor, double gearing, double moiKgMSquared,
-    double targetAngularVelocityRadPerSec, double statorLimitAmps,
-    double supplyLimitAmps, double statorVoltageVolts,
-    double batteryResistanceOhms, double batteryVoltageVolts, double efficiency,
-    double simTimestep, int decimation, double maxSimSeconds,
-    double batteryVoltageFilterTimeConstantSeconds,
-    double initialAngularVelocityRadPerSec = 0.0) {
+inline FlywheelSimRows SimulateFlywheel(const DCMotorWasm* motor,
+                                        const FlywheelSimParams& params) {
   try {
-    return FlywheelSimRows(SimulateFlywheelImpl(
-        motor, gearing, moiKgMSquared, targetAngularVelocityRadPerSec,
-        statorLimitAmps, supplyLimitAmps, statorVoltageVolts,
-        batteryResistanceOhms, batteryVoltageVolts, efficiency, simTimestep,
-        decimation, maxSimSeconds, batteryVoltageFilterTimeConstantSeconds,
-        initialAngularVelocityRadPerSec));
+    return FlywheelSimRows(SimulateFlywheelImpl(motor, params));
   } catch (const std::exception& e) {
     ConsoleWarn(
         "SimulateFlywheel: {} (gearing={} moi={} target={} statorA={} "
         "supplyA={})",
-        e.what(), gearing, moiKgMSquared, targetAngularVelocityRadPerSec,
-        statorLimitAmps, supplyLimitAmps);
+        e.what(), params.gearing, params.momentOfInertiaKgMSquared,
+        params.targetAngularVelocityRadPerSec, params.statorLimitAmps,
+        params.supplyLimitAmps);
     return FlywheelSimRows(emscripten::val::array());
   } catch (...) {
     ConsoleWarn(
         "SimulateFlywheel: unknown exception (gearing={} moi={} target={} "
         "statorA={} supplyA={})",
-        gearing, moiKgMSquared, targetAngularVelocityRadPerSec, statorLimitAmps,
-        supplyLimitAmps);
+        params.gearing, params.momentOfInertiaKgMSquared,
+        params.targetAngularVelocityRadPerSec, params.statorLimitAmps,
+        params.supplyLimitAmps);
     return FlywheelSimRows(emscripten::val::array());
   }
 }
