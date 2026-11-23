@@ -4,7 +4,7 @@
   "prConcurrentLimit": 10,
   "prHourlyLimit": 0,
   "minimumReleaseAge": "3 days",
-  "internalChecksFilter": "strict",
+  "internalChecksFilter": "flexible",
   "description": [
     "ignorePaths replaces, rather than extends, the list that config:recommended inherits from :ignoreModulesAndTests. It is restated here minus **/tests/**, which hid wpilib/tests/Dockerfile from Renovate and let its emscripten/emsdk pin drift behind wpilib/Dockerfile.",
     "wpilib/tests/ is the only path this un-ignores: playwright-tests/ never matched the pattern, and scripts/ingest/__tests__/ stays ignored through **/__tests__/**."
