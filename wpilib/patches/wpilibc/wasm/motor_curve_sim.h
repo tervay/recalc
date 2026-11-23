@@ -32,7 +32,7 @@ struct MotorCurveSimStateInternal {
 // (per-motor limit * quantity). The moment of inertia only sets sample density,
 // not the steady-state curve. Returns a JS array decimated by `decimation`.
 inline emscripten::val SimulateMotorCurveImpl(
-    DCMotorWasm* motor, double momentOfInertiaKgMSquared,
+    const DCMotorWasm* motor, double momentOfInertiaKgMSquared,
     double statorLimitAmps, double supplyLimitAmps, double statorVoltageVolts,
     double supplyVoltageVolts, double simTimestep, int decimation,
     int maxIterations) {
@@ -70,7 +70,7 @@ inline emscripten::val SimulateMotorCurveImpl(
          iterations < maxIterations) {
     iterations++;
 
-    const double motorShaftRadPerSec = sim.GetAngularVelocity().to<double>();
+    const auto motorShaftRadPerSec = sim.GetAngularVelocity().to<double>();
     const double vBackEmf = kvRadPerSecPerVolt > 0.0
                                 ? motorShaftRadPerSec / kvRadPerSecPerVolt
                                 : 0.0;
@@ -85,7 +85,7 @@ inline emscripten::val SimulateMotorCurveImpl(
     // Recorded before Update(), unlike flywheel_sim.h: a characteristic curve
     // needs every field at the same instant, and sampling after the step would
     // drop the stall point.
-    const double statorCurrent = sim.GetCurrentDraw().to<double>();
+    const auto statorCurrent = sim.GetCurrentDraw().to<double>();
     const double supplyCurrent =
         SupplyCurrentFromStator(statorCurrent, vApplied, vSupply);
 
@@ -100,8 +100,14 @@ inline emscripten::val SimulateMotorCurveImpl(
             ? 0.0
             : std::max(0.0, (vBackEmf * torqueCurrent) / inputPower);
 
-    states.push_back({motorShaftRadPerSec, statorCurrent, supplyCurrent,
-                      sim.GetTorque().to<double>(), vApplied, efficiency});
+    states.push_back({
+        .angularVelocityRadPerSec = motorShaftRadPerSec,
+        .statorCurrentDrawAmps = statorCurrent,
+        .supplyCurrentDrawAmps = supplyCurrent,
+        .torqueNewtonMeters = sim.GetTorque().to<double>(),
+        .motorAppliedVoltageVolts = vApplied,
+        .efficiency = efficiency,
+    });
 
     sim.Update(wpi::units::second_t(simTimestep));
   }
@@ -121,7 +127,7 @@ inline emscripten::val SimulateMotorCurveImpl(
 
 // Numerical exceptions return an empty array rather than aborting the worker.
 inline MotorCurveRows SimulateMotorCurve(
-    DCMotorWasm* motor, double momentOfInertiaKgMSquared,
+    const DCMotorWasm* motor, double momentOfInertiaKgMSquared,
     double statorLimitAmps, double supplyLimitAmps, double statorVoltageVolts,
     double supplyVoltageVolts, double simTimestep, int decimation,
     int maxIterations) {

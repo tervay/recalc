@@ -1,7 +1,9 @@
 #include "battery_sim.h"
 
+#include <catch2/catch_message.hpp>
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
+#include <catch2/matchers/catch_matchers.hpp>
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <vector>
 
@@ -18,7 +20,7 @@ constexpr double kInternalResistanceOhms = 0.02;
 
 double ExpectedVoltage(double nominalVolts, double resistanceOhms,
                        double totalCurrentAmps) {
-  const double loaded = nominalVolts - totalCurrentAmps * resistanceOhms;
+  const double loaded = nominalVolts - (totalCurrentAmps * resistanceOhms);
   return loaded > 0.0 ? loaded : 0.0;
 }
 

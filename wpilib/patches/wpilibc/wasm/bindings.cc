@@ -1,4 +1,5 @@
 #include <emscripten/bind.h>
+#include <emscripten/wire.h>
 
 #include "arm_sim.h"
 #include "battery_sim.h"
@@ -10,7 +11,11 @@
 #include "flywheel_sim.h"
 #include "motor_curve_sim.h"
 
-using namespace emscripten;
+using emscripten::allow_raw_pointers;
+using emscripten::class_;
+using emscripten::function;
+using emscripten::register_type;
+using emscripten::register_vector;
 
 EMSCRIPTEN_BINDINGS(wpilibc) {
   // Register vector<double> for automatic conversion from JavaScript arrays
@@ -72,8 +77,7 @@ EMSCRIPTEN_BINDINGS(wpilibc) {
       .function(
           "speedFromTorqueAndVoltage(torqueNewtonMeters, inputVoltageVolts)",
           &DCMotorWasm::speedFromTorqueAndVoltage)
-      .function("withReduction(gearboxReduction)", &DCMotorWasm::withReduction,
-                allow_raw_pointers());
+      .function("withReduction(gearboxReduction)", &DCMotorWasm::withReduction);
 
   // DCMotorSim
   class_<DCMotorSimWasm>("DCMotorSim")

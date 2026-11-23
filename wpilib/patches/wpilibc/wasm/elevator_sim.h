@@ -3,6 +3,7 @@
 #include <emscripten/val.h>
 
 #include <cmath>
+#include <numbers>
 #include <stdexcept>
 #include <vector>
 
@@ -112,8 +113,9 @@ struct ElevatorSimStateInternal {
 // Core simulation logic. May throw (e.g. from the DARE solver inside LQR or
 // KalmanFilter construction) when the plant model is ill-conditioned.
 inline emscripten::val SimulateElevatorImpl(
-    DCMotorWasm* motor, double gearing, double loadKg, double spoolRadiusMeters,
-    double travelDistanceMeters, double statorLimitAmps, double supplyLimitAmps,
+    const DCMotorWasm* motor, double gearing, double loadKg,
+    double spoolRadiusMeters, double travelDistanceMeters,
+    double statorLimitAmps, double supplyLimitAmps,
     double batteryResistanceOhms, double batteryVoltageVolts,
     double simTimestep, int decimation, double maxSimSeconds,
     double angleRadians, double efficiency, bool cascade,
@@ -143,9 +145,11 @@ inline emscripten::val SimulateElevatorImpl(
   // full carriage + object weight). Stage-2 frame weight is omitted here.
   // kA and kG are computed from loadKg below, so doubling loadKg is sufficient.
   // Reference: https://www.chiefdelphi.com/t/cascade-elevator-gearing/345099/12
+  constexpr double kCascadeTravelFraction = 0.5;
+  constexpr double kCascadeLoadMultiplier = 2.0;
   if (cascade) {
-    travelDistanceMeters *= 0.5;
-    loadKg *= 2.0;
+    travelDistanceMeters *= kCascadeTravelFraction;
+    loadKg *= kCascadeLoadMultiplier;
   }
 
   AngledElevatorSim elevator(
@@ -156,7 +160,7 @@ inline emscripten::val SimulateElevatorImpl(
   wpi::sim::RoboRioSim::SetVInVoltage(wpi::units::volt_t(batteryVoltageVolts));
 
   // Build ideal plant from physical constants for deriving kG and feedforward.
-  auto idealPlantFull = wpi::math::Models::ElevatorFromPhysicalConstants(
+  const auto idealPlantFull = wpi::math::Models::ElevatorFromPhysicalConstants(
       motor->getMotor(), wpi::units::kilogram_t(loadKg),
       wpi::units::meter_t(spoolRadiusMeters), gearing);
 
@@ -172,7 +176,7 @@ inline emscripten::val SimulateElevatorImpl(
   // the kinematic v = dx/dt relation and must stay exactly 1.
   wpi::math::Matrixd<2, 2> controllerA = idealPlantFull.A();
   controllerA(1, 1) *= efficiency;
-  wpi::math::Matrixd<2, 1> controllerB = idealPlantFull.B() * efficiency;
+  const wpi::math::Matrixd<2, 1> controllerB = idealPlantFull.B() * efficiency;
   wpi::math::Matrixd<1, 2> controllerC;
   controllerC << 1, 0;
   wpi::math::Matrixd<1, 1> controllerD;
@@ -222,14 +226,17 @@ inline emscripten::val SimulateElevatorImpl(
        wpi::units::meters_per_second_squared_t(maxAccelerationMPS2)}};
 
   wpi::math::TrapezoidProfile<Distance>::State profileState{
-      wpi::units::meter_t(0.0), wpi::units::meters_per_second_t(0.0)};
-  wpi::math::TrapezoidProfile<Distance>::State goalState{
-      wpi::units::meter_t(travelDistanceMeters),
-      wpi::units::meters_per_second_t(0.0)};
+      .position = wpi::units::meter_t(0.0),
+      .velocity = wpi::units::meters_per_second_t(0.0),
+  };
+  const wpi::math::TrapezoidProfile<Distance>::State goalState{
+      .position = wpi::units::meter_t(travelDistanceMeters),
+      .velocity = wpi::units::meters_per_second_t(0.0),
+  };
 
   // Pre-compute total profile time
   profile.Calculate(wpi::units::second_t(0.0), profileState, goalState);
-  const double totalProfileTime = profile.Duration().to<double>();
+  const auto totalProfileTime = profile.Duration().to<double>();
 
   std::vector<ElevatorSimStateInternal> states;
 
@@ -240,8 +247,8 @@ inline emscripten::val SimulateElevatorImpl(
   size_t goalBandEnteredIndex = 0;
 
   while (timestamp < maxSimSeconds &&
-         !(timestamp >= totalProfileTime && inGoalBand &&
-           timestamp - goalBandEnteredAt >= kGoalHoldSeconds)) {
+         (timestamp < totalProfileTime || !inGoalBand ||
+          timestamp - goalBandEnteredAt < kGoalHoldSeconds)) {
     const auto nextProfileState = profile.Calculate(
         wpi::units::second_t(simTimestep), profileState, goalState);
 
@@ -254,7 +261,7 @@ inline emscripten::val SimulateElevatorImpl(
     double vApplied = loop.U(0) + kGVolts;
 
     // Motor shaft angular velocity (rad/s) from carriage velocity
-    const double velocityMPS = elevator.GetVelocity().to<double>();
+    const auto velocityMPS = elevator.GetVelocity().to<double>();
     const double motorShaftRadPerSec =
         velocityMPS / spoolRadiusMeters * gearing;
     const double vBackEmf = motorShaftRadPerSec / kvRadPerSecPerVolt;
@@ -270,15 +277,16 @@ inline emscripten::val SimulateElevatorImpl(
     profileState = nextProfileState;
     timestamp += simTimestep;
 
-    const double statorCurrent = elevator.GetCurrentDraw().to<double>();
+    const auto statorCurrent = elevator.GetCurrentDraw().to<double>();
     const double supplyCurrent =
         SupplyCurrentFromStator(statorCurrent, vApplied, vSupply);
     energyJoules += supplyCurrent * vSupply * simTimestep;
 
     // Battery voltage under load, smoothed by a single-pole IIR filter
     std::vector<wpi::units::ampere_t> currents = {
-        wpi::units::ampere_t(supplyCurrent)};
-    const double rawBatteryVoltage =
+        wpi::units::ampere_t(supplyCurrent),
+    };
+    const auto rawBatteryVoltage =
         wpi::sim::BatterySim::Calculate(
             wpi::units::volt_t(batteryVoltageVolts),
             wpi::units::ohm_t(batteryResistanceOhms), currents)
@@ -290,13 +298,22 @@ inline emscripten::val SimulateElevatorImpl(
     // is read after the step. `motorShaftRadPerSec` above is the pre-step value
     // and is deliberately not reused here: it feeds the back-EMF term of the
     // voltage clamp, which must act on the state at the start of the step.
-    const double updatedVelocityMPS = elevator.GetVelocity().to<double>();
-    const double motorRpm =
-        updatedVelocityMPS / spoolRadiusMeters * gearing * 60.0 / (2.0 * M_PI);
-    states.push_back({elevator.GetPosition().to<double>(), updatedVelocityMPS,
-                      statorCurrent, supplyCurrent, timestamp,
-                      filteredBatteryVoltage, vApplied, motorRpm, energyJoules,
-                      true, 0.0});
+    const auto updatedVelocityMPS = elevator.GetVelocity().to<double>();
+    const double motorRpm = updatedVelocityMPS / spoolRadiusMeters * gearing *
+                            60.0 / (2.0 * std::numbers::pi);
+    states.push_back({
+        .positionMeters = elevator.GetPosition().to<double>(),
+        .velocityMetersPerSecond = updatedVelocityMPS,
+        .statorCurrentDrawAmps = statorCurrent,
+        .supplyCurrentDrawAmps = supplyCurrent,
+        .timeSeconds = timestamp,
+        .batteryVoltageVolts = filteredBatteryVoltage,
+        .motorAppliedVoltageVolts = vApplied,
+        .motorRpm = motorRpm,
+        .energyJoules = energyJoules,
+        .success = true,
+        .timeToGoalSeconds = 0.0,
+    });
 
     const bool nowInGoalBand =
         std::abs(states.back().positionMeters - travelDistanceMeters) <=
@@ -318,7 +335,7 @@ inline emscripten::val SimulateElevatorImpl(
   if (!states.empty()) {
     states.back().success = success;
     const double timeToGoalSeconds =
-        success ? states[goalBandEnteredIndex].timeSeconds
+        success ? states.at(goalBandEnteredIndex).timeSeconds
                 : states.back().timeSeconds;
     for (auto& state : states) {
       state.timeToGoalSeconds = timeToGoalSeconds;
@@ -347,8 +364,9 @@ inline emscripten::val SimulateElevatorImpl(
 // DARE solver failures and other numerical exceptions return an empty array
 // with a diagnostic console.warn instead of aborting the worker.
 inline ElevatorSimRows SimulateElevator(
-    DCMotorWasm* motor, double gearing, double loadKg, double spoolRadiusMeters,
-    double travelDistanceMeters, double statorLimitAmps, double supplyLimitAmps,
+    const DCMotorWasm* motor, double gearing, double loadKg,
+    double spoolRadiusMeters, double travelDistanceMeters,
+    double statorLimitAmps, double supplyLimitAmps,
     double batteryResistanceOhms, double batteryVoltageVolts,
     double simTimestep, int decimation, double maxSimSeconds,
     double angleRadians, double efficiency, bool cascade,

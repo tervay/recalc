@@ -3,6 +3,7 @@
 #include <emscripten/val.h>
 
 #include <cmath>
+#include <numbers>
 #include <stdexcept>
 #include <vector>
 
@@ -109,7 +110,7 @@ struct ArmSimStateInternal {
 // Returns a JS array of state objects decimated by `decimation`, with the last
 // state always included (matches obliterateArray behaviour in utils.ts).
 inline emscripten::val SimulateArmImpl(
-    DCMotorWasm* motor, double gearing, double momentOfInertiaKgMSquared,
+    const DCMotorWasm* motor, double gearing, double momentOfInertiaKgMSquared,
     double armLengthMeters, double minAngleRadians, double maxAngleRadians,
     double startingAngleRadians, double statorLimitAmps, double supplyLimitAmps,
     double statorVoltageVolts, double batteryResistanceOhms,
@@ -160,7 +161,7 @@ inline emscripten::val SimulateArmImpl(
 
   std::vector<ArmSimStateInternal> states;
 
-  auto isAtGoal = [&]() {
+  const auto isAtGoal = [&] {
     return goingUp ? arm.HasHitUpperLimit() : arm.HasHitLowerLimit();
   };
 
@@ -169,7 +170,7 @@ inline emscripten::val SimulateArmImpl(
     double vApplied = goingUp ? statorVoltageVolts : -statorVoltageVolts;
 
     // Motor shaft angular velocity (rad/s) from arm velocity
-    const double armRadPerSec = arm.GetVelocity().to<double>();
+    const auto armRadPerSec = arm.GetVelocity().to<double>();
     const double motorShaftRadPerSec = armRadPerSec * gearing;
     const double vBackEmf = kvRadPerSecPerVolt > 0.0
                                 ? motorShaftRadPerSec / kvRadPerSecPerVolt
@@ -184,15 +185,16 @@ inline emscripten::val SimulateArmImpl(
     arm.Update(wpi::units::second_t(simTimestep));
     timestamp += simTimestep;
 
-    const double statorCurrent = arm.GetCurrentDraw().to<double>();
+    const auto statorCurrent = arm.GetCurrentDraw().to<double>();
     const double supplyCurrent =
         SupplyCurrentFromStator(statorCurrent, vApplied, vSupply);
     energyJoules += supplyCurrent * vSupply * simTimestep;
 
     // Battery voltage under load, smoothed by a single-pole IIR filter
     std::vector<wpi::units::ampere_t> currents = {
-        wpi::units::ampere_t(supplyCurrent)};
-    const double rawBatteryVoltage =
+        wpi::units::ampere_t(supplyCurrent),
+    };
+    const auto rawBatteryVoltage =
         wpi::sim::BatterySim::Calculate(
             wpi::units::volt_t(batteryVoltageVolts),
             wpi::units::ohm_t(batteryResistanceOhms), currents)
@@ -206,13 +208,21 @@ inline emscripten::val SimulateArmImpl(
       // value and is deliberately not reused here: it feeds the back-EMF term
       // of the voltage clamp, which must act on the state at the start of the
       // step. motorRpm is a magnitude because the arm runs in both directions.
-      const double updatedArmRadPerSec = arm.GetVelocity().to<double>();
-      const double motorRpm =
-          std::abs(updatedArmRadPerSec * gearing) * 60.0 / (2.0 * M_PI);
-      states.push_back({arm.GetAngle().to<double>(), updatedArmRadPerSec,
-                        statorCurrent, supplyCurrent, timestamp,
-                        filteredBatteryVoltage, vApplied, motorRpm,
-                        energyJoules, true});
+      const auto updatedArmRadPerSec = arm.GetVelocity().to<double>();
+      const double motorRpm = std::abs(updatedArmRadPerSec * gearing) * 60.0 /
+                              (2.0 * std::numbers::pi);
+      states.push_back({
+          .angleRadians = arm.GetAngle().to<double>(),
+          .angularVelocityRadPerSec = updatedArmRadPerSec,
+          .statorCurrentDrawAmps = statorCurrent,
+          .supplyCurrentDrawAmps = supplyCurrent,
+          .timeSeconds = timestamp,
+          .batteryVoltageVolts = filteredBatteryVoltage,
+          .motorAppliedVoltageVolts = vApplied,
+          .motorRpm = motorRpm,
+          .energyJoules = energyJoules,
+          .success = true,
+      });
     }
 
     wpi::sim::RoboRioSim::SetVInVoltage(
@@ -247,7 +257,7 @@ inline emscripten::val SimulateArmImpl(
 // exceptions return an empty array with a diagnostic console.warn instead of
 // aborting the worker.
 inline ArmSimRows SimulateArm(
-    DCMotorWasm* motor, double gearing, double momentOfInertiaKgMSquared,
+    const DCMotorWasm* motor, double gearing, double momentOfInertiaKgMSquared,
     double armLengthMeters, double minAngleRadians, double maxAngleRadians,
     double startingAngleRadians, double statorLimitAmps, double supplyLimitAmps,
     double statorVoltageVolts, double batteryResistanceOhms,

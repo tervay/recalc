@@ -1,0 +1,18 @@
+Checks: >
+  -*,
+  bugprone-*,
+  clang-analyzer-*,
+  cppcoreguidelines-*,
+  google-*,
+  misc-*,
+  modernize-*,
+  performance-*,
+  readability-*,
+  -bugprone-easily-swappable-parameters,
+  -modernize-use-trailing-return-type
+WarningsAsErrors: '*'
+HeaderFilterRegex: '/src/(patches|tests)/'
+SystemHeaders: false
+CheckOptions:
+  readability-identifier-length.IgnoredParameterNames: '^(x|u|u_|s|dt)$'
+  readability-identifier-length.IgnoredVariableNames: '^(n|k[AVG])$'

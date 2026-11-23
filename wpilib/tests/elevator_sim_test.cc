@@ -1,14 +1,29 @@
 #include "elevator_sim.h"
 
+#include <emscripten/val.h>
+
+#include <algorithm>
+#include <catch2/catch_message.hpp>
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
+#include <catch2/matchers/catch_matchers.hpp>
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <cmath>
+#include <cstddef>
+#include <memory>
+#include <numbers>
 #include <vector>
 
 #include "dc_motor.h"
 #include "wpi/math/system/DCMotor.hpp"
 #include "wpi/math/system/Models.hpp"
+#include "wpi/math/trajectory/TrapezoidProfile.hpp"
+#include "wpi/simulation/RoboRioSim.hpp"
+#include "wpi/system/RobotController.hpp"
+#include "wpi/units/acceleration.hpp"
+#include "wpi/units/length.hpp"
+#include "wpi/units/mass.hpp"
+#include "wpi/units/time.hpp"
 
 using Catch::Matchers::WithinAbs;
 using Catch::Matchers::WithinULP;
@@ -34,10 +49,11 @@ const double kSuccessThresholdMeters =
 
 wpi::math::DCMotor TestMotor() { return wpi::math::DCMotor::KrakenX60(1); }
 
-// Caller owns the returned pointer. Mirrors the helper in
+// Mirrors the helper in
 // feedforward_gains_test.cc.
-DCMotorWasm* MakeMotorWasm(const wpi::math::DCMotor& motor, int numMotors) {
-  return new DCMotorWasm(
+std::unique_ptr<DCMotorWasm> MakeMotorWasm(const wpi::math::DCMotor& motor,
+                                           int numMotors) {
+  return std::make_unique<DCMotorWasm>(
       motor.nominalVoltage.to<double>(), motor.stallTorque.to<double>(),
       motor.stallCurrent.to<double>(), motor.freeCurrent.to<double>(),
       motor.freeSpeed.to<double>(), numMotors);
@@ -71,7 +87,7 @@ struct Params {
   double simTimestep = 0.001;
   int decimation = 1;
   double maxSimSeconds = 3.0;
-  double angleRadians = M_PI / 2.0;
+  double angleRadians = std::numbers::pi / 2.0;
   double efficiency = 1.0;
   bool cascade = false;
   double batteryVoltageFilterTimeConstantSeconds = 0.1;
@@ -106,17 +122,16 @@ void DeriveConstraints(Params& p) {
 }
 
 emscripten::val RunRaw(const Params& p) {
-  DCMotorWasm* motor = MakeMotorWasm(TestMotor(), 1);
+  const auto motor = MakeMotorWasm(TestMotor(), 1);
   emscripten::val result = SimulateElevator(
-      motor, p.gearing, p.loadKg, p.spoolRadiusMeters, p.travelDistanceMeters,
-      p.statorLimitAmps, p.supplyLimitAmps, p.batteryResistanceOhms,
-      p.batteryVoltageVolts, p.simTimestep, p.decimation, p.maxSimSeconds,
-      p.angleRadians, p.efficiency, p.cascade,
+      motor.get(), p.gearing, p.loadKg, p.spoolRadiusMeters,
+      p.travelDistanceMeters, p.statorLimitAmps, p.supplyLimitAmps,
+      p.batteryResistanceOhms, p.batteryVoltageVolts, p.simTimestep,
+      p.decimation, p.maxSimSeconds, p.angleRadians, p.efficiency, p.cascade,
       p.batteryVoltageFilterTimeConstantSeconds, p.maxVelocityMPS,
       p.maxAccelerationMPS2, p.qPositionMeters, p.qVelocityMPS, p.rVolts,
       p.sensorDelaySeconds, p.kalmanFilterPositionStdDev,
       p.kalmanFilterVelocityStdDev, p.kalmanFilterEncoderPositionStdDev);
-  delete motor;
   return result;
 }
 
@@ -128,15 +143,19 @@ std::vector<ElevatorSimStateInternal> ToRows(const emscripten::val& v) {
   rows.reserve(n);
   for (int i = 0; i < n; ++i) {
     const emscripten::val s = v[i];
-    rows.push_back(
-        {s["positionMeters"].as<double>(),
-         s["velocityMetersPerSecond"].as<double>(),
-         s["statorCurrentDrawAmps"].as<double>(),
-         s["supplyCurrentDrawAmps"].as<double>(), s["timeSeconds"].as<double>(),
-         s["batteryVoltageVolts"].as<double>(),
-         s["motorAppliedVoltageVolts"].as<double>(), s["motorRpm"].as<double>(),
-         s["energyJoules"].as<double>(), s["success"].as<bool>(),
-         s["timeToGoalSeconds"].as<double>()});
+    rows.push_back({
+        .positionMeters = s["positionMeters"].as<double>(),
+        .velocityMetersPerSecond = s["velocityMetersPerSecond"].as<double>(),
+        .statorCurrentDrawAmps = s["statorCurrentDrawAmps"].as<double>(),
+        .supplyCurrentDrawAmps = s["supplyCurrentDrawAmps"].as<double>(),
+        .timeSeconds = s["timeSeconds"].as<double>(),
+        .batteryVoltageVolts = s["batteryVoltageVolts"].as<double>(),
+        .motorAppliedVoltageVolts = s["motorAppliedVoltageVolts"].as<double>(),
+        .motorRpm = s["motorRpm"].as<double>(),
+        .energyJoules = s["energyJoules"].as<double>(),
+        .success = s["success"].as<bool>(),
+        .timeToGoalSeconds = s["timeToGoalSeconds"].as<double>(),
+    });
   }
   return rows;
 }
@@ -199,7 +218,7 @@ TEST_CASE("AngledElevatorGravity: VerticalFallsAtFullGravity",
   const double a11 = IdealPlant().A()(1, 1);
   const double expected = (-kGravity / a11) * (std::exp(a11 * dt) - 1.0);
 
-  CHECK_THAT(UnpoweredVelocityAfterOneStep(M_PI / 2.0, dt),
+  CHECK_THAT(UnpoweredVelocityAfterOneStep(std::numbers::pi / 2.0, dt),
              WithinAbs(expected, std::abs(expected) * 1e-6));
 }
 
@@ -210,10 +229,12 @@ TEST_CASE("AngledElevatorGravity: VerticalFallsAtFullGravity",
 TEST_CASE("GravityAngleScalingTest: VelocityRatioTracksSineOfAngle",
           "[GravityAngleScalingTest]") {
   const double angle =
-      GENERATE(0.0, M_PI / 6.0, M_PI / 4.0, M_PI / 3.0, M_PI / 2.0);
+      GENERATE(0.0, std::numbers::pi / 6.0, std::numbers::pi / 4.0,
+               std::numbers::pi / 3.0, std::numbers::pi / 2.0);
   CAPTURE(angle);
   const double dt = 1e-3;
-  const double vertical = UnpoweredVelocityAfterOneStep(M_PI / 2.0, dt);
+  const double vertical =
+      UnpoweredVelocityAfterOneStep(std::numbers::pi / 2.0, dt);
   INFO("vertical elevator must fall");
   REQUIRE(vertical < 0.0);
 
@@ -301,7 +322,7 @@ TEST_CASE("AngledElevatorEfficiency: EfficiencyScalesTheBackEmfDecay",
   const double v0 = 1.0;
   const double a11 = IdealPlant().A()(1, 1);
 
-  auto decayRatio = [&](double efficiency) {
+  const auto decayRatio = [&](double efficiency) {
     AngledElevatorSim sim(TestMotor(), kGearing,
                           wpi::units::kilogram_t(kLoadKg),
                           wpi::units::meter_t(kSpoolRadiusMeters), -10.0, 10.0,
@@ -325,7 +346,7 @@ TEST_CASE("AngledElevatorLimits: LowerLimitPinsPositionAndZeroesVelocity",
   // Start just above the floor and let gravity pull the carriage through it.
   AngledElevatorSim sim(TestMotor(), kGearing, wpi::units::kilogram_t(kLoadKg),
                         wpi::units::meter_t(kSpoolRadiusMeters), 0.0, 2.0, 5e-4,
-                        M_PI / 2.0, 1.0);
+                        std::numbers::pi / 2.0, 1.0);
   sim.SetInputVoltage(wpi::units::volt_t(0.0));
   for (int i = 0; i < 50; ++i) {
     sim.Update(wpi::units::second_t(1e-3));
@@ -340,7 +361,7 @@ TEST_CASE("AngledElevatorLimits: UpperLimitPinsPositionAndZeroesVelocity",
   // Start just below the ceiling and drive hard into it.
   AngledElevatorSim sim(TestMotor(), kGearing, wpi::units::kilogram_t(kLoadKg),
                         wpi::units::meter_t(kSpoolRadiusMeters), 0.0, 2.0,
-                        1.9995, M_PI / 2.0, 1.0);
+                        1.9995, std::numbers::pi / 2.0, 1.0);
   sim.SetInputVoltage(wpi::units::volt_t(12.0));
   for (int i = 0; i < 50; ++i) {
     sim.Update(wpi::units::second_t(1e-3));
@@ -481,18 +502,26 @@ TEST_CASE("SimulateElevatorTrajectory: ReachesGoalAndReportsSuccess",
   CHECK(rows.back().success);
 }
 
+namespace {
+
 double ProfileDurationSeconds(Params p) {
   DeriveConstraints(p);
   wpi::math::TrapezoidProfile<wpi::units::meters> profile{
       {wpi::units::meters_per_second_t(p.maxVelocityMPS),
        wpi::units::meters_per_second_squared_t(p.maxAccelerationMPS2)}};
-  profile.Calculate(
-      wpi::units::second_t(0.0),
-      {wpi::units::meter_t(0.0), wpi::units::meters_per_second_t(0.0)},
-      {wpi::units::meter_t(p.travelDistanceMeters),
-       wpi::units::meters_per_second_t(0.0)});
+  profile.Calculate(wpi::units::second_t(0.0),
+                    {
+                        .position = wpi::units::meter_t(0.0),
+                        .velocity = wpi::units::meters_per_second_t(0.0),
+                    },
+                    {
+                        .position = wpi::units::meter_t(p.travelDistanceMeters),
+                        .velocity = wpi::units::meters_per_second_t(0.0),
+                    });
   return profile.Duration().to<double>();
 }
+
+}  // namespace
 
 TEST_CASE("SimulateElevatorTrajectory: EndsWithinHalfAnInchOfTheGoal",
           "[SimulateElevatorTrajectory]") {
@@ -503,6 +532,8 @@ TEST_CASE("SimulateElevatorTrajectory: EndsWithinHalfAnInchOfTheGoal",
         kGoalToleranceMeters);
 }
 
+namespace {
+
 size_t RowAt(const std::vector<ElevatorSimStateInternal>& rows,
              double timeSeconds) {
   size_t index = 0;
@@ -511,6 +542,8 @@ size_t RowAt(const std::vector<ElevatorSimStateInternal>& rows,
   }
   return index;
 }
+
+}  // namespace
 
 // The time to goal is the moment the carriage entered the goal band for good:
 // the row before it is still outside the band.
@@ -521,7 +554,7 @@ TEST_CASE(
   p.decimation = 1;
   const auto rows = Simulate(p);
   const size_t entered = RowAt(rows, rows.back().timeToGoalSeconds);
-  REQUIRE(entered > 0u);
+  REQUIRE(entered > 0U);
 
   CHECK(std::abs(rows[entered - 1].positionMeters - kTravelMeters) >
         kGoalToleranceMeters);
@@ -587,7 +620,7 @@ TEST_CASE("SimulateElevatorCascade: SettlesWithinAQuarterInchOnTheFirstStage",
   const auto rows = Simulate(p);
   REQUIRE_FALSE(rows.empty());
 
-  CHECK(std::abs(rows.back().positionMeters - kTravelMeters / 2.0) <=
+  CHECK(std::abs(rows.back().positionMeters - (kTravelMeters / 2.0)) <=
         kGoalToleranceMeters / 2.0);
 }
 
@@ -621,7 +654,7 @@ TEST_CASE("SimulateElevatorTrajectory: TimeAdvancesByOneTimestepPerRow",
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.size() > 2U);
 
   CHECK_THAT(rows[0].timeSeconds, WithinAbs(p.simTimestep, 1e-12));
   for (size_t i = 1; i < rows.size(); ++i) {
@@ -634,7 +667,7 @@ TEST_CASE("SimulateElevatorTrajectory: TimeAdvancesByOneTimestepPerRow",
 TEST_CASE("SimulateElevatorTrajectory: VelocityProfileRisesThenFalls",
           "[SimulateElevatorTrajectory]") {
   const auto rows = Simulate(Params{});
-  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.size() > 2U);
 
   size_t peak = 0;
   for (size_t i = 1; i < rows.size(); ++i) {
@@ -643,7 +676,7 @@ TEST_CASE("SimulateElevatorTrajectory: VelocityProfileRisesThenFalls",
     }
   }
 
-  CHECK(peak > 0u);
+  CHECK(peak > 0U);
   CHECK(peak < rows.size() - 1);
   CHECK(rows[peak].velocityMetersPerSecond >
         rows.front().velocityMetersPerSecond);
@@ -662,10 +695,10 @@ TEST_CASE(
   Params p;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 2u);
+  REQUIRE(rows.size() > 2U);
 
   const double toRpm =
-      1.0 / p.spoolRadiusMeters * p.gearing * 60.0 / (2.0 * M_PI);
+      1.0 / p.spoolRadiusMeters * p.gearing * 60.0 / (2.0 * std::numbers::pi);
 
   // The first row is recorded after a step has already been integrated, so the
   // carriage is moving and the reported shaft speed must be non-zero.
@@ -686,7 +719,7 @@ TEST_CASE(
 // travel distance must end at half the height.
 TEST_CASE("SimulateElevatorCascade: HalvesReportedTravelDistance",
           "[SimulateElevatorCascade]") {
-  Params direct;
+  const Params direct;
   Params cascade;
   cascade.cascade = true;
 
@@ -705,7 +738,7 @@ TEST_CASE("SimulateElevatorCascade: HalvesReportedTravelDistance",
 // roughly twice the gravity feedforward voltage.
 TEST_CASE("SimulateElevatorCascade: DoublesEffectiveLoad",
           "[SimulateElevatorCascade]") {
-  Params direct;
+  const Params direct;
   Params cascade;
   cascade.cascade = true;
 
@@ -731,7 +764,7 @@ TEST_CASE(
     "VerticalAppliesExactlyKgMoreThanHorizontal",
     "[SimulateElevatorGravityFeedforward]") {
   Params vertical;
-  vertical.angleRadians = M_PI / 2.0;
+  vertical.angleRadians = std::numbers::pi / 2.0;
   DeriveConstraints(vertical);
 
   Params horizontal = vertical;  // same constraints; only the angle differs
@@ -768,10 +801,10 @@ TEST_CASE("SimulateElevatorDecimation: EmitsEveryNthRowPlusTheLast",
 
   const auto fullRows = Simulate(full);
   const auto decimatedRows = Simulate(decimated);
-  REQUIRE(fullRows.size() > 10u);
+  REQUIRE(fullRows.size() > 10U);
 
   const size_t n = fullRows.size();
-  const size_t expected = (n - 1) / 10 + 1 + ((n - 1) % 10 == 0 ? 0 : 1);
+  const size_t expected = ((n - 1) / 10) + 1 + ((n - 1) % 10 == 0 ? 0 : 1);
   CHECK(decimatedRows.size() == expected);
 
   // The final raw sample is always included, even off a decimation boundary.
@@ -825,7 +858,7 @@ TEST_CASE("SimulateElevatorCurrentLimits: SupplyCurrentStaysWithinLimit",
 
 TEST_CASE("SimulateElevatorCurrentLimits: AppliedVoltageNeverExceedsSupply",
           "[SimulateElevatorCurrentLimits]") {
-  Params p;
+  const Params p;
   const auto rows = Simulate(p);
   REQUIRE_FALSE(rows.empty());
 
@@ -859,7 +892,7 @@ TEST_CASE("SimulateElevatorBattery: RealBatterySagsUnderLoadButStaysPositive",
   Params p;
   p.batteryResistanceOhms = 0.015;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 1u);
+  REQUIRE(rows.size() > 1U);
 
   double minVoltage = p.batteryVoltageVolts;
   for (const auto& row : rows) {
@@ -880,7 +913,7 @@ TEST_CASE("SimulateElevatorBattery: FilterIsSeededAtNominalVoltage",
   p.batteryResistanceOhms = 0.015;
   p.batteryVoltageFilterTimeConstantSeconds = 0.1;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 1u);
+  REQUIRE(rows.size() > 1U);
 
   CHECK_THAT(rows.front().batteryVoltageVolts,
              WithinAbs(p.batteryVoltageVolts, 0.5));
@@ -902,7 +935,7 @@ TEST_CASE("SimulateElevatorEnergy: IsTheCumulativeIntegralOfSupplyPower",
   p.batteryResistanceOhms = 0.0;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 1u);
+  REQUIRE(rows.size() > 1U);
 
   const double firstExpected = rows.front().supplyCurrentDrawAmps *
                                p.batteryVoltageVolts * p.simTimestep;
@@ -914,14 +947,14 @@ TEST_CASE("SimulateElevatorEnergy: IsTheCumulativeIntegralOfSupplyPower",
     const double expected =
         rows[i].supplyCurrentDrawAmps * p.batteryVoltageVolts * p.simTimestep;
     CHECK_THAT(rows[i].energyJoules - rows[i - 1].energyJoules,
-               WithinAbs(expected, std::abs(expected) * 1e-9 + 1e-12));
+               WithinAbs(expected, (std::abs(expected) * 1e-9) + 1e-12));
   }
 }
 
 TEST_CASE("SimulateElevatorEnergy: NetEnergyIsPositiveWhenLifting",
           "[SimulateElevatorEnergy]") {
   Params p;
-  p.angleRadians = M_PI / 2.0;
+  p.angleRadians = std::numbers::pi / 2.0;
   const auto rows = Simulate(p);
   REQUIRE_FALSE(rows.empty());
 
@@ -937,10 +970,10 @@ TEST_CASE("SimulateElevatorEnergy: NetEnergyIsPositiveWhenLifting",
 TEST_CASE("SimulateElevatorEnergy: RegenerationCreditsEnergyBack",
           "[SimulateElevatorEnergy]") {
   Params p;
-  p.angleRadians = M_PI / 2.0;
+  p.angleRadians = std::numbers::pi / 2.0;
   p.decimation = 1;
   const auto rows = Simulate(p);
-  REQUIRE(rows.size() > 1u);
+  REQUIRE(rows.size() > 1U);
 
   bool sawRegen = false;
   for (size_t i = 1; i < rows.size(); ++i) {

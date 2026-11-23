@@ -126,8 +126,17 @@ RUN git clone --depth 1 --branch "${CATCH2_VERSION}" \
         -DCATCH_INSTALL_EXTRAS=ON \
     && cmake --build /catch2-build --target install
 
-# ---- Stage: final ----
-FROM base
+FROM base AS clang-tidy
+
+# renovate: datasource=pypi depName=clang-tidy
+ARG CLANG_TIDY_VERSION=23.1.4
+
+RUN pip3 install --no-cache-dir --break-system-packages \
+        "clang-tidy==${CLANG_TIDY_VERSION}" \
+    && cp -r "$(python3 -c 'import clang_tidy, os; print(os.path.dirname(clang_tidy.__file__))')/data" \
+        /opt/clang-tidy
+
+FROM base AS sources
 
 COPY --from=catch2-libs /catch2-install /catch2-install
 COPY --from=wpilib-libs /wpilib-artifacts /wpilib-artifacts
@@ -149,15 +158,29 @@ WORKDIR /src
 # Build context is wpilib/ — paths here are relative to that root.
 COPY tests/ /src/tests/
 # Every header under test, by glob: adding a test must not require a Dockerfile
-# edit. Only .h files are taken, so bindings.cc, CMakeLists.txt,
+# edit. Only .h files and bindings.cc are taken, so CMakeLists.txt,
 # emscripten_toolchain.cmake and stubs/ stay out.
 #
 # Do not do this in the wpilib-libs stage above: that stage's COPY lines sit
 # above the expensive WPILib compile, so a glob there would rebuild the whole
 # library set on every header edit.
-COPY patches/wpilibc/wasm/*.h /src/patches/wpilibc/wasm/
+COPY patches/wpilibc/wasm/*.h patches/wpilibc/wasm/bindings.cc /src/patches/wpilibc/wasm/
 
 WORKDIR /src/tests/build
+
+FROM sources AS lint
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+COPY --from=clang-tidy /opt/clang-tidy /opt/clang-tidy
+COPY .clang-tidy /src/.clang-tidy
+
+RUN emcmake cmake .. -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+    && read -ra cflags <<< "$(em++ -fwasm-exceptions --cflags)" \
+    && printf '%s\n' /src/tests/*.cc /src/patches/wpilibc/wasm/bindings.cc \
+      | xargs -P"$(nproc)" -n1 /opt/clang-tidy/bin/clang-tidy -p . --quiet \
+          "${cflags[@]/#/--extra-arg-before=}"
+
+FROM sources
 
 RUN emcmake cmake .. \
         -G Ninja \

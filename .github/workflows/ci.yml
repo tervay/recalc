@@ -61,6 +61,16 @@ jobs:
       - name: Run tests
         run: docker run --rm recalc-wpilib-tests:ci
 
+      - name: Lint C++
+        uses: docker/build-push-action@v7
+        with:
+          context: ./wpilib
+          file: ./wpilib/tests/Dockerfile
+          target: lint
+          build-args: |
+            WPILIB_REPO=${{ env.WPILIB_REPO }}
+            WPILIB_COMMIT=${{ env.WPILIB_COMMIT }}
+
   unit-tests:
     runs-on: ubuntu-latest
 

@@ -1,14 +1,19 @@
 #include "feedback_gains.h"
 
 #include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers.hpp>
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
-#include <cmath>
 #include <stdexcept>
 
 #include "wpi/math/controller/LinearQuadraticRegulator.hpp"
+#include "wpi/math/linalg/EigenCore.hpp"
 #include "wpi/math/system/DCMotor.hpp"
 #include "wpi/math/system/LinearSystem.hpp"
 #include "wpi/math/system/Models.hpp"
+#include "wpi/units/length.hpp"
+#include "wpi/units/mass.hpp"
+#include "wpi/units/moment_of_inertia.hpp"
+#include "wpi/units/time.hpp"
 
 using Catch::Matchers::WithinAbs;
 
@@ -21,7 +26,7 @@ static constexpr double kTol = 1e-9;
 namespace {
 class ElevatorFeedbackGainsTest {
  protected:
-  const wpi::math::DCMotor motor = wpi::math::DCMotor::NEO(1);
+  wpi::math::DCMotor motor = wpi::math::DCMotor::NEO(1);
   static constexpr double kGearing = 10.0;
   static constexpr double kMassKg = 5.0;
   static constexpr double kSpoolRadiusMeters = 0.025;
@@ -41,7 +46,7 @@ class ElevatorFeedbackGainsTest {
 TEST_CASE_METHOD(ElevatorFeedbackGainsTest,
                  "ElevatorFeedbackGainsTest: MatchesDirectLqrConstruction",
                  "[ElevatorFeedbackGainsTest]") {
-  auto idealPlantFull = wpi::math::Models::ElevatorFromPhysicalConstants(
+  const auto idealPlantFull = wpi::math::Models::ElevatorFromPhysicalConstants(
       motor, wpi::units::kilogram_t(kMassKg),
       wpi::units::meter_t(kSpoolRadiusMeters), kGearing);
 
@@ -49,13 +54,13 @@ TEST_CASE_METHOD(ElevatorFeedbackGainsTest,
   // A(0,1) is the kinematic v = xdot relation and must stay exactly 1.
   wpi::math::Matrixd<2, 2> controllerA = idealPlantFull.A();
   controllerA(1, 1) *= kEfficiency;
-  wpi::math::Matrixd<2, 1> controllerB = idealPlantFull.B() * kEfficiency;
+  const wpi::math::Matrixd<2, 1> controllerB = idealPlantFull.B() * kEfficiency;
   wpi::math::Matrixd<1, 2> controllerC;
   controllerC << 1, 0;
   wpi::math::Matrixd<1, 1> controllerD;
   controllerD << 0;
-  wpi::math::LinearSystem<2, 1, 1> plant{controllerA, controllerB, controllerC,
-                                         controllerD};
+  const wpi::math::LinearSystem<2, 1, 1> plant{controllerA, controllerB,
+                                               controllerC, controllerD};
 
   wpi::math::LinearQuadraticRegulator<2, 1> expected{
       plant,
@@ -77,7 +82,7 @@ TEST_CASE_METHOD(ElevatorFeedbackGainsTest,
 TEST_CASE_METHOD(ElevatorFeedbackGainsTest,
                  "ElevatorFeedbackGainsTest: ProducesPlausiblePositiveGains",
                  "[ElevatorFeedbackGainsTest]") {
-  FeedbackGains gains = ComputeElevatorFeedbackGainsCore(
+  const FeedbackGains gains = ComputeElevatorFeedbackGainsCore(
       motor, kGearing, kMassKg, kSpoolRadiusMeters, kEfficiency,
       kQPositionMeters, kQVelocityMPS, kRVolts, kDtSeconds,
       kSensorDelaySeconds);
@@ -92,11 +97,11 @@ TEST_CASE_METHOD(
     ElevatorFeedbackGainsTest,
     "ElevatorFeedbackGainsTest: TighteningPositionToleranceIncreasesKP",
     "[ElevatorFeedbackGainsTest]") {
-  FeedbackGains loose = ComputeElevatorFeedbackGainsCore(
+  const FeedbackGains loose = ComputeElevatorFeedbackGainsCore(
       motor, kGearing, kMassKg, kSpoolRadiusMeters, kEfficiency,
       /*qPositionMeters=*/0.05, kQVelocityMPS, kRVolts, kDtSeconds,
       kSensorDelaySeconds);
-  FeedbackGains tight = ComputeElevatorFeedbackGainsCore(
+  const FeedbackGains tight = ComputeElevatorFeedbackGainsCore(
       motor, kGearing, kMassKg, kSpoolRadiusMeters, kEfficiency,
       /*qPositionMeters=*/0.005, kQVelocityMPS, kRVolts, kDtSeconds,
       kSensorDelaySeconds);
@@ -120,11 +125,11 @@ TEST_CASE_METHOD(
     ElevatorFeedbackGainsTest,
     "ElevatorFeedbackGainsTest: TighteningVelocityToleranceDecreasesKD",
     "[ElevatorFeedbackGainsTest]") {
-  FeedbackGains loose = ComputeElevatorFeedbackGainsCore(
+  const FeedbackGains loose = ComputeElevatorFeedbackGainsCore(
       motor, kGearing, kMassKg, kSpoolRadiusMeters, kEfficiency,
       kQPositionMeters, /*qVelocityMPS=*/0.5, kRVolts, kDtSeconds,
       kSensorDelaySeconds);
-  FeedbackGains tight = ComputeElevatorFeedbackGainsCore(
+  const FeedbackGains tight = ComputeElevatorFeedbackGainsCore(
       motor, kGearing, kMassKg, kSpoolRadiusMeters, kEfficiency,
       kQPositionMeters, /*qVelocityMPS=*/0.05, kRVolts, kDtSeconds,
       kSensorDelaySeconds);
@@ -171,7 +176,7 @@ TEST_CASE_METHOD(
 namespace {
 class ArmFeedbackGainsTest {
  protected:
-  const wpi::math::DCMotor motor = wpi::math::DCMotor::Falcon500(1);
+  wpi::math::DCMotor motor = wpi::math::DCMotor::Falcon500(1);
   static constexpr double kGearing = 100.0;
   static constexpr double kMomentOfInertiaKgMSquared = 2.0;
   static constexpr double kEfficiency = 0.9;
@@ -186,7 +191,7 @@ class ArmFeedbackGainsTest {
 TEST_CASE_METHOD(ArmFeedbackGainsTest,
                  "ArmFeedbackGainsTest: MatchesDirectLqrConstruction",
                  "[ArmFeedbackGainsTest]") {
-  auto idealPlantFull =
+  const auto idealPlantFull =
       wpi::math::Models::SingleJointedArmFromPhysicalConstants(
           motor,
           wpi::units::kilogram_square_meter_t(kMomentOfInertiaKgMSquared),
@@ -196,13 +201,13 @@ TEST_CASE_METHOD(ArmFeedbackGainsTest,
   // A(0,1) is the kinematic v = xdot relation and must stay exactly 1.
   wpi::math::Matrixd<2, 2> controllerA = idealPlantFull.A();
   controllerA(1, 1) *= kEfficiency;
-  wpi::math::Matrixd<2, 1> controllerB = idealPlantFull.B() * kEfficiency;
+  const wpi::math::Matrixd<2, 1> controllerB = idealPlantFull.B() * kEfficiency;
   wpi::math::Matrixd<1, 2> controllerC;
   controllerC << 1, 0;
   wpi::math::Matrixd<1, 1> controllerD;
   controllerD << 0;
-  wpi::math::LinearSystem<2, 1, 1> plant{controllerA, controllerB, controllerC,
-                                         controllerD};
+  const wpi::math::LinearSystem<2, 1, 1> plant{controllerA, controllerB,
+                                               controllerC, controllerD};
 
   wpi::math::LinearQuadraticRegulator<2, 1> expected{
       plant,
@@ -223,7 +228,7 @@ TEST_CASE_METHOD(ArmFeedbackGainsTest,
 TEST_CASE_METHOD(ArmFeedbackGainsTest,
                  "ArmFeedbackGainsTest: ProducesPlausiblePositiveGains",
                  "[ArmFeedbackGainsTest]") {
-  FeedbackGains gains = ComputeArmFeedbackGainsCore(
+  const FeedbackGains gains = ComputeArmFeedbackGainsCore(
       motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency, kQPositionRad,
       kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds);
 
@@ -259,7 +264,7 @@ TEST_CASE_METHOD(ArmFeedbackGainsTest,
 namespace {
 class FlywheelFeedbackGainsTest {
  protected:
-  const wpi::math::DCMotor motor = wpi::math::DCMotor::KrakenX60(1);
+  wpi::math::DCMotor motor = wpi::math::DCMotor::KrakenX60(1);
   static constexpr double kGearing = 2.0;
   static constexpr double kMomentOfInertiaKgMSquared = 0.01;
   static constexpr double kEfficiency = 1.0;
@@ -273,15 +278,15 @@ class FlywheelFeedbackGainsTest {
 TEST_CASE_METHOD(FlywheelFeedbackGainsTest,
                  "FlywheelFeedbackGainsTest: MatchesDirectLqrConstruction",
                  "[FlywheelFeedbackGainsTest]") {
-  auto idealPlant = wpi::math::Models::FlywheelFromPhysicalConstants(
+  const auto idealPlant = wpi::math::Models::FlywheelFromPhysicalConstants(
       motor, wpi::units::kilogram_square_meter_t(kMomentOfInertiaKgMSquared),
       kGearing);
 
   // Efficiency scales the whole state derivative, so A moves with B.
-  wpi::math::Matrixd<1, 1> controllerA = idealPlant.A() * kEfficiency;
-  wpi::math::Matrixd<1, 1> controllerB = idealPlant.B() * kEfficiency;
-  wpi::math::LinearSystem<1, 1, 1> plant{controllerA, controllerB,
-                                         idealPlant.C(), idealPlant.D()};
+  const wpi::math::Matrixd<1, 1> controllerA = idealPlant.A() * kEfficiency;
+  const wpi::math::Matrixd<1, 1> controllerB = idealPlant.B() * kEfficiency;
+  const wpi::math::LinearSystem<1, 1, 1> plant{controllerA, controllerB,
+                                               idealPlant.C(), idealPlant.D()};
 
   wpi::math::LinearQuadraticRegulator<1, 1> expected{
       plant,
@@ -301,7 +306,7 @@ TEST_CASE_METHOD(FlywheelFeedbackGainsTest,
 TEST_CASE_METHOD(FlywheelFeedbackGainsTest,
                  "FlywheelFeedbackGainsTest: KDIsAlwaysZero",
                  "[FlywheelFeedbackGainsTest]") {
-  FeedbackGains gains = ComputeFlywheelFeedbackGainsCore(
+  const FeedbackGains gains = ComputeFlywheelFeedbackGainsCore(
       motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency,
       kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds);
 
@@ -311,7 +316,7 @@ TEST_CASE_METHOD(FlywheelFeedbackGainsTest,
 TEST_CASE_METHOD(FlywheelFeedbackGainsTest,
                  "FlywheelFeedbackGainsTest: ProducesPlausiblePositiveGain",
                  "[FlywheelFeedbackGainsTest]") {
-  FeedbackGains gains = ComputeFlywheelFeedbackGainsCore(
+  const FeedbackGains gains = ComputeFlywheelFeedbackGainsCore(
       motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency,
       kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds);
 
@@ -322,10 +327,10 @@ TEST_CASE_METHOD(
     FlywheelFeedbackGainsTest,
     "FlywheelFeedbackGainsTest: TighteningVelocityToleranceIncreasesKP",
     "[FlywheelFeedbackGainsTest]") {
-  FeedbackGains loose = ComputeFlywheelFeedbackGainsCore(
+  const FeedbackGains loose = ComputeFlywheelFeedbackGainsCore(
       motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency,
       /*qVelocityRadPerSec=*/50.0, kRVolts, kDtSeconds, kSensorDelaySeconds);
-  FeedbackGains tight = ComputeFlywheelFeedbackGainsCore(
+  const FeedbackGains tight = ComputeFlywheelFeedbackGainsCore(
       motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency,
       /*qVelocityRadPerSec=*/1.0, kRVolts, kDtSeconds, kSensorDelaySeconds);
 

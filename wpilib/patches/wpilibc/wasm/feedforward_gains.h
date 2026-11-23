@@ -58,7 +58,7 @@ EMSCRIPTEN_DECLARE_VAL_TYPE(FeedforwardGainsVal);
 inline FeedforwardGains ComputeLinearFeedforwardGainsCore(
     const wpi::math::DCMotor& motor, double gearing, double loadKg,
     double spoolRadiusMeters, double efficiency, double angleRadians) {
-  auto idealPlantFull = wpi::math::Models::ElevatorFromPhysicalConstants(
+  const auto idealPlantFull = wpi::math::Models::ElevatorFromPhysicalConstants(
       motor, wpi::units::kilogram_t(loadKg),
       wpi::units::meter_t(spoolRadiusMeters), gearing);
 
@@ -71,7 +71,7 @@ inline FeedforwardGains ComputeLinearFeedforwardGainsCore(
                     kFeedforwardGravityMetersPerSecondSquared *
                     std::sin(angleRadians);
 
-  return FeedforwardGains{kV, kA, kG};
+  return FeedforwardGains{.kV = kV, .kA = kA, .kG = kG};
 }
 
 // Computes single-jointed arm feedforward gains.
@@ -92,7 +92,7 @@ inline FeedforwardGains ComputeLinearFeedforwardGainsCore(
 inline FeedforwardGains ComputeAngularFeedforwardGainsCore(
     const wpi::math::DCMotor& motor, double gearing, double momentOfInertiaKgM2,
     double efficiency, double comMassKg, double comLengthMeters) {
-  auto idealPlantFull =
+  const auto idealPlantFull =
       wpi::math::Models::SingleJointedArmFromPhysicalConstants(
           motor, wpi::units::kilogram_square_meter_t(momentOfInertiaKgM2),
           gearing);
@@ -105,7 +105,7 @@ inline FeedforwardGains ComputeAngularFeedforwardGainsCore(
   const double kG = kA * kFeedforwardGravityMetersPerSecondSquared *
                     comLengthMeters * comMassKg / momentOfInertiaKgM2;
 
-  return FeedforwardGains{kV, kA, kG};
+  return FeedforwardGains{.kV = kV, .kA = kA, .kG = kG};
 }
 
 // Computes flywheel feedforward gains.
@@ -116,13 +116,13 @@ inline FeedforwardGains ComputeAngularFeedforwardGainsCore(
 inline FeedforwardGains ComputeFlywheelFeedforwardGainsCore(
     const wpi::math::DCMotor& motor, double gearing, double momentOfInertiaKgM2,
     double efficiency) {
-  auto idealPlant = wpi::math::Models::FlywheelFromPhysicalConstants(
+  const auto idealPlant = wpi::math::Models::FlywheelFromPhysicalConstants(
       motor, wpi::units::kilogram_square_meter_t(momentOfInertiaKgM2), gearing);
 
   const double kaIdeal = 1.0 / idealPlant.B()(0, 0);
   const double kvIdeal = -idealPlant.A()(0, 0) / idealPlant.B()(0, 0);
 
-  return FeedforwardGains{kvIdeal, kaIdeal / efficiency, 0.0};
+  return FeedforwardGains{.kV = kvIdeal, .kA = kaIdeal / efficiency, .kG = 0.0};
 }
 
 // ============================================================================
@@ -141,7 +141,8 @@ inline FeedforwardGainsVal FeedforwardGainsToVal(
 }
 
 inline FeedforwardGainsVal ZeroFeedforwardGains() {
-  return FeedforwardGainsToVal(FeedforwardGains{0.0, 0.0, 0.0});
+  return FeedforwardGainsToVal(
+      FeedforwardGains{.kV = 0.0, .kA = 0.0, .kG = 0.0});
 }
 
 // Public entry point for linear feedforward gains. Wraps
@@ -151,8 +152,8 @@ inline FeedforwardGainsVal ZeroFeedforwardGains() {
 // (rather than left to throw) because it would otherwise silently produce an
 // infinite or wrongly-signed result via division, not a thrown exception.
 inline FeedforwardGainsVal ComputeLinearFeedforwardGains(
-    DCMotorWasm* motor, double gearing, double loadKg, double spoolRadiusMeters,
-    double efficiency, double angleRadians) {
+    const DCMotorWasm* motor, double gearing, double loadKg,
+    double spoolRadiusMeters, double efficiency, double angleRadians) {
   if (gearing <= 0.0 || spoolRadiusMeters <= 0.0 || efficiency <= 0.0) {
     return ZeroFeedforwardGains();
   }
@@ -179,7 +180,7 @@ inline FeedforwardGainsVal ComputeLinearFeedforwardGains(
 // Public entry point for single-jointed arm feedforward gains. Same
 // try-catch and efficiency-guard idiom as ComputeLinearFeedforwardGains.
 inline FeedforwardGainsVal ComputeAngularFeedforwardGains(
-    DCMotorWasm* motor, double gearing, double momentOfInertiaKgM2,
+    const DCMotorWasm* motor, double gearing, double momentOfInertiaKgM2,
     double efficiency, double comMassKg, double comLengthMeters) {
   if (gearing <= 0.0 || momentOfInertiaKgM2 <= 0.0 || efficiency <= 0.0) {
     return ZeroFeedforwardGains();
@@ -207,7 +208,7 @@ inline FeedforwardGainsVal ComputeAngularFeedforwardGains(
 // Public entry point for flywheel feedforward gains. Same try-catch and
 // efficiency-guard idiom as ComputeLinearFeedforwardGains.
 inline FeedforwardGainsVal ComputeFlywheelFeedforwardGains(
-    DCMotorWasm* motor, double gearing, double momentOfInertiaKgM2,
+    const DCMotorWasm* motor, double gearing, double momentOfInertiaKgM2,
     double efficiency) {
   if (gearing <= 0.0 || momentOfInertiaKgM2 <= 0.0 || efficiency <= 0.0) {
     return ZeroFeedforwardGains();

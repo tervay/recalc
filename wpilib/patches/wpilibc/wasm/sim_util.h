@@ -18,17 +18,17 @@ inline double ClampVoltageForCurrentLimits(double vApplied, double vBackEmf,
                                            double supplyLimitAmps,
                                            double vSupply) {
   // Stator current limit: |V_applied - V_backEmf| / R <= I_stator_limit
-  const double minATerm = vBackEmf - statorLimitAmps * rOhms;
-  const double maxATerm = vBackEmf + statorLimitAmps * rOhms;
+  const double minATerm = vBackEmf - (statorLimitAmps * rOhms);
+  const double maxATerm = vBackEmf + (statorLimitAmps * rOhms);
 
   // Supply current limit (quadratic): V_applied^2 - V_backEmf*V_applied -
   // I_supply_limit*R*V_supply <= 0
   const double toSqrt =
-      (vBackEmf * vBackEmf) / 4.0 + supplyLimitAmps * rOhms * vSupply;
+      ((vBackEmf * vBackEmf) / 4.0) + (supplyLimitAmps * rOhms * vSupply);
   const double sqrted = std::sqrt(std::max(0.0, toSqrt));
 
-  const double minBTerm = vBackEmf / 2.0 - sqrted;
-  const double maxBTerm = vBackEmf / 2.0 + sqrted;
+  const double minBTerm = (vBackEmf / 2.0) - sqrted;
+  const double maxBTerm = (vBackEmf / 2.0) + sqrted;
 
   const double vMin = std::max(minATerm, minBTerm);
   const double vMax = std::min(maxATerm, maxBTerm);
@@ -79,8 +79,10 @@ emscripten::val DecimateToJsArray(
   for (int i = 0; i < n; ++i) {
     const bool isDecimated = (i % decimation == 0);
     const bool isLast = (i == n - 1) && (i > 0) && (i % decimation != 0);
-    if (!isDecimated && !isLast) continue;
-    result.call<void>("push", serialize(states[i]));
+    if (!isDecimated && !isLast) {
+      continue;
+    }
+    result.call<void>("push", serialize(states.at(i)));
   }
   return result;
 }
