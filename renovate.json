@@ -119,8 +119,8 @@
       "matchPackageNames": ["pnpm"]
     },
     {
-      "description": "Stay on Temurin 21 LTS; the JDK only feeds the wpilib build container",
-      "matchPackageNames": ["java"],
+      "description": "Stay on Temurin 21 LTS; the JDK only feeds the wpilib build container. Matched by depName because the mise manager looks Java up under the packageName java-jdk.",
+      "matchDepNames": ["java"],
       "matchUpdateTypes": ["major"],
       "enabled": false
     },
