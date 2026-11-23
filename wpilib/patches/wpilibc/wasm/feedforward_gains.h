@@ -67,7 +67,7 @@ struct FlywheelFeedforwardParams {
 
 // Computes linear (elevator/arm-extension-style) feedforward gains.
 //
-// Builds the ideal plant via Models::ElevatorFromPhysicalConstants and
+// Builds the ideal plant via Models::LinearPositionFromPhysicalConstants and
 // extracts kV/kA from A/B exactly as the plant's B matrix maps voltage to
 // acceleration.
 //
@@ -79,9 +79,10 @@ struct FlywheelFeedforwardParams {
 // is set by the back-EMF balance, which efficiency cancels out of.
 inline FeedforwardGains ComputeLinearFeedforwardGainsCore(
     const wpi::math::DCMotor& motor, const LinearFeedforwardParams& params) {
-  const auto idealPlantFull = wpi::math::Models::ElevatorFromPhysicalConstants(
-      motor, wpi::units::kilogram_t(params.loadKg),
-      wpi::units::meter_t(params.spoolRadiusMeters), params.gearing);
+  const auto idealPlantFull =
+      wpi::math::Models::LinearPositionFromPhysicalConstants(
+          motor, wpi::units::kilogram_t(params.loadKg),
+          wpi::units::meter_t(params.spoolRadiusMeters), params.gearing);
 
   const double kaIdeal = 1.0 / idealPlantFull.B()(1, 0);
   const double kvIdeal = -idealPlantFull.A()(1, 1) / idealPlantFull.B()(1, 0);
@@ -98,7 +99,7 @@ inline FeedforwardGains ComputeLinearFeedforwardGainsCore(
 // Computes single-jointed arm feedforward gains.
 //
 // Same kV/kA idiom as ComputeLinearFeedforwardGainsCore, using
-// Models::SingleJointedArmFromPhysicalConstants for the ideal plant.
+// Models::AngularPositionFromPhysicalConstants for the ideal plant.
 //
 // kG is the voltage required to hold the arm horizontal (the maximum
 // gravity-torque case), matching kVkA.ts's calculateAngularFeedforwardKg
@@ -113,7 +114,7 @@ inline FeedforwardGains ComputeLinearFeedforwardGainsCore(
 inline FeedforwardGains ComputeAngularFeedforwardGainsCore(
     const wpi::math::DCMotor& motor, const AngularFeedforwardParams& params) {
   const auto idealPlantFull =
-      wpi::math::Models::SingleJointedArmFromPhysicalConstants(
+      wpi::math::Models::AngularPositionFromPhysicalConstants(
           motor,
           wpi::units::kilogram_square_meter_t(params.momentOfInertiaKgMSquared),
           params.gearing);
@@ -132,15 +133,16 @@ inline FeedforwardGains ComputeAngularFeedforwardGainsCore(
 
 // Computes flywheel feedforward gains.
 //
-// Same kV/kA idiom, using Models::FlywheelFromPhysicalConstants. Flywheels
-// are not gravity-loaded (the load spins about an axis with no net torque
-// due to gravity), so kG is always 0.
+// Same kV/kA idiom, using Models::AngularVelocityFromPhysicalConstants.
+// Flywheels are not gravity-loaded (the load spins about an axis with no net
+// torque due to gravity), so kG is always 0.
 inline FeedforwardGains ComputeFlywheelFeedforwardGainsCore(
     const wpi::math::DCMotor& motor, const FlywheelFeedforwardParams& params) {
-  const auto idealPlant = wpi::math::Models::FlywheelFromPhysicalConstants(
-      motor,
-      wpi::units::kilogram_square_meter_t(params.momentOfInertiaKgMSquared),
-      params.gearing);
+  const auto idealPlant =
+      wpi::math::Models::AngularVelocityFromPhysicalConstants(
+          motor,
+          wpi::units::kilogram_square_meter_t(params.momentOfInertiaKgMSquared),
+          params.gearing);
 
   const double kaIdeal = 1.0 / idealPlant.B()(0, 0);
   const double kvIdeal = -idealPlant.A()(0, 0) / idealPlant.B()(0, 0);

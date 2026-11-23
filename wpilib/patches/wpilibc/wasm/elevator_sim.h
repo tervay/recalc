@@ -197,9 +197,10 @@ inline emscripten::val SimulateElevatorImpl(const DCMotorWasm* motor,
       wpi::units::volt_t(params.batteryVoltageVolts));
 
   // Build ideal plant from physical constants for deriving kG and feedforward.
-  const auto idealPlantFull = wpi::math::Models::ElevatorFromPhysicalConstants(
-      motor->getMotor(), wpi::units::kilogram_t(loadKg),
-      wpi::units::meter_t(params.spoolRadiusMeters), params.gearing);
+  const auto idealPlantFull =
+      wpi::math::Models::LinearPositionFromPhysicalConstants(
+          motor->getMotor(), wpi::units::kilogram_t(loadKg),
+          wpi::units::meter_t(params.spoolRadiusMeters), params.gearing);
 
   // Derive kG volts from the plant's B matrix (voltage to acceleration gain).
   // u = a / B(1,0) where a is gravity's acceleration along the mechanism.

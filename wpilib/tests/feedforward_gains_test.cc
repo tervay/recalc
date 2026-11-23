@@ -52,20 +52,21 @@ struct LinearConfig {
 
 // (a) Degenerate equivalence vs upstream WPILib: at efficiency = 1.0 and
 // angle = 0, kV/kA must match values extracted directly from
-// Models::ElevatorFromPhysicalConstants, and kG must be 0.
+// Models::LinearPositionFromPhysicalConstants, and kG must be 0.
 TEST_CASE(
     "LinearFeedforwardEquivalenceTest: "
     "MatchesUpstreamModelsAtUnityEfficiencyAndZeroAngle",
     "[LinearFeedforwardEquivalenceTest]") {
   const LinearConfig cfg =
-      GENERATE(LinearConfig{wpi::math::DCMotor::NEO(1), 10.0, 5.0, 0.025},
+      GENERATE(LinearConfig{wpi::math::DCMotor::Neo(1), 10.0, 5.0, 0.025},
                LinearConfig{wpi::math::DCMotor::Falcon500(1), 20.0, 10.0, 0.05},
                LinearConfig{wpi::math::DCMotor::KrakenX60(2), 5.0, 2.5, 0.019},
-               LinearConfig{wpi::math::DCMotor::NEO550(1), 15.0, 1.0, 0.03});
+               LinearConfig{wpi::math::DCMotor::Neo550(1), 15.0, 1.0, 0.03});
   CAPTURE(cfg.gearing, cfg.loadKg, cfg.spoolRadiusMeters);
-  const auto idealPlant = wpi::math::Models::ElevatorFromPhysicalConstants(
-      cfg.motor, wpi::units::kilogram_t(cfg.loadKg),
-      wpi::units::meter_t(cfg.spoolRadiusMeters), cfg.gearing);
+  const auto idealPlant =
+      wpi::math::Models::LinearPositionFromPhysicalConstants(
+          cfg.motor, wpi::units::kilogram_t(cfg.loadKg),
+          wpi::units::meter_t(cfg.spoolRadiusMeters), cfg.gearing);
 
   const double expectedKv = -idealPlant.A()(1, 1) / idealPlant.B()(1, 0);
   const double expectedKa = 1.0 / idealPlant.B()(1, 0);
@@ -93,7 +94,7 @@ TEST_CASE(
     "EfficiencyIncreasesKaAndKgMagnitudeButNotKv",
     "[LinearFeedforwardMonotonicityTest]") {
   const LinearConfig cfg = GENERATE(
-      LinearConfig{wpi::math::DCMotor::NEO(1), 12.0, 4.0, 0.02},
+      LinearConfig{wpi::math::DCMotor::Neo(1), 12.0, 4.0, 0.02},
       LinearConfig{wpi::math::DCMotor::Falcon500(1), 8.0, 6.0, 0.03},
       LinearConfig{wpi::math::DCMotor::KrakenX60(1), 15.0, 3.0, 0.025});
   CAPTURE(cfg.gearing, cfg.loadKg, cfg.spoolRadiusMeters);
@@ -131,7 +132,7 @@ TEST_CASE("LinearFeedforwardGainsTest: KgMonotonicallyIncreasesWithAngle",
   constexpr double kLoadKg = 5.0;
   constexpr double kSpoolRadiusMeters = 0.025;
   constexpr double kEfficiency = 0.85;
-  const wpi::math::DCMotor motor = wpi::math::DCMotor::NEO(1);
+  const wpi::math::DCMotor motor = wpi::math::DCMotor::Neo(1);
 
   const std::vector<double> anglesDeg = {0.0, 30.0, 60.0, 90.0};
   double prevKg = -1.0;
@@ -158,7 +159,7 @@ TEST_CASE("LinearFeedforwardGainsTest: KgMonotonicallyIncreasesWithAngle",
 TEST_CASE("LinearFeedforwardGainsTest: KgIsZeroAtHorizontalAngle",
           "[LinearFeedforwardGainsTest]") {
   FeedforwardGains gains = ComputeLinearFeedforwardGainsCore(
-      wpi::math::DCMotor::NEO(1), {
+      wpi::math::DCMotor::Neo(1), {
                                       .gearing = 10.0,
                                       .loadKg = 5.0,
                                       .spoolRadiusMeters = 0.025,
@@ -176,7 +177,7 @@ TEST_CASE("LinearFeedforwardGainsTest: KgAtVerticalAngleMatchesClosedForm",
   constexpr double kLoadKg = 5.0;
   constexpr double kSpoolRadiusMeters = 0.025;
   constexpr double kEfficiency = 0.85;
-  const wpi::math::DCMotor motor = wpi::math::DCMotor::NEO(1);
+  const wpi::math::DCMotor motor = wpi::math::DCMotor::Neo(1);
 
   FeedforwardGains vertical = ComputeLinearFeedforwardGainsCore(
       motor, {
@@ -195,7 +196,7 @@ namespace {
 class LinearFeedforwardGuardTest {
  protected:
   std::unique_ptr<DCMotorWasm> motorWasm{
-      MakeMotorWasm(wpi::math::DCMotor::NEO(1), 1),
+      MakeMotorWasm(wpi::math::DCMotor::Neo(1), 1),
   };
 };
 }  // namespace
@@ -268,13 +269,13 @@ TEST_CASE(
     "AngularFeedforwardEquivalenceTest: MatchesUpstreamModelsAtUnityEfficiency",
     "[AngularFeedforwardEquivalenceTest]") {
   const AngularConfig cfg =
-      GENERATE(AngularConfig{wpi::math::DCMotor::NEO(1), 100.0, 2.0},
+      GENERATE(AngularConfig{wpi::math::DCMotor::Neo(1), 100.0, 2.0},
                AngularConfig{wpi::math::DCMotor::Falcon500(1), 150.0, 3.5},
                AngularConfig{wpi::math::DCMotor::KrakenX60(2), 60.0, 1.2},
-               AngularConfig{wpi::math::DCMotor::NEO550(1), 200.0, 0.5});
+               AngularConfig{wpi::math::DCMotor::Neo550(1), 200.0, 0.5});
   CAPTURE(cfg.gearing, cfg.momentOfInertiaKgM2);
   const auto idealPlant =
-      wpi::math::Models::SingleJointedArmFromPhysicalConstants(
+      wpi::math::Models::AngularPositionFromPhysicalConstants(
           cfg.motor,
           wpi::units::kilogram_square_meter_t(cfg.momentOfInertiaKgM2),
           cfg.gearing);
@@ -332,7 +333,7 @@ TEST_CASE(
     "EfficiencyIncreasesKaAndKgMagnitudeButNotKv",
     "[AngularFeedforwardMonotonicityTest]") {
   const AngularConfig cfg =
-      GENERATE(AngularConfig{wpi::math::DCMotor::NEO(1), 80.0, 1.5},
+      GENERATE(AngularConfig{wpi::math::DCMotor::Neo(1), 80.0, 1.5},
                AngularConfig{wpi::math::DCMotor::Falcon500(1), 120.0, 2.5},
                AngularConfig{wpi::math::DCMotor::KrakenX60(1), 60.0, 1.0});
   CAPTURE(cfg.gearing, cfg.momentOfInertiaKgM2);
@@ -442,14 +443,16 @@ TEST_CASE(
     "MatchesUpstreamModelsAtUnityEfficiency",
     "[FlywheelFeedforwardEquivalenceTest]") {
   const FlywheelConfig cfg =
-      GENERATE(FlywheelConfig{wpi::math::DCMotor::NEO(1), 1.0, 0.01},
+      GENERATE(FlywheelConfig{wpi::math::DCMotor::Neo(1), 1.0, 0.01},
                FlywheelConfig{wpi::math::DCMotor::Falcon500(1), 2.0, 0.02},
                FlywheelConfig{wpi::math::DCMotor::KrakenX60(3), 1.5, 0.05},
-               FlywheelConfig{wpi::math::DCMotor::NEO550(1), 3.0, 0.005});
+               FlywheelConfig{wpi::math::DCMotor::Neo550(1), 3.0, 0.005});
   CAPTURE(cfg.gearing, cfg.momentOfInertiaKgM2);
-  const auto idealPlant = wpi::math::Models::FlywheelFromPhysicalConstants(
-      cfg.motor, wpi::units::kilogram_square_meter_t(cfg.momentOfInertiaKgM2),
-      cfg.gearing);
+  const auto idealPlant =
+      wpi::math::Models::AngularVelocityFromPhysicalConstants(
+          cfg.motor,
+          wpi::units::kilogram_square_meter_t(cfg.momentOfInertiaKgM2),
+          cfg.gearing);
 
   const double expectedKv = -idealPlant.A()(0, 0) / idealPlant.B()(0, 0);
   const double expectedKa = 1.0 / idealPlant.B()(0, 0);
@@ -473,7 +476,7 @@ TEST_CASE(
     "EfficiencyIncreasesKaButNotKv",
     "[FlywheelFeedforwardMonotonicityTest]") {
   const FlywheelConfig cfg =
-      GENERATE(FlywheelConfig{wpi::math::DCMotor::NEO(1), 1.0, 0.02},
+      GENERATE(FlywheelConfig{wpi::math::DCMotor::Neo(1), 1.0, 0.02},
                FlywheelConfig{wpi::math::DCMotor::Falcon500(1), 2.0, 0.03},
                FlywheelConfig{wpi::math::DCMotor::KrakenX60(1), 1.5, 0.01});
   CAPTURE(cfg.gearing, cfg.momentOfInertiaKgM2);

@@ -82,9 +82,10 @@ struct FlywheelFeedbackParams {
 // discrete-time LQR and compensates for sensor latency.
 inline FeedbackGains ComputeElevatorFeedbackGainsCore(
     const wpi::math::DCMotor& motor, const ElevatorFeedbackParams& params) {
-  const auto idealPlantFull = wpi::math::Models::ElevatorFromPhysicalConstants(
-      motor, wpi::units::kilogram_t(params.massKg),
-      wpi::units::meter_t(params.spoolRadiusMeters), params.gearing);
+  const auto idealPlantFull =
+      wpi::math::Models::LinearPositionFromPhysicalConstants(
+          motor, wpi::units::kilogram_t(params.massKg),
+          wpi::units::meter_t(params.spoolRadiusMeters), params.gearing);
 
   // Efficiency scales the whole motor-side row, so A(1,1) moves with B.
   // A(0,1) is the kinematic derivative relation and must stay exactly 1.
@@ -114,11 +115,11 @@ inline FeedbackGains ComputeElevatorFeedbackGainsCore(
 // Computes single-jointed arm angle/angular-velocity feedback gains via LQR.
 //
 // Same idiom as ComputeElevatorFeedbackGainsCore, using
-// Models::SingleJointedArmFromPhysicalConstants for the ideal plant.
+// Models::AngularPositionFromPhysicalConstants for the ideal plant.
 inline FeedbackGains ComputeArmFeedbackGainsCore(
     const wpi::math::DCMotor& motor, const ArmFeedbackParams& params) {
   const auto idealPlantFull =
-      wpi::math::Models::SingleJointedArmFromPhysicalConstants(
+      wpi::math::Models::AngularPositionFromPhysicalConstants(
           motor,
           wpi::units::kilogram_square_meter_t(params.momentOfInertiaKgMSquared),
           params.gearing);
@@ -156,10 +157,11 @@ inline FeedbackGains ComputeArmFeedbackGainsCore(
 // C/D.
 inline FeedbackGains ComputeFlywheelFeedbackGainsCore(
     const wpi::math::DCMotor& motor, const FlywheelFeedbackParams& params) {
-  const auto idealPlant = wpi::math::Models::FlywheelFromPhysicalConstants(
-      motor,
-      wpi::units::kilogram_square_meter_t(params.momentOfInertiaKgMSquared),
-      params.gearing);
+  const auto idealPlant =
+      wpi::math::Models::AngularVelocityFromPhysicalConstants(
+          motor,
+          wpi::units::kilogram_square_meter_t(params.momentOfInertiaKgMSquared),
+          params.gearing);
 
   const wpi::math::Matrixd<1, 1> controllerA =
       idealPlant.A() * params.efficiency;

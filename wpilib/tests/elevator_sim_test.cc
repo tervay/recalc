@@ -65,7 +65,7 @@ std::unique_ptr<DCMotorWasm> MakeMotorWasm(const wpi::math::DCMotor& motor,
 auto IdealPlant(double loadKg = kLoadKg,
                 double spoolRadiusMeters = kSpoolRadiusMeters,
                 double gearing = kGearing) {
-  return wpi::math::Models::ElevatorFromPhysicalConstants(
+  return wpi::math::Models::LinearPositionFromPhysicalConstants(
       TestMotor(), wpi::units::kilogram_t(loadKg),
       wpi::units::meter_t(spoolRadiusMeters), gearing);
 }
@@ -541,9 +541,9 @@ TEST_CASE("SimulateElevatorGuards: ZeroGearingReturnsEmpty",
 
 // The public entry point must convert numerical failures into an empty array
 // with a console warning rather than letting the exception escape and abort the
-// worker. A non-positive load makes Models::ElevatorFromPhysicalConstants throw
-// std::domain_error, and it deliberately survives the guards above so this path
-// stays reachable.
+// worker. A non-positive load makes Models::LinearPositionFromPhysicalConstants
+// throw std::domain_error, and it deliberately survives the guards above so
+// this path stays reachable.
 TEST_CASE("SimulateElevatorGuards: SolverFailureReturnsEmptyInsteadOfThrowing",
           "[SimulateElevatorGuards]") {
   Params p;

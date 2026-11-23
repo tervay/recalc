@@ -32,7 +32,7 @@ class EfficiencyFlywheelSim : public wpi::sim::FlywheelSim {
   EfficiencyFlywheelSim(const wpi::math::DCMotor& gearbox, double gearing,
                         wpi::units::kilogram_square_meter_t moi,
                         double efficiency)
-      : FlywheelSim(wpi::math::Models::FlywheelFromPhysicalConstants(
+      : FlywheelSim(wpi::math::Models::AngularVelocityFromPhysicalConstants(
                         gearbox, moi, gearing),
                     gearbox),
         m_efficiency(efficiency) {}

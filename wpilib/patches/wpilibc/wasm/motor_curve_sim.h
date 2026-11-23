@@ -58,7 +58,7 @@ inline emscripten::val SimulateMotorCurveImpl(const DCMotorWasm* motor,
   constexpr double kGearing = 1.0;
 
   wpi::sim::DCMotorSim sim(
-      wpi::math::Models::SingleJointedArmFromPhysicalConstants(
+      wpi::math::Models::AngularPositionFromPhysicalConstants(
           motor->getMotor(),
           wpi::units::kilogram_square_meter_t(params.momentOfInertiaKgMSquared),
           kGearing),

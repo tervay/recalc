@@ -30,7 +30,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
     target_include_directories(wpimath_wasm 
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/../src/main/native/include
-        ${CMAKE_CURRENT_SOURCE_DIR}/../src/generated/main/native/cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../src/generated/main/native/include
         ${CMAKE_CURRENT_SOURCE_DIR}/../src/main/native/thirdparty/eigen/include
         ${CMAKE_CURRENT_SOURCE_DIR}/../src/main/native/thirdparty/gcem/include
         ${CMAKE_CURRENT_SOURCE_DIR}/../src/main/native/thirdparty/sleipnir/include

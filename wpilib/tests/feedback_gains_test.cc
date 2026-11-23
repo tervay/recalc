@@ -26,7 +26,7 @@ static constexpr double kTol = 1e-9;
 namespace {
 class ElevatorFeedbackGainsTest {
  protected:
-  wpi::math::DCMotor motor = wpi::math::DCMotor::NEO(1);
+  wpi::math::DCMotor motor = wpi::math::DCMotor::Neo(1);
   static constexpr double kGearing = 10.0;
   static constexpr double kMassKg = 5.0;
   static constexpr double kSpoolRadiusMeters = 0.025;
@@ -46,9 +46,10 @@ class ElevatorFeedbackGainsTest {
 TEST_CASE_METHOD(ElevatorFeedbackGainsTest,
                  "ElevatorFeedbackGainsTest: MatchesDirectLqrConstruction",
                  "[ElevatorFeedbackGainsTest]") {
-  const auto idealPlantFull = wpi::math::Models::ElevatorFromPhysicalConstants(
-      motor, wpi::units::kilogram_t(kMassKg),
-      wpi::units::meter_t(kSpoolRadiusMeters), kGearing);
+  const auto idealPlantFull =
+      wpi::math::Models::LinearPositionFromPhysicalConstants(
+          motor, wpi::units::kilogram_t(kMassKg),
+          wpi::units::meter_t(kSpoolRadiusMeters), kGearing);
 
   // Efficiency scales the whole motor-side row, so A(1,1) moves with B.
   // A(0,1) is the kinematic v = xdot relation and must stay exactly 1.
@@ -267,7 +268,7 @@ TEST_CASE_METHOD(ArmFeedbackGainsTest,
                  "ArmFeedbackGainsTest: MatchesDirectLqrConstruction",
                  "[ArmFeedbackGainsTest]") {
   const auto idealPlantFull =
-      wpi::math::Models::SingleJointedArmFromPhysicalConstants(
+      wpi::math::Models::AngularPositionFromPhysicalConstants(
           motor,
           wpi::units::kilogram_square_meter_t(kMomentOfInertiaKgMSquared),
           kGearing);
@@ -386,9 +387,11 @@ class FlywheelFeedbackGainsTest {
 TEST_CASE_METHOD(FlywheelFeedbackGainsTest,
                  "FlywheelFeedbackGainsTest: MatchesDirectLqrConstruction",
                  "[FlywheelFeedbackGainsTest]") {
-  const auto idealPlant = wpi::math::Models::FlywheelFromPhysicalConstants(
-      motor, wpi::units::kilogram_square_meter_t(kMomentOfInertiaKgMSquared),
-      kGearing);
+  const auto idealPlant =
+      wpi::math::Models::AngularVelocityFromPhysicalConstants(
+          motor,
+          wpi::units::kilogram_square_meter_t(kMomentOfInertiaKgMSquared),
+          kGearing);
 
   // Efficiency scales the whole state derivative, so A moves with B.
   const wpi::math::Matrixd<1, 1> controllerA = idealPlant.A() * kEfficiency;

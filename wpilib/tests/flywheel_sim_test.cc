@@ -47,7 +47,7 @@ std::unique_ptr<DCMotorWasm> MakeMotorWasm(const wpi::math::DCMotor& motor,
 // The ideal (efficiency-free) plant, rebuilt in the test so expected values can
 // be derived analytically instead of hardcoded.
 auto IdealPlant(double moi = kMoi, double gearing = kGearing) {
-  return wpi::math::Models::FlywheelFromPhysicalConstants(
+  return wpi::math::Models::AngularVelocityFromPhysicalConstants(
       TestMotor(), wpi::units::kilogram_square_meter_t(moi), gearing);
 }
 
@@ -305,7 +305,7 @@ TEST_CASE("SimulateFlywheelGuards: NegativeMaxSimSecondsReturnsEmpty",
   CHECK(Length(RunRaw(p)) == 0);
 }
 
-// Models::FlywheelFromPhysicalConstants throws std::domain_error for a
+// Models::AngularVelocityFromPhysicalConstants throws std::domain_error for a
 // non-positive gearing. Guarding avoids console spam from the optimizer grid.
 TEST_CASE("SimulateFlywheelGuards: ZeroGearingReturnsEmpty",
           "[SimulateFlywheelGuards]") {
