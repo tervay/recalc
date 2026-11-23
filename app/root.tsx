@@ -3,6 +3,7 @@ import { type ReactNode, useEffect } from 'react';
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
 
 import '~/app.css';
+import motorIcon from '~/assets/motor.svg';
 import { AppSidebar } from '~/components/recalc/appSidebar';
 import { ErrorDisplay } from '~/components/recalc/errorDisplay';
 import Nav from '~/components/recalc/nav';
@@ -25,7 +26,7 @@ function OpenPanelScript() {
 }
 
 export const links: Route.LinksFunction = () => [
-  { rel: 'icon', type: 'image/svg+xml', href: '/logo/motor.svg' },
+  { rel: 'icon', type: 'image/svg+xml', href: motorIcon },
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
   {
     rel: 'preconnect',

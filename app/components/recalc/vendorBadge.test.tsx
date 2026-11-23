@@ -3,20 +3,30 @@ import { cleanup, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
 import { afterEach, describe, expect, it } from 'vitest';
 
+import andymark from '~/assets/vendors/andymark.png';
+import banebots from '~/assets/vendors/banebots.png';
+import ctre from '~/assets/vendors/ctre.png';
+import lastanvil from '~/assets/vendors/lastanvil.png';
+import rev from '~/assets/vendors/rev.png';
+import sds from '~/assets/vendors/sds.png';
+import swyft from '~/assets/vendors/swyft.png';
+import thrifty from '~/assets/vendors/thrifty.png';
+import vex from '~/assets/vendors/vex.png';
+import wcp from '~/assets/vendors/wcp.png';
 import { VendorBadge } from '~/components/recalc/vendorBadge';
 import type { Vendor } from '~/lib/types/common';
 
 const IMAGE_VENDORS: [Vendor, string][] = [
-  ['AndyMark', '/vendors/andymark.png'],
-  ['BaneBots', '/vendors/banebots.png'],
-  ['CTRE', '/vendors/ctre.png'],
-  ['LastAnvil', '/vendors/lastanvil.png'],
-  ['REV', '/vendors/rev.png'],
-  ['SDS', '/vendors/sds.png'],
-  ['Swyft', '/vendors/swyft.png'],
-  ['Thrifty', '/vendors/thrifty.png'],
-  ['VEX', '/vendors/vex.png'],
-  ['WCP', '/vendors/wcp.png'],
+  ['AndyMark', andymark],
+  ['BaneBots', banebots],
+  ['CTRE', ctre],
+  ['LastAnvil', lastanvil],
+  ['REV', rev],
+  ['SDS', sds],
+  ['Swyft', swyft],
+  ['Thrifty', thrifty],
+  ['VEX', vex],
+  ['WCP', wcp],
 ];
 
 const ICON_VENDORS: Vendor[] = ['Custom', 'VBeltGuys'];

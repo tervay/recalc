@@ -15,7 +15,7 @@ import { chromium } from '@playwright/test';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = path.resolve(__dirname, '../public/og-image.png');
-const LOGO_PATH = path.resolve(__dirname, '../public/logo/motor.svg');
+const LOGO_PATH = path.resolve(__dirname, '../app/assets/motor.svg');
 
 const WIDTH = 1200;
 const HEIGHT = 630;

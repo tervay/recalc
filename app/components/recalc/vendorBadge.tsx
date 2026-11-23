@@ -4,24 +4,34 @@ import { Link } from 'react-router';
 import InfinityIcon from '~icons/lucide/infinity';
 import WrenchIcon from '~icons/lucide/wrench';
 
+import andymark from '~/assets/vendors/andymark.png';
+import banebots from '~/assets/vendors/banebots.png';
+import ctre from '~/assets/vendors/ctre.png';
+import lastanvil from '~/assets/vendors/lastanvil.png';
+import rev from '~/assets/vendors/rev.png';
+import sds from '~/assets/vendors/sds.png';
+import swyft from '~/assets/vendors/swyft.png';
+import thrifty from '~/assets/vendors/thrifty.png';
+import vex from '~/assets/vendors/vex.png';
+import wcp from '~/assets/vendors/wcp.png';
 import type { Vendor } from '~/lib/types/common';
 
 const vendorIcons: Record<
   Vendor,
   string | ComponentType<SVGProps<SVGSVGElement>>
 > = {
-  AndyMark: '/vendors/andymark.png',
-  BaneBots: '/vendors/banebots.png',
-  CTRE: '/vendors/ctre.png',
+  AndyMark: andymark,
+  BaneBots: banebots,
+  CTRE: ctre,
   Custom: WrenchIcon,
-  LastAnvil: '/vendors/lastanvil.png',
-  REV: '/vendors/rev.png',
-  SDS: '/vendors/sds.png',
-  Swyft: '/vendors/swyft.png',
-  Thrifty: '/vendors/thrifty.png',
+  LastAnvil: lastanvil,
+  REV: rev,
+  SDS: sds,
+  Swyft: swyft,
+  Thrifty: thrifty,
   VBeltGuys: InfinityIcon,
-  VEX: '/vendors/vex.png',
-  WCP: '/vendors/wcp.png',
+  VEX: vex,
+  WCP: wcp,
 };
 
 const vendorImageClassNames: Partial<Record<Vendor, string>> = {
