@@ -55,7 +55,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
     # Emscripten compilation flags (only compile-time flags here)
     #
     # -Oz over -O3: measured on the full bound API surface, -Oz shrinks the
-    # brotli-compressed payload (what Vercel serves) by 22,477 bytes, 205,220
+    # brotli-compressed payload (what Cloudflare serves) by 22,477 bytes, 205,220
     # -> 182,743, an 11% cut. See wasm/OPTIMIZATION.md for the flag-by-flag
     # measurements, including the ones that turned out to be worth nothing.
     #

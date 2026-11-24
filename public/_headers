@@ -1,0 +1,7 @@
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*
+  X-Content-Type-Options: nosniff
+  Content-Security-Policy: frame-ancestors 'self' https://*.onshape.com moz-extension: chrome-extension:
+  Referrer-Policy: strict-origin-when-cross-origin

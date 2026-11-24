@@ -16,6 +16,7 @@ export default defineConfig({
     '.cache/',
     '.DS_Store',
     '.react-router/',
+    '.cloudflare/',
     '.vercel/',
     'build/',
     'node_modules/',
