@@ -2,7 +2,6 @@ import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import type { Config } from '@react-router/dev/config';
-import { vercelPreset } from '@vercel/react-router/vite';
 
 import { pageUrl } from './app/lib/seo';
 import { routePaths, sitemapXml } from './app/lib/sitemap';
@@ -32,5 +31,4 @@ export default {
       sitemapXml(routePaths(files).map(pageUrl)),
     );
   },
-  presets: [vercelPreset()],
 } satisfies Config;

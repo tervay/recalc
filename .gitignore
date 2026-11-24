@@ -1,3 +1,4 @@
+.cloudflare/
 .vercel/
 .cache/
 .DS_Store

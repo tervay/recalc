@@ -20,6 +20,7 @@ export default defineConfig({
     '.react-router/',
     '**/.cache/',
     '**/.DS_Store',
+    '**/.cloudflare/',
     '**/.vercel/',
     '**/.vscode/',
     '**/*.d.ts',

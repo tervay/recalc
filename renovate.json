@@ -55,11 +55,7 @@
     {
       "groupName": "react-router",
       "matchManagers": ["npm"],
-      "matchPackageNames": [
-        "@react-router/**",
-        "@vercel/react-router",
-        "react-router"
-      ]
+      "matchPackageNames": ["@react-router/**", "react-router"]
     },
     {
       "groupName": "testing",

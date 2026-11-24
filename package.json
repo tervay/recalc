@@ -25,7 +25,8 @@
     "leaks:wpi": "./wpilib/leak_check.sh",
     "format": "oxfmt --check",
     "format:fix": "oxfmt",
-    "format:wpi": "./wpilib/format.sh"
+    "format:wpi": "./wpilib/format.sh",
+    "deploy": "cf deploy ./build/client"
   },
   "dependencies": {
     "@base-ui/react": "1.9.0",
@@ -33,7 +34,6 @@
     "@react-router/node": "8.5.2",
     "@react-router/serve": "8.5.2",
     "@tanstack/react-table": "9.3.1",
-    "@vercel/react-router": "1.3.7",
     "class-variance-authority": "0.7.1",
     "cn": "0.5.2",
     "comlink": "4.4.2",
@@ -67,7 +67,7 @@
     "@types/node": "26.6.6",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
-    "@vercel/config": "0.15.0",
+    "cf": "1.0.0-rc.2",
     "commander": "15.1.0",
     "eslint-plugin-no-relative-import-paths": "1.7.3",
     "eslint-plugin-zod": "5.3.0",
