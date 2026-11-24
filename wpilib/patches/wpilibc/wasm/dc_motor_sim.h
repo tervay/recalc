@@ -10,7 +10,7 @@ class DCMotorSimWasm {
   DCMotorSimWasm(DCMotorWasm* gearbox, double gearing,
                  double momentOfInertiaKgMSquared)
       : motorSim(
-            wpi::math::Models::SingleJointedArmFromPhysicalConstants(
+            wpi::math::Models::AngularPositionFromPhysicalConstants(
                 gearbox->getMotor(),
                 wpi::units::kilogram_square_meter_t(momentOfInertiaKgMSquared),
                 gearing),

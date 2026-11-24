@@ -1,5 +1,7 @@
 import { cn } from 'cn';
 
+import motorIcon from '~/assets/motor.svg';
+
 interface LogoProps {
   color?: 'black' | 'white';
   alignment?: 'middle' | 'bottom';
@@ -13,7 +15,7 @@ export default function Logo({
     <span className="inline-flex flex-col items-center">
       <div className="relative flex items-center gap-1">
         <img
-          src="/logo/motor.svg"
+          src={motorIcon}
           alt="ReCalc Logo"
           className={cn(
             'h-12 w-12',

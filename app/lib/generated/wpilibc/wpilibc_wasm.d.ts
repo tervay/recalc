@@ -111,6 +111,136 @@ export interface DCMotorSim extends ClassHandle {
   getCurrentDraw(): number;
 }
 
+export type ElevatorSimParams = {
+  gearing: number;
+  loadKg: number;
+  spoolRadiusMeters: number;
+  travelDistanceMeters: number;
+  statorLimitAmps: number;
+  supplyLimitAmps: number;
+  batteryResistanceOhms: number;
+  batteryVoltageVolts: number;
+  simTimestep: number;
+  decimation: number;
+  maxSimSeconds: number;
+  angleRadians: number;
+  efficiency: number;
+  cascade: boolean;
+  batteryVoltageFilterTimeConstantSeconds: number;
+  maxVelocityMPS: number;
+  maxAccelerationMPS2: number;
+  qPositionMeters: number;
+  qVelocityMPS: number;
+  rVolts: number;
+  sensorDelaySeconds: number;
+  kalmanFilterPositionStdDev: number;
+  kalmanFilterVelocityStdDev: number;
+  kalmanFilterEncoderPositionStdDev: number;
+};
+
+export type FlywheelSimParams = {
+  gearing: number;
+  momentOfInertiaKgMSquared: number;
+  targetAngularVelocityRadPerSec: number;
+  statorLimitAmps: number;
+  supplyLimitAmps: number;
+  statorVoltageVolts: number;
+  batteryResistanceOhms: number;
+  batteryVoltageVolts: number;
+  efficiency: number;
+  simTimestep: number;
+  decimation: number;
+  maxSimSeconds: number;
+  batteryVoltageFilterTimeConstantSeconds: number;
+  initialAngularVelocityRadPerSec: number;
+};
+
+export type MotorCurveParams = {
+  momentOfInertiaKgMSquared: number;
+  statorLimitAmps: number;
+  supplyLimitAmps: number;
+  statorVoltageVolts: number;
+  supplyVoltageVolts: number;
+  simTimestep: number;
+  decimation: number;
+  maxIterations: number;
+};
+
+export type ArmSimParams = {
+  gearing: number;
+  momentOfInertiaKgMSquared: number;
+  armLengthMeters: number;
+  minAngleRadians: number;
+  maxAngleRadians: number;
+  startingAngleRadians: number;
+  statorLimitAmps: number;
+  supplyLimitAmps: number;
+  statorVoltageVolts: number;
+  batteryResistanceOhms: number;
+  batteryVoltageVolts: number;
+  efficiency: number;
+  goingUp: boolean;
+  simTimestep: number;
+  decimation: number;
+  maxSimSeconds: number;
+  batteryVoltageFilterTimeConstantSeconds: number;
+};
+
+export type ElevatorFeedbackParams = {
+  gearing: number;
+  massKg: number;
+  spoolRadiusMeters: number;
+  efficiency: number;
+  qPositionMeters: number;
+  qVelocityMPS: number;
+  rVolts: number;
+  dtSeconds: number;
+  sensorDelaySeconds: number;
+};
+
+export type ArmFeedbackParams = {
+  gearing: number;
+  momentOfInertiaKgMSquared: number;
+  efficiency: number;
+  qPositionRad: number;
+  qVelocityRadPerSec: number;
+  rVolts: number;
+  dtSeconds: number;
+  sensorDelaySeconds: number;
+};
+
+export type FlywheelFeedbackParams = {
+  gearing: number;
+  momentOfInertiaKgMSquared: number;
+  efficiency: number;
+  qVelocityRadPerSec: number;
+  rVolts: number;
+  dtSeconds: number;
+  sensorDelaySeconds: number;
+};
+
+export type LinearFeedforwardParams = {
+  gearing: number;
+  loadKg: number;
+  spoolRadiusMeters: number;
+  efficiency: number;
+  angleRadians: number;
+};
+
+export type AngularFeedforwardParams = {
+  gearing: number;
+  momentOfInertiaKgMSquared: number;
+  efficiency: number;
+  comMassKg: number;
+  comLengthMeters: number;
+};
+
+export type FlywheelFeedforwardParams = {
+  gearing: number;
+  momentOfInertiaKgMSquared: number;
+  efficiency: number;
+};
+
 interface EmbindModule {
   VectorDouble: {
     new (): VectorDouble;
@@ -140,133 +270,40 @@ interface EmbindModule {
   ): number;
   simulateElevator(
     motor: DCMotor | null,
-    gearing: number,
-    loadKg: number,
-    spoolRadiusMeters: number,
-    travelDistanceMeters: number,
-    statorLimitAmps: number,
-    supplyLimitAmps: number,
-    batteryResistanceOhms: number,
-    batteryVoltageVolts: number,
-    simTimestep: number,
-    decimation: number,
-    maxSimSeconds: number,
-    angleRadians: number,
-    efficiency: number,
-    cascade: boolean,
-    batteryVoltageFilterTimeConstantSeconds: number,
-    maxVelocityMPS: number,
-    maxAccelerationMPS2: number,
-    qPositionMeters: number,
-    qVelocityMPS: number,
-    rVolts: number,
-    sensorDelaySeconds: number,
-    kalmanFilterPositionStdDev: number,
-    kalmanFilterVelocityStdDev: number,
-    kalmanFilterEncoderPositionStdDev: number,
+    params: ElevatorSimParams,
   ): ElevatorSimRows;
   simulateFlywheel(
     motor: DCMotor | null,
-    gearing: number,
-    moiKgMSquared: number,
-    targetAngularVelocityRadPerSec: number,
-    statorLimitAmps: number,
-    supplyLimitAmps: number,
-    statorVoltageVolts: number,
-    batteryResistanceOhms: number,
-    batteryVoltageVolts: number,
-    efficiency: number,
-    simTimestep: number,
-    decimation: number,
-    maxSimSeconds: number,
-    batteryVoltageFilterTimeConstantSeconds: number,
-    initialAngularVelocityRadPerSec: number,
+    params: FlywheelSimParams,
   ): FlywheelSimRows;
   simulateMotorCurve(
     motor: DCMotor | null,
-    momentOfInertiaKgMSquared: number,
-    statorLimitAmps: number,
-    supplyLimitAmps: number,
-    statorVoltageVolts: number,
-    supplyVoltageVolts: number,
-    simTimestep: number,
-    decimation: number,
-    maxIterations: number,
+    params: MotorCurveParams,
   ): MotorCurveRows;
-  simulateArm(
-    motor: DCMotor | null,
-    gearing: number,
-    momentOfInertiaKgMSquared: number,
-    armLengthMeters: number,
-    minAngleRadians: number,
-    maxAngleRadians: number,
-    startingAngleRadians: number,
-    statorLimitAmps: number,
-    supplyLimitAmps: number,
-    statorVoltageVolts: number,
-    batteryResistanceOhms: number,
-    batteryVoltageVolts: number,
-    efficiency: number,
-    goingUp: boolean,
-    simTimestep: number,
-    decimation: number,
-    maxSimSeconds: number,
-    batteryVoltageFilterTimeConstantSeconds: number,
-  ): ArmSimRows;
+  simulateArm(motor: DCMotor | null, params: ArmSimParams): ArmSimRows;
   computeElevatorFeedbackGains(
     motor: DCMotor | null,
-    gearing: number,
-    massKg: number,
-    spoolRadiusMeters: number,
-    efficiency: number,
-    qPositionMeters: number,
-    qVelocityMPS: number,
-    rVolts: number,
-    dtSeconds: number,
-    sensorDelaySeconds: number,
+    params: ElevatorFeedbackParams,
   ): FeedbackGains;
   computeArmFeedbackGains(
     motor: DCMotor | null,
-    gearing: number,
-    momentOfInertiaKgMSquared: number,
-    efficiency: number,
-    qPositionRad: number,
-    qVelocityRadPerSec: number,
-    rVolts: number,
-    dtSeconds: number,
-    sensorDelaySeconds: number,
+    params: ArmFeedbackParams,
   ): FeedbackGains;
   computeFlywheelFeedbackGains(
     motor: DCMotor | null,
-    gearing: number,
-    momentOfInertiaKgMSquared: number,
-    efficiency: number,
-    qVelocityRadPerSec: number,
-    rVolts: number,
-    dtSeconds: number,
-    sensorDelaySeconds: number,
+    params: FlywheelFeedbackParams,
   ): FeedbackGains;
   computeLinearFeedforwardGains(
     motor: DCMotor | null,
-    gearing: number,
-    loadKg: number,
-    spoolRadiusMeters: number,
-    efficiency: number,
-    angleRadians: number,
+    params: LinearFeedforwardParams,
   ): FeedforwardGains;
   computeAngularFeedforwardGains(
     motor: DCMotor | null,
-    gearing: number,
-    momentOfInertiaKgMSquared: number,
-    efficiency: number,
-    comMassKg: number,
-    comLengthMeters: number,
+    params: AngularFeedforwardParams,
   ): FeedforwardGains;
   computeFlywheelFeedforwardGains(
     motor: DCMotor | null,
-    gearing: number,
-    momentOfInertiaKgMSquared: number,
-    efficiency: number,
+    params: FlywheelFeedforwardParams,
   ): FeedforwardGains;
 }
 

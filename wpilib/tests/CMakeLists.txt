@@ -90,7 +90,7 @@ add_library(wpimath_deps INTERFACE)
 
 target_include_directories(wpimath_deps SYSTEM INTERFACE
     ${WPIMATH_SRC}/main/native/include
-    ${WPIMATH_SRC}/generated/main/native/cpp
+    ${WPIMATH_SRC}/generated/main/native/include
     ${WPIMATH_SRC}/main/native/thirdparty/eigen/include
     ${WPIMATH_SRC}/main/native/thirdparty/gcem/include
     ${WPIMATH_SRC}/main/native/thirdparty/sleipnir/include

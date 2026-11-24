@@ -26,7 +26,7 @@ static constexpr double kTol = 1e-9;
 namespace {
 class ElevatorFeedbackGainsTest {
  protected:
-  wpi::math::DCMotor motor = wpi::math::DCMotor::NEO(1);
+  wpi::math::DCMotor motor = wpi::math::DCMotor::Neo(1);
   static constexpr double kGearing = 10.0;
   static constexpr double kMassKg = 5.0;
   static constexpr double kSpoolRadiusMeters = 0.025;
@@ -46,9 +46,10 @@ class ElevatorFeedbackGainsTest {
 TEST_CASE_METHOD(ElevatorFeedbackGainsTest,
                  "ElevatorFeedbackGainsTest: MatchesDirectLqrConstruction",
                  "[ElevatorFeedbackGainsTest]") {
-  const auto idealPlantFull = wpi::math::Models::ElevatorFromPhysicalConstants(
-      motor, wpi::units::kilogram_t(kMassKg),
-      wpi::units::meter_t(kSpoolRadiusMeters), kGearing);
+  const auto idealPlantFull =
+      wpi::math::Models::LinearPositionFromPhysicalConstants(
+          motor, wpi::units::kilogram_t(kMassKg),
+          wpi::units::meter_t(kSpoolRadiusMeters), kGearing);
 
   // Efficiency scales the whole motor-side row, so A(1,1) moves with B.
   // A(0,1) is the kinematic v = xdot relation and must stay exactly 1.
@@ -71,9 +72,17 @@ TEST_CASE_METHOD(ElevatorFeedbackGainsTest,
                              wpi::units::second_t(kSensorDelaySeconds));
 
   FeedbackGains actual = ComputeElevatorFeedbackGainsCore(
-      motor, kGearing, kMassKg, kSpoolRadiusMeters, kEfficiency,
-      kQPositionMeters, kQVelocityMPS, kRVolts, kDtSeconds,
-      kSensorDelaySeconds);
+      motor, {
+                 .gearing = kGearing,
+                 .massKg = kMassKg,
+                 .spoolRadiusMeters = kSpoolRadiusMeters,
+                 .efficiency = kEfficiency,
+                 .qPositionMeters = kQPositionMeters,
+                 .qVelocityMPS = kQVelocityMPS,
+                 .rVolts = kRVolts,
+                 .dtSeconds = kDtSeconds,
+                 .sensorDelaySeconds = kSensorDelaySeconds,
+             });
 
   CHECK_THAT(actual.kP, WithinAbs(expected.K(0, 0), kTol));
   CHECK_THAT(actual.kD, WithinAbs(expected.K(0, 1), kTol));
@@ -83,9 +92,17 @@ TEST_CASE_METHOD(ElevatorFeedbackGainsTest,
                  "ElevatorFeedbackGainsTest: ProducesPlausiblePositiveGains",
                  "[ElevatorFeedbackGainsTest]") {
   const FeedbackGains gains = ComputeElevatorFeedbackGainsCore(
-      motor, kGearing, kMassKg, kSpoolRadiusMeters, kEfficiency,
-      kQPositionMeters, kQVelocityMPS, kRVolts, kDtSeconds,
-      kSensorDelaySeconds);
+      motor, {
+                 .gearing = kGearing,
+                 .massKg = kMassKg,
+                 .spoolRadiusMeters = kSpoolRadiusMeters,
+                 .efficiency = kEfficiency,
+                 .qPositionMeters = kQPositionMeters,
+                 .qVelocityMPS = kQVelocityMPS,
+                 .rVolts = kRVolts,
+                 .dtSeconds = kDtSeconds,
+                 .sensorDelaySeconds = kSensorDelaySeconds,
+             });
 
   // A stable position controller must push harder in the direction of
   // increasing error, i.e. both gains should be strictly positive.
@@ -98,13 +115,29 @@ TEST_CASE_METHOD(
     "ElevatorFeedbackGainsTest: TighteningPositionToleranceIncreasesKP",
     "[ElevatorFeedbackGainsTest]") {
   const FeedbackGains loose = ComputeElevatorFeedbackGainsCore(
-      motor, kGearing, kMassKg, kSpoolRadiusMeters, kEfficiency,
-      /*qPositionMeters=*/0.05, kQVelocityMPS, kRVolts, kDtSeconds,
-      kSensorDelaySeconds);
+      motor, {
+                 .gearing = kGearing,
+                 .massKg = kMassKg,
+                 .spoolRadiusMeters = kSpoolRadiusMeters,
+                 .efficiency = kEfficiency,
+                 .qPositionMeters = 0.05,
+                 .qVelocityMPS = kQVelocityMPS,
+                 .rVolts = kRVolts,
+                 .dtSeconds = kDtSeconds,
+                 .sensorDelaySeconds = kSensorDelaySeconds,
+             });
   const FeedbackGains tight = ComputeElevatorFeedbackGainsCore(
-      motor, kGearing, kMassKg, kSpoolRadiusMeters, kEfficiency,
-      /*qPositionMeters=*/0.005, kQVelocityMPS, kRVolts, kDtSeconds,
-      kSensorDelaySeconds);
+      motor, {
+                 .gearing = kGearing,
+                 .massKg = kMassKg,
+                 .spoolRadiusMeters = kSpoolRadiusMeters,
+                 .efficiency = kEfficiency,
+                 .qPositionMeters = 0.005,
+                 .qVelocityMPS = kQVelocityMPS,
+                 .rVolts = kRVolts,
+                 .dtSeconds = kDtSeconds,
+                 .sensorDelaySeconds = kSensorDelaySeconds,
+             });
 
   CHECK(tight.kP > loose.kP);
 }
@@ -126,13 +159,29 @@ TEST_CASE_METHOD(
     "ElevatorFeedbackGainsTest: TighteningVelocityToleranceDecreasesKD",
     "[ElevatorFeedbackGainsTest]") {
   const FeedbackGains loose = ComputeElevatorFeedbackGainsCore(
-      motor, kGearing, kMassKg, kSpoolRadiusMeters, kEfficiency,
-      kQPositionMeters, /*qVelocityMPS=*/0.5, kRVolts, kDtSeconds,
-      kSensorDelaySeconds);
+      motor, {
+                 .gearing = kGearing,
+                 .massKg = kMassKg,
+                 .spoolRadiusMeters = kSpoolRadiusMeters,
+                 .efficiency = kEfficiency,
+                 .qPositionMeters = kQPositionMeters,
+                 .qVelocityMPS = 0.5,
+                 .rVolts = kRVolts,
+                 .dtSeconds = kDtSeconds,
+                 .sensorDelaySeconds = kSensorDelaySeconds,
+             });
   const FeedbackGains tight = ComputeElevatorFeedbackGainsCore(
-      motor, kGearing, kMassKg, kSpoolRadiusMeters, kEfficiency,
-      kQPositionMeters, /*qVelocityMPS=*/0.05, kRVolts, kDtSeconds,
-      kSensorDelaySeconds);
+      motor, {
+                 .gearing = kGearing,
+                 .massKg = kMassKg,
+                 .spoolRadiusMeters = kSpoolRadiusMeters,
+                 .efficiency = kEfficiency,
+                 .qPositionMeters = kQPositionMeters,
+                 .qVelocityMPS = 0.05,
+                 .rVolts = kRVolts,
+                 .dtSeconds = kDtSeconds,
+                 .sensorDelaySeconds = kSensorDelaySeconds,
+             });
 
   CHECK(tight.kD < loose.kD);
 }
@@ -142,9 +191,18 @@ TEST_CASE_METHOD(
     "ElevatorFeedbackGainsTest: NonPositiveGearingThrowsDomainError",
     "[ElevatorFeedbackGainsTest]") {
   CHECK_THROWS_AS(ComputeElevatorFeedbackGainsCore(
-                      motor, /*gearing=*/0.0, kMassKg, kSpoolRadiusMeters,
-                      kEfficiency, kQPositionMeters, kQVelocityMPS, kRVolts,
-                      kDtSeconds, kSensorDelaySeconds),
+                      motor,
+                      {
+                          .gearing = 0.0,
+                          .massKg = kMassKg,
+                          .spoolRadiusMeters = kSpoolRadiusMeters,
+                          .efficiency = kEfficiency,
+                          .qPositionMeters = kQPositionMeters,
+                          .qVelocityMPS = kQVelocityMPS,
+                          .rVolts = kRVolts,
+                          .dtSeconds = kDtSeconds,
+                          .sensorDelaySeconds = kSensorDelaySeconds,
+                      }),
                   std::domain_error);
 }
 
@@ -152,9 +210,18 @@ TEST_CASE_METHOD(ElevatorFeedbackGainsTest,
                  "ElevatorFeedbackGainsTest: NonPositiveMassThrowsDomainError",
                  "[ElevatorFeedbackGainsTest]") {
   CHECK_THROWS_AS(ComputeElevatorFeedbackGainsCore(
-                      motor, kGearing, /*massKg=*/-1.0, kSpoolRadiusMeters,
-                      kEfficiency, kQPositionMeters, kQVelocityMPS, kRVolts,
-                      kDtSeconds, kSensorDelaySeconds),
+                      motor,
+                      {
+                          .gearing = kGearing,
+                          .massKg = -1.0,
+                          .spoolRadiusMeters = kSpoolRadiusMeters,
+                          .efficiency = kEfficiency,
+                          .qPositionMeters = kQPositionMeters,
+                          .qVelocityMPS = kQVelocityMPS,
+                          .rVolts = kRVolts,
+                          .dtSeconds = kDtSeconds,
+                          .sensorDelaySeconds = kSensorDelaySeconds,
+                      }),
                   std::domain_error);
 }
 
@@ -163,9 +230,18 @@ TEST_CASE_METHOD(
     "ElevatorFeedbackGainsTest: NonPositiveSpoolRadiusThrowsDomainError",
     "[ElevatorFeedbackGainsTest]") {
   CHECK_THROWS_AS(ComputeElevatorFeedbackGainsCore(
-                      motor, kGearing, kMassKg, /*spoolRadiusMeters=*/0.0,
-                      kEfficiency, kQPositionMeters, kQVelocityMPS, kRVolts,
-                      kDtSeconds, kSensorDelaySeconds),
+                      motor,
+                      {
+                          .gearing = kGearing,
+                          .massKg = kMassKg,
+                          .spoolRadiusMeters = 0.0,
+                          .efficiency = kEfficiency,
+                          .qPositionMeters = kQPositionMeters,
+                          .qVelocityMPS = kQVelocityMPS,
+                          .rVolts = kRVolts,
+                          .dtSeconds = kDtSeconds,
+                          .sensorDelaySeconds = kSensorDelaySeconds,
+                      }),
                   std::domain_error);
 }
 
@@ -192,7 +268,7 @@ TEST_CASE_METHOD(ArmFeedbackGainsTest,
                  "ArmFeedbackGainsTest: MatchesDirectLqrConstruction",
                  "[ArmFeedbackGainsTest]") {
   const auto idealPlantFull =
-      wpi::math::Models::SingleJointedArmFromPhysicalConstants(
+      wpi::math::Models::AngularPositionFromPhysicalConstants(
           motor,
           wpi::units::kilogram_square_meter_t(kMomentOfInertiaKgMSquared),
           kGearing);
@@ -218,8 +294,16 @@ TEST_CASE_METHOD(ArmFeedbackGainsTest,
                              wpi::units::second_t(kSensorDelaySeconds));
 
   FeedbackGains actual = ComputeArmFeedbackGainsCore(
-      motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency, kQPositionRad,
-      kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds);
+      motor, {
+                 .gearing = kGearing,
+                 .momentOfInertiaKgMSquared = kMomentOfInertiaKgMSquared,
+                 .efficiency = kEfficiency,
+                 .qPositionRad = kQPositionRad,
+                 .qVelocityRadPerSec = kQVelocityRadPerSec,
+                 .rVolts = kRVolts,
+                 .dtSeconds = kDtSeconds,
+                 .sensorDelaySeconds = kSensorDelaySeconds,
+             });
 
   CHECK_THAT(actual.kP, WithinAbs(expected.K(0, 0), kTol));
   CHECK_THAT(actual.kD, WithinAbs(expected.K(0, 1), kTol));
@@ -229,8 +313,16 @@ TEST_CASE_METHOD(ArmFeedbackGainsTest,
                  "ArmFeedbackGainsTest: ProducesPlausiblePositiveGains",
                  "[ArmFeedbackGainsTest]") {
   const FeedbackGains gains = ComputeArmFeedbackGainsCore(
-      motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency, kQPositionRad,
-      kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds);
+      motor, {
+                 .gearing = kGearing,
+                 .momentOfInertiaKgMSquared = kMomentOfInertiaKgMSquared,
+                 .efficiency = kEfficiency,
+                 .qPositionRad = kQPositionRad,
+                 .qVelocityRadPerSec = kQVelocityRadPerSec,
+                 .rVolts = kRVolts,
+                 .dtSeconds = kDtSeconds,
+                 .sensorDelaySeconds = kSensorDelaySeconds,
+             });
 
   CHECK(gains.kP > 0.0);
   CHECK(gains.kD > 0.0);
@@ -240,21 +332,38 @@ TEST_CASE_METHOD(
     ArmFeedbackGainsTest,
     "ArmFeedbackGainsTest: NonPositiveMomentOfInertiaThrowsDomainError",
     "[ArmFeedbackGainsTest]") {
-  CHECK_THROWS_AS(ComputeArmFeedbackGainsCore(
-                      motor, kGearing, /*momentOfInertiaKgMSquared=*/0.0,
-                      kEfficiency, kQPositionRad, kQVelocityRadPerSec, kRVolts,
-                      kDtSeconds, kSensorDelaySeconds),
-                  std::domain_error);
+  CHECK_THROWS_AS(
+      ComputeArmFeedbackGainsCore(motor,
+                                  {
+                                      .gearing = kGearing,
+                                      .momentOfInertiaKgMSquared = 0.0,
+                                      .efficiency = kEfficiency,
+                                      .qPositionRad = kQPositionRad,
+                                      .qVelocityRadPerSec = kQVelocityRadPerSec,
+                                      .rVolts = kRVolts,
+                                      .dtSeconds = kDtSeconds,
+                                      .sensorDelaySeconds = kSensorDelaySeconds,
+                                  }),
+      std::domain_error);
 }
 
 TEST_CASE_METHOD(ArmFeedbackGainsTest,
                  "ArmFeedbackGainsTest: NonPositiveGearingThrowsDomainError",
                  "[ArmFeedbackGainsTest]") {
-  CHECK_THROWS_AS(ComputeArmFeedbackGainsCore(
-                      motor, /*gearing=*/-5.0, kMomentOfInertiaKgMSquared,
-                      kEfficiency, kQPositionRad, kQVelocityRadPerSec, kRVolts,
-                      kDtSeconds, kSensorDelaySeconds),
-                  std::domain_error);
+  CHECK_THROWS_AS(
+      ComputeArmFeedbackGainsCore(
+          motor,
+          {
+              .gearing = -5.0,
+              .momentOfInertiaKgMSquared = kMomentOfInertiaKgMSquared,
+              .efficiency = kEfficiency,
+              .qPositionRad = kQPositionRad,
+              .qVelocityRadPerSec = kQVelocityRadPerSec,
+              .rVolts = kRVolts,
+              .dtSeconds = kDtSeconds,
+              .sensorDelaySeconds = kSensorDelaySeconds,
+          }),
+      std::domain_error);
 }
 
 // ============================================================================
@@ -278,9 +387,11 @@ class FlywheelFeedbackGainsTest {
 TEST_CASE_METHOD(FlywheelFeedbackGainsTest,
                  "FlywheelFeedbackGainsTest: MatchesDirectLqrConstruction",
                  "[FlywheelFeedbackGainsTest]") {
-  const auto idealPlant = wpi::math::Models::FlywheelFromPhysicalConstants(
-      motor, wpi::units::kilogram_square_meter_t(kMomentOfInertiaKgMSquared),
-      kGearing);
+  const auto idealPlant =
+      wpi::math::Models::AngularVelocityFromPhysicalConstants(
+          motor,
+          wpi::units::kilogram_square_meter_t(kMomentOfInertiaKgMSquared),
+          kGearing);
 
   // Efficiency scales the whole state derivative, so A moves with B.
   const wpi::math::Matrixd<1, 1> controllerA = idealPlant.A() * kEfficiency;
@@ -297,8 +408,15 @@ TEST_CASE_METHOD(FlywheelFeedbackGainsTest,
                              wpi::units::second_t(kSensorDelaySeconds));
 
   FeedbackGains actual = ComputeFlywheelFeedbackGainsCore(
-      motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency,
-      kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds);
+      motor, {
+                 .gearing = kGearing,
+                 .momentOfInertiaKgMSquared = kMomentOfInertiaKgMSquared,
+                 .efficiency = kEfficiency,
+                 .qVelocityRadPerSec = kQVelocityRadPerSec,
+                 .rVolts = kRVolts,
+                 .dtSeconds = kDtSeconds,
+                 .sensorDelaySeconds = kSensorDelaySeconds,
+             });
 
   CHECK_THAT(actual.kP, WithinAbs(expected.K(0, 0), kTol));
 }
@@ -307,8 +425,15 @@ TEST_CASE_METHOD(FlywheelFeedbackGainsTest,
                  "FlywheelFeedbackGainsTest: KDIsAlwaysZero",
                  "[FlywheelFeedbackGainsTest]") {
   const FeedbackGains gains = ComputeFlywheelFeedbackGainsCore(
-      motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency,
-      kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds);
+      motor, {
+                 .gearing = kGearing,
+                 .momentOfInertiaKgMSquared = kMomentOfInertiaKgMSquared,
+                 .efficiency = kEfficiency,
+                 .qVelocityRadPerSec = kQVelocityRadPerSec,
+                 .rVolts = kRVolts,
+                 .dtSeconds = kDtSeconds,
+                 .sensorDelaySeconds = kSensorDelaySeconds,
+             });
 
   CHECK(gains.kD == 0.0);
 }
@@ -317,8 +442,15 @@ TEST_CASE_METHOD(FlywheelFeedbackGainsTest,
                  "FlywheelFeedbackGainsTest: ProducesPlausiblePositiveGain",
                  "[FlywheelFeedbackGainsTest]") {
   const FeedbackGains gains = ComputeFlywheelFeedbackGainsCore(
-      motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency,
-      kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds);
+      motor, {
+                 .gearing = kGearing,
+                 .momentOfInertiaKgMSquared = kMomentOfInertiaKgMSquared,
+                 .efficiency = kEfficiency,
+                 .qVelocityRadPerSec = kQVelocityRadPerSec,
+                 .rVolts = kRVolts,
+                 .dtSeconds = kDtSeconds,
+                 .sensorDelaySeconds = kSensorDelaySeconds,
+             });
 
   CHECK(gains.kP > 0.0);
 }
@@ -328,11 +460,25 @@ TEST_CASE_METHOD(
     "FlywheelFeedbackGainsTest: TighteningVelocityToleranceIncreasesKP",
     "[FlywheelFeedbackGainsTest]") {
   const FeedbackGains loose = ComputeFlywheelFeedbackGainsCore(
-      motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency,
-      /*qVelocityRadPerSec=*/50.0, kRVolts, kDtSeconds, kSensorDelaySeconds);
+      motor, {
+                 .gearing = kGearing,
+                 .momentOfInertiaKgMSquared = kMomentOfInertiaKgMSquared,
+                 .efficiency = kEfficiency,
+                 .qVelocityRadPerSec = 50.0,
+                 .rVolts = kRVolts,
+                 .dtSeconds = kDtSeconds,
+                 .sensorDelaySeconds = kSensorDelaySeconds,
+             });
   const FeedbackGains tight = ComputeFlywheelFeedbackGainsCore(
-      motor, kGearing, kMomentOfInertiaKgMSquared, kEfficiency,
-      /*qVelocityRadPerSec=*/1.0, kRVolts, kDtSeconds, kSensorDelaySeconds);
+      motor, {
+                 .gearing = kGearing,
+                 .momentOfInertiaKgMSquared = kMomentOfInertiaKgMSquared,
+                 .efficiency = kEfficiency,
+                 .qVelocityRadPerSec = 1.0,
+                 .rVolts = kRVolts,
+                 .dtSeconds = kDtSeconds,
+                 .sensorDelaySeconds = kSensorDelaySeconds,
+             });
 
   CHECK(tight.kP > loose.kP);
 }
@@ -341,11 +487,18 @@ TEST_CASE_METHOD(
     FlywheelFeedbackGainsTest,
     "FlywheelFeedbackGainsTest: NonPositiveMomentOfInertiaThrowsDomainError",
     "[FlywheelFeedbackGainsTest]") {
-  CHECK_THROWS_AS(
-      ComputeFlywheelFeedbackGainsCore(
-          motor, kGearing, /*momentOfInertiaKgMSquared=*/-0.01, kEfficiency,
-          kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds),
-      std::domain_error);
+  CHECK_THROWS_AS(ComputeFlywheelFeedbackGainsCore(
+                      motor,
+                      {
+                          .gearing = kGearing,
+                          .momentOfInertiaKgMSquared = -0.01,
+                          .efficiency = kEfficiency,
+                          .qVelocityRadPerSec = kQVelocityRadPerSec,
+                          .rVolts = kRVolts,
+                          .dtSeconds = kDtSeconds,
+                          .sensorDelaySeconds = kSensorDelaySeconds,
+                      }),
+                  std::domain_error);
 }
 
 TEST_CASE_METHOD(
@@ -354,7 +507,15 @@ TEST_CASE_METHOD(
     "[FlywheelFeedbackGainsTest]") {
   CHECK_THROWS_AS(
       ComputeFlywheelFeedbackGainsCore(
-          motor, /*gearing=*/0.0, kMomentOfInertiaKgMSquared, kEfficiency,
-          kQVelocityRadPerSec, kRVolts, kDtSeconds, kSensorDelaySeconds),
+          motor,
+          {
+              .gearing = 0.0,
+              .momentOfInertiaKgMSquared = kMomentOfInertiaKgMSquared,
+              .efficiency = kEfficiency,
+              .qVelocityRadPerSec = kQVelocityRadPerSec,
+              .rVolts = kRVolts,
+              .dtSeconds = kDtSeconds,
+              .sensorDelaySeconds = kSensorDelaySeconds,
+          }),
       std::domain_error);
 }

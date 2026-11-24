@@ -59,7 +59,7 @@ std::unique_ptr<DCMotorWasm> MakeMotorWasm(const wpi::math::DCMotor& motor,
 // The ideal (efficiency-free) plant, rebuilt in the test so expected values can
 // be derived analytically instead of hardcoded.
 auto IdealPlant(double moi = kMoi, double gearing = kGearing) {
-  return wpi::math::Models::SingleJointedArmFromPhysicalConstants(
+  return wpi::math::Models::AngularPositionFromPhysicalConstants(
       TestMotor(), wpi::units::kilogram_square_meter_t(moi), gearing);
 }
 
@@ -99,12 +99,26 @@ struct Params {
 emscripten::val RunRaw(const Params& p) {
   const auto motor = MakeMotorWasm(TestMotor(), 1);
   emscripten::val result = SimulateArm(
-      motor.get(), p.gearing, p.momentOfInertiaKgMSquared, p.armLengthMeters,
-      p.minAngleRadians, p.maxAngleRadians, p.startingAngleRadians,
-      p.statorLimitAmps, p.supplyLimitAmps, p.statorVoltageVolts,
-      p.batteryResistanceOhms, p.batteryVoltageVolts, p.efficiency, p.goingUp,
-      p.simTimestep, p.decimation, p.maxSimSeconds,
-      p.batteryVoltageFilterTimeConstantSeconds);
+      motor.get(), {
+                       .gearing = p.gearing,
+                       .momentOfInertiaKgMSquared = p.momentOfInertiaKgMSquared,
+                       .armLengthMeters = p.armLengthMeters,
+                       .minAngleRadians = p.minAngleRadians,
+                       .maxAngleRadians = p.maxAngleRadians,
+                       .startingAngleRadians = p.startingAngleRadians,
+                       .statorLimitAmps = p.statorLimitAmps,
+                       .supplyLimitAmps = p.supplyLimitAmps,
+                       .statorVoltageVolts = p.statorVoltageVolts,
+                       .batteryResistanceOhms = p.batteryResistanceOhms,
+                       .batteryVoltageVolts = p.batteryVoltageVolts,
+                       .efficiency = p.efficiency,
+                       .goingUp = p.goingUp,
+                       .simTimestep = p.simTimestep,
+                       .decimation = p.decimation,
+                       .maxSimSeconds = p.maxSimSeconds,
+                       .batteryVoltageFilterTimeConstantSeconds =
+                           p.batteryVoltageFilterTimeConstantSeconds,
+                   });
   return result;
 }
 
@@ -145,16 +159,25 @@ double ToMotorRpm(double armRadPerSec, double gearing = kGearing) {
 
 // Free-swings an unpowered arm for one timestep from rest and returns the
 // resulting velocity. Travel limits are set far away so neither one clamps.
-double UnpoweredVelocityAfterOneStep(double startingAngleRadians,
-                                     double armLenMeters, double dt,
-                                     double moi = kMoi) {
+double UnpoweredVelocityAfterOneStep(wpi::units::radian_t startingAngle,
+                                     wpi::units::meter_t armLength,
+                                     wpi::units::second_t dt,
+                                     wpi::units::kilogram_square_meter_t moi =
+                                         wpi::units::kilogram_square_meter_t{
+                                             kMoi}) {
   ResetSupplyVoltage();
-  EfficiencyArmSim sim(
-      TestMotor(), kGearing, wpi::units::kilogram_square_meter_t(moi),
-      wpi::units::meter_t(armLenMeters), wpi::units::radian_t(-10.0),
-      wpi::units::radian_t(10.0), startingAngleRadians, 1.0);
+  EfficiencyArmSim sim(TestMotor(),
+                       {
+                           .gearing = kGearing,
+                           .momentOfInertiaKgMSquared = moi.value(),
+                           .armLengthMeters = armLength.value(),
+                           .minAngleRadians = -10.0,
+                           .maxAngleRadians = 10.0,
+                           .startingAngleRadians = startingAngle.value(),
+                           .efficiency = 1.0,
+                       });
   sim.SetInputVoltage(wpi::units::volt_t(0.0));
-  sim.Update(wpi::units::second_t(dt));
+  sim.Update(dt);
   return sim.GetVelocity().to<double>();
 }
 
@@ -162,25 +185,33 @@ double UnpoweredVelocityAfterOneStep(double startingAngleRadians,
 // constant gravitational angular acceleration:
 //   v(t) = (G / A11) * (exp(A11*t) - 1)
 // Valid while the angle barely moves, so cos(theta) stays effectively constant.
-double ExpectedUnpoweredVelocity(double startingAngleRadians,
-                                 double armLenMeters, double dt,
-                                 double moi = kMoi) {
-  const double a11 = IdealPlant(moi).A()(1, 1);
+double ExpectedUnpoweredVelocity(wpi::units::radian_t startingAngle,
+                                 wpi::units::meter_t armLength,
+                                 wpi::units::second_t dt,
+                                 wpi::units::kilogram_square_meter_t moi =
+                                     wpi::units::kilogram_square_meter_t{
+                                         kMoi}) {
+  const double a11 = IdealPlant(moi.value()).A()(1, 1);
   const double gravity =
-      -kArmGravity / armLenMeters * std::cos(startingAngleRadians);
-  return (gravity / a11) * (std::exp(a11 * dt) - 1.0);
+      -kArmGravity / armLength.value() * std::cos(startingAngle.value());
+  return (gravity / a11) * (std::exp(a11 * dt.value()) - 1.0);
 }
 
 // Runs a gravity-free arm (arm length 0 disables the gravity term) at a fixed
 // voltage long enough to reach steady state, and returns the terminal velocity.
 // The plant's time constant is -1/A(1,1) ~ 26 us, so 2 s is far past settling.
-double SteadyStateArmVelocity(double efficiency, double voltage) {
+double SteadyStateArmVelocity(double efficiency, wpi::units::volt_t voltage) {
   ResetSupplyVoltage();
-  EfficiencyArmSim sim(TestMotor(), kGearing,
-                       wpi::units::kilogram_square_meter_t(kMoi),
-                       wpi::units::meter_t(0.0), wpi::units::radian_t(-1000.0),
-                       wpi::units::radian_t(1000.0), 0.0, efficiency);
-  sim.SetInputVoltage(wpi::units::volt_t(voltage));
+  EfficiencyArmSim sim(TestMotor(), {
+                                        .gearing = kGearing,
+                                        .momentOfInertiaKgMSquared = kMoi,
+                                        .armLengthMeters = 0.0,
+                                        .minAngleRadians = -1000.0,
+                                        .maxAngleRadians = 1000.0,
+                                        .startingAngleRadians = 0.0,
+                                        .efficiency = efficiency,
+                                    });
+  sim.SetInputVoltage(voltage);
   for (int i = 0; i < 2000; ++i) {
     sim.Update(wpi::units::second_t(1e-3));
   }
@@ -224,11 +255,15 @@ TEST_CASE("ArmSimHarness: RoboRioVoltageIsReadableAfterHalInit",
 TEST_CASE("EfficiencyArmGravity: HorizontalArmFallsAtFullGravity",
           "[EfficiencyArmGravity]") {
   const double dt = 1e-6;
-  const double expected = ExpectedUnpoweredVelocity(0.0, kArmLenMeters, dt);
+  const double expected = ExpectedUnpoweredVelocity(
+      wpi::units::radian_t{0.0}, wpi::units::meter_t{kArmLenMeters},
+      wpi::units::second_t{dt});
   INFO("a horizontal arm must fall");
   REQUIRE(expected < 0.0);
 
-  CHECK_THAT(UnpoweredVelocityAfterOneStep(0.0, kArmLenMeters, dt),
+  CHECK_THAT(UnpoweredVelocityAfterOneStep(wpi::units::radian_t{0.0},
+                                           wpi::units::meter_t{kArmLenMeters},
+                                           wpi::units::second_t{dt}),
              WithinAbs(expected, std::abs(expected) * 1e-6));
 }
 
@@ -241,13 +276,15 @@ TEST_CASE("EfficiencyArmGravity: HorizontalArmFallsAtFullGravity",
 TEST_CASE("EfficiencyArmGravity: VerticalArmHasNoGravityTorque",
           "[EfficiencyArmGravity]") {
   const double dt = 1e-5;
-  const double horizontal =
-      UnpoweredVelocityAfterOneStep(0.0, kArmLenMeters, dt);
+  const double horizontal = UnpoweredVelocityAfterOneStep(
+      wpi::units::radian_t{0.0}, wpi::units::meter_t{kArmLenMeters},
+      wpi::units::second_t{dt});
   INFO("a horizontal arm must fall");
   REQUIRE(horizontal < 0.0);
 
-  CHECK(std::abs(UnpoweredVelocityAfterOneStep(std::numbers::pi / 2.0,
-                                               kArmLenMeters, dt)) <
+  CHECK(std::abs(UnpoweredVelocityAfterOneStep(
+            wpi::units::radian_t{std::numbers::pi / 2.0},
+            wpi::units::meter_t{kArmLenMeters}, wpi::units::second_t{dt})) <
         std::abs(horizontal) * 1e-12);
 }
 
@@ -256,7 +293,9 @@ TEST_CASE("EfficiencyArmGravity: VerticalArmHasNoGravityTorque",
 // not a NaN. This is why SimulateArm deliberately does not guard arm length.
 TEST_CASE("EfficiencyArmGravity: ZeroArmLengthDisablesGravity",
           "[EfficiencyArmGravity]") {
-  const double v = UnpoweredVelocityAfterOneStep(0.0, 0.0, 1e-5);
+  const double v = UnpoweredVelocityAfterOneStep(wpi::units::radian_t{0.0},
+                                                 wpi::units::meter_t{0.0},
+                                                 wpi::units::second_t{1e-5});
   CHECK(std::isfinite(v));
   CHECK_THAT(v, WithinULP(0.0, 4));
 }
@@ -265,7 +304,9 @@ TEST_CASE("EfficiencyArmGravity: ZeroArmLengthDisablesGravity",
 // rather than flipping its sign.
 TEST_CASE("EfficiencyArmGravity: NegativeArmLengthAlsoDisablesGravity",
           "[EfficiencyArmGravity]") {
-  const double v = UnpoweredVelocityAfterOneStep(0.0, -0.5, 1e-5);
+  const double v = UnpoweredVelocityAfterOneStep(wpi::units::radian_t{0.0},
+                                                 wpi::units::meter_t{-0.5},
+                                                 wpi::units::second_t{1e-5});
   CHECK(std::isfinite(v));
   CHECK_THAT(v, WithinULP(0.0, 4));
 }
@@ -283,14 +324,17 @@ TEST_CASE("GravityAngleScalingTest: VelocityRatioTracksCosineOfAngle",
                std::numbers::pi / 3.0, std::numbers::pi / 2.0);
   CAPTURE(angle);
   const double dt = 1e-5;
-  const double horizontal =
-      UnpoweredVelocityAfterOneStep(0.0, kArmLenMeters, dt);
+  const double horizontal = UnpoweredVelocityAfterOneStep(
+      wpi::units::radian_t{0.0}, wpi::units::meter_t{kArmLenMeters},
+      wpi::units::second_t{dt});
   INFO("a horizontal arm must fall");
   REQUIRE(horizontal < 0.0);
 
-  CHECK_THAT(
-      UnpoweredVelocityAfterOneStep(angle, kArmLenMeters, dt) / horizontal,
-      WithinAbs(std::cos(angle), 1e-6));
+  CHECK_THAT(UnpoweredVelocityAfterOneStep(wpi::units::radian_t{angle},
+                                           wpi::units::meter_t{kArmLenMeters},
+                                           wpi::units::second_t{dt}) /
+                 horizontal,
+             WithinAbs(std::cos(angle), 1e-6));
 }
 
 // The point-mass model puts no moment of inertia in the gravity term:
@@ -303,16 +347,23 @@ TEST_CASE("EfficiencyArmGravity: GravityIsIndependentOfMomentOfInertia",
   const double dt = 1e-6;  // see HorizontalArmFallsAtFullGravity
   const double heavyMoi = 4.0 * kMoi;
 
-  const double lightExpected =
-      ExpectedUnpoweredVelocity(0.0, kArmLenMeters, dt);
-  const double heavyExpected =
-      ExpectedUnpoweredVelocity(0.0, kArmLenMeters, dt, heavyMoi);
+  const double lightExpected = ExpectedUnpoweredVelocity(
+      wpi::units::radian_t{0.0}, wpi::units::meter_t{kArmLenMeters},
+      wpi::units::second_t{dt});
+  const double heavyExpected = ExpectedUnpoweredVelocity(
+      wpi::units::radian_t{0.0}, wpi::units::meter_t{kArmLenMeters},
+      wpi::units::second_t{dt}, wpi::units::kilogram_square_meter_t{heavyMoi});
   INFO("inertia must still affect A11");
   REQUIRE(lightExpected != heavyExpected);
 
-  CHECK_THAT(UnpoweredVelocityAfterOneStep(0.0, kArmLenMeters, dt),
+  CHECK_THAT(UnpoweredVelocityAfterOneStep(wpi::units::radian_t{0.0},
+                                           wpi::units::meter_t{kArmLenMeters},
+                                           wpi::units::second_t{dt}),
              WithinAbs(lightExpected, std::abs(lightExpected) * 1e-6));
-  CHECK_THAT(UnpoweredVelocityAfterOneStep(0.0, kArmLenMeters, dt, heavyMoi),
+  CHECK_THAT(UnpoweredVelocityAfterOneStep(
+                 wpi::units::radian_t{0.0}, wpi::units::meter_t{kArmLenMeters},
+                 wpi::units::second_t{dt},
+                 wpi::units::kilogram_square_meter_t{heavyMoi}),
              WithinAbs(heavyExpected, std::abs(heavyExpected) * 1e-6));
 }
 
@@ -321,11 +372,16 @@ TEST_CASE("EfficiencyArmGravity: GravityIsIndependentOfMomentOfInertia",
 TEST_CASE("EfficiencyArmGravity: GravityScalesInverselyWithArmLength",
           "[EfficiencyArmGravity]") {
   const double dt = 1e-5;
-  const double shortArm = UnpoweredVelocityAfterOneStep(0.0, kArmLenMeters, dt);
+  const double shortArm = UnpoweredVelocityAfterOneStep(
+      wpi::units::radian_t{0.0}, wpi::units::meter_t{kArmLenMeters},
+      wpi::units::second_t{dt});
   REQUIRE(shortArm < 0.0);
 
   CHECK_THAT(
-      UnpoweredVelocityAfterOneStep(0.0, 2.0 * kArmLenMeters, dt) / shortArm,
+      UnpoweredVelocityAfterOneStep(wpi::units::radian_t{0.0},
+                                    wpi::units::meter_t{2.0 * kArmLenMeters},
+                                    wpi::units::second_t{dt}) /
+          shortArm,
       WithinAbs(0.5, 1e-6));
 }
 
@@ -350,15 +406,16 @@ TEST_CASE("EfficiencyArm: SteadyStateIsIndependentOfEfficiency",
   const auto plant = IdealPlant();
   const double expected = -plant.B()(1, 0) * voltage / plant.A()(1, 1);
 
-  CHECK_THAT(SteadyStateArmVelocity(0.5, voltage),
+  CHECK_THAT(SteadyStateArmVelocity(0.5, wpi::units::volt_t{voltage}),
              WithinAbs(expected, std::abs(expected) * 1e-6));
 }
 
 TEST_CASE("EfficiencyArm: HalvingEfficiencyLeavesSteadyStateVelocity",
           "[EfficiencyArm]") {
-  const double full = SteadyStateArmVelocity(1.0, 6.0);
+  const double full = SteadyStateArmVelocity(1.0, wpi::units::volt_t{6.0});
   REQUIRE(full > 0.0);
-  CHECK_THAT(SteadyStateArmVelocity(0.5, 6.0) / full, WithinAbs(1.0, 1e-6));
+  CHECK_THAT(SteadyStateArmVelocity(0.5, wpi::units::volt_t{6.0}) / full,
+             WithinAbs(1.0, 1e-6));
 }
 
 TEST_CASE("EfficiencyArm: LowerEfficiencyReducesInitialAcceleration",
@@ -371,14 +428,24 @@ TEST_CASE("EfficiencyArm: LowerEfficiencyReducesInitialAcceleration",
   // ~ -38000, so dt has to be very small for that residual to clear.
   const double dt = 1e-9;
   ResetSupplyVoltage();
-  EfficiencyArmSim full(TestMotor(), kGearing,
-                        wpi::units::kilogram_square_meter_t(kMoi),
-                        wpi::units::meter_t(0.0), wpi::units::radian_t(-10.0),
-                        wpi::units::radian_t(10.0), 0.0, 1.0);
-  EfficiencyArmSim half(TestMotor(), kGearing,
-                        wpi::units::kilogram_square_meter_t(kMoi),
-                        wpi::units::meter_t(0.0), wpi::units::radian_t(-10.0),
-                        wpi::units::radian_t(10.0), 0.0, 0.5);
+  EfficiencyArmSim full(TestMotor(), {
+                                         .gearing = kGearing,
+                                         .momentOfInertiaKgMSquared = kMoi,
+                                         .armLengthMeters = 0.0,
+                                         .minAngleRadians = -10.0,
+                                         .maxAngleRadians = 10.0,
+                                         .startingAngleRadians = 0.0,
+                                         .efficiency = 1.0,
+                                     });
+  EfficiencyArmSim half(TestMotor(), {
+                                         .gearing = kGearing,
+                                         .momentOfInertiaKgMSquared = kMoi,
+                                         .armLengthMeters = 0.0,
+                                         .minAngleRadians = -10.0,
+                                         .maxAngleRadians = 10.0,
+                                         .startingAngleRadians = 0.0,
+                                         .efficiency = 0.5,
+                                     });
   full.SetInputVoltage(wpi::units::volt_t(6.0));
   half.SetInputVoltage(wpi::units::volt_t(6.0));
   full.Update(wpi::units::second_t(dt));
@@ -401,10 +468,15 @@ TEST_CASE("EfficiencyArm: EfficiencyScalesTheBackEmfDecay", "[EfficiencyArm]") {
 
   const auto decayRatio = [&](double efficiency) {
     ResetSupplyVoltage();
-    EfficiencyArmSim sim(TestMotor(), kGearing,
-                         wpi::units::kilogram_square_meter_t(kMoi),
-                         wpi::units::meter_t(0.0), wpi::units::radian_t(-10.0),
-                         wpi::units::radian_t(10.0), 0.0, efficiency);
+    EfficiencyArmSim sim(TestMotor(), {
+                                          .gearing = kGearing,
+                                          .momentOfInertiaKgMSquared = kMoi,
+                                          .armLengthMeters = 0.0,
+                                          .minAngleRadians = -10.0,
+                                          .maxAngleRadians = 10.0,
+                                          .startingAngleRadians = 0.0,
+                                          .efficiency = efficiency,
+                                      });
     sim.SetState(wpi::math::Vectord<2>{0.0, v0});
     sim.SetInputVoltage(wpi::units::volt_t(0.0));
     sim.Update(wpi::units::second_t(dt));
@@ -429,10 +501,15 @@ TEST_CASE("EfficiencyArm: EfficiencyDoesNotAffectGravity", "[EfficiencyArm]") {
 
   const auto initialAlpha = [&](double efficiency) {
     ResetSupplyVoltage();
-    EfficiencyArmSim sim(
-        TestMotor(), kGearing, wpi::units::kilogram_square_meter_t(kMoi),
-        wpi::units::meter_t(kArmLenMeters), wpi::units::radian_t(-10.0),
-        wpi::units::radian_t(10.0), 0.0, efficiency);
+    EfficiencyArmSim sim(TestMotor(), {
+                                          .gearing = kGearing,
+                                          .momentOfInertiaKgMSquared = kMoi,
+                                          .armLengthMeters = kArmLenMeters,
+                                          .minAngleRadians = -10.0,
+                                          .maxAngleRadians = 10.0,
+                                          .startingAngleRadians = 0.0,
+                                          .efficiency = efficiency,
+                                      });
     sim.SetInputVoltage(wpi::units::volt_t(0.0));
     sim.Update(wpi::units::second_t(dt));
     return sim.GetVelocity().to<double>() / dt;
@@ -451,10 +528,15 @@ TEST_CASE("EfficiencyArm: EfficiencyDoesNotAffectGravity", "[EfficiencyArm]") {
 TEST_CASE("EfficiencyArmLimits: LowerLimitPinsAngleAndZeroesVelocity",
           "[EfficiencyArmLimits]") {
   ResetSupplyVoltage();
-  EfficiencyArmSim sim(
-      TestMotor(), kGearing, wpi::units::kilogram_square_meter_t(kMoi),
-      wpi::units::meter_t(kArmLenMeters), wpi::units::radian_t(0.0),
-      wpi::units::radian_t(2.0), 0.01, 1.0);
+  EfficiencyArmSim sim(TestMotor(), {
+                                        .gearing = kGearing,
+                                        .momentOfInertiaKgMSquared = kMoi,
+                                        .armLengthMeters = kArmLenMeters,
+                                        .minAngleRadians = 0.0,
+                                        .maxAngleRadians = 2.0,
+                                        .startingAngleRadians = 0.01,
+                                        .efficiency = 1.0,
+                                    });
   sim.SetInputVoltage(wpi::units::volt_t(-12.0));
   for (int i = 0; i < 50; ++i) {
     sim.Update(wpi::units::second_t(1e-3));
@@ -468,10 +550,15 @@ TEST_CASE("EfficiencyArmLimits: LowerLimitPinsAngleAndZeroesVelocity",
 TEST_CASE("EfficiencyArmLimits: UpperLimitPinsAngleAndZeroesVelocity",
           "[EfficiencyArmLimits]") {
   ResetSupplyVoltage();
-  EfficiencyArmSim sim(
-      TestMotor(), kGearing, wpi::units::kilogram_square_meter_t(kMoi),
-      wpi::units::meter_t(kArmLenMeters), wpi::units::radian_t(0.0),
-      wpi::units::radian_t(2.0), 1.99, 1.0);
+  EfficiencyArmSim sim(TestMotor(), {
+                                        .gearing = kGearing,
+                                        .momentOfInertiaKgMSquared = kMoi,
+                                        .armLengthMeters = kArmLenMeters,
+                                        .minAngleRadians = 0.0,
+                                        .maxAngleRadians = 2.0,
+                                        .startingAngleRadians = 1.99,
+                                        .efficiency = 1.0,
+                                    });
   sim.SetInputVoltage(wpi::units::volt_t(12.0));
   for (int i = 0; i < 50; ++i) {
     sim.Update(wpi::units::second_t(1e-3));
@@ -486,17 +573,29 @@ TEST_CASE("EfficiencyArmLimits: UpperLimitPinsAngleAndZeroesVelocity",
 TEST_CASE("EfficiencyArmLimits: LimitPredicatesAreInclusiveAtConstruction",
           "[EfficiencyArmLimits]") {
   ResetSupplyVoltage();
-  const EfficiencyArmSim atLower(
-      TestMotor(), kGearing, wpi::units::kilogram_square_meter_t(kMoi),
-      wpi::units::meter_t(kArmLenMeters), wpi::units::radian_t(0.0),
-      wpi::units::radian_t(2.0), 0.0, 1.0);
+  const EfficiencyArmSim atLower(TestMotor(),
+                                 {
+                                     .gearing = kGearing,
+                                     .momentOfInertiaKgMSquared = kMoi,
+                                     .armLengthMeters = kArmLenMeters,
+                                     .minAngleRadians = 0.0,
+                                     .maxAngleRadians = 2.0,
+                                     .startingAngleRadians = 0.0,
+                                     .efficiency = 1.0,
+                                 });
   CHECK(atLower.HasHitLowerLimit());
   CHECK_FALSE(atLower.HasHitUpperLimit());
 
-  const EfficiencyArmSim atUpper(
-      TestMotor(), kGearing, wpi::units::kilogram_square_meter_t(kMoi),
-      wpi::units::meter_t(kArmLenMeters), wpi::units::radian_t(0.0),
-      wpi::units::radian_t(2.0), 2.0, 1.0);
+  const EfficiencyArmSim atUpper(TestMotor(),
+                                 {
+                                     .gearing = kGearing,
+                                     .momentOfInertiaKgMSquared = kMoi,
+                                     .armLengthMeters = kArmLenMeters,
+                                     .minAngleRadians = 0.0,
+                                     .maxAngleRadians = 2.0,
+                                     .startingAngleRadians = 2.0,
+                                     .efficiency = 1.0,
+                                 });
   CHECK(atUpper.HasHitUpperLimit());
   CHECK_FALSE(atUpper.HasHitLowerLimit());
 }
@@ -557,7 +656,7 @@ TEST_CASE("SimulateArmGuards: NegativeMaxSimSecondsReturnsEmpty",
   CHECK(Length(RunRaw(p)) == 0);
 }
 
-// Models::SingleJointedArmFromPhysicalConstants throws std::domain_error for a
+// Models::AngularPositionFromPhysicalConstants throws std::domain_error for a
 // non-positive gearing. Guarding avoids console spam from the optimizer grid.
 TEST_CASE("SimulateArmGuards: ZeroGearingReturnsEmpty", "[SimulateArmGuards]") {
   Params p;

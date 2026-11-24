@@ -8,11 +8,11 @@ Checks: >
   modernize-*,
   performance-*,
   readability-*,
-  -bugprone-easily-swappable-parameters,
   -modernize-use-trailing-return-type
 WarningsAsErrors: '*'
 HeaderFilterRegex: '/src/(patches|tests)/'
 SystemHeaders: false
 CheckOptions:
+  bugprone-easily-swappable-parameters.IgnoredParameterNames: '"";iterator;Iterator;begin;Begin;end;End;first;First;last;Last;lhs;LHS;rhs;RHS;u'
   readability-identifier-length.IgnoredParameterNames: '^(x|u|u_|s|dt)$'
   readability-identifier-length.IgnoredVariableNames: '^(n|k[AVG])$'

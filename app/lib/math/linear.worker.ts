@@ -97,14 +97,13 @@ export async function computeElevatorFeedforwardGains({
 
   const wasmMotor = motor.toWpilibMotor();
   try {
-    return wpilibc.computeLinearFeedforwardGains(
-      wasmMotor,
-      ratioValue.asNumber(),
-      loadMeasurement.to('kg').scalar,
-      spoolRadius.to('m').scalar,
+    return wpilibc.computeLinearFeedforwardGains(wasmMotor, {
+      gearing: ratioValue.asNumber(),
+      loadKg: loadMeasurement.to('kg').scalar,
+      spoolRadiusMeters: spoolRadius.to('m').scalar,
       efficiency,
-      Measurement.fromDict(angle).to('rad').scalar,
-    );
+      angleRadians: Measurement.fromDict(angle).to('rad').scalar,
+    });
   } finally {
     wasmMotor.delete();
   }
@@ -144,18 +143,17 @@ export async function computeElevatorFeedbackGains({
 
   const wasmMotor = motor.toWpilibMotor();
   try {
-    return wpilibc.computeElevatorFeedbackGains(
-      wasmMotor,
-      ratioValue.asNumber(),
-      loadMeasurement.to('kg').scalar,
-      spoolRadius.to('m').scalar,
+    return wpilibc.computeElevatorFeedbackGains(wasmMotor, {
+      gearing: ratioValue.asNumber(),
+      massKg: loadMeasurement.to('kg').scalar,
+      spoolRadiusMeters: spoolRadius.to('m').scalar,
       efficiency,
-      Measurement.fromDict(qPosition).to('m').scalar,
-      Measurement.fromDict(qVelocity).to('m/s').scalar,
-      r.to('V').scalar,
-      dt.to('s').scalar,
-      Measurement.fromDict(sensorDelay).to('s').scalar,
-    );
+      qPositionMeters: Measurement.fromDict(qPosition).to('m').scalar,
+      qVelocityMPS: Measurement.fromDict(qVelocity).to('m/s').scalar,
+      rVolts: r.to('V').scalar,
+      dtSeconds: dt.to('s').scalar,
+      sensorDelaySeconds: Measurement.fromDict(sensorDelay).to('s').scalar,
+    });
   } finally {
     wasmMotor.delete();
   }
@@ -189,33 +187,43 @@ export async function simulateElevatorWpilib({
   const motor = Motor.fromDict(motorDict);
   const wasmMotor = motor.toWpilibMotor();
   try {
-    return wpilibc.simulateElevator(
-      wasmMotor,
-      Ratio.fromDict(ratio).asNumber(),
-      Measurement.fromDict(load).to('kg').scalar,
-      Measurement.fromDict(spoolDiameter).div(2).to('m').scalar,
-      Measurement.fromDict(travelDistance).to('m').scalar,
-      Measurement.fromDict(statorLimitDict).to('A').scalar * motor.quantity,
-      Measurement.fromDict(supplyLimitDict).to('A').scalar * motor.quantity,
-      Measurement.fromDict(batteryResistance).to('Ohm').scalar,
-      Measurement.fromDict(batteryVoltage).to('V').scalar,
-      SIM_TIMESTEP_S,
-      SIM_DECIMATION,
-      SIM_MAX_SECONDS,
-      Measurement.fromDict(angle).to('rad').scalar,
+    return wpilibc.simulateElevator(wasmMotor, {
+      gearing: Ratio.fromDict(ratio).asNumber(),
+      loadKg: Measurement.fromDict(load).to('kg').scalar,
+      spoolRadiusMeters: Measurement.fromDict(spoolDiameter).div(2).to('m')
+        .scalar,
+      travelDistanceMeters: Measurement.fromDict(travelDistance).to('m').scalar,
+      statorLimitAmps:
+        Measurement.fromDict(statorLimitDict).to('A').scalar * motor.quantity,
+      supplyLimitAmps:
+        Measurement.fromDict(supplyLimitDict).to('A').scalar * motor.quantity,
+      batteryResistanceOhms:
+        Measurement.fromDict(batteryResistance).to('Ohm').scalar,
+      batteryVoltageVolts: Measurement.fromDict(batteryVoltage).to('V').scalar,
+      simTimestep: SIM_TIMESTEP_S,
+      decimation: SIM_DECIMATION,
+      maxSimSeconds: SIM_MAX_SECONDS,
+      angleRadians: Measurement.fromDict(angle).to('rad').scalar,
       efficiency,
       cascade,
       batteryVoltageFilterTimeConstantSeconds,
-      Measurement.fromDict(maxVelocityDict).to('m/s').scalar,
-      Measurement.fromDict(maxAccelerationDict).to('m/s^2').scalar,
+      maxVelocityMPS: Measurement.fromDict(maxVelocityDict).to('m/s').scalar,
+      maxAccelerationMPS2:
+        Measurement.fromDict(maxAccelerationDict).to('m/s^2').scalar,
       qPositionMeters,
       qVelocityMPS,
       rVolts,
       sensorDelaySeconds,
-      Measurement.fromDict(kalmanFilterPositionStdDev).to('m').scalar,
-      Measurement.fromDict(kalmanFilterVelocityStdDev).to('m/s').scalar,
-      Measurement.fromDict(kalmanFilterEncoderPositionStdDev).to('m').scalar,
-    );
+      kalmanFilterPositionStdDev: Measurement.fromDict(
+        kalmanFilterPositionStdDev,
+      ).to('m').scalar,
+      kalmanFilterVelocityStdDev: Measurement.fromDict(
+        kalmanFilterVelocityStdDev,
+      ).to('m/s').scalar,
+      kalmanFilterEncoderPositionStdDev: Measurement.fromDict(
+        kalmanFilterEncoderPositionStdDev,
+      ).to('m').scalar,
+    });
   } finally {
     wasmMotor.delete();
   }

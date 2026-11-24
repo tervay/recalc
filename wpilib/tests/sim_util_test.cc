@@ -18,64 +18,140 @@ static constexpr double kTol = 1e-9;
 // ============================================================================
 
 TEST_CASE("ClampVoltage: LooseLimits_PassThrough", "[ClampVoltage]") {
-  CHECK_THAT(ClampVoltageForCurrentLimits(6.0, 0.0, 0.1, 1000.0, 1000.0, 12.0),
+  CHECK_THAT(ClampVoltageForCurrentLimits({
+                 .vApplied = 6.0,
+                 .vBackEmf = 0.0,
+                 .rOhms = 0.1,
+                 .statorLimitAmps = 1000.0,
+                 .supplyLimitAmps = 1000.0,
+                 .vSupply = 12.0,
+             }),
              WithinAbs(6.0, kTol));
 }
 
 TEST_CASE("ClampVoltage: StatorLimitBinding_ClampsHigh", "[ClampVoltage]") {
   // maxA = 0 + 40*0.1 = 4
-  CHECK_THAT(ClampVoltageForCurrentLimits(12.0, 0.0, 0.1, 40.0, 1000.0, 12.0),
+  CHECK_THAT(ClampVoltageForCurrentLimits({
+                 .vApplied = 12.0,
+                 .vBackEmf = 0.0,
+                 .rOhms = 0.1,
+                 .statorLimitAmps = 40.0,
+                 .supplyLimitAmps = 1000.0,
+                 .vSupply = 12.0,
+             }),
              WithinAbs(4.0, kTol));
 }
 
 TEST_CASE("ClampVoltage: SupplyLimitBinding_ClampsHigh", "[ClampVoltage]") {
   // toSqrt = 0 + 40*0.1*12 = 48  →  maxB = sqrt(48)
-  CHECK_THAT(ClampVoltageForCurrentLimits(12.0, 0.0, 0.1, 1000.0, 40.0, 12.0),
+  CHECK_THAT(ClampVoltageForCurrentLimits({
+                 .vApplied = 12.0,
+                 .vBackEmf = 0.0,
+                 .rOhms = 0.1,
+                 .statorLimitAmps = 1000.0,
+                 .supplyLimitAmps = 40.0,
+                 .vSupply = 12.0,
+             }),
              WithinAbs(std::sqrt(48.0), kTol));
 }
 
 TEST_CASE("ClampVoltage: VAppliedInsideBounds_NoChange", "[ClampVoltage]") {
-  CHECK_THAT(ClampVoltageForCurrentLimits(2.0, 0.0, 0.1, 40.0, 1000.0, 12.0),
+  CHECK_THAT(ClampVoltageForCurrentLimits({
+                 .vApplied = 2.0,
+                 .vBackEmf = 0.0,
+                 .rOhms = 0.1,
+                 .statorLimitAmps = 40.0,
+                 .supplyLimitAmps = 1000.0,
+                 .vSupply = 12.0,
+             }),
              WithinAbs(2.0, kTol));
 }
 
 TEST_CASE("ClampVoltage: VSupplyHardCap", "[ClampVoltage]") {
-  CHECK_THAT(
-      ClampVoltageForCurrentLimits(100.0, 0.0, 0.1, 10000.0, 10000.0, 6.0),
-      WithinAbs(6.0, kTol));
+  CHECK_THAT(ClampVoltageForCurrentLimits({
+                 .vApplied = 100.0,
+                 .vBackEmf = 0.0,
+                 .rOhms = 0.1,
+                 .statorLimitAmps = 10000.0,
+                 .supplyLimitAmps = 10000.0,
+                 .vSupply = 6.0,
+             }),
+             WithinAbs(6.0, kTol));
 }
 
 TEST_CASE("ClampVoltage: StatorLimitBinding_ClampsLow", "[ClampVoltage]") {
-  CHECK_THAT(ClampVoltageForCurrentLimits(-12.0, 0.0, 0.1, 40.0, 1000.0, 12.0),
+  CHECK_THAT(ClampVoltageForCurrentLimits({
+                 .vApplied = -12.0,
+                 .vBackEmf = 0.0,
+                 .rOhms = 0.1,
+                 .statorLimitAmps = 40.0,
+                 .supplyLimitAmps = 1000.0,
+                 .vSupply = 12.0,
+             }),
              WithinAbs(-4.0, kTol));
 }
 
 TEST_CASE("ClampVoltage: BackEmfShiftsStatorWindow", "[ClampVoltage]") {
   // window = [6-4, 6+4] = [2, 10]
-  CHECK_THAT(ClampVoltageForCurrentLimits(12.0, 6.0, 0.1, 40.0, 1000.0, 12.0),
+  CHECK_THAT(ClampVoltageForCurrentLimits({
+                 .vApplied = 12.0,
+                 .vBackEmf = 6.0,
+                 .rOhms = 0.1,
+                 .statorLimitAmps = 40.0,
+                 .supplyLimitAmps = 1000.0,
+                 .vSupply = 12.0,
+             }),
              WithinAbs(10.0, kTol));
 }
 
 TEST_CASE("ClampVoltage: BothLimitsActive_StatorTighter", "[ClampVoltage]") {
   // maxA=4 (stator) < maxB=sqrt(48)≈6.93 (supply)
-  CHECK_THAT(ClampVoltageForCurrentLimits(12.0, 0.0, 0.1, 40.0, 40.0, 12.0),
+  CHECK_THAT(ClampVoltageForCurrentLimits({
+                 .vApplied = 12.0,
+                 .vBackEmf = 0.0,
+                 .rOhms = 0.1,
+                 .statorLimitAmps = 40.0,
+                 .supplyLimitAmps = 40.0,
+                 .vSupply = 12.0,
+             }),
              WithinAbs(4.0, kTol));
 }
 
 TEST_CASE("ClampVoltage: ZeroStatorLimit_ClampsToBackEmf", "[ClampVoltage]") {
-  CHECK_THAT(ClampVoltageForCurrentLimits(12.0, 3.0, 0.1, 0.0, 1000.0, 12.0),
+  CHECK_THAT(ClampVoltageForCurrentLimits({
+                 .vApplied = 12.0,
+                 .vBackEmf = 3.0,
+                 .rOhms = 0.1,
+                 .statorLimitAmps = 0.0,
+                 .supplyLimitAmps = 1000.0,
+                 .vSupply = 12.0,
+             }),
              WithinAbs(3.0, kTol));
 }
 
 TEST_CASE("ClampVoltage: VAppliedEqualsBackEmf_NoChange", "[ClampVoltage]") {
-  CHECK_THAT(ClampVoltageForCurrentLimits(5.0, 5.0, 0.1, 40.0, 40.0, 12.0),
+  CHECK_THAT(ClampVoltageForCurrentLimits({
+                 .vApplied = 5.0,
+                 .vBackEmf = 5.0,
+                 .rOhms = 0.1,
+                 .statorLimitAmps = 40.0,
+                 .supplyLimitAmps = 40.0,
+                 .vSupply = 12.0,
+             }),
              WithinAbs(5.0, kTol));
 }
 
 TEST_CASE("ClampVoltage: NegativeVAppliedWithNegativeBackEmf",
           "[ClampVoltage]") {
   // minA = -2 - 4 = -6
-  CHECK_THAT(ClampVoltageForCurrentLimits(-12.0, -2.0, 0.1, 40.0, 1000.0, 12.0),
+  CHECK_THAT(ClampVoltageForCurrentLimits({
+                 .vApplied = -12.0,
+                 .vBackEmf = -2.0,
+                 .rOhms = 0.1,
+                 .statorLimitAmps = 40.0,
+                 .supplyLimitAmps = 1000.0,
+                 .vSupply = 12.0,
+             }),
              WithinAbs(-6.0, kTol));
 }
 

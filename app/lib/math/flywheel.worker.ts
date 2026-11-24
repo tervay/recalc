@@ -47,16 +47,15 @@ export async function computeFlywheelFeedbackGains(
 
   const wasmMotor = motor.toWpilibMotor();
   try {
-    return wpilibc.computeFlywheelFeedbackGains(
-      wasmMotor,
-      ratio.asNumber(),
-      momentOfInertia.to('kg m^2').scalar,
+    return wpilibc.computeFlywheelFeedbackGains(wasmMotor, {
+      gearing: ratio.asNumber(),
+      momentOfInertiaKgMSquared: momentOfInertia.to('kg m^2').scalar,
       efficiency,
-      Measurement.fromDict(qVelocity_).to('rad/s').scalar,
-      rVolts.to('V').scalar,
-      feedbackDt.to('s').scalar,
-      Measurement.fromDict(sensorDelay_).to('s').scalar,
-    );
+      qVelocityRadPerSec: Measurement.fromDict(qVelocity_).to('rad/s').scalar,
+      rVolts: rVolts.to('V').scalar,
+      dtSeconds: feedbackDt.to('s').scalar,
+      sensorDelaySeconds: Measurement.fromDict(sensorDelay_).to('s').scalar,
+    });
   } finally {
     wasmMotor.delete();
   }
@@ -84,12 +83,11 @@ export async function computeFlywheelFeedforwardGains(
 
   const wasmMotor = motor.toWpilibMotor();
   try {
-    return wpilibc.computeFlywheelFeedforwardGains(
-      wasmMotor,
-      ratio.asNumber(),
-      momentOfInertia.to('kg m^2').scalar,
+    return wpilibc.computeFlywheelFeedforwardGains(wasmMotor, {
+      gearing: ratio.asNumber(),
+      momentOfInertiaKgMSquared: momentOfInertia.to('kg m^2').scalar,
       efficiency,
-    );
+    });
   } finally {
     wasmMotor.delete();
   }
@@ -134,23 +132,22 @@ export async function simulateFlywheelWpilib(
 
   const wasmMotor = motor.toWpilibMotor();
   try {
-    return wpilibc.simulateFlywheel(
-      wasmMotor,
-      ratio.asNumber(),
-      momentOfInertia.to('kg m^2').scalar,
-      targetRPM.to('rad/s').scalar,
-      statorLimit.to('A').scalar * motor.quantity,
-      supplyLimit.to('A').scalar * motor.quantity,
-      statorVoltage.to('V').scalar,
-      batteryResistance.to('Ohm').scalar,
-      batteryVoltage.to('V').scalar,
+    return wpilibc.simulateFlywheel(wasmMotor, {
+      gearing: ratio.asNumber(),
+      momentOfInertiaKgMSquared: momentOfInertia.to('kg m^2').scalar,
+      targetAngularVelocityRadPerSec: targetRPM.to('rad/s').scalar,
+      statorLimitAmps: statorLimit.to('A').scalar * motor.quantity,
+      supplyLimitAmps: supplyLimit.to('A').scalar * motor.quantity,
+      statorVoltageVolts: statorVoltage.to('V').scalar,
+      batteryResistanceOhms: batteryResistance.to('Ohm').scalar,
+      batteryVoltageVolts: batteryVoltage.to('V').scalar,
       efficiency,
-      0.0005,
-      10,
-      FLYWHEEL_SIMULATION_TIMEOUT_SECONDS,
+      simTimestep: 0.0005,
+      decimation: 10,
+      maxSimSeconds: FLYWHEEL_SIMULATION_TIMEOUT_SECONDS,
       batteryVoltageFilterTimeConstantSeconds,
       initialAngularVelocityRadPerSec,
-    );
+    });
   } finally {
     wasmMotor.delete();
   }

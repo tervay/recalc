@@ -47,7 +47,7 @@ std::unique_ptr<DCMotorWasm> MakeMotorWasm(const wpi::math::DCMotor& motor,
 // The ideal (efficiency-free) plant, rebuilt in the test so expected values can
 // be derived analytically instead of hardcoded.
 auto IdealPlant(double moi = kMoi, double gearing = kGearing) {
-  return wpi::math::Models::FlywheelFromPhysicalConstants(
+  return wpi::math::Models::AngularVelocityFromPhysicalConstants(
       TestMotor(), wpi::units::kilogram_square_meter_t(moi), gearing);
 }
 
@@ -84,12 +84,24 @@ struct Params {
 emscripten::val RunRaw(const Params& p) {
   const auto motor = MakeMotorWasm(TestMotor(), 1);
   emscripten::val result = SimulateFlywheel(
-      motor.get(), p.gearing, p.moiKgMSquared, p.targetAngularVelocityRadPerSec,
-      p.statorLimitAmps, p.supplyLimitAmps, p.statorVoltageVolts,
-      p.batteryResistanceOhms, p.batteryVoltageVolts, p.efficiency,
-      p.simTimestep, p.decimation, p.maxSimSeconds,
-      p.batteryVoltageFilterTimeConstantSeconds,
-      p.initialAngularVelocityRadPerSec);
+      motor.get(),
+      {
+          .gearing = p.gearing,
+          .momentOfInertiaKgMSquared = p.moiKgMSquared,
+          .targetAngularVelocityRadPerSec = p.targetAngularVelocityRadPerSec,
+          .statorLimitAmps = p.statorLimitAmps,
+          .supplyLimitAmps = p.supplyLimitAmps,
+          .statorVoltageVolts = p.statorVoltageVolts,
+          .batteryResistanceOhms = p.batteryResistanceOhms,
+          .batteryVoltageVolts = p.batteryVoltageVolts,
+          .efficiency = p.efficiency,
+          .simTimestep = p.simTimestep,
+          .decimation = p.decimation,
+          .maxSimSeconds = p.maxSimSeconds,
+          .batteryVoltageFilterTimeConstantSeconds =
+              p.batteryVoltageFilterTimeConstantSeconds,
+          .initialAngularVelocityRadPerSec = p.initialAngularVelocityRadPerSec,
+      });
   return result;
 }
 
@@ -129,12 +141,12 @@ double ToMotorRpm(double flywheelRadPerSec, double gearing = kGearing) {
 // returns the terminal angular velocity. The plant's time constant is
 // -1/A(0,0) ~ 0.12 s, so 10 s is ~84 time constants: the residual transient is
 // far below the 1e-6 relative tolerance used below.
-double SteadyStateVelocity(double efficiency, double voltage) {
+double SteadyStateVelocity(double efficiency, wpi::units::volt_t voltage) {
   ResetSupplyVoltage();
   EfficiencyFlywheelSim sim(TestMotor(), kGearing,
                             wpi::units::kilogram_square_meter_t(kMoi),
                             efficiency);
-  sim.SetInputVoltage(wpi::units::volt_t(voltage));
+  sim.SetInputVoltage(voltage);
   for (int i = 0; i < 10000; ++i) {
     sim.Update(wpi::units::second_t(1e-3));
   }
@@ -176,15 +188,16 @@ TEST_CASE("EfficiencyFlywheel: SteadyStateIsIndependentOfEfficiency",
   const auto plant = IdealPlant();
   const double expected = -plant.B()(0, 0) * voltage / plant.A()(0, 0);
 
-  CHECK_THAT(SteadyStateVelocity(0.5, voltage),
+  CHECK_THAT(SteadyStateVelocity(0.5, wpi::units::volt_t{voltage}),
              WithinAbs(expected, std::abs(expected) * 1e-6));
 }
 
 TEST_CASE("EfficiencyFlywheel: HalvingEfficiencyLeavesSteadyStateVelocity",
           "[EfficiencyFlywheel]") {
-  const double full = SteadyStateVelocity(1.0, 6.0);
+  const double full = SteadyStateVelocity(1.0, wpi::units::volt_t{6.0});
   REQUIRE(full > 0.0);
-  CHECK_THAT(SteadyStateVelocity(0.5, 6.0) / full, WithinAbs(1.0, 1e-6));
+  CHECK_THAT(SteadyStateVelocity(0.5, wpi::units::volt_t{6.0}) / full,
+             WithinAbs(1.0, 1e-6));
 }
 
 TEST_CASE("EfficiencyFlywheel: LowerEfficiencyReducesInitialAcceleration",
@@ -292,7 +305,7 @@ TEST_CASE("SimulateFlywheelGuards: NegativeMaxSimSecondsReturnsEmpty",
   CHECK(Length(RunRaw(p)) == 0);
 }
 
-// Models::FlywheelFromPhysicalConstants throws std::domain_error for a
+// Models::AngularVelocityFromPhysicalConstants throws std::domain_error for a
 // non-positive gearing. Guarding avoids console spam from the optimizer grid.
 TEST_CASE("SimulateFlywheelGuards: ZeroGearingReturnsEmpty",
           "[SimulateFlywheelGuards]") {
