@@ -4,4 +4,4 @@ idiomatic_version_file_enable_tools = ["node"]
 [tools]
 clang-format = "23.1.6"
 jq = "1.8.2"
-pnpm = "12.22.0"
+pnpm = "12.23.0"
