@@ -1,4 +1,4 @@
-import { expect, test } from 'playwright-tests/helpers';
+import { expect, test, waitForStock } from 'playwright-tests/helpers';
 
 test.describe('Chain Calculator', () => {
   test.beforeEach(async ({ page }) => {
@@ -11,6 +11,7 @@ test.describe('Chain Calculator', () => {
   }) => {
     await page.getByTestId('desiredCenter').fill('10');
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'desiredCenter-magnitude-changed.yaml',
@@ -24,6 +25,7 @@ test.describe('Chain Calculator', () => {
     await page.getByTestId('selectdesiredCenter').click();
     await page.getByRole('option', { name: 'ft' }).click();
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'desiredCenter-unit-changed.yaml',
@@ -36,6 +38,7 @@ test.describe('Chain Calculator', () => {
   }) => {
     await page.getByTestId('extraCenter').fill('1');
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'extraCenter-magnitude-changed.yaml',
@@ -50,6 +53,7 @@ test.describe('Chain Calculator', () => {
     await page.getByTestId('selectextraCenter').click();
     await page.getByRole('option', { name: 'cm' }).click();
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'extraCenter-unit-changed.yaml',
@@ -60,6 +64,7 @@ test.describe('Chain Calculator', () => {
   test('should match snapshot with chain changed', async ({ page }) => {
     await page.getByRole('button', { name: '#35' }).click();
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'chain-unit-changed.yaml',
@@ -70,6 +75,7 @@ test.describe('Chain Calculator', () => {
   test('should match snapshot with p1Teeth changed', async ({ page }) => {
     await page.getByTestId('p1Teeth').fill('30');
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'p1Teeth-changed.yaml',
@@ -80,6 +86,7 @@ test.describe('Chain Calculator', () => {
   test('should match snapshot with p2Teeth changed', async ({ page }) => {
     await page.getByTestId('p2Teeth').fill('60');
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'p2Teeth-changed.yaml',
@@ -93,6 +100,7 @@ test.describe('Chain Calculator', () => {
     await page.getByTestId('selectp1PitchDiameter').click();
     await page.getByRole('option', { name: 'mm' }).click();
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'p1PitchDiameter-changed.yaml',
@@ -106,6 +114,7 @@ test.describe('Chain Calculator', () => {
     await page.getByTestId('selectp2PitchDiameter').click();
     await page.getByRole('option', { name: 'mm' }).click();
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'p2PitchDiameter-changed.yaml',
@@ -119,6 +128,7 @@ test.describe('Chain Calculator', () => {
     await page.getByTestId('selectsmallerDistance').click();
     await page.getByRole('option', { name: 'cm' }).click();
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'smallerDistance-changed.yaml',
@@ -132,6 +142,7 @@ test.describe('Chain Calculator', () => {
     await page.getByTestId('selectlargerDistance').click();
     await page.getByRole('option', { name: 'cm' }).click();
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'largerDistance-changed.yaml',
@@ -145,6 +156,7 @@ test.describe('Chain Calculator', () => {
     await page.getByTestId('selectsmallerDiffFromTarget').click();
     await page.getByRole('option', { name: 'cm' }).click();
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'smallerDiffFromTarget-unit-changed.yaml',
@@ -158,6 +170,7 @@ test.describe('Chain Calculator', () => {
     await page.getByTestId('selectlargerDiffFromTarget').click();
     await page.getByRole('option', { name: 'cm' }).click();
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'largerDiffFromTarget-unit-changed.yaml',

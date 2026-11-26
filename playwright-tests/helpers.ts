@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync } from 'fs';
 import { join } from 'path';
 
-import { test as base, type Page, type Route } from '@playwright/test';
+import { test as base, expect, type Page, type Route } from '@playwright/test';
 import * as z from 'zod';
 
 import { REV_FEED_URL } from '~/lib/stock';
@@ -57,6 +57,10 @@ export const test = base.extend({
     await use(page);
   },
 });
+
+export async function waitForStock(page: Page): Promise<void> {
+  await expect(page.getByTestId('stock-loading')).toHaveCount(0);
+}
 
 /**
  * Waits for a Recharts chart inside the given container to finish settling

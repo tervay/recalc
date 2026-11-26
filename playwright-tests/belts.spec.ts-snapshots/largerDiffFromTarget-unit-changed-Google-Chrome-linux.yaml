@@ -54,9 +54,9 @@
 - combobox: cm
 - table:
   - rowgroup:
-    - row "Matching COTS Pulleys18 In stock only":
-      - columnheader "Matching COTS Pulleys18 In stock only":
-        - text: Matching COTS Pulleys18
+    - row "Matching COTS Pulleys20 In stock only":
+      - columnheader "Matching COTS Pulleys20 In stock only":
+        - text: Matching COTS Pulleys20
         - switch "In stock only"
         - text: In stock only
     - row "SKU Teeth Width Bore Stock":
@@ -66,6 +66,17 @@
       - columnheader "Bore"
       - columnheader "Stock"
   - rowgroup:
+    - row "Swyft SR-PULLEY-HTD5mm-16T-HEX-01 16 9 mm 1/2\" Hex In stock":
+      - cell "Swyft SR-PULLEY-HTD5mm-16T-HEX-01":
+        - link "Swyft":
+          - /url: https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=53836933202214
+          - img "Swyft"
+        - link "SR-PULLEY-HTD5mm-16T-HEX-01":
+          - /url: https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=53836933202214
+      - cell "16"
+      - cell "9 mm"
+      - cell "1/2\" Hex"
+      - cell "In stock"
     - row "WCP WCP-1802 16 9 mm SplineXS In stock":
       - cell "WCP WCP-1802":
         - link "WCP":
@@ -163,6 +174,17 @@
           - img "LastAnvil"
         - link "LA-260165":
           - /url: https://www.lastanvil.com/products/pulley-htd-5-mm?variant=48374220357838
+      - cell "24"
+      - cell "9 mm"
+      - cell "1/2\" Hex"
+      - cell "In stock"
+    - row "Swyft SR-PULLEY-HTD5mm-24T-HEX-01 24 9 mm 1/2\" Hex In stock":
+      - cell "Swyft SR-PULLEY-HTD5mm-24T-HEX-01":
+        - link "Swyft":
+          - /url: https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=53836933267750
+          - img "Swyft"
+        - link "SR-PULLEY-HTD5mm-24T-HEX-01":
+          - /url: https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=53836933267750
       - cell "24"
       - cell "9 mm"
       - cell "1/2\" Hex"

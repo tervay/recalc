@@ -7242,7 +7242,7 @@
   product:
     handle: thrifty-can-wire-2-0
     id: 10410102587691
-    title: Thrifty CAN Wire 2.0
+    title: Thrifty CAN Wire 2.0 - ETFE Jacket
   variant:
     id: 53641222291755
     options:
@@ -7432,6 +7432,21 @@
     sku: TTB-0443
     title: Default Title
   firstSeen: 2026-10-01T20:10:19.796Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/7mm-rounded-hex-18?variant=54219061395755
+  product:
+    handle: 7mm-rounded-hex-18
+    id: 10482560696619
+    title: Aluminum 7mm Rounded Hex - 18 Inches Long (450mm)
+  variant:
+    id: 54219061395755
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0444
+    title: Default Title
+  firstSeen: 2026-11-25T18:51:23.277Z
 - vendor: Thrifty
   # https://www.thethriftybot.com/products/bumper-bundle-kit?variant=54234108100907
   product:
@@ -7684,7 +7699,7 @@
       - 2 Left & 2 Right Wheels (Full Drive Train)
       - null
       - null
-    sku: null
+    sku: 100MM_MECANUM_2L_2R
     title: 2 Left & 2 Right Wheels (Full Drive Train)
   firstSeen: 2026-10-01T20:10:19.796Z
 - vendor: Thrifty
@@ -7702,3 +7717,228 @@
     sku: TTB-0068-OVERSIZED
     title: Default Title
   firstSeen: 2026-11-03T17:46:10.166Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/5-od-x-4-5-id-x-25-x-contact-bearing?variant=68139570299179
+  product:
+    handle: 5-od-x-4-5-id-x-25-x-contact-bearing
+    id: 15532412993835
+    title: 5" OD x 4.5" ID x .25" X-Contact Bearing
+  variant:
+    id: 68139570299179
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0467
+    title: Default Title
+  firstSeen: 2026-11-25T18:51:23.277Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/5-5-od-x-5-0-id-x-25-x-contact-bearing-copy?variant=68139574853931
+  product:
+    handle: 5-5-od-x-5-0-id-x-25-x-contact-bearing-copy
+    id: 15532414927147
+    title: 5.5" OD x 5.0" ID x .25" X-Contact Bearing
+  variant:
+    id: 68139574853931
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0468
+    title: Default Title
+  firstSeen: 2026-11-25T18:51:23.277Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/thrifty-squishy-cube-sensory-fidget-toy?variant=68199131119915
+  product:
+    handle: thrifty-squishy-cube-sensory-fidget-toy
+    id: 15541479407915
+    title: Thrifty Squishy Cube - Sensory Fidget Toy
+  variant:
+    id: 68199131119915
+    options:
+      - Default Title
+      - null
+      - null
+    sku: TTB-0469
+    title: Default Title
+  firstSeen: 2026-11-25T18:51:23.277Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/6mm-wide-gt2-timing-belts?variant=68215499555115
+  product:
+    handle: 6mm-wide-gt2-timing-belts
+    id: 15544248369451
+    title: 6mm Wide GT2 Timing Belts
+  variant:
+    id: 68215499555115
+    options:
+      - 44 Tooth - 88mm Long
+      - null
+      - null
+    sku: TTB-0470
+    title: 44 Tooth - 88mm Long
+  firstSeen: 2026-11-25T18:51:23.277Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/6mm-wide-gt2-timing-belts?variant=68215499587883
+  product:
+    handle: 6mm-wide-gt2-timing-belts
+    id: 15544248369451
+    title: 6mm Wide GT2 Timing Belts
+  variant:
+    id: 68215499587883
+    options:
+      - 68 Tooth - 136mm Long
+      - null
+      - null
+    sku: TTB-0471
+    title: 68 Tooth - 136mm Long
+  firstSeen: 2026-11-25T18:51:23.277Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/6mm-wide-gt2-timing-belts?variant=68215499620651
+  product:
+    handle: 6mm-wide-gt2-timing-belts
+    id: 15544248369451
+    title: 6mm Wide GT2 Timing Belts
+  variant:
+    id: 68215499620651
+    options:
+      - 92 Tooth - 184mm Long
+      - null
+      - null
+    sku: TTB-0472
+    title: 92 Tooth - 184mm Long
+  firstSeen: 2026-11-25T18:51:23.277Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/6mm-wide-gt2-timing-belts?variant=68215499653419
+  product:
+    handle: 6mm-wide-gt2-timing-belts
+    id: 15544248369451
+    title: 6mm Wide GT2 Timing Belts
+  variant:
+    id: 68215499653419
+    options:
+      - 116 Tooth - 232mm Long
+      - null
+      - null
+    sku: TTB-0473
+    title: 116 Tooth - 232mm Long
+  firstSeen: 2026-11-25T18:51:23.277Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/6mm-wide-gt2-timing-belts?variant=68215499686187
+  product:
+    handle: 6mm-wide-gt2-timing-belts
+    id: 15544248369451
+    title: 6mm Wide GT2 Timing Belts
+  variant:
+    id: 68215499686187
+    options:
+      - 140 Tooth - 280mm Long
+      - null
+      - null
+    sku: TTB-0474
+    title: 140 Tooth - 280mm Long
+  firstSeen: 2026-11-25T18:51:23.277Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/6mm-wide-gt2-timing-belts?variant=68215499718955
+  product:
+    handle: 6mm-wide-gt2-timing-belts
+    id: 15544248369451
+    title: 6mm Wide GT2 Timing Belts
+  variant:
+    id: 68215499718955
+    options:
+      - 164 Tooth - 328mm Long
+      - null
+      - null
+    sku: TTB-0475
+    title: 164 Tooth - 328mm Long
+  firstSeen: 2026-11-25T18:51:23.277Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/6mm-wide-gt2-timing-belts?variant=68215499751723
+  product:
+    handle: 6mm-wide-gt2-timing-belts
+    id: 15544248369451
+    title: 6mm Wide GT2 Timing Belts
+  variant:
+    id: 68215499751723
+    options:
+      - 188 Tooth - 376mm Long
+      - null
+      - null
+    sku: TTB-0476
+    title: 188 Tooth - 376mm Long
+  firstSeen: 2026-11-25T18:51:23.277Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/6mm-wide-gt2-timing-belts?variant=68215499784491
+  product:
+    handle: 6mm-wide-gt2-timing-belts
+    id: 15544248369451
+    title: 6mm Wide GT2 Timing Belts
+  variant:
+    id: 68215499784491
+    options:
+      - 212 Tooth - 424mm Long
+      - null
+      - null
+    sku: TTB-0477
+    title: 212 Tooth - 424mm Long
+  firstSeen: 2026-11-25T18:51:23.277Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/6mm-wide-gt2-timing-belts?variant=68215499817259
+  product:
+    handle: 6mm-wide-gt2-timing-belts
+    id: 15544248369451
+    title: 6mm Wide GT2 Timing Belts
+  variant:
+    id: 68215499817259
+    options:
+      - 236 Tooth - 472mm Long
+      - null
+      - null
+    sku: TTB-0478
+    title: 236 Tooth - 472mm Long
+  firstSeen: 2026-11-25T18:51:23.277Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/6mm-wide-gt2-timing-belts?variant=68215499850027
+  product:
+    handle: 6mm-wide-gt2-timing-belts
+    id: 15544248369451
+    title: 6mm Wide GT2 Timing Belts
+  variant:
+    id: 68215499850027
+    options:
+      - 260 Tooth - 520mm Long
+      - null
+      - null
+    sku: TTB-0479
+    title: 260 Tooth - 520mm Long
+  firstSeen: 2026-11-25T18:51:23.277Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/6mm-wide-gt2-timing-belts?variant=68215499882795
+  product:
+    handle: 6mm-wide-gt2-timing-belts
+    id: 15544248369451
+    title: 6mm Wide GT2 Timing Belts
+  variant:
+    id: 68215499882795
+    options:
+      - 284 Tooth - 568mm Long
+      - null
+      - null
+    sku: TTB-0480
+    title: 284 Tooth - 568mm Long
+  firstSeen: 2026-11-25T18:51:23.277Z
+- vendor: Thrifty
+  # https://www.thethriftybot.com/products/6mm-wide-gt2-timing-belts?variant=68215499915563
+  product:
+    handle: 6mm-wide-gt2-timing-belts
+    id: 15544248369451
+    title: 6mm Wide GT2 Timing Belts
+  variant:
+    id: 68215499915563
+    options:
+      - 308 Tooth - 616mm Long
+      - null
+      - null
+    sku: TTB-0481
+    title: 308 Tooth - 616mm Long
+  firstSeen: 2026-11-25T18:51:23.277Z

@@ -20,9 +20,9 @@
   - text: has 16t but an 18t center distance — use 18t in this calculator.
 - table:
   - rowgroup:
-    - row "Matching COTS Gears29 In stock only":
-      - columnheader "Matching COTS Gears29 In stock only":
-        - text: Matching COTS Gears29
+    - row "Matching COTS Gears30 In stock only":
+      - columnheader "Matching COTS Gears30 In stock only":
+        - text: Matching COTS Gears30
         - switch "In stock only"
         - text: In stock only
     - row "SKU Teeth Bore Stock":
@@ -38,6 +38,16 @@
           - img "REV"
         - link "REV-21-2196":
           - /url: https://www.revrobotics.com/20DP-Gears-0.5-Hex/
+      - cell "16"
+      - cell "1/2\" Hex"
+      - cell "In stock"
+    - row "Swyft SR-GEAR-20DP-16T-WIDE-01 16 1/2\" Hex In stock":
+      - cell "Swyft SR-GEAR-20DP-16T-WIDE-01":
+        - link "Swyft":
+          - /url: https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238841638
+          - img "Swyft"
+        - link "SR-GEAR-20DP-16T-WIDE-01":
+          - /url: https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238841638
       - cell "16"
       - cell "1/2\" Hex"
       - cell "In stock"

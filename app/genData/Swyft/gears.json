@@ -1,1 +1,92 @@
-[]
+[
+  {
+    "teeth": 10,
+    "dp": 20,
+    "bore": "SplineXS",
+    "url": "https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238645030",
+    "sku": "SR-GEAR-20DP-10T-12TCD-SPLINE-PINION-01",
+    "variantId": 54613238645030,
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 11,
+    "dp": 20,
+    "bore": "SplineXS",
+    "url": "https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238710566",
+    "sku": "SR-GEAR-20DP-11T-12TCD-SPLINE-PINION-01",
+    "variantId": 54613238710566,
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 12,
+    "dp": 20,
+    "bore": "SplineXS",
+    "url": "https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238776102",
+    "sku": "SR-GEAR-20DP-12T-SPLINE-PINION-01",
+    "variantId": 54613238776102,
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 14,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238808870",
+    "sku": "SR-GEAR-20DP-14T-16TCD-WIDE-01",
+    "variantId": 54613238808870,
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 16,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238841638",
+    "sku": "SR-GEAR-20DP-16T-WIDE-01",
+    "variantId": 54613238841638,
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 18,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238874406",
+    "sku": "SR-GEAR-20DP-18T-HUB-01",
+    "variantId": 54613238874406,
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 20,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238907174",
+    "sku": "SR-GEAR-20DP-20T-HUB-01",
+    "variantId": 54613238907174,
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 24,
+    "dp": 20,
+    "bore": "1/2\" Hex",
+    "url": "https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238939942",
+    "sku": "SR-GEAR-20DP-24T-HUB-01",
+    "variantId": 54613238939942,
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 8,
+    "dp": 20,
+    "bore": "SplineXS",
+    "url": "https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238513958",
+    "sku": "SR-GEAR-20DP-8T-10TCD-SPLINE-PINION-01",
+    "variantId": 54613238513958,
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 9,
+    "dp": 20,
+    "bore": "SplineXS",
+    "url": "https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238579494",
+    "sku": "SR-GEAR-20DP-9T-10TCD-SPLINE-PINION-01",
+    "variantId": 54613238579494,
+    "vendor": "Swyft"
+  }
+]

@@ -1,4 +1,4 @@
-import { expect, test } from 'playwright-tests/helpers';
+import { expect, test, waitForStock } from 'playwright-tests/helpers';
 
 test.describe('Copy Link', () => {
   test('gears: copied URL restores state', async ({ page }) => {
@@ -16,6 +16,7 @@ test.describe('Copy Link', () => {
     await page.goto(url);
     await page.waitForLoadState('networkidle');
 
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       { name: 'gears-restored.yaml' },
     );
@@ -42,6 +43,7 @@ test.describe('Copy Link', () => {
     await page.goto(url);
     await page.waitForLoadState('networkidle');
 
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       { name: 'belts-restored.yaml' },
     );
@@ -65,6 +67,7 @@ test.describe('Copy Link', () => {
     await page.goto(url);
     await page.waitForLoadState('networkidle');
 
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       { name: 'chains-restored.yaml' },
     );
@@ -169,6 +172,7 @@ test.describe('Copy Link', () => {
     await page.goto(url);
     await page.waitForLoadState('networkidle');
 
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       { name: 'intake-restored.yaml' },
     );
@@ -226,6 +230,7 @@ test.describe('Copy Link', () => {
     await page.goto(url);
     await page.waitForLoadState('networkidle');
 
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       { name: 'ratio-restored.yaml' },
     );
@@ -266,6 +271,7 @@ test.describe('Copy Link', () => {
       { timeout: 30000 },
     );
 
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       { name: 'ratio-finder-restored.yaml' },
     );

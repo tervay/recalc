@@ -72,6 +72,7 @@ const DEFAULT_PARAMS = {
   enableTTB: BooleanParam.withDefault(true),
   enableLastAnvil: BooleanParam.withDefault(true),
   enableSDS: BooleanParam.withDefault(true),
+  enableSwyft: BooleanParam.withDefault(true),
   enablePlanetaries: BooleanParam.withDefault(true),
   enable20DP: BooleanParam.withDefault(true),
   enable32DP: BooleanParam.withDefault(false),
@@ -146,6 +147,7 @@ export default function RatioFinder() {
     queryParams.enableLastAnvil,
   );
   const [enableSDS, setEnableSDS] = useState(queryParams.enableSDS);
+  const [enableSwyft, setEnableSwyft] = useState(queryParams.enableSwyft);
   const [enablePlanetaries, setEnablePlanetaries] = useState(
     queryParams.enablePlanetaries,
   );
@@ -230,6 +232,7 @@ export default function RatioFinder() {
       enableTTB,
       enableLastAnvil,
       enableSDS,
+      enableSwyft,
       enablePlanetaries,
       enableBore5mmHex,
       enable20DP,
@@ -264,6 +267,7 @@ export default function RatioFinder() {
       enableTTB,
       enableLastAnvil,
       enableSDS,
+      enableSwyft,
       enablePlanetaries,
       enableBore5mmHex,
       enable20DP,
@@ -323,6 +327,7 @@ export default function RatioFinder() {
     enableTTB,
     enableLastAnvil,
     enableSDS,
+    enableSwyft,
     enablePlanetaries,
     enable20DP,
     enable32DP,
@@ -502,6 +507,10 @@ export default function RatioFinder() {
                     <CheckboxBooleanInput
                       stateHook={[enableREV, setEnableREV]}
                       label="REV"
+                    />
+                    <CheckboxBooleanInput
+                      stateHook={[enableSwyft, setEnableSwyft]}
+                      label="Swyft"
                     />
                     <CheckboxBooleanInput
                       stateHook={[enableTTB, setEnableTTB]}

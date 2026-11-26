@@ -1,4 +1,6 @@
 import { parseSwyftBelts } from 'scripts/ingest/parsing/swyft/belts';
+import { parseSwyftGears } from 'scripts/ingest/parsing/swyft/gears';
+import { parseSwyftPulleys } from 'scripts/ingest/parsing/swyft/pulleys';
 import { describe, expect, it } from 'vitest';
 
 import type { ShopifyProduct, ShopifyVariant } from '~/lib/types/shopify';
@@ -133,5 +135,116 @@ describe('parseSwyftBelts', () => {
     });
 
     expect(parseSwyftBelts([product])).toHaveLength(0);
+  });
+});
+
+function gearProduct(...variantTitles: string[]): ShopifyProduct {
+  return makeProduct({
+    id: 6,
+    title: 'SWYFT Gears 20DP',
+    handle: 'swyft-gears-20dp',
+    variants: variantTitles.map((title, i) =>
+      makeVariant({ id: 60 + i, product_id: 6, title, sku: `SKU-${i}` }),
+    ),
+  });
+}
+
+describe('parseSwyftGears', () => {
+  it('parses a 15T SplineXS pinion', () => {
+    expect(
+      parseSwyftGears([gearProduct('8 Tooth 15T SplineXS Pinion')]),
+    ).toEqual([
+      {
+        teeth: 8,
+        dp: 20,
+        bore: 'SplineXS',
+        url: 'https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=60',
+        sku: 'SKU-0',
+        variantId: 60,
+        vendor: 'Swyft',
+      },
+    ]);
+  });
+
+  it('parses a 1/2" Hex wide gear', () => {
+    const [gear] = parseSwyftGears([gearProduct('14 Tooth 1/2" Hex Wide')]);
+    expect(gear).toMatchObject({ teeth: 14, dp: 20, bore: '1/2" Hex' });
+  });
+
+  it('parses a 1/2" Hex hub gear', () => {
+    const [gear] = parseSwyftGears([gearProduct('24 Tooth 1/2" Hex Hub')]);
+    expect(gear).toMatchObject({ teeth: 24, dp: 20, bore: '1/2" Hex' });
+  });
+
+  it('skips 7mm Hex pinions', () => {
+    expect(parseSwyftGears([gearProduct('8 Tooth 7mm Hex Pinion')])).toEqual(
+      [],
+    );
+  });
+
+  it('skips slice gears without a shaft bore', () => {
+    expect(parseSwyftGears([gearProduct('26 Tooth Slice')])).toEqual([]);
+  });
+
+  it('skips non-gear products', () => {
+    const product = makeProduct({
+      id: 7,
+      title: 'Axle Adapters',
+      variants: [
+        makeVariant({ id: 70, product_id: 7, title: '8 Tooth 1/2" Hex Hub' }),
+      ],
+    });
+    expect(parseSwyftGears([product])).toEqual([]);
+  });
+});
+
+function pulleyProduct(...variantTitles: string[]): ShopifyProduct {
+  return makeProduct({
+    id: 8,
+    title: 'SWYFT HTD 5mm Pulleys',
+    handle: 'htd-5mm-pulleys',
+    variants: variantTitles.map((title, i) =>
+      makeVariant({ id: 80 + i, product_id: 8, title, sku: `SKU-${i}` }),
+    ),
+  });
+}
+
+describe('parseSwyftPulleys', () => {
+  it('parses an HTD 5mm pulley variant', () => {
+    expect(parseSwyftPulleys([pulleyProduct('14 Tooth')])).toEqual([
+      {
+        teeth: 14,
+        width: 9,
+        profile: 'HTD',
+        pitch: 5,
+        sku: 'SKU-0',
+        variantId: 80,
+        url: 'https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=80',
+        bore: '1/2" Hex',
+        vendor: 'Swyft',
+      },
+    ]);
+  });
+
+  it('parses every tooth count variant', () => {
+    const teeth = parseSwyftPulleys([
+      pulleyProduct('14 Tooth', '16 Tooth', '36 Tooth'),
+    ]).map((p) => p.teeth);
+    expect(teeth).toEqual([14, 16, 36]);
+  });
+
+  it('skips the pulley bundle', () => {
+    expect(parseSwyftPulleys([pulleyProduct('6PCS Pulley Bundle')])).toEqual(
+      [],
+    );
+  });
+
+  it('skips non-pulley products', () => {
+    const product = makeProduct({
+      id: 9,
+      title: 'HTD 5mm Pitch Timing Belts',
+      variants: [makeVariant({ id: 90, product_id: 9, title: '14 Tooth' })],
+    });
+    expect(parseSwyftPulleys([product])).toEqual([]);
   });
 });
