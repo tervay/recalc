@@ -96,9 +96,9 @@
   - button "8mm"
 - table:
   - rowgroup:
-    - row "Matching COTS Wheels80 In stock only":
-      - columnheader "Matching COTS Wheels80 In stock only":
-        - text: Matching COTS Wheels80
+    - row "Matching COTS Wheels79 In stock only":
+      - columnheader "Matching COTS Wheels79 In stock only":
+        - text: Matching COTS Wheels79
         - switch "In stock only"
         - text: In stock only
     - row "Wheel Diameter Bore Type Durometer Stock":
@@ -303,19 +303,6 @@
       - cell "3/8\" Hex"
       - cell "Compliant"
       - cell "60A"
-      - cell "In stock"
-    - row "AndyMark Compliant Wheels am-4537_green 3.00\" 5mm Hex Compliant 35A In stock":
-      - cell "AndyMark Compliant Wheels am-4537_green":
-        - link "AndyMark":
-          - /url: https://www.andymark.com/products/compliant-wheels?variant=44493391331500
-          - img "AndyMark"
-        - link "Compliant Wheels":
-          - /url: https://www.andymark.com/products/compliant-wheels?variant=44493391331500
-        - text: am-4537_green
-      - cell "3.00\""
-      - cell "5mm Hex"
-      - cell "Compliant"
-      - cell "35A"
       - cell "In stock"
     - row "AndyMark Compliant Wheels am-4537_orange 3.00\" 5mm Hex Compliant 40A In stock":
       - cell "AndyMark Compliant Wheels am-4537_orange":

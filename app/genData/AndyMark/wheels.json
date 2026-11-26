@@ -1775,17 +1775,6 @@
     "diameter": 76.2,
     "bore": "5mm Hex",
     "type": "Compliant",
-    "durometer": "35A",
-    "url": "https://www.andymark.com/products/compliant-wheels?variant=44493391331500",
-    "sku": "am-4537_green",
-    "variantId": 44493391331500,
-    "vendor": "AndyMark"
-  },
-  {
-    "name": "Compliant Wheels",
-    "diameter": 76.2,
-    "bore": "5mm Hex",
-    "type": "Compliant",
     "durometer": "40A",
     "url": "https://www.andymark.com/products/compliant-wheels?variant=44493391364268",
     "sku": "am-4537_orange",

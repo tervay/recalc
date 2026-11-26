@@ -34387,3 +34387,18 @@
     sku: WCP-2063
     title: Default Title
   firstSeen: 2026-11-20T21:08:22.146Z
+- vendor: WCP
+  # https://wcproducts.com/products/wcp-2845?variant=68470777872596
+  product:
+    handle: wcp-2845
+    id: 15518753947860
+    title: CTR Pigeon 3.0
+  variant:
+    id: 68470777872596
+    options:
+      - Default Title
+      - null
+      - null
+    sku: WCP-2845
+    title: Default Title
+  firstSeen: 2026-11-25T18:51:22.114Z

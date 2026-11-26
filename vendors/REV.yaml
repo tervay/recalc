@@ -636,20 +636,6 @@
   firstSeen: 2026-07-19T18:12:42.561Z
 - vendor: REV
   product:
-    handle: https://www.revrobotics.com/rev-45-2470/
-    id: 277947525
-    title: Mecanum Drivetrain Kit V2
-  variant:
-    id: 4222889428
-    options:
-      - null
-      - null
-      - null
-    sku: REV-45-2470
-    title: Mecanum Drivetrain Kit V2
-  firstSeen: 2026-07-19T18:12:42.561Z
-- vendor: REV
-  product:
     handle: https://www.revrobotics.com/UltraUSB-Hub-and-Cables/
     id: 278717589
     title: UltraUSB Hub and Cables (UltraUSB Hub (REV-31-1592))
@@ -10356,48 +10342,6 @@
   firstSeen: 2026-07-19T18:12:42.561Z
 - vendor: REV
   product:
-    handle: https://www.revrobotics.com/5mm-Hex-Spacers/
-    id: 3082491159
-    title: 5mm Hex Spacers ((REV-41-1324-PK16) 5mm Hex Shaft Spacer - 3mm - 16 Pack)
-  variant:
-    id: 118726320
-    options:
-      - null
-      - null
-      - null
-    sku: REV-41-1324-PK16
-    title: 5mm Hex Spacers ((REV-41-1324-PK16) 5mm Hex Shaft Spacer - 3mm - 16 Pack)
-  firstSeen: 2026-07-19T18:12:42.561Z
-- vendor: REV
-  product:
-    handle: https://www.revrobotics.com/5mm-Hex-Spacers/
-    id: 3082491159
-    title: 5mm Hex Spacers ((REV-41-1323-PK12) 5mm Hex Shaft Spacer - 15mm - 12 Pack)
-  variant:
-    id: 837926275
-    options:
-      - null
-      - null
-      - null
-    sku: REV-41-1323-PK12
-    title: 5mm Hex Spacers ((REV-41-1323-PK12) 5mm Hex Shaft Spacer - 15mm - 12 Pack)
-  firstSeen: 2026-07-19T18:12:42.561Z
-- vendor: REV
-  product:
-    handle: https://www.revrobotics.com/5mm-Hex-Spacers/
-    id: 3082491159
-    title: 5mm Hex Spacers ((REV-41-1325-PK28) 5mm Hex Shaft Spacer - 1.5mm - 28 Pack)
-  variant:
-    id: 1135111524
-    options:
-      - null
-      - null
-      - null
-    sku: REV-41-1325-PK28
-    title: 5mm Hex Spacers ((REV-41-1325-PK28) 5mm Hex Shaft Spacer - 1.5mm - 28 Pack)
-  firstSeen: 2026-07-19T18:12:42.561Z
-- vendor: REV
-  product:
     handle: https://www.revrobotics.com/rev-11-1228/
     id: 3111539356
     title: SPARK MAX Data Port Cover - 10 Pack
@@ -12702,7 +12646,7 @@
   product:
     handle: https://www.revrobotics.com/neo-pinions/
     id: 3684060909
-    title: NEO Pinions (#25 NEO Pinion Sprocket - 8mm Keyed - 12 (REV-21-3495))
+    title: NEO Pinions (#25 NEO Pinion Sprocket - 8mm Keyed - 12T (REV-21-3495))
   variant:
     id: 1245087222
     options:
@@ -12710,7 +12654,7 @@
       - null
       - null
     sku: REV-21-3495
-    title: NEO Pinions (#25 NEO Pinion Sprocket - 8mm Keyed - 12 (REV-21-3495))
+    title: NEO Pinions (#25 NEO Pinion Sprocket - 8mm Keyed - 12T (REV-21-3495))
   firstSeen: 2026-07-19T18:12:42.561Z
 - vendor: REV
   product:

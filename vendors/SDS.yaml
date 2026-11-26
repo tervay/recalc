@@ -5083,3 +5083,18 @@
     sku: null
     title: Wheel Kit + Quick-Change Kit
   firstSeen: 2026-07-19T17:48:53.866Z
+- vendor: SDS
+  # https://www.swervedrivespecialties.com/products/kit-quick-change-mk5?variant=68338316411181
+  product:
+    handle: kit-quick-change-mk5
+    id: 15479863116077
+    title: Kit, Quick-Change (MK5)
+  variant:
+    id: 68338316411181
+    options:
+      - Default Title
+      - null
+      - null
+    sku: null
+    title: Default Title
+  firstSeen: 2026-11-25T18:51:26.615Z

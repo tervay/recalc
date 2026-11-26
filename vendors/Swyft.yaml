@@ -1147,11 +1147,11 @@
   variant:
     id: 51004142190886
     options:
-      - 8mm 14mm OD Flanged Bearing (10 Pack)
+      - (Fits 7mm Hex) 8mm 14mm OD Flanged Bearing (10 Pack)
       - null
       - null
     sku: BRG-8mm-14mm-01
-    title: 8mm 14mm OD Flanged Bearing (10 Pack)
+    title: (Fits 7mm Hex) 8mm 14mm OD Flanged Bearing (10 Pack)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/shaft-collars?variant=48536596021542
@@ -1259,96 +1259,6 @@
     title: 7mm Hex / 15T SplineXS Clamping Shaft Collar (10 Pack)
   firstSeen: 2026-10-01T20:10:18.314Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609259814
-  product:
-    handle: acetal-spacers
-    id: 9300208156966
-    title: Acetal Shaft Spacers
-  variant:
-    id: 48536609259814
-    options:
-      - 1/16" Round Acetal Spacer - 1/2" Hex (10 Pack)
-      - null
-      - null
-    sku: SPC-0001
-    title: 1/16" Round Acetal Spacer - 1/2" Hex (10 Pack)
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609292582
-  product:
-    handle: acetal-spacers
-    id: 9300208156966
-    title: Acetal Shaft Spacers
-  variant:
-    id: 48536609292582
-    options:
-      - 1/8" Round Acetal Spacer - 1/2" Hex (10 Pack)
-      - null
-      - null
-    sku: SPC-0002
-    title: 1/8" Round Acetal Spacer - 1/2" Hex (10 Pack)
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609325350
-  product:
-    handle: acetal-spacers
-    id: 9300208156966
-    title: Acetal Shaft Spacers
-  variant:
-    id: 48536609325350
-    options:
-      - 1/4" Round Acetal Spacer - 1/2" Hex (10 Pack)
-      - null
-      - null
-    sku: SPC-0003
-    title: 1/4" Round Acetal Spacer - 1/2" Hex (10 Pack)
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609358118
-  product:
-    handle: acetal-spacers
-    id: 9300208156966
-    title: Acetal Shaft Spacers
-  variant:
-    id: 48536609358118
-    options:
-      - 1/2" Round Acetal Spacer - 1/2" Hex (10 Pack)
-      - null
-      - null
-    sku: SPC-0004
-    title: 1/2" Round Acetal Spacer - 1/2" Hex (10 Pack)
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609390886
-  product:
-    handle: acetal-spacers
-    id: 9300208156966
-    title: Acetal Shaft Spacers
-  variant:
-    id: 48536609390886
-    options:
-      - 1" Round Acetal Spacer - 1/2" Hex (6 Pack)
-      - null
-      - null
-    sku: SPC-0005
-    title: 1" Round Acetal Spacer - 1/2" Hex (6 Pack)
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609423654
-  product:
-    handle: acetal-spacers
-    id: 9300208156966
-    title: Acetal Shaft Spacers
-  variant:
-    id: 48536609423654
-    options:
-      - 2" Round Acetal Spacer - 1/2" Hex (6 Pack)
-      - null
-      - null
-    sku: SPC-0006
-    title: 2" Round Acetal Spacer - 1/2" Hex (6 Pack)
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
   # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609456422
   product:
     handle: acetal-spacers
@@ -1357,11 +1267,11 @@
   variant:
     id: 48536609456422
     options:
-      - 1/16" Round Acetal Spacer - 3/8" Hex (10 Pack)
-      - null
-      - null
+      - 3/8" Hex
+      - Slide-On
+      - 1/16" (50 Pack)
     sku: SPC-1001
-    title: 1/16" Round Acetal Spacer - 3/8" Hex (10 Pack)
+    title: 3/8" Hex / Slide-On / 1/16" (50 Pack)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609489190
@@ -1372,11 +1282,11 @@
   variant:
     id: 48536609489190
     options:
-      - 1/8" Round Acetal Spacer - 3/8" Hex (10 Pack)
-      - null
-      - null
+      - 3/8" Hex
+      - Slide-On
+      - 1/8" (50 Pack)
     sku: SPC-1002
-    title: 1/8" Round Acetal Spacer - 3/8" Hex (10 Pack)
+    title: 3/8" Hex / Slide-On / 1/8" (50 Pack)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609521958
@@ -1387,11 +1297,11 @@
   variant:
     id: 48536609521958
     options:
-      - 1/4" Round Acetal Spacer - 3/8" Hex (10 Pack)
-      - null
-      - null
+      - 3/8" Hex
+      - Slide-On
+      - 1/4" (50 Pack)
     sku: SPC-1003
-    title: 1/4" Round Acetal Spacer - 3/8" Hex (10 Pack)
+    title: 3/8" Hex / Slide-On / 1/4" (50 Pack)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609554726
@@ -1402,11 +1312,11 @@
   variant:
     id: 48536609554726
     options:
-      - 1/2" Round Acetal Spacer - 3/8" Hex (10 Pack)
-      - null
-      - null
+      - 3/8" Hex
+      - Slide-On
+      - 1/2" (50 Pack)
     sku: SPC-1004
-    title: 1/2" Round Acetal Spacer - 3/8" Hex (10 Pack)
+    title: 3/8" Hex / Slide-On / 1/2" (50 Pack)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609587494
@@ -1417,11 +1327,11 @@
   variant:
     id: 48536609587494
     options:
-      - 1" Round Acetal Spacer - 3/8" Hex (6 Pack)
-      - null
-      - null
+      - 3/8" Hex
+      - Slide-On
+      - 1" (50 Pack)
     sku: SPC-1005
-    title: 1" Round Acetal Spacer - 3/8" Hex (6 Pack)
+    title: 3/8" Hex / Slide-On / 1" (50 Pack)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/acetal-spacers?variant=48536609620262
@@ -1432,12 +1342,252 @@
   variant:
     id: 48536609620262
     options:
-      - 2" Round Acetal Spacer - 3/8" Hex (6 Pack)
-      - null
-      - null
+      - 3/8" Hex
+      - Slide-On
+      - 2" (50 Pack)
     sku: SPC-1006
-    title: 2" Round Acetal Spacer - 3/8" Hex (6 Pack)
+    title: 3/8" Hex / Slide-On / 2" (50 Pack)
   firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=54575874441510
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 54575874441510
+    options:
+      - 8mm Round
+      - Slide-On
+      - 1mm (50 Pack)
+    sku: SR-SPACER-FTC-8MM-1MM-SLIDE
+    title: 8mm Round / Slide-On / 1mm (50 Pack)
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=54575874474278
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 54575874474278
+    options:
+      - 8mm Round
+      - Slide-On
+      - 2mm (50 Pack)
+    sku: SR-SPACER-FTC-8MM-2MM-SLIDE
+    title: 8mm Round / Slide-On / 2mm (50 Pack)
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=54575874507046
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 54575874507046
+    options:
+      - 8mm Round
+      - Slide-On
+      - 4mm (50 Pack)
+    sku: SR-SPACER-FTC-8MM-4MM-SLIDE
+    title: 8mm Round / Slide-On / 4mm (50 Pack)
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=54575874539814
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 54575874539814
+    options:
+      - 8mm Round
+      - Slide-On
+      - 8mm (50 Pack)
+    sku: SR-SPACER-FTC-8MM-8MM-SLIDE
+    title: 8mm Round / Slide-On / 8mm (50 Pack)
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=54575874572582
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 54575874572582
+    options:
+      - 8mm Round
+      - Snap-On
+      - 1mm (50 Pack)
+    sku: SR-SPACER-FTC-8MM-1MM-FLEX
+    title: 8mm Round / Snap-On / 1mm (50 Pack)
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=54575874605350
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 54575874605350
+    options:
+      - 8mm Round
+      - Snap-On
+      - 2mm (50 Pack)
+    sku: SR-SPACER-FTC-8MM-2MM-FLEX
+    title: 8mm Round / Snap-On / 2mm (50 Pack)
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=54575874638118
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 54575874638118
+    options:
+      - 8mm Round
+      - Snap-On
+      - 4mm (50 Pack)
+    sku: SR-SPACER-FTC-8MM-4MM-FLEX
+    title: 8mm Round / Snap-On / 4mm (50 Pack)
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=54575874670886
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 54575874670886
+    options:
+      - 8mm Round
+      - Snap-On
+      - 8mm (50 Pack)
+    sku: SR-SPACER-FTC-8MM-8MM-FLEX
+    title: 8mm Round / Snap-On / 8mm (50 Pack)
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=54575874703654
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 54575874703654
+    options:
+      - 1/2" Hex
+      - Slide-On
+      - 1/16" (50 Pack)
+    sku: SR-SPACER-FRC-HEX-0.0625IN-SLIDE
+    title: 1/2" Hex / Slide-On / 1/16" (50 Pack)
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=54575874736422
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 54575874736422
+    options:
+      - 1/2" Hex
+      - Slide-On
+      - 1/8" (50 Pack)
+    sku: SR-SPACER-FRC-HEX-0.125IN-SLIDE
+    title: 1/2" Hex / Slide-On / 1/8" (50 Pack)
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=54575874769190
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 54575874769190
+    options:
+      - 1/2" Hex
+      - Slide-On
+      - 1/4" (50 Pack)
+    sku: SR-SPACER-FRC-HEX-0.250IN-SLIDE
+    title: 1/2" Hex / Slide-On / 1/4" (50 Pack)
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=54575874801958
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 54575874801958
+    options:
+      - 1/2" Hex
+      - Slide-On
+      - 1/2" (50 Pack)
+    sku: SR-SPACER-FRC-HEX-0.500IN-SLIDE
+    title: 1/2" Hex / Slide-On / 1/2" (50 Pack)
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=54575874834726
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 54575874834726
+    options:
+      - 1/2" Hex
+      - Snap-On
+      - 1/16" (50 Pack)
+    sku: SR-SPACER-FRC-HEX-0.0625IN-FLEX
+    title: 1/2" Hex / Snap-On / 1/16" (50 Pack)
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=54575874867494
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 54575874867494
+    options:
+      - 1/2" Hex
+      - Snap-On
+      - 1/8" (50 Pack)
+    sku: SR-SPACER-FRC-HEX-0.125IN-FLEX
+    title: 1/2" Hex / Snap-On / 1/8" (50 Pack)
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=54575874900262
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 54575874900262
+    options:
+      - 1/2" Hex
+      - Snap-On
+      - 1/4" (50 Pack)
+    sku: SR-SPACER-FRC-HEX-0.250IN-FLEX
+    title: 1/2" Hex / Snap-On / 1/4" (50 Pack)
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/acetal-spacers?variant=54575874933030
+  product:
+    handle: acetal-spacers
+    id: 9300208156966
+    title: Acetal Shaft Spacers
+  variant:
+    id: 54575874933030
+    options:
+      - 1/2" Hex
+      - Snap-On
+      - 1/2" (50 Pack)
+    sku: SR-SPACER-FRC-HEX-0.500IN-FLEX
+    title: 1/2" Hex / Snap-On / 1/2" (50 Pack)
+  firstSeen: 2026-11-25T18:51:22.531Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/jst-connector-boards?variant=48536624988454
   product:
@@ -1559,6 +1709,21 @@
     title: ER20 Precision Spring Collet 10 Pack
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
+  # https://shop.swyftrobotics.com/products/omio-cnc-x8-2200l-usb-110v?variant=54412427133222
+  product:
+    handle: omio-cnc-x8-2200l-usb-110v
+    id: 9468574925094
+    title: OMIO CNC (X8-2200L-USB 110V)
+  variant:
+    id: 54412427133222
+    options:
+      - OMIO CNC (X8-2200L-USB 110V) Closed-Loop Stepper
+      - null
+      - null
+    sku: CNC-0001-CL
+    title: OMIO CNC (X8-2200L-USB 110V) Closed-Loop Stepper
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
   # https://shop.swyftrobotics.com/products/130w-55-x-35-co2-laser-cutter?variant=49212831105318
   product:
     handle: 130w-55-x-35-co2-laser-cutter
@@ -1574,9 +1739,9 @@
     title: Default Title
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/100w-35-x-24-co2-laser-cutter-recommended-for-frc-teams?variant=49212831760678
+  # https://shop.swyftrobotics.com/products/100w-39-4-x-31-5-co2-laser-cutter-recommended-for-frc-teams?variant=49212831760678
   product:
-    handle: 100w-35-x-24-co2-laser-cutter-recommended-for-frc-teams
+    handle: 100w-39-4-x-31-5-co2-laser-cutter-recommended-for-frc-teams
     id: 9469317415206
     title: 100W 39.4" × 31.5" CO2 Laser Cutter
   variant:
@@ -1589,9 +1754,9 @@
     title: Default Title
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/100w-27-x-20-co2-laser-cutter-recommended-for-ftc-teams?variant=49212832317734
+  # https://shop.swyftrobotics.com/products/100w-27-6-x-19-6-co2-laser-cutter-recommended-for-ftc-teams?variant=49212832317734
   product:
-    handle: 100w-27-x-20-co2-laser-cutter-recommended-for-ftc-teams
+    handle: 100w-27-6-x-19-6-co2-laser-cutter-recommended-for-ftc-teams
     id: 9469317742886
     title: Compact 100W 27.6" x 19.6" CO2 Laser Cutter
   variant:
@@ -1645,7 +1810,7 @@
       - Default Title
       - null
       - null
-    sku: SR-LIMIT-01
+    sku: SR-SENSE-02
     title: Default Title
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -1653,31 +1818,46 @@
   product:
     handle: voucher
     id: 9517974487334
-    title: '*FREE* Complete AprilTag Pack For FRC 2026 Game'
+    title: '*FREE* Complete AprilTag Pack For FRC 2027 Game'
   variant:
     id: 51698638618918
     options:
-      - Free (1 per team)
+      - AprilTag Pack Free (1 per team per season)
       - null
       - null
     sku: SR-April-01
-    title: Free (1 per team)
+    title: AprilTag Pack Free (1 per team per season)
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/voucher?variant=51698638651686
   product:
     handle: voucher
     id: 9517974487334
-    title: '*FREE* Complete AprilTag Pack For FRC 2026 Game'
+    title: '*FREE* Complete AprilTag Pack For FRC 2027 Game'
   variant:
     id: 51698638651686
     options:
-      - Paid
+      - AprilTag Pack Paid
       - null
       - null
     sku: SR-April-02
-    title: Paid
+    title: AprilTag Pack Paid
   firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/voucher?variant=54332502147366
+  product:
+    handle: voucher
+    id: 9517974487334
+    title: '*FREE* Complete AprilTag Pack For FRC 2027 Game'
+  variant:
+    id: 54332502147366
+    options:
+      - Backer Plate Paid (24pcs)
+      - null
+      - null
+    sku: null
+    title: Backer Plate Paid (24pcs)
+  firstSeen: 2026-11-25T18:51:22.531Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-ftc-robot-sign-free?variant=49402710163750
   product:
@@ -1829,9 +2009,9 @@
     title: 5P Female JST-PH (25-Pack) CON-0008
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692942795046
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692942795046
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -1844,9 +2024,9 @@
     title: Elbow 6mm Tube 1/4″ NPT Male Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692955607334
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692955607334
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -1859,9 +2039,9 @@
     title: Elbow 6mm Tube 1/8″ NPT Male Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692955672870
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692955672870
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -1874,9 +2054,9 @@
     title: Straight 6mm Tube 1/8″ NPT Male Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692955738406
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692955738406
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -1889,9 +2069,9 @@
     title: Straight 6mm Tube 1/4″ NPT Male Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692955803942
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692955803942
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -1904,9 +2084,9 @@
     title: Flow Control In-Line 6mm Tube Pack of 2
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692955869478
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692955869478
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -1919,9 +2099,9 @@
     title: Union Tee 6mm Tube Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692955935014
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692955935014
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -1934,9 +2114,9 @@
     title: Straight “Y” 6mm Tube Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956000550
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692956000550
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -1949,9 +2129,9 @@
     title: Hand Valve 6mm Tube Pack of 2
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956066086
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692956066086
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -1964,9 +2144,9 @@
     title: 6mm 3 Output Union Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956131622
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692956131622
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -1979,9 +2159,9 @@
     title: Straight 6mm Tube Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956197158
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692956197158
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -1994,9 +2174,9 @@
     title: Elbow 6mm Tube Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956262694
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692956262694
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -2009,9 +2189,9 @@
     title: “X” 6mm Tube Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956328230
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692956328230
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -2024,9 +2204,9 @@
     title: Elbow 5/32″ Tube 1/4″ NPT Male Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956393766
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692956393766
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -2039,9 +2219,9 @@
     title: Elbow 5/32″ Tube 1/8″ NPT Male Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956459302
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692956459302
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -2054,9 +2234,9 @@
     title: Straight 5/32″ Tube 1/8″ NPT Male Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956524838
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692956524838
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -2069,9 +2249,9 @@
     title: Straight 5/32″ Tube 1/4″ NPT Male Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956590374
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692956590374
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -2084,9 +2264,9 @@
     title: Flow Control In-Line 5/32″ Tube Pack of 2
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956655910
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692956655910
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -2099,9 +2279,9 @@
     title: Union Tee 5/32″ Tube Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956721446
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692956721446
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -2114,9 +2294,9 @@
     title: Straight “Y” 5/32″ Tube Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956786982
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692956786982
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -2129,9 +2309,9 @@
     title: Hand Valve 5/32″ Tube Pack of 2
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956852518
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692956852518
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -2144,9 +2324,9 @@
     title: 5/32″ 3 Output Union Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956918054
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692956918054
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -2159,9 +2339,9 @@
     title: Straight 5/32″ Tube Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692956983590
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692956983590
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -2174,9 +2354,9 @@
     title: Elbow 5/32″ Tube Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692957049126
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692957049126
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -2189,9 +2369,9 @@
     title: “X” 5/32″ Tube Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692957114662
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692957114662
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -2204,9 +2384,9 @@
     title: Straight 6mm Tube 5/32″ Tube Pack of 5
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692960063782
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692960063782
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -2219,9 +2399,9 @@
     title: 20 Meters 5/32″ Tubing
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/pnuematic-fittings?variant=49692960096550
+  # https://shop.swyftrobotics.com/products/pneumatic-fittings?variant=49692960096550
   product:
-    handle: pnuematic-fittings
+    handle: pneumatic-fittings
     id: 9905398874406
     title: Pneumatic Fittings
   variant:
@@ -3314,81 +3494,6 @@
     title: 19.2:1 Ratio
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=50800429072678
-  product:
-    handle: swyft-spike-ftc-planetary-gearmotors
-    id: 10183129792806
-    title: SWYFT Spike FTC Planetary Gearmotors
-  variant:
-    id: 50800429072678
-    options:
-      - 27:1 Ratio
-      - null
-      - null
-    sku: SR-GEARBOX-36-02-27
-    title: 27:1 Ratio
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=50800429105446
-  product:
-    handle: swyft-spike-ftc-planetary-gearmotors
-    id: 10183129792806
-    title: SWYFT Spike FTC Planetary Gearmotors
-  variant:
-    id: 50800429105446
-    options:
-      - 50:1 Ratio
-      - null
-      - null
-    sku: SR-GEARBOX-36-03-50
-    title: 50:1 Ratio
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=50800429138214
-  product:
-    handle: swyft-spike-ftc-planetary-gearmotors
-    id: 10183129792806
-    title: SWYFT Spike FTC Planetary Gearmotors
-  variant:
-    id: 50800429138214
-    options:
-      - 71:1 Ratio
-      - null
-      - null
-    sku: SR-GEARBOX-36-03-71
-    title: 71:1 Ratio
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=50800429170982
-  product:
-    handle: swyft-spike-ftc-planetary-gearmotors
-    id: 10183129792806
-    title: SWYFT Spike FTC Planetary Gearmotors
-  variant:
-    id: 50800429170982
-    options:
-      - 100:1 Ratio
-      - null
-      - null
-    sku: SR-GEARBOX-36-03-100
-    title: 100:1 Ratio
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=50800429203750
-  product:
-    handle: swyft-spike-ftc-planetary-gearmotors
-    id: 10183129792806
-    title: SWYFT Spike FTC Planetary Gearmotors
-  variant:
-    id: 50800429203750
-    options:
-      - 139:1 Ratio
-      - null
-      - null
-    sku: SR-GEARBOX-36-3-139
-    title: 139:1 Ratio
-  firstSeen: 2026-03-13T10:24:54.717Z
-- vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=50881328415014
   product:
     handle: swyft-spike-ftc-planetary-gearmotors
@@ -3434,21 +3539,6 @@
     title: Gearbox Screws Packet
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-spike-ftc-planetary-gearmotors?variant=53913509658918
-  product:
-    handle: swyft-spike-ftc-planetary-gearmotors
-    id: 10183129792806
-    title: SWYFT Spike FTC Planetary Gearmotors
-  variant:
-    id: 53913509658918
-    options:
-      - Bare Motor with 11T 0.5M Pinion (For Flywheel)
-      - null
-      - null
-    sku: SR-GEARBOX-36-BARE-11T
-    title: Bare Motor with 11T 0.5M Pinion (For Flywheel)
-  firstSeen: 2026-10-01T20:10:18.314Z
-- vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-intake-wheels?variant=50809728532774
   product:
     handle: swyft-intake-wheels
@@ -3460,7 +3550,7 @@
       - 1.5" (Pack of 4)
       - 1/2" Hex
       - null
-    sku: SR-INTAKEWHEEL-15-12
+    sku: SR-INTAKEWHEEL-1.5in-0.5inHEX-02
     title: 1.5" (Pack of 4) / 1/2" Hex
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3473,10 +3563,10 @@
     id: 50809728565542
     options:
       - 1.5" (Pack of 4)
-      - 7mm Hex
+      - 7mm Hex / 15T SplineXS
       - null
-    sku: SR-INTAKEWHEEL-15-7MM
-    title: 1.5" (Pack of 4) / 7mm Hex
+    sku: SR-INTAKEWHEEL-1.5in-COMBOSPLINE7mmHEX-02
+    title: 1.5" (Pack of 4) / 7mm Hex / 15T SplineXS
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-intake-wheels?variant=50809728598310
@@ -3490,7 +3580,7 @@
       - 2.5" (Pack of 4)
       - 1/2" Hex
       - null
-    sku: SR-INTAKEWHEEL-25-12
+    sku: SR-INTAKEWHEEL-2.5in-0.5inHEX-02
     title: 2.5" (Pack of 4) / 1/2" Hex
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3503,10 +3593,10 @@
     id: 50809728631078
     options:
       - 2.5" (Pack of 4)
-      - 7mm Hex
+      - 7mm Hex / 15T SplineXS
       - null
-    sku: SR-INTAKEWHEEL-25-7mm
-    title: 2.5" (Pack of 4) / 7mm Hex
+    sku: SR-INTAKEWHEEL-2.5in-COMBOSPLINE7mmHEX-02
+    title: 2.5" (Pack of 4) / 7mm Hex / 15T SplineXS
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-intake-wheels?variant=50809728663846
@@ -3520,7 +3610,7 @@
       - 3.5" (Pack of 4)
       - 1/2" Hex
       - null
-    sku: SR-INTAKEWHEEL-35-12
+    sku: SR-INTAKEWHEEL-3.5in-0.5inHEX-02
     title: 3.5" (Pack of 4) / 1/2" Hex
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3535,7 +3625,7 @@
       - 4.5" (Pack of 4)
       - 1/2" Hex
       - null
-    sku: SR-INTAKEWHEEL-45-12
+    sku: SR-INTAKEWHEEL-4.5in-0.5inHEX-02
     title: 4.5" (Pack of 4) / 1/2" Hex
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
@@ -3563,10 +3653,10 @@
     id: 51403790582054
     options:
       - Bundle, 4 of Every Size, 16 Wheels Total
-      - 7mm Hex
+      - 7mm Hex / 15T SplineXS
       - null
-    sku: SR-INTAKEWHEEL-BUNDLE-7mm
-    title: Bundle, 4 of Every Size, 16 Wheels Total / 7mm Hex
+    sku: SR-INTAKEWHEEL-BUNDLE-COMBOSPLINE7mmHEX-02
+    title: Bundle, 4 of Every Size, 16 Wheels Total / 7mm Hex / 15T SplineXS
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-intake-wheels?variant=51403792875814
@@ -3578,10 +3668,10 @@
     id: 51403792875814
     options:
       - 3.5" (Pack of 4)
-      - 7mm Hex
+      - 7mm Hex / 15T SplineXS
       - null
-    sku: SR-INTAKEWHEEL-35-7mm
-    title: 3.5" (Pack of 4) / 7mm Hex
+    sku: SR-INTAKEWHEEL-3.5in-COMBOSPLINE7mmHEX-02
+    title: 3.5" (Pack of 4) / 7mm Hex / 15T SplineXS
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-intake-wheels?variant=51403797954854
@@ -3593,71 +3683,86 @@
     id: 51403797954854
     options:
       - 4.5" (Pack of 4)
-      - 7mm Hex
+      - 7mm Hex / 15T SplineXS
       - null
-    sku: SR-INTAKEWHEEL-45-7mm
-    title: 4.5" (Pack of 4) / 7mm Hex
+    sku: SR-INTAKEWHEEL-4.5in-COMBOSPLINE7mmHEX-02
+    title: 4.5" (Pack of 4) / 7mm Hex / 15T SplineXS
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-aluminum-tube-inserts?variant=50847035392294
+  # https://shop.swyftrobotics.com/products/swyft-tube-endcaps?variant=50847035392294
   product:
-    handle: swyft-aluminum-tube-inserts
+    handle: swyft-tube-endcaps
     id: 10196106314022
     title: SWYFT Tube Endcaps
   variant:
     id: 50847035392294
     options:
-      - 2 Pack 1" x 1" Endcap For 1/8" Wall Tubing
+      - 1" x 1" (2 Pack)
+      - 1/8"
       - null
-      - null
-    sku: SR-TUBEBLOCK-01
-    title: 2 Pack 1" x 1" Endcap For 1/8" Wall Tubing
+    sku: SR-ENDCAP-01
+    title: 1" x 1" (2 Pack) / 1/8"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-aluminum-tube-inserts?variant=50847035425062
+  # https://shop.swyftrobotics.com/products/swyft-tube-endcaps?variant=50847035425062
   product:
-    handle: swyft-aluminum-tube-inserts
+    handle: swyft-tube-endcaps
     id: 10196106314022
     title: SWYFT Tube Endcaps
   variant:
     id: 50847035425062
     options:
-      - 2 Pack 2" x 1" Endcap For 1/8" Wall Tubing
+      - 2" x 1" (2 Pack)
+      - 1/8"
       - null
-      - null
-    sku: SR-TUBEBLOCK-11
-    title: 2 Pack 2" x 1" Endcap For 1/8" Wall Tubing
+    sku: SR-ENDCAP-11
+    title: 2" x 1" (2 Pack) / 1/8"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-aluminum-tube-inserts?variant=50847035457830
+  # https://shop.swyftrobotics.com/products/swyft-tube-endcaps?variant=50847035457830
   product:
-    handle: swyft-aluminum-tube-inserts
+    handle: swyft-tube-endcaps
     id: 10196106314022
     title: SWYFT Tube Endcaps
   variant:
     id: 50847035457830
     options:
-      - 2 Pack Low Weight 2" x 1" Endcap For 1/16" Wall Tubing
+      - 2" x 1" (2 Pack)
+      - 1/16"
       - null
-      - null
-    sku: SR-TUBEBLOCK-12
-    title: 2 Pack Low Weight 2" x 1" Endcap For 1/16" Wall Tubing
+    sku: SR-ENDCAP-12
+    title: 2" x 1" (2 Pack) / 1/16"
   firstSeen: 2026-03-13T10:24:54.717Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-aluminum-tube-inserts?variant=50847035490598
+  # https://shop.swyftrobotics.com/products/swyft-tube-endcaps?variant=50847035490598
   product:
-    handle: swyft-aluminum-tube-inserts
+    handle: swyft-tube-endcaps
     id: 10196106314022
     title: SWYFT Tube Endcaps
   variant:
     id: 50847035490598
     options:
-      - 2 Pack Low Weight 2" x 1" Endcap For 0.035" Wall Tubing
+      - 2" x 1" (2 Pack)
+      - 0.035"
       - null
-      - null
-    sku: SR-TUBEBLOCK-13
-    title: 2 Pack Low Weight 2" x 1" Endcap For 0.035" Wall Tubing
+    sku: SR-ENDCAP-13
+    title: 2" x 1" (2 Pack) / 0.035"
   firstSeen: 2026-03-13T10:24:54.717Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-tube-endcaps?variant=54583478878502
+  product:
+    handle: swyft-tube-endcaps
+    id: 10196106314022
+    title: SWYFT Tube Endcaps
+  variant:
+    id: 54583478878502
+    options:
+      - 1" x 1" (2 Pack)
+      - 1/16"
+      - null
+    sku: SR-ENDCAP-02
+    title: 1" x 1" (2 Pack) / 1/16"
+  firstSeen: 2026-11-25T18:51:22.531Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/10-32-threaded-standoffs?variant=50847870746918
   product:
@@ -4810,7 +4915,7 @@
       - 1/2" Hex to 3D Print / 10DP Gear | Pack of 5
       - null
       - null
-    sku: SR-HEXto3DPRINT-01
+    sku: SR-ADAPTER-0.5HEXto3DPRINT-01
     title: 1/2" Hex to 3D Print / 10DP Gear | Pack of 5
   firstSeen: 2026-08-31T19:27:54.714Z
 - vendor: Swyft
@@ -4844,9 +4949,39 @@
     title: 1/2" Hex to 7mm Hex Steel Set Screw
   firstSeen: 2026-10-01T20:10:18.314Z
 - vendor: Swyft
-  # https://shop.swyftrobotics.com/products/swyft-electric-coreless-screwdriver-5nm?variant=53261107331366
+  # https://shop.swyftrobotics.com/products/frc-axle-adapters?variant=54348105220390
   product:
-    handle: swyft-electric-coreless-screwdriver-5nm
+    handle: frc-axle-adapters
+    id: 10492779397414
+    title: Axle Adapters
+  variant:
+    id: 54348105220390
+    options:
+      - 7mm Hex to 3D Print / 20DP Gear | Pack of 5
+      - null
+      - null
+    sku: SR-ADAPTER-7mmHEXto3DPRINT-01
+    title: 7mm Hex to 3D Print / 20DP Gear | Pack of 5
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/frc-axle-adapters?variant=54364093481254
+  product:
+    handle: frc-axle-adapters
+    id: 10492779397414
+    title: Axle Adapters
+  variant:
+    id: 54364093481254
+    options:
+      - 15T SplineXS to 3D Print / 20DP Gear | Pack of 5
+      - null
+      - null
+    sku: SR-ADAPTER-8mmSPLINEto3DPRINT-01
+    title: 15T SplineXS to 3D Print / 20DP Gear | Pack of 5
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-electric-cordless-screwdriver-5nm?variant=53261107331366
+  product:
+    handle: swyft-electric-cordless-screwdriver-5nm
     id: 10563074720038
     title: SWYFT Electric Cordless Screwdriver
   variant:
@@ -5033,10 +5168,10 @@
     id: 53488990454054
     options:
       - 2 Stage Base Kit
-      - 11x Grid 0.125" Tubes + Endcaps + Axles
+      - 11x Grid 0.125" Tubes + 12x Endcaps + 2x Axles
       - null
     sku: SR-BOXELEV-FRC-2STG-TUBES-0125
-    title: 2 Stage Base Kit / 11x Grid 0.125" Tubes + Endcaps + Axles
+    title: 2 Stage Base Kit / 11x Grid 0.125" Tubes + 12x Endcaps + 2x Axles
   firstSeen: 2026-11-03T17:46:08.807Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-frc-box-elevator?variant=53488990486822
@@ -5048,10 +5183,10 @@
     id: 53488990486822
     options:
       - 2 Stage Base Kit
-      - 11x Grid 0.0625" Tubes + Endcaps + Axles
+      - 11x Grid 0.0625" Tubes + 12x Endcaps + 2x Axles
       - null
     sku: SR-BOXELEV-FRC-2STG-TUBES-00625
-    title: 2 Stage Base Kit / 11x Grid 0.0625" Tubes + Endcaps + Axles
+    title: 2 Stage Base Kit / 11x Grid 0.0625" Tubes + 12x Endcaps + 2x Axles
   firstSeen: 2026-11-03T17:46:08.807Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/swyft-frc-box-elevator?variant=53488990519590
@@ -5063,11 +5198,401 @@
     id: 53488990519590
     options:
       - 2 Stage Base Kit
-      - 11x Grid 0.035" Tubes + Endcaps + Axles
+      - 11x Grid 0.035" Tubes + 11x Endcaps + 2x Axles
       - null
     sku: SR-BOXELEV-FRC-2STG-TUBES-0035
-    title: 2 Stage Base Kit / 11x Grid 0.035" Tubes + Endcaps + Axles
+    title: 2 Stage Base Kit / 11x Grid 0.035" Tubes + 11x Endcaps + 2x Axles
   firstSeen: 2026-11-03T17:46:08.807Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=53495300423974
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 53495300423974
+    options:
+      - 8 Tooth 7mm Hex Pinion
+      - null
+      - null
+    sku: SR-GEAR-20DP-8T-10TCD-7mmHEX-PINION-01
+    title: 8 Tooth 7mm Hex Pinion
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238513958
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613238513958
+    options:
+      - 8 Tooth 15T SplineXS Pinion
+      - null
+      - null
+    sku: SR-GEAR-20DP-8T-10TCD-SPLINE-PINION-01
+    title: 8 Tooth 15T SplineXS Pinion
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238546726
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613238546726
+    options:
+      - 9 Tooth 7mm Hex Pinion
+      - null
+      - null
+    sku: SR-GEAR-20DP-9T-10TCD-7mmHEX-PINION-01
+    title: 9 Tooth 7mm Hex Pinion
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238579494
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613238579494
+    options:
+      - 9 Tooth 15T SplineXS Pinion
+      - null
+      - null
+    sku: SR-GEAR-20DP-9T-10TCD-SPLINE-PINION-01
+    title: 9 Tooth 15T SplineXS Pinion
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238612262
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613238612262
+    options:
+      - 10 Tooth 7mm Hex Pinion
+      - null
+      - null
+    sku: SR-GEAR-20DP-10T-12TCD-7mmHEX-PINION-01
+    title: 10 Tooth 7mm Hex Pinion
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238645030
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613238645030
+    options:
+      - 10 Tooth 15T SplineXS Pinion
+      - null
+      - null
+    sku: SR-GEAR-20DP-10T-12TCD-SPLINE-PINION-01
+    title: 10 Tooth 15T SplineXS Pinion
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238677798
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613238677798
+    options:
+      - 11 Tooth 7mm Hex Pinion
+      - null
+      - null
+    sku: SR-GEAR-20DP-11T-12TCD-7mmHEX-PINION-01
+    title: 11 Tooth 7mm Hex Pinion
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238710566
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613238710566
+    options:
+      - 11 Tooth 15T SplineXS Pinion
+      - null
+      - null
+    sku: SR-GEAR-20DP-11T-12TCD-SPLINE-PINION-01
+    title: 11 Tooth 15T SplineXS Pinion
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238743334
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613238743334
+    options:
+      - 12 Tooth 7mm Hex Pinion
+      - null
+      - null
+    sku: SR-GEAR-20DP-12T-7mmHEX-PINION-01
+    title: 12 Tooth 7mm Hex Pinion
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238776102
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613238776102
+    options:
+      - 12 Tooth 15T SplineXS Pinion
+      - null
+      - null
+    sku: SR-GEAR-20DP-12T-SPLINE-PINION-01
+    title: 12 Tooth 15T SplineXS Pinion
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238808870
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613238808870
+    options:
+      - 14 Tooth 1/2" Hex Wide
+      - null
+      - null
+    sku: SR-GEAR-20DP-14T-16TCD-WIDE-01
+    title: 14 Tooth 1/2" Hex Wide
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238841638
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613238841638
+    options:
+      - 16 Tooth 1/2" Hex Wide
+      - null
+      - null
+    sku: SR-GEAR-20DP-16T-WIDE-01
+    title: 16 Tooth 1/2" Hex Wide
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238874406
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613238874406
+    options:
+      - 18 Tooth 1/2" Hex Hub
+      - null
+      - null
+    sku: SR-GEAR-20DP-18T-HUB-01
+    title: 18 Tooth 1/2" Hex Hub
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238907174
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613238907174
+    options:
+      - 20 Tooth 1/2" Hex Hub
+      - null
+      - null
+    sku: SR-GEAR-20DP-20T-HUB-01
+    title: 20 Tooth 1/2" Hex Hub
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238939942
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613238939942
+    options:
+      - 24 Tooth 1/2" Hex Hub
+      - null
+      - null
+    sku: SR-GEAR-20DP-24T-HUB-01
+    title: 24 Tooth 1/2" Hex Hub
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613238972710
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613238972710
+    options:
+      - 26 Tooth Slice
+      - null
+      - null
+    sku: SR-GEAR-20DP-26T-SLICE-01
+    title: 26 Tooth Slice
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613239005478
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613239005478
+    options:
+      - 28 Tooth Slice
+      - null
+      - null
+    sku: SR-GEAR-20DP-28T-SLICE-01
+    title: 28 Tooth Slice
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613239038246
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613239038246
+    options:
+      - 30 Tooth Slice
+      - null
+      - null
+    sku: SR-GEAR-20DP-30T-SLICE-01
+    title: 30 Tooth Slice
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613239071014
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613239071014
+    options:
+      - 34 Tooth Slice
+      - null
+      - null
+    sku: SR-GEAR-20DP-34T-SLICE-01
+    title: 34 Tooth Slice
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613239103782
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613239103782
+    options:
+      - 40 Tooth Slice
+      - null
+      - null
+    sku: SR-GEAR-20DP-40T-SLICE-01
+    title: 40 Tooth Slice
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613239136550
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613239136550
+    options:
+      - 44 Tooth Slice
+      - null
+      - null
+    sku: SR-GEAR-20DP-44T-SLICE-01
+    title: 44 Tooth Slice
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613239169318
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613239169318
+    options:
+      - 50 Tooth Slice
+      - null
+      - null
+    sku: SR-GEAR-20DP-50T-SLICE-01
+    title: 50 Tooth Slice
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613239202086
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613239202086
+    options:
+      - 54 Tooth Slice
+      - null
+      - null
+    sku: SR-GEAR-20DP-54T-SLICE-01
+    title: 54 Tooth Slice
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613239234854
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613239234854
+    options:
+      - 60 Tooth Slice
+      - null
+      - null
+    sku: SR-GEAR-20DP-60T-SLICE-01
+    title: 60 Tooth Slice
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613239267622
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613239267622
+    options:
+      - 70 Tooth Slice
+      - null
+      - null
+    sku: SR-GEAR-20DP-70T-SLICE-01
+    title: 70 Tooth Slice
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/swyft-gears-20dp?variant=54613239300390
+  product:
+    handle: swyft-gears-20dp
+    id: 10639180169510
+    title: SWYFT Gears 20DP
+  variant:
+    id: 54613239300390
+    options:
+      - 80 Tooth Slice
+      - null
+      - null
+    sku: SR-GEAR-20DP-80T-SLICE-01
+    title: 80 Tooth Slice
+  firstSeen: 2026-11-25T18:51:22.531Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/gt2-timing-belts?variant=53787871281446
   product:
@@ -6040,7 +6565,7 @@
       - 5 Meter Open Loop (for Elevators)
       - 5mm Width
       - null
-    sku: null
+    sku: SR-BELT-GT2-OPEN-5m-5mm
     title: 5 Meter Open Loop (for Elevators) / 5mm Width
   firstSeen: 2026-11-03T17:46:08.807Z
 - vendor: Swyft
@@ -6055,7 +6580,7 @@
       - 5 Meter Open Loop (for Elevators)
       - 10mm Width
       - null
-    sku: null
+    sku: SR-BELT-GT2-OPEN-5m-10mm
     title: 5 Meter Open Loop (for Elevators) / 10mm Width
   firstSeen: 2026-11-03T17:46:08.807Z
 - vendor: Swyft
@@ -6283,6 +6808,396 @@
     sku: SR-BEARINGHAT-0.5inHEX-BIG
     title: 1/2" Hex Thick (10 Pack)
   firstSeen: 2026-10-01T20:10:18.314Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833404973350
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833404973350
+    options:
+      - Bearing Block Assembly
+      - null
+      - null
+    sku: SR-BOXELEV-BRGBLOCK-ASSY
+    title: Bearing Block Assembly
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405006118
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405006118
+    options:
+      - Bearing Block Body
+      - null
+      - null
+    sku: SR-BOXELEV-BRGBLOCK-BODY
+    title: Bearing Block Body
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405038886
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405038886
+    options:
+      - Bearing Block Steel Pin
+      - null
+      - null
+    sku: SR-BOXELEV-BRGBLOCK-PIN
+    title: Bearing Block Steel Pin
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405071654
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405071654
+    options:
+      - Bearing Block Screws
+      - null
+      - null
+    sku: SR-BOXELEV-BRGBLOCK-SCREWS
+    title: Bearing Block Screws
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405104422
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405104422
+    options:
+      - Rope Attachment Block
+      - null
+      - null
+    sku: SR-BOXELEV-ROPE-BLOCK
+    title: Rope Attachment Block
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405137190
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405137190
+    options:
+      - Rope Attachment Plate
+      - null
+      - null
+    sku: SR-BOXELEV-ROPE-PLATE
+    title: Rope Attachment Plate
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405169958
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405169958
+    options:
+      - Rope Carriage Clamp Plate
+      - null
+      - null
+    sku: SR-BOXELEV-ROPE-CLAMPPLATE
+    title: Rope Carriage Clamp Plate
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405202726
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405202726
+    options:
+      - Rope Pulley
+      - null
+      - null
+    sku: SR-BOXELEV-ROPE-PULLEY
+    title: Rope Pulley
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405235494
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405235494
+    options:
+      - Rope Pulley Mount
+      - null
+      - null
+    sku: SR-BOXELEV-ROPE-PULLEYMOUNT
+    title: Rope Pulley Mount
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405268262
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405268262
+    options:
+      - Rope Screw Kit
+      - null
+      - null
+    sku: SR-BOXELEV-ROPE-SCREWS
+    title: Rope Screw Kit
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405301030
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405301030
+    options:
+      - Chain Attachment Block
+      - null
+      - null
+    sku: SR-BOXELEV-CHAIN-BLOCK
+    title: Chain Attachment Block
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405333798
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405333798
+    options:
+      - Chain Screw Kit
+      - null
+      - null
+    sku: SR-BOXELEV-CHAIN-SCREWS
+    title: Chain Screw Kit
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405366566
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405366566
+    options:
+      - Top Axle Support Block
+      - null
+      - null
+    sku: SR-BOXELEV-AXLEBLOCK-TOP
+    title: Top Axle Support Block
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405399334
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405399334
+    options:
+      - Bottom Axle Support Block
+      - null
+      - null
+    sku: SR-BOXELEV-AXLEBLOCK-BTM
+    title: Bottom Axle Support Block
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405432102
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405432102
+    options:
+      - Tube Cutting Alignment Tool
+      - null
+      - null
+    sku: SR-BOXELEV-TUBECUT-TOOL
+    title: Tube Cutting Alignment Tool
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405464870
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405464870
+    options:
+      - Top Tube/Axle Plate
+      - null
+      - null
+    sku: SR-BOXELEV-PLATE-TOP
+    title: Top Tube/Axle Plate
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405497638
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405497638
+    options:
+      - Bottom Motor/Axle Plate
+      - null
+      - null
+    sku: SR-BOXELEV-PLATE-BTM
+    title: Bottom Motor/Axle Plate
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405530406
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405530406
+    options:
+      - Frame Screw Kit
+      - null
+      - null
+    sku: SR-BOXELEV-FRAME-SCREWS
+    title: Frame Screw Kit
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/spare-upgrade-swyft-frc-box-elevator?variant=53833405563174
+  product:
+    handle: spare-upgrade-swyft-frc-box-elevator
+    id: 10749191029030
+    title: (Spare & Upgrade) SWYFT FRC Box Elevator
+  variant:
+    id: 53833405563174
+    options:
+      - 4mm Rope | 30ft Length
+      - null
+      - null
+    sku: SR-BOXELEV-ROPE-4mm-30ft
+    title: 4mm Rope | 30ft Length
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=53836933169446
+  product:
+    handle: htd-5mm-pulleys
+    id: 10749989978406
+    title: SWYFT HTD 5mm Pulleys
+  variant:
+    id: 53836933169446
+    options:
+      - 14 Tooth
+      - null
+      - null
+    sku: SR-PULLEY-HTD5mm-14T-HEX-01
+    title: 14 Tooth
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=53836933202214
+  product:
+    handle: htd-5mm-pulleys
+    id: 10749989978406
+    title: SWYFT HTD 5mm Pulleys
+  variant:
+    id: 53836933202214
+    options:
+      - 16 Tooth
+      - null
+      - null
+    sku: SR-PULLEY-HTD5mm-16T-HEX-01
+    title: 16 Tooth
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=53836933234982
+  product:
+    handle: htd-5mm-pulleys
+    id: 10749989978406
+    title: SWYFT HTD 5mm Pulleys
+  variant:
+    id: 53836933234982
+    options:
+      - 20 Tooth
+      - null
+      - null
+    sku: SR-PULLEY-HTD5mm-20T-HEX-01
+    title: 20 Tooth
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=53836933267750
+  product:
+    handle: htd-5mm-pulleys
+    id: 10749989978406
+    title: SWYFT HTD 5mm Pulleys
+  variant:
+    id: 53836933267750
+    options:
+      - 24 Tooth
+      - null
+      - null
+    sku: SR-PULLEY-HTD5mm-24T-HEX-01
+    title: 24 Tooth
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=53836933300518
+  product:
+    handle: htd-5mm-pulleys
+    id: 10749989978406
+    title: SWYFT HTD 5mm Pulleys
+  variant:
+    id: 53836933300518
+    options:
+      - 30 Tooth
+      - null
+      - null
+    sku: SR-PULLEY-HTD5mm-30T-HEX-01
+    title: 30 Tooth
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=53836933333286
+  product:
+    handle: htd-5mm-pulleys
+    id: 10749989978406
+    title: SWYFT HTD 5mm Pulleys
+  variant:
+    id: 53836933333286
+    options:
+      - 36 Tooth
+      - null
+      - null
+    sku: SR-PULLEY-HTD5mm-36T-HEX-01
+    title: 36 Tooth
+  firstSeen: 2026-11-25T18:51:22.531Z
+- vendor: Swyft
+  # https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=53836933366054
+  product:
+    handle: htd-5mm-pulleys
+    id: 10749989978406
+    title: SWYFT HTD 5mm Pulleys
+  variant:
+    id: 53836933366054
+    options:
+      - 6PCS Pulley Bundle
+      - null
+      - null
+    sku: BUNDLE-HTD5mm-PULLEY
+    title: 6PCS Pulley Bundle
+  firstSeen: 2026-11-25T18:51:22.531Z
 - vendor: Swyft
   # https://shop.swyftrobotics.com/products/25-sprockets?variant=53836933497126
   product:
