@@ -44,6 +44,7 @@ export interface FindGearboxesFilters {
   enableTTB: boolean;
   enableLastAnvil: boolean;
   enableSDS: boolean;
+  enableSwyft: boolean;
 
   enable20DP: boolean;
   enable32DP: boolean;
@@ -192,6 +193,7 @@ export async function findGearboxes(
     Thrifty: filters.enableTTB,
     LastAnvil: filters.enableLastAnvil,
     SDS: filters.enableSDS,
+    Swyft: filters.enableSwyft,
   };
   const boreFilters: Record<string, boolean> = {
     '1/2" Hex': filters.enableBore12Hex,
@@ -302,6 +304,7 @@ export async function findGearboxes(
     import('~/genData/REV/gears.json').then((m) => m.default),
     import('~/genData/SDS/gears.json').then((m) => m.default),
     import('~/genData/AndyMark/gears.json').then((m) => m.default),
+    import('~/genData/Swyft/gears.json').then((m) => m.default),
     Promise.resolve(
       filters.enableCustomGears
         ? generateCustomGears(
@@ -312,13 +315,23 @@ export async function findGearboxes(
         : [],
     ),
   ])
-    .then(([wcpGears, revGears, sdsGears, andymarkGears, customGears]) => [
-      ...wcpGears,
-      ...revGears,
-      ...sdsGears,
-      ...andymarkGears,
-      ...customGears,
-    ])
+    .then(
+      ([
+        wcpGears,
+        revGears,
+        sdsGears,
+        andymarkGears,
+        swyftGears,
+        customGears,
+      ]) => [
+        ...wcpGears,
+        ...revGears,
+        ...sdsGears,
+        ...andymarkGears,
+        ...swyftGears,
+        ...customGears,
+      ],
+    )
     .then((gears) => {
       gears.forEach((g) => {
         skuInfoMap.set(partKey(g), {
@@ -374,6 +387,7 @@ export async function findGearboxes(
     import('~/genData/AndyMark/pulleys.json').then((m) => m.default),
     import('~/genData/Thrifty/pulleys.json').then((m) => m.default),
     import('~/genData/LastAnvil/pulleys.json').then((m) => m.default),
+    import('~/genData/Swyft/pulleys.json').then((m) => m.default),
     Promise.resolve(
       filters.enableCustomPulleys
         ? generateCustomPulleys(
@@ -391,6 +405,7 @@ export async function findGearboxes(
         andyMarkPulleys,
         thriftyPulleys,
         lastAnvilPulleys,
+        swyftPulleys,
         customPulleys,
       ]) => [
         ...wcpPulleys,
@@ -398,6 +413,7 @@ export async function findGearboxes(
         ...andyMarkPulleys,
         ...thriftyPulleys,
         ...lastAnvilPulleys,
+        ...swyftPulleys,
         ...customPulleys,
       ],
     )

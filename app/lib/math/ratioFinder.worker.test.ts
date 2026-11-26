@@ -12,6 +12,7 @@ const baseFilters: FindGearboxesFilters = {
   enableTTB: true,
   enableLastAnvil: true,
   enableSDS: true,
+  enableSwyft: true,
   enablePlanetaries: true,
   enable20DP: true,
   enable32DP: true,
@@ -282,6 +283,52 @@ describe('ratioFinderWorker', () => {
     );
 
     expect(solutionSkus(result).some((sku) => sku.vendor === 'LastAnvil')).toBe(
+      false,
+    );
+  }, 15_000);
+
+  it('offers Swyft gears when the vendor is enabled', async () => {
+    const result = await findGearboxes(
+      new Ratio(3, RatioType.REDUCTION),
+      0.001,
+      'SplineXS',
+      onlyFamilies({ enable20DP: true }),
+      1,
+    );
+
+    expect(
+      solutionSkus(result).some(
+        (sku) => sku.vendor === 'Swyft' && sku.family === 'Gear',
+      ),
+    ).toBe(true);
+  }, 15_000);
+
+  it('offers Swyft pulleys when the vendor is enabled', async () => {
+    const result = await findGearboxes(
+      new Ratio(36 / 14, RatioType.REDUCTION),
+      0.001,
+      '1/2" Hex',
+      onlyFamilies({ enableHTD: true }),
+      1,
+    );
+
+    expect(
+      solutionSkus(result).some(
+        (sku) => sku.vendor === 'Swyft' && sku.family === 'Pulley',
+      ),
+    ).toBe(true);
+  }, 15_000);
+
+  it('removes Swyft parts when the vendor is disabled', async () => {
+    const result = await findGearboxes(
+      new Ratio(3, RatioType.REDUCTION),
+      0.001,
+      'SplineXS',
+      onlyFamilies({ enable20DP: true, enableHTD: true, enableSwyft: false }),
+      1,
+    );
+
+    expect(solutionSkus(result).some((sku) => sku.vendor === 'Swyft')).toBe(
       false,
     );
   }, 15_000);

@@ -14,6 +14,7 @@ const filters: FindGearboxesFilters = {
   enableTTB: true,
   enableLastAnvil: true,
   enableSDS: true,
+  enableSwyft: true,
   enablePlanetaries: true,
   enable20DP: true,
   enable32DP: true,
@@ -163,6 +164,7 @@ describe('ratio finder vendor filters', () => {
     ['Thrifty', 'enableTTB'],
     ['LastAnvil', 'enableLastAnvil'],
     ['SDS', 'enableSDS'],
+    ['Swyft', 'enableSwyft'],
   ] as const;
 
   it.each(vendors)(

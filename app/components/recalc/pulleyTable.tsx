@@ -38,12 +38,14 @@ export function PulleyTable({
         revPulleys,
         andyMarkPulleys,
         lastAnvilPulleys,
+        swyftPulleys,
       ] = await Promise.all([
         import('~/genData/WCP/pulleys.json').then((m) => m.default),
         import('~/genData/Thrifty/pulleys.json').then((m) => m.default),
         import('~/genData/REV/pulleys.json').then((m) => m.default),
         import('~/genData/AndyMark/pulleys.json').then((m) => m.default),
         import('~/genData/LastAnvil/pulleys.json').then((m) => m.default),
+        import('~/genData/Swyft/pulleys.json').then((m) => m.default),
       ]);
 
       setAllPulleys(
@@ -53,6 +55,7 @@ export function PulleyTable({
           ...revPulleys,
           ...andyMarkPulleys,
           ...lastAnvilPulleys,
+          ...swyftPulleys,
         ].map((p) => ({
           ...p,
           bore: p.bore as Bore,
