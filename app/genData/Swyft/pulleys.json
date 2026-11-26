@@ -1,1 +1,68 @@
-[]
+[
+  {
+    "teeth": 14,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "SR-PULLEY-HTD5mm-14T-HEX-01",
+    "variantId": 53836933169446,
+    "url": "https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=53836933169446",
+    "bore": "1/2\" Hex",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 16,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "SR-PULLEY-HTD5mm-16T-HEX-01",
+    "variantId": 53836933202214,
+    "url": "https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=53836933202214",
+    "bore": "1/2\" Hex",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 20,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "SR-PULLEY-HTD5mm-20T-HEX-01",
+    "variantId": 53836933234982,
+    "url": "https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=53836933234982",
+    "bore": "1/2\" Hex",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 24,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "SR-PULLEY-HTD5mm-24T-HEX-01",
+    "variantId": 53836933267750,
+    "url": "https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=53836933267750",
+    "bore": "1/2\" Hex",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 30,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "SR-PULLEY-HTD5mm-30T-HEX-01",
+    "variantId": 53836933300518,
+    "url": "https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=53836933300518",
+    "bore": "1/2\" Hex",
+    "vendor": "Swyft"
+  },
+  {
+    "teeth": 36,
+    "width": 9,
+    "profile": "HTD",
+    "pitch": 5,
+    "sku": "SR-PULLEY-HTD5mm-36T-HEX-01",
+    "variantId": 53836933333286,
+    "url": "https://shop.swyftrobotics.com/products/htd-5mm-pulleys?variant=53836933333286",
+    "bore": "1/2\" Hex",
+    "vendor": "Swyft"
+  }
+]
