@@ -1,4 +1,4 @@
-import { expect, test } from 'playwright-tests/helpers';
+import { expect, test, waitForStock } from 'playwright-tests/helpers';
 
 test.describe('Intake Calculator', () => {
   test.beforeEach(async ({ page }) => {
@@ -11,6 +11,7 @@ test.describe('Intake Calculator', () => {
   }) => {
     await page.getByTestId('motor').fill('2');
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'motor-magnitude-changed.yaml',
@@ -22,6 +23,7 @@ test.describe('Intake Calculator', () => {
     await page.getByTestId('selectmotor').click();
     await page.getByRole('option', { name: 'NEO', exact: true }).click();
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'motor-unit-changed.yaml',
@@ -34,6 +36,7 @@ test.describe('Intake Calculator', () => {
   }) => {
     await page.getByTestId('ratio').fill('5');
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'ratio-magnitude-changed.yaml',
@@ -45,6 +48,7 @@ test.describe('Intake Calculator', () => {
     await page.getByTestId('selectratio').click();
     await page.getByRole('option', { name: 'Step-up' }).click();
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'ratio-unit-changed.yaml',
@@ -57,6 +61,7 @@ test.describe('Intake Calculator', () => {
   }) => {
     await page.getByTestId('rollerDiameter').fill('1');
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'rollerDiameter-magnitude-changed.yaml',
@@ -70,6 +75,7 @@ test.describe('Intake Calculator', () => {
     await page.getByTestId('selectrollerDiameter').click();
     await page.getByRole('option', { name: 'cm' }).click();
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'rollerDiameter-unit-changed.yaml',
@@ -82,6 +88,7 @@ test.describe('Intake Calculator', () => {
   }) => {
     await page.getByTestId('travelDistance').fill('10');
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'travelDistance-magnitude-changed.yaml',
@@ -95,6 +102,7 @@ test.describe('Intake Calculator', () => {
     await page.getByTestId('selecttravelDistance').click();
     await page.getByRole('option', { name: 'ft' }).click();
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'travelDistance-unit-changed.yaml',
@@ -107,6 +115,7 @@ test.describe('Intake Calculator', () => {
   }) => {
     await page.getByTestId('drivetrainSpeed').fill('20');
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'drivetrainSpeed-magnitude-changed.yaml',
@@ -120,6 +129,7 @@ test.describe('Intake Calculator', () => {
     await page.getByTestId('selectdrivetrainSpeed').click();
     await page.getByRole('option', { name: 'm/s' }).click();
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'drivetrainSpeed-unit-changed.yaml',
@@ -133,6 +143,7 @@ test.describe('Intake Calculator', () => {
     await page.getByTestId('selectsurfaceSpeed').click();
     await page.getByRole('option', { name: 'm/s' }).click();
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'surfaceSpeed-changed.yaml',
@@ -146,6 +157,7 @@ test.describe('Intake Calculator', () => {
     await page.getByTestId('selecttimeToGoal').click();
     await page.getByRole('option', { name: 'min' }).click();
     await page.waitForTimeout(100);
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'timeToGoal-changed.yaml',
@@ -246,6 +258,7 @@ test.describe('Intake Calculator', () => {
 
     expect(Number(await speedInput.inputValue())).toBeCloseTo(15.1, 1);
 
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'swerve-quickset-applied.yaml',
@@ -263,6 +276,7 @@ test.describe('Intake Calculator', () => {
     expect(await page.getByTestId('ratio').inputValue()).toMatch(
       /^\d+(\.\d{1,2})?$/,
     );
+    await waitForStock(page);
     expect(await page.getByTestId('entrypoint').ariaSnapshot()).toMatchSnapshot(
       {
         name: 'recommended-ratio-set.yaml',
