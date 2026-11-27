@@ -67,7 +67,7 @@
     "@types/node": "26.6.6",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
-    "cf": "1.0.0-rc.2",
+    "cf": "1.0.0-rc.4",
     "commander": "15.1.0",
     "eslint-plugin-no-relative-import-paths": "1.7.3",
     "eslint-plugin-zod": "5.3.0",
